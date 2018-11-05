@@ -3,13 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/history": "^4.7.2",
     "@types/jest": "^23.3.9",
+    "@types/lodash": "^4.14.117",
     "@types/node": "^10.12.2",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
+    "@types/react-redux": "^6.0.9",
+    "history": "^4.7.2",
+    "lodash": "^4.17.11",
+    "path-to-regexp": "^2.4.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-redux": "^5.1.0",
     "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
+    "reselect": "^4.0.0",
+    "typesafe-actions": "^2.0.4",
     "typescript": "^3.1.6"
   },
   "scripts": {
