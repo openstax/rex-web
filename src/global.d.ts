@@ -1,7 +1,8 @@
-import {ActionType} from 'typesafe-actions';
+/// <reference lib="dom" />
 import {Location} from 'history';
-import {compose} from 'redux';
 import {ComponentType} from 'react';
+import {compose} from 'redux';
+import {ActionType} from 'typesafe-actions';
 import {actions, AppState} from './app';
 
 declare global {
@@ -10,15 +11,13 @@ declare global {
   type RootState = AppState;
 
   interface Route {
-    name: string,
-    paths: string[],
-    getUrl: (input: any) => string, 
-    component: ComponentType,
+    name: string;
+    paths: string[];
+    getUrl: (input: any) => string;
+    component: ComponentType;
   }
 
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
   }
 }
-
-
