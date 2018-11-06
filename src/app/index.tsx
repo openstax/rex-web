@@ -2,10 +2,10 @@ import React from 'react';
 import {combineReducers, Middleware} from 'redux';
 import {Provider} from 'react-redux';
 import {createBrowserHistory, createMemoryHistory} from 'history';
-import * as content from './modules/content';
-import * as errors from './modules/errors';
-import * as navigation from './modules/navigation';
-import createStore from './helpers/createStore';
+import * as content from './content';
+import * as errors from './errors';
+import * as navigation from './navigation';
+import createStore from '../helpers/createStore';
 
 export const actions = {
   content: content.actions,
@@ -14,9 +14,9 @@ export const actions = {
 };
 
 export interface AppState {
-  content: content.State,
-  errors: errors.State,
-  navigation: navigation.State,
+  content: content.types.State,
+  errors: errors.types.State,
+  navigation: navigation.types.State,
 }
 
 interface Options {
@@ -36,8 +36,8 @@ export default (options: Options = {}) => {
   });
 
   const routes = [
-    ...content.routes,
-    ...errors.routes,
+    ...Object.values(content.routes),
+    ...Object.values(errors.routes),
   ];
 
   const middleware: Middleware[] = [
@@ -50,13 +50,14 @@ export default (options: Options = {}) => {
   });
 
   const Container = () => <Provider store={store}>
-    <navigation.NavigationProvider routes={routes} />
+    <navigation.components.NavigationProvider routes={routes} />
   </Provider>;
 
-  navigation.init(routes, history.location, store.dispatch);
+  navigation.utils.init(routes, history.location, store.dispatch);
 
   return {
     store,
+    history,
     Container,
   }
 };
