@@ -11,7 +11,7 @@ const reducer: Reducer<State, AnyAction> = (state = {}, action) => {
         : {...state, code: undefined};
     default:
       return state;
-  };
-}
+  }
+};
 
 export default reducer;

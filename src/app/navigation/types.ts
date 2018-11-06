@@ -1,6 +1,6 @@
 import {Location} from 'history';
 
-export interface State extends Location {};
+export type State = Location;
 
 export interface Match {
   route: Route;

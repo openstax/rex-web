@@ -1,0 +1,30 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+      "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "interface-name": [true, "never-prefix"],
+    "max-line-length": [true, 200],
+    "prefer-object-spread": true,
+    "quotemark": [true, "single"],
+    "space-before-function-paren": [true, "never"],
+    "variable-name": [true, "check-format", "allow-leading-underscore"],
+    "trailing-comma": [ true, {
+      "multiline": {
+        "objects": "always",
+        "arrays": "always",
+        "functions": "never",
+        "typeLiterals": "ignore"
+      },
+      "esSpecCompliant": true
+    }]
+  },
+  "linterOptions": {
+    "exclude": [
+      "node_modules",
+      "**/*.js"
+    ]
+  }
+}

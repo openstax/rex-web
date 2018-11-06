@@ -1,5 +1,4 @@
 
-
 export interface Params {
   bookId: string;
   pageId: string;
@@ -7,5 +6,5 @@ export interface Params {
 
 export interface State {
   tocOpen: boolean;
-  params?: Params,
-};
+  params?: Params;
+}

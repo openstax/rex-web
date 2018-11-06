@@ -4,8 +4,8 @@ import * as selectors from '../selectors';
 import * as utils from '../utils';
 
 const connectNavigationProvider = connect((state: RootState) => ({
-  pathname: selectors.pathname(state)
-}))
+  pathname: selectors.pathname(state),
+}));
 
 export default connectNavigationProvider(({routes, pathname}: {routes: Route[], pathname: string}) => {
   const match = utils.findRouteMatch(routes, pathname);

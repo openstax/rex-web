@@ -1,3 +1,3 @@
 export interface State {
-  code?: number
-};
+  code?: number;
+}

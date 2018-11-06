@@ -1,8 +1,8 @@
-import pathToRegexp, {Key} from 'path-to-regexp';
 import {Location} from 'history';
+import pathToRegexp, {Key} from 'path-to-regexp';
 import {Dispatch} from 'redux';
-import {Match} from './types';
 import * as actions from './actions';
+import {Match} from './types';
 
 export const matchForRoute = (route: string, match?: Match): match is Match => !!match && match.route.name === route;
 
@@ -20,7 +20,7 @@ export const findRouteMatch = (routes: Route[], pathname: string): {route: Route
           return {...result, [key.name]: value};
         }, {});
 
-        return {route, params}
+        return {route, params};
       }
     }
   }

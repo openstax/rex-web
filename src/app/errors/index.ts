@@ -1,6 +1,6 @@
-import * as types from './types';
-import * as routes from './routes';
 import reducer from './reducer';
+import * as routes from './routes';
+import * as types from './types';
 
 const actions = {};
 
@@ -9,5 +9,4 @@ export {
   routes,
   types,
   reducer
-}
-
+};

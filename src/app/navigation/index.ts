@@ -1,9 +1,9 @@
-import * as selectors from './selectors';
 import * as actions from './actions';
-import * as types from './types';
-import createReducer from './reducer';
-import createMiddleware from './middleware';
 import * as components from './components';
+import createMiddleware from './middleware';
+import createReducer from './reducer';
+import * as selectors from './selectors';
+import * as types from './types';
 import * as utils from './utils';
 
 export {
@@ -15,5 +15,3 @@ export {
   selectors,
   actions,
 };
-
-

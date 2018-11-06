@@ -1,12 +1,12 @@
-import {getType} from 'typesafe-actions';
 import {Reducer} from 'redux';
-import {State} from './types';
-import * as actions from './actions';
+import {getType} from 'typesafe-actions';
 import * as navigation from '../navigation';
+import * as actions from './actions';
+import {State} from './types';
 
 const initialState = {
   tocOpen: true,
-}
+};
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
@@ -20,7 +20,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         : state;
     default:
       return state;
-  };
+  }
 };
 
 export default reducer;

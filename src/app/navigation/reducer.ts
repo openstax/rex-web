@@ -1,8 +1,8 @@
-import {Reducer} from 'redux';
 import {Location} from 'history';
-import {State} from './types';
+import {Reducer} from 'redux';
 import {getType} from 'typesafe-actions';
 import * as actions from './actions';
+import {State} from './types';
 
 export default (location: Location): Reducer<State, AnyAction> => (state = location, action) => {
   switch (action.type) {
@@ -10,6 +10,5 @@ export default (location: Location): Reducer<State, AnyAction> => (state = locat
       return action.payload.location;
     default:
       return state;
-  };
+  }
 };
-
