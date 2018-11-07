@@ -1,5 +1,7 @@
 import cs from './createStore';
 
+declare let window: Window;
+
 describe('createStore', () => {
   let redux = require('redux');
 
@@ -30,9 +32,9 @@ describe('createStore', () => {
 
     it('composes with devtools if they\'re defined', () => {
       const differentCompose = () => (<R>(r: R) => r) as typeof redux.compose;
-      window!.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__! = differentCompose;
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = differentCompose;
 
-      const devtools = jest.spyOn(window!, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
+      const devtools = jest.spyOn(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
       createStore({
         initialState: {},
@@ -67,9 +69,9 @@ describe('createStore', () => {
 
     it('composes without devtools even if they\'re defined', () => {
       const differentCompose = () => (<R>(r: R) => r) as typeof redux.compose;
-      window!.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = differentCompose;
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = differentCompose;
 
-      const devtools = jest.spyOn(window!, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
+      const devtools = jest.spyOn(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
       createStore({
         initialState: {},
