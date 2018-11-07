@@ -1,6 +1,6 @@
 import cs from './createStore';
 
-declare let window: Window;
+declare const window: Window;
 
 describe('createStore', () => {
   let redux = require('redux');
