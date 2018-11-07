@@ -15,7 +15,7 @@ declare global {
   interface Route {
     name: string;
     paths: string[];
-    getUrl: (input: any) => string;
+    getUrl: (input?: any) => string;
     component: ComponentType;
   }
 

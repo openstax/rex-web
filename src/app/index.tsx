@@ -25,7 +25,7 @@ interface Options {
 }
 
 export default (options: Options = {}) => {
-  const history = window && window.history
+  const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
     : createMemoryHistory({initialEntries: options.initialEntries});
 

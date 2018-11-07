@@ -4,7 +4,7 @@ import * as navigation from '../navigation';
 import * as actions from './actions';
 import { State } from './types';
 
-const initialState = {
+export const initialState = {
   tocOpen: true,
 };
 

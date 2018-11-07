@@ -10,7 +10,7 @@ interface Options<R extends Reducer> {
 }
 
 export default function<R extends Reducer>({middleware, reducer, initialState}: Options<R>): Store<StateType<R>, AnyAction> {
-  const composeEnhancers = DEBUG && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  const composeEnhancers = DEBUG && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
