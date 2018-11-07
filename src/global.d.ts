@@ -25,4 +25,7 @@ declare global {
 
   var window: Window | undefined;
   var document: dom.Document | undefined;
+  var navigator: dom.Navigator | undefined;
+  var fetch: dom.fetch | undefined;
+  var URL: dom.URLConstructor | undefined;
 }

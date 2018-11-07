@@ -1,4 +1,4 @@
-import { fetch, navigator, ServiceWorkerRegistration, URL } from '@openstax/types/lib.dom';
+import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -27,9 +27,10 @@ interface Config {
 }
 
 export function register(config?: Config) {
-  if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
-    throw new Error('Browser entrypoint must be used in the browser');
-  }
+  if (!navigator) { return; }
+  if (!window) { return; }
+  if (!document) { return; }
+  if (!URL) { return; }
 
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -59,6 +60,7 @@ export function register(config?: Config) {
 }
 
 function registerValidSW(swUrl: string, config?: Config) {
+  if (!navigator) { return; }
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
@@ -69,6 +71,7 @@ function registerValidSW(swUrl: string, config?: Config) {
         }
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
+            if (!navigator) { return; }
             if (navigator.serviceWorker.controller) {
               // Execute callback
               if (config && config.onUpdate) {
@@ -90,9 +93,10 @@ function registerValidSW(swUrl: string, config?: Config) {
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {
+  if (!fetch) { return; }
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
-    .then((response) => {
+    .then((response: any) => {
       // Ensure service worker exists, and that we really are getting a JS file.
       const contentType = response.headers.get('content-type');
       if (
@@ -100,12 +104,10 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
+        if (!navigator) { return; }
         navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
-            if (typeof(window) === 'undefined') {
-              throw new Error('Browser entrypoint must be used in the browser');
-            }
-
+            if (!window) { return; }
             window.location.reload();
           });
         });
@@ -120,6 +122,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 }
 
 export function unregister() {
+  if (!navigator) { return; }
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
