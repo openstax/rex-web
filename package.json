@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@openstax/types": "^1.0.0",
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "react": "^16.6.0",
