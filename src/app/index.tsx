@@ -1,7 +1,7 @@
-import {createBrowserHistory, createMemoryHistory} from 'history';
+import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
-import {Provider} from 'react-redux';
-import {combineReducers, Middleware} from 'redux';
+import { Provider } from 'react-redux';
+import { combineReducers, Middleware } from 'redux';
 import createStore from '../helpers/createStore';
 import * as content from './content';
 import * as errors from './errors';

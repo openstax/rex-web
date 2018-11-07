@@ -1,4 +1,4 @@
-import {Location} from 'history';
+import { Location } from 'history';
 
 export type State = Location;
 

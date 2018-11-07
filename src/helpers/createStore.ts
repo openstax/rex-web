@@ -1,5 +1,5 @@
-import {applyMiddleware, compose, createStore, Middleware, Reducer, Store} from 'redux';
-import {StateType} from 'typesafe-actions';
+import { applyMiddleware, compose, createStore, Middleware, Reducer, Store } from 'redux';
+import { StateType } from 'typesafe-actions';
 
 const DEBUG = process.env.ENVIRONMENT !== 'production';
 

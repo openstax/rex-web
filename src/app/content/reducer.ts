@@ -1,8 +1,8 @@
-import {Reducer} from 'redux';
-import {getType} from 'typesafe-actions';
+import { Reducer } from 'redux';
+import { getType } from 'typesafe-actions';
 import * as navigation from '../navigation';
 import * as actions from './actions';
-import {State} from './types';
+import { State } from './types';
 
 const initialState = {
   tocOpen: true,

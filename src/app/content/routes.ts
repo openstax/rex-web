@@ -1,6 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import * as components from './components';
-import {Params} from './types';
+import { Params } from './types';
 
 const CONTENT_PATH = '/books/:bookId/pages/:pageId';
 

@@ -1,7 +1,7 @@
-import {Reducer} from 'redux';
-import {getType} from 'typesafe-actions';
+import { Reducer } from 'redux';
+import { getType } from 'typesafe-actions';
 import * as navigation from '../navigation';
-import {State} from './types';
+import { State } from './types';
 
 const reducer: Reducer<State, AnyAction> = (state = {}, action) => {
   switch (action.type) {

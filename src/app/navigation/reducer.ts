@@ -1,8 +1,8 @@
-import {Location} from 'history';
-import {Reducer} from 'redux';
-import {getType} from 'typesafe-actions';
+import { Location } from 'history';
+import { Reducer } from 'redux';
+import { getType } from 'typesafe-actions';
 import * as actions from './actions';
-import {State} from './types';
+import { State } from './types';
 
 export default (location: Location): Reducer<State, AnyAction> => (state = location, action) => {
   switch (action.type) {

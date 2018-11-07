@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 
 export const localState = createSelector(

@@ -11,6 +11,18 @@
     "quotemark": [true, "single"],
     "space-before-function-paren": [true, "never"],
     "variable-name": [true, "check-format", "allow-leading-underscore"],
+    "whitespace": [true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-module",
+      "check-separator",
+      "check-rest-spread",
+      "check-type",
+      "check-typecast",
+      "check-type-operator",
+      "check-preblock"
+    ],
     "trailing-comma": [ true, {
       "multiline": {
         "objects": "always",
