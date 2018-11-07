@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@openstax/types": "^1.0.1",
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "react": "^16.6.0",
@@ -18,8 +17,8 @@
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "GENERATE_SOURCEMAP=true react-scripts build",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -32,6 +31,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@openstax/types": "^1.0.2",
     "@types/history": "^4.7.2",
     "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.117",

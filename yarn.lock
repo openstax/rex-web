@@ -799,10 +799,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@openstax/types@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-1.0.1.tgz#ba914d1e3cc32d6ac3958a550aa6ae3d5d987d3e"
-  integrity sha512-jDSsP5r2XxPZvo2eQrwuawci2dLMVAy4PhikwRFIfBEzfBrLQbfEWk9MzuSVRinW1YwN5RtZ4Vi6Qrzu/NVZvw==
+"@openstax/types@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-1.0.2.tgz#8421a412f9ea279c5bebf43f2bb8814f0bfd13c9"
+  integrity sha512-S2coW686v7sSR9a621762OeT+dpgH8CbnfBhYmSrXNbeXf2c38g9hnNuyYQO83GUjVbfi581PO5rpn7sdTe3rg==
 
 "@svgr/core@^2.4.1":
   version "2.4.1"
