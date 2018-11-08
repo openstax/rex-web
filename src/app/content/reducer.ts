@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import * as navigation from '../navigation';
 import * as actions from './actions';
+import { content } from './routes';
 import { State } from './types';
 
 export const initialState = {
@@ -15,7 +16,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.closeToc):
       return {...state, tocOpen: false};
     case getType(navigation.actions.locationChange):
-      return navigation.utils.matchForRoute('Content', action.payload.match)
+      return navigation.utils.matchForRoute(content, action.payload.match)
         ? {...state, params: action.payload.match.params}
         : state;
     default:

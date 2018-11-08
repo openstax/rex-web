@@ -12,10 +12,10 @@ declare global {
 
   type RootState = AppState;
 
-  interface Route {
+  interface Route<Params> {
     name: string;
     paths: string[];
-    getUrl: (input?: any) => string;
+    getUrl: (...args: Params extends undefined ? []: [Params]) => string;
     component: ComponentType;
   }
 

@@ -2,9 +2,9 @@ import { Location } from 'history';
 
 export type State = Location;
 
-export interface Match {
-  route: Route;
-  params: any;
+export interface Match<Params> {
+  route: Route<Params>;
+  params: Params;
 }
 
 export type historyActions =
