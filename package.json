@@ -19,7 +19,7 @@
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
-    "test": "jest --coverage",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,15 +47,8 @@
     "tslint": "^5.11.0"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
-    ],
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|js)x?$",
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js"
-    }
+    "collectCoverageFrom": [
+      "src/{app,helpers}/**/*.{ts,tsx}"
+    ]
   }
 }
