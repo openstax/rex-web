@@ -1,3 +1,4 @@
+import { AppState } from '../types';
 import * as selectors from './selectors';
 
 const initialState = {
@@ -9,7 +10,7 @@ const initialState = {
 
 describe('localState', () => {
   it('returns navigation state', () => {
-    const rootState = {navigation: initialState} as RootState;
+    const rootState = {navigation: initialState} as AppState;
     expect(selectors.localState(rootState)).toEqual(initialState);
   });
 });
@@ -19,7 +20,7 @@ describe('pathname', () => {
     const rootState = {navigation: {
       ...initialState,
       pathname: 'foobar',
-    }} as RootState;
+    }} as AppState;
 
     expect(selectors.pathname(rootState)).toEqual('foobar');
   });

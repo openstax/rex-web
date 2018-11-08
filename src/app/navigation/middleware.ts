@@ -1,7 +1,7 @@
 import { History } from 'history';
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 import { getType } from 'typesafe-actions';
-import { AnyRoute } from '../types';
+import { AnyAction, AnyRoute } from '../types';
 import * as actions from './actions';
 import { findRouteMatch } from './utils';
 

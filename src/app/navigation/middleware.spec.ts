@@ -1,4 +1,5 @@
 import { createMemoryHistory } from 'history';
+import { AnyAction } from '../types';
 import * as actions from './actions';
 
 const routes = [

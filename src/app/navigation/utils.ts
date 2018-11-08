@@ -3,7 +3,7 @@ import pathToRegexp, { Key } from 'path-to-regexp';
 import { Dispatch } from 'redux';
 import { AnyRoute } from '../types';
 import * as actions from './actions';
-import { Match } from './types';
+import { Match, Route } from './types';
 
 export const matchForRoute = <P>(route: Route<P>, match?: Match<any>): match is Match<P> => !!match && match.route.name === route.name;
 
