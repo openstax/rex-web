@@ -8,7 +8,7 @@ export interface Match {
 }
 
 export type historyActions =
-  {method: 'push', args: {url: string}} |
-  {method: 'replace', args: {url: string}};
+  {method: 'push', url: string} |
+  {method: 'replace', url: string};
 
 export type reducer = (state: State, action: AnyAction) => State;

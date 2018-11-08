@@ -15,6 +15,6 @@ export default (routes: Route[], history: History): Middleware => ({dispatch}: M
       return next(action);
     }
 
-    history[action.payload.method](action.payload.args.url);
+    history[action.payload.method](action.payload.url);
   };
 };

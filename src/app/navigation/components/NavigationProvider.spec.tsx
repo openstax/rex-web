@@ -10,6 +10,7 @@ const initialState = {
   search: '',
   state: {},
 };
+
 const routes = [
   {
     component: () => <h1>route 1</h1>,
@@ -26,6 +27,7 @@ const routes = [
 ];
 
 describe('NavigationProvider', () => {
+
   it('renders the component for the matching route', () => {
     const rootState = {navigation: {
       ...initialState,
@@ -42,6 +44,7 @@ describe('NavigationProvider', () => {
 
     expect(heading.children[0]).toEqual('route 1');
   });
+
   it('doesn\'t render any route component if none match', () => {
     const rootState = {navigation: {
       ...initialState,
@@ -62,6 +65,5 @@ describe('NavigationProvider', () => {
     if (typeof(navigation) !== 'string') {
       expect(navigation.children).toHaveLength(0);
     }
-
   });
 });

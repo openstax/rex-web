@@ -1,3 +1,6 @@
+import React from 'react';
+import renderer from 'react-test-renderer';
+
 describe('create app', () => {
   let history = require('history');
   let createApp = require('./index').default;
@@ -36,6 +39,14 @@ describe('create app', () => {
       expect(createMemoryHistory).toHaveBeenCalled();
     });
   });
-});
 
-export default undefined;
+  describe('container', () => {
+    it('renders', () => {
+      const app = createApp();
+      const tree = renderer
+        .create(<app.container />)
+        .toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+});
