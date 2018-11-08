@@ -6,7 +6,7 @@ const pify = require('pify')
 const jsGlobPattern = '../build/static/**/*.js'
 const sourcemapString = '//# sourceMappingURL='
 
-const toRelPath = (file) => path.relative(__dirname, file)
+const toRelPath = (file) => path.relative(process.cwd(), file)
 
 async function run() {
     const files = await pify(glob)(path.join(__dirname, jsGlobPattern))
