@@ -1,8 +1,8 @@
 import { History } from 'history';
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 import { getType } from 'typesafe-actions';
-import { AnyRoute } from '../types';
 import * as actions from './actions';
+import { AnyRoute } from './types';
 import { findRouteMatch } from './utils';
 
 export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}: MiddlewareAPI) => {

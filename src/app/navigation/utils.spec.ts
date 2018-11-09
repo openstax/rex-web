@@ -23,7 +23,7 @@ describe('findRouteMatch', () => {
 
   it('returns match for route without params', () => {
     const result = findRouteMatch(routes, '/basic');
-    expect(result).toEqual({route: routes[0], params: {}});
+    expect(result).toEqual({route: routes[0]});
   });
 
   it('returns match for route with params', () => {
