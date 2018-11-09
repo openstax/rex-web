@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-const glob = require('glob')
 const pify = require('pify')
+const glob = require('glob')
 
 const jsGlobPattern = '../build/static/**/*.js'
 const sourcemapString = '//# sourceMappingURL='
@@ -20,24 +20,21 @@ async function run() {
         const mapFilename = contents.substring(index + sourcemapString.length).split('\n')[0]
         const mapPath = path.join(path.dirname(filename), mapFilename)
         const mapSource = JSON.parse(fs.readFileSync(mapPath))
-        // const sm = new SourceMapConsumer(mapSource)
+
         mapSource.sources.forEach((sourceFilename, index) => {
             const sourcePath = path.join(path.dirname(mapPath), sourceFilename)
             if (!fs.existsSync(sourcePath)) {
-                if (mapSource.sourcesContent[index]) {
-                    console.warn(`WARN: In '${toRelPath(mapPath)}': Unable to find source file but found sourceContent for '${toRelPath(sourceFilename)}'`)
-                } else {
-                    console.error(`Unable to find source='${toRelPath(sourcePath)}' from '${toRelPath(mapPath)} from '${toRelPath(filename)}`)
+                if (!mapSource.sourcesContent[index]) {
+                    console.error(`Unable to find source='${toRelPath(sourcePath)}' from '${toRelPath(mapPath)}' from '${toRelPath(filename)}`)
                     console.error(`Here are the relative paths: '${sourceFilenameRel}' from '${mapFilename}' from '${filename}'`)
                     throw new Error(`BUG: Could not find source file`)
                 }
             }
-
         })
     }
 
     if (files.length === 0) {
-        throw new Error(`BUG: Could not find js files`)
+        throw new Error(`BUG: Could not find js files to verify .map files exist. Check that '${jsGlobPattern}' still matches the JS files`)
     }
 }
 
