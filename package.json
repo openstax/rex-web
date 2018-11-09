@@ -15,7 +15,7 @@
     "typescript": "^3.1.6"
   },
   "scripts": {
-    "lint": "tslint --fix -p ./tsconfig.json",
+    "lint": "tslint -p ./tsconfig.json",
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
