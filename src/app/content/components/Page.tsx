@@ -1,5 +1,5 @@
 // @ts-ignore
-import css from '!!raw-loader!cnx-recipes/styles/output/intro-business.css';
+import css from 'cnx-recipes/styles/output/intro-business.css.txt';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 

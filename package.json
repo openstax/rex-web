@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/styled-components": "^4.0.3",
     "cnx-recipes": "git+https://github.com/connexions/cnx-recipes.git#f7ace7f",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
@@ -36,6 +35,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/styled-components": "^4.0.3",
     "@openstax/types": "^1.0.2",
     "@types/history": "^4.7.2",
     "@types/jest": "^23.3.9",
@@ -47,7 +47,6 @@
     "@types/react-test-renderer": "^16.0.3",
     "babel-core": "7.0.0-bridge.0",
     "codecov": "^3.1.0",
-    "raw-loader": "^0.5.1",
     "react-test-renderer": "^16.6.1",
     "tslint": "^5.11.0"
   },

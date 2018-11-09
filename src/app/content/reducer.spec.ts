@@ -1,7 +1,5 @@
-import { locationChange } from '../navigation/actions';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
-import { content } from './routes';
 
 describe('content reducer', () => {
 
@@ -21,23 +19,5 @@ describe('content reducer', () => {
     };
     const newState = reducer(state, actions.closeToc());
     expect(newState.tocOpen).toEqual(false);
-  });
-
-  it('reduces locationChange', () => {
-    const state = {
-      ...initialState,
-      params: undefined,
-    };
-    const location = {
-      hash: '',
-      pathname: '',
-      search: '',
-      state: {},
-    };
-    const params = { bookId: 'book', pageId: 'page'  };
-    const match = { params, route: content };
-    const newState = reducer(state, locationChange({location, match}));
-
-    expect(newState.params).toEqual(params);
   });
 });

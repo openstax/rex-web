@@ -17,7 +17,7 @@ interface ReactState {
   page?: ArchiveContent;
 }
 
-class Content extends Component<PropTypes, ReactState> {
+export class Content extends Component<PropTypes, ReactState> {
   public state: ReactState = {};
 
   public loadBook(props: PropTypes) {
@@ -32,6 +32,11 @@ class Content extends Component<PropTypes, ReactState> {
       return;
     }
     archiveLoader(`${props.book.shortId}:${props.page.shortId}`).then((page) => this.setState({page}));
+  }
+
+  public componentDidMount() {
+    this.loadBook(this.props);
+    this.loadPage(this.props);
   }
 
   public componentWillReceiveProps(props: PropTypes) {
