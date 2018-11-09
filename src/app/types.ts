@@ -1,5 +1,5 @@
 import { ActionType } from 'typesafe-actions';
-import { actions, routes } from '.';
+import { actions } from '.';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
 import { State as navigationState } from './navigation/types';
@@ -10,5 +10,4 @@ export interface AppState {
   navigation: navigationState;
 }
 
-export type AnyRoute = typeof routes[number];
 export type AnyAction = ActionType<typeof actions>;

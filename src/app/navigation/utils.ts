@@ -1,13 +1,12 @@
 import { Location } from 'history';
 import pathToRegexp, { Key } from 'path-to-regexp';
 import { Dispatch } from 'redux';
-import { AnyRoute } from '../types';
 import * as actions from './actions';
-import { Match, Route } from './types';
+import { AnyMatch, AnyRoute, GenericMatch, Match } from './types';
 
-export const matchForRoute = <P>(route: Route<P>, match?: Match<any>): match is Match<P> => !!match && match.route.name === route.name;
+export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> => !!match && match.route.name === route.name;
 
-export const findRouteMatch = (routes: AnyRoute[], pathname: string): {route: AnyRoute, params: any} | undefined => {
+export const findRouteMatch = (routes: AnyRoute[], pathname: string): AnyMatch | undefined => {
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
@@ -21,7 +20,10 @@ export const findRouteMatch = (routes: AnyRoute[], pathname: string): {route: An
           return {...result, [key.name]: value};
         }, {});
 
-        return {route, params};
+        return {
+          route,
+          ...(keys.length > 0 ? {params} : {}),
+        } as AnyMatch;
       }
     }
   }

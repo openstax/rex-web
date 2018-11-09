@@ -1,5 +1,6 @@
+import { Location } from 'history';
 import { createStandardAction } from 'typesafe-actions';
-import { historyActions, Match, State } from './types';
+import { AnyMatch, historyActions } from './types';
 
 export const callHistoryMethod = createStandardAction('Navigation/callHistoryMethod')<historyActions>();
-export const locationChange = createStandardAction('Navigation/locationChange')<{location: State, match?: Match<any>}>();
+export const locationChange = createStandardAction('Navigation/locationChange')<{location: Location, match?: AnyMatch}>();
