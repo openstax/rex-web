@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import * as navigation from '../navigation';
+import { AnyAction } from '../types';
 import { notFound } from './routes';
 import { State } from './types';
 export const initialState = {};

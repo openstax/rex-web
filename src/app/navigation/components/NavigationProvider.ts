@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { AppState } from '../../types';
 import * as selectors from '../selectors';
 import { AnyRoute } from '../types';
 import * as utils from '../utils';
 
-const connectNavigationProvider = connect((state: RootState) => ({
+const connectNavigationProvider = connect((state: AppState) => ({
   pathname: selectors.pathname(state),
 }));
 

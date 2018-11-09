@@ -1,5 +1,6 @@
 import { applyMiddleware, compose, createStore, Middleware, Reducer, Store } from 'redux';
 import { StateType } from 'typesafe-actions';
+import { AnyAction } from '../app/types';
 
 const DEBUG = process.env.ENVIRONMENT !== 'production';
 

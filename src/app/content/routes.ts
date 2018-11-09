@@ -1,4 +1,5 @@
 import pathToRegexp from 'path-to-regexp';
+import { Route } from '../navigation/types';
 import * as components from './components';
 import { Params } from './types';
 

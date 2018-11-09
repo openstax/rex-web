@@ -1,3 +1,4 @@
+import { Route } from '../navigation/types';
 import * as components from './components';
 
 const CATCH_ALL = '/(.*)';

@@ -6,7 +6,7 @@ import createStore from '../helpers/createStore';
 import * as content from './content';
 import * as errors from './errors';
 import * as navigation from './navigation';
-import { AppState } from './types';
+import { AnyAction, AppState } from './types';
 
 export const actions = {
   content: content.actions,
