@@ -19,6 +19,7 @@
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
+    "pretest": "npm run-script build",
     "test": "react-scripts test --coverage",
     "watch": "react-scripts test --watch",
     "eject": "react-scripts eject"
