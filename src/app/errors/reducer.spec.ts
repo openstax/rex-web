@@ -33,7 +33,7 @@ describe('content reducer', () => {
       search: '',
       state: {},
     };
-    const match = {route: notFound, params: {}};
+    const match = {route: notFound};
     const newState = reducer(state, locationChange({location, match}));
 
     expect(newState.code).toEqual(404);
@@ -50,7 +50,10 @@ describe('content reducer', () => {
       search: '',
       state: {},
     };
-    const match = {route: content, params: {}};
+    const match = {
+      params: {bookId: 'book', pageId: 'page'},
+      route: content,
+    };
     const newState = reducer(state, locationChange({location, match}));
 
     expect(newState.code).toEqual(200);

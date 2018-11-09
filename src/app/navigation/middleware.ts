@@ -2,9 +2,10 @@ import { History } from 'history';
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 import { getType } from 'typesafe-actions';
 import * as actions from './actions';
+import { AnyRoute } from './types';
 import { findRouteMatch } from './utils';
 
-export default (routes: Route[], history: History): Middleware => ({dispatch}: MiddlewareAPI) => {
+export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}: MiddlewareAPI) => {
   history.listen((location) => {
     const match = findRouteMatch(routes, location.pathname);
     dispatch(actions.locationChange({location, match}));

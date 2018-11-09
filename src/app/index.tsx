@@ -6,6 +6,7 @@ import createStore from '../helpers/createStore';
 import * as content from './content';
 import * as errors from './errors';
 import * as navigation from './navigation';
+import { AppState } from './types';
 
 export const actions = {
   content: content.actions,
@@ -13,11 +14,10 @@ export const actions = {
   navigation: navigation.actions,
 };
 
-export interface AppState {
-  content: content.types.State;
-  errors: errors.types.State;
-  navigation: navigation.types.State;
-}
+export const routes = [
+  ...Object.values(content.routes),
+  ...Object.values(errors.routes),
+];
 
 interface Options {
   initialState?: AppState;
@@ -34,11 +34,6 @@ export default (options: Options = {}) => {
     errors: errors.reducer,
     navigation: navigation.createReducer(history.location),
   });
-
-  const routes = [
-    ...Object.values(content.routes),
-    ...Object.values(errors.routes),
-  ];
 
   const middleware: Middleware[] = [
     navigation.createMiddleware(routes, history),
