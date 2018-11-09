@@ -1,12 +1,13 @@
+import omit from 'lodash/fp/omit';
+import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import * as navigation from '../navigation';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import { content } from './routes';
 import { State } from './types';
 
 export const initialState = {
+  loading: {},
   tocOpen: true,
 };
 
@@ -16,10 +17,20 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, tocOpen: true};
     case getType(actions.closeToc):
       return {...state, tocOpen: false};
-    case getType(navigation.actions.locationChange):
-      return navigation.utils.matchForRoute(content, action.payload.match)
-        ? {...state, params: action.payload.match.params}
-        : state;
+    case getType(actions.requestBook):
+      return {...state, loading: {...state.loading, book: action.payload}};
+    case getType(actions.receiveBook): {
+      const loading = omit('book', state.loading);
+      const book = pick(['id', 'shortId', 'title'], action.payload);
+      return {...state, loading, book};
+    }
+    case getType(actions.requestPage):
+      return {...state, loading: {...state.loading, page: action.payload}};
+    case getType(actions.receivePage): {
+      const loading = omit('page', state.loading);
+      const page = pick(['id', 'shortId', 'title'], action.payload);
+      return {...state, loading, page};
+    }
     default:
       return state;
   }
