@@ -8,7 +8,7 @@ if (typeof(document) === 'undefined') {
   throw new Error('Browser entrypoint must be used in the browser');
 }
 
-if (window && window.top === window.self) {
+if (typeof(window) !== 'undefined' && window.top === window.self) {
   const devMessage = `Howdy! If you want to help out, the source code can be found at https://github.com/openstax/books-web`;
   console.info(`%c` + devMessage, 'font-weight:bold'); // tslint:disable-line:no-console
 }
