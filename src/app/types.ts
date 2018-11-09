@@ -1,3 +1,4 @@
+import { Dispatch as ReduxDispatch, Middleware as ReduxMiddleware } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import { State as contentState } from './content/types';
@@ -10,4 +11,9 @@ export interface AppState {
   navigation: navigationState;
 }
 
+// TODO - make this a real union
+export type AnyActionCreator = (...args: any[]) => AnyAction;
 export type AnyAction = ActionType<typeof actions>;
+
+export type Dispatch = ReduxDispatch<AnyAction>;
+export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
