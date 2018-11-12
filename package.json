@@ -23,7 +23,8 @@
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
     "test": "react-scripts test --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "cp node_modules/cnx-recipes/styles/output/intro-business.css node_modules/cnx-recipes/styles/output/intro-business.css.txt"
   },
   "eslintConfig": {
     "extends": "react-app"
