@@ -1,20 +1,24 @@
 import { getType } from 'typesafe-actions';
-import { AnyAction, AnyActionCreator, AppState, Dispatch, Middleware } from './types';
+import { AnyAction, AnyActionCreator, Dispatch, Middleware, MiddlewareAPI } from './types';
 
-type Hook<C extends AnyActionCreator> = (helpers: {dispatch: Dispatch, getState: () => AppState }) => (action: ReturnType<C>) => Promise<any> | void;
+export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
+  <A extends AnyAction>(action: A): action is ReturnType<C> => action.type === getType(actionCreator);
 
-export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: Hook<C>): Middleware => (stateHelpers) => {
-  const boundHook = body(stateHelpers);
+type Hook<C extends AnyActionCreator> = (helpers: MiddlewareAPI) => (action: ReturnType<C>) => Promise<any> | void;
 
-  const checkActionType = <A extends AnyAction>(action: A): action is ReturnType<C> => action.type === getType(actionCreator);
+export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: Hook<C>): Middleware =>
+  (stateHelpers) => {
+    const boundHook = body(stateHelpers);
 
-  return (next: Dispatch) => (action: AnyAction) => {
-    const result = next(action);
+    const matches = checkActionType(actionCreator);
 
-    if (checkActionType(action)) {
-      boundHook(action);
-    }
+    return (next: Dispatch) => (action: AnyAction) => {
+      const result = next(action);
 
-    return result;
+      if (matches(action)) {
+        boundHook(action);
+      }
+
+      return result;
+    };
   };
-};

@@ -1,3 +1,4 @@
+import { AppState } from '../app/types';
 import cs from './createStore';
 
 declare const window: Window;
@@ -22,9 +23,9 @@ describe('createStore', () => {
 
     it('composes without devtools if they\'re not defined', () => {
       createStore({
-        initialState: {},
+        initialState: {} as AppState,
         middleware: [],
-        reducer: (state) => state,
+        reducer: () => ({} as AppState),
       });
 
       expect(compose).toHaveBeenCalled();
@@ -37,9 +38,9 @@ describe('createStore', () => {
       const devtools = jest.spyOn(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
       createStore({
-        initialState: {},
+        initialState: {} as AppState,
         middleware: [],
-        reducer: (state) => state,
+        reducer: () => ({} as AppState),
       });
 
       expect(devtools).toHaveBeenCalled();
@@ -59,9 +60,9 @@ describe('createStore', () => {
 
     it('composes without devtools', () => {
       createStore({
-        initialState: {},
+        initialState: {} as AppState,
         middleware: [],
-        reducer: (state) => state,
+        reducer: () => ({} as AppState),
       });
 
       expect(compose).toHaveBeenCalled();
@@ -74,9 +75,9 @@ describe('createStore', () => {
       const devtools = jest.spyOn(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
       createStore({
-        initialState: {},
+        initialState: {} as AppState,
         middleware: [],
-        reducer: (state) => state,
+        reducer: () => ({} as AppState),
       });
 
       expect(devtools).not.toHaveBeenCalled();
