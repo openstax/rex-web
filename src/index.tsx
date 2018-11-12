@@ -13,7 +13,7 @@ if (typeof(window) !== 'undefined' && window.top === window.self) {
     `Howdy! If you want to help out, the source code can be found at `,
     `https://github.com/openstax/books-web`,
   ];
-  console.info(`%c` + devMessage, 'font-weight:bold'); // tslint:disable-line:no-console
+  console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
 const app = createApp();
