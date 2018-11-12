@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cnx-recipes": "github:connexions/cnx-recipes.git#master",
+    "cnx-recipes": "github:connexions/cnx-recipes#master",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
     "path-to-regexp": "^2.4.0",
