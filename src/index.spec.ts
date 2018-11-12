@@ -75,7 +75,7 @@ describe('Browser sanity tests', () => {
         devServer.listen(devServerPort);
 
         const puppeteerArgs = [];
-        // See https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
+        // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
         if (process.env.CI === 'true') {
             puppeteerArgs.push('--no-sandbox');
         }
@@ -85,16 +85,16 @@ describe('Browser sanity tests', () => {
             devtools: process.env.NODE_ENV === 'development',
         });
 
-    })
+    });
 
     afterAll(async() => {
         if (devServer) {
             devServer.close();
         }
         if (browser) {
-            await browser.close()
+            await browser.close();
         }
-    })
+    });
 
     // beforeEach does not seem to work well with async functions
     const before = async() => {
@@ -102,7 +102,7 @@ describe('Browser sanity tests', () => {
 
         const url = `http://localhost:${devServerPort}/`;
         if (!browser) {
-            throw new Error(`BUG: Browser has not been initialized. check beforeAll(...)`)
+            throw new Error(`BUG: Browser has not been initialized. check beforeAll(...)`);
         }
         wrapper = await startBrowser(browser, url);
         return wrapper;
@@ -118,7 +118,12 @@ describe('Browser sanity tests', () => {
     it('displays the "Hello developer" console text', async() => {
         const wrap = await before();
         expect(wrap.messages.info.length).toBe(1);
-        expect(wrap.messages.info[0]).toBe('%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/books-web font-weight:bold');
+        const str = [
+            '%cHowdy! If you want to help out, the source code can be found at ',
+            'https://github.com/openstax/books-web'
+            ' font-weight:bold',
+        ];
+        expect(wrap.messages.info[0]).toBe(str.join(''));
     });
 
     it('loads the 404 page', async() => {

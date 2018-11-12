@@ -9,7 +9,10 @@ if (typeof(document) === 'undefined') {
 }
 
 if (typeof(window) !== 'undefined' && window.top === window.self) {
-  const devMessage = `Howdy! If you want to help out, the source code can be found at https://github.com/openstax/books-web`;
+  const devMessage = [
+    `Howdy! If you want to help out, the source code can be found at `,
+    `https://github.com/openstax/books-web`,
+  ];
   console.info(`%c` + devMessage, 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
