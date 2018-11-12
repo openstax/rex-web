@@ -13,9 +13,7 @@ class SinglePage {
         debug: string[]
         error: string[]
     };
-    private readonly browser: puppeteer.Browser;
-    constructor(browser: puppeteer.Browser, page: puppeteer.Page) {
-        this.browser = browser;
+    constructor(page: puppeteer.Page) {
         this.page = page;
         this.messages = {
             debug: [],
@@ -46,27 +44,13 @@ class SinglePage {
             throw e;
         });
     }
-
-    public async close() {
-        await this.browser.close();
-    }
 }
 
-async function startBrowser(url: string) {
+async function startBrowser(browser: puppeteer.Browser, url: string) {
 
-    const puppeteerArgs = [];
-    // See https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
-    if (process.env.CI === 'true') {
-        puppeteerArgs.push('--no-sandbox');
-    }
-
-    const browser = await puppeteer.launch({
-        args: puppeteerArgs,
-        devtools: process.env.NODE_ENV === 'development',
-    });
     const page = await browser.newPage();
 
-    const wrapper = new SinglePage(browser, page);
+    const wrapper = new SinglePage(page);
     await wrapper.page.goto(url);
 
     // Wait until React has started
@@ -78,6 +62,7 @@ describe('Browser sanity tests', () => {
 
     let devServer: http.Server | null = null;
     let devServerPort = 0;
+    let browser: puppeteer.Browser | null = null;
     let wrapper: SinglePage | null = null;
 
     beforeAll(async() => {
@@ -88,11 +73,26 @@ describe('Browser sanity tests', () => {
             staticServer(request, response, {public: path.join(__dirname, '../build')});
         });
         devServer.listen(devServerPort);
+
+        const puppeteerArgs = [];
+        // See https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
+        if (process.env.CI === 'true') {
+            puppeteerArgs.push('--no-sandbox');
+        }
+
+        browser = await puppeteer.launch({
+            args: puppeteerArgs,
+            devtools: process.env.NODE_ENV === 'development',
+        });
+
     })
 
     afterAll(async() => {
         if (devServer) {
             devServer.close();
+        }
+        if (browser) {
+            await browser.close()
         }
     })
 
@@ -101,13 +101,16 @@ describe('Browser sanity tests', () => {
         jest.setTimeout(5 * 60 * 1000); // dev browser takes a while to spin up
 
         const url = `http://localhost:${devServerPort}/`;
-        wrapper = await startBrowser(url);
+        if (!browser) {
+            throw new Error(`BUG: Browser has not been initialized. check beforeAll(...)`)
+        }
+        wrapper = await startBrowser(browser, url);
         return wrapper;
     };
 
     afterEach(async() => {
         if (wrapper) {
-            await wrapper.close();
+            await wrapper.page.close();
             wrapper = null;
         }
     });
