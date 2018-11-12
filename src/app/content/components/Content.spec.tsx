@@ -1,7 +1,11 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import { createStore } from 'redux';
+import { AppState } from '../../types';
+import { initialState } from '../reducer';
 import * as utils from '../utils';
-import { Content } from './Content';
+import Content from './Content';
 
 const book = {
   id: 'booklongid',
@@ -24,9 +28,6 @@ describe('content', () => {
 
   beforeEach(() => {
     archiveLoader = jest.spyOn(utils, 'archiveLoader');
-  });
-
-  it('matches snapshot', (done) => {
     archiveLoader.mockImplementation((id: string) => {
       switch (id) {
         case 'book':
@@ -37,8 +38,21 @@ describe('content', () => {
           throw new Error('unknown id');
       }
     });
+  });
 
-    const component = renderer.create(<Content book={book} page={page} loading={false} />);
+  it('matches snapshot', (done) => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+
+    const component = renderer.create(<Provider store={store}>
+      <Content />
+    </Provider>);
 
     process.nextTick(() => {
       const tree = component.toJSON();
@@ -46,4 +60,56 @@ describe('content', () => {
       done();
     });
   });
+
+  it('renders empty state', (done) => {
+    const state = {
+      content: initialState,
+    } as AppState;
+    const store = createStore((s: AppState | undefined) => s || state, state);
+
+    const component = renderer.create(<Provider store={store}>
+      <Content />
+    </Provider>);
+
+    process.nextTick(() => {
+      const tree = component.toJSON();
+      expect(tree).toMatchSnapshot();
+      done();
+    });
+  });
+
+  it('updates after initial render', (done) => {
+    const state1 = {
+      content: initialState,
+    } as AppState;
+    const state2 = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as AppState;
+
+    const go = {type: 'go'};
+
+    const reducer = (_: AppState | undefined, action?: typeof go) => action && action.type === 'go'
+      ? state2
+      : state1;
+
+    const store = createStore(reducer, state1);
+
+    const component = renderer.create(<Provider store={store}>
+      <Content />
+    </Provider>);
+
+    process.nextTick(() => {
+      const before = component.toJSON();
+      store.dispatch(go);
+      process.nextTick(() => {
+        const after = component.toJSON();
+        expect(before).not.toEqual(after);
+        done();
+      });
+    });
+  });
+
 });

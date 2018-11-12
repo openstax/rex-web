@@ -7,7 +7,9 @@ export const archiveLoader = memoize((id) => {
   return fetch(ARCHIVE_URL + id)
     .then((response) => {
       if (response.status !== 200) {
-        throw new Error('asdf');
+        return response.text().then((message: string) => {
+          throw new Error(`Error response from archive ${response.status}: ${message}`);
+        });
       }
       return response;
     })

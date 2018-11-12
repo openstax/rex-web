@@ -11,16 +11,20 @@ export interface State {
     book?: string;
     page?: string;
   };
-  book?: {
-    id: string;
-    shortId: string;
-    title: string;
-  };
-  page?: {
-    id: string;
-    shortId: string;
-    title: string;
-  };
+  book?: Book;
+  page?: Page;
+}
+
+export interface Book {
+  id: string;
+  shortId: string;
+  title: string;
+}
+
+export interface Page {
+  id: string;
+  shortId: string;
+  title: string;
 }
 
 export interface ArchiveContent {

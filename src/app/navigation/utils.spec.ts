@@ -1,4 +1,7 @@
-import { findRouteMatch } from './utils';
+import { Location } from 'history';
+import { AppState, MiddlewareAPI } from '../types';
+import { locationChange } from './actions';
+import { findRouteMatch, routeHook } from './utils';
 
 const routes = [
   {
@@ -29,5 +32,49 @@ describe('findRouteMatch', () => {
   it('returns match for route with params', () => {
     const result = findRouteMatch(routes, '/with/thing');
     expect(result).toEqual({route: routes[1], params: {param: 'thing'}});
+  });
+});
+
+describe('routeHook', () => {
+  it('binds state helpers', () => {
+    const helperSpy = jest.fn();
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const middleware = routeHook(routes[0], helperSpy);
+
+    middleware(helpers);
+
+    expect(helperSpy).toHaveBeenCalledWith(helpers);
+  });
+
+  it('hooks into requested route', () => {
+    const hookSpy = jest.fn();
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const middleware = routeHook(routes[0], () => hookSpy);
+    const payload = {
+      location: {} as Location,
+      match: {
+        route: routes[0],
+      },
+    };
+
+    middleware(helpers)((action) => action)(locationChange(payload));
+
+    expect(hookSpy).toHaveBeenCalledWith(payload);
+  });
+
+  it('doens\'t hook into other routes', () => {
+    const hookSpy = jest.fn();
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const middleware = routeHook(routes[0], () => hookSpy);
+    const payload = {
+      location: {} as Location,
+      match: {
+        route: routes[1],
+      },
+    };
+
+    middleware(helpers)((action) => action)(locationChange(payload));
+
+    expect(hookSpy).not.toHaveBeenCalled();
   });
 });

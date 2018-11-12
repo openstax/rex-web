@@ -17,7 +17,7 @@ interface ReactState {
   page?: ArchiveContent;
 }
 
-export class Content extends Component<PropTypes, ReactState> {
+class Content extends Component<PropTypes, ReactState> {
   public state: ReactState = {};
 
   public loadBook(props: PropTypes) {

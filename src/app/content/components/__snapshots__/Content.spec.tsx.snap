@@ -21,3 +21,10 @@ exports[`content matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`content renders empty state 1`] = `
+<div>
+  <div />
+  <div />
+</div>
+`;
