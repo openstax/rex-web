@@ -111,5 +111,15 @@ describe('content', () => {
       });
     });
   });
-
 });
+
+/*
+ * jsdom chokes on cnx-recipes styles and produces large nasty
+ * error messages. the styles are valid, jsdom's css parser
+ * is incomplete, so hide these messages
+ */
+const originalConsoleError = console.error;  // tslint:disable-line:no-console
+console.error = (msg) => {  // tslint:disable-line:no-console
+  if (msg.indexOf('Error: Could not parse CSS stylesheet') === 0) { return; }
+  originalConsoleError(msg);
+};
