@@ -77,22 +77,30 @@ async function startBrowser(url: string) {
 describe('Browser sanity tests', () => {
 
     let devServer: http.Server | null = null;
+    let devServerPort = 0;
     let wrapper: SinglePage | null = null;
+
+    beforeAll(async() => {
+        // pick an available port
+        devServerPort = await portfinder.getPortPromise();
+
+        devServer = http.createServer((request, response) => {
+            staticServer(request, response, {public: path.join(__dirname, '../build')});
+        });
+        devServer.listen(devServerPort);
+    })
+
+    afterAll(async() => {
+        if (devServer) {
+            devServer.close();
+        }
+    })
 
     // beforeEach does not seem to work well with async functions
     const before = async() => {
         jest.setTimeout(5 * 60 * 1000); // dev browser takes a while to spin up
 
-        // pick a random port
-        // const port1 = (2048 + Math.round(10000 * Math.random()))
-        const port = await portfinder.getPortPromise();
-
-        devServer = http.createServer((request, response) => {
-            staticServer(request, response, {public: path.join(__dirname, '../build')});
-        });
-        devServer.listen(port);
-
-        const url = `http://localhost:${port}/`;
+        const url = `http://localhost:${devServerPort}/`;
         wrapper = await startBrowser(url);
         return wrapper;
     };
@@ -101,9 +109,6 @@ describe('Browser sanity tests', () => {
         if (wrapper) {
             await wrapper.close();
             wrapper = null;
-        }
-        if (devServer) {
-            devServer.close();
         }
     });
 
