@@ -19,8 +19,9 @@
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
-    "test": "react-scripts test --coverage",
-    "posttest": "npm run-script lint && npm run-script build && node ./script/verifySourcemaps.js",
+    "pretest": "npm run-script build",
+    "test": "react-scripts test --coverage && npm run-script lint && npm run-script test:sourcemap",
+    "test:sourcemap": "node ./script/verifySourcemaps.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
