@@ -1,5 +1,4 @@
-// @ts-ignore
-import css from 'cnx-recipes/styles/output/intro-business.css.txt';
+import css from 'cnx-recipes/styles/output/intro-business.json';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -25,7 +24,11 @@ class PageContent extends Component<PropTypes> {
 
   public render() {
     const {className} = this.props as PropTypes & StyledProps;
-    return <div className={className} dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />;
+    return <div className={className}>
+      <div data-type='chapter'>
+        <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
+      </div>
+    </div>;
   }
 }
 

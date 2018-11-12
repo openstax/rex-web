@@ -11,13 +11,21 @@ exports[`content matches snapshot 1`] = `
   </div>
   <div>
     <div
-      className="sc-bdVaJa jyBCJB"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "some page content yo",
-        }
-      }
-    />
+      className="sc-bdVaJa czgBib"
+    >
+      <div
+        data-type="chapter"
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "some page content yo",
+            }
+          }
+          data-type="page"
+        />
+      </div>
+    </div>
   </div>
 </div>
 `;
