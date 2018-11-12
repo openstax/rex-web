@@ -2243,9 +2243,9 @@ clone-deep@^2.0.1:
     kind-of "^6.0.0"
     shallow-clone "^1.0.0"
 
-"cnx-recipes@git+https://github.com/connexions/cnx-recipes.git#f7ace7f":
+"cnx-recipes@github:connexions/cnx-recipes.git#e1a05dfc4a5d0b29fcbe1376fb084244b01592d4":
   version "1.17.0"
-  resolved "git+https://github.com/connexions/cnx-recipes.git#f7ace7ff0f81c26b666ed6e72576508ca480eaea"
+  resolved "https://codeload.github.com/connexions/cnx-recipes/tar.gz/e1a05dfc4a5d0b29fcbe1376fb084244b01592d4"
   dependencies:
     get-stdin "^6.0.0"
     sass-extract "^2.1.0"
