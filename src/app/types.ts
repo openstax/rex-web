@@ -16,8 +16,16 @@ export interface AppState {
   navigation: navigationState;
 }
 
-// TODO - make this a real union
-export type AnyActionCreator = (...args: any[]) => AnyAction;
+type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
+type ActionCreatorMap<T> = { [K in keyof T]: FlattenedActionMap<T[K]> };
+
+type FlattenedActionMap<ActionCreatorOrMap> = ActionCreatorOrMap extends ActionCreator
+  ? ActionCreatorOrMap
+  : ActionCreatorOrMap extends object
+    ? ActionCreatorMap<ActionCreatorOrMap>[keyof ActionCreatorOrMap]
+    : never;
+
+export type AnyActionCreator = FlattenedActionMap<typeof actions>;
 export type AnyAction = ActionType<typeof actions>;
 
 // bound redux stuff
