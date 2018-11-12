@@ -23,6 +23,7 @@
       "check-type-operator",
       "check-preblock"
     ],
+    "max-line-length": [true, 120],
     "trailing-comma": [ true, {
       "multiline": {
         "objects": "always",

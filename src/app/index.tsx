@@ -1,12 +1,12 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { combineReducers, Middleware } from 'redux';
+import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
 import * as content from './content';
 import * as errors from './errors';
 import * as navigation from './navigation';
-import { AnyAction, AppState } from './types';
+import { AnyAction, AppState, Middleware } from './types';
 
 export const actions = {
   content: content.actions,
@@ -17,6 +17,10 @@ export const actions = {
 export const routes = [
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
+];
+
+const hooks = [
+  ...Object.values(content.hooks),
 ];
 
 interface Options {
@@ -37,6 +41,7 @@ export default (options: Options = {}) => {
 
   const middleware: Middleware[] = [
     navigation.createMiddleware(routes, history),
+    ...hooks,
   ];
 
   const store = createStore({
