@@ -18,7 +18,9 @@ interface MatchWithoutParams<R extends AnyRoute> {
 
 export type GenericMatch = MatchWithParams<AnyRoute> | MatchWithoutParams<AnyRoute>;
 
-export type Match<R extends AnyRoute> = RouteParams<R> extends undefined ? MatchWithoutParams<R> | MatchWithParams<R> : MatchWithParams<R>;
+export type Match<R extends AnyRoute> = RouteParams<R> extends undefined
+  ? MatchWithoutParams<R> | MatchWithParams<R>
+  : MatchWithParams<R>;
 
 export type historyActions =
   {method: 'push', url: string} |
@@ -31,6 +33,11 @@ export interface Route<Params> {
   paths: string[];
   getUrl: (...args: Params extends undefined ? []: [Params]) => string;
   component: ComponentType;
+}
+
+export interface LocationChange {
+  location: Location;
+  match?: AnyMatch;
 }
 
 export type AnyRoute = typeof routes[number];

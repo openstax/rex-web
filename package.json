@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cnx-recipes": "github:connexions/cnx-recipes#master",
     "history": "^4.7.2",
+    "lodash": "^4.17.11",
     "path-to-regexp": "^2.4.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -11,6 +13,7 @@
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "reselect": "^4.0.0",
+    "styled-components": "^4.0.3",
     "typesafe-actions": "^2.0.4",
     "typescript": "^3.1.6"
   },
@@ -19,10 +22,10 @@
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
+    "postinstall": "jq -Rs . node_modules/cnx-recipes/styles/output/intro-business.css > node_modules/cnx-recipes/styles/output/intro-business.json",
     "pretest": "npm run-script build",
     "test": "react-scripts test --coverage && npm run-script lint && npm run-script test:sourcemap",
-    "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "eject": "react-scripts eject"
+    "test:sourcemap": "node ./script/verifySourcemaps.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,8 +46,10 @@
     "@types/react-dom": "^16.0.9",
     "@types/react-redux": "^6.0.9",
     "@types/react-test-renderer": "^16.0.3",
+    "@types/styled-components": "^4.0.3",
     "babel-core": "7.0.0-bridge.0",
     "codecov": "^3.1.0",
+    "node-jq": "^1.3.1",
     "glob": "^7.1.3",
     "pify": "^4.0.1",
     "react-test-renderer": "^16.6.1",

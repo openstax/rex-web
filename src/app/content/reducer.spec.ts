@@ -1,7 +1,6 @@
-import { locationChange } from '../navigation/actions';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
-import { content } from './routes';
+import { ArchiveContent } from './types';
 
 describe('content reducer', () => {
 
@@ -23,21 +22,45 @@ describe('content reducer', () => {
     expect(newState.tocOpen).toEqual(false);
   });
 
-  it('reduces locationChange', () => {
+  it('reduces requestBook', () => {
+    const newState = reducer(initialState, actions.requestBook('bookId'));
+    expect(newState.loading.book).toEqual('bookId');
+  });
+
+  it('reduces requestPage', () => {
+    const newState = reducer(initialState, actions.requestPage('pageId'));
+    expect(newState.loading.page).toEqual('pageId');
+  });
+
+  it('reduces receiveBook', () => {
+    const book = { id: 'bookId', content: 'fooobarcontent' } as ArchiveContent;
     const state = {
       ...initialState,
-      params: undefined,
+      loading: {book: 'bookId'},
     };
-    const location = {
-      hash: '',
-      pathname: '',
-      search: '',
-      state: {},
-    };
-    const params = { bookId: 'book', pageId: 'page'  };
-    const match = { params, route: content };
-    const newState = reducer(state, locationChange({location, match}));
+    const newState = reducer(state, actions.receiveBook(book));
+    expect(newState.loading.book).not.toBeDefined();
+    if (newState.book) {
+      expect(newState.book.id).toEqual('bookId');
+      expect((newState.book as any).content).not.toBeDefined();
+    } else {
+      expect(newState.book).toBeTruthy();
+    }
+  });
 
-    expect(newState.params).toEqual(params);
+  it('reduces receivePage', () => {
+    const page = { id: 'pageId', content: 'fooobarcontent' } as ArchiveContent;
+    const state = {
+      ...initialState,
+      loading: {page: 'pageId'},
+    };
+    const newState = reducer(state, actions.receivePage(page));
+    expect(newState.loading.page).not.toBeDefined();
+    if (newState.page) {
+      expect(newState.page.id).toEqual('pageId');
+      expect((newState.page as any).content).not.toBeDefined();
+    } else {
+      expect(newState.page).toBeTruthy();
+    }
   });
 });
