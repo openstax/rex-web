@@ -8,6 +8,14 @@ if (typeof(document) === 'undefined') {
   throw new Error('Browser entrypoint must be used in the browser');
 }
 
+if (typeof(window) !== 'undefined' && window.top === window.self) {
+  const devMessage = [
+    `Howdy! If you want to help out, the source code can be found at `,
+    `https://github.com/openstax/books-web`,
+  ];
+  console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
+}
+
 const app = createApp();
 
 ReactDOM.render(<app.container />, document.getElementById('root'));
