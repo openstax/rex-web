@@ -120,7 +120,7 @@ describe('Browser sanity tests', () => {
         expect(wrap.messages.info.length).toBe(1);
         const str = [
             '%cHowdy! If you want to help out, the source code can be found at ',
-            'https://github.com/openstax/books-web'
+            'https://github.com/openstax/books-web',
             ' font-weight:bold',
         ];
         expect(wrap.messages.info[0]).toBe(str.join(''));
