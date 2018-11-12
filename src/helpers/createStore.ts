@@ -1,15 +1,15 @@
-import { applyMiddleware, compose, createStore, Middleware, Reducer, Store } from 'redux';
-import { StateType } from 'typesafe-actions';
+import { applyMiddleware, compose, createStore, Middleware, Reducer } from 'redux';
+import { AnyAction, AppState, Store } from '../app/types';
 
 const DEBUG = process.env.ENVIRONMENT !== 'production';
 
-interface Options<R extends Reducer> {
-  reducer: R;
+interface Options {
+  reducer: Reducer<AppState, AnyAction>;
   middleware: Middleware[];
-  initialState?: StateType<R>;
+  initialState?: AppState;
 }
 
-export default function<R extends Reducer>({middleware, reducer, initialState}: Options<R>): Store<StateType<R>, AnyAction> {
+export default function({middleware, reducer, initialState}: Options): Store {
   const composeEnhancers = DEBUG && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;

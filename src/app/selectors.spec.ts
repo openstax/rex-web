@@ -1,8 +1,9 @@
 import * as selectors from './selectors';
+import { AppState } from './types';
 
 describe('localState', () => {
   it('returns identity', () => {
-    const rootState = {} as RootState;
-    expect(selectors.localState(rootState)).toEqual(rootState);
+    const appState = {} as AppState;
+    expect(selectors.localState(appState)).toEqual(appState);
   });
 });

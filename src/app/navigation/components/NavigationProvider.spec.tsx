@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { createStore } from 'redux';
+import { AppState } from '../../types';
 import NavigationProvider from './NavigationProvider';
 
 const initialState = {
@@ -32,7 +33,7 @@ describe('NavigationProvider', () => {
     const rootState = {navigation: {
       ...initialState,
       pathname: '/test1',
-    }} as RootState;
+    }} as AppState;
 
     const store = createStore(() => rootState, rootState);
 
@@ -49,7 +50,7 @@ describe('NavigationProvider', () => {
     const rootState = {navigation: {
       ...initialState,
       pathname: '/asdfasdfasdf',
-    }} as RootState;
+    }} as AppState;
 
     const store = createStore(() => rootState, rootState);
 

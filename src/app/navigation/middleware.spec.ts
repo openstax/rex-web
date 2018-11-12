@@ -1,4 +1,5 @@
 import { createMemoryHistory } from 'history';
+import { AnyAction } from '../types';
 import * as actions from './actions';
 
 const routes = [
@@ -59,7 +60,7 @@ describe('navigation middleware', () => {
 
     expect(dispatch).toHaveBeenCalledWith(actions.locationChange({
       location: history.location,
-      match: {route: routes[1], params: {}},
+      match: {route: routes[1]},
     }));
   });
 });

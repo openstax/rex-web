@@ -1,6 +1,7 @@
 import { Location } from 'history';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
+import { AnyAction } from '../types';
 import * as actions from './actions';
 import { State } from './types';
 
