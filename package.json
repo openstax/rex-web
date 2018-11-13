@@ -23,7 +23,7 @@
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
     "postinstall": "jq -Rs . node_modules/cnx-recipes/styles/output/intro-business.css > node_modules/cnx-recipes/styles/output/intro-business.json",
-    "__SKIP_ME__pretest": "npm run-script build",
+    "pretest": "npm run-script build",
     "test": "react-scripts test --coverage && npm run-script lint && npm run-script test:sourcemap && npm run-script test:browser",
     "test:browser": "jest --config ./jest-browserspec.config.js",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
