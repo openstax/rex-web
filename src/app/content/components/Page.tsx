@@ -1,6 +1,7 @@
 import css from 'cnx-recipes/styles/output/intro-business.json';
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Wrapper from './Wrapper';
 
 const ARCHIVE_URL = process.env.REACT_APP_ARCHIVE_URL;
 
@@ -24,20 +25,16 @@ class PageContent extends Component<PropTypes> {
 
   public render() {
     const {className} = this.props as PropTypes & StyledProps;
-    return <div className={className}>
-      <div data-type='chapter'>
-        <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
+    return <Wrapper>
+      <div className={className}>
+        <div data-type='chapter'>
+          <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
+        </div>
       </div>
-    </div>;
+    </Wrapper>;
   }
 }
 
 export default styled(PageContent)`
-  margin: 0 auto;
-  display: block;
-  padding: 4rem 6rem 0 6rem;
-  min-height: 6rem;
-  outline: none;
-
   ${css}
 `;
