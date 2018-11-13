@@ -8,46 +8,6 @@ import staticServer from 'serve-handler';
 // declare const browser: puppeteer.Browser
 declare const page: puppeteer.Page;
 
-class SinglePage {
-    public messages: {
-        warning: string[]
-        log: string[]
-        info: string[]
-        debug: string[]
-        error: string[]
-    };
-    constructor() {
-        this.messages = {
-            debug: [],
-            error: [],
-            info: [],
-            log: [],
-            warning: [],
-        };
-        // collect browser console messages to be checked later
-        page.on('console', (consoleMessage) => {
-            const type = consoleMessage.type();
-            const text = consoleMessage.text();
-
-            switch (type) {
-                case 'debug':
-                case 'error':
-                case 'info':
-                case 'log':
-                case 'warning':
-                    this.messages[type].push(text);
-                    break;
-                default:
-                    throw new Error(`BUG: Unsupported console type: '${type}'`);
-            }
-        });
-
-        page.on('pageerror', async(e) => {
-            throw e;
-        });
-    }
-}
-
 describe('Browser sanity tests', () => {
 
     let devServer: http.Server | null = null;
