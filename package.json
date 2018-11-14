@@ -23,10 +23,9 @@
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "codecov": "codecov",
     "postinstall": "jq -Rs . node_modules/cnx-recipes/styles/output/intro-business.css > node_modules/cnx-recipes/styles/output/intro-business.json",
-    "pretest": "npm run-script build",
-    "test": "react-scripts test --coverage && npm run-script lint && npm run-script test:sourcemap",
-    "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "watch": "react-scripts test --watch"
+    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:sourcemap",
+    "test:unit": "react-scripts test --coverage",
+    "test:sourcemap": "node ./script/verifySourcemaps.js"
   },
   "eslintConfig": {
     "extends": "react-app"
