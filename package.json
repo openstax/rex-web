@@ -24,10 +24,9 @@
     "server": "node server/cli --fallback404",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
-    "pretest": "npm run-script build",
-    "test": "react-scripts test --coverage && npm run-script lint && npm run-script test:sourcemap",
-    "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "watch": "react-scripts test --watch"
+    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:sourcemap",
+    "test:unit": "react-scripts test --coverage",
+    "test:sourcemap": "node ./script/verifySourcemaps.js"
   },
   "eslintConfig": {
     "extends": "react-app"
