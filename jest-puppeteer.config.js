@@ -4,5 +4,9 @@ module.exports = {
     args: [
       '--disable-dev-shm-usage',
     ],
-  }
+  },
+  server: {
+    command: 'yarn server',
+    port: 8000,
+  },
 }

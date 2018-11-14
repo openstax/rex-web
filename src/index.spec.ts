@@ -1,9 +1,7 @@
 /**
  * @jest-environment puppeteer
  */
-import * as http from 'http';
 import puppeteer from 'puppeteer';
-import startServer from '../server';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 // declare const browser: puppeteer.Browser
@@ -11,24 +9,8 @@ declare const page: puppeteer.Page;
 
 describe('Browser sanity tests', () => {
 
-    let devServer: http.Server | null = null;
-    let devServerPort = 0;
+    const devServerPort = 8000;
     let consoleMessages: Array<{type: 'debug' | 'error' | 'info' | 'log' | 'warning', message: string}> = [];
-
-    beforeAll(async() => {
-        await startServer({
-          fallback404: true,
-        }).then(({server, port}) => {
-          devServer = server;
-          devServerPort = port;
-        });
-    });
-
-    afterAll(async() => {
-        if (devServer) {
-            devServer.close();
-        }
-    });
 
     beforeEach(async() => {
         consoleMessages = [];
