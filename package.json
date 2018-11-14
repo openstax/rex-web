@@ -24,8 +24,7 @@
     "codecov": "codecov",
     "postinstall": "jq -Rs . node_modules/cnx-recipes/styles/output/intro-business.css > node_modules/cnx-recipes/styles/output/intro-business.json",
     "pretest": "npm run-script build",
-    "test": "react-scripts test --coverage && npm run-script lint && npm run-script test:sourcemap && npm run-script test:browser",
-    "test:browser": "jest --config ./jest-browserspec.config.js",
+    "test": "jest --coverage && npm run-script lint && npm run-script test:sourcemap",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
     "watch": "react-scripts test --watch"
   },
@@ -65,13 +64,23 @@
     "tslint": "^5.11.0"
   },
   "jest": {
+    "preset": "jest-puppeteer",
+    "testEnvironment": "jsdom",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|js)x?$",
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js"
+    },
     "collectCoverageFrom": [
       "src/{app,helpers}/**/*.{ts,tsx}"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "react-app"
     ]
   }
 }
