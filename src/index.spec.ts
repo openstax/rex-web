@@ -2,10 +2,8 @@
  * @jest-environment puppeteer
  */
 import * as http from 'http';
-import * as path from 'path';
-import portfinder from 'portfinder';
 import puppeteer from 'puppeteer';
-import staticServer from 'serve-handler';
+import startServer from '../server';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 // declare const browser: puppeteer.Browser
@@ -18,13 +16,12 @@ describe('Browser sanity tests', () => {
     let consoleMessages: Array<{type: 'debug' | 'error' | 'info' | 'log' | 'warning', message: string}> = [];
 
     beforeAll(async() => {
-        // pick an available port
-        devServerPort = await portfinder.getPortPromise();
-
-        devServer = http.createServer((request, response) => {
-            staticServer(request, response, {public: path.join(__dirname, '../build')});
+        await startServer({
+          fallback404: true,
+        }).then(({server, port}) => {
+          devServer = server;
+          devServerPort = port;
         });
-        devServer.listen(devServerPort);
     });
 
     afterAll(async() => {
