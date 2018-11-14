@@ -39,3 +39,23 @@ Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br>
+
+### Using Docker
+
+install [docker](https://docs.docker.com/install/)
+
+build the image
+
+```bash
+docker build -t openstax/books-web .
+```
+
+run commands
+```bash
+
+# starts server
+docker run -t openstax/books-web server
+
+# runs tests
+docker run -t openstax/books-web test
+```

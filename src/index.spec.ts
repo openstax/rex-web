@@ -1,8 +1,6 @@
 import * as http from 'http';
-import * as path from 'path';
-import portfinder from 'portfinder';
 import puppeteer from 'puppeteer';
-import staticServer from 'serve-handler';
+import startServer from '../server';
 
 class SinglePage {
     public readonly page: puppeteer.Page;
@@ -66,23 +64,26 @@ describe('Browser sanity tests', () => {
     let wrapper: SinglePage | null = null;
 
     beforeAll(async() => {
-        // pick an available port
-        devServerPort = await portfinder.getPortPromise();
-
-        devServer = http.createServer((request, response) => {
-            staticServer(request, response, {public: path.join(__dirname, '../build')});
+        await startServer({
+          fallback404: true,
+        }).then(({server, port}) => {
+          devServer = server;
+          devServerPort = port;
         });
-        devServer.listen(devServerPort);
 
         const puppeteerArgs = [];
-        // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
         if (process.env.CI === 'true') {
+            // tslint:disable-next-line:max-line-length
+            // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
             puppeteerArgs.push('--no-sandbox');
+            // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#tips
+            puppeteerArgs.push('--disable-dev-shm-usage');
         }
 
         browser = await puppeteer.launch({
             args: puppeteerArgs,
             devtools: process.env.NODE_ENV === 'development',
+            executablePath: process.env.PUPPETEER_CHROME_PATH,
         });
 
     });
