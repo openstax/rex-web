@@ -2,8 +2,11 @@ FROM node:10.9-alpine
 
 COPY . /code
 WORKDIR /code
-RUN yarn && yarn build
+
+RUN yarn install
+RUN yarn run build
 
 EXPOSE 8000
 
-CMD yarn server
+ENTRYPOINT ["yarn", "run"]
+CMD ["server"]
