@@ -15,4 +15,4 @@ export {
 
 const DEV_SERVER_PORT = 8000;
 
-export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path}`;
+export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path.replace(/^\/+/, '')}`;
