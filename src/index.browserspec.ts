@@ -1,6 +1,4 @@
-/**
- * @jest-environment puppeteer
- */
+/** @jest-environment puppeteer */
 import puppeteer from 'puppeteer';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.

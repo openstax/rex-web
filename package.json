@@ -76,7 +76,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|js)x?$",
+    "testRegex": "(/__tests__/.*|(\\.|/)((browser)?spec))\\.(ts|js)x?$",
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js"
     },
