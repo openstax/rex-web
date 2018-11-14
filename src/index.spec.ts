@@ -72,14 +72,18 @@ describe('Browser sanity tests', () => {
         });
 
         const puppeteerArgs = [];
-        // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
         if (process.env.CI === 'true') {
+            // tslint:disable-next-line:max-line-length
+            // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
             puppeteerArgs.push('--no-sandbox');
+            // https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#tips
+            puppeteerArgs.push('--disable-dev-shm-usage');
         }
 
         browser = await puppeteer.launch({
             args: puppeteerArgs,
             devtools: process.env.NODE_ENV === 'development',
+            executablePath: process.env.PUPPETEER_CHROME_PATH,
         });
 
     });

@@ -44,7 +44,7 @@ The build is minified and the filenames include the hashes.<br>
 
 install [docker](https://docs.docker.com/install/)
 
-build the image 
+build the image
 
 ```bash
 docker build -t openstax/books-web .
@@ -55,4 +55,7 @@ run commands
 
 # starts server
 docker run -t openstax/books-web server
+
+# runs tests
+docker run -t openstax/books-web test
 ```
