@@ -1,13 +1,8 @@
 /** @jest-environment puppeteer */
-import puppeteer from 'puppeteer';
-
-// jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
-// declare const browser: puppeteer.Browser
-declare const page: puppeteer.Page;
+import { page, url } from './helpers/testUtils';
 
 describe('Browser sanity tests', () => {
 
-    const devServerPort = 8000;
     let consoleMessages: Array<{type: 'debug' | 'error' | 'info' | 'log' | 'warning', message: string}> = [];
 
     beforeEach(async() => {
@@ -32,12 +27,9 @@ describe('Browser sanity tests', () => {
 
         jest.setTimeout(5 * 60 * 1000); // dev browser takes a while to spin up
 
-        const url = `http://localhost:${devServerPort}/`;
-
-        await page.goto(url);
+        await page.goto(url('/'));
         // Wait until React has started
         await page.waitForSelector('#root > h1');
-
     });
 
     it('displays the "Hello developer" console text', async() => {
