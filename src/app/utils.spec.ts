@@ -1,4 +1,4 @@
-import { PromiseCollector } from '../helpers/PromiseCollector';
+import PromiseCollector from '../helpers/PromiseCollector';
 import * as actions from './content/actions';
 import { AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';

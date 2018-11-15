@@ -1,8 +1,16 @@
-export class PromiseCollector {
-  private promises: Array<Promise<any>> = [];
+export default class PromiseCollector {
+  private _promises: Array<Promise<any>> = [];
+
+  public get promises(): ReadonlyArray<Promise<any>> {
+    return this._promises;
+  }
 
   public add(promise: Promise<any>): void {
-    this.promises.push(promise);
+    this._promises.push(promise);
+
+    promise.then(() => {
+      this._promises.splice(this._promises.indexOf(promise), 1);
+    });
   }
 
   public calm(): Promise<void> {
@@ -13,6 +21,5 @@ export class PromiseCollector {
           return this.calm();
         }
       });
-
   }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
-import { PromiseCollector } from '../helpers/PromiseCollector';
+import PromiseCollector from '../helpers/PromiseCollector';
 import * as content from './content';
 import * as errors from './errors';
 import * as navigation from './navigation';

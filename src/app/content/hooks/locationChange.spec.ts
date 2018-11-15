@@ -1,6 +1,6 @@
 import { Location } from 'history';
 import cloneDeep from 'lodash/fp/cloneDeep';
-import { PromiseCollector } from '../../../helpers/PromiseCollector';
+import PromiseCollector from '../../../helpers/PromiseCollector';
 import { locationChange } from '../../navigation/actions';
 import { Match } from '../../navigation/types';
 import { AppState, Dispatch, MiddlewareAPI } from '../../types';

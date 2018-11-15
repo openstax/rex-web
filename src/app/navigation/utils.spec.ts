@@ -1,5 +1,5 @@
 import { Location } from 'history';
-import { PromiseCollector } from '../../helpers/PromiseCollector';
+import PromiseCollector from '../../helpers/PromiseCollector';
 import { AppState, MiddlewareAPI } from '../types';
 import { locationChange } from './actions';
 import { findRouteMatch, routeHook } from './utils';

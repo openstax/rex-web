@@ -1,5 +1,5 @@
 import { getType } from 'typesafe-actions';
-import { PromiseCollector } from '../helpers/PromiseCollector';
+import PromiseCollector from '../helpers/PromiseCollector';
 import { AnyAction, AnyActionCreator, Dispatch, Middleware, MiddlewareAPI } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
