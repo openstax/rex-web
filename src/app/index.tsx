@@ -1,5 +1,8 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
+import { addLocaleData, IntlProvider } from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import cs from 'react-intl/locale-data/cs';
 import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
@@ -49,8 +52,22 @@ export default (options: Options = {}) => {
     reducer,
   });
 
+  const language = (typeof window === 'undefined') ? 'en-us' : window.navigator.language;
+  addLocaleData([...en, ...cs]);
+
+  const messages = new Map()
+  messages.set('en', { 'i18n:404': 'page not found' });
+  messages.set('cs', { 'i18n:404': 'požadovaná stránka neexistuje'});
+
+  function getMessages(language: string) {
+      const lang = language.split('-')[0]
+      return messages.get(lang) || messages.get('en')
+  }
+
   const container = () => <Provider store={store}>
-    <navigation.components.NavigationProvider routes={routes} />
+    <IntlProvider locale={language} messages={getMessages(language)}>
+        <navigation.components.NavigationProvider routes={routes} />
+    </IntlProvider>
   </Provider>;
 
   navigation.utils.init(routes, history.location, store.dispatch);

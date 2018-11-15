@@ -1,5 +1,6 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export default () => {
-  return <h1>page not found</h1>;
+  return <h1><FormattedMessage id='i18n:404'/></h1>;
 };
