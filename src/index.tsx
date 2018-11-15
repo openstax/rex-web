@@ -19,7 +19,9 @@ if (typeof(window) !== 'undefined' && window.top === window.self) {
 const app = createApp();
 
 // bind this to the window so profiling tools can access it
-(window as any).hooks = app.hooks;
+if (typeof window !== 'undefined') {
+    window.__RENDERING_HOOKS = app.hooks;
+}
 
 ReactDOM.render(<app.container />, document.getElementById('root'));
 
