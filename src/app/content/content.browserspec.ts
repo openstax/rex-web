@@ -1,14 +1,14 @@
 /** @jest-environment puppeteer */
-import { page, url } from '../../test/utils';
+import { navigate, page } from '../../test/utils';
 
 describe('content', () => {
 
   beforeEach(async() => {
-    await page.goto(url('/books/Ax2o07Ul/pages/M_qlK4M9'));
+    await navigate(page, '/books/Ax2o07Ul/pages/M_qlK4M9');
   });
 
   it('looks right', async() => {
-    const screen = await page.screenshot();
+    const screen = await page.screenshot({fullPage: true});
     expect(screen).toMatchImageSnapshot();
   });
 });

@@ -1,4 +1,5 @@
 import { Location } from 'history';
+import { PromiseCollector } from '../../helpers/PromiseCollector';
 import { AppState, MiddlewareAPI } from '../types';
 import { locationChange } from './actions';
 import { findRouteMatch, routeHook } from './utils';
@@ -40,8 +41,9 @@ describe('routeHook', () => {
     const helperSpy = jest.fn();
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
     const middleware = routeHook(routes[0], helperSpy);
+    const collector = new PromiseCollector();
 
-    middleware(helpers);
+    middleware(collector)(helpers);
 
     expect(helperSpy).toHaveBeenCalledWith(helpers);
   });
@@ -50,6 +52,7 @@ describe('routeHook', () => {
     const hookSpy = jest.fn();
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
     const middleware = routeHook(routes[0], () => hookSpy);
+    const collector = new PromiseCollector();
     const payload = {
       location: {} as Location,
       match: {
@@ -57,7 +60,7 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)((action) => action)(locationChange(payload));
+    middleware(collector)(helpers)((action) => action)(locationChange(payload));
 
     expect(hookSpy).toHaveBeenCalledWith(payload);
   });
@@ -66,6 +69,7 @@ describe('routeHook', () => {
     const hookSpy = jest.fn();
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
     const middleware = routeHook(routes[0], () => hookSpy);
+    const collector = new PromiseCollector();
     const payload = {
       location: {} as Location,
       match: {
@@ -73,7 +77,7 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)((action) => action)(locationChange(payload));
+    middleware(collector)(helpers)((action) => action)(locationChange(payload));
 
     expect(hookSpy).not.toHaveBeenCalled();
   });

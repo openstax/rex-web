@@ -1,5 +1,6 @@
 import { Location } from 'history';
 import cloneDeep from 'lodash/fp/cloneDeep';
+import { PromiseCollector } from '../../../helpers/PromiseCollector';
 import { locationChange } from '../../navigation/actions';
 import { Match } from '../../navigation/types';
 import { AppState, Dispatch, MiddlewareAPI } from '../../types';
@@ -34,7 +35,7 @@ describe('locationChange', () => {
     payload = {location: {} as Location, match: {route: routes.content, params: {} as Params}};
     action = locationChange(payload);
 
-    hook = require('./locationChange').default;
+    hook = (require('./locationChange').default)(new PromiseCollector());
   });
 
   afterEach(() => {

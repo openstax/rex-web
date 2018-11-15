@@ -47,7 +47,7 @@ export const routeHook = <R extends AnyRoute>(route: R, body: Hook<R>) =>
 
     return (action) => {
       if (matchForRoute(route, action.payload.match)) {
-        boundHook({location: action.payload.location, match: action.payload.match});
+        return boundHook({location: action.payload.location, match: action.payload.match});
       }
     };
   });

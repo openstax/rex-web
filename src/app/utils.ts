@@ -1,4 +1,5 @@
 import { getType } from 'typesafe-actions';
+import { PromiseCollector } from '../helpers/PromiseCollector';
 import { AnyAction, AnyActionCreator, Dispatch, Middleware, MiddlewareAPI } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
@@ -6,8 +7,8 @@ export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
 
 type Hook<C extends AnyActionCreator> = (helpers: MiddlewareAPI) => (action: ReturnType<C>) => Promise<any> | void;
 
-export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: Hook<C>): Middleware =>
-  (stateHelpers) => {
+export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: Hook<C>) =>
+  (collector: PromiseCollector): Middleware => (stateHelpers) => {
     const boundHook = body(stateHelpers);
 
     const matches = checkActionType(actionCreator);
@@ -16,7 +17,11 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: H
       const result = next(action);
 
       if (matches(action)) {
-        boundHook(action);
+        const promise = boundHook(action);
+
+        if (promise) {
+          collector.add(promise);
+        }
       }
 
       return result;

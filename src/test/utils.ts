@@ -16,3 +16,10 @@ export {
 const DEV_SERVER_PORT = 8000;
 
 export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path.replace(/^\/+/, '')}`;
+
+export const navigate = async(target: puppeteer.Page, path: string) => {
+  await target.goto(url(path));
+  await target.evaluate(async() => {
+    await (window as any).hooks.calm();
+  });
+};

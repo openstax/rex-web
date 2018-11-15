@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { page, url } from './test/utils';
+import { navigate, page } from './test/utils';
 
 describe('Browser sanity tests', () => {
 
@@ -27,9 +27,7 @@ describe('Browser sanity tests', () => {
 
         jest.setTimeout(5 * 60 * 1000); // dev browser takes a while to spin up
 
-        await page.goto(url('/'));
-        // Wait until React has started
-        await page.waitForSelector('#root > h1');
+        await navigate(page, '/');
     });
 
     it('displays the "Hello developer" console text', async() => {
@@ -44,7 +42,6 @@ describe('Browser sanity tests', () => {
     });
 
     it('loads the 404 page', async() => {
-        // const heading = await page.$eval('#root > h1', (el) => el.text)
         const heading = await (page.evaluate(() => {
             if (document) {
                 const el = document.querySelector('#root > h1');

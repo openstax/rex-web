@@ -1,3 +1,4 @@
+import { PromiseCollector } from '../helpers/PromiseCollector';
 import * as actions from './content/actions';
 import { AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
@@ -19,8 +20,9 @@ describe('actionHook', () => {
     const helperSpy = jest.fn();
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
     const middleware = utils.actionHook(actions.openToc, helperSpy);
+    const collector = new PromiseCollector();
 
-    middleware(helpers);
+    middleware(collector)(helpers);
 
     expect(helperSpy).toHaveBeenCalledWith(helpers);
   });
@@ -29,8 +31,9 @@ describe('actionHook', () => {
     const hookSpy = jest.fn();
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    const collector = new PromiseCollector();
 
-    middleware(helpers)((action) => action)(actions.openToc());
+    middleware(collector)(helpers)((action) => action)(actions.openToc());
 
     expect(hookSpy).toHaveBeenCalled();
   });
@@ -39,8 +42,9 @@ describe('actionHook', () => {
     const hookSpy = jest.fn();
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    const collector = new PromiseCollector();
 
-    middleware(helpers)((action) => action)(actions.closeToc());
+    middleware(collector)(helpers)((action) => action)(actions.closeToc());
 
     expect(hookSpy).not.toHaveBeenCalled();
   });
