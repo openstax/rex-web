@@ -21,5 +21,6 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
   await target.evaluate(async() => {
     await (window as any).hooks.calm();
+    await (document as any).fonts.ready;
   });
 };

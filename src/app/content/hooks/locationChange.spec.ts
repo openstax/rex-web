@@ -1,9 +1,10 @@
 import { Location } from 'history';
 import cloneDeep from 'lodash/fp/cloneDeep';
+import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import { locationChange } from '../../navigation/actions';
 import { Match } from '../../navigation/types';
-import { AppState, Dispatch, MiddlewareAPI } from '../../types';
+import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
@@ -29,13 +30,16 @@ describe('locationChange', () => {
 
     dispatch = jest.fn((a) => a);
     helpers = {
-      dispatch, getState: () => appState,
-    } as any as MiddlewareAPI;
+      dispatch,
+      fontCollector: new FontCollector(),
+      getState: () => appState,
+      promiseCollector: new PromiseCollector(),
+    } as any as MiddlewareAPI & AppServices;
 
     payload = {location: {} as Location, match: {route: routes.content, params: {} as Params}};
     action = locationChange(payload);
 
-    hook = (require('./locationChange').default)(new PromiseCollector());
+    hook = (require('./locationChange').default)(helpers);
   });
 
   afterEach(() => {

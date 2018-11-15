@@ -1,6 +1,5 @@
-import PromiseCollector from '../helpers/PromiseCollector';
 import * as actions from './content/actions';
-import { AppState, MiddlewareAPI } from './types';
+import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
 
 describe('checkActionType', () => {
@@ -18,33 +17,30 @@ describe('checkActionType', () => {
 describe('actionHook', () => {
   it('binds state helpers', () => {
     const helperSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = utils.actionHook(actions.openToc, helperSpy);
-    const collector = new PromiseCollector();
 
-    middleware(collector)(helpers);
+    middleware(helpers)(helpers);
 
     expect(helperSpy).toHaveBeenCalledWith(helpers);
   });
 
   it('hooks into requested action', () => {
     const hookSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
-    const collector = new PromiseCollector();
 
-    middleware(collector)(helpers)((action) => action)(actions.openToc());
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
 
     expect(hookSpy).toHaveBeenCalled();
   });
 
   it('doens\'t hook into other actions', () => {
     const hookSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
-    const collector = new PromiseCollector();
 
-    middleware(collector)(helpers)((action) => action)(actions.closeToc());
+    middleware(helpers)(helpers)((action) => action)(actions.closeToc());
 
     expect(hookSpy).not.toHaveBeenCalled();
   });

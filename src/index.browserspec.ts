@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { navigate, page } from './test/utils';
+import { navigate, page } from './test/browserutils';
 
 describe('Browser sanity tests', () => {
 

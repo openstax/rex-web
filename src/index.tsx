@@ -19,7 +19,20 @@ if (typeof(window) !== 'undefined' && window.top === window.self) {
 const app = createApp();
 
 // bind this to the window so profiling tools can access it
-(window as any).hooks = app.hooks;
+(window as any).hooks = app.services.promiseCollector;
+
+app.services.fontCollector.handle((font) => {
+  app.services.promiseCollector.add(new Promise((resolve) => {
+    if (!document || !document.head) {
+      return;
+    }
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', font);
+    link.onload = resolve;
+    document.head.appendChild(link);
+  }));
+});
 
 ReactDOM.render(<app.container />, document.getElementById('root'));
 
