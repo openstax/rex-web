@@ -1,12 +1,15 @@
 pipeline {
   agent { label 'docker' }
   stages {
-    stage('Test') {
-      agent {
-        dockerfile true
-      }
+    stage('Build') {
       steps {
-        sh 'test'
+        sh "docker build -t openstax/rex-web ."
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'docker run openstax/rex-web test'
+        sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/rex-web test'
       }
     }
   }
