@@ -41,3 +41,20 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 export const finishRender = async(_: puppeteer.Page) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 };
+
+// tslint:disable-next-line:no-shadowed-variable
+export const getComputedStyle = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
+  if (window) {
+    const element = window.document.querySelector(selector);
+    if (!element) {
+      throw new Error('BUG: element not found');
+    }
+    const compStyle = window.getComputedStyle(element);
+    const styleMap: {[name: string]: string} = {};
+    for (let index = 0; index < compStyle.length; index++) { // tslint:disable-line:prefer-for-of
+      const styleName = compStyle[index];
+      styleMap[styleName] = compStyle.getPropertyValue(styleName);
+    }
+    return styleMap;
+  }
+}, selector);
