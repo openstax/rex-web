@@ -31,6 +31,10 @@ export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path
 
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
+
+  // HACK - add delay to make sure promises have been registered
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   await target.evaluate(async() => {
     if (window) {
       await window.__APP_ASYNC_HOOKS.calm();
@@ -39,6 +43,8 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(_: puppeteer.Page) => {
+  // HACK - there is no convenient way to tell if chrome is finished rendering,
+  // we should investigate inconvenient possibilities.
   await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
