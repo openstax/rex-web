@@ -15,12 +15,13 @@ pipeline {
         always {
           sh 'docker stop $BUILD_TAG'
           sh '''
+            # this extracts all the image snapshots that were either added or changed during the test run
             for file in `docker container diff $BUILD_TAG  | grep snapshot | grep png | grep -i '^\\(A\\|C\\)' | sed -e "s/[AC] //"`
             do
               docker cp $BUILD_TAG:$file .
             done
           '''
-          archiveArtifacts artifacts: '*diff.png', fingerprint: true
+          archiveArtifacts artifacts: '*.png', fingerprint: true
         }
       }
     }
