@@ -20,7 +20,7 @@ if (window.top === window.self) {
 const app = createApp();
 
 // bind this to the window so profiling tools can access it
-window.__RENDERING_HOOKS = app.services.promiseCollector;
+window.__APP_ASYNC_HOOKS = app.services.promiseCollector;
 
 app.services.fontCollector.handle((font) => {
   app.services.promiseCollector.add(loadFont(font));

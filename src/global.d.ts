@@ -8,7 +8,7 @@ declare global {
 
   interface Window extends dom.Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
-    __RENDERING_HOOKS: PromiseCollector
+    __APP_ASYNC_HOOKS: PromiseCollector;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
