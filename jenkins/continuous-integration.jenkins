@@ -8,9 +8,14 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'docker run openstax/rex-web test'
-        sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/rex-web test'
-        archiveArtifacts artifacts: '**/*diff.png', fingerprint: true
+        sh 'docker run -e CI=true --name=$BUILD_TAG openstax/rex-web test'
+        sh '''
+          for file in `docker container diff $BUILD_TAG | grep "^A" | sed -e "s/A //" | grep "__image_snapshots__/__diff_output__"`
+          do
+            docker cp $BUILD_TAG:$file .
+          done
+        '''
+        archiveArtifacts artifacts: '**/__diff_output__/*.png', fingerprint: true
       }
     }
   }
