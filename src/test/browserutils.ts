@@ -32,7 +32,7 @@ export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
   await target.evaluate(async() => {
-    await (window as any).hooks.calm();
+    await (window && window.__RENDERING_HOOKS.calm());
   });
 };
 

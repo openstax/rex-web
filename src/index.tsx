@@ -5,11 +5,11 @@ import loadFont from './helpers/loadFont';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-if (typeof(document) === 'undefined') {
+if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
   throw new Error('Browser entrypoint must be used in the browser');
 }
 
-if (typeof(window) !== 'undefined' && window.top === window.self) {
+if (window.top === window.self) {
   const devMessage = [
     `Howdy! If you want to help out, the source code can be found at `,
     `https://github.com/openstax/books-web`,
@@ -20,7 +20,7 @@ if (typeof(window) !== 'undefined' && window.top === window.self) {
 const app = createApp();
 
 // bind this to the window so profiling tools can access it
-(window as any).hooks = app.services.promiseCollector;
+window.__RENDERING_HOOKS = app.services.promiseCollector;
 
 app.services.fontCollector.handle((font) => {
   app.services.promiseCollector.add(loadFont(font));
