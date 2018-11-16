@@ -8,6 +8,7 @@ module.exports = {
     ],
   },
   server: {
+    launchTimeout: 30000,
     command: 'PORT=8000 BROWSER=none yarn start',
     port: 8000,
   },
