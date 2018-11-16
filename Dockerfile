@@ -44,10 +44,15 @@ RUN apt-get update && apt-get install -y \
   wget \
   && rm -rf /var/lib/apt/lists/*
 
-COPY . /code
 WORKDIR /code
 
+COPY package.json yarn.lock ./
+COPY ./script ./script
+
 RUN yarn install
+
+COPY . .
+
 RUN yarn run build
 
 EXPOSE 8000
