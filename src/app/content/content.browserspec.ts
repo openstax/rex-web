@@ -12,5 +12,5 @@ describe('content', () => {
     // const headingStyle = await getComputedStyle(page, 'h1');
     // expect(headingStyle).toMatchSnapshot();
     expect(screen).toMatchImageSnapshot();
-  }, 10000);
+  }, 60000);
 });
