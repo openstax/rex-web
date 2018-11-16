@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         sh "docker build -t openstax/rex-web ."
-        sh 'docker run -d --name=$BUILD_TAG openstax/rex-web cat'
+        sh 'docker run -td --name=$BUILD_TAG openstax/rex-web cat'
       }
     }
     stage('Test') {
