@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from './app';
+import loadFont from './helpers/loadFont';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -22,16 +23,7 @@ const app = createApp();
 (window as any).hooks = app.services.promiseCollector;
 
 app.services.fontCollector.handle((font) => {
-  app.services.promiseCollector.add(new Promise((resolve) => {
-    if (!document || !document.head) {
-      return;
-    }
-    const link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', font);
-    link.onload = resolve;
-    document.head.appendChild(link);
-  }));
+  app.services.promiseCollector.add(loadFont(font));
 });
 
 ReactDOM.render(<app.container />, document.getElementById('root'));

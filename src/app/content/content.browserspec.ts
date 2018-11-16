@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { navigate, page } from '../../test/browserutils';
+import { finishRender, navigate, page } from '../../test/browserutils';
 
 describe('content', () => {
 
@@ -8,6 +8,7 @@ describe('content', () => {
   });
 
   it('looks right', async() => {
+    await finishRender(page);
     const screen = await page.screenshot({fullPage: true});
     expect(screen).toMatchImageSnapshot();
   });
