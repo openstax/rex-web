@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'docker run -e CI=true --name=$BUILD_TAG openstax/rex-web test'
+        sh 'docker run -t -e CI=true --name=$BUILD_TAG openstax/rex-web test'
       }
       post {
         always {
