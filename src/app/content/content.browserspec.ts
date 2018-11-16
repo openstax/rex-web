@@ -4,7 +4,7 @@ import { finishRender, navigate, page } from '../../test/browserutils';
 describe('content', () => {
   beforeEach(async() => {
     await navigate(page, '/books/Ax2o07Ul/pages/M_qlK4M9');
-  });
+  }, 60000);
 
   it('looks right', async() => {
     await finishRender(page);
