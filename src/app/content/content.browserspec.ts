@@ -11,6 +11,10 @@ describe('content', () => {
     const screen = await page.screenshot({fullPage: true});
     // const headingStyle = await getComputedStyle(page, 'h1');
     // expect(headingStyle).toMatchSnapshot();
-    expect(screen).toMatchImageSnapshot();
+    (expect(screen).toMatchImageSnapshot as any)({
+      failureThreshold: 2,
+      failureThresholdType: 'percent',
+      updatePassedSnapshot: true,
+    });
   }, 60000);
 });

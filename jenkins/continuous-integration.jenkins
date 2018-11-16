@@ -15,7 +15,7 @@ pipeline {
         always {
           sh 'docker stop $BUILD_TAG'
           sh '''
-            for file in `docker container diff $BUILD_TAG | grep "__image_snapshots__/__diff_output__/" | sed -e "s/A //"`
+            for file in `docker container diff $BUILD_TAG  | grep snapshot | grep png | grep -i '^\\(A\\|C\\)' | sed -e "s/[AC] //"`
             do
               docker cp $BUILD_TAG:$file .
             done
