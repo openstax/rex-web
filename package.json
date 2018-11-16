@@ -39,7 +39,6 @@
   ],
   "devDependencies": {
     "@openstax/types": "^1.0.2",
-    "@types/cross-spawn": "^6.0.0",
     "@types/history": "^4.7.2",
     "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.117",
@@ -52,7 +51,6 @@
     "@types/styled-components": "^4.0.3",
     "babel-core": "7.0.0-bridge.0",
     "codecov": "^3.1.0",
-    "cross-spawn": "^6.0.5",
     "glob": "^7.1.3",
     "jest-puppeteer": "^3.5.1",
     "pify": "^4.0.1",
