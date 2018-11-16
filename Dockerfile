@@ -57,5 +57,4 @@ RUN yarn run build
 
 EXPOSE 8000
 
-ENTRYPOINT ["yarn", "run"]
-CMD ["server"]
+CMD ["yarn", "run", "server"]

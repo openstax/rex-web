@@ -4,14 +4,16 @@ pipeline {
     stage('Build') {
       steps {
         sh "docker build -t openstax/rex-web ."
+        sh 'docker run -d --name=$BUILD_TAG openstax/rex-web cat'
       }
     }
     stage('Test') {
       steps {
-        sh 'docker run -t -e CI=true --name=$BUILD_TAG openstax/rex-web test'
+        sh 'docker exec -e CI=true $BUILD_TAG yarn test'
       }
       post {
         always {
+          sh 'docker stop $BUILD_TAG'
           sh '''
             for file in `docker container diff $BUILD_TAG | grep "__image_snapshots__/__diff_output__/" | sed -e "s/A //"`
             do

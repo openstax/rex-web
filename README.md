@@ -54,8 +54,8 @@ run commands
 ```bash
 
 # starts server
-docker run -t openstax/books-web server
+docker run -t openstax/books-web yarn server
 
 # runs tests
-docker run -t openstax/books-web test
+docker run -t openstax/books-web yarn test
 ```
