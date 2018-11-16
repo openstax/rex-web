@@ -1,3 +1,4 @@
+# this dockerfile is not for production, its for QA and CI
 FROM node:10.9-jessie
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
