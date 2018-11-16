@@ -20,7 +20,7 @@ pipeline {
               docker cp $BUILD_TAG:$file .
             done
           '''
-          archiveArtifacts artifacts: '**/__diff_output__/*.png', fingerprint: true
+          archiveArtifacts artifacts: '*diff.png', fingerprint: true
         }
       }
     }
