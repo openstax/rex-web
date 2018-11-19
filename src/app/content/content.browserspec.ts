@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate, page } from '../../test/browserutils';
+import { finishRender, navigate } from '../../test/browserutils';
 
 describe('content', () => {
   beforeEach(async() => {

@@ -1,17 +1,14 @@
 import puppeteer from 'puppeteer';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
-const browser = (global as any).browser as puppeteer.Browser;
-const page = (global as any).page as puppeteer.Page;
-
-if (!browser || !page) {
-  throw new Error('Browser has not been started! Did you remember to specify `@jest-environment puppeteer`?');
+declare global {
+  var page: puppeteer.Page;
+  var browser: puppeteer.Browser;
 }
 
-export {
-  browser,
-  page,
-};
+if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
+  throw new Error('Browser has not been started! Did you remember to specify `@jest-environment puppeteer`?');
+}
 
 const ignoreConsoleMessages = [
   '%cDownload the React DevTools for a better development experience: https://fb.me/react-devtools font-weight:bold',
