@@ -4,9 +4,6 @@ module.exports = {
     args: [
       // https://github.com/GoogleChrome/puppeteer/issues/2410
       '--font-render-hinting=medium',
-      // https://github.com/GoogleChrome/puppeteer/issues/1846
-      '--proxy-server="direct://"',
-      '--proxy-bypass-list=*'
     ],
   },
   server: {
