@@ -21,7 +21,7 @@ pipeline {
               docker cp $BUILD_TAG:$file .
             done
           '''
-          archiveArtifacts artifacts: '*.png', fingerprint: true
+          archiveArtifacts artifacts: '*.png', fingerprint: true, allowEmptyArchive: true
         }
       }
     }
