@@ -26,7 +26,7 @@
     "postinstall": "node ./script/postinstall",
     "test": "npm run-script test:unit && npm run-script lint && npm run-script test:sourcemap",
     "test:unit": "jest --coverage",
-    "test:sourcemap": "node ./script/verifySourcemaps.js"
+    "test:sourcemap": "npm run-script build && node ./script/verifySourcemaps.js"
   },
   "eslintConfig": {
     "extends": "react-app"
