@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM node:10.9-jessie
+FROM node:10.9-jessie as slim
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
@@ -53,8 +53,10 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn run build
-
 EXPOSE 8000
 
 CMD ["yarn", "run", "server"]
+
+FROM slim as built
+
+RUN yarn run build
