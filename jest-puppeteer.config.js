@@ -4,7 +4,10 @@ module.exports = {
     args: [
       '--disable-dev-shm-usage',
       '--font-render-hinting=medium',
-      '--lang=en-US,en'
+      '--lang=en-US,en',
+      // https://github.com/GoogleChrome/puppeteer/issues/1846
+      '--proxy-server="direct://"',
+      '--proxy-bypass-list=*'
     ],
   },
   server: {
