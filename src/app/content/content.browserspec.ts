@@ -8,8 +8,8 @@ describe('content', () => {
   });
 
   it('looks right', async() => {
-    const screen = await page.screenshot({fullPage: true});
     jest.setTimeout(10000);
+    const screen = await page.screenshot({fullPage: true});
     (expect(screen).toMatchImageSnapshot as any)({
       failureThreshold: 2,
       failureThresholdType: 'percent',
