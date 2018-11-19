@@ -31,7 +31,7 @@ export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path
 
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path), {
-    timeout: 60000,
+    timeout: 120000,
   });
 
   // HACK - add delay to make sure promises have been registered

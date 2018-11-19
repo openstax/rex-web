@@ -8,12 +8,11 @@ describe('content', () => {
   });
 
   it('looks right', async() => {
-    jest.setTimeout(20000);
-    const screen = await page.screenshot({fullPage: true});
-    (expect(screen).toMatchImageSnapshot as any)({
-      failureThreshold: 2,
-      failureThresholdType: 'percent',
-      updatePassedSnapshot: true,
+    await expect(page).toMatchScreenshot({
+      CI: {
+        failureThreshold: 2,
+        failureThresholdType: 'percent',
+      },
     });
   });
 });
