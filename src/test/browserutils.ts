@@ -6,8 +6,6 @@ declare global {
   var browser: puppeteer.Browser;
 }
 
-const TEST_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36'; // tslint:disable-line:max-line-length
-
 if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
   throw new Error('Browser has not been started! Did you remember to specify `@jest-environment puppeteer`?');
 }
@@ -29,7 +27,6 @@ const DEV_SERVER_PORT = 8000;
 export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path.replace(/^\/+/, '')}`;
 
 export const navigate = async(target: puppeteer.Page, path: string) => {
-  await page.setUserAgent(TEST_USER_AGENT);
   await target.goto(url(path));
 
   // HACK - add delay to make sure promises have been registered

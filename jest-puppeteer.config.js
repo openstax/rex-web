@@ -2,6 +2,8 @@ module.exports = {
   launch: {
     executablePath: process.env.PUPPETEER_CHROME_PATH,
     args: [
+      // https://developers.google.com/web/tools/puppeteer/troubleshooting
+      '--disable-dev-shm-usage',
       // https://github.com/GoogleChrome/puppeteer/issues/2410
       '--font-render-hinting=medium',
       // https://github.com/GoogleChrome/puppeteer/issues/1846
