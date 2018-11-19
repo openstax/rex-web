@@ -15,7 +15,7 @@ describe('locationChange', () => {
   let appState: AppState;
   let archiveLoader: jest.SpyInstance;
   let dispatch: jest.SpyInstance;
-  let helpers: MiddlewareAPI;
+  let helpers: MiddlewareAPI & AppServices;
   let payload: {location: Location, match: Match<typeof routes.content>};
   let action: ReturnType<typeof locationChange>;
   let hook = require('./locationChange').default;
@@ -121,5 +121,26 @@ describe('locationChange', () => {
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
     expect(archiveLoader).not.toHaveBeenCalledWith('bookId:pageId');
     expect(archiveLoader).not.toHaveBeenCalledWith('pageId');
+  });
+
+  it('adds font to fontcollector', () => {
+    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i';
+    jest.mock('cnx-recipes/styles/output/intro-business.json', () => `"${mockFont}"`);
+    const spy = jest.spyOn(helpers.fontCollector, 'add');
+    jest.resetModules();
+    hook = (require('./locationChange').default)(helpers);
+
+    hook(helpers)(next)(action);
+    expect(spy).toHaveBeenCalledWith(mockFont);
+  });
+
+  it('doesn\'t break if there are no fonts in the css', () => {
+    jest.mock('cnx-recipes/styles/output/intro-business.json', () => `""`);
+    const spy = jest.spyOn(helpers.fontCollector, 'add');
+    jest.resetModules();
+    hook = (require('./locationChange').default)(helpers);
+
+    hook(helpers)(next)(action);
+    expect(spy).not.toHaveBeenCalled();
   });
 });
