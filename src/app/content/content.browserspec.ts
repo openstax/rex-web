@@ -5,7 +5,7 @@ describe('content', () => {
   beforeEach(async() => {
     await navigate(page, '/books/Ax2o07Ul/pages/M_qlK4M9');
     await finishRender(page);
-  });
+  }, 30000);
 
   it('looks right', async() => {
     const screen = await takeScreenshot(page);
