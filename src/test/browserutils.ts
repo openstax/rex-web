@@ -30,7 +30,9 @@ const DEV_SERVER_PORT = 8000;
 export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path.replace(/^\/+/, '')}`;
 
 export const navigate = async(target: puppeteer.Page, path: string) => {
-  await target.goto(url(path));
+  await target.goto(url(path), {
+    timeout: 60000,
+  });
 
   // HACK - add delay to make sure promises have been registered
   await new Promise((resolve) => setTimeout(resolve, 1000));
