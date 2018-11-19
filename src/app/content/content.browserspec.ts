@@ -16,5 +16,5 @@ describe('content', () => {
         failureThresholdType: 'percent',
       },
     });
-  });
+  }, 30000);
 });
