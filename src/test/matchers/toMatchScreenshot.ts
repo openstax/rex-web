@@ -4,7 +4,7 @@ import { Page } from 'puppeteer';
 type ToMatchImageSnapshot = (image: Buffer, config: MatchImageSnapshotOptions) => {pass: boolean, message(): string};
 
 export default async function(this: jest.MatcherUtils, page: Page, config: {[key: string]: MatchImageSnapshotOptions}) {
-  jest.setTimeout(30000);
+  jest.setTimeout(60000); // 30 was too low
 
   const screen = await page.screenshot({fullPage: true});
 
