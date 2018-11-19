@@ -1,15 +1,13 @@
-import { MatchImageSnapshotOptions, toMatchImageSnapshot } from 'jest-image-snapshot';
-import toMatchScreenshot from './matchers/toMatchScreenshot';
+import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
+import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 
 declare global {
   namespace jest {
     interface Matchers<R> {
-      toMatchScreenshot(config: {[key: string]: MatchImageSnapshotOptions}): R;
-      toMatchImageSnapshot(config: MatchImageSnapshotOptions): R;
+      toMatchImageSnapshot(config: {[key: string]: MatchImageSnapshotOptions}): R;
     }
   }
 }
 expect.extend({
   toMatchImageSnapshot,
-  toMatchScreenshot,
 });

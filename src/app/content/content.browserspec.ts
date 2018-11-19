@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate, page } from '../../test/browserutils';
+import { finishRender, navigate, page, takeScreenshot } from '../../test/browserutils';
 
 describe('content', () => {
   beforeEach(async() => {
@@ -8,7 +8,9 @@ describe('content', () => {
   });
 
   it('looks right', async() => {
-    await expect(page).toMatchScreenshot({
+    const screen = await takeScreenshot(page);
+
+    expect(screen).toMatchImageSnapshot({
       CI: {
         failureThreshold: 2,
         failureThresholdType: 'percent',

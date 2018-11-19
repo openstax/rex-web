@@ -50,6 +50,11 @@ export const finishRender = async(_: puppeteer.Page) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
+export const takeScreenshot = async(target: puppeteer.Page) => {
+  jest.setTimeout(10000);
+  return await target.screenshot({fullPage: true});
+};
+
 // tslint:disable-next-line:no-shadowed-variable
 export const getComputedStyle = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
   if (window) {
