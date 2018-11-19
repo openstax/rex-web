@@ -1,14 +1,14 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate, page, takeScreenshot } from '../../test/browserutils';
+import { finishRender, navigate, page } from '../../test/browserutils';
 
 describe('content', () => {
   beforeEach(async() => {
     await navigate(page, '/books/Ax2o07Ul/pages/M_qlK4M9');
     await finishRender(page);
-  }, 30000);
+  });
 
   it('looks right', async() => {
-    const screen = await takeScreenshot(page);
+    const screen = await page.screenshot({fullPage: true});
 
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -16,5 +16,5 @@ describe('content', () => {
         failureThresholdType: 'percent',
       },
     });
-  }, 30000);
+  });
 });

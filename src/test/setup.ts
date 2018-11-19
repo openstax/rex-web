@@ -11,3 +11,8 @@ declare global {
 expect.extend({
   toMatchImageSnapshot,
 });
+
+// set default timeout to something quite large in CI
+if (process.env.CI) {
+  jest.setTimeout(30000);
+}

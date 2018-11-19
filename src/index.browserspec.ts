@@ -25,8 +25,6 @@ describe('Browser sanity tests', () => {
       }
     });
 
-    jest.setTimeout(5 * 60 * 1000); // dev browser takes a while to spin up
-
     await navigate(page, '/');
   });
 
