@@ -1,12 +1,12 @@
 const http = require('http');
 const path = require('path');
-const portfinder = require('portfinder');
 const staticServer = require('serve-handler');
+require('dotenv').config();
 
 module.exports = (options = {}) => new Promise(resolve => {
   const fallback404 = !!options.fallback404;
 
-  portfinder.getPortPromise().then(startServer);
+  const port = process.env.SERVER_PORT
 
   function startServer(port) {
     const server = http.createServer((request, response) => {
@@ -26,4 +26,6 @@ module.exports = (options = {}) => new Promise(resolve => {
     server.listen(port);
     resolve({server, port});
   }
+
+  startServer(port);
 });
