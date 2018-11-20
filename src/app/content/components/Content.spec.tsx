@@ -1,7 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
+import { setStateFinished } from '../../../test/reactutils';
 import { AppState } from '../../types';
 import { initialState } from '../reducer';
 import * as utils from '../utils';
@@ -78,7 +80,7 @@ describe('content', () => {
     });
   });
 
-  it('updates after initial render', (done) => {
+  it('updates after initial render', async() => {
     const state1 = {
       content: initialState,
     } as AppState;
@@ -101,15 +103,14 @@ describe('content', () => {
       <Content />
     </Provider>);
 
-    process.nextTick(() => {
-      const before = component.toJSON();
-      store.dispatch(go);
-      process.nextTick(() => {
-        const after = component.toJSON();
-        expect(before).not.toEqual(after);
-        done();
-      });
-    });
+    const before = component.toJSON();
+    store.dispatch(go);
+
+    const target = component.root.findByType(Content).children[0] as ReactTestInstance;
+    await setStateFinished(target);
+
+    const after = component.toJSON();
+    expect(before).not.toEqual(after);
   });
 });
 

@@ -1,7 +1,7 @@
 import { Location } from 'history';
 import pathToRegexp, { Key } from 'path-to-regexp';
 import { Dispatch } from 'redux';
-import { MiddlewareAPI } from '../types';
+import { AppServices, MiddlewareAPI } from '../types';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { AnyMatch, AnyRoute, GenericMatch, Match } from './types';
@@ -37,7 +37,7 @@ export const init = (routes: AnyRoute[], location: Location, dispatch: Dispatch)
   dispatch(actions.locationChange({location, match}));
 };
 
-type Hook<R extends AnyRoute> = (helpers: MiddlewareAPI) =>
+type Hook<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
   (locationChange: {location: Location, match: Match<R>}) =>
     Promise<any> | void;
 
@@ -47,7 +47,7 @@ export const routeHook = <R extends AnyRoute>(route: R, body: Hook<R>) =>
 
     return (action) => {
       if (matchForRoute(route, action.payload.match)) {
-        boundHook({location: action.payload.location, match: action.payload.match});
+        return boundHook({location: action.payload.location, match: action.payload.match});
       }
     };
   });

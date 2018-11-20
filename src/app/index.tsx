@@ -3,6 +3,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
+import FontCollector from '../helpers/FontCollector';
+import PromiseCollector from '../helpers/PromiseCollector';
 import * as content from './content';
 import * as errors from './errors';
 import * as navigation from './navigation';
@@ -39,9 +41,14 @@ export default (options: Options = {}) => {
     navigation: navigation.createReducer(history.location),
   });
 
+  const services = {
+    fontCollector: new FontCollector(),
+    promiseCollector: new PromiseCollector(),
+  };
+
   const middleware: Middleware[] = [
     navigation.createMiddleware(routes, history),
-    ...hooks,
+    ...hooks.map((hook) => hook(services)),
   ];
 
   const store = createStore({
@@ -58,6 +65,7 @@ export default (options: Options = {}) => {
   return {
     container,
     history,
+    services,
     store,
   };
 };
