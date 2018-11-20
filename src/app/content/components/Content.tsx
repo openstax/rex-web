@@ -4,7 +4,9 @@ import { AppState } from '../../types';
 import * as select from '../selectors';
 import { ArchiveContent, State } from '../types';
 import { archiveLoader } from '../utils';
+import Header from './Header';
 import Page from './Page';
+import Wrapper from './Wrapper';
 
 interface PropTypes {
   page: State['page'];
@@ -34,7 +36,7 @@ class Content extends Component<PropTypes, ReactState> {
     archiveLoader(`${props.book.shortId}:${props.page.shortId}`).then((page) => this.setState({page}));
   }
 
-  public componentDidMount() {
+  public componentWillMount() {
     this.loadBook(this.props);
     this.loadPage(this.props);
   }
@@ -47,7 +49,7 @@ class Content extends Component<PropTypes, ReactState> {
   public renderHeader = () => {
     const {page, book} = this.props as PropTypes;
     return <div>
-      {book && page && <h1>{book.title} / {page.title}</h1>}
+      {book && page && <Header>{book.title} / {page.title}</Header>}
     </div>;
   }
 
@@ -59,17 +61,24 @@ class Content extends Component<PropTypes, ReactState> {
   }
 
   public render() {
-    return <div>
+    if (this.isLoading()) {
+      return null;
+    }
+    return <Wrapper key='content'>
       {this.renderHeader()}
       {this.renderContent()}
-    </div>;
+    </Wrapper>;
+  }
+
+  private isLoading() {
+    return this.props.loading || !this.state.book || !this.state.page;
   }
 }
 
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    loading: !!select.loadingBook(state) || !!select.loadingPage,
+    loading: !!select.loadingBook(state) || !!select.loadingPage(state),
     page: select.page(state),
   })
 )(Content);

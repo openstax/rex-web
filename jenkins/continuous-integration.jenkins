@@ -3,13 +3,26 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh "docker build -t openstax/rex-web ."
+        sh "docker build --target=slim -t openstax/rex-web ."
+        sh 'docker run -td --name=$BUILD_TAG openstax/rex-web cat'
       }
     }
     stage('Test') {
       steps {
-        sh 'docker run openstax/rex-web test'
-        sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/rex-web test'
+        sh 'docker exec -e CI=true $BUILD_TAG yarn test'
+      }
+      post {
+        always {
+          sh 'docker stop $BUILD_TAG'
+          sh '''
+            # this extracts all the image snapshots that were either added or changed during the test run
+            for file in `docker container diff $BUILD_TAG  | grep snapshot | grep png | grep -i '^\\(A\\|C\\)' | sed -e "s/[AC] //"`
+            do
+              docker cp $BUILD_TAG:$file .
+            done
+          '''
+          archiveArtifacts artifacts: '*.png', fingerprint: true, allowEmptyArchive: true
+        }
       }
     }
   }

@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import puppeteer from 'puppeteer';
-
-dotenv.config();
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 const browser = (global as any).browser as puppeteer.Browser;

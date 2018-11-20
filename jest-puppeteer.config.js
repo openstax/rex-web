@@ -13,11 +13,13 @@ module.exports = {
   launch: {
     executablePath: process.env.PUPPETEER_CHROME_PATH,
     args: [
-      '--disable-dev-shm-usage',
+      // https://github.com/GoogleChrome/puppeteer/issues/2410
+      '--font-render-hinting=medium',
     ],
   },
   server: {
-    command: `yarn server ${SERVER_PORT}`,
+    command: `PORT=${SERVER_PORT} BROWSER=none yarn start`,
     port: SERVER_PORT,
+    launchTimeout: 30000,
   },
 }
