@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 
 const NODE_ENV = process.env.NODE_ENV;
+
 const dotenv = path.resolve(fs.realpathSync(process.cwd()), '.env');
 
 const dotenvFiles = [

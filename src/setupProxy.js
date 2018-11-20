@@ -15,7 +15,7 @@ const ARCHIVE_URL = process.env.ARCHIVE_URL;
 
 module.exports = function(app) {
   archivePaths.forEach(path => app.use(proxy(`/${path}`, {
-    target: `${ARCHIVE_URL}/${path}/`,
+    target: `${ARCHIVE_URL}${path}/`,
     prependPath: false,
     changeOrigin: true,
   })));
