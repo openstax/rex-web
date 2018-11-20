@@ -3,7 +3,6 @@ const http = require('http');
 const serveStatic = require('serve-static')
 const path = require('path');
 const portfinder = require('portfinder');
-const staticServer = require('serve-handler');
 const setupProxy = require('../src/setupProxy');
 
 module.exports = (options = {}) => new Promise(resolve => {
