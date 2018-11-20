@@ -39,7 +39,6 @@
   ],
   "devDependencies": {
     "@openstax/types": "^1.0.2",
-    "@types/dotenv": "^6.1.0",
     "@types/history": "^4.7.2",
     "@types/jest": "^23.3.9",
     "@types/jest-image-snapshot": "^2.4.0",
