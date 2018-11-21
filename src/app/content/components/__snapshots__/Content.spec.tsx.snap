@@ -4,6 +4,13 @@ exports[`content matches snapshot 1`] = `
 <div
   className="sc-htpNat HYhKT"
 >
+  <a
+    className="sc-bxivhb kyEfdP"
+    href="#main-content"
+    tabIndex={1}
+  >
+    Skip to Content
+  </a>
   <div>
     <h1
       className="sc-bdVaJa jJhTfn"
@@ -13,22 +20,21 @@ exports[`content matches snapshot 1`] = `
       page title
     </h1>
   </div>
-  <div>
+  <div
+    className="sc-bwzfXH XepYW"
+    id="main-content"
+  >
     <div
-      className="sc-bwzfXH XepYW"
+      data-type="chapter"
     >
       <div
-        data-type="chapter"
-      >
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "some page content yo",
-            }
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "some page content yo",
           }
-          data-type="page"
-        />
-      </div>
+        }
+        data-type="page"
+      />
     </div>
   </div>
 </div>

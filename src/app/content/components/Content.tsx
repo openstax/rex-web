@@ -6,6 +6,7 @@ import { ArchiveContent, State } from '../types';
 import { archiveLoader } from '../utils';
 import Header from './Header';
 import Page from './Page';
+import SkipToContent from './SkipToContent';
 import Wrapper from './Wrapper';
 
 interface PropTypes {
@@ -46,6 +47,10 @@ class Content extends Component<PropTypes, ReactState> {
     this.loadPage(props);
   }
 
+  public renderSkip = () => {
+    return <SkipToContent targetId='main-content'/>;
+  }
+
   public renderHeader = () => {
     const {page, book} = this.props as PropTypes;
     return <div>
@@ -55,9 +60,7 @@ class Content extends Component<PropTypes, ReactState> {
 
   public renderContent = () => {
     const {page} = this.state;
-    return <div>
-      {page && <Page content={page.content} />}
-    </div>;
+    return page && <Page id='main-content' content={page.content} />;
   }
 
   public render() {
@@ -65,6 +68,7 @@ class Content extends Component<PropTypes, ReactState> {
       return null;
     }
     return <Wrapper key='content'>
+      {this.renderSkip()}
       {this.renderHeader()}
       {this.renderContent()}
     </Wrapper>;

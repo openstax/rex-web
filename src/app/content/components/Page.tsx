@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const ARCHIVE_URL = process.env.REACT_APP_ARCHIVE_URL;
 
 interface PropTypes {
+  id: string;
   content: string;
 }
 interface StyledProps {
@@ -23,8 +24,8 @@ class PageContent extends Component<PropTypes> {
   }
 
   public render() {
-    const {className} = this.props as PropTypes & StyledProps;
-    return <div className={className}>
+    const {id, className} = this.props as PropTypes & StyledProps;
+    return <div id={id} className={className}>
       <div data-type='chapter'>
         <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
       </div>
