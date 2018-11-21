@@ -23,6 +23,11 @@ page.on('console', (consoleMessage) => {
   }
 });
 
+// set default timeout to something quite large in CI
+if (process.env.CI) {
+  page.setDefaultNavigationTimeout(60000);
+}
+
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
 export const navigate = async(target: puppeteer.Page, path: string) => {

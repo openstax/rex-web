@@ -18,8 +18,8 @@ module.exports = {
     ],
   },
   server: {
+    launchTimeout: 60000,
     command: `yarn run server ${SERVER_PORT}`, // This takes longer & times out: `PORT=${SERVER_PORT} BROWSER=none yarn start`
     port: SERVER_PORT,
-    launchTimeout: 30000,
   },
 }

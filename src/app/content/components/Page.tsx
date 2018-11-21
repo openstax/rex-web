@@ -2,8 +2,6 @@ import css from 'cnx-recipes/styles/output/intro-business.json';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const ARCHIVE_URL = process.env.REACT_APP_ARCHIVE_URL;
-
 interface PropTypes {
   content: string;
 }
@@ -18,8 +16,7 @@ class PageContent extends Component<PropTypes> {
     return content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
       .replace(/<div data-type="document-title">[\s\S]*?<\/div>/g, '')
-      .replace(/<cnx-pi.*>[\s\S]*<\/cnx-pi>/g, '')
-      .replace(/"\/resources/g, `"${ARCHIVE_URL}/resources`);
+      .replace(/<cnx-pi.*>[\s\S]*<\/cnx-pi>/g, '');
   }
 
   public render() {
