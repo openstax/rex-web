@@ -22,6 +22,11 @@ page.on('console', (consoleMessage) => {
   }
 });
 
+// set default timeout to something quite large in CI
+if (process.env.CI) {
+  page.setDefaultNavigationTimeout(60000);
+}
+
 const DEV_SERVER_PORT = 8000;
 
 export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path.replace(/^\/+/, '')}`;
