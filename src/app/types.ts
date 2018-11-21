@@ -6,6 +6,8 @@ import {
 } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
+import FontCollector from '../helpers/FontCollector';
+import PromiseCollector from '../helpers/PromiseCollector';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
 import { State as navigationState } from './navigation/types';
@@ -14,6 +16,11 @@ export interface AppState {
   content: contentState;
   errors: errorsState;
   navigation: navigationState;
+}
+
+export interface AppServices {
+  promiseCollector: PromiseCollector;
+  fontCollector: FontCollector;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

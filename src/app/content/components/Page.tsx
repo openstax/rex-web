@@ -1,7 +1,6 @@
 import css from 'cnx-recipes/styles/output/intro-business.json';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Wrapper from './Wrapper';
 
 interface PropTypes {
   content: string;
@@ -22,13 +21,11 @@ class PageContent extends Component<PropTypes> {
 
   public render() {
     const {className} = this.props as PropTypes & StyledProps;
-    return <Wrapper>
-      <div className={className}>
-        <div data-type='chapter'>
-          <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
-        </div>
+    return <div className={className}>
+      <div data-type='chapter'>
+        <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
       </div>
-    </Wrapper>;
+    </div>;
   }
 }
 

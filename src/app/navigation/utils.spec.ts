@@ -1,5 +1,5 @@
 import { Location } from 'history';
-import { AppState, MiddlewareAPI } from '../types';
+import { AppServices, AppState, MiddlewareAPI } from '../types';
 import { locationChange } from './actions';
 import { findRouteMatch, routeHook } from './utils';
 
@@ -38,17 +38,21 @@ describe('findRouteMatch', () => {
 describe('routeHook', () => {
   it('binds state helpers', () => {
     const helperSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const helpers = {
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+    } as any as MiddlewareAPI & AppServices;
+
     const middleware = routeHook(routes[0], helperSpy);
 
-    middleware(helpers);
+    middleware(helpers)(helpers);
 
     expect(helperSpy).toHaveBeenCalledWith(helpers);
   });
 
   it('hooks into requested route', () => {
     const hookSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = routeHook(routes[0], () => hookSpy);
     const payload = {
       location: {} as Location,
@@ -57,14 +61,14 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)((action) => action)(locationChange(payload));
+    middleware(helpers)(helpers)((action) => action)(locationChange(payload));
 
     expect(hookSpy).toHaveBeenCalledWith(payload);
   });
 
   it('doens\'t hook into other routes', () => {
     const hookSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as MiddlewareAPI;
+    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = routeHook(routes[0], () => hookSpy);
     const payload = {
       location: {} as Location,
@@ -73,7 +77,7 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)((action) => action)(locationChange(payload));
+    middleware(helpers)(helpers)((action) => action)(locationChange(payload));
 
     expect(hookSpy).not.toHaveBeenCalled();
   });
