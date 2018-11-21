@@ -1,30 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { AppState } from '../../types';
 import * as select from '../selectors';
-
-const HiddenLink = styled.a`
-    /* Hide the link when it is not focused */
-    clip: rect(1px,1px,1px,1px);
-    margin: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-
-    text-decoration: none;
-
-    /* Show the link when it is focused */
-    :focus {
-        clip: auto;
-        height: auto;
-        width: auto;
-        z-index: 20;
-    }
-`;
+import HiddenLink from './HiddenLink';
 
 interface PropTypes {
   targetId: string;
