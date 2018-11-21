@@ -1,7 +1,9 @@
+const connect = require('connect');
 const http = require('http');
+const serveStatic = require('serve-static')
 const path = require('path');
 const portfinder = require('portfinder');
-const staticServer = require('serve-handler');
+const setupProxy = require('../src/setupProxy');
 
 module.exports = (options = {}) => new Promise(resolve => {
   const fallback404 = !!options.fallback404;
@@ -9,19 +11,20 @@ module.exports = (options = {}) => new Promise(resolve => {
   portfinder.getPortPromise().then(startServer);
 
   function startServer(port) {
-    const server = http.createServer((request, response) => {
-      const config = {
-        public: path.join(__dirname, '../build'),
-      };
+    const serve = serveStatic(path.join(__dirname, '../build'));
+    const fallback = (req, res, next) => serve(Object.assign({}, req, {url: '/'}), res, next);
 
-      const methods = {};
+    const app = connect();
 
-      if (fallback404) {
-        methods.sendError = (_, response) => staticServer(Object.assign({}, request, {url: '/'}), response, config);
-      }
+    app.use(serve);
 
-      staticServer(request, response, config, methods);
-    });
+    setupProxy(app);
+
+    if (fallback404) {
+      app.use(fallback);
+    }
+
+    const server = http.createServer(app);
 
     server.listen(port);
     resolve({server, port});
