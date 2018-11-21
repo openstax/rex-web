@@ -9,12 +9,6 @@ describe('content', () => {
 
   it('looks right', async() => {
     const screen = await page.screenshot({fullPage: true});
-
-    expect(screen).toMatchImageSnapshot({
-      CI: {
-        failureThreshold: 2,
-        failureThresholdType: 'percent',
-      },
-    });
+    expect(screen).toMatchImageSnapshot();
   });
 });
