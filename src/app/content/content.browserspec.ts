@@ -3,7 +3,7 @@ import { finishRender, navigate } from '../../test/browserutils';
 
 describe('content', () => {
   beforeEach(async() => {
-    await navigate(page, '/books/Ax2o07Ul/pages/M_qlK4M9');
+    await navigate(page, '/books/testbook1-shortid/pages/testpage1-shortid');
     await finishRender(page);
   });
 

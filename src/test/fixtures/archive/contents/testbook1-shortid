@@ -1,0 +1,128 @@
+{
+  "googleAnalytics": [
+  ],
+  "version": "1.0",
+  "submitlog": "errata 7380\r\n",
+  "abstract": "<div xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:c=\"http://cnx.rice.edu/cnxml\" xmlns:md=\"http://cnx.rice.edu/mdml\" xmlns:qml=\"http://cnx.rice.edu/qml/1.0\" xmlns:mod=\"http://cnx.rice.edu/#moduleIds\" xmlns:bib=\"http://bibtexml.sf.net/\" xmlns:data=\"http://dev.w3.org/html5/spec/#custom\"/>",
+  "revised": "2018-11-08T19:47:10Z",
+  "printStyle": "physics",
+  "roles": null,
+  "keywords": [],
+  "id": "testbook1-uuid",
+  "canonical": null,
+  "title": "Test Book 1",
+  "mediaType": "application/vnd.org.cnx.collection",
+  "canon_url": "https://cnx.org/contents/testbook1-uuid/Test-Book-1",
+  "subjects": [],
+  "legacy_id": "col123",
+  "parentId": null,
+  "resources": [
+    {
+      "media_type": "text/xml",
+      "id": "testbook1-collection-uuid",
+      "filename": "collection.xml"
+    }
+  ],
+  "publishers": [
+    {
+      "surname": "OpenStax College",
+      "suffix": "",
+      "firstname": "",
+      "title": "",
+      "fullname": "OpenStax College",
+      "id": "OpenStaxCollege"
+    }
+  ],
+  "parent": {
+    "authors": [],
+    "shortId": null,
+    "version": "",
+    "id": null,
+    "title": null
+  },
+  "stateid": 1,
+  "parentTitle": null,
+  "shortId": "testbook1-shortid",
+  "authors": [
+    {
+      "surname": "OpenStax College",
+      "suffix": "",
+      "firstname": "",
+      "title": "",
+      "fullname": "OpenStax College",
+      "id": "OpenStaxCollege"
+    }
+  ],
+  "parentVersion": "",
+  "legacy_version": "1.0",
+  "licensors": [
+    {
+      "surname": "University",
+      "suffix": "",
+      "firstname": "Rice",
+      "title": "",
+      "fullname": "Rice University",
+      "id": "OSCRiceUniversity"
+    }
+  ],
+  "language": "en",
+  "license": {
+    "url": "http://creativecommons.org/licenses/by/4.0/",
+    "code": "by",
+    "version": "4.0",
+    "name": "Creative Commons Attribution License"
+  },
+  "created": "2012-01-23T07:03:30Z",
+  "tree": {
+    "shortId": "testbook1-shortid@1.0",
+    "id": "testbook1-uuid@1.0",
+    "contents": [
+      {
+        "shortId": "testpage1",
+        "id": "testbook1-testpage1-uuid",
+        "title": "<span class=\"os-text\">Preface</span>"
+      },
+      {
+        "shortId": "testchapter1",
+        "id": "testbook1-testchapter1-uuid",
+        "contents": [
+          {
+            "shortId": "testpage2",
+            "id": "testbook1-testpage2-uuid",
+            "title": "<span class=\"os-text\">Test Page</span>"
+          }
+        ],
+        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter</span>"
+      }
+    ],
+    "title": "Test Book 1"
+  },
+  "doctype": "",
+  "buyLink": null,
+  "submitter": {
+    "surname": "Test",
+    "suffix": "",
+    "firstname": "College",
+    "title": "",
+    "fullname": "OSC Test Maintainer",
+    "id": "cnxcap"
+  },
+  "collated": true,
+  "baked": "2018-11-08T13:48:16.230216-06:00",
+  "parentAuthors": [],
+  "history": [
+    {
+      "changes": "initial commit\r\n",
+      "version": "1.0",
+      "revised": "2018-11-08T19:47:10Z",
+      "publisher": {
+        "surname": "Test",
+        "suffix": "",
+        "firstname": "College",
+        "title": "",
+        "fullname": "OSC Test Maintainer",
+        "id": "cnxcap"
+      }
+    }
+  ]
+}

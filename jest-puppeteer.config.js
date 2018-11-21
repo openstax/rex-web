@@ -8,7 +8,9 @@ module.exports = {
   },
   server: {
     launchTimeout: 60000,
-    command: 'PORT=8000 BROWSER=none yarn start',
+    // react-scripts start unconditionally sets the NODE_ENV to development,
+    // so we're setting CI here even if that isn't necessarily true
+    command: 'CI=true PORT=8000 BROWSER=none yarn start',
     port: 8000,
   },
 }
