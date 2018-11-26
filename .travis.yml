@@ -2,7 +2,9 @@ sudo: false
 language: node_js
 node_js: "10"
 addons:
-  artifacts: true
+  artifacts:
+    paths:
+      - $(git ls-files . --exclude-standard --others | tr "\n" ":")
 
 cache: yarn
 
