@@ -4,10 +4,10 @@ import renderer from 'react-test-renderer';
 import { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
 import { setStateFinished } from '../../../test/reactutils';
-import { AppState } from '../../types';
+import * as Services from '../../context/Services';
+import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
-import * as utils from '../utils';
-import Content from './Content';
+import Content, { ContentComponent } from './Content';
 
 const book = {
   id: 'booklongid',
@@ -27,10 +27,10 @@ const pageArchive = {
 
 describe('content', () => {
   let archiveLoader: jest.SpyInstance;
+  const services = {} as AppServices;
 
   beforeEach(() => {
-    archiveLoader = jest.spyOn(utils, 'archiveLoader');
-    archiveLoader.mockImplementation((id: string) => {
+    archiveLoader = jest.fn((id: string) => {
       switch (id) {
         case 'book':
           return Promise.resolve(book);
@@ -40,6 +40,8 @@ describe('content', () => {
           throw new Error('unknown id');
       }
     });
+
+    (services as any).archiveLoader = archiveLoader;
   });
 
   it('matches snapshot', (done) => {
@@ -53,7 +55,9 @@ describe('content', () => {
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
-      <Content />
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
     </Provider>);
 
     process.nextTick(() => {
@@ -70,7 +74,9 @@ describe('content', () => {
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
-      <Content />
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
     </Provider>);
 
     process.nextTick(() => {
@@ -100,13 +106,15 @@ describe('content', () => {
     const store = createStore(reducer, state1);
 
     const component = renderer.create(<Provider store={store}>
-      <Content />
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
     </Provider>);
 
     const before = component.toJSON();
     store.dispatch(go);
 
-    const target = component.root.findByType(Content).children[0] as ReactTestInstance;
+    const target = component.root.findByType(ContentComponent) as ReactTestInstance;
     await setStateFinished(target);
 
     const after = component.toJSON();
