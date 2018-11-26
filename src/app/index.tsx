@@ -26,15 +26,15 @@ const hooks = [
   ...Object.values(content.hooks),
 ];
 
-interface DefaultServices {
-  promiseCollector: PromiseCollector;
-  fontCollector: FontCollector;
-}
+const defaultServices = () => ({
+  fontCollector: new FontCollector(),
+  promiseCollector: new PromiseCollector(),
+});
 
 interface Options {
   initialState?: AppState;
   initialEntries?: any;
-  services: Pick<AppServices, Exclude<keyof AppServices, keyof DefaultServices>>;
+  services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
 export default (options: Options) => {
@@ -49,8 +49,7 @@ export default (options: Options) => {
   });
 
   const services = {
-    fontCollector: new FontCollector(),
-    promiseCollector: new PromiseCollector(),
+    ...defaultServices(),
     ...options.services,
   };
 
