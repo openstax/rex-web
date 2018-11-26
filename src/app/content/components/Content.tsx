@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AppState } from '../../types';
+import withServices from '../../context/Services';
+import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
 import { ArchiveContent, State } from '../types';
-import { archiveLoader } from '../utils';
 import Header from './Header';
 import Page from './Page';
 import Wrapper from './Wrapper';
@@ -12,6 +12,7 @@ interface PropTypes {
   page: State['page'];
   book: State['book'];
   loading: boolean;
+  services: AppServices;
 }
 
 interface ReactState {
@@ -19,21 +20,22 @@ interface ReactState {
   page?: ArchiveContent;
 }
 
-class Content extends Component<PropTypes, ReactState> {
+export class ContentComponent extends Component<PropTypes, ReactState> {
   public state: ReactState = {};
 
   public loadBook(props: PropTypes) {
     if (!props.book) {
       return;
     }
-    archiveLoader(props.book.shortId).then((book) => this.setState({book}));
+    this.props.services.archiveLoader(props.book.shortId).then((book) => this.setState({book}));
   }
 
   public loadPage(props: PropTypes) {
     if (!props.book || !props.page) {
       return;
     }
-    archiveLoader(`${props.book.shortId}:${props.page.shortId}`).then((page) => this.setState({page}));
+    this.props.services
+      .archiveLoader(`${props.book.shortId}:${props.page.shortId}`).then((page) => this.setState({page}));
   }
 
   public componentWillMount() {
@@ -81,4 +83,4 @@ export default connect(
     loading: !!select.loadingBook(state) || !!select.loadingPage(state),
     page: select.page(state),
   })
-)(Content);
+)(withServices(ContentComponent));
