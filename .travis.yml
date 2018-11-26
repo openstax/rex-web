@@ -8,7 +8,4 @@ addons:
 
 cache: yarn
 
-before_script:
-  - yarn build
-
 after_success: yarn run codecov
