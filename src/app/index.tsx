@@ -33,7 +33,7 @@ const defaultServices = () => ({
 
 interface Options {
   initialState?: AppState;
-  initialEntries?: any;
+  initialEntries?: string[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 

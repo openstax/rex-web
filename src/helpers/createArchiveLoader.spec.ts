@@ -16,7 +16,7 @@ describe('archiveLoader', () => {
     (global as any).fetch = mockFetch(200, {some: 'data'});
     const archiveLoader = require('./createArchiveLoader').default('url/');
 
-    archiveLoader('coolid');
+    archiveLoader.book('coolid');
 
     expect(fetch).toHaveBeenCalledWith('url/coolid');
   });
@@ -25,12 +25,12 @@ describe('archiveLoader', () => {
     (global as any).fetch = mockFetch(200, {some: 'data'});
     const archiveLoader = require('./createArchiveLoader').default('url/');
 
-    archiveLoader('coolid');
-    archiveLoader('coolid2');
-    archiveLoader('coolid');
-    archiveLoader('coolid1');
-    archiveLoader('coolid');
-    archiveLoader('coolid2');
+    archiveLoader.book('coolid');
+    archiveLoader.book('coolid2');
+    archiveLoader.book('coolid');
+    archiveLoader.book('coolid1');
+    archiveLoader.book('coolid');
+    archiveLoader.book('coolid2');
 
     expect(fetch).toHaveBeenCalledTimes(3);
   });
@@ -42,7 +42,7 @@ describe('archiveLoader', () => {
     let error: Error | null = null;
 
     try {
-      await archiveLoader('coolid');
+      await archiveLoader.book('coolid');
     } catch (e) {
       error = e;
     }

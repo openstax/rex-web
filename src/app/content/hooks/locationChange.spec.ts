@@ -8,12 +8,12 @@ import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
-import { ArchiveContent, Book, Page, Params, State } from '../types';
+import { ArchiveBook, ArchivePage, Book, Page, Params, State } from '../types';
 
 describe('locationChange', () => {
   let localState: State;
   let appState: AppState;
-  let archiveLoader: jest.SpyInstance;
+  let archiveLoader: {[k in  keyof AppServices['archiveLoader']]: jest.SpyInstance};
   let dispatch: jest.SpyInstance;
   let helpers: MiddlewareAPI & AppServices;
   let payload: {location: Location, match: Match<typeof routes.content>};
@@ -25,7 +25,12 @@ describe('locationChange', () => {
     localState = cloneDeep(initialState);
     appState = {content: localState} as AppState;
 
-    archiveLoader = jest.fn(() => Promise.resolve({} as ArchiveContent));
+    archiveLoader = {
+      book: jest.fn(() => Promise.resolve({} as ArchiveBook)),
+      cachedBook: jest.fn(() => ({} as ArchiveBook)),
+      cachedPage: jest.fn(() => ({} as ArchivePage)),
+      page: jest.fn(() => Promise.resolve({} as ArchivePage)),
+    };
 
     dispatch = jest.fn((a) => a);
     helpers = {
@@ -54,7 +59,7 @@ describe('locationChange', () => {
 
     hook(helpers)(next)(action);
     expect(dispatch).toHaveBeenCalledWith(actions.requestBook('bookId'));
-    expect(archiveLoader).toHaveBeenCalledWith('bookId');
+    expect(archiveLoader.book).toHaveBeenCalledWith('bookId');
   });
 
   it('doesn\'t load book if its already loaded', () => {
@@ -68,7 +73,7 @@ describe('locationChange', () => {
 
     hook(helpers)(next)(action);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('bookId'));
-    expect(archiveLoader).not.toHaveBeenCalledWith('bookId');
+    expect(archiveLoader.book).not.toHaveBeenCalled();
   });
 
   it('doesn\'t load book if its already loading', () => {
@@ -80,7 +85,7 @@ describe('locationChange', () => {
 
     hook(helpers)(next)(action);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('bookId'));
-    expect(archiveLoader).not.toHaveBeenCalledWith('bookId');
+    expect(archiveLoader.book).not.toHaveBeenCalled();
   });
 
   it('loads page', () => {
@@ -91,8 +96,8 @@ describe('locationChange', () => {
 
     hook(helpers)(next)(action);
     expect(dispatch).toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader).toHaveBeenCalledWith('bookId:pageId');
-    expect(archiveLoader).not.toHaveBeenCalledWith('pageId');
+    expect(archiveLoader.page).toHaveBeenCalledWith('bookId', 'pageId');
+    expect(archiveLoader.book).not.toHaveBeenCalledWith('pageId');
   });
 
   it('doesn\'t load page if its already loaded', () => {
@@ -106,8 +111,8 @@ describe('locationChange', () => {
 
     hook(helpers)(next)(action);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader).not.toHaveBeenCalledWith('bookId:pageId');
-    expect(archiveLoader).not.toHaveBeenCalledWith('pageId');
+    expect(archiveLoader.page).not.toHaveBeenCalled();
+    expect(archiveLoader.book).not.toHaveBeenCalledWith('pageId');
   });
 
   it('doesn\'t load page if its already loading', () => {
@@ -119,8 +124,8 @@ describe('locationChange', () => {
 
     hook(helpers)(next)(action);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader).not.toHaveBeenCalledWith('bookId:pageId');
-    expect(archiveLoader).not.toHaveBeenCalledWith('pageId');
+    expect(archiveLoader.page).not.toHaveBeenCalled();
+    expect(archiveLoader.book).not.toHaveBeenCalledWith('pageId');
   });
 
   it('adds font to fontcollector', () => {
