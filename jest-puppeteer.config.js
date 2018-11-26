@@ -1,12 +1,11 @@
 const path = require('path');
-const dotenv = require('dotenv');
-
-dotenv.config({path: path.join(__dirname, '.env.development')});
+// NOTE: process.env.NODE_ENV is set to `test` by react-scripts
+require('./src/env');
 
 const SERVER_PORT = parseInt(process.env.SERVER_PORT);
 
 if (Number.isNaN(SERVER_PORT)) {
-  throw new Error(`BUG: SERVER_PORT is not defined. Add it to .env.development`)
+  throw new Error(`BUG: SERVER_PORT is not defined. Add it to .env.${process.env.NODE_ENV}`)
 }
 
 module.exports = {
@@ -18,8 +17,9 @@ module.exports = {
     ],
   },
   server: {
+    protocol: 'http',
     launchTimeout: 60000,
-    command: `yarn run server ${SERVER_PORT}`, // This takes longer & times out: `PORT=${SERVER_PORT} BROWSER=none yarn start`
+    command: `PORT=${SERVER_PORT} BROWSER=none yarn run start`,
     port: SERVER_PORT,
   },
 }

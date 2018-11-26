@@ -10,25 +10,20 @@ module.exports = (options = {}) => new Promise(resolve => {
 
   const port = process.env.SERVER_PORT
 
-  function startServer(port) {
-    const serve = serveStatic(path.join(__dirname, '../build'));
-    const fallback = (req, res, next) => serve(Object.assign({}, req, {url: '/'}), res, next);
+  const serve = serveStatic(path.join(__dirname, '../build'));
+  const fallback = (req, res, next) => serve(Object.assign({}, req, {url: '/'}), res, next);
 
-    const app = connect();
+  const app = connect();
 
-    app.use(serve);
+  app.use(serve);
 
-    setupProxy(app);
+  setupProxy(app);
 
-    if (fallback404) {
-      app.use(fallback);
-    }
-
-    const server = http.createServer(app);
-
-    server.listen(port);
-    resolve({server, port});
+  if (fallback404) {
+    app.use(fallback);
   }
 
-  startServer(port);
+  const server = http.createServer(app);
+
+  server.listen(port, () => resolve({server, port}));
 });
