@@ -1,11 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { AppServices } from './types';
 
 describe('create app', () => {
   let history = require('history');
   let createApp = require('./index').default;
   let createBrowserHistory: jest.SpyInstance;
   let createMemoryHistory: jest.SpyInstance;
+  const services = {} as AppServices;
 
   beforeEach(() => {
     jest.resetModules();
@@ -17,7 +19,7 @@ describe('create app', () => {
   });
 
   it('uses browser history in the browser', () => {
-    createApp();
+    createApp({services});
     expect(createBrowserHistory).toHaveBeenCalled();
     expect(createMemoryHistory).not.toHaveBeenCalled();
   });
@@ -34,7 +36,7 @@ describe('create app', () => {
     });
 
     it('uses memory history', () => {
-      createApp();
+      createApp({services});
       expect(createBrowserHistory).not.toHaveBeenCalled();
       expect(createMemoryHistory).toHaveBeenCalled();
     });
@@ -42,7 +44,7 @@ describe('create app', () => {
 
   describe('container', () => {
     it('renders', () => {
-      const app = createApp();
+      const app = createApp({services});
       const tree = renderer
         .create(<app.container />)
         .toJSON();
