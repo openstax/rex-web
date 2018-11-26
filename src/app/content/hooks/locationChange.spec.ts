@@ -25,11 +25,11 @@ describe('locationChange', () => {
     localState = cloneDeep(initialState);
     appState = {content: localState} as AppState;
 
-    archiveLoader = jest.spyOn(require('../utils'), 'archiveLoader');
-    archiveLoader.mockImplementation(() => Promise.resolve({} as ArchiveContent));
+    archiveLoader = jest.fn(() => Promise.resolve({} as ArchiveContent));
 
     dispatch = jest.fn((a) => a);
     helpers = {
+      archiveLoader,
       dispatch,
       fontCollector: new FontCollector(),
       getState: () => appState,
