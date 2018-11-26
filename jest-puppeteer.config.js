@@ -11,6 +11,7 @@ module.exports = {
     // react-scripts start unconditionally sets the NODE_ENV to development,
     // so we're setting CI here even if that isn't necessarily true
     command: 'CI=true PORT=8000 BROWSER=none yarn start',
+    protocol: 'http',
     port: 8000,
   },
 }
