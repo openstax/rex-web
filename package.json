@@ -22,12 +22,15 @@
     "lint": "tslint -p ./tsconfig.json",
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
-    "server": "NODE_ENV=development node server/cli --fallback404",
+    "prerender": "node ./script/entry prerender",
+    "server": "NODE_ENV=development node server/cli",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
-    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:sourcemap",
+    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build",
     "test:unit": "jest --coverage",
-    "test:sourcemap": "npm run-script build && node ./script/verifySourcemaps.js"
+    "test:build": "npm run-script build && npm run-script test:sourcemap && npm run-script test:prerender",
+    "test:sourcemap": "node ./script/verifySourcemaps.js",
+    "test:prerender": "npm run-script prerender && jest --testPathPattern=\".browserspec.tsx?\""
   },
   "eslintConfig": {
     "extends": "react-app"

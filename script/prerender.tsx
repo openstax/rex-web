@@ -46,7 +46,7 @@ async function renderContentPage(bookId: string, _bookVersion: string, pageId: s
   }));
 }
 
-async function renderPage(url: string) {
+async function renderPage(url: string, expectedCode: number = 200) {
   console.info(`running ${url}`); // tslint:disable-line:no-console
   const app = createApp({
     initialEntries: [url],
@@ -65,8 +65,8 @@ async function renderPage(url: string) {
   if (pathname !== url) {
     throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
   }
-  if (code !== 200) {
-    throw new Error(`UNSUPPORTED: url: ${url} has a code other than 200.`);
+  if (code !== expectedCode) {
+    throw new Error(`UNSUPPORTED: url: ${url} has an unexpected response code.`);
   }
 
   const body = renderToString(
@@ -86,6 +86,8 @@ async function renderPage(url: string) {
 }
 
 async function render() {
+  await renderPage('/errors/404', 404);
+
   for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
     const book = await archiveLoader.book(bookId);
 
