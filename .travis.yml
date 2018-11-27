@@ -1,10 +1,11 @@
 sudo: false
 language: node_js
 node_js: "10"
+addons:
+  artifacts:
+    paths:
+      - $(git ls-files . --exclude-standard --others | tr "\n" ":")
 
 cache: yarn
-
-before_script:
-  - yarn build
 
 after_success: yarn run codecov
