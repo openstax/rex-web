@@ -39,4 +39,4 @@ async function run() {
 }
 
 
-run().then(null, (err) => { throw err })
+run().then(null, (err) => { console.error(err); process.exit(112); })
