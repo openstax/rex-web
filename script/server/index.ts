@@ -21,6 +21,8 @@ export default (options: Options): Promise<{server: http.Server, port: number}> 
 
   const app = express();
 
+  setupProxy(app);
+
   if (!onlyProxy) {
     const setHeaders = (res: http.ServerResponse, file: string) => {
       if (file.match(`^${baseDir}/(books|errors)`)) {
@@ -42,7 +44,6 @@ export default (options: Options): Promise<{server: http.Server, port: number}> 
       app.use(fallback('/errors/404'));
     }
   }
-  setupProxy(app);
 
   const server = http.createServer(app);
 

@@ -25,6 +25,7 @@ if (!ARCHIVE_URL) {
 }
 
 const app = createApp({
+  initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(ARCHIVE_URL),
   },

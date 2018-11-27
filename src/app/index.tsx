@@ -38,9 +38,11 @@ interface Options {
 }
 
 export default (options: Options) => {
+  const {initialEntries, initialState} = options;
+
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
-    : createMemoryHistory({initialEntries: options.initialEntries});
+    : createMemoryHistory({initialEntries});
 
   const reducer = combineReducers<AppState, AnyAction>({
     content: content.reducer,
@@ -59,6 +61,7 @@ export default (options: Options) => {
   ];
 
   const store = createStore({
+    initialState,
     middleware,
     reducer,
   });
@@ -69,7 +72,7 @@ export default (options: Options) => {
     </Services.Provider>
   </Provider>;
 
-  navigation.utils.init(routes, history.location, store.dispatch);
+  navigation.utils.init(routes, initialState ? initialState.navigation : history.location, store.dispatch);
 
   return {
     container,

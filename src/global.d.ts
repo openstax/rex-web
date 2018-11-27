@@ -2,11 +2,13 @@
 /// <reference lib="es2017.object" />
 import * as dom from '@openstax/types/lib.dom';
 import { compose } from 'redux';
+import { AppState } from './app/types';
 import PromiseCollector from './helpers/PromiseCollector';
 
 declare global {
 
   interface Window extends dom.Window {
+    __PRELOADED_STATE__?: AppState;
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
     __APP_ASYNC_HOOKS: PromiseCollector;
   }

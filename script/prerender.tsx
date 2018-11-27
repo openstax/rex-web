@@ -18,7 +18,6 @@ import startServer from './server';
 
 (global as any).fetch = fetch;
 
-const ARCHIVE_URL = process.env.ARCHIVE_URL;
 const ASSET_DIR = path.resolve(__dirname, '../build');
 const BOOKS = JSON.parse(process.env.BOOKS || 'null') as {
   [key: string]: {
@@ -27,9 +26,6 @@ const BOOKS = JSON.parse(process.env.BOOKS || 'null') as {
 };
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
-if (!ARCHIVE_URL) {
-  throw new Error('ARCHIVE_URL must be defined');
-}
 if (!BOOKS) {
   throw new Error('BOOKS must be valid json');
 }
