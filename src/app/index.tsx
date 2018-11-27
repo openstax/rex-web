@@ -6,10 +6,11 @@ import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import * as content from './content';
+import * as Services from './context/Services';
 import * as errors from './errors';
 import * as head from './head';
 import * as navigation from './navigation';
-import { AnyAction, AppState, Middleware } from './types';
+import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
   content: content.actions,
@@ -28,12 +29,18 @@ const hooks = [
   ...Object.values(head.hooks),
 ];
 
+const defaultServices = () => ({
+  fontCollector: new FontCollector(),
+  promiseCollector: new PromiseCollector(),
+});
+
 interface Options {
   initialState?: AppState;
   initialEntries?: any;
+  services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
-export default (options: Options = {}) => {
+export default (options: Options) => {
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
     : createMemoryHistory({initialEntries: options.initialEntries});
@@ -46,8 +53,8 @@ export default (options: Options = {}) => {
   });
 
   const services = {
-    fontCollector: new FontCollector(),
-    promiseCollector: new PromiseCollector(),
+    ...defaultServices(),
+    ...options.services,
   };
 
   const middleware: Middleware[] = [
@@ -61,7 +68,9 @@ export default (options: Options = {}) => {
   });
 
   const container = () => <Provider store={store}>
-    <navigation.components.NavigationProvider routes={routes} />
+    <Services.Provider value={services} >
+      <navigation.components.NavigationProvider routes={routes} />
+    </Services.Provider>
   </Provider>;
 
   navigation.utils.init(routes, history.location, store.dispatch);
