@@ -20,7 +20,7 @@
     "target": "es2017"
   },
   "include": [
-    "script",
-    "src"
+    "src",
+    "script"
   ]
 }
