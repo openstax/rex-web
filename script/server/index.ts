@@ -7,16 +7,19 @@ import setupProxy from '../../src/setupProxy';
 interface Options {
   fallback404?: boolean;
   onlyProxy?: boolean;
-  port: number;
+  port?: number;
 }
 
 export default (options: Options): Promise<{server: http.Server, port: number}> => new Promise((resolve) => {
+  const defaultOptions = {
+    port: process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT, 10) : undefined,
+  };
   const fallback404 = !!options.fallback404;
   const baseDir = path.join(__dirname, '../../build');
-  const {port, onlyProxy} = options;
+  const {port, onlyProxy} = {...defaultOptions, ...options};
 
   if (!port) {
-    throw new Error('please specify port');
+    throw new Error('BUG: port is not defined. Add SERVER_PORT it to .env.${process.env.NODE_ENV} or pass `port` option.'); // tslint:disable-line:max-line-length
   }
 
   const app = express();
@@ -47,6 +50,5 @@ export default (options: Options): Promise<{server: http.Server, port: number}> 
 
   const server = http.createServer(app);
 
-  server.listen(port);
-  resolve({server, port});
+  server.listen(port, () => resolve({server, port}));
 });
