@@ -6,6 +6,7 @@ import {
 } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
+import createArchiveLoader from '../helpers/createArchiveLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as contentState } from './content/types';
@@ -21,6 +22,7 @@ export interface AppState {
 export interface AppServices {
   promiseCollector: PromiseCollector;
   fontCollector: FontCollector;
+  archiveLoader: ReturnType<typeof createArchiveLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
