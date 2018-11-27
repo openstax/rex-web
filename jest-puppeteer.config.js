@@ -7,8 +7,7 @@ module.exports = {
     ],
   },
   server: {
-    // this takes a VERY long time on jenkins
-    launchTimeout: 120000,
+    launchTimeout: 60000,
     // react-scripts start unconditionally sets the NODE_ENV to development,
     // so we're setting CI here even if that isn't necessarily true
     command: 'CI=true PORT=8000 BROWSER=none yarn start',
