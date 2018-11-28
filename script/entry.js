@@ -21,7 +21,7 @@ if (!exists) {
 }
 
 require('@babel/register')({
-  ignore: [/(build|node_modules)/],
+  ignore: [/node_modules/],
   extensions: ['.js', '.jsx', ...extensions],
   presets: [
     '@babel/preset-env',
