@@ -17,7 +17,6 @@ module.exports = {
     ],
   },
   server: {
-    protocol: 'http',
     launchTimeout: 60000,
     // react-scripts start unconditionally sets the NODE_ENV to development,
     // so we're setting CI here even if that isn't necessarily true
