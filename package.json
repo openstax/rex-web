@@ -29,10 +29,10 @@
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
     "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build",
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\""
+    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -94,7 +94,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "testRegex": "(\\.|/)(browser)?spec\\.tsx?$",
+    "testRegex": "(\\.|/)(browser|prerender)?spec\\.tsx?$",
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js"
     },

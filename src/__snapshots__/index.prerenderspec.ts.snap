@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Browser sanity tests has a release manifest 1`] = `
+exports[`Prerender sanity tests has a release manifest 1`] = `
 "{
   \\"books\\": {
     \\"testbook1-uuid\\": {

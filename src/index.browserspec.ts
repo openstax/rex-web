@@ -1,6 +1,5 @@
 /** @jest-environment puppeteer */
-import fetch from 'node-fetch';
-import { navigate, url } from './test/browserutils';
+import { navigate } from './test/browserutils';
 
 describe('Browser sanity tests', () => {
 
@@ -53,13 +52,4 @@ describe('Browser sanity tests', () => {
     })) as string | null;
     expect(heading).toBe('page not found');
   });
-
-  if (process.env.SERVER_MODE === 'built') {
-    it('has a release manifest', async() => {
-      const release = await fetch(url('release.json'))
-        .then((response) => response.text());
-
-      expect(release).toMatchSnapshot();
-    });
-  }
 });
