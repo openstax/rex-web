@@ -7,6 +7,7 @@ exports[`content matches snapshot 1`] = `
   <a
     className="sc-htpNat gCsDzA"
     href="#main-content"
+    onClick={[Function]}
     tabIndex={1}
   >
     Skip to Content

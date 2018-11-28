@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { AppState } from '../../types';
-import * as select from '../selectors';
 import HiddenLink from './HiddenLink';
 
 interface PropTypes {
+  onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   targetId: string;
-  loading: boolean;
 }
 
-class SkipToContent extends Component<PropTypes, never> {
+export default class SkipToContent extends Component<PropTypes, never> {
 
   public render() {
-    const { targetId } = this.props;
-    return !this.isLoading() && <HiddenLink href={`#${targetId}`} tabIndex={1}>Skip to Content</HiddenLink>;
-  }
-
-  private isLoading() {
-    return this.props.loading;
+    const { targetId, onClick } = this.props;
+    return <HiddenLink onClick={onClick} href={`#${targetId}`} tabIndex={1}>Skip to Content</HiddenLink>;
   }
 }
-
-export default connect(
-  (state: AppState) => ({
-    loading: !!select.loadingBook(state) || !!select.loadingPage(state),
-  })
-)(SkipToContent);
