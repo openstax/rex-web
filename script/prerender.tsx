@@ -111,7 +111,6 @@ async function render() {
 }
 
 render();
-// things below here get moved to helpers
 
 interface Options {
   body: string;
