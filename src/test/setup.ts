@@ -14,7 +14,7 @@ expect.extend({
 
 // set default timeout to something quite large in CI
 if (process.env.CI) {
-  jest.setTimeout(240 * 1000);
+  jest.setTimeout(90 * 1000);
 } else {
   jest.setTimeout(20 * 1000);
 }
