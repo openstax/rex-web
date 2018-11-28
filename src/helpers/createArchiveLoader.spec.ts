@@ -12,13 +12,44 @@ describe('archiveLoader', () => {
     (global as any).fetch = fetchBackup;
   });
 
-  it('requests data from archive url', () => {
+  it('requests data from archive url for book', () => {
     (global as any).fetch = mockFetch(200, {some: 'data'});
     const archiveLoader = require('./createArchiveLoader').default('url/');
 
     archiveLoader.book('coolid');
 
     expect(fetch).toHaveBeenCalledWith('url/coolid');
+  });
+
+  it('requests data from archive url for page', () => {
+    (global as any).fetch = mockFetch(200, {some: 'data'});
+    const archiveLoader = require('./createArchiveLoader').default('url/');
+
+    archiveLoader.page('coolid', 'coolpageid');
+
+    expect(fetch).toHaveBeenCalledWith('url/coolid:coolpageid');
+  });
+
+  it('returns cached book data', async() => {
+    (global as any).fetch = mockFetch(200, {some: 'data'});
+    const archiveLoader = require('./createArchiveLoader').default('url/');
+
+    const one = await archiveLoader.book('coolid');
+    const two = archiveLoader.cachedBook('coolid');
+
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(two).toBe(one);
+  });
+
+  it('returns cached page data', async() => {
+    (global as any).fetch = mockFetch(200, {some: 'data'});
+    const archiveLoader = require('./createArchiveLoader').default('url/');
+
+    const one = await archiveLoader.page('coolid', 'coolpageid');
+    const two = archiveLoader.cachedPage('coolid', 'coolpageid');
+
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(two).toBe(one);
   });
 
   it('memoizes requests', () => {
