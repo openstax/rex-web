@@ -1,44 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`content matches snapshot 1`] = `
-<div
-  className="sc-bxivhb eUyQyt"
->
+Array [
   <a
-    className="sc-htpNat gCsDzA"
+    className="sc-bdVaJa RfHPw"
     href="#main-content"
     onClick={[Function]}
     tabIndex={1}
   >
     Skip to Content
-  </a>
-  <div>
-    <h1
-      className="sc-bdVaJa jJhTfn"
-    >
-      book title
-       / 
-      page title
-    </h1>
-  </div>
+  </a>,
   <div
-    className="sc-bwzfXH XepYW"
+    className="sc-bxivhb eUyQyt"
     id="main-content"
   >
+    <div>
+      <h1
+        className="sc-bwzfXH gkNPiJ"
+      >
+        book title
+         / 
+        page title
+      </h1>
+    </div>
     <div
-      data-type="chapter"
+      className="sc-htpNat jREysS"
     >
       <div
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "some page content yo",
+        data-type="chapter"
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "some page content yo",
+            }
           }
-        }
-        data-type="page"
-      />
+          data-type="page"
+        />
+      </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
-exports[`content renders empty state 1`] = `null`;
+exports[`content renders empty state 1`] = `
+<a
+  className="sc-bdVaJa RfHPw"
+  href="#main-content"
+  onClick={[Function]}
+  tabIndex={1}
+>
+  Skip to Content
+</a>
+`;

@@ -14,13 +14,9 @@ export default class SkipToContentWrapper extends Component {
   }
 
   private scrollToTarget = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!window || !document) {
-      throw new Error(`BUG: Expected window and document to be defined`);
-    }
-
     if (this.mainContent) {
       event.preventDefault();
-      scrollTo(window, document, this.mainContent);
+      scrollTo(this.mainContent);
     }
   }
 

@@ -16,14 +16,17 @@ const getScrollOffset = (w: Window, c: (HTMLElement | Document), t: HTMLElement)
     }
 };
 
-export default function scrollTo(w: Window, container: HTMLElement | Document,
-                                 target: React.ReactInstance, offset?: number) {
+export default function scrollTo(target: React.ReactInstance, offset?: number,
+    container?: HTMLElement) {
 
-    const t = ReactDOM.findDOMNode(target) as HTMLElement;
-    const scrollOffset = getScrollOffset(w, container, t) + (offset || 0);
-    if (isDocument(container)) {
-        w.scrollTo(0, scrollOffset);
-    } else {
-        container.scrollTop = scrollOffset;
+    const c = container || document;
+    if (window && c) {
+        const t = ReactDOM.findDOMNode(target) as HTMLElement;
+        const scrollOffset = getScrollOffset(window, c, t) + (offset || 0);
+        if (isDocument(c)) {
+            window.scrollTo(0, scrollOffset);
+        } else {
+            c.scrollTop = scrollOffset;
+        }
     }
 }
