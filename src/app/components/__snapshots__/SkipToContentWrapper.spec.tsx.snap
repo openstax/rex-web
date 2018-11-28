@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkipToContentWrapper errors when no main content is provided 1`] = `"BUG: Expected mainComponent to be defined. Does SkipToContentWrapper have a MainContent somewhere inside it?"`;

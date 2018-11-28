@@ -17,6 +17,8 @@ export default class SkipToContentWrapper extends Component {
     if (this.mainContent) {
       event.preventDefault();
       scrollTo(this.mainContent);
+    } else {
+      throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper have a MainContent somewhere inside it?`)
     }
   }
 

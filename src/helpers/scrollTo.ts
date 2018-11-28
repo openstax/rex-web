@@ -28,5 +28,6 @@ export default function scrollTo(target: React.ReactInstance, offset?: number,
         } else {
             c.scrollTop = scrollOffset;
         }
+        t.focus();
     }
 }
