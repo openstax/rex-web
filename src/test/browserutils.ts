@@ -4,6 +4,7 @@ import puppeteer from 'puppeteer';
 declare global {
   var page: puppeteer.Page;
   var browser: puppeteer.Browser;
+  var puppeteerConfig: {server: {port: number}};
 }
 
 if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
@@ -27,9 +28,7 @@ if (process.env.CI) {
   page.setDefaultNavigationTimeout(60000);
 }
 
-const DEV_SERVER_PORT = 8000;
-
-export const url = (path: string) => `http://localhost:${DEV_SERVER_PORT}/${path.replace(/^\/+/, '')}`;
+export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
