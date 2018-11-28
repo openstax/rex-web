@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, RefObject } from 'react';
 import { connect } from 'react-redux';
+import scrollTo from '../../../helpers/scrollTo';
 import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
@@ -8,6 +9,8 @@ import Header from './Header';
 import Page from './Page';
 import SkipToContent from './SkipToContent';
 import Wrapper from './Wrapper';
+
+const MAIN_CONTENT_ID = 'main-content';
 
 interface PropTypes {
   page: State['page'];
@@ -23,6 +26,12 @@ interface ReactState {
 
 export class ContentComponent extends Component<PropTypes, ReactState> {
   public state: ReactState = {};
+  private contentTarget: RefObject<any> = React.createRef();
+
+  constructor(props: PropTypes) {
+    super(props);
+    this.scrollToTarget = this.scrollToTarget.bind(this);
+  }
 
   public loadBook(props: PropTypes) {
     if (!props.book) {
@@ -50,7 +59,7 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
   }
 
   public renderSkip = () => {
-    return <SkipToContent targetId='main-content'/>;
+    return <SkipToContent onClick={this.scrollToTarget} targetId={MAIN_CONTENT_ID}/>;
   }
 
   public renderHeader = () => {
@@ -62,7 +71,7 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
 
   public renderContent = () => {
     const {page} = this.state;
-    return page && <Page id='main-content' content={page.content} />;
+    return page && <Page id={MAIN_CONTENT_ID} ref={this.contentTarget} content={page.content} />;
   }
 
   public render() {
@@ -74,6 +83,17 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
       {this.renderHeader()}
       {this.renderContent()}
     </Wrapper>;
+  }
+
+  private scrollToTarget(event: React.MouseEvent<HTMLAnchorElement>) {
+    if (window && document) {
+      if (this.contentTarget.current) {
+        event.preventDefault();
+        scrollTo(window, document, this.contentTarget.current);
+      }
+    } else {
+      throw new Error(`BUG: Expected window and document to be defined`);
+    }
   }
 
   private isLoading() {
