@@ -32,7 +32,7 @@
     "test:unit": "jest --coverage",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\".browserspec.tsx?\""
+    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -97,7 +97,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "testRegex": "(/__tests__/.*|(\\.|/)((browser)?spec))\\.(ts|js)x?$",
+    "testRegex": "(\\.|/)(browser)?spec\\.tsx?$",
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js"
     },
