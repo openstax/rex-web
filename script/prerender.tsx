@@ -36,6 +36,14 @@ async function render() {
   const {server} = await startServer({port, onlyProxy: true});
   const archiveLoader = createArchiveLoader(`http://localhost:${port}/contents/`);
 
+  async function renderManifest() {
+    writeFile(path.join(ASSET_DIR, 'release.json'), JSON.stringify({
+      books: BOOKS,
+      code: process.env.CODE_VERSION,
+      id: process.env.RELEASE_ID,
+    }, null, 2));
+  }
+
   // book version is currently ignored, and will be until we rejigger the book content
   // routing to preserve long id and version data on navigation
   async function renderContentPage(bookId: string, _bookVersion: string, pageId: string) {
@@ -86,6 +94,8 @@ async function render() {
 
     writeFile(path.join(ASSET_DIR, url), html);
   }
+
+  await renderManifest();
 
   await renderPage('/errors/404', 404);
 
