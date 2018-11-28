@@ -31,7 +31,12 @@ if (process.env.CI) {
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
 export const navigate = async(target: puppeteer.Page, path: string) => {
-  await target.goto(url(path));
+  await target.goto(url(path), {
+    waitUntil: 'networkidle2',
+  });
+
+  // wait to make sure promises are registered.
+  await new Promise((resolve) => setTimeout(resolve, 10));
 
   await target.evaluate(async() => {
     if (window) {
