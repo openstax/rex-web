@@ -1,0 +1,55 @@
+pipeline {
+  agent { label 'docker' }
+  parameters {
+      string(name: 'BUCKET')
+      string(name: 'RELEASE_ID')
+      string(name: 'CODE_VERSION')
+      string(name: 'BOOKS')
+  }
+  stages {
+    stage('install aws') {
+      steps {
+        sh 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
+        sh 'unzip awscli-bundle.zip'
+        sh './awscli-bundle/install -b ./bin/aws'
+      }
+    }
+    stage('build') {
+      steps {
+        sh "docker build -t openstax/rex-web ."
+      }
+    }
+    stage('render') {
+      agent {
+        docker {
+          image 'openstax/rex-web'
+          reuseNode true
+        }
+      }
+      environment {
+        RELEASE_ID = "${params.RELEASE_ID}"
+        CODE_VERSION = "${params.CODE_VERSION}"
+        BOOKS = "${params.BOOKS}"
+      }
+      steps {
+        sh 'yarn prerender'
+      }
+    }
+    stage('upload') {
+      environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-dev-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-dev-aws-secret-access-key')
+      }
+      steps {
+        sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/${params.RELEASE_ID}"
+      }
+    }
+  }
+  post {
+    always {
+      sh """
+        docker run -v ${env.WORKSPACE}:/code -w /code openstax/rex-web yarn clean 
+      """
+    }
+  }
+}
