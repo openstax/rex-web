@@ -110,7 +110,10 @@ async function render() {
   server.close();
 }
 
-render();
+render().catch((e) => {
+  console.error(e.message); // tslint:disable-line:no-console
+  process.exit(1);
+});
 
 interface Options {
   body: string;
