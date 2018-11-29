@@ -17,22 +17,19 @@ pipeline {
     stage('build') {
       steps {
         sh "docker build -t openstax/rex-web ."
+        sh 'docker run -td --name=$BUILD_TAG openstax/rex-web cat'
       }
     }
     stage('render') {
-      agent {
-        docker {
-          image 'openstax/rex-web'
-          reuseNode true
-        }
-      }
-      environment {
-        RELEASE_ID = "${params.RELEASE_ID}"
-        CODE_VERSION = "${params.CODE_VERSION}"
-        BOOKS = "${params.BOOKS}"
-      }
       steps {
-        sh 'yarn prerender'
+        sh """
+          docker exec \
+            -e NODE_ENV=production \
+            -e BOOKS="${params.BOOKS.replace('"', '\\"')}" \
+            -e CODE_VERSION="${params.CODE_VERSION}" \
+            -e RELEASE_ID="${params.RELEASE_ID}" \
+            $BUILD_TAG yarn prerender
+        """
       }
     }
     stage('upload') {
@@ -41,15 +38,14 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-dev-aws-secret-access-key')
       }
       steps {
+        sh "docker cp $BUILD_TAG:/code/build ."
         sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/${params.RELEASE_ID}"
       }
     }
   }
   post {
     always {
-      sh """
-        docker run -v ${env.WORKSPACE}:/code -w /code openstax/rex-web yarn clean 
-      """
+      sh 'docker stop $BUILD_TAG'
     }
   }
 }
