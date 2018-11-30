@@ -18,12 +18,12 @@ export default routeHook(content, ({dispatch, getState, fontCollector, archiveLo
 
   if ((!book || book.id !== bookId) && bookId !== select.loadingBook(state)) {
     dispatch(requestBook(bookId));
-    promises.push(archiveLoader(bookId).then((bookData) => dispatch(receiveBook(bookData))));
+    promises.push(archiveLoader.book(bookId).then((bookData) => dispatch(receiveBook(bookData))));
   }
 
   if ((!page || page.id !== pageId) && pageId !== select.loadingPage(state)) {
     dispatch(requestPage(pageId));
-    promises.push(archiveLoader(`${bookId}:${pageId}`)
+    promises.push(archiveLoader.page(bookId, pageId)
       .then((pageData) => dispatch(receivePage(pageData)))
     );
   }
