@@ -3,6 +3,7 @@ import { routeHook } from '../../navigation/utils';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
+import { ArchiveBook } from '../types';
 
 const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
 const fonts = fontMatches ? fontMatches.slice(1) : [];
@@ -18,7 +19,7 @@ export default routeHook(content, ({dispatch, getState, fontCollector, archiveLo
 
   if ((!book || book.id !== bookId) && bookId !== select.loadingBook(state)) {
     dispatch(requestBook(bookId));
-    promises.push(archiveLoader(bookId).then((bookData) => dispatch(receiveBook(bookData))));
+    promises.push(archiveLoader(bookId).then((bookData) => dispatch(receiveBook(bookData as ArchiveBook))));
   }
 
   if ((!page || page.id !== pageId) && pageId !== select.loadingPage(state)) {

@@ -42,3 +42,6 @@ export type Dispatch = ReduxDispatch<AnyAction>;
 export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
 export type MiddlewareAPI = ReduxMiddlewareAPI<Dispatch, AppState>;
 export type Store = ReduxStore<AppState, AnyAction>;
+
+// helpers
+export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;

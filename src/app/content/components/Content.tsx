@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
-import { ArchiveContent, State } from '../types';
+import { ArchiveContent, ArchivePage, State } from '../types';
+import ContentPane from './ContentPane';
 import Header from './Header';
 import Page from './Page';
+import Sidebar from './Sidebar';
 import Wrapper from './Wrapper';
 
 interface PropTypes {
@@ -17,7 +19,7 @@ interface PropTypes {
 
 interface ReactState {
   book?: ArchiveContent;
-  page?: ArchiveContent;
+  page?: ArchivePage;
 }
 
 export class ContentComponent extends Component<PropTypes, ReactState> {
@@ -35,7 +37,8 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
       return;
     }
     this.props.services
-      .archiveLoader(`${props.book.shortId}:${props.page.shortId}`).then((page) => this.setState({page}));
+      .archiveLoader(`${props.book.shortId}:${props.page.shortId}`)
+      .then((page) => this.setState({page: page as ArchivePage}));
   }
 
   public componentWillMount() {
@@ -57,9 +60,11 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
 
   public renderContent = () => {
     const {page} = this.state;
-    return <div>
+
+    return <ContentPane>
+      {this.renderHeader()}
       {page && <Page content={page.content} />}
-    </div>;
+    </ContentPane>;
   }
 
   public render() {
@@ -67,7 +72,7 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
       return null;
     }
     return <Wrapper key='content'>
-      {this.renderHeader()}
+      <Sidebar />
       {this.renderContent()}
     </Wrapper>;
   }
