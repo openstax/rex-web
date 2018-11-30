@@ -34,7 +34,7 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
 
   await target.evaluate(async() => {
-    if (window) {
+    if (window && window.__APP_ASYNC_HOOKS) {
       await window.__APP_ASYNC_HOOKS.calm();
     }
   });
