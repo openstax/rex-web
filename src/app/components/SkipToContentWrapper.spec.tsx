@@ -18,17 +18,41 @@ function renderToDom<P>(component: ReactElement<P>) {
     return {component: c, node};
 }
 
+// JSDom logs to console.error when an Error is thrown.
+// Disable the console just in this instance, and re-enable after.
+// See https://github.com/facebook/jest/pull/5267#issuecomment-356605468
+function expectError(message: string, fn: () => void) {
+    const consoleError = jest.spyOn(console, 'error');
+    consoleError.mockImplementation(() => {});
+    
+    try {
+        fn();
+        expect('Code should not have succeeded').toBeFalsy();
+    } catch (err) {
+        expect(err.message).toBe(message);
+    } finally {
+        consoleError.mockRestore();
+    }
+}
+
 describe('SkipToContentWrapper', () => {
+
+    beforeEach(() => {
+        if (window) {
+            // In JSDom on travis: `window.scrollTo` is not defined so we define it here
+            window.scrollTo = () => { /* do nothing */ };
+        }
+    });
 
     it('errors when no main content is provided', () => {
         const {node} = renderToDom(<SkipToContentWrapper/>);
         const breaks = () => ReactTestUtils.Simulate.click(node);
-        expect(breaks).toThrowErrorMatchingSnapshot();
+        expectError('BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?', breaks)
     });
 
     it('fails when main is not wrapped in a SkipToContentWrapper', () => {
         const breaks = () => renderToDom(<MainContent/>);
-        expect(breaks).toThrowErrorMatchingSnapshot();
+        expectError('BUG: MainContent must be inside SkipToContentWrapper', breaks);
     });
 
     it('succeeds when main content is provided', () => {
@@ -50,9 +74,6 @@ describe('SkipToContentWrapper', () => {
         } else if (!component.mainContent) {
             expect(component.mainContent).toBeTruthy();
         } else {
-            // In JSDom on travis: `window.scrollTo` is not defined so we define it here
-            window.scrollTo = window.scrollTo || (() => { /* do nothing */ });
-
             const mainContent = (component.mainContent as unknown) as HTMLElement;
             const spyScroll = jest.spyOn(window, 'scrollTo');
             const spyFocus = jest.spyOn(mainContent, 'focus');
@@ -63,7 +84,6 @@ describe('SkipToContentWrapper', () => {
             expect(spyScroll).toHaveBeenCalledWith(0, 0); // the vertical offset of the element
 
             expect(spyFocus).toHaveBeenCalledTimes(1);
-            expect(spyFocus).toHaveBeenCalled();
         }
     });
 });
