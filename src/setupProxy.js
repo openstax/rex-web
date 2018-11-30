@@ -21,11 +21,16 @@ module.exports = function(app) {
 };
 
 function setupTestProxy(app) {
-  app.use(serveStatic(path.join(__dirname, 'test/fixtures/archive')));
+  const setHeaders = res => res.setHeader('Content-Type', 'application/json');
+  app.use(serveStatic(path.join(__dirname, 'test/fixtures/archive'), {setHeaders}));
 }
 
 function setupProxy(app) {
   const ARCHIVE_URL = process.env.ARCHIVE_URL;
+
+  if (!ARCHIVE_URL) {
+    throw new Error('ARCHIVE_URL must be defined');
+  }
 
   archivePaths.forEach(path => app.use(proxy(`/${path}`, {
     target: `${ARCHIVE_URL}${path}/`,
