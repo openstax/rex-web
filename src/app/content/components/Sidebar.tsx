@@ -44,10 +44,20 @@ const SidebarBody = styled.div<{open: boolean}>`
     padding-inline-start: 10px;
   }
 
+  > * {
+    transition-property: visibility;
+    transition-delay: 0s;
+    visibility: visible;
+  }
+
   ${(props) => !props.open && css`
     left: -280px;
     background-color: #ccc;
     overflow-y: hidden;
+    > :not(${SidebarControl}) {
+      transition-delay: 300ms;
+      visibility: hidden;
+    }
   `}
 `;
 
