@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import { ReactTestInstance } from 'react-test-renderer';
+import renderer, { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
@@ -16,6 +15,13 @@ const book = {
   tree: {
     contents: [
       {
+        contents: [
+          {
+            id: 'pagelongid2',
+            shortId: 'page2',
+            title: 'page title2',
+          },
+        ],
         id: 'pagelongid',
         shortId: 'page',
         title: 'page title',

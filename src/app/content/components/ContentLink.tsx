@@ -17,7 +17,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 // tslint:disable-next-line:variable-name
-const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
+export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
   const url = content.getUrl({bookId: book.shortId, pageId: stripIdVersion(page.shortId)});
 
   return <a

@@ -73,7 +73,7 @@ interface SidebarProps {
   closeToc: typeof actions['closeToc'];
 }
 
-class Sidebar extends Component<SidebarProps> {
+export class Sidebar extends Component<SidebarProps> {
 
   public render() {
     const {open, book, closeToc, openToc} = this.props;
