@@ -23,8 +23,8 @@ function renderToDom<P>(component: ReactElement<P>) {
 // See https://github.com/facebook/jest/pull/5267#issuecomment-356605468
 function expectError(message: string, fn: () => void) {
     const consoleError = jest.spyOn(console, 'error');
-    consoleError.mockImplementation(() => {});
-    
+    consoleError.mockImplementation(() => { /* suppress jsdom logging to console */ });
+
     try {
         fn();
         expect('Code should not have succeeded').toBeFalsy();
@@ -47,7 +47,8 @@ describe('SkipToContentWrapper', () => {
     it('errors when no main content is provided', () => {
         const {node} = renderToDom(<SkipToContentWrapper/>);
         const breaks = () => ReactTestUtils.Simulate.click(node);
-        expectError('BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?', breaks)
+        expectError('BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?',
+            breaks);
     });
 
     it('fails when main is not wrapped in a SkipToContentWrapper', () => {
