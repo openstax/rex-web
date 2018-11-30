@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SkipToContentWrapper errors when no main content is provided 1`] = `"BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent inside it?"`;
+exports[`SkipToContentWrapper errors when no main content is provided 1`] = `"BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?"`;
 
 exports[`SkipToContentWrapper fails when main is not wrapped in a SkipToContentWrapper 1`] = `"MainContent must be inside SkipToContentWrapper"`;

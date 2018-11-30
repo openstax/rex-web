@@ -11,8 +11,8 @@ const scrollToWithWindow = (target: React.ReactInstance, window: Window) => {
     const scrollOffset = getScrollOffset(t, window);
     window.scrollTo(0, scrollOffset);
     t.focus();
-}
+};
 
 export default function scrollTo(target: React.ReactInstance) {
-    window && scrollToWithWindow(target, window);
+    return window && scrollToWithWindow(target, window);
 }

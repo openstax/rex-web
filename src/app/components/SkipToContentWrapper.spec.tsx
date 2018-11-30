@@ -1,9 +1,9 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import MainContent from './MainContent';
 import SkipToContentWrapper from './SkipToContentWrapper';
-import { HTMLElement } from '@openstax/types/lib.dom';
 
 // Utility to handle nulls
 function renderToDom<P>(component: ReactElement<P>) {
@@ -46,19 +46,19 @@ describe('SkipToContentWrapper', () => {
         </SkipToContentWrapper>);
 
         if (!window) {
-            expect(window).toBeTruthy()
+            expect(window).toBeTruthy();
         } else if (!component.mainContent) {
-            expect(component.mainContent).toBeTruthy()
+            expect(component.mainContent).toBeTruthy();
         } else {
-            const mainContent = (component.mainContent as unknown) as HTMLElement
+            const mainContent = (component.mainContent as unknown) as HTMLElement;
             const spyScroll = jest.spyOn(window, 'scrollTo');
             const spyFocus = jest.spyOn(mainContent, 'focus');
-            
+
             ReactTestUtils.Simulate.click(node);
-            
+
             expect(spyScroll).toHaveBeenCalledTimes(1);
             expect(spyScroll).toHaveBeenCalledWith(0, 0); // the vertical offset of the element
-            
+
             expect(spyFocus).toHaveBeenCalledTimes(1);
             expect(spyFocus).toHaveBeenCalled();
         }
