@@ -13,11 +13,25 @@ const book = {
   id: 'booklongid',
   shortId: 'book',
   title: 'book title',
+  tree: {
+    contents: [
+      {
+        id: 'pagelongid',
+        shortId: 'page',
+        title: 'page title',
+      },
+    ],
+    id: 'booklongid',
+    shortId: 'book',
+    title: 'book title',
+  },
+  version: '0',
 };
 const page = {
   id: 'pagelongid',
   shortId: 'page',
   title: 'page title',
+  version: '0',
 };
 
 const pageArchive = {

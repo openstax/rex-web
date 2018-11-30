@@ -2,20 +2,73 @@
 
 exports[`content matches snapshot 1`] = `
 <div
-  className="sc-htpNat HYhKT"
+  className="sc-gzVnrw icRRhp"
 >
-  <div>
-    <h1
-      className="sc-bdVaJa jJhTfn"
-    >
-      book title
-       / 
-      page title
-    </h1>
-  </div>
-  <div>
+  <div
+    className="sc-bxivhb jsetuL"
+    open={true}
+  >
     <div
-      className="sc-bwzfXH XepYW"
+      className="sc-EHOje eZXZbm"
+      open={true}
+    >
+      <button
+        aria-label="Click to close the Table of Contents"
+        className="sc-ifAKCX eXezUr"
+        onClick={[Function]}
+        role="button"
+      />
+      <nav>
+        <ol>
+          <li
+            className="sc-bZQynM fIdaZs"
+          >
+            <a
+              href="#"
+            >
+              book details
+            </a>
+          </li>
+        </ol>
+      </nav>
+      <div>
+        <h2>
+          Table of Contents
+        </h2>
+        <nav>
+          <ol>
+            <li
+              className="sc-bZQynM dhgWnw"
+            >
+              <a
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "page title",
+                  }
+                }
+                href="/books/book/pages/page"
+                onClick={[Function]}
+              />
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div
+    className="sc-bdVaJa cMWZut"
+  >
+    <div>
+      <h1
+        className="sc-bwzfXH gkNPiJ"
+      >
+        book title
+         / 
+        page title
+      </h1>
+    </div>
+    <div
+      className="sc-htpNat jREysS"
     >
       <div
         data-type="chapter"
