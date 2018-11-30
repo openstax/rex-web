@@ -4,7 +4,7 @@ import { MAIN_CONTENT_ID, Provider } from '../context/SkipToContent';
 import HiddenLink from './HiddenLink';
 
 export default class SkipToContentWrapper extends Component {
-  private mainContent: RefObject<any> | undefined;
+  public mainContent: RefObject<any> | undefined;
 
   public render() {
     return <Provider value={{registerMainContent: this.registerMainContent}}>
@@ -18,7 +18,7 @@ export default class SkipToContentWrapper extends Component {
       event.preventDefault();
       scrollTo(this.mainContent);
     } else {
-      throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper have a MainContent somewhere inside it?`)
+      throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent inside it?`);
     }
   }
 
