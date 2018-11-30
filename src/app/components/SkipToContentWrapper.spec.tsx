@@ -40,19 +40,27 @@ describe('SkipToContentWrapper', () => {
         expect(works).not.toThrow();
     });
 
-    it('moves focus to mainContent when clicked (a11y)', () => {
+    it('scrolls and moves focus to mainContent when clicked (a11y)', () => {
         const {node, component} = renderToDom(<SkipToContentWrapper>
             <MainContent/>
         </SkipToContentWrapper>);
 
-        if (!component.mainContent) {
+        if (!window) {
+            expect(window).toBeTruthy()
+        } else if (!component.mainContent) {
             expect(component.mainContent).toBeTruthy()
         } else {
             const mainContent = (component.mainContent as unknown) as HTMLElement
-            const spy = jest.spyOn(mainContent, 'focus');
+            const spyScroll = jest.spyOn(window, 'scrollTo');
+            const spyFocus = jest.spyOn(mainContent, 'focus');
+            
             ReactTestUtils.Simulate.click(node);
-            expect(spy).toHaveBeenCalled()
+            
+            expect(spyScroll).toHaveBeenCalledTimes(1);
+            expect(spyScroll).toHaveBeenCalledWith(0, 0); // the vertical offset of the element
+            
+            expect(spyFocus).toHaveBeenCalledTimes(1);
+            expect(spyFocus).toHaveBeenCalled();
         }
     });
-
 });
