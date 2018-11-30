@@ -17,7 +17,7 @@ describe('content', () => {
     });
   });
 
-  it('has SkipToContent link as the first tabbed-to element', async () => {
+  it('has SkipToContent link as the first tabbed-to element', async() => {
     await page.keyboard.press('Tab');
 
     const isSkipToContentSelected = await page.evaluate(() => {

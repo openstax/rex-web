@@ -50,6 +50,9 @@ describe('SkipToContentWrapper', () => {
         } else if (!component.mainContent) {
             expect(component.mainContent).toBeTruthy();
         } else {
+            // In JSDom on travis: `window.scrollTo` is not defined so we define it here
+            window.scrollTo = window.scrollTo || (() => { /* do nothing */ });
+
             const mainContent = (component.mainContent as unknown) as HTMLElement;
             const spyScroll = jest.spyOn(window, 'scrollTo');
             const spyFocus = jest.spyOn(mainContent, 'focus');
