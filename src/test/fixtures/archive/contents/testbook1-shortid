@@ -1,6 +1,7 @@
 {
   "id": "testbook1-uuid",
   "shortId": "testbook1-shortid",
+  "version": "1.0",
   "title": "Test Book 1",
   "tree": {
     "shortId": "testbook1-shortid@1.0",

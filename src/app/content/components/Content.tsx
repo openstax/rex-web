@@ -25,20 +25,33 @@ interface ReactState {
 export class ContentComponent extends Component<PropTypes, ReactState> {
   public state: ReactState = {};
 
+  constructor(props: PropTypes) {
+    super(props);
+    const {book, page, services} = props;
+
+    if (book) {
+      this.state.book = services.archiveLoader.cachedBook(book.shortId);
+    }
+    if (page && book) {
+      this.state.page = services.archiveLoader.cachedPage(book.shortId, page.shortId);
+    }
+  }
+
   public loadBook(props: PropTypes) {
-    if (!props.book) {
+    const {book, services} = props;
+    if (!book) {
       return;
     }
-    this.props.services.archiveLoader(props.book.shortId).then((book) => this.setState({book}));
+    this.setState({book: services.archiveLoader.cachedBook(book.shortId)});
   }
 
   public loadPage(props: PropTypes) {
-    if (!props.book || !props.page) {
+    const {book, page, services} = props;
+    if (!book || !page) {
       return;
     }
-    this.props.services
-      .archiveLoader(`${props.book.shortId}:${props.page.shortId}`)
-      .then((page) => this.setState({page: page as ArchivePage}));
+
+    this.setState({page: services.archiveLoader.cachedPage(book.shortId, page.shortId)});
   }
 
   public componentWillMount() {

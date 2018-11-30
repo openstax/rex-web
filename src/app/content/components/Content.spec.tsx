@@ -6,6 +6,7 @@ import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
+import { ArchiveBook, ArchivePage } from '../types';
 import Content, { ContentComponent } from './Content';
 
 const book = {
@@ -46,20 +47,16 @@ const pageArchive = {
 };
 
 describe('content', () => {
-  let archiveLoader: jest.SpyInstance;
+  let archiveLoader: {[k in  keyof AppServices['archiveLoader']]: jest.SpyInstance};
   const services = {} as AppServices;
 
   beforeEach(() => {
-    archiveLoader = jest.fn((id: string) => {
-      switch (id) {
-        case 'book':
-          return Promise.resolve(book);
-        case 'book:page':
-          return Promise.resolve(pageArchive);
-        default:
-          throw new Error('unknown id');
-      }
-    });
+    archiveLoader = {
+      book: jest.fn(() => Promise.resolve(book as ArchiveBook)),
+      cachedBook: jest.fn(() => (book as ArchiveBook)),
+      cachedPage: jest.fn(() => (pageArchive as ArchivePage)),
+      page: jest.fn(() => Promise.resolve(pageArchive as ArchivePage)),
+    };
 
     (services as any).archiveLoader = archiveLoader;
   });
