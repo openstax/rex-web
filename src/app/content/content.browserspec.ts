@@ -16,4 +16,19 @@ describe('content', () => {
       },
     });
   });
+
+  it('has SkipToContent link as the first tabbed-to element', async () => {
+    await page.keyboard.press('Tab');
+
+    const isSkipToContentSelected = await page.evaluate(() => {
+      if (document && document.activeElement) {
+        const el = document.activeElement;
+        const target = document.querySelector(`${el.getAttribute('href')}`);
+        return !! ('Skip to Content' === el.textContent && el.tagName.toLowerCase() === 'a' && target);
+      } else {
+        return false;
+      }
+    });
+    expect(isSkipToContentSelected).toBe(true);
+  });
 });
