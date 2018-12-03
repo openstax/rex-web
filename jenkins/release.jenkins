@@ -1,0 +1,51 @@
+pipeline {
+  agent { label 'docker' }
+  parameters {
+      string(name: 'BUCKET')
+      string(name: 'RELEASE_ID')
+      string(name: 'CODE_VERSION')
+      string(name: 'BOOKS')
+  }
+  stages {
+    stage('install aws') {
+      steps {
+        sh 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
+        sh 'unzip awscli-bundle.zip'
+        sh './awscli-bundle/install -b ./bin/aws'
+      }
+    }
+    stage('build') {
+      steps {
+        sh "docker build -t openstax/rex-web ."
+        sh 'docker run -td --name=$BUILD_TAG openstax/rex-web cat'
+      }
+    }
+    stage('render') {
+      steps {
+        sh """
+          docker exec \
+            -e NODE_ENV=production \
+            -e BOOKS="${params.BOOKS.replace('"', '\\"')}" \
+            -e CODE_VERSION="${params.CODE_VERSION}" \
+            -e RELEASE_ID="${params.RELEASE_ID}" \
+            $BUILD_TAG yarn prerender
+        """
+      }
+    }
+    stage('upload') {
+      environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-dev-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-dev-aws-secret-access-key')
+      }
+      steps {
+        sh "docker cp $BUILD_TAG:/code/build ."
+        sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/${params.RELEASE_ID}"
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker stop $BUILD_TAG'
+    }
+  }
+}
