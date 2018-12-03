@@ -13,10 +13,10 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getS
   if (!book || !page) {
     return;
   }
-  if (book && loadingBook && book.id !== loadingBook) {
+  if (loadingBook && book.id !== loadingBook) {
     return;
   }
-  if (page && loadingPage && page.id !== loadingPage) {
+  if (loadingPage && page.id !== loadingPage) {
     return;
   }
 
