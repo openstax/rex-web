@@ -1,21 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`content matches snapshot 1`] = `
-<div
-  className="sc-htpNat HYhKT"
->
-  <div>
-    <h1
-      className="sc-bdVaJa jJhTfn"
-    >
-      book title
-       / 
-      page title
-    </h1>
-  </div>
-  <div>
+Array [
+  <a
+    className="sc-bdVaJa RfHPw"
+    href="#main-content"
+    onClick={[Function]}
+    tabIndex={1}
+  >
+    Skip to Content
+  </a>,
+  <div
+    className="sc-bxivhb eUyQyt"
+    id="main-content"
+  >
+    <div>
+      <h1
+        className="sc-bwzfXH gkNPiJ"
+      >
+        book title
+         / 
+        page title
+      </h1>
+    </div>
     <div
-      className="sc-bwzfXH XepYW"
+      className="sc-htpNat jREysS"
     >
       <div
         data-type="chapter"
@@ -30,8 +39,17 @@ exports[`content matches snapshot 1`] = `
         />
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
-exports[`content renders empty state 1`] = `null`;
+exports[`content renders empty state 1`] = `
+<a
+  className="sc-bdVaJa RfHPw"
+  href="#main-content"
+  onClick={[Function]}
+  tabIndex={1}
+>
+  Skip to Content
+</a>
+`;
