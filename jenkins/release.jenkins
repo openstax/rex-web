@@ -1,10 +1,10 @@
 pipeline {
   agent { label 'docker' }
   parameters {
-      string(name: 'BUCKET')
-      string(name: 'RELEASE_ID')
-      string(name: 'CODE_VERSION')
-      string(name: 'BOOKS')
+      string(name: 'BUCKET', defaultValue: 'openstax-sandbox-rex-primary', description: 'the bucket to add to. This should not change frequently')
+      string(name: 'RELEASE_ID', description: 'A unique ID for the release. Can be anything but the CloudFormation -> Origins -> RexS3PrimaryOrigin will need to be updated when the build is complete')
+      string(name: 'CODE_VERSION', defaultValue: 'master', description: 'the branch or tag to build')
+      string(name: 'BOOKS', defaultValue: '{"031da8d3-b525-429c-80cf-6c8ed997733a":{"defaultVersion":"14.4"}}', description: 'Configuration of which books to prerender')
   }
   stages {
     stage('install aws') {
