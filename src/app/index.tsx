@@ -46,7 +46,7 @@ export default (options: Options) => {
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
     : createMemoryHistory(initialEntries && {
-      initialEntries: initialEntries.map((entry) => matchUrl(entry)),
+      initialEntries: initialEntries.map(matchUrl),
     });
 
   if (initialEntries && initialEntries.length > 0) {

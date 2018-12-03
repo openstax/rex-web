@@ -1,18 +1,19 @@
 import { Location } from 'history';
 import { AppServices, AppState, MiddlewareAPI } from '../types';
 import { locationChange } from './actions';
-import { findRouteMatch, routeHook } from './utils';
+import { AnyMatch } from './types';
+import { findRouteMatch, matchUrl, routeHook } from './utils';
 
 const routes = [
   {
     component: () => null,
-    getUrl: () => 'url',
+    getUrl: () => 'url1',
     name: 'basic test',
     paths: ['/basic'],
   },
   {
     component: () => null,
-    getUrl: () => 'url',
+    getUrl: () => 'url2',
     name: 'with params',
     paths: ['/with/:param'],
   },
@@ -83,5 +84,20 @@ describe('routeHook', () => {
     middleware(helpers)(helpers)((action) => action)(locationChange(payload));
 
     expect(hookSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('matchUrl', () => {
+
+  it('renders a url with no params', () => {
+    expect(matchUrl({route: routes[0]} as unknown as AnyMatch)).toEqual('url1');
+  });
+
+  it('renders a url with params', () => {
+    const spy = jest.spyOn(routes[1], 'getUrl');
+    const params = {foo: 'bar'};
+
+    expect(matchUrl({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
+    expect(spy).toHaveBeenCalledWith(params);
   });
 });

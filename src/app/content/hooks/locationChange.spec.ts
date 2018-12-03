@@ -148,4 +148,23 @@ describe('locationChange', () => {
     hook(helpers)(next)(action);
     expect(spy).not.toHaveBeenCalled();
   });
+
+  it('loads more specific data when available', () => {
+    localState.params = payload.match.params = {
+      bookId: 'bookId',
+      pageId: 'pageId',
+    };
+
+    payload.match.state = {
+      bookUid: 'longbookid',
+      bookVersion: 'bookversion',
+      pageUid: 'longpageid',
+    };
+
+    hook(helpers)(next)(action);
+    expect(archiveLoader.book).not.toHaveBeenCalledWith('bookId');
+    expect(archiveLoader.page).not.toHaveBeenCalledWith('bookId', 'pageId');
+    expect(archiveLoader.book).toHaveBeenCalledWith('longbookid@bookversion');
+    expect(archiveLoader.page).toHaveBeenCalledWith('longbookid@bookversion', 'longpageid');
+  });
 });

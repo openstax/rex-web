@@ -1,6 +1,7 @@
 import { Location } from 'history';
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { AnyMatch } from './navigation/types';
 import { AppServices, AppState } from './types';
 
 describe('create app', () => {
@@ -35,6 +36,13 @@ describe('create app', () => {
     expect(navigationInit).toHaveBeenCalledWith(expect.anything(), location, expect.anything());
   });
 
+  it('initializes the location state when initialEntries is passed', () => {
+    const match = {state: 'asdf'} as unknown as AnyMatch;
+    const app = createApp({services, initialEntries: [match]});
+
+    expect(app.history.location.state).toEqual('asdf');
+  });
+
   describe('outside the browser', () => {
     const windowBackup = window;
 
@@ -50,6 +58,14 @@ describe('create app', () => {
       createApp({services});
       expect(createBrowserHistory).not.toHaveBeenCalled();
       expect(createMemoryHistory).toHaveBeenCalled();
+    });
+
+    it('initializes the location url when initialEntries is passed', () => {
+      const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
+      const app = createApp({services, initialEntries: [match]});
+
+      expect(app.history.location.pathname).toEqual('url');
+      expect(match.route.getUrl).toHaveBeenCalled();
     });
   });
 
