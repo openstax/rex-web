@@ -6,7 +6,6 @@
   "jsRules": {},
   "rules": {
     "interface-name": [true, "never-prefix"],
-    "max-line-length": [true, 200],
     "prefer-object-spread": true,
     "quotemark": [true, "single"],
     "space-before-function-paren": [true, "never"],
