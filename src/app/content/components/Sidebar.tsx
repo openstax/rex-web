@@ -21,12 +21,53 @@ const SidebarPlaceholder = styled.div<{open: boolean}>`
   `}
 `;
 
-const SidebarControl = styled.button`
+const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonElement> & {open: boolean}) =>
+  <button {...props}>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+)`
   position: absolute;
   top: 10px;
   right: 10px;
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
+  background: none;
+  padding: 0;
+  border: none;
+  z-index: 1;
+  outline: none;
+
+  span {
+    width: 100%;
+    background: #000;
+    padding-top: 10%;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transition: all 300ms;
+  }
+
+  ${(props) => !props.open && css`
+    span {
+      margin-top: 15%;
+    }
+  `}
+
+  ${(props) => props.open && css`
+    span:nth-child(1) {
+      transform: rotateZ(45deg);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: rotateZ(-45deg);
+      margin-top: -20%
+    }
+  `}
+
 `;
 
 const SidebarBody = styled.div<{open: boolean}>`
@@ -90,6 +131,7 @@ export class Sidebar extends Component<SidebarProps> {
     return <SidebarPlaceholder open={open}>
       <SidebarBody open={open}>
         <SidebarControl
+          open={open}
           onClick={() => open ? closeToc() : openToc()}
           role='button'
           aria-label={`Click to ${open ? 'close' : 'open'} the Table of Contents`}

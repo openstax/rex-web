@@ -14,10 +14,14 @@ exports[`content matches snapshot 1`] = `
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-ifAKCX eXezUr"
+        className="sc-ifAKCX bdREzz"
         onClick={[Function]}
         role="button"
-      />
+      >
+        <span />
+        <span />
+        <span />
+      </button>
       <nav>
         <ol>
           <li
