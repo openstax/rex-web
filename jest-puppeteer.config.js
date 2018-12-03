@@ -15,6 +15,7 @@ module.exports = {
       // https://github.com/GoogleChrome/puppeteer/issues/2410
       '--font-render-hinting=medium',
     ],
+    devtools: process.env.PUPPETEER_DEBUG === 'true',
   },
   server: {
     launchTimeout: 60000,

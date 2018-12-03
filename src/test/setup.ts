@@ -16,5 +16,5 @@ expect.extend({
 if (process.env.CI) {
   jest.setTimeout(90 * 1000);
 } else {
-  jest.setTimeout(20 * 1000);
+  jest.setTimeout(30 * 1000);
 }
