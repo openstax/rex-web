@@ -13,8 +13,8 @@ import { stripIdVersion } from '../src/app/content/utils';
 import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as navigationSelectors from '../src/app/navigation/selectors';
-import { AnyHistoryAction, HistoryAction } from '../src/app/navigation/types';
-import { historyActionUrl } from '../src/app/navigation/utils';
+import { AnyMatch, Match } from '../src/app/navigation/types';
+import { matchUrl } from '../src/app/navigation/utils';
 import { AppState } from '../src/app/types';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
 import FontCollector from '../src/helpers/FontCollector';
@@ -52,8 +52,7 @@ async function render() {
     const book = await archiveLoader.book(`${bookId}@${bookVersion}`);
     const page = await archiveLoader.page(`${bookId}@${bookVersion}`, pageId);
 
-    const action: HistoryAction<typeof content> = {
-      method: 'push',
+    const action: Match<typeof content> = {
       params: {
         bookId: book.shortId,
         pageId: page.shortId,
@@ -69,8 +68,8 @@ async function render() {
     await renderPage(action);
   }
 
-  async function renderPage(action: AnyHistoryAction, expectedCode: number = 200) {
-    const url = historyActionUrl(action);
+  async function renderPage(action: AnyMatch, expectedCode: number = 200) {
+    const url = matchUrl(action);
     console.info(`running ${url}`); // tslint:disable-line:no-console
     const app = createApp({
       initialEntries: [action],
@@ -111,8 +110,7 @@ async function render() {
 
   await renderManifest();
 
-  const notFoundPage: HistoryAction<typeof notFound> = {
-    method: 'push',
+  const notFoundPage: Match<typeof notFound> = {
     route: notFound,
   };
 

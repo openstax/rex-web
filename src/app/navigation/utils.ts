@@ -5,7 +5,7 @@ import { AppServices, MiddlewareAPI } from '../types';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
-import { AnyHistoryAction, AnyMatch, AnyRoute, GenericMatch, Match } from './types';
+import { AnyMatch, AnyRoute, GenericMatch, Match } from './types';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
@@ -34,7 +34,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
   }
 };
 
-export const historyActionUrl = (action: AnyHistoryAction) => hasParams(action)
+export const matchUrl = (action: AnyMatch) => hasParams(action)
   ? action.route.getUrl(action.params)
   : action.route.getUrl();
 

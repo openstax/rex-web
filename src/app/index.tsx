@@ -10,8 +10,8 @@ import * as Services from './context/Services';
 import * as errors from './errors';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
-import { AnyHistoryAction } from './navigation/types';
-import { historyActionUrl } from './navigation/utils';
+import { AnyMatch } from './navigation/types';
+import { matchUrl } from './navigation/utils';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
@@ -36,7 +36,7 @@ const defaultServices = () => ({
 
 interface Options {
   initialState?: AppState;
-  initialEntries?: AnyHistoryAction[];
+  initialEntries?: AnyMatch[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
@@ -46,7 +46,7 @@ export default (options: Options) => {
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
     : createMemoryHistory(initialEntries && {
-      initialEntries: initialEntries.map((entry) => historyActionUrl(entry)),
+      initialEntries: initialEntries.map((entry) => matchUrl(entry)),
     });
 
   if (initialEntries && initialEntries.length > 0) {

@@ -14,10 +14,10 @@ type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
 interface MatchWithoutParams<R extends AnyRoute> {
   route: R;
 }
-interface MatchWithParams<R extends AnyRoute> extends MatchWithoutParams<R> {
+export interface MatchWithParams<R extends AnyRoute> extends MatchWithoutParams<R> {
   params: RouteParams<R>;
 }
-interface MatchWithState<R extends AnyRoute> extends MatchWithoutParams<R> {
+export interface MatchWithState<R extends AnyRoute> extends MatchWithoutParams<R> {
   state?: RouteState<R>;
 }
 
@@ -31,27 +31,9 @@ export type Match<R extends AnyRoute> =
     ? {}
     : MatchWithState<R>);
 
-export interface HistoryActionWithoutParams<R extends AnyRoute> {
+export type HistoryAction<R extends AnyRoute> = Match<R> & {
   method: 'push' | 'replace';
-  route: R;
-}
-
-export interface HistoryActionWithParams<R extends AnyRoute> extends HistoryActionWithoutParams<R> {
-  params: RouteParams<R>;
-}
-
-export interface HistoryActionWithState<R extends AnyRoute> extends HistoryActionWithoutParams<R> {
-  state?: RouteState<R>;
-}
-
-export type HistoryAction<R extends AnyRoute> =
-  (RouteParams<R> extends undefined
-    ? HistoryActionWithoutParams<R>
-    : HistoryActionWithParams<R>)
-  & (RouteState<R> extends undefined
-    ? {}
-    : HistoryActionWithState<R>
-  );
+};
 
 export type AnyHistoryAction = UnionHistoryActions<AnyRoute>;
 
