@@ -6,27 +6,30 @@ import { AnyAction } from '../types';
 export type State = Location;
 
 type RouteParams<R> = R extends Route<infer P> ? P : never;
+type RouteState<R> = R extends Route<any, infer S> ? S : never;
 
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
 type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
 
-interface MatchWithParams<R extends AnyRoute> {
-  route: R;
-  params: RouteParams<R>;
-}
 interface MatchWithoutParams<R extends AnyRoute> {
   route: R;
+}
+interface MatchWithParams<R extends AnyRoute> extends MatchWithoutParams<R> {
+  params: RouteParams<R>;
+}
+interface MatchWithState<R extends AnyRoute> extends MatchWithoutParams<R> {
+  state?: RouteState<R>;
 }
 
 export type GenericMatch = MatchWithParams<AnyRoute> | MatchWithoutParams<AnyRoute>;
 
-export type Match<R extends AnyRoute> = RouteParams<R> extends undefined
-  ? MatchWithoutParams<R> | MatchWithParams<R>
-  : MatchWithParams<R>;
-
-export type historyActions =
-  {method: 'push', url: string} |
-  {method: 'replace', url: string};
+export type Match<R extends AnyRoute> =
+  (RouteParams<R> extends undefined
+    ? MatchWithoutParams<R> | MatchWithParams<R>
+    : MatchWithParams<R>)
+& (RouteState<R> extends undefined
+    ? {}
+    : MatchWithState<R>);
 
 export interface HistoryActionWithoutParams<R extends AnyRoute> {
   method: 'push' | 'replace';
@@ -37,18 +40,28 @@ export interface HistoryActionWithParams<R extends AnyRoute> extends HistoryActi
   params: RouteParams<R>;
 }
 
-export type HistoryAction<R extends AnyRoute> = RouteParams<R> extends undefined
-  ? HistoryActionWithoutParams<R>
-  : HistoryActionWithParams<R>;
+export interface HistoryActionWithState<R extends AnyRoute> extends HistoryActionWithoutParams<R> {
+  state?: RouteState<R>;
+}
+
+export type HistoryAction<R extends AnyRoute> =
+  (RouteParams<R> extends undefined
+    ? HistoryActionWithoutParams<R>
+    : HistoryActionWithParams<R>)
+  & (RouteState<R> extends undefined
+    ? {}
+    : HistoryActionWithState<R>
+  );
 
 export type AnyHistoryAction = UnionHistoryActions<AnyRoute>;
 
 export type reducer = (state: State, action: AnyAction) => State;
 
-export interface Route<Params> {
+// @ts-ignore: 'S' is declared but its value is never read.
+export interface Route<P, S = undefined> {
   name: string;
   paths: string[];
-  getUrl: (...args: Params extends undefined ? []: [Params]) => string;
+  getUrl: (...args: P extends undefined ? []: [P]) => string;
   component: ComponentType;
 }
 

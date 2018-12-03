@@ -9,8 +9,12 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
 import { content } from '../src/app/content/routes';
 import { ArchiveTree, ArchiveTreeSection } from '../src/app/content/types';
+import { stripIdVersion } from '../src/app/content/utils';
+import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as navigationSelectors from '../src/app/navigation/selectors';
+import { AnyHistoryAction, HistoryAction } from '../src/app/navigation/types';
+import { historyActionUrl } from '../src/app/navigation/utils';
 import { AppState } from '../src/app/types';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
 import FontCollector from '../src/helpers/FontCollector';
@@ -44,22 +48,32 @@ async function render() {
     }, null, 2));
   }
 
-  // book version is currently ignored, and will be until we rejigger the book content
-  // routing to preserve long id and version data on navigation
-  async function renderContentPage(bookId: string, _bookVersion: string, pageId: string) {
-    const book = await archiveLoader.book(bookId);
-    const page = await archiveLoader.page(bookId, pageId);
+  async function renderContentPage(bookId: string, bookVersion: string, pageId: string) {
+    const book = await archiveLoader.book(`${bookId}@${bookVersion}`);
+    const page = await archiveLoader.page(`${bookId}@${bookVersion}`, pageId);
 
-    await renderPage(content.getUrl({
-      bookId: book.shortId,
-      pageId: page.shortId,
-    }));
+    const action: HistoryAction<typeof content> = {
+      method: 'push',
+      params: {
+        bookId: book.shortId,
+        pageId: page.shortId,
+      },
+      route: content,
+      state: {
+        bookUid: book.id,
+        bookVersion,
+        pageUid: page.id,
+      },
+    };
+
+    await renderPage(action);
   }
 
-  async function renderPage(url: string, expectedCode: number = 200) {
+  async function renderPage(action: AnyHistoryAction, expectedCode: number = 200) {
+    const url = historyActionUrl(action);
     console.info(`running ${url}`); // tslint:disable-line:no-console
     const app = createApp({
-      initialEntries: [url],
+      initialEntries: [action],
       services: {
         archiveLoader,
       },
@@ -97,13 +111,18 @@ async function render() {
 
   await renderManifest();
 
-  await renderPage('/errors/404', 404);
+  const notFoundPage: HistoryAction<typeof notFound> = {
+    method: 'push',
+    route: notFound,
+  };
+
+  await renderPage(notFoundPage, 404);
 
   for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
-    const book = await archiveLoader.book(bookId);
+    const book = await archiveLoader.book(`${bookId}@${defaultVersion}`);
 
     for (const section of getPages(book.tree.contents)) {
-      await renderContentPage(bookId, defaultVersion, section.id);
+      await renderContentPage(bookId, defaultVersion, stripIdVersion(section.id));
     }
   }
 

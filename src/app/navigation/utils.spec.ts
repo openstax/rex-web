@@ -20,17 +20,20 @@ const routes = [
 
 describe('findRouteMatch', () => {
   it('returns undefined for no matching route', () => {
-    const result = findRouteMatch(routes, '/wakawakawaka');
+    const location = {pathname: '/wakawakawaka'} as Location;
+    const result = findRouteMatch(routes, location);
     expect(result).toEqual(undefined);
   });
 
   it('returns match for route without params', () => {
-    const result = findRouteMatch(routes, '/basic');
+    const location = {pathname: '/basic'} as Location;
+    const result = findRouteMatch(routes, location);
     expect(result).toEqual({route: routes[0]});
   });
 
   it('returns match for route with params', () => {
-    const result = findRouteMatch(routes, '/with/thing');
+    const location = {pathname: '/with/thing'} as Location;
+    const result = findRouteMatch(routes, location);
     expect(result).toEqual({route: routes[1], params: {param: 'thing'}});
   });
 });

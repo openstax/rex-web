@@ -9,6 +9,9 @@ import * as content from './content';
 import * as Services from './context/Services';
 import * as errors from './errors';
 import * as navigation from './navigation';
+import { hasState } from './navigation/guards';
+import { AnyHistoryAction } from './navigation/types';
+import { historyActionUrl } from './navigation/utils';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
@@ -33,7 +36,7 @@ const defaultServices = () => ({
 
 interface Options {
   initialState?: AppState;
-  initialEntries?: string[];
+  initialEntries?: AnyHistoryAction[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
@@ -42,7 +45,16 @@ export default (options: Options) => {
 
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
-    : createMemoryHistory({initialEntries});
+    : createMemoryHistory(initialEntries && {
+      initialEntries: initialEntries.map((entry) => historyActionUrl(entry)),
+    });
+
+  if (initialEntries && initialEntries.length > 0) {
+    const entry = initialEntries[initialEntries.length - 1];
+    if (hasState(entry)) {
+      history.location.state = entry.state;
+    }
+  }
 
   const reducer = combineReducers<AppState, AnyAction>({
     content: content.reducer,

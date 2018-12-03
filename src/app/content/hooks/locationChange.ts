@@ -16,14 +16,17 @@ export default routeHook(content, ({dispatch, getState, fontCollector, archiveLo
 
   fonts.forEach((font) => fontCollector.add(font));
 
+  const bookRefId = match.state ? `${match.state.bookUid}@${match.state.bookVersion}` : bookId;
+  const pageRefId = match.state ? match.state.pageUid : pageId;
+
   if ((!book || book.id !== bookId) && bookId !== select.loadingBook(state)) {
     dispatch(requestBook(bookId));
-    promises.push(archiveLoader.book(bookId).then((bookData) => dispatch(receiveBook(bookData))));
+    promises.push(archiveLoader.book(bookRefId).then((bookData) => dispatch(receiveBook(bookData))));
   }
 
   if ((!page || page.id !== pageId) && pageId !== select.loadingPage(state)) {
     dispatch(requestPage(pageId));
-    promises.push(archiveLoader.page(bookId, pageId)
+    promises.push(archiveLoader.page(bookRefId, pageRefId)
       .then((pageData) => dispatch(receivePage(pageData)))
     );
   }

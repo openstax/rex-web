@@ -2,12 +2,13 @@ import { History } from 'history';
 import { getType } from 'typesafe-actions';
 import { AnyAction, Dispatch, Middleware } from '../types';
 import * as actions from './actions';
-import { AnyHistoryAction, AnyRoute, HistoryActionWithParams } from './types';
-import { findRouteMatch } from './utils';
+import { hasState } from './guards';
+import { AnyRoute } from './types';
+import { findRouteMatch, historyActionUrl } from './utils';
 
 export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}) => {
   history.listen((location) => {
-    const match = findRouteMatch(routes, location.pathname);
+    const match = findRouteMatch(routes, location);
     dispatch(actions.locationChange({location, match}));
   });
 
@@ -16,12 +17,11 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
       return next(action);
     }
 
-    const hasParams = (payload: AnyHistoryAction): payload is HistoryActionWithParams<any> =>
-      (payload as HistoryActionWithParams<any>).params !== undefined;
-
-    history[action.payload.method](hasParams(action.payload)
-      ? action.payload.route.getUrl(action.payload.params)
-      : action.payload.route.getUrl()
+    history[action.payload.method](
+      historyActionUrl(action.payload),
+      hasState(action.payload)
+        ? action.payload.state
+        : undefined
     );
   };
 };
