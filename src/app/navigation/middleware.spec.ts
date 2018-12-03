@@ -32,7 +32,10 @@ describe('navigation middleware', () => {
     const pushSpy = jest.spyOn(history, 'push');
     pushSpy.mockImplementation(() => null);
 
-    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({method: 'push', url: 'someplace'}));
+    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+      method: 'push',
+      route: routes[0],
+    }));
 
     expect(pushSpy).toHaveBeenCalled();
     expect(next).not.toHaveBeenCalled();

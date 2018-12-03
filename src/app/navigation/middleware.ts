@@ -2,7 +2,7 @@ import { History } from 'history';
 import { getType } from 'typesafe-actions';
 import { AnyAction, Dispatch, Middleware } from '../types';
 import * as actions from './actions';
-import { AnyRoute } from './types';
+import { AnyHistoryAction, AnyRoute, HistoryActionWithParams } from './types';
 import { findRouteMatch } from './utils';
 
 export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}) => {
@@ -16,6 +16,12 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
       return next(action);
     }
 
-    history[action.payload.method](action.payload.url);
+    const hasParams = (payload: AnyHistoryAction): payload is HistoryActionWithParams<any> =>
+      (payload as HistoryActionWithParams<any>).params !== undefined;
+
+    history[action.payload.method](hasParams(action.payload)
+      ? action.payload.route.getUrl(action.payload.params)
+      : action.payload.route.getUrl()
+    );
   };
 };

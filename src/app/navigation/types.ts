@@ -6,7 +6,9 @@ import { AnyAction } from '../types';
 export type State = Location;
 
 type RouteParams<R> = R extends Route<infer P> ? P : never;
+
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
+type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
 
 interface MatchWithParams<R extends AnyRoute> {
   route: R;
@@ -25,6 +27,21 @@ export type Match<R extends AnyRoute> = RouteParams<R> extends undefined
 export type historyActions =
   {method: 'push', url: string} |
   {method: 'replace', url: string};
+
+export interface HistoryActionWithoutParams<R extends AnyRoute> {
+  method: 'push' | 'replace';
+  route: R;
+}
+
+export interface HistoryActionWithParams<R extends AnyRoute> extends HistoryActionWithoutParams<R> {
+  params: RouteParams<R>;
+}
+
+export type HistoryAction<R extends AnyRoute> = RouteParams<R> extends undefined
+  ? HistoryActionWithoutParams<R>
+  : HistoryActionWithParams<R>;
+
+export type AnyHistoryAction = UnionHistoryActions<AnyRoute>;
 
 export type reducer = (state: State, action: AnyAction) => State;
 
