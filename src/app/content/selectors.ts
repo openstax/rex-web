@@ -6,6 +6,11 @@ export const localState = createSelector(
   (parentState) => parentState.content
 );
 
+export const tocOpen = createSelector(
+  localState,
+  (state) => state.tocOpen
+);
+
 export const book = createSelector(
   localState,
   (state) => state.book

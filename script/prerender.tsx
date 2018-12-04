@@ -7,9 +7,12 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
+import { isArchiveTree } from '../src/app/content/guards';
 import { content } from '../src/app/content/routes';
 import { ArchiveTree, ArchiveTreeSection } from '../src/app/content/types';
 import * as errorSelectors from '../src/app/errors/selectors';
+import * as headSelectors from '../src/app/head/selectors';
+import { Meta } from '../src/app/head/types';
 import * as navigationSelectors from '../src/app/navigation/selectors';
 import { AppState } from '../src/app/types';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
@@ -71,6 +74,7 @@ async function render() {
     const styles = new ServerStyleSheet();
     const pathname = navigationSelectors.pathname(state);
     const code = errorSelectors.code(state);
+    const meta = headSelectors.meta(state);
 
     if (pathname !== url) {
       throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
@@ -88,6 +92,7 @@ async function render() {
     const html = injectHTML(indexHtml, {
       body,
       fonts: app.services.fontCollector.fonts,
+      meta,
       state,
       styles,
     });
@@ -119,11 +124,15 @@ interface Options {
   body: string;
   styles: ServerStyleSheet;
   fonts: FontCollector['fonts'];
+  meta: Meta[];
   state: AppState;
 }
-function injectHTML(html: string, {body, styles, state, fonts}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta}: Options) {
   html = html.replace('</head>',
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +
+    meta.map(
+      (tag) => `<meta ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
+    ) +
     styles.getStyleTags() +
     '</head>'
   );
@@ -150,6 +159,6 @@ function writeFile(filepath: string, contents: string) {
   fs.writeFile(filepath, contents, () => null);
 }
 
-function getPages(contents: ArchiveTree[]): ArchiveTreeSection[] {
-  return flatten(contents.map((section) => flatten(section.contents ? getPages(section.contents) : [section])));
+function getPages(contents: ArchiveTree['contents']): ArchiveTreeSection[] {
+  return flatten(contents.map((section) => flatten(isArchiveTree(section) ? getPages(section.contents) : [section])));
 }

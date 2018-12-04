@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Layout from '../../components/Layout';
 import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
 import { ArchiveContent, ArchivePage, State } from '../types';
+import ContentPane from './ContentPane';
 import Header from './Header';
 import Page from './Page';
+import Sidebar from './Sidebar';
 import Wrapper from './Wrapper';
 
 interface PropTypes {
@@ -71,19 +74,20 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
 
   public renderContent = () => {
     const {page} = this.state;
-    return <div>
+
+    return <ContentPane>
+      {this.renderHeader()}
       {page && <Page content={page.content} />}
-    </div>;
+    </ContentPane>;
   }
 
   public render() {
-    if (this.isLoading()) {
-      return null;
-    }
-    return <Wrapper key='content'>
-      {this.renderHeader()}
-      {this.renderContent()}
-    </Wrapper>;
+    return <Layout>
+      {!this.isLoading() && <Wrapper key='content'>
+        <Sidebar />
+        {this.renderContent()}
+      </Wrapper>}
+    </Layout>;
   }
 
   private isLoading() {

@@ -11,10 +11,15 @@ if (Number.isNaN(SERVER_PORT)) {
 module.exports = {
   launch: {
     executablePath: process.env.PUPPETEER_CHROME_PATH,
+    defaultViewport: {
+      width: 1200,
+      height: 400,
+    },
     args: [
       // https://github.com/GoogleChrome/puppeteer/issues/2410
       '--font-render-hinting=medium',
     ],
+    devtools: process.env.PUPPETEER_DEBUG === 'true',
   },
   server: {
     launchTimeout: 60000,

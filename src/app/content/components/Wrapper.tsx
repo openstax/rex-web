@@ -1,13 +1,11 @@
 import styled from 'styled-components';
+import MainContent from '../../components/MainContent';
 
-export default styled.div`
-  margin: 0 auto;
-  display: block;
-  padding: 0 6rem 0 6rem;
-  min-height: 6rem;
-  outline: none;
+export default styled(MainContent)`
+  display: flex;
+  flex-direction: row;
 
   // these are only here because the cnx-recipes styles are broken
-  font-size: 18px;
-  font-family: "Noto Sans", sans-serif;
+  font - size; : 18; px;
+  font - family; : 'Noto Sans', sans - serif;
 `;
