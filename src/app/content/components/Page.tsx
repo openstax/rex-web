@@ -1,15 +1,11 @@
-import css from 'cnx-recipes/styles/output/intro-business.json';
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import BookStyles from './BookStyles';
 
 interface PropTypes {
   content: string;
 }
-interface StyledProps {
-  className: string;
-}
 
-class PageContent extends Component<PropTypes> {
+export default class PageContent extends Component<PropTypes> {
 
   public getCleanContent = () => {
     const {content} = this.props;
@@ -20,15 +16,12 @@ class PageContent extends Component<PropTypes> {
   }
 
   public render() {
-    const {className} = this.props as PropTypes & StyledProps;
-    return <div className={className}>
-      <div data-type='chapter'>
-        <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
-      </div>
-    </div>;
+    return <BookStyles>
+      {(className) => <div className={className}>
+        <div data-type='chapter'>
+          <div data-type='page' dangerouslySetInnerHTML={{ __html: this.getCleanContent()}} />
+        </div>
+      </div>}
+    </BookStyles>;
   }
 }
-
-export default styled(PageContent)`
-  ${css}
-`;

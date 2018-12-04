@@ -11,32 +11,106 @@ Array [
     Skip to Content
   </a>,
   <div
-    className="sc-bxivhb eUyQyt"
+    className="sc-htoDjs bDwnUM"
     id="main-content"
   >
-    <div>
-      <h1
-        className="sc-bwzfXH gkNPiJ"
-      >
-        book title
-         / 
-        page title
-      </h1>
-    </div>
     <div
-      className="sc-htpNat jREysS"
+      className="sc-ifAKCX gjNQMo"
+      open={true}
     >
       <div
-        data-type="chapter"
+        className="sc-bZQynM fxfzvu"
+        open={true}
+      >
+        <button
+          aria-label="Click to close the Table of Contents"
+          className="sc-EHOje lewrCf"
+          onClick={[Function]}
+          role="button"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav>
+          <ol>
+            <li
+              className="sc-gzVnrw gdejwh"
+            >
+              <a
+                href="#"
+              >
+                book details
+              </a>
+            </li>
+          </ol>
+        </nav>
+        <div>
+          <h2>
+            Table of Contents
+          </h2>
+          <nav>
+            <ol>
+              <li
+                className="sc-gzVnrw gdejwh"
+              >
+                <h3
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "page title",
+                    }
+                  }
+                />
+                <nav>
+                  <ol>
+                    <li
+                      className="sc-gzVnrw gdejwh"
+                    >
+                      <a
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "page title2",
+                          }
+                        }
+                        href="/books/book/pages/page2"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </nav>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-bwzfXH eNgRBe"
+    >
+      <div>
+        <h1
+          className="sc-htpNat cOGKiz"
+        >
+          book title
+           / 
+          page title
+        </h1>
+      </div>
+      <div
+        className="sc-bxivhb fpcskD"
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "some page content yo",
+          data-type="chapter"
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "some page content yo",
+              }
             }
-          }
-          data-type="page"
-        />
+            data-type="page"
+          />
+        </div>
       </div>
     </div>
   </div>,

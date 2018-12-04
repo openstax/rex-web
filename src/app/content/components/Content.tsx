@@ -5,8 +5,10 @@ import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
 import { State } from '../types';
+import ContentPane from './ContentPane';
 import Header from './Header';
 import Page from './Page';
+import Sidebar from './Sidebar';
 import Wrapper from './Wrapper';
 
 interface PropTypes {
@@ -33,13 +35,16 @@ export class ContentComponent extends Component<PropTypes> {
       || services.archiveLoader.cachedPage(book.shortId, page.shortId)
     );
 
-    return <Page content={cachedPage ? cachedPage.content : ''} />;
+    return <ContentPane>
+      {this.renderHeader()}
+      <Page content={cachedPage ? cachedPage.content : ''} />
+    </ContentPane>;
   }
 
   public render() {
     return <Layout>
       {!this.isLoading() && <Wrapper key='content'>
-        {this.renderHeader()}
+        <Sidebar />
         {this.renderContent()}
       </Wrapper>}
     </Layout>;

@@ -1,6 +1,6 @@
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
-import { ArchiveContent } from './types';
+import { ArchiveBook, ArchiveContent } from './types';
 
 describe('content reducer', () => {
 
@@ -33,7 +33,7 @@ describe('content reducer', () => {
   });
 
   it('reduces receiveBook', () => {
-    const book = { id: 'bookId', content: 'fooobarcontent' } as ArchiveContent;
+    const book = { id: 'bookId', content: 'fooobarcontent' } as any as ArchiveBook;
     const state = {
       ...initialState,
       loading: {book: 'bookId'},

@@ -47,3 +47,6 @@ export type Store = ReduxStore<AppState, AnyAction>;
 
 export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI & AppServices) =>
   (action: ReturnType<C>) => Promise<any> | void;
+
+// helpers
+export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;
