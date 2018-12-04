@@ -12,6 +12,8 @@ import { ArchiveTree, ArchiveTreeSection } from '../src/app/content/types';
 import { stripIdVersion } from '../src/app/content/utils';
 import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
+import * as headSelectors from '../src/app/head/selectors';
+import { Meta } from '../src/app/head/types';
 import * as navigationSelectors from '../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../src/app/navigation/types';
 import { matchUrl } from '../src/app/navigation/utils';
@@ -84,6 +86,7 @@ async function render() {
     const styles = new ServerStyleSheet();
     const pathname = navigationSelectors.pathname(state);
     const code = errorSelectors.code(state);
+    const meta = headSelectors.meta(state);
 
     if (pathname !== url) {
       throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
@@ -101,6 +104,7 @@ async function render() {
     const html = injectHTML(indexHtml, {
       body,
       fonts: app.services.fontCollector.fonts,
+      meta,
       state,
       styles,
     });
@@ -136,11 +140,15 @@ interface Options {
   body: string;
   styles: ServerStyleSheet;
   fonts: FontCollector['fonts'];
+  meta: Meta[];
   state: AppState;
 }
-function injectHTML(html: string, {body, styles, state, fonts}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta}: Options) {
   html = html.replace('</head>',
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +
+    meta.map(
+      (tag) => `<meta ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
+    ) +
     styles.getStyleTags() +
     '</head>'
   );

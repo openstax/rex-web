@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Layout from '../../components/Layout';
 import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
@@ -36,13 +37,12 @@ export class ContentComponent extends Component<PropTypes> {
   }
 
   public render() {
-    if (this.isLoading()) {
-      return null;
-    }
-    return <Wrapper key='content'>
-      {this.renderHeader()}
-      {this.renderContent()}
-    </Wrapper>;
+    return <Layout>
+      {!this.isLoading() && <Wrapper key='content'>
+        {this.renderHeader()}
+        {this.renderContent()}
+      </Wrapper>}
+    </Layout>;
   }
 
   private isLoading() {

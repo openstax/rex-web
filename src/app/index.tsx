@@ -8,6 +8,7 @@ import PromiseCollector from '../helpers/PromiseCollector';
 import * as content from './content';
 import * as Services from './context/Services';
 import * as errors from './errors';
+import * as head from './head';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
@@ -17,6 +18,7 @@ import { AnyAction, AppServices, AppState, Middleware } from './types';
 export const actions = {
   content: content.actions,
   errors: errors.actions,
+  head: head.actions,
   navigation: navigation.actions,
 };
 
@@ -27,6 +29,7 @@ export const routes = [
 
 const hooks = [
   ...Object.values(content.hooks),
+  ...Object.values(head.hooks),
 ];
 
 const defaultServices = () => ({
@@ -59,6 +62,7 @@ export default (options: Options) => {
   const reducer = combineReducers<AppState, AnyAction>({
     content: content.reducer,
     errors: errors.reducer,
+    head: head.reducer,
     navigation: navigation.createReducer(history.location),
   });
 
