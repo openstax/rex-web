@@ -16,7 +16,7 @@
     "reselect": "^4.0.0",
     "styled-components": "^4.0.3",
     "typesafe-actions": "^2.0.4",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2"
   },
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
@@ -28,7 +28,7 @@
     "server": "NODE_ENV=development node script/entry server/cli",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
-    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build",
+    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && ./node_modules/.bin/tsc",
     "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
