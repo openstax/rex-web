@@ -6,8 +6,9 @@ import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
-import { ArchiveBook, ArchivePage } from '../types';
+import { ArchivePage } from '../types';
 import Content, { ContentComponent } from './Content';
+import Page from './Page';
 
 const book = {
   id: 'booklongid',
@@ -52,16 +53,16 @@ describe('content', () => {
 
   beforeEach(() => {
     archiveLoader = {
-      book: jest.fn(() => Promise.resolve(book as ArchiveBook)),
-      cachedBook: jest.fn(() => (book as ArchiveBook)),
+      book: jest.fn(() => { throw new Error('unexpected archive call'); }),
+      cachedBook: jest.fn(() => { throw new Error('unexpected archive call'); }),
       cachedPage: jest.fn(() => (pageArchive as ArchivePage)),
-      page: jest.fn(() => Promise.resolve(pageArchive as ArchivePage)),
+      page: jest.fn(() =>  { throw new Error('unexpected archive call'); }),
     };
 
     (services as any).archiveLoader = archiveLoader;
   });
 
-  it('matches snapshot', (done) => {
+  it('matches snapshot', () => {
     const state = {
       content: {
         ...initialState,
@@ -77,14 +78,11 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    process.nextTick(() => {
-      const tree = component.toJSON();
-      expect(tree).toMatchSnapshot();
-      done();
-    });
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
-  it('renders empty state', (done) => {
+  it('renders empty state', () => {
     const state = {
       content: initialState,
     } as AppState;
@@ -96,11 +94,71 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    process.nextTick(() => {
-      const tree = component.toJSON();
-      expect(tree).toMatchSnapshot();
-      done();
-    });
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('gets page content out of cached archive query', () => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    expect(archiveLoader.cachedPage).toHaveBeenCalledTimes(1);
+    expect(archiveLoader.cachedPage).toHaveBeenCalledWith('booklongid@0', 'pagelongid');
+  });
+
+  it('page content fails over to using short ids if data is unavailable with long ids', () => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    archiveLoader.cachedPage.mockReturnValueOnce(undefined);
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    expect(archiveLoader.cachedPage).toHaveBeenCalledTimes(2);
+    expect(archiveLoader.cachedPage).toHaveBeenCalledWith('book', 'page');
+  });
+
+  it('page element is still rendered if archive content is unavailable', () => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    archiveLoader.cachedPage.mockReturnValue(undefined);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    const pageComponent = component.root.findByType(Page);
+
+    expect(pageComponent).toBeDefined();
   });
 
   it('updates after initial render', async() => {

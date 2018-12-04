@@ -23,12 +23,17 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 // tslint:disable-next-line:variable-name
 export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
   const params = {
-    bookId: book.shortId,
+    bookId: stripIdVersion(book.shortId),
     pageId: stripIdVersion(page.shortId),
   };
 
   const url = content.getUrl(params);
   const bookVersion = book.version || getIdVersion(book.id);
+
+  if (!bookVersion) {
+    // tslint:disable-next-line:no-console
+    console.error('BUG: ContentLink was not provided with book version for target content');
+  }
 
   const state = bookVersion
     ? {bookUid: stripIdVersion(book.id), pageUid: stripIdVersion(page.id), bookVersion}
