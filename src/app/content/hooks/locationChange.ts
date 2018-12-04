@@ -19,12 +19,12 @@ export default routeHook(content, ({dispatch, getState, fontCollector, archiveLo
   const bookRefId = match.state ? `${match.state.bookUid}@${match.state.bookVersion}` : bookId;
   const pageRefId = match.state ? match.state.pageUid : pageId;
 
-  if ((!book || book.id !== bookId) && bookId !== select.loadingBook(state)) {
+  if ((!book || book.shortId !== bookId) && bookId !== select.loadingBook(state)) {
     dispatch(requestBook(bookId));
     promises.push(archiveLoader.book(bookRefId).then((bookData) => dispatch(receiveBook(bookData))));
   }
 
-  if ((!page || page.id !== pageId) && pageId !== select.loadingPage(state)) {
+  if ((!page || page.shortId !== pageId) && pageId !== select.loadingPage(state)) {
     dispatch(requestPage(pageId));
     promises.push(archiveLoader.page(bookRefId, pageRefId)
       .then((pageData) => dispatch(receivePage(pageData)))

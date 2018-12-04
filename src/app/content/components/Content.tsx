@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
-import { ArchiveContent, ArchivePage, State } from '../types';
+import { State } from '../types';
 import Header from './Header';
 import Page from './Page';
 import Wrapper from './Wrapper';
@@ -15,52 +15,7 @@ interface PropTypes {
   services: AppServices;
 }
 
-interface ReactState {
-  book?: ArchiveContent;
-  page?: ArchivePage;
-}
-
-export class ContentComponent extends Component<PropTypes, ReactState> {
-  public state: ReactState = {};
-
-  constructor(props: PropTypes) {
-    super(props);
-    const {book, page, services} = props;
-
-    if (book) {
-      this.state.book = services.archiveLoader.cachedBook(book.shortId);
-    }
-    if (page && book) {
-      this.state.page = services.archiveLoader.cachedPage(book.shortId, page.shortId);
-    }
-  }
-
-  public loadBook(props: PropTypes) {
-    const {book, services} = props;
-    if (!book) {
-      return;
-    }
-    this.setState({book: services.archiveLoader.cachedBook(book.shortId)});
-  }
-
-  public loadPage(props: PropTypes) {
-    const {book, page, services} = props;
-    if (!book || !page) {
-      return;
-    }
-
-    this.setState({page: services.archiveLoader.cachedPage(book.shortId, page.shortId)});
-  }
-
-  public componentWillMount() {
-    this.loadBook(this.props);
-    this.loadPage(this.props);
-  }
-
-  public componentWillReceiveProps(props: PropTypes) {
-    this.loadBook(props);
-    this.loadPage(props);
-  }
+export class ContentComponent extends Component<PropTypes> {
 
   public renderHeader = () => {
     const {page, book} = this.props as PropTypes;
@@ -70,10 +25,14 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
   }
 
   public renderContent = () => {
-    const {page} = this.state;
-    return <div>
-      {page && <Page content={page.content} />}
-    </div>;
+    const {book, page, services} = this.props;
+
+    const cachedPage = book && page && (
+      services.archiveLoader.cachedPage(`${book.id}@${book.version}`, page.id)
+      || services.archiveLoader.cachedPage(book.shortId, page.shortId)
+    );
+
+    return <Page content={cachedPage ? cachedPage.content : ''} />;
   }
 
   public render() {
@@ -87,14 +46,14 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
   }
 
   private isLoading() {
-    return this.props.loading || !this.state.book || !this.state.page;
+    return this.props.loading;
   }
 }
 
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    loading: !!select.loadingBook(state) || !!select.loadingPage(state),
+    loading: !!select.loadingBook(state) || !!select.loadingPage(state) || !select.book(state) || !select.page(state),
     page: select.page(state),
   })
 )(withServices(ContentComponent));

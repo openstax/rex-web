@@ -13,22 +13,20 @@ exports[`content matches snapshot 1`] = `
       page title
     </h1>
   </div>
-  <div>
+  <div
+    className="sc-bwzfXH XepYW"
+  >
     <div
-      className="sc-bwzfXH XepYW"
+      data-type="chapter"
     >
       <div
-        data-type="chapter"
-      >
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "some page content yo",
-            }
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "some page content yo",
           }
-          data-type="page"
-        />
-      </div>
+        }
+        data-type="page"
+      />
     </div>
   </div>
 </div>

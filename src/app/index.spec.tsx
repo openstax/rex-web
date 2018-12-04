@@ -28,12 +28,12 @@ describe('create app', () => {
     expect(createMemoryHistory).not.toHaveBeenCalled();
   });
 
-  it('initializes using the location in initialState if it is passed', () => {
+  it('does not initialize location if initialState is passed', () => {
     const location = {cool: 'location'} as any as Location;
     const initialState = {navigation: location} as AppState;
     createApp({services, initialState});
 
-    expect(navigationInit).toHaveBeenCalledWith(expect.anything(), location, expect.anything());
+    expect(navigationInit).not.toHaveBeenCalled();
   });
 
   it('initializes the location state when initialEntries is passed', () => {

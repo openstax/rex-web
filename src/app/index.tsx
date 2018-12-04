@@ -84,7 +84,9 @@ export default (options: Options) => {
     </Services.Provider>
   </Provider>;
 
-  navigation.utils.init(routes, initialState ? initialState.navigation : history.location, store.dispatch);
+  if (!initialState) {
+    navigation.utils.init(routes, history.location, store.dispatch);
+  }
 
   return {
     container,

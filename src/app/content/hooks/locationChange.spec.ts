@@ -64,7 +64,7 @@ describe('locationChange', () => {
 
   it('doesn\'t load book if its already loaded', () => {
     localState.book = {
-      id: 'bookId',
+      shortId: 'bookId',
     } as Book;
     localState.params = payload.match.params = {
       bookId: 'bookId',
@@ -102,7 +102,7 @@ describe('locationChange', () => {
 
   it('doesn\'t load page if its already loaded', () => {
     localState.page = {
-      id: 'pageId',
+      shortId: 'pageId',
     } as Page;
     localState.params = payload.match.params = {
       bookId: 'bookId',
