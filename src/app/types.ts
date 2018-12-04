@@ -11,11 +11,13 @@ import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
+import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
 
 export interface AppState {
   content: contentState;
   errors: errorsState;
+  head: headState;
   navigation: navigationState;
 }
 
@@ -42,6 +44,9 @@ export type Dispatch = ReduxDispatch<AnyAction>;
 export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
 export type MiddlewareAPI = ReduxMiddlewareAPI<Dispatch, AppState>;
 export type Store = ReduxStore<AppState, AnyAction>;
+
+export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI & AppServices) =>
+  (action: ReturnType<C>) => Promise<any> | void;
 
 // helpers
 export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;

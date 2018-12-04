@@ -1,109 +1,129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`content matches snapshot 1`] = `
-<div
-  className="sc-gzVnrw icRRhp"
->
+Array [
+  <a
+    className="sc-bdVaJa RfHPw"
+    href="#main-content"
+    onClick={[Function]}
+    tabIndex={1}
+  >
+    Skip to Content
+  </a>,
   <div
-    className="sc-bxivhb jsetuL"
-    open={true}
+    className="sc-htoDjs bDwnUM"
+    id="main-content"
   >
     <div
-      className="sc-EHOje fsTfoQ"
+      className="sc-ifAKCX gjNQMo"
       open={true}
     >
-      <button
-        aria-label="Click to close the Table of Contents"
-        className="sc-ifAKCX bdREzz"
-        onClick={[Function]}
-        role="button"
+      <div
+        className="sc-bZQynM fxfzvu"
+        open={true}
       >
-        <span />
-        <span />
-        <span />
-      </button>
-      <nav>
-        <ol>
-          <li
-            className="sc-bZQynM fIdaZs"
-          >
-            <a
-              href="#"
-            >
-              book details
-            </a>
-          </li>
-        </ol>
-      </nav>
-      <div>
-        <h2>
-          Table of Contents
-        </h2>
+        <button
+          aria-label="Click to close the Table of Contents"
+          className="sc-EHOje lewrCf"
+          onClick={[Function]}
+          role="button"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
         <nav>
           <ol>
             <li
-              className="sc-bZQynM fIdaZs"
+              className="sc-gzVnrw gdejwh"
             >
-              <h3
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "page title",
-                  }
-                }
-              />
-              <nav>
-                <ol>
-                  <li
-                    className="sc-bZQynM fIdaZs"
-                  >
-                    <a
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "page title2",
-                        }
-                      }
-                      href="/books/book/pages/page2"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </nav>
+              <a
+                href="#"
+              >
+                book details
+              </a>
             </li>
           </ol>
         </nav>
+        <div>
+          <h2>
+            Table of Contents
+          </h2>
+          <nav>
+            <ol>
+              <li
+                className="sc-gzVnrw gdejwh"
+              >
+                <h3
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "page title",
+                    }
+                  }
+                />
+                <nav>
+                  <ol>
+                    <li
+                      className="sc-gzVnrw gdejwh"
+                    >
+                      <a
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "page title2",
+                          }
+                        }
+                        href="/books/book/pages/page2"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </nav>
+              </li>
+            </ol>
+          </nav>
+        </div>
       </div>
-    </div>
-  </div>
-  <div
-    className="sc-bdVaJa cMWZut"
-  >
-    <div>
-      <h1
-        className="sc-bwzfXH gkNPiJ"
-      >
-        book title
-         / 
-        page title
-      </h1>
     </div>
     <div
-      className="sc-htpNat jREysS"
+      className="sc-bwzfXH eNgRBe"
     >
+      <div>
+        <h1
+          className="sc-htpNat cOGKiz"
+        >
+          book title
+           / 
+          page title
+        </h1>
+      </div>
       <div
-        data-type="chapter"
+        className="sc-bxivhb fpcskD"
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "some page content yo",
+          data-type="chapter"
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "some page content yo",
+              }
             }
-          }
-          data-type="page"
-        />
+            data-type="page"
+          />
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
-exports[`content renders empty state 1`] = `null`;
+exports[`content renders empty state 1`] = `
+<a
+  className="sc-bdVaJa RfHPw"
+  href="#main-content"
+  onClick={[Function]}
+  tabIndex={1}
+>
+  Skip to Content
+</a>
+`;

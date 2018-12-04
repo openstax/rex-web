@@ -59,3 +59,7 @@ docker run -t openstax/books-web yarn server
 # runs tests
 docker run -t openstax/books-web yarn test
 ```
+
+### Environment Variables
+
+- `PUPPETEER_DEBUG=true yarn test` : Opens the browser with dev tools. This allows you to add `debugger` statements into the test _and_ into the browser code that is evaluated.
