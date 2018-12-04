@@ -27,7 +27,7 @@ export type Match<R extends AnyRoute> =
   (RouteParams<R> extends undefined
     ? MatchWithoutParams<R> | MatchWithParams<R>
     : MatchWithParams<R>)
-& (RouteState<R> extends undefined
+  & (RouteState<R> extends undefined
     ? {}
     : MatchWithState<R>);
 

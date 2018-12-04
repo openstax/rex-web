@@ -19,7 +19,7 @@ describe('content', () => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE);
 
-    const firstHTML = (await page.evaluate(getHtml));
+    const firstHTML = await page.evaluate(getHtml);
 
     await page.setJavaScriptEnabled(true);
     await navigate(page, TEST_PAGE);
