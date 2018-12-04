@@ -7,6 +7,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
+import { isArchiveTree } from '../src/app/content/guards';
 import { content } from '../src/app/content/routes';
 import { ArchiveTree, ArchiveTreeSection } from '../src/app/content/types';
 import * as errorSelectors from '../src/app/errors/selectors';
@@ -158,6 +159,6 @@ function writeFile(filepath: string, contents: string) {
   fs.writeFile(filepath, contents, () => null);
 }
 
-function getPages(contents: ArchiveTree[]): ArchiveTreeSection[] {
-  return flatten(contents.map((section) => flatten(section.contents ? getPages(section.contents) : [section])));
+function getPages(contents: ArchiveTree['contents']): ArchiveTreeSection[] {
+  return flatten(contents.map((section) => flatten(isArchiveTree(section) ? getPages(section.contents) : [section])));
 }

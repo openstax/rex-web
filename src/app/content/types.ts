@@ -20,6 +20,7 @@ export interface Book {
   shortId: string;
   title: string;
   version: string;
+  tree: ArchiveTree;
 }
 
 export interface Page {
@@ -36,7 +37,7 @@ export interface ArchiveTreeSection {
 }
 
 export interface ArchiveTree extends ArchiveTreeSection {
-  contents: ArchiveTree[];
+  contents: Array<ArchiveTree | ArchiveTreeSection>;
 }
 
 export interface ArchiveBook {

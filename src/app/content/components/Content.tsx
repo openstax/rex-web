@@ -5,8 +5,10 @@ import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
 import { ArchiveContent, ArchivePage, State } from '../types';
+import ContentPane from './ContentPane';
 import Header from './Header';
 import Page from './Page';
+import Sidebar from './Sidebar';
 import Wrapper from './Wrapper';
 
 interface PropTypes {
@@ -72,13 +74,17 @@ export class ContentComponent extends Component<PropTypes, ReactState> {
 
   public renderContent = () => {
     const {page} = this.state;
-    return page && <Page content={page.content} />;
+
+    return <ContentPane>
+      {this.renderHeader()}
+      {page && <Page content={page.content} />}
+    </ContentPane>;
   }
 
   public render() {
     return <Layout>
       {!this.isLoading() && <Wrapper key='content'>
-        {this.renderHeader()}
+        <Sidebar />
         {this.renderContent()}
       </Wrapper>}
     </Layout>;
