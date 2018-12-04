@@ -6,14 +6,19 @@ import cs from 'react-intl/locale-data/cs';
 import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
+import FontCollector from '../helpers/FontCollector';
+import PromiseCollector from '../helpers/PromiseCollector';
 import * as content from './content';
+import * as Services from './context/Services';
 import * as errors from './errors';
+import * as head from './head';
 import * as navigation from './navigation';
-import { AnyAction, AppState, Middleware } from './types';
+import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
   content: content.actions,
   errors: errors.actions,
+  head: head.actions,
   navigation: navigation.actions,
 };
 
@@ -24,30 +29,46 @@ export const routes = [
 
 const hooks = [
   ...Object.values(content.hooks),
+  ...Object.values(head.hooks),
 ];
+
+const defaultServices = () => ({
+  fontCollector: new FontCollector(),
+  promiseCollector: new PromiseCollector(),
+});
 
 interface Options {
   initialState?: AppState;
-  initialEntries?: any;
+  initialEntries?: string[];
+  services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
-export default (options: Options = {}) => {
+export default (options: Options) => {
+  const {initialEntries, initialState} = options;
+
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
-    : createMemoryHistory({initialEntries: options.initialEntries});
+    : createMemoryHistory({initialEntries});
 
   const reducer = combineReducers<AppState, AnyAction>({
     content: content.reducer,
     errors: errors.reducer,
+    head: head.reducer,
     navigation: navigation.createReducer(history.location),
   });
 
+  const services = {
+    ...defaultServices(),
+    ...options.services,
+  };
+
   const middleware: Middleware[] = [
     navigation.createMiddleware(routes, history),
-    ...hooks,
+    ...hooks.map((hook) => hook(services)),
   ];
 
   const store = createStore({
+    initialState,
     middleware,
     reducer,
   });
@@ -65,16 +86,19 @@ export default (options: Options = {}) => {
   }
 
   const container = () => <Provider store={store}>
-    <IntlProvider locale={language} messages={getMessages(language)}>
-        <navigation.components.NavigationProvider routes={routes} />
-    </IntlProvider>
+  <IntlProvider locale={language} messages={getMessages(language)}>
+    <Services.Provider value={services} >
+      <navigation.components.NavigationProvider routes={routes} />
+    </Services.Provider>
+  </IntlProvider>
   </Provider>;
 
-  navigation.utils.init(routes, history.location, store.dispatch);
+  navigation.utils.init(routes, initialState ? initialState.navigation : history.location, store.dispatch);
 
   return {
     container,
     history,
+    services,
     store,
   };
 };

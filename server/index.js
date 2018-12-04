@@ -1,29 +1,33 @@
+const connect = require('connect');
 const http = require('http');
+const serveStatic = require('serve-static')
 const path = require('path');
-const portfinder = require('portfinder');
-const staticServer = require('serve-handler');
+const setupProxy = require('../src/setupProxy');
+require('../src/env');
+
+const SERVER_PORT = process.env.SERVER_PORT;
+
+if (Number.isNaN(SERVER_PORT)) {
+  throw new Error(`BUG: SERVER_PORT is not defined. Add it to .env.${process.env.NODE_ENV}`)
+}
 
 module.exports = (options = {}) => new Promise(resolve => {
   const fallback404 = !!options.fallback404;
 
-  portfinder.getPortPromise().then(startServer);
+  const serve = serveStatic(path.join(__dirname, '../build'));
+  const fallback = (req, res, next) => serve(Object.assign({}, req, {url: '/'}), res, next);
 
-  function startServer(port) {
-    const server = http.createServer((request, response) => {
-      const config = {
-        public: path.join(__dirname, '../build'),
-      };
+  const app = connect();
 
-      const methods = {};
+  app.use(serve);
 
-      if (fallback404) {
-        methods.sendError = (_, response) => staticServer(Object.assign({}, request, {url: '/'}), response, config);
-      }
+  setupProxy(app);
 
-      staticServer(request, response, config, methods);
-    });
-
-    server.listen(port);
-    resolve({server, port});
+  if (fallback404) {
+    app.use(fallback);
   }
+
+  const server = http.createServer(app);
+
+  server.listen(SERVER_PORT, () => resolve({server, port: SERVER_PORT}));
 });

@@ -1,0 +1,30 @@
+{
+  "id": "testbook1-uuid",
+  "shortId": "testbook1-shortid",
+  "version": "1.0",
+  "title": "Test Book 1",
+  "tree": {
+    "shortId": "testbook1-shortid@1.0",
+    "id": "testbook1-uuid@1.0",
+    "contents": [
+      {
+        "shortId": "testpage1",
+        "id": "testbook1-testpage1-uuid",
+        "title": "<span class=\"os-text\">Preface</span>"
+      },
+      {
+        "shortId": "testchapter1",
+        "id": "testbook1-testchapter1-uuid",
+        "contents": [
+          {
+            "shortId": "testpage2",
+            "id": "testbook1-testpage2-uuid",
+            "title": "<span class=\"os-text\">Test Page</span>"
+          }
+        ],
+        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter</span>"
+      }
+    ],
+    "title": "Test Book 1"
+  }
+}
