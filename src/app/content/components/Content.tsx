@@ -14,7 +14,6 @@ import Wrapper from './Wrapper';
 interface PropTypes {
   page: State['page'];
   book: State['book'];
-  loading: boolean;
   services: AppServices;
 }
 
@@ -43,22 +42,17 @@ export class ContentComponent extends Component<PropTypes> {
 
   public render() {
     return <Layout>
-      {!this.isLoading() && <Wrapper key='content'>
+      <Wrapper>
         <Sidebar />
         {this.renderContent()}
-      </Wrapper>}
+      </Wrapper>
     </Layout>;
-  }
-
-  private isLoading() {
-    return this.props.loading;
   }
 }
 
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    loading: !!select.loadingBook(state) || !!select.loadingPage(state) || !select.book(state) || !select.page(state),
     page: select.page(state),
   })
 )(withServices(ContentComponent));
