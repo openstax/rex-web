@@ -39,7 +39,7 @@ pipeline {
       }
       steps {
         sh "docker cp $BUILD_TAG:/code/build ."
-        sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/${params.RELEASE_ID}"
+        sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/${params.RELEASE_ID}/rex/releases"
       }
     }
   }
