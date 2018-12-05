@@ -28,7 +28,7 @@
     "server": "NODE_ENV=development node script/entry server/cli",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
-    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && ./node_modules/.bin/tsc",
+    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
