@@ -11,20 +11,19 @@ Array [
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs bDwnUM"
-    id="main-content"
+    className="sc-dnqmqq cdxTid"
   >
     <div
-      className="sc-ifAKCX gjNQMo"
+      className="sc-EHOje dFYLlD"
       open={true}
     >
       <div
-        className="sc-bZQynM fxfzvu"
+        className="sc-gzVnrw elQlUD"
         open={true}
       >
         <button
           aria-label="Click to close the Table of Contents"
-          className="sc-EHOje lewrCf"
+          className="sc-bZQynM fQlYVV"
           onClick={[Function]}
           role="button"
         >
@@ -35,7 +34,7 @@ Array [
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw gdejwh"
+              className="sc-htoDjs dTMeAS"
             >
               <a
                 href="#"
@@ -52,7 +51,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="sc-gzVnrw gdejwh"
+                className="sc-htoDjs dTMeAS"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -64,7 +63,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="sc-gzVnrw gdejwh"
+                      className="sc-htoDjs dTMeAS"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -85,11 +84,13 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH eNgRBe"
+      className="sc-htpNat eXlSOs sc-bwzfXH jvlMsP"
+      id="main-content"
+      tabIndex={-1}
     >
       <div>
         <h1
-          className="sc-htpNat cOGKiz"
+          className="sc-bxivhb gWkoQZ"
         >
           book title
            / 
@@ -97,7 +98,7 @@ Array [
         </h1>
       </div>
       <div
-        className="sc-bxivhb fpcskD"
+        className="sc-ifAKCX gqtfWx"
       >
         <div
           data-type="chapter"
