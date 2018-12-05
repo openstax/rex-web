@@ -1,8 +1,6 @@
 /** @jest-environment puppeteer */
 import * as chromeLauncher from 'chrome-launcher';
 import lighthouse from 'lighthouse';
-import fetch from 'node-fetch';
-import puppeteer from 'puppeteer';
 import { url } from './test/browserutils';
 
 const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
@@ -17,9 +15,9 @@ describe('Lighthouse audits', () => {
     });
 
     // Connect to puppeteer
-    const resp = await fetch(`http://localhost:${chrome.port}/json/version`);
-    const { webSocketDebuggerUrl } = await resp.json();
-    browser = await puppeteer.connect({browserWSEndpoint: webSocketDebuggerUrl});
+    // const resp = await fetch(`http://localhost:${chrome.port}/json/version`);
+    // const { webSocketDebuggerUrl } = await resp.json();
+    // browser = await puppeteer.connect({browserWSEndpoint: webSocketDebuggerUrl});
   });
 
   afterAll(async() => {
