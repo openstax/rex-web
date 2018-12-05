@@ -8,17 +8,17 @@
     "id": "testbook1-uuid@1.0",
     "contents": [
       {
-        "shortId": "testpage1",
-        "id": "testbook1-testpage1-uuid",
+        "shortId": "testpage1-shortid@1.0",
+        "id": "testbook1-testpage1-uuid@1.0",
         "title": "<span class=\"os-text\">Preface</span>"
       },
       {
-        "shortId": "testchapter1",
-        "id": "testbook1-testchapter1-uuid",
+        "shortId": "testchapter1@1.0",
+        "id": "testbook1-testchapter1-uuid@1.0",
         "contents": [
           {
-            "shortId": "testpage2",
-            "id": "testbook1-testpage2-uuid",
+            "shortId": "testpage2-shortid@1.0",
+            "id": "testbook1-testpage2-uuid@1.0",
             "title": "<span class=\"os-text\">Test Page</span>"
           }
         ],
