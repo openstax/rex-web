@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import MainContent from '../../components/MainContent';
 
-export default styled(MainContent)`
+export default styled.div`
   display: flex;
   flex-direction: row;
 
