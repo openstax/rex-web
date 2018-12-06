@@ -68,7 +68,6 @@
     "@types/styled-components": "^4.0.3",
     "@types/yargs": "^12.0.1",
     "babel-core": "7.0.0-bridge.0",
-    "chrome-launcher": "^0.10.5",
     "codecov": "^3.1.0",
     "express": "^4.16.4",
     "glob": "^7.1.3",
