@@ -23,13 +23,18 @@ const ignoreConsoleMessages = [
    * jsdom doesn't implement scrolling
    */
   'Error: Not implemented: window.scrollTo',
+  'Error: Not implemented: window.scrollTo',
 ];
 
 const originalConsoleError = console.error;  // tslint:disable-line:no-console
 console.error = (msg) => {  // tslint:disable-line:no-console
-  if (ignoreConsoleMessages.indexOf(msg) === -1) {
-    originalConsoleError(msg);
+  const shouldIgnore = !!ignoreConsoleMessages.find((ignore) => msg.indexOf(ignore) === 0);
+
+  if (shouldIgnore) {
+    return;
   }
+
+  originalConsoleError(msg);
 };
 
 // set default timeout to something quite large in CI
