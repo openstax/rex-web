@@ -20,11 +20,6 @@
             "shortId": "testpage2-shortid@1.0",
             "id": "testbook1-testpage2-uuid@1.0",
             "title": "<span class=\"os-text\">Test Page 2</span>"
-          },
-          {
-            "shortId": "testpage3-shortid@1.0",
-            "id": "testbook1-testpage3-uuid@1.0",
-            "title": "<span class=\"os-text\">Test Page 3</span>"
           }
         ],
         "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 1</span>"
