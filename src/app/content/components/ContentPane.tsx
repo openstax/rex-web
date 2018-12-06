@@ -3,5 +3,6 @@ import MainContent from '../../components/MainContent';
 
 export default styled(MainContent)`
   flex: 1;
-  padding: 0 6rem 0 6rem;
+  margin: 3rem;
+  padding: 0 3rem 0 3rem;
 `;
