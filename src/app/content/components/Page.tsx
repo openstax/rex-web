@@ -15,6 +15,12 @@ export default class PageContent extends Component<PropTypes> {
       .replace(/<cnx-pi.*>[\s\S]*<\/cnx-pi>/g, '');
   }
 
+  public componentDidUpdate(prevProps: PropTypes) {
+    if (window && prevProps.content !== this.props.content) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   public render() {
     return <BookStyles>
       {(className) => <div className={className}>

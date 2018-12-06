@@ -3,6 +3,7 @@ import { finishRender, h1Content, navigate } from '../../test/browserutils';
 
 const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
 const TEST_NEXT_PAGE = '/books/testbook1-shortid/pages/testpage2-shortid';
+const TEST_LONG_PAGE = '/books/testbook1-shortid/pages/testpage3-shortid';
 
 describe('content', () => {
   beforeEach(async() => {
@@ -40,6 +41,15 @@ describe('content', () => {
     expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
     expect(await isTocVisible()).toBe(true);
     expect(await getSelectedTocSection()).toBe(TEST_PAGE);
+    expect(await getScrollTop()).toBe(0);
+
+    // scroll down and make sure it worked
+    await scrollDown();
+    expect(await getScrollTop()).not.toBe(0);
+
+    // click toc link to another long page
+    expect(await clickTocLink(TEST_LONG_PAGE)).toBe(true);
+    expect(await getScrollTop()).toBe(0);
 
     // click toc link
     expect(await clickTocLink(TEST_NEXT_PAGE)).toBe(true);
@@ -91,4 +101,12 @@ const isTocVisible = () => page.evaluate(() => {
     .find((node) => node.textContent === 'Table of Contents');
   const style = element && window && window.getComputedStyle(element);
   return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+});
+
+const getScrollTop = () => page.evaluate(() => {
+  return document && document.documentElement && document.documentElement.scrollTop;
+});
+
+const scrollDown = () => page.evaluate(() => {
+  return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });

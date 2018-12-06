@@ -12,6 +12,26 @@ expect.extend({
   toMatchImageSnapshot,
 });
 
+const ignoreConsoleMessages = [
+  /*
+   * jsdom chokes on cnx-recipes styles and produces large nasty
+   * error messages. the styles are valid, jsdom's css parser
+   * is incomplete, so hide these messages
+   */
+  'Error: Could not parse CSS stylesheet',
+  /*
+   * jsdom doesn't implement scrolling
+   */
+  'Error: Not implemented: window.scrollTo',
+];
+
+const originalConsoleError = console.error;  // tslint:disable-line:no-console
+console.error = (msg) => {  // tslint:disable-line:no-console
+  if (ignoreConsoleMessages.indexOf(msg) === -1) {
+    originalConsoleError(msg);
+  }
+};
+
 // set default timeout to something quite large in CI
 if (process.env.CI) {
   jest.setTimeout(90 * 1000);
