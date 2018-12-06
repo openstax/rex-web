@@ -2,12 +2,7 @@
 import { argv } from 'yargs';
 import server from '.';
 
-const port = parseInt(process.env.PORT || '', 10);
-
-if (!process.env.PORT || Number.isNaN(port)) {
-  console.error(`WEBSERVER: PORT environment variable is not set or is not a number.`);
-  process.exit(1);
-}
+const port = parseInt(process.env.PORT || '-1', 10);
 
 server({port, ...argv})
   .then(({port: actualPort}) => console.log(`WEBSERVER: running on port: ${actualPort}`))

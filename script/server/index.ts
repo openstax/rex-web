@@ -18,7 +18,7 @@ export default (options: Options): Promise<{server: http.Server, port: number}> 
   const baseDir = path.join(__dirname, '../../build');
   const {port, onlyProxy} = {...defaultOptions, ...options};
 
-  if (!port) {
+  if (!port || !(port > 0)) {
     throw new Error('BUG: port is not defined. Add SERVER_PORT it to .env.${process.env.NODE_ENV} or pass `port` option.'); // tslint:disable-line:max-line-length
   }
 
