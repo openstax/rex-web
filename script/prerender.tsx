@@ -30,7 +30,7 @@ const BOOKS = JSON.parse(process.env.BOOKS || 'null') as {
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
 if (!BOOKS) {
-  throw new Error('BOOKS must be valid json');
+  throw new Error('BOOKS environment var must be valid json');
 }
 
 async function render() {
