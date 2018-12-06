@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate, checkLighthouse } from '../../test/browserutils';
+import { checkLighthouse, finishRender, navigate } from '../../test/browserutils';
 
 const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
 

@@ -1,5 +1,5 @@
-import puppeteer from 'puppeteer';
 import lighthouse from 'lighthouse';
+import puppeteer from 'puppeteer';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
@@ -64,10 +64,9 @@ export const getComputedStyle = (target: puppeteer.Page, selector: string) => ta
   }
 }, selector);
 
-
 export const checkLighthouse = async(urlPath: string) => {
 
-  const port = (new URL(browser.wsEndpoint())).port
+  const port = (new URL(browser.wsEndpoint())).port;
   const { lhr } = await lighthouse(url(urlPath), {port}, null);
 
   expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
