@@ -10,7 +10,7 @@
       {
         "shortId": "testpage1-shortid@1.0",
         "id": "testbook1-testpage1-uuid@1.0",
-        "title": "<span class=\"os-text\">Preface</span>"
+        "title": "<span class=\"os-text\">Test Page 1</span>"
       },
       {
         "shortId": "testchapter1@1.0",
@@ -19,7 +19,12 @@
           {
             "shortId": "testpage2-shortid@1.0",
             "id": "testbook1-testpage2-uuid@1.0",
-            "title": "<span class=\"os-text\">Test Page</span>"
+            "title": "<span class=\"os-text\">Test Page 2</span>"
+          },
+          {
+            "shortId": "testpage3-shortid@1.0",
+            "id": "testbook1-testpage3-uuid@1.0",
+            "title": "<span class=\"os-text\">Test Page 3</span>"
           }
         ],
         "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter</span>"
