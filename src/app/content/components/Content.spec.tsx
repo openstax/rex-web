@@ -2,63 +2,20 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
+import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
-import { ArchivePage } from '../types';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
 
-const book = {
-  id: 'booklongid',
-  shortId: 'book',
-  title: 'book title',
-  tree: {
-    contents: [
-      {
-        contents: [
-          {
-            id: 'pagelongid2',
-            shortId: 'page2',
-            title: 'page title2',
-          },
-        ],
-        id: 'pagelongid',
-        shortId: 'page',
-        title: 'page title',
-      },
-    ],
-    id: 'booklongid',
-    shortId: 'book',
-    title: 'book title',
-  },
-  version: '0',
-};
-const page = {
-  id: 'pagelongid',
-  shortId: 'page',
-  title: 'page title',
-  version: '0',
-};
-
-const pageArchive = {
-  ...page,
-  content: 'some page content yo',
-};
-
 describe('content', () => {
-  let archiveLoader: {[k in  keyof AppServices['archiveLoader']]: jest.SpyInstance};
+  let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   const services = {} as AppServices;
 
   beforeEach(() => {
-    archiveLoader = {
-      book: jest.fn(() => { throw new Error('unexpected archive call'); }),
-      cachedBook: jest.fn(() => { throw new Error('unexpected archive call'); }),
-      cachedPage: jest.fn(() => (pageArchive as ArchivePage)),
-      page: jest.fn(() =>  { throw new Error('unexpected archive call'); }),
-    };
-
+    archiveLoader = mockArchiveLoader();
     (services as any).archiveLoader = archiveLoader;
   });
 
@@ -68,7 +25,7 @@ describe('content', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -104,7 +61,7 @@ describe('content', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -114,8 +71,8 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(archiveLoader.cachedPage).toHaveBeenCalledTimes(1);
-    expect(archiveLoader.cachedPage).toHaveBeenCalledWith('booklongid@0', 'pagelongid');
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('booklongid', '0', 'pagelongid');
   });
 
   it('page content fails over to using short ids if data is unavailable with long ids', () => {
@@ -124,10 +81,10 @@ describe('content', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
-    archiveLoader.cachedPage.mockReturnValueOnce(undefined);
+    archiveLoader.mock.cachedPage.mockReturnValueOnce(undefined);
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -135,8 +92,8 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(archiveLoader.cachedPage).toHaveBeenCalledTimes(2);
-    expect(archiveLoader.cachedPage).toHaveBeenCalledWith('book', 'page');
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(2);
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('book', undefined, 'page');
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
@@ -145,10 +102,10 @@ describe('content', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
-    archiveLoader.cachedPage.mockReturnValue(undefined);
+    archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -170,7 +127,7 @@ describe('content', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const go = {type: 'go'};
 

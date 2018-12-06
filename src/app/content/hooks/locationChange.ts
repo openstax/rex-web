@@ -16,19 +16,20 @@ export default routeHook(content, ({dispatch, getState, fontCollector, archiveLo
 
   fonts.forEach((font) => fontCollector.add(font));
 
-  const bookRefId = match.state ? `${match.state.bookUid}@${match.state.bookVersion}` : bookId;
-  const pageRefId = match.state ? match.state.pageUid : pageId;
+  const [bookRefId, bookRefVersion, pageRefId] = match.state
+    ? [match.state.bookUid, match.state.bookVersion, match.state.pageUid]
+    : [bookId, undefined, pageId];
+
+  const archiveBookLoader = archiveLoader.book(bookRefId, bookRefVersion);
 
   if ((!book || book.shortId !== bookId) && bookId !== select.loadingBook(state)) {
     dispatch(requestBook(bookId));
-    promises.push(archiveLoader.book(bookRefId).then((bookData) => dispatch(receiveBook(bookData))));
+    promises.push(archiveBookLoader.load().then((bookData) => dispatch(receiveBook(bookData))));
   }
 
   if ((!page || page.shortId !== pageId) && pageId !== select.loadingPage(state)) {
     dispatch(requestPage(pageId));
-    promises.push(archiveLoader.page(bookRefId, pageRefId)
-      .then((pageData) => dispatch(receivePage(pageData)))
-    );
+    promises.push(archiveBookLoader.page(pageRefId).load().then((pageData) => dispatch(receivePage(pageData))));
   }
 
   await Promise.all(promises);

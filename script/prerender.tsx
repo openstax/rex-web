@@ -52,8 +52,9 @@ async function render() {
   }
 
   async function renderContentPage(bookId: string, bookVersion: string, pageId: string) {
-    const book = await archiveLoader.book(`${bookId}@${bookVersion}`);
-    const page = await archiveLoader.page(`${bookId}@${bookVersion}`, pageId);
+    const archiveBookLoader = archiveLoader.book(bookId, bookVersion);
+    const book = await archiveBookLoader.load();
+    const page = await archiveBookLoader.page(pageId).load();
 
     const action: Match<typeof content> = {
       params: {
@@ -122,7 +123,7 @@ async function render() {
   await renderPage(notFoundPage, 404);
 
   for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
-    const book = await archiveLoader.book(`${bookId}@${defaultVersion}`);
+    const book = await archiveLoader.book(bookId, defaultVersion).load();
 
     for (const section of getPages(book.tree.contents)) {
       await renderContentPage(bookId, defaultVersion, stripIdVersion(section.id));
