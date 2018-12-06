@@ -2,7 +2,7 @@
 import { finishRender, h1Content, navigate } from '../../test/browserutils';
 
 const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
-const TEST_NEXT_PAGE = '/books/testbook1-shortid/pages/testpage2-shortid';
+// const TEST_NEXT_PAGE = '/books/testbook1-shortid/pages/testpage2-shortid';
 const TEST_LONG_PAGE = '/books/testbook1-shortid/pages/testpage3-shortid';
 
 describe('content', () => {
@@ -36,28 +36,34 @@ describe('content', () => {
     expect(isSkipToContentSelected).toBe(true);
   });
 
-  it('ToC navigation navigates', async() => {
+  it(`when clicking a toc link:
+    - it goes
+    - scrolls the content to the top
+    - doesn\'t scroll the sidebar at all
+    - updates the selected toc element
+    - and doesn\'t close the sidebar
+  `, async() => {
     // assert initial state
     expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
     expect(await isTocVisible()).toBe(true);
     expect(await getSelectedTocSection()).toBe(TEST_PAGE);
     expect(await getScrollTop()).toBe(0);
+    expect(await getTocScrollTop()).toBe(0);
 
     // scroll down and make sure it worked
     await scrollDown();
+    await scrollTocDown();
     expect(await getScrollTop()).not.toBe(0);
+    const tocScrollTop = await getTocScrollTop();
+    expect(tocScrollTop).not.toBe(0);
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE)).toBe(true);
+    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
     expect(await getScrollTop()).toBe(0);
-
-    // click toc link
-    expect(await clickTocLink(TEST_NEXT_PAGE)).toBe(true);
-
-    // assert second page state
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 2');
+    expect(await getTocScrollTop()).toBe(tocScrollTop);
     expect(await isTocVisible()).toBe(true);
-    expect(await getSelectedTocSection()).toBe(TEST_NEXT_PAGE);
+    expect(await getSelectedTocSection()).toBe(TEST_LONG_PAGE);
   });
 });
 
@@ -107,6 +113,23 @@ const getScrollTop = () => page.evaluate(() => {
   return document && document.documentElement && document.documentElement.scrollTop;
 });
 
+const getTocScrollTop = () => page.evaluate(() => {
+  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
+    .find((node) => node.textContent === 'Table of Contents');
+
+  return tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement
+    && tocHeader.parentElement.parentElement.scrollTop;
+});
+
 const scrollDown = () => page.evaluate(() => {
   return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
+});
+
+const scrollTocDown = () => page.evaluate(() => {
+  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
+    .find((node) => node.textContent === 'Table of Contents');
+
+  const toc = tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement;
+
+  return toc && toc.scrollBy(0, toc.scrollHeight);
 });
