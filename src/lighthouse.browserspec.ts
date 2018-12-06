@@ -8,14 +8,14 @@ const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
 describe('Lighthouse audits', () => {
   let chrome: chromeLauncher.LaunchedChrome | undefined;
 
-  const checkLighthouse = async(urlPath: string, accessibiiltyThreshold: number = 1.0) => {
+  const checkLighthouse = async(urlPath: string) => {
     if (!chrome) {
       return expect(chrome).toBeTruthy();
     }
 
     const { lhr } = await lighthouse(url(urlPath), {port: chrome.port}, null);
 
-    expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(accessibiiltyThreshold);
+    expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
     expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.8);
     expect(lhr.categories.pwa.score).toBeGreaterThanOrEqual(0.5);
     expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.93);
@@ -44,7 +44,7 @@ describe('Lighthouse audits', () => {
   });
 
   it('reports about the test content page', async() => {
-    await checkLighthouse(TEST_PAGE, 0.95);
+    await checkLighthouse(TEST_PAGE);
   });
 
 });

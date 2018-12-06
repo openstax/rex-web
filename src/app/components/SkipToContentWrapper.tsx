@@ -8,7 +8,7 @@ export default class SkipToContentWrapper extends Component {
 
   public render() {
     return <Provider value={{registerMainContent: this.registerMainContent}}>
-      <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`} tabIndex={1}>Skip to Content</HiddenLink>
+      <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>Skip to Content</HiddenLink>
       {this.props.children}
     </Provider>;
   }
