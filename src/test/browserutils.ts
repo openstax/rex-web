@@ -47,7 +47,7 @@ export const finishRender = async(_: puppeteer.Page) => {
 };
 
 // tslint:disable-next-line:no-shadowed-variable
-export const getComputedStyle = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
+export const getComputedStyleMap = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
   if (window) {
     const element = window.document.querySelector(selector);
     if (!element) {
@@ -62,3 +62,25 @@ export const getComputedStyle = (target: puppeteer.Page, selector: string) => ta
     return styleMap;
   }
 }, selector);
+
+export const getComputedStyle = (
+  target: puppeteer.Page,
+  style: string,
+  selector: string,
+  pseudoElt: string | undefined = undefined
+// tslint:disable-next-line:no-shadowed-variable
+) => target.evaluate((style, selector, pseudoElt) => {
+  if (window) {
+    const element = window.document.querySelector(selector);
+    if (!element) {
+      throw new Error('BUG: element not found');
+    }
+    const compStyle = window.getComputedStyle(element, pseudoElt);
+    return compStyle.getPropertyValue(style);
+  }
+}, style, selector, pseudoElt);
+
+export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
+  const h1 = document && document.querySelector('h1');
+  return h1 && h1.textContent;
+});

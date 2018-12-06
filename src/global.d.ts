@@ -14,6 +14,9 @@ declare global {
     __APP_ASYNC_HOOKS: PromiseCollector;
   }
 
+  type Document = dom.Document;
+  type Element = dom.Element;
+
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
   var window: Window | undefined;
   var document: dom.Document | undefined;

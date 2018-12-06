@@ -9,6 +9,7 @@ import { initialState } from '../reducer';
 import { ArchivePage } from '../types';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
+import { Sidebar } from './Sidebar';
 
 const book = {
   id: 'booklongid',
@@ -194,6 +195,24 @@ describe('content', () => {
 
     const after = component.toJSON();
     expect(before).not.toEqual(after);
+  });
+
+  it('renders with ToC open', () => {
+    const state = {
+      content: initialState,
+    } as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    const sidebarComponent = component.root.findByType(Sidebar);
+
+    expect(sidebarComponent.props.open).toBe(true);
   });
 });
 
