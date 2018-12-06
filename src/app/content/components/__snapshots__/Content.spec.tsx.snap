@@ -11,7 +11,6 @@ Array [
   </a>,
   <div
     className="sc-htoDjs bDwnUM"
-    id="main-content"
   >
     <div
       className="sc-ifAKCX gjNQMo"
@@ -84,7 +83,9 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH eNgRBe"
+      className="sc-bwzfXH hsQBVX"
+      id="main-content"
+      tabIndex={-1}
     >
       <div>
         <h1
