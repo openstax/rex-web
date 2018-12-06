@@ -6,7 +6,6 @@ Array [
     className="sc-bdVaJa RfHPw"
     href="#main-content"
     onClick={[Function]}
-    tabIndex={1}
   >
     Skip to Content
   </a>,
@@ -123,7 +122,6 @@ exports[`content renders empty state 1`] = `
   className="sc-bdVaJa RfHPw"
   href="#main-content"
   onClick={[Function]}
-  tabIndex={1}
 >
   Skip to Content
 </a>

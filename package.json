@@ -75,6 +75,7 @@
     "jest": "^23.6",
     "jest-image-snapshot": "^2.7.0",
     "jest-puppeteer": "^3.5.1",
+    "lighthouse": "^4.0.0-alpha.2-3.2.1",
     "node-fetch": "^2.3.0",
     "pify": "^4.0.1",
     "portfinder": "^1.0.19",
@@ -91,7 +92,8 @@
       "ts",
       "tsx",
       "js",
-      "jsx"
+      "jsx",
+      "json"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/src/test/setup.ts",
     "setupFiles": [

@@ -1,3 +1,4 @@
+import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
@@ -62,3 +63,16 @@ export const getComputedStyle = (target: puppeteer.Page, selector: string) => ta
     return styleMap;
   }
 }, selector);
+
+export const checkLighthouse = async(urlPath: string) => {
+
+  const port = (new URL(browser.wsEndpoint())).port;
+  const { lhr } = await lighthouse(url(urlPath), {port}, null);
+
+  expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
+  expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.8);
+  expect(lhr.categories.pwa.score).toBeGreaterThanOrEqual(0.5);
+  expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.93);
+  // This one depends on how fast chrome executes so maybe we should drop it
+  expect(lhr.categories.performance.score).toBeGreaterThanOrEqual(0.4);
+};
