@@ -1,6 +1,6 @@
 // tslint:disable:no-console
 import { argv } from 'yargs';
-import { startServer, Options } from '.';
+import { Options, startServer } from '.';
 
 startServer(argv as Options)
   .then(({port: actualPort}) => console.log(`WEBSERVER: running on port: ${actualPort}`))

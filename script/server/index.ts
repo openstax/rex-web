@@ -11,7 +11,9 @@ export interface Options {
   port?: number;
 }
 
-export const startServer = (options: Options): Promise<{server: http.Server, port: number}> => new Promise((resolve) => {
+export const startServer = (options: Options):
+  Promise<{server: http.Server, port: number}> => new Promise((resolve) => {
+
   const defaultOptions = {
     port: process.env.PORT ? parseInt(process.env.PORT, 10) : undefined,
   };
