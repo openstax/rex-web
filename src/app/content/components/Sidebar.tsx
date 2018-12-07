@@ -19,8 +19,10 @@ const SidebarPlaceholder = styled.div<{open: boolean}>`
   background-color: white;
   overflow-x: hidden;
   transition: all 300ms;
-  width: ${sidebarClosedWidth}px;
 
+  ${(props) => !props.open && css`
+    width: ${sidebarClosedWidth}px;
+  `}
   ${(props) => props.open && css`
     width: ${sidebarOpenWidth}px;
   `}
