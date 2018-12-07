@@ -37,6 +37,8 @@ Builds the app, builds prerendered content, and then serves it at [http://localh
 
 Run `PORT=8000 yarn start:static` to change the webserver port.
 
+Run `NODE_ENV=development yarn start:static` to build the books (defined in [./.env.development](./.env.development)) and serve them.
+
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
