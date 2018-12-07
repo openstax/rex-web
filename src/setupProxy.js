@@ -21,6 +21,7 @@ module.exports = function(app) {
 };
 
 function setupTestProxy(app) {
+  console.info('WEBSERVER: Including fixtures');
   const setHeaders = res => res.setHeader('Content-Type', 'application/json');
   app.use(serveStatic(path.join(__dirname, 'test/fixtures/archive'), {setHeaders}));
 }
@@ -29,7 +30,7 @@ function setupProxy(app) {
   const ARCHIVE_URL = process.env.ARCHIVE_URL;
 
   if (!ARCHIVE_URL) {
-    throw new Error('ARCHIVE_URL must be defined');
+    throw new Error('ARCHIVE_URL environment variable must be defined');
   }
 
   archivePaths.forEach(path => app.use(proxy(`/${path}`, {
