@@ -8,7 +8,7 @@ import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page } from '../types';
-import { stripIdVersion } from '../utils';
+import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
 import ContentLink from './ContentLink';
 
 const sidebarOpenWidth = 300;
@@ -150,7 +150,7 @@ export class Sidebar extends Component<SidebarProps> {
         role='button'
         aria-label={`Click to ${open ? 'close' : 'open'} the Table of Contents`}
       />
-      <SidebarBody open={open} ref={(ref: any) => ref && (this.sidebar = ref)}>
+      <SidebarBody open={open} ref={(ref: any) => this.sidebar = ref}>
         {this.renderLinks()}
         {book && this.renderToc(book)}
       </SidebarBody>
@@ -166,35 +166,11 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   private scrollToSelectedPage() {
-    const selectedLI = this.activeSection;
-    const sidebar = this.sidebar;
-    let selectedChapter: undefined | HTMLElement;
-
-    if (!this.props.open || !selectedLI || !sidebar) {
+    if (!this.props.open) {
       return;
     }
 
-    // do nothing if the LI is already visible
-    if (selectedLI.offsetTop > sidebar.scrollTop &&  selectedLI.offsetTop - sidebar.scrollTop < sidebar.offsetHeight) {
-      return;
-    }
-
-    let search = selectedLI.parentElement;
-    while (search && !selectedChapter && search !== sidebar) {
-      if (search.nodeName === 'LI') {
-        selectedChapter = search;
-      }
-      search = search.parentElement;
-    }
-
-    const chapterSectionDelta = selectedChapter && (selectedLI.offsetTop - selectedChapter.offsetTop);
-    const scrollTarget = chapterSectionDelta && (chapterSectionDelta < sidebar.offsetHeight)
-      ? selectedChapter
-      : selectedLI;
-
-    if (scrollTarget) {
-      sidebar.scrollTo(0, scrollTarget.offsetTop);
-    }
+    scrollTocSectionIntoView(this.sidebar, this.activeSection);
   }
 
   private renderLinks = () => {
