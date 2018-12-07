@@ -30,8 +30,8 @@ export class ContentComponent extends Component<PropTypes> {
     const {book, page, services} = this.props;
 
     const cachedPage = book && page && (
-      services.archiveLoader.cachedPage(`${book.id}@${book.version}`, page.id)
-      || services.archiveLoader.cachedPage(book.shortId, page.shortId)
+      services.archiveLoader.book(book.id, book.version).page(page.id).cached()
+      || services.archiveLoader.book(book.shortId, undefined).page(page.shortId).cached()
     );
 
     return <ContentPane>

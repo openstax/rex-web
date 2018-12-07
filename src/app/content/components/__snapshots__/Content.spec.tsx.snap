@@ -6,13 +6,11 @@ Array [
     className="sc-bdVaJa RfHPw"
     href="#main-content"
     onClick={[Function]}
-    tabIndex={1}
   >
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs kTRGYS"
-    id="main-content"
+    className="sc-htoDjs lkdQiJ"
   >
     <div
       className="sc-ifAKCX gjNQMo"
@@ -20,7 +18,7 @@ Array [
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje egBNOG"
+        className="sc-EHOje jaokps"
         onClick={[Function]}
         role="button"
       >
@@ -85,7 +83,9 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH eNgRBe"
+      className="sc-bwzfXH kfCZQZ"
+      id="main-content"
+      tabIndex={-1}
     >
       <div>
         <h1
@@ -123,13 +123,11 @@ Array [
     className="sc-bdVaJa RfHPw"
     href="#main-content"
     onClick={[Function]}
-    tabIndex={1}
   >
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs kTRGYS"
-    id="main-content"
+    className="sc-htoDjs lkdQiJ"
   >
     <div
       className="sc-ifAKCX gjNQMo"
@@ -137,7 +135,7 @@ Array [
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje egBNOG"
+        className="sc-EHOje jaokps"
         onClick={[Function]}
         role="button"
       >
@@ -165,7 +163,9 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH eNgRBe"
+      className="sc-bwzfXH kfCZQZ"
+      id="main-content"
+      tabIndex={-1}
     >
       <div />
       <div

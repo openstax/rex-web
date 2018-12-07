@@ -35,7 +35,7 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
 )`
   position: fixed;
   top: 10px;
-  left: ${sidebarOpenWidth - 40}px;
+  left: ${sidebarOpenWidth - 60}px;
   height: 40px;
   width: 40px;
   background: none;
@@ -57,7 +57,7 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
   }
 
   ${(props) => !props.open && css`
-    transform: translateX(-${sidebarClosedOffset}px);
+    transform: translateX(-${sidebarClosedOffset - 10}px);
     span {
       margin-top: 15%;
     }

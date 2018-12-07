@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { finishRender, h1Content, navigate } from '../../test/browserutils';
+import { checkLighthouse, finishRender, h1Content, navigate } from '../../test/browserutils';
 
 const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
 const TEST_LONG_PAGE = '/books/testbook1-shortid/pages/testpage3-shortid';
@@ -33,6 +33,10 @@ describe('content', () => {
       }
     });
     expect(isSkipToContentSelected).toBe(true);
+  });
+
+  it('a11y lighthouse check', async() => {
+    await checkLighthouse(TEST_PAGE);
   });
 
   it(`when clicking a toc link:
