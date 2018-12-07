@@ -3,7 +3,7 @@ import { argv } from 'yargs';
 import { Options, startServer } from '.';
 
 startServer(argv as Options)
-  .then(({port: actualPort}) => console.log(`WEBSERVER: running on port: ${actualPort}`))
+  .then(({port}) => console.log(`WEBSERVER: running on port: ${port}`))
   .catch((e) => {
     console.error(e.message);
     process.exit(1);
