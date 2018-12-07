@@ -28,12 +28,23 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
+Run `PORT=8000 yarn start` to change the webserver port.
+
+
+### `yarn start:static`
+
+Builds the app, builds prerendered content, and then serves it at [http://localhost:3000](http://localhost:3000) .
+
+Run `PORT=8000 yarn start:static` to change the webserver port.
+
+Run `NODE_ENV=development yarn start:static` to build the books (defined in [./.env.development](./.env.development)) and serve them.
+
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn run build`
+### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
