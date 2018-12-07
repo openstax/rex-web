@@ -51,16 +51,15 @@ describe('content', () => {
 
     // scroll down and make sure it worked
     await scrollDown();
-    await scrollTocDown();
+    await scrollTocDown(20);
     expect(await getScrollTop()).not.toBe(0);
-    const tocScrollTop = await getTocScrollTop();
-    expect(tocScrollTop).not.toBe(0);
+    expect(await getTocScrollTop()).toBe(20);
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE)).toBe(true);
     expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
     expect(await getScrollTop()).toBe(0);
-    expect(await getTocScrollTop()).toBe(tocScrollTop);
+    expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);
     expect(await getSelectedTocSection()).toBe(TEST_LONG_PAGE);
   });
@@ -124,11 +123,12 @@ const scrollDown = () => page.evaluate(() => {
   return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });
 
-const scrollTocDown = () => page.evaluate(() => {
+// tslint:disable-next-line:no-shadowed-variable
+const scrollTocDown = (px: number) => page.evaluate((px) => {
   const tocHeader = document && Array.from(document.querySelectorAll('h2'))
     .find((node) => node.textContent === 'Table of Contents');
 
   const toc = tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement;
 
-  return toc && toc.scrollBy(0, toc.scrollHeight);
-});
+  return toc && toc.scrollBy(0, px || toc.scrollHeight);
+}, px);

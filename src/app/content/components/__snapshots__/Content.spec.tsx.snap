@@ -11,31 +11,31 @@ Array [
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs bDwnUM"
+    className="sc-htoDjs kTRGYS"
     id="main-content"
   >
     <div
       className="sc-ifAKCX gjNQMo"
       open={true}
     >
+      <button
+        aria-label="Click to close the Table of Contents"
+        className="sc-EHOje egBNOG"
+        onClick={[Function]}
+        role="button"
+      >
+        <span />
+        <span />
+        <span />
+      </button>
       <div
-        className="sc-bZQynM fxfzvu"
+        className="sc-bZQynM hPWzGe"
         open={true}
       >
-        <button
-          aria-label="Click to close the Table of Contents"
-          className="sc-EHOje lewrCf"
-          onClick={[Function]}
-          role="button"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw gdejwh"
+              className="sc-gzVnrw giQHPi"
             >
               <a
                 href="#"
@@ -52,7 +52,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="sc-gzVnrw gdejwh"
+                className="sc-gzVnrw giQHPi"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -64,7 +64,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="sc-gzVnrw gdejwh"
+                      className="sc-gzVnrw giQHPi"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -128,31 +128,31 @@ Array [
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs bDwnUM"
+    className="sc-htoDjs kTRGYS"
     id="main-content"
   >
     <div
       className="sc-ifAKCX gjNQMo"
       open={true}
     >
+      <button
+        aria-label="Click to close the Table of Contents"
+        className="sc-EHOje egBNOG"
+        onClick={[Function]}
+        role="button"
+      >
+        <span />
+        <span />
+        <span />
+      </button>
       <div
-        className="sc-bZQynM fxfzvu"
+        className="sc-bZQynM hPWzGe"
         open={true}
       >
-        <button
-          aria-label="Click to close the Table of Contents"
-          className="sc-EHOje lewrCf"
-          onClick={[Function]}
-          role="button"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw gdejwh"
+              className="sc-gzVnrw giQHPi"
             >
               <a
                 href="#"
