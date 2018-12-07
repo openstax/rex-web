@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { navigate } from './test/browserutils';
+import { checkLighthouse, navigate } from './test/browserutils';
 
 describe('Browser sanity tests', () => {
 
@@ -52,4 +52,9 @@ describe('Browser sanity tests', () => {
     })) as string | null;
     expect(heading).toBe('page not found');
   });
+
+  it('a11y lighthouse check', async() => {
+    await checkLighthouse('/');
+  });
+
 });
