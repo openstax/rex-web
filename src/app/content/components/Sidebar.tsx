@@ -1,4 +1,5 @@
 // tslint:disable:variable-name
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -10,14 +11,18 @@ import { ArchiveTree, Book, Page } from '../types';
 import { stripIdVersion } from '../utils';
 import ContentLink from './ContentLink';
 
+const sidebarOpenWidth = 300;
+const sidebarClosedWidth = 40;
+const sidebarClosedOffset = sidebarOpenWidth - sidebarClosedWidth;
+
 const SidebarPlaceholder = styled.div<{open: boolean}>`
   background-color: white;
   overflow-x: hidden;
   transition: all 300ms;
-  width: 40px;
+  width: ${sidebarClosedWidth}px;
 
   ${(props) => props.open && css`
-    width: 300px;
+    width: ${sidebarOpenWidth}px;
   `}
 `;
 
@@ -28,9 +33,9 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
     <span></span>
   </button>
 )`
-  position: absolute;
+  position: fixed;
   top: 10px;
-  right: 10px;
+  left: ${sidebarOpenWidth - 40}px;
   height: 40px;
   width: 40px;
   background: none;
@@ -38,6 +43,8 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
   border: none;
   z-index: 1;
   outline: none;
+  transition: all 300ms;
+  transform: translateX(0px);
 
   span {
     width: 100%;
@@ -50,6 +57,7 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
   }
 
   ${(props) => !props.open && css`
+    transform: translateX(-${sidebarClosedOffset}px);
     span {
       margin-top: 15%;
     }
@@ -75,11 +83,12 @@ const SidebarBody = styled.div<{open: boolean}>`
   left: 0;
   top: 0;
   bottom: 0;
-  width: 300px;
+  width: ${sidebarOpenWidth}px;
   overflow-y: auto;
   font-size: 15px;
-  transition: all 300ms;
   padding: 10px;
+  transition: all 300ms;
+  transform: translateX(0px);
 
   ol {
     padding-inline-start: 10px;
@@ -92,9 +101,11 @@ const SidebarBody = styled.div<{open: boolean}>`
   }
 
   ${(props) => !props.open && css`
-    left: -280px;
+    transform: translateX(-${sidebarClosedOffset}px);
+
     background-color: #ccc;
     overflow-y: hidden;
+
     > :not(${SidebarControl}) {
       transition-delay: 300ms;
       visibility: hidden;
@@ -104,9 +115,11 @@ const SidebarBody = styled.div<{open: boolean}>`
 
 const NavItem = styled.li<{active?: boolean}>`
   list-style: none;
-  position: relative;
 
   ${(props) => props.active && css`
+    overflow: visible;
+    position: relative;
+
     :before {
       font-weight: bold;
       content: '>';
@@ -125,21 +138,63 @@ interface SidebarProps {
 }
 
 export class Sidebar extends Component<SidebarProps> {
+  public sidebar: HTMLElement | undefined;
+  public activeSection: HTMLElement | undefined;
 
   public render() {
     const {open, book, closeToc, openToc} = this.props;
     return <SidebarPlaceholder open={open}>
-      <SidebarBody open={open}>
-        <SidebarControl
-          open={open}
-          onClick={() => open ? closeToc() : openToc()}
-          role='button'
-          aria-label={`Click to ${open ? 'close' : 'open'} the Table of Contents`}
-        />
+      <SidebarControl
+        open={open}
+        onClick={() => open ? closeToc() : openToc()}
+        role='button'
+        aria-label={`Click to ${open ? 'close' : 'open'} the Table of Contents`}
+      />
+      <SidebarBody open={open} ref={(ref: any) => ref && (this.sidebar = ref)}>
         {this.renderLinks()}
         {book && this.renderToc(book)}
       </SidebarBody>
     </SidebarPlaceholder>;
+  }
+
+  public componentDidMount() {
+    this.scrollToSelectedPage();
+  }
+
+  public componentDidUpdate() {
+    this.scrollToSelectedPage();
+  }
+
+  private scrollToSelectedPage() {
+    const selectedLI = this.activeSection;
+    const sidebar = this.sidebar;
+    let selectedChapter: undefined | HTMLElement;
+
+    if (!this.props.open || !selectedLI || !sidebar) {
+      return;
+    }
+
+    // do nothing if the LI is already visible
+    if (selectedLI.offsetTop > sidebar.scrollTop &&  selectedLI.offsetTop - sidebar.scrollTop < sidebar.offsetHeight) {
+      return;
+    }
+
+    let search = selectedLI.parentElement;
+    while (search && !selectedChapter && search !== sidebar) {
+      if (search.nodeName === 'LI') {
+        selectedChapter = search;
+      }
+      search = search.parentElement;
+    }
+
+    const chapterSectionDelta = selectedChapter && (selectedLI.offsetTop - selectedChapter.offsetTop);
+    const scrollTarget = chapterSectionDelta && (chapterSectionDelta < sidebar.offsetHeight)
+      ? selectedChapter
+      : selectedLI;
+
+    if (scrollTarget) {
+      sidebar.scrollTo(0, scrollTarget.offsetTop);
+    }
   }
 
   private renderLinks = () => {
@@ -154,15 +209,22 @@ export class Sidebar extends Component<SidebarProps> {
 
   private renderTocNode = (book: Book, {contents}: ArchiveTree) => <nav>
     <ol>
-      {contents.map((item) => isArchiveTree(item)
-        ? <NavItem key={item.id}>
-          <h3 dangerouslySetInnerHTML={{__html: item.title}} />
-          {this.renderTocNode(book, item)}
-        </NavItem>
-        : <NavItem key={item.id} active={(!!this.props.page) && stripIdVersion(item.id) === this.props.page.id}>
-          <ContentLink book={book} page={item} dangerouslySetInnerHTML={{__html: item.title}} />
-        </NavItem>
-      )}
+      {contents.map((item) => {
+        const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
+
+        return isArchiveTree(item)
+          ? <NavItem key={item.id}>
+              <h3 dangerouslySetInnerHTML={{__html: item.title}} />
+              {this.renderTocNode(book, item)}
+            </NavItem>
+          : <NavItem
+              key={item.id}
+              ref={active ? ((ref: any) => this.activeSection = ref) : undefined}
+              active={active}
+            >
+              <ContentLink book={book} page={item} dangerouslySetInnerHTML={{__html: item.title}} />
+            </NavItem>;
+      })}
     </ol>
   </nav>
 

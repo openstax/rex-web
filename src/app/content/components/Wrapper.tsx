@@ -6,6 +6,10 @@ export default styled(MainContent)`
   flex-direction: row;
 
   // these are only here because the cnx-recipes styles are broken
-  font - size; : 18; px;
-  font - family; : 'Noto Sans', sans - serif;
+  font-size: 18px;
+  font-family: "Noto Sans";
+
+  * {
+   overflow: initial;
+  }
 `;

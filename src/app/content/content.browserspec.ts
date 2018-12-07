@@ -2,7 +2,6 @@
 import { finishRender, h1Content, navigate } from '../../test/browserutils';
 
 const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
-// const TEST_NEXT_PAGE = '/books/testbook1-shortid/pages/testpage2-shortid';
 const TEST_LONG_PAGE = '/books/testbook1-shortid/pages/testpage3-shortid';
 
 describe('content', () => {
@@ -39,9 +38,9 @@ describe('content', () => {
   it(`when clicking a toc link:
     - it goes
     - scrolls the content to the top
-    - doesn\'t scroll the sidebar at all
+    - doesn't scroll the sidebar at all
     - updates the selected toc element
-    - and doesn\'t close the sidebar
+    - and doesn't close the sidebar
   `, async() => {
     // assert initial state
     expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
