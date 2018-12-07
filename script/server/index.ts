@@ -5,13 +5,13 @@ import serveStatic from 'serve-static';
 import '../../src/env';
 import setupProxy from '../../src/setupProxy';
 
-interface Options {
+export interface Options {
   fallback404?: boolean;
   onlyProxy?: boolean;
   port?: number;
 }
 
-export default (options: Options): Promise<{server: http.Server, port: number}> => new Promise((resolve) => {
+export const startServer = (options: Options): Promise<{server: http.Server, port: number}> => new Promise((resolve) => {
   const defaultOptions = {
     port: process.env.PORT ? parseInt(process.env.PORT, 10) : undefined,
   };

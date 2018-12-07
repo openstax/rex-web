@@ -17,7 +17,7 @@ import * as navigationSelectors from '../src/app/navigation/selectors';
 import { AppState } from '../src/app/types';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
 import FontCollector from '../src/helpers/FontCollector';
-import startServer from './server';
+import { startServer } from './server';
 
 (global as any).fetch = fetch;
 
