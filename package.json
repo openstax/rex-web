@@ -20,7 +20,7 @@
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
     "start": "react-scripts start",
-    "start:static": "npm run-script build && NODE_ENV=${NODE_ENV:-test} npm run-script prerender && npm run-script server",
+    "start:static": "npm run-script build && NODE_ENV=${NODE_ENV:-test} npm run-script prerender && NODE_ENV=${NODE_ENV:-test} PORT=${PORT:-3000} npm run-script server",
     "clean": "rm -rf ./build",
     "build": "GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} react-scripts build",
     "build:clean": "npm run-script clean && npm run-script build",
