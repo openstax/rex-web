@@ -23,7 +23,6 @@ const ignoreConsoleMessages = [
    * jsdom doesn't implement scrolling
    */
   'Error: Not implemented: window.scrollTo',
-  'Error: Not implemented: window.scrollTo',
 ];
 
 const originalConsoleError = console.error;  // tslint:disable-line:no-console
