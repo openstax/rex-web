@@ -10,6 +10,9 @@ import * as Services from './context/Services';
 import * as errors from './errors';
 import * as head from './head';
 import * as navigation from './navigation';
+import { hasState } from './navigation/guards';
+import { AnyMatch } from './navigation/types';
+import { matchUrl } from './navigation/utils';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
@@ -36,7 +39,7 @@ const defaultServices = () => ({
 
 interface Options {
   initialState?: AppState;
-  initialEntries?: string[];
+  initialEntries?: AnyMatch[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
@@ -45,7 +48,16 @@ export default (options: Options) => {
 
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
-    : createMemoryHistory({initialEntries});
+    : createMemoryHistory(initialEntries && {
+      initialEntries: initialEntries.map(matchUrl),
+    });
+
+  if (initialEntries && initialEntries.length > 0) {
+    const entry = initialEntries[initialEntries.length - 1];
+    if (hasState(entry)) {
+      history.location.state = entry.state;
+    }
+  }
 
   const reducer = combineReducers<AppState, AnyAction>({
     content: content.reducer,
@@ -76,7 +88,9 @@ export default (options: Options) => {
     </Services.Provider>
   </Provider>;
 
-  navigation.utils.init(routes, initialState ? initialState.navigation : history.location, store.dispatch);
+  if (!initialState) {
+    navigation.utils.init(routes, history.location, store.dispatch);
+  }
 
   return {
     container,

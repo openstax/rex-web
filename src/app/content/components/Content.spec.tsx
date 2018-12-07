@@ -2,72 +2,30 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
+import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
-import { ArchiveBook, ArchivePage } from '../types';
 import Content, { ContentComponent } from './Content';
-
-const book = {
-  id: 'booklongid',
-  shortId: 'book',
-  title: 'book title',
-  tree: {
-    contents: [
-      {
-        contents: [
-          {
-            id: 'pagelongid2',
-            shortId: 'page2',
-            title: 'page title2',
-          },
-        ],
-        id: 'pagelongid',
-        shortId: 'page',
-        title: 'page title',
-      },
-    ],
-    id: 'booklongid',
-    shortId: 'book',
-    title: 'book title',
-  },
-  version: '0',
-};
-const page = {
-  id: 'pagelongid',
-  shortId: 'page',
-  title: 'page title',
-  version: '0',
-};
-
-const pageArchive = {
-  ...page,
-  content: 'some page content yo',
-};
+import Page from './Page';
 
 describe('content', () => {
-  let archiveLoader: {[k in  keyof AppServices['archiveLoader']]: jest.SpyInstance};
+  let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   const services = {} as AppServices;
 
   beforeEach(() => {
-    archiveLoader = {
-      book: jest.fn(() => Promise.resolve(book as ArchiveBook)),
-      cachedBook: jest.fn(() => (book as ArchiveBook)),
-      cachedPage: jest.fn(() => (pageArchive as ArchivePage)),
-      page: jest.fn(() => Promise.resolve(pageArchive as ArchivePage)),
-    };
-
+    archiveLoader = mockArchiveLoader();
     (services as any).archiveLoader = archiveLoader;
   });
 
-  it('matches snapshot', (done) => {
+  it('matches snapshot', () => {
     const state = {
       content: {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -77,14 +35,11 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    process.nextTick(() => {
-      const tree = component.toJSON();
-      expect(tree).toMatchSnapshot();
-      done();
-    });
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
-  it('renders empty state', (done) => {
+  it('renders empty state', () => {
     const state = {
       content: initialState,
     } as AppState;
@@ -96,11 +51,71 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    process.nextTick(() => {
-      const tree = component.toJSON();
-      expect(tree).toMatchSnapshot();
-      done();
-    });
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('gets page content out of cached archive query', () => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as unknown as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('booklongid', '0', 'pagelongid');
+  });
+
+  it('page content fails over to using short ids if data is unavailable with long ids', () => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as unknown as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    archiveLoader.mock.cachedPage.mockReturnValueOnce(undefined);
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(2);
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('book', undefined, 'page');
+  });
+
+  it('page element is still rendered if archive content is unavailable', () => {
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+    } as unknown as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    archiveLoader.mock.cachedPage.mockReturnValue(undefined);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    const pageComponent = component.root.findByType(Page);
+
+    expect(pageComponent).toBeDefined();
   });
 
   it('updates after initial render', async() => {
@@ -112,7 +127,7 @@ describe('content', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as unknown as AppState;
 
     const go = {type: 'go'};
 

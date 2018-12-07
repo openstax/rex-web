@@ -2,7 +2,7 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import { ActionHookBody, AppServices, AppState, MiddlewareAPI } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { initialState } from '../reducer';
-import { ArchiveBook, ArchiveContent, Book, Page, State } from '../types';
+import { ArchiveBook, ArchivePage, Book, Page, State } from '../types';
 
 describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof receiveBook | typeof receivePage>;
@@ -44,7 +44,7 @@ describe('setHead hook', () => {
     localState.book = { title: 'book', id: 'book' } as Book;
     localState.page = { title: 'page', id: 'page' } as Page;
 
-    hookBody(helpers)(receivePage({} as ArchiveContent));
+    hookBody(helpers)(receivePage({} as ArchivePage));
 
     expect(helpers.dispatch).toHaveBeenCalledWith(head);
   });
