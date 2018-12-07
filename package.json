@@ -20,10 +20,11 @@
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
     "start": "react-scripts start",
+    "start:static": "npm run-script build && npm run-script prerender && npm run-script server",
     "clean": "rm -rf ./build",
     "build": "GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} react-scripts build",
     "build:clean": "npm run-script clean && npm run-script build",
-    "prerender": "node ./script/entry prerender",
+    "prerender": "NODE_ENV=test node ./script/entry prerender",
     "server": "NODE_ENV=${NODE_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
@@ -31,7 +32,7 @@
     "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\""
+    "test:prerender": "npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\""
   },
   "eslintConfig": {
     "extends": "react-app"

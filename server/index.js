@@ -5,10 +5,10 @@ const path = require('path');
 const setupProxy = require('../src/setupProxy');
 require('../src/env');
 
-const SERVER_PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT;
 
-if (Number.isNaN(SERVER_PORT)) {
-  throw new Error(`BUG: SERVER_PORT is not defined. Add it to .env.${process.env.NODE_ENV}`)
+if (Number.isNaN(PORT)) {
+  throw new Error(`BUG: PORT is not defined. Add it to .env.${process.env.NODE_ENV}`)
 }
 
 module.exports = (options = {}) => new Promise(resolve => {
@@ -29,5 +29,5 @@ module.exports = (options = {}) => new Promise(resolve => {
 
   const server = http.createServer(app);
 
-  server.listen(SERVER_PORT, () => resolve({server, port: SERVER_PORT}));
+  server.listen(PORT, () => resolve({server, port: PORT}));
 });

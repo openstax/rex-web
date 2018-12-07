@@ -2,7 +2,7 @@
 import { argv } from 'yargs';
 import server from '.';
 
-const port = parseInt(process.env.PORT || '-1', 10);
+const port = parseInt(process.env.PORT || '0', 10);
 
 server({port, ...argv})
   .then(({port: actualPort}) => console.log(`WEBSERVER: running on port: ${actualPort}`))
