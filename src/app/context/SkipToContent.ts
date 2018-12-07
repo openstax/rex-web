@@ -1,9 +1,9 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 
 export const MAIN_CONTENT_ID = 'main-content';
 
 const {Consumer, Provider} = React.createContext({
-  registerMainContent: (_mainContent: RefObject<any>): void => {
+  registerMainContent: (_mainContent: HTMLDivElement | null): void => {
     throw new Error('BUG: MainContent must be inside SkipToContentWrapper');
   },
 });
