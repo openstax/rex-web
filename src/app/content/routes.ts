@@ -5,7 +5,13 @@ import { Params } from './types';
 
 const CONTENT_PATH = '/books/:bookId/pages/:pageId';
 
-export const content: Route<Params> = {
+interface State {
+  bookUid: string;
+  bookVersion: string;
+  pageUid: string;
+}
+
+export const content: Route<Params, State> = {
   component: components.Content,
   getUrl: (params: Params): string => pathToRegexp.compile(CONTENT_PATH)(params),
   name: 'Content',

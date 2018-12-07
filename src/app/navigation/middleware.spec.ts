@@ -32,11 +32,31 @@ describe('navigation middleware', () => {
     const pushSpy = jest.spyOn(history, 'push');
     pushSpy.mockImplementation(() => null);
 
-    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({method: 'push', url: 'someplace'}));
+    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+      method: 'push',
+      route: routes[0],
+    }));
 
     expect(pushSpy).toHaveBeenCalled();
     expect(next).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('calls history with state', () => {
+    const history = createMemoryHistory();
+    const next = jest.fn((_: AnyAction) => undefined);
+    const dispatch = jest.fn((_: AnyAction) => undefined);
+
+    const pushSpy = jest.spyOn(history, 'push');
+    pushSpy.mockImplementation(() => null);
+
+    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+      method: 'push',
+      route: routes[0],
+      state: 'state',
+    }));
+
+    expect(pushSpy).toHaveBeenCalledWith('url', 'state');
   });
 
   it('dispatches locationChange when history updates externally', () => {

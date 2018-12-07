@@ -118,11 +118,73 @@ Array [
 `;
 
 exports[`content renders empty state 1`] = `
-<a
-  className="sc-bdVaJa RfHPw"
-  href="#main-content"
-  onClick={[Function]}
->
-  Skip to Content
-</a>
+Array [
+  <a
+    className="sc-bdVaJa RfHPw"
+    href="#main-content"
+    onClick={[Function]}
+  >
+    Skip to Content
+  </a>,
+  <div
+    className="sc-htoDjs bDwnUM"
+  >
+    <div
+      className="sc-ifAKCX gjNQMo"
+      open={true}
+    >
+      <div
+        className="sc-bZQynM fxfzvu"
+        open={true}
+      >
+        <button
+          aria-label="Click to close the Table of Contents"
+          className="sc-EHOje lewrCf"
+          onClick={[Function]}
+          role="button"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav>
+          <ol>
+            <li
+              className="sc-gzVnrw gdejwh"
+            >
+              <a
+                href="#"
+              >
+                book details
+              </a>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div
+      className="sc-bwzfXH hsQBVX"
+      id="main-content"
+      tabIndex={-1}
+    >
+      <div />
+      <div
+        className="sc-bxivhb fpcskD"
+      >
+        <div
+          data-type="chapter"
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "",
+              }
+            }
+            data-type="page"
+          />
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;

@@ -10,3 +10,5 @@ export const pathname = createSelector(
   localState,
   (state) => state.pathname
 );
+
+export const location = localState;
