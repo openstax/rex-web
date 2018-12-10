@@ -19,7 +19,7 @@ pipeline {
         PUBLIC_URL = "/rex/releases/${params.RELEASE_ID}"
       }
       steps {
-        sh 'docker build -t -e PUBLIC_URL="$PUBLIC_URL" openstax/rex-web .'
+        sh 'docker build -t openstax/rex-web --build-arg PUBLIC_URL="$PUBLIC_URL" .'
         sh 'docker run -td --name=$BUILD_TAG openstax/rex-web cat'
       }
     }
