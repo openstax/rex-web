@@ -94,7 +94,7 @@ function startMathJax() {
     },
   };
 
-  if (!window) {
+  if (typeof(window) === 'undefined') {
     throw new Error('BUG: Window is undefined');
   }
 
