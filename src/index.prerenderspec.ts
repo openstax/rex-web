@@ -5,7 +5,7 @@ import { url } from './test/browserutils';
 describe('Prerender sanity tests', () => {
 
   it('has a release manifest', async() => {
-    const release = await fetch(url('books/release.json'))
+    const release = await fetch(url('release.json'))
       .then((response) => response.text());
 
     expect(release).toMatchSnapshot();

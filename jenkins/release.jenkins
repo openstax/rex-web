@@ -42,7 +42,8 @@ pipeline {
       }
       steps {
         sh "docker cp $BUILD_TAG:/code/build ."
-        sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/rex/releases/${params.RELEASE_ID}"
+        sh "./bin/aws s3 sync --exclude 'books/*' build/ s3://${params.BUCKET}/rex/releases/${params.RELEASE_ID}"
+        sh "./bin/aws s3 sync --content-type 'text/html' build/books/ s3://${params.BUCKET}/rex/releases/${params.RELEASE_ID}/books"
       }
     }
   }
