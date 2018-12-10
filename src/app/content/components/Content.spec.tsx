@@ -169,6 +169,6 @@ describe('content', () => {
 
     const sidebarComponent = component.root.findByType(Sidebar);
 
-    expect(sidebarComponent.props.open).toBe(true);
+    expect(sidebarComponent.props.isOpen).toBe(true);
   });
 });

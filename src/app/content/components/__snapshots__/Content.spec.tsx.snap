@@ -13,8 +13,7 @@ Array [
     className="sc-htoDjs lkdQiJ"
   >
     <div
-      className="sc-ifAKCX gjNQMo"
-      open={true}
+      className="sc-ifAKCX iOXBpE"
     >
       <button
         aria-label="Click to close the Table of Contents"
@@ -28,7 +27,6 @@ Array [
       </button>
       <div
         className="sc-bZQynM hPWzGe"
-        open={true}
       >
         <nav>
           <ol>
@@ -130,8 +128,7 @@ Array [
     className="sc-htoDjs lkdQiJ"
   >
     <div
-      className="sc-ifAKCX gjNQMo"
-      open={true}
+      className="sc-ifAKCX iOXBpE"
     >
       <button
         aria-label="Click to close the Table of Contents"
@@ -145,7 +142,6 @@ Array [
       </button>
       <div
         className="sc-bZQynM hPWzGe"
-        open={true}
       >
         <nav>
           <ol>

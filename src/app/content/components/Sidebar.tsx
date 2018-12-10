@@ -15,20 +15,20 @@ const sidebarOpenWidth = 300;
 const sidebarClosedWidth = 40;
 const sidebarClosedOffset = sidebarOpenWidth - sidebarClosedWidth;
 
-const SidebarPlaceholder = styled.div<{open: boolean}>`
+const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
   background-color: white;
   overflow-x: hidden;
   transition: all 300ms;
 
-  ${(props) => !props.open && css`
+  ${(props) => !props.isOpen && css`
     width: ${sidebarClosedWidth}px;
   `}
-  ${(props) => props.open && css`
+  ${(props) => props.isOpen && css`
     width: ${sidebarOpenWidth}px;
   `}
 `;
 
-const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonElement> & {open: boolean}) =>
+const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonElement> & {isOpen: boolean}) =>
   <button {...props}>
     <span></span>
     <span></span>
@@ -58,14 +58,14 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
     transition: all 300ms;
   }
 
-  ${(props) => !props.open && css`
+  ${(props) => !props.isOpen && css`
     transform: translateX(-${sidebarClosedOffset - 10}px);
     span {
       margin-top: 15%;
     }
   `}
 
-  ${(props) => props.open && css`
+  ${(props) => props.isOpen && css`
     span:nth-child(1) {
       transform: rotateZ(45deg);
     }
@@ -80,7 +80,7 @@ const SidebarControl = styled(({open, ...props}: React.HTMLProps<HTMLButtonEleme
 
 `;
 
-const SidebarBody = styled.div<{open: boolean}>`
+const SidebarBody = styled.div<{isOpen: boolean}>`
   position: fixed;
   left: 0;
   top: 0;
@@ -102,7 +102,7 @@ const SidebarBody = styled.div<{open: boolean}>`
     visibility: visible;
   }
 
-  ${(props) => !props.open && css`
+  ${(props) => !props.isOpen && css`
     transform: translateX(-${sidebarClosedOffset}px);
 
     background-color: #ccc;
@@ -132,7 +132,7 @@ const NavItem = styled.li<{active?: boolean}>`
 `;
 
 interface SidebarProps {
-  open: boolean;
+  isOpen: boolean;
   book?: Book;
   page?: Page;
   openToc: typeof actions['openToc'];
@@ -144,15 +144,15 @@ export class Sidebar extends Component<SidebarProps> {
   public activeSection: HTMLElement | undefined;
 
   public render() {
-    const {open, book, closeToc, openToc} = this.props;
-    return <SidebarPlaceholder open={open}>
+    const {isOpen, book, closeToc, openToc} = this.props;
+    return <SidebarPlaceholder isOpen={isOpen}>
       <SidebarControl
-        open={open}
-        onClick={() => open ? closeToc() : openToc()}
+        isOpen={isOpen}
+        onClick={() => isOpen ? closeToc() : openToc()}
         role='button'
-        aria-label={`Click to ${open ? 'close' : 'open'} the Table of Contents`}
+        aria-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
       />
-      <SidebarBody open={open} ref={(ref: any) => this.sidebar = ref}>
+      <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
         {this.renderLinks()}
         {book && this.renderToc(book)}
       </SidebarBody>
@@ -168,7 +168,7 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   private scrollToSelectedPage() {
-    if (!this.props.open) {
+    if (!this.props.isOpen) {
       return;
     }
 
@@ -217,7 +217,7 @@ export class Sidebar extends Component<SidebarProps> {
 export default connect(
   (state: AppState) => ({
     book: selectors.book(state),
-    open: selectors.tocOpen(state),
+    isOpen: selectors.tocOpen(state),
     page: selectors.page(state),
   }),
   (dispatch: Dispatch): {openToc: typeof actions['openToc'], closeToc: typeof actions['closeToc']} => ({
