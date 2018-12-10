@@ -18,10 +18,12 @@ export default class PageContent extends Component<PropTypes> {
       .replace(/<cnx-pi.*>[\s\S]*<\/cnx-pi>/g, '');
   }
 
+  public componentDidMount() {
+    this.postProcess();
+  }
+
   public componentDidUpdate() {
-    if (this.container && typeof(window) !== 'undefined') {
-      typesetMath(this.container, window);
-    }
+    this.postProcess();
   }
 
   public render() {
@@ -36,5 +38,11 @@ export default class PageContent extends Component<PropTypes> {
         </div>
       </div>}
     </BookStyles>;
+  }
+
+  private postProcess() {
+    if (this.container && typeof(window) !== 'undefined') {
+      typesetMath(this.container, window);
+    }
   }
 }
