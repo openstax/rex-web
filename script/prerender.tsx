@@ -44,7 +44,7 @@ async function render() {
   const archiveLoader = createArchiveLoader(`http://localhost:${port}/contents/`);
 
   async function renderManifest() {
-    writeFile(path.join(ASSET_DIR, '/books/release.json'), JSON.stringify({
+    writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
       books: BOOKS,
       code: process.env.CODE_VERSION,
       id: process.env.RELEASE_ID,

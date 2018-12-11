@@ -12,6 +12,8 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
     __APP_SERVICES: AppServices;
     __APP_ASYNC_HOOKS: PromiseCollector;
+
+    MathJax: any;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
