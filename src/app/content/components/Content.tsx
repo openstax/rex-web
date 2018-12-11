@@ -26,25 +26,14 @@ export class ContentComponent extends Component<PropTypes> {
     </div>;
   }
 
-  public renderContent = () => {
-    const {book, page, services} = this.props;
-
-    const cachedPage = book && page && (
-      services.archiveLoader.book(book.id, book.version).page(page.id).cached()
-      || services.archiveLoader.book(book.shortId, undefined).page(page.shortId).cached()
-    );
-
-    return <ContentPane>
-      {this.renderHeader()}
-      <Page content={cachedPage ? cachedPage.content : ''} />
-    </ContentPane>;
-  }
-
   public render() {
     return <Layout>
       <Wrapper>
         <Sidebar />
-        {this.renderContent()}
+        <ContentPane>
+          {this.renderHeader()}
+          <Page />
+        </ContentPane>
       </Wrapper>
     </Layout>;
   }

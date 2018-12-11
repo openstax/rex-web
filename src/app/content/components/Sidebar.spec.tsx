@@ -38,7 +38,7 @@ describe('Sidebar', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as any as AppState;
     const store = createStore(combineReducers({content: reducer}), state);
 
     const component = renderer.create(<Provider store={store}>

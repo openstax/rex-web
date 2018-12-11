@@ -1,15 +1,16 @@
 import { Location } from 'history';
 import cloneDeep from 'lodash/fp/cloneDeep';
+import { combineReducers, createStore } from 'redux';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
-import mockArchiveLoader from '../../../test/mocks/archiveLoader';
+import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { locationChange } from '../../navigation/actions';
 import { Match } from '../../navigation/types';
 import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
-import { initialState } from '../reducer';
+import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
-import { Book, Page, Params, State } from '../types';
+import { Params, State } from '../types';
 
 describe('locationChange', () => {
   let localState: State;
@@ -26,14 +27,17 @@ describe('locationChange', () => {
     localState = cloneDeep(initialState);
     appState = {content: localState} as AppState;
 
+    const store = createStore(combineReducers({content: reducer}), appState);
+
     archiveLoader = mockArchiveLoader();
 
-    dispatch = jest.fn((a) => a);
+    dispatch = jest.fn(store.dispatch);
+
     helpers = {
       archiveLoader,
       dispatch,
       fontCollector: new FontCollector(),
-      getState: () => appState,
+      getState: store.getState,
       promiseCollector: new PromiseCollector(),
     } as any as MiddlewareAPI & AppServices;
 
@@ -59,69 +63,79 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load book if its already loaded', () => {
-    localState.book = {
-      shortId: 'bookId',
-    } as Book;
+    localState.book = cloneDeep(book);
     localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
+      bookId: 'book',
+      pageId: 'page',
     };
 
     hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('bookId'));
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
   it('doesn\'t load book if its already loading', () => {
-    localState.loading.book = 'bookId';
     localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
+      bookId: 'book',
+      pageId: 'page',
     };
 
+    archiveLoader.mock.loadBook.mockImplementation(
+      () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
+    );
+
     hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('bookId'));
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
+    hook(helpers)(next)(action);
+    hook(helpers)(next)(action);
+
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.requestPage('page'));
+
+    expect(archiveLoader.mock.loadBook).toHaveBeenCalledTimes(1);
   });
 
   it('loads page', () => {
     localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
+      bookId: 'book',
+      pageId: 'page',
     };
 
     hook(helpers)(next)(action);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('bookId', undefined, 'pageId');
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pageId', undefined);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('page'));
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('book', undefined, 'page');
+    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('page', undefined);
   });
 
   it('doesn\'t load page if its already loaded', () => {
-    localState.page = {
-      shortId: 'pageId',
-    } as Page;
+    localState.page = cloneDeep(page);
     localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
+      bookId: 'book',
+      pageId: 'page',
     };
 
     hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('page'));
     expect(archiveLoader.mock.loadPage).not.toHaveBeenCalled();
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pageId', undefined);
+    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('page', undefined);
   });
 
   it('doesn\'t load page if its already loading', () => {
-    localState.loading.page = 'pageId';
     localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
+      bookId: 'book',
+      pageId: 'page',
     };
 
     hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader.mock.loadPage).not.toHaveBeenCalled();
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pageId', undefined);
+    hook(helpers)(next)(action);
+    hook(helpers)(next)(action);
+    hook(helpers)(next)(action);
+
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.requestPage('page'));
+
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
   });
 
   it('adds font to fontcollector', () => {

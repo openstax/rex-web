@@ -1,3 +1,5 @@
+import { RouteParams, RouteState } from '../navigation/types';
+import { content } from './routes';
 
 export interface Params {
   bookId: string;
@@ -13,6 +15,12 @@ export interface State {
   };
   book?: Book;
   page?: Page;
+  references: Array<PageReference & {match: string}>;
+}
+
+export interface PageReference {
+  state: RouteState<typeof content>;
+  params: RouteParams<typeof content>;
 }
 
 export interface Book {

@@ -5,8 +5,8 @@ import { AnyAction } from '../types';
 
 export type State = Location;
 
-type RouteParams<R> = R extends Route<infer P> ? P : never;
-type RouteState<R> = R extends Route<any, infer S> ? S : never;
+export type RouteParams<R> = R extends Route<infer P> ? P : never;
+export type RouteState<R> = R extends Route<any, infer S> ? S : never;
 
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
 type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;

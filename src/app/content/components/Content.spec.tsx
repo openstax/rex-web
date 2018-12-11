@@ -42,7 +42,7 @@ describe('content', () => {
   it('renders empty state', () => {
     const state = {
       content: initialState,
-    } as AppState;
+    } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
@@ -121,7 +121,7 @@ describe('content', () => {
   it('updates after initial render', async() => {
     const state1 = {
       content: initialState,
-    } as AppState;
+    } as any as AppState;
     const state2 = {
       content: {
         ...initialState,

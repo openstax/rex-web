@@ -12,6 +12,19 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
     __APP_SERVICES: AppServices;
     __APP_ASYNC_HOOKS: PromiseCollector;
+
+    MouseEvent: {
+      prototype: dom.MouseEvent;
+      new(typeArg: string, eventInitDict?: dom.MouseEventInit): dom.MouseEvent;
+    };
+    HTMLAnchorElement: {
+      prototype: dom.HTMLAnchorElement;
+      new(): dom.HTMLAnchorElement;
+    };
+    Element: {
+      prototype: dom.Element;
+      new(): dom.Element;
+    };
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
