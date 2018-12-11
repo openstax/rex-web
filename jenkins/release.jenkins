@@ -15,8 +15,11 @@ pipeline {
       }
     }
     stage('build') {
+      environment {
+        PUBLIC_URL = "/rex/releases/${params.RELEASE_ID}"
+      }
       steps {
-        sh "docker build -t openstax/rex-web ."
+        sh 'docker build -t openstax/rex-web --build-arg PUBLIC_URL="$PUBLIC_URL" .'
         sh 'docker run -td --name=$BUILD_TAG openstax/rex-web cat'
       }
     }
@@ -39,7 +42,8 @@ pipeline {
       }
       steps {
         sh "docker cp $BUILD_TAG:/code/build ."
-        sh "./bin/aws s3 sync --content-type 'text/html' build/ s3://${params.BUCKET}/${params.RELEASE_ID}/rex/releases"
+        sh "./bin/aws s3 sync --exclude 'books/*' build/ s3://${params.BUCKET}/rex/releases/${params.RELEASE_ID}"
+        sh "./bin/aws s3 sync --content-type 'text/html' build/books/ s3://${params.BUCKET}/rex/releases/${params.RELEASE_ID}/books"
       }
     }
   }
