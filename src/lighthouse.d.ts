@@ -1,8 +1,8 @@
-declare module "lighthouse" {
+declare module 'lighthouse' {
 
-  type NotYetTyped = any // Anything that has not been defined yet.
+  type NotYetTyped = any; // Anything that has not been defined yet.
 
-  type AuditId = 
+  type AuditId =
       'is-on-https'
     | 'redirects-http'
     | 'service-worker'
@@ -121,57 +121,57 @@ declare module "lighthouse" {
     | 'plugins'
     | 'canonical'
     | 'mobile-friendly'
-    | 'structured-data'
+    | 'structured-data';
 
-  type ScoreDisplayMode = 
+  type ScoreDisplayMode =
       'binary'
     | 'numeric'
     | 'informative'
     | 'manual'
-    | 'not-applicable'
+    | 'not-applicable';
 
-  type AuditResult = {
-    id: AuditId
-    title: string
-    description: string
-    score: number
-    scoreDisplayMode: ScoreDisplayMode
-    rawValue: boolean
-    displayValue?: string
-    explanation?: NotYetTyped
-    errorMessage?: NotYetTyped
-    warnings?: NotYetTyped[]
-    details?: { [k: string]: NotYetTyped }
+  interface AuditResult {
+    id: AuditId;
+    title: string;
+    description: string;
+    score: number;
+    scoreDisplayMode: ScoreDisplayMode;
+    rawValue: boolean;
+    displayValue?: string;
+    explanation?: NotYetTyped;
+    errorMessage?: NotYetTyped;
+    warnings?: NotYetTyped[];
+    details?: { [k: string]: NotYetTyped };
   }
 
-  type TitleIdScore = {
-    title: string
-    id: string
-    score: number
-    auditRefs: NotYetTyped[]
-    manualDescription?: string
+  interface TitleIdScore {
+    title: string;
+    id: string;
+    score: number;
+    auditRefs: NotYetTyped[];
+    manualDescription?: string;
   }
 
-  type LighthouseReport = {
-    userAgent: string
+  interface LighthouseReport {
+    userAgent: string;
     environment: {
       networkUserAgent: string
       hostUserAgent: string
       benchmarkIndex: number
-    }
-    lighthouseVersion: string
-    fetchTime: string
-    requestedUrl: string
-    finalUrl: string
-    runWarnings: NotYetTyped[]
+    };
+    lighthouseVersion: string;
+    fetchTime: string;
+    requestedUrl: string;
+    finalUrl: string;
+    runWarnings: NotYetTyped[];
     runtimeError: {
       code: string
       message: string
-    }
+    };
 
-    audits: {[k: AuditId]: AuditResult}
+    audits: {[k: AuditId]: AuditResult};
 
-    timing: { total: number }
+    timing: { total: number };
 
     categories: {
       performance: TitleIdScore
@@ -179,41 +179,40 @@ declare module "lighthouse" {
       accessibility: TitleIdScore
       'best-practices': TitleIdScore
       seo: TitleIdScore
-    }
+    };
 
     // Other misc fields that are not used yet
-    configSettings: NotYetTyped
-    categoryGroups: NotYetTyped
+    configSettings: NotYetTyped;
+    categoryGroups: NotYetTyped;
     i18n: {
       rendererFormattedStrings: NotYetTyped
       icuMessagePaths: NotYetTyped
-    }
+    };
   }
 
-  type LighthouseResult = {
-    lhr: LighthouseReport
-    artifacts: NotYetTyped
+  interface LighthouseResult {
+    lhr: LighthouseReport;
+    artifacts: NotYetTyped;
   }
 
   const lighthouse: {
 
     // Signature for the main function
-    (url: string, 
-      flags: { 
+    (url: string,
+     flags: {
         port?: number;
         disableCpuThrottling?: boolean;
         disableDeviceEmulation?: boolean;
         disableNetworkThrottling?: boolean;
-      } = {}, 
-      perfConfig: NotYetTyped): Promise<LighthouseResult>;
-
+      } = {},
+     perfConfig: NotYetTyped): Promise<LighthouseResult>;
 
     // Additional fields on the lighthouse function (unused)
     getAuditList: NotYetTyped;
     traceCategories: NotYetTyped;
     Audit: NotYetTyped;
     Gatherer: NotYetTyped;
-  }
+  };
 
   export = lighthouse;
 }

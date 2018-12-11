@@ -15,7 +15,8 @@
     "reselect": "^4.0.0",
     "styled-components": "^4.0.3",
     "typesafe-actions": "^2.0.4",
-    "typescript": "^3.2"
+    "typescript": "^3.2",
+    "weak-map": "^1.0.5"
   },
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
