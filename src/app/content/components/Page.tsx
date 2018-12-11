@@ -83,7 +83,11 @@ export class PageComponent extends Component<PropTypes> {
 
     if (reference) {
       e.preventDefault();
-      navigate({route: content, ...reference});
+      navigate({
+        params: reference.params,
+        route: content,
+        state: reference.state,
+      });
     }
   }
 }
