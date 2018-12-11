@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import createApp from './app';
 import createArchiveLoader from './helpers/createArchiveLoader';
 import loadFont from './helpers/loadFont';
+import { startMathJax } from './helpers/mathjax';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -44,6 +45,8 @@ if (window.__PRELOADED_STATE__) {
 } else {
   ReactDOM.render(<app.container />, document.getElementById('root'));
 }
+
+startMathJax();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
