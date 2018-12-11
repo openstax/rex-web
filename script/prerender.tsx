@@ -7,7 +7,7 @@ import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
 import { content } from '../src/app/content/routes';
-import { stripIdVersion, flattenArchiveTree } from '../src/app/content/utils';
+import { flattenArchiveTree, stripIdVersion } from '../src/app/content/utils';
 import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as headSelectors from '../src/app/head/selectors';
