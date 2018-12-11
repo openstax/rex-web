@@ -11,6 +11,6 @@ describe('notFound', () => {
   });
 
   it('produces a url', () => {
-    expect(notFound.getUrl()).toEqual('/404');
+    expect(notFound.getUrl()).toEqual('/errors/404');
   });
 });

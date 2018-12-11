@@ -59,4 +59,7 @@ CMD ["yarn", "run", "server"]
 
 FROM slim as built
 
+ARG PUBLIC_URL
+ENV PUBLIC_URL=$PUBLIC_URL
+
 RUN yarn run build
