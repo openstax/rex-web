@@ -94,9 +94,8 @@ const getSelectedTocSection = () => page.evaluate(() => {
   const tocHeader = document && Array.from(document.querySelectorAll('h2'))
     .find((node) => node.textContent === 'Table of Contents');
 
-  const li = tocHeader && tocHeader.parentElement &&
-    Array.from(tocHeader.parentElement.querySelectorAll('li'))
-      .find((search) => '">"' === (window && window.getComputedStyle(search, 'before').getPropertyValue('content')));
+  const li = tocHeader && tocHeader.parentElement
+    && tocHeader.parentElement.querySelector('li[aria-label="Current Page"]');
 
   const a = li && li.querySelector('a');
   const href = a && a.attributes.getNamedItem('href');

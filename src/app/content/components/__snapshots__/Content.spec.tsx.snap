@@ -17,7 +17,7 @@ Array [
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje jaokps"
+        className="sc-EHOje bZAIEP"
         onClick={[Function]}
         role="button"
       >
@@ -132,7 +132,7 @@ Array [
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje jaokps"
+        className="sc-EHOje bZAIEP"
         onClick={[Function]}
         role="button"
       >

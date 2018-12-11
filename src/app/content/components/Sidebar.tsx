@@ -1,6 +1,6 @@
 // tslint:disable:variable-name
 import { HTMLElement } from '@openstax/types/lib.dom';
-import React, { Component } from 'react';
+import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState, Dispatch } from '../../types';
@@ -122,7 +122,15 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   `}
 `;
 
-const NavItem = styled.li<{active?: boolean}>`
+const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
+  ({active, className, children}, ref) => <li
+    ref={ref}
+    className={className}
+    {...(active ? {'aria-label': 'Current Page'} : {})}
+  >{children}</li>
+);
+
+const NavItem = styled(NavItemComponent)`
   list-style: none;
 
   ${(props) => props.active && css`
