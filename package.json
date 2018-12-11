@@ -32,7 +32,8 @@
     "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\""
+    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
+    "test:lighthouse-manual": "lighthouse --view --config-path=./src/test/lighthouse-config.js"
   },
   "eslintConfig": {
     "extends": "react-app"

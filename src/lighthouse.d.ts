@@ -179,6 +179,8 @@ declare module 'lighthouse' {
       accessibility: TitleIdScore
       'best-practices': TitleIdScore
       seo: TitleIdScore
+      // Our custom categories
+      customAccessibility: TitleIdScore
     };
 
     // Other misc fields that are not used yet
