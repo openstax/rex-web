@@ -1,6 +1,6 @@
 import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
-import * as lighthouseConfig from './lighthouse-config';
+import * as lighthouseConfig from './audits';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
