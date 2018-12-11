@@ -73,6 +73,4 @@ export const checkLighthouse = async(urlPath: string) => {
   expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.8);
   expect(lhr.categories.pwa.score).toBeGreaterThanOrEqual(0.5);
   expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.93);
-  // This one depends on how fast chrome executes so maybe we should drop it
-  expect(lhr.categories.performance.score).toBeGreaterThanOrEqual(0.4);
 };
