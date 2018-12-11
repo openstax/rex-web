@@ -14,11 +14,14 @@ import ContentLink from './ContentLink';
 const sidebarOpenWidth = 300;
 const sidebarClosedWidth = 40;
 const sidebarClosedOffset = sidebarOpenWidth - sidebarClosedWidth;
+const sidebarTransitionTime = 300;
+const sidebarControlSize = 40;
+const sidebarPadding = 10;
 
 const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
   background-color: white;
   overflow-x: hidden;
-  transition: all 300ms;
+  transition: all ${sidebarTransitionTime}ms;
 
   ${(props) => !props.isOpen && css`
     width: ${sidebarClosedWidth}px;
@@ -36,16 +39,15 @@ const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonEle
   </button>
 )`
   position: fixed;
-  top: 10px;
-  left: ${sidebarOpenWidth - 60}px;
-  height: 40px;
-  width: 40px;
+  top: ${sidebarPadding}px;
+  height: ${sidebarControlSize}px;
+  width: ${sidebarControlSize}px;
   background: none;
   padding: 0;
   border: none;
   z-index: 1;
   outline: none;
-  transition: all 300ms;
+  transition: all ${sidebarTransitionTime}ms;
   transform: translateX(0px);
 
   span {
@@ -55,17 +57,22 @@ const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonEle
     display: block;
     visibility: visible;
     opacity: 1;
-    transition: all 300ms;
+    transition: all ${sidebarTransitionTime}ms;
   }
 
   ${(props) => !props.isOpen && css`
-    transform: translateX(-${sidebarClosedOffset - 10}px);
+    left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding}px;
+
+    transform: translateX(-${sidebarClosedOffset}px);
     span {
       margin-top: 15%;
     }
   `}
 
   ${(props) => props.isOpen && css`
+    // extra padding on the left for scroll bars when open
+    left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding - 10}px;
+
     span:nth-child(1) {
       transform: rotateZ(45deg);
     }
@@ -88,8 +95,8 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   width: ${sidebarOpenWidth}px;
   overflow-y: auto;
   font-size: 15px;
-  padding: 10px;
-  transition: all 300ms;
+  padding: ${sidebarPadding}px;
+  transition: all ${sidebarTransitionTime}ms;
   transform: translateX(0px);
 
   ol {
@@ -109,7 +116,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     overflow-y: hidden;
 
     > :not(${SidebarControl}) {
-      transition-delay: 300ms;
+      transition-delay: ${sidebarTransitionTime}ms;
       visibility: hidden;
     }
   `}
