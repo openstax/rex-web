@@ -13,8 +13,8 @@ export const getContentPageReferences = (content: string) =>
       const pageId = id.indexOf(':') > -1 ? id.split(':')[1] : id;
 
       return {
-        bookUid: bookId && stripIdVersion(bookId),
-        bookVersion: bookId && getIdVersion(bookId),
+        bookUid: bookId ? stripIdVersion(bookId) : undefined,
+        bookVersion: bookId ? getIdVersion(bookId) : undefined,
         match,
         pageUid: stripIdVersion(pageId),
       };
