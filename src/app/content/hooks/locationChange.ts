@@ -4,7 +4,7 @@ import { AppServices, FirstArgumentType, MiddlewareAPI } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
-import { ArchiveBook, ArchivePage } from '../types';
+import { ArchivePage, Book } from '../types';
 import { flattenArchiveTree, getContentPageReferences } from '../utils';
 
 const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
@@ -14,10 +14,11 @@ const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => 
   const {dispatch, getState, fontCollector, archiveLoader} = services;
   const state = getState();
   const {bookId, pageId} = match.params;
-  const book = select.book(state);
-  const page = select.page(state);
+  const bookState = select.book(state);
+  const pageState = select.page(state);
+  const book = bookState && bookState.shortId === bookId ? bookState : undefined;
+  const page = pageState && pageState.shortId === pageId ? pageState : undefined;
   const promises: Array<Promise<any>> = [];
-  let bookPromise: Promise<ArchiveBook> | undefined;
 
   fonts.forEach((font) => fontCollector.add(font));
 
@@ -27,19 +28,19 @@ const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => 
 
   const archiveBookLoader = archiveLoader.book(bookRefId, bookRefVersion);
 
-  if ((!book || book.shortId !== bookId) && bookId !== select.loadingBook(state)) {
+  if (!book && bookId !== select.loadingBook(state)) {
     dispatch(requestBook(bookId));
-    bookPromise = archiveBookLoader.load().then((bookData) => dispatch(receiveBook(bookData)) && bookData);
-    promises.push(bookPromise);
+    promises.push(archiveBookLoader.load().then((bookData) => dispatch(receiveBook(bookData)) && bookData));
   }
 
-  if ((!page || page.shortId !== pageId) && pageId !== select.loadingPage(state)) {
+  if (!page && pageId !== select.loadingPage(state)) {
     dispatch(requestPage(pageId));
     promises.push(
-      archiveBookLoader.page(pageRefId).load()
-        .then((pageData) => (bookPromise ? bookPromise.then(() => pageData) : Promise.resolve(pageData))
-          .then(loadContentReferences(services))
-        )
+      Promise.all([
+        book ? Promise.resolve(book) : archiveBookLoader.load(),
+        archiveBookLoader.page(pageRefId).load(),
+      ])
+        .then(loadContentReferences(services))
         .then((pageData) => dispatch(receivePage(pageData)))
     );
   }
@@ -47,17 +48,11 @@ const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => 
   await Promise.all(promises);
 };
 
-const loadContentReferences = ({archiveLoader, getState}: AppServices & MiddlewareAPI) =>
-  async(pageData: ArchivePage) => {
-    const contentReferences = getContentPageReferences(pageData.content);
-    const state = getState();
-    const book = select.book(state);
-    const bookPages = book ? flattenArchiveTree(book.tree.contents) : [];
+const loadContentReferences = ({archiveLoader}: AppServices & MiddlewareAPI) =>
+  async([book, page]: [Book, ArchivePage]) => {
+    const contentReferences = getContentPageReferences(page.content);
+    const bookPages = flattenArchiveTree(book.tree.contents);
     const references: FirstArgumentType<typeof receivePage>['references'] = [];
-
-    if (!book) {
-      throw new Error('BUG: book is required to record content references');
-    }
 
     const archiveBookLoader = archiveLoader.book(book.id, book.version);
     const promises: Array<Promise<any>> = [];
@@ -66,7 +61,7 @@ const loadContentReferences = ({archiveLoader, getState}: AppServices & Middlewa
       if (reference.bookUid || reference.bookVersion) {
         throw new Error('BUG: Cross book references are not supported');
       }
-      if (!bookPages.find((page) => page.id === reference.pageUid)) {
+      if (!bookPages.find((search) => search.id === reference.pageUid)) {
         throw new Error(`BUG: ${reference.pageUid} is not present in the ToC`);
       }
 
@@ -90,7 +85,7 @@ const loadContentReferences = ({archiveLoader, getState}: AppServices & Middlewa
     await Promise.all(promises);
 
     return {
-      ...pageData,
+      ...page,
       references,
     };
   };

@@ -74,19 +74,6 @@ Array [
                         onClick={[Function]}
                       />
                     </li>
-                    <li
-                      className="sc-gzVnrw gdejwh"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "page title2",
-                          }
-                        }
-                        href="/books/book/pages/page2"
-                        onClick={[Function]}
-                      />
-                    </li>
                   </ol>
                 </nav>
               </li>

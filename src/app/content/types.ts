@@ -27,8 +27,8 @@ export interface Book {
   id: string;
   shortId: string;
   title: string;
-  version: string;
   tree: ArchiveTree;
+  version: string;
 }
 
 export interface Page {
@@ -51,9 +51,9 @@ export interface ArchiveTree extends ArchiveTreeSection {
 export interface ArchiveBook {
   id: string;
   shortId: string;
+  title: string;
   tree: ArchiveTree;
   version: string;
-  title: string;
 }
 
 export interface ArchivePage {

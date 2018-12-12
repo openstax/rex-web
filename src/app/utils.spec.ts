@@ -1,3 +1,4 @@
+import PromiseCollector from '../helpers/PromiseCollector';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
@@ -43,5 +44,19 @@ describe('actionHook', () => {
     middleware(helpers)(helpers)((action) => action)(actions.closeToc());
 
     expect(hookSpy).not.toHaveBeenCalled();
+  });
+
+  it('adds promise to collector', () => {
+    const helpers = {
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any as MiddlewareAPI & AppServices;
+
+    const middleware = utils.actionHook(actions.openToc, () => () => Promise.resolve());
+
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    expect(helpers.promiseCollector.promises.length).toBe(1);
   });
 });

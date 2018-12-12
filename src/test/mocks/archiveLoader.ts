@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { ArchiveBook, ArchivePage } from '../../app/content/types';
 
 export const book = {
@@ -12,11 +13,6 @@ export const book = {
             id: 'pagelongid',
             shortId: 'page',
             title: 'page title',
-          },
-          {
-            id: 'pagelongid2',
-            shortId: 'page2',
-            title: 'page title2',
           },
         ],
         id: 'chapterid',
@@ -39,14 +35,6 @@ export const page = {
   version: '0',
 } as ArchivePage;
 
-export const pageWithContentReference = {
-  content: 'some /contents/pagelongid content',
-  id: 'pagelongid2',
-  shortId: 'page2',
-  title: 'page title2',
-  version: '0',
-} as ArchivePage;
-
 const books: {[key: string]: ArchiveBook} = {
   book,
   'booklongid': book,
@@ -56,24 +44,25 @@ const books: {[key: string]: ArchiveBook} = {
 const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
   booklongid: {
     page,
-    page2: pageWithContentReference,
     pagelongid: page,
-    pagelongid2: pageWithContentReference,
   },
 };
 
-const resolveBook = (bookId: string, bookVersion: string | undefined) => bookVersion !== undefined
-  ? books[`${bookId}@${bookVersion}`] as ArchiveBook | undefined
-  : books[bookId] as ArchiveBook | undefined;
-
 export default () => {
+  const localBooks = cloneDeep(books);
+  const localBookPages = cloneDeep(bookPages);
+
+  const resolveBook = (bookId: string, bookVersion: string | undefined) => bookVersion !== undefined
+    ? localBooks[`${bookId}@${bookVersion}`]
+    : localBooks[bookId];
+
   const loadBook = jest.fn((bookId, bookVersion) => {
     const bookData = resolveBook(bookId, bookVersion);
     return bookData ? Promise.resolve(bookData) : Promise.reject();
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
     const bookData = resolveBook(bookId, bookVersion);
-    const pageData = bookData && bookPages[bookData.id][pageId];
+    const pageData = bookData && localBookPages[bookData.id][pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
   const cachedBook = jest.fn((bookId, bookVersion) => {
@@ -81,7 +70,7 @@ export default () => {
   });
   const cachedPage = jest.fn((bookId, bookVersion, pageId) => {
     const bookData = resolveBook(bookId, bookVersion);
-    return bookData && bookPages[bookData.id][pageId];
+    return bookData && localBookPages[bookData.id][pageId];
   });
 
   return {
@@ -95,5 +84,14 @@ export default () => {
       }),
     }),
     mock: { loadBook, loadPage, cachedBook, cachedPage },
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage) => {
+      localBookPages[parentBook.id][newPage.id] = newPage;
+      localBookPages[parentBook.id][newPage.shortId] = newPage;
+      localBooks[parentBook.id].tree.contents.push({
+        id: `${newPage.id}@${newPage.version}`,
+        shortId: `${newPage.shortId}@${newPage.version}`,
+        title: newPage.title,
+      });
+    },
   };
 };

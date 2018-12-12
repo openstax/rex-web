@@ -3,7 +3,7 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import { combineReducers, createStore } from 'redux';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
-import mockArchiveLoader, { book, page, pageWithContentReference } from '../../../test/mocks/archiveLoader';
+import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { Match } from '../../navigation/types';
 import { AppServices, AppState, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
@@ -87,8 +87,6 @@ describe('locationChange', () => {
     expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book'));
     expect(dispatch).toHaveBeenNthCalledWith(2, actions.requestPage('page'));
-
-    expect(archiveLoader.mock.loadBook).toHaveBeenCalledTimes(1);
   });
 
   it('loads page', () => {
@@ -175,15 +173,23 @@ describe('locationChange', () => {
   });
 
   it('loads a page with a content reference', async() => {
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/pagelongid content',
+      id: 'asdfasfasdfasdf',
+      shortId: 'asdf',
+      title: 'qwerqewrqwer',
+      version: '0',
+    });
+
     payload.match.params = {
       bookId: 'book',
-      pageId: pageWithContentReference.shortId,
+      pageId: 'asdf',
     };
 
     payload.match.state = {
       bookUid: 'booklongid',
       bookVersion: '0',
-      pageUid: 'pagelongid2',
+      pageUid: 'asdfasfasdfasdf',
     };
 
     await hook(payload);
@@ -200,5 +206,55 @@ describe('locationChange', () => {
         pageUid: 'pagelongid',
       },
     }]})}));
+  });
+
+  it('throws on cross book reference', async() => {
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/book:pagelongid content',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    });
+
+    payload.match.params = {
+      bookId: 'book',
+      pageId: 'asdf',
+    };
+
+    let message: string | undefined;
+
+    try {
+      await hook(payload);
+    } catch (e) {
+      message = e.message;
+    }
+
+    expect(message).toEqual('BUG: Cross book references are not supported');
+  });
+
+  it('throws on unknown id', async() => {
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/qwerqwer content',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    });
+
+    payload.match.params = {
+      bookId: 'book',
+      pageId: 'asdf',
+    };
+
+    let message: string | undefined;
+
+    try {
+      await hook(payload);
+    } catch (e) {
+      message = e.message;
+    }
+
+    expect(message).toEqual('BUG: qwerqwer is not present in the ToC');
   });
 });
