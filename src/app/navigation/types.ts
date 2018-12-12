@@ -1,7 +1,7 @@
 import { Location } from 'history';
 import { ComponentType } from 'react';
 import { routes } from '../';
-import { AnyAction } from '../types';
+import { AnyAction, AppServices, MiddlewareAPI } from '../types';
 
 export type State = Location;
 
@@ -54,3 +54,7 @@ export interface LocationChange {
 
 export type AnyRoute = typeof routes[number];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
+
+export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
+  (locationChange: {location: Location, match: Match<R>}) =>
+    Promise<any> | void;

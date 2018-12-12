@@ -55,12 +55,25 @@ Array [
                 <h3
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "page title",
+                      "__html": "chapter title",
                     }
                   }
                 />
                 <nav>
                   <ol>
+                    <li
+                      className="sc-gzVnrw iFMdOz"
+                    >
+                      <a
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "page title",
+                          }
+                        }
+                        href="/books/book/pages/page"
+                        onClick={[Function]}
+                      />
+                    </li>
                     <li
                       className="sc-gzVnrw gdejwh"
                     >

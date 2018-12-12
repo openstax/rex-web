@@ -1,5 +1,5 @@
 import css from 'cnx-recipes/styles/output/intro-business.json';
-import { routeHook } from '../../navigation/utils';
+import { RouteHookBody } from '../../navigation/types';
 import { AppServices, FirstArgumentType, MiddlewareAPI } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
@@ -10,7 +10,7 @@ import { flattenArchiveTree, getContentPageReferences } from '../utils';
 const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
 const fonts = fontMatches ? fontMatches.slice(1) : [];
 
-export default routeHook(content, (services) => async({match}) => {
+const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
   const {dispatch, getState, fontCollector, archiveLoader} = services;
   const state = getState();
   const {bookId, pageId} = match.params;
@@ -45,7 +45,7 @@ export default routeHook(content, (services) => async({match}) => {
   }
 
   await Promise.all(promises);
-});
+};
 
 const loadContentReferences = ({archiveLoader, getState}: AppServices & MiddlewareAPI) =>
   async(pageData: ArchivePage) => {
@@ -94,3 +94,5 @@ const loadContentReferences = ({archiveLoader, getState}: AppServices & Middlewa
       references,
     };
   };
+
+export default hookBody;
