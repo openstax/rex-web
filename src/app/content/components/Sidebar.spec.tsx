@@ -45,10 +45,10 @@ describe('Sidebar', () => {
       <ConnectedSidebar />
     </Provider>);
 
-    expect(component.root.findByType(Sidebar).props.open).toBe(true);
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
     component.root.findByType('button').props.onClick();
-    expect(component.root.findByType(Sidebar).props.open).toBe(false);
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
     component.root.findByType('button').props.onClick();
-    expect(component.root.findByType(Sidebar).props.open).toBe(true);
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 });

@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
+import { typesetMath } from '../../../helpers/mathjax';
 import mockArchiveLoader, {
   book,
   page
@@ -16,6 +17,8 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
 import ConnectedPage from './Page';
+
+jest.mock('../../../helpers/mathjax');
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -176,5 +179,17 @@ describe('Page', () => {
     );
 
     expect(element.unmount).not.toThrow();
+  });
+
+  it('renders math', () => {
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <ConnectedPage />
+        </Services.Provider>
+      </Provider>
+    );
+
+    expect(typesetMath).toHaveBeenCalled();
   });
 });

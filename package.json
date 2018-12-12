@@ -15,7 +15,8 @@
     "reselect": "^4.0.0",
     "styled-components": "^4.0.3",
     "typesafe-actions": "^2.0.4",
-    "typescript": "^3.2"
+    "typescript": "^3.2",
+    "weak-map": "^1.0.5"
   },
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
@@ -32,7 +33,8 @@
     "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\""
+    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
+    "test:lighthouse-manual": "lighthouse --view --config-path=./src/test/audits/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"

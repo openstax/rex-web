@@ -1,6 +1,7 @@
 import { Element, Event } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { typesetMath } from '../../../helpers/mathjax';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import { Dispatch } from '../../types';
@@ -40,8 +41,16 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public componentDidMount() {
+    this.postProcess();
     if (this.container) {
       this.container.addEventListener('click', this.clickListener);
+    }
+  }
+
+  public componentDidUpdate(prevProps: PropTypes) {
+    this.postProcess();
+    if (window && prevProps.page !== this.props.page) {
+      window.scrollTo(0, 0);
     }
   }
 
@@ -88,6 +97,11 @@ export class PageComponent extends Component<PropTypes> {
         route: content,
         state: reference.state,
       });
+    }
+  }
+  private postProcess() {
+    if (this.container && typeof(window) !== 'undefined') {
+      typesetMath(this.container, window);
     }
   }
 }

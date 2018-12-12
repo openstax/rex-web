@@ -1,5 +1,6 @@
 import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
+import * as lighthouseConfig from './audits';
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
@@ -48,7 +49,7 @@ export const finishRender = async(_: puppeteer.Page) => {
 };
 
 // tslint:disable-next-line:no-shadowed-variable
-export const getComputedStyle = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
+export const getComputedStyleMap = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
   if (window) {
     const element = window.document.querySelector(selector);
     if (!element) {
@@ -64,15 +65,36 @@ export const getComputedStyle = (target: puppeteer.Page, selector: string) => ta
   }
 }, selector);
 
+export const getComputedStyle = (
+  target: puppeteer.Page,
+  style: string,
+  selector: string,
+  pseudoElt: string | undefined = undefined
+// tslint:disable-next-line:no-shadowed-variable
+) => target.evaluate((style, selector, pseudoElt) => {
+  if (window) {
+    const element = window.document.querySelector(selector);
+    if (!element) {
+      throw new Error('BUG: element not found');
+    }
+    const compStyle = window.getComputedStyle(element, pseudoElt);
+    return compStyle.getPropertyValue(style);
+  }
+}, style, selector, pseudoElt);
+
+export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
+  const h1 = document && document.querySelector('h1');
+  return h1 && h1.textContent;
+});
+
 export const checkLighthouse = async(urlPath: string) => {
 
   const port = (new URL(browser.wsEndpoint())).port;
-  const { lhr } = await lighthouse(url(urlPath), {port}, null);
+  const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
 
+  expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.8);
   expect(lhr.categories.pwa.score).toBeGreaterThanOrEqual(0.5);
   expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.93);
-  // This one depends on how fast chrome executes so maybe we should drop it
-  expect(lhr.categories.performance.score).toBeGreaterThanOrEqual(0.4);
 };

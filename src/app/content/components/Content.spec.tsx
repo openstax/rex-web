@@ -9,6 +9,7 @@ import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
+import { Sidebar } from './Sidebar';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -152,15 +153,22 @@ describe('content', () => {
     const after = component.toJSON();
     expect(before).not.toEqual(after);
   });
-});
 
-/*
- * jsdom chokes on cnx-recipes styles and produces large nasty
- * error messages. the styles are valid, jsdom's css parser
- * is incomplete, so hide these messages
- */
-const originalConsoleError = console.error;  // tslint:disable-line:no-console
-console.error = (msg) => {  // tslint:disable-line:no-console
-  if (msg.indexOf('Error: Could not parse CSS stylesheet') === 0) { return; }
-  originalConsoleError(msg);
-};
+  it('renders with ToC open', () => {
+    const state = {
+      content: initialState,
+    } as any as AppState;
+
+    const store = createStore((s: AppState | undefined) => s || state, state);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <Content />
+      </Services.Provider>
+    </Provider>);
+
+    const sidebarComponent = component.root.findByType(Sidebar);
+
+    expect(sidebarComponent.props.isOpen).toBe(true);
+  });
+});

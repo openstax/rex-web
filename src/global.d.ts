@@ -25,6 +25,7 @@ declare global {
       prototype: dom.Element;
       new(): dom.Element;
     };
+    MathJax: any;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
