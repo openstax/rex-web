@@ -17,6 +17,11 @@ const book = {
         shortId: 'page',
         title: 'page title',
       },
+      {
+        id: 'pagelongid2',
+        shortId: 'page2',
+        title: 'page title2',
+      },
     ],
     id: 'booklongid',
     shortId: 'book',

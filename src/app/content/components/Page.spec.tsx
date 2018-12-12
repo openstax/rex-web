@@ -14,6 +14,7 @@ import { renderToDom } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
+import * as actions from '../actions';
 import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
 import ConnectedPage from './Page';
@@ -70,6 +71,10 @@ describe('Page', () => {
       },
     ];
 
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('updates content link with new hrefs', () => {
@@ -182,7 +187,7 @@ describe('Page', () => {
   });
 
   it('renders math', () => {
-    renderer.create(
+    renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
           <ConnectedPage />
@@ -191,5 +196,52 @@ describe('Page', () => {
     );
 
     expect(typesetMath).toHaveBeenCalled();
+  });
+
+  it('scrolls to top on new content', () => {
+    if (!window) {
+      return expect(window).toBeTruthy();
+    }
+
+    const spy = jest.spyOn(window, 'scrollTo');
+
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <ConnectedPage />
+        </Services.Provider>
+      </Provider>
+    );
+
+    store.dispatch(actions.receivePage({
+      content: 'some other content',
+      id: 'adsfasdf',
+      references: [],
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    }));
+
+    expect(spy).toHaveBeenCalledWith(0, 0);
+  });
+
+  it('does nothing when receiving the same content', () => {
+    if (!window) {
+      return expect(window).toBeTruthy();
+    }
+
+    const spy = jest.spyOn(window, 'scrollTo');
+
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <ConnectedPage />
+        </Services.Provider>
+      </Provider>
+    );
+
+    store.dispatch(actions.receiveBook(book));
+
+    expect(spy).not.toHaveBeenCalledWith(0, 0);
   });
 });
