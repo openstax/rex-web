@@ -10,30 +10,28 @@ Array [
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs bDwnUM"
+    className="sc-htoDjs lkdQiJ"
   >
     <div
-      className="sc-ifAKCX gjNQMo"
-      open={true}
+      className="sc-ifAKCX iOXBpE"
     >
-      <div
-        className="sc-bZQynM fxfzvu"
-        open={true}
+      <button
+        aria-label="Click to close the Table of Contents"
+        className="sc-EHOje bZAIEP"
+        onClick={[Function]}
+        role="button"
       >
-        <button
-          aria-label="Click to close the Table of Contents"
-          className="sc-EHOje lewrCf"
-          onClick={[Function]}
-          role="button"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <span />
+        <span />
+        <span />
+      </button>
+      <div
+        className="sc-bZQynM hPWzGe"
+      >
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw gdejwh"
+              className="sc-gzVnrw giQHPi"
             >
               <a
                 href="#"
@@ -50,7 +48,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="sc-gzVnrw gdejwh"
+                className="sc-gzVnrw giQHPi"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -62,7 +60,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="sc-gzVnrw gdejwh"
+                      className="sc-gzVnrw giQHPi"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -83,7 +81,7 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH hsQBVX"
+      className="sc-bwzfXH kfCZQZ"
       id="main-content"
       tabIndex={-1}
     >
@@ -127,30 +125,28 @@ Array [
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs bDwnUM"
+    className="sc-htoDjs lkdQiJ"
   >
     <div
-      className="sc-ifAKCX gjNQMo"
-      open={true}
+      className="sc-ifAKCX iOXBpE"
     >
-      <div
-        className="sc-bZQynM fxfzvu"
-        open={true}
+      <button
+        aria-label="Click to close the Table of Contents"
+        className="sc-EHOje bZAIEP"
+        onClick={[Function]}
+        role="button"
       >
-        <button
-          aria-label="Click to close the Table of Contents"
-          className="sc-EHOje lewrCf"
-          onClick={[Function]}
-          role="button"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <span />
+        <span />
+        <span />
+      </button>
+      <div
+        className="sc-bZQynM hPWzGe"
+      >
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw gdejwh"
+              className="sc-gzVnrw giQHPi"
             >
               <a
                 href="#"
@@ -163,7 +159,7 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH hsQBVX"
+      className="sc-bwzfXH kfCZQZ"
       id="main-content"
       tabIndex={-1}
     >
