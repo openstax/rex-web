@@ -38,12 +38,15 @@ describe('Page', () => {
     }) as any) as AppState;
 
     store = createStore(combineReducers({ content: reducer }), state);
-
     dispatch = jest.spyOn(store, 'dispatch');
+    services.archiveLoader = archiveLoader = mockArchiveLoader();
+  });
 
-    archiveLoader = mockArchiveLoader();
-    (services as any).archiveLoader = archiveLoader;
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
+  const renderDomWithReferences = () => {
     archiveLoader.mock.cachedPage.mockImplementation(() => ({
       ...page,
       content: `
@@ -70,22 +73,17 @@ describe('Page', () => {
         },
       },
     ];
-
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  it('updates content link with new hrefs', () => {
-    const { node } = renderToDom(
+    return renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
           <ConnectedPage />
         </Services.Provider>
       </Provider>
     );
+  };
 
+  it('updates content link with new hrefs', () => {
+    const {node} = renderDomWithReferences();
     const [firstLink, secondLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
 
     if (!firstLink || !secondLink) {
@@ -98,14 +96,7 @@ describe('Page', () => {
   });
 
   it('interceptes clicking content links', () => {
-    const { node } = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
-      </Provider>
-    );
-
+    const {node} = renderDomWithReferences();
     const [firstLink, secondLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
     const button = node.querySelector('[data-type="page"] button');
 
@@ -153,14 +144,7 @@ describe('Page', () => {
   });
 
   it('removes listener when it unmounts', () => {
-    const { root, node } = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
-      </Provider>
-    );
-
+    const { root, node} = renderDomWithReferences();
     const pageElement = node.querySelector('[data-type="page"]');
 
     if (!pageElement) {
@@ -187,14 +171,7 @@ describe('Page', () => {
   });
 
   it('renders math', () => {
-    renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
-      </Provider>
-    );
-
+    renderDomWithReferences();
     expect(typesetMath).toHaveBeenCalled();
   });
 
