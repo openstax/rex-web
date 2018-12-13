@@ -1,8 +1,8 @@
 // tslint:disable:variable-name
+import styled from '@emotion/styled/macro';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
-import styled from '@emotion/styled/macro';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
