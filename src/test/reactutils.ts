@@ -1,5 +1,5 @@
 import { Element } from '@openstax/types/lib.dom';
-import { ReactElement } from 'react';
+import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { ReactTestInstance } from 'react-test-renderer';
@@ -26,8 +26,8 @@ export function expectError(message: string, fn: () => void) {
 }
 
 // Utility to handle nulls
-export function renderToDom<P>(component: ReactElement<P>) {
-    const c = ReactTestUtils.renderIntoDocument(component);
+export function renderToDom<C extends ComponentType<{}>>(component: ReactElement<C>) {
+    const c = ReactTestUtils.renderIntoDocument(component) as C;
     if (!c) {
         throw new Error(`BUG: Component was not rendered`);
     }

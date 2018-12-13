@@ -1,23 +1,9 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import React, { ReactElement } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import { expectError } from '../../test/reactutils';
+import { expectError, renderToDom } from '../../test/reactutils';
 import MainContent from './MainContent';
 import SkipToContentWrapper from './SkipToContentWrapper';
-
-// Utility to handle nulls
-function renderToDom<P>(component: ReactElement<P>) {
-    const c = ReactTestUtils.renderIntoDocument(component) as SkipToContentWrapper;
-    if (!c) {
-        throw new Error(`BUG: Component was not rendered`);
-    }
-    const node = ReactDOM.findDOMNode(c);
-    if (!node) {
-        throw new Error(`BUG: Could not find DOM node`);
-    }
-    return {component: c, node};
-}
 
 describe('SkipToContentWrapper', () => {
 
