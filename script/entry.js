@@ -29,6 +29,7 @@ require('@babel/register')({
     '@babel/preset-react',
   ],
   plugins: [
+    'macros',
     '@babel/proposal-class-properties',
     '@babel/proposal-object-rest-spread',
     '@babel/transform-runtime'
