@@ -3,21 +3,21 @@
 exports[`content matches snapshot 1`] = `
 Array [
   <a
-    className="sc-bdVaJa RfHPw"
+    className="css-12r0ney"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs lkdQiJ"
+    className="css-o2j9ze"
   >
     <div
-      className="sc-ifAKCX iOXBpE"
+      className="css-18z4bb7"
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje bZAIEP"
+        className="css-vjp7si"
         onClick={[Function]}
         role="button"
       >
@@ -26,12 +26,12 @@ Array [
         <span />
       </button>
       <div
-        className="sc-bZQynM hPWzGe"
+        className="css-pahxvq"
       >
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw giQHPi"
+              className="css-dr1hkt"
             >
               <a
                 href="#"
@@ -48,7 +48,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="sc-gzVnrw giQHPi"
+                className="css-dr1hkt"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -60,7 +60,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="sc-gzVnrw giQHPi"
+                      className="css-dr1hkt"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -81,13 +81,13 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH kfCZQZ"
+      className="css-1anlpi9"
       id="main-content"
       tabIndex={-1}
     >
       <div>
         <h1
-          className="sc-htpNat cOGKiz"
+          className="css-a9mrvn"
         >
           book title
            / 
@@ -95,7 +95,7 @@ Array [
         </h1>
       </div>
       <div
-        className="sc-bxivhb fpcskD"
+        className="css-lk7c70"
       >
         <div
           data-type="chapter"
@@ -118,21 +118,21 @@ Array [
 exports[`content renders empty state 1`] = `
 Array [
   <a
-    className="sc-bdVaJa RfHPw"
+    className="css-12r0ney"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <div
-    className="sc-htoDjs lkdQiJ"
+    className="css-o2j9ze"
   >
     <div
-      className="sc-ifAKCX iOXBpE"
+      className="css-18z4bb7"
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje bZAIEP"
+        className="css-vjp7si"
         onClick={[Function]}
         role="button"
       >
@@ -141,12 +141,12 @@ Array [
         <span />
       </button>
       <div
-        className="sc-bZQynM hPWzGe"
+        className="css-pahxvq"
       >
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw giQHPi"
+              className="css-dr1hkt"
             >
               <a
                 href="#"
@@ -159,13 +159,13 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH kfCZQZ"
+      className="css-1anlpi9"
       id="main-content"
       tabIndex={-1}
     >
       <div />
       <div
-        className="sc-bxivhb fpcskD"
+        className="css-lk7c70"
       >
         <div
           data-type="chapter"

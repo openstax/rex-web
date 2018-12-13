@@ -2,7 +2,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled/macro';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
@@ -23,12 +23,7 @@ const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
   overflow-x: hidden;
   transition: all ${sidebarTransitionTime}ms;
 
-  ${(props) => !props.isOpen && css`
-    width: ${sidebarClosedWidth}px;
-  `}
-  ${(props) => props.isOpen && css`
-    width: ${sidebarOpenWidth}px;
-  `}
+  width: ${(props) => props.isOpen ? sidebarOpenWidth : sidebarClosedWidth}px;
 `;
 
 const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonElement> & {isOpen: boolean}) =>
@@ -60,7 +55,7 @@ const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonEle
     transition: all ${sidebarTransitionTime}ms;
   }
 
-  ${(props) => !props.isOpen && css`
+  ${(props) => !props.isOpen && `
     left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding}px;
 
     transform: translateX(-${sidebarClosedOffset}px);
@@ -69,7 +64,7 @@ const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonEle
     }
   `}
 
-  ${(props) => props.isOpen && css`
+  ${(props) => props.isOpen && `
     // extra padding on the left for scroll bars when open
     left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding - 10}px;
 
@@ -109,7 +104,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     visibility: visible;
   }
 
-  ${(props) => !props.isOpen && css`
+  ${(props) => !props.isOpen && `
     transform: translateX(-${sidebarClosedOffset}px);
 
     background-color: #ccc;
@@ -133,7 +128,7 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 const NavItem = styled(NavItemComponent)`
   list-style: none;
 
-  ${(props) => props.active && css`
+  ${(props) => props.active && `
     overflow: visible;
     position: relative;
 

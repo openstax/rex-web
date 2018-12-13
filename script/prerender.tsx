@@ -5,7 +5,6 @@ import path from 'path';
 import portfinder from 'portfinder';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
 import { isArchiveTree } from '../src/app/content/guards';
 import { content } from '../src/app/content/routes';
@@ -85,7 +84,6 @@ async function render() {
     await app.services.promiseCollector.calm();
 
     const state = app.store.getState();
-    const styles = new ServerStyleSheet();
     const pathname = navigationSelectors.pathname(state);
     const code = errorSelectors.code(state);
     const meta = headSelectors.meta(state);
@@ -98,9 +96,7 @@ async function render() {
     }
 
     const body = renderToString(
-       <StyleSheetManager sheet={styles.instance}>
-         <app.container />
-       </StyleSheetManager>
+      <app.container />
     );
 
     const html = injectHTML(indexHtml, {
@@ -108,7 +104,6 @@ async function render() {
       fonts: app.services.fontCollector.fonts,
       meta,
       state,
-      styles,
     });
 
     writeFile(path.join(ASSET_DIR, url), html);
@@ -140,18 +135,16 @@ render().catch((e) => {
 
 interface Options {
   body: string;
-  styles: ServerStyleSheet;
   fonts: FontCollector['fonts'];
   meta: Meta[];
   state: AppState;
 }
-function injectHTML(html: string, {body, styles, state, fonts, meta}: Options) {
+function injectHTML(html: string, {body, state, fonts, meta}: Options) {
   html = html.replace('</head>',
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +
     meta.map(
       (tag) => `<meta ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
     ) +
-    styles.getStyleTags() +
     '</head>'
   );
   html = html.replace(
