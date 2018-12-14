@@ -1,0 +1,19 @@
+{
+  "name": "rex-web",
+  "scripts": {
+    "postdeploy": "npm run start:static"
+  },
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
