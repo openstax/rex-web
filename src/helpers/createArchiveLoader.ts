@@ -1,5 +1,6 @@
 import memoize from 'lodash/fp/memoize';
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
+import { stripIdVersion } from '../app/content/utils';
 
 export default (url: string) => {
   const cache = new Map();
@@ -20,9 +21,18 @@ export default (url: string) => {
   );
 
   return {
-    book: (bookId: string) => loader(bookId) as Promise<ArchiveBook>,
-    cachedBook: (bookId: string) => cache.get(bookId) as ArchiveBook | undefined,
-    cachedPage: (bookId: string, pageId: string) => cache.get(`${bookId}:${pageId}`) as ArchivePage | undefined,
-    page: (bookId: string, pageId: string) => loader(`${bookId}:${pageId}`) as Promise<ArchivePage>,
+    book: (bookId: string, bookVersion: string | undefined) => {
+      const bookRef = bookVersion ? `${stripIdVersion(bookId)}@${bookVersion}` : stripIdVersion(bookId);
+
+      return {
+        cached: () => cache.get(bookRef) as ArchiveBook | undefined,
+        load: () => loader(bookRef) as Promise<ArchiveBook>,
+
+        page: (pageId: string) => ({
+          cached: () => cache.get(`${bookRef}:${pageId}`) as ArchivePage | undefined,
+          load: () => loader(`${bookRef}:${pageId}`) as Promise<ArchivePage>,
+        }),
+      };
+    },
   };
 };

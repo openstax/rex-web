@@ -19,11 +19,7 @@ describe('content', () => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE);
 
-    const firstHTML = (await page.evaluate(getHtml))
-    // i'm not sure why these comments are added during the build.
-    // if there is no good reason for them to be there ideally
-    // we would find a way to not have them.
-      .replace(/<!--.*?-->/g, '');
+    const firstHTML = await page.evaluate(getHtml);
 
     await page.setJavaScriptEnabled(true);
     await navigate(page, TEST_PAGE);
@@ -35,9 +31,6 @@ describe('content', () => {
   });
 
   it('adds content fonts to the head', async() => {
-    await navigate(page, TEST_PAGE);
-    const fonts: string[] = await page.evaluate(() => window ? window.__APP_SERVICES.fontCollector.fonts : []);
-
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE);
 
@@ -47,7 +40,8 @@ describe('content', () => {
         : []
     );
 
-    expect(fonts.length).toBeGreaterThan(0);
-    fonts.forEach((font) => expect(links).toContainEqual(font));
+    expect(links).toContainEqual(
+      'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'
+    );
   });
 });

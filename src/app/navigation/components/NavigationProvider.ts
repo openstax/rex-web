@@ -1,3 +1,4 @@
+import { Location } from 'history';
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../types';
@@ -6,11 +7,11 @@ import { AnyRoute } from '../types';
 import * as utils from '../utils';
 
 const connectNavigationProvider = connect((state: AppState) => ({
-  pathname: selectors.pathname(state),
+  location: selectors.location(state),
 }));
 
-export default connectNavigationProvider(({routes, pathname}: {routes: AnyRoute[], pathname: string}) => {
-  const match = utils.findRouteMatch(routes, pathname);
+export default connectNavigationProvider(({routes, location}: {routes: AnyRoute[], location: Location}) => {
+  const match = utils.findRouteMatch(routes, location);
 
   if (match) {
     return React.createElement(match.route.component);

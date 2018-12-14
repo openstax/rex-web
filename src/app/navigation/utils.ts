@@ -4,17 +4,18 @@ import { Dispatch } from 'redux';
 import { AppServices, MiddlewareAPI } from '../types';
 import { actionHook } from '../utils';
 import * as actions from './actions';
+import { hasParams } from './guards';
 import { AnyMatch, AnyRoute, GenericMatch, Match } from './types';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
 
-export const findRouteMatch = (routes: AnyRoute[], pathname: string): AnyMatch | undefined => {
+export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch | undefined => {
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
-      const match = re.exec(pathname);
+      const match = re.exec(location.pathname);
 
       if (match) {
         const [, ...values] = match;
@@ -25,6 +26,7 @@ export const findRouteMatch = (routes: AnyRoute[], pathname: string): AnyMatch |
 
         return {
           route,
+          state: location.state,
           ...(keys.length > 0 ? {params} : {}),
         } as AnyMatch;
       }
@@ -32,8 +34,12 @@ export const findRouteMatch = (routes: AnyRoute[], pathname: string): AnyMatch |
   }
 };
 
+export const matchUrl = (action: AnyMatch) => hasParams(action)
+  ? action.route.getUrl(action.params)
+  : action.route.getUrl();
+
 export const init = (routes: AnyRoute[], location: Location, dispatch: Dispatch) => {
-  const match = findRouteMatch(routes, location.pathname);
+  const match = findRouteMatch(routes, location);
   dispatch(actions.locationChange({location, match}));
 };
 

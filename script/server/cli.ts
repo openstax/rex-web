@@ -1,9 +1,9 @@
 // tslint:disable:no-console
 import { argv } from 'yargs';
-import server from '.';
+import { Options, startServer } from '.';
 
-server({port: parseInt(process.env.PORT || '', 10), ...argv})
-  .then(({port}) => console.log(`running on port: ${port}`))
+startServer(argv as Options)
+  .then(({port}) => console.log(`WEBSERVER: running on port: ${port}`))
   .catch((e) => {
     console.error(e.message);
     process.exit(1);

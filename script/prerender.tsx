@@ -10,14 +10,18 @@ import createApp from '../src/app';
 import { isArchiveTree } from '../src/app/content/guards';
 import { content } from '../src/app/content/routes';
 import { ArchiveTree, ArchiveTreeSection } from '../src/app/content/types';
+import { stripIdVersion } from '../src/app/content/utils';
+import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as headSelectors from '../src/app/head/selectors';
 import { Meta } from '../src/app/head/types';
 import * as navigationSelectors from '../src/app/navigation/selectors';
+import { AnyMatch, Match } from '../src/app/navigation/types';
+import { matchUrl } from '../src/app/navigation/utils';
 import { AppState } from '../src/app/types';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
 import FontCollector from '../src/helpers/FontCollector';
-import startServer from './server';
+import { startServer } from './server';
 
 (global as any).fetch = fetch;
 
@@ -30,7 +34,7 @@ const BOOKS = JSON.parse(process.env.BOOKS || 'null') as {
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
 if (!BOOKS) {
-  throw new Error('BOOKS must be valid json');
+  throw new Error('BOOKS environment var must be valid json');
 }
 
 async function render() {
@@ -40,29 +44,39 @@ async function render() {
   const archiveLoader = createArchiveLoader(`http://localhost:${port}/contents/`);
 
   async function renderManifest() {
-    writeFile(path.join(ASSET_DIR, 'release.json'), JSON.stringify({
+    writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
       books: BOOKS,
       code: process.env.CODE_VERSION,
       id: process.env.RELEASE_ID,
     }, null, 2));
   }
 
-  // book version is currently ignored, and will be until we rejigger the book content
-  // routing to preserve long id and version data on navigation
-  async function renderContentPage(bookId: string, _bookVersion: string, pageId: string) {
-    const book = await archiveLoader.book(bookId);
-    const page = await archiveLoader.page(bookId, pageId);
+  async function renderContentPage(bookId: string, bookVersion: string, pageId: string) {
+    const archiveBookLoader = archiveLoader.book(bookId, bookVersion);
+    const book = await archiveBookLoader.load();
+    const page = await archiveBookLoader.page(pageId).load();
 
-    await renderPage(content.getUrl({
-      bookId: book.shortId,
-      pageId: page.shortId,
-    }));
+    const action: Match<typeof content> = {
+      params: {
+        bookId: book.shortId,
+        pageId: page.shortId,
+      },
+      route: content,
+      state: {
+        bookUid: book.id,
+        bookVersion,
+        pageUid: page.id,
+      },
+    };
+
+    await renderPage(action);
   }
 
-  async function renderPage(url: string, expectedCode: number = 200) {
+  async function renderPage(action: AnyMatch, expectedCode: number = 200) {
+    const url = matchUrl(action);
     console.info(`running ${url}`); // tslint:disable-line:no-console
     const app = createApp({
-      initialEntries: [url],
+      initialEntries: [action],
       services: {
         archiveLoader,
       },
@@ -102,13 +116,17 @@ async function render() {
 
   await renderManifest();
 
-  await renderPage('/errors/404', 404);
+  const notFoundPage: Match<typeof notFound> = {
+    route: notFound,
+  };
+
+  await renderPage(notFoundPage, 404);
 
   for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
-    const book = await archiveLoader.book(bookId);
+    const book = await archiveLoader.book(bookId, defaultVersion).load();
 
     for (const section of getPages(book.tree.contents)) {
-      await renderContentPage(bookId, defaultVersion, section.id);
+      await renderContentPage(bookId, defaultVersion, stripIdVersion(section.id));
     }
   }
 

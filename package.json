@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/node-fetch": "^2.1.4",
     "cnx-recipes": "github:connexions/cnx-recipes#master",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
@@ -17,23 +16,27 @@
     "reselect": "^4.0.0",
     "styled-components": "^4.0.3",
     "typesafe-actions": "^2.0.4",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2",
+    "weak-map": "^1.0.5"
   },
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
     "start": "react-scripts start",
-    "clean": "rm -rf build",
-    "build": "GENERATE_SOURCEMAP=true react-scripts build",
+    "start:static": "npm run-script build && NODE_ENV=${NODE_ENV:-test} npm run-script prerender && NODE_ENV=${NODE_ENV:-test} PORT=${PORT:-3000} npm run-script server",
+    "clean": "rm -rf ./build",
+    "build": "GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} react-scripts build",
     "build:clean": "npm run-script clean && npm run-script build",
     "prerender": "node ./script/entry prerender",
-    "server": "NODE_ENV=development node script/entry server/cli",
+    "server": "NODE_ENV=${NODE_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
-    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build",
+    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "node ./script/verifySourcemaps.js",
-    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\""
+    "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
+    "test:lighthouse-manual": "lighthouse --view --config-path=./src/test/audits/index.js",
+    "heroku-postbuild": "npm run-script build:clean && npm run-script prerender && cp build/books/Ax2o07Ul/pages/HR_VN3f7 build/index.html"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,6 +48,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
@@ -59,6 +63,7 @@
     "@types/jest-image-snapshot": "^2.4.0",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.12.2",
+    "@types/node-fetch": "^2.1.4",
     "@types/puppeteer": "^1.10.0",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
@@ -73,8 +78,10 @@
     "express": "^4.16.4",
     "glob": "^7.1.3",
     "http-proxy-middleware": "^0.19.0",
+    "jest": "^23.6",
     "jest-image-snapshot": "^2.7.0",
     "jest-puppeteer": "^3.5.1",
+    "lighthouse": "^4.0.0-alpha.2-3.2.1",
     "node-fetch": "^2.3.0",
     "pify": "^4.0.1",
     "portfinder": "^1.0.19",
@@ -91,7 +98,8 @@
       "ts",
       "tsx",
       "js",
-      "jsx"
+      "jsx",
+      "json"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/src/test/setup.ts",
     "setupFiles": [

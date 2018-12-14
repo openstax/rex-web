@@ -1,14 +1,14 @@
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import scrollTo from '../../helpers/scrollTo';
 import { MAIN_CONTENT_ID, Provider } from '../context/SkipToContent';
 import HiddenLink from './HiddenLink';
 
 export default class SkipToContentWrapper extends Component {
-  public mainContent: RefObject<any> | undefined;
+  public mainContent: HTMLDivElement | undefined;
 
   public render() {
     return <Provider value={{registerMainContent: this.registerMainContent}}>
-      <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`} tabIndex={1}>Skip to Content</HiddenLink>
+      <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>Skip to Content</HiddenLink>
       {this.props.children}
     </Provider>;
   }
@@ -22,7 +22,9 @@ export default class SkipToContentWrapper extends Component {
     }
   }
 
-  private registerMainContent = (mainContent: RefObject<any>) => {
-    this.mainContent = mainContent;
+  private registerMainContent = (mainContent: HTMLDivElement | null) => {
+    if (mainContent) {
+      this.mainContent = mainContent;
+    }
   }
 }

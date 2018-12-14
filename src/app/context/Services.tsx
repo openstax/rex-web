@@ -1,4 +1,4 @@
-import React, { Attributes } from 'react';
+import React from 'react';
 import { AppServices } from '../types';
 
 const {Consumer, Provider} = React.createContext({} as AppServices);
@@ -13,7 +13,10 @@ interface ServiceConsumer {
 }
 
 /* tslint:disable-next-line:variable-name */
-export default <P extends ServiceConsumer & Attributes>(Component: React.ComponentType<P>) =>
+export default <P extends ServiceConsumer>(Component: React.ComponentClass<P>) =>
   (props: Pick<P, Exclude<keyof P, keyof ServiceConsumer>>) => <Consumer>
-    {(services) => <Component services={services} {...props} />}
+    {(services) => {
+      // @ts-ignore - remove this when https://github.com/Microsoft/TypeScript/issues/28748 is resolved
+      return <Component services={services} {...props} />;
+    }}
   </Consumer>;
