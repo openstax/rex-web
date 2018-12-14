@@ -13,9 +13,11 @@ export default class PageContent extends Component<PropTypes> {
   public getCleanContent = () => {
     const {content} = this.props;
     return content
+      // remove body and surrounding content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
-      .replace(/<div data-type="document-title">[\s\S]*?<\/div>/g, '')
-      .replace(/<cnx-pi.*>[\s\S]*<\/cnx-pi>/g, '');
+      // fix assorted self closing tags
+      .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
+    ;
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
