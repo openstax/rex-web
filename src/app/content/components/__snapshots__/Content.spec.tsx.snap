@@ -2,22 +2,160 @@
 
 exports[`content matches snapshot 1`] = `
 Array [
-  <a
-    className="sc-bdVaJa RfHPw"
+  .c0 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  -webkit-clip: auto;
+  clip: auto;
+  height: auto;
+  width: auto;
+  z-index: 20;
+}
+
+<a
+    className="c0"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
-  <div
-    className="sc-htoDjs lkdQiJ"
+  .c5 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 3rem;
+  padding: 0 3rem 0 3rem;
+  font-size: 18px;
+  font-family: "Noto Sans";
+}
+
+.c5 * {
+  overflow: initial;
+}
+
+.c6 {
+  font-family: "Roboto Condensed",serif;
+  font-size: 19px;
+  line-height: 29px;
+}
+
+.c1 {
+  background-color: white;
+  overflow-x: hidden;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  width: 300px;
+}
+
+.c2 {
+  position: fixed;
+  top: 10px;
+  height: 40px;
+  width: 40px;
+  background: none;
+  padding: 0;
+  border: none;
+  z-index: 1;
+  outline: none;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+  left: 240px;
+}
+
+.c2 span {
+  width: 100%;
+  background: #000;
+  padding-top: 10%;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+
+.c2 span:nth-child(1) {
+  -webkit-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.c2 span:nth-child(2) {
+  opacity: 0;
+}
+
+.c2 span:nth-child(3) {
+  -webkit-transform: rotateZ(-45deg);
+  -ms-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+  margin-top: -20%;
+}
+
+.c3 {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  overflow-y: auto;
+  font-size: 15px;
+  padding: 10px;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+}
+
+.c3 ol {
+  padding-inline-start: 10px;
+}
+
+.c3 > * {
+  -webkit-transition-property: visibility;
+  transition-property: visibility;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  visibility: visible;
+}
+
+.c4 {
+  list-style: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+<div
+    className="c0"
   >
     <div
-      className="sc-ifAKCX iOXBpE"
+      className="c1"
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje bZAIEP"
+        className="c2"
         onClick={[Function]}
         role="button"
       >
@@ -26,12 +164,12 @@ Array [
         <span />
       </button>
       <div
-        className="sc-bZQynM hPWzGe"
+        className="c3"
       >
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw giQHPi"
+              className="c4"
             >
               <a
                 href="#"
@@ -48,7 +186,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="sc-gzVnrw giQHPi"
+                className="c4"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -60,7 +198,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="sc-gzVnrw giQHPi"
+                      className="c4"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -81,13 +219,13 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH kfCZQZ"
+      className="c5"
       id="main-content"
       tabIndex={-1}
     >
       <div>
         <h1
-          className="sc-htpNat cOGKiz"
+          className="c6"
         >
           book title
            / 
@@ -95,7 +233,7 @@ Array [
         </h1>
       </div>
       <div
-        className="sc-bxivhb fpcskD"
+        className=""
       >
         <div
           data-type="chapter"
@@ -117,22 +255,154 @@ Array [
 
 exports[`content renders empty state 1`] = `
 Array [
-  <a
-    className="sc-bdVaJa RfHPw"
+  .c0 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  -webkit-clip: auto;
+  clip: auto;
+  height: auto;
+  width: auto;
+  z-index: 20;
+}
+
+<a
+    className="c0"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
-  <div
-    className="sc-htoDjs lkdQiJ"
+  .c5 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 3rem;
+  padding: 0 3rem 0 3rem;
+  font-size: 18px;
+  font-family: "Noto Sans";
+}
+
+.c5 * {
+  overflow: initial;
+}
+
+.c1 {
+  background-color: white;
+  overflow-x: hidden;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  width: 300px;
+}
+
+.c2 {
+  position: fixed;
+  top: 10px;
+  height: 40px;
+  width: 40px;
+  background: none;
+  padding: 0;
+  border: none;
+  z-index: 1;
+  outline: none;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+  left: 240px;
+}
+
+.c2 span {
+  width: 100%;
+  background: #000;
+  padding-top: 10%;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+
+.c2 span:nth-child(1) {
+  -webkit-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.c2 span:nth-child(2) {
+  opacity: 0;
+}
+
+.c2 span:nth-child(3) {
+  -webkit-transform: rotateZ(-45deg);
+  -ms-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+  margin-top: -20%;
+}
+
+.c3 {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  overflow-y: auto;
+  font-size: 15px;
+  padding: 10px;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+}
+
+.c3 ol {
+  padding-inline-start: 10px;
+}
+
+.c3 > * {
+  -webkit-transition-property: visibility;
+  transition-property: visibility;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  visibility: visible;
+}
+
+.c4 {
+  list-style: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+<div
+    className="c0"
   >
     <div
-      className="sc-ifAKCX iOXBpE"
+      className="c1"
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="sc-EHOje bZAIEP"
+        className="c2"
         onClick={[Function]}
         role="button"
       >
@@ -141,12 +411,12 @@ Array [
         <span />
       </button>
       <div
-        className="sc-bZQynM hPWzGe"
+        className="c3"
       >
         <nav>
           <ol>
             <li
-              className="sc-gzVnrw giQHPi"
+              className="c4"
             >
               <a
                 href="#"
@@ -159,13 +429,13 @@ Array [
       </div>
     </div>
     <div
-      className="sc-bwzfXH kfCZQZ"
+      className="c5"
       id="main-content"
       tabIndex={-1}
     >
       <div />
       <div
-        className="sc-bxivhb fpcskD"
+        className=""
       >
         <div
           data-type="chapter"
