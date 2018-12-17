@@ -1,6 +1,5 @@
 import fs from 'fs';
 import chunk from 'lodash/fp/chunk';
-import flatten from 'lodash/fp/flatten';
 import fetch from 'node-fetch';
 import path from 'path';
 import portfinder from 'portfinder';
@@ -8,10 +7,8 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
-import { isArchiveTree } from '../src/app/content/guards';
 import { content } from '../src/app/content/routes';
-import { ArchiveTree, ArchiveTreeSection } from '../src/app/content/types';
-import { stripIdVersion } from '../src/app/content/utils';
+import { flattenArchiveTree, stripIdVersion } from '../src/app/content/utils';
 import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as headSelectors from '../src/app/head/selectors';
@@ -126,7 +123,7 @@ async function render() {
   for (const [bookId, {defaultVersion}] of bookEntries) {
     const book = await archiveLoader.book(bookId, defaultVersion).load();
 
-    for (const pageChunk of chunk(20, getPages(book.tree.contents))) {
+    for (const pageChunk of chunk(20, flattenArchiveTree(book.tree.contents))) {
       const promises: Array<Promise<any>> = [];
 
       for (const section of pageChunk) {
@@ -205,8 +202,4 @@ function makeDirectories(filepath: string) {
 function writeFile(filepath: string, contents: string) {
   makeDirectories(filepath);
   fs.writeFile(filepath, contents, () => null);
-}
-
-function getPages(contents: ArchiveTree['contents']): ArchiveTreeSection[] {
-  return flatten(contents.map((section) => flatten(isArchiveTree(section) ? getPages(section.contents) : [section])));
 }

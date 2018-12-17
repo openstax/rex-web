@@ -50,7 +50,7 @@ describe('ContentLink', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
@@ -82,7 +82,7 @@ describe('ContentLink', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
@@ -114,7 +114,7 @@ describe('ContentLink', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 

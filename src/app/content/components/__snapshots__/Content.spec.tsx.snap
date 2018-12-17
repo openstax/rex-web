@@ -31,7 +31,7 @@ Array [
   >
     Skip to Content
   </a>,
-  .c5 {
+  .c6 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -41,11 +41,11 @@ Array [
   font-family: "Noto Sans";
 }
 
-.c5 * {
+.c6 * {
   overflow: initial;
 }
 
-.c6 {
+.c7 {
   font-family: "Roboto Condensed",serif;
   font-size: 19px;
   line-height: 29px;
@@ -137,6 +137,19 @@ Array [
   list-style: none;
 }
 
+.c5 {
+  list-style: none;
+  overflow: visible;
+  position: relative;
+}
+
+.c5:before {
+  font-weight: bold;
+  content: '>';
+  position: absolute;
+  right: 100%;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -191,22 +204,23 @@ Array [
                 <h3
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "page title",
+                      "__html": "chapter title",
                     }
                   }
                 />
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      aria-label="Current Page"
+                      className="c5"
                     >
                       <a
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "page title2",
+                            "__html": "page title",
                           }
                         }
-                        href="/books/book/pages/page2"
+                        href="/books/book/pages/page"
                         onClick={[Function]}
                       />
                     </li>
@@ -219,13 +233,13 @@ Array [
       </div>
     </div>
     <div
-      className="c5"
+      className="c6"
       id="main-content"
       tabIndex={-1}
     >
       <div>
         <h1
-          className="c6"
+          className="c7"
         >
           book title
            / 

@@ -8,6 +8,7 @@ import { State } from './types';
 
 export const initialState = {
   loading: {},
+  references: [],
   tocOpen: true,
 };
 
@@ -29,7 +30,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.receivePage): {
       const loading = omit('page', state.loading);
       const page = pick(['id', 'shortId', 'title', 'version'], action.payload);
-      return {...state, loading, page};
+      return {...state, loading, page, references: action.payload.references};
     }
     default:
       return state;
