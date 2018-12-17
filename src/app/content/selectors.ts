@@ -16,6 +16,11 @@ export const book = createSelector(
   (state) => state.book
 );
 
+export const contentReferences = createSelector(
+  localState,
+  (state) => state.references
+);
+
 export const page = createSelector(
   localState,
   (state) => state.page

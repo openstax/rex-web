@@ -1,12 +1,12 @@
 import { Location } from 'history';
 import { ComponentType } from 'react';
 import { routes } from '../';
-import { AnyAction } from '../types';
+import { AnyAction, AppServices, MiddlewareAPI } from '../types';
 
 export type State = Location;
 
-type RouteParams<R> = R extends Route<infer P> ? P : never;
-type RouteState<R> = R extends Route<any, infer S> ? S : never;
+export type RouteParams<R> = R extends Route<infer P> ? P : never;
+export type RouteState<R> = R extends Route<any, infer S> ? S : never;
 
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
 type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
@@ -54,3 +54,7 @@ export interface LocationChange {
 
 export type AnyRoute = typeof routes[number];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
+
+export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
+  (locationChange: {location: Location, match: Match<R>}) =>
+    Promise<any> | void;

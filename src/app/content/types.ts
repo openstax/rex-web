@@ -1,3 +1,5 @@
+import { RouteParams, RouteState } from '../navigation/types';
+import { content } from './routes';
 
 export interface Params {
   bookId: string;
@@ -13,14 +15,20 @@ export interface State {
   };
   book?: Book;
   page?: Page;
+  references: Array<PageReference & {match: string}>;
+}
+
+export interface PageReference {
+  state: RouteState<typeof content>;
+  params: RouteParams<typeof content>;
 }
 
 export interface Book {
   id: string;
   shortId: string;
   title: string;
-  version: string;
   tree: ArchiveTree;
+  version: string;
 }
 
 export interface Page {
@@ -43,9 +51,9 @@ export interface ArchiveTree extends ArchiveTreeSection {
 export interface ArchiveBook {
   id: string;
   shortId: string;
+  title: string;
   tree: ArchiveTree;
   version: string;
-  title: string;
 }
 
 export interface ArchivePage {

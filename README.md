@@ -39,6 +39,9 @@ Run `PORT=8000 yarn start:static` to change the webserver port.
 
 Run `NODE_ENV=development yarn start:static` to build the books (defined in [./.env.development](./.env.development)) and serve them.
 
+
+To prerender the test fixture book and serve it, run `NODE_ENV=test yarn start:static`.
+
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>

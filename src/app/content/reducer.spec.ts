@@ -1,6 +1,7 @@
+import { FirstArgumentType } from '../types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
-import { ArchiveBook, ArchiveContent } from './types';
+import { ArchiveBook } from './types';
 
 describe('content reducer', () => {
 
@@ -49,7 +50,7 @@ describe('content reducer', () => {
   });
 
   it('reduces receivePage', () => {
-    const page = { id: 'pageId', content: 'fooobarcontent' } as ArchiveContent;
+    const page = { id: 'pageId', content: 'fooobarcontent' } as FirstArgumentType<typeof actions.receivePage>;
     const state = {
       ...initialState,
       loading: {page: 'pageId'},
