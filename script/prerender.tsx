@@ -1,4 +1,5 @@
 import fs from 'fs';
+import chunk from 'lodash/fp/chunk';
 import fetch from 'node-fetch';
 import path from 'path';
 import portfinder from 'portfinder';
@@ -35,10 +36,11 @@ if (!BOOKS) {
 }
 
 async function render() {
-
+  const start = (new Date()).getTime();
   const port = await portfinder.getPortPromise();
   const {server} = await startServer({port, onlyProxy: true});
   const archiveLoader = createArchiveLoader(`http://localhost:${port}/contents/`);
+  const bookEntries = Object.entries(BOOKS);
 
   async function renderManifest() {
     writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
@@ -48,7 +50,7 @@ async function render() {
     }, null, 2));
   }
 
-  async function renderContentPage(bookId: string, bookVersion: string, pageId: string) {
+  async function prepareContentPage(bookId: string, bookVersion: string, pageId: string) {
     const archiveBookLoader = archiveLoader.book(bookId, bookVersion);
     const book = await archiveBookLoader.load();
     const page = await archiveBookLoader.page(pageId).load();
@@ -66,12 +68,13 @@ async function render() {
       },
     };
 
-    await renderPage(action);
+    console.info(`prepared ${matchUrl(action)}`); // tslint:disable-line:no-console
+
+    return action;
   }
 
   async function renderPage(action: AnyMatch, expectedCode: number = 200) {
     const url = matchUrl(action);
-    console.info(`running ${url}`); // tslint:disable-line:no-console
     const app = createApp({
       initialEntries: [action],
       services: {
@@ -113,19 +116,46 @@ async function render() {
 
   await renderManifest();
 
-  const notFoundPage: Match<typeof notFound> = {
-    route: notFound,
-  };
+  const pages: Array<{code: number, page: AnyMatch}> = [
+    {code: 404, page: {route: notFound}},
+  ];
 
-  await renderPage(notFoundPage, 404);
-
-  for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
+  for (const [bookId, {defaultVersion}] of bookEntries) {
     const book = await archiveLoader.book(bookId, defaultVersion).load();
 
-    for (const section of flattenArchiveTree(book.tree.contents)) {
-      await renderContentPage(bookId, defaultVersion, stripIdVersion(section.id));
+    for (const pageChunk of chunk(20, flattenArchiveTree(book.tree.contents))) {
+      const promises: Array<Promise<any>> = [];
+
+      for (const section of pageChunk) {
+        promises.push(
+          prepareContentPage(bookId, defaultVersion, stripIdVersion(section.id))
+            .then((page) => pages.push({code: 200, page}))
+        );
+      }
+
+      await Promise.all(promises);
     }
   }
+
+  console.info('rendering...'); // tslint:disable-line:no-console
+
+  for (const pageChunk of chunk(50, pages)) {
+    const promises: Array<Promise<any>> = [];
+
+    for (const {code, page} of pageChunk) {
+      promises.push(renderPage(page, code));
+    }
+
+    await Promise.all(promises);
+  }
+
+  const numPages = pages.length;
+  const end = (new Date()).getTime();
+  const elapsedTime = end - start;
+  const elapsedMinutes = elapsedTime / 1000 / 60;
+
+  // tslint:disable-next-line:no-console max-line-length
+  console.log(`Prerender complete. Rendered ${numPages} pages, ${numPages / elapsedMinutes}ppm`);
 
   server.close();
 }
