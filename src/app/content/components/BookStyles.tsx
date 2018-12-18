@@ -8,4 +8,8 @@ const Hoc = ({children, className}: {className?: string, children: (className?: 
 
 export default styled(Hoc)`
   ${bookStyles}
+  /* Occur later so the bookstyles do not bleed below (e.g. @page) */
+  *:target { 
+    background-color: #ffffdd; 
+  }
 `;
