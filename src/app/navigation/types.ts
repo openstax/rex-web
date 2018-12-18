@@ -33,6 +33,8 @@ export type Match<R extends AnyRoute> =
 
 export type HistoryAction<R extends AnyRoute> = Match<R> & {
   method: 'push' | 'replace';
+  hash?: string;
+  search?: string;
 };
 
 export type AnyHistoryAction = UnionHistoryActions<AnyRoute>;
