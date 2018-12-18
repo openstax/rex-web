@@ -35,9 +35,11 @@ export class PageComponent extends Component<PropTypes> {
     return this.props.references.reduce((html, reference) =>
       html.replace(reference.match, content.getUrl(reference.params))
     , pageContent)
+      // remove body and surrounding content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
-      .replace(/<div data-type="document-title">[\s\S]*?<\/div>/g, '')
-      .replace(/<cnx-pi.*>[\s\S]*<\/cnx-pi>/g, '');
+      // fix assorted self closing tags
+      .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
+    ;
   }
 
   public componentDidMount() {
