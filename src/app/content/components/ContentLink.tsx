@@ -3,17 +3,11 @@ import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
 import { Dispatch } from '../../types';
 import { content } from '../routes';
-import { ArchiveTree } from '../types';
+import { Book } from '../types';
 import { getIdVersion, getUrlParamForPageId, stripIdVersion } from '../utils';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
-  book: {
-    id: string;
-    shortId: string;
-    tree: ArchiveTree;
-    title: string;
-    version?: string;
-  };
+  book: Book;
   page: {
     id: string;
     shortId: string;

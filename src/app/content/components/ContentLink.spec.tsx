@@ -75,36 +75,4 @@ describe('ContentLink', () => {
     }));
     expect(event.preventDefault).toHaveBeenCalled();
   });
-
-  it('dispatches navigation action on click (with minimal data provided)', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as any as AppState;
-    const store = createStore((s: AppState | undefined) => s || state, state);
-    const dispatchSpy = jest.spyOn(store, 'dispatch');
-
-    consoleError.mockImplementation(() => null);
-
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink
-        book={{id: book.id, shortId: book.shortId, tree: book.tree, title: book.title}}
-        page={{id: page.id, title: page.title, shortId: page.shortId}} />
-    </Provider>);
-
-    const event = {
-      preventDefault: jest.fn(),
-    };
-
-    component.root.findByType('a').props.onClick(event);
-
-    expect(consoleError).toHaveBeenCalledWith('BUG: ContentLink was not provided with book version for target content');
-    expect(dispatchSpy).toHaveBeenCalledWith(push({
-      params: {bookId: 'book', page: 'page-title'},
-      route: content,
-    }));
-    expect(event.preventDefault).toHaveBeenCalled();
-  });
 });
