@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree } from './guards';
 import replaceAccentedCharacters from './replaceAccentedCharacters';
-import { ArchiveTree, ArchiveTreeSection, Book } from './types';
+import { ArchiveTree, Book, LinkedArchiveTreeSection } from './types';
 
 export const stripIdVersion = (id: string): string => id.split('@')[0];
 export const getIdVersion = (id: string): string | undefined => id.split('@')[1];
@@ -22,11 +22,12 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
-export function flattenArchiveTree(contents: ArchiveTree['contents']): ArchiveTreeSection[] {
-  return flatten(contents.map((section) =>
-    flatten(isArchiveTree(section) ? flattenArchiveTree(section.contents) : [section]))
+export function flattenArchiveTree(tree: ArchiveTree): LinkedArchiveTreeSection[] {
+  return flatten(tree.contents.map((section) =>
+    flatten(isArchiveTree(section) ? flattenArchiveTree(section) : [{...section, parent: tree}]))
   ).map((section) => ({
     id: stripIdVersion(section.id),
+    parent: section.parent,
     shortId: stripIdVersion(section.shortId),
     title: section.title,
     version: getIdVersion(section.id),
@@ -61,24 +62,39 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
   sidebar.scrollTop = scrollTarget.offsetTop;
 };
 
-export const findArchiveTreeSection = (book: Book, pageId: string): ArchiveTreeSection | undefined =>
-  flattenArchiveTree(book.tree.contents).find((section) =>
+export const findArchiveTreeSection = (
+  book: {tree: ArchiveTree},
+  pageId: string
+): LinkedArchiveTreeSection | undefined =>
+  flattenArchiveTree(book.tree).find((section) =>
     stripIdVersion(section.shortId) === stripIdVersion(pageId)
     || stripIdVersion(section.id) === stripIdVersion(pageId)
   );
 
-const getUrlParamForPageTitle = (title: string): string | undefined => {
-  const [, cleanNumber, sectionTitle] = title
-    // remove html tags from tree title
-    .replace(/<[^>]+>/g, '')
-    // split out section number from title
-    .match(/^([0-9\.]*)?(.*)$/)
-    || [null, null, null]
-  ;
+const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
+
+  const splitTitleParts = (str: string) => {
+    const match = str
+      // remove html tags from tree title
+      .replace(/<[^>]+>/g, '')
+      // split out section number from title
+      .match(/^([0-9\.]*)?(.*)$/);
+
+    if (match && match[2]) {
+      // ignore the first match which is the whole title
+      return match.slice(1);
+    } else {
+      return [null, null];
+    }
+  };
+
+  const [sectionNumber, sectionTitle] = splitTitleParts(section.title);
 
   if (!sectionTitle) {
-    return;
+    throw new Error(`BUG: could not URL encode page title: "${section.title}"`);
   }
+
+  const cleanNumber = sectionNumber || splitTitleParts(section.parent.title)[0];
 
   const cleanTitle = replaceAccentedCharacters(sectionTitle)
     // handle space delimiters
@@ -87,21 +103,23 @@ const getUrlParamForPageTitle = (title: string): string | undefined => {
     .replace(/[^a-z0-9 ]/gi, '')
   ;
 
-  return `${cleanNumber ? cleanNumber : ''}${cleanTitle}`
+  return `${cleanNumber ? `${cleanNumber} ` : ''}${cleanTitle}`
     // spaces to dashes
     .replace(/ +/g, '-')
   ;
 };
 
-export const getUrlParamForPageId = (book: Book, pageId: string): string | undefined => {
+export const getUrlParamForPageId = (book: {tree: ArchiveTree, title: string}, pageId: string): string => {
   const treeSection = findArchiveTreeSection(book, pageId);
-  const title = treeSection ? treeSection.title : '';
-  return getUrlParamForPageTitle(title);
+  if (!treeSection) {
+    throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
+  }
+  return getUrlParamForPageTitle(treeSection);
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {
-  for (const section of flattenArchiveTree(book.tree.contents)) {
-    const sectionParam = getUrlParamForPageTitle(section.title);
+  for (const section of flattenArchiveTree(book.tree)) {
+    const sectionParam = getUrlParamForPageTitle(section);
     if (sectionParam && sectionParam.toLowerCase() === pageParam.toLowerCase()) {
       return stripIdVersion(section.id);
     }

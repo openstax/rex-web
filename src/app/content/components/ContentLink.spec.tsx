@@ -44,7 +44,7 @@ describe('ContentLink', () => {
     consoleError.mockRestore();
   });
 
-  it('dispatches navigation action on click (provided with non-tree book/page data)', () => {
+  it('dispatches navigation action on click', () => {
     const state = {
       content: {
         ...initialState,
@@ -65,39 +65,7 @@ describe('ContentLink', () => {
     component.root.findByType('a').props.onClick(event);
 
     expect(dispatchSpy).toHaveBeenCalledWith(push({
-      params: {bookId: 'book', pageId: 'page'},
-      route: content,
-      state: {
-        bookUid: 'booklongid',
-        bookVersion: '0',
-        pageUid: 'pagelongid',
-      },
-    }));
-    expect(event.preventDefault).toHaveBeenCalled();
-  });
-
-  it('dispatches navigation action on click (provided with tree book/page data)', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as any as AppState;
-    const store = createStore((s: AppState | undefined) => s || state, state);
-    const dispatchSpy = jest.spyOn(store, 'dispatch');
-
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book.tree} page={book.tree.contents[0]} />
-    </Provider>);
-
-    const event = {
-      preventDefault: jest.fn(),
-    };
-
-    component.root.findByType('a').props.onClick(event);
-
-    expect(dispatchSpy).toHaveBeenCalledWith(push({
-      params: {bookId: 'book', pageId: 'page'},
+      params: {bookId: 'book', page: 'page-title'},
       route: content,
       state: {
         bookUid: 'booklongid',
@@ -122,7 +90,7 @@ describe('ContentLink', () => {
 
     const component = renderer.create(<Provider store={store}>
       <ConnectedContentLink
-        book={{id: book.id, shortId: book.shortId}}
+        book={{id: book.id, shortId: book.shortId, tree: book.tree, title: book.title}}
         page={{id: page.id, title: page.title, shortId: page.shortId}} />
     </Provider>);
 
@@ -134,7 +102,7 @@ describe('ContentLink', () => {
 
     expect(consoleError).toHaveBeenCalledWith('BUG: ContentLink was not provided with book version for target content');
     expect(dispatchSpy).toHaveBeenCalledWith(push({
-      params: {bookId: 'book', pageId: 'page'},
+      params: {bookId: 'book', page: 'page-title'},
       route: content,
     }));
     expect(event.preventDefault).toHaveBeenCalled();

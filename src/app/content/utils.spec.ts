@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import cloneDeep from 'lodash/cloneDeep';
-import { Book } from './types';
+import { ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
   getPageIdFromUrlParam,
@@ -29,38 +29,54 @@ describe('getContentPageReferences', () => {
   });
 
   it('picks up basic content reference', () => {
-    expect(getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')).toEqual([{
-      bookUid: undefined,
-      bookVersion: undefined,
-      match: '/contents/as8s8xu9sdnjsd9',
-      pageUid: 'as8s8xu9sdnjsd9',
-    }]);
+    expect(
+      getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
+    ).toEqual([
+      {
+        bookUid: undefined,
+        bookVersion: undefined,
+        match: '/contents/as8s8xu9sdnjsd9',
+        pageUid: 'as8s8xu9sdnjsd9',
+      },
+    ]);
   });
 
   it('picks up book content reference', () => {
-    expect(getContentPageReferences('asdfasdfasf /contents/as8s8xu:9sdnjsd9 asdfadf')).toEqual([{
-      bookUid: 'as8s8xu',
-      bookVersion: undefined,
-      match: '/contents/as8s8xu:9sdnjsd9',
-      pageUid: '9sdnjsd9',
-    }]);
+    expect(
+      getContentPageReferences('asdfasdfasf /contents/as8s8xu:9sdnjsd9 asdfadf')
+    ).toEqual([
+      {
+        bookUid: 'as8s8xu',
+        bookVersion: undefined,
+        match: '/contents/as8s8xu:9sdnjsd9',
+        pageUid: '9sdnjsd9',
+      },
+    ]);
   });
 
   it('picks up versioned book content reference', () => {
-    expect(getContentPageReferences('asdfasdfasf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf')).toEqual([{
-      bookUid: 'as8s8xu',
-      bookVersion: '1.2',
-      match: '/contents/as8s8xu@1.2:9sdnjsd9',
-      pageUid: '9sdnjsd9',
-    }]);
+    expect(
+      getContentPageReferences(
+        'asdfasdfasf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf'
+      )
+    ).toEqual([
+      {
+        bookUid: 'as8s8xu',
+        bookVersion: '1.2',
+        match: '/contents/as8s8xu@1.2:9sdnjsd9',
+        pageUid: '9sdnjsd9',
+      },
+    ]);
   });
 
   it('picks up multiple references', () => {
-    expect(getContentPageReferences(`
+    expect(
+      getContentPageReferences(`
       asdfa /contents/as8s8xu9sdnjsd9 sdf
       /contents/as8s8xu:9sdnjsd9
       asf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf
-    `)).toEqual([
+    `)
+    ).toEqual([
       {
         bookUid: undefined,
         bookVersion: undefined,
@@ -96,8 +112,11 @@ describe('scrollTocSectionIntoView', () => {
     activeChapter = document.createElement('li');
     sidebar = document.createElement('div');
 
-    Object.defineProperty(sidebar, 'scrollTop', {value: 0, writable: true});
-    Object.defineProperty(sidebar, 'offsetHeight', {value: 1000, writable: true});
+    Object.defineProperty(sidebar, 'scrollTop', { value: 0, writable: true });
+    Object.defineProperty(sidebar, 'offsetHeight', {
+      value: 1000,
+      writable: true,
+    });
   });
 
   it('does nothing if activeSection is undefined', () => {
@@ -106,34 +125,40 @@ describe('scrollTocSectionIntoView', () => {
   });
 
   it('does nothing if sidebar is undefined', () => {
-    expect(() => scrollTocSectionIntoView(undefined, activeSection)).not.toThrow();
+    expect(() =>
+      scrollTocSectionIntoView(undefined, activeSection)
+    ).not.toThrow();
   });
 
   it('does nothing if section is already visible', () => {
-    Object.defineProperty(activeSection, 'offsetTop', {value: 500});
+    Object.defineProperty(activeSection, 'offsetTop', { value: 500 });
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(0);
   });
 
   it('udpates scroll position if the section is not visible', () => {
-    Object.defineProperty(activeSection, 'offsetTop', {value: 1500});
+    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1500);
   });
 
   it('udpates scroll position to the chapter heading if its available and it fits', () => {
-    Object.defineProperty(activeChapter, 'offsetTop', {value: 1400});
-    Object.defineProperty(activeSection, 'offsetTop', {value: 1500});
-    Object.defineProperty(activeSection, 'parentElement', {value: activeChapter});
+    Object.defineProperty(activeChapter, 'offsetTop', { value: 1400 });
+    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
+    Object.defineProperty(activeSection, 'parentElement', {
+      value: activeChapter,
+    });
 
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1400);
   });
 
   it('udpates scroll position to the section heading if the chapter is too long', () => {
-    Object.defineProperty(activeChapter, 'offsetTop', {value: 1000});
-    Object.defineProperty(activeSection, 'offsetTop', {value: 2500});
-    Object.defineProperty(activeSection, 'parentElement', {value: activeChapter});
+    Object.defineProperty(activeChapter, 'offsetTop', { value: 1000 });
+    Object.defineProperty(activeSection, 'offsetTop', { value: 2500 });
+    Object.defineProperty(activeSection, 'parentElement', {
+      value: activeChapter,
+    });
 
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(2500);
@@ -146,11 +171,17 @@ describe('scrollTocSectionIntoView', () => {
     const randoElement1 = document.createElement('div');
     const randoElement2 = document.createElement('div');
 
-    Object.defineProperty(activeChapter, 'offsetTop', {value: 1400});
-    Object.defineProperty(activeSection, 'offsetTop', {value: 1500});
-    Object.defineProperty(activeSection, 'parentElement', {value: randoElement2});
-    Object.defineProperty(randoElement2, 'parentElement', {value: randoElement1});
-    Object.defineProperty(randoElement1, 'parentElement', {value: activeChapter});
+    Object.defineProperty(activeChapter, 'offsetTop', { value: 1400 });
+    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
+    Object.defineProperty(activeSection, 'parentElement', {
+      value: randoElement2,
+    });
+    Object.defineProperty(randoElement2, 'parentElement', {
+      value: randoElement1,
+    });
+    Object.defineProperty(randoElement1, 'parentElement', {
+      value: activeChapter,
+    });
 
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1400);
@@ -163,12 +194,16 @@ describe('scrollTocSectionIntoView', () => {
     const randoElement1 = document.createElement('div');
     const randoElement2 = document.createElement('div');
 
-    Object.defineProperty(activeChapter, 'offsetTop', {value: 1400});
-    Object.defineProperty(activeSection, 'offsetTop', {value: 1500});
-    Object.defineProperty(activeSection, 'parentElement', {value: randoElement2});
-    Object.defineProperty(randoElement2, 'parentElement', {value: randoElement1});
-    Object.defineProperty(randoElement1, 'parentElement', {value: sidebar});
-    Object.defineProperty(sidebar, 'parentElement', {value: activeChapter});
+    Object.defineProperty(activeChapter, 'offsetTop', { value: 1400 });
+    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
+    Object.defineProperty(activeSection, 'parentElement', {
+      value: randoElement2,
+    });
+    Object.defineProperty(randoElement2, 'parentElement', {
+      value: randoElement1,
+    });
+    Object.defineProperty(randoElement1, 'parentElement', { value: sidebar });
+    Object.defineProperty(sidebar, 'parentElement', { value: activeChapter });
 
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1500);
@@ -182,8 +217,13 @@ describe('getUrlParamForPageId', () => {
     book = cloneDeep({
       tree: {
         contents: [
-          { id: 'pagelongid@1', shortId: 'page@1', title: '<span class="os-text">Preface</span>', },
+          {
+            id: 'pagelongid@1',
+            shortId: 'page@1',
+            title: '<span class="os-text">Preface</span>',
+          },
         ],
+        title: 'book',
       },
     }) as Book;
   });
@@ -199,16 +239,21 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('works with section numbers', () => {
-    // tslint:disable-next-line:max-line-length
-    book.tree.contents[0].title = '<span class="os-number">2.1</span><span class="os-divider"> </span><span class="os-text">Section 1</span>';
+    book.tree.contents[0].title =
+      '<span class="os-number">2.1</span><span class="os-divider"> </span><span class="os-text">Section 1</span>';
     expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('2.1-Section-1');
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('2.1-Section-1');
   });
 
   it('works with multiple spaces in the section name', () => {
-    book.tree.contents[0].title = '<span class="os-text">Section   asdf qwer</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('Section-asdf-qwer');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Section-asdf-qwer');
+    book.tree.contents[0].title =
+      '<span class="os-text">Section   asdf qwer</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual(
+      'Section-asdf-qwer'
+    );
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual(
+      'Section-asdf-qwer'
+    );
   });
 
   it('replaces wonky characters', () => {
@@ -217,10 +262,55 @@ describe('getUrlParamForPageId', () => {
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Section');
   });
 
+  it('defaults section number to chapter number', () => {
+    book.tree.contents[0].title =
+      '<span class="os-number">2</span><span class="os-divider"> </span><span class="os-text">Chapter 2</span>';
+    (book.tree.contents[0] as ArchiveTree).contents = [
+      {
+        id: 'somepagelongid@1',
+        shortId: 'somepage@1',
+        title: '<span class="os-text">a page</span>',
+      },
+    ];
+    expect(getUrlParamForPageId(book, 'somepagelongid')).toEqual('2-a-page');
+    expect(getUrlParamForPageId(book, 'somepagelongid@1')).toEqual('2-a-page');
+  });
+
   it('replaces all spece delimitiers with a single dash', () => {
-    book.tree.contents[0].title = '<span class="os-text">Section asdf __qwer-asdf</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('Section-asdf-qwer-asdf');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Section-asdf-qwer-asdf');
+    book.tree.contents[0].title =
+      '<span class="os-text">Section asdf __qwer-asdf</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual(
+      'Section-asdf-qwer-asdf'
+    );
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual(
+      'Section-asdf-qwer-asdf'
+    );
+  });
+
+  it('throws on empty title', () => {
+    book.tree.contents[0].title = '';
+    expect(() =>
+      getUrlParamForPageId(book, 'pagelongid')
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"BUG: could not URL encode page title: \\"\\""`
+    );
+  });
+
+  it('throws on title with only numbers', () => {
+    book.tree.contents[0].title = '34.2';
+    expect(() =>
+      getUrlParamForPageId(book, 'pagelongid')
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"BUG: could not URL encode page title: \\"34.2\\""`
+    );
+  });
+
+  it('throws on invalid id', () => {
+    expect(() =>
+      getUrlParamForPageId(book, 'wokowokowko')
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"BUG: could not find page \\"wokowokowko\\" in undefined"`
+    );
   });
 });
 
@@ -231,8 +321,13 @@ describe('getPageIdFromUrlParam', () => {
     book = cloneDeep({
       tree: {
         contents: [
-          { id: 'pagelongid@1', shortId: 'page@1', title: '<span class="os-text">Preface</span>', },
+          {
+            id: 'pagelongid@1',
+            shortId: 'page@1',
+            title: '<span class="os-text">Preface</span>',
+          },
         ],
+        title: 'book',
       },
     }) as Book;
   });

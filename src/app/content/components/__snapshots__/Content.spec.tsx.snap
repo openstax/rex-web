@@ -220,7 +220,7 @@ Array [
                             "__html": "page title",
                           }
                         }
-                        href="/books/book/pages/page"
+                        href="/books/book/pages/page-title"
                         onClick={[Function]}
                       />
                     </li>

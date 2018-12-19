@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
 import { Dispatch } from '../../types';
 import { content } from '../routes';
-import { getIdVersion, stripIdVersion } from '../utils';
+import { ArchiveTree } from '../types';
+import { getIdVersion, getUrlParamForPageId, stripIdVersion } from '../utils';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   book: {
     id: string;
     shortId: string;
+    tree: ArchiveTree;
+    title: string;
     version?: string;
   };
   page: {
@@ -24,7 +27,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
   const params = {
     bookId: stripIdVersion(book.shortId),
-    pageId: stripIdVersion(page.shortId),
+    page: getUrlParamForPageId(book, page.shortId),
   };
 
   const url = content.getUrl(params);

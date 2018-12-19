@@ -64,7 +64,7 @@ describe('Page', () => {
         match: '/content/link',
         params: {
           bookId: 'book',
-          pageId: 'page',
+          page: 'page-title',
         },
         state: {
           bookUid: 'book',
@@ -91,7 +91,7 @@ describe('Page', () => {
       expect(secondLink).toBeTruthy();
     }
 
-    expect(firstLink.getAttribute('href')).toEqual('/books/book/pages/page');
+    expect(firstLink.getAttribute('href')).toEqual('/books/book/pages/page-title');
     expect(secondLink.getAttribute('href')).toEqual('/rando/link');
   });
 
@@ -132,7 +132,7 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
         bookId: 'book',
-        pageId: 'page',
+        page: 'page-title',
       },
       route: routes.content,
       state: {

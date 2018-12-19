@@ -3,7 +3,7 @@ import { content } from './routes';
 
 export interface Params {
   bookId: string;
-  pageId: string;
+  page: string;
 }
 
 export interface State {
@@ -42,6 +42,10 @@ export interface ArchiveTreeSection {
   id: string;
   shortId: string;
   title: string;
+}
+
+export interface LinkedArchiveTreeSection extends ArchiveTreeSection {
+  parent: ArchiveTree;
 }
 
 export interface ArchiveTree extends ArchiveTreeSection {

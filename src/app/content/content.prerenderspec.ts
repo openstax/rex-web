@@ -1,7 +1,7 @@
 /** @jest-environment puppeteer */
 import { navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
+const TEST_PAGE = '/books/testbook1-shortid/pages/Test-Page-1';
 
 describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {

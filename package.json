@@ -35,7 +35,7 @@
     "test:sourcemap": "node ./script/verifySourcemaps.js",
     "test:prerender": "NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
     "test:lighthouse-manual": "lighthouse --view --config-path=./src/test/audits/index.js",
-    "heroku-postbuild": "npm run-script build:clean && npm run-script prerender && cp build/books/Ax2o07Ul/pages/HR_VN3f7 build/index.html"
+    "heroku-postbuild": "npm run-script build:clean && npm run-script prerender && cp build/books/Ax2o07Ul/pages/1-Introduction-to-Science-and-the-Realm-of-Physics-Physical-Quantities-and-Units build/index.html"
   },
   "eslintConfig": {
     "extends": "react-app"

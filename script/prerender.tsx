@@ -8,7 +8,7 @@ import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import createApp from '../src/app';
 import { content } from '../src/app/content/routes';
-import { flattenArchiveTree, stripIdVersion } from '../src/app/content/utils';
+import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../src/app/content/utils';
 import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as headSelectors from '../src/app/head/selectors';
@@ -58,7 +58,7 @@ async function render() {
     const action: Match<typeof content> = {
       params: {
         bookId: book.shortId,
-        pageId: page.shortId,
+        page: getUrlParamForPageId(book, page.id),
       },
       route: content,
       state: {
@@ -123,7 +123,7 @@ async function render() {
   for (const [bookId, {defaultVersion}] of bookEntries) {
     const book = await archiveLoader.book(bookId, defaultVersion).load();
 
-    for (const pageChunk of chunk(20, flattenArchiveTree(book.tree.contents))) {
+    for (const pageChunk of chunk(20, flattenArchiveTree(book.tree))) {
       const promises: Array<Promise<any>> = [];
 
       for (const section of pageChunk) {
