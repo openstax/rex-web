@@ -72,7 +72,6 @@ export const findArchiveTreeSection = (
   );
 
 const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
-
   const splitTitleParts = (str: string) => {
     const match = str
       // remove html tags from tree title
@@ -109,12 +108,23 @@ const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
   ;
 };
 
-export const getUrlParamForPageId = (book: {tree: ArchiveTree, title: string}, pageId: string): string => {
+const getUrlParamForPageIdCache = new Map();
+export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): string => {
+  const cacheKey = `${book.id}:${pageId}`;
+
+  if (getUrlParamForPageIdCache.has(cacheKey)) {
+    return getUrlParamForPageIdCache.get(cacheKey);
+  }
+
   const treeSection = findArchiveTreeSection(book, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
-  return getUrlParamForPageTitle(treeSection);
+  const result = getUrlParamForPageTitle(treeSection);
+
+  getUrlParamForPageIdCache.set(cacheKey, result);
+
+  return result;
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {

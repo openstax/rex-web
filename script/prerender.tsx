@@ -1,11 +1,11 @@
 import fs from 'fs';
-import chunk from 'lodash/fp/chunk';
 import fetch from 'node-fetch';
 import path from 'path';
 import portfinder from 'portfinder';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import asyncPool from 'tiny-async-pool';
 import createApp from '../src/app';
 import { content } from '../src/app/content/routes';
 import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../src/app/content/utils';
@@ -75,6 +75,7 @@ async function render() {
 
   async function renderPage(action: AnyMatch, expectedCode: number = 200) {
     const url = matchUrl(action);
+    console.info(`rendering ${url}`); // tslint:disable-line:no-console
     const app = createApp({
       initialEntries: [action],
       services: {
@@ -123,31 +124,13 @@ async function render() {
   for (const [bookId, {defaultVersion}] of bookEntries) {
     const book = await archiveLoader.book(bookId, defaultVersion).load();
 
-    for (const pageChunk of chunk(20, flattenArchiveTree(book.tree))) {
-      const promises: Array<Promise<any>> = [];
-
-      for (const section of pageChunk) {
-        promises.push(
-          prepareContentPage(bookId, defaultVersion, stripIdVersion(section.id))
-            .then((page) => pages.push({code: 200, page}))
-        );
-      }
-
-      await Promise.all(promises);
-    }
+    await asyncPool(20, flattenArchiveTree(book.tree), (section) =>
+      prepareContentPage(bookId, defaultVersion, stripIdVersion(section.id))
+        .then((page) => pages.push({code: 200, page}))
+    );
   }
 
-  console.info('rendering...'); // tslint:disable-line:no-console
-
-  for (const pageChunk of chunk(50, pages)) {
-    const promises: Array<Promise<any>> = [];
-
-    for (const {code, page} of pageChunk) {
-      promises.push(renderPage(page, code));
-    }
-
-    await Promise.all(promises);
-  }
+  await asyncPool(50, pages, ({code, page}) => renderPage(page, code));
 
   const numPages = pages.length;
   const end = (new Date()).getTime();
