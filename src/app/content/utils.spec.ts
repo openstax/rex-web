@@ -1,5 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { getContentPageReferences, scrollTocSectionIntoView, stripIdVersion } from './utils';
+import cloneDeep from 'lodash/cloneDeep';
+import { Book } from './types';
+import {
+  getContentPageReferences,
+  getPageIdFromUrlParam,
+  getUrlParamForPageId,
+  scrollTocSectionIntoView,
+  stripIdVersion
+} from './utils';
 
 describe('stripIdVersion', () => {
   it('strips ids', () => {
@@ -164,5 +172,80 @@ describe('scrollTocSectionIntoView', () => {
 
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1500);
+  });
+});
+
+describe('getUrlParamForPageId', () => {
+  let book: Book;
+
+  beforeEach(() => {
+    book = cloneDeep({
+      tree: {
+        contents: [
+          { id: 'pagelongid@1', shortId: 'page@1', title: '<span class="os-text">Preface</span>', },
+        ],
+      },
+    }) as Book;
+  });
+
+  it('finds title in book tree using the short id', () => {
+    expect(getUrlParamForPageId(book, 'page')).toEqual('Preface');
+    expect(getUrlParamForPageId(book, 'page@1')).toEqual('Preface');
+  });
+
+  it('finds title in book tree using the long id', () => {
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('Preface');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Preface');
+  });
+
+  it('works with section numbers', () => {
+    // tslint:disable-next-line:max-line-length
+    book.tree.contents[0].title = '<span class="os-number">2.1</span><span class="os-divider"> </span><span class="os-text">Section 1</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('2.1-Section-1');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('2.1-Section-1');
+  });
+
+  it('works with multiple spaces in the section name', () => {
+    book.tree.contents[0].title = '<span class="os-text">Section   asdf qwer</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('Section-asdf-qwer');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Section-asdf-qwer');
+  });
+
+  it('replaces wonky characters', () => {
+    book.tree.contents[0].title = '<span class="os-text">Sèctĭꝋn</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('Section');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Section');
+  });
+
+  it('replaces all spece delimitiers with a single dash', () => {
+    book.tree.contents[0].title = '<span class="os-text">Section asdf __qwer-asdf</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('Section-asdf-qwer-asdf');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('Section-asdf-qwer-asdf');
+  });
+});
+
+describe('getPageIdFromUrlParam', () => {
+  let book: Book;
+
+  beforeEach(() => {
+    book = cloneDeep({
+      tree: {
+        contents: [
+          { id: 'pagelongid@1', shortId: 'page@1', title: '<span class="os-text">Preface</span>', },
+        ],
+      },
+    }) as Book;
+  });
+
+  it('finds id for simple param', () => {
+    expect(getPageIdFromUrlParam(book, 'Preface')).toEqual('pagelongid');
+  });
+
+  it('ignores captialization', () => {
+    expect(getPageIdFromUrlParam(book, 'preface')).toEqual('pagelongid');
+  });
+
+  it('returns undefined for unknown route', () => {
+    expect(getPageIdFromUrlParam(book, 'asdfasdf')).toBeUndefined();
   });
 });

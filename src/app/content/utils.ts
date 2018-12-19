@@ -1,7 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree } from './guards';
-import { ArchiveTree, ArchiveTreeSection } from './types';
+import replaceAccentedCharacters from './replaceAccentedCharacters';
+import { ArchiveTree, ArchiveTreeSection, Book } from './types';
 
 export const stripIdVersion = (id: string): string => id.split('@')[0];
 export const getIdVersion = (id: string): string | undefined => id.split('@')[1];
@@ -58,4 +59,51 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
     : activeSection;
 
   sidebar.scrollTop = scrollTarget.offsetTop;
+};
+
+export const findArchiveTreeSection = (book: Book, pageId: string): ArchiveTreeSection | undefined =>
+  flattenArchiveTree(book.tree.contents).find((section) =>
+    stripIdVersion(section.shortId) === stripIdVersion(pageId)
+    || stripIdVersion(section.id) === stripIdVersion(pageId)
+  );
+
+const getUrlParamForPageTitle = (title: string): string | undefined => {
+  const [, cleanNumber, sectionTitle] = title
+    // remove html tags from tree title
+    .replace(/<[^>]+>/g, '')
+    // split out section number from title
+    .match(/^([0-9\.]*)?(.*)$/)
+    || [null, null, null]
+  ;
+
+  if (!sectionTitle) {
+    return;
+  }
+
+  const cleanTitle = replaceAccentedCharacters(sectionTitle)
+    // handle space delimiters
+    .replace(/[-_]+/g, ' ')
+    // remove special characters
+    .replace(/[^a-z0-9 ]/gi, '')
+  ;
+
+  return `${cleanNumber ? cleanNumber : ''}${cleanTitle}`
+    // spaces to dashes
+    .replace(/ +/g, '-')
+  ;
+};
+
+export const getUrlParamForPageId = (book: Book, pageId: string): string | undefined => {
+  const treeSection = findArchiveTreeSection(book, pageId);
+  const title = treeSection ? treeSection.title : '';
+  return getUrlParamForPageTitle(title);
+};
+
+export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {
+  for (const section of flattenArchiveTree(book.tree.contents)) {
+    const sectionParam = getUrlParamForPageTitle(section.title);
+    if (sectionParam && sectionParam.toLowerCase() === pageParam.toLowerCase()) {
+      return stripIdVersion(section.id);
+    }
+  }
 };
