@@ -1,6 +1,8 @@
 import css from 'cnx-recipes/styles/output/intro-business.json';
+import { REACT_APP_BOOKS } from '../../../config';
 import { Match, RouteHookBody } from '../../navigation/types';
 import { AppServices, FirstArgumentType, MiddlewareAPI } from '../../types';
+import { assertDefined } from '../../utils';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
@@ -19,31 +21,31 @@ const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => 
 };
 
 const resolveBook = async(
-  {dispatch, getState, archiveLoader}: AppServices & MiddlewareAPI,
+  services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
+  const {dispatch, getState, archiveLoader} = services;
+  const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
+
+  const loader = archiveLoader.book(bookId, bookVersion);
   const state = getState();
-  const bookId = match.params.bookId;
   const bookState = select.book(state);
-  const book = bookState && bookState.shortId === bookId ? bookState : undefined;
-
-  const [bookRefId, bookRefVersion] = match.state
-    ? [match.state.bookUid, match.state.bookVersion]
-    : [bookId, undefined];
-
-  const loader = archiveLoader.book(bookRefId, bookRefVersion);
+  const book = bookState && bookState.id === bookId ? bookState : undefined;
 
   if (book) {
     return [book, loader];
   }
 
   const response = async(): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
-    const newBook = await loader.load();
+    const newBook = {
+      ...await loader.load(),
+      slug: bookSlug,
+    };
     return [newBook, archiveLoader.book(newBook.id, newBook.version)];
   };
 
-  if (bookId !== select.loadingBook(state)) {
-    dispatch(requestBook(bookId));
+  if (bookSlug !== select.loadingBook(state)) {
+    dispatch(requestBook(bookSlug));
     return await response().then((params) => {
       dispatch(receiveBook(params[0]));
       return params;
@@ -51,6 +53,25 @@ const resolveBook = async(
   } else {
     return await response();
   }
+};
+
+const resolveBookReference = async(
+  {osWebLoader}: AppServices & MiddlewareAPI,
+  match: Match<typeof content>
+): Promise<[string, string, string]> => {
+  const bookSlug = match.params.book;
+
+  if (match.state) {
+    return [bookSlug, match.state.bookUid, match.state.bookVersion];
+  }
+
+  const bookUid = await osWebLoader.getBookIdFromSlug(bookSlug);
+  const bookVersion = assertDefined(
+    REACT_APP_BOOKS[bookUid],
+    `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
+  ).defaultVersion;
+
+  return [bookSlug, bookUid, bookVersion];
 };
 
 const resolvePage = (
@@ -104,7 +125,7 @@ const loadContentReferences = (
           .then((referenceData) => references.push({
             match: reference.match,
             params: {
-              bookId: book.shortId,
+              book: book.slug,
               page: getUrlParamForPageId(book, referenceData.id),
             },
             state: {

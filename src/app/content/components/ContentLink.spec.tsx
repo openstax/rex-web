@@ -11,6 +11,7 @@ import ConnectedContentLink from './ContentLink';
 const book = {
   id: 'booklongid',
   shortId: 'book',
+  slug: 'bookslug',
   title: 'book title',
   tree: {
     contents: [
@@ -65,7 +66,7 @@ describe('ContentLink', () => {
     component.root.findByType('a').props.onClick(event);
 
     expect(dispatchSpy).toHaveBeenCalledWith(push({
-      params: {bookId: 'book', page: 'page-title'},
+      params: {book: 'bookslug', page: 'page-title'},
       route: content,
       state: {
         bookUid: 'booklongid',

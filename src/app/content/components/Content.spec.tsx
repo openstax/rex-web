@@ -13,21 +13,25 @@ import { Sidebar } from './Sidebar';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
+  let state: AppState;
   const services = {} as AppServices;
 
   beforeEach(() => {
     archiveLoader = mockArchiveLoader();
     (services as any).archiveLoader = archiveLoader;
+    state = {
+      content: {
+        ...initialState,
+        book: {
+          ...book,
+          slug: 'book-slug-1',
+        },
+        page,
+      },
+    } as unknown as AppState;
   });
 
   it('matches snapshot', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
-
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
@@ -41,7 +45,7 @@ describe('content', () => {
   });
 
   it('renders empty state', () => {
-    const state = {
+    state = {
       content: initialState,
     } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -57,13 +61,6 @@ describe('content', () => {
   });
 
   it('gets page content out of cached archive query', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
-
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     renderer.create(<Provider store={store}>
@@ -73,38 +70,10 @@ describe('content', () => {
     </Provider>);
 
     expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
-    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('booklongid', '0', 'pagelongid');
-  });
-
-  it('page content fails over to using short ids if data is unavailable with long ids', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
-
-    const store = createStore((s: AppState | undefined) => s || state, state);
-    archiveLoader.mock.cachedPage.mockReturnValueOnce(undefined);
-
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <Content />
-      </Services.Provider>
-    </Provider>);
-
-    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(2);
-    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('book', undefined, 'page');
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
-
     const store = createStore((s: AppState | undefined) => s || state, state);
     archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 
@@ -123,12 +92,7 @@ describe('content', () => {
     const state1 = {
       content: initialState,
     } as any as AppState;
-    const state2 = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
+    const state2 = state;
 
     const go = {type: 'go'};
 
@@ -155,7 +119,7 @@ describe('content', () => {
   });
 
   it('renders with ToC open', () => {
-    const state = {
+    state = {
       content: initialState,
     } as any as AppState;
 

@@ -4,7 +4,7 @@ import { push } from '../../navigation/actions';
 import { Dispatch } from '../../types';
 import { content } from '../routes';
 import { Book } from '../types';
-import { getIdVersion, getUrlParamForPageId, stripIdVersion } from '../utils';
+import { getUrlParamForPageId, stripIdVersion } from '../utils';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   book: Book;
@@ -20,21 +20,11 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 // tslint:disable-next-line:variable-name
 export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
   const params = {
-    bookId: stripIdVersion(book.shortId),
+    book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
   };
 
   const url = content.getUrl(params);
-  const bookVersion = book.version || getIdVersion(book.id);
-
-  if (!bookVersion) {
-    // tslint:disable-next-line:no-console
-    console.error('BUG: ContentLink was not provided with book version for target content');
-  }
-
-  const state = bookVersion
-    ? {bookUid: stripIdVersion(book.id), pageUid: stripIdVersion(page.id), bookVersion}
-    : undefined;
 
   return <a
     onClick={(e) => {
@@ -42,7 +32,11 @@ export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
       navigate({
         params,
         route: content,
-        state,
+        state : {
+          bookUid: stripIdVersion(book.id),
+          bookVersion: book.version,
+          pageUid: stripIdVersion(page.id),
+        },
       });
     }}
     href={url}

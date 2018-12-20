@@ -7,6 +7,7 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../helpers/createArchiveLoader';
+import createOSWebLoader from '../helpers/createOSWebLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as contentState } from './content/types';
@@ -25,6 +26,12 @@ export interface AppServices {
   promiseCollector: PromiseCollector;
   fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
+  osWebLoader: ReturnType<typeof createOSWebLoader>;
+  books: {
+    [key: string]: {
+      defaultVersion: string;
+    };
+  };
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

@@ -2,7 +2,7 @@ import { RouteParams, RouteState } from '../navigation/types';
 import { content } from './routes';
 
 export interface Params {
-  bookId: string;
+  book: string;
   page: string;
 }
 
@@ -29,6 +29,7 @@ export interface Book {
   title: string;
   tree: ArchiveTree;
   version: string;
+  slug: string;
 }
 
 export interface Page {

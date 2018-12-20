@@ -4,7 +4,6 @@ import { ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
   getPageIdFromUrlParam,
-  getUrlParamForPageId,
   scrollTocSectionIntoView,
   stripIdVersion
 } from './utils';
@@ -212,8 +211,12 @@ describe('scrollTocSectionIntoView', () => {
 
 describe('getUrlParamForPageId', () => {
   let book: Book;
+  let getUrlParamForPageId: any;
 
   beforeEach(() => {
+    jest.resetModules();
+    getUrlParamForPageId = require('./utils').getUrlParamForPageId;
+
     book = cloneDeep({
       tree: {
         contents: [

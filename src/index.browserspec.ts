@@ -25,7 +25,7 @@ describe('Browser sanity tests', () => {
       }
     });
 
-    await navigate(page, '/');
+    await navigate(page, '/errors/404');
   });
 
   it('displays the "Hello developer" console text', async() => {
@@ -54,7 +54,7 @@ describe('Browser sanity tests', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse('/');
+    await checkLighthouse('/errors/404');
   });
 
 });

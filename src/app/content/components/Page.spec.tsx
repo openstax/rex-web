@@ -63,7 +63,7 @@ describe('Page', () => {
       {
         match: '/content/link',
         params: {
-          bookId: 'book',
+          book: 'book',
           page: 'page-title',
         },
         state: {
@@ -131,7 +131,7 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        bookId: 'book',
+        book: 'book',
         page: 'page-title',
       },
       route: routes.content,
@@ -217,7 +217,7 @@ describe('Page', () => {
       </Provider>
     );
 
-    store.dispatch(actions.receiveBook(book));
+    store.dispatch(actions.receiveBook({...book, slug: 'book'}));
 
     expect(spy).not.toHaveBeenCalledWith(0, 0);
   });

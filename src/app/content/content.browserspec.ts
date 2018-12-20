@@ -1,8 +1,8 @@
 /** @jest-environment puppeteer */
 import { checkLighthouse, finishRender, h1Content, navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/testbook1-shortid/pages/Test-Page-1';
-const TEST_LONG_PAGE = '/books/testbook1-shortid/pages/1-Test-Page-3';
+const TEST_PAGE = '/books/book-slug-1/pages/Test-Page-1';
+const TEST_LONG_PAGE = '/books/book-slug-1/pages/1-Test-Page-3';
 
 describe('content', () => {
   beforeEach(async() => {

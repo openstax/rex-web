@@ -4,6 +4,7 @@ import { combineReducers, createStore } from 'redux';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
+import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import { Match } from '../../navigation/types';
 import { AppServices, AppState, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
@@ -38,6 +39,7 @@ describe('locationChange', () => {
       dispatch,
       fontCollector: new FontCollector(),
       getState: store.getState,
+      osWebLoader: mockOSWebLoader(),
       promiseCollector: new PromiseCollector(),
     } as any as MiddlewareAPI & AppServices;
 
@@ -45,8 +47,8 @@ describe('locationChange', () => {
       location: {} as Location,
       match: {
         params: {
-          bookId: 'book',
-          page: 'page-title',
+          book: 'book-slug-1',
+          page: 'test-page-1',
         },
         route: routes.content,
       },
@@ -61,34 +63,39 @@ describe('locationChange', () => {
 
   it('loads book', async() => {
     await hook(payload);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestBook('book'));
-    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('book', undefined);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook('book-slug-1'));
+    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    localState.book = cloneDeep(book);
+    localState.book = cloneDeep({...book, slug: 'book'});
     await hook(payload);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
-  it('doesn\'t load book if its already loading', () => {
+  it('doesn\'t load book if its already loading', async() => {
     archiveLoader.mock.loadBook.mockImplementation(
       () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
     );
 
-    hook(payload);
-    hook(payload);
-    hook(payload);
+    await Promise.all([
+      hook(payload),
+      hook(payload),
+      hook(payload),
+    ]);
 
-    expect(dispatch).toHaveBeenCalledTimes(1);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book'));
+    expect(dispatch).toHaveBeenCalledTimes(4);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
   });
 
   it('loads page', async() => {
     await hook(payload);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('page-title'));
-    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('booklongid', '0', 'pagelongid');
+    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('test-page-1'));
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
   });
 
   it('doesn\'t load page if its already loaded', async() => {
@@ -110,9 +117,9 @@ describe('locationChange', () => {
     ]);
 
     expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book'));
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
     expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('page-title'));
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
 
     expect(archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
@@ -141,50 +148,52 @@ describe('locationChange', () => {
 
   it('loads more specific data when available', async() => {
     payload.match.state = {
-      bookUid: 'booklongid',
-      bookVersion: '0',
-      pageUid: 'pagelongid',
+      bookUid: 'testbook1-uuid',
+      bookVersion: '1.0',
+      pageUid: 'testbook1-testpage1-uuid',
     };
 
     await hook(payload);
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('book', expect.anything());
-    expect(archiveLoader.mock.loadPage).not.toHaveBeenCalledWith(expect.anything(), expect.anything(), 'page');
-    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('booklongid', '0');
-    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('booklongid', '0', 'pagelongid');
+    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
   });
 
   it('loads a page with a content reference', async() => {
     archiveLoader.mockPage(book, {
-      content: 'some /contents/pagelongid content',
+      content: 'rando content',
+      id: 'rando-page-id',
+      shortId: 'rando-page-shortid',
+      title: 'rando page',
+      version: '0',
+    });
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/rando-page-id content',
       id: 'asdfasfasdfasdf',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
     });
 
-    payload.match.params = {
-      bookId: 'book',
-      page: 'qwerqewrqwer',
-    };
+    payload.match.params.page = 'qwerqewrqwer';
 
     payload.match.state = {
-      bookUid: 'booklongid',
-      bookVersion: '0',
+      bookUid: 'testbook1-uuid',
+      bookVersion: '1.0',
       pageUid: 'asdfasfasdfasdf',
     };
 
     await hook(payload);
 
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
-      match: '/contents/pagelongid',
+      match: '/contents/rando-page-id',
       params: {
-        bookId: 'book',
-        page: 'page-title',
+        book: 'book-slug-1',
+        page: 'rando-page',
       },
       state: {
-        bookUid: 'booklongid',
-        bookVersion: '0',
-        pageUid: 'pagelongid',
+        bookUid: 'testbook1-uuid',
+        bookVersion: '1.0',
+        pageUid: 'rando-page-id',
       },
     }]})}));
   });
@@ -199,7 +208,7 @@ describe('locationChange', () => {
     });
 
     payload.match.params = {
-      bookId: 'book',
+      book: 'book',
       page: 'qerqwer',
     };
 
@@ -223,10 +232,7 @@ describe('locationChange', () => {
       version: '0',
     });
 
-    payload.match.params = {
-      bookId: 'book',
-      page: 'qerqwer',
-    };
+    payload.match.params.page = 'qerqwer';
 
     let message: string | undefined;
 

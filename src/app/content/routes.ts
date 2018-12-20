@@ -3,7 +3,7 @@ import { Route } from '../navigation/types';
 import * as components from './components';
 import { Params } from './types';
 
-const CONTENT_PATH = '/books/:bookId/pages/:page';
+const CONTENT_PATH = '/books/:book/pages/:page';
 
 interface State {
   bookUid: string;

@@ -16,19 +16,19 @@ import { Meta } from '../src/app/head/types';
 import * as navigationSelectors from '../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../src/app/navigation/types';
 import { matchUrl } from '../src/app/navigation/utils';
-import { AppState } from '../src/app/types';
+import { AppServices, AppState } from '../src/app/types';
+import { REACT_APP_ARCHIVE_URL, REACT_APP_BOOKS, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
+import createOSWebLoader from '../src/helpers/createOSWebLoader';
 import FontCollector from '../src/helpers/FontCollector';
 import { startServer } from './server';
 
 (global as any).fetch = fetch;
 
 const ASSET_DIR = path.resolve(__dirname, '../build');
-const BOOKS = JSON.parse(process.env.BOOKS || 'null') as {
-  [key: string]: {
-    defaultVersion: string;
-  };
-};
+
+const BOOKS = REACT_APP_BOOKS;
+
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
 if (!BOOKS) {
@@ -39,7 +39,8 @@ async function render() {
   const start = (new Date()).getTime();
   const port = await portfinder.getPortPromise();
   const {server} = await startServer({port, onlyProxy: true});
-  const archiveLoader = createArchiveLoader(`http://localhost:${port}/contents/`);
+  const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
   const bookEntries = Object.entries(BOOKS);
 
   async function renderManifest() {
@@ -50,20 +51,23 @@ async function render() {
     }, null, 2));
   }
 
-  async function prepareContentPage(bookId: string, bookVersion: string, pageId: string) {
-    const archiveBookLoader = archiveLoader.book(bookId, bookVersion);
-    const book = await archiveBookLoader.load();
-    const page = await archiveBookLoader.page(pageId).load();
+  async function prepareContentPage(
+    bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
+    bookSlug: string,
+    pageId: string
+  ) {
+    const book = await bookLoader.load();
+    const page = await bookLoader.page(pageId).load();
 
     const action: Match<typeof content> = {
       params: {
-        bookId: book.shortId,
+        book: bookSlug,
         page: getUrlParamForPageId(book, page.id),
       },
       route: content,
       state: {
         bookUid: book.id,
-        bookVersion,
+        bookVersion: book.version,
         pageUid: page.id,
       },
     };
@@ -80,6 +84,8 @@ async function render() {
       initialEntries: [action],
       services: {
         archiveLoader,
+        books: BOOKS,
+        osWebLoader,
       },
     });
 
@@ -122,10 +128,12 @@ async function render() {
   ];
 
   for (const [bookId, {defaultVersion}] of bookEntries) {
-    const book = await archiveLoader.book(bookId, defaultVersion).load();
+    const bookLoader = archiveLoader.book(bookId, defaultVersion);
+    const bookSlug = await osWebLoader.getBookSlugFromId(bookId);
+    const book = await bookLoader.load();
 
     await asyncPool(20, flattenArchiveTree(book.tree), (section) =>
-      prepareContentPage(bookId, defaultVersion, stripIdVersion(section.id))
+      prepareContentPage(bookLoader, bookSlug, stripIdVersion(section.id))
         .then((page) => pages.push({code: 200, page}))
     );
   }

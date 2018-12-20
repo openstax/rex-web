@@ -109,7 +109,7 @@ const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
 };
 
 const getUrlParamForPageIdCache = new Map();
-export const getUrlParamForPageId = (book: Book, pageId: string): string => {
+export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): string => {
   const cacheKey = `${book.id}:${pageId}`;
 
   if (getUrlParamForPageIdCache.has(cacheKey)) {

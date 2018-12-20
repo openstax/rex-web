@@ -51,7 +51,7 @@ describe('content reducer', () => {
       state: {},
     };
     const match = {
-      params: {bookId: 'book', page: 'page'},
+      params: {book: 'book', page: 'page'},
       route: content,
     };
     const newState = reducer(state, locationChange({location, match}));
