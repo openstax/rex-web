@@ -82,6 +82,29 @@ describe('Page', () => {
     );
   };
 
+  it('updates content self closing tags', () => {
+    archiveLoader.mock.cachedPage.mockImplementation(() => ({
+      ...page,
+      content: `<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`,
+    }));
+    const {node} = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <ConnectedPage />
+        </Services.Provider>
+      </Provider>
+    );
+    const pageElement = node.querySelector('[data-type="page"]');
+
+    if (!pageElement) {
+      return expect(pageElement).toBeTruthy();
+    }
+
+    expect(pageElement.innerHTML).toEqual(
+      '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
+    );
+  });
+
   it('updates content link with new hrefs', () => {
     const {node} = renderDomWithReferences();
     const [firstLink, secondLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
