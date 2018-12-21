@@ -12,11 +12,16 @@
  * the rest of the code.
  */
 
-let config = {};
+let config = {
+  ARCHIVE_URL: process.env.ARCHIVE_URL || 'https://archive.cnx.org/',
+  OS_WEB_URL: process.env.OS_WEB_URL || 'https://openstax.org/',
+  REACT_APP_ARCHIVE_URL: '/contents/',
+  REACT_APP_OS_WEB_API_URL: '/api/v2/pages/',
+};
 if (process.env.NODE_ENV === 'production') {
-  config = require('./config.production.js');
+  Object.assign(config, require('./config.production.js'));
 } else {
-  config = require('./config.development.js');
+  Object.assign(config, require('./config.development.js'));
 }
 
 module.exports = config;

@@ -1,11 +1,19 @@
+
+if (!process.env.REACT_APP_RELEASE_ID) {
+  throw new Error('REACT_APP_RELEASE_ID environment variable must be defined in production.');
+}
+if (!process.env.REACT_APP_CODE_VERSION) {
+  throw new Error('REACT_APP_CODE_VERSION environment variable must be defined in production.');
+}
+if (!process.env.REACT_APP_BOOKS) {
+  throw new Error('REACT_APP_BOOKS environment variable must be defined in production.');
+}
+
 module.exports = {
-  ARCHIVE_URL: 'https://archive.cnx.org/',
-  OS_WEB_URL: 'https://openstax.org/',
+  RELEASE_ID: process.env.RELEASE_ID,
+  CODE_VERSION: process.env.CODE_VERSION,
 
-  REACT_APP_ARCHIVE_URL: '/contents/',
-  REACT_APP_OS_WEB_API_URL: '/api/v2/pages/',
-
-  REACT_APP_BOOKS: {'031da8d3-b525-429c-80cf-6c8ed997733a':{'defaultVersion':'14.4'}},
+  REACT_APP_BOOKS: process.env.REACT_APP_BOOKS,
 
   FIXTURES: false,
   DEBUG: false,

@@ -54,6 +54,10 @@ describe('createStore', () => {
 
     beforeEach(() => {
       process.env.NODE_ENV = 'production';
+      process.env.REACT_APP_RELEASE_ID = 'release';
+      process.env.REACT_APP_CODE_VERSION = 'code';
+      process.env.REACT_APP_BOOKS = '{}';
+
       compose = jest.spyOn(redux, 'compose');
       createStore = require('./createStore').default;
     });

@@ -1,13 +1,10 @@
 let config = {};
 if (process.env.NODE_ENV === 'test' || process.env.REACT_APP_ENV === 'test') {
   config = {
-    RELEASE_ID: 'testrelease',
-    CODE_VERSION: 'testversion',
+    RELEASE_ID: 'test',
+    CODE_VERSION: 'test',
 
     REACT_APP_BOOKS: {'testbook1-uuid':{'defaultVersion':'1.0'}},
-
-    REACT_APP_ARCHIVE_URL: '/contents/',
-    REACT_APP_OS_WEB_API_URL: '/api/v2/pages/',
 
     FIXTURES: true,
 
@@ -23,12 +20,9 @@ if (process.env.NODE_ENV === 'test' || process.env.REACT_APP_ENV === 'test') {
   };
 } else {
   config = {
-    ARCHIVE_URL: 'https://archive.cnx.org/',
-    OS_WEB_URL: 'https://openstax.org/',
-
-    REACT_APP_ARCHIVE_URL: '/contents/',
-    REACT_APP_OS_WEB_API_URL: '/api/v2/pages/',
-
+    RELEASE_ID: 'development',
+    CODE_VERSION: 'development',
+    
     REACT_APP_BOOKS: {'031da8d3-b525-429c-80cf-6c8ed997733a':{'defaultVersion':'14.4'}},
 
     FIXTURES: false,

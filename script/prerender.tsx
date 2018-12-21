@@ -17,7 +17,13 @@ import * as navigationSelectors from '../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../src/app/navigation/types';
 import { matchUrl } from '../src/app/navigation/utils';
 import { AppServices, AppState } from '../src/app/types';
-import { REACT_APP_ARCHIVE_URL, REACT_APP_BOOKS, REACT_APP_OS_WEB_API_URL } from '../src/config';
+import {
+  CODE_VERSION,
+  REACT_APP_ARCHIVE_URL,
+  REACT_APP_BOOKS,
+  REACT_APP_OS_WEB_API_URL,
+  RELEASE_ID
+} from '../src/config';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
 import createOSWebLoader from '../src/helpers/createOSWebLoader';
 import FontCollector from '../src/helpers/FontCollector';
@@ -46,8 +52,8 @@ async function render() {
   async function renderManifest() {
     writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
       books: BOOKS,
-      code: process.env.CODE_VERSION,
-      id: process.env.RELEASE_ID,
+      code: CODE_VERSION,
+      id: RELEASE_ID,
     }, null, 2));
   }
 
