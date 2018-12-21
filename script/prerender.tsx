@@ -18,9 +18,9 @@ import { AnyMatch, Match } from '../src/app/navigation/types';
 import { matchUrl } from '../src/app/navigation/utils';
 import { AppServices, AppState } from '../src/app/types';
 import {
+  BOOKS,
   CODE_VERSION,
   REACT_APP_ARCHIVE_URL,
-  REACT_APP_BOOKS,
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID
 } from '../src/config';
@@ -33,13 +33,7 @@ import { startServer } from './server';
 
 const ASSET_DIR = path.resolve(__dirname, '../build');
 
-const BOOKS = REACT_APP_BOOKS;
-
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
-
-if (!BOOKS) {
-  throw new Error('BOOKS environment var must be valid json');
-}
 
 async function render() {
   const start = (new Date()).getTime();
@@ -90,7 +84,6 @@ async function render() {
       initialEntries: [action],
       services: {
         archiveLoader,
-        books: BOOKS,
         osWebLoader,
       },
     });

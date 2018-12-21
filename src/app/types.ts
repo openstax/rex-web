@@ -27,11 +27,6 @@ export interface AppServices {
   fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
-  books: {
-    [key: string]: {
-      defaultVersion: string;
-    };
-  };
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

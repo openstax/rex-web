@@ -1,5 +1,5 @@
 import css from 'cnx-recipes/styles/output/intro-business.json';
-import { REACT_APP_BOOKS } from '../../../config';
+import { BOOKS } from '../../../config';
 import { Match, RouteHookBody } from '../../navigation/types';
 import { AppServices, FirstArgumentType, MiddlewareAPI } from '../../types';
 import { assertDefined } from '../../utils';
@@ -66,9 +66,7 @@ const resolveBookReference = async(
   }
 
   const bookUid = await osWebLoader.getBookIdFromSlug(bookSlug);
-  const bookVersion = assertDefined(
-    REACT_APP_BOOKS[bookUid],
-    `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
+  const bookVersion = assertDefined(BOOKS[bookUid], `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
   ).defaultVersion;
 
   return [bookSlug, bookUid, bookVersion];

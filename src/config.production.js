@@ -13,7 +13,7 @@ module.exports = {
   RELEASE_ID: process.env.RELEASE_ID,
   CODE_VERSION: process.env.CODE_VERSION,
 
-  REACT_APP_BOOKS: process.env.REACT_APP_BOOKS,
+  BOOKS: process.env.REACT_APP_BOOKS,
 
   FIXTURES: false,
   DEBUG: false,

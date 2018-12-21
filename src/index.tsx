@@ -23,13 +23,11 @@ if (window.top === window.self) {
 
 if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
-if (!config.REACT_APP_BOOKS) { throw new Error('REACT_APP_BOOKS must be defined'); }
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
-    books: config.REACT_APP_BOOKS,
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
   },
 });

@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'test' || process.env.REACT_APP_ENV === 'test') {
     RELEASE_ID: 'test',
     CODE_VERSION: 'test',
 
-    REACT_APP_BOOKS: {'testbook1-uuid':{'defaultVersion':'1.0'}},
+    BOOKS: {'testbook1-uuid':{'defaultVersion':'1.0'}},
 
     FIXTURES: true,
 
@@ -22,8 +22,8 @@ if (process.env.NODE_ENV === 'test' || process.env.REACT_APP_ENV === 'test') {
   config = {
     RELEASE_ID: 'development',
     CODE_VERSION: 'development',
-    
-    REACT_APP_BOOKS: {'031da8d3-b525-429c-80cf-6c8ed997733a':{'defaultVersion':'14.4'}},
+
+    BOOKS: {'031da8d3-b525-429c-80cf-6c8ed997733a':{'defaultVersion':'14.4'}},
 
     FIXTURES: false,
     DEBUG: true,
