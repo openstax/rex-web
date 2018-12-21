@@ -37,10 +37,9 @@ Builds the app, builds prerendered content, and then serves it at [http://localh
 
 Run `PORT=8000 yarn start:static` to change the webserver port.
 
-Run `NODE_ENV=development yarn start:static` to build the books (defined in [./.env.development](./.env.development)) and serve them.
+Run `REACT_APP_ENV=development yarn start:static` to build the books (defined in [config.development.js](./src/config.development.js)) and serve them.
 
-
-To prerender the test fixture book and serve it, run `NODE_ENV=test yarn start:static`.
+To prerender the test fixture book and serve it, run `REACT_APP_ENV=test yarn start:static`.
 
 ### `yarn test`
 

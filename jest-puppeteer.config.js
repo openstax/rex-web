@@ -16,10 +16,8 @@ module.exports = {
   },
   server: {
     launchTimeout: 60000,
-    // react-scripts start unconditionally sets the NODE_ENV to development,
-    // so we're setting REACT_APP_ENV here to work around.
     command: SERVER_MODE === 'built'
-      ? `NODE_ENV=test PORT=${PORT} yarn server`
+      ? `REACT_APP_ENV=test PORT=${PORT} yarn server`
       : `REACT_APP_ENV=test PORT=${PORT} BROWSER=none yarn start`,
     port: PORT,
   },
