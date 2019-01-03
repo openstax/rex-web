@@ -16,6 +16,8 @@ module.exports = {
       height: 400,
     },
     args: [
+      // so that tests can be run as root, if you're into that sort of thing.
+      '--no-sandbox',
       // https://github.com/GoogleChrome/puppeteer/issues/2410
       '--font-render-hinting=medium',
     ],
