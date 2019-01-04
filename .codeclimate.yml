@@ -1,0 +1,7 @@
+plugins:
+  tslint:
+    enabled: true
+    config: tslint.json
+exclude_patterns:
+- "**/*spec.ts"
+- "**/*spec.tsx"
