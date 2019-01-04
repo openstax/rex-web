@@ -11,4 +11,9 @@ export const pathname = createSelector(
   (state) => state.pathname
 );
 
+export const hash = createSelector(
+  localState,
+  (state) => state.hash
+);
+
 export const location = localState;

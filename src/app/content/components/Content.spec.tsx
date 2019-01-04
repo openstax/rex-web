@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
@@ -17,21 +18,19 @@ describe('content', () => {
   const services = {} as AppServices;
 
   beforeEach(() => {
+    state = cloneDeep({
+      content: initialState,
+      navigation: {},
+    }) as any as AppState;
+
     archiveLoader = mockArchiveLoader();
     (services as any).archiveLoader = archiveLoader;
-    state = {
-      content: {
-        ...initialState,
-        book: {
-          ...book,
-          slug: 'book-slug-1',
-        },
-        page,
-      },
-    } as unknown as AppState;
   });
 
   it('matches snapshot', () => {
+    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.page = page;
+
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
@@ -45,9 +44,6 @@ describe('content', () => {
   });
 
   it('renders empty state', () => {
-    state = {
-      content: initialState,
-    } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
@@ -61,6 +57,9 @@ describe('content', () => {
   });
 
   it('gets page content out of cached archive query', () => {
+    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.page = page;
+
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     renderer.create(<Provider store={store}>
@@ -74,6 +73,9 @@ describe('content', () => {
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
+    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.page = page;
+
     const store = createStore((s: AppState | undefined) => s || state, state);
     archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 
@@ -89,10 +91,10 @@ describe('content', () => {
   });
 
   it('updates after initial render', async() => {
-    const state1 = {
-      content: initialState,
-    } as any as AppState;
-    const state2 = state;
+    const state1 = cloneDeep(state);
+    const state2 = cloneDeep(state);
+    state2.content.book = {...book, slug: 'book-slug-1'};
+    state2.content.page = page;
 
     const go = {type: 'go'};
 
@@ -119,10 +121,6 @@ describe('content', () => {
   });
 
   it('renders with ToC open', () => {
-    state = {
-      content: initialState,
-    } as any as AppState;
-
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
