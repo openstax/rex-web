@@ -1,3 +1,6 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/maintainability)](https://codeclimate.com/github/openstax/rex-web/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/test_coverage)](https://codeclimate.com/github/openstax/rex-web/test_coverage)
+
 ## Development Setup
 
 install [nvm](https://github.com/creationix/nvm#installation)
