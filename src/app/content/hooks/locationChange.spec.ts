@@ -29,10 +29,7 @@ describe('locationChange', () => {
 
     archiveLoader = mockArchiveLoader();
 
-    dispatch = jest.fn((action) => {
-      // console.log(action);
-      return store.dispatch(action);
-    });
+    dispatch = jest.fn((action) => store.dispatch(action));
 
     helpers = {
       archiveLoader,
