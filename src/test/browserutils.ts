@@ -95,6 +95,5 @@ export const checkLighthouse = async(urlPath: string) => {
   expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.8);
-  expect(lhr.categories.pwa.score).toBeGreaterThanOrEqual(0.5);
   expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.93);
 };
