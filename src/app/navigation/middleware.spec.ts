@@ -56,7 +56,10 @@ describe('navigation middleware', () => {
       state: 'state',
     }));
 
-    expect(pushSpy).toHaveBeenCalledWith('url', 'state');
+    expect(pushSpy).toHaveBeenCalledWith({
+      pathname: 'url',
+      state: 'state',
+    });
   });
 
   it('dispatches locationChange when history updates externally', () => {

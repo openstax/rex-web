@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
@@ -14,19 +15,21 @@ import { Sidebar } from './Sidebar';
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   const services = {} as AppServices;
+  let state: AppState;
 
   beforeEach(() => {
+    state = cloneDeep({
+      content: initialState,
+      navigation: {},
+    }) as any as AppState;
+
     archiveLoader = mockArchiveLoader();
     (services as any).archiveLoader = archiveLoader;
   });
 
   it('matches snapshot', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
+    state.content.book = book;
+    state.content.page = page;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -41,9 +44,6 @@ describe('content', () => {
   });
 
   it('renders empty state', () => {
-    const state = {
-      content: initialState,
-    } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
@@ -57,12 +57,8 @@ describe('content', () => {
   });
 
   it('gets page content out of cached archive query', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
+    state.content.book = book;
+    state.content.page = page;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -77,12 +73,8 @@ describe('content', () => {
   });
 
   it('page content fails over to using short ids if data is unavailable with long ids', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
+    state.content.book = book;
+    state.content.page = page;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
     archiveLoader.mock.cachedPage.mockReturnValueOnce(undefined);
@@ -98,12 +90,8 @@ describe('content', () => {
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
+    state.content.book = book;
+    state.content.page = page;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
     archiveLoader.mock.cachedPage.mockReturnValue(undefined);
@@ -120,15 +108,10 @@ describe('content', () => {
   });
 
   it('updates after initial render', async() => {
-    const state1 = {
-      content: initialState,
-    } as any as AppState;
-    const state2 = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-    } as unknown as AppState;
+    const state1 = cloneDeep(state);
+    const state2 = cloneDeep(state);
+    state2.content.book = book;
+    state2.content.page = page;
 
     const go = {type: 'go'};
 
@@ -155,10 +138,6 @@ describe('content', () => {
   });
 
   it('renders with ToC open', () => {
-    const state = {
-      content: initialState,
-    } as any as AppState;
-
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
