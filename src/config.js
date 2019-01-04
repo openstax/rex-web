@@ -1,4 +1,6 @@
 /*
+ * This file is written in JS so the unused configs are optimized out of the built file.
+ *
  * `react-scripts start` hardcodes NODE_ENV='development' but we run it in
  * testing for browser tests.
  *
