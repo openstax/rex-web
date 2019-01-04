@@ -17,7 +17,8 @@ const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => 
 
   fonts.forEach((font) => fontCollector.add(font));
 
-  await resolveBook(services, match).then(resolvePage(services, match));
+  const [book, loader] = await resolveBook(services, match);
+  await resolvePage(services, match, book, loader);
 };
 
 const resolveBook = async(
@@ -36,7 +37,7 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  const response = async(): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
+  const getResponse = async(): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
     const newBook = {
       ...await loader.load(),
       slug: bookSlug,
@@ -46,12 +47,11 @@ const resolveBook = async(
 
   if (bookSlug !== select.loadingBook(state)) {
     dispatch(requestBook(bookSlug));
-    return await response().then((params) => {
-      dispatch(receiveBook(params[0]));
-      return params;
-    });
+    const response = await getResponse();
+    dispatch(receiveBook(response[0]));
+    return response;
   } else {
-    return await response();
+    return await getResponse();
   }
 };
 
@@ -72,10 +72,12 @@ const resolveBookReference = async(
   return [bookSlug, bookUid, bookVersion];
 };
 
-const resolvePage = (
+const resolvePage = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>
-) => async([book, bookLoader]: [Book, ReturnType<AppServices['archiveLoader']['book']>]) => {
+  match: Match<typeof content>,
+  book: Book,
+  bookLoader: ReturnType<AppServices['archiveLoader']['book']>
+) => {
   const {dispatch, getState} = services;
   const state = getState();
   const pageId = match.state ? match.state.pageUid : getPageIdFromUrlParam(book, match.params.page);
