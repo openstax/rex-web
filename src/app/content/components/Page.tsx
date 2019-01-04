@@ -1,9 +1,12 @@
-import { Element, Event } from '@openstax/types/lib.dom';
+import { Element, Event, HTMLAnchorElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import scrollTo from 'scroll-to-element';
+import url from 'url';
 import { typesetMath } from '../../../helpers/mathjax';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
+import * as selectNavigation from '../../navigation/selectors';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { content } from '../routes';
@@ -14,6 +17,7 @@ import BookStyles from './BookStyles';
 interface PropTypes {
   page: State['page'];
   book: State['book'];
+  hash: string;
   navigate: typeof push;
   references: State['references'];
   services: AppServices;
@@ -43,22 +47,37 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public componentDidMount() {
+    const target = this.getScrollTarget();
     this.postProcess();
-    if (this.container) {
-      this.container.addEventListener('click', this.clickListener);
+    this.linksOn();
+    if (target) {
+      scrollTo(target);
     }
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
+    const target = this.getScrollTarget();
     this.postProcess();
-    if (window && prevProps.page !== this.props.page) {
-      window.scrollTo(0, 0);
+
+    if (this.container && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
+      this.linksOn();
+
+      if (target) {
+        scrollTo(target);
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
+  }
+
+  public getSnapshotBeforeUpdate() {
+    this.linksOff();
+    return null;
   }
 
   public componentWillUnmount() {
     if (this.container) {
-      this.container.removeEventListener('click', this.clickListener);
+      this.linksOff();
     }
   }
 
@@ -76,21 +95,41 @@ export class PageComponent extends Component<PropTypes> {
     </BookStyles>;
   }
 
-  private clickListener = (e: Event) => {
-    if (
-      typeof(window) === 'undefined' ||
-      typeof(window.MouseEvent) === 'undefined' ||
-      typeof(window.Element) === 'undefined' ||
-      e.type !== 'click' ||
-      !(e instanceof window.MouseEvent) ||
-      !(e.target instanceof window.HTMLAnchorElement)
-    ) {
+  private getScrollTarget(): Element | null {
+    return this.container && typeof(window) !== 'undefined' && this.props.hash
+      ? this.container.querySelector(`[id="${this.props.hash.replace(/^#/, '')}"]`)
+      : null;
+  }
+
+  private linksOn() {
+    if (this.container) {
+      Array.from(this.container.querySelectorAll('a')).forEach((a) =>
+        a.addEventListener('click', this.clickListener(a))
+      );
+    }
+  }
+
+  private linksOff() {
+    if (this.container) {
+      Array.from(this.container.querySelectorAll('a')).forEach((a) =>
+        a.removeEventListener('click', this.clickListener(a))
+      );
+    }
+  }
+
+  private clickListener = (anchor: HTMLAnchorElement) => (e: Event) => {
+    const {references, navigate} = this.props;
+    const href = anchor.getAttribute('href');
+
+    if (!href) {
       return;
     }
 
-    const {references, navigate} = this.props;
-    const url = e.target.getAttribute('href');
-    const reference = references.find((search) => content.getUrl(search.params) === url);
+    const parsed = url.parse(href);
+    const hash = parsed.hash || '';
+    const search = parsed.search || '';
+    const path = href.replace(hash, '').replace(search, '');
+    const reference = references.find((ref) => content.getUrl(ref.params) === path);
 
     if (reference) {
       e.preventDefault();
@@ -98,9 +137,10 @@ export class PageComponent extends Component<PropTypes> {
         params: reference.params,
         route: content,
         state: reference.state,
-      });
+      }, {hash, search});
     }
   }
+
   private postProcess() {
     if (this.container && typeof(window) !== 'undefined') {
       typesetMath(this.container, window);
@@ -111,6 +151,7 @@ export class PageComponent extends Component<PropTypes> {
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),
   }),

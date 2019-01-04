@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
+import scrollTo from 'scroll-to-element';
 import { typesetMath } from '../../../helpers/mathjax';
 import mockArchiveLoader, {
   book,
@@ -20,6 +21,7 @@ import * as routes from '../routes';
 import ConnectedPage from './Page';
 
 jest.mock('../../../helpers/mathjax');
+jest.mock('scroll-to-element');
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -35,9 +37,14 @@ describe('Page', () => {
         book,
         page,
       },
+      navigation: {},
     }) as any) as AppState;
 
-    store = createStore(combineReducers({ content: reducer }), state);
+    store = createStore(combineReducers({
+      content: reducer,
+      navigation: (_: AppState['navigation'] | undefined) => state.navigation,
+    }), state);
+
     dispatch = jest.spyOn(store, 'dispatch');
     services.archiveLoader = archiveLoader = mockArchiveLoader();
   });
@@ -47,7 +54,7 @@ describe('Page', () => {
   });
 
   const renderDomWithReferences = () => {
-    archiveLoader.mock.cachedPage.mockImplementation(() => ({
+    archiveLoader.mockPage(book, {
       ...page,
       content: `
         some text
@@ -56,8 +63,10 @@ describe('Page', () => {
         <a href="/rando/link">another link</a>
         text
         <button>asdf</button>
+        text
+        <a href="">link with empty href</a>
       `,
-    }));
+    });
 
     state.content.references = [
       {
@@ -120,13 +129,14 @@ describe('Page', () => {
 
   it('interceptes clicking content links', () => {
     const {node} = renderDomWithReferences();
-    const [firstLink, secondLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
+    const [firstLink, secondLink, thirdLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
     const button = node.querySelector('[data-type="page"] button');
 
-    if (!document || !firstLink || !secondLink || !button) {
+    if (!document || !firstLink || !secondLink || !thirdLink || !button) {
       expect(document).toBeTruthy();
       expect(firstLink).toBeTruthy();
       expect(secondLink).toBeTruthy();
+      expect(thirdLink).toBeTruthy();
       expect(button).toBeTruthy();
       return;
     }
@@ -142,14 +152,17 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
     const evt2 = makeEvent(document);
     const evt3 = makeEvent(document);
+    const evt4 = makeEvent(document);
 
     firstLink.dispatchEvent(evt1);
     secondLink.dispatchEvent(evt2);
-    button.dispatchEvent(evt3);
+    thirdLink.dispatchEvent(evt3);
+    button.dispatchEvent(evt4);
 
     expect(evt1.preventDefault).toHaveBeenCalled();
     expect(evt2.preventDefault).not.toHaveBeenCalled();
     expect(evt3.preventDefault).not.toHaveBeenCalled();
+    expect(evt4.preventDefault).not.toHaveBeenCalled();
 
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
@@ -163,25 +176,29 @@ describe('Page', () => {
         bookVersion: 'version',
         pageUid: 'page',
       },
+    }, {
+      hash: '',
+      search: '',
     }));
   });
 
   it('removes listener when it unmounts', () => {
-    const { root, node} = renderDomWithReferences();
-    const pageElement = node.querySelector('[data-type="page"]');
+    const { root, node } = renderDomWithReferences();
+    const links = Array.from(node.querySelectorAll('[data-type="page"] a'));
 
-    if (!pageElement) {
-      return expect(pageElement).toBeTruthy();
+    for (const link of links) {
+      link.removeEventListener = jest.fn();
     }
-
-    const removeEventListener = jest.spyOn(pageElement, 'removeEventListener');
 
     ReactDOM.unmountComponentAtNode(root);
 
-    expect(removeEventListener).toHaveBeenCalled();
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
+      expect(link.removeEventListener).toHaveBeenCalled();
+    }
   });
 
-  it('mounts and unmounts wihtout a dom', () => {
+  it('mounts and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -205,7 +222,7 @@ describe('Page', () => {
 
     const spy = jest.spyOn(window, 'scrollTo');
 
-    renderer.create(
+    renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
           <ConnectedPage />
@@ -225,6 +242,75 @@ describe('Page', () => {
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
 
+  it('scrolls to selected content on load', () => {
+    if (!document) {
+      return expect(document).toBeTruthy();
+    }
+
+    const someHashPage = {
+      content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    };
+
+    state.navigation.hash = '#somehash';
+    state.content.page = someHashPage;
+
+    archiveLoader.mockPage(book, someHashPage);
+
+    const {node} = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <ConnectedPage />
+        </Services.Provider>
+      </Provider>
+    );
+
+    const target = node.querySelector('[id="somehash"]');
+
+    expect(target).toBeTruthy();
+    expect(scrollTo).toHaveBeenCalledWith(target);
+  });
+
+  it('scrolls to selected content on update', () => {
+    if (!document) {
+      return expect(document).toBeTruthy();
+    }
+
+    const someHashPage = {
+      content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    };
+
+    state.navigation.hash = '#somehash';
+    archiveLoader.mockPage(book, someHashPage);
+
+    const {node} = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <ConnectedPage />
+        </Services.Provider>
+      </Provider>
+    );
+
+    expect(scrollTo).not.toHaveBeenCalled();
+
+    store.dispatch(actions.receivePage({
+      ...someHashPage,
+      references: [],
+    }));
+
+    const target = node.querySelector('[id="somehash"]');
+
+    expect(target).toBeTruthy();
+    expect(scrollTo).toHaveBeenCalledWith(target);
+  });
+
   it('does nothing when receiving the same content', () => {
     if (!window) {
       return expect(window).toBeTruthy();
@@ -242,6 +328,6 @@ describe('Page', () => {
 
     store.dispatch(actions.receiveBook(book));
 
-    expect(spy).not.toHaveBeenCalledWith(0, 0);
+    expect(spy).not.toHaveBeenCalled();
   });
 });
