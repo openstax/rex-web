@@ -244,8 +244,8 @@ describe('getUrlParamForPageId', () => {
   it('works with section numbers', () => {
     book.tree.contents[0].title =
       '<span class="os-number">2.1</span><span class="os-divider"> </span><span class="os-text">Section 1</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('2.1-Section-1');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('2.1-Section-1');
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('2-1-Section-1');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('2-1-Section-1');
   });
 
   it('works with multiple spaces in the section name', () => {

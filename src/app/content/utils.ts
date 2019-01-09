@@ -93,7 +93,10 @@ const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
     throw new Error(`BUG: could not URL encode page title: "${section.title}"`);
   }
 
-  const cleanNumber = sectionNumber || splitTitleParts(section.parent.title)[0];
+  const cleanNumber = (sectionNumber || splitTitleParts(section.parent.title)[0] || '')
+    // use dash instead of '.'
+    .replace(/\./g, '-')
+  ;
 
   const cleanTitle = replaceAccentedCharacters(sectionTitle)
     // handle space delimiters
