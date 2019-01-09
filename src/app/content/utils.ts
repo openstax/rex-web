@@ -71,39 +71,44 @@ export const findArchiveTreeSection = (
     || stripIdVersion(section.id) === stripIdVersion(pageId)
   );
 
-const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
-  const splitTitleParts = (str: string) => {
-    const match = str
-      // remove html tags from tree title
-      .replace(/<[^>]+>/g, '')
-      // split out section number from title
-      .match(/^([0-9\.]*)?(.*)$/);
+const splitTitleParts = (str: string) => {
+  const match = str
+    // remove html tags from tree title
+    .replace(/<[^>]+>/g, '')
+    // split out section number from title
+    .match(/^([0-9\.]*)?(.*)$/);
 
-    if (match && match[2]) {
-      // ignore the first match which is the whole title
-      return match.slice(1);
-    } else {
-      return [null, null];
-    }
-  };
-
-  const [sectionNumber, sectionTitle] = splitTitleParts(section.title);
-
-  if (!sectionTitle) {
-    throw new Error(`BUG: could not URL encode page title: "${section.title}"`);
+  if (match && match[2]) {
+    // ignore the first match which is the whole title
+    return match.slice(1);
+  } else {
+    return [null, null];
   }
+};
 
-  const cleanNumber = (sectionNumber || splitTitleParts(section.parent.title)[0] || '')
+const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
+  return (splitTitleParts(section.title)[0] || splitTitleParts(section.parent.title)[0] || '')
     // use dash instead of '.'
     .replace(/\./g, '-')
   ;
+};
 
-  const cleanTitle = replaceAccentedCharacters(sectionTitle)
+const getCleanSectionTitle = (section: LinkedArchiveTreeSection): string => {
+  return replaceAccentedCharacters(splitTitleParts(section.title)[1] || '')
     // handle space delimiters
     .replace(/[-_]+/g, ' ')
     // remove special characters
     .replace(/[^a-z0-9 ]/gi, '')
   ;
+};
+
+const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
+  const cleanNumber = getCleanSectionNumber(section);
+  const cleanTitle = getCleanSectionTitle(section);
+
+  if (!cleanTitle) {
+    throw new Error(`BUG: could not URL encode page title: "${section.title}"`);
+  }
 
   return `${cleanNumber ? `${cleanNumber} ` : ''}${cleanTitle}`
     // spaces to dashes

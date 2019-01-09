@@ -1,4 +1,5 @@
 import memoize from 'lodash/fp/memoize';
+import { acceptStatus } from './fetch';
 
 interface OSWebResponse {
   meta: {
@@ -14,15 +15,6 @@ interface OSWebResponse {
 
 export default (url: string) => {
 
-  const handleError = (response: any) => {
-    if (response.status !== 200) {
-      return response.text().then((message: string) => {
-        throw new Error(`Error response from OSWeb ${response.status}: ${message}`);
-      });
-    }
-    return response;
-  };
-
   const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
 
   const firstRecord = (data: OSWebResponse) => {
@@ -32,17 +24,16 @@ export default (url: string) => {
     return data.items[0];
   };
 
+  const loader = (fetcher: (param: string) => Promise<any>) => memoize(
+    (param) => fetcher(param)
+      .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
+      .then(toJson)
+      .then(firstRecord)
+  );
+
   const fields = 'cnx_id';
-  const slugLoader = memoize((slug: string) => fetch(`${url}?type=books.Book&fields=${fields}&slug=${slug}`)
-    .then(handleError)
-    .then(toJson)
-    .then(firstRecord)
-  );
-  const idLoader = memoize((id: string) => fetch(`${url}?type=books.Book&fields=${fields}&cnx_id=${id}`)
-    .then(handleError)
-    .then(toJson)
-    .then(firstRecord)
-  );
+  const slugLoader = loader((slug: string) => fetch(`${url}?type=books.Book&fields=${fields}&slug=${slug}`));
+  const idLoader = loader((id: string) => fetch(`${url}?type=books.Book&fields=${fields}&cnx_id=${id}`));
 
   return {
     getBookIdFromSlug: (slug: string) => slugLoader(slug).then(({cnx_id}) => cnx_id),
