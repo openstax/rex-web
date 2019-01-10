@@ -80,3 +80,32 @@ docker run -t openstax/books-web yarn test
 ### Environment Variables
 
 - `PUPPETEER_DEBUG=true yarn test` : Opens the browser with dev tools. This allows you to add `debugger` statements into the test _and_ into the browser code that is evaluated.
+
+## Test Suites
+
+### Developer Tests
+
+run these with `yarn test`.
+
+this suite:
+- contains **unit tests** and **puppeteer** tests 
+- runs against a **local** dev server
+- uses **fixture** data and content
+- should be run locally by developers to make sure they don't break stuff
+- is run by CI against pull requests in case developers are lazy
+- should be **fast** to promote running frequently and prompt feedback on PRs
+- should contain only high priority browser tests with puppeteer because browser tests are slow
+
+### Selenium Tests
+
+this suite has not been implemented yet.
+
+this suite:
+- contains browser tests using selenium
+- tests cross browser
+- runs against a **remote** environment
+- uses **real** content and **persistent** test data
+- is run against release candidates when they are updated
+
+
+
