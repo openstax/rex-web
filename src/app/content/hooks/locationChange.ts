@@ -72,13 +72,27 @@ const resolveBookReference = async(
   return [bookSlug, bookUid, bookVersion];
 };
 
+const loadPage = async(
+  services: AppServices & MiddlewareAPI,
+  match: Match<typeof content>,
+  book: Book,
+  bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
+  pageId: string
+) => {
+  services.dispatch(requestPage(match.params.page));
+  return await bookLoader.page(pageId).load()
+    .then(loadContentReferences(book))
+    .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
+  ;
+};
+
 const resolvePage = async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>,
   book: Book,
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>
 ) => {
-  const {dispatch, getState} = services;
+  const {getState} = services;
   const state = getState();
   const pageId = match.state ? match.state.pageUid : getPageIdFromUrlParam(book, match.params.page);
 
@@ -88,16 +102,10 @@ const resolvePage = async(
   }
 
   const pageState = select.page(state);
-  const page = pageState && pageState.id === pageId ? pageState : undefined;
-
-  if (page) {
-    return page;
+  if (pageState && pageState.id === pageId) {
+    return pageState;
   } else if (match.params.page !== select.loadingPage(state)) {
-    dispatch(requestPage(match.params.page));
-    return await bookLoader.page(pageId).load()
-      .then(loadContentReferences(book))
-      .then((pageData) => dispatch(receivePage(pageData)) && pageData)
-    ;
+    return await loadPage(services, match, book, bookLoader, pageId);
   }
 };
 
