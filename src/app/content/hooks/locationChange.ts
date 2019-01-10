@@ -1,12 +1,12 @@
 import css from 'cnx-recipes/styles/output/intro-business.json';
 import { BOOKS } from '../../../config';
 import { Match, RouteHookBody } from '../../navigation/types';
-import { AppServices, FirstArgumentType, MiddlewareAPI } from '../../types';
+import { AppServices, MiddlewareAPI } from '../../types';
 import { assertDefined } from '../../utils';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
-import { ArchivePage, Book } from '../types';
+import { ArchivePage, Book, PageReferenceMap } from '../types';
 import { flattenArchiveTree, getContentPageReferences, getPageIdFromUrlParam, getUrlParamForPageId } from '../utils';
 
 const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
@@ -95,54 +95,51 @@ const resolvePage = async(
   } else if (match.params.page !== select.loadingPage(state)) {
     dispatch(requestPage(match.params.page));
     return await bookLoader.page(pageId).load()
-      .then(loadContentReferences(book, bookLoader))
+      .then(loadContentReferences(book))
       .then((pageData) => dispatch(receivePage(pageData)) && pageData)
     ;
   }
 };
 
-const loadContentReferences = (
+const loadContentReference = (
   book: Book,
-  bookLoader: ReturnType<AppServices['archiveLoader']['book']>
-) =>
-  async(page: ArchivePage) => {
-    const contentReferences = getContentPageReferences(page.content);
-    const bookPages = flattenArchiveTree(book.tree);
-    const references: FirstArgumentType<typeof receivePage>['references'] = [];
+  bookPages: ReturnType<typeof flattenArchiveTree>,
+  reference: ReturnType<typeof getContentPageReferences>[0]
+) => {
+  if (reference.bookUid || reference.bookVersion) {
+    throw new Error('BUG: Cross book references are not supported');
+  }
+  if (!bookPages.find((search) => search.id === reference.pageUid)) {
+    throw new Error(`BUG: ${reference.pageUid} is not present in the ToC`);
+  }
 
-    const promises: Array<Promise<any>> = [];
-
-    for (const reference of contentReferences) {
-      if (reference.bookUid || reference.bookVersion) {
-        throw new Error('BUG: Cross book references are not supported');
-      }
-      if (!bookPages.find((search) => search.id === reference.pageUid)) {
-        throw new Error(`BUG: ${reference.pageUid} is not present in the ToC`);
-      }
-
-      promises.push(
-        bookLoader.page(reference.pageUid).load()
-          .then((referenceData) => references.push({
-            match: reference.match,
-            params: {
-              book: book.slug,
-              page: getUrlParamForPageId(book, referenceData.id),
-            },
-            state: {
-              bookUid: book.id,
-              bookVersion: book.version,
-              pageUid: referenceData.id,
-            },
-          }))
-      );
-    }
-
-    await Promise.all(promises);
-
-    return {
-      ...page,
-      references,
-    };
+  return {
+    match: reference.match,
+    params: {
+      book: book.slug,
+      page: getUrlParamForPageId(book, reference.pageUid),
+    },
+    state: {
+      bookUid: book.id,
+      bookVersion: book.version,
+      pageUid: reference.pageUid,
+    },
   };
+};
+
+const loadContentReferences = (book: Book) => async(page: ArchivePage) => {
+  const contentReferences = getContentPageReferences(page.content);
+  const bookPages = flattenArchiveTree(book.tree);
+  const references: PageReferenceMap[] = [];
+
+  for (const reference of contentReferences) {
+    references.push(loadContentReference(book, bookPages, reference));
+  }
+
+  return {
+    ...page,
+    references,
+  };
+};
 
 export default hookBody;

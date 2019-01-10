@@ -15,7 +15,11 @@ export interface State {
   };
   book?: Book;
   page?: Page;
-  references: Array<PageReference & {match: string}>;
+  references: PageReferenceMap[];
+}
+
+export interface PageReferenceMap extends PageReference {
+  match: string;
 }
 
 export interface PageReference {
