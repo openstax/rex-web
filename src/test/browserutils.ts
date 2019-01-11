@@ -14,20 +14,24 @@ if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
 }
 
 const ignoreConsoleMessages = [
+  '%c %c %c Pixi.js 3.0.10 - ✰ WebGL ✰  %c  %c  http://www.pixijs.com/  %c %c ♥%c♥%c♥',
   '%cDownload the React DevTools for a better development experience: https://fb.me/react-devtools font-weight:bold',
   '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/books-web font-weight:bold', // tslint:disable-line:max-line-length
 ];
 
 page.on('console', (consoleMessage) => {
   const text = consoleMessage.text();
-  if (ignoreConsoleMessages.indexOf(text) === -1) {
+
+  if (!ignoreConsoleMessages.find((message) => message.indexOf(text) === -1)) {
     console.log(text); // tslint:disable-line:no-console
   }
 });
 
-// set default timeout to something quite large in CI
 if (process.env.CI) {
-  page.setDefaultNavigationTimeout(60000);
+  // set default timeout to something quite large in CI
+  page.setDefaultNavigationTimeout(60 * 1000);
+} else {
+  page.setDefaultNavigationTimeout(30 * 1000);
 }
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
