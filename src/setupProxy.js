@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
 const {FIXTURES, ARCHIVE_URL, OS_WEB_URL} = require('./config');
+require('./env');
 
 const archivePaths = [
   'contents',
@@ -24,14 +25,27 @@ function setupTestProxy(app) {
 
   app.use((req, res, next) => {
     const parts = url.parse(req.url);
-    const integrateQuery = parts.pathname + (parts.search ? encodeURIComponent(parts.search) : '');
-    const filePath = path.join(__dirname, 'test/fixtures', integrateQuery);
+    const filePath = path.join(__dirname, 'test/fixtures', parts.pathname);
+    const queryFilePath = path.join(filePath, parts.search ? encodeURIComponent(parts.search) : '');
+    const indexFilePath = path.join(filePath, 'index.html');
 
-    if (fs.existsSync(filePath)) {
-      fs.readFile(filePath, 'utf8', (err, contents) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(contents);
-      });
+    const sendFile = path => fs.readFile(path, (err, contents) => {
+      res.end(contents);
+    });
+
+    const isFile = path =>
+      fs.existsSync(path)
+      && fs.existsSync(fs.realpathSync(path))
+      && fs.lstatSync(fs.realpathSync(path)).isFile();
+
+    const isDirectory = path => fs.existsSync(path) && fs.lstatSync(path).isDirectory();
+
+    if (isFile(queryFilePath)) {
+      sendFile(queryFilePath);
+    } else if (isFile(filePath)) {
+      sendFile(filePath);
+    } else if (isDirectory(filePath) && isFile(indexFilePath)) {
+      sendFile(indexFilePath);
     } else {
       next();
     }
