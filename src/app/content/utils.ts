@@ -99,7 +99,7 @@ const getCleanSectionTitle = (section: LinkedArchiveTreeSection): string => {
     .replace(/[-_]+/g, ' ')
     // remove special characters
     .replace(/[^a-z0-9 ]/gi, '')
-  ;
+    .toLowerCase();
 };
 
 const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
