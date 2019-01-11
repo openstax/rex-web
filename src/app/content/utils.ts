@@ -1,4 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import { AllHtmlEntities } from 'html-entities';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree } from './guards';
 import replaceAccentedCharacters from './replaceAccentedCharacters';
@@ -94,7 +95,9 @@ const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
 };
 
 const getCleanSectionTitle = (section: LinkedArchiveTreeSection): string => {
-  return replaceAccentedCharacters(splitTitleParts(section.title)[1] || '')
+  const decoder = new AllHtmlEntities();
+
+  return replaceAccentedCharacters(decoder.decode(splitTitleParts(section.title)[1] || ''))
     // handle space delimiters
     .replace(/[-_]+/g, ' ')
     // remove special characters

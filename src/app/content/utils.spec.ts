@@ -265,6 +265,12 @@ describe('getUrlParamForPageId', () => {
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('section');
   });
 
+  it('replaces htmlentities', () => {
+    book.tree.contents[0].title = '<span class="os-text">Section &amp; section</span>';
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('section-section');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('section-section');
+  });
+
   it('defaults section number to chapter number', () => {
     book.tree.contents[0].title =
       '<span class="os-number">2</span><span class="os-divider"> </span><span class="os-text">Chapter 2</span>';
