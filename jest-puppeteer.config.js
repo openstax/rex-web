@@ -1,6 +1,5 @@
 const path = require('path');
-const config = require('./src/config');
-const {PORT, PUPPETEER_DEBUG, SERVER_MODE} = config;
+const {PORT, PUPPETEER_DEBUG, SERVER_MODE} = require('./src/config');
 
 module.exports = {
   launch: {

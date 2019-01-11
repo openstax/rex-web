@@ -6,7 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
 const {FIXTURES, ARCHIVE_URL, OS_WEB_URL} = require('./config');
-require('./env');
 
 const archivePaths = [
   'contents',
