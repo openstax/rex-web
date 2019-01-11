@@ -1,7 +1,10 @@
 /*
  * this file is shared between webpack-dev-server and the pre-renderer
  */
+const url = require('url');
+const fs = require('fs');
 const path = require('path');
+const mime = require('mime');
 const serveStatic = require('serve-static')
 require('./env');
 
@@ -22,8 +25,33 @@ module.exports = function(app) {
 
 function setupTestProxy(app) {
   console.info('WEBSERVER: Including fixtures');
-  const setHeaders = res => res.setHeader('Content-Type', 'application/json');
-  app.use(serveStatic(path.join(__dirname, 'test/fixtures/archive'), {setHeaders}));
+  app.use((req, res, next) => {
+    const parts = url.parse(req.url);
+    const filePath = path.join(__dirname, 'test/fixtures', parts.pathname);
+    const queryFilePath = path.join(filePath, parts.search ? encodeURIComponent(parts.search) : '');
+    const indexFilePath = path.join(filePath, 'index.html');
+
+    const sendFile = path => fs.readFile(path, (err, contents) => {
+      res.end(contents);
+    });
+
+    const isFile = path =>
+      fs.existsSync(path)
+      && fs.existsSync(fs.realpathSync(path))
+      && fs.lstatSync(fs.realpathSync(path)).isFile();
+
+    const isDirectory = path => fs.existsSync(path) && fs.lstatSync(path).isDirectory();
+
+    if (isFile(queryFilePath)) {
+      sendFile(queryFilePath);
+    } else if (isFile(filePath)) {
+      sendFile(filePath);
+    } else if (isDirectory(filePath) && isFile(indexFilePath)) {
+      sendFile(indexFilePath);
+    } else {
+      next();
+    }
+  });
 }
 
 function setupProxy(app) {

@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/src/test/fixtures/specials/
 
 # production
 /build
