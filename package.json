@@ -38,6 +38,7 @@
     "test:sourcemap": "node ./script/verifySourcemaps.js",
     "test:prerender": "npm run-script pretest:sims && NODE_ENV=test npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
     "test:lighthouse-manual": "lighthouse --view --config-path=./src/test/audits/index.js",
+    "analyze-bundle": "node script/webpack-bundle-analyzer.js",
     "heroku-postbuild": "npm run-script build:clean && npm run-script prerender && cp build/books/Ax2o07Ul/pages/HR_VN3f7 build/index.html"
   },
   "eslintConfig": {
@@ -91,6 +92,7 @@
     "react-test-renderer": "^16.6.1",
     "serve-static": "^1.13.2",
     "tslint": "^5.11.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "yargs": "^12.0.2"
   },
   "jest": {

@@ -1,7 +1,7 @@
 import { Element } from '@openstax/types/lib.dom';
-import debounce from 'lodash/debounce';
-import isEmpty from 'lodash/isEmpty';
-import memoize from 'lodash/memoize';
+import debounce from 'lodash/fp/debounce';
+import isEmpty from 'lodash/fp/isEmpty';
+import memoize from 'lodash/fp/memoize';
 import WeakMap from 'weak-map';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
@@ -60,7 +60,7 @@ function typesetDocument(root: Element, windowImpl: Window) {
 const getTypesetDocument = memoize((root, windowImpl) => {
   // Install a debounce around typesetting function so that it will only run once
   // every Xms even if called multiple times in that period
-  return debounce(typesetDocument, 100).bind(null, root, windowImpl);
+  return debounce(100, typesetDocument).bind(null, root, windowImpl);
 });
 getTypesetDocument.cache = new WeakMap();
 
