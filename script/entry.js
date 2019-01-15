@@ -35,5 +35,4 @@ require('@babel/register')({
   ]
 });
 
-require('../src/env');
 require(scriptPath);

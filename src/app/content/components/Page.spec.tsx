@@ -72,8 +72,8 @@ describe('Page', () => {
       {
         match: '/content/link',
         params: {
-          bookId: 'book',
-          pageId: 'page',
+          book: 'book',
+          page: 'page-title',
         },
         state: {
           bookUid: 'book',
@@ -123,7 +123,7 @@ describe('Page', () => {
       expect(secondLink).toBeTruthy();
     }
 
-    expect(firstLink.getAttribute('href')).toEqual('/books/book/pages/page');
+    expect(firstLink.getAttribute('href')).toEqual('/books/book/pages/page-title');
     expect(secondLink.getAttribute('href')).toEqual('/rando/link');
   });
 
@@ -167,8 +167,8 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        bookId: 'book',
-        pageId: 'page',
+        book: 'book',
+        page: 'page-title',
       },
       route: routes.content,
       state: {
@@ -326,7 +326,7 @@ describe('Page', () => {
       </Provider>
     );
 
-    store.dispatch(actions.receiveBook(book));
+    store.dispatch(actions.receiveBook({...book, slug: 'book'}));
 
     expect(spy).not.toHaveBeenCalled();
   });
