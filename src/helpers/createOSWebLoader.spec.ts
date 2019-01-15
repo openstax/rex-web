@@ -1,0 +1,82 @@
+import { AppServices } from '../app/types';
+
+const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
+  json: () => Promise.resolve(data),
+  status: code,
+  text: () => Promise.resolve(data),
+}));
+
+describe('archiveLoader', () => {
+  const fetchBackup = fetch;
+  let osWebLoader: AppServices['osWebLoader'];
+
+  beforeEach(() => {
+    osWebLoader = require('./createOSWebLoader').default('url/');
+  });
+
+  afterEach(() => {
+    jest.resetModules();
+    (global as any).fetch = fetchBackup;
+  });
+
+  describe('getBookIdFromSlug', () => {
+
+    describe('success', () => {
+      beforeEach(() => {
+        (global as any).fetch = mockFetch(200, {
+          items: [{cnx_id: 'qwer', meta: {slug: 'asdf'}}],
+          meta: {item_count: 1},
+        });
+      });
+
+      it('gets book id', async() => {
+        const id = await osWebLoader.getBookIdFromSlug('asdf');
+        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id&slug=asdf');
+        expect(id).toEqual('qwer');
+      });
+    });
+
+    it('throws if there are no matching records', async() => {
+      (global as any).fetch = mockFetch(200, {items: [], meta: {item_count: 0}});
+      let message: string | undefined;
+
+      try {
+        await osWebLoader.getBookIdFromSlug('asdf');
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(message).toEqual('OSWeb record not found');
+    });
+
+    it('throws on error', async() => {
+      (global as any).fetch = mockFetch(404, 'not found');
+      let message: string | undefined;
+
+      try {
+        await osWebLoader.getBookIdFromSlug('asdf');
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(message).toEqual('Error response from OSWeb 404: not found');
+    });
+  });
+
+  describe('getBookSlugFromId', () => {
+    beforeEach(() => {
+      (global as any).fetch = mockFetch(200, {
+        items: [{cnx_id: 'qwer', meta: {slug: 'asdf'}}],
+        meta: {item_count: 1},
+      });
+    });
+
+    it('gets book slug', async() => {
+      const slug = await osWebLoader.getBookSlugFromId('qwer');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id&cnx_id=qwer');
+      expect(slug).toEqual('asdf');
+    });
+  });
+});
+
+export default undefined;

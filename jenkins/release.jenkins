@@ -27,7 +27,7 @@ pipeline {
       steps {
         sh """
           docker exec \
-            -e NODE_ENV=production \
+            -e REACT_APP_ENV=production \
             -e BOOKS="${params.BOOKS.replace('"', '\\"')}" \
             -e CODE_VERSION="$GIT_COMMIT" \
             -e RELEASE_ID="${params.RELEASE_ID}" \
