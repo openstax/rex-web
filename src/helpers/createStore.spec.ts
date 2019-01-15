@@ -16,7 +16,7 @@ describe('createStore', () => {
     let compose: jest.SpyInstance;
 
     beforeEach(() => {
-      process.env.ENVIRONMENT = 'development';
+      process.env.REACT_APP_ENV = 'development';
       compose = jest.spyOn(redux, 'compose');
       createStore = require('./createStore').default;
     });
@@ -53,7 +53,11 @@ describe('createStore', () => {
     let compose: jest.SpyInstance;
 
     beforeEach(() => {
-      process.env.ENVIRONMENT = 'production';
+      process.env.REACT_APP_ENV = 'production';
+      process.env.REACT_APP_RELEASE_ID = 'release';
+      process.env.REACT_APP_CODE_VERSION = 'code';
+      process.env.REACT_APP_BOOKS = '{}';
+
       compose = jest.spyOn(redux, 'compose');
       createStore = require('./createStore').default;
     });

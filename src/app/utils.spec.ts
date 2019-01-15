@@ -18,7 +18,10 @@ describe('checkActionType', () => {
 describe('actionHook', () => {
   it('binds state helpers', () => {
     const helperSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+    } as any) as MiddlewareAPI & AppServices;
     const middleware = utils.actionHook(actions.openToc, helperSpy);
 
     middleware(helpers)(helpers);
@@ -28,7 +31,10 @@ describe('actionHook', () => {
 
   it('hooks into requested action', () => {
     const hookSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+    } as any) as MiddlewareAPI & AppServices;
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
 
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
@@ -38,7 +44,10 @@ describe('actionHook', () => {
 
   it('doens\'t hook into other actions', () => {
     const hookSpy = jest.fn();
-    const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+    } as any) as MiddlewareAPI & AppServices;
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
 
     middleware(helpers)(helpers)((action) => action)(actions.closeToc());
@@ -47,16 +56,30 @@ describe('actionHook', () => {
   });
 
   it('adds promise to collector', () => {
-    const helpers = {
+    const helpers = ({
       dispatch: () => undefined,
       getState: () => ({} as AppState),
       promiseCollector: new PromiseCollector(),
-    } as any as MiddlewareAPI & AppServices;
+    } as any) as MiddlewareAPI & AppServices;
 
-    const middleware = utils.actionHook(actions.openToc, () => () => Promise.resolve());
+    const middleware = utils.actionHook(actions.openToc, () => () =>
+      Promise.resolve()
+    );
 
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
 
     expect(helpers.promiseCollector.promises.length).toBe(1);
+  });
+});
+
+describe('assertDefined', () => {
+  it('returns value', () => {
+    expect(utils.assertDefined('foo', 'error')).toBe('foo');
+  });
+
+  it('throws on undefined', () => {
+    expect(() =>
+      utils.assertDefined(undefined, 'error')
+    ).toThrowErrorMatchingInlineSnapshot(`"error"`);
   });
 });

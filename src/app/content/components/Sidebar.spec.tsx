@@ -9,6 +9,7 @@ import ConnectedSidebar, { Sidebar } from './Sidebar';
 const book = {
   id: 'booklongid',
   shortId: 'book',
+  slug: 'someslug',
   title: 'book title',
   tree: {
     contents: [
