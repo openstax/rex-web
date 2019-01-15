@@ -1,14 +1,14 @@
 import fs from 'fs';
-import chunk from 'lodash/fp/chunk';
 import fetch from 'node-fetch';
 import path from 'path';
 import portfinder from 'portfinder';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import asyncPool from 'tiny-async-pool';
 import createApp from '../src/app';
 import { content } from '../src/app/content/routes';
-import { flattenArchiveTree, stripIdVersion } from '../src/app/content/utils';
+import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../src/app/content/utils';
 import { notFound } from '../src/app/errors/routes';
 import * as errorSelectors from '../src/app/errors/selectors';
 import * as headSelectors from '../src/app/head/selectors';
@@ -16,54 +16,58 @@ import { Meta } from '../src/app/head/types';
 import * as navigationSelectors from '../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../src/app/navigation/types';
 import { matchUrl } from '../src/app/navigation/utils';
-import { AppState } from '../src/app/types';
+import { AppServices, AppState } from '../src/app/types';
+import {
+  BOOKS,
+  CODE_VERSION,
+  REACT_APP_ARCHIVE_URL,
+  REACT_APP_OS_WEB_API_URL,
+  RELEASE_ID
+} from '../src/config';
 import createArchiveLoader from '../src/helpers/createArchiveLoader';
+import createOSWebLoader from '../src/helpers/createOSWebLoader';
 import FontCollector from '../src/helpers/FontCollector';
 import { startServer } from './server';
 
 (global as any).fetch = fetch;
 
 const ASSET_DIR = path.resolve(__dirname, '../build');
-const BOOKS = JSON.parse(process.env.BOOKS || 'null') as {
-  [key: string]: {
-    defaultVersion: string;
-  };
-};
-const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
-if (!BOOKS) {
-  throw new Error('BOOKS environment var must be valid json');
-}
+const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
 async function render() {
   const start = (new Date()).getTime();
   const port = await portfinder.getPortPromise();
   const {server} = await startServer({port, onlyProxy: true});
-  const archiveLoader = createArchiveLoader(`http://localhost:${port}/contents/`);
+  const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
   const bookEntries = Object.entries(BOOKS);
 
   async function renderManifest() {
     writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
       books: BOOKS,
-      code: process.env.CODE_VERSION,
-      id: process.env.RELEASE_ID,
+      code: CODE_VERSION,
+      id: RELEASE_ID,
     }, null, 2));
   }
 
-  async function prepareContentPage(bookId: string, bookVersion: string, pageId: string) {
-    const archiveBookLoader = archiveLoader.book(bookId, bookVersion);
-    const book = await archiveBookLoader.load();
-    const page = await archiveBookLoader.page(pageId).load();
+  async function prepareContentPage(
+    bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
+    bookSlug: string,
+    pageId: string
+  ) {
+    const book = await bookLoader.load();
+    const page = await bookLoader.page(pageId).load();
 
     const action: Match<typeof content> = {
       params: {
-        bookId: book.shortId,
-        pageId: page.shortId,
+        book: bookSlug,
+        page: getUrlParamForPageId(book, page.id),
       },
       route: content,
       state: {
         bookUid: book.id,
-        bookVersion,
+        bookVersion: book.version,
         pageUid: page.id,
       },
     };
@@ -75,10 +79,12 @@ async function render() {
 
   async function renderPage(action: AnyMatch, expectedCode: number = 200) {
     const url = matchUrl(action);
+    console.info(`rendering ${url}`); // tslint:disable-line:no-console
     const app = createApp({
       initialEntries: [action],
       services: {
         archiveLoader,
+        osWebLoader,
       },
     });
 
@@ -121,33 +127,17 @@ async function render() {
   ];
 
   for (const [bookId, {defaultVersion}] of bookEntries) {
-    const book = await archiveLoader.book(bookId, defaultVersion).load();
+    const bookLoader = archiveLoader.book(bookId, defaultVersion);
+    const bookSlug = await osWebLoader.getBookSlugFromId(bookId);
+    const book = await bookLoader.load();
 
-    for (const pageChunk of chunk(20, flattenArchiveTree(book.tree.contents))) {
-      const promises: Array<Promise<any>> = [];
-
-      for (const section of pageChunk) {
-        promises.push(
-          prepareContentPage(bookId, defaultVersion, stripIdVersion(section.id))
-            .then((page) => pages.push({code: 200, page}))
-        );
-      }
-
-      await Promise.all(promises);
-    }
+    await asyncPool(20, flattenArchiveTree(book.tree), (section) =>
+      prepareContentPage(bookLoader, bookSlug, stripIdVersion(section.id))
+        .then((page) => pages.push({code: 200, page}))
+    );
   }
 
-  console.info('rendering...'); // tslint:disable-line:no-console
-
-  for (const pageChunk of chunk(50, pages)) {
-    const promises: Array<Promise<any>> = [];
-
-    for (const {code, page} of pageChunk) {
-      promises.push(renderPage(page, code));
-    }
-
-    await Promise.all(promises);
-  }
+  await asyncPool(50, pages, ({code, page}) => renderPage(page, code));
 
   const numPages = pages.length;
   const end = (new Date()).getTime();
