@@ -4,7 +4,10 @@
   },
   "env": {
     "NODE_ENV": "development",
-    "REACT_APP_ENV": "development"
+    "REACT_APP_ENV": "development",
+    "REACT_APP_RELEASE_ID": "heroku",
+    "REACT_APP_CODE_VERSION": "heroku",
+    "REACT_APP_BOOKS": "{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"}}"
   },
   "formation": {
   },
