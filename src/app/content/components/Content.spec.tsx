@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
-import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
+import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import { AppServices, AppState } from '../../types';
@@ -29,7 +29,7 @@ describe('content', () => {
 
   it('matches snapshot', () => {
     state.content.book = {...book, slug: 'book-slug-1'};
-    state.content.page = page;
+    state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -58,7 +58,7 @@ describe('content', () => {
 
   it('gets page content out of cached archive query', () => {
     state.content.book = {...book, slug: 'book-slug-1'};
-    state.content.page = page;
+    state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -69,12 +69,12 @@ describe('content', () => {
     </Provider>);
 
     expect(archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
-    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
+    expect(archiveLoader.mock.cachedPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage4-uuid');
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
     state.content.book = {...book, slug: 'book-slug-1'};
-    state.content.page = page;
+    state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
     archiveLoader.mock.cachedPage.mockReturnValue(undefined);
@@ -94,7 +94,7 @@ describe('content', () => {
     const state1 = cloneDeep(state);
     const state2 = cloneDeep(state);
     state2.content.book = {...book, slug: 'book-slug-1'};
-    state2.content.page = page;
+    state2.content.page = shortPage;
 
     const go = {type: 'go'};
 

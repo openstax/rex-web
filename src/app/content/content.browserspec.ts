@@ -36,7 +36,7 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse(TEST_LONG_PAGE);
+    await checkLighthouse(browser, TEST_LONG_PAGE);
   });
 
   it(`when clicking a toc link:

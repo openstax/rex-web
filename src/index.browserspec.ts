@@ -54,7 +54,6 @@ describe('Browser sanity tests', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse('/errors/404');
+    await checkLighthouse(browser, '/errors/404');
   });
-
 });
