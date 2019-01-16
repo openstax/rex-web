@@ -16,7 +16,7 @@ if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
 const ignoreConsoleMessages = [
   '%c %c %c Pixi.js 3.0.10 - ✰ WebGL ✰  %c  %c  http://www.pixijs.com/  %c %c ♥%c♥%c♥',
   '%cDownload the React DevTools for a better development experience: https://fb.me/react-devtools font-weight:bold',
-  '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/books-web font-weight:bold', // tslint:disable-line:max-line-length
+  '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/rex-web font-weight:bold', // tslint:disable-line:max-line-length
 ];
 
 page.on('console', (consoleMessage) => {

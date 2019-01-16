@@ -35,7 +35,7 @@ describe('Browser sanity tests', () => {
 
     const str = [
       '%cHowdy! If you want to help out, the source code can be found at ',
-      'https://github.com/openstax/books-web',
+      'https://github.com/openstax/rex-web',
       ' font-weight:bold',
     ];
     expect(infoMessages).toContain(str.join(''));
