@@ -46,10 +46,16 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
   });
 };
 
-export const finishRender = async(_: puppeteer.Page) => {
+export const finishRender = async(target: puppeteer.Page) => {
   // HACK - there is no convenient way to tell if chrome is finished rendering,
   // we should investigate inconvenient possibilities.
   await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  await target.evaluate(async() => {
+    if (window && window.__APP_ASYNC_HOOKS) {
+      await window.__APP_ASYNC_HOOKS.calm();
+    }
+  });
 };
 
 // tslint:disable-next-line:no-shadowed-variable
