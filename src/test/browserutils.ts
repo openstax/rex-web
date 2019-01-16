@@ -47,8 +47,7 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
-  // HACK - there is no convenient way to tell if chrome is finished rendering,
-  // we should investigate inconvenient possibilities.
+  // wait for any new async hooks to register...
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   await target.evaluate(async() => {
@@ -56,6 +55,10 @@ export const finishRender = async(target: puppeteer.Page) => {
       await window.__APP_ASYNC_HOOKS.calm();
     }
   });
+
+  // HACK - there is no convenient way to tell if chrome is finished rendering,
+  // we should investigate inconvenient possibilities.
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
 // tslint:disable-next-line:no-shadowed-variable

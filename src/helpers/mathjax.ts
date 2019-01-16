@@ -32,7 +32,9 @@ function typesetDocument(root: Element, windowImpl: Window) {
         return;
       }
 
-      windowImpl.MathJax.Hub.Typeset(latexNodes);
+      windowImpl.MathJax.Hub.Queue(
+        () => windowImpl.MathJax.Hub.Typeset(latexNodes)
+      );
     },
     () => {
       const mathMLNodes = Array.from(root.querySelectorAll(MATH_ML_SELECTOR));
@@ -42,7 +44,9 @@ function typesetDocument(root: Element, windowImpl: Window) {
       }
 
       // style the entire document because mathjax is unable to style individual math elements
-      windowImpl.MathJax.Hub.Typeset( root );
+      windowImpl.MathJax.Hub.Queue(
+        () => windowImpl.MathJax.Hub.Typeset(root)
+      );
     },
     () => {
       // Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
@@ -55,7 +59,7 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
-const typesetDocumentPromise = (root: Element, windowImpl: Window) => new Promise((resolve) => {
+const typesetDocumentPromise = (root: Element, windowImpl: Window): Promise<void> => new Promise((resolve) => {
   typesetDocument(root, windowImpl);
   windowImpl.MathJax.Hub.Queue(resolve);
 });
