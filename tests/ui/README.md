@@ -26,32 +26,28 @@ repository, check out this [help page][git-clone] from GitHub.
 
 ## Run the tests using Pytest
 
-There are occasions when running tox may not be the most ideal; Especially when you need more control over the framework. When this is the case pytest can be executed directly.
-
-The tox examples above essentially pass the options after the `--` to the pytest command.
-
 To run a specific test, pass in a value for `-k`:
 
 ```bash
-$ pytest -k test_my_feature
+$ pytest -k test_my_feature tests/ui
 ```
 
-To run a specific project, pass in `webview`, `legacy`, or `neb` for `-m`:
+To run a specific marker, pass in the marker name using `-m`:
 
 ```bash
-$ pytest -m webview
+$ pytest -m desktop_only tests/ui
 ```
 
 To run a more complicated example that runs a specific project and a specific test module in headless mode:
 
 ```bash
-$ pytest -m webview -k test_home --headless
+$ pytest -m desktop_only -k test_toc --headless tests/ui
 ```
 
 To run tests in parallel you can combine the above and use `-n` option to specify the number of workers.
 
 ```bash
-$ pytest -n 4 -m webview
+$ pytest -n 4 tests/ui
 ```
 
 ### Additional Pytest Options
@@ -79,7 +75,7 @@ Replace the example values with the appropriate values:
 To run the tests only for webview and a specific set of tests:
 
 ```bash
-$ pytest -m webview -k test_home --testrail --testrail-name release01 tests/
+$ pytest -k test_toc --testrail --testrail-name release01 tests/ui
 ```
 
 Consult the pytest-testrail project `README.md`  for more options
@@ -145,10 +141,6 @@ def test_nav_is_displayed(webview_base_url, selenium):
     # THEN The navbar is displayed
     assert page.header.is_nav_displayed
 ```
-
-
-
-
 
 [git-clone]: https://help.github.com/articles/cloning-a-repository/
 [python]: https://www.python.org/downloads/
