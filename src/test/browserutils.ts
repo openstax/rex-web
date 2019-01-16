@@ -36,25 +36,22 @@ if (process.env.CI) {
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
+const calmHooks = (target: puppeteer.Page) => target.evaluate(async() => {
+  if (window && window.__APP_ASYNC_HOOKS) {
+    await window.__APP_ASYNC_HOOKS.calm();
+  }
+});
+
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
-
-  await target.evaluate(async() => {
-    if (window && window.__APP_ASYNC_HOOKS) {
-      await window.__APP_ASYNC_HOOKS.calm();
-    }
-  });
+  await calmHooks(target);
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
   // wait for any new async hooks to register...
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 600));
 
-  await target.evaluate(async() => {
-    if (window && window.__APP_ASYNC_HOOKS) {
-      await window.__APP_ASYNC_HOOKS.calm();
-    }
-  });
+  await calmHooks(target);
 
   // HACK - there is no convenient way to tell if chrome is finished rendering,
   // we should investigate inconvenient possibilities.
