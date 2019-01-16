@@ -1,0 +1,37 @@
+
+.PHONY: clean clean-test clean-pyc clean-eggs venv precommit help
+.DEFAULT_GOAL := help
+
+clean: clean-eggs clean-pyc clean-test
+
+clean-eggs: ## remove build artifacts
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean-pyc: ## remove Python file artifacts
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
+clean-test: ## remove test and coverage artifacts
+	rm -fr .tox/
+	rm -fr assets/
+	rm -f report.html
+
+venv:
+	python3 -m venv .venv && \
+		source .venv/bin/activate && \
+		pip install -r requirements-dev.txt
+
+precommit:
+	pre-commit install
+
+help:
+	@echo "The following targets are available"
+	@echo "clean			Remove build, test, and file artifacts"
+	@echo "clean-build 		Remove build artifacts"
+	@echo "clean-pyc		Remove file artifacts"
+	@echo "clean-test		Remove test artifacts"
+	@echo "venv			Set up a virtualenv for this project"
