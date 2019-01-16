@@ -16,7 +16,7 @@ if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
 if (window.top === window.self) {
   const devMessage = [
     `Howdy! If you want to help out, the source code can be found at `,
-    `https://github.com/openstax/books-web`,
+    `https://github.com/openstax/rex-web`,
   ];
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
