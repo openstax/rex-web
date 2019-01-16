@@ -55,12 +55,20 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
+const typesetDocumentPromise = (root: Element, windowImpl: Window) => new Promise((resolve) => {
+  typesetDocument(root, windowImpl);
+  windowImpl.MathJax.Hub.Queue(resolve);
+});
+
 // memoize'd getter for typeset document function so that each node's
 // typeset has its own debounce
 const getTypesetDocument = memoize((root, windowImpl) => {
   // Install a debounce around typesetting function so that it will only run once
   // every Xms even if called multiple times in that period
-  return debounce(typesetDocument, 100).bind(null, root, windowImpl);
+  return debounce(typesetDocumentPromise, 100, {
+    leading: true,
+    trailing: false,
+  }).bind(null, root, windowImpl);
 });
 getTypesetDocument.cache = new WeakMap();
 
@@ -69,8 +77,10 @@ getTypesetDocument.cache = new WeakMap();
 const typesetMath = (root: Element, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
   if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.Hub && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    getTypesetDocument(root, windowImpl)();
+    return getTypesetDocument(root, windowImpl)();
   }
+
+  return Promise.resolve();
 };
 
 // The following should be called once and configures MathJax.
