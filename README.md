@@ -63,17 +63,17 @@ install [docker](https://docs.docker.com/install/)
 build the image
 
 ```bash
-docker build -t openstax/books-web .
+docker build -t openstax/rex-web .
 ```
 
 run commands
 ```bash
 
 # starts server
-docker run -t openstax/books-web yarn server
+docker run -t openstax/rex-web yarn server
 
 # runs tests
-docker run -t openstax/books-web yarn test
+docker run -t openstax/rex-web yarn test
 ```
 
 ### Environment Variables
