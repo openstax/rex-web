@@ -13,6 +13,7 @@ import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
 import { matchUrl } from './navigation/utils';
+import * as notifications from './notifications';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
@@ -20,6 +21,7 @@ export const actions = {
   errors: errors.actions,
   head: head.actions,
   navigation: navigation.actions,
+  notifications: notifications.actions,
 };
 
 export const routes = [
@@ -64,6 +66,7 @@ export default (options: Options) => {
     errors: errors.reducer,
     head: head.reducer,
     navigation: navigation.createReducer(history.location),
+    notifications: notifications.reducer,
   });
 
   const services = {

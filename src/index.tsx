@@ -6,6 +6,7 @@ import createArchiveLoader from './helpers/createArchiveLoader';
 import createOSWebLoader from './helpers/createOSWebLoader';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
+import pollUpdates from './helpers/pollUpdates';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -46,6 +47,8 @@ if (window.__PRELOADED_STATE__) {
   ReactDOM.render(<app.container />, document.getElementById('root'));
 }
 
+// start long running processes
+pollUpdates(app.store);
 startMathJax();
 
 // If you want your app to work offline and load faster, you can change
