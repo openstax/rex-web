@@ -2,7 +2,7 @@
 
 exports[`content matches snapshot 1`] = `
 Array [
-  .c0 {
+  .emotion-0 {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   margin: 0;
@@ -16,7 +16,7 @@ Array [
   text-decoration: none;
 }
 
-.c0:focus {
+.emotion-0:focus {
   -webkit-clip: auto;
   clip: auto;
   height: auto;
@@ -25,33 +25,23 @@ Array [
 }
 
 <a
-    className="c0"
+    className="emotion-0 emotion-1"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
-  .c6 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 3rem;
-  padding: 0 3rem 0 3rem;
-  font-size: 18px;
-  font-family: "Noto Sans";
+  .emotion-40 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
-.c6 * {
-  overflow: initial;
-}
-
-.c7 {
-  font-family: "Roboto Condensed",serif;
-  font-size: 19px;
-  line-height: 29px;
-}
-
-.c1 {
+.emotion-32 {
   background-color: white;
   overflow-x: hidden;
   -webkit-transition: all 300ms;
@@ -59,7 +49,7 @@ Array [
   width: 300px;
 }
 
-.c2 {
+.emotion-0 {
   position: fixed;
   top: 10px;
   height: 40px;
@@ -77,7 +67,7 @@ Array [
   left: 240px;
 }
 
-.c2 span {
+.emotion-0 span {
   width: 100%;
   background: #000;
   padding-top: 10%;
@@ -88,24 +78,24 @@ Array [
   transition: all 300ms;
 }
 
-.c2 span:nth-child(1) {
+.emotion-0 span:nth-of-type(1) {
   -webkit-transform: rotateZ(45deg);
   -ms-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
 }
 
-.c2 span:nth-child(2) {
+.emotion-0 span:nth-of-type(2) {
   opacity: 0;
 }
 
-.c2 span:nth-child(3) {
+.emotion-0 span:nth-of-type(3) {
   -webkit-transform: rotateZ(-45deg);
   -ms-transform: rotateZ(-45deg);
   transform: rotateZ(-45deg);
   margin-top: -20%;
 }
 
-.c3 {
+.emotion-30 {
   position: fixed;
   left: 0;
   top: 0;
@@ -121,11 +111,11 @@ Array [
   transform: translateX(0px);
 }
 
-.c3 ol {
+.emotion-30 ol {
   padding-inline-start: 10px;
 }
 
-.c3 > * {
+.emotion-30 > * {
   -webkit-transition-property: visibility;
   transition-property: visibility;
   -webkit-transition-delay: 0s;
@@ -133,42 +123,52 @@ Array [
   visibility: visible;
 }
 
-.c4 {
+.emotion-2 {
   list-style: none;
 }
 
-.c5 {
+.emotion-14 {
   list-style: none;
   overflow: visible;
   position: relative;
 }
 
-.c5:before {
+.emotion-14:before {
   font-weight: bold;
   content: '>';
   position: absolute;
   right: 100%;
 }
 
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
+.emotion-38 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 3rem;
+  padding: 0 3rem 0 3rem;
+  font-size: 18px;
+  font-family: "Noto Sans";
+}
+
+.emotion-38 * {
+  overflow: initial;
+}
+
+.emotion-34 {
+  font-family: "Roboto Condensed",serif;
+  font-size: 19px;
+  line-height: 29px;
 }
 
 <div
-    className="c0"
+    className="emotion-40 emotion-41"
   >
     <div
-      className="c1"
+      className="emotion-32 emotion-33"
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="c2"
+        className="emotion-0 emotion-1"
         onClick={[Function]}
         role="button"
       >
@@ -177,12 +177,12 @@ Array [
         <span />
       </button>
       <div
-        className="c3"
+        className="emotion-30 emotion-31"
       >
         <nav>
           <ol>
             <li
-              className="c4"
+              className="emotion-2 emotion-3"
             >
               <a
                 href="#"
@@ -199,8 +199,7 @@ Array [
           <nav>
             <ol>
               <li
-                aria-label="Current Page"
-                className="c5"
+                className="emotion-2 emotion-3"
               >
                 <a
                   dangerouslySetInnerHTML={
@@ -213,7 +212,7 @@ Array [
                 />
               </li>
               <li
-                className="c4"
+                className="emotion-2 emotion-3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -225,7 +224,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="emotion-2 emotion-3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -241,7 +240,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="emotion-2 emotion-3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -253,7 +252,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="emotion-2 emotion-3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -269,7 +268,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="emotion-2 emotion-3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -281,7 +280,8 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      aria-label="Current Page"
+                      className="emotion-14 emotion-3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -297,7 +297,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="emotion-2 emotion-3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -309,7 +309,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="emotion-2 emotion-3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -325,7 +325,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="emotion-2 emotion-3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -337,7 +337,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="emotion-2 emotion-3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -353,7 +353,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="emotion-2 emotion-3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -365,7 +365,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="emotion-2 emotion-3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -386,21 +386,21 @@ Array [
       </div>
     </div>
     <div
-      className="c6"
+      className="emotion-38 emotion-39"
       id="main-content"
       tabIndex={-1}
     >
       <div>
         <h1
-          className="c7"
+          className="emotion-34 emotion-35"
         >
           Test Book 1
            / 
-          Test Page 1
+          Test Page 4
         </h1>
       </div>
       <div
-        className=""
+        className="emotion-36 emotion-37"
       >
         <div
           data-type="chapter"
@@ -408,7 +408,7 @@ Array [
           <div
             dangerouslySetInnerHTML={
               Object {
-                "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\"><h2 data-type=\\"document-title\\"><span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Page 1</span></h2><p id=\\"p1\\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ex erat, lacinia vitae mattis id, commodo vitae est. Nam quis arcu quis enim congue aliquet. Vivamus dictum rhoncus tortor, malesuada placerat tortor imperdiet ac. Fusce ac viverra nisi. Aliquam ut tempor diam. Cras rhoncus sodales massa vitae porttitor. Integer pharetra lorem a ante sollicitudin condimentum. Aliquam imperdiet erat et tellus mattis finibus. Sed nisl lectus, ultricies et ante ut, porttitor varius sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce tempus interdum ante, nec placerat felis facilisis quis. Nunc nec malesuada nisi. Cras eu iaculis felis. Sed id maximus enim, sit amet sodales sapien. Proin pulvinar sem risus, nec ultricies odio viverra a. Aliquam feugiat euismod dapibus.</p><section id=\\"section1\\"><h3 data-type=\\"document-title\\" id=\\"100_copy_1\\"><span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">A Section, Probably</span></h3><p id=\\"p2\\">Morbi lobortis mattis velit, dapibus convallis est mollis sed. Sed ullamcorper est tortor, at ultricies felis tincidunt ut. Mauris interdum nunc et convallis pharetra. Nulla ac erat nulla. Vivamus a ornare leo. Quisque luctus dui eget auctor tristique. Sed vel est eget lorem volutpat mattis non et nisi. Aliquam ultricies ultrices velit, id fringilla ex suscipit in. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat blandit felis, non finibus neque dignissim sit amet. Integer laoreet dapibus quam eget pulvinar. Aenean lobortis, arcu dignissim euismod ornare, eros est tincidunt urna, nec auctor odio quam eget tortor. Praesent sit amet metus a metus varius tincidunt. Pellentesque convallis sit amet erat eget malesuada. Proin pretium est euismod risus facilisis dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p><p id=\\"p3\\">Integer maximus augue vitae orci vehicula tincidunt. Integer auctor ante odio, nec porta nisi pellentesque id. Donec porttitor velit vel turpis sagittis molestie. Sed eu rhoncus orci. Donec feugiat tristique posuere. Fusce consequat, nisi vitae porttitor ornare, augue velit sodales augue, ac facilisis turpis orci vitae lectus. Mauris mauris urna, dictum a dui et, imperdiet commodo justo. Pellentesque scelerisque dui sed libero porta, sit amet rhoncus ex dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p><p id=\\"p4\\">Donec congue tortor sed magna ullamcorper mollis. Suspendisse eu tincidunt augue, et pulvinar purus. Fusce gravida quam lorem, sed pharetra libero bibendum et. Etiam facilisis ex vel nisi egestas, non consequat mi malesuada. Donec scelerisque magna sem, ut ornare massa rhoncus sed. In ultricies tellus porttitor enim elementum, ut mollis nisl euismod. Pellentesque eu lobortis neque. Phasellus eget luctus velit, in eleifend lectus. Pellentesque leo odio, cursus eget feugiat eu, finibus in nibh. In nec urna justo. Donec ut nisi eleifend, auctor lacus quis, hendrerit sem. Pellentesque sagittis nunc a molestie finibus. Donec pulvinar nibh elit, nec ornare nibh egestas quis. Curabitur luctus euismod lobortis.</p><div class=\\"os-figure\\"><figure id=\\"figureid\\"><div data-alt=\\"\\" data-type=\\"media\\" id=\\"Phet_module_25.2\\"> <iframe title=\\"interactive simulation\\" height=\\"371.4\\" src=\\"/specials/version/radio-waves/#sim-radio-waves\\" width=\\"660\\"></iframe></div></figure><div class=\\"os-caption-container\\"><span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.0</span><span class=\\"os-divider\\"> </span></div></div>  <p id=\\"p5\\">Maecenas vehicula nec quam vitae sodales. Vestibulum bibendum accumsan mauris. Nunc rhoncus libero odio, in ullamcorper massa ornare convallis. Nullam metus tortor, aliquam a ultrices et, rhoncus in risus. Nunc vel turpis erat. Cras semper sagittis odio, eu mattis nulla faucibus quis. Aliquam egestas nunc elit, eget condimentum lectus congue et. Curabitur non gravida lorem. Integer mi nunc, commodo vitae augue vel, bibendum pretium magna. Sed ut nibh venenatis ipsum tempus mollis pretium eget est. Aliquam commodo quam ipsum, at fermentum enim tristique eget. Mauris imperdiet dapibus maximus. Donec tristique varius lacinia. Pellentesque pharetra nunc eu nisi ullamcorper placerat. Suspendisse potenti.</p><p id=\\"p6\\">Integer fringilla blandit dolor ut mattis. Nam commodo ex at blandit sodales. Nullam suscipit, nunc eu mollis sagittis, purus arcu tincidunt ligula, vitae pharetra metus tortor id ex. Donec malesuada aliquet ligula id mollis. Maecenas scelerisque maximus sollicitudin. Quisque sagittis dolor at ligula congue, quis rhoncus mi porttitor. Quisque lobortis ut ante sed convallis. Integer luctus cursus molestie.</p><p id=\\"p7\\">Morbi a purus a elit dapibus fermentum. Sed varius ex quis tortor tincidunt posuere. Mauris luctus risus id aliquet mollis. Phasellus ornare leo a arcu imperdiet dictum. Praesent accumsan venenatis urna, sed egestas sem pharetra a. Sed vulputate sit amet nisl a aliquet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris facilisis augue vitae est maximus pharetra in ac elit. Pellentesque viverra purus non ligula tempor convallis.</p><p id=\\"p8\\">Pellentesque lectus ante, malesuada ut ornare vitae, euismod non urna. Morbi varius eros eget felis accumsan vehicula. In diam ex, finibus rhoncus dapibus non, lacinia in lacus. Nullam pretium mollis laoreet. Ut interdum dui sit amet elementum dignissim. Etiam in nibh vitae ligula fringilla aliquet quis vel ex. Nullam quis elit libero. In aliquet laoreet arcu at posuere. Duis consectetur et dolor non accumsan. Fusce enim est, dignissim sed mauris at, ornare cursus ligula. Nullam tincidunt eu purus vel lacinia. Praesent varius, arcu sed facilisis elementum, orci metus vestibulum nisl, sed sodales urna eros ullamcorper turpis. Donec mollis ac massa ac elementum. Nulla maximus purus sed orci efficitur, ut porta mauris elementum.</p><p id=\\"p9\\">Vestibulum blandit enim quis sapien ultrices pretium. Cras dapibus ornare fringilla. Duis ut laoreet dolor. Proin ullamcorper molestie dui eu vestibulum. Nullam convallis mollis mauris nec accumsan. Proin egestas enim non nisl suscipit, ut feugiat felis pharetra. In faucibus fringilla ipsum vel sollicitudin. Maecenas blandit augue odio, ac mattis justo feugiat sit amet. Etiam nec molestie eros. Sed gravida velit libero, at pretium diam venenatis sit amet. Donec tellus leo, faucibus eu sapien nec, mollis efficitur lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></section></div>",
+                "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page</div>",
               }
             }
             data-type="page"
@@ -422,7 +422,7 @@ Array [
 
 exports[`content renders empty state 1`] = `
 Array [
-  .c0 {
+  .emotion-0 {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   margin: 0;
@@ -436,7 +436,7 @@ Array [
   text-decoration: none;
 }
 
-.c0:focus {
+.emotion-0:focus {
   -webkit-clip: auto;
   clip: auto;
   height: auto;
@@ -445,27 +445,23 @@ Array [
 }
 
 <a
-    className="c0"
+    className="emotion-0 emotion-1"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
-  .c5 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 3rem;
-  padding: 0 3rem 0 3rem;
-  font-size: 18px;
-  font-family: "Noto Sans";
+  .emotion-12 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
-.c5 * {
-  overflow: initial;
-}
-
-.c1 {
+.emotion-6 {
   background-color: white;
   overflow-x: hidden;
   -webkit-transition: all 300ms;
@@ -473,7 +469,7 @@ Array [
   width: 300px;
 }
 
-.c2 {
+.emotion-0 {
   position: fixed;
   top: 10px;
   height: 40px;
@@ -491,7 +487,7 @@ Array [
   left: 240px;
 }
 
-.c2 span {
+.emotion-0 span {
   width: 100%;
   background: #000;
   padding-top: 10%;
@@ -502,24 +498,24 @@ Array [
   transition: all 300ms;
 }
 
-.c2 span:nth-child(1) {
+.emotion-0 span:nth-of-type(1) {
   -webkit-transform: rotateZ(45deg);
   -ms-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
 }
 
-.c2 span:nth-child(2) {
+.emotion-0 span:nth-of-type(2) {
   opacity: 0;
 }
 
-.c2 span:nth-child(3) {
+.emotion-0 span:nth-of-type(3) {
   -webkit-transform: rotateZ(-45deg);
   -ms-transform: rotateZ(-45deg);
   transform: rotateZ(-45deg);
   margin-top: -20%;
 }
 
-.c3 {
+.emotion-4 {
   position: fixed;
   left: 0;
   top: 0;
@@ -535,11 +531,11 @@ Array [
   transform: translateX(0px);
 }
 
-.c3 ol {
+.emotion-4 ol {
   padding-inline-start: 10px;
 }
 
-.c3 > * {
+.emotion-4 > * {
   -webkit-transition-property: visibility;
   transition-property: visibility;
   -webkit-transition-delay: 0s;
@@ -547,29 +543,33 @@ Array [
   visibility: visible;
 }
 
-.c4 {
+.emotion-2 {
   list-style: none;
 }
 
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
+.emotion-10 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 3rem;
+  padding: 0 3rem 0 3rem;
+  font-size: 18px;
+  font-family: "Noto Sans";
+}
+
+.emotion-10 * {
+  overflow: initial;
 }
 
 <div
-    className="c0"
+    className="emotion-12 emotion-13"
   >
     <div
-      className="c1"
+      className="emotion-6 emotion-7"
     >
       <button
         aria-label="Click to close the Table of Contents"
-        className="c2"
+        className="emotion-0 emotion-1"
         onClick={[Function]}
         role="button"
       >
@@ -578,12 +578,12 @@ Array [
         <span />
       </button>
       <div
-        className="c3"
+        className="emotion-4 emotion-5"
       >
         <nav>
           <ol>
             <li
-              className="c4"
+              className="emotion-2 emotion-3"
             >
               <a
                 href="#"
@@ -596,13 +596,13 @@ Array [
       </div>
     </div>
     <div
-      className="c5"
+      className="emotion-10 emotion-11"
       id="main-content"
       tabIndex={-1}
     >
       <div />
       <div
-        className=""
+        className="emotion-8 emotion-9"
       >
         <div
           data-type="chapter"

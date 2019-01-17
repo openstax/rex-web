@@ -68,13 +68,13 @@ const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonEle
     // extra padding on the left for scroll bars when open
     left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding - 10}px;
 
-    span:nth-child(1) {
+    span:nth-of-type(1) {
       transform: rotateZ(45deg);
     }
-    span:nth-child(2) {
+    span:nth-of-type(2) {
       opacity: 0;
     }
-    span:nth-child(3) {
+    span:nth-of-type(3) {
       transform: rotateZ(-45deg);
       margin-top: -20%
     }
