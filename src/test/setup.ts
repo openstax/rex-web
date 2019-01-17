@@ -1,5 +1,4 @@
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
-import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 
 jest.mock('cnx-recipes/styles/output/intro-business.json', () => '');
