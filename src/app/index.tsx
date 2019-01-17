@@ -40,7 +40,7 @@ const defaultServices = () => ({
 });
 
 interface Options {
-  initialState?: AppState;
+  initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }

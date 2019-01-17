@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from './app';
+import { AppState } from './app/types';
 import config from './config';
 import createArchiveLoader from './helpers/createArchiveLoader';
 import createOSWebLoader from './helpers/createOSWebLoader';
@@ -30,8 +31,8 @@ if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_UR
 const queryState = queryString.parse(window.location.search).initialState;
 
 const initialState = mergeAll([
-  window.__PRELOADED_STATE__ || {},
-  typeof(queryState) === 'string' ? JSON.parse(queryState) : {},
+  window.__PRELOADED_STATE__,
+  typeof(queryState) === 'string' ? JSON.parse(queryState) as Partial<AppState> : undefined,
 ]);
 
 const app = createApp({
