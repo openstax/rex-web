@@ -8,6 +8,10 @@ body, html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  position: relative;
+}
+
 * {
   box-sizing: border-box;
   overflow: auto;
