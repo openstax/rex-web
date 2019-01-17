@@ -1,3 +1,5 @@
+import mergeAll from 'lodash/fp/mergeAll';
+import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from './app';
@@ -25,8 +27,15 @@ if (window.top === window.self) {
 if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
 
+const queryState = queryString.parse(window.location.search).initialState;
+
+const initialState = mergeAll([
+  window.__PRELOADED_STATE__ || {},
+  typeof(queryState) === 'string' ? JSON.parse(queryState) : {},
+]);
+
 const app = createApp({
-  initialState: window.__PRELOADED_STATE__,
+  initialState,
   services: {
     archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),

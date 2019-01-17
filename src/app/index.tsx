@@ -86,12 +86,12 @@ export default (options: Options) => {
   });
 
   const container = () => <Provider store={store}>
-    <Services.Provider value={services} >
+    <Services.Provider value={services}>
       <navigation.components.NavigationProvider routes={routes} />
     </Services.Provider>
   </Provider>;
 
-  if (!initialState) {
+  if (!initialState || !initialState.navigation) {
     navigation.utils.init(routes, history.location, store.dispatch);
   }
 
