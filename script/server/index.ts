@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import path from 'path';
 import serveStatic from 'serve-static';
-import '../../src/env';
+import config from '../../src/config';
 import setupProxy from '../../src/setupProxy';
 
 export interface Options {
@@ -15,15 +15,11 @@ export const startServer = (options: Options):
   Promise<{server: http.Server, port: number}> => new Promise((resolve) => {
 
   const defaultOptions = {
-    port: process.env.PORT ? parseInt(process.env.PORT, 10) : undefined,
+    port: config.PORT,
   };
   const fallback404 = !!options.fallback404;
   const baseDir = path.join(__dirname, '../../build');
   const {port, onlyProxy} = {...defaultOptions, ...options};
-
-  if (!port || Number.isNaN(port) || port <= 0) {
-    throw new Error(`BUG: port is not defined. Add PORT to .env.${process.env.NODE_ENV} or pass the 'port' option.`); // tslint:disable-line:max-line-length
-  }
 
   const app = express();
 

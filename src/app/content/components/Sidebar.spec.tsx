@@ -9,6 +9,7 @@ import ConnectedSidebar, { Sidebar } from './Sidebar';
 const book = {
   id: 'booklongid',
   shortId: 'book',
+  slug: 'someslug',
   title: 'book title',
   tree: {
     contents: [
@@ -16,6 +17,11 @@ const book = {
         id: 'pagelongid',
         shortId: 'page',
         title: 'page title',
+      },
+      {
+        id: 'pagelongid2',
+        shortId: 'page2',
+        title: 'page title2',
       },
     ],
     id: 'booklongid',
@@ -38,7 +44,7 @@ describe('Sidebar', () => {
         ...initialState,
         book, page,
       },
-    } as AppState;
+    } as any as AppState;
     const store = createStore(combineReducers({content: reducer}), state);
 
     const component = renderer.create(<Provider store={store}>

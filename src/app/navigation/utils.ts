@@ -1,11 +1,10 @@
 import { Location } from 'history';
 import pathToRegexp, { Key } from 'path-to-regexp';
 import { Dispatch } from 'redux';
-import { AppServices, MiddlewareAPI } from '../types';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
-import { AnyMatch, AnyRoute, GenericMatch, Match } from './types';
+import { AnyMatch, AnyRoute, GenericMatch, Match, RouteHookBody } from './types';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
@@ -43,11 +42,7 @@ export const init = (routes: AnyRoute[], location: Location, dispatch: Dispatch)
   dispatch(actions.locationChange({location, match}));
 };
 
-type Hook<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
-  (locationChange: {location: Location, match: Match<R>}) =>
-    Promise<any> | void;
-
-export const routeHook = <R extends AnyRoute>(route: R, body: Hook<R>) =>
+export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
   actionHook(actions.locationChange, (stateHelpers) => {
     const boundHook = body(stateHelpers);
 

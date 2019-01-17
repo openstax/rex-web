@@ -17,11 +17,13 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
       return next(action);
     }
 
-    history[action.payload.method](
-      matchUrl(action.payload),
-      hasState(action.payload)
+    history[action.payload.method]({
+      hash: action.payload.hash,
+      pathname: matchUrl(action.payload),
+      search: action.payload.search,
+      state: hasState(action.payload)
         ? action.payload.state
-        : undefined
-    );
+        : undefined,
+    });
   };
 };

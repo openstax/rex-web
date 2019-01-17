@@ -1,15 +1,16 @@
 import { Location } from 'history';
 import cloneDeep from 'lodash/fp/cloneDeep';
+import { combineReducers, createStore } from 'redux';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
-import mockArchiveLoader from '../../../test/mocks/archiveLoader';
-import { locationChange } from '../../navigation/actions';
+import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
+import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import { Match } from '../../navigation/types';
-import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../types';
+import { AppServices, AppState, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
-import { initialState } from '../reducer';
+import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
-import { Book, Page, Params, State } from '../types';
+import { State } from '../types';
 
 describe('locationChange', () => {
   let localState: State;
@@ -18,27 +19,37 @@ describe('locationChange', () => {
   let dispatch: jest.SpyInstance;
   let helpers: MiddlewareAPI & AppServices;
   let payload: {location: Location, match: Match<typeof routes.content>};
-  let action: ReturnType<typeof locationChange>;
   let hook = require('./locationChange').default;
-  const next: Dispatch = (a) => a;
 
   beforeEach(() => {
     localState = cloneDeep(initialState);
     appState = {content: localState} as AppState;
 
+    const store = createStore(combineReducers({content: reducer}), appState);
+
     archiveLoader = mockArchiveLoader();
 
-    dispatch = jest.fn((a) => a);
+    dispatch = jest.fn((action) => store.dispatch(action));
+
     helpers = {
       archiveLoader,
       dispatch,
       fontCollector: new FontCollector(),
-      getState: () => appState,
+      getState: store.getState,
+      osWebLoader: mockOSWebLoader(),
       promiseCollector: new PromiseCollector(),
     } as any as MiddlewareAPI & AppServices;
 
-    payload = {location: {} as Location, match: {route: routes.content, params: {} as Params}};
-    action = locationChange(payload);
+    payload = {
+      location: {} as Location,
+      match: {
+        params: {
+          book: 'book-slug-1',
+          page: 'test-page-1',
+        },
+        route: routes.content,
+      },
+    };
 
     hook = (require('./locationChange').default)(helpers);
   });
@@ -47,81 +58,68 @@ describe('locationChange', () => {
     jest.resetModules();
   });
 
-  it('loads book', () => {
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
-    };
-
-    hook(helpers)(next)(action);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestBook('bookId'));
-    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('bookId', undefined);
+  it('loads book', async() => {
+    await hook(payload);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook('book-slug-1'));
+    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
   });
 
-  it('doesn\'t load book if its already loaded', () => {
-    localState.book = {
-      shortId: 'bookId',
-    } as Book;
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
-    };
-
-    hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('bookId'));
+  it('doesn\'t load book if its already loaded', async() => {
+    localState.book = cloneDeep({...book, slug: 'book'});
+    await hook(payload);
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
-  it('doesn\'t load book if its already loading', () => {
-    localState.loading.book = 'bookId';
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
-    };
+  it('doesn\'t load book if its already loading', async() => {
+    archiveLoader.mock.loadBook.mockImplementation(
+      () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
+    );
 
-    hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('bookId'));
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
+    await Promise.all([
+      hook(payload),
+      hook(payload),
+      hook(payload),
+    ]);
+
+    expect(dispatch).toHaveBeenCalledTimes(4);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
   });
 
-  it('loads page', () => {
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
-    };
-
-    hook(helpers)(next)(action);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('bookId', undefined, 'pageId');
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pageId', undefined);
+  it('loads page', async() => {
+    await hook(payload);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('test-page-1'));
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
   });
 
-  it('doesn\'t load page if its already loaded', () => {
-    localState.page = {
-      shortId: 'pageId',
-    } as Page;
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
-    };
+  it('doesn\'t load page if its already loaded', async() => {
+    localState.page = cloneDeep(page);
 
-    hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
+    await hook(payload);
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage(expect.anything()));
     expect(archiveLoader.mock.loadPage).not.toHaveBeenCalled();
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pageId', undefined);
+    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('page', expect.anything());
+    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pagelongid', expect.anything());
   });
 
-  it('doesn\'t load page if its already loading', () => {
-    localState.loading.page = 'pageId';
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
-    };
+  it('doesn\'t load page if its already loading', async() => {
+    await Promise.all([
+      hook(payload),
+      hook(payload),
+      hook(payload),
+      hook(payload),
+    ]);
 
-    hook(helpers)(next)(action);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage('pageId'));
-    expect(archiveLoader.mock.loadPage).not.toHaveBeenCalled();
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pageId', undefined);
+    expect(dispatch).toHaveBeenCalledTimes(4);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
+
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
   });
 
   it('adds font to fontcollector', () => {
@@ -131,7 +129,7 @@ describe('locationChange', () => {
     jest.resetModules();
     hook = (require('./locationChange').default)(helpers);
 
-    hook(helpers)(next)(action);
+    hook(payload);
     expect(spy).toHaveBeenCalledWith(mockFont);
   });
 
@@ -141,26 +139,119 @@ describe('locationChange', () => {
     jest.resetModules();
     hook = (require('./locationChange').default)(helpers);
 
-    hook(helpers)(next)(action);
+    hook(payload);
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('loads more specific data when available', () => {
-    localState.params = payload.match.params = {
-      bookId: 'bookId',
-      pageId: 'pageId',
+  it('loads more specific data when available', async() => {
+    payload.match.state = {
+      bookUid: 'testbook1-uuid',
+      bookVersion: '1.0',
+      pageUid: 'testbook1-testpage1-uuid',
     };
+
+    await hook(payload);
+    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
+    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
+  });
+
+  it('loads a page with a content reference', async() => {
+    archiveLoader.mockPage(book, {
+      content: 'rando content',
+      id: 'rando-page-id',
+      shortId: 'rando-page-shortid',
+      title: 'rando page',
+      version: '0',
+    });
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/rando-page-id content',
+      id: 'asdfasfasdfasdf',
+      shortId: 'asdf',
+      title: 'qwerqewrqwer',
+      version: '0',
+    });
+
+    payload.match.params.page = 'qwerqewrqwer';
 
     payload.match.state = {
-      bookUid: 'longbookid',
-      bookVersion: 'bookversion',
-      pageUid: 'longpageid',
+      bookUid: 'testbook1-uuid',
+      bookVersion: '1.0',
+      pageUid: 'asdfasfasdfasdf',
     };
 
-    hook(helpers)(next)(action);
-    expect(archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('bookId', undefined);
-    expect(archiveLoader.mock.loadPage).not.toHaveBeenCalledWith('bookId', undefined, 'pageId');
-    expect(archiveLoader.mock.loadBook).toHaveBeenCalledWith('longbookid', 'bookversion');
-    expect(archiveLoader.mock.loadPage).toHaveBeenCalledWith('longbookid', 'bookversion', 'longpageid');
+    await hook(payload);
+
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
+      match: '/contents/rando-page-id',
+      params: {
+        book: 'book-slug-1',
+        page: 'rando-page',
+      },
+      state: {
+        bookUid: 'testbook1-uuid',
+        bookVersion: '1.0',
+        pageUid: 'rando-page-id',
+      },
+    }]})}));
+  });
+
+  it('throws on cross book reference', async() => {
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/book:pagelongid content',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    });
+
+    payload.match.params = {
+      book: 'book',
+      page: 'qerqwer',
+    };
+
+    let message: string | undefined;
+
+    try {
+      await hook(payload);
+    } catch (e) {
+      message = e.message;
+    }
+
+    expect(message).toEqual('BUG: Cross book references are not supported');
+  });
+
+  it('throws on reference to unknown id', async() => {
+    archiveLoader.mockPage(book, {
+      content: 'some /contents/qwerqwer content',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    });
+
+    payload.match.params.page = 'qerqwer';
+
+    let message: string | undefined;
+
+    try {
+      await hook(payload);
+    } catch (e) {
+      message = e.message;
+    }
+
+    expect(message).toEqual('BUG: qwerqwer is not present in the ToC');
+  });
+
+  it('throws on unknown id', async() => {
+    payload.match.params.page = 'garbage';
+    let message: string | undefined;
+
+    try {
+      await hook(payload);
+    } catch (e) {
+      message = e.message;
+    }
+
+    expect(message).toEqual('Page not found');
   });
 });

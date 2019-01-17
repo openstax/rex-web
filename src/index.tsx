@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from './app';
+import config from './config';
 import createArchiveLoader from './helpers/createArchiveLoader';
+import createOSWebLoader from './helpers/createOSWebLoader';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import './index.css';
@@ -14,21 +16,19 @@ if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
 if (window.top === window.self) {
   const devMessage = [
     `Howdy! If you want to help out, the source code can be found at `,
-    `https://github.com/openstax/books-web`,
+    `https://github.com/openstax/rex-web`,
   ];
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-const ARCHIVE_URL = process.env.REACT_APP_ARCHIVE_URL;
-
-if (!ARCHIVE_URL) {
-  throw new Error('REACT_APP_ARCHIVE_URL must be defined');
-}
+if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
+if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
-    archiveLoader: createArchiveLoader(ARCHIVE_URL),
+    archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
+    osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
   },
 });
 

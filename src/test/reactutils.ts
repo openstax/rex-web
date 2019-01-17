@@ -1,3 +1,7 @@
+import { Element } from '@openstax/types/lib.dom';
+import { ComponentType, ReactElement } from 'react';
+import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { ReactTestInstance } from 'react-test-renderer';
 
 export const setStateFinished = (testInstance: ReactTestInstance) => new Promise((resolve) => {
@@ -19,4 +23,21 @@ export function expectError(message: string, fn: () => void) {
   } finally {
       consoleError.mockRestore();
   }
+}
+
+// Utility to handle nulls
+export function renderToDom<C extends ComponentType<{}>>(component: ReactElement<C>) {
+    const c = ReactTestUtils.renderIntoDocument(component) as C;
+    if (!c) {
+        throw new Error(`BUG: Component was not rendered`);
+    }
+    const node = ReactDOM.findDOMNode(c) as Element;
+    if (!node || !node.parentNode) {
+        throw new Error(`BUG: Could not find DOM node`);
+    }
+    return {
+      component: c,
+      node,
+      root: node.parentNode,
+    };
 }
