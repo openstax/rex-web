@@ -1,5 +1,5 @@
 import { Element } from '@openstax/types/lib.dom';
-import debounce from 'lodash/fp/debounce';
+import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/fp/isEmpty';
 import memoize from 'lodash/fp/memoize';
 import WeakMap from 'weak-map';
@@ -32,7 +32,9 @@ function typesetDocument(root: Element, windowImpl: Window) {
         return;
       }
 
-      windowImpl.MathJax.Hub.Typeset(latexNodes);
+      windowImpl.MathJax.Hub.Queue(
+        () => windowImpl.MathJax.Hub.Typeset(latexNodes)
+      );
     },
     () => {
       const mathMLNodes = Array.from(root.querySelectorAll(MATH_ML_SELECTOR));
@@ -42,7 +44,9 @@ function typesetDocument(root: Element, windowImpl: Window) {
       }
 
       // style the entire document because mathjax is unable to style individual math elements
-      windowImpl.MathJax.Hub.Typeset( root );
+      windowImpl.MathJax.Hub.Queue(
+        () => windowImpl.MathJax.Hub.Typeset(root)
+      );
     },
     () => {
       // Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
@@ -55,12 +59,20 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
+const typesetDocumentPromise = (root: Element, windowImpl: Window): Promise<void> => new Promise((resolve) => {
+  typesetDocument(root, windowImpl);
+  windowImpl.MathJax.Hub.Queue(resolve);
+});
+
 // memoize'd getter for typeset document function so that each node's
 // typeset has its own debounce
 const getTypesetDocument = memoize((root, windowImpl) => {
   // Install a debounce around typesetting function so that it will only run once
   // every Xms even if called multiple times in that period
-  return debounce(100, typesetDocument).bind(null, root, windowImpl);
+  return debounce(typesetDocumentPromise, 100, {
+    leading: true,
+    trailing: false,
+  }).bind(null, root, windowImpl);
 });
 getTypesetDocument.cache = new WeakMap();
 
@@ -69,8 +81,10 @@ getTypesetDocument.cache = new WeakMap();
 const typesetMath = (root: Element, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
   if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.Hub && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    getTypesetDocument(root, windowImpl)();
+    return getTypesetDocument(root, windowImpl)();
   }
+
+  return Promise.resolve();
 };
 
 // The following should be called once and configures MathJax.

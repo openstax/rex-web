@@ -142,7 +142,8 @@ export class PageComponent extends Component<PropTypes> {
 
   private postProcess() {
     if (this.container && typeof(window) !== 'undefined') {
-      typesetMath(this.container, window);
+      const promise = typesetMath(this.container, window);
+      this.props.services.promiseCollector.add(promise);
     }
   }
 }
