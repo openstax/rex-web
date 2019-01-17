@@ -8,7 +8,7 @@ before_script:
 addons:
   artifacts:
     paths:
-      - $(git ls-files . --exclude-standard --others | tr "\n" ":")
+      - $(git ls-files -i --exclude-standard --others **/__diff_output__/* | tr "\n" ":")
 
 cache: yarn
 

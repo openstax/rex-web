@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import scrollTo from 'scroll-to-element';
-import { typesetMath } from '../../../helpers/mathjax';
+import * as mathjax from '../../../helpers/mathjax';
+import PromiseCollector from '../../../helpers/PromiseCollector';
 import mockArchiveLoader, {
   book,
   page
@@ -20,7 +21,7 @@ import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
 import ConnectedPage from './Page';
 
-jest.mock('../../../helpers/mathjax');
+// jest.mock('../../../helpers/mathjax');
 jest.mock('scroll-to-element');
 
 describe('Page', () => {
@@ -31,6 +32,9 @@ describe('Page', () => {
   const services = {} as AppServices & MiddlewareAPI;
 
   beforeEach(() => {
+    jest.resetModules();
+    jest.resetAllMocks();
+
     state = (cloneDeep({
       content: {
         ...initialState,
@@ -46,11 +50,8 @@ describe('Page', () => {
     }), state);
 
     dispatch = jest.spyOn(store, 'dispatch');
+    services.promiseCollector = new PromiseCollector();
     services.archiveLoader = archiveLoader = mockArchiveLoader();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   const renderDomWithReferences = () => {
@@ -211,8 +212,10 @@ describe('Page', () => {
   });
 
   it('renders math', () => {
+    const typesetMath = jest.spyOn(mathjax, 'typesetMath');
     renderDomWithReferences();
     expect(typesetMath).toHaveBeenCalled();
+    typesetMath.mockRestore();
   });
 
   it('scrolls to top on new content', () => {

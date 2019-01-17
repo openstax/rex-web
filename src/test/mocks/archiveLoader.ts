@@ -11,6 +11,10 @@ export const page = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage1-shortid'), 'utf8')
 ) as ArchivePage;
 
+export const shortPage = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage4-shortid'), 'utf8')
+) as ArchivePage;
+
 const books: {[key: string]: ArchiveBook} = {
   [`${book.id}@${book.version}`]: book,
 };
@@ -18,6 +22,7 @@ const books: {[key: string]: ArchiveBook} = {
 const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
   [`${book.id}@${book.version}`]: {
     [page.id]: page,
+    [shortPage.id]: shortPage,
   },
 };
 

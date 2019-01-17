@@ -16,7 +16,7 @@ if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
 const ignoreConsoleMessages = [
   '%c %c %c Pixi.js 3.0.10 - ✰ WebGL ✰  %c  %c  http://www.pixijs.com/  %c %c ♥%c♥%c♥',
   '%cDownload the React DevTools for a better development experience: https://fb.me/react-devtools font-weight:bold',
-  '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/books-web font-weight:bold', // tslint:disable-line:max-line-length
+  '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/rex-web font-weight:bold', // tslint:disable-line:max-line-length
 ];
 
 page.on('console', (consoleMessage) => {
@@ -36,17 +36,23 @@ if (process.env.CI) {
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
+const calmHooks = (target: puppeteer.Page) => target.evaluate(async() => {
+  if (window && window.__APP_ASYNC_HOOKS) {
+    await window.__APP_ASYNC_HOOKS.calm();
+  }
+});
+
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
-
-  await target.evaluate(async() => {
-    if (window && window.__APP_ASYNC_HOOKS) {
-      await window.__APP_ASYNC_HOOKS.calm();
-    }
-  });
+  await calmHooks(target);
 };
 
-export const finishRender = async(_: puppeteer.Page) => {
+export const finishRender = async(target: puppeteer.Page) => {
+  // wait for any new async hooks to register...
+  await new Promise((resolve) => setTimeout(resolve, 600));
+
+  await calmHooks(target);
+
   // HACK - there is no convenient way to tell if chrome is finished rendering,
   // we should investigate inconvenient possibilities.
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -91,9 +97,9 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
   return h1 && h1.textContent;
 });
 
-export const checkLighthouse = async(urlPath: string) => {
+export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string) => {
 
-  const port = (new URL(browser.wsEndpoint())).port;
+  const port = (new URL(target.wsEndpoint())).port;
   const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
 
   expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);

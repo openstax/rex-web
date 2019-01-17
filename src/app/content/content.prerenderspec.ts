@@ -2,6 +2,7 @@
 import { navigate } from '../../test/browserutils';
 
 const TEST_PAGE = '/books/book-slug-1/pages/test-page-1';
+const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/test-page-3';
 const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/1-test-page-2';
 
 describe('content', () => {
@@ -18,12 +19,12 @@ describe('content', () => {
     };
 
     await page.setJavaScriptEnabled(false);
-    await navigate(page, TEST_PAGE);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
     const firstHTML = await page.evaluate(getHtml);
 
     await page.setJavaScriptEnabled(true);
-    await navigate(page, TEST_PAGE);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
     const secondHTML = await page.evaluate(getHtml);
 
