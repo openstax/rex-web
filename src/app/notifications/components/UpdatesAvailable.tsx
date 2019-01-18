@@ -42,10 +42,12 @@ const reload = () => {
 };
 
 // tslint:disable-next-line:variable-name
-export const UpdatesAvailable: SFC = () => <Body>
+const UpdatesAvailable: SFC = () => <Body>
   <Header>Updates Available</Header>
   <P>This page needs to be reloaded.</P>
   <ButtonGroup>
     <Button variant='primary' onClick={reload}>Reload</Button>
   </ButtonGroup>
 </Body>;
+
+export default UpdatesAvailable;

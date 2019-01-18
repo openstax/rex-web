@@ -6,7 +6,7 @@ import { AppState } from '../../types';
 import * as actions from '../actions';
 import * as select from '../selectors';
 import { AnyNotification } from '../types';
-import { UpdatesAvailable } from './UpdatesAvailable';
+import UpdatesAvailable from './UpdatesAvailable';
 
 // tslint:disable-next-line:variable-name
 const Container = styled.div`
