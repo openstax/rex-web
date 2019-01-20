@@ -25,10 +25,10 @@ venv:
 		source .venv/bin/activate && \
 		pip install -r requirements-dev.txt
 
-precommit:
-	pre-commit install
+help_redirect:
+	@$(MAKE) help --no-print-directory
 
-help:
+help_submake:
 	@echo "The following targets are available"
 	@echo "clean			Remove build, test, and file artifacts"
 	@echo "clean-build 		Remove build artifacts"
