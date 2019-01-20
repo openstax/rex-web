@@ -59,18 +59,24 @@ command line options available. To see the options available, run
 
 ## Uploading results to TestRail
 
-The TestRail integration is currently intended to be used during a local test run of the cnx-automation suite when the uploading of results to TestRail is desired.
+The TestRail integration is currently intended to be used during a local test run of the rex-web pytest suite when the uploading of results to TestRail is desired.
 
 Make a copy of of the testrail.example.cfg:
 
-    $ cp testrail.example.cfg testrail.cfg
+    $ touch testrail.cfg
 
-Replace the example values with the appropriate values:
+Add these configs with the appropriate values:
 
     [API]
     url = https://instance.testrail.net/
     email = testrail_user@domain.com
     password = api_key
+    
+    [TESTRUN]
+    assignedto_id = id_of_user
+    name = default_test_run_name
+    project_id = id_number
+    suite_id = id_number
 
 To run the tests only for webview and a specific set of tests:
 
@@ -97,14 +103,6 @@ This utilizes [pre-commit](https://pre-commit.com/) to format code using [black]
 and lint your code using [flake8][flake8]. This is IDE agnostic and runs only on checked in code before a commit. 
 
     $ make precommit
-
-### Using dotenv for Environmental Variables
-
-Dotenv is used by the framework to load environmental variables from a `.env` file if it exists in the root of the project directory.
-
-This is useful for loading environment variables that use usernames. To use a .env file copy the example and fill out the values.
-
-    $ cp .env.example .env
 
 ## Framework Design
 
