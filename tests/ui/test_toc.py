@@ -31,5 +31,5 @@ def test_toc_has_chapters(selenium, base_url, book_slug, page_slug):
     # WHEN: The URL is fully loaded using the book_slug and page_slug
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
-    # THEN: There is more than 1 Chapter that exists
+    # THEN: More than 1 Chapter exists
     assert len(content.table_of_contents.chapters) > 0
