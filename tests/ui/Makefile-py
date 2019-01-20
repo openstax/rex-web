@@ -23,7 +23,7 @@ clean-test: ## remove test and coverage artifacts
 venv:
 	python3 -m venv .venv && \
 		source .venv/bin/activate && \
-		pip install -r requirements-dev.txt
+		pip install -r tests/ui/requirements-dev.txt
 
 help_redirect:
 	@$(MAKE) help --no-print-directory
