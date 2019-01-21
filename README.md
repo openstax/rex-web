@@ -99,7 +99,7 @@ this suite:
 
 run these with `pytest --base-url http://localhost:3000 test/ui`
 
-There are many more options when running these test. Please visit the [tests/ui/README.md](tests/ui/README.md) for more.
+There are many more options when running these test. Please visit the [tests/ui/README.md](pytest-selenium/ui/README.md) for more.
 
 this suite:
 - contains browser tests using selenium

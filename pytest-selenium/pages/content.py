@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
-from .base import Page
-from ..regions.base import Region
+from pages.base import Page
+from regions.base import Region
 
 
 class Content(Page):

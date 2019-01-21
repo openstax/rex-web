@@ -1,6 +1,6 @@
 .PHONY: help pre-commit clean clean-build clean-pyc clean-test venv
 
-include tests/ui/Makefile-py
+include pytest-selenium/Makefile-py
 
 pre-commit:
 	pre-commit install

@@ -1,5 +1,5 @@
-from tests.ui.pages.content import Content
-from tests.ui import markers
+from pages.content import Content
+from . import markers
 
 
 @markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
