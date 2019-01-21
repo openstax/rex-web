@@ -78,7 +78,7 @@ Add these configs with the appropriate values:
     project_id = id_number
     suite_id = id_number
 
-To run the tests only for webview and a specific set of tests:
+To run the tests only for the table of contents:
 
 ```bash
 $ pytest -k test_toc --testrail --testrail-name release01 tests/ui
