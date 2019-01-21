@@ -43,8 +43,3 @@ class Content(Page):
 
     class TableOfContents(Region):
         _root_locator = (By.CSS_SELECTOR, "#root > div > div > div > div > nav")
-        _chapter_locator = (By.CSS_SELECTOR, "nav > ol > li")
-
-        @property
-        def chapters(self):
-            return self.find_elements(*self._chapter_locator)

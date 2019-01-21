@@ -21,15 +21,3 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
     content.click_table_of_contents_button()
     assert toc.is_displayed
-
-
-@markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
-@markers.nondestructive
-def test_toc_has_chapters(selenium, base_url, book_slug, page_slug):
-    # GIVEN: The selenium driver, base_url, book_slug, and page_slug
-
-    # WHEN: The URL is fully loaded using the book_slug and page_slug
-    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-
-    # THEN: More than 1 Chapter exists
-    assert len(content.table_of_contents.chapters) > 0
