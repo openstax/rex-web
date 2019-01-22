@@ -1,6 +1,7 @@
 // tslint:disable:variable-name
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
+import { FormattedMessage, InjectedIntl, injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState, Dispatch } from '../../types';
@@ -31,8 +32,15 @@ const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
   `}
 `;
 
-const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonElement> & {isOpen: boolean}) =>
-  <button {...props}>
+type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
+  isOpen: boolean,
+  intl: IntlShape & InjectedIntl
+};
+
+const StyledSidebarControl = styled(({isOpen, intl, ...props}: StyledSidebarControlProps) =>
+  <button {...props}
+    aria-label={intl.formatMessage({id: isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'})}
+  >
     <span></span>
     <span></span>
     <span></span>
@@ -87,6 +95,8 @@ const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonEle
 
 `;
 
+const SidebarControl = injectIntl(StyledSidebarControl);
+
 const SidebarBody = styled.div<{isOpen: boolean}>`
   position: fixed;
   left: 0;
@@ -115,7 +125,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     background-color: #ccc;
     overflow-y: hidden;
 
-    > :not(${SidebarControl}) {
+    > :not(${StyledSidebarControl}) {
       transition-delay: ${sidebarTransitionTime}ms;
       visibility: hidden;
     }
@@ -165,7 +175,6 @@ export class Sidebar extends Component<SidebarProps> {
         isOpen={isOpen}
         onClick={() => isOpen ? closeToc() : openToc()}
         role='button'
-        aria-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
       />
       <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
         {this.renderLinks()}
@@ -194,7 +203,12 @@ export class Sidebar extends Component<SidebarProps> {
     return <nav>
       <ol>
         <NavItem>
-          <a href='#'>book details</a>
+          <FormattedMessage id='i18n:toc:bookDetails'>
+            {(txt) => (
+              <a href='#'>{txt}</a>
+            )}
+          </FormattedMessage>
+
         </NavItem>
       </ol>
     </nav>;
@@ -223,7 +237,11 @@ export class Sidebar extends Component<SidebarProps> {
 
   private renderToc = (book: Book) => {
     return <div>
-      <h2>Table of Contents</h2>
+      <FormattedMessage id='i18n:toc:title'>
+        {(txt) => (
+          <h2>{txt}</h2>
+        )}
+      </FormattedMessage>
       {this.renderTocNode(book, book.tree)}
     </div>;
   }
