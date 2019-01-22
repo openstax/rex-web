@@ -10,8 +10,8 @@ if (!process.env.REACT_APP_BOOKS) {
 }
 
 module.exports = {
-  RELEASE_ID: process.env.RELEASE_ID,
-  CODE_VERSION: process.env.CODE_VERSION,
+  RELEASE_ID: process.env.REACT_APP_RELEASE_ID,
+  CODE_VERSION: process.env.REACT_APP_CODE_VERSION,
 
   BOOKS: JSON.parse(process.env.REACT_APP_BOOKS),
 
