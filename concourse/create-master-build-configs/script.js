@@ -17,7 +17,9 @@ fs.readFile(versionFile, 'utf8', function(err, commit) {
   const tag = 'master';
   const releaseId = `master/${commit}`;
   const args = {
-    PUBLIC_URL: `/rex/releases/${releaseId}`
+    PUBLIC_URL: `/rex/releases/${releaseId}`,
+    REACT_APP_CODE_VERSION: commit,
+    REACT_APP_RELEASE_ID: releaseId,
   };
 
   console.log('Generating build arg file...');
