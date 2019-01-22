@@ -32,7 +32,7 @@ test: venv
 		--tr-password=$(TR_PASSWORD) \
 		--tr-run-id=673 \
 		--tr-skip-missing \
-		--base-url=http://localhost:3000 \
+		--base-url=https://release-2019-q1-unified.sandbox.openstax.org \
 		--driver SauceLabs --capability browserName Firefox \
 		pytest-selenium/tests
 
