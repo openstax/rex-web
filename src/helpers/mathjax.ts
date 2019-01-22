@@ -1,7 +1,7 @@
 import { Element } from '@openstax/types/lib.dom';
 import debounce from 'lodash/debounce';
-import isEmpty from 'lodash/isEmpty';
-import memoize from 'lodash/memoize';
+import isEmpty from 'lodash/fp/isEmpty';
+import memoize from 'lodash/fp/memoize';
 import WeakMap from 'weak-map';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
