@@ -1,5 +1,8 @@
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
+import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
+
+jest.mock('cnx-recipes/styles/output/intro-business.json', () => '');
 
 declare global {
   namespace jest {
@@ -36,8 +39,8 @@ console.error = (msg) => {  // tslint:disable-line:no-console
   originalConsoleError(msg);
 };
 
-// set default timeout to something quite large in CI
 if (process.env.CI) {
+  // set default timeout to something quite large in CI
   jest.setTimeout(90 * 1000);
 } else {
   jest.setTimeout(30 * 1000);

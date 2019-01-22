@@ -7,7 +7,7 @@ exports[`Prerender sanity tests has a release manifest 1`] = `
       \\"defaultVersion\\": \\"1.0\\"
     }
   },
-  \\"code\\": \\"testversion\\",
-  \\"id\\": \\"testrelease\\"
+  \\"code\\": \\"test\\",
+  \\"id\\": \\"test\\"
 }"
 `;

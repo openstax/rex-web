@@ -1,7 +1,9 @@
+import { RouteParams, RouteState } from '../navigation/types';
+import { content } from './routes';
 
 export interface Params {
-  bookId: string;
-  pageId: string;
+  book: string;
+  page: string;
 }
 
 export interface State {
@@ -13,14 +15,25 @@ export interface State {
   };
   book?: Book;
   page?: Page;
+  references: PageReferenceMap[];
+}
+
+export interface PageReferenceMap extends PageReference {
+  match: string;
+}
+
+export interface PageReference {
+  state: RouteState<typeof content>;
+  params: RouteParams<typeof content>;
 }
 
 export interface Book {
   id: string;
   shortId: string;
   title: string;
-  version: string;
   tree: ArchiveTree;
+  version: string;
+  slug: string;
 }
 
 export interface Page {
@@ -36,6 +49,10 @@ export interface ArchiveTreeSection {
   title: string;
 }
 
+export interface LinkedArchiveTreeSection extends ArchiveTreeSection {
+  parent: ArchiveTree;
+}
+
 export interface ArchiveTree extends ArchiveTreeSection {
   contents: Array<ArchiveTree | ArchiveTreeSection>;
 }
@@ -43,9 +60,9 @@ export interface ArchiveTree extends ArchiveTreeSection {
 export interface ArchiveBook {
   id: string;
   shortId: string;
+  title: string;
   tree: ArchiveTree;
   version: string;
-  title: string;
 }
 
 export interface ArchivePage {

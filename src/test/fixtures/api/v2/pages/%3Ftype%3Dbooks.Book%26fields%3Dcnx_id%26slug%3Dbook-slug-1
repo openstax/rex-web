@@ -1,0 +1,15 @@
+{
+    "meta": {
+        "total_count": 1
+    },
+    "items": [
+        {
+            "id": 1,
+            "meta": {
+                "slug": "book-slug-1"
+            },
+            "title": "Test Book 1",
+            "cnx_id": "testbook1-uuid"
+        }
+    ]
+}
