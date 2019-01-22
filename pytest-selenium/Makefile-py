@@ -27,16 +27,13 @@ help_redirect:
 test: venv
 	@source .venv/bin/activate && pytest \
 		--testrail \
-		--tr-url="https://instance.testrail.net/" \
+		--tr-url="https://openstax.testrail.net/" \
 		--tr-email=$(TR_EMAIL) \
 		--tr-password=$(TR_PASSWORD) \
-		--tr-testrun-project-id=11 \
-		--tr-plan-id=650 \
-	  --tr-run-id=652 \
-		--tr-testrun-suite-id=487 \
+		--tr-run-id=673 \
 		--tr-skip-missing \
 		--base-url=http://localhost:3000 \
-		--driver Chrome \
+		--driver SauceLabs --capability browserName Firefox \
 		pytest-selenium/tests
 
 help_submake:
