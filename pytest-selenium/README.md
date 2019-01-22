@@ -29,25 +29,7 @@ repository, check out this [help page][git-clone] from GitHub.
 To run a specific test, pass in a value for `-k`:
 
 ```bash
-$ pytest -k test_my_feature tests/ui
-```
-
-To run a specific marker, pass in the marker name using `-m`:
-
-```bash
-$ pytest -m desktop_only tests/ui
-```
-
-To run a more complicated example that runs a specific project and a specific test module in headless mode:
-
-```bash
-$ pytest -m desktop_only -k test_toc --headless tests/ui
-```
-
-To run tests in parallel you can combine the above and use `-n` option to specify the number of workers.
-
-```bash
-$ pytest -n 4 tests/ui
+$ pytest -k test_my_feature --driver Chrome pytest-selenium/tests
 ```
 
 ### Additional Pytest Options
@@ -81,7 +63,7 @@ Add these configs with the appropriate values:
 To run the tests only for the table of contents:
 
 ```bash
-$ pytest -k test_toc --testrail --testrail-name release01 tests/ui
+$ pytest -k test_toc --driver Chrome --testrail --testrail-name release01 tests/ui
 ```
 
 Consult the pytest-testrail project `README.md`  for more options
