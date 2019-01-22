@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import { updateAvailable } from '../app/notifications/actions';
 import { Store } from '../app/types';
-import pollUpdatesType from './pollUpdates';
+import pollUpdatesType, { Cancel, poll as pollType } from './pollUpdates';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
   json: () => Promise.resolve(data),
@@ -10,7 +10,7 @@ const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
 }));
 
 describe('poll updates', () => {
-  let cancel: ReturnType<typeof pollUpdatesType>;
+  let cancel: Cancel;
   const fetchBackup = fetch;
   let store: Store;
 
@@ -129,5 +129,52 @@ describe('poll updates', () => {
       jest.runAllTimers();
       expect(fetch).not.toHaveBeenCalled();
     });
+  });
+});
+
+describe('poll', () => {
+  let cancel: Cancel;
+  const fetchBackup = fetch;
+  let poll: typeof pollType;
+  let store: Store;
+
+  beforeEach(() => {
+    store = createStore((_) => ({}));
+    store.dispatch = jest.fn(store.dispatch);
+    (global as any).fetch = mockFetch(200, {id: 'releaseid'});
+    cancel = jest.fn();
+    jest.mock('../config', () => ({
+      RELEASE_ID: 'releaseid',
+    }));
+    poll = require('./pollUpdates').poll;
+  });
+
+  afterEach(() => {
+    (global as any).fetch = fetchBackup;
+  });
+
+  it('calls cancel if the release is different', async() => {
+    (global as any).fetch = mockFetch(200, {id: 'releaseid2'});
+    await poll(store, cancel)();
+    expect(cancel).toHaveBeenCalled();
+  });
+
+  it('doesn\'t call cancel if release is the same', async() => {
+    await poll(store, cancel)();
+    expect(cancel).not.toHaveBeenCalled();
+  });
+
+  it('does nothing if error is returned', async() => {
+    (global as any).fetch = jest.fn(() => Promise.reject());
+    let message: undefined | string;
+
+    try {
+      await poll(store, cancel)();
+    } catch (e) {
+      message = e.message;
+    }
+
+    expect(cancel).not.toHaveBeenCalled();
+    expect(message).toBeUndefined();
   });
 });
