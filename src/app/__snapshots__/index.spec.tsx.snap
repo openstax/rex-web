@@ -2,8 +2,6 @@
 
 exports[`create app container renders 1`] = `
 <h1>
-  <span>
-    page not found
-  </span>
+  page not found
 </h1>
 `;

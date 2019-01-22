@@ -2,5 +2,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 export default () => {
-  return <h1><FormattedMessage id='i18n:404'/></h1>;
+  return <FormattedMessage id='i18n:404'>
+    {(txt) => (
+        <h1>
+            {txt}
+        </h1>
+    )}
+  </FormattedMessage>;
 };

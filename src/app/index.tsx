@@ -1,8 +1,5 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
-import { addLocaleData, IntlProvider } from 'react-intl';
-import en from 'react-intl/locale-data/en';
-import cs from 'react-intl/locale-data/cs';
 import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
@@ -12,6 +9,7 @@ import * as content from './content';
 import * as Services from './context/Services';
 import * as errors from './errors';
 import * as head from './head';
+import MessageProvider from './MessageProvider';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
@@ -85,24 +83,12 @@ export default (options: Options) => {
     reducer,
   });
 
-  const language = (typeof window === 'undefined') ? 'en-us' : window.navigator.language;
-  addLocaleData([...en, ...cs]);
-
-  const messages = new Map()
-  messages.set('en', { 'i18n:404': 'page not found' });
-  messages.set('cs', { 'i18n:404': 'požadovaná stránka neexistuje'});
-
-  function getMessages(language: string) {
-      const lang = language.split('-')[0]
-      return messages.get(lang) || messages.get('en')
-  }
-
   const container = () => <Provider store={store}>
-  <IntlProvider locale={language} messages={getMessages(language)}>
-    <Services.Provider value={services} >
-      <navigation.components.NavigationProvider routes={routes} />
-    </Services.Provider>
-  </IntlProvider>
+    <MessageProvider>
+      <Services.Provider value={services} >
+        <navigation.components.NavigationProvider routes={routes} />
+      </Services.Provider>
+    </MessageProvider>
   </Provider>;
 
   if (!initialState) {
