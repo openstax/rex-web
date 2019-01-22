@@ -24,10 +24,26 @@ venv:
 help_redirect:
 	@$(MAKE) help --no-print-directory
 
+test: venv
+	@source .venv/bin/activate && pytest \
+		--testrail \
+		--tr-url="https://instance.testrail.net/" \
+		--tr-email=$(TR_EMAIL) \
+		--tr-password=$(TR_PASSWORD) \
+		--tr-testrun-project-id=11 \
+		--tr-plan-id=650 \
+	  --tr-run-id=652 \
+		--tr-testrun-suite-id=487 \
+		--tr-skip-missing \
+		--base-url=http://localhost:3000 \
+		--driver Chrome \
+		pytest-selenium/tests
+
 help_submake:
 	@echo "The following targets are available"
-	@echo "clean			Remove build, test, and file artifacts"
-	@echo "clean-build 		Remove build artifacts"
-	@echo "clean-pyc		Remove file artifacts"
-	@echo "clean-test		Remove test artifacts"
-	@echo "venv			Set up a virtualenv for this project"
+	@echo "clean       Remove build, test, and file artifacts"
+	@echo "clean-build Remove build artifacts"
+	@echo "clean-pyc   Remove file artifacts"
+	@echo "clean-test  Remove test artifacts"
+	@echo "venv			   Set up a virtualenv for this project"
+	@echo "test			   Run test suite"
