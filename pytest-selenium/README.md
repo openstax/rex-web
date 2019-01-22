@@ -61,7 +61,7 @@ command line options available. To see the options available, run
 
 The TestRail integration is currently intended to be used during a local test run of the rex-web pytest suite when the uploading of results to TestRail is desired.
 
-Make a copy of of the testrail.example.cfg:
+Create a testrail.cfg file:
 
     $ touch testrail.cfg
 
