@@ -1,7 +1,3 @@
-
-.PHONY: clean clean-test clean-pyc clean-eggs venv precommit help
-.DEFAULT_GOAL := help
-
 clean: clean-eggs clean-pyc clean-test
 
 clean-eggs: ## remove build artifacts

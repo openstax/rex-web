@@ -97,7 +97,7 @@ this suite:
 
 ### Selenium Tests
 
-run these with `pytest --base-url http://localhost:3000 --driver pytest-selenium/tests`
+run these with `pytest --base-url http://localhost:3000 --driver Chrome pytest-selenium/tests`
 
 There are many more options when running these test. Please visit the [tests/ui/README.md](pytest-selenium/README.md) for more.
 

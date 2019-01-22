@@ -8,7 +8,9 @@ MOBILE = (414, 738)
 
 
 @pytest.fixture(
-    scope="function", params=[DESKTOP, MOBILE], ids=["Resolution: 1080x1920", "Resolution: 414x738"]
+    scope="function",
+    params=[DESKTOP, MOBILE],
+    ids=[f"{DESKTOP[1]}x{DESKTOP[0]}", f"{MOBILE[1]}x{MOBILE[0]}"],
 )
 def selenium(selenium, request):
     """Fixture to set custom selenium parameters.
