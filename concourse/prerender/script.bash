@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export CODE_VERSION=`cat build-configs/commit.txt`
-export RELEASE_ID=`cat build-configs/release-id.txt`
-export NODE_ENV=production
+export REACT_APP_CODE_VERSION=`cat build-configs/commit.txt`
+export REACT_APP_RELEASE_ID=`cat build-configs/release-id.txt`
+export REACT_APP_ENV=production
 
 DESTINATION=`pwd`/release
 
