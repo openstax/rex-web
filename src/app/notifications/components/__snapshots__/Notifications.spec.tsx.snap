@@ -54,44 +54,97 @@ exports[`Notifications matches snapshot 1`] = `
   max-width: 100%;
 }
 
-.c4 {
-  box-sizing: border-box;
+.c2 {
   width: 100%;
 }
 
 .c1 {
   background-color: #fff;
-  border: thin solid #d5d5d5;
-  box-shadow: 0 1rem 2rem 0 rgba(0,0,0,0.2);
-  display: block;
+  border-style: solid;
+  border-color: #d5d5d5;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-  max-width: 54rem;
-  padding-bottom: 0.5rem;
 }
 
-.c1 > .c5,
-.c1 .c3 {
-  padding: .5rem 1rem;
+.c1 > .c5 {
+  padding: 8px;
   margin: 0;
 }
 
-.c2 {
-  background-color: #f1f1f1;
-  margin-bottom: 1.5rem;
-  min-height: 1.5rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 1rem;
+.c3 {
+  padding: 4px 8px;
   font-weight: bold;
-  line-height: 2.5rem;
 }
 
 .c0 {
   z-index: 2;
-  position: fixed;
   top: 0;
-  right: 0;
+  overflow: visible;
+}
+
+@media (max-width:600px) {
+  .c4 {
+    padding: 0 8px;
+  }
+}
+
+@media (min-width:601px) {
+  .c4 {
+    padding: 8px;
+  }
+}
+
+@media (max-width:600px) {
+  .c1 {
+    border-width: 0 0 thin 0;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media (min-width:601px) {
+  .c1 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border-width: thin;
+    box-shadow: 0 1rem 2rem 0 rgba(0,0,0,0.2);
+    overflow: visible;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    line-height: 30px;
+  }
+}
+
+@media (min-width:601px) {
+  .c3 {
+    background-color: #f1f1f1;
+    line-height: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width:600px) {
+  .c0 {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+@media (min-width:601px) {
+  .c0 {
+    position: fixed;
+    right: 0;
+  }
 }
 
 <div
@@ -103,12 +156,16 @@ exports[`Notifications matches snapshot 1`] = `
     <div
       className="c2"
     >
-      Updates Available
-    </div>
-    <div
-      className="c3 c4"
-    >
-      This page needs to be reloaded.
+      <div
+        className="c3"
+      >
+        Updates Available
+      </div>
+      <div
+        className="c4"
+      >
+        This page needs to be reloaded.
+      </div>
     </div>
     <div
       className="c5 c6"

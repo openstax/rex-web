@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getType } from 'typesafe-actions';
+import theme from '../../theme';
 import { AppState } from '../../types';
 import * as actions from '../actions';
 import * as select from '../selectors';
@@ -11,9 +12,16 @@ import UpdatesAvailable from './UpdatesAvailable';
 // tslint:disable-next-line:variable-name
 const Container = styled.div`
   z-index: 2;
-  position: fixed;
   top: 0;
-  right: 0;
+  overflow: visible;
+
+  @media (max-width: ${theme.breakpoint.mobile}px) {
+    position: sticky;
+  }
+  @media (min-width: ${theme.breakpoint.mobile + 1}px) {
+    position: fixed;
+    right: 0;
+  }
 `;
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
