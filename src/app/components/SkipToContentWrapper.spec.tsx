@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { expectError, renderToDom } from '../../test/reactutils';
+import MessageProvider from '../MessageProvider';
 import MainContent from './MainContent';
 import SkipToContentWrapper from './SkipToContentWrapper';
 
@@ -15,30 +16,39 @@ describe('SkipToContentWrapper', () => {
     });
 
     it('errors when no main content is provided', () => {
-        const {node} = renderToDom(<SkipToContentWrapper/>);
+        debugger
+        const {node} = renderToDom(<MessageProvider>
+            <SkipToContentWrapper/>
+        </MessageProvider>);
         const breaks = () => ReactTestUtils.Simulate.click(node);
         expectError('BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?',
             breaks);
     });
 
     it('fails when main is not wrapped in a SkipToContentWrapper', () => {
-        const breaks = () => renderToDom(<MainContent/>);
+        const breaks = () => renderToDom(<MessageProvider>
+            <MainContent/>
+        </MessageProvider>);
         expectError('BUG: MainContent must be inside SkipToContentWrapper', breaks);
     });
 
     it('succeeds when main content is provided', () => {
-        const {node} = renderToDom(<SkipToContentWrapper>
-            <MainContent/>
-        </SkipToContentWrapper>);
+        const {node} = renderToDom(<MessageProvider>
+            <SkipToContentWrapper>
+                <MainContent/>
+            </SkipToContentWrapper>
+        </MessageProvider>);
 
         const works = () => ReactTestUtils.Simulate.click(node);
         expect(works).not.toThrow();
     });
 
     it('scrolls and moves focus to mainContent when clicked (a11y)', () => {
-        const {node, component} = renderToDom(<SkipToContentWrapper>
-            <MainContent/>
-        </SkipToContentWrapper>);
+        const {node, component} = renderToDom(<MessageProvider>
+            <SkipToContentWrapper>
+                <MainContent/>
+            </SkipToContentWrapper>
+        </MessageProvider>);
 
         if (!window) {
             expect(window).toBeTruthy();

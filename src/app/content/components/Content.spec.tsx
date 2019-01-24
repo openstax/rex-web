@@ -11,6 +11,7 @@ import { initialState } from '../reducer';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
+import MessageProvider from '../../MessageProvider';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -35,7 +36,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -48,7 +51,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -64,7 +69,9 @@ describe('content', () => {
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -81,7 +88,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -106,7 +115,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -125,7 +136,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
