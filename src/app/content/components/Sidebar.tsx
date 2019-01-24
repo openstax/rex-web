@@ -1,7 +1,7 @@
 // tslint:disable:variable-name
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
-import { FormattedMessage, InjectedIntl, injectIntl, IntlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState, Dispatch } from '../../types';
@@ -34,17 +34,20 @@ const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
 
 type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
   isOpen: boolean,
-  intl: IntlShape & InjectedIntl
 };
 
-const StyledSidebarControl = styled(({isOpen, intl, ...props}: StyledSidebarControlProps) =>
-  <button {...props}
-    aria-label={intl.formatMessage({id: isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'})}
-  >
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
+  <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
+    {(txt) => {
+      return typeof txt === 'string' && <button {...props}
+          aria-label={txt}
+        >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>;
+    }}
+  </FormattedMessage>
 )`
   position: fixed;
   top: ${sidebarPadding}px;
@@ -95,8 +98,6 @@ const StyledSidebarControl = styled(({isOpen, intl, ...props}: StyledSidebarCont
 
 `;
 
-const SidebarControl = injectIntl(StyledSidebarControl);
-
 const SidebarBody = styled.div<{isOpen: boolean}>`
   position: fixed;
   left: 0;
@@ -125,7 +126,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     background-color: #ccc;
     overflow-y: hidden;
 
-    > :not(${StyledSidebarControl}) {
+    > :not(${SidebarControl}) {
       transition-delay: ${sidebarTransitionTime}ms;
       visibility: hidden;
     }
