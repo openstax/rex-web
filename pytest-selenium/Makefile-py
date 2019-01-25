@@ -36,6 +36,12 @@ test: venv
 		--driver SauceLabs --capability browserName Firefox \
 		pytest-selenium/tests
 
+test-local: venv
+	@source .venv/bin/activate && pytest \
+		--base-url http://localhost:3000 \
+		--driver Chrome \
+		pytest-selenium/tests \
+
 help_submake:
 	@echo "The following targets are available"
 	@echo "clean       Remove build, test, and file artifacts"
@@ -43,4 +49,5 @@ help_submake:
 	@echo "clean-pyc   Remove file artifacts"
 	@echo "clean-test  Remove test artifacts"
 	@echo "venv			   Set up a virtualenv for this project"
-	@echo "test			   Run test suite"
+	@echo "test			   Run test suite in SauceLabs"
+	@echo "test-local      Run test suite locally"
