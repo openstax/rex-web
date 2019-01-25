@@ -1,0 +1,21 @@
+---
+platform: linux
+
+outputs:
+- name: test-plans
+
+params:
+  TR_PROJECT_ID: ((testrail-project-id))
+  TR_INSTANCE: ((testrail-instance))
+  TR_USERNAME: ((testrail-username))
+  TR_PASSWORD: ((testrail-password))
+
+run:
+  path: /bin/bash
+  args:
+    - -c
+    - |
+      DEST=$(pwd)/test-plans
+      cd /code/concourse/create-test-plan-configs
+      yarn install
+      ./script.js $DEST
