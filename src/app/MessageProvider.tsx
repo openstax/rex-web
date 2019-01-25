@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import en from 'react-intl/locale-data/en';
@@ -15,8 +14,7 @@ const messages = {
 };
 
 // tslint:disable-next-line:variable-name
-const MessageProvider: React.SFC<{}> = (props) => {
-  return <IntlProvider locale={'en'} messages={messages}>{props.children}</IntlProvider>;
-};
+const MessageProvider: React.SFC = (props) =>
+  <IntlProvider locale='en' messages={messages}>{props.children}</IntlProvider>;
 
 export default MessageProvider;

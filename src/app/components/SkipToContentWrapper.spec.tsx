@@ -16,7 +16,6 @@ describe('SkipToContentWrapper', () => {
     });
 
     it('errors when no main content is provided', () => {
-        debugger
         const {node} = renderToDom(<MessageProvider>
             <SkipToContentWrapper/>
         </MessageProvider>);
@@ -44,18 +43,20 @@ describe('SkipToContentWrapper', () => {
     });
 
     it('scrolls and moves focus to mainContent when clicked (a11y)', () => {
-        const {node, component} = renderToDom(<MessageProvider>
+        const {node, tree} = renderToDom(<MessageProvider>
             <SkipToContentWrapper>
                 <MainContent/>
             </SkipToContentWrapper>
         </MessageProvider>);
 
+        const wrapper = ReactTestUtils.findRenderedComponentWithType(tree, SkipToContentWrapper);
+
         if (!window) {
             expect(window).toBeTruthy();
-        } else if (!component.mainContent) {
-            expect(component.mainContent).toBeTruthy();
+        } else if (!wrapper.mainContent) {
+            expect(wrapper.mainContent).toBeTruthy();
         } else {
-            const mainContent = (component.mainContent as unknown) as HTMLElement;
+            const mainContent = (wrapper.mainContent as unknown) as HTMLElement;
             const spyScroll = jest.spyOn(window, 'scrollTo');
             const spyFocus = jest.spyOn(mainContent, 'focus');
 
