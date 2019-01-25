@@ -6,12 +6,12 @@ import { createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
+import MessageProvider from '../../MessageProvider';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
-import MessageProvider from '../../MessageProvider';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
