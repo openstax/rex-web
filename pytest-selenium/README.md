@@ -18,11 +18,15 @@ repository, check out this [help page][git-clone] from GitHub.
 
 #### Create a virtualenv
 
-    $ make venv
+```bash
+$ make venv
+```
 
 #### Activate the virtualenv
 
-    $ source .venv/bin/activate
+```bash
+$ source .venv/bin/activate
+```
 
 ## Run the tests using Pytest
 
@@ -45,30 +49,32 @@ The TestRail integration is currently intended to be used during a local test ru
 
 Create a `testrail.cfg` file:
 
-    $ touch testrail.cfg
+```bash
+$ touch ./testrail.cfg
+```
 
 Add these configs with the appropriate values:
 
-    [API]
-    url = https://instance.testrail.net/
-    email = testrail_user@domain.com
-    password = api_key
-    
-    [TESTRUN]
-    assignedto_id = id_of_user
-    name = default_test_run_name
-    project_id = id_number
-    suite_id = id_number
+```
+[API]
+url = https://instance.testrail.net/
+email = testrail_user@domain.com
+password = api_key
+
+[TESTRUN]
+assignedto_id = id_of_user
+name = default_test_run_name
+project_id = id_number
+suite_id = id_number
+```
 
 To run the tests only for the table of contents:
 
 ```bash
-$ pytest -k test_toc --driver Chrome --testrail --testrail-name release01 tests/ui
+$ pytest -k test_toc --driver Chrome --testrail --testrail-name release01 ./tests/ui
 ```
 
-Consult the pytest-testrail project `README.md`  for more options
-
-https://github.com/allankp/pytest-testrail
+Consult the [pytest-testrail project][pytest-testrail] for more options
 
 ### Marking a test that has a test case in TestRail
 
@@ -84,7 +90,9 @@ def test_foo_uploads_bar:
 This utilizes [pre-commit](https://pre-commit.com/) to format code using [black](https://github.com/ambv/black)
 and lint your code using [flake8][flake8]. This is IDE agnostic and runs only on checked in code before a commit. 
 
-    $ make precommit
+```bash
+$ make precommit
+```
 
 ## Framework Design
 
@@ -126,6 +134,7 @@ def test_nav_is_displayed(webview_base_url, selenium):
 [python]: https://www.python.org/downloads/
 [flake8]: http://flake8.readthedocs.io/
 [pytest-selenium]: http://pytest-selenium.readthedocs.org/
+[pytest-testrail]: https://github.com/allankp/pytest-testrail
 [pypom]: https://pypom.readthedocs.io/en/latest/user_guide.html#regions
 [pageobject]: https://martinfowler.com/bliki/PageObject.html
 [pytest]: https://docs.pytest.org/en/latest/

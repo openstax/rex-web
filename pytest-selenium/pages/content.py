@@ -4,16 +4,15 @@ from selenium.webdriver.support import expected_conditions as expected
 from pages.base import Page
 from regions.base import Region
 
+# TODO: Ensure only 1 <nav> element exists on the Page
+NAV_SELECTOR = "#root > div > div > div > div > nav"
 
 class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
 
-    _main_content_locator = (
-        By.CSS_SELECTOR,
-        '#main-content > div > div > div h1[data-type="document-title"]',
-    )
-    _table_of_contents_button_locator = (By.CSS_SELECTOR, "#root > div > div > button")
-    _table_of_contents_nav_locator = (By.CSS_SELECTOR, "#root > div > div > div > div > nav")
+    _main_content_locator = (By.CSS_SELECTOR, 'h1')
+    _table_of_contents_button_locator = (By.CSS_SELECTOR, "[aria-label='Click to close the Table of Contents'], [aria-label='Click to open the Table of Contents']")
+    _table_of_contents_nav_locator = (By.CSS_SELECTOR, NAV_SELECTOR)
 
     @property
     def loaded(self):
@@ -42,4 +41,4 @@ class Content(Page):
         return self.TableOfContents(self)
 
     class TableOfContents(Region):
-        _root_locator = (By.CSS_SELECTOR, "#root > div > div > div > div > nav")
+        _root_locator = (By.CSS_SELECTOR, NAV_SELECTOR)

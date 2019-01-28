@@ -24,7 +24,7 @@ venv:
 help_redirect:
 	@$(MAKE) help --no-print-directory
 
-test: venv
+test-rail: venv
 	@source .venv/bin/activate && pytest \
 		--testrail \
 		--tr-url="https://openstax.testrail.net/" \
@@ -36,7 +36,7 @@ test: venv
 		--driver SauceLabs --capability browserName Firefox \
 		pytest-selenium/tests
 
-test-local: venv
+test: venv
 	@source .venv/bin/activate && pytest \
 		--base-url http://localhost:3000 \
 		--driver Chrome \
@@ -49,5 +49,5 @@ help_submake:
 	@echo "clean-pyc   Remove file artifacts"
 	@echo "clean-test  Remove test artifacts"
 	@echo "venv	       Set up a virtualenv for this project"
-	@echo "test        Run test suite in SauceLabs"
-	@echo "test-local  Run test suite locally"
+	@echo "test        Run test suite against localhost:3000"
+	@echo "test-rail   Run test suite in Saucelabs and Testrail"
