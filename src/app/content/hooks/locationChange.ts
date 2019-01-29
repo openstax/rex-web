@@ -56,16 +56,21 @@ const resolveBook = async(
 };
 
 const resolveBookReference = async(
-  {osWebLoader}: AppServices & MiddlewareAPI,
+  {osWebLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[string, string, string]> => {
+  const state = getState();
   const bookSlug = match.params.book;
+  const currentBook = select.book(state);
 
   if (match.state) {
     return [bookSlug, match.state.bookUid, match.state.bookVersion];
   }
 
-  const bookUid = await osWebLoader.getBookIdFromSlug(bookSlug);
+  const bookUid = currentBook && currentBook.slug === bookSlug
+    ? currentBook.id
+    : await osWebLoader.getBookIdFromSlug(bookSlug);
+
   const bookVersion = assertDefined(BOOKS[bookUid], `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
   ).defaultVersion;
 
