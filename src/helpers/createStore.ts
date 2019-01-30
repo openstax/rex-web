@@ -5,7 +5,7 @@ import config from '../config';
 interface Options {
   reducer: Reducer<AppState, AnyAction>;
   middleware: Middleware[];
-  initialState?: AppState;
+  initialState?: Partial<AppState>;
 }
 
 export default function({middleware, reducer, initialState}: Options): Store {
