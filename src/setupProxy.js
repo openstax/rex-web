@@ -61,7 +61,7 @@ function setupProxy(app) {
     changeOrigin: true,
   })));
 
-  app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages)|(static)|(errors)/), {
+  app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages)|static|errors|rex/), {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
