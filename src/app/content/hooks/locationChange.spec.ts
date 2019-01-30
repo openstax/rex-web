@@ -254,4 +254,24 @@ describe('locationChange', () => {
 
     expect(message).toEqual('Page not found');
   });
+
+  it('loads book details from osweb', async() => {
+    await hook(payload);
+    expect(helpers.osWebLoader.getBookIdFromSlug).toHaveBeenCalledWith('book-slug-1');
+  });
+
+  it('caches book details from osweb', async() => {
+    await hook(payload);
+    await hook(payload);
+    expect(helpers.osWebLoader.getBookIdFromSlug).toHaveBeenCalledTimes(1);
+  });
+
+  it('doesn\'t call osweb if book slug is already known', async() => {
+    localState.book = {
+      ...book,
+      slug: 'book-slug-1',
+    };
+    await hook(payload);
+    expect(helpers.osWebLoader.getBookIdFromSlug).not.toHaveBeenCalled();
+  });
 });
