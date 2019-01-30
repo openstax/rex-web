@@ -20,15 +20,16 @@ const sidebarControlSize = 40;
 const sidebarPadding = 10;
 
 const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
-  background-color: white;
   overflow-x: hidden;
   transition: all ${sidebarTransitionTime}ms;
 
   ${(props) => !props.isOpen && css`
-    width: ${sidebarClosedWidth}px;
+    background-color: #ccc;
+    min-width: ${sidebarClosedWidth}px;
   `}
   ${(props) => props.isOpen && css`
-    width: ${sidebarOpenWidth}px;
+    background-color: white;
+    min-width: ${sidebarOpenWidth}px;
   `}
 `;
 
@@ -50,9 +51,9 @@ const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
   </FormattedMessage>
 )`
   position: fixed;
-  top: ${sidebarPadding}px;
   height: ${sidebarControlSize}px;
   width: ${sidebarControlSize}px;
+  margin-top: ${sidebarPadding}px;
   background: none;
   padding: 0;
   border: none;
@@ -63,7 +64,7 @@ const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
 
   span {
     width: 100%;
-    background: #000;
+    background-color: #000;
     padding-top: 10%;
     display: block;
     visibility: visible;
@@ -95,14 +96,13 @@ const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
       margin-top: -20%
     }
   `}
-
 `;
 
 const SidebarBody = styled.div<{isOpen: boolean}>`
   position: fixed;
   left: 0;
-  top: 0;
-  bottom: 0;
+  height: 100%;
+  padding-top: ${sidebarPadding}px;
   width: ${sidebarOpenWidth}px;
   overflow-y: auto;
   font-size: 15px;
@@ -122,8 +122,6 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
 
   ${(props) => !props.isOpen && css`
     transform: translateX(-${sidebarClosedOffset}px);
-
-    background-color: #ccc;
     overflow-y: hidden;
 
     > :not(${SidebarControl}) {
