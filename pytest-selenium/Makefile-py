@@ -27,13 +27,16 @@ help_redirect:
 test: venv
 	@source .venv/bin/activate && pytest \
 		--testrail \
-		--tr-url="https://openstax.testrail.net/" \
+		--tr-url="https://openstax.testrail.com/" \
 		--tr-email=$(TR_EMAIL) \
 		--tr-password=$(TR_PASSWORD) \
-		--tr-run-id=673 \
+		--tr-testrun-project-id=11 \
+		--tr-plan-id=650 \
+	  --tr-run-id=652 \
+		--tr-testrun-suite-id=487 \
 		--tr-skip-missing \
-		--base-url=https://release-2019-q1-unified.sandbox.openstax.org \
-		--driver SauceLabs --capability browserName Firefox \
+		--base-url=http://localhost:3000 \
+		--driver Chrome \
 		pytest-selenium/tests
 
 test-local: venv
@@ -44,10 +47,9 @@ test-local: venv
 
 help_submake:
 	@echo "The following targets are available"
-	@echo "clean       Remove build, test, and file artifacts"
-	@echo "clean-build Remove build artifacts"
-	@echo "clean-pyc   Remove file artifacts"
-	@echo "clean-test  Remove test artifacts"
-	@echo "venv	       Set up a virtualenv for this project"
-	@echo "test        Run test suite in SauceLabs"
-	@echo "test-local  Run test suite locally"
+	@echo "  clean		Remove build, test, and file artifacts"
+	@echo "  clean-build	Remove build artifacts"
+	@echo "  clean-pyc	Remove file artifacts"
+	@echo "  clean-test	Remove test artifacts"
+	@echo "  venv		Set up a virtualenv for this project"
+	@echo "  test		Run test suite"

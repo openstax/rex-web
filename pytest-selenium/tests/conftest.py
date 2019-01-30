@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-# Window resolutions
+# Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1080, 1920)
 MOBILE = (414, 738)
 
