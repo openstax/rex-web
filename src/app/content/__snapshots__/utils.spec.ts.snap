@@ -17,3 +17,5 @@ exports[`toRelativeUrl when the current path ends in a / (unused) 1`] = `"../pag
 exports[`toRelativeUrl when the current path ends in a / but is not the current page (unused) 1`] = `"../page1"`;
 
 exports[`toRelativeUrl when the same page 1`] = `"page1"`;
+
+exports[`toRelativeUrl when under the same Page (unused) 1`] = `"../page1"`;

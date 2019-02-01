@@ -371,7 +371,7 @@ describe('toRelativeUrl', () => {
     expect(url).toMatchSnapshot();
   });
 
-  it.skip('when under the same Page (unused)', () => {
+  it('when under the same Page (unused)', () => {
     const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter`, PAGE_URL);
     expect(url).toMatchSnapshot();
   });

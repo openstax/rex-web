@@ -150,5 +150,5 @@ export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | u
 
 export const toRelativeUrl = (from: string, to: string) => {
   const relUrl = relative(dirname(from.replace(/\/$/, '/dummyindex')), to);
-  return relUrl || `../${basename(from)}`;
+  return relUrl || `../${basename(to)}`;
 };
