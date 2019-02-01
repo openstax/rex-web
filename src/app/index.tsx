@@ -13,6 +13,7 @@ import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
 import { matchUrl } from './navigation/utils';
+import * as notifications from './notifications';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
@@ -20,6 +21,7 @@ export const actions = {
   errors: errors.actions,
   head: head.actions,
   navigation: navigation.actions,
+  notifications: notifications.actions,
 };
 
 export const routes = [
@@ -38,7 +40,7 @@ const defaultServices = () => ({
 });
 
 interface Options {
-  initialState?: AppState;
+  initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
@@ -64,6 +66,7 @@ export default (options: Options) => {
     errors: errors.reducer,
     head: head.reducer,
     navigation: navigation.createReducer(history.location),
+    notifications: notifications.reducer,
   });
 
   const services = {
@@ -83,12 +86,12 @@ export default (options: Options) => {
   });
 
   const container = () => <Provider store={store}>
-    <Services.Provider value={services} >
+    <Services.Provider value={services}>
       <navigation.components.NavigationProvider routes={routes} />
     </Services.Provider>
   </Provider>;
 
-  if (!initialState) {
+  if (!initialState || !initialState.navigation) {
     navigation.utils.init(routes, history.location, store.dispatch);
   }
 

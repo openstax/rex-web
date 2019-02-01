@@ -21,6 +21,7 @@ describe('content', () => {
     state = cloneDeep({
       content: initialState,
       navigation: {},
+      notifications: [],
     }) as any as AppState;
 
     archiveLoader = mockArchiveLoader();
