@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications matches snapshot 1`] = `
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  border-radius: 2px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 3rem;
+  margin: 0;
+  padding: 0 1.5rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  width: auto;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #f36b32;
+}
+
+.c7:hover {
+  background-color: #e96128;
+}
+
+.c7:active {
+  background-color: #df571e;
+}
+
+.c6 {
+  display: grid;
+  grid-gap: 1rem;
+  max-width: 100%;
+}
+
+.c2 {
+  width: 100%;
+}
+
+.c1 {
+  background-color: #fff;
+  border-style: solid;
+  border-color: #d5d5d5;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+}
+
+.c1 > .c5 {
+  padding: 8px;
+  margin: 0;
+}
+
+.c3 {
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.c0 {
+  z-index: 2;
+  top: 0;
+  overflow: visible;
+}
+
+@media (max-width:600px) {
+  .c4 {
+    padding: 0 8px;
+  }
+}
+
+@media (min-width:601px) {
+  .c4 {
+    padding: 8px;
+  }
+}
+
+@media (max-width:600px) {
+  .c1 {
+    border-width: 0 0 thin 0;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media (min-width:601px) {
+  .c1 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border-width: thin;
+    box-shadow: 0 1rem 2rem 0 rgba(0,0,0,0.2);
+    overflow: visible;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    line-height: 30px;
+  }
+}
+
+@media (min-width:601px) {
+  .c3 {
+    background-color: #f1f1f1;
+    line-height: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width:600px) {
+  .c0 {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+@media (min-width:601px) {
+  .c0 {
+    position: fixed;
+    right: 0;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      <div
+        className="c3"
+      >
+        Updates Available
+      </div>
+      <div
+        className="c4"
+      >
+        This page needs to be reloaded.
+      </div>
+    </div>
+    <div
+      className="c5 c6"
+    >
+      <button
+        className="c7"
+        onClick={[Function]}
+      >
+        Reload
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,11 +1,15 @@
+import mergeAll from 'lodash/fp/mergeAll';
+import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from './app';
+import { AppState } from './app/types';
 import config from './config';
 import createArchiveLoader from './helpers/createArchiveLoader';
 import createOSWebLoader from './helpers/createOSWebLoader';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
+import pollUpdates from './helpers/pollUpdates';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -24,8 +28,15 @@ if (window.top === window.self) {
 if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
 
+const queryState = queryString.parse(window.location.search).initialState;
+
+const initialState = mergeAll([
+  window.__PRELOADED_STATE__,
+  typeof(queryState) === 'string' ? JSON.parse(queryState) as Partial<AppState> : undefined,
+]);
+
 const app = createApp({
-  initialState: window.__PRELOADED_STATE__,
+  initialState,
   services: {
     archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
@@ -46,6 +57,8 @@ if (window.__PRELOADED_STATE__) {
   ReactDOM.render(<app.container />, document.getElementById('root'));
 }
 
+// start long running processes
+pollUpdates(app.store);
 startMathJax();
 
 // If you want your app to work offline and load faster, you can change
