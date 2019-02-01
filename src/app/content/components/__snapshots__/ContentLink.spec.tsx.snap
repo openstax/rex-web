@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentLink renders a relative path when at the root (unused) 1`] = `
+<a
+  href="books/bookslug/pages/page-title"
+  onClick={[Function]}
+/>
+`;
+
+exports[`ContentLink renders a relative path when deeply under the same Page (unused) 1`] = `
+<a
+  href=".."
+  onClick={[Function]}
+/>
+`;
+
+exports[`ContentLink renders a relative path when in a different book 1`] = `
+<a
+  href="../../bookslug/pages/page-title"
+  onClick={[Function]}
+/>
+`;
+
+exports[`ContentLink renders a relative path when in the same book 1`] = `
+<a
+  href="page-title"
+  onClick={[Function]}
+/>
+`;
+
+exports[`ContentLink renders a relative path when not in a book and not at the root (unused) 1`] = `
+<a
+  href="../books/bookslug/pages/page-title"
+  onClick={[Function]}
+/>
+`;
+
+exports[`ContentLink renders a relative path when under the same Page (unused) 1`] = `
+<a
+  href="./"
+  onClick={[Function]}
+/>
+`;
