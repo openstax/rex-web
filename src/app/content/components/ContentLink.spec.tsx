@@ -85,34 +85,53 @@ describe('ContentLink', () => {
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
-  it('renders a relative path when in the same book', () => {
-    const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/doesnotmatter`);
-    expect(component.toJSON()).toMatchSnapshot();
-  });
+  describe('creates relative paths', () => {
 
-  it('renders a relative path when under the same Page (unused)', () => {
-    const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter`);
-    expect(component.toJSON()).toMatchSnapshot();
-  });
+    it('when in the same book', () => {
+      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/doesnotmatter`);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+  
+    it('when under the same Page (unused)', () => {
+      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter`);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+  
+    it('when deeply under the same Page (unused)', () => {
+      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter/doesnotmatter`);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+  
+    it('when in a different book', () => {
+      const { component } = buildHelper('/books/doesnotmatter/pages/doesnotmatter');
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+  
+    it('when at the root (unused)', () => {
+      const { component } = buildHelper('/doesnotmatter');
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+  
+    it('when not in a book and not at the root (unused)', () => {
+      const { component } = buildHelper('/doesnotmatter/doesnotmatter');
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+  
+    it('when not in a book and not at the root (unused)', () => {
+      const { component } = buildHelper('/doesnotmatter/doesnotmatter');
+      expect(component.toJSON()).toMatchSnapshot();
+    });
 
-  it('renders a relative path when deeply under the same Page (unused)', () => {
-    const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter/doesnotmatter`);
-    expect(component.toJSON()).toMatchSnapshot();
-  });
+    it('when the current path ends in a / (unused)', () => {
+      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/`);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
 
-  it('renders a relative path when in a different book', () => {
-    const { component } = buildHelper('/books/doesnotmatter/pages/doesnotmatter');
-    expect(component.toJSON()).toMatchSnapshot();
-  });
+    it('when the current path ends in a / but is not the current page (unused)', () => {
+      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/foo/`);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
 
-  it('renders a relative path when at the root (unused)', () => {
-    const { component } = buildHelper('/doesnotmatter');
-    expect(component.toJSON()).toMatchSnapshot();
-  });
-
-  it('renders a relative path when not in a book and not at the root (unused)', () => {
-    const { component } = buildHelper('/doesnotmatter/doesnotmatter');
-    expect(component.toJSON()).toMatchSnapshot();
-  });
+  })
 
 });
