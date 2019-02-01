@@ -45,3 +45,11 @@ export const assertDefined = <X>(x: X, message: string) => {
 
   return x!;
 };
+
+export const assertString = <X>(x: X, message: string) => {
+  if (typeof x !== 'string') {
+    throw new Error(message);
+  }
+
+  return x;
+}

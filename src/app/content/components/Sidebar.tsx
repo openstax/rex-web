@@ -11,6 +11,7 @@ import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page } from '../types';
 import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
 import ContentLink from './ContentLink';
+import { assertString } from '../../utils';
 
 const sidebarOpenWidth = 300;
 const sidebarClosedWidth = 40;
@@ -39,7 +40,8 @@ type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
 
 const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
   <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
-    {(txt: string) => {
+    {(msg: Element | string) => {
+      const txt = assertString(msg, 'Aria label only supports strings')
       return <button {...props}
           aria-label={txt}
         >
