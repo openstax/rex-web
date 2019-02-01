@@ -355,7 +355,6 @@ describe('getPageIdFromUrlParam', () => {
   });
 });
 
-
 describe('toRelativeUrl', () => {
   const BOOK_SLUG = 'book1';
   const PAGE_SLUG = 'page1';
@@ -412,4 +411,4 @@ describe('toRelativeUrl', () => {
     expect(url).toMatchSnapshot();
   });
 
-})
+});

@@ -62,7 +62,7 @@ describe('ContentLink', () => {
     const component = renderer.create(<Provider store={store}>
       <ConnectedContentLink book={book} page={page} />
     </Provider>);
-  
+
     const event = {
       preventDefault: jest.fn(),
     };
