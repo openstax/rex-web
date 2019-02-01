@@ -33,7 +33,7 @@ $ source .venv/bin/activate
 To run a specific test, pass in a value for `-k`:
 
 ```bash
-$ pytest -k test_my_feature --driver Chrome pytest-selenium/tests
+$ pytest -k test_my_feature --driver Chrome ./pytest-selenium/tests
 ```
 
 ### Additional Pytest Options
