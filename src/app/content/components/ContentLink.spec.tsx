@@ -96,32 +96,32 @@ describe('ContentLink', () => {
       const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/doesnotmatter`);
       expect(component.toJSON()).toMatchSnapshot();
     });
-  
+
     it('when under the same Page (unused)', () => {
       const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter`);
       expect(component.toJSON()).toMatchSnapshot();
     });
-  
+
     it('when deeply under the same Page (unused)', () => {
       const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter/doesnotmatter`);
       expect(component.toJSON()).toMatchSnapshot();
     });
-  
+
     it('when in a different book', () => {
       const { component } = buildHelper('/books/doesnotmatter/pages/doesnotmatter');
       expect(component.toJSON()).toMatchSnapshot();
     });
-  
+
     it('when at the root (unused)', () => {
       const { component } = buildHelper('/doesnotmatter');
       expect(component.toJSON()).toMatchSnapshot();
     });
-  
+
     it('when not in a book and not at the root (unused)', () => {
       const { component } = buildHelper('/doesnotmatter/doesnotmatter');
       expect(component.toJSON()).toMatchSnapshot();
     });
-  
+
     it('when not in a book and not at the root (unused)', () => {
       const { component } = buildHelper('/doesnotmatter/doesnotmatter');
       expect(component.toJSON()).toMatchSnapshot();
@@ -137,6 +137,6 @@ describe('ContentLink', () => {
       expect(component.toJSON()).toMatchSnapshot();
     });
 
-  })
+  });
 
 });

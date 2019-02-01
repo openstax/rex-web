@@ -27,7 +27,8 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...p
     page: getUrlParamForPageId(book, page.shortId),
   };
 
-  const url = relative(dirname(currentPath.replace(/\/$/, '/dummyindex')), content.getUrl(params)) || `../${basename(params.page)}`;
+  const relUrl = relative(dirname(currentPath.replace(/\/$/, '/dummyindex')), content.getUrl(params));
+  const url = relUrl || `../${basename(params.page)}`;
 
   return <a
     onClick={(e) => {
