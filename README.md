@@ -101,7 +101,7 @@ this suite:
 
 run these with `make test-local`
 
-There are many more options when running these test. Please visit the [tests/ui/README.md](pytest-selenium/README.md) for more.
+There are many more options when running these test. Please visit the [./pytest-selenium/README.md](./pytest-selenium/README.md) for more.
 
 this suite:
 - contains browser tests using selenium
