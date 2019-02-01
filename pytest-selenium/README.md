@@ -71,7 +71,7 @@ suite_id = id_number
 To run the tests only for the table of contents:
 
 ```bash
-$ pytest -k test_toc --driver Chrome --testrail --testrail-name release01 ./tests/ui
+$ pytest -k test_toc --driver Chrome --testrail --testrail-name release01 ./pytest-selenium/tests
 ```
 
 Consult the [pytest-testrail project][pytest-testrail] for more options

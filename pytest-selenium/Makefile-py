@@ -36,7 +36,7 @@ test-rail: venv
 		--driver SauceLabs --capability browserName Firefox \
 		pytest-selenium/tests
 
-test: venv
+test-local: venv
 	@source .venv/bin/activate && pytest \
 		--base-url http://localhost:3000 \
 		--driver Chrome \
