@@ -25,7 +25,7 @@ describe('Browser sanity tests', () => {
       }
     });
 
-    await navigate(page, '/');
+    await navigate(page, '/errors/404');
   });
 
   it('displays the "Hello developer" console text', async() => {
@@ -35,7 +35,7 @@ describe('Browser sanity tests', () => {
 
     const str = [
       '%cHowdy! If you want to help out, the source code can be found at ',
-      'https://github.com/openstax/books-web',
+      'https://github.com/openstax/rex-web',
       ' font-weight:bold',
     ];
     expect(infoMessages).toContain(str.join(''));
@@ -54,7 +54,6 @@ describe('Browser sanity tests', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse('/');
+    await checkLighthouse(browser, '/errors/404');
   });
-
 });

@@ -1,8 +1,8 @@
 /** @jest-environment puppeteer */
 import { checkLighthouse, finishRender, h1Content, navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
-const TEST_LONG_PAGE = '/books/testbook1-shortid/pages/testpage3-shortid';
+const TEST_PAGE = '/books/book-slug-1/pages/test-page-1';
+const TEST_LONG_PAGE = '/books/book-slug-1/pages/1-test-page-3';
 
 describe('content', () => {
   beforeEach(async() => {
@@ -36,7 +36,7 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse(TEST_PAGE);
+    await checkLighthouse(browser, TEST_LONG_PAGE);
   });
 
   it(`when clicking a toc link:

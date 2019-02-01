@@ -1,16 +1,19 @@
 import { applyMiddleware, compose, createStore, Middleware, Reducer } from 'redux';
 import { AnyAction, AppState, Store } from '../app/types';
-
-const DEBUG = process.env.ENVIRONMENT !== 'production';
+import config from '../config';
 
 interface Options {
   reducer: Reducer<AppState, AnyAction>;
   middleware: Middleware[];
-  initialState?: AppState;
+  initialState?: Partial<AppState>;
 }
 
 export default function({middleware, reducer, initialState}: Options): Store {
-  const composeEnhancers = DEBUG && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  const composeEnhancers = (
+    config.DEBUG
+    && typeof window !== 'undefined'
+    && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  )
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 

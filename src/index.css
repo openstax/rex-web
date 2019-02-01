@@ -8,6 +8,11 @@ body, html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body, #root {
+  position: relative;
+  overflow: visible;
+}
+
 * {
   box-sizing: border-box;
   overflow: auto;

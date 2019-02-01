@@ -8,7 +8,7 @@ import PromiseCollector from './helpers/PromiseCollector';
 declare global {
 
   interface Window extends dom.Window {
-    __PRELOADED_STATE__?: AppState;
+    __PRELOADED_STATE__?: Partial<AppState>;
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
     __APP_SERVICES: AppServices;
     __APP_ASYNC_HOOKS: PromiseCollector;

@@ -1,7 +1,9 @@
 /** @jest-environment puppeteer */
 import { navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/testbook1-shortid/pages/testpage1-shortid';
+const TEST_PAGE = '/books/book-slug-1/pages/test-page-1';
+const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/test-page-3';
+const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/1-test-page-2';
 
 describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
@@ -17,12 +19,12 @@ describe('content', () => {
     };
 
     await page.setJavaScriptEnabled(false);
-    await navigate(page, TEST_PAGE);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
     const firstHTML = await page.evaluate(getHtml);
 
     await page.setJavaScriptEnabled(true);
-    await navigate(page, TEST_PAGE);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
     const secondHTML = await page.evaluate(getHtml);
 
@@ -43,5 +45,20 @@ describe('content', () => {
     expect(links).toContainEqual(
       'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'
     );
+  });
+
+  it('updates links in content', async() => {
+    await page.setJavaScriptEnabled(false);
+    await navigate(page, TEST_PAGE_WITH_LINKS);
+
+    const links: string[] = await page.evaluate(() =>
+      document
+        ? Array.from(document.querySelectorAll('[id="main-content"] a')).map((element) => element.getAttribute('href'))
+        : []
+    );
+
+    expect(links).toEqual([
+      '/books/book-slug-1/pages/test-page-1',
+    ]);
   });
 });

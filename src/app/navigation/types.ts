@@ -1,9 +1,12 @@
 import { Location } from 'history';
+import { OutputParams } from 'query-string';
 import { ComponentType } from 'react';
 import { routes } from '../';
 import { AnyAction, AppServices, MiddlewareAPI } from '../types';
 
-export type State = Location;
+export type State = Location & {
+  query: OutputParams
+};
 
 export type RouteParams<R> = R extends Route<infer P> ? P : never;
 export type RouteState<R> = R extends Route<any, infer S> ? S : never;
@@ -33,6 +36,8 @@ export type Match<R extends AnyRoute> =
 
 export type HistoryAction<R extends AnyRoute> = Match<R> & {
   method: 'push' | 'replace';
+  hash?: string;
+  search?: string;
 };
 
 export type AnyHistoryAction = UnionHistoryActions<AnyRoute>;

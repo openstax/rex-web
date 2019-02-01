@@ -1,3 +1,8 @@
+Unified **R**eading **Ex**perience
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/maintainability)](https://codeclimate.com/github/openstax/rex-web/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/test_coverage)](https://codeclimate.com/github/openstax/rex-web/test_coverage)
+
 ## Development Setup
 
 install [nvm](https://github.com/creationix/nvm#installation)
@@ -37,10 +42,9 @@ Builds the app, builds prerendered content, and then serves it at [http://localh
 
 Run `PORT=8000 yarn start:static` to change the webserver port.
 
-Run `NODE_ENV=development yarn start:static` to build the books (defined in [./.env.development](./.env.development)) and serve them.
+Run `REACT_APP_ENV=development yarn start:static` to build the books (defined in [config.development.js](./src/config.development.js)) and serve them.
 
-
-To prerender the test fixture book and serve it, run `NODE_ENV=test yarn start:static`.
+To prerender the test fixture book and serve it, run `REACT_APP_ENV=test yarn start:static`.
 
 ### `yarn test`
 
@@ -61,19 +65,47 @@ install [docker](https://docs.docker.com/install/)
 build the image
 
 ```bash
-docker build -t openstax/books-web .
+docker build -t openstax/rex-web .
 ```
 
 run commands
 ```bash
 
 # starts server
-docker run -t openstax/books-web yarn server
+docker run -t openstax/rex-web yarn server
 
 # runs tests
-docker run -t openstax/books-web yarn test
+docker run -t openstax/rex-web yarn test
 ```
 
 ### Environment Variables
 
 - `PUPPETEER_DEBUG=true yarn test` : Opens the browser with dev tools. This allows you to add `debugger` statements into the test _and_ into the browser code that is evaluated.
+
+## Test Suites
+
+### Developer Tests
+
+run these with `yarn test`.
+
+this suite:
+- contains **unit tests** and **puppeteer** tests 
+- runs against a **local** dev server
+- uses **fixture** data and content
+- should be run locally by developers to make sure they don't break stuff
+- is run by CI against pull requests in case developers are lazy
+- should be **fast** to promote running frequently and prompt feedback on PRs
+- should contain only high priority browser tests with puppeteer because browser tests are slow
+
+### Selenium Tests
+
+run these with `make test-local`
+
+There are many more options when running these test. Please visit the [./pytest-selenium/README.md](./pytest-selenium/README.md) for more.
+
+this suite:
+- contains browser tests using selenium
+- tests cross browser
+- runs against a **remote** environment
+- uses **real** content and **persistent** test data
+- is run against release candidates when they are updated
