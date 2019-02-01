@@ -48,6 +48,6 @@ help_submake:
 	@echo "clean-build Remove build artifacts"
 	@echo "clean-pyc   Remove file artifacts"
 	@echo "clean-test  Remove test artifacts"
-	@echo "venv	       Set up a virtualenv for this project"
-	@echo "test        Run test suite against localhost:3000"
+	@echo "venv	    Set up a virtualenv for this project"
+	@echo "test-local  Run test suite against localhost:3000"
 	@echo "test-rail   Run test suite in Saucelabs and Testrail"
