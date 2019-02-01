@@ -41,6 +41,10 @@ Array [
   font-family: "Noto Sans";
 }
 
+.c6 *:target {
+  background-color: #ffffdd;
+}
+
 .c6 * {
   overflow: initial;
 }
@@ -49,10 +53,6 @@ Array [
   font-family: "Roboto Condensed",serif;
   font-size: 19px;
   line-height: 29px;
-}
-
-.c8 *:target {
-  background-color: #ffffdd;
 }
 
 .c1 {
@@ -251,7 +251,7 @@ Array [
         </h1>
       </div>
       <div
-        className="c8"
+        className=""
       >
         <div
           data-type="chapter"
@@ -312,12 +312,12 @@ Array [
   font-family: "Noto Sans";
 }
 
-.c5 * {
-  overflow: initial;
+.c5 *:target {
+  background-color: #ffffdd;
 }
 
-.c6 *:target {
-  background-color: #ffffdd;
+.c5 * {
+  overflow: initial;
 }
 
 .c1 {
@@ -457,7 +457,7 @@ Array [
     >
       <div />
       <div
-        className="c6"
+        className=""
       >
         <div
           data-type="chapter"

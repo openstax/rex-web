@@ -10,6 +10,10 @@ export default styled(MainContent)`
   font-size: 18px;
   font-family: "Noto Sans";
 
+  *:target {
+    background-color: #ffffdd;
+  }
+
   * {
    overflow: initial;
   }
