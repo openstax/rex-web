@@ -87,6 +87,11 @@ describe('ContentLink', () => {
 
   describe('creates relative paths', () => {
 
+    it('when the same page', () => {
+      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}`);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
+
     it('when in the same book', () => {
       const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/doesnotmatter`);
       expect(component.toJSON()).toMatchSnapshot();

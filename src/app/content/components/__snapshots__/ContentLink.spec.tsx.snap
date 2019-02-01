@@ -56,6 +56,13 @@ exports[`ContentLink creates relative paths when the current path ends in a / bu
 />
 `;
 
+exports[`ContentLink creates relative paths when the same page 1`] = `
+<a
+  href="page-title"
+  onClick={[Function]}
+/>
+`;
+
 exports[`ContentLink creates relative paths when under the same Page (unused) 1`] = `
 <a
   href="../page-title"
