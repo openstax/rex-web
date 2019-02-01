@@ -1,6 +1,9 @@
 {
   "i18n:404": "page not found",
   "i18n:a11y:skipToContent": "Skip to Content",
+  "i18n:notification:update:header": "Updates Available",
+  "i18n:notification:update:body": "This page needs to be reloaded.",
+  "i18n:notification:update:reload": "Reload",
   "i18n:toc:bookDetails": "book details",
   "i18n:toc:title": "Table of Contents",
   "i18n:toc:toggle:closed": "Click to open the Table of Contents",
