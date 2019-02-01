@@ -1,4 +1,4 @@
-import { dirname, relative } from 'path';
+import { basename, dirname, relative } from 'path';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
@@ -27,7 +27,7 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...p
     page: getUrlParamForPageId(book, page.shortId),
   };
 
-  const url = relative(dirname(currentPath), content.getUrl(params)) || './';
+  const url = relative(dirname(currentPath), content.getUrl(params)) || `../${basename(params.page)}`;
 
   return <a
     onClick={(e) => {

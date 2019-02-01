@@ -50,8 +50,8 @@ const buildHelper = (pathname: string) => {
   const component = renderer.create(<Provider store={store}>
     <ConnectedContentLink book={book} page={page} />
   </Provider>);
-  return { dispatchSpy, component }
-}
+  return { dispatchSpy, component };
+};
 
 describe('ContentLink', () => {
   let consoleError: jest.SpyInstance;

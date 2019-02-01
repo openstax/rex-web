@@ -37,7 +37,7 @@ exports[`ContentLink renders a relative path when not in a book and not at the r
 
 exports[`ContentLink renders a relative path when under the same Page (unused) 1`] = `
 <a
-  href="./"
+  href="../page-title"
   onClick={[Function]}
 />
 `;
