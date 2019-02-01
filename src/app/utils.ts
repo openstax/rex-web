@@ -52,4 +52,4 @@ export const assertString = <X>(x: X, message: string) => {
   }
 
   return x;
-}
+};

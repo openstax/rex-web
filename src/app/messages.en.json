@@ -1,8 +1,8 @@
 {
-  "i18n:404": "page not found",
-  "i18n:a11y:skipToContent": "Skip to Content",
-  "i18n:toc:bookDetails": "book details",
-  "i18n:toc:title": "Table of Contents",
-  "i18n:toc:toggle:closed": "Click to open the Table of Contents",
-  "i18n:toc:toggle:opened": "Click to close the Table of Contents"
-}
+  'i18n:404': 'page not found',
+  'i18n:a11y:skipToContent': 'Skip to Content',
+  'i18n:toc:bookDetails': 'book details',
+  'i18n:toc:title': 'Table of Contents',
+  'i18n:toc:toggle:closed': 'Click to open the Table of Contents',
+  'i18n:toc:toggle:opened': 'Click to close the Table of Contents',
+};

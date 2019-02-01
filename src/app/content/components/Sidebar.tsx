@@ -5,13 +5,13 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState, Dispatch } from '../../types';
+import { assertString } from '../../utils';
 import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page } from '../types';
 import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
 import ContentLink from './ContentLink';
-import { assertString } from '../../utils';
 
 const sidebarOpenWidth = 300;
 const sidebarClosedWidth = 40;
@@ -41,7 +41,7 @@ type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
 const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
   <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
     {(msg: Element | string) => {
-      const txt = assertString(msg, 'Aria label only supports strings')
+      const txt = assertString(msg, 'Aria label only supports strings');
       return <button {...props}
           aria-label={txt}
         >
