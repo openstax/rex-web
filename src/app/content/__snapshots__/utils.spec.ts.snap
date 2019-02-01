@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toRelativeUrl when at the root (unused) 1`] = `"books/book1/pages/page1"`;
+
+exports[`toRelativeUrl when deeply under the same Page (unused) 1`] = `".."`;
+
+exports[`toRelativeUrl when in a different book 1`] = `"../../book1/pages/page1"`;
+
+exports[`toRelativeUrl when in the same book 1`] = `"page1"`;
+
+exports[`toRelativeUrl when not in a book and not at the root (unused) 1`] = `"../books/book1/pages/page1"`;
+
+exports[`toRelativeUrl when not in a book and not at the root (unused) 2`] = `"../books/book1/pages/page1"`;
+
+exports[`toRelativeUrl when the current path ends in a / (unused) 1`] = `"../page1"`;
+
+exports[`toRelativeUrl when the current path ends in a / but is not the current page (unused) 1`] = `"../page1"`;
+
+exports[`toRelativeUrl when the same page 1`] = `"page1"`;

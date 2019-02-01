@@ -37,22 +37,6 @@ const page = {
   version: '0',
 };
 
-const buildHelper = (pathname: string) => {
-  const state = {
-    content: {
-      ...initialState,
-      book, page,
-    },
-    navigation: { pathname },
-  } as any as AppState;
-  const store = createStore((s: AppState | undefined) => s || state, state);
-  const dispatchSpy = jest.spyOn(store, 'dispatch');
-  const component = renderer.create(<Provider store={store}>
-    <ConnectedContentLink book={book} page={page} />
-  </Provider>);
-  return { dispatchSpy, component };
-};
-
 describe('ContentLink', () => {
   let consoleError: jest.SpyInstance;
 
@@ -65,8 +49,20 @@ describe('ContentLink', () => {
   });
 
   it('dispatches navigation action on click', () => {
-    const { dispatchSpy, component } = buildHelper('/doesnotmatter');
-
+    const pathname = '/doesnotmatter';
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+      navigation: { pathname },
+    } as any as AppState;
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} />
+    </Provider>);
+  
     const event = {
       preventDefault: jest.fn(),
     };
@@ -83,60 +79,6 @@ describe('ContentLink', () => {
       },
     }));
     expect(event.preventDefault).toHaveBeenCalled();
-  });
-
-  describe('creates relative paths', () => {
-
-    it('when the same page', () => {
-      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}`);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when in the same book', () => {
-      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/doesnotmatter`);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when under the same Page (unused)', () => {
-      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter`);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when deeply under the same Page (unused)', () => {
-      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/doesnotmatter/doesnotmatter`);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when in a different book', () => {
-      const { component } = buildHelper('/books/doesnotmatter/pages/doesnotmatter');
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when at the root (unused)', () => {
-      const { component } = buildHelper('/doesnotmatter');
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when not in a book and not at the root (unused)', () => {
-      const { component } = buildHelper('/doesnotmatter/doesnotmatter');
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when not in a book and not at the root (unused)', () => {
-      const { component } = buildHelper('/doesnotmatter/doesnotmatter');
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when the current path ends in a / (unused)', () => {
-      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/${PAGE_SLUG}/`);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
-    it('when the current path ends in a / but is not the current page (unused)', () => {
-      const { component } = buildHelper(`/books/${BOOK_SLUG}/pages/foo/`);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-
   });
 
 });

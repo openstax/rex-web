@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { AllHtmlEntities } from 'html-entities';
 import flatten from 'lodash/fp/flatten';
+import { basename, dirname, relative } from 'path';
 import { isArchiveTree } from './guards';
 import replaceAccentedCharacters from './replaceAccentedCharacters';
 import { ArchiveTree, Book, LinkedArchiveTreeSection } from './types';
@@ -145,4 +146,9 @@ export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | u
       return stripIdVersion(section.id);
     }
   }
+};
+
+export const toRelativeUrl = (from: string, to: string) => {
+  const relUrl = relative(dirname(from.replace(/\/$/, '/dummyindex')), to);
+  return relUrl || `../${basename(from)}`;
 };

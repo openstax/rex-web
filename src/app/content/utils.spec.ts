@@ -5,7 +5,8 @@ import {
   getContentPageReferences,
   getPageIdFromUrlParam,
   scrollTocSectionIntoView,
-  stripIdVersion
+  stripIdVersion,
+  toRelativeUrl
 } from './utils';
 
 describe('stripIdVersion', () => {
@@ -353,3 +354,62 @@ describe('getPageIdFromUrlParam', () => {
     expect(getPageIdFromUrlParam(book, 'asdfasdf')).toBeUndefined();
   });
 });
+
+
+describe('toRelativeUrl', () => {
+  const BOOK_SLUG = 'book1';
+  const PAGE_SLUG = 'page1';
+  const BOOK_URL = `/books/${BOOK_SLUG}`;
+  const PAGE_URL = `${BOOK_URL}/pages/${PAGE_SLUG}`;
+
+  it('when the same page', () => {
+    const url = toRelativeUrl(PAGE_URL, PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when in the same book', () => {
+    const url = toRelativeUrl(`${BOOK_URL}/pages/doesnotmatter`, PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it.skip('when under the same Page (unused)', () => {
+    const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter`, PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when deeply under the same Page (unused)', () => {
+    const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter/doesnotmatter`, PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when in a different book', () => {
+    const url = toRelativeUrl('/books/doesnotmatter/pages/doesnotmatter', PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when at the root (unused)', () => {
+    const url = toRelativeUrl('/doesnotmatter', PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when not in a book and not at the root (unused)', () => {
+    const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when not in a book and not at the root (unused)', () => {
+    const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when the current path ends in a / (unused)', () => {
+    const url = toRelativeUrl(`${PAGE_URL}/`, PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+  it('when the current path ends in a / but is not the current page (unused)', () => {
+    const url = toRelativeUrl(`${BOOK_URL}/pages/foo/`, PAGE_URL);
+    expect(url).toMatchSnapshot();
+  });
+
+})

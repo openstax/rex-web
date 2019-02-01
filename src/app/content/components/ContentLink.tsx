@@ -6,7 +6,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import { AppState, Dispatch } from '../../types';
 import { content } from '../routes';
 import { Book } from '../types';
-import { getUrlParamForPageId, stripIdVersion } from '../utils';
+import { getUrlParamForPageId, stripIdVersion, toRelativeUrl } from '../utils';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   book: Book;
@@ -27,8 +27,7 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...p
     page: getUrlParamForPageId(book, page.shortId),
   };
 
-  const relUrl = relative(dirname(currentPath.replace(/\/$/, '/dummyindex')), content.getUrl(params));
-  const url = relUrl || `../${basename(params.page)}`;
+  const url = toRelativeUrl(currentPath, content.getUrl(params));
 
   return <a
     onClick={(e) => {
