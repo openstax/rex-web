@@ -1,9 +1,11 @@
+import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
+import createReducer from '../../navigation/reducer';
 import { AppState } from '../../types';
-import reducer, { initialState } from '../reducer';
+import contentReducer, { initialState } from '../reducer';
 import ConnectedSidebar, { Sidebar } from './Sidebar';
 
 const book = {
@@ -45,7 +47,9 @@ describe('Sidebar', () => {
         book, page,
       },
     } as any as AppState;
-    const store = createStore(combineReducers({content: reducer}), state);
+    const history = createMemoryHistory();
+    const navigation = createReducer(history.location);
+    const store = createStore(combineReducers({content: contentReducer, navigation}), state);
 
     const component = renderer.create(<Provider store={store}>
       <ConnectedSidebar />

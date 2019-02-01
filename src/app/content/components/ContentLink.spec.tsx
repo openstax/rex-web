@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { createStore } from 'redux';
 import { push } from '../../navigation/actions';
+import reducer from '../../navigation/reducer';
 import { AppState } from '../../types';
 import { initialState } from '../reducer';
 import { content } from '../routes';
@@ -51,6 +52,7 @@ describe('ContentLink', () => {
         ...initialState,
         book, page,
       },
+      navigation: { pathname: '/doesnotmatter' },
     } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
     const dispatchSpy = jest.spyOn(store, 'dispatch');
