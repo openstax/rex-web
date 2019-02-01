@@ -39,8 +39,8 @@ type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
 
 const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
   <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
-    {(txt) => {
-      return typeof txt === 'string' && <button {...props}
+    {(txt: string) => {
+      return <button {...props}
           aria-label={txt}
         >
         <span></span>
