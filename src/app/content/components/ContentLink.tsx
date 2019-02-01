@@ -1,4 +1,3 @@
-import { basename, dirname, relative } from 'path';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
