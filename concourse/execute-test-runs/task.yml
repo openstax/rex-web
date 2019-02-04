@@ -4,26 +4,20 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: node
+    repository: python
 
 inputs:
 - name: rex-web
-
-outputs:
 - name: test-plans
+- name: unified-issues-milestones
 
 params:
   TR_PROJECT_ID: ((testrail-project-id))
   TR_INSTANCE: ((testrail-instance))
   TR_USERNAME: ((testrail-username))
   TR_PASSWORD: ((testrail-password))
+  SAUCELABS_USERNAME: ((saucelabs-username))
+  SAUCELABS_API_KEY: ((saucelabs-api-key))
 
 run:
-  path: /bin/bash
-  args:
-    - -c
-    - |
-      DEST=$(pwd)/test-plans
-      cd rex-web/concourse/create-test-plan-configs
-      yarn install
-      ./script.js $DEST
+  path: rex-web/concourse/execute-test-runs/script.bash

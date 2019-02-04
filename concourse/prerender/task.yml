@@ -2,7 +2,7 @@
 platform: linux
 
 inputs:
-- name: rex-web 
+- name: rex-web
 outputs:
 - name: release
 
