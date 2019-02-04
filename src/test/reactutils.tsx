@@ -1,4 +1,5 @@
 import { Element } from '@openstax/types/lib.dom';
+import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -25,19 +26,28 @@ export function expectError(message: string, fn: () => void) {
   }
 }
 
-// Utility to handle nulls
-export function renderToDom<C extends ComponentType<{}>>(component: ReactElement<C>) {
-    const c = ReactTestUtils.renderIntoDocument(component) as C;
-    if (!c) {
-        throw new Error(`BUG: Component was not rendered`);
+// Utility to handle nulls and SFCs
+export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C>) {
+
+  // tslint:disable-next-line:variable-name
+  const Wrapper = class extends Component {
+    public render() {
+      return subject;
     }
-    const node = ReactDOM.findDOMNode(c) as Element;
-    if (!node || !node.parentNode) {
-        throw new Error(`BUG: Could not find DOM node`);
-    }
-    return {
-      component: c,
-      node,
-      root: node.parentNode,
-    };
+  };
+
+  const c = ReactTestUtils.renderIntoDocument(<Wrapper />) as Component;
+
+  if (!c) {
+      throw new Error(`BUG: Component was not rendered`);
+  }
+  const node = ReactDOM.findDOMNode(c) as Element;
+  if (!node || !node.parentNode) {
+      throw new Error(`BUG: Could not find DOM node`);
+  }
+  return {
+    node,
+    root: node.parentNode,
+    tree: c,
+  };
 }

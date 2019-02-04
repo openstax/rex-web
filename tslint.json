@@ -37,6 +37,7 @@
   "linterOptions": {
     "exclude": [
       "node_modules",
+      "**/*.json",
       "**/*.js"
     ]
   }

@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
+import MessageProvider from '../../MessageProvider';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
 import Content, { ContentComponent } from './Content';
@@ -36,7 +37,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -49,7 +52,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -65,7 +70,9 @@ describe('content', () => {
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -82,7 +89,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -107,7 +116,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
@@ -126,7 +137,9 @@ describe('content', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
-        <Content />
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
       </Services.Provider>
     </Provider>);
 
