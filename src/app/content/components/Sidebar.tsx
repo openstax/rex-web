@@ -1,9 +1,11 @@
 // tslint:disable:variable-name
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState, Dispatch } from '../../types';
+import { assertString } from '../../utils';
 import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
@@ -32,12 +34,23 @@ const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
   `}
 `;
 
-const SidebarControl = styled(({isOpen, ...props}: React.HTMLProps<HTMLButtonElement> & {isOpen: boolean}) =>
-  <button {...props}>
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
+  isOpen: boolean,
+};
+
+const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
+  <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
+    {(msg: Element | string) => {
+      const txt = assertString(msg, 'Aria label only supports strings');
+      return <button {...props}
+          aria-label={txt}
+        >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>;
+    }}
+  </FormattedMessage>
 )`
   position: fixed;
   height: ${sidebarControlSize}px;
@@ -163,7 +176,6 @@ export class Sidebar extends Component<SidebarProps> {
         isOpen={isOpen}
         onClick={() => isOpen ? closeToc() : openToc()}
         role='button'
-        aria-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
       />
       <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
         {this.renderLinks()}
@@ -192,7 +204,12 @@ export class Sidebar extends Component<SidebarProps> {
     return <nav>
       <ol>
         <NavItem>
-          <a href='#'>book details</a>
+          <FormattedMessage id='i18n:toc:bookDetails'>
+            {(txt) => (
+              <a href='#'>{txt}</a>
+            )}
+          </FormattedMessage>
+
         </NavItem>
       </ol>
     </nav>;
@@ -221,7 +238,11 @@ export class Sidebar extends Component<SidebarProps> {
 
   private renderToc = (book: Book) => {
     return <div>
-      <h2>Table of Contents</h2>
+      <FormattedMessage id='i18n:toc:title'>
+        {(txt) => (
+          <h2>{txt}</h2>
+        )}
+      </FormattedMessage>
       {this.renderTocNode(book, book.tree)}
     </div>;
   }

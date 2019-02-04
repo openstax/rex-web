@@ -1,3 +1,5 @@
+Unified **R**eading **Ex**perience
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/maintainability)](https://codeclimate.com/github/openstax/rex-web/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/test_coverage)](https://codeclimate.com/github/openstax/rex-web/test_coverage)
 
@@ -97,7 +99,9 @@ this suite:
 
 ### Selenium Tests
 
-this suite has not been implemented yet.
+run these with `make test-local`
+
+There are many more options when running these test. Please visit the [./pytest-selenium/README.md](./pytest-selenium/README.md) for more.
 
 this suite:
 - contains browser tests using selenium
@@ -105,6 +109,3 @@ this suite:
 - runs against a **remote** environment
 - uses **real** content and **persistent** test data
 - is run against release candidates when they are updated
-
-
-
