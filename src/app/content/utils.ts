@@ -1,7 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { AllHtmlEntities } from 'html-entities';
 import flatten from 'lodash/fp/flatten';
-import { dirname, relative } from 'path';
 import { isArchiveTree } from './guards';
 import replaceAccentedCharacters from './replaceAccentedCharacters';
 import { ArchiveTree, Book, LinkedArchiveTreeSection } from './types';
@@ -148,10 +147,28 @@ export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | u
   }
 };
 
-export const toRelativeUrl = (from: string, to: string) => {
-  const relUrl = relative(dirname(from.replace(/\/$/, '/dummyindex')), to.replace(/\/$/, '/dummyindex'));
-  if (!relUrl || /dummyindex$/.test(relUrl)) {
-    throw new Error(`BUG: Unsupported path. Maybe it contains a trailing slash? '${relUrl}'`);
+const getCommonParts = (firstPath: string[], secondPath: string[]) => {
+  const result = [];
+
+  for (let i = 0; i < firstPath.length; i++) {
+    if (firstPath[i] === secondPath[i]) {
+      result.push(firstPath[i]);
+    } else {
+      break;
+    }
   }
-  return relUrl;
+  return result;
+};
+
+const trimTrailingSlash = (path: string) => path.replace(/([^\/]{1})\/+$/, '$1');
+
+export const toRelativeUrl = (from: string, to: string) => {
+  const parsedFrom = trimTrailingSlash(from).split('/');
+  const parsedTo = trimTrailingSlash(to).split('/');
+
+  // remove the last piece of the "to" so that it is always output
+  const commonParts = getCommonParts(parsedFrom, parsedTo.slice(0, -1));
+
+  return '../'.repeat(parsedFrom.length - commonParts.length - 1)
+    + parsedTo.slice(commonParts.length).join('/');
 };
