@@ -1,4 +1,5 @@
 import React, { SFC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button, { ButtonGroup } from '../../components/Button';
 import theme from '../../theme';
@@ -67,11 +68,17 @@ const reload = () => {
 // tslint:disable-next-line:variable-name
 const UpdatesAvailable: SFC = () => <Body>
   <Group>
-    <Header>Updates Available</Header>
-    <P>This page needs to be reloaded.</P>
+    <FormattedMessage id='i18n:notification:update:header'>
+      {(txt) => (<Header>{txt}</Header>)}
+    </FormattedMessage>
+    <FormattedMessage id='i18n:notification:update:body'>
+      {(txt) => (<P>{txt}</P>)}
+    </FormattedMessage>
   </Group>
   <ButtonGroup>
-    <Button variant='primary' onClick={reload}>Reload</Button>
+    <FormattedMessage id='i18n:notification:update:reload'>
+      {(txt) => (<Button variant='primary' onClick={reload}>{txt}</Button>)}
+    </FormattedMessage>
   </ButtonGroup>
 </Body>;
 

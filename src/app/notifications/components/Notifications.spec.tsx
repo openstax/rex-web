@@ -3,6 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { createStore } from 'redux';
+import MessageProvider from '../../MessageProvider';
 import { AppState } from '../../types';
 import { updateAvailable } from '../actions';
 import { initialState } from '../reducer';
@@ -22,7 +23,9 @@ describe('Notifications', () => {
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
-      <ConnectedNotifications />
+      <MessageProvider>
+        <ConnectedNotifications />
+      </MessageProvider>
     </Provider>);
 
     const tree = component.toJSON();

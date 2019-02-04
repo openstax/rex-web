@@ -83,3 +83,15 @@ describe('assertDefined', () => {
     ).toThrowErrorMatchingInlineSnapshot(`"error"`);
   });
 });
+
+describe('assertString', () => {
+  it('returns value', () => {
+    expect(utils.assertString('foo', 'error')).toBe('foo');
+  });
+
+  it('throws when not a string', () => {
+    expect(() =>
+      utils.assertString(123, 'error')
+    ).toThrowErrorMatchingInlineSnapshot(`"error"`);
+  });
+});

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import scrollTo from '../../helpers/scrollTo';
 import { MAIN_CONTENT_ID, Provider } from '../context/SkipToContent';
 import HiddenLink from './HiddenLink';
@@ -8,7 +9,9 @@ export default class SkipToContentWrapper extends Component {
 
   public render() {
     return <Provider value={{registerMainContent: this.registerMainContent}}>
-      <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>Skip to Content</HiddenLink>
+      <FormattedMessage id='i18n:a11y:skipToContent'>
+        {(txt) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
+      </FormattedMessage>
       {this.props.children}
     </Provider>;
   }

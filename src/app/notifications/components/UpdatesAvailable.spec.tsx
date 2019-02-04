@@ -1,5 +1,6 @@
 import ReactType from 'react';
 import rendererType from 'react-test-renderer';
+import MessageProvider from '../../MessageProvider';
 import UpdatesAvailable from './UpdatesAvailable';
 
 describe('UpdatesAvailable', () => {
@@ -21,7 +22,7 @@ describe('UpdatesAvailable', () => {
     });
 
     it('reloads on click', () => {
-      const component = renderer.create(<UpdatesAvailable />);
+      const component = renderer.create(<MessageProvider><UpdatesAvailable /></MessageProvider>);
       component.root.findByType('button').props.onClick();
       expect(reload).toHaveBeenCalled();
     });
@@ -48,7 +49,7 @@ describe('UpdatesAvailable', () => {
     });
 
     it('does nothing on click', () => {
-      const component = renderer.create(React.createElement(UpdatesAvailable));
+      const component = renderer.create(<MessageProvider><UpdatesAvailable /></MessageProvider>);
       component.root.findByType('button').props.onClick();
       expect(() => component.root.findByType('button').props.onClick()).not.toThrow();
     });
