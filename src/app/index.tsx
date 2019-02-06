@@ -9,6 +9,7 @@ import * as content from './content';
 import * as Services from './context/Services';
 import * as errors from './errors';
 import * as head from './head';
+import MessageProvider from './MessageProvider';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
@@ -86,9 +87,11 @@ export default (options: Options) => {
   });
 
   const container = () => <Provider store={store}>
-    <Services.Provider value={services}>
-      <navigation.components.NavigationProvider routes={routes} />
-    </Services.Provider>
+    <MessageProvider>
+      <Services.Provider value={services} >
+        <navigation.components.NavigationProvider routes={routes} />
+      </Services.Provider>
+    </MessageProvider>
   </Provider>;
 
   if (!initialState || !initialState.navigation) {

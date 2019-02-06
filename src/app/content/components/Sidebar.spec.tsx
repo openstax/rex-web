@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
+import MessageProvider from '../../MessageProvider';
 import { AppState } from '../../types';
 import reducer, { initialState } from '../reducer';
 import ConnectedSidebar, { Sidebar } from './Sidebar';
@@ -47,9 +48,9 @@ describe('Sidebar', () => {
     } as any as AppState;
     const store = createStore(combineReducers({content: reducer}), state);
 
-    const component = renderer.create(<Provider store={store}>
+    const component = renderer.create(<MessageProvider><Provider store={store}>
       <ConnectedSidebar />
-    </Provider>);
+    </Provider></MessageProvider>);
 
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
     component.root.findByType('button').props.onClick();
