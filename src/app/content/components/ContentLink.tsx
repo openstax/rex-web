@@ -1,3 +1,4 @@
+import flow from 'lodash/fp/flow';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
@@ -46,7 +47,7 @@ export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
 
 export default connect(
   () => ({}),
-  (dispatch: Dispatch): {navigate: typeof push} => ({
-    navigate: (...args) => dispatch(push(...args)),
+  (dispatch: Dispatch) => ({
+    navigate: flow(push, dispatch),
   })
 )(ContentLink);

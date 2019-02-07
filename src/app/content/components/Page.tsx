@@ -1,4 +1,5 @@
 import { Element, Event, HTMLAnchorElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
@@ -100,20 +101,18 @@ export class PageComponent extends Component<PropTypes> {
       : null;
   }
 
-  private linksOn() {
+  private mapLinks(cb: (a: HTMLAnchorElement) => void) {
     if (this.container) {
-      Array.from(this.container.querySelectorAll('a')).forEach((a) =>
-        a.addEventListener('click', this.clickListener(a))
-      );
+      Array.from(this.container.querySelectorAll('a')).forEach(cb);
     }
   }
 
+  private linksOn() {
+    this.mapLinks((a) => a.addEventListener('click', this.clickListener(a)));
+  }
+
   private linksOff() {
-    if (this.container) {
-      Array.from(this.container.querySelectorAll('a')).forEach((a) =>
-        a.removeEventListener('click', this.clickListener(a))
-      );
-    }
+    this.mapLinks((a) => a.removeEventListener('click', this.clickListener(a)));
   }
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: Event) => {
@@ -155,7 +154,7 @@ export default connect(
     page: select.page(state),
     references: select.contentReferences(state),
   }),
-  (dispatch: Dispatch): {navigate: typeof push} => ({
-    navigate: (...args) => dispatch(push(...args)),
+  (dispatch: Dispatch) => ({
+    navigate: flow(push, dispatch),
   })
 )(withServices(PageComponent));
