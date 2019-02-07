@@ -7,16 +7,21 @@ from regions.base import Region
 # TODO: Ensure only 1 <nav> element exists on the Page
 NAV_SELECTOR = "#root > div > div > div > div > nav"
 
+
 class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
 
-    _main_content_locator = (By.CSS_SELECTOR, 'h1')
-    _table_of_contents_button_locator = (By.CSS_SELECTOR, "[aria-label='Click to close the Table of Contents'], [aria-label='Click to open the Table of Contents']")
+    _body_locator = (By.TAG_NAME, "body")
+    _main_content_locator = (By.CSS_SELECTOR, "h1")
+    _table_of_contents_button_locator = (
+        By.CSS_SELECTOR,
+        "[aria-label='Click to close the Table of Contents'], [aria-label='Click to open the Table of Contents']",
+    )
     _table_of_contents_nav_locator = (By.CSS_SELECTOR, NAV_SELECTOR)
 
     @property
     def loaded(self):
-        return self.find_element(*self._main_content_locator)
+        return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
 
     @property
     def table_of_contents_nav(self):
