@@ -5,10 +5,24 @@ import { Dispatch } from 'redux';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
-import { AnyMatch, AnyRoute, GenericMatch, Match, RouteHookBody } from './types';
+import { AnyMatch, AnyRoute, GenericMatch, Match, RouteHookBody, RouteState } from './types';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
+
+const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
+  const [, ...values] = match;
+  return keys.reduce((result, key, index) => {
+    const value = values[index] ? decodeURIComponent(values[index]) : values[index];
+    return {...result, [key.name]: value};
+  }, {});
+};
+
+const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray) => ({
+  route,
+  state,
+  ...(keys.length > 0 ? {params: getMatchParams(keys, match)} : {}),
+} as AnyMatch);
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch | undefined => {
   for (const route of routes) {
@@ -18,17 +32,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
       const match = re.exec(location.pathname);
 
       if (match) {
-        const [, ...values] = match;
-        const params = keys.reduce((result, key, index) => {
-          const value = values[index] ? decodeURIComponent(values[index]) : values[index];
-          return {...result, [key.name]: value};
-        }, {});
-
-        return {
-          route,
-          state: location.state,
-          ...(keys.length > 0 ? {params} : {}),
-        } as AnyMatch;
+        return formatRouteMatch(route, location.state, keys, match);
       }
     }
   }
