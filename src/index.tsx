@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from './app';
 import { AppState } from './app/types';
+import { assertWindowDefined } from './app/utils';
 import config from './config';
 import createArchiveLoader from './helpers/createArchiveLoader';
 import createOSWebLoader from './helpers/createOSWebLoader';
@@ -13,9 +14,8 @@ import pollUpdates from './helpers/pollUpdates';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
-  throw new Error('Browser entrypoint must be used in the browser');
-}
+const window = assertWindowDefined('Browser entrypoint must be used in the browser');
+const document = window.document;
 
 if (window.top === window.self) {
   const devMessage = [
