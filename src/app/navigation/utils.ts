@@ -1,4 +1,5 @@
 import { Location } from 'history';
+import curry from 'lodash/fp/curry';
 import pathToRegexp, { Key } from 'path-to-regexp';
 import { Dispatch } from 'redux';
 import { actionHook } from '../utils';
@@ -37,10 +38,10 @@ export const matchUrl = (action: AnyMatch) => hasParams(action)
   ? action.route.getUrl(action.params)
   : action.route.getUrl();
 
-export const init = (routes: AnyRoute[], location: Location, dispatch: Dispatch) => {
+export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location) => {
   const match = findRouteMatch(routes, location);
   dispatch(actions.locationChange({location, match}));
-};
+});
 
 export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
   actionHook(actions.locationChange, (stateHelpers) => {
