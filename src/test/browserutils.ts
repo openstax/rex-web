@@ -49,7 +49,7 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 
 export const finishRender = async(target: puppeteer.Page) => {
   // wait for any new async hooks to register...
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   await calmHooks(target);
 
