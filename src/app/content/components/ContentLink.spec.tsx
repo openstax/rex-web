@@ -8,10 +8,13 @@ import { initialState } from '../reducer';
 import { content } from '../routes';
 import ConnectedContentLink from './ContentLink';
 
+const BOOK_SLUG = 'bookslug';
+const PAGE_SLUG = 'page-title';
+
 const book = {
   id: 'booklongid',
   shortId: 'book',
-  slug: 'bookslug',
+  slug: BOOK_SLUG,
   title: 'book title',
   tree: {
     contents: [
@@ -46,15 +49,16 @@ describe('ContentLink', () => {
   });
 
   it('dispatches navigation action on click', () => {
+    const pathname = '/doesnotmatter';
     const state = {
       content: {
         ...initialState,
         book, page,
       },
+      navigation: { pathname },
     } as any as AppState;
     const store = createStore((s: AppState | undefined) => s || state, state);
     const dispatchSpy = jest.spyOn(store, 'dispatch');
-
     const component = renderer.create(<Provider store={store}>
       <ConnectedContentLink book={book} page={page} />
     </Provider>);
@@ -66,7 +70,7 @@ describe('ContentLink', () => {
     component.root.findByType('a').props.onClick(event);
 
     expect(dispatchSpy).toHaveBeenCalledWith(push({
-      params: {book: 'bookslug', page: 'page-title'},
+      params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
       state: {
         bookUid: 'booklongid',
@@ -76,4 +80,5 @@ describe('ContentLink', () => {
     }));
     expect(event.preventDefault).toHaveBeenCalled();
   });
+
 });
