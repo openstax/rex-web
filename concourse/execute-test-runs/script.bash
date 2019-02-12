@@ -14,11 +14,12 @@ do
 
   for TR_RUN_ID in "$BASE_DIR"/test-plans/*
   do
-    browser=$(< "$BASE_DIR/test-plans/$TR_RUN_ID/browser.txt")
+    base_url=$(< "$BASE_DIR/test-plans/$TR_RUN_ID/base_url.txt")
     
-    if [[ "$BASE_URL" == "$browser" ]]; then
+    if [[ "$BASE_URL" == "$base_url" ]]; then
       echo "found test plan $TR_RUN_ID"
 
+      browser=$(< "$BASE_DIR/test-plans/$TR_RUN_ID/browser.txt")
       export TR_RUN_ID
       export BROWSER=$browser
 
