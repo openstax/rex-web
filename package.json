@@ -26,7 +26,7 @@
   "scripts": {
     "lint": "npm run-script lint:bash && npm run-script lint:typescript",
     "lint:typescript": "tslint -p ./tsconfig.json",
-    "lint:bash": "[[ $(command -v shellcheck) ]] && shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
+    "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
     "start": "react-scripts start",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender && npm run-script server",
     "clean": "rm -rf ./build",
