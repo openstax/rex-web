@@ -1,25 +1,25 @@
 declare module 'weak-map' {
-  interface WeakMap {
+  interface WeakMap<K = any, V = any> {
     /**
      * Removes `key` and its value from the cache.
      * @param key The key of the value to remove.
      * @return Returns `true` if the entry was removed successfully, else `false`.
      */
-    delete(key: string): boolean;
+    delete(key: Key): boolean;
 
     /**
      * Gets the cached value for `key`.
      * @param key The key of the value to get.
      * @return Returns the cached value.
      */
-    get(key: string): any;
+    get(key: K): V;
 
     /**
      * Checks if a cached value for `key` exists.
      * @param key The key of the entry to check.
      * @return Returns `true` if an entry for `key` exists, else `false`.
      */
-    has(key: string): boolean;
+    has(key: K): V;
 
     /**
      * Sets `value` to `key` of the cache.
@@ -27,7 +27,7 @@ declare module 'weak-map' {
      * @param value The value to cache.
      * @return Returns the cache object.
      */
-    set(key: string, value: any): Dictionary<any>;
+    set(key: K, value: V): WeakMap<K, V>;
 
     /**
      * Removes all key-value entries from the map.
@@ -36,7 +36,7 @@ declare module 'weak-map' {
   }
 
   interface WeakMapConstructor {
-    new (): WeakMap;
+    new(): WeakMap;
   }
 
   class WeakMap {

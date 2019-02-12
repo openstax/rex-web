@@ -1,3 +1,4 @@
+import flow from 'lodash/fp/flow';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
@@ -50,7 +51,7 @@ export default connect(
   (state: AppState) => ({
     currentPath: selectNavigation.pathname(state),
   }),
-  (dispatch: Dispatch): {navigate: typeof push} => ({
-    navigate: (...args) => dispatch(push(...args)),
+  (dispatch: Dispatch) => ({
+    navigate: flow(push, dispatch),
   })
 )(ContentLink);

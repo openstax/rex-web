@@ -35,94 +35,87 @@ const ASSET_DIR = path.resolve(__dirname, '../build');
 
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
-async function render() {
-  const start = (new Date()).getTime();
-  const port = await portfinder.getPortPromise();
-  const {server} = await startServer({port, onlyProxy: true});
-  const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
-  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
+async function renderManifest() {
+  writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
+    books: BOOKS,
+    code: CODE_VERSION,
+    id: RELEASE_ID,
+  }, null, 2));
+}
+
+async function prepareContentPage(
+  bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
+  bookSlug: string,
+  pageId: string
+) {
+  const book = await bookLoader.load();
+  const page = await bookLoader.page(pageId).load();
+
+  const action: Match<typeof content> = {
+    params: {
+      book: bookSlug,
+      page: getUrlParamForPageId(book, page.id),
+    },
+    route: content,
+    state: {
+      bookUid: book.id,
+      bookVersion: book.version,
+      pageUid: page.id,
+    },
+  };
+
+  console.info(`prepared ${matchUrl(action)}`); // tslint:disable-line:no-console
+
+  return action;
+}
+
+type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
+const renderHtml: RenderHtml = (styles, app, state) => injectHTML(indexHtml, {
+  body: renderToString(
+     <StyleSheetManager sheet={styles.instance}>
+       <app.container />
+     </StyleSheetManager>
+  ),
+  fonts: app.services.fontCollector.fonts,
+  meta: headSelectors.meta(state),
+  state,
+  styles,
+});
+
+type MakeRenderPage = (services: Pick<AppServices, 'archiveLoader' | 'osWebLoader'>) =>
+  (action: AnyMatch, expectedCode: number) => Promise<void>;
+const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode) => {
+  const url = matchUrl(action);
+  console.info(`rendering ${url}`); // tslint:disable-line:no-console
+  const app = createApp({initialEntries: [action], services});
+
+  await app.services.promiseCollector.calm();
+
+  const state = app.store.getState();
+  const styles = new ServerStyleSheet();
+  const pathname = navigationSelectors.pathname(state);
+
+  if (pathname !== url) {
+    throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
+  }
+  if (errorSelectors.code(state) !== expectedCode) {
+    throw new Error(`UNSUPPORTED: url: ${url} has an unexpected response code.`);
+  }
+
+  const html = renderHtml(styles, app, state);
+
+  writeFile(path.join(ASSET_DIR, url), html);
+};
+
+type Pages = Array<{code: number, page: AnyMatch}>;
+type PreparePages = (
+  archiveLoader: AppServices['archiveLoader'],
+  osWebLoader: AppServices['osWebLoader']
+) => Promise<Pages>;
+const preparePages: PreparePages = async(archiveLoader, osWebLoader) => {
   const bookEntries = Object.entries(BOOKS);
 
-  async function renderManifest() {
-    writeFile(path.join(ASSET_DIR, '/rex/release.json'), JSON.stringify({
-      books: BOOKS,
-      code: CODE_VERSION,
-      id: RELEASE_ID,
-    }, null, 2));
-  }
-
-  async function prepareContentPage(
-    bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-    bookSlug: string,
-    pageId: string
-  ) {
-    const book = await bookLoader.load();
-    const page = await bookLoader.page(pageId).load();
-
-    const action: Match<typeof content> = {
-      params: {
-        book: bookSlug,
-        page: getUrlParamForPageId(book, page.id),
-      },
-      route: content,
-      state: {
-        bookUid: book.id,
-        bookVersion: book.version,
-        pageUid: page.id,
-      },
-    };
-
-    console.info(`prepared ${matchUrl(action)}`); // tslint:disable-line:no-console
-
-    return action;
-  }
-
-  async function renderPage(action: AnyMatch, expectedCode: number = 200) {
-    const url = matchUrl(action);
-    console.info(`rendering ${url}`); // tslint:disable-line:no-console
-    const app = createApp({
-      initialEntries: [action],
-      services: {
-        archiveLoader,
-        osWebLoader,
-      },
-    });
-
-    await app.services.promiseCollector.calm();
-
-    const state = app.store.getState();
-    const styles = new ServerStyleSheet();
-    const pathname = navigationSelectors.pathname(state);
-    const code = errorSelectors.code(state);
-    const meta = headSelectors.meta(state);
-
-    if (pathname !== url) {
-      throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
-    }
-    if (code !== expectedCode) {
-      throw new Error(`UNSUPPORTED: url: ${url} has an unexpected response code.`);
-    }
-
-    const body = renderToString(
-       <StyleSheetManager sheet={styles.instance}>
-         <app.container />
-       </StyleSheetManager>
-    );
-
-    const html = injectHTML(indexHtml, {
-      body,
-      fonts: app.services.fontCollector.fonts,
-      meta,
-      state,
-      styles,
-    });
-
-    writeFile(path.join(ASSET_DIR, url), html);
-  }
-
-  await renderManifest();
-
-  const pages: Array<{code: number, page: AnyMatch}> = [
+  const pages: Pages = [
     {code: 404, page: {route: notFound}},
   ];
 
@@ -137,7 +130,30 @@ async function render() {
     );
   }
 
+  return pages;
+};
+
+type RenderPages = (
+  archiveLoader: AppServices['archiveLoader'],
+  osWebLoader: AppServices['osWebLoader'],
+  pages: Pages
+) => Promise<void>;
+const renderPages: RenderPages = async(archiveLoader, osWebLoader, pages) => {
+  const renderPage = makeRenderPage({osWebLoader, archiveLoader});
   await asyncPool(50, pages, ({code, page}) => renderPage(page, code));
+};
+
+async function render() {
+  const start = (new Date()).getTime();
+  const port = await portfinder.getPortPromise();
+  const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
+  const {server} = await startServer({port, onlyProxy: true});
+
+  const pages = await preparePages(archiveLoader, osWebLoader);
+
+  await renderManifest();
+  await renderPages(archiveLoader, osWebLoader, pages);
 
   const numPages = pages.length;
   const end = (new Date()).getTime();

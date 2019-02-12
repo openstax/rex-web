@@ -95,7 +95,7 @@ export default (options: Options) => {
   </Provider>;
 
   if (!initialState || !initialState.navigation) {
-    navigation.utils.init(routes, history.location, store.dispatch);
+    navigation.utils.changeToLocation(routes, store.dispatch, history.location);
   }
 
   return {
