@@ -1,10 +1,12 @@
+import flow from 'lodash/fp/flow';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { push } from '../../navigation/actions';
-import { Dispatch } from '../../types';
+import * as selectNavigation from '../../navigation/selectors';
+import { AppState, Dispatch } from '../../types';
 import { content } from '../routes';
 import { Book } from '../types';
-import { getUrlParamForPageId, stripIdVersion } from '../utils';
+import { getUrlParamForPageId, stripIdVersion, toRelativeUrl } from '../utils';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   book: Book;
@@ -14,17 +16,18 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
     title: string;
   };
   navigate: typeof push;
+  currentPath: string;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
+export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...props}) => {
   const params = {
     book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
   };
 
-  const url = content.getUrl(params);
+  const url = toRelativeUrl(currentPath, content.getUrl(params));
 
   return <a
     onClick={(e) => {
@@ -45,8 +48,10 @@ export const ContentLink: SFC<Props> = ({book, page, navigate, ...props}) => {
 };
 
 export default connect(
-  () => ({}),
-  (dispatch: Dispatch): {navigate: typeof push} => ({
-    navigate: (...args) => dispatch(push(...args)),
+  (state: AppState) => ({
+    currentPath: selectNavigation.pathname(state),
+  }),
+  (dispatch: Dispatch) => ({
+    navigate: flow(push, dispatch),
   })
 )(ContentLink);

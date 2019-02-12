@@ -1,12 +1,14 @@
 /** @jest-environment puppeteer */
 import { checkLighthouse, finishRender, h1Content, navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/book-slug-1/pages/test-page-1';
-const TEST_LONG_PAGE = '/books/book-slug-1/pages/1-test-page-3';
+const TEST_PAGE_NAME = 'test-page-1';
+const TEST_LONG_PAGE_NAME = '1-test-page-3';
+const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
+const TEST_LONG_PAGE_URL = `/books/book-slug-1/pages/${TEST_LONG_PAGE_NAME}`;
 
 describe('content', () => {
   beforeEach(async() => {
-    await navigate(page, TEST_PAGE);
+    await navigate(page, TEST_PAGE_URL);
   });
 
   it('looks right', async() => {
@@ -36,7 +38,7 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse(browser, TEST_LONG_PAGE);
+    await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
 
   it(`when clicking a toc link:
@@ -49,7 +51,7 @@ describe('content', () => {
     // assert initial state
     expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
     expect(await isTocVisible()).toBe(true);
-    expect(await getSelectedTocSection()).toBe(TEST_PAGE);
+    expect(await getSelectedTocSection()).toBe(TEST_PAGE_NAME);
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(0);
 
@@ -60,12 +62,12 @@ describe('content', () => {
     expect(await getTocScrollTop()).toBe(20);
 
     // click toc link to another long page
-    expect(await clickTocLink(TEST_LONG_PAGE)).toBe(true);
+    expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
     expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);
-    expect(await getSelectedTocSection()).toBe(TEST_LONG_PAGE);
+    expect(await getSelectedTocSection()).toBe(TEST_LONG_PAGE_NAME);
   });
 });
 
