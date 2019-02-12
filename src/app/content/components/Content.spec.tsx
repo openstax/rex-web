@@ -21,7 +21,7 @@ describe('content', () => {
   beforeEach(() => {
     state = cloneDeep({
       content: initialState,
-      navigation: {},
+      navigation: { pathname: '/books/book-slug-1/pages/doesnotmatter' },
       notifications: [],
     }) as any as AppState;
 

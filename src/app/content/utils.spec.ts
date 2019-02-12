@@ -5,7 +5,8 @@ import {
   getContentPageReferences,
   getPageIdFromUrlParam,
   scrollTocSectionIntoView,
-  stripIdVersion
+  stripIdVersion,
+  toRelativeUrl
 } from './utils';
 
 describe('stripIdVersion', () => {
@@ -266,9 +267,12 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('replaces htmlentities', () => {
-    book.tree.contents[0].title = '<span class="os-text">Section &amp; section</span>';
+    book.tree.contents[0].title =
+      '<span class="os-text">Section &amp; section</span>';
     expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('section-section');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('section-section');
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual(
+      'section-section'
+    );
   });
 
   it('defaults section number to chapter number', () => {
@@ -351,5 +355,62 @@ describe('getPageIdFromUrlParam', () => {
 
   it('returns undefined for unknown route', () => {
     expect(getPageIdFromUrlParam(book, 'asdfasdf')).toBeUndefined();
+  });
+});
+
+describe('toRelativeUrl', () => {
+  const BOOK_SLUG = 'book1';
+  const PAGE_SLUG = 'page1';
+  const BOOK_URL = `/books/${BOOK_SLUG}`;
+  const PAGE_URL = `${BOOK_URL}/pages/${PAGE_SLUG}`;
+
+  it('when the same page', () => {
+    const url = toRelativeUrl(PAGE_URL, PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"page1"`);
+  });
+
+  it('when in the same book', () => {
+    const url = toRelativeUrl(`${BOOK_URL}/pages/doesnotmatter`, PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"page1"`);
+  });
+
+  it('when under the same Page (unused)', () => {
+    const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter`, PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"../page1"`);
+  });
+
+  it('when deeply under the same Page (unused)', () => {
+    const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter/doesnotmatter`, PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"../../page1"`);
+  });
+
+  it('when in a different book', () => {
+    const url = toRelativeUrl('/books/doesnotmatter/pages/doesnotmatter', PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"../../book1/pages/page1"`);
+  });
+
+  it('when at the root', () => {
+    const url = toRelativeUrl('/', PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"books/book1/pages/page1"`);
+  });
+
+  it('when at the top', () => {
+    const url = toRelativeUrl('/doesnotmatter', PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"books/book1/pages/page1"`);
+  });
+
+  it('when not in a book and not at the root', () => {
+    const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
+  });
+
+  it('ignores trailing slashes on the target', () => {
+    const url = toRelativeUrl(PAGE_URL, PAGE_URL + '/');
+    expect(url).toMatchInlineSnapshot(`"page1"`);
+  });
+
+  it('ignores trailing slashes on the source', () => {
+    const url = toRelativeUrl(PAGE_URL + '/', PAGE_URL);
+    expect(url).toMatchInlineSnapshot(`"page1"`);
   });
 });
