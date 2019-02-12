@@ -9,13 +9,11 @@ describe('create app', () => {
   let createApp = require('./index').default;
   let createBrowserHistory: jest.SpyInstance;
   let createMemoryHistory: jest.SpyInstance;
-  let navigationInit: jest.SpyInstance;
   const services = {} as AppServices;
 
   beforeEach(() => {
     jest.resetModules();
     history = require('history');
-    navigationInit = jest.spyOn(require('./navigation').utils, 'init');
     createApp = require('./index').default;
 
     createBrowserHistory = jest.spyOn(history, 'createBrowserHistory');
@@ -31,9 +29,9 @@ describe('create app', () => {
   it('does not initialize location if initialState is passed', () => {
     const location = {cool: 'location'} as any as Location;
     const initialState = {navigation: location} as AppState;
-    createApp({services, initialState});
+    const {store} = createApp({services, initialState});
 
-    expect(navigationInit).not.toHaveBeenCalled();
+    expect(store.getState().navigation).toEqual(location);
   });
 
   it('initializes the location state when initialEntries is passed', () => {
