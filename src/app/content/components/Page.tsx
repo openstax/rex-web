@@ -1,3 +1,4 @@
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { Element, Event, HTMLAnchorElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
@@ -20,6 +21,7 @@ interface PropTypes {
   page: State['page'];
   book: State['book'];
   hash: string;
+  search: string | undefined;
   navigate: typeof push;
   references: State['references'];
   services: AppServices;
@@ -28,6 +30,7 @@ interface PropTypes {
 export class PageComponent extends Component<PropTypes> {
   public container: Element | undefined | null;
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: Event) => void>();
+  private highlighter: any;
 
   public getCleanContent = () => {
     const {book, page, services} = this.props;
@@ -48,9 +51,12 @@ export class PageComponent extends Component<PropTypes> {
     ;
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
+    if (this.container) {
+      this.highlighter = new Highlighter(this.container);
+    }
     const target = this.getScrollTarget();
-    this.postProcess();
+    await this.postProcess();
     this.linksOn();
     if (target) {
       scrollTo(target);
@@ -150,13 +156,48 @@ export class PageComponent extends Component<PropTypes> {
     }
   }
 
-  private postProcess() {
+  private async postProcess() {
     if (this.container && typeof(window) !== 'undefined') {
       const promise = typesetMath(this.container, window);
       this.props.services.promiseCollector.add(promise);
+      await promise;
+    }
+    this.highlightSearchTerms();
+  }
+
+  private highlightSearchTerms() {
+    const {search} = this.props;
+    if (!search) {
+      return;
+    }
+    const terms = search.split(' ');
+
+    if (this.container && typeof(window) !== 'undefined') {
+      const walk = window.document.createTreeWalker(this.container, window.NodeFilter.SHOW_TEXT, null, false);
+
+      while (walk.nextNode()) {
+        const node = walk.currentNode;
+
+        for (const term of terms) {
+          const text = node.nodeValue || '';
+          const index = text.indexOf(term);
+          if (index > -1) {
+            const range = window.document.createRange();
+            range.setStart(node, index);
+            range.setEnd(node, index + term.length);
+            const highlight = new Highlight(range, term);
+            this.highlighter.highlight(highlight);
+          }
+        }
+      }
     }
   }
 }
+
+const getSearch = (state: AppState) => {
+  const query = selectNavigation.query(state);
+  return typeof(query.search) === 'string' ? query.search : undefined;
+};
 
 export default connect(
   (state: AppState) => ({
@@ -164,6 +205,7 @@ export default connect(
     hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),
+    search: getSearch(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

@@ -5,6 +5,25 @@ import { compose } from 'redux';
 import { AppServices, AppState } from './app/types';
 import PromiseCollector from './helpers/PromiseCollector';
 
+declare var NodeFilter: {
+  readonly FILTER_ACCEPT: number;
+  readonly FILTER_REJECT: number;
+  readonly FILTER_SKIP: number;
+  readonly SHOW_ALL: number;
+  readonly SHOW_ATTRIBUTE: number;
+  readonly SHOW_CDATA_SECTION: number;
+  readonly SHOW_COMMENT: number;
+  readonly SHOW_DOCUMENT: number;
+  readonly SHOW_DOCUMENT_FRAGMENT: number;
+  readonly SHOW_DOCUMENT_TYPE: number;
+  readonly SHOW_ELEMENT: number;
+  readonly SHOW_ENTITY: number;
+  readonly SHOW_ENTITY_REFERENCE: number;
+  readonly SHOW_NOTATION: number;
+  readonly SHOW_PROCESSING_INSTRUCTION: number;
+  readonly SHOW_TEXT: number;
+};
+
 declare global {
 
   interface Window extends dom.Window {
@@ -13,6 +32,7 @@ declare global {
     __APP_SERVICES: AppServices;
     __APP_ASYNC_HOOKS: PromiseCollector;
 
+    NodeFilter: NodeFilter;
     MouseEvent: {
       prototype: dom.MouseEvent;
       new(typeArg: string, eventInitDict?: dom.MouseEventInit): dom.MouseEvent;

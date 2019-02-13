@@ -15,6 +15,10 @@ export default styled(MainContent)`
     padding: 0 50px;
   }
 
+  .highlight {
+    background-color: yellow;
+  }
+
   // these are only here because the cnx-recipes styles are broken
   font-size: 18px;
   font-family: "Noto Sans";
