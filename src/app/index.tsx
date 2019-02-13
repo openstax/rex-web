@@ -94,9 +94,7 @@ export default (options: Options) => {
     </MessageProvider>
   </Provider>;
 
-  if (!initialState || !initialState.navigation) {
-    navigation.utils.changeToLocation(routes, store.dispatch, history.location);
-  }
+  navigation.utils.changeToLocation(routes, store.dispatch, history.location);
 
   return {
     container,
