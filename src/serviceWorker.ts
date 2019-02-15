@@ -1,4 +1,5 @@
 import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import { assertWindowDefined } from './app/utils';
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -11,44 +12,30 @@ import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.do
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
 
-const guard = () => {
-  if (
-    typeof(window) !== 'undefined'
-    && typeof(navigator) !== 'undefined'
-    && typeof(document) !== 'undefined'
-    && typeof(URL) !== 'undefined'
-  ) {
-    return window;
-  } else {
-    return false;
-  }
-};
+const window = assertWindowDefined();
+const navigator = window.navigator;
+const fetch = window.fetch;
 
-const windowImpl = guard();
-const navigator = windowImpl && windowImpl.navigator;
-const fetch = windowImpl && windowImpl.fetch;
-
-const isLocalhost = Boolean(windowImpl && (
-  windowImpl.location.hostname === 'localhost' ||
+const isLocalhost = Boolean(window && (
+  window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
-    windowImpl.location.hostname === '[::1]' ||
+    window.location.hostname === '[::1]' ||
     // 127.0.0.1/8 is considered localhost for IPv4.
-    windowImpl.location.hostname.match(
+    window.location.hostname.match(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 ));
 
 const isSameOrigin = Boolean((() => {
-  if (!windowImpl) { return false; }
   // The URL constructor is available in all browsers that support SW.
   const publicUrl = new URL(
     (process as { env: { [key: string]: string } }).env.PUBLIC_URL,
-    windowImpl.location.href
+    window.location.href
   );
   // Our service worker won't work if PUBLIC_URL is on a different origin
   // from what our page is served on. This might happen if a CDN is used to
   // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-  return publicUrl.origin === windowImpl.location.origin;
+  return publicUrl.origin === window.location.origin;
 })());
 
 interface Config {
@@ -57,11 +44,11 @@ interface Config {
 }
 
 export function register(config?: Config) {
-  if (!windowImpl || !navigator || !navigator.serviceWorker) { return; }
+  if (!navigator || !navigator.serviceWorker) { return; }
   if (process.env.NODE_ENV !== 'production') { return; }
   if (!isSameOrigin) { return; }
 
-  windowImpl.addEventListener('load', onLoad(config));
+  window.addEventListener('load', onLoad(config));
 }
 
 const onLoad = (config?: Config) => () => {
@@ -124,7 +111,7 @@ function isValidSWResponse(response: any) {
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {
-  if (!windowImpl || !fetch || !navigator) { return; }
+  if (!fetch || !navigator) { return; }
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl).then((response: any) => isValidSWResponse(response)
       // Service worker found. Proceed as normal.
@@ -132,7 +119,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
       // No service worker found. Probably a different app. Reload the page.
       : navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
-            windowImpl.location.reload();
+            window.location.reload();
           });
         })
     )
