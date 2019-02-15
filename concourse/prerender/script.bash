@@ -1,9 +1,9 @@
 #!/bin/bash
 
-DESTINATION=$(pwd)/release
+destination=$(pwd)/release
 
 cd /code || exit 111
 
 yarn prerender
 
-cp -r build/* "$DESTINATION"
+cp -r build/* "$destination"
