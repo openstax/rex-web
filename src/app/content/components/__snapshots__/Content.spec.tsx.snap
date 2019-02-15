@@ -243,7 +243,7 @@ Array [
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
                     }
                   }
-                  href="/books/book-slug-1/pages/test-page-1"
+                  href="test-page-1"
                   onClick={[Function]}
                 />
               </li>
@@ -268,7 +268,7 @@ Array [
                             "__html": "<span class=\\"os-text\\">Test Page 2</span>",
                           }
                         }
-                        href="/books/book-slug-1/pages/1-test-page-2"
+                        href="1-test-page-2"
                         onClick={[Function]}
                       />
                     </li>
@@ -296,7 +296,7 @@ Array [
                             "__html": "<span class=\\"os-text\\">Test Page 3</span>",
                           }
                         }
-                        href="/books/book-slug-1/pages/1-test-page-3"
+                        href="1-test-page-3"
                         onClick={[Function]}
                       />
                     </li>
@@ -325,7 +325,7 @@ Array [
                             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
                           }
                         }
-                        href="/books/book-slug-1/pages/1-test-page-4"
+                        href="1-test-page-4"
                         onClick={[Function]}
                       />
                     </li>
@@ -353,7 +353,7 @@ Array [
                             "__html": "<span class=\\"os-text\\">Test Page 5</span>",
                           }
                         }
-                        href="/books/book-slug-1/pages/1-test-page-5"
+                        href="1-test-page-5"
                         onClick={[Function]}
                       />
                     </li>
@@ -381,7 +381,7 @@ Array [
                             "__html": "<span class=\\"os-text\\">Test Page 6</span>",
                           }
                         }
-                        href="/books/book-slug-1/pages/1-test-page-6"
+                        href="1-test-page-6"
                         onClick={[Function]}
                       />
                     </li>
@@ -409,7 +409,7 @@ Array [
                             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                           }
                         }
-                        href="/books/book-slug-1/pages/1-test-page-7"
+                        href="1-test-page-7"
                         onClick={[Function]}
                       />
                     </li>

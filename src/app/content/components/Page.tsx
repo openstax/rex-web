@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
 import url from 'url';
+import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
@@ -26,6 +27,7 @@ interface PropTypes {
 
 export class PageComponent extends Component<PropTypes> {
   public container: Element | undefined | null;
+  private clickListeners = new WeakMap<HTMLAnchorElement, (e: Event) => void>();
 
   public getCleanContent = () => {
     const {book, page, services} = this.props;
@@ -108,11 +110,20 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   private linksOn() {
-    this.mapLinks((a) => a.addEventListener('click', this.clickListener(a)));
+    this.mapLinks((a) => {
+      const handler = this.clickListener(a);
+      this.clickListeners.set(a, handler);
+      a.addEventListener('click', handler);
+    });
   }
 
   private linksOff() {
-    this.mapLinks((a) => a.removeEventListener('click', this.clickListener(a)));
+    this.mapLinks((a) => {
+      const handler = this.clickListeners.get(a);
+      if (handler) {
+        a.removeEventListener('click', handler);
+      }
+    });
   }
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: Event) => {

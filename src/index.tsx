@@ -51,6 +51,12 @@ app.services.fontCollector.handle((font) => {
   app.services.promiseCollector.add(loadFont(font));
 });
 
+app.services.promiseCollector.calm().then(() => {
+  if (typeof(document) !== 'undefined') {
+    document.body.setAttribute('data-rex-loaded', 'true');
+  }
+});
+
 if (window.__PRELOADED_STATE__) {
   ReactDOM.hydrate(<app.container />, document.getElementById('root'));
 } else {
