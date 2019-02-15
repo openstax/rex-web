@@ -1,4 +1,5 @@
 import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import noop from 'lodash/fp/noop';
 import { assertWindowDefined } from './app/utils';
 // This optional code is used to register a service worker.
 // register() is not called by default.
@@ -68,21 +69,16 @@ const onStateChange = (
   config: Config | undefined,
   registration: ServiceWorkerRegistration
 ) => () => {
-  if (!navigator) { return; }
-
-  if (installingWorker.state === 'installed') {
-    if (navigator.serviceWorker.controller) {
-      // Execute callback
-      if (config && config.onUpdate) {
-        config.onUpdate(registration);
-      }
-    } else {
-      // Execute callback
-      if (config && config.onSuccess) {
-        config.onSuccess(registration);
-      }
-    }
+  if (!navigator || !config || installingWorker.state !== 'installed') {
+    return;
   }
+
+  const callback = (navigator.serviceWorker.controller
+    ? config.onUpdate
+    : config.onSuccess
+  ) || noop;
+
+  callback(registration);
 };
 
 function registerValidSW(swUrl: string, config?: Config) {
