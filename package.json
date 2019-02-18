@@ -24,7 +24,9 @@
     "weak-map": "^1.0.5"
   },
   "scripts": {
-    "lint": "tslint -p ./tsconfig.json",
+    "lint": "npm run-script lint:bash && npm run-script lint:typescript",
+    "lint:typescript": "tslint -p ./tsconfig.json",
+    "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
     "start": "react-scripts start",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender && npm run-script server",
     "clean": "rm -rf ./build",
@@ -34,7 +36,7 @@
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
     "postinstall": "node ./script/postinstall",
-    "pretest:sims": "./script/build-simulations.sh",
+    "pretest:sims": "./script/build-simulations.bash",
     "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "npm run-script pretest:sims && REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
     "test:build": "REACT_APP_ENV=test npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
