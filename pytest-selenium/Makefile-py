@@ -18,26 +18,28 @@ clean-test: ## remove test and coverage artifacts
 
 venv:
 	python3 -m venv .venv && \
-		source .venv/bin/activate && \
+		. .venv/bin/activate && \
 		pip install -r pytest-selenium/requirements-dev.txt
 
 help_redirect:
 	@$(MAKE) help --no-print-directory
 
-test-rail: venv
-	@source .venv/bin/activate && pytest \
+test-rail-sauce: venv
+	@. .venv/bin/activate && pytest \
 		--testrail \
-		--tr-url="https://openstax.testrail.net/" \
-		--tr-email=$(TR_EMAIL) \
+		--tr-url="https://$(TR_INSTANCE).testrail.net/" \
+		--tr-email=$(TR_USERNAME) \
 		--tr-password=$(TR_PASSWORD) \
-		--tr-run-id=673 \
+		--tr-run-id=$(TR_RUN_ID) \
 		--tr-skip-missing \
-		--base-url=https://release-2019-q1-unified.sandbox.openstax.org \
-		--driver SauceLabs --capability browserName Firefox \
+		--base-url=$(BASE_URL) \
+		--driver SauceLabs \
+		--capability avoidProxy True \
+		--capability browserName $(BROWSER) \
 		pytest-selenium/tests
 
 test-local: venv
-	@source .venv/bin/activate && pytest \
+	@. .venv/bin/activate && pytest \
 		--base-url http://localhost:3000 \
 		--driver Chrome \
 		pytest-selenium/tests \
@@ -47,10 +49,10 @@ test: help_submake
 
 help_submake:
 	@echo "The following targets are available"
-	@echo "clean       Remove build, test, and file artifacts"
-	@echo "clean-build Remove build artifacts"
-	@echo "clean-pyc   Remove file artifacts"
-	@echo "clean-test  Remove test artifacts"
-	@echo "venv	    Set up a virtualenv for this project"
-	@echo "test-local  Run test suite against localhost:3000"
-	@echo "test-rail   Run test suite in Saucelabs and Testrail"
+	@echo "clean             Remove build, test, and file artifacts"
+	@echo "clean-build       Remove build artifacts"
+	@echo "clean-pyc         Remove file artifacts"
+	@echo "clean-test        Remove test artifacts"
+	@echo "venv	             Set up a virtualenv for this project"
+	@echo "test-local        Run test suite against localhost:3000"
+	@echo "test-rail-sauce   Run test suite in Saucelabs and Testrail"
