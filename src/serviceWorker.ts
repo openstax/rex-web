@@ -1,4 +1,6 @@
-import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import noop from 'lodash/fp/noop';
+import { assertWindowDefined } from './app/utils';
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -11,6 +13,10 @@ import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
 
+const window = assertWindowDefined();
+const navigator = window.navigator;
+const fetch = window.fetch;
+
 const isLocalhost = Boolean(window && (
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -21,70 +27,70 @@ const isLocalhost = Boolean(window && (
     )
 ));
 
+const isSameOrigin = Boolean((() => {
+  // The URL constructor is available in all browsers that support SW.
+  const publicUrl = new URL(
+    (process as { env: { [key: string]: string } }).env.PUBLIC_URL,
+    window.location.href
+  );
+  // Our service worker won't work if PUBLIC_URL is on a different origin
+  // from what our page is served on. This might happen if a CDN is used to
+  // serve assets; see https://github.com/facebook/create-react-app/issues/2374
+  return publicUrl.origin === window.location.origin;
+})());
+
 interface Config {
   onSuccess?: (registration: ServiceWorkerRegistration) => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 }
 
 export function register(config?: Config) {
-  if (!navigator) { return; }
-  if (!window) { return; }
-  if (!document) { return; }
-  if (!URL) { return; }
+  if (!navigator || !navigator.serviceWorker) { return; }
+  if (process.env.NODE_ENV !== 'production') { return; }
+  if (!isSameOrigin) { return; }
 
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(
-      (process as { env: { [key: string]: string } }).env.PUBLIC_URL,
-      window.location.href
-    );
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      return;
-    }
-
-    window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
-      } else {
-        // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
-    });
-  }
+  window.addEventListener('load', onLoad(config));
 }
+
+const onLoad = (config?: Config) => () => {
+  const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+
+  if (isLocalhost) {
+    // This is running on localhost. Let's check if a service worker still exists or not.
+    checkValidServiceWorker(swUrl, config);
+  } else {
+    // Is not localhost. Just register service worker
+    registerValidSW(swUrl, config);
+  }
+};
+
+const onStateChange = (
+  installingWorker: ServiceWorker,
+  config: Config | undefined,
+  registration: ServiceWorkerRegistration
+) => () => {
+  if (!navigator || !config || installingWorker.state !== 'installed') {
+    return;
+  }
+
+  const callback = (navigator.serviceWorker.controller
+    ? config.onUpdate
+    : config.onSuccess
+  ) || noop;
+
+  callback(registration);
+};
 
 function registerValidSW(swUrl: string, config?: Config) {
   if (!navigator) { return; }
+
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
-        if (installingWorker == null) {
-          return;
-        }
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
-            if (!navigator) { return; }
-            if (navigator.serviceWorker.controller) {
-              // Execute callback
-              if (config && config.onUpdate) {
-                config.onUpdate(registration);
-              }
-            } else {
-              // Execute callback
-              if (config && config.onSuccess) {
-                config.onSuccess(registration);
-              }
-            }
-          }
-        };
+        if (installingWorker == null) { return; }
+        installingWorker.onstatechange = onStateChange(installingWorker, config, registration);
       };
     })
     .catch(() => {
@@ -92,30 +98,27 @@ function registerValidSW(swUrl: string, config?: Config) {
     });
 }
 
+function isValidSWResponse(response: any) {
+  // Ensure service worker exists, and that we really are getting a JS file.
+  const contentType = response.headers.get('content-type');
+  return response.status !== 404
+    && contentType !== null
+    && contentType.indexOf('javascript') !== -1;
+}
+
 function checkValidServiceWorker(swUrl: string, config?: Config) {
-  if (!fetch) { return; }
+  if (!fetch || !navigator) { return; }
   // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl)
-    .then((response: any) => {
-      // Ensure service worker exists, and that we really are getting a JS file.
-      const contentType = response.headers.get('content-type');
-      if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
-      ) {
-        // No service worker found. Probably a different app. Reload the page.
-        if (!navigator) { return; }
-        navigator.serviceWorker.ready.then((registration) => {
+  fetch(swUrl).then((response: any) => isValidSWResponse(response)
+      // Service worker found. Proceed as normal.
+      ? registerValidSW(swUrl, config)
+      // No service worker found. Probably a different app. Reload the page.
+      : navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
-            if (!window) { return; }
             window.location.reload();
           });
-        });
-      } else {
-        // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, config);
-      }
-    })
+        })
+    )
     .catch(() => {
       // black hole
     });
