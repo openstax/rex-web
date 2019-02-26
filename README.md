@@ -23,7 +23,7 @@ yarn start
 
 ## Architecture Overview
 
-The app has two entrypoints, one for [prerender](scripts/prerender.ts) and one for [browsers](src/index.tsx), both use [app](src/app/index.ts) to construct the actual app container. The app container sets some stuff up and then passes [routes](src/app/content/routes.ts) into the [navigator](src/app/navigation/components/NavigationProvider.ts). Pages initialize their state by registering a [route hook](src/app/content/hooks/locationChange.ts), route hooks are a type of [action hook](src/app/content/hooks/receiveContent.ts) that can be used to respond to any redux action dispatched. 
+The app has two entrypoints, one for [prerender](scripts/prerender.tsx) and one for [browsers](src/index.tsx), both use [app](src/app/index.ts) to construct the actual app container. The app container sets some stuff up and then passes [routes](src/app/content/routes.ts) into the [navigator](src/app/navigation/components/NavigationProvider.ts). Pages initialize their state by registering a [route hook](src/app/content/hooks/locationChange.ts), route hooks are a type of [action hook](src/app/content/hooks/receiveContent.ts) that can be used to respond to any redux action dispatched. 
 
 ## Available Scripts
 
