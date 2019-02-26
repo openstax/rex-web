@@ -5,7 +5,7 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
-const {FIXTURES, ARCHIVE_URL, OS_WEB_URL} = require('./config');
+const {SKIP_OS_WEB_PROXY, FIXTURES, ARCHIVE_URL, OS_WEB_URL} = require('./config');
 
 const archivePaths = [
   'contents',
@@ -61,8 +61,10 @@ function setupProxy(app) {
     changeOrigin: true,
   })));
 
-  app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages)|static|errors|rex/), {
-    target: OS_WEB_URL,
-    changeOrigin: true,
-  }));
+  if (!SKIP_OS_WEB_PROXY) {
+    app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages)|static|errors|rex/), {
+      target: OS_WEB_URL,
+      changeOrigin: true,
+    }));
+  }
 }
