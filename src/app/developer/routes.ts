@@ -4,7 +4,7 @@ import * as components from './components';
 
 const ROUTES_PATH = '/rex-developer/routes';
 
-export const content: Route<undefined, undefined> = {
+export const routes: Route<undefined, undefined> = {
   component: components.Routes,
   getUrl: (): string => pathToRegexp.compile(ROUTES_PATH)(),
   name: 'Developer / Routes',

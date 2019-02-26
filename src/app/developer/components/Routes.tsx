@@ -5,9 +5,9 @@ import { routes } from '../..';
 const Routes: React.SFC = () => <div>
   <h1>REX Routes</h1>
 
-  {routes.map((route) => <div>
+  {routes.map((route) => <div key={route.name}>
     <h2>{route.name}</h2>
-    path{route.paths.length > 1 ? 's' : ''}: {route.paths}
+    path: {route.paths}
   </div>)}
 </div>;
 
