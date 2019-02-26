@@ -7,6 +7,7 @@ import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import * as content from './content';
 import * as Services from './context/Services';
+import * as developer from './developer';
 import * as errors from './errors';
 import * as head from './head';
 import MessageProvider from './MessageProvider';
@@ -26,6 +27,7 @@ export const actions = {
 };
 
 export const routes = [
+  ...(process.env.REACT_APP_ENV !== 'production' ? Object.values(developer.routes) : []),
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
 ];
