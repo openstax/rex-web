@@ -27,7 +27,11 @@ export const actions = {
 };
 
 export const routes = [
-  ...(process.env.REACT_APP_ENV !== 'production' ? Object.values(developer.routes) : []),
+  ...(
+    process.env.REACT_APP_ENV !== 'production'
+      ? Object.values(developer.routes)
+      : /* istanbul ignore next */ []
+  ),
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
 ];
