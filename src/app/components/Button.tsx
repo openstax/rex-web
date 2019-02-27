@@ -23,15 +23,16 @@ export default styled.button<{variant: undefined | 'primary' | 'secondary' | 'de
   box-sizing: border-box;
   cursor: pointer;
   display: inline-flex;
-  height: 3rem;
+  height: 5rem;
   margin: 0;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: bold;
+  font-family: Helvetica Neue;
 
   ${(props) => props.variant === 'primary' && applyColor(theme.color.primary.orange)}
   ${(props) => props.variant === 'secondary' && applyColor(theme.color.secondary.lightGray)}
