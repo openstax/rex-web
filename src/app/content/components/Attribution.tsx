@@ -51,7 +51,7 @@ const Attribution: React.SFC<Props> = ({book, currentPath}) => <Wrapper>
     </Summary>
 
     © Feb 11, 2019 OpenStax. Textbook content produced by OpenStax is licensed
-    under a Creative Commons Attribution License 4.0 license. Under this license,
+    under a {book && book.license.name} {book && book.license.version} license. Under this license,
     any user of this textbook or the textbook contents herein must provide proper
     attribution as follows:
 

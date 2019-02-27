@@ -22,7 +22,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, loading: {...state.loading, book: action.payload}};
     case getType(actions.receiveBook): {
       const loading = omit('book', state.loading);
-      const book = pick(['id', 'shortId', 'title', 'version', 'tree', 'slug'], action.payload);
+      const book = pick(['id', 'shortId', 'title', 'version', 'tree', 'slug', 'license'], action.payload);
       return {...state, loading, book};
     }
     case getType(actions.requestPage):
