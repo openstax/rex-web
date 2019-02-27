@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState, Dispatch } from '../../types';
-import { assertString } from '../../utils';
 import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
@@ -14,96 +13,13 @@ import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
 import ContentLink from './ContentLink';
 
 const sidebarOpenWidth = 300;
-const sidebarClosedWidth = 40;
-const sidebarClosedOffset = sidebarOpenWidth - sidebarClosedWidth;
 const sidebarTransitionTime = 300;
-const sidebarControlSize = 40;
 const sidebarPadding = 10;
 
-const SidebarPlaceholder = styled.div<{isOpen: boolean}>`
-  overflow-x: hidden;
-  transition: all ${sidebarTransitionTime}ms;
-
-  ${(props) => !props.isOpen && css`
-    background-color: #ccc;
-    min-width: ${sidebarClosedWidth}px;
-  `}
-  ${(props) => props.isOpen && css`
-    background-color: white;
-    min-width: ${sidebarOpenWidth}px;
-  `}
-`;
-
-type StyledSidebarControlProps = React.HTMLProps<HTMLButtonElement> & {
-  isOpen: boolean,
-};
-
-const SidebarControl = styled(({isOpen, ...props}: StyledSidebarControlProps) =>
-  <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
-    {(msg: Element | string) => {
-      const txt = assertString(msg, 'Aria label only supports strings');
-      return <button {...props}
-          aria-label={txt}
-        >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>;
-    }}
-  </FormattedMessage>
-)`
-  position: fixed;
-  height: ${sidebarControlSize}px;
-  width: ${sidebarControlSize}px;
-  margin-top: ${sidebarPadding}px;
-  background: none;
-  padding: 0;
-  border: none;
-  z-index: 1;
-  outline: none;
-  transition: all ${sidebarTransitionTime}ms;
-  transform: translateX(0px);
-
-  span {
-    width: 100%;
-    background-color: #000;
-    padding-top: 10%;
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    transition: all ${sidebarTransitionTime}ms;
-  }
-
-  ${(props) => !props.isOpen && css`
-    left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding}px;
-
-    transform: translateX(-${sidebarClosedOffset}px);
-    span {
-      margin-top: 15%;
-    }
-  `}
-
-  ${(props) => props.isOpen && css`
-    // extra padding on the left for scroll bars when open
-    left: ${sidebarOpenWidth - sidebarControlSize - sidebarPadding - 10}px;
-
-    span:nth-child(1) {
-      transform: rotateZ(45deg);
-    }
-    span:nth-child(2) {
-      opacity: 0;
-    }
-    span:nth-child(3) {
-      transform: rotateZ(-45deg);
-      margin-top: -20%
-    }
-  `}
-`;
-
 const SidebarBody = styled.div<{isOpen: boolean}>`
-  position: fixed;
-  left: 0;
-  height: 100%;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   padding-top: ${sidebarPadding}px;
   width: ${sidebarOpenWidth}px;
   overflow-y: auto;
@@ -117,19 +33,13 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   }
 
   > * {
-    transition-property: visibility;
-    transition-delay: 0s;
+    transition-property: visibility; transition-delay: 0s;
     visibility: visible;
   }
 
   ${(props) => !props.isOpen && css`
-    transform: translateX(-${sidebarClosedOffset}px);
+    transform: translateX(-100%);
     overflow-y: hidden;
-
-    > :not(${SidebarControl}) {
-      transition-delay: ${sidebarTransitionTime}ms;
-      visibility: hidden;
-    }
   `}
 `;
 
@@ -170,18 +80,11 @@ export class Sidebar extends Component<SidebarProps> {
   public activeSection: HTMLElement | undefined;
 
   public render() {
-    const {isOpen, book, closeToc, openToc} = this.props;
-    return <SidebarPlaceholder isOpen={isOpen}>
-      <SidebarControl
-        isOpen={isOpen}
-        onClick={() => isOpen ? closeToc() : openToc()}
-        role='button'
-      />
-      <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
-        {this.renderLinks()}
-        {book && this.renderToc(book)}
-      </SidebarBody>
-    </SidebarPlaceholder>;
+    const {isOpen, book} = this.props;
+    return <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
+      {this.renderLinks()}
+      {book && this.renderToc(book)}
+    </SidebarBody>;
   }
 
   public componentDidMount() {

@@ -5,10 +5,12 @@ import withServices from '../../context/Services';
 import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
 import { State } from '../types';
+import Attribution from './Attribution';
 import ContentPane from './ContentPane';
 import Header from './Header';
 import Page from './Page';
 import Sidebar from './Sidebar';
+import SidebarControl from './SidebarControl';
 import Wrapper from './Wrapper';
 
 interface PropTypes {
@@ -31,10 +33,12 @@ export class ContentComponent extends Component<PropTypes> {
       <Wrapper>
         <Sidebar />
         <ContentPane>
+          <SidebarControl />
           {this.renderHeader()}
           <Page />
         </ContentPane>
       </Wrapper>
+      <Attribution />
     </Layout>;
   }
 }
