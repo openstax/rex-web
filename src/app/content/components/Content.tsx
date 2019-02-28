@@ -10,6 +10,7 @@ import Header from './Header';
 import Page from './Page';
 import Sidebar from './Sidebar';
 import Wrapper from './Wrapper';
+import TitleBar from './TitleBar';
 
 interface PropTypes {
   page: State['page'];
@@ -28,6 +29,7 @@ export class ContentComponent extends Component<PropTypes> {
 
   public render() {
     return <Layout>
+      <TitleBar/>
       <Wrapper>
         <Sidebar />
         <ContentPane>

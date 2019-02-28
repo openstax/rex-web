@@ -22,7 +22,7 @@ const HeaderImage = styled.img`
 `;
 
 const LoginTxt = styled.div`
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #5E6062;
     margin-top: 1rem;
