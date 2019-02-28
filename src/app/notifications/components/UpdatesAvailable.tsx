@@ -11,16 +11,19 @@ const Group = styled.div`
 
 // tslint:disable-next-line:variable-name
 const P = styled.div`
+  font-size: 1.5rem;
+
   @media (max-width: ${theme.breakpoint.mobile}px) {
-    padding: 0 8px;
+    padding: 0 1rem;
   }
   @media (min-width: ${theme.breakpoint.mobile + 1}px) {
-    padding: 8px;
+    padding: 1rem;
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const Body = styled.div`
+  margin: 0.5rem;
   background-color: #fff;
   border-style: solid;
   border-color: #d5d5d5;
@@ -39,23 +42,24 @@ const Body = styled.div`
   }
 
   > ${ButtonGroup} {
-    padding: 8px;
+    padding: 1rem;
     margin: 0;
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const Header = styled.div`
-  padding: 4px 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
 
   @media (max-width: ${theme.breakpoint.mobile}px) {
-    line-height: 30px;
+    line-height: 1rem;
   }
   @media (min-width: ${theme.breakpoint.mobile + 1}px) {
     background-color: #f1f1f1;
-    line-height: 40px;
-    margin-bottom: 10px;
+    line-height: 4rem;
+    margin-bottom: 1rem;
   }
 `;
 

@@ -199,6 +199,19 @@ describe('Page', () => {
     }
   });
 
+  it('doesn\'t break when trying to remove listeners from elements that have no stored handler', () => {
+    const { root, node } = renderDomWithReferences();
+    const pageElement = node.querySelector('[data-type="page"]');
+
+    if (pageElement && document) {
+      pageElement.append(document.createElement('a'));
+      expect(() => ReactDOM.unmountComponentAtNode(root)).not.toThrow();
+    } else {
+      expect(pageElement).toBeTruthy();
+      expect(document).toBeTruthy();
+    }
+  });
+
   it('mounts and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
