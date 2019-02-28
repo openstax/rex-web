@@ -36,9 +36,9 @@ if (process.env.CI) {
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
-const calmHooks = (target: puppeteer.Page) => target.evaluate(async() => {
+const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   if (window && window.__APP_ASYNC_HOOKS) {
-    await window.__APP_ASYNC_HOOKS.calm();
+    return window.__APP_ASYNC_HOOKS.calm();
   }
 });
 
@@ -48,14 +48,13 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
-  // wait for any new async hooks to register...
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // HACK
+  // - there is no convenient way to tell if chrome is finished rendering fonts and things.
+  // - its hard to tell when simulations are done loading.
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
+  // if any new hooks were registered in that time, wait for them
   await calmHooks(target);
-
-  // HACK - there is no convenient way to tell if chrome is finished rendering,
-  // we should investigate inconvenient possibilities.
-  await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
 // tslint:disable-next-line:no-shadowed-variable
