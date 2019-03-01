@@ -31,6 +31,7 @@ const P = styled.p`
 
 // tslint:disable-next-line:variable-name
 const Body = styled.div`
+  margin: 0.5rem;
   background-color: #fff;
   border-style: solid;
   border-color: #d5d5d5;
