@@ -4,6 +4,7 @@ import React, { Component, ComponentType } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
+import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
 import { isArchiveTree } from '../guards';
@@ -12,34 +13,49 @@ import { ArchiveTree, Book, Page } from '../types';
 import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
 import ContentLink from './ContentLink';
 
-const sidebarOpenWidth = 300;
+export const sidebarWidth = 33.5;
 const sidebarTransitionTime = 300;
-const sidebarPadding = 10;
+const sidebarPadding = 1;
+
+const sidebarPositionBreak = '64em';
 
 const SidebarBody = styled.div<{isOpen: boolean}>`
-  position: sticky;
   top: 0;
   height: 100vh;
-  padding-top: ${sidebarPadding}px;
-  width: ${sidebarOpenWidth}px;
   overflow-y: auto;
-  font-size: 15px;
-  padding: ${sidebarPadding}px;
+  padding: ${sidebarPadding}rem;
   transition: all ${sidebarTransitionTime}ms;
-  transform: translateX(0px);
+  background-color: ${theme.color.neutral.darker};
 
   ol {
     padding-inline-start: 10px;
   }
 
   > * {
-    transition-property: visibility; transition-delay: 0s;
+    transition: all ${sidebarTransitionTime}ms;
     visibility: visible;
+    opacity: 1;
+  }
+
+  width: 33.5rem;
+
+  @media (max-width: ${sidebarPositionBreak}) {
+    // TODO - in here the sidebar should overlap the content
+    position: sticky;
+  }
+
+  @media (min-width: ${sidebarPositionBreak}) {
+    position: sticky;
   }
 
   ${(props) => !props.isOpen && css`
-    transform: translateX(-100%);
     overflow-y: hidden;
+    margin-left: -33.5rem;
+
+    > * {
+      visibility: hidden;
+      opacity: 0;
+    }
   `}
 `;
 
@@ -53,6 +69,7 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 
 const NavItem = styled(NavItemComponent)`
   list-style: none;
+  font-size: 1.4rem;
 
   ${(props) => props.active && css`
     overflow: visible;
@@ -82,7 +99,6 @@ export class Sidebar extends Component<SidebarProps> {
   public render() {
     const {isOpen, book} = this.props;
     return <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
-      {this.renderLinks()}
       {book && this.renderToc(book)}
     </SidebarBody>;
   }
@@ -101,21 +117,6 @@ export class Sidebar extends Component<SidebarProps> {
     }
 
     scrollTocSectionIntoView(this.sidebar, this.activeSection);
-  }
-
-  private renderLinks = () => {
-    return <nav>
-      <ol>
-        <NavItem>
-          <FormattedMessage id='i18n:toc:bookDetails'>
-            {(txt) => (
-              <a href='#'>{txt}</a>
-            )}
-          </FormattedMessage>
-
-        </NavItem>
-      </ol>
-    </nav>;
   }
 
   private renderTocNode = (book: Book, {contents}: ArchiveTree) => <nav>

@@ -51,8 +51,5 @@ const color = {
 };
 
 export default {
-  breakpoint: {
-    mobile: 600,
-  },
   color,
 };
