@@ -5,8 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import theme from '../../theme';
-import { AppState, Dispatch } from '../../types';
-import * as actions from '../actions';
+import { AppState } from '../../types';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page } from '../types';
@@ -88,8 +87,6 @@ interface SidebarProps {
   isOpen: boolean;
   book?: Book;
   page?: Page;
-  openToc: typeof actions['openToc'];
-  closeToc: typeof actions['closeToc'];
 }
 
 export class Sidebar extends Component<SidebarProps> {
@@ -157,9 +154,5 @@ export default connect(
     book: selectors.book(state),
     isOpen: selectors.tocOpen(state),
     page: selectors.page(state),
-  }),
-  (dispatch: Dispatch): {openToc: typeof actions['openToc'], closeToc: typeof actions['closeToc']} => ({
-    closeToc: (...args) => dispatch(actions.closeToc(...args)),
-    openToc: (...args) => dispatch(actions.openToc(...args)),
   })
 )(Sidebar);

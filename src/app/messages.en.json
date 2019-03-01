@@ -6,5 +6,7 @@
   "i18n:notification:update:reload": "Reload",
   "i18n:toc:title": "Table of Contents",
   "i18n:toc:toggle:closed": "Click to open the Table of Contents",
-  "i18n:toc:toggle:opened": "Click to close the Table of Contents"
+  "i18n:toc:toggle:opened": "Click to close the Table of Contents",
+  "i18n:attribution:toggle:desktop": "How to Reuse & Attribute This Content",
+  "i18n:attribution:toggle:mobile": "Attribution"
 }

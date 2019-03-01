@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
+import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
@@ -160,16 +161,17 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
+export const maxTextWidth = 57;
+
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   margin: 0 auto;
-  max-width: 57rem
+  max-width: ${maxTextWidth}rem
   padding: 1.6rem;
   padding-bottom: 0;
 
   // these are only here because the cnx-recipes styles are broken
-  font-size: 18px;
-  font-family: "Noto Sans";
+  ${bodyCopyRegularStyle}
   overflow: visible;
 
   * {
