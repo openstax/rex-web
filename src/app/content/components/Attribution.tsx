@@ -40,13 +40,14 @@ const Details = styled.details`
   margin: 2rem 0 0 0;
 
   > ${Summary}, p {
+    padding: 0 1.6rem
     max-width: ${maxTextWidth}rem;
     margin: 0 auto;
   }
 
   @media (max-width: ${slimBreak}) {
     min-height: 4rem;
-    padding: 0.8rem 1.6rem 0 1.6rem;
+    padding: 0.8rem 0 0 0;
 
     > ${Summary} {
       margin-bottom: 0.8rem;
@@ -55,7 +56,7 @@ const Details = styled.details`
 
   @media (min-width: ${slimBreak}) {
     min-height: 6rem;
-    padding: 1.8rem 1.6rem 0 1.6rem;
+    padding: 1.8rem 0 0 0;
 
     > ${Summary} {
       margin-bottom: 1.8rem;
