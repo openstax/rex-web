@@ -11,6 +11,7 @@ import Page from './Page';
 import Sidebar from './Sidebar';
 import Wrapper from './Wrapper';
 import TitleBar from './TitleBar';
+import SearchBar from './SearchBar';
 
 interface PropTypes {
   page: State['page'];
@@ -30,6 +31,7 @@ export class ContentComponent extends Component<PropTypes> {
   public render() {
     return <Layout>
       <TitleBar/>
+      <SearchBar />
       <Wrapper>
         <Sidebar />
         <ContentPane>
