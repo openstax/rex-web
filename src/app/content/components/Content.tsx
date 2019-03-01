@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Layout from '../../components/Layout';
-import withServices from '../../context/Services';
 import theme from '../../theme';
-import { AppServices, AppState } from '../../types';
+import { AppState } from '../../types';
 import * as select from '../selectors';
 import { State } from '../types';
 import Attribution from './Attribution';
@@ -17,7 +16,6 @@ import Wrapper from './Wrapper';
 interface PropTypes {
   page: State['page'];
   book: State['book'];
-  services: AppServices;
 }
 
 // tslint:disable-next-line:variable-name
@@ -51,4 +49,4 @@ export default connect(
     book: select.book(state),
     page: select.page(state),
   })
-)(withServices(ContentComponent));
+)(ContentComponent);
