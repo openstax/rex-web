@@ -1,4 +1,3 @@
-import 'details-polyfill';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -9,6 +8,10 @@ import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { maxTextWidth } from './Page';
+
+if (typeof(document) !== 'undefined') {
+  import('details-polyfill');
+}
 
 const slimBreak = '48em';
 
