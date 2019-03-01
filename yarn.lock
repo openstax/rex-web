@@ -3380,6 +3380,11 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
+details-polyfill@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/details-polyfill/-/details-polyfill-1.1.0.tgz#d6d71be0885560e7afca42688b03ff379fd80e56"
+  integrity sha512-YARtvrZ+FobZBMjfAyCxNZ5Cm5riB2tKMsdUQvTFnCvg3OeAkOGCoSxgDZT0uAXV+t5zgJYMGWd/ftVI6v8I0w==
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"

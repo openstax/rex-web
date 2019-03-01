@@ -1,3 +1,4 @@
+import 'details-polyfill';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
