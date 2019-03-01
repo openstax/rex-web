@@ -37,14 +37,14 @@ Array [
   overflow: visible;
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c0 {
     position: -webkit-sticky;
     position: sticky;
   }
 }
 
-@media (min-width:601px) {
+@media (min-width:90em) {
   .c0 {
     position: fixed;
     right: 0;
@@ -55,124 +55,100 @@ Array [
     className="c0"
   />,
   .c6 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 50px;
-  font-size: 18px;
-  font-family: "Noto Sans";
+  margin: 0 auto;
+  max-width: 57rem;
+  padding: 1.6rem;
+  padding-bottom: 0;
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  overflow: visible;
 }
 
 .c6 * {
   overflow: initial;
 }
 
-.c7 {
-  font-family: "Roboto Condensed",serif;
-  font-size: 19px;
-  line-height: 29px;
+.c9 {
+  line-height: 2.5rem;
+  font-size: 1.6rem;
+  color: #027EB5;
 }
 
-.c1 {
-  overflow-x: hidden;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  background-color: white;
-  min-width: 300px;
+.c7 {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  background: white;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+  margin: 2rem 0 0 0;
+}
+
+.c7 > .c8,
+.c7 p {
+  padding: 0 1.6rem;
+  max-width: 57rem;
+  margin: 0 auto;
+}
+
+.c7 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c5 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
 }
 
 .c2 {
-  position: fixed;
-  height: 40px;
-  width: 40px;
-  margin-top: 10px;
-  background: none;
-  padding: 0;
-  border: none;
-  z-index: 1;
-  outline: none;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  -webkit-transform: translateX(0px);
-  -ms-transform: translateX(0px);
-  transform: translateX(0px);
-  left: 240px;
-}
-
-.c2 span {
-  width: 100%;
-  background-color: #000;
-  padding-top: 10%;
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-}
-
-.c2 span:nth-child(1) {
-  -webkit-transform: rotateZ(45deg);
-  -ms-transform: rotateZ(45deg);
-  transform: rotateZ(45deg);
-}
-
-.c2 span:nth-child(2) {
-  opacity: 0;
-}
-
-.c2 span:nth-child(3) {
-  -webkit-transform: rotateZ(-45deg);
-  -ms-transform: rotateZ(-45deg);
-  transform: rotateZ(-45deg);
-  margin-top: -20%;
-}
-
-.c3 {
-  position: fixed;
-  left: 0;
-  height: 100%;
-  padding-top: 10px;
-  width: 300px;
+  top: 0;
+  height: 100vh;
   overflow-y: auto;
-  font-size: 15px;
-  padding: 10px;
+  padding: 1rem;
   -webkit-transition: all 300ms;
   transition: all 300ms;
-  -webkit-transform: translateX(0px);
-  -ms-transform: translateX(0px);
-  transform: translateX(0px);
+  background-color: #f1f1f1;
+  width: 33.5rem;
 }
 
-.c3 ol {
+.c2 ol {
   padding-inline-start: 10px;
 }
 
-.c3 > * {
-  -webkit-transition-property: visibility;
-  transition-property: visibility;
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
+.c2 > * {
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
   visibility: visible;
+  opacity: 1;
+}
+
+.c3 {
+  list-style: none;
+  font-size: 1.4rem;
 }
 
 .c4 {
   list-style: none;
-}
-
-.c5 {
-  list-style: none;
+  font-size: 1.4rem;
   overflow: visible;
   position: relative;
 }
 
-.c5:before {
+.c4:before {
   font-weight: bold;
   content: '>';
   position: absolute;
   right: 100%;
 }
 
-.c0 {
+.c1 {
+  overflow: visible;
+  min-height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -180,19 +156,64 @@ Array [
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 117rem;
+  background-color: #fff;
 }
 
-@media (max-width:600px) {
-  .c6 {
-    min-width: 300px;
-    padding: 0;
+.c0 {
+  overflow: visible;
+  background-color: #f1f1f1;
+  width: 100%;
+  min-height: 100%;
+}
+
+@media (min-width:48em) {
+  .c11 {
+    display: none;
   }
 }
 
-@media (min-width:601px) {
-  .c6 {
-    min-width: 350px;
-    padding: 0 50px;
+@media (max-width:48em) {
+  .c10 {
+    display: none;
+  }
+}
+
+@media (max-width:48em) {
+  .c7 {
+    min-height: 4rem;
+    padding: 0.8rem 0 0 0;
+  }
+
+  .c7 > .c8 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media (min-width:48em) {
+  .c7 {
+    min-height: 6rem;
+    padding: 1.8rem 0 0 0;
+  }
+
+  .c7 > .c8 {
+    margin-bottom: 1.8rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c2 {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+@media (min-width:64em) {
+  .c2 {
+    position: -webkit-sticky;
+    position: sticky;
   }
 }
 
@@ -202,32 +223,9 @@ Array [
     <div
       className="c1"
     >
-      <button
-        aria-label="Click to close the Table of Contents"
-        className="c2"
-        onClick={[Function]}
-        role="button"
-      >
-        <span />
-        <span />
-        <span />
-      </button>
       <div
-        className="c3"
+        className="c2"
       >
-        <nav>
-          <ol>
-            <li
-              className="c4"
-            >
-              <a
-                href="#"
-              >
-                book details
-              </a>
-            </li>
-          </ol>
-        </nav>
         <div>
           <h2>
             Table of Contents
@@ -235,7 +233,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="c4"
+                className="c3"
               >
                 <a
                   dangerouslySetInnerHTML={
@@ -248,7 +246,7 @@ Array [
                 />
               </li>
               <li
-                className="c4"
+                className="c3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -260,7 +258,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="c3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -276,7 +274,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="c3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -288,7 +286,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="c3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -304,7 +302,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="c3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -317,7 +315,7 @@ Array [
                   <ol>
                     <li
                       aria-label="Current Page"
-                      className="c5"
+                      className="c4"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -333,7 +331,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="c3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -345,7 +343,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="c3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -361,7 +359,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="c3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -373,7 +371,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="c3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -389,7 +387,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c4"
+                className="c3"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -401,7 +399,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c4"
+                      className="c3"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -420,36 +418,82 @@ Array [
           </nav>
         </div>
       </div>
-    </div>
-    <div
-      className="c6"
-      id="main-content"
-      tabIndex={-1}
-    >
-      <div>
-        <h1
-          className="c7"
-        >
-          Test Book 1
-           / 
-          Test Page 4
-        </h1>
-      </div>
       <div
-        className=""
+        className="c5"
+        id="main-content"
+        tabIndex={-1}
       >
+        <button
+          aria-label="Click to close the Table of Contents"
+          onClick={[Function]}
+        >
+          toc
+        </button>
         <div
-          data-type="chapter"
+          className="c6 "
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page</div>",
+            data-type="chapter"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page</div>",
+                }
               }
-            }
-            data-type="page"
-          />
+              data-type="page"
+            />
+          </div>
         </div>
+        <details
+          className="c7"
+        >
+          <summary
+            className="c8 c9"
+          >
+            <span
+              className="c10"
+            >
+              How to Reuse & Attribute This Content
+            </span>
+            <span
+              className="c11"
+            >
+              Attribution
+            </span>
+          </summary>
+          <p>
+            © Feb 11, 2019 OpenStax. Textbook content produced by OpenStax is licensed under a 
+            Sweet License
+             
+            1.0
+             license. Under this license, any user of this textbook or the textbook contents herein must provide proper attribution as follows:
+            <ul>
+              <li>
+                The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo are not subject to the creative commons license and may not be reproduced without the prior and express written consent of Rice University. For questions regarding this license, please contact support@openstax.org.
+              </li>
+              <li>
+                If you use this textbook as a bibilographic reference, then you should cite it as follows: OpenStax 
+                Test Book 1
+                , 
+                Test Book 1
+                . OpenStax CNX. Feb 11, 2019 https://openstax.org
+                /books/book-slug-1/pages/doesnotmatter
+                .
+              </li>
+              <li>
+                If you redistribute this textbook in a print format, then you must include on every physical page the following attribution: Download fro free at https://openstax.org
+                /books/book-slug-1/pages/doesnotmatter
+                .
+              </li>
+              <li>
+                If you redistribute part of this textbook, then you must retain in every digital format page view (invluding but not limited to EPUB, PDF, and HTML) an on every physically printed page the following attribution: Download for free at https://openstax.org
+                /books/book-slug-1/pages/doesnotmatter
+                .
+              </li>
+            </ul>
+          </p>
+        </details>
       </div>
     </div>
   </div>,
@@ -493,14 +537,14 @@ Array [
   overflow: visible;
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c0 {
     position: -webkit-sticky;
     position: sticky;
   }
 }
 
-@media (min-width:601px) {
+@media (min-width:90em) {
   .c0 {
     position: fixed;
     right: 0;
@@ -510,106 +554,82 @@ Array [
 <div
     className="c0"
   />,
-  .c5 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 50px;
-  font-size: 18px;
-  font-family: "Noto Sans";
+  .c4 {
+  margin: 0 auto;
+  max-width: 57rem;
+  padding: 1.6rem;
+  padding-bottom: 0;
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  overflow: visible;
 }
 
-.c5 * {
+.c4 * {
   overflow: initial;
 }
 
-.c1 {
-  overflow-x: hidden;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  background-color: white;
-  min-width: 300px;
+.c7 {
+  line-height: 2.5rem;
+  font-size: 1.6rem;
+  color: #027EB5;
 }
 
-.c2 {
-  position: fixed;
-  height: 40px;
-  width: 40px;
-  margin-top: 10px;
-  background: none;
-  padding: 0;
-  border: none;
-  z-index: 1;
-  outline: none;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  -webkit-transform: translateX(0px);
-  -ms-transform: translateX(0px);
-  transform: translateX(0px);
-  left: 240px;
+.c5 {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  background: white;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+  margin: 2rem 0 0 0;
 }
 
-.c2 span {
-  width: 100%;
-  background-color: #000;
-  padding-top: 10%;
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
+.c5 > .c6,
+.c5 p {
+  padding: 0 1.6rem;
+  max-width: 57rem;
+  margin: 0 auto;
 }
 
-.c2 span:nth-child(1) {
-  -webkit-transform: rotateZ(45deg);
-  -ms-transform: rotateZ(45deg);
-  transform: rotateZ(45deg);
-}
-
-.c2 span:nth-child(2) {
-  opacity: 0;
-}
-
-.c2 span:nth-child(3) {
-  -webkit-transform: rotateZ(-45deg);
-  -ms-transform: rotateZ(-45deg);
-  transform: rotateZ(-45deg);
-  margin-top: -20%;
+.c5 li {
+  margin-bottom: 1rem;
+  overflow: visible;
 }
 
 .c3 {
-  position: fixed;
-  left: 0;
-  height: 100%;
-  padding-top: 10px;
-  width: 300px;
-  overflow-y: auto;
-  font-size: 15px;
-  padding: 10px;
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  -webkit-transform: translateX(0px);
-  -ms-transform: translateX(0px);
-  transform: translateX(0px);
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
 }
 
-.c3 ol {
+.c2 {
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 1rem;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  background-color: #f1f1f1;
+  width: 33.5rem;
+}
+
+.c2 ol {
   padding-inline-start: 10px;
 }
 
-.c3 > * {
-  -webkit-transition-property: visibility;
-  transition-property: visibility;
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
+.c2 > * {
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
   visibility: visible;
+  opacity: 1;
 }
 
-.c4 {
-  list-style: none;
-}
-
-.c0 {
+.c1 {
+  overflow: visible;
+  min-height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -617,19 +637,64 @@ Array [
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 117rem;
+  background-color: #fff;
 }
 
-@media (max-width:600px) {
-  .c5 {
-    min-width: 300px;
-    padding: 0;
+.c0 {
+  overflow: visible;
+  background-color: #f1f1f1;
+  width: 100%;
+  min-height: 100%;
+}
+
+@media (min-width:48em) {
+  .c9 {
+    display: none;
   }
 }
 
-@media (min-width:601px) {
+@media (max-width:48em) {
+  .c8 {
+    display: none;
+  }
+}
+
+@media (max-width:48em) {
   .c5 {
-    min-width: 350px;
-    padding: 0 50px;
+    min-height: 4rem;
+    padding: 0.8rem 0 0 0;
+  }
+
+  .c5 > .c6 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media (min-width:48em) {
+  .c5 {
+    min-height: 6rem;
+    padding: 1.8rem 0 0 0;
+  }
+
+  .c5 > .c6 {
+    margin-bottom: 1.8rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c2 {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+@media (min-width:64em) {
+  .c2 {
+    position: -webkit-sticky;
+    position: sticky;
   }
 }
 
@@ -639,55 +704,81 @@ Array [
     <div
       className="c1"
     >
-      <button
-        aria-label="Click to close the Table of Contents"
+      <div
         className="c2"
-        onClick={[Function]}
-        role="button"
-      >
-        <span />
-        <span />
-        <span />
-      </button>
+      />
       <div
         className="c3"
+        id="main-content"
+        tabIndex={-1}
       >
-        <nav>
-          <ol>
-            <li
-              className="c4"
-            >
-              <a
-                href="#"
-              >
-                book details
-              </a>
-            </li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div
-      className="c5"
-      id="main-content"
-      tabIndex={-1}
-    >
-      <div />
-      <div
-        className=""
-      >
+        <button
+          aria-label="Click to close the Table of Contents"
+          onClick={[Function]}
+        >
+          toc
+        </button>
         <div
-          data-type="chapter"
+          className="c4 "
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "",
+            data-type="chapter"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "",
+                }
               }
-            }
-            data-type="page"
-          />
+              data-type="page"
+            />
+          </div>
         </div>
+        <details
+          className="c5"
+        >
+          <summary
+            className="c6 c7"
+          >
+            <span
+              className="c8"
+            >
+              How to Reuse & Attribute This Content
+            </span>
+            <span
+              className="c9"
+            >
+              Attribution
+            </span>
+          </summary>
+          <p>
+            © Feb 11, 2019 OpenStax. Textbook content produced by OpenStax is licensed under a 
+             
+             license. Under this license, any user of this textbook or the textbook contents herein must provide proper attribution as follows:
+            <ul>
+              <li>
+                The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo are not subject to the creative commons license and may not be reproduced without the prior and express written consent of Rice University. For questions regarding this license, please contact support@openstax.org.
+              </li>
+              <li>
+                If you use this textbook as a bibilographic reference, then you should cite it as follows: OpenStax 
+                , 
+                . OpenStax CNX. Feb 11, 2019 https://openstax.org
+                /books/book-slug-1/pages/doesnotmatter
+                .
+              </li>
+              <li>
+                If you redistribute this textbook in a print format, then you must include on every physical page the following attribution: Download fro free at https://openstax.org
+                /books/book-slug-1/pages/doesnotmatter
+                .
+              </li>
+              <li>
+                If you redistribute part of this textbook, then you must retain in every digital format page view (invluding but not limited to EPUB, PDF, and HTML) an on every physically printed page the following attribution: Download for free at https://openstax.org
+                /books/book-slug-1/pages/doesnotmatter
+                .
+              </li>
+            </ul>
+          </p>
+        </details>
       </div>
     </div>
   </div>,

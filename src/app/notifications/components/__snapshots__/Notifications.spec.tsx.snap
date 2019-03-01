@@ -61,6 +61,7 @@ exports[`Notifications matches snapshot 1`] = `
 
 .c4 {
   font-size: 1.5rem;
+  margin: 0;
 }
 
 .c1 {
@@ -94,19 +95,35 @@ exports[`Notifications matches snapshot 1`] = `
   overflow: visible;
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
+  .c2 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width:90em) {
   .c4 {
     padding: 0 1rem;
   }
 }
 
-@media (min-width:601px) {
+@media (min-width:90em) {
   .c4 {
     padding: 1rem;
   }
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c1 {
     border-width: 0 0 thin 0;
     -webkit-flex-direction: row;
@@ -115,8 +132,9 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (min-width:601px) {
+@media (min-width:90em) {
   .c1 {
+    margin: 0.5rem;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -126,13 +144,13 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c3 {
     line-height: 1rem;
   }
 }
 
-@media (min-width:601px) {
+@media (min-width:90em) {
   .c3 {
     background-color: #f1f1f1;
     line-height: 4rem;
@@ -140,14 +158,14 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c0 {
     position: -webkit-sticky;
     position: sticky;
   }
 }
 
-@media (min-width:601px) {
+@media (min-width:90em) {
   .c0 {
     position: fixed;
     right: 0;
@@ -168,11 +186,11 @@ exports[`Notifications matches snapshot 1`] = `
       >
         Updates Available
       </div>
-      <div
+      <p
         className="c4"
       >
         This page needs to be reloaded.
-      </div>
+      </p>
     </div>
     <div
       className="c5 c6"
