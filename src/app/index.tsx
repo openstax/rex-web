@@ -99,7 +99,7 @@ export default (options: Options) => {
   }
 
   // the default font
-  services.fontCollector.add('https://fonts.googleapis.com/css?family=Noto+Sans');
+  services.fontCollector.add('https://fonts.googleapis.com/css?family=Helvetica+Neue');
 
   return {
     container,
