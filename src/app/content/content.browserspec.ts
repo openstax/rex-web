@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { checkLighthouse, finishRender, navigate } from '../../test/browserutils';
+import { checkLighthouse, fullPageScreenshot, navigate } from '../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_LONG_PAGE_NAME = '1-test-page-3';
@@ -12,8 +12,7 @@ describe('content', () => {
   });
 
   it('looks right', async() => {
-    await finishRender(page);
-    const screen = await page.screenshot({fullPage: true});
+    const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
         failureThreshold: 1.5,

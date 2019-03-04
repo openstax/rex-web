@@ -42,19 +42,42 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   }
 });
 
+export const setMaxViewport = async(target: puppeteer.Page) => {
+  const width = await target.evaluate(() => document && document.body.offsetWidth);
+  const height = await target.evaluate(() => document && document.body.offsetHeight);
+
+  await target.setViewport({width, height});
+};
+
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
   await calmHooks(target);
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
-  // HACK
-  // - there is no convenient way to tell if chrome is finished rendering fonts and things.
-  // - its hard to tell when simulations are done loading.
-  await new Promise((resolve) => setTimeout(resolve, 20000));
+  const screenshot = () => target.screenshot({fullPage: true});
 
-  // if any new hooks were registered in that time, wait for them
-  await calmHooks(target);
+  const stillChanging = async() => {
+    const screen1 = await screenshot();
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    const screen2 = await screenshot();
+    return !screen1.equals(screen2);
+  };
+
+  while (await stillChanging()) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+};
+
+export const fullPageScreenshot = async(target: puppeteer.Page) => {
+  const {width, height} = target.viewport();
+  await setMaxViewport(target);
+  await finishRender(target);
+  const screen = await target.screenshot({fullPage: true});
+
+  await target.setViewport({width, height});
+
+  return screen;
 };
 
 // tslint:disable-next-line:no-shadowed-variable
