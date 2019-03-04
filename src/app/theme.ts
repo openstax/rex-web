@@ -24,7 +24,10 @@ const color = {
     foreground: textColors.default,
   },
   primary: {
-    blue: {base: '#002468'},
+    blue: {
+      base: '#002468',
+      foreground: textColors.white,
+    },
     gray: {base: '#5e6062'},
     green: {base: '#63a524'},
     orange: {
