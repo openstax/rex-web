@@ -8,6 +8,8 @@ import * as select from '../selectors';
 import { Book, Page } from '../types';
 import {ChevronLeft} from 'styled-icons/boxicons-regular/ChevronLeft'
 import { findArchiveTreeSection } from '../utils'
+import Color from 'color';
+import typography from '../../components/Typography';
 
 const LeftArrow = styled(ChevronLeft)`
   height: 2rem;
@@ -17,9 +19,9 @@ const LeftArrow = styled(ChevronLeft)`
 `;
 
 interface PropTypes {
-    page?: Page;
-    book?: Book;
-    services: AppServices;
+  page?: Page;
+  book?: Book;
+  services: AppServices;
 }
 
 const TopBar = styled.div`
@@ -31,6 +33,7 @@ const TopBar = styled.div`
   background: transparent;
   margin: 0 auto;
   text-align: left;
+  padding-top: 1.4rem;
 `;
 
 const BookTitle = styled.h4`
@@ -38,18 +41,27 @@ const BookTitle = styled.h4`
   color: #FFFFFF;
   text-align: left;
   display: inline-block;
-  width: 87rem;
-  margin-top: 25px;
+  width: 100%;
+  max-width: 87rem;
+  margin: 1.25rem 0;
+  line-height: 1.5rem;
 `;
 
 const BookChapter = styled.h3`
-  letter-spacing: -0.4;
+  letter-spacing: -0.04rem;
   color: #FFFFFF;
   font-weight: bold;
   text-align: left;
   display: inline-block;
-  width: 87rem;
+  width: 100%;
+  max-width: 87rem;
+  margin: 1.25rem 0;
+  line-height: ${typography.lineheight.h3};
+  font-size: ${typography.fontsize.h3};
 `;
+
+const blue = `${theme.color.primary.blue.base}`;
+const color = Color(`${blue}`).lighten(0.7); 
 
 const BarWrapper = styled.div`
   width: 100%;
@@ -57,7 +69,7 @@ const BarWrapper = styled.div`
   padding: 0 135px;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
   display: inline-block;
-  background: ${theme.color.primary.blue.base};
+  background: linear-gradient(to right, ${blue}, ${color.hex()});
 `;
 
 export class TitleComponent extends Component<PropTypes> {
@@ -74,11 +86,11 @@ export class TitleComponent extends Component<PropTypes> {
       return null;
     }
 
-      return <BarWrapper>
-        <TopBar>
-          <BookTitle><LeftArrow/>{book.tree.title}</BookTitle>
-          <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
-        </TopBar>
+    return <BarWrapper>
+      <TopBar>
+        <BookTitle><LeftArrow/>{book.tree.title}</BookTitle>
+        <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
+      </TopBar>
     </BarWrapper>;
   }
 }

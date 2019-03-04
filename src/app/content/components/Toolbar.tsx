@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import withServices from '../../context/Services';
+import React, { SFC } from 'react';
 import styled from 'styled-components';
-import { AppServices, AppState } from '../../types';
-import * as select from '../selectors';
-import { Book, Page } from '../types';
 import {ListOl} from 'styled-icons/boxicons-regular/ListOl';
 import {Search} from 'styled-icons/boxicons-regular/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
-import { findArchiveTreeSection } from '../utils'
 
 const ListIcon = styled(ListOl)`
   height: 2rem;
   width: 2rem;
   color: #027EB5;
   margin-right: 7px;
+
+  :hover {
+    color: #0064A0;
+  }
 `;
 
 const SearchIcon = styled(Search)`
@@ -32,12 +30,6 @@ const PrintIcon = styled(Print)`
   margin-right: 7px;
 `;
 
-interface PropTypes {
-    page?: Page;
-    book?: Book;
-    services: AppServices;
-}
-
 const TopBar = styled.div`
   height: 5rem;
   width: 100%;
@@ -52,6 +44,12 @@ const TopBar = styled.div`
 const TableTitle = styled.h3`
   color: #027EB5;
   font-size: 1.6rem;
+  cursor: pointer;
+
+  :hover {
+    color: #0064A0;
+  }
+
 `;
 
 const InputWrapper = styled.div`
@@ -74,15 +72,13 @@ const SearchTxt = styled.input`
   border-right: none;
   border-bottom: solid 1px;
   padding-left: 2rem;
-
-  &::placeholder {
-    color: 'blue'
-  }
+  height: 2.5rem;
 `;
 
 const PrintTxt = styled.h3`
   color: #818181;
   font-size: 1.6rem;
+  cursor: pointer;
 `;
 
 const TableTitleWrapper = styled.div`
@@ -107,40 +103,20 @@ const BarWrapper = styled.div`
   background: #FFFFFF;
 `;
 
-export class SearchComponent extends Component<PropTypes> {
-  public render() {
-    const {page, book} = this.props as PropTypes;
-    
-    if (!book || !page) {
-      return null
-    }
+const NavigationBar: SFC = ({children}) => <BarWrapper>
+  <TopBar>
+    <TableTitleWrapper>
+      <TableTitle><ListIcon/>Table of contents</TableTitle>
+    </TableTitleWrapper>  
+    <SearchPrintWrapper>
+      <InputWrapper>
+        <SearchIcon /><SearchTxt placeholder="Search this book"></SearchTxt>
+      </InputWrapper>
+      <PrintTxt><PrintIcon />Print options</PrintTxt>
+    </SearchPrintWrapper>
+  </TopBar>
+  {children}
+</BarWrapper>
 
-    const treeSection = findArchiveTreeSection(book, page.id);
 
-    if(!treeSection) {
-      return null;
-    }
-
-    return <BarWrapper>
-        <TopBar>
-          <TableTitleWrapper>
-            <TableTitle><ListIcon/>Table of contents</TableTitle>
-          </TableTitleWrapper>  
-          <SearchPrintWrapper>
-            <InputWrapper>
-              <SearchIcon /><SearchTxt placeholder="Search this book"></SearchTxt>
-            </InputWrapper>
-            <PrintTxt><PrintIcon />Print options</PrintTxt>
-          </SearchPrintWrapper>
-        </TopBar>
-      </BarWrapper>;
-  }
-}
-
-export default connect(
-  (state: AppState) => ({
-    book: select.book(state),
-    page: select.page(state),
-  })
-)(withServices(SearchComponent));
-
+export default NavigationBar;      

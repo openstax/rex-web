@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/color": "^3.0.0",
     "cnx-recipes": "github:connexions/cnx-recipes#master",
+    "color": "^3.1.0",
     "history": "^4.7.2",
     "html-entities": "^1.2.1",
     "lodash": "^4.17.11",
