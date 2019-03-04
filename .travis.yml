@@ -1,14 +1,21 @@
 sudo: false
 language: node_js
 node_js: "10"
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+dist: trusty
+
 addons:
   artifacts:
     paths:
       - $(git ls-files -i --exclude-standard --others **/__diff_output__/* | tr "\n" ":")
+  apt:
+    packages:
+      # This is required to run new chrome on old trusty
+      - libnss3
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 cache: yarn
 
