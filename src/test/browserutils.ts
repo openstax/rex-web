@@ -51,7 +51,7 @@ export const finishRender = async(target: puppeteer.Page) => {
   // HACK
   // - there is no convenient way to tell if chrome is finished rendering fonts and things.
   // - its hard to tell when simulations are done loading.
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 20000));
 
   // if any new hooks were registered in that time, wait for them
   await calmHooks(target);
