@@ -18,6 +18,7 @@ const SidebarControl: React.SFC<Props> = ({isOpen, closeToc, openToc}) =>
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
       return <button
+        style={{position: 'absolute', top: 0, right: 0}}
         aria-label={txt}
         onClick={() => isOpen ? closeToc() : openToc()}
       >toc</button>;
