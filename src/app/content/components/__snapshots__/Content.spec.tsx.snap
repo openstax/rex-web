@@ -427,6 +427,13 @@ Array [
         <button
           aria-label="Click to close the Table of Contents"
           onClick={[Function]}
+          style={
+            Object {
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
         >
           toc
         </button>
@@ -717,6 +724,13 @@ Array [
         <button
           aria-label="Click to close the Table of Contents"
           onClick={[Function]}
+          style={
+            Object {
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
         >
           toc
         </button>
