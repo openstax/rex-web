@@ -11,7 +11,6 @@ addons:
     packages:
       # This is required to run new chrome on old trusty
       - libnss3
-      - fonts-noto
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
