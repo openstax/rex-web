@@ -109,12 +109,17 @@ class Attribution extends Component<Props> {
   private getValues = (book: Book) => {
     const introPage = findDefaultBookPage(book);
     const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
+    const bookPublishDate = new Date(book.publish_date);
+
+    // date is initialized as UTC, conversion to local time can change the date.
+    // this compensates
+    bookPublishDate.setMinutes(bookPublishDate.getMinutes() + bookPublishDate.getTimezoneOffset());
 
     return {
       bookAuthors: book.authors.map(({value: {name}}) => name).join(', '),
       bookLicenseName: book.license.name,
       bookLicenseVersion: book.license.version,
-      bookPublishDate: new Date(book.publish_date),
+      bookPublishDate,
       bookTitle: book.title,
       currentPath: this.props.currentPath,
       introPageUrl,
