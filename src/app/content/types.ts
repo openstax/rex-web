@@ -38,6 +38,12 @@ export interface Book {
     name: string;
     version: string;
   };
+  publishDate: string;
+  authors: Array<{
+    value: {
+      name: string;
+    }
+  }>;
 }
 
 export interface Page {

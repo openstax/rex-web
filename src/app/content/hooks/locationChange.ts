@@ -25,7 +25,7 @@ const resolveBook = async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
-  const {dispatch, getState, archiveLoader} = services;
+  const {dispatch, getState, archiveLoader, osWebLoader} = services;
   const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
 
   const loader = archiveLoader.book(bookId, bookVersion);
@@ -38,8 +38,12 @@ const resolveBook = async(
   }
 
   const getResponse = async(): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
+    const osWebBook = await osWebLoader.getBookFromSlug(bookSlug);
+
     const newBook = {
       ...await loader.load(),
+      authors: osWebBook.authors,
+      publishDate: osWebBook.publish_date,
       slug: bookSlug,
     };
     return [newBook, archiveLoader.book(newBook.id, newBook.version)];

@@ -3,7 +3,8 @@ import { AllHtmlEntities } from 'html-entities';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree } from './guards';
 import replaceAccentedCharacters from './replaceAccentedCharacters';
-import { ArchiveTree, Book, LinkedArchiveTreeSection } from './types';
+import { content as contentRoute } from './routes';
+import { ArchiveTree, ArchiveTreeSection, Book, LinkedArchiveTreeSection, Page } from './types';
 
 export const stripIdVersion = (id: string): string => id.split('@')[0];
 export const getIdVersion = (id: string): string | undefined => id.split('@')[1];
@@ -61,6 +62,31 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
     : activeSection;
 
   sidebar.scrollTop = scrollTarget.offsetTop;
+};
+
+export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'shortId' | 'title'>) => {
+  const params = {
+    book: book.slug,
+    page: getUrlParamForPageId(book, page.shortId),
+  };
+
+  return {params, url: contentRoute.getUrl(params)};
+};
+
+export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
+  const getFirstTreeSection = (tree: ArchiveTree) => tree.contents.find(isArchiveTree);
+
+  const getFirstTreeSectionOrPage = (tree: ArchiveTree): ArchiveTreeSection => {
+    const firstSection = getFirstTreeSection(tree);
+
+    if (firstSection) {
+      return getFirstTreeSectionOrPage(firstSection);
+    } else {
+      return tree.contents[0];
+    }
+  };
+
+  return getFirstTreeSectionOrPage(book.tree);
 };
 
 export const findArchiveTreeSection = (
