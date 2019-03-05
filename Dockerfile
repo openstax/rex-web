@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM node:10.9-jessie as slim
+FROM node:10.9-jessie as puppeteer
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
@@ -44,6 +44,8 @@ RUN apt-get update && apt-get install -y \
   wget \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
+
+FROM puppeteer as built
 
 WORKDIR /code
 
