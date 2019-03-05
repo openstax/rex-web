@@ -16,6 +16,21 @@ const textColors = {
   white: '#fff',
 };
 
+const contentBuffer = {
+  default: {
+    padding: '0 15.5rem',
+  },
+  toolbar: {
+    padding: '0 13.5rem',
+  },
+
+  mobile: {
+    default: {
+      padding: '0 1.6rem',
+    },
+  },
+}
+
 const color = {
   neutral: {
     base: '#fff',
@@ -58,4 +73,5 @@ export default {
     mobile: 600,
   },
   color,
+  contentBuffer,
 };

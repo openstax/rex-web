@@ -7,7 +7,7 @@ import { AppServices, AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import {ChevronLeft} from 'styled-icons/boxicons-regular/ChevronLeft'
-import { findArchiveTreeSection } from '../utils'
+import { findArchiveTreeSection, bookDetailsUrl } from '../utils'
 import Color from 'color';
 import typography from '../../components/Typography';
 
@@ -32,7 +32,7 @@ const TopBar = styled.div`
   text-align: left;
 `;
 
-const BookTitle = styled.h4`
+const BookTitle = styled.a`
   ${typography.h4Style}
   letter-spacing: -0.04rem;
   color: ${theme.color.primary.blue.foreground};
@@ -41,6 +41,7 @@ const BookTitle = styled.h4`
   width: 100%;
   max-width: 87rem;
   margin: 0;
+  text-decoration: none;
 `;
 
 const BookChapter = styled.h3`
@@ -61,7 +62,7 @@ const color = Color(`${blue}`).lighten(0.7);
 
 const BarWrapper = styled.div`
   width: 100%;
-  padding: 0 13.5rem;
+  padding: ${theme.contentBuffer.toolbar.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -78,6 +79,7 @@ export class TitleComponent extends Component<PropTypes> {
     }
 
     const treeSection = findArchiveTreeSection(book, page.id);
+    const bookUrl = bookDetailsUrl(book);
 
     if(!treeSection) {
       return null;
@@ -85,7 +87,7 @@ export class TitleComponent extends Component<PropTypes> {
 
     return <BarWrapper>
       <TopBar>
-        <BookTitle><LeftArrow/>{book.tree.title}</BookTitle>
+        <BookTitle href={bookUrl}><LeftArrow/>{book.tree.title}</BookTitle>
         <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
       </TopBar>
     </BarWrapper>;

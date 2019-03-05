@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {ListOl} from 'styled-icons/boxicons-regular/ListOl';
 import {Search} from 'styled-icons/boxicons-regular/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
+import theme from '../../theme';
 
 const ListIcon = styled(ListOl)`
   height: 2rem;
@@ -19,7 +20,7 @@ const SearchIcon = styled(Search)`
   height: 2rem;
   width: 2rem;
   color: #818181;
-  margin-right: 7px;
+  margin-right: 0.7rem;
   position: absolute;
 `;
 
@@ -62,7 +63,7 @@ const SearchInputWrapper = styled.div`
 `;
 
 const SearchInput = styled.input`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -96,7 +97,7 @@ const SearchPrintWrapper = styled.div`
 
 const BarWrapper = styled.div` 
   width: 100%;
-  padding: 0 15.5rem;
+  padding: ${theme.contentBuffer.toolbar.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   display: inline-block;
   background: #FFFFFF;

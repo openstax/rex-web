@@ -35,19 +35,19 @@ const LoginTxt = styled.a`
   overflow: visible;
 
   :hover {
-    border-bottom: 4px solid #63a524;
+    border-bottom: 0.4rem solid #63a524;
   }
   :active {
-    border-bottom: 4px solid #63a524;
+    border-bottom: 0.4rem solid #63a524;
   }
   :focus {
-    border-bottom: 4px solid #63a524;
+    border-bottom: 0.4rem solid #63a524;
   }
 `;
 
 const BarWrapper = styled.div`
-  padding: 0 13.5rem;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  padding: ${theme.contentBuffer.toolbar.padding};
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
 `;
 
 const NavigationBar: SFC = ({}) => 
