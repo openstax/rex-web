@@ -114,7 +114,7 @@ class Attribution extends Component<Props> {
       bookAuthors: book.authors.map(({value: {name}}) => name).join(', '),
       bookLicenseName: book.license.name,
       bookLicenseVersion: book.license.version,
-      bookPublishDate: new Date(book.publishDate),
+      bookPublishDate: new Date(book.publish_date),
       bookTitle: book.title,
       currentPath: this.props.currentPath,
       introPageUrl,

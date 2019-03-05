@@ -43,7 +43,7 @@ const resolveBook = async(
     const newBook = {
       ...await loader.load(),
       authors: osWebBook.authors,
-      publishDate: osWebBook.publish_date,
+      publish_date: osWebBook.publish_date,
       slug: bookSlug,
     };
     return [newBook, archiveLoader.book(newBook.id, newBook.version)];

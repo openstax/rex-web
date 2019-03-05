@@ -4,11 +4,13 @@ import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
 import { createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
+import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { AppServices, AppState } from '../../types';
 import { initialState } from '../reducer';
+import { Book } from '../types';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
@@ -17,6 +19,10 @@ describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let state: AppState;
   const services = {} as AppServices;
+  const bookState: Book = {
+    ...mockCmsBookFields,
+    ...book,
+  };
 
   beforeEach(() => {
     state = cloneDeep({
@@ -30,7 +36,7 @@ describe('content', () => {
   });
 
   it('matches snapshot', () => {
-    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.book = bookState;
     state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -63,7 +69,7 @@ describe('content', () => {
   });
 
   it('gets page content out of cached archive query', () => {
-    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.book = bookState;
     state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -81,7 +87,7 @@ describe('content', () => {
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
-    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.book = bookState;
     state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -103,7 +109,7 @@ describe('content', () => {
   it('updates after initial render', async() => {
     const state1 = cloneDeep(state);
     const state2 = cloneDeep(state);
-    state2.content.book = {...book, slug: 'book-slug-1'};
+    state2.content.book = bookState;
     state2.content.page = shortPage;
 
     const go = {type: 'go'};

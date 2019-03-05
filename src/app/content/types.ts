@@ -38,7 +38,7 @@ export interface Book {
     name: string;
     version: string;
   };
-  publishDate: string;
+  publish_date: string;
   authors: Array<{
     value: {
       name: string;

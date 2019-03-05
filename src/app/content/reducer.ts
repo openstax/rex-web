@@ -31,7 +31,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         'slug',
         'license',
         'authors',
-        'publishDate',
+        'publish_date',
       ], action.payload);
       return {...state, loading, book};
     }

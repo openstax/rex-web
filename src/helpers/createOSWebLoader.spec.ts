@@ -31,7 +31,7 @@ describe('archiveLoader', () => {
 
       it('gets book id', async() => {
         const id = await osWebLoader.getBookIdFromSlug('asdf');
-        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id&slug=asdf');
+        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&slug=asdf');
         expect(id).toEqual('qwer');
       });
     });
@@ -73,7 +73,7 @@ describe('archiveLoader', () => {
 
     it('gets book slug', async() => {
       const slug = await osWebLoader.getBookSlugFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id&cnx_id=qwer');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&cnx_id=qwer');
       expect(slug).toEqual('asdf');
     });
   });
