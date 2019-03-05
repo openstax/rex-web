@@ -13,6 +13,10 @@ const PAGE_SLUG = 'page-title';
 
 const book = {
   id: 'booklongid',
+  license: {
+    name: 'asdf',
+    version: 'asdf',
+  },
   shortId: 'book',
   slug: BOOK_SLUG,
   title: 'book title',
