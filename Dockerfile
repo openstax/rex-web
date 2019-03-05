@@ -45,7 +45,7 @@ RUN apt-get update && apt-get install -y \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
 
-FROM puppeteer as built
+FROM puppeteer as slim
 
 WORKDIR /code
 
