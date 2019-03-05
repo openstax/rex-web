@@ -18,10 +18,10 @@ const textColors = {
 
 const contentBuffer = {
   default: {
-    padding: '0 15.5rem',
+    padding: '0 13.5rem',
   },
   toolbar: {
-    padding: '0 13.5rem',
+    padding: '0 15.5rem',
   },
 
   mobile: {

@@ -62,7 +62,7 @@ const color = Color(`${blue}`).lighten(0.7);
 
 const BarWrapper = styled.div`
   width: 100%;
-  padding: ${theme.contentBuffer.toolbar.padding};
+  padding: ${theme.contentBuffer.default.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
