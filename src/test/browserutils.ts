@@ -57,20 +57,23 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 export const finishRender = async(target: puppeteer.Page) => {
   const screenshot = () => target.screenshot({fullPage: true});
 
+  let lastScreen: Buffer | undefined;
+  let newScreen: Buffer | undefined;
+
   const stillChanging = async() => {
-    const screen1 = await screenshot();
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    const screen2 = await screenshot();
-    return !screen1.equals(screen2);
+    newScreen = await screenshot();
+    return !lastScreen || !lastScreen.equals(newScreen);
   };
 
   while (await stillChanging()) {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    lastScreen = newScreen;
   }
 };
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
   const {width, height} = target.viewport();
+  await finishRender(target);
   await setMaxViewport(target);
   await finishRender(target);
   const screen = await target.screenshot({fullPage: true});

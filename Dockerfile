@@ -3,10 +3,13 @@ FROM node:10.9-jessie as slim
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
+  ca-certificates \
+  fonts-liberation \
   gconf-service \
+  libappindicator1 \
   libasound2 \
-  libatk1.0-0 \
   libatk-bridge2.0-0 \
+  libatk1.0-0 \
   libc6 \
   libcairo2 \
   libcups2 \
@@ -19,6 +22,7 @@ RUN apt-get update && apt-get install -y \
   libglib2.0-0 \
   libgtk-3-0 \
   libnspr4 \
+  libnss3 \
   libpango-1.0-0 \
   libpangocairo-1.0-0 \
   libstdc++6 \
@@ -35,13 +39,10 @@ RUN apt-get update && apt-get install -y \
   libxrender1 \
   libxss1 \
   libxtst6 \
-  ca-certificates \
-  fonts-liberation \
-  libappindicator1 \
-  libnss3 \
   lsb-release \
-  xdg-utils \
+  shellcheck \
   wget \
+  xdg-utils \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
