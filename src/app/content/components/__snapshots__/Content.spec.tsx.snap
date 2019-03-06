@@ -66,14 +66,40 @@ Array [
   overflow: visible;
 }
 
+.c6 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
 .c6 * {
   overflow: initial;
 }
 
 .c9 {
-  line-height: 2.5rem;
-  font-size: 1.6rem;
   color: #027EB5;
+}
+
+.c9 > span {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c9 > span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c7 {
@@ -84,6 +110,14 @@ Array [
   background: white;
   box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
+}
+
+.c7 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c7 > .c8,
@@ -446,7 +480,9 @@ Array [
           <summary
             className="c8 c9"
           >
-            Citation/Attribution
+            <span>
+              Citation/Attribution
+            </span>
           </summary>
           <div
             className="c10 "
@@ -587,14 +623,40 @@ Array [
   overflow: visible;
 }
 
+.c4 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
 .c4 * {
   overflow: initial;
 }
 
 .c7 {
-  line-height: 2.5rem;
-  font-size: 1.6rem;
   color: #027EB5;
+}
+
+.c7 > span {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c7 > span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c5 {
@@ -605,6 +667,14 @@ Array [
   background: white;
   box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
+}
+
+.c5 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c5 > .c6,
@@ -756,7 +826,9 @@ Array [
           <summary
             className="c6 c7"
           >
-            Citation/Attribution
+            <span>
+              Citation/Attribution
+            </span>
           </summary>
         </details>
       </div>
