@@ -4,7 +4,7 @@ import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
 import styled from 'styled-components';
-import { bodyCopyRegularStyle } from '../../components/Typography';
+import { bodyCopyRegularStyle, linkColor, linkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
 import { AppState } from '../../types';
 import { assertString } from '../../utils';
@@ -21,9 +21,12 @@ const slimBreak = '48em';
 
 // tslint:disable-next-line:variable-name
 const Summary = styled.summary`
-  line-height: 2.5rem;
-  font-size: 1.6rem;
-  color: #027EB5;
+  color: ${linkColor};
+
+  > span {
+    ${bodyCopyRegularStyle}
+    ${linkStyle}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -95,9 +98,11 @@ class Attribution extends Component<Props> {
     const {book} = this.props;
 
     return <Details ref={(ref: any) => this.container = ref}>
-      <FormattedMessage id='i18n:attribution:toggle'>
-        {(msg) => <Summary>{msg}</Summary>}
-      </FormattedMessage>
+      <Summary>
+        <FormattedMessage id='i18n:attribution:toggle'>
+          {(msg) => <span>{msg}</span>}
+        </FormattedMessage>
+      </Summary>
       {book && <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
