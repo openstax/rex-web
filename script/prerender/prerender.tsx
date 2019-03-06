@@ -6,32 +6,32 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import asyncPool from 'tiny-async-pool';
-import createApp from '../src/app';
-import { content } from '../src/app/content/routes';
-import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../src/app/content/utils';
-import { notFound } from '../src/app/errors/routes';
-import * as errorSelectors from '../src/app/errors/selectors';
-import * as headSelectors from '../src/app/head/selectors';
-import { Meta } from '../src/app/head/types';
-import * as navigationSelectors from '../src/app/navigation/selectors';
-import { AnyMatch, Match } from '../src/app/navigation/types';
-import { matchUrl } from '../src/app/navigation/utils';
-import { AppServices, AppState } from '../src/app/types';
+import createApp from '../../src/app';
+import { content } from '../../src/app/content/routes';
+import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
+import { notFound } from '../../src/app/errors/routes';
+import * as errorSelectors from '../../src/app/errors/selectors';
+import * as headSelectors from '../../src/app/head/selectors';
+import { Meta } from '../../src/app/head/types';
+import * as navigationSelectors from '../../src/app/navigation/selectors';
+import { AnyMatch, Match } from '../../src/app/navigation/types';
+import { matchUrl } from '../../src/app/navigation/utils';
+import { AppServices, AppState } from '../../src/app/types';
 import {
   BOOKS,
   CODE_VERSION,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID
-} from '../src/config';
-import createArchiveLoader from '../src/helpers/createArchiveLoader';
-import createOSWebLoader from '../src/helpers/createOSWebLoader';
-import FontCollector from '../src/helpers/FontCollector';
-import { startServer } from './server';
+} from '../../src/config';
+import createArchiveLoader from '../../src/helpers/createArchiveLoader';
+import createOSWebLoader from '../../src/helpers/createOSWebLoader';
+import FontCollector from '../../src/helpers/FontCollector';
+import { startServer } from '../server';
 
 (global as any).fetch = fetch;
 
-const ASSET_DIR = path.resolve(__dirname, '../build');
+const ASSET_DIR = path.resolve(__dirname, '../../build');
 
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
