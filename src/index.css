@@ -19,6 +19,10 @@ body, #root, html {
   overflow: visible;
 }
 
+#root {
+  min-width: 28.8rem;
+}
+
 * {
   box-sizing: border-box;
   overflow: auto;
