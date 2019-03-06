@@ -1,19 +1,22 @@
+import { createMemoryHistory } from 'history';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { ReactTestInstance } from 'react-test-renderer';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
 import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
+import createReducer from '../../navigation/reducer';
 import { AppServices, AppState } from '../../types';
-import { initialState } from '../reducer';
+import contentReducer, { initialState } from '../reducer';
 import { Book } from '../types';
 import Content, { ContentComponent } from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
+import { SidebarControl } from './SidebarControl';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -152,5 +155,25 @@ describe('content', () => {
     const sidebarComponent = component.root.findByType(Sidebar);
 
     expect(sidebarComponent.props.isOpen).toBe(true);
+  });
+
+  it('SidebarControl opens and closes ToC', () => {
+    const history = createMemoryHistory();
+    const navigation = createReducer(history.location);
+    const store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+    component.root.findByType(SidebarControl).props.onClick();
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
+    component.root.findByType(SidebarControl).props.onClick();
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 });

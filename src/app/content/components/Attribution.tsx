@@ -79,16 +79,21 @@ interface Props {
 // tslint:disable-next-line:variable-name
 class Attribution extends Component<Props> {
   public container: Element | undefined | null;
+  private toggleHandler: undefined | (() => void);
 
   public componentDidMount() {
-    if (!this.container) {
+    const {container} = this;
+
+    if (!container) {
       return;
     }
-    this.container.addEventListener('toggle', this.toggleHandler);
+
+    this.toggleHandler = () => scrollTo(container);
+    container.addEventListener('toggle', this.toggleHandler);
   }
 
   public componentWillUnmount() {
-    if (!this.container) {
+    if (!this.container || !this.toggleHandler) {
       return;
     }
     this.container.removeEventListener('toggle', this.toggleHandler);
@@ -129,14 +134,6 @@ class Attribution extends Component<Props> {
       currentPath: this.props.currentPath,
       introPageUrl,
     };
-  }
-
-  private toggleHandler = () => {
-    if (!this.container) {
-      return;
-    }
-
-    scrollTo(this.container);
   }
 }
 
