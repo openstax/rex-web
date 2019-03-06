@@ -139,8 +139,7 @@ class Attribution extends Component<Props> {
 
 export default connect(
   (state: AppState) => ({
-    book: select.book(state),
+    ...select.bookAndPage(state),
     currentPath: selectNavigation.pathname(state),
-    page: select.page(state),
   })
 )(Attribution);

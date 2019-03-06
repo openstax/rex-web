@@ -151,8 +151,7 @@ export class Sidebar extends Component<SidebarProps> {
 
 export default connect(
   (state: AppState) => ({
-    book: selectors.book(state),
+    ...selectors.bookAndPage(state),
     isOpen: selectors.tocOpen(state),
-    page: selectors.page(state),
   })
 )(Sidebar);
