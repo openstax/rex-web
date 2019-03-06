@@ -64,13 +64,13 @@ const ToCButton = styled.h3`
   color: #027EB5;
   font-size: 1.6rem;
   cursor: pointer;
+  margin: 0;
 
   :hover {
     color: #0064A0;
   }
 
   @media (max-width: 700px) {
-    margin: 0;
   }
 
 `;
