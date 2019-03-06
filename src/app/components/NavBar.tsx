@@ -14,6 +14,10 @@ const TopBar = styled.div`
   font-weight: bold;
   background: ${theme.color.neutral.base};
   margin: 0 auto;
+
+  @media (max-width: 700px) {
+    height: 3.6rem;
+  }
 `;
 
 const LogoLink = styled.a`
@@ -23,6 +27,11 @@ const HeaderImage = styled.img`
   width: auto;
   height: 3rem;
   margin-top: 1rem;
+
+  @media (max-width: 700px) {
+    height: 2rem;
+    margin-top: 0.8rem;
+  }
 `;
 
 const LoginTxt = styled.a`
@@ -42,6 +51,11 @@ const LoginTxt = styled.a`
   }
   :focus {
     border-bottom: 0.4rem solid #63a524;
+  }
+
+  @media(max-width: 700px) {
+    font-size: 1.6rem;
+    line-height: 1.6rem;
   }
 `;
 

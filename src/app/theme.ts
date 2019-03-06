@@ -31,6 +31,13 @@ const contentBuffer = {
   },
 }
 
+const iconStyles = {
+  mobile: {
+    height: '1.6rem',
+    width: '1.6rem',
+  },
+}
+
 const color = {
   neutral: {
     base: '#fff',
@@ -74,4 +81,5 @@ export default {
   },
   color,
   contentBuffer,
+  iconStyles,
 };

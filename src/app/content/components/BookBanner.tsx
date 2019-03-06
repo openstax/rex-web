@@ -37,11 +37,17 @@ const BookTitle = styled.a`
   letter-spacing: -0.04rem;
   color: ${theme.color.primary.blue.foreground};
   text-align: left;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   width: 100%;
   max-width: 87rem;
   margin: 0;
   text-decoration: none;
+
+  @media (max-width: 700px) {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+  }
 `;
 
 const BookChapter = styled.h3`
@@ -55,6 +61,12 @@ const BookChapter = styled.h3`
   max-width: 87rem;
   margin-top: 1rem;
   margin-bottom: 0;
+
+  @media (max-width: 700px) {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    margin-top: 0.3rem;
+  }
 `;
 
 const blue = `${theme.color.primary.blue.base}`;
@@ -68,6 +80,11 @@ const BarWrapper = styled.div`
   align-items: center;
   height: 13rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
+
+  @media (max-width: 700px) {
+    padding: ${theme.contentBuffer.mobile.default.padding};
+    height: 10.4rem;
+  }
 `;
 
 export class TitleComponent extends Component<PropTypes> {

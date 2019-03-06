@@ -1,7 +1,7 @@
 import React, { SFC } from 'react';
 import styled from 'styled-components';
 import {ListOl} from 'styled-icons/boxicons-regular/ListOl';
-import {Search} from 'styled-icons/boxicons-regular/Search';
+import {Search} from 'styled-icons/fa-solid/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
 import theme from '../../theme';
 
@@ -14,6 +14,7 @@ const ListIcon = styled(ListOl)`
   :hover {
     color: #0064A0;
   }
+
 `;
 
 const SearchIcon = styled(Search)`
@@ -22,6 +23,11 @@ const SearchIcon = styled(Search)`
   color: #818181;
   margin-right: 0.7rem;
   position: absolute;
+
+  @media (max-width: 700px) {
+    height: ${theme.iconStyles.mobile.height};
+    width: ${theme.iconStyles.mobile.width};
+  }
 `;
 
 const PrintIcon = styled(Print)`
@@ -29,6 +35,11 @@ const PrintIcon = styled(Print)`
   width: 2rem;
   color: #818181;
   margin-right: 0.7rem;
+
+  @media (max-width: 700px) {
+    height: ${theme.iconStyles.mobile.height};
+    width: ${theme.iconStyles.mobile.width};
+  }
 `;
 
 const TopBar = styled.div`
@@ -42,6 +53,11 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 700px) {
+    height: 4rem;
+  }
+  
 `;
 
 const ToCButton = styled.h3`
@@ -53,6 +69,10 @@ const ToCButton = styled.h3`
     color: #0064A0;
   }
 
+  @media (max-width: 700px) {
+    margin: 0;
+  }
+
 `;
 
 const SearchInputWrapper = styled.div`
@@ -60,6 +80,10 @@ const SearchInputWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 4rem;
+
+  @media (max-width: 700px) {
+    position: initial;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -76,12 +100,29 @@ const SearchInput = styled.input`
   border-bottom: solid 0.1rem;
   padding-left: 2rem;
   height: 2.5rem;
+  
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
-const PrintTxt = styled.h3`
+const PrintOptWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 700px) {
+    display: initial;
+  }
+`;
+
+const PrintOptions = styled.h3`
   color: #818181;
   font-size: 1.6rem;
-  cursor: pointer;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const ToCButtonWrapper = styled.div`
@@ -100,7 +141,11 @@ const BarWrapper = styled.div`
   padding: ${theme.contentBuffer.toolbar.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   display: inline-block;
-  background: #FFFFFF;
+  background: ${theme.color.neutral.base};
+
+  @media (max-width: 700px) {
+    padding: ${theme.contentBuffer.mobile.default.padding};
+  }
 `;
 
 const NavigationBar: SFC = ({children}) => <BarWrapper>
@@ -112,7 +157,7 @@ const NavigationBar: SFC = ({children}) => <BarWrapper>
       <SearchInputWrapper>
         <SearchIcon /><SearchInput placeholder="Search this book"></SearchInput>
       </SearchInputWrapper>
-      <PrintTxt><PrintIcon />Print options</PrintTxt>
+      <PrintOptWrapper><PrintIcon /><PrintOptions>Print options</PrintOptions></PrintOptWrapper>
     </SearchPrintWrapper>
   </TopBar>
   {children}
