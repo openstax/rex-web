@@ -1,18 +1,22 @@
 import React, { SFC } from 'react';
 import styled from 'styled-components';
 import openstaxLogo from '../../assets/logo.svg';
+import theme from '../theme';
+import typography from '../components/Typography';
 
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
   height: 5rem;
   width: 100%;
-  max-width: 1170px;
+  max-width: 117rem;
   font-size: 1.25rem;
   font-weight: bold;
-  background: #FFFFFF;
+  background: ${theme.color.neutral.base};
   margin: 0 auto;
+`;
+
+const LogoLink = styled.a`
 `;
 
 const HeaderImage = styled.img`
@@ -21,39 +25,40 @@ const HeaderImage = styled.img`
   margin-top: 1rem;
 `;
 
-const LoginTxt = styled.div`
-  font-size: 1.8rem;
+const LoginTxt = styled.a`
+  ${typography.h4Style}
+  font-family: Helvetica Neue;
+  text-decoration: none;
   font-weight: bold;
   color: #5E6062;
   padding: 1rem 0;
-  line-height: 2.5rem;
   overflow: visible;
 
   :hover {
-    border-bottom: 4px solid #63a524;
+    border-bottom: 0.4rem solid #63a524;
   }
   :active {
-    border-bottom: 4px solid #63a524;
+    border-bottom: 0.4rem solid #63a524;
   }
   :focus {
-    border-bottom: 4px solid #63a524;
+    border-bottom: 0.4rem solid #63a524;
   }
 `;
 
 const BarWrapper = styled.div`
-  width: 100%;
-  text-align: center;
-  padding: 0 135px;
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  display: inline-block;
+  padding: ${theme.contentBuffer.default.padding};
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 700px) {
+    padding: ${theme.contentBuffer.mobile.default.padding};
+  }
 `;
 
-const NavigationBar: SFC = ({children}) => 
+const NavigationBar: SFC = ({}) => 
   <BarWrapper>
     <TopBar>
-      <HeaderImage src = {openstaxLogo}/>
-      <LoginTxt>Login</LoginTxt>
-      {children}
+      <LogoLink href="/"><HeaderImage src = {openstaxLogo}/></LogoLink>
+      <LoginTxt href="https://accounts-dev.openstax.org/login">Login</LoginTxt>
     </TopBar>
   </BarWrapper>;
 

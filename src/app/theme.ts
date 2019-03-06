@@ -16,6 +16,21 @@ const textColors = {
   white: '#fff',
 };
 
+const contentBuffer = {
+  default: {
+    padding: '0 13.5rem',
+  },
+  toolbar: {
+    padding: '0 15.5rem',
+  },
+
+  mobile: {
+    default: {
+      padding: '0 1.6rem',
+    },
+  },
+}
+
 const color = {
   neutral: {
     base: '#fff',
@@ -24,7 +39,10 @@ const color = {
     foreground: textColors.default,
   },
   primary: {
-    blue: {base: '#002468'},
+    blue: {
+      base: '#002468',
+      foreground: textColors.white,
+    },
     gray: {base: '#5e6062'},
     green: {base: '#63a524'},
     orange: {
@@ -55,4 +73,5 @@ export default {
     mobile: 600,
   },
   color,
+  contentBuffer,
 };
