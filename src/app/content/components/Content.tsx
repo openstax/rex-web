@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/Layout';
-import withServices from '../../context/Services';
-import { AppServices, AppState } from '../../types';
+import { AppState } from '../../types';
 import * as select from '../selectors';
 import { State } from '../types';
 import ContentPane from './ContentPane';
@@ -16,7 +15,6 @@ import Toolbar from './Toolbar';
 interface PropTypes {
   page: State['page'];
   book: State['book'];
-  services: AppServices;
 }
 
 export class ContentComponent extends Component<PropTypes> {
@@ -48,4 +46,4 @@ export default connect(
     book: select.book(state),
     page: select.page(state),
   })
-)(withServices(ContentComponent));
+)(ContentComponent);
