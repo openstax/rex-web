@@ -5,13 +5,11 @@ const TEST_PAGE_NAME = 'test-page-1';
 const TEST_LONG_PAGE_NAME = '1-test-page-3';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_LONG_PAGE_URL = `/books/book-slug-1/pages/${TEST_LONG_PAGE_NAME}`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
 
 describe('content', () => {
-  beforeEach(async() => {
-    await navigate(page, TEST_PAGE_URL);
-  });
-
   it('looks right', async() => {
+    await navigate(page, TEST_PAGE_URL);
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -21,7 +19,23 @@ describe('content', () => {
     });
   });
 
+  it('attribution looks right', async() => {
+    await navigate(page, TEST_SIMPLE_PAGE_URL);
+
+    await page.click('#main-content details');
+
+    const screen = await fullPageScreenshot(page);
+
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
   it('has SkipToContent link as the first tabbed-to element', async() => {
+    await navigate(page, TEST_PAGE_URL);
     await page.keyboard.press('Tab');
 
     const isSkipToContentSelected = await page.evaluate(() => {
@@ -39,6 +53,7 @@ describe('content', () => {
   // skipping because current design does not have an H1
   // TODO - add H1
   it.skip('a11y lighthouse check', async() => {
+    await navigate(page, TEST_PAGE_URL);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
 
@@ -49,6 +64,7 @@ describe('content', () => {
     - updates the selected toc element
     - and doesn't close the sidebar
   `, async() => {
+    await navigate(page, TEST_PAGE_URL);
     // TODO - put back these H1 checks when the layout includes one
     // assert initial state
     expect(await isTocVisible()).toBe(true);
