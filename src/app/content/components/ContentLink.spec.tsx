@@ -12,11 +12,13 @@ const BOOK_SLUG = 'bookslug';
 const PAGE_SLUG = 'page-title';
 
 const book = {
+  authors: [],
   id: 'booklongid',
   license: {
     name: 'asdf',
     version: 'asdf',
   },
+  publish_date: '',
   shortId: 'book',
   slug: BOOK_SLUG,
   title: 'book title',
