@@ -2,7 +2,7 @@ import pathToRegexp from 'path-to-regexp';
 import { Route } from '../navigation/types';
 import * as components from './components';
 
-const ROUTES_PATH = '/rex-developer/routes';
+const ROUTES_PATH = '/';
 
 export const routes: Route<undefined, undefined> = {
   component: components.Routes,
