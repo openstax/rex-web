@@ -3,10 +3,10 @@ import { routes } from '../..';
 
 // tslint:disable-next-line:variable-name
 const Routes: React.SFC = () => <div>
-  <h1>REX Routes</h1>
+  <h2>REX Routes</h2>
 
   {routes.map((route) => <div key={route.name}>
-    <h2>{route.name}</h2>
+    <h3>{route.name}</h3>
     path: {route.paths}
   </div>)}
 </div>;
