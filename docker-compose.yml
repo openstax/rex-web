@@ -5,8 +5,6 @@ services:
     build:
       context: .
       target: puppeteer
-    environment:
-      - CI=true
     working_dir: /code
     volumes:
       - ./src:/code/src
@@ -17,4 +15,3 @@ services:
       - ./public:/code/public
       - ./script:/code/script
       - ./jest-puppeteer.config.js:/code/jest-puppeteer.config.js
-

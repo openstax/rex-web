@@ -52,8 +52,8 @@ export default `
 
 <p>
   © {bookPublishDate, date, medium} OpenStax. Textbook content produced by OpenStax is licensed under a
-  {bookLicenseName} {bookLicenseVersion} license. The OpenStax logo, OpenStax book
+  {bookLicenseName} {bookLicenseVersion} license. <strong>The OpenStax logo, OpenStax book
   covers, and OpenStax CNX logo are not subject to the Creative Commons license and may
-  not be reproduced without the prior and express written consent of Rice University.
+  not be reproduced without the prior and express written consent of Rice University.</strong>
 </p>
 `;
