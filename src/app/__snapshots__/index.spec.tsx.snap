@@ -1,7 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`create app container renders 1`] = `
-<h1>
-  page not found
-</h1>
+<div>
+  <div>
+    <h2>
+      REX Routes
+    </h2>
+    <div>
+      <h3>
+        Developer / Routes
+      </h3>
+      path: 
+      /
+    </div>
+    <div>
+      <h3>
+        Content
+      </h3>
+      path: 
+      /books/:book/pages/:page
+    </div>
+    <div>
+      <h3>
+        NotFound
+      </h3>
+      path: 
+      /(.*)
+    </div>
+  </div>
+  <div>
+    <h2>
+      REX Books
+    </h2>
+  </div>
+</div>
 `;

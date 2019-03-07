@@ -2,27 +2,27 @@
 
 exports[`Routes matches snapshot 1`] = `
 <div>
-  <h1>
+  <h2>
     REX Routes
-  </h1>
+  </h2>
   <div>
-    <h2>
+    <h3>
       Developer / Routes
-    </h2>
+    </h3>
     path: 
-    /rex-developer/routes
+    /
   </div>
   <div>
-    <h2>
+    <h3>
       Content
-    </h2>
+    </h3>
     path: 
     /books/:book/pages/:page
   </div>
   <div>
-    <h2>
+    <h3>
       NotFound
-    </h2>
+    </h3>
     path: 
     /(.*)
   </div>
