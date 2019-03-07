@@ -35,19 +35,15 @@ Array [
   z-index: 2;
   top: 0;
   overflow: visible;
+  position: fixed;
+  right: 0;
 }
 
 @media (max-width:90em) {
   .c0 {
     position: -webkit-sticky;
     position: sticky;
-  }
-}
-
-@media (min-width:90em) {
-  .c0 {
-    position: fixed;
-    right: 0;
+    right: inital;
   }
 }
 
@@ -592,19 +588,15 @@ Array [
   z-index: 2;
   top: 0;
   overflow: visible;
+  position: fixed;
+  right: 0;
 }
 
 @media (max-width:90em) {
   .c0 {
     position: -webkit-sticky;
     position: sticky;
-  }
-}
-
-@media (min-width:90em) {
-  .c0 {
-    position: fixed;
-    right: 0;
+    right: inital;
   }
 }
 

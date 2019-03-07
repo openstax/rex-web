@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button, { ButtonGroup } from '../../components/Button';
+import { bodyCopyRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { inlineDisplayBreak } from '../theme';
 
@@ -18,36 +19,32 @@ const Group = styled.div`
 
 // tslint:disable-next-line:variable-name
 const P = styled.p`
-  font-size: 1.5rem;
+  ${bodyCopyRegularStyle}
   margin: 0;
+  padding: 1rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
     padding: 0 1rem;
-  }
-  @media (min-width: ${inlineDisplayBreak}) {
-    padding: 1rem;
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const Body = styled.div`
   margin: 0.5rem;
-  background-color: #fff;
+  background-color: ${theme.color.neutral.base};
   border-style: solid;
-  border-color: #d5d5d5;
+  border-color: ${theme.color.neutral.darkest};
   display: flex;
   flex-basis: 100%;
+  flex-direction: column;
+  border-width: thin;
+  box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2);
+  overflow: visible;
 
   @media (max-width: ${inlineDisplayBreak}) {
+    margin: 0;
     border-width: 0 0 thin 0;
     flex-direction: row;
-  }
-  @media (min-width: ${inlineDisplayBreak}) {
-    margin: 0.5rem;
-    flex-direction: column;
-    border-width: thin;
-    box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2);
-    overflow: visible;
   }
 
   > ${ButtonGroup} {
@@ -58,17 +55,17 @@ const Body = styled.div`
 
 // tslint:disable-next-line:variable-name
 const Header = styled.div`
+  ${bodyCopyRegularStyle}
   padding: 0.5rem 1rem;
-  font-size: 1.5rem;
   font-weight: bold;
+  background-color: ${theme.color.neutral.darker};
+  line-height: 4rem;
+  margin-bottom: 1rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
     line-height: 1rem;
-  }
-  @media (min-width: ${inlineDisplayBreak}) {
-    background-color: ${theme.color.neutral.darker};
-    line-height: 4rem;
-    margin-bottom: 1rem;
+    margin: 0;
+    background-color: initial;
   }
 `;
 

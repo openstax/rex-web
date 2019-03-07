@@ -14,13 +14,12 @@ const Container = styled.div`
   z-index: 2;
   top: 0;
   overflow: visible;
+  position: fixed;
+  right: 0;
 
   @media (max-width: ${inlineDisplayBreak}) {
     position: sticky;
-  }
-  @media (min-width: ${inlineDisplayBreak}) {
-    position: fixed;
-    right: 0;
+    right: inital;
   }
 `;
 
