@@ -2,18 +2,16 @@ import { createMemoryHistory } from 'history';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
-import renderer, { ReactTestInstance } from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
-import { setStateFinished } from '../../../test/reactutils';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import createReducer from '../../navigation/reducer';
 import { AppServices, AppState } from '../../types';
 import contentReducer, { initialState } from '../reducer';
 import { Book } from '../types';
-import Content, { ContentComponent } from './Content';
+import Content from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
 import { SidebarControl } from './SidebarControl';
@@ -107,38 +105,6 @@ describe('content', () => {
     const pageComponent = component.root.findByType(Page);
 
     expect(pageComponent).toBeDefined();
-  });
-
-  it('updates after initial render', async() => {
-    const state1 = cloneDeep(state);
-    const state2 = cloneDeep(state);
-    state2.content.book = bookState;
-    state2.content.page = shortPage;
-
-    const go = {type: 'go'};
-
-    const reducer = (_: AppState | undefined, action?: typeof go) => action && action.type === 'go'
-      ? state2
-      : state1;
-
-    const store = createStore(reducer, state1);
-
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Content />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
-
-    const before = component.toJSON();
-    store.dispatch(go);
-
-    const target = component.root.findByType(ContentComponent) as ReactTestInstance;
-    await setStateFinished(target);
-
-    const after = component.toJSON();
-    expect(before).not.toEqual(after);
   });
 
   it('renders with ToC open', () => {
