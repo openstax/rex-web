@@ -3,7 +3,7 @@ import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
@@ -161,17 +161,20 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
-export const maxTextWidth = 57;
+export const contentTextStyle = css`
+  ${bodyCopyRegularStyle}
+  max-width: 57rem
+  margin: 0 auto;
+  padding: 0 1.6rem;
+`;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
-  margin: 0 auto;
-  max-width: ${maxTextWidth}rem
-  padding: 1.6rem;
+  ${contentTextStyle}
+  padding-top: 1.6rem;
   padding-bottom: 0;
 
   // these are only here because the cnx-recipes styles are broken
-  ${bodyCopyRegularStyle}
   overflow: visible;
 
   * {

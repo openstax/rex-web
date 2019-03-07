@@ -11,7 +11,7 @@ import { assertString } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
-import { maxTextWidth } from './Page';
+import { contentTextStyle } from './Page';
 
 if (typeof(document) !== 'undefined') {
   import('details-polyfill');
@@ -21,6 +21,7 @@ const slimBreak = '48em';
 
 // tslint:disable-next-line:variable-name
 const Summary = styled.summary`
+  ${contentTextStyle}
   color: ${linkColor};
 
   > span {
@@ -31,6 +32,7 @@ const Summary = styled.summary`
 
 // tslint:disable-next-line:variable-name
 const Content = styled.div`
+  ${contentTextStyle}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -38,12 +40,6 @@ const Details = styled.details`
   ${bodyCopyRegularStyle}
   box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
-
-  > ${Summary}, ${Content} {
-    padding: 0 1.6rem
-    max-width: ${maxTextWidth}rem;
-    margin: 0 auto;
-  }
 
   @media (max-width: ${slimBreak}) {
     min-height: 4rem;
