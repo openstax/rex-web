@@ -163,7 +163,7 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: 57rem
+  max-width: 60.2rem
   margin: 0 auto;
   padding: 0 1.6rem;
 `;
