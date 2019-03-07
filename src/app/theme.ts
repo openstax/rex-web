@@ -20,14 +20,16 @@ const contentBuffer = {
   default: {
     padding: '0 13.5rem',
   },
-  toolbar: {
-    padding: '0 15.5rem',
-  },
-
   mobile: {
     default: {
       padding: '0 1.6rem',
     },
+  },
+}
+
+const mobileBreakpoint = {
+  default: {
+    width: '48em',
   },
 }
 
@@ -80,4 +82,5 @@ export default {
   color,
   contentBuffer,
   textColors,
+  mobileBreakpoint,
 };

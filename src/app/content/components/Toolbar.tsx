@@ -4,7 +4,7 @@ import {ListOl} from 'styled-icons/fa-solid/ListOl';
 import {Search} from 'styled-icons/fa-solid/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
 import theme from '../../theme';
-import Typography from '../../components/Typography';
+import {bodyCopyRegularStyle} from '../../components/Typography';
 
 const iconStyles = {
   mobile: {
@@ -48,14 +48,14 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     height: 4rem;
   }
   
 `;
 
 const ToCButton = styled.h3`
-  ${Typography.bodyCopyRegularStyle};
+  ${bodyCopyRegularStyle};
   color: ${theme.color.secondary.darkBlue.base};
   cursor: pointer;
   margin: 0;
@@ -72,23 +72,24 @@ const SearchInputWrapper = styled.div`
   margin-right: 4rem;
   border-bottom: solid 0.1rem ${theme.textColors.default};
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     border: none;
     margin-right: 1rem;
   }
 `;
 
 const SearchInput = styled.input`
-  ${Typography.bodyCopyRegularStyle};
+  ${bodyCopyRegularStyle};
   color: ${theme.textColors.default};
-  border: none;
   height: 2.5rem;
+  border: none;
+  outline: none;
 
   ::placeholder {
     color: ${theme.color.secondary.darkGray.base};
   }
   
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     display: none;
   }
 `;
@@ -100,11 +101,11 @@ const PrintOptWrapper = styled.div`
 `;
 
 const PrintOptions = styled.h3`
-  ${Typography.bodyCopyRegularStyle};
+  ${bodyCopyRegularStyle};
   color: ${theme.color.secondary.darkGray.base};
   margin: 0;
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     display: none;
   }
 `;
@@ -123,12 +124,12 @@ const SearchPrintWrapper = styled.div`
 
 const BarWrapper = styled.div` 
   width: 100%;
-  padding: ${theme.contentBuffer.toolbar.padding};
+  padding: 0 15.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   display: block;
   background: ${theme.color.neutral.base};
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     padding: ${theme.contentBuffer.mobile.default.padding};
   }
 `;

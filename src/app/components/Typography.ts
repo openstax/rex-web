@@ -30,10 +30,4 @@ export const h4Style = css`
 export const H3 = styled.h3`
   ${h3Style}
 `;
-
-export default {
-  h3Style,
-  h4Style,
-  bodyCopyRegularStyle,
-};
   

@@ -8,7 +8,7 @@ import { Book, Page } from '../types';
 import {ChevronLeft} from 'styled-icons/boxicons-regular/ChevronLeft'
 import { findArchiveTreeSection, bookDetailsUrl } from '../utils'
 import Color from 'color';
-import typography from '../../components/Typography';
+import {h3Style, h4Style} from '../../components/Typography';
 
 const LeftArrow = styled(ChevronLeft)`
   height: 2rem;
@@ -30,7 +30,7 @@ const TopBar = styled.div`
 `;
 
 const BookTitle = styled.a`
-  ${typography.h4Style}
+  ${h4Style}
   color: ${theme.color.primary.blue.foreground};
   display: flex;
   align-items: center;
@@ -39,13 +39,13 @@ const BookTitle = styled.a`
   text-overflow: ellipsis;
   margin: 0;
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     line-height: 2.5rem;
   }
 `;
 
 const BookChapter = styled.h1`
-  ${typography.h3Style}
+  ${h3Style}
   color: ${theme.color.primary.blue.foreground};
   font-weight: bold;
   display: inline-block;
@@ -55,7 +55,7 @@ const BookChapter = styled.h1`
   margin-bottom: 0;
   text-overflow: ellipsis;
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     line-height: 2.2rem;
     margin-top: 0.3rem;
     overflow: hidden;
@@ -76,7 +76,7 @@ const BarWrapper = styled.div`
   height: 13rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
 
-  @media (max-width: 48em) {
+  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     padding: ${theme.contentBuffer.mobile.default.padding};
     height: 10.4rem;
   }
