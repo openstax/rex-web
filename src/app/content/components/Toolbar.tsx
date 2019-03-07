@@ -1,107 +1,94 @@
 import React, { SFC } from 'react';
 import styled from 'styled-components';
-import {ListOl} from 'styled-icons/boxicons-regular/ListOl';
+import {ListOl} from 'styled-icons/fa-solid/ListOl';
 import {Search} from 'styled-icons/fa-solid/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
 import theme from '../../theme';
+import Typography from '../../components/Typography';
+
+const iconStyles = {
+  mobile: {
+    height: '1.6rem',
+    width: '1.6rem',
+  },
+}
 
 const ListIcon = styled(ListOl)`
-  height: 2rem;
-  width: 2rem;
-  color: #027EB5;
+  height: ${iconStyles.mobile.height};
+  width: ${iconStyles.mobile.width};
+  color: ${theme.color.secondary.darkBlue.base};
   margin-right: 0.7rem;
 
   :hover {
-    color: #0064A0;
+    color: ${theme.color.secondary.darkBlue.foreground};
   }
 
 `;
 
 const SearchIcon = styled(Search)`
-  height: 2rem;
-  width: 2rem;
-  color: #818181;
+  height: ${iconStyles.mobile.height};
+  width: ${iconStyles.mobile.width};
+  color: ${theme.color.secondary.darkGray.base};
   margin-right: 0.7rem;
-  position: absolute;
-
-  @media (max-width: 700px) {
-    height: ${theme.iconStyles.mobile.height};
-    width: ${theme.iconStyles.mobile.width};
-  }
 `;
 
 const PrintIcon = styled(Print)`
-  height: 2rem;
-  width: 2rem;
-  color: #818181;
+  height: ${iconStyles.mobile.height};
+  width: ${iconStyles.mobile.width};
+  color: ${theme.color.secondary.darkGray.base};
   margin-right: 0.7rem;
 
-  @media (max-width: 700px) {
-    height: ${theme.iconStyles.mobile.height};
-    width: ${theme.iconStyles.mobile.width};
-  }
 `;
 
 const TopBar = styled.div`
   height: 5rem;
-  width: 100%;
   max-width: 117rem;
-  font-size: 1.25rem;
-  font-weight: bold;
-  background: transparent;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     height: 4rem;
   }
   
 `;
 
 const ToCButton = styled.h3`
-  color: #027EB5;
-  font-size: 1.6rem;
+  ${Typography.bodyCopyRegularStyle};
+  color: ${theme.color.secondary.darkBlue.base};
   cursor: pointer;
   margin: 0;
 
   :hover {
-    color: #0064A0;
-  }
-
-  @media (max-width: 700px) {
+    color: ${theme.color.secondary.darkBlue.foreground};
   }
 
 `;
 
 const SearchInputWrapper = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   margin-right: 4rem;
+  border-bottom: solid 0.1rem ${theme.textColors.default};
 
-  @media (max-width: 700px) {
-    position: initial;
+  @media (max-width: 48em) {
+    border: none;
+    margin-right: 1rem;
   }
 `;
 
 const SearchInput = styled.input`
-  font-size: 1.6rem;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2.5rem;
-  letter-spacing: normal;
-  color: #818181;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: solid 0.1rem;
-  padding-left: 2rem;
+  ${Typography.bodyCopyRegularStyle};
+  color: ${theme.textColors.default};
+  border: none;
   height: 2.5rem;
+
+  ::placeholder {
+    color: ${theme.color.secondary.darkGray.base};
+  }
   
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     display: none;
   }
 `;
@@ -110,23 +97,21 @@ const PrintOptWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-
-  @media (max-width: 700px) {
-    display: initial;
-  }
 `;
 
 const PrintOptions = styled.h3`
-  color: #818181;
-  font-size: 1.6rem;
+  ${Typography.bodyCopyRegularStyle};
+  color: ${theme.color.secondary.darkGray.base};
+  margin: 0;
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     display: none;
   }
 `;
 
 const ToCButtonWrapper = styled.div`
-  text-align: left;
+  display: flex;
+  align-items: center;
 `;
 
 const SearchPrintWrapper = styled.div`
@@ -140,10 +125,10 @@ const BarWrapper = styled.div`
   width: 100%;
   padding: ${theme.contentBuffer.toolbar.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-  display: inline-block;
+  display: block;
   background: ${theme.color.neutral.base};
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     padding: ${theme.contentBuffer.mobile.default.padding};
   }
 `;
@@ -151,7 +136,7 @@ const BarWrapper = styled.div`
 const NavigationBar: SFC = ({children}) => <BarWrapper>
   <TopBar>
     <ToCButtonWrapper>
-      <ToCButton><ListIcon/>Table of contents</ToCButton>
+      <ListIcon/><ToCButton>Table of contents</ToCButton>
     </ToCButtonWrapper>  
     <SearchPrintWrapper>
       <SearchInputWrapper>

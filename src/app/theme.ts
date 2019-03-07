@@ -31,13 +31,6 @@ const contentBuffer = {
   },
 }
 
-const iconStyles = {
-  mobile: {
-    height: '1.6rem',
-    width: '1.6rem',
-  },
-}
-
 const color = {
   neutral: {
     base: '#fff',
@@ -70,6 +63,11 @@ const color = {
       darkest: '#818181',
       foreground: textColors.white,
     },
+    darkGray: {base: '#818181'},
+    darkBlue: {
+      base: '#027EB5',
+      foreground: '#0064A0',
+    },
     red: {base: '#c22032'},
   },
   text: textColors,
@@ -81,5 +79,5 @@ export default {
   },
   color,
   contentBuffer,
-  iconStyles,
+  textColors,
 };

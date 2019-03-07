@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import withServices from '../../context/Services';
 import styled from 'styled-components';
 import theme from '../../theme';
-import { AppServices, AppState } from '../../types';
+import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import {ChevronLeft} from 'styled-icons/boxicons-regular/ChevronLeft'
@@ -14,66 +13,62 @@ import typography from '../../components/Typography';
 const LeftArrow = styled(ChevronLeft)`
   height: 2rem;
   width: 2rem;
-  color: #FFFFFF;
+  color: ${theme.color.neutral.base};
   margin-right: 0.7rem;
 `;
 
 interface PropTypes {
   page?: Page;
   book?: Book;
-  services: AppServices;
 }
 
 const TopBar = styled.div`
   width: 100%;
   max-width: 117rem;
-  background: transparent;
   margin: 0 auto;
   text-align: left;
 `;
 
 const BookTitle = styled.a`
   ${typography.h4Style}
-  letter-spacing: -0.04rem;
   color: ${theme.color.primary.blue.foreground};
-  text-align: left;
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 87rem;
+  text-overflow: ellipsis;
   margin: 0;
-  text-decoration: none;
 
-  @media (max-width: 700px) {
-    font-size: 1.6rem;
+  @media (max-width: 48em) {
     line-height: 2.5rem;
   }
 `;
 
-const BookChapter = styled.h3`
+const BookChapter = styled.h1`
   ${typography.h3Style}
-  letter-spacing: -0.04rem;
   color: ${theme.color.primary.blue.foreground};
   font-weight: bold;
-  text-align: left;
   display: inline-block;
   width: 100%;
   max-width: 87rem;
   margin-top: 1rem;
   margin-bottom: 0;
+  text-overflow: ellipsis;
 
-  @media (max-width: 700px) {
-    font-size: 1.6rem;
+  @media (max-width: 48em) {
     line-height: 2.2rem;
     margin-top: 0.3rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; 
   }
 `;
 
 const blue = `${theme.color.primary.blue.base}`;
-const color = Color(`${blue}`).lighten(0.7); 
+const color = Color(blue).lighten(0.7); 
 
 const BarWrapper = styled.div`
-  width: 100%;
   padding: ${theme.contentBuffer.default.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
@@ -81,7 +76,7 @@ const BarWrapper = styled.div`
   height: 13rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     padding: ${theme.contentBuffer.mobile.default.padding};
     height: 10.4rem;
   }
@@ -116,5 +111,5 @@ export default connect(
     book: select.book(state),
     page: select.page(state),
   })
-)(withServices(TitleComponent));
+)(TitleComponent);
 

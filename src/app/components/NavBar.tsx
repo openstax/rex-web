@@ -7,15 +7,13 @@ import typography from '../components/Typography';
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 5rem;
-  width: 100%;
   max-width: 117rem;
-  font-size: 1.25rem;
-  font-weight: bold;
   background: ${theme.color.neutral.base};
   margin: 0 auto;
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     height: 3.6rem;
   }
 `;
@@ -26,11 +24,9 @@ const LogoLink = styled.a`
 const HeaderImage = styled.img`
   width: auto;
   height: 3rem;
-  margin-top: 1rem;
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     height: 2rem;
-    margin-top: 0.8rem;
   }
 `;
 
@@ -53,7 +49,7 @@ const LoginTxt = styled.a`
     border-bottom: 0.4rem solid #63a524;
   }
 
-  @media(max-width: 700px) {
+  @media(max-width: 48em) {
     font-size: 1.6rem;
     line-height: 1.6rem;
   }
@@ -63,7 +59,7 @@ const BarWrapper = styled.div`
   padding: ${theme.contentBuffer.default.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
 
-  @media (max-width: 700px) {
+  @media (max-width: 48em) {
     padding: ${theme.contentBuffer.mobile.default.padding};
   }
 `;
