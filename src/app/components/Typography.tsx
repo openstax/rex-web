@@ -8,11 +8,15 @@ export const linkStyle = css`
   border-bottom: ${linkColor} solid 0.02em;
 `;
 
-export const bodyCopyRegularStyle = css`
+export const textRegularStyle = css`
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #424242;
+`;
+
+export const bodyCopyRegularStyle = css`
+  ${textRegularStyle}
 
   a {
     ${linkStyle}

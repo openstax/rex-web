@@ -36,8 +36,7 @@ const Content = styled.div`
 // tslint:disable-next-line:variable-name
 const Details = styled.details`
   ${bodyCopyRegularStyle}
-  background: white;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
 
   > ${Summary}, ${Content} {
@@ -76,7 +75,6 @@ interface Props {
   page: Page | undefined;
 }
 
-// tslint:disable-next-line:variable-name
 class Attribution extends Component<Props> {
   public container: Element | undefined | null;
   private toggleHandler: undefined | (() => void);
