@@ -8,8 +8,6 @@ const Hoc = ({children, className}: {className?: string, children: (className?: 
 
 export default styled(Hoc)`
 
-table { background-color: blue; }
-
 h1,
 h2,
 h3,
