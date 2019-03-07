@@ -36,7 +36,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     opacity: 1;
   }
 
-  width: 33.5rem;
+  width: ${sidebarWidth}rem;
 
   @media (max-width: ${sidebarPositionBreak}) {
     // TODO - in here the sidebar should overlap the content
@@ -49,7 +49,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
 
   ${(props) => !props.isOpen && css`
     overflow-y: hidden;
-    margin-left: -33.5rem;
+    margin-left: -${sidebarWidth}rem;
 
     > * {
       visibility: hidden;
