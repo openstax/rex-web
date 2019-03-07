@@ -34,9 +34,11 @@ exports[`Notifications matches snapshot 1`] = `
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.6rem;
-  font-weight: bold;
   font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  font-weight: bold;
   color: #fff;
   background-color: #f36b32;
 }

@@ -51,14 +51,15 @@ Array [
     className="c0"
   />,
   .c6 {
-  margin: 0 auto;
-  max-width: 57rem;
-  padding: 1.6rem;
-  padding-bottom: 0;
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #424242;
+  max-width: 60.2rem;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  padding-top: 1.6rem;
+  padding-bottom: 0;
   overflow: visible;
 }
 
@@ -75,7 +76,22 @@ Array [
 }
 
 .c9 {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  max-width: 60.2rem;
+  margin: 0 auto;
+  padding: 0 1.6rem;
   color: #027EB5;
+}
+
+.c9 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c9 > span {
@@ -98,13 +114,30 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
+.c10 {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  max-width: 60.2rem;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+}
+
+.c10 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
 .c7 {
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #424242;
-  background: white;
-  box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
 }
 
@@ -114,13 +147,6 @@ Array [
   -webkit-text-decoration: none;
   text-decoration: none;
   border-bottom: #027EB5 solid 0.02em;
-}
-
-.c7 > .c8,
-.c7 .c10 {
-  padding: 0 1.6rem;
-  max-width: 57rem;
-  margin: 0 auto;
 }
 
 .c7 li {
@@ -481,7 +507,7 @@ Array [
             </span>
           </summary>
           <div
-            className="c10 "
+            className="c10"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -604,14 +630,15 @@ Array [
     className="c0"
   />,
   .c4 {
-  margin: 0 auto;
-  max-width: 57rem;
-  padding: 1.6rem;
-  padding-bottom: 0;
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #424242;
+  max-width: 60.2rem;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  padding-top: 1.6rem;
+  padding-bottom: 0;
   overflow: visible;
 }
 
@@ -628,7 +655,22 @@ Array [
 }
 
 .c7 {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  max-width: 60.2rem;
+  margin: 0 auto;
+  padding: 0 1.6rem;
   color: #027EB5;
+}
+
+.c7 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c7 > span {
@@ -656,8 +698,7 @@ Array [
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #424242;
-  background: white;
-  box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
 }
 
@@ -667,13 +708,6 @@ Array [
   -webkit-text-decoration: none;
   text-decoration: none;
   border-bottom: #027EB5 solid 0.02em;
-}
-
-.c5 > .c6,
-.c5 .sc-gZMcBi {
-  padding: 0 1.6rem;
-  max-width: 57rem;
-  margin: 0 auto;
 }
 
 .c5 li {
