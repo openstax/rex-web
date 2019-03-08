@@ -7,7 +7,7 @@ exports[`Routes matches snapshot 1`] = `
   </h2>
   <div>
     <h3>
-      Developer / Routes
+      Developer Home
     </h3>
     path: 
     /
