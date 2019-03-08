@@ -1,43 +1,42 @@
 import React, { SFC } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {ListOl} from 'styled-icons/fa-solid/ListOl';
 import {Search} from 'styled-icons/fa-solid/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
-import theme from '../../theme';
+import theme, { linkStyle } from '../../theme';
 import {bodyCopyRegularStyle} from '../../components/Typography';
 
-const iconStyles = {
-  mobile: {
-    height: '1.6rem',
-    width: '1.6rem',
-  },
-}
-
-const ListIcon = styled(ListOl)`
-  height: ${iconStyles.mobile.height};
-  width: ${iconStyles.mobile.width};
-  color: ${theme.color.secondary.darkBlue.base};
+export const iconStyles = css`
+  height: 1.6rem;
+  width: 1.6rem;
+  color: ${theme.iconColor};
   margin-right: 0.7rem;
-
-  :hover {
-    color: ${theme.color.secondary.darkBlue.foreground};
-  }
-
 `;
 
 const SearchIcon = styled(Search)`
-  height: ${iconStyles.mobile.height};
-  width: ${iconStyles.mobile.width};
-  color: ${theme.color.secondary.darkGray.base};
-  margin-right: 0.7rem;
+  ${iconStyles};
 `;
 
 const PrintIcon = styled(Print)`
-  height: ${iconStyles.mobile.height};
-  width: ${iconStyles.mobile.width};
-  color: ${theme.color.secondary.darkGray.base};
-  margin-right: 0.7rem;
+  ${iconStyles};
+`;
 
+const ListIcon = styled(ListOl)`
+  ${iconStyles};
+  ${linkStyle};
+`;
+
+const ToCButton = styled.h3`
+  ${bodyCopyRegularStyle};
+  ${linkStyle};
+  cursor: pointer;
+  margin: 0;
+`;
+
+const ToCButtonWrapper = styled.div`
+  ${linkStyle};
+  display: flex;
+  align-items: center;
 `;
 
 const TopBar = styled.div`
@@ -52,18 +51,6 @@ const TopBar = styled.div`
     height: 4rem;
   }
   
-`;
-
-const ToCButton = styled.h3`
-  ${bodyCopyRegularStyle};
-  color: ${theme.color.secondary.darkBlue.base};
-  cursor: pointer;
-  margin: 0;
-
-  :hover {
-    color: ${theme.color.secondary.darkBlue.foreground};
-  }
-
 `;
 
 const SearchInputWrapper = styled.div`
@@ -86,7 +73,7 @@ const SearchInput = styled.input`
   outline: none;
 
   ::placeholder {
-    color: ${theme.color.secondary.darkGray.base};
+    color: ${theme.iconColor};
   }
   
   @media (max-width: ${theme.mobileBreakpoint.default.width}) {
@@ -102,17 +89,12 @@ const PrintOptWrapper = styled.div`
 
 const PrintOptions = styled.h3`
   ${bodyCopyRegularStyle};
-  color: ${theme.color.secondary.darkGray.base};
+  color: ${theme.iconColor};
   margin: 0;
 
   @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     display: none;
   }
-`;
-
-const ToCButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 const SearchPrintWrapper = styled.div`

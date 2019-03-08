@@ -2,6 +2,7 @@
 
 // TODO - as more styles are developed, try to centralize some configurations in this theme:
 //  - font faces and sizes. headings, buttons, other text elements share a lot of this
+import { css } from 'styled-components';
 
 export interface ColorSet {
   base: string;
@@ -32,6 +33,19 @@ const mobileBreakpoint = {
     width: '48em',
   },
 }
+
+const linkColor = '#027EB5';
+const linkHover = '#0064A0';
+const iconColor = '#818181';
+
+export const linkStyle = css`
+  color: ${linkColor};
+  cursor: pointer;
+  text-decoration: none;
+  :hover {
+    color: ${linkHover};
+  }
+`;
 
 const color = {
   neutral: {
@@ -65,11 +79,6 @@ const color = {
       darkest: '#818181',
       foreground: textColors.white,
     },
-    darkGray: {base: '#818181'},
-    darkBlue: {
-      base: '#027EB5',
-      foreground: '#0064A0',
-    },
     red: {base: '#c22032'},
   },
   text: textColors,
@@ -83,4 +92,5 @@ export default {
   contentBuffer,
   textColors,
   mobileBreakpoint,
+  iconColor,
 };
