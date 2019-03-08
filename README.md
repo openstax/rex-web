@@ -27,7 +27,7 @@ The app has two entrypoints, one for [prerender](script/prerender.tsx) and one f
 
 ## Notes on Navigation
 
-REX is just one part of the unified openstax experience. Depending on where you go, different applications will handle the request. In order for navigation to mostly work as intended, this development environment proxies some urls to other projects. Just because you can go to a url locally doesn't mean it is handled by REX. Urls handled by REX can be referenced [here](http://localhost:3000/rex-developer/routes), any other urls, even if they work locally, are being proxied to other apps.
+REX is just one part of the unified openstax experience. Depending on where you go, different applications will handle the request. In order for navigation to mostly work as intended, this development environment proxies some urls to other projects. Just because you can go to a url locally doesn't mean it is handled by REX. Urls handled by REX can be referenced [here](http://localhost:3000/), any other urls, even if they work locally, are being proxied to other apps.
 
 If this situation is super confusing you can use the `SKIP_OS_WEB_PROXY` environment variable and _most_ non-rexy things will 404.
 
