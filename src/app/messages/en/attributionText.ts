@@ -43,7 +43,7 @@ export default `
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: https://openstax.org{introPageUrl}
+        Book URL: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
         Section URL: https://openstax.org{currentPath}
