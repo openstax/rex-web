@@ -9,16 +9,17 @@ import {bodyCopyRegularStyle, linkStyle} from '../../components/Typography';
 export const iconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
-  color: ${theme.iconColor};
   margin-right: 0.7rem;
 `;
 
 const SearchIcon = styled(Search)`
   ${iconStyles};
+  color: ${theme.iconColor};
 `;
 
 const PrintIcon = styled(Print)`
   ${iconStyles};
+  color: ${theme.iconColor};
 `;
 
 const ListIcon = styled(ListOl)`

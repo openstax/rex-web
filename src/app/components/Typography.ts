@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 
-const linkColor = '#027EB5';
-const linkHover = '#0064A0';
+export const linkColor = '#027EB5';
+export const linkHover = '#0064A0';
 
 export const linkStyle = css`
   color: ${linkColor};
