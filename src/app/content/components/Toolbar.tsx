@@ -3,8 +3,8 @@ import styled, {css} from 'styled-components';
 import {ListOl} from 'styled-icons/fa-solid/ListOl';
 import {Search} from 'styled-icons/fa-solid/Search';
 import {Print} from 'styled-icons/fa-solid/Print';
-import theme, { linkStyle } from '../../theme';
-import {bodyCopyRegularStyle} from '../../components/Typography';
+import theme from '../../theme';
+import {bodyCopyRegularStyle, linkStyle} from '../../components/Typography';
 
 export const iconStyles = css`
   height: 1.6rem;
@@ -23,12 +23,10 @@ const PrintIcon = styled(Print)`
 
 const ListIcon = styled(ListOl)`
   ${iconStyles};
-  ${linkStyle};
 `;
 
 const ToCButton = styled.h3`
   ${bodyCopyRegularStyle};
-  ${linkStyle};
   cursor: pointer;
   margin: 0;
 `;

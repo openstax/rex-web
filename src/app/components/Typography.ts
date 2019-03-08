@@ -1,5 +1,18 @@
 import styled, { css } from 'styled-components';
 
+
+const linkColor = '#027EB5';
+const linkHover = '#0064A0';
+
+export const linkStyle = css`
+  color: ${linkColor};
+  cursor: pointer;
+  text-decoration: none;
+  :hover {
+    color: ${linkHover};
+  }
+`;
+
 export const h3Style = css`
   font-size: 2.4rem;
   line-height: 3rem;
