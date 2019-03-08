@@ -101,6 +101,21 @@ describe('Attribution', () => {
       expect(details.getAttribute('open')).toBe(null);
     });
 
+    it('doesn\'t close attribution when updating with the same page', async() => {
+      const { node } = renderToDom(render());
+      const details = node;
+
+      if (!document) {
+        return expect(document).toBeTruthy();
+      }
+
+      details.setAttribute('open', 'true');
+
+      store.dispatch(actions.receiveBook({...mockCmsBookFields, ...book}));
+
+      expect(details.getAttribute('open')).toBe('true');
+    });
+
     it('mounts and unmounts without a dom', () => {
       const element = renderer.create(render());
 
