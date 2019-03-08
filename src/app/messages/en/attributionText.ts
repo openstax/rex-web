@@ -9,7 +9,9 @@ export default `
   <li>
     If you are redistributing all or part of this book in a print format,
     then you must include on every physical page the following attribution:
-    Access for free at https://openstax.org{introPageUrl}
+    <blockquote>
+      Access for free at <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+    </blockquote>
   </li>
   <li>
     If you are redistributing all or part of this book in a digital format,
