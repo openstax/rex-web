@@ -1,6 +1,7 @@
 import { Location } from 'history';
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices, AppState } from './types';
 
@@ -69,7 +70,22 @@ describe('create app', () => {
 
   describe('container', () => {
     it('renders', () => {
-      const app = createApp({services});
+      if (!window) {
+        return expect(window).toBeTruthy();
+      }
+      const newLocation = {
+        ...window.location,
+        pathname: notFound.getUrl(),
+      };
+      delete window.location;
+      window.location = newLocation;
+      const app = createApp({
+        initialEntries: [
+          {code: 404, page: {route: notFound}},
+        ],
+        services,
+      });
+
       const tree = renderer
         .create(<app.container />)
         .toJSON();
