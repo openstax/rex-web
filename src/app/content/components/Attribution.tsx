@@ -82,7 +82,7 @@ class Attribution extends Component<Props> {
       return;
     }
 
-    this.toggleHandler = () => scrollTo(container);
+    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
     container.addEventListener('toggle', this.toggleHandler);
   }
 
@@ -91,6 +91,12 @@ class Attribution extends Component<Props> {
       return;
     }
     this.container.removeEventListener('toggle', this.toggleHandler);
+  }
+
+  public componentDidUpdate(prevProps: Props) {
+    if (this.container && prevProps.page && prevProps.page !== this.props.page) {
+      this.container.removeAttribute('open');
+    }
   }
 
   public render() {

@@ -1,15 +1,18 @@
+import createMemoryHistory from 'history/createMemoryHistory';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
-import { book, page } from '../../../test/mocks/archiveLoader';
+import { combineReducers, createStore } from 'redux';
+import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import MessageProvider from '../../MessageProvider';
+import createReducer from '../../navigation/reducer';
 import { AppState, Store } from '../../types';
-import { initialState } from '../reducer';
+import * as actions from '../actions';
+import contentReducer, { initialState } from '../reducer';
 
 describe('Attribution', () => {
   beforeEach(() => {
@@ -41,7 +44,9 @@ describe('Attribution', () => {
         navigation: { pathname: 'cool path name' },
       }) as any) as AppState;
 
-      store = createStore((s: AppState | undefined) => s || state, state);
+      const history = createMemoryHistory();
+      const navigation = createReducer(history.location);
+      store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
     });
 
     const render = () => <Provider store={store}>
@@ -65,7 +70,7 @@ describe('Attribution', () => {
       }
     });
 
-    it('scrolls to details when toggled', () => {
+    it('scrolls to details when toggled', async() => {
       const { node } = renderToDom(render());
       const details = node;
 
@@ -73,12 +78,27 @@ describe('Attribution', () => {
         return expect(document).toBeTruthy();
       }
 
-      const event = document.createEvent('Event');
-      event.initEvent('toggle', true, false);
+      details.setAttribute('open', 'true');
 
-      details.dispatchEvent(event);
+      // wait for dom events to do their thing
+      await new Promise((resolve) => setTimeout(resolve, 1));
 
       expect(scrollTo).toHaveBeenCalledWith(details);
+    });
+
+    it('closes attribution on navigation', async() => {
+      const { node } = renderToDom(render());
+      const details = node;
+
+      if (!document) {
+        return expect(document).toBeTruthy();
+      }
+
+      details.setAttribute('open', 'true');
+
+      store.dispatch(actions.receivePage({...shortPage, references: []}));
+
+      expect(details.getAttribute('open')).toBe(null);
     });
 
     it('mounts and unmounts without a dom', () => {
