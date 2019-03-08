@@ -1,18 +1,18 @@
 import React from 'react';
 import { BOOKS } from '../../../config';
-import { ArchiveTree } from '../../content/types';
+import { H3 } from '../../components/Typography';
+import { StyledContentLink } from '../../content/components/ContentLink';
+import { Book } from '../../content/types';
+import { findDefaultBookPage, formatBookData } from '../../content/utils';
 import withServices from '../../context/Services';
 import { AppServices } from '../../types';
+import Panel from './Panel';
 
 interface Props {
   services: AppServices;
 }
 interface State {
-  books: Array<{
-    title: string;
-    tree: ArchiveTree;
-    slug: string;
-  }>;
+  books: Book[];
 }
 
 class Books extends React.Component<Props, State> {
@@ -29,14 +29,10 @@ class Books extends React.Component<Props, State> {
 
     for (const [bookId, {defaultVersion}] of bookEntries) {
       const bookLoader = archiveLoader.book(bookId, defaultVersion);
-      const bookSlug = await osWebLoader.getBookSlugFromId(bookId);
-      const book = await bookLoader.load();
+      const osWebBook = await osWebLoader.getBookFromId(bookId);
+      const archiveBook = await bookLoader.load();
 
-      books.push({
-        slug: bookSlug,
-        title: book.title,
-        tree: book.tree,
-      });
+      books.push(formatBookData(archiveBook, osWebBook));
     }
 
     this.setState({books});
@@ -45,12 +41,16 @@ class Books extends React.Component<Props, State> {
   public render() {
     const {books} = this.state;
 
-    return <div>
-      <h2>REX Books</h2>
+    return <Panel title='Books'>
       {books.map((book) => <div key={book.slug}>
-        <h2>{book.title}</h2>
+        {this.renderBookLink(book)}
       </div>)}
-    </div>;
+    </Panel>;
+  }
+
+  private renderBookLink(book: Book) {
+    const page = findDefaultBookPage(book);
+    return <H3><StyledContentLink book={book} page={page}>{book.title}</StyledContentLink></H3>;
   }
 }
 

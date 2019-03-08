@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme, { ColorSet } from '../theme';
-import { textRegularStyle } from './Typography';
+import { contentFont } from './Typography';
 
 const applyColor = (color: ColorSet) => `
   color: ${color.foreground};
@@ -14,30 +14,52 @@ const applyColor = (color: ColorSet) => `
   }
 `;
 
-export default styled.button<{variant: undefined | 'primary' | 'secondary' | 'default'}>`
-  align-items: center;
-  border: none;
-  border-radius: 2px;
+type Variant = 'primary' | 'secondary' | 'default';
+type Size = 'large' | 'medium' | 'small';
+
+// tslint:disable-next-line:variable-name
+const Button = styled.button<{variant?: Variant, size?: Size}>`
   display: flex;
+  align-items: center;
   justify-content: center;
-  text-align: center;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: inline-flex;
-  height: 5rem;
-  margin: 0;
-  padding: 0 2rem;
-  text-decoration: none;
-  user-select: none;
-  white-space: nowrap;
-  width: auto;
 
-  ${textRegularStyle}
-  font-weight: bold;
+  font-family: ${contentFont};
+  border-radius: 0.2rem;
 
-  ${(props) => props.variant === 'primary' && applyColor(theme.color.primary.orange)}
-  ${(props) => props.variant === 'secondary' && applyColor(theme.color.secondary.lightGray)}
-  ${(props) => props.variant === 'default' && applyColor(theme.color.neutral)}
+  ${(props) => props.size === 'large' && `
+    font-size: 1.6rem;
+    height: 5rem;
+    padding: 0 3rem;
+  `}
+  ${(props) => (props.size === 'medium' || props.size === undefined) && `
+    font-size: 1.6rem;
+    height: 4rem;
+    padding: 0 3rem;
+  `}
+  ${(props) => props.size === 'small' && `
+    font-size: 1.4rem;
+    height: 3rem;
+    padding: 0 2rem;
+  `}
+
+  ${(props) => props.variant === 'primary' && `
+    ${applyColor(theme.color.primary.orange)}
+    font-weight: bold;
+    border: none;
+  `}
+  ${(props) => props.variant === 'secondary' && `
+    ${applyColor(theme.color.secondary.lightGray)}
+    font-weight: bold;
+    border: none;
+  `}
+  ${(props) => (props.variant === 'default' || props.variant === undefined) && `
+    ${applyColor({
+      ...theme.color.neutral,
+      foreground: theme.color.primary.gray.base,
+    })}
+    border: 1px solid #d5d5d5;
+    font-weight: regular;
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -45,4 +67,9 @@ export const ButtonGroup = styled.div`
   display: grid;
   grid-gap: 1rem;
   max-width: 100%;
+
+  > ${Button} {
+  }
 `;
+
+export default Button;
