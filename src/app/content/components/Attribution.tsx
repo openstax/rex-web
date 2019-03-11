@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
+import { css } from 'styled-components';
 import styled from 'styled-components';
 import { bodyCopyRegularStyle, linkColor, linkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
+import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertString } from '../../utils';
 import * as select from '../selectors';
@@ -16,8 +18,6 @@ import { contentTextStyle } from './Page';
 if (typeof(document) !== 'undefined') {
   import('details-polyfill');
 }
-
-const slimBreak = '48em';
 
 // tslint:disable-next-line:variable-name
 const Summary = styled.summary`
@@ -40,24 +40,21 @@ const Details = styled.details`
   ${bodyCopyRegularStyle}
   box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
+  min-height: 6rem;
+  padding: 1.8rem 0 0 0;
 
-  @media (max-width: ${slimBreak}) {
+  > ${Summary} {
+    margin-bottom: 1.8rem;
+  }
+
+  ${theme.breakpoints.mobile(css`
     min-height: 4rem;
     padding: 0.8rem 0 0 0;
 
     > ${Summary} {
       margin-bottom: 0.8rem;
     }
-  }
-
-  @media (min-width: ${slimBreak}) {
-    min-height: 6rem;
-    padding: 1.8rem 0 0 0;
-
-    > ${Summary} {
-      margin-bottom: 1.8rem;
-    }
-  }
+  `)}
 
   li {
     margin-bottom: 1rem;

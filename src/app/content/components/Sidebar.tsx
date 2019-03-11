@@ -16,8 +16,6 @@ export const sidebarWidth = 33.5;
 const sidebarTransitionTime = 300;
 const sidebarPadding = 1;
 
-const sidebarPositionBreak = '64em';
-
 const SidebarBody = styled.div<{isOpen: boolean}>`
   top: 0;
   height: 100vh;
@@ -37,15 +35,12 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   }
 
   width: ${sidebarWidth}rem;
+  position: sticky;
 
-  @media (max-width: ${sidebarPositionBreak}) {
+  ${theme.breakpoints.mobile(css`
     // TODO - in here the sidebar should overlap the content
     position: sticky;
-  }
-
-  @media (min-width: ${sidebarPositionBreak}) {
-    position: sticky;
-  }
+  `)}
 
   ${(props) => !props.isOpen && css`
     overflow-y: hidden;
