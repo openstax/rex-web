@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme, { ColorSet } from '../theme';
+import { textRegularStyle } from './Typography';
 
 const applyColor = (color: ColorSet) => `
   color: ${color.foreground};
@@ -30,9 +31,9 @@ export default styled.button<{variant: undefined | 'primary' | 'secondary' | 'de
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.6rem;
+
+  ${textRegularStyle}
   font-weight: bold;
-  font-family: Helvetica Neue;
 
   ${(props) => props.variant === 'primary' && applyColor(theme.color.primary.orange)}
   ${(props) => props.variant === 'secondary' && applyColor(theme.color.secondary.lightGray)}

@@ -34,9 +34,11 @@ exports[`Notifications matches snapshot 1`] = `
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.6rem;
-  font-weight: bold;
   font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  font-weight: bold;
   color: #fff;
   background-color: #f36b32;
 }
@@ -60,14 +62,27 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 .c4 {
-  font-size: 1.5rem;
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  margin: 0;
+  padding: 1rem;
+}
+
+.c4 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c1 {
   margin: 0.5rem;
   background-color: #fff;
   border-style: solid;
-  border-color: #d5d5d5;
+  border-color: #e5e5e5;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -75,6 +90,12 @@ exports[`Notifications matches snapshot 1`] = `
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-width: thin;
+  box-shadow: 0 1rem 2rem 0 rgba(0,0,0,0.2);
+  overflow: visible;
 }
 
 .c1 > .c5 {
@@ -83,31 +104,58 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 .c3 {
+  font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
   padding: 0.5rem 1rem;
-  font-size: 1.5rem;
   font-weight: bold;
+  background-color: #f1f1f1;
+  line-height: 4rem;
+  margin-bottom: 1rem;
+}
+
+.c3 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
 }
 
 .c0 {
   z-index: 2;
   top: 0;
   overflow: visible;
+  position: fixed;
+  right: 0;
 }
 
-@media (max-width:600px) {
+@media (max-width:90em) {
+  .c2 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width:90em) {
   .c4 {
     padding: 0 1rem;
   }
 }
 
-@media (min-width:601px) {
-  .c4 {
-    padding: 1rem;
-  }
-}
-
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c1 {
+    margin: 0;
     border-width: 0 0 thin 0;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
@@ -115,42 +163,19 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (min-width:601px) {
-  .c1 {
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    border-width: thin;
-    box-shadow: 0 1rem 2rem 0 rgba(0,0,0,0.2);
-    overflow: visible;
-  }
-}
-
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c3 {
     line-height: 1rem;
+    margin: 0;
+    background-color: initial;
   }
 }
 
-@media (min-width:601px) {
-  .c3 {
-    background-color: #f1f1f1;
-    line-height: 4rem;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width:600px) {
+@media (max-width:90em) {
   .c0 {
     position: -webkit-sticky;
     position: sticky;
-  }
-}
-
-@media (min-width:601px) {
-  .c0 {
-    position: fixed;
-    right: 0;
+    right: inital;
   }
 }
 
@@ -168,11 +193,11 @@ exports[`Notifications matches snapshot 1`] = `
       >
         Updates Available
       </div>
-      <div
+      <p
         className="c4"
       >
         This page needs to be reloaded.
-      </div>
+      </p>
     </div>
     <div
       className="c5 c6"

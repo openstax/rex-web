@@ -65,7 +65,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    localState.book = cloneDeep({...book, slug: 'book'});
+    localState.book = cloneDeep({...book, slug: 'book', publish_date: '', authors: []});
     await hook(payload);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
@@ -269,6 +269,8 @@ describe('locationChange', () => {
   it('doesn\'t call osweb if book slug is already known', async() => {
     localState.book = {
       ...book,
+      authors: [],
+      publish_date: '',
       slug: 'book-slug-1',
     };
     await hook(payload);

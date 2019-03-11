@@ -9,7 +9,13 @@ interface OSWebResponse {
     meta: {
       slug: string;
     };
-    cnx_id: string
+    publish_date: string;
+    authors: Array<{
+      value: {
+        name: string;
+      }
+    }>;
+    cnx_id: string;
   }>;
 }
 
@@ -31,11 +37,13 @@ export default (url: string) => {
       .then(firstRecord)
   );
 
-  const fields = 'cnx_id';
+  const fields = 'cnx_id,authors,publish_date';
   const slugLoader = loader((slug: string) => fetch(`${url}?type=books.Book&fields=${fields}&slug=${slug}`));
   const idLoader = loader((id: string) => fetch(`${url}?type=books.Book&fields=${fields}&cnx_id=${id}`));
 
   return {
+    getBookFromId: (id: string) => idLoader(id),
+    getBookFromSlug: (slug: string) => slugLoader(slug),
     getBookIdFromSlug: (slug: string) => slugLoader(slug).then(({cnx_id}) => cnx_id),
     getBookSlugFromId: (id: string) => idLoader(id).then(({meta: {slug}}) => slug),
   };

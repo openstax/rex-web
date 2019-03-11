@@ -2,10 +2,10 @@ import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getType } from 'typesafe-actions';
-import theme from '../../theme';
 import { AppState } from '../../types';
 import * as actions from '../actions';
 import * as select from '../selectors';
+import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
 import UpdatesAvailable from './UpdatesAvailable';
 
@@ -14,13 +14,12 @@ const Container = styled.div`
   z-index: 2;
   top: 0;
   overflow: visible;
+  position: fixed;
+  right: 0;
 
-  @media (max-width: ${theme.breakpoint.mobile}px) {
+  @media (max-width: ${inlineDisplayBreak}) {
     position: sticky;
-  }
-  @media (min-width: ${theme.breakpoint.mobile + 1}px) {
-    position: fixed;
-    right: 0;
+    right: inital;
   }
 `;
 

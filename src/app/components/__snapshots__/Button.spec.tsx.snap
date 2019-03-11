@@ -34,9 +34,11 @@ exports[`Button matches snapshot - default 1`] = `
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.6rem;
-  font-weight: bold;
   font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  font-weight: bold;
   color: #424242;
   background-color: #fff;
 }
@@ -88,9 +90,11 @@ exports[`Button matches snapshot - primary 1`] = `
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.6rem;
-  font-weight: bold;
   font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  font-weight: bold;
   color: #fff;
   background-color: #f36b32;
 }
@@ -142,9 +146,11 @@ exports[`Button matches snapshot - secondary 1`] = `
   user-select: none;
   white-space: nowrap;
   width: auto;
-  font-size: 1.6rem;
-  font-weight: bold;
   font-family: Helvetica Neue;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  font-weight: bold;
   color: #fff;
   background-color: #959595;
 }

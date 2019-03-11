@@ -34,6 +34,16 @@ export interface Book {
   tree: ArchiveTree;
   version: string;
   slug: string;
+  license: {
+    name: string;
+    version: string;
+  };
+  publish_date: string;
+  authors: Array<{
+    value: {
+      name: string;
+    }
+  }>;
 }
 
 export interface Page {
@@ -63,6 +73,10 @@ export interface ArchiveBook {
   title: string;
   tree: ArchiveTree;
   version: string;
+  license: {
+    name: string;
+    version: string;
+  };
 }
 
 export interface ArchivePage {

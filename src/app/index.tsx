@@ -104,6 +104,9 @@ export default (options: Options) => {
     navigation.utils.changeToLocation(routes, store.dispatch, history.location);
   }
 
+  // the default font
+  services.fontCollector.add('https://fonts.googleapis.com/css?family=Helvetica+Neue');
+
   return {
     container,
     history,

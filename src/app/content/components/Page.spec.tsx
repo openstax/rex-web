@@ -342,7 +342,7 @@ describe('Page', () => {
       </Provider>
     );
 
-    store.dispatch(actions.receiveBook({...book, slug: 'book'}));
+    store.dispatch(actions.receiveBook({...book, slug: 'book', authors: [], publish_date: ''}));
 
     expect(spy).not.toHaveBeenCalled();
   });

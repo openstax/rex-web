@@ -1,19 +1,31 @@
 /** @jest-environment puppeteer */
-import { checkLighthouse, finishRender, h1Content, navigate } from '../../test/browserutils';
+import { checkLighthouse, fullPageScreenshot, navigate } from '../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_LONG_PAGE_NAME = '1-test-page-3';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_LONG_PAGE_URL = `/books/book-slug-1/pages/${TEST_LONG_PAGE_NAME}`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
 
 describe('content', () => {
-  beforeEach(async() => {
+  it('looks right', async() => {
     await navigate(page, TEST_PAGE_URL);
+    const screen = await fullPageScreenshot(page);
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
   });
 
-  it('looks right', async() => {
-    await finishRender(page);
-    const screen = await page.screenshot({fullPage: true});
+  it('attribution looks right', async() => {
+    await navigate(page, TEST_SIMPLE_PAGE_URL);
+
+    await page.click('#main-content details');
+
+    const screen = await fullPageScreenshot(page);
+
     expect(screen).toMatchImageSnapshot({
       CI: {
         failureThreshold: 1.5,
@@ -23,6 +35,7 @@ describe('content', () => {
   });
 
   it('has SkipToContent link as the first tabbed-to element', async() => {
+    await navigate(page, TEST_PAGE_URL);
     await page.keyboard.press('Tab');
 
     const isSkipToContentSelected = await page.evaluate(() => {
@@ -37,7 +50,10 @@ describe('content', () => {
     expect(isSkipToContentSelected).toBe(true);
   });
 
-  it('a11y lighthouse check', async() => {
+  // skipping because current design does not have an H1
+  // TODO - add H1
+  it.skip('a11y lighthouse check', async() => {
+    await navigate(page, TEST_PAGE_URL);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
 
@@ -48,9 +64,11 @@ describe('content', () => {
     - updates the selected toc element
     - and doesn't close the sidebar
   `, async() => {
+    await navigate(page, TEST_PAGE_URL);
+    // TODO - put back these H1 checks when the layout includes one
     // assert initial state
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
     expect(await isTocVisible()).toBe(true);
+    // expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
     expect(await getSelectedTocSection()).toBe(TEST_PAGE_NAME);
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(0);
@@ -63,7 +81,7 @@ describe('content', () => {
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
+    // expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);
