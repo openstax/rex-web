@@ -521,12 +521,16 @@ Array [
   <li>
     If you are redistributing all or part of this book in a print format,
     then you must include on every physical page the following attribution:
-    Access for free at https://openstax.org/books/book-slug-1/pages/1-test-page-2
+    <blockquote>
+      Access for free at https://openstax.org/books/book-slug-1/pages/1-test-page-2
+    </blockquote>
   </li>
   <li>
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
-    Access for free at https://openstax.org/books/book-slug-1/pages/1-test-page-2
+    <blockquote>
+      Access for free at <a href=\\"https://openstax.org/books/book-slug-1/pages/1-test-page-2\\">https://openstax.org/books/book-slug-1/pages/1-test-page-2</a>
+    </blockquote>
   </li>
 </ul>
 
@@ -553,10 +557,10 @@ Array [
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: https://openstax.org/books/book-slug-1/pages/1-test-page-2
+        Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-test-page-2\\">https://openstax.org/books/book-slug-1/pages/1-test-page-2</a>
       </li>
       <li>
-        Section URL: https://openstax.org/books/book-slug-1/pages/doesnotmatter
+        Section URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/doesnotmatter\\">https://openstax.org/books/book-slug-1/pages/doesnotmatter</a>
       </li>
     </ul>
   </li>
