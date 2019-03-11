@@ -1,12 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import { createStore } from 'redux';
 import mockArchiveLoader from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import * as Services from '../../context/Services';
-import { AppServices } from '../../types';
-import Books from './Books';
+import MessageProvider from '../../MessageProvider';
+import { AppServices, AppState } from '../../types';
+import Home from './Home';
 
-describe('Routes', () => {
+describe('Home', () => {
   let archiveLoader: AppServices['archiveLoader'];
   let osWebLoader: AppServices['osWebLoader'];
   const services = {} as AppServices;
@@ -19,9 +22,19 @@ describe('Routes', () => {
   });
 
   it('matches snapshot', async() => {
-    const component = renderer.create(<Services.Provider value={services}>
-      <Books />
-    </Services.Provider>);
+    const state = {
+      navigation: {pathname: '/'},
+      notifications: [],
+    } as unknown as AppState;
+
+    const store = createStore(() => state, state);
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Home />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
 
     // defer promises...
     await new Promise((resolve) => setTimeout(resolve, 1));

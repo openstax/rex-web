@@ -10,7 +10,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Routes: React.SFC<Props> = ({updateAvailable}) => <Panel title='Notifications'>
+const Notifications: React.SFC<Props> = ({updateAvailable}) => <Panel title='Notifications'>
   <Button onClick={updateAvailable}>update available</Button>
 </Panel>;
 
@@ -19,4 +19,4 @@ export default connect(
   (dispatch: Dispatch) => ({
     updateAvailable: () => dispatch(notifications.updateAvailable()),
   })
-)(Routes);
+)(Notifications);
