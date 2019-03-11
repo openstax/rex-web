@@ -53,15 +53,16 @@ const BookChapter = styled.h1`
   max-width: 87rem;
   margin-top: 1rem;
   margin-bottom: 0;
-  text-overflow: ellipsis;
+  
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; 
 
   @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     line-height: 2.2rem;
     margin-top: 0.3rem;
-    overflow: hidden;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; 
   }
 `;
 
