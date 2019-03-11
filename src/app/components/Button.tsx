@@ -66,10 +66,6 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
 export const ButtonGroup = styled.div`
   display: grid;
   grid-gap: 1rem;
-  max-width: 100%;
-
-  > ${Button} {
-  }
 `;
 
 export default Button;

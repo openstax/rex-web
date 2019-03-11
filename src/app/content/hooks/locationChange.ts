@@ -36,7 +36,6 @@ const getBookResponse = async(
   const osWebBook = await osWebLoader.getBookFromSlug(bookSlug);
   const archiveBook = await loader.load();
   const newBook = formatBookData(archiveBook, osWebBook);
-
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
 };
 

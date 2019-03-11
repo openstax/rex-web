@@ -1,3 +1,4 @@
+import { css, InterpolationValue } from 'styled-components';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
 // TODO - as more styles are developed, try to centralize some configurations in this theme:
@@ -51,5 +52,12 @@ const color = {
 };
 
 export default {
+  breakpoints: {
+    mobile: (style: InterpolationValue[]) => css`
+      @media (max-width: 64em) {
+        ${style}
+      }
+    `,
+  },
   color,
 };

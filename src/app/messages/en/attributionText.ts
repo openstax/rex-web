@@ -9,12 +9,16 @@ export default `
   <li>
     If you are redistributing all or part of this book in a print format,
     then you must include on every physical page the following attribution:
-    Access for free at https://openstax.org{introPageUrl}
+    <blockquote>
+      Access for free at https://openstax.org{introPageUrl}
+    </blockquote>
   </li>
   <li>
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
-    Access for free at https://openstax.org{introPageUrl}
+    <blockquote>
+      Access for free at <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+    </blockquote>
   </li>
 </ul>
 
@@ -41,10 +45,10 @@ export default `
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: https://openstax.org{introPageUrl}
+        Book URL: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-        Section URL: https://openstax.org{currentPath}
+        Section URL: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>

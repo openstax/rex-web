@@ -1,30 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Routes matches snapshot 1`] = `
+.c0 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 2rem 0 1rem 0;
+  margin: 0;
+}
+
+.c2 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+}
+
+.c1 {
+  padding: 1rem;
+}
+
 <div>
-  <h2>
-    REX Routes
+  <h2
+    className="c0"
+  >
+    Routes
   </h2>
-  <div>
-    <h3>
-      Developer Home
-    </h3>
-    path: 
-    /
-  </div>
-  <div>
-    <h3>
-      Content
-    </h3>
-    path: 
-    /books/:book/pages/:page
-  </div>
-  <div>
-    <h3>
-      NotFound
-    </h3>
-    path: 
-    /(.*)
+  <div
+    className="c1"
+  >
+    <div>
+      <h3
+        className="c2"
+      >
+        Developer Home
+      </h3>
+      path: 
+      /
+    </div>
+    <div>
+      <h3
+        className="c2"
+      >
+        Content
+      </h3>
+      path: 
+      /books/:book/pages/:page
+    </div>
+    <div>
+      <h3
+        className="c2"
+      >
+        NotFound
+      </h3>
+      path: 
+      /(.*)
+    </div>
   </div>
 </div>
 `;
