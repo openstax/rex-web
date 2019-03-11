@@ -129,7 +129,8 @@
     ],
     "testRegex": "(\\.|/)(browser|prerender)?spec\\.tsx?$",
     "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js"
+      "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js"
     },
     "collectCoverageFrom": [
       "src/{app,helpers}/**/*.{ts,tsx}"
