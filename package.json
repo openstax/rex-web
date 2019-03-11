@@ -14,7 +14,7 @@
     "react-dom": "^16.6.0",
     "react-intl": "^2.7.2",
     "react-redux": "^5.1.0",
-    "react-scripts": "2.1.1",
+    "react-scripts": "2.1.8",
     "redux": "^4.0.1",
     "reselect": "^4.0.0",
     "scroll-to-element": "^2.0.2",
