@@ -579,12 +579,6 @@ Array [
   overflow: initial;
 }
 
-.c7 {
-  font-family: "Roboto Condensed",serif;
-  font-size: 19px;
-  line-height: 29px;
-}
-
 .c1 {
   overflow-x: hidden;
   -webkit-transition: all 300ms;
@@ -938,15 +932,6 @@ Array [
       id="main-content"
       tabIndex={-1}
     >
-      <div>
-        <h1
-          className="c7"
-        >
-          Test Book 1
-           / 
-          Test Page 4
-        </h1>
-      </div>
       <div
         className=""
       >
@@ -1551,7 +1536,6 @@ Array [
       id="main-content"
       tabIndex={-1}
     >
-      <div />
       <div
         className=""
       >

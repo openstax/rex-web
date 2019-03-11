@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BookBanner matches snapshot 1`] = `null`;
-
 exports[`BookBanner renders \`null\` when passed a page that isn't in the book tree 1`] = `null`;
 
 exports[`BookBanner renders \`null\` with no page or book 1`] = `null`;

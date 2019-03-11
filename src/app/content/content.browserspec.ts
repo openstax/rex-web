@@ -22,6 +22,19 @@ describe('content', () => {
     });
   });
 
+  it('looks right on mobile', async() => {
+    page.setViewport({height: 731, width: 411});
+    page.click('[aria-label="Click to close the Table of Contents"]');
+    await finishRender(page);
+    const screen = await page.screenshot();
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
   it('has SkipToContent link as the first tabbed-to element', async() => {
     await page.keyboard.press('Tab');
 
