@@ -4,13 +4,12 @@ import Layout from '../../components/Layout';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { State } from '../types';
+import BookBanner from './BookBanner';
 import ContentPane from './ContentPane';
-import Header from './Header';
 import Page from './Page';
 import Sidebar from './Sidebar';
-import Wrapper from './Wrapper';
-import BookBanner from './BookBanner';
 import Toolbar from './Toolbar';
+import Wrapper from './Wrapper';
 
 interface PropTypes {
   page: State['page'];
@@ -19,13 +18,6 @@ interface PropTypes {
 
 export class ContentComponent extends Component<PropTypes> {
 
-  public renderHeader = () => {
-    const {page, book} = this.props as PropTypes;
-    return <div>
-      {book && page && <Header>{book.title} / {page.title}</Header>}
-    </div>;
-  }
-
   public render() {
     return <Layout>
       <BookBanner/>
@@ -33,7 +25,6 @@ export class ContentComponent extends Component<PropTypes> {
       <Wrapper>
         <Sidebar />
         <ContentPane>
-          {this.renderHeader()}
           <Page />
         </ContentPane>
       </Wrapper>

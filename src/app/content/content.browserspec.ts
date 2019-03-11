@@ -49,7 +49,7 @@ describe('content', () => {
     - and doesn't close the sidebar
   `, async() => {
     // assert initial state
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
+    expect(await h1Content(page)).toBe('Test Page 1');
     expect(await isTocVisible()).toBe(true);
     expect(await getSelectedTocSection()).toBe(TEST_PAGE_NAME);
     expect(await getScrollTop()).toBe(0);
@@ -63,7 +63,7 @@ describe('content', () => {
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
+    expect(await h1Content(page)).toBe('Test Page 3');
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);

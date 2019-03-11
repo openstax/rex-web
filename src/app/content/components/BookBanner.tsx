@@ -1,14 +1,14 @@
+import Color from 'color';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
+import { h3Style, h4Style } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
-import {ChevronLeft} from 'styled-icons/boxicons-regular/ChevronLeft'
-import { findArchiveTreeSection, bookDetailsUrl } from '../utils'
-import Color from 'color';
-import {h3Style, h4Style} from '../../components/Typography';
+import { bookDetailsUrl, findArchiveTreeSection } from '../utils';
 
 const LeftArrow = styled(ChevronLeft)`
   height: 2rem;
@@ -61,12 +61,12 @@ const BookChapter = styled.h1`
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; 
+    -webkit-box-orient: vertical;
   }
 `;
 
 const blue = `${theme.color.primary.blue.base}`;
-const color = Color(blue).lighten(0.7); 
+const color = Color(blue).lighten(0.7);
 
 const BarWrapper = styled.div`
   padding: ${theme.contentBuffer.default.padding};
@@ -82,18 +82,18 @@ const BarWrapper = styled.div`
   }
 `;
 
-export class TitleComponent extends Component<PropTypes> {
+export class BookBanner extends Component<PropTypes> {
   public render() {
     const {page, book} = this.props as PropTypes;
-    
+
     if (!book || !page) {
-      return null
+      return null;
     }
 
     const treeSection = findArchiveTreeSection(book, page.id);
     const bookUrl = bookDetailsUrl(book);
 
-    if(!treeSection) {
+    if (!treeSection) {
       return null;
     }
 
@@ -111,5 +111,4 @@ export default connect(
     book: select.book(state),
     page: select.page(state),
   })
-)(TitleComponent);
-
+)(BookBanner);
