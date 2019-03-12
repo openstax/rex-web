@@ -52,9 +52,9 @@ Array [
   />,
   .c6 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   max-width: 60.2rem;
   margin: 0 auto;
   padding: 0 1.6rem;
@@ -77,9 +77,9 @@ Array [
 
 .c9 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   max-width: 60.2rem;
   margin: 0 auto;
   padding: 0 1.6rem;
@@ -96,9 +96,9 @@ Array [
 
 .c9 > span {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -116,9 +116,9 @@ Array [
 
 .c10 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   max-width: 60.2rem;
   margin: 0 auto;
   padding: 0 1.6rem;
@@ -134,9 +134,9 @@ Array [
 
 .c7 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
   min-height: 6rem;
@@ -625,9 +625,9 @@ Array [
   />,
   .c4 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   max-width: 60.2rem;
   margin: 0 auto;
   padding: 0 1.6rem;
@@ -650,9 +650,9 @@ Array [
 
 .c7 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   max-width: 60.2rem;
   margin: 0 auto;
   padding: 0 1.6rem;
@@ -669,9 +669,9 @@ Array [
 
 .c7 > span {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -689,9 +689,9 @@ Array [
 
 .c5 {
   font-family: Helvetica Neue;
+  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #424242;
   box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
   min-height: 6rem;

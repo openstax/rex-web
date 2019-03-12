@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../theme';
 
 export const linkColor = '#027EB5';
@@ -9,11 +9,16 @@ export const linkStyle = css`
   border-bottom: ${linkColor} solid 0.02em;
 `;
 
+export const contentFont = 'Helvetica Neue';
+export const textStyle = css`
+  font-family: ${contentFont};
+  color: ${theme.color.text.default};
+`;
+
 export const textRegularStyle = css`
-  font-family: Helvetica Neue;
+  ${textStyle}
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: ${theme.color.text.default};
 `;
 
 export const bodyCopyRegularStyle = css`
@@ -22,4 +27,31 @@ export const bodyCopyRegularStyle = css`
   a {
     ${linkStyle}
   }
+`;
+
+export const H1 = styled.h1`
+  ${textStyle}
+  font-size: 4.8rem;
+  line-height: 5rem;
+  letter-spacing: -0.04rem;
+  padding: 0 0 1rem 0;
+  margin: 0;
+`;
+
+export const H2 = styled.h2`
+  ${textStyle}
+  font-size: 3.6rem;
+  line-height: 4rem;
+  letter-spacing: -0.04rem;
+  padding: 2rem 0 1rem 0;
+  margin: 0;
+`;
+
+export const H3 = styled.h3`
+  ${textStyle}
+  font-size: 2.4rem;
+  line-height: 3rem;
+  letter-spacing: -0.04rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
 `;

@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home matches snapshot 1`] = `
+Array [
+  .c0 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  -webkit-clip: auto;
+  clip: auto;
+  height: auto;
+  width: auto;
+  z-index: 20;
+}
+
+<a
+    className="c0"
+    href="#main-content"
+    onClick={[Function]}
+  >
+    Skip to Content
+  </a>,
+  .c0 {
+  z-index: 2;
+  top: 0;
+  overflow: visible;
+  position: fixed;
+  right: 0;
+}
+
+@media (max-width:90em) {
+  .c0 {
+    position: -webkit-sticky;
+    position: sticky;
+    right: inital;
+  }
+}
+
+<div
+    className="c0"
+  />,
+  .c1 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 4.8rem;
+  line-height: 5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 0 0 1rem 0;
+  margin: 0;
+}
+
+.c2 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 2rem 0 1rem 0;
+  margin: 0;
+}
+
+.c4 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Helvetica Neue;
+  border-radius: 0.2rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c6:hover {
+  background-color: #f1f1f1;
+}
+
+.c6:active {
+  background-color: #e5e5e5;
+}
+
+.c5 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c3 {
+  padding: 1rem;
+}
+
+.c0 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 117rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+<div
+    className="c0"
+  >
+    <h1
+      className="c1"
+    >
+      REX Developer Homepage
+    </h1>
+    <div>
+      <h2
+        className="c2"
+      >
+        Books
+      </h2>
+      <div
+        className="c3"
+      >
+        <div>
+          <h3
+            className="c4"
+          >
+            <a
+              className="c5"
+              href="books/book-slug-1/pages/1-test-page-2"
+              onClick={[Function]}
+            >
+              Test Book 1
+            </a>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2
+        className="c2"
+      >
+        Notifications
+      </h2>
+      <div
+        className="c3"
+      >
+        <button
+          className="c6"
+          onClick={[Function]}
+        >
+          update available
+        </button>
+      </div>
+    </div>
+    <div>
+      <h2
+        className="c2"
+      >
+        Routes
+      </h2>
+      <div
+        className="c3"
+      >
+        <div>
+          <h3
+            className="c4"
+          >
+            Developer Home
+          </h3>
+          path: 
+          /
+        </div>
+        <div>
+          <h3
+            className="c4"
+          >
+            Content
+          </h3>
+          path: 
+          /books/:book/pages/:page
+        </div>
+        <div>
+          <h3
+            className="c4"
+          >
+            NotFound
+          </h3>
+          path: 
+          /(.*)
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
