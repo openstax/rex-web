@@ -16,7 +16,7 @@ export const sidebarWidth = 33.5;
 const sidebarTransitionTime = 300;
 const sidebarPadding = 1;
 
-// TODO - magic numbers to be replaced in `top`, `height` when ToC gets real styling in next task
+// TODO - magic numbers to be replaced in `top`, `height` when ToC gets real styling in openstax/unified#176
 const SidebarBody = styled.div<{isOpen: boolean}>`
   top: 23rem;
   height: calc(100vh - 23rem);
