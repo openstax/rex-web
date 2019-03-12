@@ -31,7 +31,7 @@ if (process.env.CI) {
   // set default timeout to something quite large in CI
   page.setDefaultNavigationTimeout(60 * 1000);
 } else {
-  page.setDefaultNavigationTimeout(30 * 1000);
+  page.setDefaultNavigationTimeout(90 * 1000);
 }
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;

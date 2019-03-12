@@ -57,11 +57,10 @@ const BookChapter = styled.h1`
   max-width: 87rem;
   margin-top: 1rem;
   margin-bottom: 0;
-  
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical; 
+  -webkit-box-orient: vertical;
 
   @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     line-height: 2.2rem;

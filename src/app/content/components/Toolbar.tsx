@@ -1,10 +1,11 @@
+
 import React, { SFC } from 'react';
-import styled, {css} from 'styled-components';
-import {ListOl} from 'styled-icons/fa-solid/ListOl';
-import {Search} from 'styled-icons/fa-solid/Search';
-import {Print} from 'styled-icons/fa-solid/Print';
+import styled, { css } from 'styled-components';
+import { ListOl } from 'styled-icons/fa-solid/ListOl';
+import { Print } from 'styled-icons/fa-solid/Print';
+import { Search } from 'styled-icons/fa-solid/Search';
+import { bodyCopyRegularStyle, linkStyle } from '../../components/Typography';
 import theme from '../../theme';
-import {bodyCopyRegularStyle, linkStyle} from '../../components/Typography';
 
 export const iconStyles = css`
   height: 1.6rem;
@@ -55,7 +56,7 @@ const TopBar = styled.div`
   @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     height: 4rem;
   }
-  
+
 `;
 
 // tslint:disable-next-line:variable-name
@@ -82,7 +83,6 @@ const SearchInput = styled.input`
   ::placeholder {
     color: ${theme.iconColor};
   }
-  
   @media (max-width: ${theme.mobileBreakpoint.default.width}) {
     display: none;
   }
@@ -115,7 +115,7 @@ const SearchPrintWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div` 
+const BarWrapper = styled.div`
   width: 100%;
   padding: 0 15.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
@@ -132,16 +132,15 @@ const NavigationBar: SFC = ({children}) => <BarWrapper>
   <TopBar>
     <ToCButtonWrapper>
       <ListIcon/><ToCButton>Table of contents</ToCButton>
-    </ToCButtonWrapper>  
+    </ToCButtonWrapper>
     <SearchPrintWrapper>
       <SearchInputWrapper>
-        <SearchIcon /><SearchInput placeholder="Search this book"></SearchInput>
+        <SearchIcon /><SearchInput placeholder='Search this book'></SearchInput>
       </SearchInputWrapper>
       <PrintOptWrapper><PrintIcon /><PrintOptions>Print options</PrintOptions></PrintOptWrapper>
     </SearchPrintWrapper>
   </TopBar>
   {children}
-</BarWrapper>
+</BarWrapper>;
 
-
-export default NavigationBar;      
+export default NavigationBar;

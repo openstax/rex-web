@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-
 export const linkColor = '#027EB5';
 export const linkHover = '#0064A0';
 
@@ -20,14 +19,14 @@ export const h3Style = css`
 
   @media (max-width: 48em) {
     font-size: 1.6rem;
-  }  
+  }
 `;
 
 export const bodyCopyRegularStyle = css`
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
-`;  
+`;
 
 export const h4Style = css`
   font-size: 1.8rem;
@@ -44,4 +43,3 @@ export const h4Style = css`
 export const H3 = styled.h3`
   ${h3Style}
 `;
-  

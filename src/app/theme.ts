@@ -24,13 +24,13 @@ const contentBuffer = {
       padding: '0 1.6rem',
     },
   },
-}
+};
 
 const mobileBreakpoint = {
   default: {
     width: '48em',
   },
-}
+};
 
 const iconColor = '#818181';
 
@@ -77,7 +77,7 @@ export default {
   },
   color,
   contentBuffer,
-  textColors,
-  mobileBreakpoint,
   iconColor,
+  mobileBreakpoint,
+  textColors,
 };

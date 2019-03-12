@@ -1,9 +1,8 @@
 import React, { SFC } from 'react';
 import styled from 'styled-components';
 import openstaxLogo from '../../assets/logo.svg';
+import { h4Style } from '../components/Typography';
 import theme from '../theme';
-import {h4Style} from '../components/Typography';
-
 
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
@@ -65,11 +64,11 @@ const BarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const NavigationBar: SFC = ({}) => 
+const NavigationBar: SFC = ({}) =>
   <BarWrapper>
     <TopBar>
-      <LogoLink href="/"><HeaderImage src = {openstaxLogo} alt="OpenStax Logo"/></LogoLink>
-      <LoginTxt href="https://accounts-dev.openstax.org/login">Login</LoginTxt>
+      <LogoLink href='/'><HeaderImage src = {openstaxLogo} alt='OpenStax Logo'/></LogoLink>
+      <LoginTxt href='https://accounts-dev.openstax.org/login'>Login</LoginTxt>
     </TopBar>
   </BarWrapper>;
 
