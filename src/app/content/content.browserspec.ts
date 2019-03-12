@@ -76,7 +76,10 @@ describe('content', () => {
     - updates the selected toc element
     - and doesn't close the sidebar
   `, async() => {
+    // set a viewport where the sidebar scrolls but "Test Page 3" is visible
+    page.setViewport({height: 500, width: 1200});
     await navigate(page, TEST_PAGE_URL);
+
     // assert initial state
     expect(await h1Content(page)).toBe('Test Page 1');
     expect(await isTocVisible()).toBe(true);
