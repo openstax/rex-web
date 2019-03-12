@@ -3,12 +3,15 @@ import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
+import styled, { css } from 'styled-components';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
+import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
+import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { content } from '../routes';
@@ -21,6 +24,7 @@ interface PropTypes {
   book: State['book'];
   hash: string;
   navigate: typeof push;
+  className?: string;
   references: State['references'];
   services: AppServices;
 }
@@ -85,7 +89,7 @@ export class PageComponent extends Component<PropTypes> {
 
   public render() {
     return <BookStyles>
-      {(className) => <div className={className}>
+      {(className) => <div className={[this.props.className, className].join(' ')}>
         <div data-type='chapter'>
           <div
             data-type='page'
@@ -158,6 +162,27 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
+export const contentTextStyle = css`
+  ${bodyCopyRegularStyle}
+  max-width: 60.2rem
+  margin: 0 auto;
+  padding: 0 ${theme.padding.page.mobile}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const StyledPageComponent = styled(PageComponent)`
+  ${contentTextStyle}
+  padding-top: 1.6rem;
+  padding-bottom: 0;
+
+  // these are only here because the cnx-recipes styles are broken
+  overflow: visible;
+
+  * {
+   overflow: initial;
+  }
+`;
+
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
@@ -168,4 +193,4 @@ export default connect(
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
   })
-)(withServices(PageComponent));
+)(withServices(StyledPageComponent));

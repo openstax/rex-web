@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Routes matches snapshot 1`] = `
+<div>
+  <h2>
+    REX Books
+  </h2>
+  <div>
+    <h2>
+      Test Book 1
+    </h2>
+  </div>
+</div>
+`;

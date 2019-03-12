@@ -1,7 +1,7 @@
 import React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import en from 'react-intl/locale-data/en';
-import enMessages from './messages.en.json';
+import enMessages from './messages/en';
 
 addLocaleData(en);
 

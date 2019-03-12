@@ -1,11 +1,12 @@
-
 import React, { SFC } from 'react';
 import styled, { css } from 'styled-components';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
-import { bodyCopyRegularStyle, linkStyle } from '../../components/Typography';
+import { contentFont, linkStyle, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
+
+const iconColor = '#818181';
 
 export const iconStyles = css`
   height: 1.6rem;
@@ -16,13 +17,13 @@ export const iconStyles = css`
 // tslint:disable-next-line:variable-name
 const SearchIcon = styled(Search)`
   ${iconStyles};
-  color: ${theme.iconColor};
+  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
 const PrintIcon = styled(Print)`
   ${iconStyles};
-  color: ${theme.iconColor};
+  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -32,14 +33,20 @@ const ListIcon = styled(ListOl)`
 
 // tslint:disable-next-line:variable-name
 const ToCButton = styled.h3`
-  ${bodyCopyRegularStyle};
-  cursor: pointer;
+  font-family: ${contentFont};
+  ${textRegularSize};
   margin: 0;
+  padding: 0;
+
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const ToCButtonWrapper = styled.div`
   ${linkStyle};
+  border: none;
   display: flex;
   align-items: center;
 `;
@@ -53,10 +60,9 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     height: 4rem;
-  }
-
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -64,28 +70,28 @@ const SearchInputWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 4rem;
-  border-bottom: solid 0.1rem ${theme.textColors.default};
+  border-bottom: solid 0.1rem ${theme.color.text.default};
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     border: none;
     margin-right: 1rem;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const SearchInput = styled.input`
-  ${bodyCopyRegularStyle};
-  color: ${theme.textColors.default};
+  ${textRegularStyle}
+  color: ${theme.color.text.default};
   height: 2.5rem;
   border: none;
   outline: none;
 
   ::placeholder {
-    color: ${theme.iconColor};
+    color: ${iconColor};
   }
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     display: none;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -97,13 +103,13 @@ const PrintOptWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.h3`
-  ${bodyCopyRegularStyle};
-  color: ${theme.iconColor};
+  ${textRegularStyle};
+  color: ${iconColor};
   margin: 0;
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     display: none;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -122,9 +128,9 @@ const BarWrapper = styled.div`
   display: block;
   background: ${theme.color.neutral.base};
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
-    padding: ${theme.contentBuffer.mobile.default.padding};
-  }
+  ${theme.breakpoints.mobile(css`
+    padding: 0 ${theme.padding.page.mobile}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name

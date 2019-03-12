@@ -3,6 +3,12 @@
   "shortId": "testbook1-shortid",
   "version": "1.0",
   "title": "Test Book 1",
+  "license": {
+    "url": "http://example.com",
+    "code": "sl",
+    "version": "1.0",
+    "name": "Sweet License"
+  },
   "tree": {
     "shortId": "testbook1-shortid@1.0",
     "id": "testbook1-uuid@1.0",

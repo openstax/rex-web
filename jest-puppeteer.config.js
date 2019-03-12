@@ -1,5 +1,6 @@
 const path = require('path');
 const {PORT, PUPPETEER_DEBUG, SERVER_MODE} = require('./src/config');
+const {userInfo} = require('os');
 
 module.exports = {
   launch: {
@@ -8,7 +9,7 @@ module.exports = {
       height: 400,
     },
     args: [
-      ...(process.env.CI ? [
+      ...(userInfo().username === 'root' ? [
         // so that tests can be run as root, if you're into that sort of thing.
         '--no-sandbox',
       ] : []),

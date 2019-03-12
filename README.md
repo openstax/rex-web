@@ -21,6 +21,16 @@ yarn
 yarn start
 ```
 
+## Architecture Overview
+
+The app has two entrypoints, one for [prerender](script/prerender.tsx) and one for [browsers](src/index.tsx), both use [app](src/app/index.tsx) to construct the actual app container. The app container sets some stuff up and then passes [routes](src/app/content/routes.ts) into the [navigator](src/app/navigation/components/NavigationProvider.ts). Pages initialize their state by registering a [route hook](src/app/content/hooks/locationChange.ts), route hooks are a type of [action hook](src/app/content/hooks/receiveContent.ts) that can be used to respond to any redux action dispatched.
+
+## Notes on Navigation
+
+REX is just one part of the unified openstax experience. Depending on where you go, different applications will handle the request. In order for navigation to mostly work as intended, this development environment proxies some urls to other projects. Just because you can go to a url locally doesn't mean it is handled by REX. Urls handled by REX can be referenced [here](http://localhost:3000/), any other urls, even if they work locally, are being proxied to other apps.
+
+If this situation is super confusing you can use the `SKIP_OS_WEB_PROXY` environment variable and _most_ non-rexy things will 404.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -81,6 +91,7 @@ docker run -t openstax/rex-web yarn test
 ### Environment Variables
 
 - `PUPPETEER_DEBUG=true yarn test` : Opens the browser with dev tools. This allows you to add `debugger` statements into the test _and_ into the browser code that is evaluated.
+- `SKIP_OS_WEB_PROXY yarn start` : Runs development environment without the osweb proxy, can be less confusing if you're not sure what pages this project is rendering.
 
 ## Test Suites
 
@@ -89,7 +100,7 @@ docker run -t openstax/rex-web yarn test
 run these with `yarn test`.
 
 this suite:
-- contains **unit tests** and **puppeteer** tests 
+- contains **unit tests** and **puppeteer** tests
 - runs against a **local** dev server
 - uses **fixture** data and content
 - should be run locally by developers to make sure they don't break stuff

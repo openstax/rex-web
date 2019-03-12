@@ -1,17 +1,19 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
   font-size: 62.5%; /* Now 10px = 1rem! */
 }
 
-body, #root {
+body, #root, html {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
   position: relative;
   overflow: visible;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-width: 28.8rem;
 }
 
 * {

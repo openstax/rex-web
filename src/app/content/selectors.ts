@@ -40,3 +40,9 @@ export const loadingPage = createSelector(
   loading,
   (ids) => ids.page
 );
+
+export const bookAndPage = createSelector(
+  book,
+  page,
+  (selectedBook, selectedPage) => ({book: selectedBook, page: selectedPage})
+);

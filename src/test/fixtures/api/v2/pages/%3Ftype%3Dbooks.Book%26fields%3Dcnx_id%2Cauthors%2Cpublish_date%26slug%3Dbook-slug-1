@@ -9,7 +9,9 @@
                 "slug": "book-slug-1"
             },
             "title": "Test Book 1",
-            "cnx_id": "testbook1-uuid"
+            "cnx_id": "testbook1-uuid",
+            "authors": [{"value": {"name": "Bam Bammerson"}}],
+            "publish_date": "2012-06-21"
         }
     ]
 }

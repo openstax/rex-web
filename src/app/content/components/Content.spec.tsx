@@ -1,22 +1,30 @@
+import { createMemoryHistory } from 'history';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
-import renderer, { ReactTestInstance } from 'react-test-renderer';
-import { createStore } from 'redux';
+import renderer from 'react-test-renderer';
+import { combineReducers, createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
-import { setStateFinished } from '../../../test/reactutils';
+import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
+import createReducer from '../../navigation/reducer';
 import { AppServices, AppState } from '../../types';
-import { initialState } from '../reducer';
-import Content, { ContentComponent } from './Content';
+import contentReducer, { initialState } from '../reducer';
+import { Book } from '../types';
+import Content from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
+import { SidebarControl } from './SidebarControl';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let state: AppState;
   const services = {} as AppServices;
+  const bookState: Book = {
+    ...mockCmsBookFields,
+    ...book,
+  };
 
   beforeEach(() => {
     state = cloneDeep({
@@ -30,7 +38,7 @@ describe('content', () => {
   });
 
   it('matches snapshot', () => {
-    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.book = bookState;
     state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -63,7 +71,7 @@ describe('content', () => {
   });
 
   it('gets page content out of cached archive query', () => {
-    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.book = bookState;
     state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -81,7 +89,7 @@ describe('content', () => {
   });
 
   it('page element is still rendered if archive content is unavailable', () => {
-    state.content.book = {...book, slug: 'book-slug-1'};
+    state.content.book = bookState;
     state.content.page = shortPage;
 
     const store = createStore((s: AppState | undefined) => s || state, state);
@@ -100,38 +108,6 @@ describe('content', () => {
     expect(pageComponent).toBeDefined();
   });
 
-  it('updates after initial render', async() => {
-    const state1 = cloneDeep(state);
-    const state2 = cloneDeep(state);
-    state2.content.book = {...book, slug: 'book-slug-1'};
-    state2.content.page = shortPage;
-
-    const go = {type: 'go'};
-
-    const reducer = (_: AppState | undefined, action?: typeof go) => action && action.type === 'go'
-      ? state2
-      : state1;
-
-    const store = createStore(reducer, state1);
-
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Content />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
-
-    const before = component.toJSON();
-    store.dispatch(go);
-
-    const target = component.root.findByType(ContentComponent) as ReactTestInstance;
-    await setStateFinished(target);
-
-    const after = component.toJSON();
-    expect(before).not.toEqual(after);
-  });
-
   it('renders with ToC open', () => {
     const store = createStore((s: AppState | undefined) => s || state, state);
 
@@ -146,5 +122,25 @@ describe('content', () => {
     const sidebarComponent = component.root.findByType(Sidebar);
 
     expect(sidebarComponent.props.isOpen).toBe(true);
+  });
+
+  it('SidebarControl opens and closes ToC', () => {
+    const history = createMemoryHistory();
+    const navigation = createReducer(history.location);
+    const store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+    component.root.findByType(SidebarControl).props.onClick();
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
+    component.root.findByType(SidebarControl).props.onClick();
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 });

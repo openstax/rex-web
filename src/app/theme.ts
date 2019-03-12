@@ -1,3 +1,4 @@
+import { css, InterpolationValue } from 'styled-components';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
 // TODO - as more styles are developed, try to centralize some configurations in this theme:
@@ -15,24 +16,12 @@ const textColors = {
   white: '#fff',
 };
 
-const contentBuffer = {
-  default: {
-    padding: '0 13.5rem',
-  },
-  mobile: {
-    default: {
-      padding: '0 1.6rem',
-    },
+const padding = {
+  page: {
+    desktop: '13.5',
+    mobile: '1.6',
   },
 };
-
-const mobileBreakpoint = {
-  default: {
-    width: '48em',
-  },
-};
-
-const iconColor = '#818181';
 
 const color = {
   neutral: {
@@ -72,12 +61,13 @@ const color = {
 };
 
 export default {
-  breakpoint: {
-    mobile: 600,
+  breakpoints: {
+    mobile: (style: InterpolationValue[]) => css`
+      @media (max-width: 64em) {
+        ${style}
+      }
+    `,
   },
   color,
-  contentBuffer,
-  iconColor,
-  mobileBreakpoint,
-  textColors,
+  padding,
 };

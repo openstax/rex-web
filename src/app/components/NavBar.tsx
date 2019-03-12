@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
@@ -14,9 +14,9 @@ const TopBar = styled.div`
   background: ${theme.color.neutral.base};
   margin: 0 auto;
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     height: 3.6rem;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -28,9 +28,9 @@ const HeaderImage = styled.img`
   width: auto;
   height: 3rem;
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     height: 2rem;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -48,19 +48,19 @@ const LoginTxt = styled.a`
     border-bottom: 0.4rem solid #63a524;
   }
 
-  @media(max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     height: 3.6rem;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  padding: ${theme.contentBuffer.default.padding};
+  padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
-    padding: ${theme.contentBuffer.mobile.default.padding};
-  }
+  ${theme.breakpoints.mobile(css`
+    padding: 0 ${theme.padding.page.mobile}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name

@@ -6,6 +6,7 @@ import { combineReducers, createStore } from 'redux';
 import MessageProvider from '../../MessageProvider';
 import createReducer from '../../navigation/reducer';
 import { AppState } from '../../types';
+import * as actions from '../actions';
 import contentReducer, { initialState } from '../reducer';
 import ConnectedSidebar, { Sidebar } from './Sidebar';
 
@@ -57,9 +58,9 @@ describe('Sidebar', () => {
     </Provider></MessageProvider>);
 
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
-    component.root.findByType('button').props.onClick();
+    store.dispatch(actions.closeToc());
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
-    component.root.findByType('button').props.onClick();
+    store.dispatch(actions.openToc());
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 });

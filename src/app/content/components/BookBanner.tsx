@@ -1,7 +1,7 @@
 import Color from 'color';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { h3Style, h4Style } from '../../components/Typography';
 import theme from '../../theme';
@@ -34,6 +34,7 @@ const TopBar = styled.div`
 // tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
+  font-weight: normal;
   color: ${theme.color.primary.blue.foreground};
   display: flex;
   align-items: center;
@@ -41,10 +42,12 @@ const BookTitle = styled.a`
   max-width: 87rem;
   text-overflow: ellipsis;
   margin: 0;
+  padding: 0;
+  text-decoration: none;
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     line-height: 2.5rem;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -55,18 +58,18 @@ const BookChapter = styled.h1`
   display: inline-block;
   width: 100%;
   max-width: 87rem;
-  margin-top: 1rem;
-  margin-bottom: 0;
+  margin: 1rem 0 0 0;
+  padding: 0;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
+  ${theme.breakpoints.mobile(css`
     line-height: 2.2rem;
     margin-top: 0.3rem;
     -webkit-line-clamp: 2;
-  }
+  `)}
 `;
 
 const blue = `${theme.color.primary.blue.base}`;
@@ -74,17 +77,17 @@ const color = Color(blue).lighten(0.7);
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  padding: ${theme.contentBuffer.default.padding};
+  padding: 0 ${theme.padding.page.desktop};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   height: 13rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
 
-  @media (max-width: ${theme.mobileBreakpoint.default.width}) {
-    padding: ${theme.contentBuffer.mobile.default.padding};
+  ${theme.breakpoints.mobile(css`
+    padding: ${theme.padding.page.mobile}rem;
     height: 10.4rem;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
