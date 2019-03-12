@@ -63,7 +63,10 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   max-width: 87rem;
   margin-top: 1rem;
   margin-bottom: 0;
-  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .c0 {
@@ -84,6 +87,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 @media (max-width:48em) {
   .c2 {
     font-size: 1.6rem;
+    line-height: 1.6rem;
   }
 }
 
@@ -103,10 +107,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   .c5 {
     line-height: 2.2rem;
     margin-top: 0.3rem;
-    overflow: hidden;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
 }
 

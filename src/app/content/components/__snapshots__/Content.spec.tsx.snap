@@ -100,13 +100,13 @@ Array [
 @media (max-width:48em) {
   .c3 {
     font-size: 1.6rem;
+    line-height: 1.6rem;
   }
 }
 
 @media (max-width:48em) {
   .c3 {
-    font-size: 1.6rem;
-    line-height: 1.6rem;
+    height: 3.6rem;
   }
 }
 
@@ -127,6 +127,7 @@ Array [
         href="/"
       >
         <img
+          alt="OpenStax Logo"
           className="c2"
           src="logo.svg"
         />
@@ -220,7 +221,10 @@ Array [
   max-width: 87rem;
   margin-top: 1rem;
   margin-bottom: 0;
-  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .c0 {
@@ -241,6 +245,7 @@ Array [
 @media (max-width:48em) {
   .c2 {
     font-size: 1.6rem;
+    line-height: 1.6rem;
   }
 }
 
@@ -260,10 +265,7 @@ Array [
   .c5 {
     line-height: 2.2rem;
     margin-top: 0.3rem;
-    overflow: hidden;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
 }
 
@@ -1053,13 +1055,13 @@ Array [
 @media (max-width:48em) {
   .c3 {
     font-size: 1.6rem;
+    line-height: 1.6rem;
   }
 }
 
 @media (max-width:48em) {
   .c3 {
-    font-size: 1.6rem;
-    line-height: 1.6rem;
+    height: 3.6rem;
   }
 }
 
@@ -1080,6 +1082,7 @@ Array [
         href="/"
       >
         <img
+          alt="OpenStax Logo"
           className="c2"
           src="logo.svg"
         />
