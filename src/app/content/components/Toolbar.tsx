@@ -70,7 +70,7 @@ const SearchInputWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 4rem;
-  border-bottom: solid 0.1rem ${theme.color.text.default};
+  border-bottom: solid 0.1rem ${iconColor};
 
   ${theme.breakpoints.mobile(css`
     border: none;
@@ -125,6 +125,8 @@ const BarWrapper = styled.div`
   width: 100%;
   padding: 0 15.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+  position: relative;  /* to make the drop shadow show over the content */
+  z-index: 2;  /* to make the drop shadow show over the sidebar */
   display: block;
   background: ${theme.color.neutral.base};
 
