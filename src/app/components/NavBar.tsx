@@ -4,6 +4,8 @@ import openstaxLogo from '../../assets/logo.svg';
 import theme from '../theme';
 import {h4Style} from '../components/Typography';
 
+
+// tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
@@ -18,9 +20,11 @@ const TopBar = styled.div`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const LogoLink = styled.a`
 `;
 
+// tslint:disable-next-line:variable-name
 const HeaderImage = styled.img`
   width: auto;
   height: 3rem;
@@ -30,6 +34,7 @@ const HeaderImage = styled.img`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const LoginTxt = styled.a`
   ${h4Style}
   font-family: Helvetica Neue;
@@ -45,11 +50,11 @@ const LoginTxt = styled.a`
   }
 
   @media(max-width: ${theme.mobileBreakpoint.default.width}) {
-    font-size: 1.6rem;
-    line-height: 1.6rem;
+    height: 3.6rem;
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   padding: ${theme.contentBuffer.default.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
@@ -59,10 +64,11 @@ const BarWrapper = styled.div`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const NavigationBar: SFC = ({}) => 
   <BarWrapper>
     <TopBar>
-      <LogoLink href="/"><HeaderImage src = {openstaxLogo}/></LogoLink>
+      <LogoLink href="/"><HeaderImage src = {openstaxLogo} alt="OpenStax Logo"/></LogoLink>
       <LoginTxt href="https://accounts-dev.openstax.org/login">Login</LoginTxt>
     </TopBar>
   </BarWrapper>;

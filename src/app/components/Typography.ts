@@ -37,6 +37,7 @@ export const h4Style = css`
 
   @media (max-width: 48em) {
     font-size: 1.6rem;
+    line-height: 1.6rem;
   }
 `;
 

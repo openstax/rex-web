@@ -10,6 +10,7 @@ import { findArchiveTreeSection, bookDetailsUrl } from '../utils'
 import Color from 'color';
 import {h3Style, h4Style} from '../../components/Typography';
 
+// tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   height: 2rem;
   width: 2rem;
@@ -22,6 +23,7 @@ interface PropTypes {
   book?: Book;
 }
 
+// tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   width: 100%;
   max-width: 117rem;
@@ -29,6 +31,7 @@ const TopBar = styled.div`
   text-align: left;
 `;
 
+// tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
   color: ${theme.color.primary.blue.foreground};
@@ -44,6 +47,7 @@ const BookTitle = styled.a`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const BookChapter = styled.h1`
   ${h3Style}
   color: ${theme.color.primary.blue.foreground};
@@ -69,6 +73,7 @@ const BookChapter = styled.h1`
 const blue = `${theme.color.primary.blue.base}`;
 const color = Color(blue).lighten(0.7); 
 
+// tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   padding: ${theme.contentBuffer.default.padding};
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
@@ -83,7 +88,8 @@ const BarWrapper = styled.div`
   }
 `;
 
-export class TitleComponent extends Component<PropTypes> {
+// tslint:disable-next-line:variable-name
+export class BookBanner extends Component<PropTypes> {
   public render() {
     const {page, book} = this.props as PropTypes;
     
@@ -112,5 +118,5 @@ export default connect(
     book: select.book(state),
     page: select.page(state),
   })
-)(TitleComponent);
+)(BookBanner);
 

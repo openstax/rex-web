@@ -12,32 +12,38 @@ export const iconStyles = css`
   margin-right: 0.7rem;
 `;
 
+// tslint:disable-next-line:variable-name
 const SearchIcon = styled(Search)`
   ${iconStyles};
   color: ${theme.iconColor};
 `;
 
+// tslint:disable-next-line:variable-name
 const PrintIcon = styled(Print)`
   ${iconStyles};
   color: ${theme.iconColor};
 `;
 
+// tslint:disable-next-line:variable-name
 const ListIcon = styled(ListOl)`
   ${iconStyles};
 `;
 
+// tslint:disable-next-line:variable-name
 const ToCButton = styled.h3`
   ${bodyCopyRegularStyle};
   cursor: pointer;
   margin: 0;
 `;
 
+// tslint:disable-next-line:variable-name
 const ToCButtonWrapper = styled.div`
   ${linkStyle};
   display: flex;
   align-items: center;
 `;
 
+// tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   height: 5rem;
   max-width: 117rem;
@@ -52,6 +58,7 @@ const TopBar = styled.div`
   
 `;
 
+// tslint:disable-next-line:variable-name
 const SearchInputWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -64,6 +71,7 @@ const SearchInputWrapper = styled.div`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const SearchInput = styled.input`
   ${bodyCopyRegularStyle};
   color: ${theme.textColors.default};
@@ -80,12 +88,14 @@ const SearchInput = styled.input`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const PrintOptWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
 `;
 
+// tslint:disable-next-line:variable-name
 const PrintOptions = styled.h3`
   ${bodyCopyRegularStyle};
   color: ${theme.iconColor};
@@ -96,6 +106,7 @@ const PrintOptions = styled.h3`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const SearchPrintWrapper = styled.div`
   text-align: right;
   display: flex;
@@ -103,6 +114,7 @@ const SearchPrintWrapper = styled.div`
   align-items: center;
 `;
 
+// tslint:disable-next-line:variable-name
 const BarWrapper = styled.div` 
   width: 100%;
   padding: 0 15.5rem;
@@ -115,6 +127,7 @@ const BarWrapper = styled.div`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 const NavigationBar: SFC = ({children}) => <BarWrapper>
   <TopBar>
     <ToCButtonWrapper>
