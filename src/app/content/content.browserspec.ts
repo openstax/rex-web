@@ -22,6 +22,19 @@ describe('content', () => {
     });
   });
 
+  it('looks right on mobile', async() => {
+    page.setViewport({height: 731, width: 411});
+    page.click('[aria-label="Click to close the Table of Contents"]');
+    await finishRender(page);
+    const screen = await page.screenshot();
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
   it('has SkipToContent link as the first tabbed-to element', async() => {
     await page.keyboard.press('Tab');
 
@@ -49,7 +62,7 @@ describe('content', () => {
     - and doesn't close the sidebar
   `, async() => {
     // assert initial state
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
+    expect(await h1Content(page)).toBe('Test Page 1');
     expect(await isTocVisible()).toBe(true);
     expect(await getSelectedTocSection()).toBe(TEST_PAGE_NAME);
     expect(await getScrollTop()).toBe(0);
@@ -63,7 +76,7 @@ describe('content', () => {
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
-    expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
+    expect(await h1Content(page)).toBe('Test Page 3');
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);
