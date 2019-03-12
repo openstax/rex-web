@@ -15,7 +15,7 @@ const routes = [
     component: () => null,
     getUrl: () => 'url2',
     name: 'with params',
-    paths: ['/with/:param'],
+    paths: ['/with/:param?'],
   },
 ];
 
@@ -36,6 +36,12 @@ describe('findRouteMatch', () => {
     const location = {pathname: '/with/thing'} as Location;
     const result = findRouteMatch(routes, location);
     expect(result).toEqual({route: routes[1], params: {param: 'thing'}});
+  });
+
+  it('returns undefined for missing param values', () => {
+    const location = {pathname: '/with'} as Location;
+    const result = findRouteMatch(routes, location);
+    expect(result).toEqual({route: routes[1], params: {param: undefined}});
   });
 });
 

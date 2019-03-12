@@ -38,6 +38,24 @@ export const bodyCopyRegularStyle = css`
   }
 `;
 
+export const H1 = styled.h1`
+  ${textStyle}
+  font-size: 4.8rem;
+  line-height: 5rem;
+  letter-spacing: -0.04rem;
+  padding: 0 0 1rem 0;
+  margin: 0;
+`;
+
+export const H2 = styled.h2`
+  ${textStyle}
+  font-size: 3.6rem;
+  line-height: 4rem;
+  letter-spacing: -0.04rem;
+  padding: 2rem 0 1rem 0;
+  margin: 0;
+`;
+
 export const h3Style = css`
   ${textStyle}
   font-size: 2.4rem;

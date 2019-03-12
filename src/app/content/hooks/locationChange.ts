@@ -7,7 +7,13 @@ import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { ArchivePage, Book, PageReferenceMap } from '../types';
-import { flattenArchiveTree, getContentPageReferences, getPageIdFromUrlParam, getUrlParamForPageId } from '../utils';
+import {
+  flattenArchiveTree,
+  formatBookData,
+  getContentPageReferences,
+  getPageIdFromUrlParam,
+  getUrlParamForPageId
+} from '../utils';
 
 const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
 const fonts = fontMatches ? fontMatches.slice(1) : [];
@@ -28,13 +34,8 @@ const getBookResponse = async(
   bookSlug: string
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
   const osWebBook = await osWebLoader.getBookFromSlug(bookSlug);
-
-  const newBook = {
-    ...await loader.load(),
-    authors: osWebBook.authors,
-    publish_date: osWebBook.publish_date,
-    slug: bookSlug,
-  };
+  const archiveBook = await loader.load();
+  const newBook = formatBookData(archiveBook, osWebBook);
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
 };
 

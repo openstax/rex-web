@@ -1,6 +1,8 @@
 import flow from 'lodash/fp/flow';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { AppState, Dispatch } from '../../types';
@@ -43,7 +45,8 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...p
   />;
 };
 
-export default connect(
+// tslint:disable-next-line:variable-name
+export const ConnectedContentLink = connect(
   (state: AppState) => ({
     currentPath: selectNavigation.pathname(state),
   }),
@@ -51,3 +54,10 @@ export default connect(
     navigate: flow(push, dispatch),
   })
 )(ContentLink);
+
+// tslint:disable-next-line:variable-name
+export const StyledContentLink = styled(ConnectedContentLink)`
+  ${linkStyle}
+`;
+
+export default ConnectedContentLink;

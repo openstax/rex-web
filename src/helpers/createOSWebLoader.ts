@@ -1,22 +1,24 @@
 import memoize from 'lodash/fp/memoize';
 import { acceptStatus } from './fetch';
 
+export interface OSWebBook {
+  meta: {
+    slug: string;
+  };
+  publish_date: string;
+  authors: Array<{
+    value: {
+      name: string;
+    }
+  }>;
+  cnx_id: string;
+}
+
 interface OSWebResponse {
   meta: {
     item_count: number
   };
-  items: Array<{
-    meta: {
-      slug: string;
-    };
-    publish_date: string;
-    authors: Array<{
-      value: {
-        name: string;
-      }
-    }>;
-    cnx_id: string;
-  }>;
+  items: OSWebBook[];
 }
 
 export default (url: string) => {

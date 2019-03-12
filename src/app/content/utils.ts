@@ -1,10 +1,11 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { AllHtmlEntities } from 'html-entities';
 import flatten from 'lodash/fp/flatten';
+import { OSWebBook } from '../../helpers/createOSWebLoader';
 import { isArchiveTree } from './guards';
 import replaceAccentedCharacters from './replaceAccentedCharacters';
 import { content as contentRoute } from './routes';
-import { ArchiveTree, ArchiveTreeSection, Book, LinkedArchiveTreeSection, Page } from './types';
+import { ArchiveBook, ArchiveTree, ArchiveTreeSection, Book, LinkedArchiveTreeSection, Page } from './types';
 
 export const stripIdVersion = (id: string): string => id.split('@')[0];
 export const getIdVersion = (id: string): string | undefined => id.split('@')[1];
@@ -67,6 +68,13 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
 
   sidebar.scrollTop = scrollTarget.offsetTop;
 };
+
+export const formatBookData = (archiveBook: ArchiveBook, osWebBook: OSWebBook): Book => ({
+  ...archiveBook,
+  authors: osWebBook.authors,
+  publish_date: osWebBook.publish_date,
+  slug: osWebBook.meta.slug,
+});
 
 export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'shortId' | 'title'>) => {
   const params = {
