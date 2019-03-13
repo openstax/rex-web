@@ -1,9 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { book as archiveBook, shortPage } from '../../../test/mocks/archiveLoader';
+import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
+import { formatBookData } from '../utils';
 import { BookBanner } from './BookBanner';
 
-const book = {...archiveBook, slug: 'book-slug-1'};
+const book = formatBookData(archiveBook, mockCmsBookFields);
 const page = shortPage;
 
 describe('BookBanner', () => {
