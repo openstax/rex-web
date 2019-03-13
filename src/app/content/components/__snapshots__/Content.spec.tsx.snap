@@ -144,7 +144,7 @@ Array [
   </div>,
   .c0 {
   z-index: 2;
-  top: 0;
+  top: 23rem;
   overflow: visible;
   position: fixed;
   right: 0;
@@ -1279,7 +1279,7 @@ Array [
   </div>,
   .c0 {
   z-index: 2;
-  top: 0;
+  top: 23rem;
   overflow: visible;
   position: fixed;
   right: 0;

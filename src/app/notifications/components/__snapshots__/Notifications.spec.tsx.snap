@@ -15,17 +15,10 @@ exports[`Notifications matches snapshot 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   font-family: Helvetica Neue;
-<<<<<<< HEAD
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-weight: bold;
-=======
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
->>>>>>> origin/master
   color: #fff;
   background-color: #f36b32;
   font-weight: bold;
@@ -121,7 +114,7 @@ exports[`Notifications matches snapshot 1`] = `
 
 .c0 {
   z-index: 2;
-  top: 0;
+  top: 23rem;
   overflow: visible;
   position: fixed;
   right: 0;

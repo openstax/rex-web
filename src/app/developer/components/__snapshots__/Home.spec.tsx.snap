@@ -31,9 +31,120 @@ Array [
   >
     Skip to Content
   </a>,
+  .c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  max-width: 117rem;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.c2 {
+  width: auto;
+  height: 3rem;
+}
+
+.c3 {
+  font-family: Helvetica Neue;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  font-family: Helvetica Neue;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-weight: bold;
+  color: #5E6062;
+  padding: 1rem 0;
+  height: 5rem;
+  overflow: visible;
+}
+
+.c3:hover,
+.c3:active,
+.c3:focus {
+  border-bottom: 0.4rem solid #63a524;
+}
+
+.c0 {
+  padding: 0 13.5rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media (max-width:64em) {
+  .c1 {
+    height: 3.6rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c2 {
+    height: 2rem;
+  }
+}
+
+@media (max-width:48em) {
+  .c3 {
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c3 {
+    height: 3.6rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div
+      className="c1"
+    >
+      <a
+        className=""
+        href="/"
+      >
+        <img
+          alt="OpenStax Logo"
+          className="c2"
+          src="logo.svg"
+        />
+      </a>
+      <a
+        className="c3"
+        href="https://accounts-dev.openstax.org/login"
+      >
+        Login
+      </a>
+    </div>
+  </div>,
   .c0 {
   z-index: 2;
-  top: 0;
+  top: 23rem;
   overflow: visible;
   position: fixed;
   right: 0;
@@ -129,6 +240,10 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
+.c5:hover {
+  color: #0064A0;
+}
+
 .c3 {
   padding: 1rem;
 }
@@ -140,7 +255,7 @@ Array [
   line-height: 2.5rem;
   max-width: 117rem;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem 0;
 }
 
 .c0 a {
@@ -149,6 +264,16 @@ Array [
   -webkit-text-decoration: none;
   text-decoration: none;
   border-bottom: #027EB5 solid 0.02em;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+@media (max-width:48em) {
+  .c4 {
+    font-size: 1.6rem;
+  }
 }
 
 <div

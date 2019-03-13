@@ -53,19 +53,11 @@ exports[`Button matches snapshot - large 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   font-family: Helvetica Neue;
-<<<<<<< HEAD
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-weight: bold;
-  color: #424242;
-=======
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 5rem;
   padding: 0 3rem;
   color: #5e6062;
->>>>>>> origin/master
   background-color: #fff;
   border: 1px solid #d5d5d5;
   font-weight: regular;
@@ -139,17 +131,10 @@ exports[`Button matches snapshot - primary 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   font-family: Helvetica Neue;
-<<<<<<< HEAD
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-weight: bold;
-=======
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
->>>>>>> origin/master
   color: #fff;
   background-color: #f36b32;
   font-weight: bold;
@@ -184,17 +169,10 @@ exports[`Button matches snapshot - secondary 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   font-family: Helvetica Neue;
-<<<<<<< HEAD
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-weight: bold;
-=======
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
->>>>>>> origin/master
   color: #fff;
   background-color: #959595;
   font-weight: bold;
