@@ -36,7 +36,6 @@ const HeaderImage = styled.img`
 // tslint:disable-next-line:variable-name
 const LoginTxt = styled.a`
   ${h4Style}
-  font-family: Helvetica Neue;
   text-decoration: none;
   font-weight: bold;
   color: #5E6062;
