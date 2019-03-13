@@ -1,10 +1,10 @@
 export const mockCmsBookFields = {
+  authors: [{value: {name: 'Bam Bammerson'}}],
+  cnx_id: '3',
   meta: {
     slug: 'book-slug-1',
   },
   publish_date: '2012-06-21',
-  authors: [{value: {name: 'Bam Bammerson'}}],
-  cnx_id: '3',
 };
 
 export interface OSWebBook {
