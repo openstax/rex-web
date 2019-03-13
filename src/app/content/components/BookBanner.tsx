@@ -31,18 +31,22 @@ const TopBar = styled.div`
   text-align: left;
 `;
 
+const bookBannerTextStyle = css`
+  width: 100%;
+  max-width: 87rem;
+  padding: 0;
+  color: ${theme.color.primary.blue.foreground};
+`;
+
 // tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
+  ${bookBannerTextStyle}
   font-weight: normal;
-  color: ${theme.color.primary.blue.foreground};
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 87rem;
   text-overflow: ellipsis;
   margin: 0;
-  padding: 0;
   text-decoration: none;
 
   ${theme.breakpoints.mobile(css`
@@ -53,13 +57,10 @@ const BookTitle = styled.a`
 // tslint:disable-next-line:variable-name
 const BookChapter = styled.h1`
   ${h3Style}
-  color: ${theme.color.primary.blue.foreground};
+  ${bookBannerTextStyle}
   font-weight: bold;
   display: inline-block;
-  width: 100%;
-  max-width: 87rem;
   margin: 1rem 0 0 0;
-  padding: 0;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
