@@ -97,7 +97,6 @@ describe('BookBanner', () => {
   });
 
   it('renders correctly when title fits without truncation on desktop', async() => {
-    page.setViewport({height: 731, width: 411});
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
@@ -118,7 +117,6 @@ describe('BookBanner', () => {
   });
 
   it('renders correctly when title truncates after one line on desktop', async() => {
-    page.setViewport({height: 731, width: 411});
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
