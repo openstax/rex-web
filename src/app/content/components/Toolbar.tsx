@@ -3,27 +3,26 @@ import styled, { css } from 'styled-components';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
-import { contentFont, linkStyle, textRegularSize, textRegularStyle } from '../../components/Typography';
+import { contentFont, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 
-const iconColor = '#818181';
+const iconColor = '#5E6062';
 
 export const iconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
+  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
 const SearchIcon = styled(Search)`
   ${iconStyles};
-  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
 const PrintIcon = styled(Print)`
   ${iconStyles};
-  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -35,6 +34,7 @@ const ListIcon = styled(ListOl)`
 const ToCButton = styled.h3`
   font-family: ${contentFont};
   ${textRegularSize};
+  color: ${iconColor};
   margin: 0;
   padding: 0;
 
@@ -45,7 +45,6 @@ const ToCButton = styled.h3`
 
 // tslint:disable-next-line:variable-name
 const ToCButtonWrapper = styled.div`
-  ${linkStyle};
   border: none;
   display: flex;
   align-items: center;

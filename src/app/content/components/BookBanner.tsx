@@ -77,7 +77,7 @@ const color = Color(blue).lighten(0.7);
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  padding: 0 ${theme.padding.page.desktop};
+  padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
