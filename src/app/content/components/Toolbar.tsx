@@ -3,27 +3,27 @@ import styled, { css } from 'styled-components';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
-import { contentFont, linkStyle, textRegularSize, textRegularStyle } from '../../components/Typography';
+import { contentFont, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
+import SidebarControl from './SidebarControl';
 
-const iconColor = '#818181';
+const iconColor = '#5E6062';
 
 export const iconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
+  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
 const SearchIcon = styled(Search)`
   ${iconStyles};
-  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
 const PrintIcon = styled(Print)`
   ${iconStyles};
-  color: ${iconColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -35,18 +35,18 @@ const ListIcon = styled(ListOl)`
 const ToCButton = styled.h3`
   font-family: ${contentFont};
   ${textRegularSize};
+  color: ${iconColor};
   margin: 0;
   padding: 0;
-
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButtonWrapper = styled.div`
-  ${linkStyle};
+const ToCButtonWrapper = styled(SidebarControl)`
   border: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  background: none;
   display: flex;
   align-items: center;
 `;
@@ -59,6 +59,7 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: visible;
 
   ${theme.breakpoints.mobile(css`
     height: 4rem;
@@ -123,7 +124,7 @@ const SearchPrintWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   width: 100%;
-  padding: 0 15.5rem;
+  padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   position: relative;  /* to make the drop shadow show over the content */
   z-index: 2;  /* to make the drop shadow show over the sidebar */

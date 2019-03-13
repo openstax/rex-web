@@ -64,9 +64,9 @@ export const h3Style = css`
   padding: 1.5rem 0 1rem 0;
   margin: 0;
 
-  @media (max-width: 48em) {
+  ${theme.breakpoints.mobile(css`
     font-size: 1.6rem;
-  }
+  `)}
 `;
 
 export const H3 = styled.h3`
@@ -81,8 +81,8 @@ export const h4Style = css`
   padding: 1rem 0 1rem 0;
   margin: 0;
 
-  @media (max-width: 48em) {
+  ${theme.breakpoints.mobile(css`
     font-size: 1.6rem;
     line-height: 1.6rem;
-  }
+  `)}
 `;

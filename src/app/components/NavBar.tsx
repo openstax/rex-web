@@ -66,7 +66,7 @@ const BarWrapper = styled.div`
 const NavigationBar: SFC = ({}) =>
   <BarWrapper>
     <TopBar>
-      <LogoLink href='/'><HeaderImage src = {openstaxLogo} alt='OpenStax Logo'/></LogoLink>
+      <LogoLink href='/'><HeaderImage src={openstaxLogo} alt='OpenStax Logo' /></LogoLink>
       <LoginTxt href='https://accounts-dev.openstax.org/login'>Login</LoginTxt>
     </TopBar>
   </BarWrapper>;

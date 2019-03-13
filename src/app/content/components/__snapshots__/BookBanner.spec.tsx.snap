@@ -80,7 +80,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 }
 
 .c0 {
-  padding: 0 13.5;
+  padding: 0 13.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
   display: -webkit-box;
   display: -webkit-flex;
@@ -94,7 +94,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   background: linear-gradient(to right,#002468,#003DB1);
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c2 {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -107,7 +107,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   }
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c5 {
     font-size: 1.6rem;
   }
