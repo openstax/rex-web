@@ -124,7 +124,7 @@ const SearchPrintWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   width: 100%;
-  padding: 0 15.5rem;
+  padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   position: relative;  /* to make the drop shadow show over the content */
   z-index: 2;  /* to make the drop shadow show over the sidebar */

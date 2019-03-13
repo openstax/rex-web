@@ -472,6 +472,7 @@ Array [
 .c9 {
   border: none;
   padding: 0;
+  margin: 0;
   overflow: visible;
   background: none;
   display: -webkit-box;
@@ -582,7 +583,7 @@ Array [
 
 .c7 {
   width: 100%;
-  padding: 0 15.5rem;
+  padding: 0 13.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   position: relative;
   z-index: 2;
@@ -1456,6 +1457,7 @@ Array [
 .c3 {
   border: none;
   padding: 0;
+  margin: 0;
   overflow: visible;
   background: none;
   display: -webkit-box;
@@ -1566,7 +1568,7 @@ Array [
 
 .c1 {
   width: 100%;
-  padding: 0 15.5rem;
+  padding: 0 13.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   position: relative;
   z-index: 2;
