@@ -7,7 +7,6 @@ import BookBanner from './BookBanner';
 import ContentPane from './ContentPane';
 import Page from './Page';
 import Sidebar from './Sidebar';
-import SidebarControl from './SidebarControl';
 import Toolbar from './Toolbar';
 import Wrapper from './Wrapper';
 
@@ -27,7 +26,6 @@ const Content: React.SFC = () => <Layout>
     <Wrapper>
       <Sidebar />
       <ContentPane>
-        <SidebarControl />
         <Page />
         <Attribution />
       </ContentPane>

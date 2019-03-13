@@ -98,7 +98,7 @@ Array [
   }
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -269,7 +269,7 @@ Array [
   color: #0064A0;
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c4 {
     font-size: 1.6rem;
   }

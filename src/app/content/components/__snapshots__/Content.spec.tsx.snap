@@ -98,7 +98,7 @@ Array [
   }
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -375,7 +375,7 @@ Array [
 }
 
 .c1 {
-  padding: 0 13.5;
+  padding: 0 13.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
   display: -webkit-box;
   display: -webkit-flex;
@@ -443,37 +443,37 @@ Array [
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
-  color: #818181;
+  color: #5E6062;
 }
 
 .c18 {
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
-  color: #818181;
+  color: #5E6062;
 }
 
 .c10 {
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
+  color: #5E6062;
 }
 
 .c12 {
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  color: #5E6062;
   margin: 0;
   padding: 0;
 }
 
 .c9 {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
   border: none;
+  padding: 0;
+  overflow: visible;
+  background: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -482,10 +482,6 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
-
-.c9:hover {
-  color: #0064A0;
 }
 
 .c8 {
@@ -504,6 +500,7 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  overflow: visible;
 }
 
 .c14 {
@@ -516,7 +513,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   margin-right: 4rem;
-  border-bottom: solid 0.1rem #818181;
+  border-bottom: solid 0.1rem #5E6062;
 }
 
 .c16 {
@@ -531,19 +528,19 @@ Array [
 }
 
 .c16::-webkit-input-placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c16::-moz-placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c16:-ms-input-placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c16::placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c17 {
@@ -563,7 +560,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #818181;
+  color: #5E6062;
   margin: 0;
 }
 
@@ -627,7 +624,7 @@ Array [
   }
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -640,7 +637,7 @@ Array [
   }
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c6 {
     font-size: 1.6rem;
   }
@@ -665,12 +662,6 @@ Array [
   .c21 {
     position: -webkit-sticky;
     position: sticky;
-  }
-}
-
-@media (max-width:64em) {
-  .c12 {
-    display: none;
   }
 }
 
@@ -747,8 +738,10 @@ Array [
       <div
         className="c8"
       >
-        <div
+        <button
+          aria-label="Click to close the Table of Contents"
           className="c9"
+          onClick={[Function]}
         >
           <svg
             aria-hidden="true"
@@ -767,7 +760,7 @@ Array [
           >
             Table of contents
           </h3>
-        </div>
+        </button>
         <div
           className="c13"
         >
@@ -1018,19 +1011,6 @@ Array [
         id="main-content"
         tabIndex={-1}
       >
-        <button
-          aria-label="Click to close the Table of Contents"
-          onClick={[Function]}
-          style={
-            Object {
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-            }
-          }
-        >
-          toc
-        </button>
         <div
           className="c25 "
         >
@@ -1090,7 +1070,7 @@ Array [
   <li>
     Use the information below to generate a citation. We recommend using a
     citation tool such as
-    <a target=\\"_blank\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
     <ul>
       <li>
         Authors: Bam Bammerson
@@ -1232,7 +1212,7 @@ Array [
   }
 }
 
-@media (max-width:48em) {
+@media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -1447,37 +1427,37 @@ Array [
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
-  color: #818181;
+  color: #5E6062;
 }
 
 .c12 {
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
-  color: #818181;
+  color: #5E6062;
 }
 
 .c4 {
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 0.7rem;
+  color: #5E6062;
 }
 
 .c6 {
   font-family: Helvetica Neue;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  color: #5E6062;
   margin: 0;
   padding: 0;
 }
 
 .c3 {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
   border: none;
+  padding: 0;
+  overflow: visible;
+  background: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1486,10 +1466,6 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
-
-.c3:hover {
-  color: #0064A0;
 }
 
 .c2 {
@@ -1508,6 +1484,7 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  overflow: visible;
 }
 
 .c8 {
@@ -1520,7 +1497,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   margin-right: 4rem;
-  border-bottom: solid 0.1rem #818181;
+  border-bottom: solid 0.1rem #5E6062;
 }
 
 .c10 {
@@ -1535,19 +1512,19 @@ Array [
 }
 
 .c10::-webkit-input-placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c10::-moz-placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c10:-ms-input-placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c10::placeholder {
-  color: #818181;
+  color: #5E6062;
 }
 
 .c11 {
@@ -1567,7 +1544,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #818181;
+  color: #5E6062;
   margin: 0;
 }
 
@@ -1639,12 +1616,6 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c6 {
-    display: none;
-  }
-}
-
-@media (max-width:64em) {
   .c2 {
     height: 4rem;
   }
@@ -1684,8 +1655,10 @@ Array [
       <div
         className="c2"
       >
-        <div
+        <button
+          aria-label="Click to close the Table of Contents"
           className="c3"
+          onClick={[Function]}
         >
           <svg
             aria-hidden="true"
@@ -1704,7 +1677,7 @@ Array [
           >
             Table of contents
           </h3>
-        </div>
+        </button>
         <div
           className="c7"
         >
@@ -1763,19 +1736,6 @@ Array [
         id="main-content"
         tabIndex={-1}
       >
-        <button
-          aria-label="Click to close the Table of Contents"
-          onClick={[Function]}
-          style={
-            Object {
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-            }
-          }
-        >
-          toc
-        </button>
         <div
           className="c17 "
         >

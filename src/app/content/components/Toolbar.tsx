@@ -5,6 +5,7 @@ import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { contentFont, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
+import SidebarControl from './SidebarControl';
 
 const iconColor = '#5E6062';
 
@@ -37,15 +38,15 @@ const ToCButton = styled.h3`
   color: ${iconColor};
   margin: 0;
   padding: 0;
-
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButtonWrapper = styled.div`
+const ToCButtonWrapper = styled(SidebarControl)`
   border: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  background: none;
   display: flex;
   align-items: center;
 `;
@@ -58,6 +59,7 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: visible;
 
   ${theme.breakpoints.mobile(css`
     height: 4rem;
