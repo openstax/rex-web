@@ -64,7 +64,7 @@ describe('content', () => {
 
   // skipping because current design does not have an H1
   // TODO - add H1
-  it.skip('a11y lighthouse check', async() => {
+  it('a11y lighthouse check', async() => {
     await navigate(page, TEST_PAGE_URL);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
