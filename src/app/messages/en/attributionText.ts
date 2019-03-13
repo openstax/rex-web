@@ -27,7 +27,7 @@ export default `
   <li>
     Use the information below to generate a citation. We recommend using a
     citation tool such as
-    <a target="_blank" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
+    <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
     <ul>
       <li>
         Authors: {bookAuthors}
