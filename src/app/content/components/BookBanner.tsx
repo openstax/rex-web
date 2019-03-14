@@ -63,7 +63,11 @@ const BookChapter = styled.h1`
   margin: 1rem 0 0 0;
   overflow: hidden;
 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   ${theme.breakpoints.mobile(css`
+    white-space: normal;
     max-height: 4.4rem;
     line-height: 2.2rem;
     margin-top: 0.3rem;
