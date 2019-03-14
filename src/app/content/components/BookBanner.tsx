@@ -101,24 +101,18 @@ export class BookBanner extends Component<PropTypes> {
   }
 
   public setTruncation() {
-    const {page, book} = this.props;
-
-    if (!book || !page) {
-      return null;
-    }
-
-    const treeSection = findArchiveTreeSection(book, page.id);
-    if (treeSection && this.chapter) {
-      this.chapter.innerHTML = treeSection.title;
-    }
-
     if (this.isTruncated(this.chapter)) {
       const title = this.chapter.querySelector('.os-text');
       if (!title) {
         return;
       }
 
-      title.textContent = title.textContent + '...';
+      const unTruncated = title.hasAttribute('data-untruncated')
+        ? title.getAttribute('data-untruncated')
+        : title.textContent;
+
+      title.setAttribute('data-untruncated', unTruncated || '');
+      title.textContent = unTruncated + '...';
 
       while (this.isTruncated(this.chapter)) {
         title.textContent = title.textContent.slice(0, -4) + '...';
