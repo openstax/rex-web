@@ -7,7 +7,13 @@ import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { ArchivePage, Book, PageReferenceMap } from '../types';
-import { flattenArchiveTree, getContentPageReferences, getPageIdFromUrlParam, getUrlParamForPageId } from '../utils';
+import {
+  flattenArchiveTree,
+  formatBookData,
+  getContentPageReferences,
+  getPageIdFromUrlParam,
+  getUrlParamForPageId
+} from '../utils';
 
 const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
 const fonts = fontMatches ? fontMatches.slice(1) : [];
@@ -21,11 +27,23 @@ const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => 
   await resolvePage(services, match, book, loader);
 };
 
+const getBookResponse = async(
+  osWebLoader: AppServices['osWebLoader'],
+  archiveLoader: AppServices['archiveLoader'],
+  loader: ReturnType<AppServices['archiveLoader']['book']>,
+  bookSlug: string
+): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
+  const osWebBook = await osWebLoader.getBookFromSlug(bookSlug);
+  const archiveBook = await loader.load();
+  const newBook = formatBookData(archiveBook, osWebBook);
+  return [newBook, archiveLoader.book(newBook.id, newBook.version)];
+};
+
 const resolveBook = async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
-  const {dispatch, getState, archiveLoader} = services;
+  const {dispatch, getState, archiveLoader, osWebLoader} = services;
   const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
 
   const loader = archiveLoader.book(bookId, bookVersion);
@@ -37,21 +55,13 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  const getResponse = async(): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
-    const newBook = {
-      ...await loader.load(),
-      slug: bookSlug,
-    };
-    return [newBook, archiveLoader.book(newBook.id, newBook.version)];
-  };
-
   if (bookSlug !== select.loadingBook(state)) {
     dispatch(requestBook(bookSlug));
-    const response = await getResponse();
+    const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
   } else {
-    return await getResponse();
+    return await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
   }
 };
 

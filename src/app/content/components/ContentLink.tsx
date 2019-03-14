@@ -1,12 +1,14 @@
 import flow from 'lodash/fp/flow';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { AppState, Dispatch } from '../../types';
 import { content } from '../routes';
 import { Book } from '../types';
-import { getUrlParamForPageId, stripIdVersion, toRelativeUrl } from '../utils';
+import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   book: Book;
@@ -22,12 +24,8 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 
 // tslint:disable-next-line:variable-name
 export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...props}) => {
-  const params = {
-    book: book.slug,
-    page: getUrlParamForPageId(book, page.shortId),
-  };
-
-  const url = toRelativeUrl(currentPath, content.getUrl(params));
+  const {url, params} = getBookPageUrlAndParams(book, page);
+  const relativeUrl = toRelativeUrl(currentPath, url);
 
   return <a
     onClick={(e) => {
@@ -42,12 +40,13 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...p
         },
       });
     }}
-    href={url}
+    href={relativeUrl}
     {...props}
   />;
 };
 
-export default connect(
+// tslint:disable-next-line:variable-name
+export const ConnectedContentLink = connect(
   (state: AppState) => ({
     currentPath: selectNavigation.pathname(state),
   }),
@@ -55,3 +54,10 @@ export default connect(
     navigate: flow(push, dispatch),
   })
 )(ContentLink);
+
+// tslint:disable-next-line:variable-name
+export const StyledContentLink = styled(ConnectedContentLink)`
+  ${linkStyle}
+`;
+
+export default ConnectedContentLink;

@@ -53,7 +53,8 @@ describe('content', () => {
 
     const links: string[] = await page.evaluate(() =>
       document
-        ? Array.from(document.querySelectorAll('[id="main-content"] a')).map((element) => element.getAttribute('href'))
+        ? Array.from(document.querySelectorAll('[id="main-content"] [data-type="page"] a'))
+          .map((element) => element.getAttribute('href'))
         : []
     );
 

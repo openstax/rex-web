@@ -1,45 +1,34 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import styled from 'styled-components';
 import Layout from '../../components/Layout';
-import { AppState } from '../../types';
-import * as select from '../selectors';
-import { State } from '../types';
+import theme from '../../theme';
+import Attribution from './Attribution';
 import ContentPane from './ContentPane';
-import Header from './Header';
 import Page from './Page';
 import Sidebar from './Sidebar';
+import SidebarControl from './SidebarControl';
 import Wrapper from './Wrapper';
 
-interface PropTypes {
-  page: State['page'];
-  book: State['book'];
-}
+// tslint:disable-next-line:variable-name
+const Background = styled.div`
+  overflow: visible; /* so sidebar position: sticky works */
+  background-color: ${theme.color.neutral.darker};
+  width: 100%;
+  min-height: 100%;
+`;
 
-export class ContentComponent extends Component<PropTypes> {
+// tslint:disable-next-line:variable-name
+const Content: React.SFC = () => <Layout>
+  <Background>
+    <Wrapper>
+      <Sidebar />
+      <ContentPane>
+        <SidebarControl />
+        <Page />
+        <Attribution />
+      </ContentPane>
+    </Wrapper>
+  </Background>
+</Layout>;
 
-  public renderHeader = () => {
-    const {page, book} = this.props as PropTypes;
-    return <div>
-      {book && page && <Header>{book.title} / {page.title}</Header>}
-    </div>;
-  }
-
-  public render() {
-    return <Layout>
-      <Wrapper>
-        <Sidebar />
-        <ContentPane>
-          {this.renderHeader()}
-          <Page />
-        </ContentPane>
-      </Wrapper>
-    </Layout>;
-  }
-}
-
-export default connect(
-  (state: AppState) => ({
-    book: select.book(state),
-    page: select.page(state),
-  })
-)(ContentComponent);
+export default Content;

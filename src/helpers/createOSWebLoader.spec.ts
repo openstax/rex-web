@@ -6,7 +6,7 @@ const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
   text: () => Promise.resolve(data),
 }));
 
-describe('archiveLoader', () => {
+describe('osWebLoader', () => {
   const fetchBackup = fetch;
   let osWebLoader: AppServices['osWebLoader'];
 
@@ -31,7 +31,7 @@ describe('archiveLoader', () => {
 
       it('gets book id', async() => {
         const id = await osWebLoader.getBookIdFromSlug('asdf');
-        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id&slug=asdf');
+        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&slug=asdf');
         expect(id).toEqual('qwer');
       });
     });
@@ -73,8 +73,40 @@ describe('archiveLoader', () => {
 
     it('gets book slug', async() => {
       const slug = await osWebLoader.getBookSlugFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id&cnx_id=qwer');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&cnx_id=qwer');
       expect(slug).toEqual('asdf');
+    });
+  });
+
+  describe('getBookFromSlug', () => {
+    const book = {cnx_id: 'qwer', meta: {slug: 'asdf'}};
+    beforeEach(() => {
+      (global as any).fetch = mockFetch(200, {
+        items: [book],
+        meta: {item_count: 1},
+      });
+    });
+
+    it('gets book', async() => {
+      const result = await osWebLoader.getBookFromSlug('asdf');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&slug=asdf');
+      expect(result).toEqual(book);
+    });
+  });
+
+  describe('getBookFromId', () => {
+    const book = {cnx_id: 'qwer', meta: {slug: 'asdf'}};
+    beforeEach(() => {
+      (global as any).fetch = mockFetch(200, {
+        items: [book],
+        meta: {item_count: 1},
+      });
+    });
+
+    it('gets book', async() => {
+      const result = await osWebLoader.getBookFromId('qwer');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&cnx_id=qwer');
+      expect(result).toEqual(book);
     });
   });
 });
