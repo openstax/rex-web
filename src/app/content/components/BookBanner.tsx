@@ -45,6 +45,7 @@ const BookTitle = styled.a`
   font-weight: normal;
   display: flex;
   align-items: center;
+  white-space: nowrap;
   text-overflow: ellipsis;
   margin: 0;
   text-decoration: none;
@@ -59,17 +60,17 @@ const BookChapter = styled.h1`
   ${h3Style}
   ${bookBannerTextStyle}
   font-weight: bold;
-  display: inline-block;
+  display: block;
   margin: 1rem 0 0 0;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   ${theme.breakpoints.mobile(css`
+    white-space: normal;
+    max-height: 4.4rem;
     line-height: 2.2rem;
     margin-top: 0.3rem;
-    -webkit-line-clamp: 2;
   `)}
 `;
 
