@@ -93,7 +93,14 @@ export class BookBanner extends Component<PropTypes> {
   public chapter: undefined | Element;
 
   public componentDidMount() {
-    setInterval(this.setTruncation.bind(this), 100);
+    if (!window) {
+      return;
+    }
+    window.addEventListener('resize', this.setTruncation.bind(this));
+  }
+
+  public componentDidUpdate() {
+    this.setTruncation();
   }
 
   public isTruncated(chapter: undefined | Element): chapter is Element {
@@ -101,22 +108,23 @@ export class BookBanner extends Component<PropTypes> {
   }
 
   public setTruncation() {
-    if (this.isTruncated(this.chapter)) {
-      const title = this.chapter.querySelector('.os-text');
-      if (!title) {
-        return;
-      }
+    if (!this.chapter) {
+      return;
+    }
+    const title = this.chapter.querySelector('.os-text');
+    if (!title) {
+      return;
+    }
 
-      const unTruncated = title.hasAttribute('data-untruncated')
-        ? title.getAttribute('data-untruncated')
-        : title.textContent;
+    const unTruncated = title.hasAttribute('data-untruncated')
+      ? title.getAttribute('data-untruncated')
+      : title.textContent;
 
-      title.setAttribute('data-untruncated', unTruncated || '');
-      title.textContent = unTruncated + '...';
+    title.setAttribute('data-untruncated', unTruncated || '');
+    title.textContent = unTruncated || '';
 
-      while (this.isTruncated(this.chapter)) {
-        title.textContent = title.textContent.slice(0, -4) + '...';
-      }
+    while (this.isTruncated(this.chapter)) {
+      title.textContent = title.textContent.slice(0, -4) + '...';
     }
   }
 
