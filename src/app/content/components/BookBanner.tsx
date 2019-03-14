@@ -1,3 +1,4 @@
+import { Element } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -59,17 +60,13 @@ const BookChapter = styled.h1`
   ${h3Style}
   ${bookBannerTextStyle}
   font-weight: bold;
-  display: inline-block;
   margin: 1rem 0 0 0;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
 
   ${theme.breakpoints.mobile(css`
+    max-height: 4.4rem;
     line-height: 2.2rem;
     margin-top: 0.3rem;
-    -webkit-line-clamp: 2;
   `)}
 `;
 
@@ -93,6 +90,42 @@ const BarWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export class BookBanner extends Component<PropTypes> {
+  public chapter: undefined | Element;
+
+  public componentDidMount() {
+    setInterval(this.setTruncation.bind(this), 100);
+  }
+
+  public isTruncated(chapter: undefined | Element): chapter is Element {
+    return chapter !== undefined && chapter.scrollHeight > chapter.clientHeight;
+  }
+
+  public setTruncation() {
+    const {page, book} = this.props;
+
+    if (!book || !page) {
+      return null;
+    }
+
+    const treeSection = findArchiveTreeSection(book, page.id);
+    if (treeSection && this.chapter) {
+      this.chapter.innerHTML = treeSection.title;
+    }
+
+    if (this.isTruncated(this.chapter)) {
+      const title = this.chapter.querySelector('.os-text');
+      if (!title) {
+        return;
+      }
+
+      title.textContent = title.textContent + '...';
+
+      while (this.isTruncated(this.chapter)) {
+        title.textContent = title.textContent.slice(0, -4) + '...';
+      }
+    }
+  }
+
   public render() {
     const {page, book} = this.props as PropTypes;
 
@@ -110,7 +143,10 @@ export class BookBanner extends Component<PropTypes> {
     return <BarWrapper>
       <TopBar>
         <BookTitle href={bookUrl}><LeftArrow/>{book.tree.title}</BookTitle>
-        <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
+        <BookChapter
+          ref={(ref: any) => this.chapter = ref}
+          dangerouslySetInnerHTML={{__html: treeSection.title}}
+        ></BookChapter>
       </TopBar>
     </BarWrapper>;
   }
