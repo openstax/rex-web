@@ -36,23 +36,29 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  width: 100%;
   max-width: 87rem;
   padding: 0;
   color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-weight: normal;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  text-overflow: ellipsis;
-  margin: 0;
   -webkit-text-decoration: none;
   text-decoration: none;
+  margin: 0;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c5 {
@@ -66,21 +72,19 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   letter-spacing: -0.04rem;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
-  width: 100%;
   max-width: 87rem;
   padding: 0;
   color: #fff;
-  font-weight: bold;
-  display: inline-block;
-  margin: 1rem 0 0 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  font-weight: bold;
+  display: block;
+  margin: 1rem 0 0 0;
 }
 
 .c0 {
-  padding: 0 13.5rem;
+  padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
   display: -webkit-box;
   display: -webkit-flex;
@@ -115,9 +119,13 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 
 @media (max-width:64em) {
   .c5 {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4.4rem;
     line-height: 2.2rem;
     margin-top: 0.3rem;
-    -webkit-line-clamp: 2;
   }
 }
 
