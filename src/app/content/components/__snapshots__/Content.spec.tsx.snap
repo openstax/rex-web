@@ -69,15 +69,14 @@ Array [
   -webkit-text-decoration: none;
   text-decoration: none;
   font-weight: bold;
-  color: #5E6062;
+  color: #5e6062;
   padding: 1rem 0;
-  height: 5rem;
-  overflow: visible;
 }
 
 .c3:hover,
 .c3:active,
 .c3:focus {
+  padding-bottom: 0.6rem;
   border-bottom: 0.4rem solid #63a524;
 }
 
@@ -101,13 +100,19 @@ Array [
 @media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
-    line-height: 1.6rem;
+    line-height: 2rem;
   }
 }
 
 @media (max-width:64em) {
   .c3 {
-    height: 3.6rem;
+    padding: 0.7rem 0;
+  }
+
+  .c3:hover,
+  .c3:active,
+  .c3:focus {
+    padding-bottom: 0.3rem;
   }
 }
 
@@ -317,7 +322,6 @@ Array [
   width: 100%;
   max-width: 117rem;
   margin: 0 auto;
-  text-align: left;
 }
 
 .c3 {
@@ -446,21 +450,21 @@ Array [
 .c15 {
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: #5E6062;
 }
 
 .c18 {
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: #5E6062;
 }
 
 .c10 {
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: #5E6062;
 }
 
@@ -632,19 +636,14 @@ Array [
 @media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
-    line-height: 1.6rem;
-  }
-}
-
-@media (max-width:64em) {
-  .c3 {
-    line-height: 2.5rem;
+    line-height: 2rem;
   }
 }
 
 @media (max-width:64em) {
   .c6 {
     font-size: 1.6rem;
+    line-height: 2rem;
   }
 }
 
@@ -654,8 +653,7 @@ Array [
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    max-height: 4.4rem;
-    line-height: 2.2rem;
+    max-height: 4rem;
     margin-top: 0.3rem;
   }
 }
@@ -1192,15 +1190,14 @@ Array [
   -webkit-text-decoration: none;
   text-decoration: none;
   font-weight: bold;
-  color: #5E6062;
+  color: #5e6062;
   padding: 1rem 0;
-  height: 5rem;
-  overflow: visible;
 }
 
 .c3:hover,
 .c3:active,
 .c3:focus {
+  padding-bottom: 0.6rem;
   border-bottom: 0.4rem solid #63a524;
 }
 
@@ -1224,13 +1221,19 @@ Array [
 @media (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
-    line-height: 1.6rem;
+    line-height: 2rem;
   }
 }
 
 @media (max-width:64em) {
   .c3 {
-    height: 3.6rem;
+    padding: 0.7rem 0;
+  }
+
+  .c3:hover,
+  .c3:active,
+  .c3:focus {
+    padding-bottom: 0.3rem;
   }
 }
 
@@ -1435,21 +1438,21 @@ Array [
 .c9 {
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: #5E6062;
 }
 
 .c12 {
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: #5E6062;
 }
 
 .c4 {
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: #5E6062;
 }
 

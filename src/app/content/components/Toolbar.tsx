@@ -1,4 +1,5 @@
 import React, { SFC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { Print } from 'styled-icons/fa-solid/Print';
@@ -6,6 +7,7 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { maxNavWidth } from '../../components/NavBar';
 import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
+import { assertString } from '../../utils';
 import SidebarControl from './SidebarControl';
 
 const iconColor = '#5E6062';
@@ -141,19 +143,22 @@ const BarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const Toolbar: SFC = ({children}) => <BarWrapper>
+const Toolbar: SFC = () => <BarWrapper>
   <TopBar>
     <ToCButtonWrapper>
       <ListIcon/><ToCButton>Table of contents</ToCButton>
     </ToCButtonWrapper>
     <SearchPrintWrapper>
-      <SearchInputWrapper>
-        <SearchIcon /><SearchInput placeholder='Search this book'></SearchInput>
-      </SearchInputWrapper>
-      <PrintOptWrapper><PrintIcon /><PrintOptions>Print options</PrintOptions></PrintOptWrapper>
+      <FormattedMessage id='i18n:toolbar:search:placeholder'>
+        {(msg: Element | string) => <SearchInputWrapper>
+          <SearchIcon /><SearchInput placeholder={assertString(msg, 'placeholder must be a string')}></SearchInput>
+        </SearchInputWrapper>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:toolbar:print:text'>
+        {(msg: Element | string) => <PrintOptWrapper><PrintIcon /><PrintOptions>{msg}</PrintOptions></PrintOptWrapper>}
+      </FormattedMessage>
     </SearchPrintWrapper>
   </TopBar>
-  {children}
 </BarWrapper>;
 
 export default Toolbar;

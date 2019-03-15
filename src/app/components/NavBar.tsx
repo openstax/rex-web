@@ -1,8 +1,10 @@
 import React, { SFC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
+import { assertString } from '../utils';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
@@ -73,8 +75,14 @@ const BarWrapper = styled.div`
 const NavigationBar: SFC = ({}) =>
   <BarWrapper>
     <TopBar>
-      <LogoLink href='/'><HeaderImage src={openstaxLogo} alt='OpenStax Logo' /></LogoLink>
-      <LoginTxt href='https://accounts-dev.openstax.org/login'>Login</LoginTxt>
+      <FormattedMessage id='i18n:nav:logo:alt'>
+        {(msg: Element | string) => <LogoLink href='/'>
+          <HeaderImage src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
+        </LogoLink>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:nav:login:text'>
+        {(msg: Element | string) => <LoginTxt href='https://accounts-dev.openstax.org/login'>{msg}</LoginTxt>}
+      </FormattedMessage>
     </TopBar>
   </BarWrapper>;
 
