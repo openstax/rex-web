@@ -1,15 +1,12 @@
 import { css, InterpolationValue } from 'styled-components';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
-// TODO - as more styles are developed, try to centralize some configurations in this theme:
-//  - font faces and sizes. headings, buttons, other text elements share a lot of this
 export interface ColorSet {
   base: string;
   darker: string;
   darkest: string;
   foreground: string;
 }
-
 const textColors = {
   default: '#424242',
   label: '#6f6f6f',
@@ -18,7 +15,7 @@ const textColors = {
 
 const padding = {
   page: {
-    desktop: '13.5',
+    desktop: '3.2',
     mobile: '1.6',
   },
 };
