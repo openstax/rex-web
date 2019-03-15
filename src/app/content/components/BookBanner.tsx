@@ -68,6 +68,10 @@ const BookChapter = styled.h1`
 
   ${theme.breakpoints.mobile(css`
     white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
     max-height: 4.4rem;
     line-height: 2.2rem;
     margin-top: 0.3rem;
