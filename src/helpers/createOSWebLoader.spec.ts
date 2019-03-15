@@ -31,7 +31,7 @@ describe('osWebLoader', () => {
 
       it('gets book id', async() => {
         const id = await osWebLoader.getBookIdFromSlug('asdf');
-        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&slug=asdf');
+        expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date,cover_color&slug=asdf');
         expect(id).toEqual('qwer');
       });
     });
@@ -73,7 +73,7 @@ describe('osWebLoader', () => {
 
     it('gets book slug', async() => {
       const slug = await osWebLoader.getBookSlugFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&cnx_id=qwer');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date,cover_color&cnx_id=qwer');
       expect(slug).toEqual('asdf');
     });
   });
@@ -89,7 +89,7 @@ describe('osWebLoader', () => {
 
     it('gets book', async() => {
       const result = await osWebLoader.getBookFromSlug('asdf');
-      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&slug=asdf');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date,cover_color&slug=asdf');
       expect(result).toEqual(book);
     });
   });
@@ -105,7 +105,7 @@ describe('osWebLoader', () => {
 
     it('gets book', async() => {
       const result = await osWebLoader.getBookFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date&cnx_id=qwer');
+      expect(fetch).toHaveBeenCalledWith('url/?type=books.Book&fields=cnx_id,authors,publish_date,cover_color&cnx_id=qwer');
       expect(result).toEqual(book);
     });
   });

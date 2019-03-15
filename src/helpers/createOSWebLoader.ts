@@ -1,4 +1,5 @@
 import memoize from 'lodash/fp/memoize';
+import { Book } from '../app/content/types';
 import { acceptStatus } from './fetch';
 
 export interface OSWebBook {
@@ -11,6 +12,7 @@ export interface OSWebBook {
       name: string;
     }
   }>;
+  cover_color: Book['theme'];
   cnx_id: string;
 }
 
@@ -39,7 +41,7 @@ export default (url: string) => {
       .then(firstRecord)
   );
 
-  const fields = 'cnx_id,authors,publish_date';
+  const fields = 'cnx_id,authors,publish_date,cover_color';
   const slugLoader = loader((slug: string) => fetch(`${url}?type=books.Book&fields=${fields}&slug=${slug}`));
   const idLoader = loader((id: string) => fetch(`${url}?type=books.Book&fields=${fields}&cnx_id=${id}`));
 

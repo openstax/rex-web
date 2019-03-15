@@ -6,6 +6,7 @@ import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style } from '../../components/Typography';
 import theme from '../../theme';
+import { ColorPair } from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
@@ -77,17 +78,17 @@ const BookChapter = styled.h1`
   `)}
 `;
 
-const blue = `${theme.color.primary.blue.base}`;
-const color = Color(blue).lighten(0.7);
-
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div`
+const BarWrapper = styled.div<{theme: ColorPair}>`
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   height: ${bookBannerDesktopHeight}rem;
-  background: linear-gradient(to right, ${blue}, ${color.hex()});
+
+  ${(props) => css`
+    background: linear-gradient(to right, ${props.theme.base}, ${Color(props.theme.base).lighten(0.7).hex()});
+  `}
 
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
@@ -111,7 +112,7 @@ export class BookBanner extends Component<PropTypes> {
       return null;
     }
 
-    return <BarWrapper>
+    return <BarWrapper theme={theme.color.primary[book.theme]}>
       <TopBar>
         <BookTitle href={bookUrl}><LeftArrow/>{book.tree.title}</BookTitle>
         <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
