@@ -36,6 +36,13 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     padding-inline-start: 10px;
   }
 
+  display: flex;
+  flex-direction: column;
+
+  > nav {
+    flex: 1;
+  }
+
   > * {
     transition: all ${sidebarTransitionTime}ms;
     visibility: visible;
