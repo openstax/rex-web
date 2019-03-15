@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate, setMobileViewport, setDesktopViewport } from '../../../test/browserutils';
+import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
