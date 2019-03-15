@@ -32,10 +32,12 @@ const TopBar = styled.div`
 `;
 
 const bookBannerTextStyle = css`
-  width: 100%;
   max-width: 87rem;
   padding: 0;
   color: ${theme.color.primary.blue.foreground};
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -43,10 +45,8 @@ const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
   font-weight: normal;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   text-decoration: none;
   margin: 0;
 
@@ -66,9 +66,6 @@ const BookChapter = styled.h1`
   font-weight: bold;
   display: block;
   margin: 1rem 0 0 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 
   ${theme.breakpoints.mobile(css`
     white-space: normal;
