@@ -4,18 +4,22 @@ import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
 
+export const maxNavWidth = 117;
+export const navDesktopHeight = 5;
+export const navMobileHeight = 3.6;
+
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
-  max-width: 117rem;
+  height: ${navDesktopHeight}rem;
+  max-width: ${maxNavWidth}rem;
   background: ${theme.color.neutral.base};
   margin: 0 auto;
 
   ${theme.breakpoints.mobile(css`
-    height: 3.6rem;
+    height: ${navMobileHeight}rem;
   `)}
 `;
 
@@ -38,18 +42,13 @@ const LoginTxt = styled.a`
   ${h4Style}
   text-decoration: none;
   font-weight: bold;
-  color: #5E6062;
+  color: ${theme.color.primary.gray.base};
   padding: 1rem 0;
-  height: 5rem;
-  overflow: visible;
 
   :hover, :active, :focus {
-    border-bottom: 0.4rem solid #63a524;
+    padding-bottom: 0.6rem;
+    border-bottom: 0.4rem solid ${theme.color.primary.green.base};
   }
-
-  ${theme.breakpoints.mobile(css`
-    height: 3.6rem;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
