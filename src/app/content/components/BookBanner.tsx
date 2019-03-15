@@ -47,8 +47,12 @@ const BookTitle = styled.a`
   align-items: center;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin: 0;
   text-decoration: none;
+  margin: 0;
+
+  :hover {
+    text-decoration: underline;
+  }
 
   ${theme.breakpoints.mobile(css`
     line-height: 2.5rem;
