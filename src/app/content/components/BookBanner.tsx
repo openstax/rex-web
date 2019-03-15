@@ -3,12 +3,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
-import { h3Style, h4Style } from '../../components/Typography';
+import { maxNavWidth } from '../../components/NavBar';
+import { h3MobileLineHeight, h3Style, h4Style } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { bookDetailsUrl, findArchiveTreeSection } from '../utils';
+
+export const bookBannerDesktopHeight = 13;
+export const bookBannerMobileHeight = 10.4;
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
@@ -26,9 +30,8 @@ interface PropTypes {
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   width: 100%;
-  max-width: 117rem;
+  max-width: ${maxNavWidth}rem;
   margin: 0 auto;
-  text-align: left;
 `;
 
 const bookBannerTextStyle = css`
@@ -53,10 +56,6 @@ const BookTitle = styled.a`
   :hover {
     text-decoration: underline;
   }
-
-  ${theme.breakpoints.mobile(css`
-    line-height: 2.5rem;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -73,8 +72,7 @@ const BookChapter = styled.h1`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 
-    max-height: 4.4rem;
-    line-height: 2.2rem;
+    max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
   `)}
 `;
@@ -88,12 +86,12 @@ const BarWrapper = styled.div`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  height: 13rem;
+  height: ${bookBannerDesktopHeight}rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
 
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
-    height: 10.4rem;
+    height: ${bookBannerMobileHeight}rem;
   `)}
 `;
 

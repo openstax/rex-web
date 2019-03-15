@@ -49,6 +49,14 @@ const LoginTxt = styled.a`
     padding-bottom: 0.6rem;
     border-bottom: 0.4rem solid ${theme.color.primary.green.base};
   }
+
+  ${theme.breakpoints.mobile(css`
+    padding: 0.7rem 0;
+
+    :hover, :active, :focus {
+      padding-bottom: 0.3rem;
+    }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
