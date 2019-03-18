@@ -5,12 +5,14 @@ import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { Match } from '../../navigation/types';
 import { AppServices, AppState, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
 import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
 import { State } from '../types';
+import { formatBookData } from '../utils';
 
 describe('locationChange', () => {
   let localState: State;
@@ -65,7 +67,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    localState.book = cloneDeep({...book, slug: 'book', publish_date: '', authors: []});
+    localState.book = cloneDeep({...formatBookData(book, mockCmsBook), slug: 'book'});
     await hook(payload);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
@@ -267,12 +269,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t call osweb if book slug is already known', async() => {
-    localState.book = {
-      ...book,
-      authors: [],
-      publish_date: '',
-      slug: 'book-slug-1',
-    };
+    localState.book = formatBookData(book, mockCmsBook);
     await hook(payload);
     expect(helpers.osWebLoader.getBookIdFromSlug).not.toHaveBeenCalled();
   });
