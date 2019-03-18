@@ -65,7 +65,7 @@ FROM slim as built
 ARG PUBLIC_URL
 ARG REACT_APP_CODE_VERSION
 ARG REACT_APP_RELEASE_ID
-ARG REACT_APP_BOOKS="{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"},\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\":{\"defaultVersion\":\"11.6\"}}"
+ARG REACT_APP_BOOKS="{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"},\"8d50a0af-948b-4204-a71d-4826cba765b8\":{\"defaultVersion\":\"15.3\"}}"
 
 ENV PUBLIC_URL=$PUBLIC_URL
 ENV REACT_APP_CODE_VERSION=$REACT_APP_CODE_VERSION
