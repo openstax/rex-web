@@ -14,7 +14,7 @@ exports[`Notifications matches snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -43,7 +43,7 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 .c4 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -89,7 +89,7 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 .c3 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
