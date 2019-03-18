@@ -1,21 +1,27 @@
 import React, { SFC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
+import { assertString } from '../utils';
+
+export const maxNavWidth = 117;
+export const navDesktopHeight = 5;
+export const navMobileHeight = 3.6;
 
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
-  max-width: 117rem;
+  height: ${navDesktopHeight}rem;
+  max-width: ${maxNavWidth}rem;
   background: ${theme.color.neutral.base};
   margin: 0 auto;
 
   ${theme.breakpoints.mobile(css`
-    height: 3.6rem;
+    height: ${navMobileHeight}rem;
   `)}
 `;
 
@@ -38,17 +44,20 @@ const LoginTxt = styled.a`
   ${h4Style}
   text-decoration: none;
   font-weight: bold;
-  color: #5E6062;
+  color: ${theme.color.primary.gray.base};
   padding: 1rem 0;
-  height: 5rem;
-  overflow: visible;
 
   :hover, :active, :focus {
-    border-bottom: 0.4rem solid #63a524;
+    padding-bottom: 0.6rem;
+    border-bottom: 0.4rem solid ${theme.color.primary.green.base};
   }
 
   ${theme.breakpoints.mobile(css`
-    height: 3.6rem;
+    padding: 0.7rem 0;
+
+    :hover, :active, :focus {
+      padding-bottom: 0.3rem;
+    }
   `)}
 `;
 
@@ -66,8 +75,14 @@ const BarWrapper = styled.div`
 const NavigationBar: SFC = ({}) =>
   <BarWrapper>
     <TopBar>
-      <LogoLink href='/'><HeaderImage src={openstaxLogo} alt='OpenStax Logo' /></LogoLink>
-      <LoginTxt href='https://accounts-dev.openstax.org/login'>Login</LoginTxt>
+      <FormattedMessage id='i18n:nav:logo:alt'>
+        {(msg: Element | string) => <LogoLink href='/'>
+          <HeaderImage src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
+        </LogoLink>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:nav:login:text'>
+        {(msg: Element | string) => <LoginTxt href='https://accounts-dev.openstax.org/login'>{msg}</LoginTxt>}
+      </FormattedMessage>
     </TopBar>
   </BarWrapper>;
 

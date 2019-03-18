@@ -1,12 +1,12 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate } from '../../../test/browserutils';
+import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 
 describe('BookBanner', () => {
   it('renders correctly when title fits one line on mobile', async() => {
-    page.setViewport({height: 731, width: 411});
+    setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
@@ -26,7 +26,7 @@ describe('BookBanner', () => {
   });
 
   it('renders correctly when title fits two lines without truncation on mobile', async() => {
-    page.setViewport({height: 731, width: 411});
+    setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
@@ -46,7 +46,7 @@ describe('BookBanner', () => {
   });
 
   it('renders correctly when title truncates after two lines on mobile', async() => {
-    page.setViewport({height: 731, width: 411});
+    setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
@@ -68,6 +68,7 @@ describe('BookBanner', () => {
   });
 
   it('renders correctly when title fits without truncation on desktop', async() => {
+    setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
@@ -88,6 +89,7 @@ describe('BookBanner', () => {
   });
 
   it('renders correctly when title truncates after one line on desktop', async() => {
+    setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');

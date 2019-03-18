@@ -1,9 +1,12 @@
 import React, { SFC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
-import { textRegularStyle } from '../../components/Typography';
+import { maxNavWidth } from '../../components/NavBar';
+import { textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
+import { assertString } from '../../utils';
 import SidebarControl from './SidebarControl';
 
 export const toolbarIconColor = '#5E6062';
@@ -11,9 +14,12 @@ export const toolbarIconColor = '#5E6062';
 export const toolbarIconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
-  margin-right: 0.7rem;
+  margin-right: 0.5rem;
   color: ${toolbarIconColor};
 `;
+
+export const toolbarDesktopHeight = 5;
+export const toolbarMobileHeight = 4;
 
 // tslint:disable-next-line:variable-name
 const SearchIcon = styled(Search)`
@@ -27,8 +33,8 @@ const PrintIcon = styled(Print)`
 
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
-  height: 5rem;
-  max-width: 117rem;
+  height: ${toolbarDesktopHeight}rem;
+  max-width: ${maxNavWidth}rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -36,7 +42,7 @@ const TopBar = styled.div`
   overflow: visible;
 
   ${theme.breakpoints.mobile(css`
-    height: 4rem;
+    height: ${toolbarMobileHeight}rem;
   `)}
 `;
 
@@ -57,7 +63,7 @@ const SearchInputWrapper = styled.div`
 const SearchInput = styled.input`
   ${textRegularStyle}
   color: ${theme.color.text.default};
-  height: 2.5rem;
+  height: ${textRegularLineHeight}rem;
   border: none;
   outline: none;
 
@@ -110,17 +116,20 @@ const BarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const NavigationBar: SFC = ({children}) => <BarWrapper>
+const Toolbar: SFC = () => <BarWrapper>
   <TopBar>
     <SidebarControl />
     <SearchPrintWrapper>
-      <SearchInputWrapper>
-        <SearchIcon /><SearchInput placeholder='Search this book'></SearchInput>
-      </SearchInputWrapper>
-      <PrintOptWrapper><PrintIcon /><PrintOptions>Print options</PrintOptions></PrintOptWrapper>
+      <FormattedMessage id='i18n:toolbar:search:placeholder'>
+        {(msg: Element | string) => <SearchInputWrapper>
+          <SearchIcon /><SearchInput placeholder={assertString(msg, 'placeholder must be a string')}></SearchInput>
+        </SearchInputWrapper>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:toolbar:print:text'>
+        {(msg: Element | string) => <PrintOptWrapper><PrintIcon /><PrintOptions>{msg}</PrintOptions></PrintOptWrapper>}
+      </FormattedMessage>
     </SearchPrintWrapper>
   </TopBar>
-  {children}
 </BarWrapper>;
 
-export default NavigationBar;
+export default Toolbar;

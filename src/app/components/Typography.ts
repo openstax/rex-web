@@ -20,9 +20,10 @@ export const linkStyle = css`
   }
 `;
 
+export const textRegularLineHeight = 2.5;
 export const textRegularSize = css`
   font-size: 1.6rem;
-  line-height: 2.5rem;
+  line-height: ${textRegularLineHeight}rem;
 `;
 
 export const textRegularStyle = css`
@@ -55,10 +56,13 @@ export const H2 = styled.h2`
   ${headingStyle('3.6rem', '4rem', '2rem')}
 `;
 
+export const h3MobileFontSize = 1.6;
+export const h3MobileLineHeight = 2;
 export const h3Style = css`
   ${headingStyle('2.4rem', '3rem', '1.5rem')}
   ${theme.breakpoints.mobile(css`
-    font-size: 1.6rem;
+    font-size: ${h3MobileFontSize}rem;
+    line-height: ${h3MobileLineHeight}rem;
   `)}
 `;
 
@@ -66,10 +70,12 @@ export const H3 = styled.h3`
   ${h3Style}
 `;
 
+export const h4MobileFontSize = 1.6;
+export const h4MobileLineHeight = 2;
 export const h4Style = css`
   ${headingStyle('1.8rem', '2.5rem', '1rem')}
   ${theme.breakpoints.mobile(css`
-    font-size: 1.6rem;
-    line-height: 1.6rem;
+    font-size: ${h4MobileFontSize}rem;
+    line-height: ${h4MobileLineHeight}rem;
   `)}
 `;
