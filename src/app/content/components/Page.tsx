@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
+import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
@@ -88,7 +89,7 @@ export class PageComponent extends Component<PropTypes> {
 
   public render() {
     return <BookStyles>
-      {(className: string) => <div className={[this.props.className, className].join(' ')}>
+      {(className: string) => <MainContent className={[this.props.className, className].join(' ')}>
         <div data-type='chapter'>
           <div
             data-type='page'
@@ -96,7 +97,7 @@ export class PageComponent extends Component<PropTypes> {
             dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
           />
         </div>
-      </div>}
+      </MainContent>}
     </BookStyles>;
   }
 
@@ -170,8 +171,6 @@ export const contentTextStyle = css`
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
-  padding-top: 1.6rem;
-  padding-bottom: 0;
 
   // these are only here because the cnx-recipes styles are broken
   overflow: visible;

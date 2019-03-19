@@ -15,7 +15,8 @@ import ContentLink from './ContentLink';
 import SidebarControl from './SidebarControl';
 import { toolbarDesktopHeight, toolbarMobileHeight } from './Toolbar';
 
-export const sidebarWidth = 33.5;
+export const sidebarDesktopWidth = 33.5;
+export const sidebarMobileWidth = 28.8;
 export const sidebarTransitionTime = 300;
 
 const sidebarPadding = 1;
@@ -24,7 +25,7 @@ const sidebarPadding = 1;
 const SidebarBody = styled.div<{isOpen: boolean}>`
   position: sticky;
   top: ${bookBannerDesktopHeight}rem;
-  margin-top: -${toolbarDesktopHeight + theme.padding.page.desktop}rem;
+  margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
   transition: transform ${sidebarTransitionTime}ms,
@@ -34,10 +35,11 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
 
   margin-left: -50vw;
   padding-left: 50vw;
-  width: calc(50vw + ${sidebarWidth}rem);
+  width: calc(50vw + ${sidebarDesktopWidth}rem);
 
   ${theme.breakpoints.mobile(css`
-    margin-top: -${toolbarMobileHeight + theme.padding.page.mobile}rem;
+    width: calc(50vw + ${sidebarMobileWidth}rem);
+    margin-top: -${toolbarMobileHeight}rem;
     top: ${bookBannerMobileHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
   `)}
@@ -62,8 +64,12 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
 
   ${(props) => !props.isOpen && css`
     overflow-y: hidden;
-    transform: translateX(-${sidebarWidth}rem);
+    transform: translateX(-${sidebarDesktopWidth}rem);
     background-color: transparent;
+
+    ${theme.breakpoints.mobile(css`
+      transform: translateX(-${sidebarMobileWidth}rem);
+    `)}
 
     > * {
       visibility: hidden;

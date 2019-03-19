@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Layout from '../../components/Layout';
 import { bodyCopyRegularStyle, H1 } from '../../components/Typography';
 import { contentWrapperMaxWidth } from '../../content/components/CenteredContent';
+import DisplayNotifications from '../../notifications/components/Notifications';
 import Books from './Books';
 import Notifications from './Notifications';
 import Routes from './Routes';
@@ -17,6 +18,7 @@ const HomeStyle = styled.div`
 
 // tslint:disable-next-line:variable-name
 const Home: React.SFC = () => <Layout>
+  <DisplayNotifications />
   <HomeStyle>
     <H1>REX Developer Homepage</H1>
     <Books />

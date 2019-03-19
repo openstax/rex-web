@@ -1,29 +1,27 @@
 import Color from 'color';
-import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
-import MainContent from '../../components/MainContent';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectors from '../selectors';
 import { bookBannerDesktopHeight } from './BookBanner';
-import { sidebarTransitionTime, sidebarWidth } from './Sidebar';
+import { sidebarDesktopWidth, sidebarMobileWidth, sidebarTransitionTime } from './Sidebar';
 import { toolbarDesktopHeight } from './Toolbar';
 
 // tslint:disable-next-line:variable-name
-const Hoc: React.SFC<{isOpen: boolean}> = (props) => <MainContent {...props} />;
-
-// tslint:disable-next-line:variable-name
-const ContentPane = styled(Hoc)`
+const ContentPane = styled.div<{isOpen: boolean}>`
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
 
   transition: margin-left ${sidebarTransitionTime}ms;
 
   margin-left: 0px;
-
   ${(props) => !props.isOpen && css`
-    margin-left: -${sidebarWidth}rem;
+    margin-left: -${sidebarDesktopWidth}rem;
+
+    ${theme.breakpoints.mobile(css`
+      margin-left: -${sidebarMobileWidth}rem;
+    `)}
   `}
 
   ${(props) => props.isOpen && theme.breakpoints.mobile(css`
@@ -38,7 +36,7 @@ const ContentPane = styled(Hoc)`
       right: 0;
     }
 
-    margin-left: -${sidebarWidth}rem;
+    margin-left: -${sidebarMobileWidth}rem;
   `)}
 
   *:target:before {

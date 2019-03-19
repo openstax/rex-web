@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button, { ButtonGroup } from '../../components/Button';
+import { maxNavWidth } from '../../components/NavBar';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { inlineDisplayBreak } from '../theme';
@@ -42,8 +43,10 @@ const Body = styled.div`
   overflow: visible;
 
   @media (max-width: ${inlineDisplayBreak}) {
-    margin: 0;
-    border-width: 0 0 thin 0;
+    max-width: ${maxNavWidth}rem;
+    margin: 0 auto;
+    box-shadow: none;
+    border: none;
     flex-direction: row;
   }
 

@@ -63,6 +63,8 @@ const LoginTxt = styled.a`
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
+  z-index: 2; /* drop shadow above notifications */
+  position: relative; /* drop shadow above notifications */
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
 
