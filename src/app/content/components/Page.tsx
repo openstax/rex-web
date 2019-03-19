@@ -178,7 +178,7 @@ const StyledPageComponent = styled(PageComponent)`
   overflow: visible;
 
   * {
-   overflow: initial;
+    overflow: initial;
   }
 `;
 

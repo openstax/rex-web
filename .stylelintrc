@@ -3,5 +3,16 @@
   "extends": [
     "stylelint-config-recommended",
     "stylelint-config-styled-components"
-  ]
+  ],
+  "rules": {
+    "block-no-empty": true,
+    "indentation": 2,
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        except: ["first-nested"],
+        ignore: ["after-comment"]
+      }
+    ]
+  }
 }
