@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.a`
   /* Hide the link when it is not focused */
-  clip: rect(1px,1px,1px,1px);
+  clip: rect(1px, 1px, 1px, 1px);
   margin: 0;
   position: absolute;
   left: 0;
