@@ -10,7 +10,6 @@ export default styled.a`
   height: 1px;
   width: 1px;
   overflow: hidden;
-
   text-decoration: none;
 
   /* Show the link when it is focused */

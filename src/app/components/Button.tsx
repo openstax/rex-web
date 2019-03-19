@@ -3,6 +3,7 @@ import theme, { ColorSet } from '../theme';
 import { contentFont } from './Typography';
 
 const applyColor = (color: ColorSet) => `
+
   color: ${color.foreground};
   background-color: ${color.base};
 
@@ -22,10 +23,8 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-family: ${contentFont};
   border-radius: 0.2rem;
-
   ${(props) => props.size === 'large' && `
     font-size: 1.6rem;
     height: 5rem;
