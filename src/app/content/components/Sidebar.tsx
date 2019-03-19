@@ -3,34 +3,42 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page } from '../types';
 import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
+import { bookBannerDesktopHeight, bookBannerMobileHeight } from './BookBanner';
 import ContentLink from './ContentLink';
 import SidebarControl from './SidebarControl';
+import { toolbarDesktopHeight, toolbarMobileHeight } from './Toolbar';
 
 export const sidebarWidth = 33.5;
+
 const sidebarTransitionTime = 300;
 const sidebarPadding = 1;
 
-const topOffset = 18;
-
-// TODO - magic numbers to be replaced in `top`, `height` when ToC gets real styling in openstax/unified#176
 const SidebarBody = styled.div<{isOpen: boolean}>`
-  top: ${topOffset}rem;
-  margin-top: -5rem;
-  height: calc(100vh - ${topOffset}rem);
+  top: ${bookBannerDesktopHeight}rem;
+  margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
-  padding: ${sidebarPadding}rem;
-  transition: all ${sidebarTransitionTime}ms;
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
+  transition: margin-left ${sidebarTransitionTime}ms,
+              background-color ${sidebarTransitionTime}ms;
   background-color: ${theme.color.neutral.darker};
+  z-index: 2; /* stay above book content */
 
   margin-left: -50vw;
-  padding-left: calc(50vw + ${sidebarPadding}rem);
+  padding-left: 50vw;
   width: calc(50vw + ${sidebarWidth}rem);
+
+  ${theme.breakpoints.mobile(css`
+    margin-top: -${toolbarMobileHeight}rem;
+    top: ${bookBannerMobileHeight}rem;
+    height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
+  `)}
 
   ol {
     padding-inline-start: 10px;
@@ -40,6 +48,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   flex-direction: column;
 
   > nav {
+    padding: ${sidebarPadding}rem;
     flex: 1;
   }
 
@@ -51,11 +60,6 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
 
   position: sticky;
 
-  ${theme.breakpoints.mobile(css`
-    // TODO - in here the sidebar should overlap the content
-    position: sticky;
-  `)}
-
   ${(props) => !props.isOpen && css`
     overflow-y: hidden;
     margin-left: calc(-50vw - ${sidebarWidth}rem);
@@ -66,6 +70,17 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
       opacity: 0;
     }
   `}
+`;
+
+const ToCHeader = styled.div`
+  display: flex;
+  align-items: center;
+  height: ${toolbarDesktopHeight}rem;
+  overflow: visible;
+
+  ${theme.breakpoints.mobile(css`
+    height: ${toolbarMobileHeight}rem;
+  `)}
 `;
 
 const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
@@ -113,6 +128,22 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidMount() {
     this.scrollToSelectedPage();
+
+    const sidebar = this.sidebar;
+
+    if (!sidebar || typeof(window) === 'undefined') {
+      return;
+    }
+
+    const scrollHandler = () => {
+      const top = sidebar.getBoundingClientRect().top;
+      sidebar.style.height = `calc(100vh - ${top}px`;
+    };
+
+    const animation = () => requestAnimationFrame(scrollHandler);
+
+    window.addEventListener('scroll', animation, {passive: true});
+    window.addEventListener('resize', animation, {passive: true});
   }
 
   public componentDidUpdate() {
@@ -148,9 +179,9 @@ export class Sidebar extends Component<SidebarProps> {
     </ol>
   </nav>
 
-  private renderTocHeader = () => <div>
+  private renderTocHeader = () => <ToCHeader>
     <SidebarControl />
-  </div>
+  </ToCHeader>
 
   private renderToc = (book: Book) => this.renderTocNode(book, book.tree);
 }

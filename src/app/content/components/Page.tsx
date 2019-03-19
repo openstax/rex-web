@@ -89,7 +89,7 @@ export class PageComponent extends Component<PropTypes> {
 
   public render() {
     return <BookStyles>
-      {(className) => <div className={[this.props.className, className].join(' ')}>
+      {(className: string) => <div className={[this.props.className, className].join(' ')}>
         <div data-type='chapter'>
           <div
             data-type='page'

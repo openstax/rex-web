@@ -7,9 +7,12 @@ import { maxNavWidth } from '../../components/NavBar';
 import { textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertString } from '../../utils';
+import { bookBannerDesktopHeight, bookBannerMobileHeight } from './BookBanner';
 import SidebarControl from './SidebarControl';
 
 export const toolbarIconColor = '#5E6062';
+export const toolbarDesktopHeight = 5;
+export const toolbarMobileHeight = 4;
 
 export const toolbarIconStyles = css`
   height: 1.6rem;
@@ -17,9 +20,6 @@ export const toolbarIconStyles = css`
   margin-right: 0.5rem;
   color: ${toolbarIconColor};
 `;
-
-export const toolbarDesktopHeight = 5;
-export const toolbarMobileHeight = 4;
 
 // tslint:disable-next-line:variable-name
 const SearchIcon = styled(Search)`
@@ -103,14 +103,17 @@ const SearchPrintWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
+  position: sticky;
+  top: ${bookBannerDesktopHeight}rem
   width: 100%;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-  position: relative;  /* to make the drop shadow show over the content */
   display: block;
+  z-index: 2; /* stay above book content */
   background: ${theme.color.neutral.base};
 
   ${theme.breakpoints.mobile(css`
+    top: ${bookBannerMobileHeight}rem
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
 `;
