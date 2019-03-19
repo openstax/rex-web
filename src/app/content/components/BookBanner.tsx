@@ -90,7 +90,7 @@ const BarWrapper = styled.div`
   align-items: center;
   height: ${bookBannerDesktopHeight}rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
-  z-index: 2; /* stay above book content */
+  z-index: 3; /* stay above book content and overlay */
 
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;

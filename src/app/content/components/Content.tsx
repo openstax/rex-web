@@ -4,6 +4,7 @@ import Layout from '../../components/Layout';
 import theme from '../../theme';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
+import CenteredContent from './CenteredContent';
 import ContentPane from './ContentPane';
 import Page from './Page';
 import Sidebar from './Sidebar';
@@ -24,11 +25,13 @@ const Content: React.SFC = () => <Layout>
     <BookBanner/>
     <Toolbar />
     <Wrapper>
-      <Sidebar />
-      <ContentPane>
-        <Page />
-        <Attribution />
-      </ContentPane>
+      <CenteredContent>
+        <Sidebar />
+        <ContentPane>
+          <Page />
+          <Attribution />
+        </ContentPane>
+      </CenteredContent>
     </Wrapper>
   </Background>
 </Layout>;

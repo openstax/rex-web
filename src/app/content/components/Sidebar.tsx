@@ -1,8 +1,8 @@
-// tslint:disable:variable-name
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
+import MobileScrollLock from '../../components/MobileScrollLock';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -16,26 +16,28 @@ import SidebarControl from './SidebarControl';
 import { toolbarDesktopHeight, toolbarMobileHeight } from './Toolbar';
 
 export const sidebarWidth = 33.5;
+export const sidebarTransitionTime = 300;
 
-const sidebarTransitionTime = 300;
 const sidebarPadding = 1;
 
+// tslint:disable-next-line:variable-name
 const SidebarBody = styled.div<{isOpen: boolean}>`
+  position: sticky;
   top: ${bookBannerDesktopHeight}rem;
-  margin-top: -${toolbarDesktopHeight}rem;
+  margin-top: -${toolbarDesktopHeight + theme.padding.page.desktop}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
-  transition: margin-left ${sidebarTransitionTime}ms,
+  transition: transform ${sidebarTransitionTime}ms,
               background-color ${sidebarTransitionTime}ms;
   background-color: ${theme.color.neutral.darker};
-  z-index: 2; /* stay above book content */
+  z-index: 3; /* stay above book content and overlay */
 
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + ${sidebarWidth}rem);
 
   ${theme.breakpoints.mobile(css`
-    margin-top: -${toolbarMobileHeight}rem;
+    margin-top: -${toolbarMobileHeight + theme.padding.page.mobile}rem;
     top: ${bookBannerMobileHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
   `)}
@@ -58,11 +60,9 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     opacity: 1;
   }
 
-  position: sticky;
-
   ${(props) => !props.isOpen && css`
     overflow-y: hidden;
-    margin-left: calc(-50vw - ${sidebarWidth}rem);
+    transform: translateX(-${sidebarWidth}rem);
     background-color: transparent;
 
     > * {
@@ -72,6 +72,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   `}
 `;
 
+// tslint:disable-next-line:variable-name
 const ToCHeader = styled.div`
   display: flex;
   align-items: center;
@@ -83,6 +84,7 @@ const ToCHeader = styled.div`
   `)}
 `;
 
+// tslint:disable-next-line:variable-name
 const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
   ({active, className, children}, ref) => <li
     ref={ref}
@@ -91,6 +93,7 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
   >{children}</li>
 );
 
+// tslint:disable-next-line:variable-name
 const NavItem = styled(NavItemComponent)`
   list-style: none;
   font-size: 1.4rem;
@@ -109,6 +112,7 @@ const NavItem = styled(NavItemComponent)`
 `;
 
 interface SidebarProps {
+  mobileScrollLock: string;
   isOpen: boolean;
   book?: Book;
   page?: Page;
@@ -128,6 +132,7 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidMount() {
     this.scrollToSelectedPage();
+    this.updateMobileScrollLock();
 
     const sidebar = this.sidebar;
 
@@ -148,6 +153,22 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
+    this.updateMobileScrollLock();
+  }
+
+  private updateMobileScrollLock() {
+    if (!this.sidebar || typeof(document) === 'undefined') {
+      return;
+    }
+
+    const lockClasses = this.props.mobileScrollLock.split(' ');
+
+    if (this.props.isOpen) {
+      document.body.classList.add(...lockClasses);
+    } else {
+      document.body.classList.remove(...lockClasses);
+    }
+
   }
 
   private scrollToSelectedPage() {
@@ -186,9 +207,15 @@ export class Sidebar extends Component<SidebarProps> {
   private renderToc = (book: Book) => this.renderTocNode(book, book.tree);
 }
 
+type SidebarConnectedProps = Pick<SidebarProps, Exclude<keyof SidebarProps, 'mobileScrollLock'>>;
+// tslint:disable-next-line:variable-name
+const SidebarWithMobileScrollLock: React.SFC<SidebarConnectedProps> = (props) => <MobileScrollLock>
+  {(className: string) => <Sidebar mobileScrollLock={className} {...props} />}
+</MobileScrollLock>;
+
 export default connect(
   (state: AppState) => ({
     ...selectors.bookAndPage(state),
     isOpen: selectors.tocOpen(state),
   })
-)(Sidebar);
+)(SidebarWithMobileScrollLock);

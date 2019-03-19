@@ -11,7 +11,6 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { content } from '../routes';
@@ -164,9 +163,8 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: 60.2rem
+  max-width: 57rem
   margin: 0 auto;
-  padding: 0 ${theme.padding.page.mobile}rem;
 `;
 
 // tslint:disable-next-line:variable-name

@@ -1,16 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../theme';
 
-export const contentWrapperMaxWidth = 117;
-
 export default styled.div`
+  position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */
   min-height: 100%;
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-
   width: 100%;
-  max-width: ${contentWrapperMaxWidth}rem;
   background-color: ${theme.color.neutral.base};
+
+  padding: ${theme.padding.page.desktop}rem;
+  ${theme.breakpoints.mobile(css`
+    padding: ${theme.padding.page.mobile}rem;
+  `)}
 `;
