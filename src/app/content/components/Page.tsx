@@ -12,6 +12,7 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
+import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { content } from '../routes';
@@ -171,6 +172,10 @@ export const contentTextStyle = css`
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
+  margin-top: ${theme.padding.page.desktop}rem;
+  ${theme.breakpoints.mobile(css`
+    margin-top: ${theme.padding.page.mobile}rem;
+  `)}
 
   // these are only here because the cnx-recipes styles are broken
   overflow: visible;
