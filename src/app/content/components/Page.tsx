@@ -177,11 +177,18 @@ const StyledPageComponent = styled(PageComponent)`
     margin-top: ${theme.padding.page.mobile}rem;
   `)}
 
-  // these are only here because the cnx-recipes styles are broken
-  overflow: hidden;
+  overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
+
+  [data-type="chapter"] [data-type="page"] > h2 {
+    padding-top: 3px;
+  }
+
+  .os-figure, .os-figure:last-child {
+    margin-bottom: 5px; /* fix double scrollbar bug */
+  }
 
   * {
-   overflow: initial;
+   overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }
 `;
 
