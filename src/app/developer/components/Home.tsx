@@ -9,10 +9,10 @@ import Routes from './Routes';
 
 // tslint:disable-next-line:variable-name
 const HomeStyle = styled.div`
- ${bodyCopyRegularStyle}
- max-width: ${contentWrapperMaxWidth}rem;
- margin: 0 auto;
- padding: 1rem;
+  ${bodyCopyRegularStyle}
+  max-width: ${contentWrapperMaxWidth}rem;
+  margin: 0 auto;
+  padding: 1rem;
 `;
 
 // tslint:disable-next-line:variable-name

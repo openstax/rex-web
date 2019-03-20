@@ -163,7 +163,7 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: 60.2rem
+  max-width: 60.2rem;
   margin: 0 auto;
   padding: 0 1.6rem;
 `;
@@ -174,11 +174,11 @@ const StyledPageComponent = styled(PageComponent)`
   padding-top: 1.6rem;
   padding-bottom: 0;
 
-  // these are only here because the cnx-recipes styles are broken
+  /* these are only here because the cnx-recipes styles are broken */
   overflow: visible;
 
   * {
-   overflow: initial;
+    overflow: initial;
   }
 `;
 
