@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Layout from '../../components/Layout';
+import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';
 import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
@@ -26,9 +27,10 @@ const Background = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  top: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
+  top: ${bookBannerDesktopHeight + toolbarDesktopHeight + navDesktopHeight}rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
+    top: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
     ${wrapperPadding}
   }
 `;
@@ -65,8 +67,8 @@ const Content: React.SFC = () => <Layout>
     <Wrapper>
       <CenteredContentRow>
         <Sidebar />
-        <UndoPaddingForContent>
-          <ContentPane>
+        <ContentPane>
+          <UndoPaddingForContent>
             <MainContentWrapper>
               <ContentNotifications />
               <HideOverflowAndRedoPadding>
@@ -74,8 +76,8 @@ const Content: React.SFC = () => <Layout>
               </HideOverflowAndRedoPadding>
               <Attribution />
             </MainContentWrapper>
-          </ContentPane>
-        </UndoPaddingForContent>
+          </UndoPaddingForContent>
+        </ContentPane>
       </CenteredContentRow>
     </Wrapper>
   </Background>

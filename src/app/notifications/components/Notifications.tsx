@@ -23,8 +23,8 @@ const Container = styled.div`
     z-index: 1; /* below the navbar */
     position: sticky;
     border-bottom: thin solid ${theme.color.neutral.darkest};
-    padding: 0 ${theme.padding.page.mobile}rem;
 
+    padding: 0 ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
       padding: 0 ${theme.padding.page.mobile}rem;
     `)}
@@ -37,15 +37,17 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications: SFC<Props> = ({notifications, className}) => <Container className={className}>
-  {notifications.map((notification, index) => {
-    switch (notification.type) {
-      case getType(actions.updateAvailable): {
-        return <UpdatesAvailable key={index} />;
+const Notifications: SFC<Props> = ({notifications, className}) => notifications.length === 0
+  ? null
+  : <Container className={className}>
+    {notifications.map((notification, index) => {
+      switch (notification.type) {
+        case getType(actions.updateAvailable): {
+          return <UpdatesAvailable key={index} />;
+        }
       }
-    }
-  })}
-</Container>;
+    })}
+  </Container>;
 
 export default connect(
   (state: AppState) => ({

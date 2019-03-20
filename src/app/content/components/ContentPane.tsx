@@ -15,7 +15,11 @@ const ContentPane = styled.div<{isOpen: boolean}>`
 
   transition: margin-left ${sidebarTransitionTime}ms;
 
-  margin-left: 0px;
+  margin-left: ${theme.padding.page.desktop}rem;
+  ${theme.breakpoints.mobile(css`
+    margin-left: ${theme.padding.page.mobile}rem;
+  `)}
+
   ${(props) => !props.isOpen && css`
     margin-left: -${sidebarDesktopWidth}rem;
 
