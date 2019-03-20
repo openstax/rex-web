@@ -14,6 +14,7 @@ import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page';
+import { wrapperPadding } from './Wrapper';
 
 if (typeof(document) !== 'undefined') {
   import('details-polyfill');
@@ -41,7 +42,8 @@ const Details = styled.details`
   box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
   min-height: 6rem;
-  padding: 1.8rem 0 0 0;
+  ${wrapperPadding}
+  padding-top: 1.8rem;
 
   > ${Summary} {
     margin-bottom: 1.8rem;
@@ -49,7 +51,7 @@ const Details = styled.details`
 
   ${theme.breakpoints.mobile(css`
     min-height: 4rem;
-    padding: 0.8rem 0 0 0;
+    padding-top: 0.8rem;
 
     > ${Summary} {
       margin-bottom: 0.8rem;
