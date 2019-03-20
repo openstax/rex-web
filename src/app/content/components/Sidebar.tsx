@@ -29,6 +29,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
   transition: transform ${sidebarTransitionTime}ms,
+              box-shadow ${sidebarTransitionTime}ms,
               background-color ${sidebarTransitionTime}ms;
   background-color: ${theme.color.neutral.darker};
   z-index: 3; /* stay above book content and overlay */
@@ -36,9 +37,13 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + ${sidebarDesktopWidth}rem);
+  min-width: calc(50vw + ${sidebarDesktopWidth}rem);
+
+  box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
 
   ${theme.breakpoints.mobile(css`
     width: calc(50vw + ${sidebarMobileWidth}rem);
+    min-width: calc(50vw + ${sidebarMobileWidth}rem);
     margin-top: -${toolbarMobileHeight}rem;
     top: ${bookBannerMobileHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
@@ -65,6 +70,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
   ${(props) => !props.isOpen && css`
     overflow-y: hidden;
     transform: translateX(-${sidebarDesktopWidth}rem);
+    box-shadow: none;
     background-color: transparent;
 
     ${theme.breakpoints.mobile(css`

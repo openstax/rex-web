@@ -11,6 +11,7 @@ import { toolbarDesktopHeight } from './Toolbar';
 // tslint:disable-next-line:variable-name
 const ContentPane = styled.div<{isOpen: boolean}>`
   flex: 1;
+  width: 100%;
   overflow: visible;
 
   transition: margin-left ${sidebarTransitionTime}ms;

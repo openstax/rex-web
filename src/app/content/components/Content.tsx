@@ -44,7 +44,6 @@ const CenteredContentRow = styled(CenteredContent)`
 
 // tslint:disable-next-line:variable-name
 const UndoPaddingForContent = styled(UndoPadding)`
-  flex: 1;
   overflow: visible;
 `;
 
@@ -56,7 +55,6 @@ const MainContentWrapper = styled(CenteredContent)`
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = styled.div`
   ${wrapperPadding}
-  overflow: hidden;
 `;
 
 // tslint:disable-next-line:variable-name

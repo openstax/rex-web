@@ -9,6 +9,6 @@ const Hoc = ({children, className}: {className?: string, children: (className?: 
 export default styled(Hoc)`
 
   ${theme.breakpoints.mobile(css`
-    overflow: hidden;
+    overflow-y: hidden;
   `)}
 `;

@@ -178,7 +178,7 @@ const StyledPageComponent = styled(PageComponent)`
   `)}
 
   // these are only here because the cnx-recipes styles are broken
-  overflow: visible;
+  overflow: hidden;
 
   * {
    overflow: initial;
