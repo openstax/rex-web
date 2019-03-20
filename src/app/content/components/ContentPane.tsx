@@ -4,12 +4,13 @@ import styled, { css } from 'styled-components';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectors from '../selectors';
+import { State } from '../types';
 import { bookBannerDesktopHeight } from './BookBanner';
-import { sidebarDesktopWidth, sidebarMobileWidth, sidebarTransitionTime } from './Sidebar';
+import { sidebarDesktopWidth, sidebarMobileWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
 import { toolbarDesktopHeight } from './Toolbar';
 
 // tslint:disable-next-line:variable-name
-const ContentPane = styled.div<{isOpen: boolean}>`
+const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   flex: 1;
   width: 100%;
   overflow: visible;
@@ -21,13 +22,13 @@ const ContentPane = styled.div<{isOpen: boolean}>`
     margin-left: ${theme.padding.page.mobile}rem;
   `)}
 
-  ${(props) => !props.isOpen && css`
+  ${styleWhenSidebarClosed(css`
     margin-left: -${sidebarDesktopWidth}rem;
 
     ${theme.breakpoints.mobile(css`
       margin-left: -${sidebarMobileWidth}rem;
     `)}
-  `}
+  `)}
 
   ${(props) => props.isOpen && theme.breakpoints.mobile(css`
     :before {

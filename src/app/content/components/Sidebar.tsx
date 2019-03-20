@@ -1,14 +1,14 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
-import { ArchiveTree, Book, Page } from '../types';
+import { ArchiveTree, Book, Page, State } from '../types';
 import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
 import { bookBannerDesktopHeight, bookBannerMobileHeight } from './BookBanner';
 import ContentLink from './ContentLink';
@@ -21,8 +21,29 @@ export const sidebarTransitionTime = 300;
 
 const sidebarPadding = 1;
 
+export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
+  ${(props: {isOpen: State['tocOpen']}) => props.isOpen === null && theme.breakpoints.mobile(closedStyle)}
+  ${(props: {isOpen: State['tocOpen']}) => props.isOpen === false && closedStyle}
+`;
+
+const sidebarClosedStyle = css`
+  overflow-y: hidden;
+  transform: translateX(-${sidebarDesktopWidth}rem);
+  box-shadow: none;
+  background-color: transparent;
+
+  ${theme.breakpoints.mobile(css`
+    transform: translateX(-${sidebarMobileWidth}rem);
+  `)}
+
+  > * {
+    visibility: hidden;
+    opacity: 0;
+  }
+`;
+
 // tslint:disable-next-line:variable-name
-const SidebarBody = styled.div<{isOpen: boolean}>`
+const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   position: sticky;
   top: ${bookBannerDesktopHeight}rem;
   margin-top: -${toolbarDesktopHeight}rem;
@@ -67,21 +88,7 @@ const SidebarBody = styled.div<{isOpen: boolean}>`
     opacity: 1;
   }
 
-  ${(props) => !props.isOpen && css`
-    overflow-y: hidden;
-    transform: translateX(-${sidebarDesktopWidth}rem);
-    box-shadow: none;
-    background-color: transparent;
-
-    ${theme.breakpoints.mobile(css`
-      transform: translateX(-${sidebarMobileWidth}rem);
-    `)}
-
-    > * {
-      visibility: hidden;
-      opacity: 0;
-    }
-  `}
+  ${styleWhenSidebarClosed(sidebarClosedStyle)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -125,7 +132,7 @@ const NavItem = styled(NavItemComponent)`
 
 interface SidebarProps {
   mobileScrollLock: string;
-  isOpen: boolean;
+  isOpen: State['tocOpen'];
   book?: Book;
   page?: Page;
 }
@@ -184,10 +191,6 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   private scrollToSelectedPage() {
-    if (!this.props.isOpen) {
-      return;
-    }
-
     scrollTocSectionIntoView(this.sidebar, this.activeSection);
   }
 
@@ -221,9 +224,10 @@ export class Sidebar extends Component<SidebarProps> {
 
 type SidebarConnectedProps = Pick<SidebarProps, Exclude<keyof SidebarProps, 'mobileScrollLock'>>;
 // tslint:disable-next-line:variable-name
-const SidebarWithMobileScrollLock: React.SFC<SidebarConnectedProps> = (props) => <MobileScrollLock>
-  {(className: string) => <Sidebar mobileScrollLock={className} {...props} />}
-</MobileScrollLock>;
+const SidebarWithMobileScrollLock: React.SFC<SidebarConnectedProps> =
+  (props) => <MobileScrollLock suppressClassNameWarning>
+    {(className: string) => <Sidebar mobileScrollLock={className} {...props} />}
+  </MobileScrollLock>;
 
 export default connect(
   (state: AppState) => ({
