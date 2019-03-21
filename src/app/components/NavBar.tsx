@@ -77,7 +77,7 @@ const NavigationBar: SFC = ({}) =>
     <TopBar>
       <FormattedMessage id='i18n:nav:logo:alt'>
         {(msg: Element | string) => <LogoLink href='/'>
-          <HeaderImage src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
+          <HeaderImage role='img' src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
         </LogoLink>}
       </FormattedMessage>
       <FormattedMessage id='i18n:nav:login:text'>

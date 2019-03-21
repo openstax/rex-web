@@ -10,6 +10,7 @@ import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { bookDetailsUrl, findArchiveTreeSection } from '../utils';
+import { contentTextWidth } from './Page';
 
 export const bookBannerDesktopHeight = 13;
 export const bookBannerMobileHeight = 10.4;
@@ -35,7 +36,7 @@ const TopBar = styled.div`
 `;
 
 const bookBannerTextStyle = css`
-  max-width: 87rem;
+  max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
   padding: 0;
   color: ${theme.color.primary.blue.foreground};
   white-space: nowrap;

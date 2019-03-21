@@ -162,9 +162,10 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
+export const contentTextWidth = 57;
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: 60.2rem;
+  max-width: ${contentTextWidth + theme.padding.page.mobile * 2}rem;
   margin: 0 auto;
   padding: 0 ${theme.padding.page.mobile}rem;
 `;
@@ -172,7 +173,7 @@ export const contentTextStyle = css`
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
-  padding-top: 1.6rem;
+  padding-top: ${theme.padding.page.mobile}rem;
   padding-bottom: 0;
 
   /* these are only here because the cnx-recipes styles are broken */
