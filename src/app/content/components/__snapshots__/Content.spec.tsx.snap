@@ -135,6 +135,7 @@ Array [
         <img
           alt="OpenStax Logo"
           className="c2"
+          role="img"
           src="logo.svg"
         />
       </a>
@@ -1256,6 +1257,7 @@ Array [
         <img
           alt="OpenStax Logo"
           className="c2"
+          role="img"
           src="logo.svg"
         />
       </a>
