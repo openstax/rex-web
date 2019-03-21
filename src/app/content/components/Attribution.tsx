@@ -39,7 +39,7 @@ const Content = styled.div`
 // tslint:disable-next-line:variable-name
 const Details = styled.details`
   ${bodyCopyRegularStyle}
-  box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
   margin: 2rem 0 0 0;
   min-height: 6rem;
   ${wrapperPadding}

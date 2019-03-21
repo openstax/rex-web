@@ -47,9 +47,10 @@ const UndoPaddingForContent = styled(UndoPadding)`
   overflow: visible;
 `;
 
+export const mainContentBackground = '#fdfdfd';
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = styled(CenteredContent)`
-  background-color: ${theme.color.neutral.base};
+  background-color: ${mainContentBackground};
 `;
 
 // tslint:disable-next-line:variable-name

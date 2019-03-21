@@ -23,7 +23,7 @@ const padding = {
 const color = {
   neutral: {
     base: '#fff',
-    darker: '#f1f1f1',
+    darker: '#fafafa',
     darkest: '#e5e5e5',
     foreground: textColors.default,
   },
