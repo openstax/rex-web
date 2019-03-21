@@ -9,7 +9,6 @@ export default styled.div`
   display: flex;
   flex-direction: row;
   margin: 0 auto;
-
   width: 100%;
   max-width: ${contentWrapperMaxWidth}rem;
   background-color: ${theme.color.neutral.base};
