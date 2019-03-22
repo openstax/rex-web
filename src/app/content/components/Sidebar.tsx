@@ -145,7 +145,7 @@ export class Sidebar extends Component<SidebarProps> {
 
   public render() {
     const {isOpen, book} = this.props;
-    return <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref}>
+    return <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref} aria-label='Table of Contents'>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
     </SidebarBody>;

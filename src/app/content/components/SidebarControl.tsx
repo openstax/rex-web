@@ -69,7 +69,7 @@ export const SidebarControl: React.SFC<InnerProps> = ({isOpen, onClick, classNam
   </FormattedMessage>;
 
 // tslint:disable-next-line:variable-name
-const OpenSidebarControl = styled(
+export const OpenSidebarControl = styled(
   (props: MiddleProps) => <SidebarControl {...props} isOpen={false} onClick={props.openToc} />
 )`
   display: none;
@@ -79,7 +79,7 @@ const OpenSidebarControl = styled(
 `;
 
 // tslint:disable-next-line:variable-name
-const CloseSidebarControl = styled(
+export const CloseSidebarControl = styled(
   (props: MiddleProps) => <SidebarControl {...props} isOpen={true} onClick={props.closeToc} />
 )`
   ${styleWhenSidebarClosed(css`

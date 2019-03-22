@@ -21,7 +21,7 @@ describe('content', () => {
 
   it('attribution looks right', async() => {
     await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await page.click('#main-content details');
+    await page.click('details');
     const screen = await fullPageScreenshot(page);
 
     expect(screen).toMatchImageSnapshot({
@@ -35,7 +35,6 @@ describe('content', () => {
   it('looks right on mobile', async() => {
     page.setViewport({height: 731, width: 411});
     await navigate(page, TEST_PAGE_URL);
-    page.click('[aria-label="Click to close the Table of Contents"]');
     await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
@@ -105,10 +104,7 @@ describe('content', () => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const clickTocLink = (href: string) => page.evaluate(async(href) => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
-
-  const link = tocHeader && tocHeader.parentElement && tocHeader.parentElement.querySelector(`[href="${href}"]`);
+  const link = document && document.querySelector(`[aria-label="Table of Contents"] [href="${href}"]`);
 
   if (!link || !document || !window) {
     return false;
@@ -125,12 +121,9 @@ const clickTocLink = (href: string) => page.evaluate(async(href) => {
 }, href);
 
 const getSelectedTocSection = () => page.evaluate(() => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
+  const toc = document && document.querySelector('[aria-label="Table of Contents"]');
 
-  const li = tocHeader && tocHeader.parentElement
-    && tocHeader.parentElement.querySelector('li[aria-label="Current Page"]');
-
+  const li = toc && toc.querySelector('li[aria-label="Current Page"]');
   const a = li && li.querySelector('a');
   const href = a && a.attributes.getNamedItem('href');
 
@@ -138,8 +131,7 @@ const getSelectedTocSection = () => page.evaluate(() => {
 });
 
 const isTocVisible = () => page.evaluate(() => {
-  const element = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
+  const element = document && document.querySelector('[aria-label="Table of Contents"]');
   const style = element && window && window.getComputedStyle(element);
   return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
 });
@@ -149,11 +141,8 @@ const getScrollTop = () => page.evaluate(() => {
 });
 
 const getTocScrollTop = () => page.evaluate(() => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
-
-  return tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement
-    && tocHeader.parentElement.parentElement.scrollTop;
+  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > nav');
+  return scrollyTocNav && scrollyTocNav.scrollTop;
 });
 
 const scrollDown = () => page.evaluate(() => {
@@ -162,10 +151,6 @@ const scrollDown = () => page.evaluate(() => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const scrollTocDown = (px: number) => page.evaluate((px) => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
-
-  const toc = tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement;
-
+  const toc = document && document.querySelector('[aria-label="Table of Contents"] > nav');
   return toc && toc.scrollBy(0, px || toc.scrollHeight);
 }, px);
