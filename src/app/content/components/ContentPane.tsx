@@ -1,12 +1,15 @@
 import Color from 'color';
-import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import theme from '../../theme';
-import { AppState } from '../../types';
-import * as selectors from '../selectors';
 import { State } from '../types';
 import { bookBannerDesktopHeight } from './BookBanner';
-import { sidebarDesktopWidth, sidebarMobileWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
+import {
+  isOpenConnector,
+  sidebarDesktopWidth,
+  sidebarMobileWidth,
+  sidebarTransitionTime,
+  styleWhenSidebarClosed
+} from './Sidebar';
 import { toolbarDesktopHeight } from './Toolbar';
 
 export const mainContentBackground = '#fdfdfd';
@@ -51,8 +54,4 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   }
 `;
 
-export default connect(
-  (state: AppState) => ({
-    isOpen: selectors.tocOpen(state),
-  })
-)(ContentPane);
+export default isOpenConnector(ContentPane);

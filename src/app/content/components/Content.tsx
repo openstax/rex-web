@@ -1,13 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Layout from '../../components/Layout';
 import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';
 import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
-import { AppState } from '../../types';
-import * as selectors from '../selectors';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import { bookBannerDesktopHeight } from './BookBanner';
@@ -16,13 +13,11 @@ import { contentWrapperMaxWidth } from './CenteredContent';
 import ContentPane from './ContentPane';
 import Page from './Page';
 import Sidebar from './Sidebar';
-import { sidebarDesktopWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
+import { isOpenConnector, sidebarDesktopWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
 import Toolbar from './Toolbar';
 import { toolbarDesktopHeight } from './Toolbar';
 import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
-
-const isOpenConnector = connect((state: AppState) => ({isOpen: selectors.tocOpen(state)}));
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
