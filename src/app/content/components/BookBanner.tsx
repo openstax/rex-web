@@ -19,7 +19,6 @@ const LeftArrow = styled(ChevronLeft)`
   height: 3rem;
   width: 3rem;
   color: ${theme.color.neutral.base};
-  margin-right: 0.7rem;
 `;
 
 interface PropTypes {
