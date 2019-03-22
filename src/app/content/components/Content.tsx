@@ -1,21 +1,28 @@
 import React from 'react';
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 import Layout from '../../components/Layout';
 import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';
 import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
+import { AppState } from '../../types';
+import * as selectors from '../selectors';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import { bookBannerDesktopHeight } from './BookBanner';
 import CenteredContent from './CenteredContent';
+import { contentWrapperMaxWidth } from './CenteredContent';
 import ContentPane from './ContentPane';
 import Page from './Page';
 import Sidebar from './Sidebar';
+import { sidebarDesktopWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
 import Toolbar from './Toolbar';
 import { toolbarDesktopHeight } from './Toolbar';
 import Wrapper from './Wrapper';
-import { UndoPadding, wrapperPadding } from './Wrapper';
+import { wrapperPadding } from './Wrapper';
+
+const isOpenConnector = connect((state: AppState) => ({isOpen: selectors.tocOpen(state)}));
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
@@ -43,20 +50,42 @@ const CenteredContentRow = styled(CenteredContent)`
 `;
 
 // tslint:disable-next-line:variable-name
-const UndoPaddingForContent = styled(UndoPadding)`
-  overflow: visible;
-`;
+const UndoPadding = isOpenConnector(styled.div`
+  margin-right: -${theme.padding.page.desktop}rem;
+  ${theme.breakpoints.mobile(css`
+    margin: 0 -${theme.padding.page.mobile}rem;
+  `)}
+
+  ${styleWhenSidebarClosed(css`
+    margin-left: -${theme.padding.page.desktop}rem;
+    ${theme.breakpoints.mobile(css`
+      margin-left: -${theme.padding.page.mobile}rem;
+    `)}
+  `)}
+`);
 
 export const mainContentBackground = '#fdfdfd';
 // tslint:disable-next-line:variable-name
-const MainContentWrapper = styled(CenteredContent)`
+const MainContentWrapper = isOpenConnector(styled.div`
+  overflow: visible;
   background-color: ${mainContentBackground};
-`;
+  transition: max-width ${sidebarTransitionTime}ms;
+
+  max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
+  ${styleWhenSidebarClosed(css`
+    max-width: ${contentWrapperMaxWidth}rem;
+    margin: 0 auto;
+  `)}
+`);
 
 // tslint:disable-next-line:variable-name
-const HideOverflowAndRedoPadding = styled.div`
+const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   ${wrapperPadding}
-`;
+
+  ${styleWhenSidebarClosed(css`
+    ${wrapperPadding}
+  `)}
+`);
 
 // tslint:disable-next-line:variable-name
 const Content: React.SFC = () => <Layout>
@@ -67,7 +96,7 @@ const Content: React.SFC = () => <Layout>
       <CenteredContentRow>
         <Sidebar />
         <ContentPane>
-          <UndoPaddingForContent>
+          <UndoPadding>
             <MainContentWrapper>
               <ContentNotifications />
               <HideOverflowAndRedoPadding>
@@ -75,7 +104,7 @@ const Content: React.SFC = () => <Layout>
               </HideOverflowAndRedoPadding>
               <Attribution />
             </MainContentWrapper>
-          </UndoPaddingForContent>
+          </UndoPadding>
         </ContentPane>
       </CenteredContentRow>
     </Wrapper>

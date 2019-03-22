@@ -9,6 +9,8 @@ import { bookBannerDesktopHeight } from './BookBanner';
 import { sidebarDesktopWidth, sidebarMobileWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
 import { toolbarDesktopHeight } from './Toolbar';
 
+export const mainContentBackground = '#fdfdfd';
+
 // tslint:disable-next-line:variable-name
 const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   flex: 1;
@@ -17,14 +19,8 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
 
   transition: margin-left ${sidebarTransitionTime}ms;
 
-  margin-left: ${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    margin-left: ${theme.padding.page.mobile}rem;
-  `)}
-
   ${styleWhenSidebarClosed(css`
     margin-left: -${sidebarDesktopWidth}rem;
-
     ${theme.breakpoints.mobile(css`
       margin-left: -${sidebarMobileWidth}rem;
     `)}

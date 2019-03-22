@@ -16,11 +16,3 @@ export default styled.div`
 
   ${wrapperPadding}
 `;
-
-// tslint:disable-next-line:variable-name
-export const UndoPadding = styled.div`
-  margin: 0 -${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    margin: 0 -${theme.padding.page.mobile}rem;
-  `)}
-`;
