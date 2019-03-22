@@ -66,7 +66,6 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow: visible;
-
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
@@ -78,7 +77,6 @@ const SearchInputWrapper = styled.div`
   align-items: center;
   margin-right: 4rem;
   border-bottom: solid 0.1rem ${iconColor};
-
   ${theme.breakpoints.mobile(css`
     border: none;
     margin-right: 1rem;
@@ -96,6 +94,7 @@ const SearchInput = styled.input`
   ::placeholder {
     color: ${iconColor};
   }
+
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -113,7 +112,6 @@ const PrintOptions = styled.h3`
   ${textRegularStyle};
   color: ${iconColor};
   margin: 0;
-
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -131,12 +129,11 @@ const SearchPrintWrapper = styled.div`
 const BarWrapper = styled.div`
   width: 100%;
   padding: 0 ${theme.padding.page.desktop}rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
   position: relative;  /* to make the drop shadow show over the content */
   z-index: 2;  /* to make the drop shadow show over the sidebar */
   display: block;
   background: ${theme.color.neutral.base};
-
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}

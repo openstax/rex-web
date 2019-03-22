@@ -66,7 +66,6 @@ const BookChapter = styled.h1`
   font-weight: bold;
   display: block;
   margin: 1rem 0 0 0;
-
   ${theme.breakpoints.mobile(css`
     white-space: normal;
     display: -webkit-box;
@@ -89,7 +88,6 @@ const BarWrapper = styled.div`
   align-items: center;
   height: ${bookBannerDesktopHeight}rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
-
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
     height: ${bookBannerMobileHeight}rem;
