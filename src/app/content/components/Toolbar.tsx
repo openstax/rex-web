@@ -23,13 +23,13 @@ export const toolbarIconStyles = css`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchIcon = styled(Search)`
-  ${toolbarIconStyles};
+const SearchIcon = styled(Search)`;
+  ${toolbarIconStyles}
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintIcon = styled(Print)`
-  ${toolbarIconStyles};
+const PrintIcon = styled(Print)`;
+  ${toolbarIconStyles}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -41,7 +41,6 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow: visible;
-
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
@@ -60,7 +59,7 @@ const SearchInputWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    border-bottom: solid 0.1rem ${toolbarIconColor};
+    border-bottom: solid 0.1rem ${toolbarIconColor}
   }
 
   ${theme.breakpoints.mobile(css`
@@ -72,14 +71,15 @@ const SearchInputWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const SearchInput = styled.input`
   ${textRegularStyle}
-  color: ${theme.color.text.default};
+  color: ${theme.color.text.default}
   height: ${textRegularLineHeight}rem;
   border: none;
   outline: none;
 
   ::placeholder {
-    color: ${toolbarIconColor};
+    color: ${toolbarIconColor}
   }
+
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -94,10 +94,9 @@ const PrintOptWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.h3`
-  ${textRegularStyle};
-  color: ${toolbarIconColor};
+  ${textRegularStyle}
+  color: ${toolbarIconColor}
   margin: 0;
-
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -112,15 +111,15 @@ const SearchPrintWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div`
+const BarWrapper = styled.div`;
   position: sticky;
-  top: ${bookBannerDesktopHeight}rem
+  top: ${bookBannerDesktopHeight}rem;
   width: 100%;
   padding: 0 ${theme.padding.page.desktop}rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
   display: block;
   z-index: 2; /* stay above book content */
-  background: ${theme.color.neutral.base};
+  background: ${theme.color.neutral.base}
 
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileHeight}rem

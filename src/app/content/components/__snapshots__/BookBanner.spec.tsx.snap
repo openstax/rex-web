@@ -12,10 +12,9 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 }
 
 .c3 {
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
   color: #fff;
-  margin-right: 0.7rem;
 }
 
 .c1 {
@@ -25,7 +24,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 }
 
 .c2 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -41,11 +40,12 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 2.5rem;
   font-weight: normal;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -61,7 +61,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 }
 
 .c5 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -83,6 +83,9 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 }
 
 .c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
   display: -webkit-box;
@@ -95,6 +98,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   align-items: center;
   height: 13rem;
   background: linear-gradient(to right,#002468,#003DB1);
+  z-index: 3;
 }
 
 @media (max-width:64em) {

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import theme from '../theme';
 
-export const contentFont = 'Helvetica Neue';
+export const contentFont = 'Neue Helvetica W01';
 export const textStyle = css`
   font-family: ${contentFont};
   color: ${theme.color.text.default};

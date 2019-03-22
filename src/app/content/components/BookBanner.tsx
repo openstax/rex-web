@@ -10,6 +10,7 @@ import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { bookDetailsUrl, findArchiveTreeSection } from '../utils';
+import { contentTextWidth } from './Page';
 
 export const bookBannerDesktopHeight = 13;
 export const bookBannerMobileHeight = 10.4;
@@ -34,7 +35,7 @@ const TopBar = styled.div`
 `;
 
 const bookBannerTextStyle = css`
-  max-width: 87rem;
+  max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
   padding: 0;
   color: ${theme.color.primary.blue.foreground};
   white-space: nowrap;
@@ -65,7 +66,6 @@ const BookChapter = styled.h1`
   font-weight: bold;
   display: block;
   margin: 1rem 0 0 0;
-
   ${theme.breakpoints.mobile(css`
     white-space: normal;
     display: -webkit-box;
@@ -91,7 +91,6 @@ const BarWrapper = styled.div`
   height: ${bookBannerDesktopHeight}rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
   z-index: 3; /* stay above book content and overlay */
-
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
     height: ${bookBannerMobileHeight}rem;

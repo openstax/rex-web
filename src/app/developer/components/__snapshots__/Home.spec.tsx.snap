@@ -56,7 +56,7 @@ Array [
 }
 
 .c3 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -81,6 +81,8 @@ Array [
 }
 
 .c0 {
+  z-index: 2;
+  position: relative;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
 }
@@ -129,12 +131,12 @@ Array [
       className="c1"
     >
       <a
-        className=""
         href="/"
       >
         <img
           alt="OpenStax Logo"
           className="c2"
+          role="img"
           src="logo.svg"
         />
       </a>
@@ -146,27 +148,8 @@ Array [
       </a>
     </div>
   </div>,
-  .c0 {
-  z-index: 2;
-  top: 23rem;
-  overflow: visible;
-  position: fixed;
-  right: 0;
-}
-
-@media (max-width:90em) {
-  .c0 {
-    position: -webkit-sticky;
-    position: sticky;
-    right: inital;
-  }
-}
-
-<div
-    className="c0"
-  />,
   .c1 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 4.8rem;
   line-height: 5rem;
@@ -179,7 +162,7 @@ Array [
 }
 
 .c2 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
   line-height: 4rem;
@@ -192,7 +175,7 @@ Array [
 }
 
 .c4 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -217,7 +200,7 @@ Array [
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -229,7 +212,7 @@ Array [
 }
 
 .c6:hover {
-  background-color: #f1f1f1;
+  background-color: #fafafa;
 }
 
 .c6:active {
@@ -253,7 +236,7 @@ Array [
 }
 
 .c0 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
