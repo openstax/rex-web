@@ -105,7 +105,7 @@ export default (options: Options) => {
   }
 
   // the default font
-  services.fontCollector.add('https://fonts.googleapis.com/css?family=Helvetica+Neue');
+  services.fontCollector.add('/styles/fonts.css');
 
   return {
     container,

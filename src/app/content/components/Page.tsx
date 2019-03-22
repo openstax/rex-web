@@ -11,6 +11,7 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
+import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { content } from '../routes';
@@ -161,17 +162,18 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
+export const contentTextWidth = 57;
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: 60.2rem;
+  max-width: ${contentTextWidth + theme.padding.page.mobile * 2}rem;
   margin: 0 auto;
-  padding: 0 1.6rem;
+  padding: 0 ${theme.padding.page.mobile}rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
-  padding-top: 1.6rem;
+  padding-top: ${theme.padding.page.mobile}rem;
   padding-bottom: 0;
 
   /* these are only here because the cnx-recipes styles are broken */

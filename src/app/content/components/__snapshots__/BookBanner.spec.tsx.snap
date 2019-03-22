@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookBanner renders \`null\` when passed a page that isn't in the book tree 1`] = `null`;
+
+exports[`BookBanner renders \`null\` with no page or book 1`] = `null`;
+
+exports[`BookBanner renders correctly when you pass a page and book 1`] = `
+.c4 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c3 {
+  height: 2rem;
+  width: 2rem;
+  color: #fff;
+  margin-right: 0.7rem;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 117rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 87rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: normal;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  max-width: 87rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: bold;
+  display: block;
+  margin: 1rem 0 0 0;
+}
+
+.c0 {
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  background: linear-gradient(to right,#002468,#003DB1);
+}
+
+@media (max-width:64em) {
+  .c2 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c5 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c5 {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      className="c2"
+      href="/details/books/book-slug-1"
+    >
+      <svg
+        aria-hidden="true"
+        className="c3 c4"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        />
+      </svg>
+      Test Book 1
+    </a>
+    <h1
+      className="c5"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<span class=\\"os-text\\">Test Page 4</span>",
+        }
+      }
+    />
+  </div>
+</div>
+`;

@@ -6,13 +6,14 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
-import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import MessageProvider from '../../MessageProvider';
 import createReducer from '../../navigation/reducer';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import contentReducer, { initialState } from '../reducer';
+import { formatBookData } from '../utils';
 
 describe('Attribution', () => {
   beforeEach(() => {
@@ -35,10 +36,7 @@ describe('Attribution', () => {
       state = (cloneDeep({
         content: {
           ...initialState,
-          book: {
-            ...mockCmsBookFields,
-            ...book,
-          },
+          book: formatBookData(book, mockCmsBook),
           page,
         },
         navigation: { pathname: 'cool path name' },
@@ -111,7 +109,7 @@ describe('Attribution', () => {
 
       details.setAttribute('open', 'true');
 
-      store.dispatch(actions.receiveBook({...mockCmsBookFields, ...book}));
+      store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
 
       expect(details.getAttribute('open')).toBe('true');
     });

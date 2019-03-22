@@ -9,10 +9,11 @@ import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
 import UpdatesAvailable from './UpdatesAvailable';
 
+// TODO - magic number to be replaced in `top` when scroll behavior is developed in openstax/unified#179
 // tslint:disable-next-line:variable-name
 const Container = styled.div`
   z-index: 2;
-  top: 0;
+  top: 23rem;
   overflow: visible;
   position: fixed;
   right: 0;

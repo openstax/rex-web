@@ -43,5 +43,5 @@ if (process.env.CI) {
   // set default timeout to something quite large in CI
   jest.setTimeout(90 * 1000);
 } else {
-  jest.setTimeout(30 * 1000);
+  jest.setTimeout(120 * 1000);
 }

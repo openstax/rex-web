@@ -12,7 +12,7 @@ const HomeStyle = styled.div`
   ${bodyCopyRegularStyle}
   max-width: ${contentWrapperMaxWidth}rem;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem 0;
 `;
 
 // tslint:disable-next-line:variable-name

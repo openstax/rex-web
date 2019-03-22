@@ -37,6 +37,10 @@ export function flattenArchiveTree(tree: ArchiveTree): LinkedArchiveTreeSection[
   }));
 }
 
+export function bookDetailsUrl(book: Book) {
+  return `/details/books/${book.slug}`;
+}
+
 export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activeSection: HTMLElement | undefined) => {
   if (!activeSection || !sidebar) {
     return;

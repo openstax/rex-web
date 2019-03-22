@@ -3,7 +3,7 @@ const path = require('path');
 const identity = require('lodash/fp/identity');
 const script = process.argv[2];
 const scriptPath = `./${script}`;
-const extensions = ['.ts', '.tsx'];
+const extensions = ['.ts', '.tsx', '/index.ts'];
 
 if (!script) {
   console.error('script argument is required');

@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
-import { mockCmsBookFields } from '../../../test/mocks/osWebLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import createReducer from '../../navigation/reducer';
 import { AppServices, AppState } from '../../types';
 import contentReducer, { initialState } from '../reducer';
 import { Book } from '../types';
+import { formatBookData } from '../utils';
 import Content from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
@@ -21,10 +22,7 @@ describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let state: AppState;
   const services = {} as AppServices;
-  const bookState: Book = {
-    ...mockCmsBookFields,
-    ...book,
-  };
+  const bookState: Book = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
     state = cloneDeep({

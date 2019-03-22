@@ -31,9 +31,124 @@ Array [
   >
     Skip to Content
   </a>,
+  .c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  max-width: 117rem;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.c2 {
+  width: auto;
+  height: 3rem;
+}
+
+.c3 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-weight: bold;
+  color: #5e6062;
+  padding: 1rem 0;
+}
+
+.c3:hover,
+.c3:active,
+.c3:focus {
+  padding-bottom: 0.6rem;
+  border-bottom: 0.4rem solid #63a524;
+}
+
+.c0 {
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media (max-width:64em) {
+  .c1 {
+    height: 3.6rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c2 {
+    height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c3 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c3 {
+    padding: 0.7rem 0;
+  }
+
+  .c3:hover,
+  .c3:active,
+  .c3:focus {
+    padding-bottom: 0.3rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div
+      className="c1"
+    >
+      <a
+        href="/"
+      >
+        <img
+          alt="OpenStax Logo"
+          className="c2"
+          role="img"
+          src="logo.svg"
+        />
+      </a>
+      <a
+        className="c3"
+        href="https://accounts-dev.openstax.org/login"
+      >
+        Login
+      </a>
+    </div>
+  </div>,
   .c0 {
   z-index: 2;
-  top: 0;
+  top: 23rem;
   overflow: visible;
   position: fixed;
   right: 0;
@@ -51,7 +166,7 @@ Array [
     className="c0"
   />,
   .c1 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 4.8rem;
   line-height: 5rem;
@@ -64,7 +179,7 @@ Array [
 }
 
 .c2 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
   line-height: 4rem;
@@ -77,7 +192,7 @@ Array [
 }
 
 .c4 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -102,7 +217,7 @@ Array [
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -129,18 +244,22 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
+.c5:hover {
+  color: #0064A0;
+}
+
 .c3 {
   padding: 1rem;
 }
 
 .c0 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
   max-width: 117rem;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem 0;
 }
 
 .c0 a {
@@ -149,6 +268,17 @@ Array [
   -webkit-text-decoration: none;
   text-decoration: none;
   border-bottom: #027EB5 solid 0.02em;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+@media (max-width:64em) {
+  .c4 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
 }
 
 <div

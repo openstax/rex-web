@@ -8,6 +8,8 @@ body, #root, html {
   min-height: 100%;
   position: relative;
   overflow: visible;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {

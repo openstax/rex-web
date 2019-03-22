@@ -14,7 +14,7 @@ exports[`Button matches snapshot - default 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -52,7 +52,7 @@ exports[`Button matches snapshot - large 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 5rem;
@@ -91,7 +91,7 @@ exports[`Button matches snapshot - medium 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -130,7 +130,7 @@ exports[`Button matches snapshot - primary 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -168,7 +168,7 @@ exports[`Button matches snapshot - secondary 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -206,7 +206,7 @@ exports[`Button matches snapshot - small 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.4rem;
   height: 3rem;

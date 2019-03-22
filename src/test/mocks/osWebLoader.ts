@@ -1,17 +1,12 @@
-export const mockCmsBookFields = {
-  authors: [{value: {name: 'Bam Bammerson'}}],
-  id: 3,
-  publish_date: '2012-06-21',
-  slug: 'book-slug-1',
-};
+import { OSWebBook } from '../../helpers/createOSWebLoader';
 
-export const mockCmsBook = {
-  authors: mockCmsBookFields.authors,
-  id: mockCmsBookFields.id,
+export const mockCmsBook: OSWebBook = {
+  authors: [{value: {name: 'Bam Bammerson'}}],
+  cnx_id: '3',
   meta: {
-    slug: mockCmsBookFields.slug,
+    slug: 'book-slug-1',
   },
-  publish_date: mockCmsBookFields.publish_date,
+  publish_date: '2012-06-21',
 };
 
 export default () => ({

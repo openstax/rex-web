@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { checkLighthouse, fullPageScreenshot, navigate } from '../../test/browserutils';
+import { checkLighthouse, finishRender, fullPageScreenshot, h1Content, navigate } from '../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_LONG_PAGE_NAME = '1-test-page-3';
@@ -21,11 +21,23 @@ describe('content', () => {
 
   it('attribution looks right', async() => {
     await navigate(page, TEST_SIMPLE_PAGE_URL);
-
     await page.click('#main-content details');
-
     const screen = await fullPageScreenshot(page);
 
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
+  it('looks right on mobile', async() => {
+    page.setViewport({height: 731, width: 411});
+    await navigate(page, TEST_PAGE_URL);
+    page.click('[aria-label="Click to close the Table of Contents"]');
+    await finishRender(page);
+    const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
         failureThreshold: 1.5,
@@ -52,7 +64,7 @@ describe('content', () => {
 
   // skipping because current design does not have an H1
   // TODO - add H1
-  it.skip('a11y lighthouse check', async() => {
+  it('a11y lighthouse check', async() => {
     await navigate(page, TEST_PAGE_URL);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
@@ -64,11 +76,13 @@ describe('content', () => {
     - updates the selected toc element
     - and doesn't close the sidebar
   `, async() => {
+    // set a viewport where the sidebar scrolls but "Test Page 3" is visible
+    page.setViewport({height: 500, width: 1200});
     await navigate(page, TEST_PAGE_URL);
-    // TODO - put back these H1 checks when the layout includes one
+
     // assert initial state
+    expect(await h1Content(page)).toBe('Test Page 1');
     expect(await isTocVisible()).toBe(true);
-    // expect(await h1Content(page)).toBe('Test Book 1 / Test Page 1');
     expect(await getSelectedTocSection()).toBe(TEST_PAGE_NAME);
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(0);
@@ -81,7 +95,7 @@ describe('content', () => {
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
-    // expect(await h1Content(page)).toBe('Test Book 1 / Test Page 3');
+    expect(await h1Content(page)).toBe('Test Page 3');
     expect(await getScrollTop()).toBe(0);
     expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);

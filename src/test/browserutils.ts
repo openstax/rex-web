@@ -31,8 +31,11 @@ if (process.env.CI) {
   // set default timeout to something quite large in CI
   page.setDefaultNavigationTimeout(60 * 1000);
 } else {
-  page.setDefaultNavigationTimeout(30 * 1000);
+  page.setDefaultNavigationTimeout(90 * 1000);
 }
+
+export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: 1200});
+export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
@@ -55,6 +58,9 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
+  const {width, height} = target.viewport();
+  await setMaxViewport(target);
+
   const screenshot = () => target.screenshot({fullPage: true});
 
   let lastScreen: Buffer | undefined;
@@ -69,6 +75,8 @@ export const finishRender = async(target: puppeteer.Page) => {
     await new Promise((resolve) => setTimeout(resolve, 300));
     lastScreen = newScreen;
   }
+
+  await target.setViewport({width, height});
 };
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
