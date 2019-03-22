@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
-import { h3MobileLineHeight, h3Style, h4Style } from '../../components/Typography';
+import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
@@ -16,8 +16,8 @@ export const bookBannerMobileHeight = 10.4;
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
   color: ${theme.color.neutral.base};
   margin-right: 0.7rem;
 `;
@@ -47,8 +47,9 @@ const bookBannerTextStyle = css`
 const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
+  display: flex;
+  height: ${textRegularLineHeight}rem;
   font-weight: normal;
-  display: inline-flex;
   align-items: center;
   text-decoration: none;
   margin: 0;

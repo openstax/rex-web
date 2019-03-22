@@ -15,8 +15,9 @@ export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;
 
 export const toolbarIconStyles = css`
-  height: 1.6rem;
-  width: 1.6rem;
+  height: ${textRegularLineHeight}rem;
+  width: ${textRegularLineHeight}rem;
+  padding: 0.45rem;
   margin-right: 0.5rem;
   color: ${toolbarIconColor};
 `;
@@ -51,7 +52,16 @@ const SearchInputWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 4rem;
-  border-bottom: solid 0.1rem ${toolbarIconColor};
+  position: relative;
+
+  :after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: solid 0.1rem ${toolbarIconColor};
+  }
 
   ${theme.breakpoints.mobile(css`
     border: none;

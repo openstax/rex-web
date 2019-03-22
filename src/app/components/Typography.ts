@@ -19,6 +19,16 @@ export const linkStyle = css`
     color: ${linkHover};
   }
 `;
+export const decoratedLinkStyle = css`
+  color: ${linkColor};
+  cursor: pointer;
+  text-decoration: none;
+
+  :hover {
+    text-decoration: underline;
+    color: ${linkHover};
+  }
+`;
 
 export const textRegularLineHeight = 2.5;
 export const textRegularSize = css`

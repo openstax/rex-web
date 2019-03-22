@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
 import { css } from 'styled-components';
 import styled from 'styled-components';
-import { bodyCopyRegularStyle, linkColor, linkStyle } from '../../components/Typography';
+import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
+import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -20,20 +22,40 @@ if (typeof(document) !== 'undefined') {
   import('details-polyfill');
 }
 
+const summaryIconStyle = css`
+  height: 1.5rem;
+  width: 1.5rem;
+`;
+// tslint:disable-next-line:variable-name
+const SummaryClosedIcon = styled(CaretRight)`${summaryIconStyle}`;
+// tslint:disable-next-line:variable-name
+const SummaryOpenIcon = styled(CaretDown)`${summaryIconStyle}`;
+
 // tslint:disable-next-line:variable-name
 const Summary = styled.summary`
   ${contentTextStyle}
-  color: ${linkColor};
+  font-weight: 500;
+  display: flex;
 
-  > span {
+  list-style: none;
+  ::-webkit-details-marker {
+    display: none;
+  }
+
+  &, span {
+    align-items: center;
     ${bodyCopyRegularStyle}
-    ${linkStyle}
+    ${decoratedLinkStyle}
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const Content = styled.div`
   ${contentTextStyle}
+
+  blockquote {
+    margin-left: 0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -47,6 +69,13 @@ const Details = styled.details`
 
   > ${Summary} {
     margin-bottom: 1.8rem;
+  }
+
+  &[open] ${SummaryClosedIcon} {
+    display: none;
+  }
+  &:not([open]) ${SummaryOpenIcon} {
+    display: none;
   }
 
   ${theme.breakpoints.mobile(css`
@@ -102,11 +131,13 @@ class Attribution extends Component<Props> {
     const {book} = this.props;
 
     return <Details ref={(ref: any) => this.container = ref}>
-      <Summary>
-        <FormattedMessage id='i18n:attribution:toggle'>
-          {(msg) => <span>{msg}</span>}
-        </FormattedMessage>
-      </Summary>
+      <FormattedMessage id='i18n:attribution:toggle'>
+        {(msg) => <Summary>
+        <SummaryClosedIcon />
+        <SummaryOpenIcon />
+        <span>{msg}</span>
+      </Summary>}
+      </FormattedMessage>
       {book && <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
