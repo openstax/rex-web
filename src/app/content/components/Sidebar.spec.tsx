@@ -57,7 +57,7 @@ describe('Sidebar', () => {
       <ConnectedSidebar />
     </Provider></MessageProvider>);
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
     store.dispatch(actions.closeToc());
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
     store.dispatch(actions.openToc());
