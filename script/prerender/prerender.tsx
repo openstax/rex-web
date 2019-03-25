@@ -212,7 +212,8 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, modules}: O
     `<div id="root">${body}</div>` +
     `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')}</script>`
   );
-  html = html.replace('</body>', scripts.join('') + '</body>');
+
+  html = html.replace(/(<script src="[^"]+\.chunk\.js"><\/script>)/, scripts.join('') + '$1');
 
   return html;
 }

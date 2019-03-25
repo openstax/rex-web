@@ -59,9 +59,10 @@ app.services.promiseCollector.calm().then(() => {
 });
 
 if (window.__PRELOADED_STATE__) {
-  Loadable.preloadReady().then(() =>
-    ReactDOM.hydrate(<app.container />, document.getElementById('root'))
-  );
+  Loadable.preloadReady().then(() => {
+    console.log('hydrating');
+    ReactDOM.hydrate(<app.container />, document.getElementById('root'));
+  });
 } else {
   ReactDOM.render(<app.container />, document.getElementById('root'));
 }
