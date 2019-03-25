@@ -1059,6 +1059,7 @@ Array [
         className="c23"
       >
         <div
+          aria-label="Table of Contents"
           className="c24"
         >
           <div
@@ -2297,6 +2298,7 @@ Array [
         className="c17"
       >
         <div
+          aria-label="Table of Contents"
           className="c18"
         >
           <div
