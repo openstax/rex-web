@@ -19,6 +19,7 @@ import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
 import BookStyles from './BookStyles';
+import { contentTextWidth } from './constants';
 
 interface PropTypes {
   page: State['page'];
@@ -165,7 +166,7 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: 57rem
+  max-width: ${contentTextWidth}rem
   margin: 0 auto;
 `;
 
@@ -180,7 +181,7 @@ const StyledPageComponent = styled(PageComponent)`
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   [data-type="chapter"] [data-type="page"] > h2 {
-    padding-top: 3px;
+    padding-top: 3px; /* stop the box around section number from being cut off */
   }
 
   .os-figure, .os-figure:last-child {

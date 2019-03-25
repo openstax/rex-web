@@ -1,22 +1,17 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { contentFont, textRegularSize } from '../../components/Typography';
-import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
 import { toolbarIconColor } from './constants';
+import { styleWhenSidebarClosed } from './Sidebar';
 import { toolbarIconStyles } from './Toolbar';
-
-export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
-  ${(props: {isOpen: State['tocOpen']}) => props.isOpen === null && theme.breakpoints.mobile(closedStyle)}
-  ${(props: {isOpen: State['tocOpen']}) => props.isOpen === false && closedStyle}
-`;
 
 interface InnerProps {
   isOpen: State['tocOpen'];

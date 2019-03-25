@@ -133,10 +133,10 @@ class Attribution extends Component<Props> {
     return <Details ref={(ref: any) => this.container = ref}>
       <FormattedMessage id='i18n:attribution:toggle'>
         {(msg) => <Summary>
-        <SummaryClosedIcon />
-        <SummaryOpenIcon />
-        <span>{msg}</span>
-      </Summary>}
+          <SummaryClosedIcon />
+          <SummaryOpenIcon />
+          <span>{msg}</span>
+        </Summary>}
       </FormattedMessage>
       {book && <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content

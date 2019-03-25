@@ -73,13 +73,13 @@ const SearchInputWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const SearchInput = styled.input`
   ${textRegularStyle}
-  color: ${theme.color.text.default}
+  color: ${theme.color.text.default};
   height: ${textRegularLineHeight}rem;
   border: none;
   outline: none;
 
   ::placeholder {
-    color: ${toolbarIconColor}
+    color: ${toolbarIconColor};
   }
 
   ${theme.breakpoints.mobile(css`
@@ -97,7 +97,7 @@ const PrintOptWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.h3`
   ${textRegularStyle}
-  color: ${toolbarIconColor}
+  color: ${toolbarIconColor};
   margin: 0;
   ${theme.breakpoints.mobile(css`
     display: none;
