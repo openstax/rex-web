@@ -8,6 +8,7 @@ export const notFound: Route<undefined> = {
     loader: () => import(/* webpackChunkName: "PageNotFound" */ './components/PageNotFound'),
     loading: () => null,
     modules: ['PageNotFound'],
+    webpack: () => [(require as any).resolveWeak('./components/PageNotFound')],
   }),
   getUrl: () => '/errors/404',
   name: 'NotFound',
