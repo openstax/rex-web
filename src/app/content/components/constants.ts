@@ -11,6 +11,6 @@ export const toolbarMobileHeight = 4;
 
 export const contentTextWidth = 57;
 
-export const mainContentBackground = '#fdfdfd';
+export const mainContentBackground = '#fff';
 
 export const contentWrapperMaxWidth = 117;
