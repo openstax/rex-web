@@ -9,15 +9,19 @@ import { AppState } from '../../types';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page, State } from '../types';
-import { scrollTocSectionIntoView, stripIdVersion } from '../utils';
-import { bookBannerDesktopHeight, bookBannerMobileHeight } from './BookBanner';
+import { scrollTocSectionIntoView } from '../utils/domUtils';
+import { stripIdVersion } from '../utils/idUtils';
+import {
+  bookBannerDesktopHeight,
+  bookBannerMobileHeight,
+  sidebarDesktopWidth,
+  sidebarMobileWidth,
+  sidebarTransitionTime,
+  toolbarDesktopHeight,
+  toolbarMobileHeight
+} from './constants';
 import ContentLink from './ContentLink';
 import SidebarControl from './SidebarControl';
-import { toolbarDesktopHeight, toolbarMobileHeight } from './Toolbar';
-
-export const sidebarDesktopWidth = 33.5;
-export const sidebarMobileWidth = 28.8;
-export const sidebarTransitionTime = 300;
 
 const sidebarPadding = 1;
 

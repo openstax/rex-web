@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-
-export const contentWrapperMaxWidth = 117;
+import { contentWrapperMaxWidth } from './constants';
 
 export const centeredContentStyle = css`
   overflow: visible; /* so sidebar position: sticky works */

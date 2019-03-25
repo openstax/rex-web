@@ -9,11 +9,9 @@ import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
-import { bookDetailsUrl, findArchiveTreeSection } from '../utils';
-import { contentTextWidth } from './Page';
-
-export const bookBannerDesktopHeight = 13;
-export const bookBannerMobileHeight = 10.4;
+import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
+import { bookDetailsUrl } from '../utils/urlUtils';
+import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`

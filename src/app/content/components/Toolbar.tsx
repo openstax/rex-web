@@ -7,12 +7,14 @@ import { maxNavWidth } from '../../components/NavBar';
 import { textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertString } from '../../utils';
-import { bookBannerDesktopHeight, bookBannerMobileHeight } from './BookBanner';
+import {
+  bookBannerDesktopHeight,
+  bookBannerMobileHeight,
+  toolbarDesktopHeight,
+  toolbarIconColor,
+  toolbarMobileHeight
+} from './constants';
 import SidebarControl from './SidebarControl';
-
-export const toolbarIconColor = '#5E6062';
-export const toolbarDesktopHeight = 5;
-export const toolbarMobileHeight = 4;
 
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;

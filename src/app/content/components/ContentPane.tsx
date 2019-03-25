@@ -2,17 +2,17 @@ import Color from 'color';
 import styled, { css } from 'styled-components';
 import theme from '../../theme';
 import { State } from '../types';
-import { bookBannerDesktopHeight } from './BookBanner';
 import {
-  isOpenConnector,
+  bookBannerDesktopHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
+  toolbarDesktopHeight
+} from './constants';
+import {
+  isOpenConnector,
   styleWhenSidebarClosed
 } from './Sidebar';
-import { toolbarDesktopHeight } from './Toolbar';
-
-export const mainContentBackground = '#fdfdfd';
 
 // tslint:disable-next-line:variable-name
 const ContentPane = styled.div<{isOpen: State['tocOpen']}>`

@@ -163,7 +163,6 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
-export const contentTextWidth = 57;
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
   max-width: 57rem

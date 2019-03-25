@@ -4,6 +4,7 @@ import path from 'path';
 import portfinder from 'portfinder';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import Loadable from 'react-loadable';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
@@ -33,6 +34,7 @@ import { startServer } from '../server';
 
 const ASSET_DIR = path.resolve(__dirname, '../../build');
 
+const assetManifest = JSON.parse(fs.readFileSync(path.resolve(ASSET_DIR, 'asset-manifest.json'), 'utf8'));
 const indexHtml = fs.readFileSync(path.resolve(ASSET_DIR, 'index.html'), 'utf8');
 
 async function renderManifest() {
@@ -70,17 +72,24 @@ async function prepareContentPage(
 }
 
 type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
-const renderHtml: RenderHtml = (styles, app, state) => injectHTML(indexHtml, {
-  body: renderToString(
-     <StyleSheetManager sheet={styles.instance}>
-       <app.container />
-     </StyleSheetManager>
-  ),
-  fonts: app.services.fontCollector.fonts,
-  meta: headSelectors.meta(state),
-  state,
-  styles,
-});
+const renderHtml: RenderHtml = (styles, app, state) => {
+  const modules: string[] = [];
+
+  return injectHTML(indexHtml, {
+    body: renderToString(
+      <StyleSheetManager sheet={styles.instance}>
+        <Loadable.Capture report={(m) => modules.push(m)}>
+          <app.container />
+        </Loadable.Capture>
+      </StyleSheetManager>
+    ),
+    fonts: app.services.fontCollector.fonts,
+    meta: headSelectors.meta(state),
+    modules,
+    state,
+    styles,
+  });
+};
 
 type MakeRenderPage = (services: Pick<AppServices, 'archiveLoader' | 'osWebLoader'>) =>
   (action: AnyMatch, expectedCode: number) => Promise<void>;
@@ -144,6 +153,7 @@ const renderPages: RenderPages = async(archiveLoader, osWebLoader, pages) => {
 };
 
 async function render() {
+  await Loadable.preloadAll();
   const start = (new Date()).getTime();
   const port = await portfinder.getPortPromise();
   const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
@@ -177,8 +187,18 @@ interface Options {
   fonts: FontCollector['fonts'];
   meta: Meta[];
   state: AppState;
+  modules: string[];
 }
-function injectHTML(html: string, {body, styles, state, fonts, meta}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta, modules}: Options) {
+
+  const extractAssets = () => Object.keys(assetManifest)
+    .filter((asset) => modules.indexOf(asset.replace('.js', '')) > -1)
+    .map((k) => assetManifest[k]);
+
+  const scripts = extractAssets().map(
+    (c) => `<script type="text/javascript" src="${c}"></script>`
+  );
+
   html = html.replace('</head>',
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +
     meta.map(
@@ -192,6 +212,7 @@ function injectHTML(html: string, {body, styles, state, fonts, meta}: Options) {
     `<div id="root">${body}</div>` +
     `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')}</script>`
   );
+  html = html.replace('</body>', scripts.join('') + '</body>');
 
   return html;
 }

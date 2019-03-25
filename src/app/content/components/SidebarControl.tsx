@@ -10,7 +10,8 @@ import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
-import { toolbarIconColor, toolbarIconStyles } from './Toolbar';
+import { toolbarIconColor } from './constants';
+import { toolbarIconStyles } from './Toolbar';
 
 export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
   ${(props: {isOpen: State['tocOpen']}) => props.isOpen === null && theme.breakpoints.mobile(closedStyle)}

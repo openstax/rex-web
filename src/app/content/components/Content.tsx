@@ -7,15 +7,20 @@ import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
-import { bookBannerDesktopHeight } from './BookBanner';
 import CenteredContent from './CenteredContent';
-import { contentWrapperMaxWidth } from './CenteredContent';
+import {
+  bookBannerDesktopHeight,
+  contentWrapperMaxWidth,
+  mainContentBackground,
+  sidebarDesktopWidth,
+  sidebarTransitionTime,
+  toolbarDesktopHeight
+} from './constants';
 import ContentPane from './ContentPane';
 import Page from './Page';
 import Sidebar from './Sidebar';
-import { isOpenConnector, sidebarDesktopWidth, sidebarTransitionTime, styleWhenSidebarClosed } from './Sidebar';
+import { isOpenConnector, styleWhenSidebarClosed } from './Sidebar';
 import Toolbar from './Toolbar';
-import { toolbarDesktopHeight } from './Toolbar';
 import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
 
@@ -59,7 +64,6 @@ const UndoPadding = isOpenConnector(styled.div`
   `)}
 `);
 
-export const mainContentBackground = '#fdfdfd';
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = isOpenConnector(styled.div`
   overflow: visible;
