@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cnx-recipes": "github:openstax/cnx-recipes#567a51365d6450d2f0fa03fcb653b5f97063dd51",
+    "cnx-recipes": "github:openstax/cnx-recipes#4fd28d845a5d0e00b30812ee38a577113208c5e6",
     "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
     "history": "^4.7.2",
