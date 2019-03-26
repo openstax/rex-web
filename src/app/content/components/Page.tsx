@@ -51,6 +51,8 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
       // fix assorted self closing tags
       .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
+      // remove page titles from content (they are in the nav)
+      .replace(/<h2 data-type="document-title".*?<\/h2>/, '')
     ;
   }
 
@@ -179,10 +181,6 @@ const StyledPageComponent = styled(PageComponent)`
   `)}
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
-
-  [data-type="chapter"] [data-type="page"] > h2 {
-    padding-top: 3px; /* stop the box around section number from being cut off */
-  }
 
   .os-figure, .os-figure:last-child {
     margin-bottom: 5px; /* fix double scrollbar bug */
