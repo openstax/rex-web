@@ -438,6 +438,25 @@ Array [
   z-index: 3;
 }
 
+.c28 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 100%;
+  overflow: visible;
+  -webkit-transition: margin-left 300ms;
+  transition: margin-left 300ms;
+}
+
+.c28 *:target:before {
+  content: " ";
+  display: block;
+  position: relative;
+  margin-top: -18rem;
+  height: 18rem;
+  visibility: hidden;
+}
+
 .c17 {
   height: 2.5rem;
   width: 2.5rem;
@@ -684,25 +703,6 @@ Array [
   right: 100%;
 }
 
-.c28 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  width: 100%;
-  overflow: visible;
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-}
-
-.c28 *:target:before {
-  content: " ";
-  display: block;
-  position: relative;
-  margin-top: -18rem;
-  height: 18rem;
-  visibility: hidden;
-}
-
 .c0 {
   overflow: visible;
   background-color: #fafafa;
@@ -730,7 +730,7 @@ Array [
 
 .c30 {
   overflow: visible;
-  background-color: #fdfdfd;
+  background-color: #fff;
   -webkit-transition: max-width 300ms;
   transition: max-width 300ms;
   max-width: 83.5rem;
@@ -798,6 +798,12 @@ Array [
   .c1 {
     padding: 1.6rem;
     height: 10.4rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c28 {
+    margin-left: -33.5rem;
   }
 }
 
@@ -877,12 +883,6 @@ Array [
 @media (max-width:64em) {
   .c25 {
     height: 4rem;
-  }
-}
-
-@media (max-width:64em) {
-  .c28 {
-    margin-left: -33.5rem;
   }
 }
 
@@ -1761,6 +1761,25 @@ Array [
   overflow: visible;
 }
 
+.c20 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 100%;
+  overflow: visible;
+  -webkit-transition: margin-left 300ms;
+  transition: margin-left 300ms;
+}
+
+.c20 *:target:before {
+  content: " ";
+  display: block;
+  position: relative;
+  margin-top: -18rem;
+  height: 18rem;
+  visibility: hidden;
+}
+
 .c11 {
   height: 2.5rem;
   width: 2.5rem;
@@ -1988,25 +2007,6 @@ Array [
   overflow: visible;
 }
 
-.c20 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  width: 100%;
-  overflow: visible;
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-}
-
-.c20 *:target:before {
-  content: " ";
-  display: block;
-  position: relative;
-  margin-top: -18rem;
-  height: 18rem;
-  visibility: hidden;
-}
-
 .c0 {
   overflow: visible;
   background-color: #fafafa;
@@ -2034,7 +2034,7 @@ Array [
 
 .c22 {
   overflow: visible;
-  background-color: #fdfdfd;
+  background-color: #fff;
   -webkit-transition: max-width 300ms;
   transition: max-width 300ms;
   max-width: 83.5rem;
@@ -2070,6 +2070,12 @@ Array [
 
   .c25 > .c26 {
     margin-bottom: 0.8rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c20 {
+    margin-left: -33.5rem;
   }
 }
 
@@ -2149,12 +2155,6 @@ Array [
 @media (max-width:64em) {
   .c19 {
     height: 4rem;
-  }
-}
-
-@media (max-width:64em) {
-  .c20 {
-    margin-left: -33.5rem;
   }
 }
 
