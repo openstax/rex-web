@@ -61,8 +61,6 @@ describe('content', () => {
     expect(isSkipToContentSelected).toBe(true);
   });
 
-  // skipping because current design does not have an H1
-  // TODO - add H1
   it('a11y lighthouse check', async() => {
     await navigate(page, TEST_PAGE_URL);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
