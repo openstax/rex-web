@@ -161,7 +161,7 @@ export class Sidebar extends Component<SidebarProps> {
 
     const scrollHandler = () => {
       const top = sidebar.getBoundingClientRect().top;
-      sidebar.style.height = `calc(100vh - ${top}px`;
+      sidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
     };
 
     const animation = () => requestAnimationFrame(scrollHandler);
