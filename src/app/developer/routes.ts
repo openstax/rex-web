@@ -9,7 +9,7 @@ export const routes: Route<undefined, undefined> = {
     loader: () => import(/* webpackChunkName: "DeveloperHome" */ './components/Home'),
     loading: () => null,
     modules: ['DeveloperHome'],
-    webpack: () => [(require as any).resolveWeak('./components/Home')],
+    webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/Home')],
   }),
   getUrl: (): string => pathToRegexp.compile(ROUTES_PATH)(),
   name: 'Developer Home',

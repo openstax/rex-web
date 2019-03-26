@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`content route renders a component 1`] = `null`;
+
+exports[`content route route renders renders a component 1`] = `null`;
