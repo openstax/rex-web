@@ -19,7 +19,7 @@ import SidebarControl from './SidebarControl';
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;
   width: ${textRegularLineHeight}rem;
-  padding: 0.45rem;
+  padding: 0.4rem;
   margin-right: 0.5rem;
   color: ${toolbarIconColor};
 `;
@@ -67,6 +67,10 @@ const SearchInputWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     border: none;
     margin-right: 1rem;
+
+    :after {
+      display: none;
+    }
   `)}
 `;
 

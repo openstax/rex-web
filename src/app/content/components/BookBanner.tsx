@@ -15,6 +15,7 @@ import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } fro
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
+  margin-left: -0.6rem;
   height: 3rem;
   width: 3rem;
   color: ${theme.color.neutral.base};
