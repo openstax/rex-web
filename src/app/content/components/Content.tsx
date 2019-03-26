@@ -19,8 +19,8 @@ import {
 import ContentPane from './ContentPane';
 import Page from './Page';
 import Sidebar from './Sidebar';
-import { isOpenConnector, styleWhenSidebarClosed } from './Sidebar';
 import Toolbar from './Toolbar';
+import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
 

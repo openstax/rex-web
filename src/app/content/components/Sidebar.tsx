@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import styled, { css } from 'styled-components';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
@@ -22,15 +22,9 @@ import {
 } from './constants';
 import ContentLink from './ContentLink';
 import SidebarControl from './SidebarControl';
+import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1;
-
-export const isOpenConnector = connect((state: AppState) => ({isOpen: selectors.tocOpen(state)}));
-
-export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
-  ${(props: {isOpen: State['tocOpen']}) => props.isOpen === null && theme.breakpoints.mobile(closedStyle)}
-  ${(props: {isOpen: State['tocOpen']}) => props.isOpen === false && closedStyle}
-`;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;

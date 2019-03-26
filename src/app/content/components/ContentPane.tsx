@@ -9,10 +9,7 @@ import {
   sidebarTransitionTime,
   toolbarDesktopHeight
 } from './constants';
-import {
-  isOpenConnector,
-  styleWhenSidebarClosed
-} from './Sidebar';
+import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
 const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
