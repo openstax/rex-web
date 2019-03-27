@@ -1,19 +1,31 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 
-export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activeSection: HTMLElement | undefined) => {
-  if (!activeSection || !sidebar) {
-    return;
+export const findScrollable = (element: HTMLElement | undefined): HTMLElement | undefined => {
+  if (!element || element.scrollHeight > element.offsetHeight) {
+    return element;
   }
 
-  // do nothing if the LI is already visible
-  if (activeSection.offsetTop > sidebar.scrollTop
-    && activeSection.offsetTop - sidebar.scrollTop < sidebar.offsetHeight) {
+  for (const child of Array.from(element.children)) {
+    const scrollable = findScrollable(child as HTMLElement);
+    if (scrollable) {
+      return scrollable;
+    }
+  }
+};
+
+export const tocSectionIsVisible = (scrollable: HTMLElement, section: HTMLElement) => {
+  return section.offsetTop > scrollable.scrollTop && section.offsetTop - scrollable.scrollTop < scrollable.offsetHeight;
+};
+
+export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activeSection: HTMLElement | undefined) => {
+  const scrollable = findScrollable(sidebar);
+  if (!activeSection || !scrollable || tocSectionIsVisible(scrollable, activeSection)) {
     return;
   }
 
   let search = activeSection.parentElement;
   let selectedChapter: undefined | HTMLElement;
-  while (search && !selectedChapter && search !== sidebar) {
+  while (search && !selectedChapter && search !== scrollable) {
     if (search.nodeName === 'LI') {
       selectedChapter = search;
     }
@@ -21,9 +33,9 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
   }
 
   const chapterSectionDelta = selectedChapter && (activeSection.offsetTop - selectedChapter.offsetTop);
-  const scrollTarget = selectedChapter && chapterSectionDelta && (chapterSectionDelta < sidebar.offsetHeight)
+  const scrollTarget = selectedChapter && chapterSectionDelta && (chapterSectionDelta < scrollable.offsetHeight)
     ? selectedChapter
     : activeSection;
 
-  sidebar.scrollTop = scrollTarget.offsetTop;
+  scrollable.scrollTop = scrollTarget.offsetTop;
 };

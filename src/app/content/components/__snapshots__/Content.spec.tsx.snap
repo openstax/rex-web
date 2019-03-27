@@ -655,6 +655,7 @@ Array [
 }
 
 .c24 > nav {
+  position: relative;
   padding: 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -1978,6 +1979,7 @@ Array [
 }
 
 .c18 > nav {
+  position: relative;
   padding: 1rem;
   -webkit-flex: 1;
   -ms-flex: 1;
