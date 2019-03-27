@@ -445,7 +445,7 @@ Array [
   transition: margin-left 300ms;
 }
 
-.c28 *:target:before {
+.c28 *:target::before {
   content: " ";
   display: block;
   position: relative;
@@ -1768,7 +1768,7 @@ Array [
   transition: margin-left 300ms;
 }
 
-.c20 *:target:before {
+.c20 *:target::before {
   content: " ";
   display: block;
   position: relative;
