@@ -5,16 +5,37 @@ export const findScrollable = (element: HTMLElement | undefined): HTMLElement | 
     return element;
   }
 
-  for (const child of Array.from(element.children)) {
-    const scrollable = findScrollable(child as HTMLElement);
-    if (scrollable) {
-      return scrollable;
-    }
-  }
+  return Array.from(element.children).reduce<HTMLElement | undefined>(
+    (result, child) => result || findScrollable(child as HTMLElement),
+    undefined
+  );
 };
 
 export const tocSectionIsVisible = (scrollable: HTMLElement, section: HTMLElement) => {
   return section.offsetTop > scrollable.scrollTop && section.offsetTop - scrollable.scrollTop < scrollable.offsetHeight;
+};
+
+export const findParentTocSection = (container: HTMLElement, section: HTMLElement) => {
+  let search = section.parentElement;
+  let selectedChapter: undefined | HTMLElement;
+  while (search && !selectedChapter && search !== container) {
+    if (search.nodeName === 'LI') {
+      selectedChapter = search;
+    }
+    search = search.parentElement;
+  }
+  return selectedChapter;
+};
+
+const determineScrollTarget = (
+  scrollable: HTMLElement,
+  selectedChapter: HTMLElement | undefined,
+  activeSection: HTMLElement
+) => {
+  const chapterSectionDelta = selectedChapter && (activeSection.offsetTop - selectedChapter.offsetTop);
+  return selectedChapter && chapterSectionDelta && (chapterSectionDelta < scrollable.offsetHeight)
+    ? selectedChapter
+    : activeSection;
 };
 
 export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activeSection: HTMLElement | undefined) => {
@@ -23,19 +44,8 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
     return;
   }
 
-  let search = activeSection.parentElement;
-  let selectedChapter: undefined | HTMLElement;
-  while (search && !selectedChapter && search !== scrollable) {
-    if (search.nodeName === 'LI') {
-      selectedChapter = search;
-    }
-    search = search.parentElement;
-  }
-
-  const chapterSectionDelta = selectedChapter && (activeSection.offsetTop - selectedChapter.offsetTop);
-  const scrollTarget = selectedChapter && chapterSectionDelta && (chapterSectionDelta < scrollable.offsetHeight)
-    ? selectedChapter
-    : activeSection;
+  const selectedChapter = findParentTocSection(scrollable, activeSection);
+  const scrollTarget = determineScrollTarget(scrollable, selectedChapter, activeSection);
 
   scrollable.scrollTop = scrollTarget.offsetTop;
 };
