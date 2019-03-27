@@ -218,10 +218,6 @@ Array [
   max-width: 57rem;
   margin: 0 auto;
   font-weight: 500;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   list-style: none;
 }
 
@@ -243,10 +239,6 @@ Array [
 
 .c35,
 .c35 span {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -1658,10 +1650,6 @@ Array [
   max-width: 57rem;
   margin: 0 auto;
   font-weight: 500;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   list-style: none;
 }
 
@@ -1683,10 +1671,6 @@ Array [
 
 .c27,
 .c27 span {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
