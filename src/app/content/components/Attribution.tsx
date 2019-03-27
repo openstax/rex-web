@@ -39,7 +39,6 @@ const SummaryOpenIcon = styled(CaretDown)`
 const Summary = styled.summary`
   ${contentTextStyle}
   font-weight: 500;
-  display: flex;
   list-style: none;
 
   ::-webkit-details-marker {
@@ -48,7 +47,6 @@ const Summary = styled.summary`
 
   &,
   span {
-    align-items: center;
     ${bodyCopyRegularStyle}
     ${decoratedLinkStyle}
   }
