@@ -31,7 +31,6 @@ const sidebarClosedStyle = css`
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
   background-color: transparent;
-
   ${theme.breakpoints.mobile(css`
     transform: translateX(-${sidebarMobileWidth}rem);
   `)}
@@ -49,19 +48,17 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
-  transition: transform ${sidebarTransitionTime}ms,
-              box-shadow ${sidebarTransitionTime}ms,
-              background-color ${sidebarTransitionTime}ms;
+  transition:
+    transform ${sidebarTransitionTime}ms,
+    box-shadow ${sidebarTransitionTime}ms,
+    background-color ${sidebarTransitionTime}ms;
   background-color: ${theme.color.neutral.darker};
   z-index: 3; /* stay above book content and overlay */
-
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + ${sidebarDesktopWidth}rem);
   min-width: calc(50vw + ${sidebarDesktopWidth}rem);
-
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-
   ${theme.breakpoints.mobile(css`
     width: calc(50vw + ${sidebarMobileWidth}rem);
     min-width: calc(50vw + ${sidebarMobileWidth}rem);
@@ -97,7 +94,6 @@ const ToCHeader = styled.div`
   align-items: center;
   height: ${toolbarDesktopHeight}rem;
   overflow: visible;
-
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
@@ -116,7 +112,6 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 const NavItem = styled(NavItemComponent)`
   list-style: none;
   font-size: 1.4rem;
-
   ${(props) => props.active && css`
     overflow: visible;
     position: relative;

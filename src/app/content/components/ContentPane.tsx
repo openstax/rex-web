@@ -16,9 +16,7 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   flex: 1;
   width: 100%;
   overflow: visible;
-
   transition: margin-left ${sidebarTransitionTime}ms;
-
   ${styleWhenSidebarClosed(css`
     margin-left: -${sidebarDesktopWidth}rem;
     ${theme.breakpoints.mobile(css`
@@ -41,7 +39,7 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
     margin-left: -${sidebarMobileWidth}rem;
   `)}
 
-  *:target:before {
+  *:target::before {
     content: " ";
     display: block;
     position: relative;

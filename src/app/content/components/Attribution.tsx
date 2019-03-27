@@ -27,22 +27,27 @@ const summaryIconStyle = css`
   width: 1.5rem;
 `;
 // tslint:disable-next-line:variable-name
-const SummaryClosedIcon = styled(CaretRight)`${summaryIconStyle}`;
+const SummaryClosedIcon = styled(CaretRight)`
+  ${summaryIconStyle}
+`;
 // tslint:disable-next-line:variable-name
-const SummaryOpenIcon = styled(CaretDown)`${summaryIconStyle}`;
+const SummaryOpenIcon = styled(CaretDown)`
+  ${summaryIconStyle}
+`;
 
 // tslint:disable-next-line:variable-name
 const Summary = styled.summary`
   ${contentTextStyle}
   font-weight: 500;
   display: flex;
-
   list-style: none;
+
   ::-webkit-details-marker {
     display: none;
   }
 
-  &, span {
+  &,
+  span {
     align-items: center;
     ${bodyCopyRegularStyle}
     ${decoratedLinkStyle}
@@ -61,7 +66,7 @@ const Content = styled.div`
 // tslint:disable-next-line:variable-name
 const Details = styled.details`
   ${bodyCopyRegularStyle}
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
   min-height: 6rem;
   ${wrapperPadding}
@@ -74,6 +79,7 @@ const Details = styled.details`
   &[open] ${SummaryClosedIcon} {
     display: none;
   }
+
   &:not([open]) ${SummaryOpenIcon} {
     display: none;
   }

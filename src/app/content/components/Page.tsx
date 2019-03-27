@@ -168,7 +168,7 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: ${contentTextWidth}rem
+  max-width: ${contentTextWidth}rem;
   margin: 0 auto;
 `;
 
@@ -182,12 +182,13 @@ const StyledPageComponent = styled(PageComponent)`
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
-  .os-figure, .os-figure:last-child {
+  .os-figure,
+  .os-figure:last-child {
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
   * {
-   overflow: initial; /* rex styles default to overflow hidden, breaks content */
+    overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }
 `;
 

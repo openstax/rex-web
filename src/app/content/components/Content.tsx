@@ -69,7 +69,6 @@ const MainContentWrapper = isOpenConnector(styled.div`
   overflow: visible;
   background-color: ${mainContentBackground};
   transition: max-width ${sidebarTransitionTime}ms;
-
   max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
   ${styleWhenSidebarClosed(css`
     max-width: ${contentWrapperMaxWidth}rem;
@@ -80,7 +79,6 @@ const MainContentWrapper = isOpenConnector(styled.div`
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   ${wrapperPadding}
-
   ${styleWhenSidebarClosed(css`
     ${wrapperPadding}
   `)}

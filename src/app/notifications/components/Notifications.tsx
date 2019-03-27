@@ -23,7 +23,6 @@ const Container = styled.div`
     z-index: 1; /* below the navbar */
     position: sticky;
     border-bottom: thin solid ${theme.color.neutral.darkest};
-
     padding: 0 ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
       padding: 0 ${theme.padding.page.mobile}rem;
