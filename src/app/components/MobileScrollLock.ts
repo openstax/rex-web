@@ -9,8 +9,7 @@ const MobileScrollLockHoC = (
   children(className);
 
 export default styled(MobileScrollLockHoC)`
-
   ${theme.breakpoints.mobile(css`
-    overflow-y: hidden;
+    overflow: hidden;
   `)}
 `;
