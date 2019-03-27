@@ -39,7 +39,6 @@
     "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
-    "postinstall": "node ./script/postinstall",
     "pretest:sims": "./script/build-simulations.bash",
     "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "npm run-script pretest:sims && REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
