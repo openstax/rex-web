@@ -117,6 +117,10 @@ describe('scrollTocSectionIntoView', () => {
       value: 1000,
       writable: true,
     });
+    Object.defineProperty(sidebar, 'scrollHeight', {
+      value: 5000,
+      writable: true,
+    });
   });
 
   it('does nothing if activeSection is undefined', () => {
