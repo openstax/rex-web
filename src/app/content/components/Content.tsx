@@ -70,6 +70,9 @@ const MainContentWrapper = isOpenConnector(styled.div`
   background-color: ${mainContentBackground};
   transition: max-width ${sidebarTransitionTime}ms;
   max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
+  ${theme.breakpoints.mobile(css`
+    max-width: ${contentWrapperMaxWidth}rem;
+  `)}
   ${styleWhenSidebarClosed(css`
     max-width: ${contentWrapperMaxWidth}rem;
     margin: 0 auto;
