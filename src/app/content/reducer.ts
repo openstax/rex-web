@@ -10,7 +10,7 @@ import { State } from './types';
 export const initialState = {
   loading: {},
   references: [],
-  tocOpen: true,
+  tocOpen: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {

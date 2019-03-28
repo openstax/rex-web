@@ -7,7 +7,7 @@ export interface Params {
 }
 
 export interface State {
-  tocOpen: boolean;
+  tocOpen: boolean | null;
   params?: Params;
   loading: {
     book?: string;

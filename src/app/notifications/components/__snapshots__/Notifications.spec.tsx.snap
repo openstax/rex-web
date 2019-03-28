@@ -14,7 +14,7 @@ exports[`Notifications matches snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -43,7 +43,7 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 .c4 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -89,13 +89,13 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 .c3 {
-  font-family: Helvetica Neue;
+  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
   padding: 0.5rem 1rem;
   font-weight: bold;
-  background-color: #f1f1f1;
+  background-color: #fafafa;
   line-height: 4rem;
   margin-bottom: 1rem;
 }
@@ -114,13 +114,13 @@ exports[`Notifications matches snapshot 1`] = `
 
 .c0 {
   z-index: 2;
-  top: 23rem;
+  top: 0;
+  right: 0;
   overflow: visible;
   position: fixed;
-  right: 0;
 }
 
-@media (max-width:90em) {
+@media (max-width:73.125em) {
   .c2 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -136,23 +136,25 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:90em) {
+@media (max-width:73.125em) {
   .c4 {
     padding: 0 1rem;
   }
 }
 
-@media (max-width:90em) {
+@media (max-width:73.125em) {
   .c1 {
-    margin: 0;
-    border-width: 0 0 thin 0;
+    max-width: 117rem;
+    margin: 0 auto;
+    box-shadow: none;
+    border: none;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
   }
 }
 
-@media (max-width:90em) {
+@media (max-width:73.125em) {
   .c3 {
     line-height: 1rem;
     margin: 0;
@@ -160,11 +162,13 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:90em) {
+@media (max-width:73.125em) {
   .c0 {
+    z-index: 1;
     position: -webkit-sticky;
     position: sticky;
-    right: inital;
+    border-bottom: thin solid #e5e5e5;
+    padding: 0 3.2rem;
   }
 }
 

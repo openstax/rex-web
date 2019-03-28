@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
-import { contentFont } from './components/Typography';
 import * as content from './content';
 import * as Services from './context/Services';
 import * as developer from './developer';
@@ -106,7 +105,7 @@ export default (options: Options) => {
   }
 
   // the default font
-  services.fontCollector.add(`https://fonts.googleapis.com/css?family=${contentFont}`);
+  services.fontCollector.add('/styles/fonts.css');
 
   return {
     container,

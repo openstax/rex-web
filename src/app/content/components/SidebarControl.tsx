@@ -1,43 +1,104 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { ListOl } from 'styled-icons/fa-solid/ListOl';
+import { contentFont, textRegularSize } from '../../components/Typography';
 import { AppState, Dispatch } from '../../types';
 import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
+import { State } from '../types';
+import { toolbarIconColor } from './constants';
+import { toolbarIconStyles } from './Toolbar';
+import { styleWhenSidebarClosed } from './utils/sidebar';
 
-interface Props extends React.HTMLProps<HTMLButtonElement> {
-  isOpen: boolean;
+interface InnerProps {
+  isOpen: State['tocOpen'];
   onClick: () => void;
-  children: React.ReactNode;
+  className?: string;
+}
+interface MiddleProps {
+  isOpen: State['tocOpen'];
+  openToc: () => void;
+  closeToc: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-export const SidebarControl: React.SFC<Props> = ({isOpen, onClick, children, ...props}) =>
+const ListIcon = styled(ListOl)`
+  ${toolbarIconStyles};
+`;
+
+// tslint:disable-next-line:variable-name
+const ToCButtonText = styled.h3`
+  font-family: ${contentFont};
+  ${textRegularSize};
+  color: ${toolbarIconColor};
+  margin: 0;
+  padding: 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const ToCButton = styled.button`
+  border: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  background: none;
+  display: flex;
+  align-items: center;
+`;
+
+// tslint:disable-next-line:variable-name
+export const SidebarControl: React.SFC<InnerProps> = ({isOpen, onClick, className}) =>
   <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
-      return <button
-        {...props}
+      return <ToCButton
+        className={className}
         aria-label={txt}
         onClick={onClick}
-      >{children}</button>;
+      >
+        <ListIcon/><ToCButtonText>Table of contents</ToCButtonText>
+      </ToCButton>;
     }}
   </FormattedMessage>;
+
+// tslint:disable-next-line:variable-name
+export const OpenSidebarControl = styled(
+  (props: MiddleProps) => <SidebarControl {...props} isOpen={false} onClick={props.openToc} />
+)`
+  display: none;
+  ${styleWhenSidebarClosed(css`
+    display: flex;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseSidebarControl = styled(
+  (props: MiddleProps) => <SidebarControl {...props} isOpen={true} onClick={props.closeToc} />
+)`
+  ${styleWhenSidebarClosed(css`
+    display: none;
+  `)}
+`;
+
+// bug in types, only class components can return an array
+class CombinedSidebarControl extends React.Component<MiddleProps> {
+  public render() {
+    return [
+      <OpenSidebarControl {...this.props} key='open-sidebar' />,
+      <CloseSidebarControl {...this.props} key='close-sidebar' />,
+    ];
+  }
+}
 
 export default connect(
   (state: AppState) => ({
     isOpen:  selectors.tocOpen(state),
   }),
   (dispatch: Dispatch): {openToc: typeof actions['openToc'], closeToc: typeof actions['closeToc']} => ({
-    closeToc:  (...args) => dispatch(actions.closeToc(...args)),
-    openToc: (...args) => dispatch(actions.openToc(...args)),
-  }),
-  (stateProps, dispatchProps, ownProps) => ({
-    ...stateProps,
-    ...ownProps,
-    onClick: () => stateProps.isOpen
-      ? dispatchProps.closeToc()
-      : dispatchProps.openToc(),
+    closeToc:  () => dispatch(actions.closeToc()),
+    openToc: () => dispatch(actions.openToc()),
   })
-)(SidebarControl);
+)(CombinedSidebarControl);

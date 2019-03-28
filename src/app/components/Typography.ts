@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import theme from '../theme';
 
-export const contentFont = 'Helvetica Neue';
+export const contentFont = 'Neue Helvetica W01';
 export const textStyle = css`
   font-family: ${contentFont};
   color: ${theme.color.text.default};
@@ -16,6 +16,16 @@ export const linkStyle = css`
   border-bottom: ${linkColor} solid 0.02em;
 
   :hover {
+    color: ${linkHover};
+  }
+`;
+export const decoratedLinkStyle = css`
+  color: ${linkColor};
+  cursor: pointer;
+  text-decoration: none;
+
+  :hover {
+    text-decoration: underline;
     color: ${linkHover};
   }
 `;
