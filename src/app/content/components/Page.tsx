@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
+import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
@@ -18,6 +19,7 @@ import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
 import BookStyles from './BookStyles';
+import { contentTextWidth } from './constants';
 
 interface PropTypes {
   page: State['page'];
@@ -49,6 +51,8 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
       // fix assorted self closing tags
       .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
+      // remove page titles from content (they are in the nav)
+      .replace(/<h2 data-type="document-title".*?<\/h2>/, '')
     ;
   }
 
@@ -89,7 +93,7 @@ export class PageComponent extends Component<PropTypes> {
 
   public render() {
     return <BookStyles>
-      {(className) => <div className={[this.props.className, className].join(' ')}>
+      {(className: string) => <MainContent className={[this.props.className, className].join(' ')}>
         <div data-type='chapter'>
           <div
             data-type='page'
@@ -97,7 +101,7 @@ export class PageComponent extends Component<PropTypes> {
             dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
           />
         </div>
-      </div>}
+      </MainContent>}
     </BookStyles>;
   }
 
@@ -162,25 +166,29 @@ export class PageComponent extends Component<PropTypes> {
   }
 }
 
-export const contentTextWidth = 57;
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: ${contentTextWidth + theme.padding.page.mobile * 2}rem;
+  max-width: ${contentTextWidth}rem;
   margin: 0 auto;
-  padding: 0 ${theme.padding.page.mobile}rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
-  padding-top: ${theme.padding.page.mobile}rem;
-  padding-bottom: 0;
+  margin-top: ${theme.padding.page.desktop}rem;
+  ${theme.breakpoints.mobile(css`
+    margin-top: ${theme.padding.page.mobile}rem;
+  `)}
 
-  /* these are only here because the cnx-recipes styles are broken */
-  overflow: visible;
+  overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
+
+  .os-figure,
+  .os-figure:last-child {
+    margin-bottom: 5px; /* fix double scrollbar bug */
+  }
 
   * {
-    overflow: initial;
+    overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }
 `;
 

@@ -1,4 +1,4 @@
-import { css, InterpolationValue } from 'styled-components';
+import { css, FlattenSimpleInterpolation } from 'styled-components';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
 export interface ColorSet {
@@ -23,7 +23,7 @@ const padding = {
 const color = {
   neutral: {
     base: '#fff',
-    darker: '#f1f1f1',
+    darker: '#fafafa',
     darkest: '#e5e5e5',
     foreground: textColors.default,
   },
@@ -59,7 +59,7 @@ const color = {
 
 export default {
   breakpoints: {
-    mobile: (style: InterpolationValue[]) => css`
+    mobile: (style: FlattenSimpleInterpolation) => css`
       @media (max-width: 64em) {
         ${style}
       }

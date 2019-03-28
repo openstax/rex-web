@@ -81,6 +81,8 @@ Array [
 }
 
 .c0 {
+  z-index: 2;
+  position: relative;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
 }
@@ -146,25 +148,6 @@ Array [
       </a>
     </div>
   </div>,
-  .c0 {
-  z-index: 2;
-  top: 23rem;
-  overflow: visible;
-  position: fixed;
-  right: 0;
-}
-
-@media (max-width:90em) {
-  .c0 {
-    position: -webkit-sticky;
-    position: sticky;
-    right: inital;
-  }
-}
-
-<div
-    className="c0"
-  />,
   .c1 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -229,7 +212,7 @@ Array [
 }
 
 .c6:hover {
-  background-color: #f1f1f1;
+  background-color: #fafafa;
 }
 
 .c6:active {

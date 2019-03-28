@@ -4,23 +4,21 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
-import { h3MobileLineHeight, h3Style, h4Style } from '../../components/Typography';
+import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
-import { bookDetailsUrl, findArchiveTreeSection } from '../utils';
-import { contentTextWidth } from './Page';
-
-export const bookBannerDesktopHeight = 13;
-export const bookBannerMobileHeight = 10.4;
+import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
+import { bookDetailsUrl } from '../utils/urlUtils';
+import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
-  height: 2rem;
-  width: 2rem;
+  margin-left: -0.6rem;
+  height: 3rem;
+  width: 3rem;
   color: ${theme.color.neutral.base};
-  margin-right: 0.7rem;
 `;
 
 interface PropTypes {
@@ -48,8 +46,9 @@ const bookBannerTextStyle = css`
 const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
+  display: flex;
+  height: ${textRegularLineHeight}rem;
   font-weight: normal;
-  display: inline-flex;
   align-items: center;
   text-decoration: none;
   margin: 0;
@@ -82,12 +81,15 @@ const color = Color(blue).lighten(0.7);
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
+  position: sticky;
+  top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   height: ${bookBannerDesktopHeight}rem;
   background: linear-gradient(to right, ${blue}, ${color.hex()});
+  z-index: 3; /* stay above book content and overlay */
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
     height: ${bookBannerMobileHeight}rem;
@@ -96,8 +98,9 @@ const BarWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export class BookBanner extends Component<PropTypes> {
+
   public render() {
-    const {page, book} = this.props as PropTypes;
+    const {page, book} = this.props;
 
     if (!book || !page) {
       return null;

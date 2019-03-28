@@ -23,7 +23,7 @@
     } ],
     "declaration-block-no-shorthand-property-overrides": true,
     "declaration-colon-space-before": "never",
-    "declaration-colon-space-after": "always",
+    "declaration-colon-space-after": "always-single-line",
     "declaration-block-no-redundant-longhand-properties": true,
     "declaration-block-semicolon-newline-after": [ "always", {
       "severity": "warning"
