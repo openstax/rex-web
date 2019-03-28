@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "cnx-recipes": "github:connexions/cnx-recipes#master",
-    "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
     "history": "^4.7.2",
     "html-entities": "^1.2.1",
@@ -70,7 +69,6 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@openstax/types": "^1.0.2",
-    "@types/color": "^3.0.0",
     "@types/express": "^4.16.0",
     "@types/history": "^4.7.2",
     "@types/html-entities": "^1.2.16",
