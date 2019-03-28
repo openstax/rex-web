@@ -40,7 +40,7 @@ export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C
   }
 
   const domContainer = container || document.createElement('div');
-  const c = ReactDOM.render(<Wrapper />, domContainer);
+  const c = ReactDOM.render(<Wrapper />, domContainer) as C;
 
   if (!c) {
       throw new Error(`BUG: Component was not rendered`);
