@@ -1,4 +1,3 @@
-import Color from 'color';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -6,13 +5,18 @@ import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
-import { ColorPair } from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
+
+const gradients: {[key in Book['theme']]: string} = {
+  blue: '#004AA2',
+  gray: '#97999B',
+  green: '#9CD14A',
+};
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
@@ -78,7 +82,7 @@ const BookChapter = styled.h1`
 `;
 
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div<{theme: ColorPair}>`
+const BarWrapper = styled.div<{theme: Book['theme']}>`
   position: sticky;
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
@@ -86,8 +90,8 @@ const BarWrapper = styled.div<{theme: ColorPair}>`
   display: flex;
   align-items: center;
   height: ${bookBannerDesktopHeight}rem;
-  ${(props) => css`
-    background: linear-gradient(to right, ${props.theme.base}, ${Color(props.theme.base).lighten(0.7).hex()});
+  ${(props: {theme: Book['theme']}) => css`
+    background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
   `}
 
   z-index: 3; /* stay above book content and overlay */
@@ -114,7 +118,7 @@ export class BookBanner extends Component<PropTypes> {
       return null;
     }
 
-    return <BarWrapper theme={theme.color.primary[book.theme]}>
+    return <BarWrapper theme={book.theme}>
       <TopBar>
         <BookTitle href={bookUrl}><LeftArrow/>{book.tree.title}</BookTitle>
         <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
