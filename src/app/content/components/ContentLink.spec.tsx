@@ -52,9 +52,9 @@ describe('ContentLink', () => {
       params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
       state: {
-        bookUid: 'booklongid',
-        bookVersion: '0',
-        pageUid: 'pagelongid',
+        bookUid: 'testbook1-uuid',
+        bookVersion: '1.0',
+        pageUid: 'testbook1-testpage1-uuid',
       },
     }));
     expect(event.preventDefault).toHaveBeenCalled();
