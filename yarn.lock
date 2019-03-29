@@ -3245,9 +3245,9 @@ clone-regexp@^1.0.0:
     is-regexp "^1.0.0"
     is-supported-regexp-flag "^1.0.0"
 
-"cnx-recipes@github:openstax/cnx-recipes#4fd28d845a5d0e00b30812ee38a577113208c5e6":
+"cnx-recipes@github:openstax/cnx-recipes#dfd753a7fed4e9d4e30a3cdfd4b0a2135969ee12":
   version "1.17.0"
-  resolved "https://codeload.github.com/openstax/cnx-recipes/tar.gz/4fd28d845a5d0e00b30812ee38a577113208c5e6"
+  resolved "https://codeload.github.com/openstax/cnx-recipes/tar.gz/dfd753a7fed4e9d4e30a3cdfd4b0a2135969ee12"
   dependencies:
     fs-to-json "^0.1.7"
 
