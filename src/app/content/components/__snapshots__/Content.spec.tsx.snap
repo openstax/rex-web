@@ -46,7 +46,6 @@ Array [
   align-items: center;
   height: 5rem;
   max-width: 117rem;
-  background: #fff;
   margin: 0 auto;
 }
 
@@ -82,6 +81,7 @@ Array [
 
 .c0 {
   z-index: 2;
+  background: #fff;
   position: relative;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
@@ -1496,7 +1496,6 @@ Array [
   align-items: center;
   height: 5rem;
   max-width: 117rem;
-  background: #fff;
   margin: 0 auto;
 }
 
@@ -1532,6 +1531,7 @@ Array [
 
 .c0 {
   z-index: 2;
+  background: #fff;
   position: relative;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
