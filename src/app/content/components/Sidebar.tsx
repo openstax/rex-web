@@ -75,6 +75,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   flex-direction: column;
 
   > nav {
+    -webkit-overflow-scrolling: touch;
     position: relative;
     padding: ${sidebarPadding}rem;
     flex: 1;
