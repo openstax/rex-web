@@ -19,11 +19,13 @@ const gradients: {[key in Book['theme']]: string} = {
 };
 
 // tslint:disable-next-line:variable-name
-const LeftArrow = styled(ChevronLeft)`
+const LeftArrow = styled(ChevronLeft)<{theme: Book['theme']}>`
   margin-left: -0.6rem;
   height: 3rem;
   width: 3rem;
-  color: ${theme.color.neutral.base};
+  ${(props: {theme: Book['theme']}) => css`
+    color: ${theme.color.primary[props.theme].foreground};
+  `}
 `;
 
 interface PropTypes {
@@ -41,14 +43,16 @@ const TopBar = styled.div`
 const bookBannerTextStyle = css`
   max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
   padding: 0;
-  color: ${theme.color.primary.blue.foreground};
+  ${(props: {theme: Book['theme']}) => css`
+    color: ${theme.color.primary[props.theme].foreground};
+  `}
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
-const BookTitle = styled.a`
+const BookTitle = styled.a<{theme: Book['theme']}>`
   ${h4Style}
   ${bookBannerTextStyle}
   display: flex;
@@ -64,7 +68,7 @@ const BookTitle = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled.h1`
+const BookChapter = styled.h1<{theme: Book['theme']}>`
   ${h3Style}
   ${bookBannerTextStyle}
   font-weight: bold;
@@ -120,8 +124,8 @@ export class BookBanner extends Component<PropTypes> {
 
     return <BarWrapper theme={book.theme}>
       <TopBar>
-        <BookTitle href={bookUrl}><LeftArrow/>{book.tree.title}</BookTitle>
-        <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
+        <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+        <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
       </TopBar>
     </BarWrapper>;
   }

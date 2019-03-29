@@ -10,6 +10,7 @@ export interface ColorSet extends ColorPair {
   darkest: string;
 }
 const textColors = {
+  black: '#000',
   default: '#424242',
   label: '#6f6f6f',
   white: '#fff',
@@ -40,7 +41,7 @@ const color = {
     },
     green: {
       base: '#63a524',
-      foreground: textColors.white,
+      foreground: textColors.black,
     },
     orange: {
       base: '#f36b32',
