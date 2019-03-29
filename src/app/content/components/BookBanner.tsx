@@ -18,14 +18,16 @@ const gradients: {[key in Book['theme']]: string} = {
   green: '#9CD14A',
 };
 
+const applyBookTextColor = (props: {theme: Book['theme']}) => css`
+  color: ${theme.color.primary[props.theme].foreground};
+`;
+
 // tslint:disable-next-line:variable-name
-const LeftArrow = styled(ChevronLeft)<{theme: Book['theme']}>`
+const LeftArrow = styled(ChevronLeft)`
   margin-left: -0.6rem;
   height: 3rem;
   width: 3rem;
-  ${(props: {theme: Book['theme']}) => css`
-    color: ${theme.color.primary[props.theme].foreground};
-  `}
+  ${applyBookTextColor}
 `;
 
 interface PropTypes {
@@ -43,16 +45,14 @@ const TopBar = styled.div`
 const bookBannerTextStyle = css`
   max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
   padding: 0;
-  ${(props: {theme: Book['theme']}) => css`
-    color: ${theme.color.primary[props.theme].foreground};
-  `}
+  ${applyBookTextColor}
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
-const BookTitle = styled.a<{theme: Book['theme']}>`
+const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
   display: flex;
@@ -68,7 +68,7 @@ const BookTitle = styled.a<{theme: Book['theme']}>`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled.h1<{theme: Book['theme']}>`
+const BookChapter = styled.h1`
   ${h3Style}
   ${bookBannerTextStyle}
   font-weight: bold;
