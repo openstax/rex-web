@@ -1,5 +1,13 @@
 /** @jest-environment puppeteer */
-import { checkLighthouse, finishRender, fullPageScreenshot, h1Content, navigate } from '../../test/browserutils';
+import {
+  checkLighthouse,
+  finishRender,
+  fullPageScreenshot,
+  h1Content,
+  navigate,
+  setDesktopViewport,
+  setMobileViewport
+} from '../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_LONG_PAGE_NAME = '1-test-page-3';
@@ -9,6 +17,7 @@ const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
 
 describe('content', () => {
   it('looks right', async() => {
+    setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
@@ -20,8 +29,9 @@ describe('content', () => {
   });
 
   it('attribution looks right', async() => {
+    setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await page.click('#main-content details');
+    await page.click('details');
     const screen = await fullPageScreenshot(page);
 
     expect(screen).toMatchImageSnapshot({
@@ -33,9 +43,8 @@ describe('content', () => {
   });
 
   it('looks right on mobile', async() => {
-    page.setViewport({height: 731, width: 411});
+    setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
-    page.click('[aria-label="Click to close the Table of Contents"]');
     await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
@@ -62,8 +71,6 @@ describe('content', () => {
     expect(isSkipToContentSelected).toBe(true);
   });
 
-  // skipping because current design does not have an H1
-  // TODO - add H1
   it('a11y lighthouse check', async() => {
     await navigate(page, TEST_PAGE_URL);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
@@ -105,10 +112,7 @@ describe('content', () => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const clickTocLink = (href: string) => page.evaluate(async(href) => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
-
-  const link = tocHeader && tocHeader.parentElement && tocHeader.parentElement.querySelector(`[href="${href}"]`);
+  const link = document && document.querySelector(`[aria-label="Table of Contents"] [href="${href}"]`);
 
   if (!link || !document || !window) {
     return false;
@@ -125,12 +129,9 @@ const clickTocLink = (href: string) => page.evaluate(async(href) => {
 }, href);
 
 const getSelectedTocSection = () => page.evaluate(() => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
+  const toc = document && document.querySelector('[aria-label="Table of Contents"]');
 
-  const li = tocHeader && tocHeader.parentElement
-    && tocHeader.parentElement.querySelector('li[aria-label="Current Page"]');
-
+  const li = toc && toc.querySelector('li[aria-label="Current Page"]');
   const a = li && li.querySelector('a');
   const href = a && a.attributes.getNamedItem('href');
 
@@ -138,8 +139,7 @@ const getSelectedTocSection = () => page.evaluate(() => {
 });
 
 const isTocVisible = () => page.evaluate(() => {
-  const element = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
+  const element = document && document.querySelector('[aria-label="Table of Contents"]');
   const style = element && window && window.getComputedStyle(element);
   return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
 });
@@ -149,11 +149,8 @@ const getScrollTop = () => page.evaluate(() => {
 });
 
 const getTocScrollTop = () => page.evaluate(() => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
-
-  return tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement
-    && tocHeader.parentElement.parentElement.scrollTop;
+  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > nav');
+  return scrollyTocNav && scrollyTocNav.scrollTop;
 });
 
 const scrollDown = () => page.evaluate(() => {
@@ -162,10 +159,6 @@ const scrollDown = () => page.evaluate(() => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const scrollTocDown = (px: number) => page.evaluate((px) => {
-  const tocHeader = document && Array.from(document.querySelectorAll('h2'))
-    .find((node) => node.textContent === 'Table of Contents');
-
-  const toc = tocHeader && tocHeader.parentElement && tocHeader.parentElement.parentElement;
-
+  const toc = document && document.querySelector('[aria-label="Table of Contents"] > nav');
   return toc && toc.scrollBy(0, px || toc.scrollHeight);
 }, px);

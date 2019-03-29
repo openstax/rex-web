@@ -2,6 +2,7 @@ import mergeAll from 'lodash/fp/mergeAll';
 import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Loadable from 'react-loadable';
 import createApp from './app';
 import { AppState } from './app/types';
 import { assertWindowDefined } from './app/utils';
@@ -58,7 +59,9 @@ app.services.promiseCollector.calm().then(() => {
 });
 
 if (window.__PRELOADED_STATE__) {
-  ReactDOM.hydrate(<app.container />, document.getElementById('root'));
+  Loadable.preloadReady().then(() => {
+    ReactDOM.hydrate(<app.container />, document.getElementById('root'));
+  });
 } else {
   ReactDOM.render(<app.container />, document.getElementById('root'));
 }

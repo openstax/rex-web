@@ -13,7 +13,7 @@ interface ServiceConsumer {
 }
 
 /* tslint:disable-next-line:variable-name */
-export default <P extends ServiceConsumer>(Component: React.ComponentClass<P>) =>
+export default <P extends ServiceConsumer>(Component: React.ComponentType<P>) =>
   (props: Pick<P, Exclude<keyof P, keyof ServiceConsumer>>) => <Consumer>
     {(services) => {
       // @ts-ignore - remove this when https://github.com/Microsoft/TypeScript/issues/28748 is resolved

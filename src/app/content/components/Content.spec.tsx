@@ -16,7 +16,7 @@ import { formatBookData } from '../utils';
 import Content from './Content';
 import Page from './Page';
 import { Sidebar } from './Sidebar';
-import { SidebarControl } from './SidebarControl';
+import { CloseSidebarControl, OpenSidebarControl, SidebarControl } from './SidebarControl';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -106,7 +106,7 @@ describe('content', () => {
     expect(pageComponent).toBeDefined();
   });
 
-  it('renders with ToC open', () => {
+  it('renders with ToC in null state', () => {
     const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
@@ -119,7 +119,7 @@ describe('content', () => {
 
     const sidebarComponent = component.root.findByType(Sidebar);
 
-    expect(sidebarComponent.props.isOpen).toBe(true);
+    expect(sidebarComponent.props.isOpen).toBe(null);
   });
 
   it('SidebarControl opens and closes ToC', () => {
@@ -135,10 +135,10 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
-    component.root.findByType(SidebarControl).props.onClick();
+    expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
+    component.root.findAllByType(CloseSidebarControl)[0].findByType(SidebarControl).props.onClick();
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
-    component.root.findByType(SidebarControl).props.onClick();
+    component.root.findAllByType(OpenSidebarControl)[0].findByType(SidebarControl).props.onClick();
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 });

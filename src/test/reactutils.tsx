@@ -1,8 +1,7 @@
-import { Element } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 import { ReactTestInstance } from 'react-test-renderer';
 
 export const setStateFinished = (testInstance: ReactTestInstance) => new Promise((resolve) => {
@@ -27,7 +26,7 @@ export function expectError(message: string, fn: () => void) {
 }
 
 // Utility to handle nulls and SFCs
-export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C>) {
+export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C>, container?: HTMLElement) {
 
   // tslint:disable-next-line:variable-name
   const Wrapper = class extends Component {
@@ -36,18 +35,36 @@ export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C
     }
   };
 
-  const c = ReactTestUtils.renderIntoDocument(<Wrapper />) as Component;
+  if (!document) {
+    throw new Error('document is requried to render to dom');
+  }
+
+  const domContainer = container || document.createElement('div');
+  const c = ReactDOM.render(<Wrapper />, domContainer) as C;
 
   if (!c) {
       throw new Error(`BUG: Component was not rendered`);
   }
-  const node = ReactDOM.findDOMNode(c) as Element;
+  const node = ReactDOM.findDOMNode(c) as HTMLElement;
   if (!node || !node.parentNode) {
       throw new Error(`BUG: Could not find DOM node`);
   }
   return {
     node,
-    root: node.parentNode,
+    root: domContainer as HTMLElement,
     tree: c,
   };
 }
+
+let requestAnimationFrame: jest.SpyInstance;
+beforeEach(() => {
+  if (typeof(window) !== 'undefined') {
+    requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => cb());
+  }
+});
+
+afterEach(() => {
+  if (typeof(window) !== 'undefined') {
+    requestAnimationFrame.mockRestore();
+  }
+});

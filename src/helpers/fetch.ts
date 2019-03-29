@@ -1,5 +1,3 @@
-import { Response } from '@openstax/types/lib.dom';
-
 export const acceptStatus = (
   status: number,
   formatError: (status: number, message: string) => string

@@ -13,7 +13,9 @@ import mockArchiveLoader, {
   page
 } from '../../../test/mocks/archiveLoader';
 import { renderToDom } from '../../../test/reactutils';
+import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
+import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
@@ -85,9 +87,13 @@ describe('Page', () => {
     ];
     return renderToDom(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <Services.Provider value={services}>
+            <SkipToContentWrapper>
+              <ConnectedPage />
+            </SkipToContentWrapper>
+          </Services.Provider>
+        </MessageProvider>
       </Provider>
     );
   };
@@ -97,14 +103,18 @@ describe('Page', () => {
       ...page,
       content: `<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`,
     }));
-    const {node} = renderToDom(
+    const {root} = renderToDom(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <Services.Provider value={services}>
+            <SkipToContentWrapper>
+              <ConnectedPage />
+            </SkipToContentWrapper>
+          </Services.Provider>
+        </MessageProvider>
       </Provider>
     );
-    const pageElement = node.querySelector('[data-type="page"]');
+    const pageElement = root.querySelector('[data-type="page"]');
 
     if (!pageElement) {
       return expect(pageElement).toBeTruthy();
@@ -116,8 +126,8 @@ describe('Page', () => {
   });
 
   it('updates content link with new hrefs', () => {
-    const {node} = renderDomWithReferences();
-    const [firstLink, secondLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
+    const {root} = renderDomWithReferences();
+    const [firstLink, secondLink] = Array.from(root.querySelectorAll('[data-type="page"] a'));
 
     if (!firstLink || !secondLink) {
       expect(firstLink).toBeTruthy();
@@ -129,9 +139,9 @@ describe('Page', () => {
   });
 
   it('interceptes clicking content links', () => {
-    const {node} = renderDomWithReferences();
-    const [firstLink, secondLink, thirdLink] = Array.from(node.querySelectorAll('[data-type="page"] a'));
-    const button = node.querySelector('[data-type="page"] button');
+    const {root} = renderDomWithReferences();
+    const [firstLink, secondLink, thirdLink] = Array.from(root.querySelectorAll('[data-type="page"] a'));
+    const button = root.querySelector('[data-type="page"] button');
 
     if (!document || !firstLink || !secondLink || !thirdLink || !button) {
       expect(document).toBeTruthy();
@@ -184,8 +194,8 @@ describe('Page', () => {
   });
 
   it('removes listener when it unmounts', () => {
-    const { root, node } = renderDomWithReferences();
-    const links = Array.from(node.querySelectorAll('[data-type="page"] a'));
+    const { root } = renderDomWithReferences();
+    const links = Array.from(root.querySelectorAll('[data-type="page"] a'));
 
     for (const link of links) {
       link.removeEventListener = jest.fn();
@@ -200,8 +210,8 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when trying to remove listeners from elements that have no stored handler', () => {
-    const { root, node } = renderDomWithReferences();
-    const pageElement = node.querySelector('[data-type="page"]');
+    const { root } = renderDomWithReferences();
+    const pageElement = root.querySelector('[data-type="page"]');
 
     if (pageElement && document) {
       pageElement.append(document.createElement('a'));
@@ -215,9 +225,13 @@ describe('Page', () => {
   it('mounts and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
       </Provider>
     );
 
@@ -240,9 +254,13 @@ describe('Page', () => {
 
     renderToDom(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
       </Provider>
     );
 
@@ -276,15 +294,19 @@ describe('Page', () => {
 
     archiveLoader.mockPage(book, someHashPage);
 
-    const {node} = renderToDom(
+    const {root} = renderToDom(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
       </Provider>
     );
 
-    const target = node.querySelector('[id="somehash"]');
+    const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
     expect(scrollTo).toHaveBeenCalledWith(target);
@@ -306,11 +328,15 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     archiveLoader.mockPage(book, someHashPage);
 
-    const {node} = renderToDom(
+    const {root} = renderToDom(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
       </Provider>
     );
 
@@ -321,7 +347,7 @@ describe('Page', () => {
       references: [],
     }));
 
-    const target = node.querySelector('[id="somehash"]');
+    const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
     expect(scrollTo).toHaveBeenCalledWith(target);
@@ -336,9 +362,13 @@ describe('Page', () => {
 
     renderer.create(
       <Provider store={store}>
-        <Services.Provider value={services}>
-          <ConnectedPage />
-        </Services.Provider>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
       </Provider>
     );
 

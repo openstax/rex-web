@@ -79,6 +79,7 @@ describe('create app', () => {
       };
       delete window.location;
       window.location = newLocation;
+
       const app = createApp({
         initialEntries: [
           {code: 404, page: {route: notFound}},
