@@ -123,7 +123,7 @@ describe('locationChange', () => {
   });
 
   it('adds font to fontcollector', () => {
-    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i';
+    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'; // tslint:disable-line:max-line-length
     jest.mock('cnx-recipes', () => ({
       getBookStyles: () => {
         const styles = new Map();
