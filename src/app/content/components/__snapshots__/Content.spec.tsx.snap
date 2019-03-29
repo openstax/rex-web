@@ -423,7 +423,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   height: 13rem;
-  background: linear-gradient(to right,#002468,#003DB1);
+  background: linear-gradient(to right,#002468,#004AA2);
   z-index: 3;
 }
 
@@ -798,6 +798,12 @@ Array [
 }
 
 @media (max-width:64em) {
+  .c28 {
+    margin-left: -28.8rem;
+  }
+}
+
+@media (max-width:64em) {
   .c8 {
     height: 4rem;
   }
@@ -889,6 +895,12 @@ Array [
 @media (max-width:64em) {
   .c29 {
     margin-left: -3.2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c30 {
+    max-width: 117rem;
   }
 }
 
@@ -2063,6 +2075,12 @@ Array [
 }
 
 @media (max-width:64em) {
+  .c20 {
+    margin-left: -28.8rem;
+  }
+}
+
+@media (max-width:64em) {
   .c2 {
     height: 4rem;
   }
@@ -2154,6 +2172,12 @@ Array [
 @media (max-width:64em) {
   .c21 {
     margin-left: -3.2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c22 {
+    max-width: 117rem;
   }
 }
 
