@@ -1,3 +1,4 @@
+import 'cnx-recipes'; // For Travis
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
 import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
