@@ -647,6 +647,7 @@ Array [
 }
 
 .c24 > nav {
+  -webkit-overflow-scrolling: touch;
   position: relative;
   padding: 1rem;
   -webkit-flex: 1;
@@ -1975,6 +1976,7 @@ Array [
 }
 
 .c18 > nav {
+  -webkit-overflow-scrolling: touch;
   position: relative;
   padding: 1rem;
   -webkit-flex: 1;
