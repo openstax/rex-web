@@ -1,5 +1,7 @@
+import locationChange from './locationChange';
 import setHead from './setHead';
 
 export {
-  setHead
+  setHead,
+  locationChange,
 };
