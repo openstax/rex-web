@@ -36,7 +36,7 @@ const Overlay = styled.div`
   `)}
 `;
 
-class MobileScrollLock extends React.Component<{bodyClass: string}> {
+export class MobileScrollLock extends React.Component<{bodyClass: string}> {
 
   public componentDidMount() {
     if (typeof(document) === 'undefined') {
@@ -73,7 +73,7 @@ class MobileScrollLock extends React.Component<{bodyClass: string}> {
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper: React.SFC = () => <MobileScrollLockBodyClass>
+const Wrapper: React.SFC = () => <MobileScrollLockBodyClass suppressClassNameWarning>
   {(className: string) => <MobileScrollLock bodyClass={className} />}
 </MobileScrollLockBodyClass>;
 
