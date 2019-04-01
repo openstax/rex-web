@@ -12,6 +12,7 @@ import mockArchiveLoader, {
   book,
   page
 } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
@@ -21,6 +22,7 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
 import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
+import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
 
 // jest.mock('../../../helpers/mathjax');
@@ -372,7 +374,7 @@ describe('Page', () => {
       </Provider>
     );
 
-    store.dispatch(actions.receiveBook({...book, slug: 'book', authors: [], publish_date: ''}));
+    store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
 
     expect(spy).not.toHaveBeenCalled();
   });

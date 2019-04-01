@@ -20,9 +20,6 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   transition: margin-left ${sidebarTransitionTime}ms;
   ${styleWhenSidebarClosed(css`
     margin-left: -${sidebarDesktopWidth}rem;
-    ${theme.breakpoints.mobile(css`
-      margin-left: -${sidebarMobileWidth}rem;
-    `)}
   `)}
 
   ${(props) => props.isOpen && theme.breakpoints.mobile(css`

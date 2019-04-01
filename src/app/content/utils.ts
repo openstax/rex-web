@@ -27,4 +27,5 @@ export const formatBookData = (archiveBook: ArchiveBook, osWebBook: OSWebBook): 
   authors: osWebBook.authors,
   publish_date: osWebBook.publish_date,
   slug: osWebBook.meta.slug,
+  theme: osWebBook.cover_color,
 });
