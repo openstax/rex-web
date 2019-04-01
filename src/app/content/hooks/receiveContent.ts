@@ -24,7 +24,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getS
   dispatch(setHead({
     meta: [
       {property: 'og:description', content: ''},
-      {property: 'theme-color', content: theme.color.primary[book.theme].base},
+      {name: 'theme-color', content: theme.color.primary[book.theme].base},
     ],
     title: `${book.title} / ${page.title}`,
   }));
