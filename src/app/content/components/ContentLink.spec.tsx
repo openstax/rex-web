@@ -2,46 +2,19 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { createStore } from 'redux';
+import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { push } from '../../navigation/actions';
 import { AppState } from '../../types';
 import { initialState } from '../reducer';
 import { content } from '../routes';
+import { formatBookData } from '../utils';
 import ConnectedContentLink from './ContentLink';
 
-const BOOK_SLUG = 'bookslug';
-const PAGE_SLUG = 'page-title';
+const BOOK_SLUG = 'book-slug-1';
+const PAGE_SLUG = 'test-page-1';
 
-const book = {
-  authors: [],
-  id: 'booklongid',
-  license: {
-    name: 'asdf',
-    version: 'asdf',
-  },
-  publish_date: '',
-  shortId: 'book',
-  slug: BOOK_SLUG,
-  title: 'book title',
-  tree: {
-    contents: [
-      {
-        id: 'pagelongid@0',
-        shortId: 'page@0',
-        title: 'page title',
-      },
-    ],
-    id: 'booklongid@0',
-    shortId: 'book@0',
-    title: 'book title',
-  },
-  version: '0',
-};
-const page = {
-  id: 'pagelongid',
-  shortId: 'page',
-  title: 'page title',
-  version: '0',
-};
+const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('ContentLink', () => {
   let consoleError: jest.SpyInstance;
@@ -79,9 +52,9 @@ describe('ContentLink', () => {
       params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
       state: {
-        bookUid: 'booklongid',
-        bookVersion: '0',
-        pageUid: 'pagelongid',
+        bookUid: 'testbook1-uuid',
+        bookVersion: '1.0',
+        pageUid: 'testbook1-testpage1-uuid',
       },
     }));
     expect(event.preventDefault).toHaveBeenCalled();

@@ -17,7 +17,6 @@ const TopBar = styled.div`
   align-items: center;
   height: ${navDesktopHeight}rem;
   max-width: ${maxNavWidth}rem;
-  background: ${theme.color.neutral.base};
   margin: 0 auto;
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
@@ -62,6 +61,7 @@ const LoginTxt = styled.a`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   z-index: 2; /* drop shadow above notifications */
+  background: ${theme.color.neutral.base};
   position: relative; /* drop shadow above notifications */
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);

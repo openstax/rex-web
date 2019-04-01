@@ -3,6 +3,7 @@ import { OSWebBook } from '../../helpers/createOSWebLoader';
 export const mockCmsBook: OSWebBook = {
   authors: [{value: {name: 'Bam Bammerson'}}],
   cnx_id: '3',
+  cover_color: 'blue',
   meta: {
     slug: 'book-slug-1',
   },

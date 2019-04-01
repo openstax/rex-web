@@ -44,6 +44,7 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
     'title',
     'version',
     'tree',
+    'theme',
     'slug',
     'license',
     'authors',
