@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cnx-recipes": "github:connexions/cnx-recipes#master",
+    "cnx-recipes": "github:openstax/cnx-recipes#dfd753a7fed4e9d4e30a3cdfd4b0a2135969ee12",
     "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
     "history": "^4.7.2",
@@ -40,7 +40,7 @@
     "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
-    "postinstall": "node ./script/postinstall",
+
     "pretest:sims": "./script/build-simulations.bash",
     "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "npm run-script pretest:sims && REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
