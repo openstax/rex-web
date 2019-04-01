@@ -22,7 +22,7 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
     margin-left: -${sidebarDesktopWidth}rem;
   `)}
 
-  ${(props) => props.isOpen && theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobile(css`
     margin-left: -${sidebarMobileWidth}rem;
   `)}
 
