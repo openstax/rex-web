@@ -125,8 +125,15 @@ describe('locationChange', () => {
   });
 
   it('adds font to fontcollector', () => {
-    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i';
-    jest.mock('cnx-recipes/styles/output/intro-business.json', () => `"${mockFont}"`);
+    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'; // tslint:disable-line:max-line-length
+    jest.mock('cnx-recipes', () => ({
+      getBookStyles: () => {
+        const styles = new Map();
+        styles.set('intro-business', `@import url("${mockFont}");`);
+        return styles;
+      },
+    }));
+
     const spy = jest.spyOn(helpers.fontCollector, 'add');
     jest.resetModules();
     hook = (require('./locationChange').default)(helpers);
@@ -136,7 +143,14 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t break if there are no fonts in the css', () => {
-    jest.mock('cnx-recipes/styles/output/intro-business.json', () => `""`);
+    jest.mock('cnx-recipes', () => ({
+      getBookStyles: () => {
+        const styles = new Map();
+        styles.set('intro-business', `/* mocked book style */`);
+        return styles;
+      },
+    }));
+
     const spy = jest.spyOn(helpers.fontCollector, 'add');
     jest.resetModules();
     hook = (require('./locationChange').default)(helpers);
