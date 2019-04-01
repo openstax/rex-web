@@ -1,4 +1,5 @@
 import { setHead } from '../../head/actions';
+import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import * as select from '../selectors';
@@ -23,6 +24,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getS
   dispatch(setHead({
     meta: [
       {property: 'og:description', content: ''},
+      {property: 'theme-color', content: theme.color.primary[book.theme].base},
     ],
     title: `${book.title} / ${page.title}`,
   }));

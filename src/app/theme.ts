@@ -51,7 +51,7 @@ const color = {
     },
     yellow: {
       base: '#f4d019',
-      foreground: textColors.default,
+      foreground: textColors.black,
     },
   },
   secondary: {
