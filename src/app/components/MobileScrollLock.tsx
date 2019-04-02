@@ -1,23 +1,19 @@
 import { Event } from '@openstax/types/lib.dom';
 import Color from 'color';
-import React, { ReactElement } from 'react';
-import styled, { css } from 'styled-components';
+import React from 'react';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import { toolbarDesktopHeight } from '../content/components/constants';
 import { findFirstScrollableParent } from '../content/utils/domUtils';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 
 // tslint:disable-next-line:variable-name
-const MobileScrollLockBodyClassHoC = (
-  {children, className}: {className?: string, children: (className?: string) => ReactElement<any>}
-) =>
-  children(className);
-
-// tslint:disable-next-line:variable-name
-const MobileScrollLockBodyClass = styled(MobileScrollLockBodyClassHoC)`
-  ${theme.breakpoints.mobile(css`
-    overflow: hidden;
-  `)}
+const MobileScrollLockBodyClass = createGlobalStyle`
+  body {
+    ${theme.breakpoints.mobile(css`
+      overflow: hidden;
+    `)}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -36,14 +32,12 @@ const Overlay = styled.div`
   `)}
 `;
 
-export class MobileScrollLock extends React.Component<{bodyClass: string}> {
+export default class MobileScrollLock extends React.Component {
 
   public componentDidMount() {
     if (typeof(document) === 'undefined') {
       return;
     }
-    const lockClasses = this.props.bodyClass.split(' ');
-    document.body.classList.add(...lockClasses);
     document.addEventListener('touchmove', this.blockScroll, {passive: false});
   }
 
@@ -51,13 +45,11 @@ export class MobileScrollLock extends React.Component<{bodyClass: string}> {
     if (typeof(document) === 'undefined') {
       return;
     }
-    const lockClasses = this.props.bodyClass.split(' ');
-    document.body.classList.remove(...lockClasses);
     document.removeEventListener('touchmove', this.blockScroll);
   }
 
   public render() {
-    return <Overlay />;
+    return <Overlay><MobileScrollLockBodyClass /></Overlay>;
   }
 
   private blockScroll = (e: Event) => {
@@ -71,10 +63,3 @@ export class MobileScrollLock extends React.Component<{bodyClass: string}> {
     }
   }
 }
-
-// tslint:disable-next-line:variable-name
-const Wrapper: React.SFC = () => <MobileScrollLockBodyClass suppressClassNameWarning>
-  {(className: string) => <MobileScrollLock bodyClass={className} />}
-</MobileScrollLockBodyClass>;
-
-export default Wrapper;
