@@ -423,7 +423,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   height: 13rem;
-  background: linear-gradient(to right,#002468,#004AA2);
+  background: linear-gradient(to right,#002468,#004aa2);
   z-index: 3;
 }
 
