@@ -39,3 +39,36 @@ export const findArchiveTreeSection = (
     stripIdVersion(section.shortId) === stripIdVersion(pageId)
     || stripIdVersion(section.id) === stripIdVersion(pageId)
   );
+
+export const prevNextBookPage = (
+  book: {tree: ArchiveTree},
+  pageId: string
+): {} | undefined => {
+  const flattenTree = flattenArchiveTree(book.tree);
+  const currentSection = findArchiveTreeSection(book, pageId);
+
+  const sections: { [s: string]: object; } = {};
+
+  if ( flattenTree && currentSection ) {
+    const index = flattenTree.findIndex((currentSection) =>
+    stripIdVersion(currentSection.shortId) === stripIdVersion(pageId)
+    || stripIdVersion(currentSection.id) === stripIdVersion(pageId));
+
+    if ( index > 0 && index < (flattenTree.length - 1)) {
+      sections.prev = flattenTree[index - 1];
+      sections.next = flattenTree[index + 1];
+
+    } else if ( index > 0 && index === (flattenTree.length - 1)) {
+      sections.prev = flattenTree[index - 1];
+
+    } else if (index === 0) {
+      sections.next = flattenTree[index + 1];
+
+    } else {
+      sections.prev = {};
+      sections.next = {};
+    }
+  }
+
+  return sections;
+};

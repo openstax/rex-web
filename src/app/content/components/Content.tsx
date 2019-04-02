@@ -18,6 +18,7 @@ import {
 } from './constants';
 import ContentPane from './ContentPane';
 import Page from './Page';
+import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
@@ -139,6 +140,7 @@ const Content: React.SFC = () => <Layout>
               <HideOverflowAndRedoPadding>
                 <Page />
               </HideOverflowAndRedoPadding>
+              <PrevNextBar />
               <Attribution />
             </MainContentWrapper>
           </UndoPadding>
