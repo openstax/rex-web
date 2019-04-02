@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { Times } from 'styled-icons/fa-solid/Times';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
@@ -21,7 +22,8 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentLink from './ContentLink';
-import SidebarControl from './SidebarControl';
+import { CloseSidebarControl } from './SidebarControl';
+import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1;
@@ -98,6 +100,23 @@ const ToCHeader = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const TimesIcon = styled(Times)`
+  ${toolbarIconStyles};
+`;
+
+// tslint:disable-next-line:variable-name
+const SidebarHeaderButton = styled(CloseSidebarControl)`
+  display: flex;
+  padding-right: 1.6rem;
+  flex: 1;
+
+  > ${ToCHeader} {
+    flex: 1;
+    text-align: left;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -212,7 +231,7 @@ export class Sidebar extends Component<SidebarProps> {
   </nav>
 
   private renderTocHeader = () => <ToCHeader>
-    <SidebarControl />
+    <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
   </ToCHeader>
 
   private renderToc = (book: Book) => this.renderTocNode(book, book.tree);

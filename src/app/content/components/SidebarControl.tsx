@@ -47,19 +47,17 @@ const ToCButton = styled.button`
   background: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 // tslint:disable-next-line:variable-name
-export const SidebarControl: React.SFC<InnerProps> = ({isOpen, onClick, className}) =>
+export const SidebarControl: React.SFC<InnerProps> = ({isOpen, children, ...props}) =>
   <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
-      return <ToCButton
-        className={className}
-        aria-label={txt}
-        onClick={onClick}
-      >
+      return <ToCButton aria-label={txt} {...props}>
         <ListIcon/><ToCButtonText>Table of contents</ToCButtonText>
+        {children}
       </ToCButton>;
     }}
   </FormattedMessage>;
