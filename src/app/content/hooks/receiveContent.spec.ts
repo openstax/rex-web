@@ -34,8 +34,8 @@ describe('setHead hook', () => {
     const head = {some: 'data'};
     mockSetHead.mockImplementation(() => head);
 
-    localState.book = { title: 'book', id: 'book' } as Book;
-    localState.page = { title: 'page', id: 'page' } as Page;
+    localState.book = book;
+    localState.page = page;
 
     hookBody(helpers)(receiveBook(book));
 
@@ -46,8 +46,8 @@ describe('setHead hook', () => {
     const head = {some: 'data'};
     mockSetHead.mockImplementation(() => head);
 
-    localState.book = { title: 'book', id: 'book' } as Book;
-    localState.page = { title: 'page', id: 'page' } as Page;
+    localState.book = book;
+    localState.page = page;
 
     hookBody(helpers)(receivePage({...page, references: []}));
 
