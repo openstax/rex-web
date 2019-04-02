@@ -63,6 +63,11 @@ beforeEach(() => {
   }
 });
 
+beforeEach(() => {
+  // clean up styled-components between tests
+  (window as any).scCGSHMRCache = {};
+});
+
 afterEach(() => {
   if (typeof(window) !== 'undefined') {
     requestAnimationFrame.mockRestore();

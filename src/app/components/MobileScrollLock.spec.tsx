@@ -1,15 +1,26 @@
 import { Document, Element, MediaQueryList } from '@openstax/types/lib.dom';
-import ReactType from 'react';
+import ReactType, { ComponentType } from 'react';
+import { unmountComponentAtNode } from 'react-dom';
 import rendererType from 'react-test-renderer';
 import { renderToDom } from '../../test/reactutils';
-import MobileScrollLock from './MobileScrollLock';
 
 describe('MobileScrollLock', () => {
 
   describe('in browser', () => {
+    let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
     let React: typeof ReactType; // tslint:disable-line:variable-name
     beforeEach(() => {
       React = require('react');
+      MobileScrollLock = require('./MobileScrollLock').default;
+    });
+
+    it('mounts and unmmounts with a dom', () => {
+      if (!document) {
+        return expect(document).toBeTruthy();
+      }
+
+      const {root} = renderToDom(<MobileScrollLock />);
+      expect(() => unmountComponentAtNode(root)).not.toThrow();
     });
 
     describe('when scrolling', () => {
@@ -97,12 +108,19 @@ describe('MobileScrollLock', () => {
     const documentBackup = document;
 
     let renderer: typeof rendererType;
+    let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
     let React: typeof ReactType; // tslint:disable-line:variable-name
 
     beforeEach(() => {
       jest.resetModules();
       delete (global as any).window;
       delete (global as any).document;
+
+      const styled = require('styled-components');
+      // this is broken when unmounting without a dom
+      styled.createGlobalStyle = () => () => null;
+
+      MobileScrollLock = require('./MobileScrollLock').default;
       React = require('react');
       renderer = require('react-test-renderer');
     });
