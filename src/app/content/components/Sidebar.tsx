@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { Times } from 'styled-icons/fa-solid/Times';
+import { ReactComponent as Times } from '../../../assets/times.svg';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
@@ -22,7 +22,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentLink from './ContentLink';
-import { CloseSidebarControl } from './SidebarControl';
+import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
 import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
@@ -103,15 +103,22 @@ const ToCHeader = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const TimesIcon = styled(Times)`
+const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles};
+  margin-right: 0;
+  padding-right: 0;
 `;
 
 // tslint:disable-next-line:variable-name
-const SidebarHeaderButton = styled(CloseSidebarControl)`
+const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />)`
   display: flex;
-  padding-right: 1.6rem;
+  margin-right: ${sidebarPadding}rem;
   flex: 1;
+
+  > ${ToCButtonText} {
+    flex: 1;
+    text-align: left;
+  }
 
   > ${ToCHeader} {
     flex: 1;

@@ -30,7 +30,7 @@ const ListIcon = styled(ListOl)`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButtonText = styled.h3`
+export const ToCButtonText = styled.h3`
   font-family: ${contentFont};
   ${textRegularSize};
   color: ${toolbarIconColor};
@@ -62,27 +62,43 @@ export const SidebarControl: React.SFC<InnerProps> = ({isOpen, children, ...prop
     }}
   </FormattedMessage>;
 
+const openConnector = connect(
+  (state: AppState) => ({
+    isOpen:  selectors.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    openToc: () => dispatch(actions.openToc()),
+  })
+);
 // tslint:disable-next-line:variable-name
-export const OpenSidebarControl = styled(
+export const OpenSidebarControl = openConnector(styled(
   (props: MiddleProps) => <SidebarControl {...props} isOpen={false} onClick={props.openToc} />
 )`
   display: none;
   ${styleWhenSidebarClosed(css`
     display: flex;
   `)}
-`;
+`);
 
+const closeConnector = connect(
+  (state: AppState) => ({
+    isOpen:  selectors.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    closeToc:  () => dispatch(actions.closeToc()),
+  })
+);
 // tslint:disable-next-line:variable-name
-export const CloseSidebarControl = styled(
+export const CloseSidebarControl = closeConnector(styled(
   (props: MiddleProps) => <SidebarControl {...props} isOpen={true} onClick={props.closeToc} />
 )`
   ${styleWhenSidebarClosed(css`
     display: none;
   `)}
-`;
+`);
 
 // bug in types, only class components can return an array
-class CombinedSidebarControl extends React.Component<MiddleProps> {
+export default class CombinedSidebarControl extends React.Component {
   public render() {
     return [
       <OpenSidebarControl {...this.props} key='open-sidebar' />,
@@ -90,13 +106,3 @@ class CombinedSidebarControl extends React.Component<MiddleProps> {
     ];
   }
 }
-
-export default connect(
-  (state: AppState) => ({
-    isOpen:  selectors.tocOpen(state),
-  }),
-  (dispatch: Dispatch): {openToc: typeof actions['openToc'], closeToc: typeof actions['closeToc']} => ({
-    closeToc:  () => dispatch(actions.closeToc()),
-    openToc: () => dispatch(actions.openToc()),
-  })
-)(CombinedSidebarControl);
