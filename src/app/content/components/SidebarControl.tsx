@@ -14,7 +14,7 @@ import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 interface InnerProps {
-  isOpen: State['tocOpen'];
+  message: string;
   onClick: () => void;
   className?: string;
 }
@@ -50,9 +50,12 @@ const ToCButton = styled.button`
   cursor: pointer;
 `;
 
+const closedMessage = 'i18n:toc:toggle:closed';
+const openMessage = 'i18n:toc:toggle:opened';
+
 // tslint:disable-next-line:variable-name
-export const SidebarControl: React.SFC<InnerProps> = ({isOpen, children, ...props}) =>
-  <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
+export const SidebarControl: React.SFC<InnerProps> = ({message, children, ...props}) =>
+  <FormattedMessage id={message}>
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
       return <ToCButton aria-label={txt} {...props}>
@@ -62,36 +65,34 @@ export const SidebarControl: React.SFC<InnerProps> = ({isOpen, children, ...prop
     }}
   </FormattedMessage>;
 
-const openConnector = connect(
+const connector = connect(
   (state: AppState) => ({
     isOpen:  selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
+    closeToc:  () => dispatch(actions.closeToc()),
     openToc: () => dispatch(actions.openToc()),
   })
 );
+
 // tslint:disable-next-line:variable-name
-export const OpenSidebarControl = openConnector(styled(
-  (props: MiddleProps) => <SidebarControl {...props} isOpen={false} onClick={props.openToc} />
-)`
+const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
+  connector((props: MiddleProps) => <Control
+    {...props}
+    message={isOpen ? openMessage : closedMessage}
+    onClick={isOpen ? props.closeToc : props.openToc}
+  />);
+
+// tslint:disable-next-line:variable-name
+export const OpenSidebarControl = lockControlState(false, styled(SidebarControl)`
   display: none;
   ${styleWhenSidebarClosed(css`
     display: flex;
   `)}
 `);
 
-const closeConnector = connect(
-  (state: AppState) => ({
-    isOpen:  selectors.tocOpen(state),
-  }),
-  (dispatch: Dispatch) => ({
-    closeToc:  () => dispatch(actions.closeToc()),
-  })
-);
 // tslint:disable-next-line:variable-name
-export const CloseSidebarControl = closeConnector(styled(
-  (props: MiddleProps) => <SidebarControl {...props} isOpen={true} onClick={props.closeToc} />
-)`
+export const CloseSidebarControl = lockControlState(true, styled(SidebarControl)`
   ${styleWhenSidebarClosed(css`
     display: none;
   `)}
