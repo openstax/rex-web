@@ -51,6 +51,9 @@ const CenteredContentRow = styled(CenteredContent)`
 
 // tslint:disable-next-line:variable-name
 const UndoPadding = isOpenConnector(styled.div`
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   margin-right: -${theme.padding.page.desktop}rem;
   ${theme.breakpoints.mobile(css`
     margin: 0 -${theme.padding.page.mobile}rem;
@@ -66,6 +69,9 @@ const UndoPadding = isOpenConnector(styled.div`
 
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = isOpenConnector(styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow: visible;
   background-color: ${mainContentBackground};
   transition: max-width ${sidebarTransitionTime}ms;
@@ -81,6 +87,7 @@ const MainContentWrapper = isOpenConnector(styled.div`
 
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
+  flex: 1;
   ${wrapperPadding}
   ${styleWhenSidebarClosed(css`
     ${wrapperPadding}
