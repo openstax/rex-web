@@ -42,21 +42,6 @@ describe('Sidebar', () => {
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 
-  it('applies mobile scroll lock', () => {
-    if (!document) {
-      return expect(document).toBeTruthy();
-    }
-
-    const render = (isOpen: boolean) => <MessageProvider><Provider store={store}>
-      <Sidebar mobileScrollLock='mobilescrolllock' isOpen={isOpen} book={book} page={page} />
-    </Provider></MessageProvider>;
-
-    const {root} = renderToDom(render(false));
-    expect(document.body.classList.contains('mobilescrolllock')).toBe(false);
-    renderToDom(render(true), root);
-    expect(document.body.classList.contains('mobilescrolllock')).toBe(true);
-  });
-
   it('resizes on scroll', () => {
     if (!document || !window) {
       expect(window).toBeTruthy();

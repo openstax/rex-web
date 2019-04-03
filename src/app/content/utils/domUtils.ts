@@ -1,12 +1,20 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 
-export const findScrollable = (element: HTMLElement | undefined): HTMLElement | undefined => {
+export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
+  if (!element || element.scrollHeight > element.offsetHeight) {
+    return element;
+  }
+
+  return findFirstScrollableParent(element.parentElement);
+};
+
+export const findFirstScrollableChild = (element: HTMLElement | undefined): HTMLElement | undefined => {
   if (!element || element.scrollHeight > element.offsetHeight) {
     return element;
   }
 
   return Array.from(element.children).reduce<HTMLElement | undefined>(
-    (result, child) => result || findScrollable(child as HTMLElement),
+    (result, child) => result || findFirstScrollableChild(child as HTMLElement),
     undefined
   );
 };
@@ -39,7 +47,7 @@ const determineScrollTarget = (
 };
 
 export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activeSection: HTMLElement | undefined) => {
-  const scrollable = findScrollable(sidebar);
+  const scrollable = findFirstScrollableChild(sidebar);
   if (!activeSection || !scrollable || tocSectionIsVisible(scrollable, activeSection)) {
     return;
   }

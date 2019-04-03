@@ -1,5 +1,6 @@
-import Color from 'color';
+import React from 'react';
 import styled, { css } from 'styled-components';
+import MobileScrollLock from '../../components/MobileScrollLock';
 import theme from '../../theme';
 import { State } from '../types';
 import {
@@ -21,19 +22,6 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
     margin-left: -${sidebarDesktopWidth}rem;
   `)}
 
-  ${(props) => props.isOpen && theme.breakpoints.mobile(css`
-    :before {
-      background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
-      z-index: 2; /* stay above book content */
-      position: absolute;
-      content: '';
-      top: -${toolbarDesktopHeight}rem;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-  `)}
-
   ${theme.breakpoints.mobile(css`
     margin-left: -${sidebarMobileWidth}rem;
   `)}
@@ -48,4 +36,7 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   }
 `;
 
-export default isOpenConnector(ContentPane);
+export default isOpenConnector(({isOpen, children}) => <ContentPane isOpen={isOpen}>
+  {isOpen && <MobileScrollLock />}
+  {children}
+</ContentPane>);
