@@ -3,6 +3,7 @@ import { ArchivePage, Book, State } from './types';
 
 export const openToc = createStandardAction('Content/openToc')<void>();
 export const closeToc = createStandardAction('Content/closeToc')<void>();
+export const resetToc = createStandardAction('Content/resetToc')<void>();
 
 export const requestBook = createStandardAction('Content/requestBook')<string>();
 export const receiveBook = createStandardAction('Content/receiveBook')<Book>();

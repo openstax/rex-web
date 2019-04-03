@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
-import { AppState } from '../../types';
+import { AppState, Dispatch } from '../../types';
+import { resetToc } from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page, State } from '../types';
@@ -127,6 +128,7 @@ const NavItem = styled(NavItemComponent)`
 `;
 
 interface SidebarProps {
+  onNavigate: () => void;
   isOpen: State['tocOpen'];
   book?: Book;
   page?: Page;
@@ -187,7 +189,12 @@ export class Sidebar extends Component<SidebarProps> {
               ref={active ? ((ref: any) => this.activeSection = ref) : undefined}
               active={active}
             >
-              <ContentLink book={book} page={item} dangerouslySetInnerHTML={{__html: item.title}} />
+              <ContentLink
+                onClick={this.props.onNavigate}
+                book={book}
+                page={item}
+                dangerouslySetInnerHTML={{__html: item.title}}
+              />
             </NavItem>;
       })}
     </ol>
@@ -204,5 +211,8 @@ export default connect(
   (state: AppState) => ({
     ...selectors.bookAndPage(state),
     isOpen: selectors.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    onNavigate: () => dispatch(resetToc()),
   })
 )(Sidebar);

@@ -19,6 +19,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, tocOpen: true};
     case getType(actions.closeToc):
       return {...state, tocOpen: false};
+    case getType(actions.resetToc):
+      return {...state, tocOpen: null};
     case getType(actions.requestBook):
       return {...state, loading: {...state.loading, book: action.payload}};
     case getType(actions.receiveBook): {
