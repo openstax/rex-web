@@ -1141,10 +1141,10 @@ Array [
               >
                 <g
                   fill="none"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   id="Symbols"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 >
                   <g
                     fill="currentColor"
@@ -2432,10 +2432,10 @@ Array [
               >
                 <g
                   fill="none"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   id="Symbols"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 >
                   <g
                     fill="currentColor"
