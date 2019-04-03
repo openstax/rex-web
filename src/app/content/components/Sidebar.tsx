@@ -3,7 +3,6 @@ import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Times } from '../../../assets/times.svg';
-import MobileScrollLock from '../../components/MobileScrollLock';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -77,6 +76,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   flex-direction: column;
 
   > nav {
+    -webkit-overflow-scrolling: touch;
     position: relative;
     padding: ${sidebarPadding}rem;
     flex: 1;
@@ -153,7 +153,6 @@ const NavItem = styled(NavItemComponent)`
 `;
 
 interface SidebarProps {
-  mobileScrollLock: string;
   isOpen: State['tocOpen'];
   book?: Book;
   page?: Page;
@@ -173,7 +172,6 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidMount() {
     this.scrollToSelectedPage();
-    this.updateMobileScrollLock();
 
     const sidebar = this.sidebar;
 
@@ -194,22 +192,6 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
-    this.updateMobileScrollLock();
-  }
-
-  private updateMobileScrollLock() {
-    if (!this.sidebar || typeof(document) === 'undefined') {
-      return;
-    }
-
-    const lockClasses = this.props.mobileScrollLock.split(' ');
-
-    if (this.props.isOpen) {
-      document.body.classList.add(...lockClasses);
-    } else {
-      document.body.classList.remove(...lockClasses);
-    }
-
   }
 
   private scrollToSelectedPage() {
@@ -244,16 +226,9 @@ export class Sidebar extends Component<SidebarProps> {
   private renderToc = (book: Book) => this.renderTocNode(book, book.tree);
 }
 
-type SidebarConnectedProps = Pick<SidebarProps, Exclude<keyof SidebarProps, 'mobileScrollLock'>>;
-// tslint:disable-next-line:variable-name
-const SidebarWithMobileScrollLock: React.SFC<SidebarConnectedProps> =
-  (props) => <MobileScrollLock suppressClassNameWarning>
-    {(className: string) => <Sidebar mobileScrollLock={className} {...props} />}
-  </MobileScrollLock>;
-
 export default connect(
   (state: AppState) => ({
     ...selectors.bookAndPage(state),
     isOpen: selectors.tocOpen(state),
   })
-)(SidebarWithMobileScrollLock);
+)(Sidebar);

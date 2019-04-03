@@ -1,37 +1,31 @@
+import { locationChange } from '../../navigation/actions';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
 import { assertDefined } from '../../utils';
-import { setHead } from '../actions';
 
 describe('setHead hook', () => {
-  let hookBody: ActionHookBody<typeof setHead>;
+  let hookBody: ActionHookBody<typeof locationChange>;
   const helpers = {} as MiddlewareAPI & AppServices;
-  const action = setHead({
-    meta: [{name: 'fake', content: 'meta'}],
-    title: 'cool title',
-  });
+  const action = locationChange({location: new URL('http://localhost/')});
 
   beforeEach(() => {
-    hookBody = require('./setHead').hookBody;
+    hookBody = require('./locationChange').hookBody;
   });
 
-  it('adds meta', () => {
+  it('removes meta', () => {
     if (typeof(document) === 'undefined') {
       return expect(document).toBeTruthy();
     }
     const head = assertDefined(document.head, 'document must have a head');
 
-    expect(head.querySelectorAll('meta[data-rex-page]').length).toEqual(0);
-    hookBody(helpers)(action);
-    expect(head.querySelectorAll('meta[data-rex-page]').length).toEqual(1);
-  });
-
-  it('sets the title', () => {
-    if (typeof(document) === 'undefined') {
-      expect(document).toBeTruthy();
-    } else {
-      hookBody(helpers)(action);
-      expect(document.title).toEqual('cool title');
+    for (let i = 0; i < 5; i++) {
+      const tag = document.createElement('meta');
+      tag.setAttribute('data-rex-page', '');
+      head.appendChild(tag);
     }
+
+    expect(head.querySelectorAll('meta[data-rex-page]').length).toEqual(5);
+    hookBody(helpers)(action);
+    expect(head.querySelectorAll('meta[data-rex-page]').length).toEqual(0);
   });
 
   describe('outside the browser', () => {

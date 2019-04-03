@@ -13,10 +13,6 @@ declare global {
     __APP_SERVICES: AppServices;
     __APP_ASYNC_HOOKS: PromiseCollector;
 
-    MouseEvent: {
-      prototype: dom.MouseEvent;
-      new(typeArg: string, eventInitDict?: dom.MouseEventInit): dom.MouseEvent;
-    };
     HTMLAnchorElement: {
       prototype: dom.HTMLAnchorElement;
       new(): dom.HTMLAnchorElement;

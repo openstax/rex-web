@@ -31,7 +31,7 @@ export interface Book {
   id: string;
   shortId: string;
   title: string;
-  theme: 'blue' | 'green' | 'gray';
+  theme: 'blue' | 'green' | 'gray' | 'yellow';
   tree: ArchiveTree;
   version: string;
   slug: string;

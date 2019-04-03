@@ -51,7 +51,7 @@ const color = {
     },
     yellow: {
       base: '#f4d019',
-      foreground: textColors.default,
+      foreground: textColors.black,
     },
   },
   secondary: {
@@ -69,13 +69,16 @@ const color = {
   text: textColors,
 };
 
+const mobileQuery = '(max-width: 64em)';
+
 export default {
   breakpoints: {
     mobile: (style: FlattenSimpleInterpolation) => css`
-      @media (max-width: 64em) {
+      @media ${mobileQuery} {
         ${style}
       }
     `,
+    mobileQuery,
   },
   color,
   padding,

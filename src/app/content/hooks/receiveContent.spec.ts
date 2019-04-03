@@ -1,8 +1,13 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
-import { ActionHookBody, AppServices, AppState, FirstArgumentType, MiddlewareAPI } from '../../types';
+import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { ActionHookBody, AppServices, AppState, MiddlewareAPI } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { initialState } from '../reducer';
 import { Book, Page, State } from '../types';
+import { formatBookData } from '../utils';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof receiveBook | typeof receivePage>;
@@ -29,10 +34,10 @@ describe('setHead hook', () => {
     const head = {some: 'data'};
     mockSetHead.mockImplementation(() => head);
 
-    localState.book = { title: 'book', id: 'book' } as Book;
-    localState.page = { title: 'page', id: 'page' } as Page;
+    localState.book = book;
+    localState.page = page;
 
-    hookBody(helpers)(receiveBook({} as Book));
+    hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).toHaveBeenCalledWith(head);
   });
@@ -41,10 +46,10 @@ describe('setHead hook', () => {
     const head = {some: 'data'};
     mockSetHead.mockImplementation(() => head);
 
-    localState.book = { title: 'book', id: 'book' } as Book;
-    localState.page = { title: 'page', id: 'page' } as Page;
+    localState.book = book;
+    localState.page = page;
 
-    hookBody(helpers)(receivePage({} as FirstArgumentType<typeof receivePage>));
+    hookBody(helpers)(receivePage({...page, references: []}));
 
     expect(helpers.dispatch).toHaveBeenCalledWith(head);
   });
@@ -54,7 +59,7 @@ describe('setHead hook', () => {
     localState.page = { title: 'page', id: 'page' } as Page;
     localState.loading.book = 'book2';
 
-    hookBody(helpers)(receiveBook({} as Book));
+    hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
@@ -72,7 +77,7 @@ describe('setHead hook', () => {
   it('does nothing if page is not loaded', () => {
     localState.book = { title: 'book', id: 'book' } as Book;
 
-    hookBody(helpers)(receiveBook({} as Book));
+    hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
@@ -80,7 +85,7 @@ describe('setHead hook', () => {
   it('does nothing if book is not loaded', () => {
     localState.page = { title: 'page', id: 'page' } as Page;
 
-    hookBody(helpers)(receiveBook({} as Book));
+    hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
