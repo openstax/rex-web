@@ -13,9 +13,10 @@ import { bookDetailsUrl } from '../utils/urlUtils';
 import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
 
 const gradients: {[key in Book['theme']]: string} = {
-  blue: '#004AA2',
-  gray: '#97999B',
-  green: '#9CD14A',
+  blue: '#004aa2',
+  gray: '#97999b',
+  green: '#9cd14a',
+  yellow: '#faea36',
 };
 
 const applyBookTextColor = (props: {theme: Book['theme']}) => css`
