@@ -115,12 +115,12 @@ const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />
   margin-right: ${sidebarPadding}rem;
   flex: 1;
 
-  > ${ToCButtonText} {
+  ${ToCButtonText} {
     flex: 1;
     text-align: left;
   }
 
-  > ${ToCHeader} {
+  ${ToCHeader} {
     flex: 1;
     text-align: left;
   }
