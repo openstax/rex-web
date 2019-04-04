@@ -24,6 +24,18 @@ describe('content', () => {
     });
   });
 
+  it('short pages looks right', async() => {
+    setDesktopViewport(page);
+    await navigate(page, TEST_SIMPLE_PAGE_URL);
+    const screen = await fullPageScreenshot(page);
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
   it('attribution looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
