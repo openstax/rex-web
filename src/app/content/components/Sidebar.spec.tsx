@@ -30,6 +30,7 @@ describe('Sidebar', () => {
     const navigation = createReducer(history.location);
     store = createStore(combineReducers({content: contentReducer, navigation}), state);
   });
+
   it('opens and closes', () => {
     const component = renderer.create(<MessageProvider><Provider store={store}>
       <ConnectedSidebar />
@@ -40,6 +41,17 @@ describe('Sidebar', () => {
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
     store.dispatch(actions.openToc());
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+  });
+
+  it('resets toc on navigate', () => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    const component = renderer.create(<MessageProvider><Provider store={store}>
+      <ConnectedSidebar />
+    </Provider></MessageProvider>);
+
+    component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null});
+    expect(dispatchSpy).toHaveBeenCalledWith(actions.resetToc());
   });
 
   it('resizes on scroll', () => {

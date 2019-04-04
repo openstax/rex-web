@@ -60,4 +60,38 @@ describe('ContentLink', () => {
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
+  it('calls onClick when passed', () => {
+    const pathname = '/doesnotmatter';
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+      navigation: { pathname },
+    } as any as AppState;
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+    const clickSpy = jest.fn();
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+    </Provider>);
+
+    const event = {
+      preventDefault: jest.fn(),
+    };
+
+    component.root.findByType('a').props.onClick(event);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(push({
+      params: {book: BOOK_SLUG, page: PAGE_SLUG},
+      route: content,
+      state: {
+        bookUid: 'testbook1-uuid',
+        bookVersion: '1.0',
+        pageUid: 'testbook1-testpage1-uuid',
+      },
+    }));
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(clickSpy).toHaveBeenCalled();
+  });
 });
