@@ -87,7 +87,8 @@ export default (options: Options) => {
     ...hooks.map((hook) => hook(services)),
   ];
 
-  if (process.env.REACT_APP_ENV !== 'production') {
+  /* istanbul ignore next */
+  if (process.env.REACT_APP_ENV === 'development') {
     middleware.unshift(stackTraceMiddleware);
   }
 
