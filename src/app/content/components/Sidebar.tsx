@@ -3,6 +3,7 @@ import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
+import Times from '../../components/Times';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { isArchiveTree } from '../guards';
@@ -20,7 +21,8 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentLink from './ContentLink';
-import SidebarControl from './SidebarControl';
+import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
+import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1;
@@ -98,6 +100,30 @@ const ToCHeader = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  ${toolbarIconStyles};
+  margin-right: 0;
+  padding-right: 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />)`
+  display: flex;
+  margin-right: ${sidebarPadding}rem;
+  flex: 1;
+
+  ${ToCButtonText} {
+    flex: 1;
+    text-align: left;
+  }
+
+  ${ToCHeader} {
+    flex: 1;
+    text-align: left;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -194,7 +220,7 @@ export class Sidebar extends Component<SidebarProps> {
   </nav>
 
   private renderTocHeader = () => <ToCHeader>
-    <SidebarControl />
+    <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
   </ToCHeader>
 
   private renderToc = (book: Book) => this.renderTocNode(book, book.tree);
