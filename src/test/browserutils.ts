@@ -45,7 +45,7 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   }
 });
 
-export const setMaxViewport = async(target: puppeteer.Page) => {
+const setMaxViewport = async(target: puppeteer.Page) => {
   const width = await target.evaluate(() => document && document.body.offsetWidth);
   const height = await target.evaluate(() => document && document.body.offsetHeight);
 
@@ -85,40 +85,6 @@ export const fullPageScreenshot = async(target: puppeteer.Page) => {
 
   return screen;
 };
-
-// tslint:disable-next-line:no-shadowed-variable
-export const getComputedStyleMap = (target: puppeteer.Page, selector: string) => target.evaluate((selector) => {
-  if (window) {
-    const element = window.document.querySelector(selector);
-    if (!element) {
-      throw new Error('BUG: element not found');
-    }
-    const compStyle = window.getComputedStyle(element);
-    const styleMap: {[name: string]: string} = {};
-    for (let index = 0; index < compStyle.length; index++) { // tslint:disable-line:prefer-for-of
-      const styleName = compStyle[index];
-      styleMap[styleName] = compStyle.getPropertyValue(styleName);
-    }
-    return styleMap;
-  }
-}, selector);
-
-export const getComputedStyle = (
-  target: puppeteer.Page,
-  style: string,
-  selector: string,
-  pseudoElt: string | undefined = undefined
-// tslint:disable-next-line:no-shadowed-variable
-) => target.evaluate((style, selector, pseudoElt) => {
-  if (window) {
-    const element = window.document.querySelector(selector);
-    if (!element) {
-      throw new Error('BUG: element not found');
-    }
-    const compStyle = window.getComputedStyle(element, pseudoElt);
-    return compStyle.getPropertyValue(style);
-  }
-}, style, selector, pseudoElt);
 
 export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
   const h1 = document && document.querySelector('h1');
