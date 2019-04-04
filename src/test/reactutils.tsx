@@ -2,11 +2,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
-import { ReactTestInstance } from 'react-test-renderer';
-
-export const setStateFinished = (testInstance: ReactTestInstance) => new Promise((resolve) => {
-  testInstance.instance.setState({}, resolve);
-});
 
 // JSDom logs to console.error when an Error is thrown.
 // Disable the console just in this instance, and re-enable after.

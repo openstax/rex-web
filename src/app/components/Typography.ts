@@ -2,13 +2,13 @@ import styled, { css } from 'styled-components';
 import theme from '../theme';
 
 export const contentFont = 'Neue Helvetica W01';
-export const textStyle = css`
+const textStyle = css`
   font-family: ${contentFont};
   color: ${theme.color.text.default};
 `;
 
-export const linkColor = '#027EB5';
-export const linkHover = '#0064A0';
+const linkColor = '#027EB5';
+const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};
   cursor: pointer;
@@ -66,7 +66,7 @@ export const H2 = styled.h2`
   ${headingStyle('3.6rem', '4rem', '2rem')}
 `;
 
-export const h3MobileFontSize = 1.6;
+const h3MobileFontSize = 1.6;
 export const h3MobileLineHeight = 2;
 export const h3Style = css`
   ${headingStyle('2.4rem', '3rem', '1.5rem')}
@@ -80,8 +80,8 @@ export const H3 = styled.h3`
   ${h3Style}
 `;
 
-export const h4MobileFontSize = 1.6;
-export const h4MobileLineHeight = 2;
+const h4MobileFontSize = 1.6;
+const h4MobileLineHeight = 2;
 export const h4Style = css`
   ${headingStyle('1.8rem', '2.5rem', '1rem')}
   ${theme.breakpoints.mobile(css`
