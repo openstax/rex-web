@@ -30,6 +30,7 @@
   "scripts": {
     "lint": "npm run-script lint:bash && npm run-script lint:css && npm run-script lint:typescript",
     "lint:typescript": "tslint -p ./tsconfig.json",
+    "lint:exports": "ts-unused-exports ./tsconfig.json",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
     "start": "react-scripts start",
@@ -40,7 +41,6 @@
     "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
-
     "pretest:sims": "./script/build-simulations.bash",
     "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:screenshots && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\"",
@@ -119,6 +119,7 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.2",
     "tiny-async-pool": "^1.0.4",
+    "ts-unused-exports": "^2.0.11",
     "tslint": "^5.11.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "yargs": "^12.0.2"

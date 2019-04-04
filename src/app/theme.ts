@@ -1,11 +1,9 @@
 import { css, FlattenSimpleInterpolation } from 'styled-components';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
-export interface ColorPair {
+export interface ColorSet {
   base: string;
   foreground: string;
-}
-export interface ColorSet extends ColorPair {
   darker: string;
   darkest: string;
 }
