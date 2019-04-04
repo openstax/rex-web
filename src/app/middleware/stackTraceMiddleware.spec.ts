@@ -7,8 +7,7 @@ jest.mock('stacktrace-js', () => ({
 }));
 
 describe('stackTraceMiddleware', () => {
-
-  it('adds trace to actions', async() => {
+  it('adds trace to actions in the browser', async() => {
     const next = jest.fn();
     const middlewareApi = {} as MiddlewareAPI;
     const middleware = stackTraceMiddleware(middlewareApi)(next);
@@ -19,6 +18,31 @@ describe('stackTraceMiddleware', () => {
     expect(next).toHaveBeenCalledWith({
       ...action,
       trace: ['mock', 'stack', 'trace'],
+    });
+  });
+
+  describe('outside the browser', () => {
+    const windowBackup = window;
+
+    beforeEach(() => {
+      delete (global as any).window;
+    });
+
+    afterEach(() => {
+      (global as any).window = windowBackup;
+    });
+
+    it('doesnt add trace, isnt async', () => {
+      const next = jest.fn();
+      const middlewareApi = {} as MiddlewareAPI;
+      const middleware = stackTraceMiddleware(middlewareApi)(next);
+      const action = {type: 'type', payload: {}};
+
+      middleware({...action});
+
+      expect(next).toHaveBeenCalledWith({
+        ...action,
+      });
     });
   });
 });
