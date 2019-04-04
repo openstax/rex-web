@@ -108,7 +108,7 @@ const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode)
     throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
   }
   if (errorSelectors.code(state) !== expectedCode) {
-    throw new Error(`UNSUPPORTED: url: ${url} has an unexpected response code.`);
+    throw new Error(`UNSUPPORTED: url: ${url} expected code ${expectedCode}, got ${errorSelectors.code(state)}`);
   }
 
   const html = renderHtml(styles, app, state);
