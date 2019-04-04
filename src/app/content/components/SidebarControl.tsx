@@ -14,7 +14,7 @@ import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 interface InnerProps {
-  isOpen: State['tocOpen'];
+  message: string;
   onClick: () => void;
   className?: string;
 }
@@ -30,7 +30,7 @@ const ListIcon = styled(ListOl)`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButtonText = styled.h3`
+export const ToCButtonText = styled.h3`
   font-family: ${contentFont};
   ${textRegularSize};
   color: ${toolbarIconColor};
@@ -47,44 +47,59 @@ const ToCButton = styled.button`
   background: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
+const closedMessage = 'i18n:toc:toggle:closed';
+const openMessage = 'i18n:toc:toggle:opened';
+
 // tslint:disable-next-line:variable-name
-export const SidebarControl: React.SFC<InnerProps> = ({isOpen, onClick, className}) =>
-  <FormattedMessage id={isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed'}>
+export const SidebarControl: React.SFC<InnerProps> = ({message, children, ...props}) =>
+  <FormattedMessage id={message}>
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
-      return <ToCButton
-        className={className}
-        aria-label={txt}
-        onClick={onClick}
-      >
+      return <ToCButton aria-label={txt} {...props}>
         <ListIcon/><ToCButtonText>Table of contents</ToCButtonText>
+        {children}
       </ToCButton>;
     }}
   </FormattedMessage>;
 
+const connector = connect(
+  (state: AppState) => ({
+    isOpen:  selectors.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    closeToc:  () => dispatch(actions.closeToc()),
+    openToc: () => dispatch(actions.openToc()),
+  })
+);
+
 // tslint:disable-next-line:variable-name
-export const OpenSidebarControl = styled(
-  (props: MiddleProps) => <SidebarControl {...props} isOpen={false} onClick={props.openToc} />
-)`
+const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
+  connector((props: MiddleProps) => <Control
+    {...props}
+    message={isOpen ? openMessage : closedMessage}
+    onClick={isOpen ? props.closeToc : props.openToc}
+  />);
+
+// tslint:disable-next-line:variable-name
+export const OpenSidebarControl = lockControlState(false, styled(SidebarControl)`
   display: none;
   ${styleWhenSidebarClosed(css`
     display: flex;
   `)}
-`;
+`);
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebarControl = styled(
-  (props: MiddleProps) => <SidebarControl {...props} isOpen={true} onClick={props.closeToc} />
-)`
+export const CloseSidebarControl = lockControlState(true, styled(SidebarControl)`
   ${styleWhenSidebarClosed(css`
     display: none;
   `)}
-`;
+`);
 
 // bug in types, only class components can return an array
-class CombinedSidebarControl extends React.Component<MiddleProps> {
+export default class CombinedSidebarControl extends React.Component {
   public render() {
     return [
       <OpenSidebarControl {...this.props} key='open-sidebar' />,
@@ -92,13 +107,3 @@ class CombinedSidebarControl extends React.Component<MiddleProps> {
     ];
   }
 }
-
-export default connect(
-  (state: AppState) => ({
-    isOpen:  selectors.tocOpen(state),
-  }),
-  (dispatch: Dispatch): {openToc: typeof actions['openToc'], closeToc: typeof actions['closeToc']} => ({
-    closeToc:  () => dispatch(actions.closeToc()),
-    openToc: () => dispatch(actions.openToc()),
-  })
-)(CombinedSidebarControl);
