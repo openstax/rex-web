@@ -11,6 +11,7 @@ import * as developer from './developer';
 import * as errors from './errors';
 import * as head from './head';
 import MessageProvider from './MessageProvider';
+import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
@@ -85,6 +86,10 @@ export default (options: Options) => {
     navigation.createMiddleware(routes, history),
     ...hooks.map((hook) => hook(services)),
   ];
+
+  if (process.env.REACT_APP_ENV !== 'production') {
+    middleware.unshift(stackTraceMiddleware);
+  }
 
   const store = createStore({
     initialState,
