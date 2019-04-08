@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
-import { linkStyle, textRegularStyle } from '../../components/Typography';
+import { decoratedLinkStyle, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { Book, LinkedArchiveTreeSection, Page } from '../types';
-import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import ContentLink from './ContentLink';
 
 // tslint:disable-next-line:variable-name
@@ -33,31 +32,39 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevPage = styled.span`
+const PrevLinkElement = styled(ContentLink)`
   ${textRegularStyle}
-  ${linkStyle}
-  border: none;
+  ${decoratedLinkStyle}
+  float: left;
 `;
 
 // tslint:disable-next-line:variable-name
-const NextPage = styled.span`
+const NextLinkElement = styled(ContentLink)`
   ${textRegularStyle}
-  ${linkStyle}
-  border: none;
+  ${decoratedLinkStyle}
+  float: right;
 `;
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: ${theme.color.neutral.base};
   margin-top: 5rem;
   margin-bottom: 6rem;
   padding: 0 4rem;
   border-top: solid 0.1rem ${theme.color.neutral.darkest};
   border-bottom: solid 0.1rem ${theme.color.neutral.darkest};
   height: 4rem;
+  display: flex;
+  align-items: center;
+  ${theme.breakpoints.mobile(css`
+    margin-top: 3.5rem;
+    margin-bottom: 4.5rem;
+    border: none;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const LinksWrapper = styled.div`
+  width: 100%;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -67,31 +74,24 @@ export class PrevNextBar extends Component<PropTypes> {
     let prev;
     let next;
 
-    if (!book || !page) {
+    if (!book || !page || !prevNext) {
       return null;
     }
 
-    const treeSection = findArchiveTreeSection(book, page.id);
-
-    if (!treeSection || !prevNext) {
-      return null;
-    }
-
-    if ( prevNext.prev) {
-      prev = <ContentLink book={book} page={prevNext.prev}><PrevPage><LeftArrow/>Previous</PrevPage></ContentLink>;
-    } else {
-      prev = <PrevPage><LeftArrow/>Previous</PrevPage>;
+    if ( prevNext.prev ) {
+      prev = <PrevLinkElement book={book} page={prevNext.prev}><LeftArrow/>Previous</PrevLinkElement>;
     }
 
     if ( prevNext.next ) {
-      next = <ContentLink book={book} page={prevNext.next}><NextPage>Next<RightArrow/></NextPage></ContentLink>;
-    } else {
-      next = <NextPage>Next<RightArrow/></NextPage>;
+      next = <NextLinkElement book={book} page={prevNext.next} aria-label='Next Page'>Next
+      <RightArrow/></NextLinkElement>;
     }
 
     return <BarWrapper>
-      {prev}
-      {next}
+      <LinksWrapper>
+        {prev}
+        {next}
+      </LinksWrapper>
     </BarWrapper>;
   }
 }

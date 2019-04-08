@@ -139,8 +139,8 @@ const Content: React.SFC = () => <Layout>
               <ContentNotifications />
               <HideOverflowAndRedoPadding>
                 <Page />
+                <PrevNextBar />
               </HideOverflowAndRedoPadding>
-              <PrevNextBar />
               <Attribution />
             </MainContentWrapper>
           </UndoPadding>
