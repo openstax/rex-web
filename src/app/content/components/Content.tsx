@@ -9,7 +9,7 @@ import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
 import {
-  bookBannerDesktopHeight,
+  bookBannerDesktopMaxHeight,
   contentWrapperMaxWidth,
   mainContentBackground,
   sidebarDesktopWidth,
@@ -34,10 +34,10 @@ const Background = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  top: ${bookBannerDesktopHeight + toolbarDesktopHeight + navDesktopHeight}rem;
+  top: ${bookBannerDesktopMaxHeight + toolbarDesktopHeight + navDesktopHeight}rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
-    top: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
+    top: ${bookBannerDesktopMaxHeight + toolbarDesktopHeight}rem;
     ${wrapperPadding}
   }
 `;

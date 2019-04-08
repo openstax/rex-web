@@ -4,7 +4,7 @@ import MobileScrollLock from '../../components/MobileScrollLock';
 import theme from '../../theme';
 import { State } from '../types';
 import {
-  bookBannerDesktopHeight,
+  bookBannerDesktopMinHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
@@ -30,8 +30,8 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
     content: " ";
     display: block;
     position: relative;
-    margin-top: -${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
-    height: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
+    margin-top: -${bookBannerDesktopMinHeight + toolbarDesktopHeight}rem;
+    height: ${bookBannerDesktopMinHeight + toolbarDesktopHeight}rem;
     visibility: hidden;
   }
 `;

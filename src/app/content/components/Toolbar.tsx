@@ -8,8 +8,8 @@ import { textRegularLineHeight, textRegularStyle } from '../../components/Typogr
 import theme from '../../theme';
 import { assertString } from '../../utils';
 import {
-  bookBannerDesktopHeight,
-  bookBannerMobileHeight,
+  bookBannerDesktopMinHeight,
+  bookBannerMobileMinHeight,
   toolbarDesktopHeight,
   toolbarIconColor,
   toolbarMobileHeight
@@ -119,7 +119,7 @@ const SearchPrintWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`;
   position: sticky;
-  top: ${bookBannerDesktopHeight}rem;
+  top: ${bookBannerDesktopMinHeight}rem;
   width: 100%;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
@@ -128,7 +128,7 @@ const BarWrapper = styled.div`;
   background: ${theme.color.neutral.base}
 
   ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileHeight}rem
+    top: ${bookBannerMobileMinHeight}rem
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
 `;

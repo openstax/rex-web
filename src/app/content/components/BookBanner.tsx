@@ -10,7 +10,13 @@ import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
-import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
+import {
+  bookBannerDesktopMaxHeight,
+  bookBannerDesktopMinHeight,
+  bookBannerMobileMaxHeight,
+  bookBannerMobileMinHeight,
+  contentTextWidth
+} from './constants';
 
 const gradients: {[key in Book['theme']]: string} = {
   blue: '#004aa2',
@@ -89,20 +95,21 @@ const BookChapter = styled.h1`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div<{theme: Book['theme']}>`
   position: sticky;
-  top: 0;
+  top: -${bookBannerDesktopMaxHeight - bookBannerDesktopMinHeight}rem;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  height: ${bookBannerDesktopHeight}rem;
+  height: ${bookBannerDesktopMaxHeight}rem;
   ${(props: {theme: Book['theme']}) => css`
     background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
   `}
 
   z-index: 3; /* stay above book content and overlay */
   ${theme.breakpoints.mobile(css`
+    top: -${bookBannerMobileMaxHeight - bookBannerMobileMinHeight}rem;
     padding: ${theme.padding.page.mobile}rem;
-    height: ${bookBannerMobileHeight}rem;
+    height: ${bookBannerMobileMaxHeight}rem;
   `)}
 `;
 
