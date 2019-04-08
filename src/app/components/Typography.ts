@@ -67,9 +67,10 @@ export const H2 = styled.h2`
 `;
 
 const h3MobileFontSize = 1.6;
+export const h3FontSize = 2.4;
 export const h3MobileLineHeight = 2;
 export const h3Style = css`
-  ${headingStyle('2.4rem', '3rem', '1.5rem')}
+  ${headingStyle(`${h3FontSize}rem`, '3rem', '1.5rem')}
   ${theme.breakpoints.mobile(css`
     font-size: ${h3MobileFontSize}rem;
     line-height: ${h3MobileLineHeight}rem;
@@ -80,10 +81,11 @@ export const H3 = styled.h3`
   ${h3Style}
 `;
 
+export const h4FontSize = 1.8;
 const h4MobileFontSize = 1.6;
 const h4MobileLineHeight = 2;
 export const h4Style = css`
-  ${headingStyle('1.8rem', '2.5rem', '1rem')}
+  ${headingStyle(`${h4FontSize}rem`, '2.5rem', '1rem')}
   ${theme.breakpoints.mobile(css`
     font-size: ${h4MobileFontSize}rem;
     line-height: ${h4MobileLineHeight}rem;

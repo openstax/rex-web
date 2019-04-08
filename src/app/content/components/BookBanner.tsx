@@ -1,9 +1,10 @@
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
-import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
+import { h3FontSize, h3MobileLineHeight, h3Style, h4FontSize, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
@@ -45,6 +46,8 @@ interface PropTypes {
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   width: 100%;
+  max-height: 100%;
+  overflow: hidden;
   max-width: ${maxNavWidth}rem;
   margin: 0 auto;
 `;
@@ -80,7 +83,6 @@ const BookChapter = styled.h1`
   ${bookBannerTextStyle}
   font-weight: bold;
   display: block;
-  margin: 1rem 0 0 0;
   ${theme.breakpoints.mobile(css`
     white-space: normal;
     display: -webkit-box;
@@ -92,8 +94,22 @@ const BookChapter = styled.h1`
   `)}
 `;
 
+const scaleFrom = (minValue: number, maxValue: number, percentage: number) =>
+  (maxValue - minValue) * percentage + minValue;
+const desktopBarTransition = (percentage: number) => css`
+  ${BookTitle} {
+    margin-top: ${scaleFrom(0, 6.2, percentage)}rem;
+  }
+
+  ${BookChapter} {
+    margin-top: ${scaleFrom(1, -3, percentage)}rem;
+    margin-left: ${scaleFrom(0, 27, percentage)}rem;
+    font-size: ${scaleFrom(h3FontSize, h4FontSize, percentage)}rem;
+  }
+`;
+
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div<{theme: Book['theme']}>`
+const BarWrapper = styled.div<{theme: Book['theme'], desktopTransition: number, mobileTransition: number}>`
   position: sticky;
   top: -${bookBannerDesktopMaxHeight - bookBannerDesktopMinHeight}rem;
   padding: 0 ${theme.padding.page.desktop}rem;
@@ -105,6 +121,7 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
     background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
   `}
 
+  ${(props) => desktopBarTransition(props.desktopTransition)}
   z-index: 3; /* stay above book content and overlay */
   ${theme.breakpoints.mobile(css`
     top: -${bookBannerMobileMaxHeight - bookBannerMobileMinHeight}rem;
@@ -114,7 +131,32 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
 `;
 
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes> {
+export class BookBanner extends Component<PropTypes, {desktopTransition: number; mobileTransition: number}> {
+  public state = {
+    desktopTransition: 0,
+    mobileTransition: 0,
+  };
+  private wrapper = React.createRef<HTMLDivElement>();
+
+  public componentDidMount() {
+    if (document) {
+      document.addEventListener('scroll', this.handleScroll);
+    }
+  }
+
+  public handleScroll = () => {
+
+    if (this.wrapper.current) {
+      const rect = this.wrapper.current.getBoundingClientRect();
+
+      const desktopDelta = bookBannerDesktopMaxHeight - bookBannerDesktopMinHeight;
+      const rectTopRems = rect.top * -1 / 10;
+      const desktopTransition = Math.min(100, Math.max(0, 100 / desktopDelta * rectTopRems)) / 100;
+
+      this.setState({desktopTransition});
+    }
+
+  }
 
   public render() {
     const {page, book} = this.props;
@@ -130,7 +172,7 @@ export class BookBanner extends Component<PropTypes> {
       return null;
     }
 
-    return <BarWrapper theme={book.theme}>
+    return <BarWrapper theme={book.theme} {...this.state} ref={this.wrapper}>
       <TopBar>
         <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
         <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
