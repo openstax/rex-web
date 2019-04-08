@@ -106,24 +106,33 @@ const BookChapterSmall = styled.h1`
   margin-left: 27rem;
 `;
 
-const scaleFrom = (minValue: number, maxValue: number, percentage: number) =>
-  (maxValue - minValue) * percentage + minValue;
-const desktopBarTransition = (percentage: number) => css`
+const desktopBarTransition = (toggled: boolean) => css`
   ${BookTitle} {
-    margin-top: ${scaleFrom(0, 8.2, percentage)}rem;
+    transition: margin-top 500ms;
+    ${toggled && css`
+      margin-top: 8.2rem;
+    `}
   }
 
   ${BookChapter} {
-    opacity: ${scaleFrom(1, 0, percentage)};
+    transition: margin-top 500ms;
+    opacity: 1;
+    ${toggled && css`
+      opacity: 0;
+    `}
   }
 
   ${BookChapterSmall} {
-    opacity: ${scaleFrom(0, 1, percentage)};
+    transition: margin-top 500ms;
+    opacity: 0;
+    ${toggled && css`
+      opacity: 1;
+    `}
   }
 `;
 
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div<{theme: Book['theme'], desktopTransition: number, mobileTransition: number}>`
+const BarWrapper = styled.div<{theme: Book['theme'], desktopTransition: boolean, mobileTransition: boolean}>`
   position: sticky;
   top: -${bookBannerDesktopMaxHeight - bookBannerDesktopMinHeight}rem;
   padding: 0 ${theme.padding.page.desktop}rem;
@@ -145,10 +154,10 @@ const BarWrapper = styled.div<{theme: Book['theme'], desktopTransition: number, 
 `;
 
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes, {desktopTransition: number; mobileTransition: number}> {
+export class BookBanner extends Component<PropTypes, {desktopTransition: boolean; mobileTransition: boolean}> {
   public state = {
-    desktopTransition: 0,
-    mobileTransition: 0,
+    desktopTransition: false,
+    mobileTransition: false,
   };
   private wrapper = React.createRef<HTMLDivElement>();
 
@@ -162,12 +171,7 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: number;
 
     if (this.wrapper.current) {
       const rect = this.wrapper.current.getBoundingClientRect();
-
-      const desktopDelta = bookBannerDesktopMaxHeight - bookBannerDesktopMinHeight;
-      const rectTopRems = rect.top * -1 / 10;
-      const desktopTransition = Math.min(100, Math.max(0, 100 / desktopDelta * rectTopRems)) / 100;
-
-      this.setState({desktopTransition});
+      this.setState({desktopTransition: rect.top < 0});
     }
 
   }
