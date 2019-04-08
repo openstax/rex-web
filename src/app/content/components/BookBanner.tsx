@@ -115,6 +115,7 @@ const desktopBarTransition = (toggled: boolean) => css`
   }
 
   ${BookChapter} {
+    transition: opacity 200ms;
     opacity: 1;
     ${toggled && css`
       opacity: 0;
@@ -122,7 +123,7 @@ const desktopBarTransition = (toggled: boolean) => css`
   }
 
   ${BookChapterSmall} {
-    transition: opacity 500ms;
+    transition: opacity 200ms;
     opacity: 0;
     ${toggled && css`
       opacity: 1;
