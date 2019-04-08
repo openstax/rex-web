@@ -108,14 +108,13 @@ const BookChapterSmall = styled.h1`
 
 const desktopBarTransition = (toggled: boolean) => css`
   ${BookTitle} {
-    transition: margin-top 500ms;
+    transition: margin-top 200ms;
     ${toggled && css`
       margin-top: 8.2rem;
     `}
   }
 
   ${BookChapter} {
-    transition: margin-top 500ms;
     opacity: 1;
     ${toggled && css`
       opacity: 0;
@@ -123,7 +122,7 @@ const desktopBarTransition = (toggled: boolean) => css`
   }
 
   ${BookChapterSmall} {
-    transition: margin-top 500ms;
+    transition: opacity 500ms;
     opacity: 0;
     ${toggled && css`
       opacity: 1;
