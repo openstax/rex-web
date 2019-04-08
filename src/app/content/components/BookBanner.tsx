@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
-import { h3FontSize, h3MobileLineHeight, h3Style, h4FontSize, h4Style, textRegularLineHeight } from '../../components/Typography';
+import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
@@ -83,6 +83,7 @@ const BookChapter = styled.h1`
   ${bookBannerTextStyle}
   font-weight: bold;
   display: block;
+  margin: 1rem 0 0 0;
   ${theme.breakpoints.mobile(css`
     white-space: normal;
     display: -webkit-box;
@@ -94,17 +95,30 @@ const BookChapter = styled.h1`
   `)}
 `;
 
+// tslint:disable-next-line:variable-name
+const BookChapterSmall = styled.h1`
+  ${h4Style}
+  ${bookBannerTextStyle}
+  margin: 1rem 0 0 0;
+  font-weight: bold;
+  display: block;
+  margin-top: -2.5rem;
+  margin-left: 27rem;
+`;
+
 const scaleFrom = (minValue: number, maxValue: number, percentage: number) =>
   (maxValue - minValue) * percentage + minValue;
 const desktopBarTransition = (percentage: number) => css`
   ${BookTitle} {
-    margin-top: ${scaleFrom(0, 6.2, percentage)}rem;
+    margin-top: ${scaleFrom(0, 8.2, percentage)}rem;
   }
 
   ${BookChapter} {
-    margin-top: ${scaleFrom(1, -3, percentage)}rem;
-    margin-left: ${scaleFrom(0, 27, percentage)}rem;
-    font-size: ${scaleFrom(h3FontSize, h4FontSize, percentage)}rem;
+    opacity: ${scaleFrom(1, 0, percentage)};
+  }
+
+  ${BookChapterSmall} {
+    opacity: ${scaleFrom(0, 1, percentage)};
   }
 `;
 
@@ -175,6 +189,7 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: number;
     return <BarWrapper theme={book.theme} {...this.state} ref={this.wrapper}>
       <TopBar>
         <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+        <BookChapterSmall theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapterSmall>
         <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
       </TopBar>
     </BarWrapper>;
