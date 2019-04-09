@@ -31,16 +31,15 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   return getFirstTreeSectionOrPage(book.tree);
 };
 
-const sectionMatcher = (id: string, shortId: string, pageId: string) =>
-    stripIdVersion(shortId) === stripIdVersion(pageId)
-    || stripIdVersion(id) === stripIdVersion(pageId);
+const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
+    stripIdVersion(section.shortId) === stripIdVersion(pageId)
+    || stripIdVersion(section.id) === stripIdVersion(pageId);
 
 export const findArchiveTreeSection = (
   book: {tree: ArchiveTree},
   pageId: string
 ): LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(book.tree).find((section) => sectionMatcher(section.id, section.shortId, pageId)
-);
+  flattenArchiveTree(book.tree).find(sectionMatcher(pageId));
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;
@@ -52,19 +51,14 @@ export const prevNextBookPage = (
   pageId: string
 ): Sections | undefined => {
   const flattenTree = flattenArchiveTree(book.tree);
-  const currentSection = findArchiveTreeSection(book, pageId);
+  const index = flattenTree.findIndex(sectionMatcher(pageId));
 
-  if ( flattenTree && currentSection ) {
-    const index = flattenTree.findIndex((currentSection) =>
-    sectionMatcher(currentSection.id, currentSection.shortId, pageId));
-
-    if ( index !== -1) {
-      const sections: Sections = {
-        next: flattenTree[index + 1],
-        prev: flattenTree[index - 1],
-      };
-
-      return sections;
-    }
+  if ( index !== -1) {
+    const sections: Sections = {
+      next: flattenTree[index + 1],
+      prev: flattenTree[index - 1],
+    };
+    return sections;
   }
+
 };

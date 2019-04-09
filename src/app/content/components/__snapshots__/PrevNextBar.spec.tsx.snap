@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book tree 1`] = `null`;
+
+exports[`PrevNextBar renders \`null\` with no page or book 1`] = `null`;
+
+exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
+.c4 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c3 {
+  height: 3rem;
+  width: 3rem;
+}
+
+.c6 {
+  height: 3rem;
+  width: 3rem;
+}
+
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  float: left;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c5 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  float: right;
+}
+
+.c5:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c0 {
+  margin-top: 5rem;
+  margin-bottom: 6rem;
+  padding: 0 4rem;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
+  height: 4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 {
+  width: 100%;
+}
+
+@media (max-width:64em) {
+  .c0 {
+    margin-top: 3.5rem;
+    margin-bottom: 4.5rem;
+    border: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      className="c2"
+      href="books/book-slug-1/pages/1-test-page-3"
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="c3 c4"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        />
+      </svg>
+      Previous
+    </a>
+    <a
+      aria-label="Next Page"
+      className="c5"
+      href="books/book-slug-1/pages/1-test-page-5"
+      onClick={[Function]}
+    >
+      Next
+      <svg
+        aria-hidden="true"
+        className="c6 c4"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        />
+      </svg>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
+.c4 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c3 {
+  height: 3rem;
+  width: 3rem;
+}
+
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  float: right;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c0 {
+  margin-top: 5rem;
+  margin-bottom: 6rem;
+  padding: 0 4rem;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
+  height: 4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 {
+  width: 100%;
+}
+
+@media (max-width:64em) {
+  .c0 {
+    margin-top: 3.5rem;
+    margin-bottom: 4.5rem;
+    border: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      aria-label="Next Page"
+      className="c2"
+      href="books/book-slug-1/pages/1-test-page-2"
+      onClick={[Function]}
+    >
+      Next
+      <svg
+        aria-hidden="true"
+        className="c3 c4"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        />
+      </svg>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
+.c4 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c3 {
+  height: 3rem;
+  width: 3rem;
+}
+
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  float: left;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c0 {
+  margin-top: 5rem;
+  margin-bottom: 6rem;
+  padding: 0 4rem;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
+  height: 4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 {
+  width: 100%;
+}
+
+@media (max-width:64em) {
+  .c0 {
+    margin-top: 3.5rem;
+    margin-bottom: 4.5rem;
+    border: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      className="c2"
+      href="books/book-slug-1/pages/1-test-page-6"
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="c3 c4"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        />
+      </svg>
+      Previous
+    </a>
+  </div>
+</div>
+`;
