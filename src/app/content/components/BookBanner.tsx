@@ -1,3 +1,4 @@
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -10,7 +11,12 @@ import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
-import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
+import {
+  bookBannerDesktopBigHeight,
+  bookBannerDesktopMiniHeight,
+  bookBannerMobileHeight,
+  contentTextWidth
+} from './constants';
 
 const gradients: {[key in Book['theme']]: string} = {
   blue: '#004aa2',
@@ -70,7 +76,7 @@ const BookTitle = styled.a`
 
 // tslint:disable-next-line:variable-name
 const BookChapter = styled.h1`
-  ${h3Style}
+  ${(props) => props.variant === 'mini' ? h4Style : h3Style}
   ${bookBannerTextStyle}
   font-weight: bold;
   display: block;
@@ -88,18 +94,39 @@ const BookChapter = styled.h1`
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div<{theme: Book['theme']}>`
-  position: sticky;
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  height: ${bookBannerDesktopHeight}rem;
+  height: ${bookBannerDesktopBigHeight}rem;
+  transition: transform 200ms;
   ${(props: {theme: Book['theme']}) => css`
     background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
   `}
+  ${(props) => props.up && css`
+    transform: translateY(-${bookBannerDesktopMiniHeight}rem);
+  `}
 
-  z-index: 3; /* stay above book content and overlay */
+  z-index: 4; /* stay above book content and overlay and mini nav */
+  position: relative; /* stay above mini nav */
+  ${(props) => props.variant === 'mini' && css`
+    margin-top: -${bookBannerDesktopMiniHeight}rem;
+    height: ${bookBannerDesktopMiniHeight}rem;
+    position: sticky;
+    z-index: 3; /* stay above book content and overlay */
+
+    ${BookTitle} {
+      display: inline-flex;
+      width: 27rem;
+    }
+
+    ${BookChapter} {
+      display: inline-block;
+      width: 87rem;
+    }
+  `}
+
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
     height: ${bookBannerMobileHeight}rem;
@@ -107,7 +134,24 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
 `;
 
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes> {
+export class BookBanner extends Component<PropTypes, {desktopTransition: boolean}> {
+  public state = {
+    desktopTransition: false,
+  };
+  private miniBanner = React.createRef<HTMLDivElement>();
+
+  public componentDidMount() {
+    if (document) {
+      document.addEventListener('scroll', this.handleScroll);
+    }
+  }
+
+  public handleScroll = () => {
+    if (this.miniBanner.current) {
+      const rect = this.miniBanner.current.getBoundingClientRect();
+      this.setState({desktopTransition: rect.top === 0});
+    }
+  }
 
   public render() {
     const {page, book} = this.props;
@@ -123,12 +167,24 @@ export class BookBanner extends Component<PropTypes> {
       return null;
     }
 
-    return <BarWrapper theme={book.theme}>
-      <TopBar>
-        <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
-        <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
-      </TopBar>
-    </BarWrapper>;
+    return [
+      <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.desktopTransition}>
+        <TopBar>
+          <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+          <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
+        </TopBar>
+      </BarWrapper>,
+      <BarWrapper theme={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
+        <TopBar>
+          <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+          <BookChapter
+            theme={book.theme}
+            variant='mini'
+            dangerouslySetInnerHTML={{__html: treeSection.title}}
+          ></BookChapter>
+        </TopBar>
+      </BarWrapper>,
+    ];
   }
 }
 

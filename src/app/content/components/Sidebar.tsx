@@ -13,7 +13,7 @@ import { ArchiveTree, Book, Page, State } from '../types';
 import { scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
-  bookBannerDesktopHeight,
+  bookBannerDesktopMiniHeight,
   bookBannerMobileHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
@@ -46,10 +46,10 @@ const sidebarClosedStyle = css`
 // tslint:disable-next-line:variable-name
 const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   position: sticky;
-  top: ${bookBannerDesktopHeight}rem;
+  top: ${bookBannerDesktopMiniHeight}rem;
   margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
-  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   transition:
     transform ${sidebarTransitionTime}ms,
     box-shadow ${sidebarTransitionTime}ms,

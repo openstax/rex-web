@@ -1,4 +1,5 @@
-export const bookBannerDesktopHeight = 13;
+export const bookBannerDesktopBigHeight = 13;
+export const bookBannerDesktopMiniHeight = 7;
 export const bookBannerMobileHeight = 10.4;
 
 export const sidebarDesktopWidth = 33.5;
