@@ -105,7 +105,7 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
     background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
   `}
   ${(props) => props.up && css`
-    transform: translateY(-${4}rem);
+    transform: translateY(-${bookBannerDesktopMiniHeight}rem);
   `}
 
   z-index: 4; /* stay above book content and overlay and mini nav */
