@@ -1,7 +1,7 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
@@ -60,11 +60,16 @@ const bookBannerTextStyle = css`
   overflow: hidden;
 `;
 
+type Style = string | number | FlattenSimpleInterpolation;
+const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
+  (props: {variant: 'mini' | undefined}) =>
+    props.variant === 'mini' ? miniStyle : bigStyle;
+
 // tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
-  display: flex;
+  display: ${ifMiniNav('inline-flex', 'flex')};
   height: ${textRegularLineHeight}rem;
   font-weight: normal;
   align-items: center;
@@ -75,22 +80,21 @@ const BookTitle = styled.a`
     text-decoration: underline;
   }
 
-  ${(props) => props.variant === 'mini' && css`
-    display: inline-flex;
+  ${ifMiniNav(css`
     width: 27rem;
 
     ${theme.breakpoints.mobile(css`
       display: none;
     `)}
-  `}
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const BookChapter = styled((props) => props.variant === 'mini' ? <h2 {...props} /> : <h1 {...props} />)`
-  ${(props) => props.variant === 'mini' ? h4Style : h3Style}
+  ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
   font-weight: bold;
-  display: ${(props) => props.variant === 'mini' ? 'inline-block' : 'block'};
+  display: ${ifMiniNav('inline-block', 'block')};
   margin: 1rem 0 0 0;
   ${theme.breakpoints.mobile(css`
     white-space: normal;
@@ -102,10 +106,6 @@ const BookChapter = styled((props) => props.variant === 'mini' ? <h2 {...props} 
     margin-top: 0.3rem;
   `)}
 `;
-
-const ifMiniNav = (miniStyle: string | number, bigStyle?: string | number) =>
-  (props: {variant: 'mini' | undefined}) =>
-    props.variant === 'mini' ? miniStyle : bigStyle;
 
 // tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | undefined}>`
