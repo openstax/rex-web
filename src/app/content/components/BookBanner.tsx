@@ -143,6 +143,7 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
   public componentDidMount() {
     if (document) {
       document.addEventListener('scroll', this.handleScroll);
+      this.handleScroll();
     }
   }
 
