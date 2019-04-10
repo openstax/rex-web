@@ -80,7 +80,7 @@ Array [
 }
 
 .c0 {
-  z-index: 2;
+  z-index: 5;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -154,60 +154,10 @@ Array [
   overflow: hidden;
 }
 
-.c12 {
+.c15 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
-}
-
-.c36 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  max-width: 57rem;
-  margin: 0 auto;
-  margin-top: 3.2rem;
-  overflow: visible;
-}
-
-.c36 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c36 a:hover {
-  color: #0064A0;
-}
-
-.c36 .os-figure,
-.c36 .os-figure:last-child {
-  margin-bottom: 5px;
-}
-
-.c36 * {
-  overflow: initial;
-}
-
-.c23 {
-  position: relative;
-  overflow: visible;
-  min-height: 100%;
-  width: 100%;
-  padding: 0 3.2rem;
-}
-
-.c41 {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-.c43 {
-  height: 1.5rem;
-  width: 1.5rem;
 }
 
 .c39 {
@@ -217,8 +167,8 @@ Array [
   line-height: 2.5rem;
   max-width: 57rem;
   margin: 0 auto;
-  font-weight: 500;
-  list-style: none;
+  margin-top: 3.2rem;
+  overflow: visible;
 }
 
 .c39 a {
@@ -233,12 +183,62 @@ Array [
   color: #0064A0;
 }
 
-.c39::-webkit-details-marker {
+.c39 .os-figure,
+.c39 .os-figure:last-child {
+  margin-bottom: 5px;
+}
+
+.c39 * {
+  overflow: initial;
+}
+
+.c26 {
+  position: relative;
+  overflow: visible;
+  min-height: 100%;
+  width: 100%;
+  padding: 0 3.2rem;
+}
+
+.c44 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.c46 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.c42 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
+  font-weight: 500;
+  list-style: none;
+}
+
+.c42 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c42 a:hover {
+  color: #0064A0;
+}
+
+.c42::-webkit-details-marker {
   display: none;
 }
 
-.c39,
-.c39 span {
+.c42,
+.c42 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -249,8 +249,8 @@ Array [
   text-decoration: none;
 }
 
-.c39 a,
-.c39 span a {
+.c42 a,
+.c42 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -258,19 +258,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c39 a:hover,
-.c39 span a:hover {
+.c42 a:hover,
+.c42 span a:hover {
   color: #0064A0;
 }
 
-.c39:hover,
-.c39 span:hover {
+.c42:hover,
+.c42 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c44 {
+.c47 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -279,7 +279,7 @@ Array [
   margin: 0 auto;
 }
 
-.c44 a {
+.c47 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -287,15 +287,15 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c44 a:hover {
+.c47 a:hover {
   color: #0064A0;
 }
 
-.c44 blockquote {
+.c47 blockquote {
   margin-left: 0;
 }
 
-.c37 {
+.c40 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -307,7 +307,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c37 a {
+.c40 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -315,23 +315,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c37 a:hover {
+.c40 a:hover {
   color: #0064A0;
 }
 
-.c37 > .c38 {
+.c40 > .c41 {
   margin-bottom: 1.8rem;
 }
 
-.c37[open] .c40 {
+.c40[open] .c43 {
   display: none;
 }
 
-.c37:not([open]) .c42 {
+.c40:not([open]) .c45 {
   display: none;
 }
 
-.c37 li {
+.c40 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -386,6 +386,48 @@ Array [
   text-decoration: underline;
 }
 
+.c8 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 87rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 27rem;
+}
+
+.c8:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 .c6 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -408,9 +450,29 @@ Array [
   margin: 1rem 0 0 0;
 }
 
+.c9 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 87rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: bold;
+  display: inline-block;
+  margin: 1rem 0 0 0;
+}
+
 .c1 {
-  position: -webkit-sticky;
-  position: sticky;
   top: 0;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
@@ -423,11 +485,38 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 4;
   background: linear-gradient(to right,#002468,#004aa2);
-  z-index: 3;
 }
 
-.c32 {
+.c7 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 3;
+  background: linear-gradient(to right,#002468,#004aa2);
+  margin-top: -7rem;
+}
+
+.c35 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -437,21 +526,13 @@ Array [
   transition: margin-left 300ms;
 }
 
-.c32 *:target::before {
+.c35 *:target::before {
   content: " ";
   display: block;
   position: relative;
-  margin-top: -18rem;
-  height: 18rem;
+  margin-top: -12rem;
+  height: 12rem;
   visibility: hidden;
-}
-
-.c18 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c21 {
@@ -462,7 +543,15 @@ Array [
   color: #5E6062;
 }
 
-.c8 {
+.c24 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  margin-right: 0.5rem;
+  color: #5E6062;
+}
+
+.c11 {
   height: 5rem;
   max-width: 117rem;
   margin: 0 auto;
@@ -481,7 +570,7 @@ Array [
   overflow: visible;
 }
 
-.c17 {
+.c20 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -494,7 +583,7 @@ Array [
   position: relative;
 }
 
-.c17:after {
+.c20:after {
   content: '';
   position: absolute;
   left: 0;
@@ -503,7 +592,7 @@ Array [
   border-bottom: solid 0.1rem #5E6062;
 }
 
-.c19 {
+.c22 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -514,23 +603,23 @@ Array [
   outline: none;
 }
 
-.c19::-webkit-input-placeholder {
+.c22::-webkit-input-placeholder {
   color: #5E6062;
 }
 
-.c19::-moz-placeholder {
+.c22::-moz-placeholder {
   color: #5E6062;
 }
 
-.c19:-ms-input-placeholder {
+.c22:-ms-input-placeholder {
   color: #5E6062;
 }
 
-.c19::placeholder {
+.c22::placeholder {
   color: #5E6062;
 }
 
-.c20 {
+.c23 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -542,7 +631,7 @@ Array [
   align-items: center;
 }
 
-.c22 {
+.c25 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -551,7 +640,7 @@ Array [
   margin: 0;
 }
 
-.c16 {
+.c19 {
   text-align: right;
   display: -webkit-box;
   display: -webkit-flex;
@@ -567,10 +656,10 @@ Array [
   align-items: center;
 }
 
-.c7 {
+.c10 {
   position: -webkit-sticky;
   position: sticky;
-  top: 13rem;
+  top: 7rem;
   width: 100%;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
@@ -579,7 +668,7 @@ Array [
   background: #fff;
 }
 
-.c11 {
+.c14 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
@@ -587,7 +676,7 @@ Array [
   color: #5E6062;
 }
 
-.c14 {
+.c17 {
   font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -596,7 +685,7 @@ Array [
   padding: 0;
 }
 
-.c10 {
+.c13 {
   border: none;
   padding: 0;
   margin: 0;
@@ -613,17 +702,17 @@ Array [
   cursor: pointer;
 }
 
-.c9 {
+.c12 {
   display: none;
 }
 
-.c25 {
+.c28 {
   position: -webkit-sticky;
   position: sticky;
-  top: 13rem;
+  top: 7rem;
   margin-top: -5rem;
   overflow-y: auto;
-  height: calc(100vh - 18rem);
+  height: calc(100vh - 12rem);
   -webkit-transition: -webkit-transform 300ms, box-shadow 300ms, background-color 300ms;
   -webkit-transition: transform 300ms, box-shadow 300ms, background-color 300ms;
   transition: transform 300ms, box-shadow 300ms, background-color 300ms;
@@ -643,11 +732,11 @@ Array [
   flex-direction: column;
 }
 
-.c25 ol {
+.c28 ol {
   padding-inline-start: 10px;
 }
 
-.c25 > nav {
+.c28 > nav {
   -webkit-overflow-scrolling: touch;
   position: relative;
   padding: 1rem;
@@ -656,14 +745,14 @@ Array [
   flex: 1;
 }
 
-.c25 > * {
+.c28 > * {
   -webkit-transition: all 300ms;
   transition: all 300ms;
   visibility: visible;
   opacity: 1;
 }
 
-.c27 {
+.c30 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -676,7 +765,7 @@ Array [
   overflow: visible;
 }
 
-.c29 {
+.c32 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
@@ -686,7 +775,7 @@ Array [
   padding-right: 0;
 }
 
-.c28 {
+.c31 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -697,33 +786,33 @@ Array [
   flex: 1;
 }
 
-.c28 .c13 {
+.c31 .c16 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-align: left;
 }
 
-.c28 .c26 {
+.c31 .c29 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-align: left;
 }
 
-.c30 {
+.c33 {
   list-style: none;
   font-size: 1.4rem;
 }
 
-.c31 {
+.c34 {
   list-style: none;
   font-size: 1.4rem;
   overflow: visible;
   position: relative;
 }
 
-.c31:before {
+.c34:before {
   font-weight: bold;
   content: '>';
   position: absolute;
@@ -737,7 +826,7 @@ Array [
   min-height: 100%;
 }
 
-.c24 {
+.c27 {
   overflow: visible;
   margin: 0 auto;
   max-width: 117rem;
@@ -751,7 +840,7 @@ Array [
   flex-direction: row;
 }
 
-.c33 {
+.c36 {
   min-height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -763,7 +852,7 @@ Array [
   margin-right: -3.2rem;
 }
 
-.c34 {
+.c37 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -782,7 +871,7 @@ Array [
   max-width: 83.5rem;
 }
 
-.c35 {
+.c38 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -790,30 +879,30 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c36 {
+  .c39 {
     margin-top: 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c23 {
+  .c26 {
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c37 {
+  .c40 {
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c37 {
+  .c40 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c37 > .c38 {
+  .c40 > .c41 {
     margin-bottom: 0.8rem;
   }
 }
@@ -822,6 +911,19 @@ Array [
   .c3 {
     font-size: 1.6rem;
     line-height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c8 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c8 {
+    display: none;
   }
 }
 
@@ -844,6 +946,24 @@ Array [
 }
 
 @media (max-width:64em) {
+  .c9 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c9 {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media (max-width:64em) {
   .c1 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -851,36 +971,38 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c32 {
+  .c7 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c35 {
     margin-left: -33.5rem;
   }
 }
 
 @media (max-width:64em) {
-  .c32 {
+  .c35 {
     margin-left: -28.8rem;
   }
 }
 
 @media (max-width:64em) {
-  .c8 {
+  .c11 {
     height: 4rem;
   }
 }
 
 @media (max-width:64em) {
-  .c17 {
+  .c20 {
     border: none;
     margin-right: 1rem;
   }
 
-  .c17:after {
-    display: none;
-  }
-}
-
-@media (max-width:64em) {
-  .c19 {
+  .c20:after {
     display: none;
   }
 }
@@ -892,14 +1014,20 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c7 {
-    top: 10.4rem;
+  .c25 {
+    display: none;
+  }
+}
+
+@media (max-width:64em) {
+  .c10 {
+    top: 6rem;
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c9 {
+  .c12 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -908,23 +1036,23 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c15 {
+  .c18 {
     display: none;
   }
 }
 
 @media (max-width:64em) {
-  .c25 {
+  .c28 {
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
-    top: 10.4rem;
-    height: calc(100vh - 14rem);
+    top: 6rem;
+    height: calc(100vh - 9.6rem);
   }
 }
 
 @media (max-width:64em) {
-  .c25 {
+  .c28 {
     overflow-y: hidden;
     -webkit-transform: translateX(-33.5rem);
     -ms-transform: translateX(-33.5rem);
@@ -933,51 +1061,51 @@ Array [
     background-color: transparent;
   }
 
-  .c25 > * {
+  .c28 > * {
     visibility: hidden;
     opacity: 0;
   }
 }
 
 @media (max-width:64em) {
-  .c27 {
+  .c30 {
     height: 4rem;
   }
 }
 
 @media (max-width:64em) {
-  .c33 {
+  .c36 {
     margin: 0 -1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c33 {
+  .c36 {
     margin-left: -3.2rem;
   }
 }
 
 @media (max-width:64em) {
-  .c34 {
+  .c37 {
     max-width: 117rem;
   }
 }
 
 @media (max-width:64em) {
-  .c34 {
+  .c37 {
     max-width: 117rem;
     margin: 0 auto;
   }
 }
 
 @media (max-width:64em) {
-  .c35 {
+  .c38 {
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c35 {
+  .c38 {
     padding: 0 3.2rem;
   }
 }
@@ -1015,6 +1143,7 @@ Array [
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
             }
           }
+          theme="blue"
         />
       </div>
     </div>
@@ -1022,16 +1151,51 @@ Array [
       className="c7"
     >
       <div
-        className="c8"
+        className="c2"
+      >
+        <a
+          className="c8"
+          href="/details/books/book-slug-1"
+        >
+          <svg
+            aria-hidden="true"
+            className="c4 c5"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            />
+          </svg>
+          Test Book 1
+        </a>
+        <h2
+          className="c9"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-text\\">Test Page 4</span>",
+            }
+          }
+          theme="blue"
+          variant="mini"
+        />
+      </div>
+    </div>
+    <div
+      className="c10"
+    >
+      <div
+        className="c11"
       >
         <button
           aria-label="Click to open the Table of Contents"
-          className="c9 c10"
+          className="c12 c13"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="c11 c12"
+            className="c14 c15"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -1042,19 +1206,19 @@ Array [
             />
           </svg>
           <h3
-            className="c13 c14"
+            className="c16 c17"
           >
             Table of contents
           </h3>
         </button>
         <button
           aria-label="Click to close the Table of Contents"
-          className="c15 c10"
+          className="c18 c13"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="c11 c12"
+            className="c14 c15"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -1065,20 +1229,20 @@ Array [
             />
           </svg>
           <h3
-            className="c13 c14"
+            className="c16 c17"
           >
             Table of contents
           </h3>
         </button>
         <div
-          className="c16"
+          className="c19"
         >
           <div
-            className="c17"
+            className="c20"
           >
             <svg
               aria-hidden="true"
-              className="c18 c12"
+              className="c21 c15"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -1089,16 +1253,16 @@ Array [
               />
             </svg>
             <input
-              className="c19"
+              className="c22"
               placeholder="Search this book"
             />
           </div>
           <div
-            className="c20"
+            className="c23"
           >
             <svg
               aria-hidden="true"
-              className="c21 c12"
+              className="c24 c15"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -1109,7 +1273,7 @@ Array [
               />
             </svg>
             <h3
-              className="c22"
+              className="c25"
             >
               Print options
             </h3>
@@ -1118,26 +1282,26 @@ Array [
       </div>
     </div>
     <div
-      className="c23"
+      className="c26"
     >
       <div
-        className="c24"
+        className="c27"
       >
         <div
           aria-label="Table of Contents"
-          className="c25"
+          className="c28"
         >
           <div
-            className="c26 c27"
+            className="c29 c30"
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="c28 c15 c10"
+              className="c31 c18 c13"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c11 c12"
+                className="c14 c15"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1148,13 +1312,13 @@ Array [
                 />
               </svg>
               <h3
-                className="c13 c14"
+                className="c16 c17"
               >
                 Table of contents
               </h3>
               <svg
                 aria-hidden="true"
-                className="c29"
+                className="c32"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -1190,7 +1354,7 @@ Array [
           <nav>
             <ol>
               <li
-                className="c30"
+                className="c33"
               >
                 <a
                   dangerouslySetInnerHTML={
@@ -1203,7 +1367,7 @@ Array [
                 />
               </li>
               <li
-                className="c30"
+                className="c33"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -1215,7 +1379,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c30"
+                      className="c33"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -1231,7 +1395,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c30"
+                className="c33"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -1243,7 +1407,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c30"
+                      className="c33"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -1259,7 +1423,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c30"
+                className="c33"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -1272,7 +1436,7 @@ Array [
                   <ol>
                     <li
                       aria-label="Current Page"
-                      className="c31"
+                      className="c34"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -1288,7 +1452,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c30"
+                className="c33"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -1300,7 +1464,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c30"
+                      className="c33"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -1316,7 +1480,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c30"
+                className="c33"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -1328,7 +1492,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c30"
+                      className="c33"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -1344,7 +1508,7 @@ Array [
                 </nav>
               </li>
               <li
-                className="c30"
+                className="c33"
               >
                 <h3
                   dangerouslySetInnerHTML={
@@ -1356,7 +1520,7 @@ Array [
                 <nav>
                   <ol>
                     <li
-                      className="c30"
+                      className="c33"
                     >
                       <a
                         dangerouslySetInnerHTML={
@@ -1375,19 +1539,19 @@ Array [
           </nav>
         </div>
         <div
-          className="c32"
+          className="c35"
         >
           <div
-            className="c33"
+            className="c36"
           >
             <div
-              className="c34"
+              className="c37"
             >
               <div
-                className="c35"
+                className="c38"
               >
                 <div
-                  className="c36 "
+                  className="c39 "
                   id="main-content"
                   tabIndex={-1}
                 >
@@ -1406,14 +1570,14 @@ Array [
                 </div>
               </div>
               <details
-                className="c37"
+                className="c40"
               >
                 <summary
-                  className="c38 c39"
+                  className="c41 c42"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c12"
+                    className="c43 c44 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1425,7 +1589,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c12"
+                    className="c45 c46 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1440,7 +1604,7 @@ Array [
                   </span>
                 </summary>
                 <div
-                  className="c44"
+                  className="c47"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "
@@ -1599,7 +1763,7 @@ Array [
 }
 
 .c0 {
-  z-index: 2;
+  z-index: 5;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -1838,8 +2002,8 @@ Array [
   content: " ";
   display: block;
   position: relative;
-  margin-top: -18rem;
-  height: 18rem;
+  margin-top: -12rem;
+  height: 12rem;
   visibility: hidden;
 }
 
@@ -1967,7 +2131,7 @@ Array [
 .c1 {
   position: -webkit-sticky;
   position: sticky;
-  top: 13rem;
+  top: 7rem;
   width: 100%;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
@@ -2017,10 +2181,10 @@ Array [
 .c19 {
   position: -webkit-sticky;
   position: sticky;
-  top: 13rem;
+  top: 7rem;
   margin-top: -5rem;
   overflow-y: auto;
-  height: calc(100vh - 18rem);
+  height: calc(100vh - 12rem);
   -webkit-transition: -webkit-transform 300ms, box-shadow 300ms, background-color 300ms;
   -webkit-transition: transform 300ms, box-shadow 300ms, background-color 300ms;
   transition: transform 300ms, box-shadow 300ms, background-color 300ms;
@@ -2239,7 +2403,7 @@ Array [
 
 @media (max-width:64em) {
   .c1 {
-    top: 10.4rem;
+    top: 6rem;
     padding: 0 1.6rem;
   }
 }
@@ -2264,8 +2428,8 @@ Array [
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
-    top: 10.4rem;
-    height: calc(100vh - 14rem);
+    top: 6rem;
+    height: calc(100vh - 9.6rem);
   }
 }
 
