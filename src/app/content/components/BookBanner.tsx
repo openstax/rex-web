@@ -1,5 +1,4 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
-import debounce from 'lodash/fp/debounce';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -139,8 +138,10 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
   public state = {
     desktopTransition: false,
   };
+  private miniBanner = React.createRef<HTMLDivElement>();
+  private bigBanner = React.createRef<HTMLDivElement>();
 
-  public handleScroll = debounce(200, () => {
+  public handleScroll = () => {
     if (this.miniBanner.current && this.bigBanner.current && typeof(window) !== 'undefined') {
       const miniRect = this.miniBanner.current.getBoundingClientRect();
       this.setState({
@@ -148,9 +149,7 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
       });
     }
-  });
-  private miniBanner = React.createRef<HTMLDivElement>();
-  private bigBanner = React.createRef<HTMLDivElement>();
+  }
 
   public componentDidMount() {
     if (document) {
