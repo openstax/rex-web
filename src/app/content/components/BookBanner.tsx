@@ -73,14 +73,23 @@ const BookTitle = styled.a`
   :hover {
     text-decoration: underline;
   }
+
+  ${(props) => props.variant === 'mini' && css`
+    display: inline-flex;
+    width: 27rem;
+
+    ${theme.breakpoints.mobile(css`
+      display: none;
+    `)}
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled.h1`
+const BookChapter = styled((props) => props.variant === 'mini' ? <h2 {...props} /> : <h1 {...props} />)`
   ${(props) => props.variant === 'mini' ? h4Style : h3Style}
   ${bookBannerTextStyle}
   font-weight: bold;
-  display: block;
+  display: ${(props) => props.variant === 'mini' ? 'inline-block' : 'block'};
   margin: 1rem 0 0 0;
   ${theme.breakpoints.mobile(css`
     white-space: normal;
@@ -93,6 +102,10 @@ const BookChapter = styled.h1`
   `)}
 `;
 
+const ifMiniNav = (miniStyle: string | number, bigStyle?: string | number) =>
+  (props: {variant: 'mini' | undefined}) =>
+    props.variant === 'mini' ? miniStyle : bigStyle;
+
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div<{theme: Book['theme']}>`
   top: 0;
@@ -100,8 +113,10 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  height: ${bookBannerDesktopBigHeight}rem;
+  height: ${ifMiniNav(bookBannerDesktopMiniHeight, bookBannerDesktopBigHeight)}rem;
   transition: transform 200ms;
+  position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
+  z-index: ${ifMiniNav(3 /* stay above book content and overlay */, 4 /* above mini nav */)};
   ${(props: {theme: Book['theme']}) => css`
     background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
   `}
@@ -114,35 +129,11 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
 
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
-    height: ${bookBannerMobileBigHeight}rem;
+    height: ${ifMiniNav(bookBannerMobileMiniHeight, bookBannerMobileBigHeight)}rem;
+    ${ifMiniNav(`margin-top: -${bookBannerMobileMiniHeight}rem`)}
   `)}
 
-  z-index: 4; /* stay above book content and overlay and mini nav */
-  position: relative; /* stay above mini nav */
-  ${(props) => props.variant === 'mini' && css`
-    margin-top: -${bookBannerDesktopMiniHeight}rem;
-    height: ${bookBannerDesktopMiniHeight}rem;
-    position: sticky;
-    z-index: 3; /* stay above book content and overlay */
-
-    ${theme.breakpoints.mobile(css`
-      margin-top: -${bookBannerMobileMiniHeight}rem;
-      height: ${bookBannerMobileMiniHeight}rem;
-    `)}
-
-    ${BookTitle} {
-      display: inline-flex;
-      width: 27rem;
-
-      ${theme.breakpoints.mobile(css`
-        display: none;
-      `)}
-    }
-
-    ${BookChapter} {
-      display: inline-block;
-    }
-  `}
+  ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -193,7 +184,13 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
       </BarWrapper>,
       <BarWrapper theme={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
         <TopBar>
-          <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+          <BookTitle
+            href={bookUrl}
+            variant='mini'
+            theme={book.theme}
+          >
+            <LeftArrow theme={book.theme} />{book.tree.title}
+          </BookTitle>
           <BookChapter
             theme={book.theme}
             variant='mini'
