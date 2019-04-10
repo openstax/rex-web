@@ -190,6 +190,7 @@ export class Sidebar extends Component<SidebarProps> {
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
+    scrollHandler();
   }
 
   public componentDidUpdate() {
