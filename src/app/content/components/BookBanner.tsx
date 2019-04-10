@@ -7,6 +7,7 @@ import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
+import { assertDocument } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
@@ -107,7 +108,7 @@ const ifMiniNav = (miniStyle: string | number, bigStyle?: string | number) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div<{theme: Book['theme']}>`
+export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | undefined}>`
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
@@ -137,9 +138,9 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
 `;
 
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes, {desktopTransition: boolean}> {
+export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}> {
   public state = {
-    desktopTransition: false,
+    scrollTransition: false,
   };
   private miniBanner = React.createRef<HTMLDivElement>();
   private bigBanner = React.createRef<HTMLDivElement>();
@@ -148,17 +149,16 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
     if (this.miniBanner.current && this.bigBanner.current && typeof(window) !== 'undefined') {
       const miniRect = this.miniBanner.current.getBoundingClientRect();
       this.setState({
-        desktopTransition: miniRect.top === 0 &&
+        scrollTransition: miniRect.top === 0 &&
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
       });
     }
   }
 
   public componentDidMount() {
-    if (document) {
-      document.addEventListener('scroll', this.handleScroll);
-      this.handleScroll();
-    }
+    const document = assertDocument();
+    document.addEventListener('scroll', this.handleScroll);
+    this.handleScroll();
   }
 
   public render() {
@@ -176,7 +176,7 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
     }
 
     return [
-      <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.desktopTransition} ref={this.bigBanner}>
+      <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
         <TopBar>
           <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
           <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
