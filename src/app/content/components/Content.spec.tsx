@@ -6,10 +6,12 @@ import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import MobileScrollLock from '../../components/MobileScrollLock';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import createReducer from '../../navigation/reducer';
 import { AppServices, AppState } from '../../types';
+import { openToc } from '../actions';
 import contentReducer, { initialState } from '../reducer';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
@@ -120,6 +122,29 @@ describe('content', () => {
     const sidebarComponent = component.root.findByType(Sidebar);
 
     expect(sidebarComponent.props.isOpen).toBe(null);
+  });
+
+  it('clicking overlay closes toc', () => {
+    const history = createMemoryHistory();
+    const navigation = createReducer(history.location);
+    const store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
+
+    store.dispatch(openToc());
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const sidebarComponent = component.root.findByType(Sidebar);
+    const mobileScrollLock = component.root.findByType(MobileScrollLock);
+
+    expect(sidebarComponent.props.isOpen).toBe(true);
+    mobileScrollLock.props.onClick();
+    expect(sidebarComponent.props.isOpen).toBe(false);
   });
 
   it('SidebarControl opens and closes ToC', () => {

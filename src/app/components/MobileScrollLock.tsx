@@ -32,7 +32,11 @@ const Overlay = styled.div`
   `)}
 `;
 
-export default class MobileScrollLock extends React.Component {
+interface Props {
+  onClick?: () => void;
+}
+
+export default class MobileScrollLock extends React.Component<Props> {
 
   public componentDidMount() {
     if (typeof(document) === 'undefined') {
@@ -49,7 +53,7 @@ export default class MobileScrollLock extends React.Component {
   }
 
   public render() {
-    return <Overlay><MobileScrollLockBodyClass /></Overlay>;
+    return <Overlay onClick={this.props.onClick}><MobileScrollLockBodyClass /></Overlay>;
   }
 
   private blockScroll = (e: Event) => {
