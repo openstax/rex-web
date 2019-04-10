@@ -1,4 +1,5 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
+import debounce from 'lodash/fp/debounce';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -138,19 +139,23 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
   public state = {
     desktopTransition: false,
   };
+
+  public handleScroll = debounce(200, () => {
+    if (this.miniBanner.current && this.bigBanner.current && typeof(window) !== 'undefined') {
+      const miniRect = this.miniBanner.current.getBoundingClientRect();
+      this.setState({
+        desktopTransition: miniRect.top === 0 &&
+          this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
+      });
+    }
+  });
   private miniBanner = React.createRef<HTMLDivElement>();
+  private bigBanner = React.createRef<HTMLDivElement>();
 
   public componentDidMount() {
     if (document) {
       document.addEventListener('scroll', this.handleScroll);
       this.handleScroll();
-    }
-  }
-
-  public handleScroll = () => {
-    if (this.miniBanner.current) {
-      const rect = this.miniBanner.current.getBoundingClientRect();
-      this.setState({desktopTransition: rect.top === 0});
     }
   }
 
@@ -169,7 +174,7 @@ export class BookBanner extends Component<PropTypes, {desktopTransition: boolean
     }
 
     return [
-      <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.desktopTransition}>
+      <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.desktopTransition} ref={this.bigBanner}>
         <TopBar>
           <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
           <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
