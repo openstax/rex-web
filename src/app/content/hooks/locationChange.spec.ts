@@ -5,12 +5,14 @@ import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { Match } from '../../navigation/types';
 import { AppServices, AppState, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
 import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
 import { State } from '../types';
+import { formatBookData } from '../utils';
 
 describe('locationChange', () => {
   let localState: State;
@@ -65,7 +67,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    localState.book = cloneDeep({...book, slug: 'book', publish_date: '', authors: []});
+    localState.book = cloneDeep({...formatBookData(book, mockCmsBook), slug: 'book'});
     await hook(payload);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
@@ -123,8 +125,15 @@ describe('locationChange', () => {
   });
 
   it('adds font to fontcollector', () => {
-    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i';
-    jest.mock('cnx-recipes/styles/output/intro-business.json', () => `"${mockFont}"`);
+    const mockFont = 'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'; // tslint:disable-line:max-line-length
+    jest.mock('cnx-recipes', () => ({
+      getBookStyles: () => {
+        const styles = new Map();
+        styles.set('intro-business', `@import url("${mockFont}");`);
+        return styles;
+      },
+    }));
+
     const spy = jest.spyOn(helpers.fontCollector, 'add');
     jest.resetModules();
     hook = (require('./locationChange').default)(helpers);
@@ -134,7 +143,14 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t break if there are no fonts in the css', () => {
-    jest.mock('cnx-recipes/styles/output/intro-business.json', () => `""`);
+    jest.mock('cnx-recipes', () => ({
+      getBookStyles: () => {
+        const styles = new Map();
+        styles.set('intro-business', `/* mocked book style */`);
+        return styles;
+      },
+    }));
+
     const spy = jest.spyOn(helpers.fontCollector, 'add');
     jest.resetModules();
     hook = (require('./locationChange').default)(helpers);
@@ -267,12 +283,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t call osweb if book slug is already known', async() => {
-    localState.book = {
-      ...book,
-      authors: [],
-      publish_date: '',
-      slug: 'book-slug-1',
-    };
+    localState.book = formatBookData(book, mockCmsBook);
     await hook(payload);
     expect(helpers.osWebLoader.getBookIdFromSlug).not.toHaveBeenCalled();
   });

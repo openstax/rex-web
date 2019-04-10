@@ -17,19 +17,23 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
     shortId: string;
     title: string;
   };
+  onClick?: () => void;
   navigate: typeof push;
   currentPath: string;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, ...props}) => {
+export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, onClick, ...props}) => {
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
 
   return <a
     onClick={(e) => {
       e.preventDefault();
+      if (onClick) {
+        onClick();
+      }
       navigate({
         params,
         route: content,

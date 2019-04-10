@@ -2,10 +2,10 @@ import { OSWebBook } from '../../helpers/createOSWebLoader';
 import { ArchiveBook, Book } from './types';
 import { getIdVersion, stripIdVersion } from './utils/idUtils';
 
-export * from './utils/idUtils';
-export * from './utils/archiveTreeUtils';
-export * from './utils/urlUtils';
-export * from './utils/domUtils';
+export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
+export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
+export { stripIdVersion } from './utils/idUtils';
+export { scrollTocSectionIntoView } from './utils/domUtils';
 
 export const getContentPageReferences = (content: string) =>
   (content.match(/\/contents\/([a-z0-9\-]+(@[\d\.]+)?)(:([a-z0-9\-]+(@[\d\.]+)?))?/g) || [])
@@ -27,4 +27,5 @@ export const formatBookData = (archiveBook: ArchiveBook, osWebBook: OSWebBook): 
   authors: osWebBook.authors,
   publish_date: osWebBook.publish_date,
   slug: osWebBook.meta.slug,
+  theme: osWebBook.cover_color,
 });

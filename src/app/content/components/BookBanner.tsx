@@ -1,4 +1,3 @@
-import Color from 'color';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -13,12 +12,23 @@ import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
 
+const gradients: {[key in Book['theme']]: string} = {
+  blue: '#004aa2',
+  gray: '#97999b',
+  green: '#9cd14a',
+  yellow: '#faea36',
+};
+
+const applyBookTextColor = (props: {theme: Book['theme']}) => css`
+  color: ${theme.color.primary[props.theme].foreground};
+`;
+
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   margin-left: -0.6rem;
   height: 3rem;
   width: 3rem;
-  color: ${theme.color.neutral.base};
+  ${applyBookTextColor}
 `;
 
 interface PropTypes {
@@ -36,7 +46,7 @@ const TopBar = styled.div`
 const bookBannerTextStyle = css`
   max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
   padding: 0;
-  color: ${theme.color.primary.blue.foreground};
+  ${applyBookTextColor}
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -76,11 +86,8 @@ const BookChapter = styled.h1`
   `)}
 `;
 
-const blue = `${theme.color.primary.blue.base}`;
-const color = Color(blue).lighten(0.7);
-
 // tslint:disable-next-line:variable-name
-const BarWrapper = styled.div`
+const BarWrapper = styled.div<{theme: Book['theme']}>`
   position: sticky;
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
@@ -88,7 +95,10 @@ const BarWrapper = styled.div`
   display: flex;
   align-items: center;
   height: ${bookBannerDesktopHeight}rem;
-  background: linear-gradient(to right, ${blue}, ${color.hex()});
+  ${(props: {theme: Book['theme']}) => css`
+    background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
+  `}
+
   z-index: 3; /* stay above book content and overlay */
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
@@ -113,10 +123,10 @@ export class BookBanner extends Component<PropTypes> {
       return null;
     }
 
-    return <BarWrapper>
+    return <BarWrapper theme={book.theme}>
       <TopBar>
-        <BookTitle href={bookUrl}><LeftArrow/>{book.tree.title}</BookTitle>
-        <BookChapter dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
+        <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+        <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
       </TopBar>
     </BarWrapper>;
   }

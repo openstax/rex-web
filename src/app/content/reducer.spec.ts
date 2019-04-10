@@ -23,6 +23,15 @@ describe('content reducer', () => {
     expect(newState.tocOpen).toEqual(false);
   });
 
+  it('reduces resetToc', () => {
+    const state = {
+      ...initialState,
+      tocOpen: true,
+    };
+    const newState = reducer(state, actions.resetToc());
+    expect(newState.tocOpen).toEqual(null);
+  });
+
   it('reduces requestBook', () => {
     const newState = reducer(initialState, actions.requestBook('bookId'));
     expect(newState.loading.book).toEqual('bookId');

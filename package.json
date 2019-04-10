@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cnx-recipes": "github:connexions/cnx-recipes#master",
+    "cnx-recipes": "github:openstax/cnx-recipes#dfd753a7fed4e9d4e30a3cdfd4b0a2135969ee12",
     "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
     "history": "^4.7.2",
@@ -20,6 +20,7 @@
     "redux": "^4.0.1",
     "reselect": "^4.0.0",
     "scroll-to-element": "^2.0.2",
+    "stacktrace-js": "^2.0.0",
     "styled-components": "^4.0.3",
     "styled-icons": "^7.4.0",
     "typesafe-actions": "^2.0.4",
@@ -30,6 +31,7 @@
   "scripts": {
     "lint": "npm run-script lint:bash && npm run-script lint:css && npm run-script lint:typescript",
     "lint:typescript": "tslint -p ./tsconfig.json",
+    "lint:exports": "ts-unused-exports ./tsconfig.json",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
     "start": "react-scripts start",
@@ -40,10 +42,11 @@
     "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
-    "postinstall": "node ./script/postinstall",
     "pretest:sims": "./script/build-simulations.bash",
-    "test": "npm run-script test:unit && npm run-script lint && npm run-script test:build && tsc",
-    "test:unit": "npm run-script pretest:sims && REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)(browser)?spec\\.tsx?\"",
+    "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:screenshots && npm run-script lint && npm run-script test:build && tsc",
+    "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\"",
+    "test:browser": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
+    "test:screenshots": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\"",
     "test:build": "REACT_APP_ENV=test npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "REACT_APP_ENV=test node ./script/verifySourcemaps.js",
     "test:prerender": "export REACT_APP_ENV=test && npm run-script pretest:sims && npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
@@ -90,6 +93,7 @@
     "@types/react-redux": "^6.0.9",
     "@types/react-test-renderer": "^16.0.3",
     "@types/serve-static": "^1.13.2",
+    "@types/stacktrace-js": "^0.0.32",
     "@types/styled-components": "^4.1.12",
     "@types/tiny-async-pool": "^1.0.0",
     "@types/yargs": "^12.0.1",
@@ -117,6 +121,7 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.2",
     "tiny-async-pool": "^1.0.4",
+    "ts-unused-exports": "^2.0.11",
     "tslint": "^5.11.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "yargs": "^12.0.2"
@@ -135,7 +140,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "testRegex": "(\\.|/)(browser|prerender)?spec\\.tsx?$",
+    "testRegex": "(\\.|/)(screenshot|browser|prerender)?spec\\.tsx?$",
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js",
       "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js"

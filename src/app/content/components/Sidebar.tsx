@@ -1,11 +1,12 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
-import MobileScrollLock from '../../components/MobileScrollLock';
+import styled, { css } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
+import Times from '../../components/Times';
 import theme from '../../theme';
-import { AppState } from '../../types';
+import { AppState, Dispatch } from '../../types';
+import { resetToc } from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page, State } from '../types';
@@ -21,7 +22,8 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentLink from './ContentLink';
-import SidebarControl from './SidebarControl';
+import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
+import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1;
@@ -75,6 +77,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   flex-direction: column;
 
   > nav {
+    -webkit-overflow-scrolling: touch;
     position: relative;
     padding: ${sidebarPadding}rem;
     flex: 1;
@@ -98,6 +101,30 @@ const ToCHeader = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  ${toolbarIconStyles};
+  margin-right: 0;
+  padding-right: 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />)`
+  display: flex;
+  margin-right: ${sidebarPadding}rem;
+  flex: 1;
+
+  ${ToCButtonText} {
+    flex: 1;
+    text-align: left;
+  }
+
+  ${ToCHeader} {
+    flex: 1;
+    text-align: left;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -127,7 +154,7 @@ const NavItem = styled(NavItemComponent)`
 `;
 
 interface SidebarProps {
-  mobileScrollLock: string;
+  onNavigate: () => void;
   isOpen: State['tocOpen'];
   book?: Book;
   page?: Page;
@@ -147,7 +174,6 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidMount() {
     this.scrollToSelectedPage();
-    this.updateMobileScrollLock();
 
     const sidebar = this.sidebar;
 
@@ -168,22 +194,6 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
-    this.updateMobileScrollLock();
-  }
-
-  private updateMobileScrollLock() {
-    if (!this.sidebar || typeof(document) === 'undefined') {
-      return;
-    }
-
-    const lockClasses = this.props.mobileScrollLock.split(' ');
-
-    if (this.props.isOpen) {
-      document.body.classList.add(...lockClasses);
-    } else {
-      document.body.classList.remove(...lockClasses);
-    }
-
   }
 
   private scrollToSelectedPage() {
@@ -205,29 +215,30 @@ export class Sidebar extends Component<SidebarProps> {
               ref={active ? ((ref: any) => this.activeSection = ref) : undefined}
               active={active}
             >
-              <ContentLink book={book} page={item} dangerouslySetInnerHTML={{__html: item.title}} />
+              <ContentLink
+                onClick={this.props.onNavigate}
+                book={book}
+                page={item}
+                dangerouslySetInnerHTML={{__html: item.title}}
+              />
             </NavItem>;
       })}
     </ol>
   </nav>
 
   private renderTocHeader = () => <ToCHeader>
-    <SidebarControl />
+    <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
   </ToCHeader>
 
   private renderToc = (book: Book) => this.renderTocNode(book, book.tree);
 }
 
-type SidebarConnectedProps = Pick<SidebarProps, Exclude<keyof SidebarProps, 'mobileScrollLock'>>;
-// tslint:disable-next-line:variable-name
-const SidebarWithMobileScrollLock: React.SFC<SidebarConnectedProps> =
-  (props) => <MobileScrollLock suppressClassNameWarning>
-    {(className: string) => <Sidebar mobileScrollLock={className} {...props} />}
-  </MobileScrollLock>;
-
 export default connect(
   (state: AppState) => ({
     ...selectors.bookAndPage(state),
     isOpen: selectors.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    onNavigate: () => dispatch(resetToc()),
   })
-)(SidebarWithMobileScrollLock);
+)(Sidebar);

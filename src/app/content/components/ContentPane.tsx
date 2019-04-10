@@ -1,6 +1,10 @@
-import Color from 'color';
+import React from 'react';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
+import MobileScrollLock from '../../components/MobileScrollLock';
 import theme from '../../theme';
+import { Dispatch } from '../../types';
+import { closeToc } from '../actions';
 import { State } from '../types';
 import {
   bookBannerDesktopHeight,
@@ -12,30 +16,16 @@ import {
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
+const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
   flex: 1;
   width: 100%;
   overflow: visible;
   transition: margin-left ${sidebarTransitionTime}ms;
   ${styleWhenSidebarClosed(css`
     margin-left: -${sidebarDesktopWidth}rem;
-    ${theme.breakpoints.mobile(css`
-      margin-left: -${sidebarMobileWidth}rem;
-    `)}
   `)}
 
-  ${(props) => props.isOpen && theme.breakpoints.mobile(css`
-    :before {
-      background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
-      z-index: 2; /* stay above book content */
-      position: absolute;
-      content: '';
-      top: -${toolbarDesktopHeight}rem;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-
+  ${theme.breakpoints.mobile(css`
     margin-left: -${sidebarMobileWidth}rem;
   `)}
 
@@ -49,4 +39,22 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   }
 `;
 
-export default isOpenConnector(ContentPane);
+interface Props {
+  isOpen: State['tocOpen'];
+  onClick: () => void;
+}
+
+// tslint:disable-next-line:variable-name
+const ContentPane: React.SFC<Props> = ({isOpen, onClick, children}) => <Wrapper isOpen={isOpen}>
+  {isOpen && <MobileScrollLock onClick={onClick} />}
+  {children}
+</Wrapper>;
+
+const dispatchConnector = connect(
+  () => ({}),
+  (dispatch: Dispatch) => ({
+    onClick: () => dispatch(closeToc()),
+  })
+);
+
+export default isOpenConnector(dispatchConnector(ContentPane));

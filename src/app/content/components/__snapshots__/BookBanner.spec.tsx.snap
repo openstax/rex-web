@@ -98,7 +98,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
   -ms-flex-align: center;
   align-items: center;
   height: 13rem;
-  background: linear-gradient(to right,#002468,#003DB1);
+  background: linear-gradient(to right,#002468,#004aa2);
   z-index: 3;
 }
 

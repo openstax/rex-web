@@ -3,11 +3,12 @@ import { css, FlattenSimpleInterpolation } from 'styled-components';
 
 export interface ColorSet {
   base: string;
+  foreground: string;
   darker: string;
   darkest: string;
-  foreground: string;
 }
 const textColors = {
+  black: '#000',
   default: '#424242',
   label: '#6f6f6f',
   white: '#fff',
@@ -32,15 +33,24 @@ const color = {
       base: '#002468',
       foreground: textColors.white,
     },
-    gray: {base: '#5e6062'},
-    green: {base: '#63a524'},
+    gray: {
+      base: '#5e6062',
+      foreground: textColors.white,
+    },
+    green: {
+      base: '#63a524',
+      foreground: textColors.black,
+    },
     orange: {
       base: '#f36b32',
       darker: '#e96128',
       darkest: '#df571e',
       foreground: textColors.white,
     },
-    yellow: {base: '#f4d019'},
+    yellow: {
+      base: '#f4d019',
+      foreground: textColors.black,
+    },
   },
   secondary: {
     deepGreen: {base: '#0c9372'},
@@ -57,13 +67,16 @@ const color = {
   text: textColors,
 };
 
+const mobileQuery = '(max-width: 64em)';
+
 export default {
   breakpoints: {
     mobile: (style: FlattenSimpleInterpolation) => css`
-      @media (max-width: 64em) {
+      @media ${mobileQuery} {
         ${style}
       }
     `,
+    mobileQuery,
   },
   color,
   padding,

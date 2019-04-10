@@ -30,6 +30,7 @@ describe('Sidebar', () => {
     const navigation = createReducer(history.location);
     store = createStore(combineReducers({content: contentReducer, navigation}), state);
   });
+
   it('opens and closes', () => {
     const component = renderer.create(<MessageProvider><Provider store={store}>
       <ConnectedSidebar />
@@ -42,19 +43,15 @@ describe('Sidebar', () => {
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 
-  it('applies mobile scroll lock', () => {
-    if (!document) {
-      return expect(document).toBeTruthy();
-    }
+  it('resets toc on navigate', () => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
 
-    const render = (isOpen: boolean) => <MessageProvider><Provider store={store}>
-      <Sidebar mobileScrollLock='mobilescrolllock' isOpen={isOpen} book={book} page={page} />
-    </Provider></MessageProvider>;
+    const component = renderer.create(<MessageProvider><Provider store={store}>
+      <ConnectedSidebar />
+    </Provider></MessageProvider>);
 
-    const {root} = renderToDom(render(false));
-    expect(document.body.classList.contains('mobilescrolllock')).toBe(false);
-    renderToDom(render(true), root);
-    expect(document.body.classList.contains('mobilescrolllock')).toBe(true);
+    component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null});
+    expect(dispatchSpy).toHaveBeenCalledWith(actions.resetToc());
   });
 
   it('resizes on scroll', () => {

@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM node:10.9-jessie as puppeteer
+FROM node:10.15-jessie as puppeteer
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
@@ -65,12 +65,13 @@ FROM slim as built
 ARG PUBLIC_URL
 ARG REACT_APP_CODE_VERSION
 ARG REACT_APP_RELEASE_ID
+ARG REACT_APP_BOOKS="{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"},\"8d50a0af-948b-4204-a71d-4826cba765b8\":{\"defaultVersion\":\"15.3\"}}"
 
 ENV PUBLIC_URL=$PUBLIC_URL
 ENV REACT_APP_CODE_VERSION=$REACT_APP_CODE_VERSION
 ENV REACT_APP_RELEASE_ID=$REACT_APP_RELEASE_ID
+ENV REACT_APP_BOOKS=$REACT_APP_BOOKS
 
 ENV REACT_APP_ENV=production
-ENV REACT_APP_BOOKS="{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"}}"
 
 RUN yarn run build
