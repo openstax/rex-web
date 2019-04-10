@@ -624,9 +624,9 @@ Array [
   margin-top: -5rem;
   overflow-y: auto;
   height: calc(100vh - 18rem);
-  -webkit-transition: -webkit-transform 300ms, box-shadow 300ms, background-color 300ms;
-  -webkit-transition: transform 300ms, box-shadow 300ms, background-color 300ms;
-  transition: transform 300ms, box-shadow 300ms, background-color 300ms;
+  -webkit-transition: -webkit-transform 300ms,box-shadow 300ms,background-color 300ms;
+  -webkit-transition: transform 300ms,box-shadow 300ms,background-color 300ms;
+  transition: transform 300ms,box-shadow 300ms,background-color 300ms;
   background-color: #fafafa;
   z-index: 3;
   margin-left: -50vw;
@@ -2021,9 +2021,9 @@ Array [
   margin-top: -5rem;
   overflow-y: auto;
   height: calc(100vh - 18rem);
-  -webkit-transition: -webkit-transform 300ms, box-shadow 300ms, background-color 300ms;
-  -webkit-transition: transform 300ms, box-shadow 300ms, background-color 300ms;
-  transition: transform 300ms, box-shadow 300ms, background-color 300ms;
+  -webkit-transition: -webkit-transform 300ms,box-shadow 300ms,background-color 300ms;
+  -webkit-transition: transform 300ms,box-shadow 300ms,background-color 300ms;
+  transition: transform 300ms,box-shadow 300ms,background-color 300ms;
   background-color: #fafafa;
   z-index: 3;
   margin-left: -50vw;
