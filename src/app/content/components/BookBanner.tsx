@@ -14,7 +14,8 @@ import { bookDetailsUrl } from '../utils/urlUtils';
 import {
   bookBannerDesktopBigHeight,
   bookBannerDesktopMiniHeight,
-  bookBannerMobileHeight,
+  bookBannerMobileBigHeight,
+  bookBannerMobileMiniHeight,
   contentTextWidth
 } from './constants';
 
@@ -106,7 +107,15 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
   `}
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
+    ${theme.breakpoints.mobile(css`
+      transform: translateY(-${bookBannerMobileMiniHeight}rem);
+    `)}
   `}
+
+  ${theme.breakpoints.mobile(css`
+    padding: ${theme.padding.page.mobile}rem;
+    height: ${bookBannerMobileBigHeight}rem;
+  `)}
 
   z-index: 4; /* stay above book content and overlay and mini nav */
   position: relative; /* stay above mini nav */
@@ -116,21 +125,24 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
     position: sticky;
     z-index: 3; /* stay above book content and overlay */
 
+    ${theme.breakpoints.mobile(css`
+      margin-top: -${bookBannerMobileMiniHeight}rem;
+      height: ${bookBannerMobileMiniHeight}rem;
+    `)}
+
     ${BookTitle} {
       display: inline-flex;
       width: 27rem;
+
+      ${theme.breakpoints.mobile(css`
+        display: none;
+      `)}
     }
 
     ${BookChapter} {
       display: inline-block;
-      width: 87rem;
     }
   `}
-
-  ${theme.breakpoints.mobile(css`
-    padding: ${theme.padding.page.mobile}rem;
-    height: ${bookBannerMobileHeight}rem;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name

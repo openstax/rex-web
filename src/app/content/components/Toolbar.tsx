@@ -9,7 +9,7 @@ import theme from '../../theme';
 import { assertString } from '../../utils';
 import {
   bookBannerDesktopMiniHeight,
-  bookBannerMobileHeight,
+  bookBannerMobileMiniHeight,
   toolbarDesktopHeight,
   toolbarIconColor,
   toolbarMobileHeight
@@ -128,7 +128,7 @@ const BarWrapper = styled.div`;
   background: ${theme.color.neutral.base}
 
   ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileHeight}rem
+    top: ${bookBannerMobileMiniHeight}rem
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
 `;

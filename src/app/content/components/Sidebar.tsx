@@ -14,7 +14,7 @@ import { scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
   bookBannerDesktopMiniHeight,
-  bookBannerMobileHeight,
+  bookBannerMobileMiniHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
@@ -65,8 +65,8 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     width: calc(50vw + ${sidebarMobileWidth}rem);
     min-width: calc(50vw + ${sidebarMobileWidth}rem);
     margin-top: -${toolbarMobileHeight}rem;
-    top: ${bookBannerMobileHeight}rem;
-    height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
+    top: ${bookBannerMobileMiniHeight}rem;
+    height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
   `)}
 
   ol {
