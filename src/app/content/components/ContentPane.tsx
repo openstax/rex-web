@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import theme from '../../theme';
+import { Dispatch } from '../../types';
+import { closeToc } from '../actions';
 import { State } from '../types';
 import {
   bookBannerDesktopMiniHeight,
@@ -13,7 +16,7 @@ import {
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
+const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
   flex: 1;
   width: 100%;
   overflow: visible;
@@ -36,7 +39,22 @@ const ContentPane = styled.div<{isOpen: State['tocOpen']}>`
   }
 `;
 
-export default isOpenConnector(({isOpen, children}) => <ContentPane isOpen={isOpen}>
-  {isOpen && <MobileScrollLock />}
+interface Props {
+  isOpen: State['tocOpen'];
+  onClick: () => void;
+}
+
+// tslint:disable-next-line:variable-name
+const ContentPane: React.SFC<Props> = ({isOpen, onClick, children}) => <Wrapper isOpen={isOpen}>
+  {isOpen && <MobileScrollLock onClick={onClick} />}
   {children}
-</ContentPane>);
+</Wrapper>;
+
+const dispatchConnector = connect(
+  () => ({}),
+  (dispatch: Dispatch) => ({
+    onClick: () => dispatch(closeToc()),
+  })
+);
+
+export default isOpenConnector(dispatchConnector(ContentPane));

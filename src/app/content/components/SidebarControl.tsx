@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { contentFont, textRegularSize } from '../../components/Typography';
 import { AppState, Dispatch } from '../../types';
