@@ -59,12 +59,15 @@ const BarWrapper = styled.div`
     margin-top: 3.5rem;
     margin-bottom: 4.5rem;
     border: none;
+    padding: 0;
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const LinksWrapper = styled.div`
   width: 100%;
+  max-width: 57rem;
+  margin: 0 auto;
 `;
 
 // tslint:disable-next-line:variable-name
