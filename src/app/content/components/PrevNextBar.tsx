@@ -47,27 +47,22 @@ const NextLinkElement = styled(ContentLink)`
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  margin-top: 5rem;
-  margin-bottom: 6rem;
-  padding: 0 4rem;
-  border-top: solid 0.1rem ${theme.color.neutral.darkest};
-  border-bottom: solid 0.1rem ${theme.color.neutral.darkest};
   height: 4rem;
   display: flex;
   align-items: center;
+  max-width: 57rem;
+  margin: 5rem auto 6rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
   ${theme.breakpoints.mobile(css`
-    margin-top: 3.5rem;
-    margin-bottom: 4.5rem;
-    border: none;
-    padding: 0;
+    margin: 3.5rem auto 4.5rem auto;
+    border: 0;
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const LinksWrapper = styled.div`
   width: 100%;
-  max-width: 57rem;
-  margin: 0 auto;
 `;
 
 // tslint:disable-next-line:variable-name
