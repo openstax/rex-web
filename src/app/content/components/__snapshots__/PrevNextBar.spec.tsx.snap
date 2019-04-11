@@ -58,11 +58,6 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 }
 
 .c0 {
-  margin-top: 5rem;
-  margin-bottom: 6rem;
-  padding: 0 4rem;
-  border-top: solid 0.1rem #e5e5e5;
-  border-bottom: solid 0.1rem #e5e5e5;
   height: 4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -72,6 +67,10 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  max-width: 57rem;
+  margin: 5rem auto 6rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
 }
 
 .c1 {
@@ -80,9 +79,8 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 
 @media (max-width:64em) {
   .c0 {
-    margin-top: 3.5rem;
-    margin-bottom: 4.5rem;
-    border: none;
+    margin: 3.5rem auto 4.5rem auto;
+    border: 0;
   }
 }
 
@@ -164,11 +162,6 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 }
 
 .c0 {
-  margin-top: 5rem;
-  margin-bottom: 6rem;
-  padding: 0 4rem;
-  border-top: solid 0.1rem #e5e5e5;
-  border-bottom: solid 0.1rem #e5e5e5;
   height: 4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -178,6 +171,10 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  max-width: 57rem;
+  margin: 5rem auto 6rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
 }
 
 .c1 {
@@ -186,9 +183,8 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 
 @media (max-width:64em) {
   .c0 {
-    margin-top: 3.5rem;
-    margin-bottom: 4.5rem;
-    border: none;
+    margin: 3.5rem auto 4.5rem auto;
+    border: 0;
   }
 }
 
@@ -252,11 +248,6 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 }
 
 .c0 {
-  margin-top: 5rem;
-  margin-bottom: 6rem;
-  padding: 0 4rem;
-  border-top: solid 0.1rem #e5e5e5;
-  border-bottom: solid 0.1rem #e5e5e5;
   height: 4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -266,6 +257,10 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  max-width: 57rem;
+  margin: 5rem auto 6rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
 }
 
 .c1 {
@@ -274,9 +269,8 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 
 @media (max-width:64em) {
   .c0 {
-    margin-top: 3.5rem;
-    margin-bottom: 4.5rem;
-    border: none;
+    margin: 3.5rem auto 4.5rem auto;
+    border: 0;
   }
 }
 

@@ -493,11 +493,6 @@ Array [
 }
 
 .c37 {
-  margin-top: 5rem;
-  margin-bottom: 6rem;
-  padding: 0 4rem;
-  border-top: solid 0.1rem #e5e5e5;
-  border-bottom: solid 0.1rem #e5e5e5;
   height: 4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -507,6 +502,10 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  max-width: 57rem;
+  margin: 5rem auto 6rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
 }
 
 .c38 {
@@ -931,9 +930,8 @@ Array [
 
 @media (max-width:64em) {
   .c37 {
-    margin-top: 3.5rem;
-    margin-bottom: 4.5rem;
-    border: none;
+    margin: 3.5rem auto 4.5rem auto;
+    border: 0;
   }
 }
 
