@@ -74,12 +74,20 @@ export const finishRender = async(target: puppeteer.Page) => {
   }
 };
 
+export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
+  return window && window.scrollBy(0, -1 * window.innerHeight);
+});
+
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
   await finishRender(target);
+  await scrollUp(target);
+
   const {width, height} = target.viewport();
+
   await setMaxViewport(target);
   await finishRender(target);
-  const screen = await target.screenshot({fullPage: true});
+
+  const screen = await target.screenshot();
 
   await target.setViewport({width, height});
 
