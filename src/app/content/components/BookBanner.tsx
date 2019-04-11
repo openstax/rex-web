@@ -9,7 +9,7 @@ import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertDocument } from '../../utils';
 import * as select from '../selectors';
-import { Book, Page } from '../types';
+import { ArchiveTreeSection, Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import {
@@ -175,31 +175,25 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       return null;
     }
 
-    return [
-      <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
-        <TopBar>
-          <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
-          <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}}></BookChapter>
-        </TopBar>
-      </BarWrapper>,
-      <BarWrapper theme={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
-        <TopBar>
-          <BookTitle
-            href={bookUrl}
-            variant='mini'
-            theme={book.theme}
-          >
-            <LeftArrow theme={book.theme} />{book.tree.title}
-          </BookTitle>
-          <BookChapter
-            theme={book.theme}
-            variant='mini'
-            dangerouslySetInnerHTML={{__html: treeSection.title}}
-          ></BookChapter>
-        </TopBar>
-      </BarWrapper>,
-    ];
+    return this.renderBars(book, bookUrl, treeSection);
   }
+
+  private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
+    <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
+      <TopBar>
+        <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
+        <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
+      </TopBar>
+    </BarWrapper>,
+    <BarWrapper theme={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
+      <TopBar>
+        <BookTitle href={bookUrl} variant='mini' theme={book.theme}>
+          <LeftArrow theme={book.theme} />{book.tree.title}
+        </BookTitle>
+        <BookChapter theme={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
+      </TopBar>
+    </BarWrapper>,
+  ])
 }
 
 export default connect(
