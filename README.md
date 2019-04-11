@@ -120,3 +120,7 @@ this suite:
 - runs against a **remote** environment
 - uses **real** content and **persistent** test data
 - is run against release candidates when they are updated
+
+# DOM Visitor
+
+`./script/entry.js domVisitor` visits every page of every book and reports when an content element is wider than the allowed content.
