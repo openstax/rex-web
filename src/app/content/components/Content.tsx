@@ -146,8 +146,8 @@ const Content: React.SFC = () => <Layout>
         <ContentPane>
           <UndoPadding>
             <MainContentWrapper>
-              <ContentNotifications />
-              <HideOverflowAndRedoPadding>
+              <ContentNotifications key='notifications' />
+              <HideOverflowAndRedoPadding key='content'>
                 <Page />
               </HideOverflowAndRedoPadding>
               <Attribution />
