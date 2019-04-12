@@ -51,16 +51,18 @@ app.services.promiseCollector.calm().then(() => {
 
 if (window.__PRELOADED_STATE__) {
   Loadable.preloadReady().then(() => {
-    ReactDOM.hydrate(<app.container />, document.getElementById('root'));
+    ReactDOM.hydrate(<app.container />, document.getElementById('root'), doneRendering);
   });
 } else {
-  ReactDOM.render(<app.container />, document.getElementById('root'));
+  ReactDOM.render(<app.container />, document.getElementById('root'), doneRendering);
 }
 
-const initialActions = queryString.parse(window.location.search).initialActions;
-if (typeof(initialActions) === 'string') {
-  const actions = JSON.parse(initialActions);
-  actions.forEach((action: any) => app.store.dispatch(action));
+function doneRendering() {
+  const initialActions = queryString.parse(window.location.search).initialActions;
+  if (typeof(initialActions) === 'string') {
+    const actions = JSON.parse(initialActions);
+    actions.forEach((action: any) => app.store.dispatch(action));
+  }
 }
 
 // start long running processes

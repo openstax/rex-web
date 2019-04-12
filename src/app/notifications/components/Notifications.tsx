@@ -10,9 +10,32 @@ import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
 import UpdatesAvailable from './UpdatesAvailable';
 
-// TODO - magic number to be replaced in `top` when scroll behavior is developed in openstax/unified#179
+interface Props extends React.HTMLProps<HTMLDivElement> {
+  notifications: AnyNotification[];
+  className?: string;
+}
+
 // tslint:disable-next-line:variable-name
-const Container = styled.div`
+const Notifications: SFC<Props> = ({notifications, className}) => notifications.length === 0
+  ? null
+  : <div className={className}>
+    {notifications.map((notification, index) => {
+      switch (notification.type) {
+        case getType(actions.updateAvailable): {
+          return <UpdatesAvailable key={index} />;
+        }
+      }
+    })}
+  </div>;
+
+const connector = connect(
+  (state: AppState) => ({
+    notifications: select.notifications(state),
+  })
+);
+
+// TODO - magic number to be replaced in `top` when scroll behavior is developed in openstax/unified#179
+export default styled(connector(Notifications))`
   z-index: 2; /* on top of the navbar */
   top: 0;
   right: 0;
@@ -29,27 +52,3 @@ const Container = styled.div`
     `)}
   }
 `;
-
-interface Props extends React.HTMLProps<HTMLDivElement> {
-  notifications: AnyNotification[];
-  className?: string;
-}
-
-// tslint:disable-next-line:variable-name
-const Notifications: SFC<Props> = ({notifications, className}) => notifications.length === 0
-  ? null
-  : <Container className={className}>
-    {notifications.map((notification, index) => {
-      switch (notification.type) {
-        case getType(actions.updateAvailable): {
-          return <UpdatesAvailable key={index} />;
-        }
-      }
-    })}
-  </Container>;
-
-export default connect(
-  (state: AppState) => ({
-    notifications: select.notifications(state),
-  })
-)(Notifications);

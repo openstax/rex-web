@@ -3,7 +3,7 @@ import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
