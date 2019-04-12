@@ -96,7 +96,7 @@ const Details = styled.details`
     overflow: visible;
   }
 
-  /*@media print*/ { display: none }
+  @media print { display: none }
 `;
 
 interface Props {

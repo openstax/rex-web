@@ -132,7 +132,7 @@ const BarWrapper = styled.div`;
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
 
-  /*@media print*/ { display: none }
+  @media print { display: none }
 `;
 
 // tslint:disable-next-line:variable-name

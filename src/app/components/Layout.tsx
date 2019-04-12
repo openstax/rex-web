@@ -9,6 +9,6 @@ const Layout: SFC = ({children}) => <SkipToContentWrapper>
   {children}
 </SkipToContentWrapper>;
 
-export const disablePrint = css`/*@media print*/ { display: none; }`
+export const disablePrint = css`@media print { display: none; }`
 
 export default Layout;

@@ -91,7 +91,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
 
   ${styleWhenSidebarClosed(sidebarClosedStyle)}
 
-  /*@media print*/ { display: none }
+  @media print { display: none }
 `;
 
 // tslint:disable-next-line:variable-name
