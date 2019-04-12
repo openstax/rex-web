@@ -104,6 +104,8 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
     padding: ${theme.padding.page.mobile}rem;
     height: ${bookBannerMobileHeight}rem;
   `)}
+
+  /*@media print*/ { display: none }
 `;
 
 // tslint:disable-next-line:variable-name

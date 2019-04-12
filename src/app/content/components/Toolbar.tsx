@@ -131,6 +131,8 @@ const BarWrapper = styled.div`;
     top: ${bookBannerMobileHeight}rem
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
+
+  /*@media print*/ { display: none }
 `;
 
 // tslint:disable-next-line:variable-name

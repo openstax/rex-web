@@ -21,6 +21,7 @@ const TopBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
   `)}
+  /*@media print*/ { display: none }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -68,6 +69,7 @@ const BarWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
+  /*@media print*/ { display: none }
 `;
 
 // tslint:disable-next-line:variable-name

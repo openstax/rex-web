@@ -26,31 +26,35 @@ import { wrapperPadding } from './Wrapper';
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
+@media screen {
   overflow: visible; /* so sidebar position: sticky works */
   background-color: ${theme.color.neutral.darker};
   width: 100%;
   min-height: 100%;
-`;
+}`;
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
+@media screen {
   top: ${bookBannerDesktopHeight + toolbarDesktopHeight + navDesktopHeight}rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
     top: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
     ${wrapperPadding}
   }
-`;
+}`;
 
 // tslint:disable-next-line:variable-name
 const CenteredContentRow = styled(CenteredContent)`
+@media screen {
   min-height: 100%;
   display: flex;
   flex-direction: row;
-`;
+}`;
 
 // tslint:disable-next-line:variable-name
 const UndoPadding = isOpenConnector(styled.div`
+@media screen {
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -65,10 +69,11 @@ const UndoPadding = isOpenConnector(styled.div`
       margin-left: -${theme.padding.page.mobile}rem;
     `)}
   `)}
-`);
+}`);
 
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = isOpenConnector(styled.div`
+@media screen {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -84,16 +89,17 @@ const MainContentWrapper = isOpenConnector(styled.div`
     max-width: ${contentWrapperMaxWidth}rem;
     margin: 0 auto;
   `)}
-`);
+}`);
 
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
+@media screen {
   flex: 1;
   ${wrapperPadding}
   ${styleWhenSidebarClosed(css`
     ${wrapperPadding}
   `)}
-`);
+}`);
 
 /*
  * this layout is a mess for these reasons:

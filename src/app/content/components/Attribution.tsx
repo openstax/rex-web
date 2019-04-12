@@ -95,6 +95,8 @@ const Details = styled.details`
     margin-bottom: 1rem;
     overflow: visible;
   }
+
+  /*@media print*/ { display: none }
 `;
 
 interface Props {

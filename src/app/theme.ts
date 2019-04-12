@@ -72,7 +72,7 @@ const mobileQuery = '(max-width: 64em)';
 export default {
   breakpoints: {
     mobile: (style: FlattenSimpleInterpolation) => css`
-      @media ${mobileQuery} {
+      @media screen ${mobileQuery} {
         ${style}
       }
     `,
