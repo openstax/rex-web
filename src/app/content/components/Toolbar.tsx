@@ -99,8 +99,9 @@ const PrintOptWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintOptions = styled.h3`
+const PrintOptions = styled.span`
   ${textRegularStyle}
+  font-weight: 700;
   color: ${toolbarIconColor};
   margin: 0;
   ${theme.breakpoints.mobile(css`

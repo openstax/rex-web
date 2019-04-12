@@ -90,7 +90,7 @@ const BookTitle = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled((props) => props.variant === 'mini' ? <h2 {...props} /> : <h1 {...props} />)`
+const BookChapter = styled((props) => props.variant === 'mini' ? <span {...props} /> : <h1 {...props} />)`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
   font-weight: bold;
