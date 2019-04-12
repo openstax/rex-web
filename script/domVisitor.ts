@@ -49,7 +49,7 @@ async function run() {
   const page = await browser.newPage();
   page.setDefaultNavigationTimeout(60 * 1000);
 
-  const books = await findBooks(page)
+  const books = await findBooks(page);
 
   for (const book of books) {
     const bookPages = await findBookPages(page, book.href);
@@ -85,7 +85,7 @@ run().then(null, (err) => {
 async function findBooks(page: puppeteer.Page) {
   await page.goto(rootUrl);
   await page.waitForSelector('a[data-slug]');
-  let books: Array<{slug: string, href: string}> = await page.evaluate(() => {
+  const books: Array<{slug: string, href: string}> = await page.evaluate(() => {
     // Note: This runs in the browser
     if (document) {
       return Array.from(document.querySelectorAll('a[data-slug]')).map((el) => {
@@ -113,7 +113,7 @@ async function findBookPages(page: puppeteer.Page, bookHref: string) {
       .map((el) => el.getAttribute('href'));
     }
   });
-  return bookPages
+  return bookPages;
 }
 
 function reportMatches(pageUrl: string, matches: string[]) {
