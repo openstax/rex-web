@@ -62,7 +62,7 @@ const bookBannerTextStyle = css`
 
 type Style = string | number | FlattenSimpleInterpolation;
 const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
-  (props: {variant: 'mini' | undefined}) =>
+  (props: {variant: 'mini' | 'big'}) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
 // tslint:disable-next-line:variable-name
@@ -108,7 +108,7 @@ const BookChapter = styled((props) => props.variant === 'mini' ? <h2 {...props} 
 `;
 
 // tslint:disable-next-line:variable-name
-export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | undefined}>`
+export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | 'big'}>`
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
