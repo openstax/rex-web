@@ -335,7 +335,7 @@ Array [
         </svg>
         Test Book 1
       </a>
-      <h2
+      <span
         className="c5"
         dangerouslySetInnerHTML={
           Object {

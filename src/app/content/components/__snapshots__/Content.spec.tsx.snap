@@ -632,6 +632,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  font-weight: 700;
   color: #5E6062;
   margin: 0;
 }
@@ -674,6 +675,7 @@ Array [
 
 .c17 {
   font-family: Neue Helvetica W01;
+  font-weight: 700;
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #5E6062;
@@ -1166,7 +1168,7 @@ Array [
           </svg>
           Test Book 1
         </a>
-        <h2
+        <span
           className="c9"
           dangerouslySetInnerHTML={
             Object {
@@ -1201,11 +1203,11 @@ Array [
               fill="currentColor"
             />
           </svg>
-          <h3
+          <span
             className="c16 c17"
           >
             Table of contents
-          </h3>
+          </span>
         </button>
         <button
           aria-label="Click to close the Table of Contents"
@@ -1224,11 +1226,11 @@ Array [
               fill="currentColor"
             />
           </svg>
-          <h3
+          <span
             className="c16 c17"
           >
             Table of contents
-          </h3>
+          </span>
         </button>
         <div
           className="c19"
@@ -1268,11 +1270,11 @@ Array [
                 fill="currentColor"
               />
             </svg>
-            <h3
+            <span
               className="c25"
             >
               Print options
-            </h3>
+            </span>
           </div>
         </div>
       </div>
@@ -1307,11 +1309,11 @@ Array [
                   fill="currentColor"
                 />
               </svg>
-              <h3
+              <span
                 className="c16 c17"
               >
                 Table of contents
-              </h3>
+              </span>
               <svg
                 aria-hidden="true"
                 className="c32"
@@ -2104,6 +2106,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  font-weight: 700;
   color: #5E6062;
   margin: 0;
 }
@@ -2146,6 +2149,7 @@ Array [
 
 .c8 {
   font-family: Neue Helvetica W01;
+  font-weight: 700;
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: #5E6062;
@@ -2514,11 +2518,11 @@ Array [
               fill="currentColor"
             />
           </svg>
-          <h3
+          <span
             className="c7 c8"
           >
             Table of contents
-          </h3>
+          </span>
         </button>
         <button
           aria-label="Click to close the Table of Contents"
@@ -2537,11 +2541,11 @@ Array [
               fill="currentColor"
             />
           </svg>
-          <h3
+          <span
             className="c7 c8"
           >
             Table of contents
-          </h3>
+          </span>
         </button>
         <div
           className="c10"
@@ -2581,11 +2585,11 @@ Array [
                 fill="currentColor"
               />
             </svg>
-            <h3
+            <span
               className="c16"
             >
               Print options
-            </h3>
+            </span>
           </div>
         </div>
       </div>
@@ -2620,11 +2624,11 @@ Array [
                   fill="currentColor"
                 />
               </svg>
-              <h3
+              <span
                 className="c7 c8"
               >
                 Table of contents
-              </h3>
+              </span>
               <svg
                 aria-hidden="true"
                 className="c23"
