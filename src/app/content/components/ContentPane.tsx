@@ -17,6 +17,7 @@ import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
+@media screen {
   flex: 1;
   width: 100%;
   overflow: visible;
@@ -37,7 +38,7 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     height: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
     visibility: hidden;
   }
-`;
+}`;
 
 interface Props {
   isOpen: State['tocOpen'];
