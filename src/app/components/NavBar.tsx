@@ -5,6 +5,7 @@ import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
 import { assertString } from '../utils';
+import { disablePrint } from './Layout';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
@@ -21,7 +22,7 @@ const TopBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
   `)}
-  @media print { display: none }
+  @media print { display: none } /* for some reason disablePrint does not work here */
 `;
 
 // tslint:disable-next-line:variable-name
@@ -69,7 +70,7 @@ const BarWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
-  @media print { display: none }
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

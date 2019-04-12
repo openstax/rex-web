@@ -25,6 +25,7 @@ import ContentLink from './ContentLink';
 import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
 import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
+import { disablePrint } from '../../components/Layout';
 
 const sidebarPadding = 1;
 
@@ -91,7 +92,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
 
   ${styleWhenSidebarClosed(sidebarClosedStyle)}
 
-  @media print { display: none }
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

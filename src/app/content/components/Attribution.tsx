@@ -17,6 +17,7 @@ import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page';
 import { wrapperPadding } from './Wrapper';
+import { disablePrint } from '../../components/Layout';
 
 if (typeof(document) !== 'undefined') {
   import('details-polyfill');
@@ -96,7 +97,7 @@ const Details = styled.details`
     overflow: visible;
   }
 
-  @media print { display: none }
+  ${disablePrint}
 `;
 
 interface Props {

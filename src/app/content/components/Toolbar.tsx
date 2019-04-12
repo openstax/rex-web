@@ -15,6 +15,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import SidebarControl from './SidebarControl';
+import { disablePrint } from '../../components/Layout';
 
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;
@@ -132,7 +133,7 @@ const BarWrapper = styled.div`;
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
 
-  @media print { display: none }
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

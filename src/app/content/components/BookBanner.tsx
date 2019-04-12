@@ -11,6 +11,7 @@ import { Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
+import { disablePrint } from '../../components/Layout';
 
 const gradients: {[key in Book['theme']]: string} = {
   blue: '#004aa2',
@@ -105,7 +106,7 @@ const BarWrapper = styled.div<{theme: Book['theme']}>`
     height: ${bookBannerMobileHeight}rem;
   `)}
 
-  @media print { display: none }
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

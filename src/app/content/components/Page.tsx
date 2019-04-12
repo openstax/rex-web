@@ -168,9 +168,10 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
+@media screen { /* full page width in print */
   max-width: ${contentTextWidth}rem;
   margin: 0 auto;
-`;
+}`;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
