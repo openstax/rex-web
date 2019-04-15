@@ -82,6 +82,14 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     position: relative;
     padding: ${sidebarPadding}rem;
     flex: 1;
+
+    ::before {
+      content: "";
+      background: ${theme.color.neutral.darker};
+      display: block;
+      height: ${sidebarPadding}rem;
+      margin: -${sidebarPadding}rem -${sidebarPadding}rem 0 -${sidebarPadding}rem;
+    }
   }
 
   > * {
@@ -94,7 +102,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCHeader = styled.div`
+const ToCHeader = styled.div<{shadow: boolean}>`
   display: flex;
   align-items: center;
   height: ${toolbarDesktopHeight}rem;
