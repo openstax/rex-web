@@ -1466,6 +1466,7 @@ Array [
                   className="c37"
                 >
                   <a
+                    aria-label="Previous Page"
                     href="1-test-page-3"
                     onClick={[Function]}
                   >

@@ -14,5 +14,6 @@
   "i18n:toolbar:print:text": "Print options",
   "i18n:prevnext:prev:text": "Previous",
   "i18n:prevnext:next:text": "Next",
-  "i18n:prevnext:next:aria-label:text": "Next Page"
+  "i18n:prevnext:prev:aria-label": "Previous Page",
+  "i18n:prevnext:next:aria-label": "Next Page"
 }

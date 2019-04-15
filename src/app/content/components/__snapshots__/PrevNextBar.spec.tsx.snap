@@ -158,6 +158,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   className="c0"
 >
   <a
+    aria-label="Previous Page"
     href="books/book-slug-1/pages/1-test-page-3"
     onClick={[Function]}
   >
@@ -346,6 +347,7 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   className="c0"
 >
   <a
+    aria-label="Previous Page"
     href="books/book-slug-1/pages/1-test-page-6"
     onClick={[Function]}
   >

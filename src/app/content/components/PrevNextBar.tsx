@@ -72,14 +72,18 @@ export class PrevNextBar extends Component<PropTypes> {
     }
 
     return <BarWrapper>
-      <HidingContentLink book={book} page={prevNext.prev}>
-        <LeftArrow/>
-        <FormattedMessage id='i18n:prevnext:prev:text'>
-          {(msg: Element | string) => msg}
-        </FormattedMessage>
-      </HidingContentLink>
+      <FormattedMessage id='i18n:prevnext:prev:aria-label'>
+        {(ariaLabel: Element | string) =>
+        <HidingContentLink book={book} page={prevNext.prev} aria-label={ariaLabel}>
+          <LeftArrow/>
+          <FormattedMessage id='i18n:prevnext:prev:text'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+        </HidingContentLink>
+        }
+      </FormattedMessage>
 
-      <FormattedMessage id='i18n:prevnext:next:aria-label:text'>
+      <FormattedMessage id='i18n:prevnext:next:aria-label'>
         {(ariaLabel: Element | string) =>
         <HidingContentLink book={book} page={prevNext.next} aria-label={ariaLabel}>
           <FormattedMessage id='i18n:prevnext:next:text'>
