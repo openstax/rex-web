@@ -95,3 +95,28 @@ describe('assertString', () => {
     ).toThrowErrorMatchingInlineSnapshot(`"error"`);
   });
 });
+
+describe('assertDocument', () => {
+  it('returns value', () => {
+    expect(utils.assertDocument()).toBe(document);
+    expect(utils.assertDocument()).toBeTruthy();
+  });
+
+  describe('outside the browser', () => {
+    const documentBackup = document;
+
+    beforeEach(() => {
+      delete (global as any).document;
+    });
+
+    afterEach(() => {
+      (global as any).document = documentBackup;
+    });
+
+    it('throws', () => {
+      expect(() => utils.assertDocument()).toThrowErrorMatchingInlineSnapshot(
+        `"BUG: Document is undefined"`
+      );
+    });
+  });
+});
