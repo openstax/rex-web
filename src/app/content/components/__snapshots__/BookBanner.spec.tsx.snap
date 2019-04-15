@@ -12,7 +12,7 @@ exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 }
 
 .c3 {
-  margin-left: -0.6rem;
+  margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
   color: #fff;
