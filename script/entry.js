@@ -10,8 +10,6 @@ if (!script) {
   process.exit(1);
 }
 
-process.argv.splice(2, 1)
-
 const exists = extensions
   .map(extension => fs.existsSync(path.resolve(__dirname, scriptPath + extension)))
   .filter(identity)

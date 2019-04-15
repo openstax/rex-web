@@ -51,7 +51,8 @@
     "test:sourcemap": "REACT_APP_ENV=test node ./script/verifySourcemaps.js",
     "test:prerender": "export REACT_APP_ENV=test && npm run-script pretest:sims && npm run-script prerender && SERVER_MODE=built jest --testPathPattern=\"(\\.|/)(prerender|browser)spec\\.tsx?\"",
     "test:lighthouse-manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
-    "analyze-bundle": "node script/webpack-bundle-analyzer.js",
+    "analyze:bundle": "node script/webpack-bundle-analyzer.js",
+    "analyze:dom": "node ./script/entry.js domVisitor",
     "heroku-postbuild": "npm run-script build:clean && npm run-script prerender"
   },
   "eslintConfig": {

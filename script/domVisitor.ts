@@ -5,20 +5,18 @@ import puppeteer from 'puppeteer';
 
 const rootUrl = `http://localhost:${process.env.PORT || '8000'}`;
 const devTools = false;
-const onlyOneBook = process.argv[2];
+const onlyOneBook = process.argv[3]; // because it's being called via entry.js
 
 function browserFindMatches(): string[] {
   // Note: This executes in the browser context
   if (!document) {
-    throw new Error(`BUG: Could not find document in the browser.`);
+    throw new Error(`BUG: Should run in browser context`);
   }
-
   function nearestId(el: dom.Element): string {
     const id = el.getAttribute('id');
     if (id) {
       return id;
-    }
-    if (el.parentElement) {
+    } else if (el.parentElement) {
       return nearestId(el.parentElement);
     }
     throw new Error('BUG: Could not find an ancestor with an id');
@@ -26,7 +24,7 @@ function browserFindMatches(): string[] {
 
   // Remove all the MJX_Assistive_MathML elements because they
   // can be wider even though they are not visible
-  Array.from(document.querySelectorAll('.MJX_Assistive_MathML')).forEach((el) => el.remove());
+  document.querySelectorAll('.MJX_Assistive_MathML').forEach((el) => el.remove());
 
   const wideIds = new Set<string>();
   const root = document.querySelector('#main-content > div');
@@ -34,12 +32,28 @@ function browserFindMatches(): string[] {
     throw new Error(`BUG: Could not find content root`);
   }
   const rootRight = root.getBoundingClientRect().right;
-  Array.from(root.querySelectorAll('*')).forEach((c) => {
+  root.querySelectorAll('*').forEach((c) => {
     if (c.getBoundingClientRect().right > rootRight) {
       wideIds.add(nearestId(c));
     }
   });
   return Array.from(wideIds);
+}
+
+async function visitPages(page: puppeteer.Page, bookHref: string) {
+  const bookPages = await findBookPages(page, bookHref);
+  let index = 0;
+  for (const bookPageUrl of bookPages) {
+    const pageUrl = `${dirname(bookHref)}/${bookPageUrl}`;
+    console.log(`Checking ${index}/${bookPages.length}`);
+
+    await page.goto(`${rootUrl}/${pageUrl}`);
+    await page.waitForSelector('body[data-rex-loaded="true"]');
+
+    const matches = await page.evaluate(browserFindMatches);
+    reportMatches(pageUrl, matches);
+    index++;
+  }
 }
 
 async function run() {
@@ -52,21 +66,7 @@ async function run() {
   const books = await findBooks(page);
 
   for (const book of books) {
-    const bookPages = await findBookPages(page, book.href);
-
-    let index = 0;
-    for (const bookPageUrl of bookPages) {
-      const pageUrl = `${dirname(book.href)}/${bookPageUrl}`;
-      console.log(`Checking ${index}/${bookPages.length}`);
-
-      await page.goto(`${rootUrl}/${pageUrl}`);
-      await page.waitForSelector('body[data-rex-loaded="true"]');
-
-      const matches = await page.evaluate(browserFindMatches);
-      reportMatches(pageUrl, matches);
-      index++;
-    }
-
+    await visitPages(page, book.href);
   }
 
   await browser.close();

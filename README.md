@@ -123,4 +123,4 @@ this suite:
 
 # DOM Visitor
 
-`./script/entry.js domVisitor` visits every page of every book and reports when an content element is wider than the allowed content.
+`yarn analyze:dom` visits every page of every book and reports when an content element is wider than the allowed content.
