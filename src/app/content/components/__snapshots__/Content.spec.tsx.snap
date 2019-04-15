@@ -72,6 +72,10 @@ Array [
   padding: 1rem 0;
 }
 
+.c3:hover {
+  color: #424242;
+}
+
 .c3:hover,
 .c3:active,
 .c3:focus {
@@ -451,7 +455,6 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c21 {
@@ -459,7 +462,6 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c8 {
@@ -492,6 +494,7 @@ Array [
   align-items: center;
   margin-right: 4rem;
   position: relative;
+  color: #5e6062;
 }
 
 .c17:after {
@@ -500,7 +503,7 @@ Array [
   left: 0;
   right: 0;
   bottom: 0;
-  border-bottom: solid 0.1rem #5E6062;
+  border-bottom: solid 0.1rem #5e6062;
 }
 
 .c19 {
@@ -515,19 +518,19 @@ Array [
 }
 
 .c19::-webkit-input-placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c19::-moz-placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c19:-ms-input-placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c19::placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c20 {
@@ -540,14 +543,17 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  color: #5e6062;
+}
+
+.c20:hover {
+  color: #424242;
 }
 
 .c22 {
   font-family: Neue Helvetica W01;
-  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #5E6062;
   margin: 0;
 }
 
@@ -584,19 +590,18 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c14 {
   font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #5E6062;
   margin: 0;
   padding: 0;
 }
 
 .c10 {
+  color: #5e6062;
   border: none;
   padding: 0;
   margin: 0;
@@ -611,6 +616,10 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
+}
+
+.c10:hover {
+  color: #424242;
 }
 
 .c9 {
@@ -674,6 +683,7 @@ Array [
   align-items: center;
   height: 5rem;
   overflow: visible;
+  box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
 }
 
 .c29 {
@@ -681,7 +691,6 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
   margin-right: 0;
   padding-right: 0;
 }
@@ -1591,6 +1600,10 @@ Array [
   padding: 1rem 0;
 }
 
+.c3:hover {
+  color: #424242;
+}
+
 .c3:hover,
 .c3:active,
 .c3:focus {
@@ -1848,7 +1861,6 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c15 {
@@ -1856,7 +1868,6 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c2 {
@@ -1889,6 +1900,7 @@ Array [
   align-items: center;
   margin-right: 4rem;
   position: relative;
+  color: #5e6062;
 }
 
 .c11:after {
@@ -1897,7 +1909,7 @@ Array [
   left: 0;
   right: 0;
   bottom: 0;
-  border-bottom: solid 0.1rem #5E6062;
+  border-bottom: solid 0.1rem #5e6062;
 }
 
 .c13 {
@@ -1912,19 +1924,19 @@ Array [
 }
 
 .c13::-webkit-input-placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c13::-moz-placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c13:-ms-input-placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c13::placeholder {
-  color: #5E6062;
+  color: #5e6062;
 }
 
 .c14 {
@@ -1937,14 +1949,17 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  color: #5e6062;
+}
+
+.c14:hover {
+  color: #424242;
 }
 
 .c16 {
   font-family: Neue Helvetica W01;
-  color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #5E6062;
   margin: 0;
 }
 
@@ -1981,19 +1996,18 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
 }
 
 .c8 {
   font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #5E6062;
   margin: 0;
   padding: 0;
 }
 
 .c4 {
+  color: #5e6062;
   border: none;
   padding: 0;
   margin: 0;
@@ -2008,6 +2022,10 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
+}
+
+.c4:hover {
+  color: #424242;
 }
 
 .c3 {
@@ -2071,6 +2089,7 @@ Array [
   align-items: center;
   height: 5rem;
   overflow: visible;
+  box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
 }
 
 .c23 {
@@ -2078,7 +2097,6 @@ Array [
   width: 2.5rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: #5E6062;
   margin-right: 0;
   padding-right: 0;
 }
