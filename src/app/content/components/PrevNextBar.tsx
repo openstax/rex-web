@@ -7,7 +7,7 @@ import { textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
-import { Book, LinkedArchiveTreeSection, Page } from '../types';
+import { ArchiveTreeSection, Book, Page } from '../types';
 import ContentLink from './ContentLink';
 import { contentTextStyle } from './Page';
 
@@ -27,18 +27,14 @@ const RightArrow = styled(ChevronRight)`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrevLinkElement = styled(ContentLink)`
-  float: left;
-`;
-
-// tslint:disable-next-line:variable-name
-const NextLinkElement = styled(ContentLink)`
-  float: right;
-`;
+const HidingContentLink: React.SFC<{book: Book; page?: ArchiveTreeSection}> = ({page, ...props}) => page !== undefined
+  ? <ContentLink {...props} page={page} />
+  : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${contentTextStyle}
+  justify-content: space-between;
   height: 4rem;
   display: flex;
   align-items: center;
@@ -56,17 +52,12 @@ const BarWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
-const LinksWrapper = styled.div`
-  width: 100%;
-`;
-
 interface PropTypes {
   page?: Page;
   book?: Book;
   prevNext?: {
-    prev?: LinkedArchiveTreeSection;
-    next?: LinkedArchiveTreeSection;
+    prev?: ArchiveTreeSection;
+    next?: ArchiveTreeSection;
   };
 }
 
@@ -74,27 +65,18 @@ interface PropTypes {
 export class PrevNextBar extends Component<PropTypes> {
   public render() {
     const {page, book, prevNext} = this.props;
-    let prev;
-    let next;
 
     if (!book || !page || !prevNext) {
       return null;
     }
 
-    if ( prevNext.prev ) {
-      prev = <PrevLinkElement book={book} page={prevNext.prev}><LeftArrow/>Previous</PrevLinkElement>;
-    }
-
-    if ( prevNext.next ) {
-      next = <NextLinkElement book={book} page={prevNext.next} aria-label='Next Page'>Next
-      <RightArrow/></NextLinkElement>;
-    }
-
     return <BarWrapper>
-      <LinksWrapper>
-        {prev}
-        {next}
-      </LinksWrapper>
+      <HidingContentLink book={book} page={prevNext.prev}>
+        <LeftArrow/>Previous
+      </HidingContentLink>
+      <HidingContentLink book={book} page={prevNext.next} aria-label='Next Page'>
+        Next<RightArrow/>
+      </HidingContentLink>
     </BarWrapper>;
   }
 }
