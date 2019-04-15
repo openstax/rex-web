@@ -9,7 +9,7 @@ import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
-import { toolbarIconColor, toolbarIconHoverColor } from './constants';
+import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
@@ -39,7 +39,7 @@ export const ToCButtonText = styled.h3`
 
 // tslint:disable-next-line:variable-name
 const ToCButton = styled.button`
-  color: ${toolbarIconColor};
+  color: ${toolbarIconColor.base};
   border: none;
   padding: 0;
   margin: 0;
@@ -50,7 +50,7 @@ const ToCButton = styled.button`
   cursor: pointer;
 
   :hover {
-    color: ${toolbarIconHoverColor};
+    color: ${toolbarIconColor.darker};
   }
 `;
 

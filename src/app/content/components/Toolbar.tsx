@@ -12,7 +12,6 @@ import {
   bookBannerMobileHeight,
   toolbarDesktopHeight,
   toolbarIconColor,
-  toolbarIconHoverColor,
   toolbarMobileHeight
 } from './constants';
 import SidebarControl from './SidebarControl';
@@ -54,7 +53,7 @@ const SearchInputWrapper = styled.div`
   align-items: center;
   margin-right: 4rem;
   position: relative;
-  color: ${toolbarIconColor};
+  color: ${toolbarIconColor.base};
 
   :after {
     content: '';
@@ -62,7 +61,7 @@ const SearchInputWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    border-bottom: solid 0.1rem ${toolbarIconColor}
+    border-bottom: solid 0.1rem ${toolbarIconColor.base}
   }
 
   ${theme.breakpoints.mobile(css`
@@ -84,7 +83,7 @@ const SearchInput = styled.input`
   outline: none;
 
   ::placeholder {
-    color: ${toolbarIconColor};
+    color: ${toolbarIconColor.base};
   }
 
   ${theme.breakpoints.mobile(css`
@@ -97,10 +96,10 @@ const PrintOptWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: ${toolbarIconColor};
+  color: ${toolbarIconColor.base};
 
   :hover {
-    color: ${toolbarIconHoverColor};
+    color: ${toolbarIconColor.darker};
   }
 `;
 

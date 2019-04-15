@@ -693,6 +693,11 @@ Array [
   margin-right: 0.5rem;
   margin-right: 0;
   padding-right: 0;
+  color: #818181;
+}
+
+.c29:hover {
+  color: #5e6062;
 }
 
 .c28 {
@@ -2099,6 +2104,11 @@ Array [
   margin-right: 0.5rem;
   margin-right: 0;
   padding-right: 0;
+  color: #818181;
+}
+
+.c23:hover {
+  color: #5e6062;
 }
 
 .c22 {

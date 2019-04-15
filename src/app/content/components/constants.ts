@@ -7,8 +7,7 @@ export const sidebarDesktopWidth = 33.5;
 export const sidebarMobileWidth = 28.8;
 export const sidebarTransitionTime = 300;
 
-export const toolbarIconColor = theme.color.primary.gray.base;
-export const toolbarIconHoverColor = theme.color.primary.gray.darker;
+export const toolbarIconColor = theme.color.primary.gray;
 export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;
 

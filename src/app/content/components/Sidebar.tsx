@@ -19,6 +19,7 @@ import {
   sidebarMobileWidth,
   sidebarTransitionTime,
   toolbarDesktopHeight,
+  toolbarIconColor,
   toolbarMobileHeight
 } from './constants';
 import ContentLink from './ContentLink';
@@ -109,6 +110,11 @@ const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
   ${toolbarIconStyles};
   margin-right: 0;
   padding-right: 0;
+  color: ${toolbarIconColor.lighter};
+
+  :hover {
+    color: ${toolbarIconColor.base};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
