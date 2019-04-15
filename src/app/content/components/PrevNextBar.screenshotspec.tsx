@@ -44,6 +44,7 @@ describe('PrevNextBar', () => {
     await finishRender(page);
     await scrollDown();
     await page.click(`[href="${TEST_NEXT_PAGE_LINK}"][aria-label="${NEXT_PAGE_ARIA_LABEL}"]`);
+    await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -59,6 +60,7 @@ describe('PrevNextBar', () => {
     await finishRender(page);
     await scrollDown();
     await page.click(`[href="${TEST_NEXT_PAGE_LINK}"][aria-label="${NEXT_PAGE_ARIA_LABEL}"]`);
+    await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
