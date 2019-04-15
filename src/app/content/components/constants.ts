@@ -1,3 +1,5 @@
+import theme from '../../theme';
+
 export const bookBannerDesktopHeight = 13;
 export const bookBannerMobileHeight = 10.4;
 
@@ -5,7 +7,8 @@ export const sidebarDesktopWidth = 33.5;
 export const sidebarMobileWidth = 28.8;
 export const sidebarTransitionTime = 300;
 
-export const toolbarIconColor = '#5E6062';
+export const toolbarIconColor = theme.color.primary.gray.base;
+export const toolbarIconHoverColor = theme.color.primary.gray.darker;
 export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;
 

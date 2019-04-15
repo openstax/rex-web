@@ -9,7 +9,7 @@ import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
-import { toolbarIconColor } from './constants';
+import { toolbarIconColor, toolbarIconHoverColor } from './constants';
 import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
@@ -33,13 +33,13 @@ const ListIcon = styled(ListOl)`
 export const ToCButtonText = styled.h3`
   font-family: ${contentFont};
   ${textRegularSize};
-  color: ${toolbarIconColor};
   margin: 0;
   padding: 0;
 `;
 
 // tslint:disable-next-line:variable-name
 const ToCButton = styled.button`
+  color: ${toolbarIconColor};
   border: none;
   padding: 0;
   margin: 0;
@@ -48,6 +48,10 @@ const ToCButton = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  :hover {
+    color: ${toolbarIconHoverColor};
+  }
 `;
 
 const closedMessage = 'i18n:toc:toggle:closed';

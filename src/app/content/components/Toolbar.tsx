@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { maxNavWidth } from '../../components/NavBar';
-import { textRegularLineHeight, textRegularStyle } from '../../components/Typography';
+import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertString } from '../../utils';
 import {
@@ -12,6 +12,7 @@ import {
   bookBannerMobileHeight,
   toolbarDesktopHeight,
   toolbarIconColor,
+  toolbarIconHoverColor,
   toolbarMobileHeight
 } from './constants';
 import SidebarControl from './SidebarControl';
@@ -21,7 +22,6 @@ export const toolbarIconStyles = css`
   width: ${textRegularLineHeight}rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: ${toolbarIconColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -54,6 +54,7 @@ const SearchInputWrapper = styled.div`
   align-items: center;
   margin-right: 4rem;
   position: relative;
+  color: ${toolbarIconColor};
 
   :after {
     content: '';
@@ -96,12 +97,17 @@ const PrintOptWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  color: ${toolbarIconColor};
+
+  :hover {
+    color: ${toolbarIconHoverColor};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.h3`
-  ${textRegularStyle}
-  color: ${toolbarIconColor};
+  font-family: ${contentFont};
+  ${textRegularSize};
   margin: 0;
   ${theme.breakpoints.mobile(css`
     display: none;
