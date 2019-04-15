@@ -1,6 +1,7 @@
 // tslint:disable:no-console
 import * as dom from '@openstax/types/lib.dom';
 import { dirname } from 'path';
+import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
 
 const rootUrl = `http://localhost:${process.env.PORT || '8000'}`;
@@ -42,17 +43,23 @@ function browserFindMatches(): string[] {
 
 async function visitPages(page: puppeteer.Page, bookHref: string) {
   const bookPages = await findBookPages(page, bookHref);
-  let index = 0;
+  const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
+    complete: '=',
+    incomplete: ' ',
+    total: bookPages.length,
+  });
+
   for (const bookPageUrl of bookPages) {
     const pageUrl = `${dirname(bookHref)}/${bookPageUrl}`;
-    console.log(`Checking ${index}/${bookPages.length}`);
 
     await page.goto(`${rootUrl}/${pageUrl}`);
     await page.waitForSelector('body[data-rex-loaded="true"]');
 
     const matches = await page.evaluate(browserFindMatches);
-    reportMatches(pageUrl, matches);
-    index++;
+    if (matches.length > 0) {
+      bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
+    }
+    bar.tick();
   }
 }
 
@@ -114,11 +121,4 @@ async function findBookPages(page: puppeteer.Page, bookHref: string) {
     }
   });
   return bookPages;
-}
-
-function reportMatches(pageUrl: string, matches: string[]) {
-  if (matches.length > 0) {
-    console.log(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
-    console.log(matches);
-  }
 }
