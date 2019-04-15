@@ -25,7 +25,7 @@ const applyBookTextColor = (props: {theme: Book['theme']}) => css`
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
-  margin-left: -0.6rem;
+  margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
   ${applyBookTextColor}

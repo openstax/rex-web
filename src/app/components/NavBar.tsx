@@ -48,6 +48,8 @@ const LoginTxt = styled.a`
   }
 
   ${theme.breakpoints.mobile(css`
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
 
     :hover,
