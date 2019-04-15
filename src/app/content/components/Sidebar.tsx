@@ -98,6 +98,7 @@ const ToCHeader = styled.div`
   align-items: center;
   height: ${toolbarDesktopHeight}rem;
   overflow: visible;
+  box-shadow: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.14);
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
