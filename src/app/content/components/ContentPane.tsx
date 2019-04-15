@@ -7,7 +7,7 @@ import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
 import { State } from '../types';
 import {
-  bookBannerDesktopHeight,
+  bookBannerDesktopMiniHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
@@ -33,8 +33,8 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     content: " ";
     display: block;
     position: relative;
-    margin-top: -${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
-    height: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
+    margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
     visibility: hidden;
   }
 `;
