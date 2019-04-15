@@ -10,6 +10,7 @@ import * as select from '../selectors';
 import { ArchiveTreeSection, Book, Page } from '../types';
 import ContentLink from './ContentLink';
 import { contentTextStyle } from './Page';
+import { FormattedMessage } from 'react-intl';
 
 const prevNextIconStyles = css`
   height: ${textRegularLineHeight}rem;
@@ -72,10 +73,16 @@ export class PrevNextBar extends Component<PropTypes> {
 
     return <BarWrapper>
       <HidingContentLink book={book} page={prevNext.prev}>
-        <LeftArrow/>Previous
+        <LeftArrow/>
+        <FormattedMessage id='i18n:prevnext:prev:text'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
       </HidingContentLink>
       <HidingContentLink book={book} page={prevNext.next} aria-label='Next Page'>
-        Next<RightArrow/>
+        <FormattedMessage id='i18n:prevnext:next:text'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+        <RightArrow/>
       </HidingContentLink>
     </BarWrapper>;
   }
