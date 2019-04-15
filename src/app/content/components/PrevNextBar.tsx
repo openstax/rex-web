@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
@@ -10,7 +11,6 @@ import * as select from '../selectors';
 import { ArchiveTreeSection, Book, Page } from '../types';
 import ContentLink from './ContentLink';
 import { contentTextStyle } from './Page';
-import { FormattedMessage } from 'react-intl';
 
 const prevNextIconStyles = css`
   height: ${textRegularLineHeight}rem;

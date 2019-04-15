@@ -43,7 +43,7 @@ describe('PrevNextBar', () => {
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
     await scrollDown();
-    expect(await clickNextLink(TEST_NEXT_PAGE_LINK, NEXT_PAGE_ARIA_LABEL)).toBe(true);
+    await page.click(`[href="${TEST_NEXT_PAGE_LINK}"][aria-label="${NEXT_PAGE_ARIA_LABEL}"]`);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -58,7 +58,7 @@ describe('PrevNextBar', () => {
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
     await scrollDown();
-    expect(await clickNextLink(TEST_NEXT_PAGE_LINK, NEXT_PAGE_ARIA_LABEL)).toBe(true);
+    await page.click(`[href="${TEST_NEXT_PAGE_LINK}"][aria-label="${NEXT_PAGE_ARIA_LABEL}"]`);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -101,21 +101,3 @@ describe('PrevNextBar', () => {
 const scrollDown = () => page.evaluate(() => {
   return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });
-
-// tslint:disable-next-line:no-shadowed-variable
-const clickNextLink = (href: string, elementToClick: string) => page.evaluate(async(href, elementToClick) => {
-  const link = document && document.querySelector(`[href="${href}"][aria-label="${elementToClick}"]`);
-
-  if (!link || !document || !window) {
-    return false;
-  }
-
-  const event = document.createEvent('MouseEvent');
-  event.initEvent('click', true, true);
-
-  link.dispatchEvent(event);
-
-  await window.__APP_ASYNC_HOOKS.calm();
-
-  return true;
-}, href, elementToClick);
