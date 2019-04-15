@@ -84,7 +84,7 @@ Array [
 }
 
 .c0 {
-  z-index: 2;
+  z-index: 5;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;

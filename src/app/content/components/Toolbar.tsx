@@ -8,8 +8,8 @@ import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle }
 import theme from '../../theme';
 import { assertString } from '../../utils';
 import {
-  bookBannerDesktopHeight,
-  bookBannerMobileHeight,
+  bookBannerDesktopMiniHeight,
+  bookBannerMobileMiniHeight,
   toolbarDesktopHeight,
   toolbarIconColor,
   toolbarMobileHeight
@@ -104,7 +104,8 @@ const PrintOptWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintOptions = styled.h3`
+const PrintOptions = styled.span`
+  font-weight: 700;
   font-family: ${contentFont};
   ${textRegularSize};
   margin: 0;
@@ -124,7 +125,7 @@ const SearchPrintWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`;
   position: sticky;
-  top: ${bookBannerDesktopHeight}rem;
+  top: ${bookBannerDesktopMiniHeight}rem;
   width: 100%;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
@@ -133,7 +134,7 @@ const BarWrapper = styled.div`;
   background: ${theme.color.neutral.base}
 
   ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileHeight}rem
+    top: ${bookBannerMobileMiniHeight}rem
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
 `;
