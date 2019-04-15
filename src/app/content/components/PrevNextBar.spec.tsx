@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import { book as archiveBook, lastPage, page as firstPage, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import MessageProvider from '../../MessageProvider';
 import { createReducer } from '../../navigation';
 import { AppState, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
@@ -26,7 +27,7 @@ describe('PrevNextBar', () => {
   });
 
   const render = () => <Provider store={store}>
-    <PrevNextBar />
+    <MessageProvider><PrevNextBar /></MessageProvider>
   </Provider>;
 
   it('renders `null` with no page or book', () => {

@@ -200,17 +200,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c47 {
+.c44 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c49 {
+.c46 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c45 {
+.c42 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -221,7 +221,7 @@ Array [
   list-style: none;
 }
 
-.c45 a {
+.c42 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -229,16 +229,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c45 a:hover {
+.c42 a:hover {
   color: #0064A0;
 }
 
-.c45::-webkit-details-marker {
+.c42::-webkit-details-marker {
   display: none;
 }
 
-.c45,
-.c45 span {
+.c42,
+.c42 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -249,8 +249,8 @@ Array [
   text-decoration: none;
 }
 
-.c45 a,
-.c45 span a {
+.c42 a,
+.c42 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -258,19 +258,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c45 a:hover,
-.c45 span a:hover {
+.c42 a:hover,
+.c42 span a:hover {
   color: #0064A0;
 }
 
-.c45:hover,
-.c45 span:hover {
+.c42:hover,
+.c42 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c50 {
+.c47 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -279,7 +279,7 @@ Array [
   margin: 0 auto;
 }
 
-.c50 a {
+.c47 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -287,15 +287,15 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c50 a:hover {
+.c47 a:hover {
   color: #0064A0;
 }
 
-.c50 blockquote {
+.c47 blockquote {
   margin-left: 0;
 }
 
-.c43 {
+.c40 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -307,7 +307,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c43 a {
+.c40 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -315,23 +315,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c43 a:hover {
+.c40 a:hover {
   color: #0064A0;
 }
 
-.c43 > .c44 {
+.c40 > .c41 {
   margin-bottom: 1.8rem;
 }
 
-.c43[open] .c46 {
+.c40[open] .c43 {
   display: none;
 }
 
-.c43:not([open]) .c48 {
+.c40:not([open]) .c45 {
   display: none;
 }
 
-.c43 li {
+.c40 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -446,53 +446,27 @@ Array [
   visibility: hidden;
 }
 
-.c40 {
-  height: 3rem;
-  width: 3rem;
-}
-
-.c42 {
-  height: 3rem;
-  width: 3rem;
+.c38 {
+  height: 2.5rem;
+  width: 2.5rem;
 }
 
 .c39 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  float: left;
-}
-
-.c39:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c41 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  float: right;
-}
-
-.c41:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
+  height: 2.5rem;
+  width: 2.5rem;
 }
 
 .c37 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   height: 4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -502,14 +476,25 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  max-width: 57rem;
-  margin: 5rem auto 6rem auto;
+  margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
 }
 
-.c38 {
-  width: 100%;
+.c37 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c37 a:hover {
+  color: #0064A0;
+}
+
+.c37 a {
+  border: none;
 }
 
 .c18 {
@@ -868,18 +853,18 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c43 {
+  .c40 {
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c43 {
+  .c40 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c43 > .c44 {
+  .c40 > .c41 {
     margin-bottom: 0.8rem;
   }
 }
@@ -930,7 +915,7 @@ Array [
 
 @media (max-width:64em) {
   .c37 {
-    margin: 3.5rem auto 4.5rem auto;
+    margin: 3.5rem auto 3.7rem auto;
     border: 0;
   }
 }
@@ -1480,58 +1465,52 @@ Array [
                 <div
                   className="c37"
                 >
-                  <div
-                    className="c38"
+                  <a
+                    href="1-test-page-3"
+                    onClick={[Function]}
                   >
-                    <a
-                      className="c39"
-                      href="1-test-page-3"
-                      onClick={[Function]}
+                    <svg
+                      aria-hidden="true"
+                      className="c38 c5"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
                     >
-                      <svg
-                        aria-hidden="true"
-                        className="c40 c5"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-                        />
-                      </svg>
-                      Previous
-                    </a>
-                    <a
-                      aria-label="Next Page"
-                      className="c41"
-                      href="1-test-page-5"
-                      onClick={[Function]}
+                      <path
+                        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                      />
+                    </svg>
+                    Previous
+                  </a>
+                  <a
+                    aria-label="Next Page"
+                    href="1-test-page-5"
+                    onClick={[Function]}
+                  >
+                    Next
+                    <svg
+                      aria-hidden="true"
+                      className="c39 c5"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
                     >
-                      Next
-                      <svg
-                        aria-hidden="true"
-                        className="c42 c5"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-                        />
-                      </svg>
-                    </a>
-                  </div>
+                      <path
+                        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+                      />
+                    </svg>
+                  </a>
                 </div>
               </div>
               <details
-                className="c43"
+                className="c40"
               >
                 <summary
-                  className="c44 c45"
+                  className="c41 c42"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c46 c47 c12"
+                    className="c43 c44 c12"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1543,7 +1522,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c48 c49 c12"
+                    className="c45 c46 c12"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1558,7 +1537,7 @@ Array [
                   </span>
                 </summary>
                 <div
-                  className="c50"
+                  className="c47"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "
