@@ -1,10 +1,17 @@
-// tslint:disable:no-console
 import * as dom from '@openstax/types/lib.dom';
-import { dirname } from 'path';
+import fetch from 'node-fetch';
+import { basename } from 'path';
 import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
+import { Book } from '../src/app/content/types';
+import { flattenArchiveTree, getBookPageUrlAndParams } from '../src/app/content/utils';
+import { getBooks } from '../src/app/developer/components/utils';
+import config from '../src/config';
+import createArchiveLoader from '../src/helpers/createArchiveLoader';
+import createOSWebLoader from '../src/helpers/createOSWebLoader';
 
-const rootUrl = `http://localhost:${process.env.PORT || '8000'}`;
+const port = process.env.PORT || '8000';
+const rootUrl = `http://localhost:${port}`;
 const devTools = false;
 const onlyOneBook = process.argv[3]; // because it's being called via entry.js
 
@@ -41,23 +48,21 @@ function browserFindMatches(): string[] {
   return Array.from(wideIds);
 }
 
-async function visitPages(page: puppeteer.Page, bookHref: string) {
-  const bookPages = await findBookPages(page, bookHref);
+async function visitPages(page: puppeteer.Page, bookPages: string[]) {
   const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
     total: bookPages.length,
   });
 
-  for (const bookPageUrl of bookPages) {
-    const pageUrl = `${dirname(bookHref)}/${bookPageUrl}`;
+  for (const pageUrl of bookPages) {
 
-    await page.goto(`${rootUrl}/${pageUrl}`);
+    await page.goto(`${rootUrl}${pageUrl}`);
     await page.waitForSelector('body[data-rex-loaded="true"]');
 
     const matches = await page.evaluate(browserFindMatches);
     if (matches.length > 0) {
-      bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
+      bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
     }
     bar.tick();
   }
@@ -67,58 +72,48 @@ async function run() {
   const browser = await puppeteer.launch({
     devtools: devTools,
   });
+  const books = await findBooks();
+
   const page = await browser.newPage();
   page.setDefaultNavigationTimeout(60 * 1000);
 
-  const books = await findBooks(page);
-
   for (const book of books) {
-    await visitPages(page, book.href);
+    await visitPages(page, findBookPages(book));
   }
 
   await browser.close();
 
   if (books.length === 0) {
+    // tslint:disable-next-line:no-console
     console.error(`Could not find a matching book. ${onlyOneBook ? 'Check that the slug name is correct' : ''}`);
     process.exit(1);
   }
 }
 
 run().then(null, (err) => {
-  console.error(err);
+  console.error(err); // tslint:disable-line:no-console
   process.exit(1);
 });
 
-async function findBooks(page: puppeteer.Page) {
-  await page.goto(rootUrl);
-  await page.waitForSelector('a[data-slug]');
-  const books: Array<{slug: string, href: string}> = await page.evaluate(() => {
-    // Note: This runs in the browser
-    if (document) {
-      return Array.from(document.querySelectorAll('a[data-slug]')).map((el) => {
-        return {
-          href: el.getAttribute('href'),
-          slug: el.getAttribute('data-slug'),
-        };
-      });
-    } else {
-      throw new Error('BUG: Could not find document');
-    }
-  });
+async function findBooks() {
+  // Get the book config whether the server is prerendered or dev mode
+  const resp = await fetch(`${rootUrl}/rex/release.json`);
+  let bookConfig;
+  // dev server also returns a 200 but says 'not found'
+  try {
+    bookConfig = (await resp.json()).books;
+  } catch {
+    bookConfig = config.BOOKS;
+  }
+  (global as any).fetch = fetch;
+  const archiveLoader = createArchiveLoader(`${rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
 
-  return books.filter(({slug}) => onlyOneBook ? slug === onlyOneBook : true);
+  const books = await getBooks(archiveLoader, osWebLoader, Object.entries(bookConfig));
+  return books.filter((book) => onlyOneBook ? book.slug === onlyOneBook : true);
 }
 
-async function findBookPages(page: puppeteer.Page, bookHref: string) {
-  await page.goto(`${rootUrl}/${bookHref}`);
-
-  // Extract the ToC
-  await page.waitForSelector('[aria-label="Table of Contents"]');
-  const bookPages: string[] = await page.evaluate(() => {
-    if (document) {
-      return Array.from(document.querySelectorAll('[aria-label="Table of Contents"] a[href]'))
-      .map((el) => el.getAttribute('href'));
-    }
-  });
-  return bookPages;
+function findBookPages(book: Book) {
+  const pages = flattenArchiveTree(book.tree);
+  return pages.map((treeSection) => getBookPageUrlAndParams(book, treeSection).url);
 }
