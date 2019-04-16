@@ -58,13 +58,13 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
-  const screenshot = () => target.screenshot();
+  const screenshot = (): Buffer => target.screenshot() as unknown as Buffer;
 
   let lastScreen: Buffer | undefined;
   let newScreen: Buffer | undefined;
 
   const stillChanging = async() => {
-    newScreen = (await screenshot()) as unknown as Buffer;
+    newScreen = await screenshot();
     return !lastScreen || !lastScreen.equals(newScreen);
   };
 
@@ -74,13 +74,23 @@ export const finishRender = async(target: puppeteer.Page) => {
   }
 };
 
+export const scrollDown = (target: puppeteer.Page) => target.evaluate(() => {
+  return window && window.scrollBy(0, window.innerHeight);
+});
 export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
   return window && window.scrollBy(0, -1 * window.innerHeight);
 });
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
+  // on pages with the book banner the size of the page gets
+  // a little messed up when it IS NOT prerendered
+  // (content defaults to min-height = rest of the page
+  // and then the banner comes in and pushes everything down)
+  await finishRender(target);
+  await scrollDown(target);
   await finishRender(target);
   await scrollUp(target);
+  await finishRender(target);
 
   const {width, height} = target.viewport();
 
