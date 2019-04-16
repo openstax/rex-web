@@ -1973,17 +1973,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c33 {
+.c34 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c35 {
+.c36 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c31 {
+.c32 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -1994,7 +1994,7 @@ Array [
   list-style: none;
 }
 
-.c31 a {
+.c32 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2002,16 +2002,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c31 a:hover {
+.c32 a:hover {
   color: #0064A0;
 }
 
-.c31::-webkit-details-marker {
+.c32::-webkit-details-marker {
   display: none;
 }
 
-.c31,
-.c31 span {
+.c32,
+.c32 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2022,8 +2022,8 @@ Array [
   text-decoration: none;
 }
 
-.c31 a,
-.c31 span a {
+.c32 a,
+.c32 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2031,19 +2031,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c31 a:hover,
-.c31 span a:hover {
+.c32 a:hover,
+.c32 span a:hover {
   color: #0064A0;
 }
 
-.c31:hover,
-.c31 span:hover {
+.c32:hover,
+.c32 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c29 {
+.c30 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2055,7 +2055,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c29 a {
+.c30 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2063,23 +2063,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c29 a:hover {
+.c30 a:hover {
   color: #0064A0;
 }
 
-.c29 > .c30 {
+.c30 > .c31 {
   margin-bottom: 1.8rem;
 }
 
-.c29[open] .c32 {
+.c30[open] .c33 {
   display: none;
 }
 
-.c29:not([open]) .c34 {
+.c30:not([open]) .c35 {
   display: none;
 }
 
-.c29 li {
+.c30 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -2101,6 +2101,47 @@ Array [
   margin-top: -12rem;
   height: 12rem;
   visibility: hidden;
+}
+
+.c29 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 5rem auto 4rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
+}
+
+.c29 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c29 a:hover {
+  color: #0064A0;
+}
+
+.c29 a {
+  border: none;
 }
 
 .c12 {
@@ -2442,18 +2483,18 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c29 {
+  .c30 {
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c29 {
+  .c30 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c29 > .c30 {
+  .c30 > .c31 {
     margin-bottom: 0.8rem;
   }
 }
@@ -2467,6 +2508,13 @@ Array [
 @media (max-width:64em) {
   .c24 {
     margin-left: -28.8rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c29 {
+    margin: 3.5rem auto 3.7rem auto;
+    border: 0;
   }
 }
 
@@ -2793,16 +2841,26 @@ Array [
                     />
                   </div>
                 </div>
+                <div
+                  className="c29"
+                >
+                  <span
+                    aria-hidden={true}
+                  />
+                  <span
+                    aria-hidden={true}
+                  />
+                </div>
               </div>
               <details
-                className="c29"
+                className="c30"
               >
                 <summary
-                  className="c30 c31"
+                  className="c31 c32"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c32 c33 c6"
+                    className="c33 c34 c6"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -2814,7 +2872,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c34 c35 c6"
+                    className="c35 c36 c6"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
