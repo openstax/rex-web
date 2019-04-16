@@ -49,14 +49,12 @@ interface Sections {
 export const prevNextBookPage = (
   book: {tree: ArchiveTree},
   pageId: string
-): Sections | undefined => {
+): Sections => {
   const flattenTree = flattenArchiveTree(book.tree);
   const index = flattenTree.findIndex(sectionMatcher(pageId));
 
-  const sections: Sections = {
+  return {
     next: flattenTree[index + 1],
     prev: flattenTree[index - 1],
   };
-  return sections;
-
 };

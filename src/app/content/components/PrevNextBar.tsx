@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -8,7 +8,7 @@ import { textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
-import { ArchiveTreeSection, Book, Page } from '../types';
+import { ArchiveTreeSection, Book } from '../types';
 import ContentLink from './ContentLink';
 import { contentTextStyle } from './Page';
 
@@ -27,9 +27,13 @@ const RightArrow = styled(ChevronRight)`
   ${prevNextIconStyles}
 `;
 
+interface HidingContentLinkProps {
+  book?: Book;
+  page?: ArchiveTreeSection;
+}
 // tslint:disable-next-line:variable-name
-const HidingContentLink: React.SFC<{book: Book; page?: ArchiveTreeSection}> = ({page, ...props}) => page !== undefined
-  ? <ContentLink {...props} page={page} />
+const HidingContentLink: React.SFC<HidingContentLinkProps> = ({page, book}) => page !== undefined && book !== undefined
+  ? <ContentLink book={book} page={page} />
   : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name
@@ -54,53 +58,41 @@ const BarWrapper = styled.div`
 `;
 
 interface PropTypes {
-  page?: Page;
   book?: Book;
-  prevNext?: {
+  prevNext: {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
   };
 }
 
 // tslint:disable-next-line:variable-name
-export class PrevNextBar extends Component<PropTypes> {
-  public render() {
-    const {page, book, prevNext} = this.props;
-
-    if (!book || !page || !prevNext) {
-      return null;
+const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
+  <FormattedMessage id='i18n:prevnext:prev:aria-label'>
+    {(ariaLabel: Element | string) =>
+    <HidingContentLink book={book} page={prevNext.prev} aria-label={ariaLabel}>
+      <LeftArrow/>
+      <FormattedMessage id='i18n:prevnext:prev:text'>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
+    </HidingContentLink>
     }
+  </FormattedMessage>
 
-    return <BarWrapper>
-      <FormattedMessage id='i18n:prevnext:prev:aria-label'>
-        {(ariaLabel: Element | string) =>
-        <HidingContentLink book={book} page={prevNext.prev} aria-label={ariaLabel}>
-          <LeftArrow/>
-          <FormattedMessage id='i18n:prevnext:prev:text'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </HidingContentLink>
-        }
+  <FormattedMessage id='i18n:prevnext:next:aria-label'>
+    {(ariaLabel: Element | string) =>
+    <HidingContentLink book={book} page={prevNext.next} aria-label={ariaLabel}>
+      <FormattedMessage id='i18n:prevnext:next:text'>
+        {(msg: Element | string) => msg}
       </FormattedMessage>
-
-      <FormattedMessage id='i18n:prevnext:next:aria-label'>
-        {(ariaLabel: Element | string) =>
-        <HidingContentLink book={book} page={prevNext.next} aria-label={ariaLabel}>
-          <FormattedMessage id='i18n:prevnext:next:text'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-          <RightArrow/>
-        </HidingContentLink>
-        }
-      </FormattedMessage>
-    </BarWrapper>;
-  }
-}
+      <RightArrow/>
+    </HidingContentLink>
+    }
+  </FormattedMessage>
+</BarWrapper>;
 
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    page: select.page(state),
     prevNext: select.prevNextPage(state),
   })
 )(PrevNextBar);
