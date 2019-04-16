@@ -113,6 +113,7 @@
     "node-fetch": "^2.3.0",
     "pify": "^4.0.1",
     "portfinder": "^1.0.19",
+    "prettier": "^1.16.4",
     "puppeteer": "^1.10.0",
     "react-test-renderer": "^16.6.1",
     "serve-static": "^1.13.2",
