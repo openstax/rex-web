@@ -33,17 +33,17 @@ class Books extends React.Component<Props, State> {
     const {books} = this.state;
 
     return <Panel title='Books'>
-      <div id='books-list'>
-        {books.map((book) => <div key={book.slug}>
+      <ul>
+        {books.map((book) => <li key={book.slug}>
           {this.renderBookLink(book)}
-        </div>)}
-      </div>
+        </li>)}
+      </ul>
     </Panel>;
   }
 
   private renderBookLink(book: Book) {
     const page = findDefaultBookPage(book);
-    return <H3><StyledContentLink book={book} page={page} data-slug={book.slug}>{book.title}</StyledContentLink></H3>;
+    return <H3><StyledContentLink book={book} page={page}>{book.title}</StyledContentLink></H3>;
   }
 }
 
