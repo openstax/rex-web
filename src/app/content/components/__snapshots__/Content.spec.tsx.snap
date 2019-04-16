@@ -584,8 +584,8 @@ Array [
   color: #5e6062;
 }
 
-.c20:after {
-  content: '';
+.c20::after {
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
@@ -670,7 +670,7 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   display: block;
   z-index: 2;
-  background: #fff;
+  background-color: #fff;
 }
 
 .c14 {
@@ -2082,8 +2082,8 @@ Array [
   color: #5e6062;
 }
 
-.c11:after {
-  content: '';
+.c11::after {
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
@@ -2168,7 +2168,7 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   display: block;
   z-index: 2;
-  background: #fff;
+  background-color: #fff;
 }
 
 .c5 {
