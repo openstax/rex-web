@@ -1,7 +1,7 @@
 import { Event } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components/macro';
 import { toolbarDesktopHeight } from '../content/components/constants';
 import { findFirstScrollableParent } from '../content/utils/domUtils';
 import { isHtmlElement } from '../guards';

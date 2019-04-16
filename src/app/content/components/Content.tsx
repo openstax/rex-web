@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';

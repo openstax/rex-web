@@ -5,7 +5,7 @@ import portfinder from 'portfinder';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Loadable from 'react-loadable';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { content } from '../../src/app/content/routes';
