@@ -32,9 +32,10 @@ interface HidingContentLinkProps {
   page?: ArchiveTreeSection;
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLink: React.SFC<HidingContentLinkProps> = ({page, book}) => page !== undefined && book !== undefined
-  ? <ContentLink book={book} page={page} />
-  : <span aria-hidden />;
+const HidingContentLink: React.SFC<HidingContentLinkProps> = ({page, book, ...props}) =>
+  page !== undefined && book !== undefined
+    ? <ContentLink book={book} page={page} {...props} />
+    : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
