@@ -1,10 +1,8 @@
-import mergeAll from 'lodash/fp/mergeAll';
 import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
-import { AppState } from './app/types';
 import { assertWindowDefined } from './app/utils';
 import config from './config';
 import createArchiveLoader from './helpers/createArchiveLoader';
@@ -29,15 +27,8 @@ if (window.top === window.self) {
 if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
 
-const queryState = queryString.parse(window.location.search).initialState;
-
-const initialState = mergeAll([
-  window.__PRELOADED_STATE__,
-  typeof(queryState) === 'string' ? JSON.parse(queryState) as Partial<AppState> : undefined,
-]);
-
 const app = createApp({
-  initialState,
+  initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
@@ -60,10 +51,18 @@ app.services.promiseCollector.calm().then(() => {
 
 if (window.__PRELOADED_STATE__) {
   Loadable.preloadReady().then(() => {
-    ReactDOM.hydrate(<app.container />, document.getElementById('root'));
+    ReactDOM.hydrate(<app.container />, document.getElementById('root'), doneRendering);
   });
 } else {
-  ReactDOM.render(<app.container />, document.getElementById('root'));
+  ReactDOM.render(<app.container />, document.getElementById('root'), doneRendering);
+}
+
+function doneRendering() {
+  const initialActions = queryString.parse(window.location.search).initialActions;
+  if (typeof(initialActions) === 'string') {
+    const actions = JSON.parse(initialActions);
+    actions.forEach((action: any) => app.store.dispatch(action));
+  }
 }
 
 // start long running processes
