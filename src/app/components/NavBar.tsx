@@ -48,6 +48,8 @@ const LoginTxt = styled.a`
   }
 
   ${theme.breakpoints.mobile(css`
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
 
     :hover,
@@ -60,7 +62,7 @@ const LoginTxt = styled.a`
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  z-index: 2; /* drop shadow above notifications */
+  z-index: 5; /* above book nav */
   background: ${theme.color.neutral.base};
   position: relative; /* drop shadow above notifications */
   padding: 0 ${theme.padding.page.desktop}rem;
