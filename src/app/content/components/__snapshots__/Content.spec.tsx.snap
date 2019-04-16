@@ -112,6 +112,8 @@ Array [
 
 @media (max-width:64em) {
   .c3 {
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
   }
 
@@ -341,7 +343,7 @@ Array [
 }
 
 .c4 {
-  margin-left: -0.6rem;
+  margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
   color: #fff;
@@ -1815,6 +1817,8 @@ Array [
 
 @media (max-width:64em) {
   .c3 {
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
   }
 
