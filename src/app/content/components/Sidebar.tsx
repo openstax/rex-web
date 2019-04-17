@@ -34,14 +34,21 @@ const sidebarClosedStyle = css`
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
   background-color: transparent;
-  ${theme.breakpoints.mobile(css`
-    transform: translateX(-${sidebarMobileWidth}rem);
-  `)}
 
   > * {
     visibility: hidden;
     opacity: 0;
   }
+
+  ${theme.breakpoints.mobile(css`
+    background-color: ${theme.color.neutral.darker};
+    transform: translateX(-${sidebarMobileWidth + sidebarPadding * 2}rem);
+
+    > * {
+      visibility: visible;
+      opacity: 1;
+    }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
