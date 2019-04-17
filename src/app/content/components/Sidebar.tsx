@@ -59,9 +59,9 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   transition:
-    transform ${sidebarTransitionTime}ms,
-    box-shadow ${sidebarTransitionTime}ms,
-    background-color ${sidebarTransitionTime}ms;
+    transform ${sidebarTransitionTime}ms ease-in-out,
+    box-shadow ${sidebarTransitionTime}ms ease-in-out,
+    background-color ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
   z-index: 3; /* stay above book content and overlay */
   margin-left: -50vw;
