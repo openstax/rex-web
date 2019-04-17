@@ -283,24 +283,21 @@ Array [
       <div
         className="c3"
       >
-        <div
-          id="books-list"
-        >
-          <div>
+        <ul>
+          <li>
             <h3
               className="c4"
             >
               <a
                 className="c5"
-                data-slug="book-slug-1"
                 href="books/book-slug-1/pages/1-test-page-2"
                 onClick={[Function]}
               >
                 Test Book 1
               </a>
             </h3>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
     <div>
