@@ -31,11 +31,30 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   return getFirstTreeSectionOrPage(book.tree);
 };
 
+const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
+    stripIdVersion(section.shortId) === stripIdVersion(pageId)
+    || stripIdVersion(section.id) === stripIdVersion(pageId);
+
 export const findArchiveTreeSection = (
   book: {tree: ArchiveTree},
   pageId: string
 ): LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(book.tree).find((section) =>
-    stripIdVersion(section.shortId) === stripIdVersion(pageId)
-    || stripIdVersion(section.id) === stripIdVersion(pageId)
-  );
+  flattenArchiveTree(book.tree).find(sectionMatcher(pageId));
+
+interface Sections {
+  prev?: LinkedArchiveTreeSection | undefined;
+  next?: LinkedArchiveTreeSection | undefined;
+}
+
+export const prevNextBookPage = (
+  book: {tree: ArchiveTree},
+  pageId: string
+): Sections => {
+  const flattenTree = flattenArchiveTree(book.tree);
+  const index = flattenTree.findIndex(sectionMatcher(pageId));
+
+  return {
+    next: flattenTree[index + 1],
+    prev: flattenTree[index - 1],
+  };
+};
