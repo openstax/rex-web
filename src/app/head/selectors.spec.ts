@@ -9,13 +9,24 @@ describe('localState', () => {
   });
 });
 
-describe('code', () => {
-  it('returns code', () => {
+describe('meta', () => {
+  it('returns meta', () => {
     const rootState = {head: {
       ...initialState,
       meta: ['one', 'two'],
     }} as any as AppState;
 
     expect(selectors.meta(rootState)).toEqual(['one', 'two']);
+  });
+});
+
+describe('title', () => {
+  it('returns title', () => {
+    const rootState = {head: {
+      ...initialState,
+      title: 'foobar',
+    }} as any as AppState;
+
+    expect(selectors.title(rootState)).toEqual('foobar');
   });
 });
