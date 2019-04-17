@@ -10,3 +10,8 @@ export const meta = createSelector(
   localState,
   (state) => state.meta
 );
+
+export const title = createSelector(
+  localState,
+  (state) => state.title
+);
