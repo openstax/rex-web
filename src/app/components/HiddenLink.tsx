@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export default styled.a`
   /* Hide the link when it is not focused */

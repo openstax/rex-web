@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import { bodyCopyRegularStyle, H1 } from '../../components/Typography';
 import { contentWrapperMaxWidth } from '../../content/components/constants';

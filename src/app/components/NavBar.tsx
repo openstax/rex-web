@@ -1,6 +1,6 @@
 import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
@@ -48,6 +48,8 @@ const LoginTxt = styled.a`
   }
 
   ${theme.breakpoints.mobile(css`
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
 
     :hover,
