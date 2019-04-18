@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
+import { disablePrint } from '../../components/Layout';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
@@ -11,7 +12,6 @@ import { Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import { bookBannerDesktopHeight, bookBannerMobileHeight, contentTextWidth } from './constants';
-import { disablePrint } from '../../components/Layout';
 
 const gradients: {[key in Book['theme']]: string} = {
   blue: '#004aa2',

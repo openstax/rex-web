@@ -7,6 +7,7 @@ import { css } from 'styled-components';
 import styled from 'styled-components';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { disablePrint } from '../../components/Layout';
 import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
@@ -17,7 +18,6 @@ import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page';
 import { wrapperPadding } from './Wrapper';
-import { disablePrint } from '../../components/Layout';
 
 if (typeof(document) !== 'undefined') {
   import('details-polyfill');
