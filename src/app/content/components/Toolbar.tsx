@@ -143,7 +143,10 @@ const Toolbar: SFC = () => <BarWrapper>
     <SearchPrintWrapper>
       <FormattedMessage id='i18n:toolbar:search:placeholder'>
         {(msg: Element | string) => <SearchInputWrapper>
-          <SearchIcon /><SearchInput placeholder={assertString(msg, 'placeholder must be a string')}></SearchInput>
+          <SearchIcon />
+          <SearchInput
+            aria-label={assertString(msg, 'placeholder must be a string')}
+            placeholder={assertString(msg, 'placeholder must be a string')}/>
         </SearchInputWrapper>}
       </FormattedMessage>
       <FormattedMessage id='i18n:toolbar:print:text'>
