@@ -20,7 +20,7 @@ describe('print media', () => {
     await page.emulateMedia(null);
   });
 
-  it('only shows the content', async () => {
+  it('only shows the content', async() => {
     await page.emulateMedia('print');
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
@@ -29,7 +29,7 @@ describe('print media', () => {
         failureThresholdType: 'percent',
       },
     });
-  })
+  });
 
   it('only shows the content when ToC is collapsed', async() => {
     await page.click(closeToc);

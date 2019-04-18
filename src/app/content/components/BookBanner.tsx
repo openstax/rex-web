@@ -111,6 +111,8 @@ const BookChapter = styled((props) => props.variant === 'mini' ? <span {...props
 
 // tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | 'big'}>`
+  ${disablePrint}
+
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
@@ -137,7 +139,6 @@ export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant
   `)}
 
   ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
-  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
