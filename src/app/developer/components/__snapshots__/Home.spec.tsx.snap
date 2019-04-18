@@ -80,7 +80,7 @@ Array [
 }
 
 .c0 {
-  z-index: 2;
+  z-index: 5;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -114,6 +114,8 @@ Array [
 
 @media screen (max-width:64em) {
   .c3 {
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
   }
 
@@ -287,19 +289,21 @@ Array [
       <div
         className="c3"
       >
-        <div>
-          <h3
-            className="c4"
-          >
-            <a
-              className="c5"
-              href="books/book-slug-1/pages/1-test-page-2"
-              onClick={[Function]}
+        <ul>
+          <li>
+            <h3
+              className="c4"
             >
-              Test Book 1
-            </a>
-          </h3>
-        </div>
+              <a
+                className="c5"
+                href="books/book-slug-1/pages/1-test-page-2"
+                onClick={[Function]}
+              >
+                Test Book 1
+              </a>
+            </h3>
+          </li>
+        </ul>
       </div>
     </div>
     <div>

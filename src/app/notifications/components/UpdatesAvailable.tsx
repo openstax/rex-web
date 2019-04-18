@@ -1,6 +1,6 @@
 import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../components/Button';
 import { maxNavWidth } from '../../components/NavBar';
 import { bodyCopyRegularStyle } from '../../components/Typography';

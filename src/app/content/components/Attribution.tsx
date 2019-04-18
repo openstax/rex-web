@@ -1,10 +1,9 @@
-import { Element } from '@openstax/types/lib.dom';
+import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
-import { css } from 'styled-components';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 import { disablePrint } from '../../components/Layout';
@@ -16,6 +15,7 @@ import { assertString } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
+import { bookBannerDesktopMiniHeight, toolbarDesktopHeight } from './constants';
 import { contentTextStyle } from './Page';
 import { wrapperPadding } from './Wrapper';
 
@@ -107,37 +107,38 @@ interface Props {
 }
 
 class Attribution extends Component<Props> {
-  public container: Element | undefined | null;
+  public container = React.createRef<HTMLDetailsElement>();
   private toggleHandler: undefined | (() => void);
 
   public componentDidMount() {
-    const {container} = this;
+    const container = this.container.current;
 
     if (!container) {
       return;
     }
 
-    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
+    const offset = -1 * (bookBannerDesktopMiniHeight + toolbarDesktopHeight) * 10;
+    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container, {offset});
     container.addEventListener('toggle', this.toggleHandler);
   }
 
   public componentWillUnmount() {
-    if (!this.container || !this.toggleHandler) {
+    if (!this.container.current || !this.toggleHandler) {
       return;
     }
-    this.container.removeEventListener('toggle', this.toggleHandler);
+    this.container.current.removeEventListener('toggle', this.toggleHandler);
   }
 
   public componentDidUpdate(prevProps: Props) {
-    if (this.container && prevProps.page && prevProps.page !== this.props.page) {
-      this.container.removeAttribute('open');
+    if (this.container.current && prevProps.page && prevProps.page !== this.props.page) {
+      this.container.current.removeAttribute('open');
     }
   }
 
   public render() {
     const {book} = this.props;
 
-    return <Details ref={(ref: any) => this.container = ref}>
+    return <Details ref={this.container}>
       <FormattedMessage id='i18n:attribution:toggle'>
         {(msg) => <Summary>
           <SummaryClosedIcon />

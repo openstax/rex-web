@@ -1,3 +1,8 @@
 declare module 'scroll-to-element' {
-  export default function scrolltoElement(e: Element): void;
+
+  interface Options {
+    offset: number;
+  }
+
+  export default function scrolltoElement(e: Element, options?: Options): void;
 }

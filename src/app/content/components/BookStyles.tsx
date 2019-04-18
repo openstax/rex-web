@@ -1,6 +1,6 @@
 import { getBookStyles } from 'cnx-recipes';
 import { ReactElement } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { assertString } from '../../utils';
 
 // tslint:disable-next-line:variable-name

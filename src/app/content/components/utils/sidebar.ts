@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { css, FlattenSimpleInterpolation } from 'styled-components';
+import { FlattenSimpleInterpolation } from 'styled-components';
+import { css } from 'styled-components/macro';
 import theme from '../../../theme';
 import { AppState } from '../../../types';
 import * as selectors from '../../selectors';
