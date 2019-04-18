@@ -69,8 +69,12 @@ describe('content', () => {
   addTests();
 
   describe('Print mode', () => {
-    beforeEach(() => {
-      page.emulateMedia('print');
+    beforeEach(async() => {
+      await page.emulateMedia('print');
+    });
+
+    afterEach(async() => {
+      await page.emulateMedia(null);
     });
 
     addTests();
