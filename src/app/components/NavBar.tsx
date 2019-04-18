@@ -5,7 +5,6 @@ import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
 import { assertString } from '../utils';
-import { disablePrint } from './Layout';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
@@ -70,7 +69,6 @@ const BarWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
-  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
