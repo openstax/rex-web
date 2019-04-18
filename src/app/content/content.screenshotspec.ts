@@ -11,7 +11,7 @@ const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
 
-describe('content', () => {
+function addTests() {
   it('looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
@@ -36,6 +36,22 @@ describe('content', () => {
     });
   });
 
+  it('looks right on mobile', async() => {
+    setMobileViewport(page);
+    await navigate(page, TEST_PAGE_URL);
+    await finishRender(page);
+    const screen = await page.screenshot();
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+}
+
+describe('content', () => {
+
   it('attribution looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
@@ -50,16 +66,13 @@ describe('content', () => {
     });
   });
 
-  it('looks right on mobile', async() => {
-    setMobileViewport(page);
-    await navigate(page, TEST_PAGE_URL);
-    await finishRender(page);
-    const screen = await page.screenshot();
-    expect(screen).toMatchImageSnapshot({
-      CI: {
-        failureThreshold: 1.5,
-        failureThresholdType: 'percent',
-      },
+  addTests();
+
+  describe('Print mode', () => {
+    beforeEach(() => {
+      page.emulateMedia('print');
     });
+
+    addTests();
   });
 });
