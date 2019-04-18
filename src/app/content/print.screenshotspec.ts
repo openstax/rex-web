@@ -9,7 +9,7 @@ const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
 const closeToc = '[aria-label="Click to close the Table of Contents"]';
 const openToc = '[aria-label="Click to open the Table of Contents"]';
 
-describe('print media toc', () => {
+describe('print media', () => {
 
   beforeEach(async() => {
     setDesktopViewport(page);
@@ -20,7 +20,18 @@ describe('print media toc', () => {
     await page.emulateMedia(null);
   });
 
-  it('looks right when ToC is collapsed immediately', async() => {
+  it('only shows the content', async () => {
+    await page.emulateMedia('print');
+    const screen = await fullPageScreenshot(page);
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  })
+
+  it('only shows the content when ToC is collapsed', async() => {
     await page.click(closeToc);
     await page.emulateMedia('print');
     const screen = await fullPageScreenshot(page);
@@ -32,7 +43,7 @@ describe('print media toc', () => {
     });
   });
 
-  it('looks right when ToC is collapsed and then re-expanded', async() => {
+  it('only shows the content when ToC is collapsed and then re-expanded', async() => {
     await page.click(closeToc);
     await page.waitForSelector(openToc);
     await page.click(openToc);
