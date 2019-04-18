@@ -5,6 +5,7 @@ import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
 import { assertString } from '../utils';
+import { disablePrint } from '../content/components/utils/disablePrint';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
@@ -21,7 +22,7 @@ const TopBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
   `)}
-  @media print { display: none } /* for some reason disablePrint does not work here */
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

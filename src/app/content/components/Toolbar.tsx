@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
-import { disablePrint } from '../../components/Layout';
 import { maxNavWidth } from '../../components/NavBar';
 import { textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
@@ -16,6 +15,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import SidebarControl from './SidebarControl';
+import { disablePrint } from './utils/disablePrint';
 
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;

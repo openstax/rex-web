@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
-import { disablePrint } from '../../components/Layout';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
@@ -21,6 +20,7 @@ import {
   bookBannerMobileMiniHeight,
   contentTextWidth
 } from './constants';
+import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
   blue: '#004aa2',

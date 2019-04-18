@@ -6,7 +6,6 @@ import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
-import { disablePrint } from '../../components/Layout';
 import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
@@ -17,6 +16,7 @@ import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { bookBannerDesktopMiniHeight, toolbarDesktopHeight } from './constants';
 import { contentTextStyle } from './Page';
+import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 
 if (typeof(document) !== 'undefined') {

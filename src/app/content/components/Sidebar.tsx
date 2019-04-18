@@ -2,7 +2,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { disablePrint } from '../../components/Layout';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import Times from '../../components/Times';
 import theme from '../../theme';
@@ -25,6 +24,7 @@ import {
 import ContentLink from './ContentLink';
 import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
 import { toolbarIconStyles } from './Toolbar';
+import { disablePrint } from './utils/disablePrint';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1;
