@@ -55,7 +55,8 @@
     "test:prerender:browser": "SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
     "test:prerender:screenshots": "SERVER_MODE=built jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\"",
     "test:lighthouse-manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
-    "analyze-bundle": "node script/webpack-bundle-analyzer.js",
+    "analyze:bundle": "node script/webpack-bundle-analyzer.js",
+    "analyze:dom": "node ./script/entry.js domVisitor",
     "heroku-postbuild": "npm run-script build:clean && npm run-script prerender"
   },
   "eslintConfig": {
@@ -88,6 +89,7 @@
     "@types/md5-file": "^4.0.0",
     "@types/node": "^10.12.2",
     "@types/node-fetch": "^2.1.4",
+    "@types/progress": "^2.0.3",
     "@types/puppeteer": "^1.10.0",
     "@types/query-string": "^6.2.0",
     "@types/react": "^16.4.18",
@@ -118,6 +120,7 @@
     "pify": "^4.0.1",
     "portfinder": "^1.0.19",
     "prettier": "^1.16.4",
+    "progress": "^2.0.3",
     "puppeteer": "^1.10.0",
     "react-test-renderer": "^16.6.1",
     "serve-static": "^1.13.2",

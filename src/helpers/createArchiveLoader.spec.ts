@@ -87,7 +87,7 @@ describe('archiveLoader', () => {
     }
 
     if (error) {
-      expect(error.message).toEqual('Error response from archive 404: not found');
+      expect(error.message).toEqual('Error response from archive "url/coolid" 404: not found');
     } else {
       expect(error).toBeTruthy();
     }
