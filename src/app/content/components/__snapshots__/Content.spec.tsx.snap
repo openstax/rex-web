@@ -511,10 +511,7 @@ Array [
   position: sticky;
   z-index: 3;
   background: linear-gradient(to right,#002468,#004aa2);
-}
-
-.c7 margin-top:-7rem @media print {
-  display: none;
+  margin-top: -7rem;
 }
 
 .c41 {
@@ -970,6 +967,12 @@ Array [
   }
 }
 
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
 @media screen (max-width:64em) {
   .c1 {
     padding: 1.6rem;
@@ -978,7 +981,7 @@ Array [
 }
 
 @media print {
-  .c1 {
+  .c7 {
     display: none;
   }
 }
@@ -1330,6 +1333,7 @@ Array [
               />
             </svg>
             <input
+              aria-label="Search this book"
               className="c22"
               placeholder="Search this book"
             />
@@ -2740,6 +2744,7 @@ Array [
               />
             </svg>
             <input
+              aria-label="Search this book"
               className="c13"
               placeholder="Search this book"
             />
