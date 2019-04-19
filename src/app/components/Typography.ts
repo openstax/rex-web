@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import theme from '../theme';
 
 export const contentFont = 'Neue Helvetica W01';
-const textStyle = css`
+export const textStyle = css`
   font-family: ${contentFont};
   color: ${theme.color.text.default};
 `;

@@ -2,8 +2,11 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { CaretDown } from 'styled-icons/fa-solid/CaretDown/CaretDown';
+import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import Times from '../../components/Times';
+import { textStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { resetToc } from '../actions';
@@ -69,9 +72,8 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
   `)}
 
-  ol {
-    padding-inline-start: 10px;
-  }
+  padding-top: 1.8rem;
+  padding-right: 1.8rem;
 
   display: flex;
   flex-direction: column;
@@ -140,17 +142,123 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 const NavItem = styled(NavItemComponent)`
   list-style: none;
   font-size: 1.4rem;
+  line-height: 1.6rem;
+
+  ${textStyle}
   ${(props) => props.active && css`
     overflow: visible;
     position: relative;
-
-    :before {
-      font-weight: bold;
-      content: '>';
-      position: absolute;
-      right: 100%;
-    }
   `}
+
+  ::active, ::hover, ::focus, ::visited {
+    ${textStyle}
+  }
+
+  &[aria-label="Current Page"] a {
+    font-weight: bold;
+  }
+
+  a {
+    display: flex;
+
+    span.os-divider {
+      width: 1rem;
+      text-align: center;
+    }
+
+    span.os-text {
+      width:80%;
+    }
+  }
+`;
+
+const expandCollapseIconStyle = css`
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.7rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const ExpandIcon = styled(CaretRight)`
+  ${expandCollapseIconStyle}
+`;
+
+// tslint:disable-next-line:variable-name
+const CollapseIcon = styled(CaretDown)`
+  ${expandCollapseIconStyle}
+`;
+
+const SummaryTitle = styled.span`
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+`;
+
+
+// tslint:disable-next-line:variable-name
+const Summary = styled.summary`
+  display: flex;
+  list-style: none;
+  cursor: pointer;
+
+  ::-webkit-details-marker {
+    display: none;
+  }
+
+  span {
+    width: 100%;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const NavOl = styled.ol`
+  margin: 0rem;
+  padding: 1.2rem 3rem 0 0;
+
+  ${NavItem} {
+    margin: 0 0 1.5rem 0;
+
+    a {
+      ${textStyle}
+      text-decoration: none;
+    }
+  }
+
+  > ${NavItem} a {
+    padding-left: 2.2rem;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const Details = styled.details`
+  border: none;
+
+  &[open] ${ExpandIcon} {
+    display: none;
+  }
+
+  &:not([open]) ${CollapseIcon} {
+    display: none;
+  }
+
+  ${NavItem} {
+    margin-bottom: 1.2rem;
+
+    :first-child {
+      margin-top: 1.5rem;
+    }
+
+    a {
+      ${textStyle}
+      text-decoration: none;
+      padding: 0;
+    }
+  }
+
+  ${NavOl} {
+    padding: 0 0 0 5.5rem;
+  }
+
 `;
 
 interface SidebarProps {
@@ -163,6 +271,7 @@ interface SidebarProps {
 export class Sidebar extends Component<SidebarProps> {
   public sidebar: HTMLElement | undefined;
   public activeSection: HTMLElement | undefined;
+  public container: Element | undefined | null;
 
   public render() {
     const {isOpen, book} = this.props;
@@ -174,6 +283,7 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidMount() {
     this.scrollToSelectedPage();
+    this.expandCurrentChapter();
 
     const sidebar = this.sidebar;
 
@@ -194,43 +304,68 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
+    this.expandCurrentChapter();
   }
 
   private scrollToSelectedPage() {
     scrollTocSectionIntoView(this.sidebar, this.activeSection);
   }
 
-  private renderTocNode = (book: Book, {contents}: ArchiveTree) => <nav>
-    <ol>
-      {contents.map((item) => {
-        const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
+  private expandCurrentChapter() {
 
-        return isArchiveTree(item)
-          ? <NavItem key={item.id}>
-              <h3 dangerouslySetInnerHTML={{__html: item.title}} />
-              {this.renderTocNode(book, item)}
-            </NavItem>
-          : <NavItem
-              key={item.id}
-              ref={active ? ((ref: any) => this.activeSection = ref) : undefined}
-              active={active}
-            >
-              <ContentLink
-                onClick={this.props.onNavigate}
-                book={book}
-                page={item}
-                dangerouslySetInnerHTML={{__html: item.title}}
-              />
-            </NavItem>;
-      })}
-    </ol>
-  </nav>
+    if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
+      return;
+    }
+
+    const currentChapter: HTMLElement = document.querySelector('[aria-label="Current Page"]') as HTMLElement;
+
+    if ( currentChapter
+      && currentChapter.parentElement
+      && currentChapter.parentElement.parentElement
+      && !currentChapter.parentElement.parentElement.hasAttribute('open')) {
+        currentChapter.parentElement.parentElement.setAttribute('open', '');
+    }
+
+  }
+
+  private renderChildren = (book: Book, {contents}: ArchiveTree) =>
+    <NavOl>
+        {contents.map((item) => {
+          const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
+
+          return isArchiveTree(item)
+            ? <NavItem>{this.renderTocNode(book, item)}</NavItem>
+            :
+                <NavItem
+                  key={item.id}
+                  ref={active ? ((ref: any) => this.activeSection = ref) : undefined}
+                  active={active}
+                >
+                  <ContentLink
+                    onClick={this.props.onNavigate}
+                    book={book}
+                    page={item}
+                    dangerouslySetInnerHTML={{__html: item.title}}
+                  />
+                </NavItem>;
+        })}
+    </NavOl>
+
+  private renderTocNode = (book: Book, node: ArchiveTree) =>
+  <Details ref={(ref: any) => this.container = ref}>
+      <Summary>
+        <ExpandIcon/>
+        <CollapseIcon/>
+        <SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
+      </Summary>
+      {this.renderChildren(book, node)}
+  </Details>
 
   private renderTocHeader = () => <ToCHeader>
     <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
   </ToCHeader>
 
-  private renderToc = (book: Book) => this.renderTocNode(book, book.tree);
+  private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }
 
 export default connect(
