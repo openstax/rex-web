@@ -59,7 +59,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
@@ -141,7 +141,7 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
@@ -224,7 +224,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
@@ -332,7 +332,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
@@ -425,7 +425,7 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;

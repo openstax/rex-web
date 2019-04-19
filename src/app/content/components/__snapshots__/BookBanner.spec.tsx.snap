@@ -105,21 +105,21 @@ Array [
   background: linear-gradient(to right,#002468,#004aa2);
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c2 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     white-space: normal;
     display: -webkit-box;
@@ -136,7 +136,7 @@ Array [
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -279,27 +279,27 @@ Array [
   margin-top: -7rem;
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c2 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c2 {
     display: none;
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     white-space: normal;
     display: -webkit-box;
@@ -316,7 +316,7 @@ Array [
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     padding: 1.6rem;
     height: 6rem;
@@ -393,7 +393,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     -webkit-transform: translateY(-6rem);
     -ms-transform: translateY(-6rem);
@@ -401,7 +401,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   }
 }
 
-@media screen (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
