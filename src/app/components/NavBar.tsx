@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
+import { disablePrint } from '../content/components/utils/disablePrint';
 import theme from '../theme';
 import { assertString } from '../utils';
-import { disablePrint } from '../content/components/utils/disablePrint';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
