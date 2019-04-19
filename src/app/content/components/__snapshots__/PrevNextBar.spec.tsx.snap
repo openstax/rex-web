@@ -17,6 +17,8 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -51,10 +53,9 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   border: none;
 }
 
-@media screen {
+@media print {
   .c0 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 
@@ -98,6 +99,8 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -132,10 +135,9 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
   border: none;
 }
 
-@media screen {
+@media print {
   .c0 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 
@@ -180,6 +182,8 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -214,10 +218,9 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   border: none;
 }
 
-@media screen {
+@media print {
   .c0 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 
@@ -287,6 +290,8 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -321,10 +326,9 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   border: none;
 }
 
-@media screen {
+@media print {
   .c0 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 
@@ -379,6 +383,8 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -413,10 +419,9 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   border: none;
 }
 
-@media screen {
+@media print {
   .c0 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 

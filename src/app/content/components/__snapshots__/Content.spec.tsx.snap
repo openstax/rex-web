@@ -169,24 +169,7 @@ Array [
 }
 
 .c39 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin-top: 3.2rem;
   overflow: visible;
-}
-
-.c39 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c39 a:hover {
-  color: #0064A0;
 }
 
 .c39 .os-figure,
@@ -221,6 +204,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   font-weight: 500;
   list-style: none;
 }
@@ -279,6 +264,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
 }
 
 .c50 a {
@@ -529,6 +516,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -857,34 +846,31 @@ Array [
 
 @media screen {
   .c39 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
     max-width: 57rem;
     margin: 0 auto;
+    margin-top: 3.2rem;
   }
-}
 
-@media screen (max-width:64em) {
-  .c39 {
-    margin-top: 1.6rem;
+  .c39 a {
+    color: #027EB5;
+    cursor: pointer;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    border-bottom: #027EB5 solid 0.02em;
+  }
+
+  .c39 a:hover {
+    color: #0064A0;
   }
 }
 
 @media screen (max-width:64em) {
   .c26 {
     padding: 0 1.6rem;
-  }
-}
-
-@media screen {
-  .c45 {
-    max-width: 57rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen {
-  .c50 {
-    max-width: 57rem;
-    margin: 0 auto;
   }
 }
 
@@ -1015,10 +1001,9 @@ Array [
   }
 }
 
-@media screen {
+@media print {
   .c40 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 
@@ -1967,24 +1952,7 @@ Array [
 }
 
 .c28 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin-top: 3.2rem;
   overflow: visible;
-}
-
-.c28 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c28 a:hover {
-  color: #0064A0;
 }
 
 .c28 .os-figure,
@@ -2019,6 +1987,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   font-weight: 500;
   list-style: none;
 }
@@ -2118,6 +2088,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -2427,27 +2399,31 @@ Array [
 
 @media screen {
   .c28 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
     max-width: 57rem;
     margin: 0 auto;
+    margin-top: 3.2rem;
   }
-}
 
-@media screen (max-width:64em) {
-  .c28 {
-    margin-top: 1.6rem;
+  .c28 a {
+    color: #027EB5;
+    cursor: pointer;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    border-bottom: #027EB5 solid 0.02em;
+  }
+
+  .c28 a:hover {
+    color: #0064A0;
   }
 }
 
 @media screen (max-width:64em) {
   .c17 {
     padding: 0 1.6rem;
-  }
-}
-
-@media screen {
-  .c32 {
-    max-width: 57rem;
-    margin: 0 auto;
   }
 }
 
@@ -2495,10 +2471,9 @@ Array [
   }
 }
 
-@media screen {
+@media print {
   .c29 {
-    max-width: 57rem;
-    margin: 0 auto;
+    display: none;
   }
 }
 
