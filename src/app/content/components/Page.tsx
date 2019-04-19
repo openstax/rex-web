@@ -168,18 +168,20 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-@media screen { /* full page width in print */
   max-width: ${contentTextWidth}rem;
   margin: 0 auto;
-}`;
+`;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
+@media screen { /* full page width in print */
+
   ${contentTextStyle}
   margin-top: ${theme.padding.page.desktop}rem;
   ${theme.breakpoints.mobile(css`
     margin-top: ${theme.padding.page.mobile}rem;
   `)}
+}
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
