@@ -27,7 +27,7 @@ selenium==3.141.0
 simplejson==3.16.0
 six==1.12.0
 toml==0.10.0
-urllib3==1.24.1
+urllib3==1.24.2
 virtualenv==16.2.0
 zipp==0.3.3
 zope.component==4.5
