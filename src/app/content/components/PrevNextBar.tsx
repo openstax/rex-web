@@ -20,11 +20,13 @@ const prevNextIconStyles = css`
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   ${prevNextIconStyles}
+  margin-right: -1rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const RightArrow = styled(ChevronRight)`
   ${prevNextIconStyles}
+  margin-left: -1rem;
 `;
 
 interface HidingContentLinkProps {
@@ -50,6 +52,10 @@ const BarWrapper = styled.div`
 
   a {
     border: none;
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+    line-height: 0rem;
   }
 
   ${theme.breakpoints.mobile(css`
@@ -57,6 +63,11 @@ const BarWrapper = styled.div`
     border: 0;
   `)}
 `;
+
+const svgViewBox = {
+  left: '8 0 24 24',
+  right: '-8 0 24 24',
+};
 
 interface PropTypes {
   book?: Book;
@@ -71,7 +82,7 @@ const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
   <FormattedMessage id='i18n:prevnext:prev:aria-label'>
     {(ariaLabel: Element | string) =>
     <HidingContentLink book={book} page={prevNext.prev} aria-label={ariaLabel}>
-      <LeftArrow/>
+      <LeftArrow viewBox={svgViewBox.left}/>
       <FormattedMessage id='i18n:prevnext:prev:text'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
@@ -85,7 +96,7 @@ const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
       <FormattedMessage id='i18n:prevnext:next:text'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
-      <RightArrow/>
+      <RightArrow viewBox={svgViewBox.right}/>
     </HidingContentLink>
     }
   </FormattedMessage>
