@@ -51,6 +51,7 @@ const BarWrapper = styled.div`
 
   a {
     border: none;
+    display: flex;
   }
 
   ${theme.breakpoints.mobile(css`
