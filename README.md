@@ -61,6 +61,16 @@ To prerender the test fixture book and serve it, run `REACT_APP_ENV=test yarn st
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+#### `yarn test:unit`
+
+runs only unit tests and react snapshots, these are the fast tests that generate code coverage.
+
+#### `yarn test:screenshots`
+
+CI runs on ubuntu, and because of minor rendering differences between platforms this command will _probably_ fail if you run it locally. after making changes if you need to update the screenshots, you can use the command `make screenshots` which will run the tests locally in a ubuntu docker container. this takes a while, which is why the tests are separated from the ones in `yarn test:unit`
+
+**NOTE:** the `CI=true` flag makes it so screenshots will match if they are not quite exactly the same. this is included because there are still some things like math typesetting that are not 10000% deterministic in their rendering. if you want to make sure you get the updates you need for a minor change, you may have to remove the `CI=true` to see it, but you will probably also get some false positives.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
