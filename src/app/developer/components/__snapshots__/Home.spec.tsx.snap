@@ -50,6 +50,7 @@ Array [
 }
 
 .c2 {
+  display: block;
   width: auto;
   height: 3rem;
 }
@@ -70,6 +71,10 @@ Array [
   font-weight: bold;
   color: #5e6062;
   padding: 1rem 0;
+}
+
+.c3:hover {
+  color: #424242;
 }
 
 .c3:hover,
