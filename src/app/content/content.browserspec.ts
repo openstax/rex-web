@@ -12,7 +12,7 @@ const TEST_LONG_PAGE_URL = `/books/book-slug-1/pages/${TEST_LONG_PAGE_NAME}`;
 
 describe('content', () => {
   it('has SkipToContent link as the first tabbed-to element', async() => {
-    await navigate(page, TEST_PAGE_URL);
+    await navigate(page, TEST_LONG_PAGE_URL);
     await page.keyboard.press('Tab');
 
     const isSkipToContentSelected = await page.evaluate(() => {
