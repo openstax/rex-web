@@ -50,6 +50,7 @@ Array [
 }
 
 .c2 {
+  display: block;
   width: auto;
   height: 3rem;
 }
@@ -1853,6 +1854,7 @@ Array [
 }
 
 .c2 {
+  display: block;
   width: auto;
   height: 3rem;
 }

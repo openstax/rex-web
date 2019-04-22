@@ -25,6 +25,7 @@ const TopBar = styled.div`
 
 // tslint:disable-next-line:variable-name
 const HeaderImage = styled.img`
+  display: block;
   width: auto;
   height: 3rem;
   ${theme.breakpoints.mobile(css`
