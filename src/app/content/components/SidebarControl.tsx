@@ -34,13 +34,13 @@ export const ToCButtonText = styled.span`
   font-family: ${contentFont};
   font-weight: 700;
   ${textRegularSize};
-  color: ${toolbarIconColor};
   margin: 0;
   padding: 0;
 `;
 
 // tslint:disable-next-line:variable-name
 const ToCButton = styled.button`
+  color: ${toolbarIconColor.base};
   border: none;
   padding: 0;
   margin: 0;
@@ -49,6 +49,10 @@ const ToCButton = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  :hover {
+    color: ${toolbarIconColor.darker};
+  }
 `;
 
 const closedMessage = 'i18n:toc:toggle:closed';
