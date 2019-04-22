@@ -48,7 +48,6 @@ test: help_submake
 	exit 111
 
 help_submake:
-	@echo "The following targets are available"
 	@echo "clean             Remove build, test, and file artifacts"
 	@echo "clean-build       Remove build artifacts"
 	@echo "clean-pyc         Remove file artifacts"
