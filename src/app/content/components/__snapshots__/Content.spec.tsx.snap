@@ -581,6 +581,10 @@ Array [
 
 .c40 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c21 {
@@ -2145,6 +2149,10 @@ Array [
 
 .c29 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c12 {

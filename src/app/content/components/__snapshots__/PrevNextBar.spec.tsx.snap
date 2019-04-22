@@ -50,6 +50,10 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 
 .c0 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media (max-width:64em) {
@@ -126,6 +130,10 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
 
 .c0 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media (max-width:64em) {
@@ -203,6 +211,10 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 
 .c0 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media (max-width:64em) {
@@ -305,6 +317,10 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 
 .c0 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media (max-width:64em) {
@@ -392,6 +408,10 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 
 .c0 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @media (max-width:64em) {
