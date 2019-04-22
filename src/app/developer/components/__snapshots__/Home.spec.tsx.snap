@@ -72,6 +72,10 @@ Array [
   padding: 1rem 0;
 }
 
+.c3:hover {
+  color: #424242;
+}
+
 .c3:hover,
 .c3:active,
 .c3:focus {
