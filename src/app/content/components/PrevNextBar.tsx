@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
-import { textRegularLineHeight } from '../../components/Typography';
+import { bodyCopyRegularStyle, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
 import { ArchiveTreeSection, Book } from '../types';
+import { contentTextWidth } from './constants';
 import ContentLink from './ContentLink';
-import { contentTextStyle } from './Page';
 
 const prevNextIconStyles = css`
   height: ${textRegularLineHeight}rem;
@@ -20,13 +20,11 @@ const prevNextIconStyles = css`
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   ${prevNextIconStyles}
-  margin-right: -1rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const RightArrow = styled(ChevronRight)`
   ${prevNextIconStyles}
-  margin-left: -1rem;
 `;
 
 interface HidingContentLinkProps {
@@ -41,7 +39,8 @@ const HidingContentLink: React.SFC<HidingContentLinkProps> = ({page, book, ...pr
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
-  ${contentTextStyle}
+  ${bodyCopyRegularStyle}
+  max-width: ${contentTextWidth}rem;
   justify-content: space-between;
   height: 4rem;
   display: flex;
@@ -52,22 +51,15 @@ const BarWrapper = styled.div`
 
   a {
     border: none;
-    display: flex;
-    align-items: center;
-    height: 2.5rem;
-    line-height: 0rem;
   }
 
   ${theme.breakpoints.mobile(css`
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
+    /* increase width by a little bit so arrow icons line up with text content */
+    max-width: ${contentTextWidth + 1.6}rem;
   `)}
 `;
-
-const svgViewBox = {
-  left: '8 0 24 24',
-  right: '-8 0 24 24',
-};
 
 interface PropTypes {
   book?: Book;
@@ -82,7 +74,7 @@ const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
   <FormattedMessage id='i18n:prevnext:prev:aria-label'>
     {(ariaLabel: Element | string) =>
     <HidingContentLink book={book} page={prevNext.prev} aria-label={ariaLabel}>
-      <LeftArrow viewBox={svgViewBox.left}/>
+      <LeftArrow />
       <FormattedMessage id='i18n:prevnext:prev:text'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
@@ -96,7 +88,7 @@ const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
       <FormattedMessage id='i18n:prevnext:next:text'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
-      <RightArrow viewBox={svgViewBox.right}/>
+      <RightArrow />
     </HidingContentLink>
     }
   </FormattedMessage>
