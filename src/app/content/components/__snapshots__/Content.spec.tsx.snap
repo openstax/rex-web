@@ -488,6 +488,7 @@ Array [
   transition: transform 200ms;
   position: relative;
   z-index: 4;
+  overflow: hidden;
   background: linear-gradient(to right,#002468,#004aa2);
 }
 
@@ -510,6 +511,7 @@ Array [
   position: -webkit-sticky;
   position: sticky;
   z-index: 3;
+  overflow: hidden;
   background: linear-gradient(to right,#002468,#004aa2);
   margin-top: -7rem;
 }
