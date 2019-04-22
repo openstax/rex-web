@@ -36,7 +36,9 @@ const color = {
     },
     gray: {
       base: '#5e6062',
+      darker: '#424242',
       foreground: textColors.white,
+      lighter: '#818181',
     },
     green: {
       base: '#63a524',

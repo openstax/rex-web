@@ -88,6 +88,7 @@ const renderHtml: RenderHtml = (styles, app, state) => {
     modules,
     state,
     styles,
+    title: headSelectors.title(state),
   });
 };
 
@@ -188,8 +189,9 @@ interface Options {
   meta: Meta[];
   state: AppState;
   modules: string[];
+  title: string;
 }
-function injectHTML(html: string, {body, styles, state, fonts, meta, modules}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta, modules, title}: Options) {
 
   const extractAssets = () => Object.keys(assetManifest)
     .filter((asset) => modules.indexOf(asset.replace('.js', '')) > -1)
@@ -198,6 +200,8 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, modules}: O
   const scripts = extractAssets().map(
     (c) => `<script type="text/javascript" src="${c}"></script>`
   );
+
+  html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
 
   html = html.replace('</head>',
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +

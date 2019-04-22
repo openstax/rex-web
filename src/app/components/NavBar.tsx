@@ -27,6 +27,7 @@ const TopBar = styled.div`
 
 // tslint:disable-next-line:variable-name
 const HeaderImage = styled.img`
+  display: block;
   width: auto;
   height: 3rem;
   ${theme.breakpoints.mobile(css`
@@ -40,6 +41,11 @@ const LoginTxt = styled.a`
   text-decoration: none;
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
+
+  :hover {
+    color: ${theme.color.primary.gray.darker};
+  }
+
   padding: 1rem 0;
 
   :hover,
