@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { maxNavWidth } from '../../components/NavBar';
-import { textRegularLineHeight, textRegularStyle } from '../../components/Typography';
+import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertString } from '../../utils';
 import {
@@ -21,7 +21,6 @@ export const toolbarIconStyles = css`
   width: ${textRegularLineHeight}rem;
   padding: 0.4rem;
   margin-right: 0.5rem;
-  color: ${toolbarIconColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -54,6 +53,7 @@ const SearchInputWrapper = styled.div`
   align-items: center;
   margin-right: 4rem;
   position: relative;
+  color: ${toolbarIconColor.base};
 
   ::after {
     content: "";
@@ -61,7 +61,7 @@ const SearchInputWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    border-bottom: solid 0.1rem ${toolbarIconColor};
+    border-bottom: solid 0.1rem ${toolbarIconColor.base};
   }
 
   ${theme.breakpoints.mobile(css`
@@ -83,7 +83,7 @@ const SearchInput = styled.input`
   outline: none;
 
   ::placeholder {
-    color: ${toolbarIconColor};
+    color: ${toolbarIconColor.base};
   }
 
   ${theme.breakpoints.mobile(css`
@@ -96,13 +96,18 @@ const PrintOptWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  color: ${toolbarIconColor.base};
+
+  :hover {
+    color: ${toolbarIconColor.darker};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.span`
-  ${textRegularStyle}
   font-weight: 700;
-  color: ${toolbarIconColor};
+  font-family: ${contentFont};
+  ${textRegularSize};
   margin: 0;
   ${theme.breakpoints.mobile(css`
     display: none;
