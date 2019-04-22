@@ -81,7 +81,7 @@ describe('Attribution', () => {
       // wait for dom events to do their thing
       await new Promise((resolve) => setTimeout(resolve, 1));
 
-      expect(scrollTo).toHaveBeenCalledWith(details);
+      expect(scrollTo).toHaveBeenCalledWith(details, expect.anything());
     });
 
     it('closes attribution on navigation', async() => {

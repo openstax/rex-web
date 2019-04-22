@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';
@@ -9,7 +9,7 @@ import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
 import {
-  bookBannerDesktopHeight,
+  bookBannerDesktopBigHeight,
   contentWrapperMaxWidth,
   mainContentBackground,
   sidebarDesktopWidth,
@@ -18,6 +18,7 @@ import {
 } from './constants';
 import ContentPane from './ContentPane';
 import Page from './Page';
+import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
@@ -34,10 +35,10 @@ const Background = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  top: ${bookBannerDesktopHeight + toolbarDesktopHeight + navDesktopHeight}rem;
+  top: ${bookBannerDesktopBigHeight + toolbarDesktopHeight + navDesktopHeight}rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
-    top: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
+    top: ${bookBannerDesktopBigHeight + toolbarDesktopHeight}rem;
     ${wrapperPadding}
   }
 `;
@@ -149,6 +150,7 @@ const Content: React.SFC = () => <Layout>
               <ContentNotifications />
               <HideOverflowAndRedoPadding>
                 <Page />
+                <PrevNextBar />
               </HideOverflowAndRedoPadding>
               <Attribution />
             </MainContentWrapper>

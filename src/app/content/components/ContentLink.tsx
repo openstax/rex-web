@@ -1,7 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';

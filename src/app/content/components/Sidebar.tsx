@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, ComponentType } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import Times from '../../components/Times';
 import theme from '../../theme';
@@ -13,8 +13,8 @@ import { ArchiveTree, Book, Page, State } from '../types';
 import { scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
-  bookBannerDesktopHeight,
-  bookBannerMobileHeight,
+  bookBannerDesktopMiniHeight,
+  bookBannerMobileMiniHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
@@ -46,10 +46,10 @@ const sidebarClosedStyle = css`
 // tslint:disable-next-line:variable-name
 const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   position: sticky;
-  top: ${bookBannerDesktopHeight}rem;
+  top: ${bookBannerDesktopMiniHeight}rem;
   margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
-  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   transition:
     transform ${sidebarTransitionTime}ms,
     box-shadow ${sidebarTransitionTime}ms,
@@ -65,8 +65,8 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     width: calc(50vw + ${sidebarMobileWidth}rem);
     min-width: calc(50vw + ${sidebarMobileWidth}rem);
     margin-top: -${toolbarMobileHeight}rem;
-    top: ${bookBannerMobileHeight}rem;
-    height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
+    top: ${bookBannerMobileMiniHeight}rem;
+    height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
   `)}
 
   ol {
@@ -190,6 +190,7 @@ export class Sidebar extends Component<SidebarProps> {
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
+    scrollHandler();
   }
 
   public componentDidUpdate() {

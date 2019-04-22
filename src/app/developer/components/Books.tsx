@@ -3,10 +3,11 @@ import { BOOKS } from '../../../config';
 import { H3 } from '../../components/Typography';
 import { StyledContentLink } from '../../content/components/ContentLink';
 import { Book } from '../../content/types';
-import { findDefaultBookPage, formatBookData } from '../../content/utils';
+import { findDefaultBookPage } from '../../content/utils';
 import withServices from '../../context/Services';
 import { AppServices } from '../../types';
 import Panel from './Panel';
+import { getBooks } from './utils';
 
 interface Props {
   services: AppServices;
@@ -22,18 +23,8 @@ class Books extends React.Component<Props, State> {
 
   public async componentDidMount() {
     const {archiveLoader, osWebLoader} = this.props.services;
-
     const bookEntries = Object.entries(BOOKS);
-
-    const books: State['books'] = [];
-
-    for (const [bookId, {defaultVersion}] of bookEntries) {
-      const bookLoader = archiveLoader.book(bookId, defaultVersion);
-      const osWebBook = await osWebLoader.getBookFromId(bookId);
-      const archiveBook = await bookLoader.load();
-
-      books.push(formatBookData(archiveBook, osWebBook));
-    }
+    const books: State['books'] = await getBooks(archiveLoader, osWebLoader, bookEntries);
 
     this.setState({books});
   }
@@ -42,9 +33,11 @@ class Books extends React.Component<Props, State> {
     const {books} = this.state;
 
     return <Panel title='Books'>
-      {books.map((book) => <div key={book.slug}>
-        {this.renderBookLink(book)}
-      </div>)}
+      <ul>
+        {books.map((book) => <li key={book.slug}>
+          {this.renderBookLink(book)}
+        </li>)}
+      </ul>
     </Panel>;
   }
 
