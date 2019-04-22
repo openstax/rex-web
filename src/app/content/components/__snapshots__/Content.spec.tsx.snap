@@ -549,7 +549,6 @@ Array [
   font-size: 1.6rem;
   line-height: 2.5rem;
   max-width: 57rem;
-  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -1045,6 +1044,7 @@ Array [
   .c40 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
+    max-width: 58.6rem;
   }
 }
 
@@ -2113,7 +2113,6 @@ Array [
   font-size: 1.6rem;
   line-height: 2.5rem;
   max-width: 57rem;
-  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -2519,6 +2518,7 @@ Array [
   .c29 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
+    max-width: 58.6rem;
   }
 }
 
