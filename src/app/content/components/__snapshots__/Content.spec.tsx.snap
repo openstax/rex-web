@@ -202,17 +202,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c47 {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
 .c49 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c45 {
+.c51 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.c47 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -221,6 +221,92 @@ Array [
   margin: 0 auto;
   font-weight: 500;
   list-style: none;
+}
+
+.c47 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c47 a:hover {
+  color: #0064A0;
+}
+
+.c47::-webkit-details-marker {
+  display: none;
+}
+
+.c47,
+.c47 span {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c47 a,
+.c47 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c47 a:hover,
+.c47 span a:hover {
+  color: #0064A0;
+}
+
+.c47:hover,
+.c47 span:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c52 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
+}
+
+.c52 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c52 a:hover {
+  color: #0064A0;
+}
+
+.c52 blockquote {
+  margin-left: 0;
+}
+
+.c45 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 2rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c45 a {
@@ -235,105 +321,19 @@ Array [
   color: #0064A0;
 }
 
-.c45::-webkit-details-marker {
-  display: none;
-}
-
-.c45,
-.c45 span {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c45 a,
-.c45 span a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c45 a:hover,
-.c45 span a:hover {
-  color: #0064A0;
-}
-
-.c45:hover,
-.c45 span:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c50 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  max-width: 57rem;
-  margin: 0 auto;
-}
-
-.c50 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c50 a:hover {
-  color: #0064A0;
-}
-
-.c50 blockquote {
-  margin-left: 0;
-}
-
-.c43 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 2rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c43 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c43 a:hover {
-  color: #0064A0;
-}
-
-.c43 > .c44 {
+.c45 > .c46 {
   margin-bottom: 1.8rem;
 }
 
-.c43[open] .c46 {
+.c45[open] .c48 {
   display: none;
 }
 
-.c43:not([open]) .c48 {
+.c45:not([open]) .c50 {
   display: none;
 }
 
-.c43 li {
+.c45 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -533,12 +533,12 @@ Array [
   visibility: hidden;
 }
 
-.c41 {
+.c42 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c42 {
+.c44 {
   height: 2.5rem;
   width: 2.5rem;
 }
@@ -548,6 +548,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
   max-width: 57rem;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -945,18 +946,18 @@ Array [
 }
 
 @media (max-width:64em) {
-  .c43 {
+  .c45 {
     padding: 0 1.6rem;
   }
 }
 
 @media (max-width:64em) {
-  .c43 {
+  .c45 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c43 > .c44 {
+  .c45 > .c46 {
     margin-bottom: 0.8rem;
   }
 }
@@ -1045,10 +1046,21 @@ Array [
 }
 
 @media (max-width:64em) {
+  .c41 {
+    margin-left: -0.8rem;
+  }
+}
+
+@media (max-width:64em) {
+  .c43 {
+    margin-right: -0.8rem;
+  }
+}
+
+@media (max-width:64em) {
   .c40 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
-    max-width: 58.6rem;
   }
 }
 
@@ -1635,12 +1647,14 @@ Array [
                 >
                   <a
                     aria-label="Previous Page"
+                    className="c41"
                     href="1-test-page-3"
                     onClick={[Function]}
+                    side="left"
                   >
                     <svg
                       aria-hidden="true"
-                      className="c41 c5"
+                      className="c42 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -1653,13 +1667,15 @@ Array [
                   </a>
                   <a
                     aria-label="Next Page"
+                    className="c43"
                     href="1-test-page-5"
                     onClick={[Function]}
+                    side="right"
                   >
                     Next
                     <svg
                       aria-hidden="true"
-                      className="c42 c5"
+                      className="c44 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -1672,14 +1688,14 @@ Array [
                 </div>
               </div>
               <details
-                className="c43"
+                className="c45"
               >
                 <summary
-                  className="c44 c45"
+                  className="c46 c47"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c46 c47 c15"
+                    className="c48 c49 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1691,7 +1707,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c48 c49 c15"
+                    className="c50 c51 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1706,7 +1722,7 @@ Array [
                   </span>
                 </summary>
                 <div
-                  className="c50"
+                  className="c52"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "
@@ -2116,6 +2132,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
   max-width: 57rem;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
@@ -2526,7 +2543,6 @@ Array [
   .c29 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
-    max-width: 58.6rem;
   }
 }
 

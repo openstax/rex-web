@@ -30,16 +30,28 @@ const RightArrow = styled(ChevronRight)`
 interface HidingContentLinkProps {
   book?: Book;
   page?: ArchiveTreeSection;
+  side: 'left' | 'right';
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLink: React.SFC<HidingContentLinkProps> = ({page, book, ...props}) =>
+const HidingContentLinkComponent: React.SFC<HidingContentLinkProps> = ({page, book, ...props}) =>
   page !== undefined && book !== undefined
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name
+const HidingContentLink = styled(HidingContentLinkComponent)`
+  ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
+    margin-left: -0.8rem;
+  `)}
+  ${(props) => props.side === 'right' && theme.breakpoints.mobile(css`
+    margin-right: -0.8rem;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${bodyCopyRegularStyle}
+  overflow: visible;
   max-width: ${contentTextWidth}rem;
   justify-content: space-between;
   height: 4rem;
@@ -57,8 +69,6 @@ const BarWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
-    /* increase width by a little bit so arrow icons line up with text content */
-    max-width: ${contentTextWidth + 1.6}rem;
   `)}
 `;
 
@@ -74,7 +84,7 @@ interface PropTypes {
 const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
   <FormattedMessage id='i18n:prevnext:prev:aria-label'>
     {(ariaLabel: Element | string) =>
-    <HidingContentLink book={book} page={prevNext.prev} aria-label={ariaLabel}>
+    <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel}>
       <LeftArrow />
       <FormattedMessage id='i18n:prevnext:prev:text'>
         {(msg: Element | string) => msg}
@@ -85,7 +95,7 @@ const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
 
   <FormattedMessage id='i18n:prevnext:next:aria-label'>
     {(ariaLabel: Element | string) =>
-    <HidingContentLink book={book} page={prevNext.next} aria-label={ariaLabel}>
+    <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel}>
       <FormattedMessage id='i18n:prevnext:next:text'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
