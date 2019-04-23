@@ -10,6 +10,7 @@ import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
 import * as head from './head';
+import * as auth from './auth';
 import MessageProvider from './MessageProvider';
 import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
@@ -23,6 +24,7 @@ export const actions = {
   content: content.actions,
   errors: errors.actions,
   head: head.actions,
+  auth: auth.actions,
   navigation: navigation.actions,
   notifications: notifications.actions,
 };
@@ -73,6 +75,7 @@ export default (options: Options) => {
     content: content.reducer,
     errors: errors.reducer,
     head: head.reducer,
+    auth: auth.reducer,
     navigation: navigation.createReducer(history.location),
     notifications: notifications.reducer,
   });

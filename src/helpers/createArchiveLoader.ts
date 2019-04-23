@@ -5,7 +5,7 @@ import { acceptStatus } from './fetch';
 
 export default (url: string) => {
   const cache = new Map();
-  const loader = memoize((id: string) => fetch(url + id)
+  const loader = memoize((id: string) => fetch(`${url}/${id}`)
     .then(acceptStatus(200, (status, message) => `Error response from archive "${url + id}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<ArchiveContent>)
     .then((response) => {

@@ -8,6 +8,7 @@ module.exports = {
     '30189442-6998-4686-ac05-ed152b91b9de':{'defaultVersion':'23.28'}, // Introductory Statistics
   },
 
+  ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts-dev.openstax.org',
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
   FIXTURES: false,
   DEBUG: true,

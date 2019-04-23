@@ -15,11 +15,13 @@ import { State as errorsState } from './errors/types';
 import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
 import { State as notificationState } from './notifications/types';
+import { State as authState } from './auth/types';
 
 export interface AppState {
   content: contentState;
   errors: errorsState;
   head: headState;
+  auth: authState;
   navigation: navigationState;
   notifications: notificationState;
 }

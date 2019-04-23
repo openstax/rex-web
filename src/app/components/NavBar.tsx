@@ -1,10 +1,14 @@
 import React, { SFC } from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
 import theme from '../theme';
 import { assertString } from '../utils';
+import {User} from '../auth/types';
+import * as authSelect from '../auth/selectors';
+import {AppState} from '../types';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
@@ -79,7 +83,7 @@ const BarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const NavigationBar: SFC = ({}) =>
+const NavigationBar: SFC<{user?: User, loggedOut: boolean}> = ({user, loggedOut}) =>
   <BarWrapper>
     <TopBar>
       <FormattedMessage id='i18n:nav:logo:alt'>
@@ -87,10 +91,18 @@ const NavigationBar: SFC = ({}) =>
           <HeaderImage role='img' src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
         </a>}
       </FormattedMessage>
-      <FormattedMessage id='i18n:nav:login:text'>
-        {(msg: Element | string) => <LoginTxt href='https://accounts-dev.openstax.org/login'>{msg}</LoginTxt>}
-      </FormattedMessage>
+      {loggedOut && <FormattedMessage id='i18n:nav:login:text'>
+        {(msg: Element | string) => <LoginTxt href='/accounts/login'>{msg}</LoginTxt>}
+      </FormattedMessage>}
+      {user && <FormattedMessage id='i18n:nav:logout:text'>
+        {(msg: Element | string) => <LoginTxt href='/accounts/logout'>{msg}</LoginTxt>}
+      </FormattedMessage>}
     </TopBar>
   </BarWrapper>;
 
-export default NavigationBar;
+export default connect(
+  (state: AppState) => ({
+    user: authSelect.user(state),
+    loggedOut: authSelect.loggedOut(state),
+  })
+)(NavigationBar);

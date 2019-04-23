@@ -5,7 +5,15 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
-const {SKIP_OS_WEB_PROXY, FIXTURES, ARCHIVE_URL, OS_WEB_URL} = require('./config');
+const {
+  SKIP_OS_WEB_PROXY,
+  FIXTURES,
+  ARCHIVE_URL,
+  OS_WEB_URL,
+  ACCOUNTS_URL,
+  REACT_APP_ACCOUNTS_URL,
+  REACT_APP_OS_WEB_API_URL
+} = require('./config');
 
 const archivePaths = [
   'contents',
@@ -56,12 +64,19 @@ function setupProxy(app) {
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
 
   archivePaths.forEach(path => app.use(proxy(`/${path}`, {
-    target: `${ARCHIVE_URL}${path}/`,
+    target: `${ARCHIVE_URL}/${path}`,
     prependPath: false,
     changeOrigin: true,
   })));
 
-  app.use(proxy('/api/v2/pages', {
+  app.use(proxy(REACT_APP_ACCOUNTS_URL, {
+    target: ACCOUNTS_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+    protocolRewrite: 'http',
+  }));
+
+  app.use(proxy(REACT_APP_OS_WEB_API_URL, {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
