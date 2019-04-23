@@ -21,6 +21,15 @@ yarn
 yarn start
 ```
 
+### to fix scarry untrusted cert warning in chrome
+
+- click "not trusted" icon next to address bar
+- drag certificate icon onto desktop
+- drag the certificate into your keychain app
+- double click the cert in the keychain to open it
+- drop down the "trust" menu
+- change to "always trust"
+
 ## Architecture Overview
 
 The app has two entrypoints, one for [prerender](script/prerender.tsx) and one for [browsers](src/index.tsx), both use [app](src/app/index.tsx) to construct the actual app container. The app container sets some stuff up and then passes [routes](src/app/content/routes.ts) into the [navigator](src/app/navigation/components/NavigationProvider.ts). Pages initialize their state by registering a [route hook](src/app/content/hooks/locationChange.ts), route hooks are a type of [action hook](src/app/content/hooks/receiveContent.ts) that can be used to respond to any redux action dispatched.
