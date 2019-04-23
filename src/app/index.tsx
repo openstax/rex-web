@@ -5,12 +5,12 @@ import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
+import * as auth from './auth';
 import * as content from './content';
 import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
 import * as head from './head';
-import * as auth from './auth';
 import MessageProvider from './MessageProvider';
 import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
@@ -21,10 +21,10 @@ import * as notifications from './notifications';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
+  auth: auth.actions,
   content: content.actions,
   errors: errors.actions,
   head: head.actions,
-  auth: auth.actions,
   navigation: navigation.actions,
   notifications: notifications.actions,
 };
@@ -37,6 +37,10 @@ export const routes = [
   ),
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
+];
+
+const init = [
+  ...Object.values(auth.init),
 ];
 
 const hooks = [
@@ -72,10 +76,10 @@ export default (options: Options) => {
   }
 
   const reducer = combineReducers<AppState, AnyAction>({
+    auth: auth.reducer,
     content: content.reducer,
     errors: errors.reducer,
     head: head.reducer,
-    auth: auth.reducer,
     navigation: navigation.createReducer(history.location),
     notifications: notifications.reducer,
   });
@@ -115,6 +119,17 @@ export default (options: Options) => {
 
   // the default font
   services.fontCollector.add('/styles/fonts.css');
+
+  for (const initializer of init) {
+    const promise = initializer({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      ...services,
+    });
+    if (promise) {
+      services.promiseCollector.add(promise);
+    }
+  }
 
   return {
     container,

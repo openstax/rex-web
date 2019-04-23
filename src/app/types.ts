@@ -10,12 +10,12 @@ import createArchiveLoader from '../helpers/createArchiveLoader';
 import createOSWebLoader from '../helpers/createOSWebLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
+import { State as authState } from './auth/types';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
 import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
 import { State as notificationState } from './notifications/types';
-import { State as authState } from './auth/types';
 
 export interface AppState {
   content: contentState;
@@ -50,6 +50,8 @@ export type Dispatch = ReduxDispatch<AnyAction>;
 export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
 export type MiddlewareAPI = ReduxMiddlewareAPI<Dispatch, AppState>;
 export type Store = ReduxStore<AppState, AnyAction>;
+
+export type Initializer = (helpers: MiddlewareAPI & AppServices) => Promise<any> | void;
 
 export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI & AppServices) =>
   (action: ReturnType<C>) => Promise<any> | void;
