@@ -35,6 +35,7 @@ const applyBookTextColor = (props: {theme: Book['theme']}) => css`
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
+  margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
@@ -71,10 +72,9 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
 const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
-  display: ${ifMiniNav('inline-flex', 'flex')};
+  display: ${ifMiniNav('inline-block', 'block')};
   height: ${textRegularLineHeight}rem;
   font-weight: normal;
-  align-items: center;
   text-decoration: none;
   margin: 0;
 
