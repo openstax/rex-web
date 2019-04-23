@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
-import { assertWindowDefined } from './app/utils';
+import { assertDefined, assertWindowDefined } from './app/utils';
 import config from './config';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createOSWebLoader from './gateways/createOSWebLoader';
+import createUserLoader from './gateways/createUserLoader';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
@@ -26,12 +27,14 @@ if (window.top === window.self) {
 
 if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
+const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
+    userLoader: createUserLoader(accountsUrl),
   },
 });
 

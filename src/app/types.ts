@@ -8,6 +8,7 @@ import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createOSWebLoader from '../gateways/createOSWebLoader';
+import createUserLoader from '../gateways/createUserLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as authState } from './auth/types';
@@ -31,6 +32,7 @@ export interface AppServices {
   fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
+  userLoader: ReturnType<typeof createUserLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

@@ -10,6 +10,7 @@
   "i18n:attribution:toggle": "Citation/Attribution",
   "i18n:nav:logo:alt": "OpenStax Logo",
   "i18n:nav:login:text": "Login",
+  "i18n:nav:logout:text": "Logout",
   "i18n:toolbar:search:placeholder": "Search this book",
   "i18n:toolbar:print:text": "Print options",
   "i18n:prevnext:prev:text": "Previous",

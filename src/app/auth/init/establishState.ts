@@ -1,11 +1,19 @@
 import { Initializer } from '../../types';
+import { receiveLoggedOut, receiveUser } from '../actions';
+import { formatUser } from '../utils';
 
-const initializer: Initializer = () => {
+const initializer: Initializer = async({dispatch, userLoader}) => {
   if (typeof(document) === 'undefined') {
     return;
   }
 
-  console.log('asdf');
+  const user = await userLoader.getCurrentUser();
+
+  if (user) {
+    dispatch(receiveUser(formatUser(user)));
+  } else {
+    dispatch(receiveLoggedOut());
+  }
 };
 
 export default initializer;

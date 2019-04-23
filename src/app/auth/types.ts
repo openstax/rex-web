@@ -1,5 +1,5 @@
 export interface User {
-  name: string;
+  firstName: string;
 }
 
 export interface State {

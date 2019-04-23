@@ -1,14 +1,15 @@
 import React, { SFC } from 'react';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import openstaxLogo from '../../assets/logo.svg';
-import { h4Style } from '../components/Typography';
-import theme from '../theme';
-import { assertString } from '../utils';
-import {User} from '../auth/types';
 import * as authSelect from '../auth/selectors';
-import {AppState} from '../types';
+import { User } from '../auth/types';
+import { h4Style } from '../components/Typography';
+import * as selectNavigation from '../navigation/selectors';
+import theme from '../theme';
+import { AppState } from '../types';
+import { assertString } from '../utils';
 
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
@@ -83,7 +84,7 @@ const BarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const NavigationBar: SFC<{user?: User, loggedOut: boolean}> = ({user, loggedOut}) =>
+const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}> = ({user, loggedOut, currentPath}) =>
   <BarWrapper>
     <TopBar>
       <FormattedMessage id='i18n:nav:logo:alt'>
@@ -92,7 +93,9 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean}> = ({user, loggedOut}
         </a>}
       </FormattedMessage>
       {loggedOut && <FormattedMessage id='i18n:nav:login:text'>
-        {(msg: Element | string) => <LoginTxt href='/accounts/login'>{msg}</LoginTxt>}
+        {(msg: Element | string) => <LoginTxt href={'/accounts/login?r=' + encodeURIComponent(currentPath)}>
+          {msg}
+        </LoginTxt>}
       </FormattedMessage>}
       {user && <FormattedMessage id='i18n:nav:logout:text'>
         {(msg: Element | string) => <LoginTxt href='/accounts/logout'>{msg}</LoginTxt>}
@@ -102,7 +105,8 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean}> = ({user, loggedOut}
 
 export default connect(
   (state: AppState) => ({
-    user: authSelect.user(state),
+    currentPath: selectNavigation.pathname(state),
     loggedOut: authSelect.loggedOut(state),
+    user: authSelect.user(state),
   })
 )(NavigationBar);

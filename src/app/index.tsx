@@ -53,13 +53,13 @@ const defaultServices = () => ({
   promiseCollector: new PromiseCollector(),
 });
 
-interface Options {
+export interface AppOptions {
   initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
-export default (options: Options) => {
+export default (options: AppOptions) => {
   const {initialEntries, initialState} = options;
 
   const history = typeof window !== 'undefined' && window.history
