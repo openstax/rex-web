@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import openstaxLogo from '../../assets/logo.svg';
 import { h4Style } from '../components/Typography';
+import { disablePrint } from '../content/components/utils/disablePrint';
 import theme from '../theme';
 import { assertString } from '../utils';
 
@@ -21,6 +22,7 @@ const TopBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
   `)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

@@ -11,6 +11,7 @@ import * as select from '../selectors';
 import { ArchiveTreeSection, Book } from '../types';
 import ContentLink from './ContentLink';
 import { contentTextStyle } from './Page';
+import { disablePrint } from './utils/disablePrint';
 
 const prevNextIconStyles = css`
   height: ${textRegularLineHeight}rem;
@@ -39,6 +40,7 @@ const HidingContentLink: React.SFC<HidingContentLinkProps> = ({page, book, ...pr
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
+  ${disablePrint}
   ${contentTextStyle}
   justify-content: space-between;
   height: 4rem;
