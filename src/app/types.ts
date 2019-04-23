@@ -6,8 +6,8 @@ import {
 } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
-import createArchiveLoader from '../helpers/createArchiveLoader';
-import createOSWebLoader from '../helpers/createOSWebLoader';
+import createArchiveLoader from '../gateways/createArchiveLoader';
+import createOSWebLoader from '../gateways/createOSWebLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as authState } from './auth/types';

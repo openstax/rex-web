@@ -25,8 +25,8 @@ import {
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID
 } from '../../src/config';
-import createArchiveLoader from '../../src/helpers/createArchiveLoader';
-import createOSWebLoader from '../../src/helpers/createOSWebLoader';
+import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import FontCollector from '../../src/helpers/FontCollector';
 import { startServer } from '../server';
 
