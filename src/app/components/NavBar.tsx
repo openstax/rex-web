@@ -22,7 +22,6 @@ const TopBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
   `)}
-  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -37,6 +36,7 @@ const HeaderImage = styled.img`
 
 // tslint:disable-next-line:variable-name
 const LoginTxt = styled.a`
+  ${disablePrint}
   ${h4Style}
   text-decoration: none;
   font-weight: bold;
