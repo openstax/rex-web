@@ -107,7 +107,6 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   }
 
   ${styleWhenSidebarClosed(sidebarClosedStyle)}
-
   ${disablePrint}
 `;
 
