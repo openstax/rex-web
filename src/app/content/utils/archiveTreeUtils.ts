@@ -39,3 +39,18 @@ export const findArchiveTreeSection = (
     stripIdVersion(section.shortId) === stripIdVersion(pageId)
     || stripIdVersion(section.id) === stripIdVersion(pageId)
   );
+
+export const splitTitleParts = (str: string) => {
+  const match = str
+    // remove html tags from tree title
+    .replace(/<[^>]+>/g, '')
+    // split out section number from title
+    .match(/^([0-9\.]*)?(.*)$/);
+
+  if (match && match[2]) {
+    // ignore the first match which is the whole title
+    return match.slice(1);
+  } else {
+    return [null, null];
+  }
+};

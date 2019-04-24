@@ -13,6 +13,7 @@ import { resetToc } from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page, State } from '../types';
+import { splitTitleParts } from '../utils/archiveTreeUtils';
 import { scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
@@ -24,19 +25,16 @@ import {
   toolbarDesktopHeight,
   toolbarMobileHeight
 } from './constants';
-import ContentLink from './ContentLink';
+import ContentLinkComponent from './ContentLink';
 import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
 import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1.8;
-const titleNumberWidth = 2;
-const titleNumberPadding = 0.5;
-const iconPadding = 0.7;
-const iconSize = 1.5;
-const innerOlPadding = iconSize + iconPadding + titleNumberWidth;
-const innerTitleNumberWidth = 4;
-const outerDividerWidth = 1;
+const numberCharacterWidth = 0.8;
+const numberPeriodWidth = 0.2;
+const iconPadding = 0;
+const iconSize = 1.7;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
@@ -144,38 +142,21 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 
 // tslint:disable-next-line:variable-name
 const NavItem = styled(NavItemComponent)`
+  ${textStyle}
   list-style: none;
   font-size: 1.4rem;
   line-height: 1.6rem;
   overflow: visible;
 
-  ${textStyle}
-  ${(props) => props.active && css`
-    position: relative;
-  `}
-
-  ::active, ::hover, ::focus, ::visited {
+  :active,
+  :hover,
+  :focus,
+  :visited {
     ${textStyle}
   }
 
   &[aria-label="Current Page"] a {
     font-weight: bold;
-  }
-
-  a {
-    display: flex;
-
-    span.os-number {
-      width: ${titleNumberWidth}rem;
-    }
-
-    span.os-divider {
-      width: ${outerDividerWidth}rem;
-    }
-
-    span.os-text {
-      width: 100%;
-    }
   }
 `;
 
@@ -195,26 +176,12 @@ const CollapseIcon = styled(CaretDown)`
   ${expandCollapseIconStyle}
 `;
 
+// tslint:disable-next-line:variable-name
 const SummaryTitle = styled.span`
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
   width: 100%;
-  display: table;
-
-  span.os-number {
-    width: ${titleNumberWidth}rem;
-    display: table-cell;
-    text-align: right;
-    padding-right: ${titleNumberPadding}rem;
-  }
-
-  span.os-divider {
-    width: ${titleNumberPadding}rem;
-  }
-
-  span.os-text {
-  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -223,14 +190,33 @@ const Summary = styled.summary`
   list-style: none;
   cursor: pointer;
 
-  ::-webkit-details-marker {
+  &::-webkit-details-marker {
     display: none;
   }
 `;
 
+const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
+  const num = splitTitleParts(title)[0];
+
+  if (!num) {
+    return result;
+  }
+
+  const numbers = num.replace(/[^0-9]/, '');
+  const periods = num.replace(/[^\.]/, '');
+
+  return Math.max(result, numbers.length * numberCharacterWidth + periods.length * numberPeriodWidth);
+}, 0);
+
 // tslint:disable-next-line:variable-name
-const NavOl = styled.ol`
-  margin: 0rem;
+const ContentLink = styled(ContentLinkComponent)`
+  display: flex;
+  margin-left: ${iconPadding + iconSize}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
+  margin: 0;
   padding: 1.2rem 3rem 0 0;
 
   ${NavItem} {
@@ -242,9 +228,38 @@ const NavOl = styled.ol`
     }
   }
 
-  > ${NavItem} a {
-    padding-left: 2.2rem;
+  .os-number,
+  .os-divider,
+  .os-text {
+    display: inline-block;
+    overflow: hidden;
   }
+
+  ${SummaryTitle} {
+    display: flex;
+  }
+
+  ${(props) => {
+    const numberWidth = getNumberWidth(props.contents);
+
+    return css`
+      .os-number {
+        width: ${numberWidth}rem;
+      }
+
+      .os-divider {
+        width: 0.6rem;
+      }
+
+      .os-text {
+        flex: 1;
+      }
+
+      ol {
+        margin-left: ${numberWidth + 0.5}rem;
+      }
+    `;
+  }}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -266,26 +281,7 @@ const Details = styled.details`
     :first-child {
       margin-top: 1.5rem;
     }
-
-    a {
-      ${textStyle}
-      text-decoration: none;
-      padding: 0;
-
-      span.os-number {
-        width: ${innerTitleNumberWidth}rem;
-      }
-
-      span.os-divider {
-        width: 0rem;
-      }
-    }
   }
-
-  ${NavOl} {
-    padding: 0 0 0 ${innerOlPadding}rem;
-  }
-
 `;
 
 interface SidebarProps {
@@ -356,7 +352,7 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   private renderChildren = (book: Book, {contents}: ArchiveTree) =>
-    <NavOl>
+    <NavOl contents={contents}>
         {contents.map((item) => {
           const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
 
