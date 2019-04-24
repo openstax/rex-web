@@ -26,6 +26,7 @@ const LeftArrow = styled(ChevronLeft)`
 // tslint:disable-next-line:variable-name
 const RightArrow = styled(ChevronRight)`
   ${prevNextIconStyles}
+  margin-top: 0.1rem;
 `;
 
 interface HidingContentLinkProps {
