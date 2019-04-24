@@ -211,6 +211,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
 // tslint:disable-next-line:variable-name
 const ContentLink = styled(ContentLinkComponent)`
   display: flex;
+  margin-left: ${iconPadding + iconSize}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -243,7 +244,6 @@ const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
 
     return css`
       .os-number {
-        text-align: right;
         width: ${numberWidth}rem;
       }
 
@@ -257,7 +257,7 @@ const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
       }
 
       ol {
-        margin-left: ${numberWidth + 0.5 + iconPadding + iconSize}rem;
+        margin-left: ${numberWidth + 0.5}rem;
       }
     `;
   }}
