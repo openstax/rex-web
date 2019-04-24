@@ -29,7 +29,14 @@ import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
 import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
-const sidebarPadding = 1;
+const sidebarPadding = 1.8;
+const titleNumberWidth = 2;
+const titleNumberPadding = 0.5;
+const iconPadding = 0.7;
+const iconSize = 1.5;
+const innerOlPadding = iconSize + iconPadding + titleNumberWidth;
+const innerTitleNumberWidth = 4;
+const outerDividerWidth = 1;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
@@ -72,16 +79,13 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
   `)}
 
-  padding-top: 1.8rem;
-  padding-right: 1.8rem;
-
   display: flex;
   flex-direction: column;
 
-  > nav {
+  > ol {
     -webkit-overflow-scrolling: touch;
     position: relative;
-    padding: ${sidebarPadding}rem;
+    padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 0.2rem;
     flex: 1;
   }
 
@@ -143,10 +147,10 @@ const NavItem = styled(NavItemComponent)`
   list-style: none;
   font-size: 1.4rem;
   line-height: 1.6rem;
+  overflow: visible;
 
   ${textStyle}
   ${(props) => props.active && css`
-    overflow: visible;
     position: relative;
   `}
 
@@ -161,21 +165,24 @@ const NavItem = styled(NavItemComponent)`
   a {
     display: flex;
 
+    span.os-number {
+      width: ${titleNumberWidth}rem;
+    }
+
     span.os-divider {
-      width: 1rem;
-      text-align: center;
+      width: ${outerDividerWidth}rem;
     }
 
     span.os-text {
-      width:80%;
+      width: 100%;
     }
   }
 `;
 
 const expandCollapseIconStyle = css`
-  height: 1.5rem;
-  width: 1.5rem;
-  margin-right: 0.7rem;
+  height: ${iconSize}rem;
+  width: ${iconSize}rem;
+  margin-right: ${iconPadding}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -192,8 +199,23 @@ const SummaryTitle = styled.span`
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
-`;
+  width: 100%;
+  display: table;
 
+  span.os-number {
+    width: ${titleNumberWidth}rem;
+    display: table-cell;
+    text-align: right;
+    padding-right: ${titleNumberPadding}rem;
+  }
+
+  span.os-divider {
+    width: ${titleNumberPadding}rem;
+  }
+
+  span.os-text {
+  }
+`;
 
 // tslint:disable-next-line:variable-name
 const Summary = styled.summary`
@@ -203,10 +225,6 @@ const Summary = styled.summary`
 
   ::-webkit-details-marker {
     display: none;
-  }
-
-  span {
-    width: 100%;
   }
 `;
 
@@ -232,6 +250,7 @@ const NavOl = styled.ol`
 // tslint:disable-next-line:variable-name
 const Details = styled.details`
   border: none;
+  overflow: visible;
 
   &[open] ${ExpandIcon} {
     display: none;
@@ -252,11 +271,19 @@ const Details = styled.details`
       ${textStyle}
       text-decoration: none;
       padding: 0;
+
+      span.os-number {
+        width: ${innerTitleNumberWidth}rem;
+      }
+
+      span.os-divider {
+        width: 0rem;
+      }
     }
   }
 
   ${NavOl} {
-    padding: 0 0 0 5.5rem;
+    padding: 0 0 0 ${innerOlPadding}rem;
   }
 
 `;
