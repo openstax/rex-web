@@ -31,7 +31,7 @@ import { toolbarIconStyles } from './Toolbar';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1.8;
-const numberCharacterWidth = 0.7;
+const numberCharacterWidth = 0.8;
 const numberPeriodWidth = 0.2;
 const iconPadding = 0;
 const iconSize = 1.7;
