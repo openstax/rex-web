@@ -248,7 +248,8 @@ const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
       }
 
       .os-divider {
-        width: 0.5rem;
+        text-align: center;
+        width: 0.8rem;
       }
 
       .os-text {
