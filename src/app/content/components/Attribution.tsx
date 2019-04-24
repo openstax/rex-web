@@ -16,6 +16,7 @@ import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { bookBannerDesktopMiniHeight, toolbarDesktopHeight } from './constants';
 import { contentTextStyle } from './Page';
+import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 
 if (typeof(document) !== 'undefined') {
@@ -95,6 +96,8 @@ const Details = styled.details`
     margin-bottom: 1rem;
     overflow: visible;
   }
+
+  ${disablePrint}
 `;
 
 interface Props {

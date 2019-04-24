@@ -13,6 +13,7 @@ Array [
 }
 
 .c3 {
+  margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
@@ -42,16 +43,9 @@ Array [
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
   height: 2.5rem;
   font-weight: normal;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   -webkit-text-decoration: none;
   text-decoration: none;
   margin: 0;
@@ -106,21 +100,21 @@ Array [
   background: linear-gradient(to right,#002468,#004aa2);
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c2 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     white-space: normal;
     display: -webkit-box;
@@ -131,7 +125,13 @@ Array [
   }
 }
 
-@media (max-width:64em) {
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -179,6 +179,7 @@ Array [
 }
 
 .c3 {
+  margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
@@ -208,16 +209,9 @@ Array [
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: inline-block;
   height: 2.5rem;
   font-weight: normal;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   -webkit-text-decoration: none;
   text-decoration: none;
   margin: 0;
@@ -275,27 +269,27 @@ Array [
   margin-top: -7rem;
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c2 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c2 {
     display: none;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c5 {
     white-space: normal;
     display: -webkit-box;
@@ -306,7 +300,13 @@ Array [
   }
 }
 
-@media (max-width:64em) {
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
   .c0 {
     padding: 1.6rem;
     height: 6rem;
@@ -378,7 +378,13 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   transform: translateY(-7rem);
 }
 
-@media (max-width:64em) {
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
   .c0 {
     -webkit-transform: translateY(-6rem);
     -ms-transform: translateY(-6rem);
@@ -386,7 +392,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;

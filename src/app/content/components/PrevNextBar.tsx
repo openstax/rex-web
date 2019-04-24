@@ -11,6 +11,7 @@ import * as select from '../selectors';
 import { ArchiveTreeSection, Book } from '../types';
 import { contentTextWidth } from './constants';
 import ContentLink from './ContentLink';
+import { disablePrint } from './utils/disablePrint';
 
 const prevNextIconStyles = css`
   height: ${textRegularLineHeight}rem;
@@ -50,6 +51,7 @@ const HidingContentLink = styled(HidingContentLinkComponent)`
 
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
+  ${disablePrint}
   ${bodyCopyRegularStyle}
   overflow: visible;
   max-width: ${contentTextWidth}rem;
