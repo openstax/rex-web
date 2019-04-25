@@ -46,6 +46,7 @@ const HeaderImage = styled.img`
 
 // tslint:disable-next-line:variable-name
 const DropDown = styled.ul`
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
   overflow: visible;
   margin: 0;
   padding: 0.6rem 0;
