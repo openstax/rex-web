@@ -8,6 +8,7 @@ import * as authSelect from '../auth/selectors';
 import { User } from '../auth/types';
 import { h4Style } from '../components/Typography';
 import * as selectNavigation from '../navigation/selectors';
+import { disablePrint } from '../content/components/utils/disablePrint';
 import theme from '../theme';
 import { AppState } from '../types';
 import { assertString } from '../utils';
@@ -33,6 +34,7 @@ const TopBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: ${navMobileHeight}rem;
   `)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

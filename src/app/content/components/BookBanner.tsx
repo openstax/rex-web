@@ -20,6 +20,7 @@ import {
   bookBannerMobileMiniHeight,
   contentTextWidth
 } from './constants';
+import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
   blue: '#004aa2',
@@ -34,6 +35,7 @@ const applyBookTextColor = (props: {theme: Book['theme']}) => css`
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
+  margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
   width: 3rem;
@@ -70,10 +72,9 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
 const BookTitle = styled.a`
   ${h4Style}
   ${bookBannerTextStyle}
-  display: ${ifMiniNav('inline-flex', 'flex')};
+  display: ${ifMiniNav('inline-block', 'block')};
   height: ${textRegularLineHeight}rem;
   font-weight: normal;
-  align-items: center;
   text-decoration: none;
   margin: 0;
 
@@ -110,6 +111,8 @@ const BookChapter = styled((props) => props.variant === 'mini' ? <span {...props
 
 // tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | 'big'}>`
+  ${disablePrint}
+
   top: 0;
   padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);

@@ -15,6 +15,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import SidebarControl from './SidebarControl';
+import { disablePrint } from './utils/disablePrint';
 
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;
@@ -136,6 +137,8 @@ const BarWrapper = styled.div`
     top: ${bookBannerMobileMiniHeight}rem;
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -145,7 +148,10 @@ const Toolbar: SFC = () => <BarWrapper>
     <SearchPrintWrapper>
       <FormattedMessage id='i18n:toolbar:search:placeholder'>
         {(msg: Element | string) => <SearchInputWrapper>
-          <SearchIcon /><SearchInput placeholder={assertString(msg, 'placeholder must be a string')}></SearchInput>
+          <SearchIcon />
+          <SearchInput
+            aria-label={assertString(msg, 'placeholder must be a string')}
+            placeholder={assertString(msg, 'placeholder must be a string')}/>
         </SearchInputWrapper>}
       </FormattedMessage>
       <FormattedMessage id='i18n:toolbar:print:text'>
