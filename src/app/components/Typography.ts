@@ -8,7 +8,7 @@ const textStyle = css`
 `;
 
 const linkColor = '#027EB5';
-const linkHover = '#0064A0';
+export const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};
   cursor: pointer;
