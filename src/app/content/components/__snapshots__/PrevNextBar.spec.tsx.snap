@@ -10,6 +10,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 .c2 {
   height: 2.5rem;
   width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c0 {
@@ -191,6 +192,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 .c5 {
   height: 2.5rem;
   width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c0 {
@@ -319,6 +321,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 .c2 {
   height: 2.5rem;
   width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c0 {

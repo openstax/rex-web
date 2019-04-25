@@ -503,6 +503,7 @@ Array [
 .c44 {
   height: 2.5rem;
   width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c40 {
