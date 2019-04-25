@@ -84,26 +84,26 @@ const DropDown = styled.ul`
   }
 `;
 
+const visuallyHidden = css`
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+`;
+
 // tslint:disable-next-line:variable-name
 const DropdownContainer = styled.div`
   overflow: visible;
   align-self: stretch;
   position: relative;
 
-  ${DropDown} {
-    display: none;
+  :not(:hover):not(.ally-focus-within) ${DropDown} {
+    ${visuallyHidden}
   }
 
-  :hover,
-  :focus,
-  .ally-focus-within {
-    ${DropDown} {
-      display: block;
-    }
-  }
-
-  :focus-within ${DropDown} {
-    display: block;
+  :not(:hover):not(:focus-within) ${DropDown} {
+    ${visuallyHidden}
   }
 `;
 
@@ -177,7 +177,7 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
           {msg}
         </Link>}
       </FormattedMessage>}
-      {user && <DropdownContainer tabIndex='0'>
+      {user && <DropdownContainer>
         <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
           {(msg: Element | string) => <DropDownToggle>{msg}<DownIcon /></DropDownToggle>}
         </FormattedMessage>
