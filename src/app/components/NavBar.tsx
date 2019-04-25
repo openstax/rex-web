@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
 import openstaxLogo from '../../assets/logo.svg';
 import * as authSelect from '../auth/selectors';
 import { User } from '../auth/types';
@@ -42,6 +43,13 @@ const HeaderImage = styled.img`
   ${theme.breakpoints.mobile(css`
     height: 2rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const DownIcon = styled(ChevronDown)`
+  margin-left: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -170,7 +178,9 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
         </Link>}
       </FormattedMessage>}
       {user && <DropdownContainer tabIndex='0'>
-        <DropDownToggle>Hi Tom</DropDownToggle>
+        <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
+          {(msg: Element | string) => <DropDownToggle>{msg}<DownIcon /></DropDownToggle>}
+        </FormattedMessage>
         <DropDown>
           <li>
             <FormattedMessage id='i18n:nav:profile:text'>

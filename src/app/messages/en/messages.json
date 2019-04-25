@@ -12,6 +12,7 @@
   "i18n:nav:login:text": "Login",
   "i18n:nav:logout:text": "Log out",
   "i18n:nav:profile:text": "Account Profile",
+  "i18n:nav:hello:text": "Hi {name}",
   "i18n:toolbar:search:placeholder": "Search this book",
   "i18n:toolbar:print:text": "Print options",
   "i18n:prevnext:prev:text": "Previous",
