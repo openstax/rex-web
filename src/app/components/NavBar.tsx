@@ -7,8 +7,8 @@ import openstaxLogo from '../../assets/logo.svg';
 import * as authSelect from '../auth/selectors';
 import { User } from '../auth/types';
 import { h4Style } from '../components/Typography';
-import * as selectNavigation from '../navigation/selectors';
 import { disablePrint } from '../content/components/utils/disablePrint';
+import * as selectNavigation from '../navigation/selectors';
 import theme from '../theme';
 import { AppState } from '../types';
 import { assertString } from '../utils';
@@ -131,6 +131,7 @@ const navElementStyle = css`
 // tslint:disable-next-line:variable-name
 const DropDownToggle = styled.span`
   ${navElementStyle}
+  cursor: pointer;
 `;
 
 // tslint:disable-next-line:variable-name
