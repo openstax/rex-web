@@ -50,6 +50,7 @@ Array [
 }
 
 .c2 {
+  display: block;
   width: auto;
   height: 3rem;
 }
@@ -72,6 +73,10 @@ Array [
   padding: 1rem 0;
 }
 
+.c3:hover {
+  color: #424242;
+}
+
 .c3:hover,
 .c3:active,
 .c3:focus {
@@ -80,34 +85,42 @@ Array [
 }
 
 .c0 {
-  z-index: 2;
+  z-index: 5;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c1 {
     height: 3.6rem;
   }
 }
 
-@media (max-width:64em) {
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
   .c2 {
     height: 2rem;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c3 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c3 {
+    font-size: 1.4rem;
+    font-weight: normal;
     padding: 0.7rem 0;
   }
 
@@ -118,7 +131,7 @@ Array [
   }
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c0 {
     padding: 0 1.6rem;
   }
@@ -257,7 +270,7 @@ Array [
   color: #0064A0;
 }
 
-@media (max-width:64em) {
+@media screen and (max-width:64em) {
   .c4 {
     font-size: 1.6rem;
     line-height: 2rem;
@@ -281,19 +294,21 @@ Array [
       <div
         className="c3"
       >
-        <div>
-          <h3
-            className="c4"
-          >
-            <a
-              className="c5"
-              href="books/book-slug-1/pages/1-test-page-2"
-              onClick={[Function]}
+        <ul>
+          <li>
+            <h3
+              className="c4"
             >
-              Test Book 1
-            </a>
-          </h3>
-        </div>
+              <a
+                className="c5"
+                href="books/book-slug-1/pages/1-test-page-2"
+                onClick={[Function]}
+              >
+                Test Book 1
+              </a>
+            </h3>
+          </li>
+        </ul>
       </div>
     </div>
     <div>

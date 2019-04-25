@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import theme from '../theme';
 
 export const contentFont = 'Neue Helvetica W01';

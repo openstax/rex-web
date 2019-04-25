@@ -17,17 +17,19 @@ import { splitTitleParts } from '../utils/archiveTreeUtils';
 import { scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
-  bookBannerDesktopHeight,
-  bookBannerMobileHeight,
+  bookBannerDesktopMiniHeight,
+  bookBannerMobileMiniHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
   toolbarDesktopHeight,
+  toolbarIconColor,
   toolbarMobileHeight
 } from './constants';
 import ContentLinkComponent from './ContentLink';
 import { CloseSidebarControl, ToCButtonText } from './SidebarControl';
 import { toolbarIconStyles } from './Toolbar';
+import { disablePrint } from './utils/disablePrint';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const sidebarPadding = 1.8;
@@ -41,27 +43,34 @@ const sidebarClosedStyle = css`
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
   background-color: transparent;
-  ${theme.breakpoints.mobile(css`
-    transform: translateX(-${sidebarMobileWidth}rem);
-  `)}
 
   > * {
     visibility: hidden;
     opacity: 0;
   }
+
+  ${theme.breakpoints.mobile(css`
+    background-color: ${theme.color.neutral.darker};
+    transform: translateX(-${sidebarMobileWidth + sidebarPadding * 2}rem);
+
+    > * {
+      visibility: visible;
+      opacity: 1;
+    }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   position: sticky;
-  top: ${bookBannerDesktopHeight}rem;
+  top: ${bookBannerDesktopMiniHeight}rem;
   margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
-  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopHeight}rem);
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   transition:
-    transform ${sidebarTransitionTime}ms,
-    box-shadow ${sidebarTransitionTime}ms,
-    background-color ${sidebarTransitionTime}ms;
+    transform ${sidebarTransitionTime}ms ease-in-out,
+    box-shadow ${sidebarTransitionTime}ms ease-in-out,
+    background-color ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
   z-index: 3; /* stay above book content and overlay */
   margin-left: -50vw;
@@ -73,8 +82,8 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     width: calc(50vw + ${sidebarMobileWidth}rem);
     min-width: calc(50vw + ${sidebarMobileWidth}rem);
     margin-top: -${toolbarMobileHeight}rem;
-    top: ${bookBannerMobileHeight}rem;
-    height: calc(100vh - ${navMobileHeight + bookBannerMobileHeight}rem);
+    top: ${bookBannerMobileMiniHeight}rem;
+    height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
   `)}
 
   display: flex;
@@ -85,6 +94,14 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     position: relative;
     padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 0.2rem;
     flex: 1;
+
+    ::before {
+      content: "";
+      background: ${theme.color.neutral.darker};
+      display: block;
+      height: ${sidebarPadding}rem;
+      margin: -${sidebarPadding}rem -${sidebarPadding}rem 0 -${sidebarPadding}rem;
+    }
   }
 
   > * {
@@ -94,6 +111,7 @@ const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   }
 
   ${styleWhenSidebarClosed(sidebarClosedStyle)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -102,6 +120,7 @@ const ToCHeader = styled.div`
   align-items: center;
   height: ${toolbarDesktopHeight}rem;
   overflow: visible;
+  box-shadow: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.14);
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
@@ -112,6 +131,11 @@ const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
   ${toolbarIconStyles};
   margin-right: 0;
   padding-right: 0;
+  color: ${toolbarIconColor.lighter};
+
+  :hover {
+    color: ${toolbarIconColor.base};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -330,6 +354,7 @@ export class Sidebar extends Component<SidebarProps> {
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
+    scrollHandler();
   }
 
   public componentDidUpdate() {

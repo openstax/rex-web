@@ -3,7 +3,7 @@ import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
@@ -52,7 +52,7 @@ export class PageComponent extends Component<PropTypes> {
       // fix assorted self closing tags
       .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
       // remove page titles from content (they are in the nav)
-      .replace(/<h2 data-type="document-title".*?<\/h2>/, '')
+      .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
     ;
   }
 
@@ -174,11 +174,13 @@ export const contentTextStyle = css`
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
-  ${contentTextStyle}
-  margin-top: ${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    margin-top: ${theme.padding.page.mobile}rem;
-  `)}
+  @media screen { /* full page width in print */
+    ${contentTextStyle}
+    margin-top: ${theme.padding.page.desktop}rem;
+    ${theme.breakpoints.mobile(css`
+      margin-top: ${theme.padding.page.mobile}rem;
+    `)}
+  }
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 

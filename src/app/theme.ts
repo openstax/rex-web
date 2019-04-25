@@ -1,4 +1,5 @@
-import { css, FlattenSimpleInterpolation } from 'styled-components';
+import { FlattenSimpleInterpolation } from 'styled-components';
+import { css } from 'styled-components/macro';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
 export interface ColorSet {
@@ -35,7 +36,9 @@ const color = {
     },
     gray: {
       base: '#5e6062',
+      darker: '#424242',
       foreground: textColors.white,
+      lighter: '#818181',
     },
     green: {
       base: '#63a524',
@@ -72,7 +75,7 @@ const mobileQuery = '(max-width: 64em)';
 export default {
   breakpoints: {
     mobile: (style: FlattenSimpleInterpolation) => css`
-      @media ${mobileQuery} {
+      @media screen and ${mobileQuery} {
         ${style}
       }
     `,

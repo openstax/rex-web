@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { prevNextBookPage } from './utils/archiveTreeUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -45,4 +46,12 @@ export const bookAndPage = createSelector(
   book,
   page,
   (selectedBook, selectedPage) => ({book: selectedBook, page: selectedPage})
+);
+
+export const prevNextPage = createSelector(
+  book,
+  page,
+  (selectedBook, selectedPage) => selectedBook && selectedPage
+    ? prevNextBookPage(selectedBook, selectedPage.id)
+    : {}
 );

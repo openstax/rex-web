@@ -1,8 +1,8 @@
 import { Event } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components';
-import { toolbarDesktopHeight } from '../content/components/constants';
+import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
+import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
 import { findFirstScrollableParent } from '../content/utils/domUtils';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
@@ -16,8 +16,19 @@ const MobileScrollLockBodyClass = createGlobalStyle`
   }
 `;
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
+
 // tslint:disable-next-line:variable-name
 const Overlay = styled.div`
+  animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
   z-index: 2; /* stay above book content */
   position: absolute;

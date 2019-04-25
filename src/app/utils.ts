@@ -61,3 +61,11 @@ export const assertWindowDefined = (message: string = 'BUG: Window is undefined'
 
   return window;
 };
+
+export const assertDocument = (message: string = 'BUG: Document is undefined') => {
+  if (typeof(document) === 'undefined') {
+    throw new Error(message);
+  }
+
+  return document;
+};

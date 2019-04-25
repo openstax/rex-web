@@ -2,8 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { book as archiveBook, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { renderToDom } from '../../../test/reactutils';
 import { formatBookData } from '../utils';
-import { BookBanner } from './BookBanner';
+import { BarWrapper, BookBanner } from './BookBanner';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -29,5 +30,14 @@ describe('BookBanner', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('mounts in a dom', () => {
+    expect(() => renderToDom(<BookBanner page={shortPage} book={book} />)).not.toThrow();
+  });
+
+  it('wrapper transition matches snapshot', () => {
+    const component = renderer.create(<BarWrapper theme='blue' up={true} />);
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });

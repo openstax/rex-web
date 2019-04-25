@@ -31,26 +31,30 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   return getFirstTreeSectionOrPage(book.tree);
 };
 
+const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
+    stripIdVersion(section.shortId) === stripIdVersion(pageId)
+    || stripIdVersion(section.id) === stripIdVersion(pageId);
+
 export const findArchiveTreeSection = (
   book: {tree: ArchiveTree},
   pageId: string
 ): LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(book.tree).find((section) =>
-    stripIdVersion(section.shortId) === stripIdVersion(pageId)
-    || stripIdVersion(section.id) === stripIdVersion(pageId)
-  );
+  flattenArchiveTree(book.tree).find(sectionMatcher(pageId));
 
-export const splitTitleParts = (str: string) => {
-  const match = str
-    // remove html tags from tree title
-    .replace(/<[^>]+>/g, '')
-    // split out section number from title
-    .match(/^([0-9\.]*)?(.*)$/);
+interface Sections {
+  prev?: LinkedArchiveTreeSection | undefined;
+  next?: LinkedArchiveTreeSection | undefined;
+}
 
-  if (match && match[2]) {
-    // ignore the first match which is the whole title
-    return match.slice(1);
-  } else {
-    return [null, null];
-  }
+export const prevNextBookPage = (
+  book: {tree: ArchiveTree},
+  pageId: string
+): Sections => {
+  const flattenTree = flattenArchiveTree(book.tree);
+  const index = flattenTree.findIndex(sectionMatcher(pageId));
+
+  return {
+    next: flattenTree[index + 1],
+    prev: flattenTree[index - 1],
+  };
 };

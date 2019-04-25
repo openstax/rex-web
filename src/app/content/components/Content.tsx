@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';
@@ -9,7 +9,7 @@ import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
 import {
-  bookBannerDesktopHeight,
+  bookBannerDesktopBigHeight,
   contentWrapperMaxWidth,
   mainContentBackground,
   sidebarDesktopWidth,
@@ -18,6 +18,7 @@ import {
 } from './constants';
 import ContentPane from './ContentPane';
 import Page from './Page';
+import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
@@ -26,73 +27,85 @@ import { wrapperPadding } from './Wrapper';
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
-  overflow: visible; /* so sidebar position: sticky works */
-  background-color: ${theme.color.neutral.darker};
-  width: 100%;
-  min-height: 100%;
+  @media screen {
+    overflow: visible; /* so sidebar position: sticky works */
+    background-color: ${theme.color.neutral.darker};
+    width: 100%;
+    min-height: 100%;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  top: ${bookBannerDesktopHeight + toolbarDesktopHeight + navDesktopHeight}rem;
+  @media screen {
+    top: ${bookBannerDesktopBigHeight + toolbarDesktopHeight + navDesktopHeight}rem;
 
-  @media (max-width: ${inlineDisplayBreak}) {
-    top: ${bookBannerDesktopHeight + toolbarDesktopHeight}rem;
-    ${wrapperPadding}
+    @media (max-width: ${inlineDisplayBreak}) {
+      top: ${bookBannerDesktopBigHeight + toolbarDesktopHeight}rem;
+      ${wrapperPadding}
+    }
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const CenteredContentRow = styled(CenteredContent)`
-  min-height: 100%;
-  display: flex;
-  flex-direction: row;
+  @media screen {
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const UndoPadding = isOpenConnector(styled.div`
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-right: -${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    margin: 0 -${theme.padding.page.mobile}rem;
-  `)}
-
-  ${styleWhenSidebarClosed(css`
-    margin-left: -${theme.padding.page.desktop}rem;
+  @media screen {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-right: -${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
-      margin-left: -${theme.padding.page.mobile}rem;
+      margin: 0 -${theme.padding.page.mobile}rem;
     `)}
-  `)}
+
+    ${styleWhenSidebarClosed(css`
+      margin-left: -${theme.padding.page.desktop}rem;
+      ${theme.breakpoints.mobile(css`
+        margin-left: -${theme.padding.page.mobile}rem;
+      `)}
+    `)}
+  }
 `);
 
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = isOpenConnector(styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: visible;
-  background-color: ${mainContentBackground};
-  transition: max-width ${sidebarTransitionTime}ms;
-  width: 100%;
-  max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
-  ${theme.breakpoints.mobile(css`
-    max-width: ${contentWrapperMaxWidth}rem;
-  `)}
-  ${styleWhenSidebarClosed(css`
-    max-width: ${contentWrapperMaxWidth}rem;
-    margin: 0 auto;
-  `)}
+  @media screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    background-color: ${mainContentBackground};
+    transition: max-width ${sidebarTransitionTime}ms;
+    width: 100%;
+    max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
+    ${theme.breakpoints.mobile(css`
+      max-width: ${contentWrapperMaxWidth}rem;
+    `)}
+    ${styleWhenSidebarClosed(css`
+      max-width: ${contentWrapperMaxWidth}rem;
+      margin: 0 auto;
+    `)}
+  }
 `);
 
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
-  flex: 1;
-  ${wrapperPadding}
-  ${styleWhenSidebarClosed(css`
+  @media screen {
+    flex: 1;
     ${wrapperPadding}
-  `)}
+    ${styleWhenSidebarClosed(css`
+      ${wrapperPadding}
+    `)}
+  }
 `);
 
 /*
@@ -149,6 +162,7 @@ const Content: React.SFC = () => <Layout>
               <ContentNotifications />
               <HideOverflowAndRedoPadding>
                 <Page />
+                <PrevNextBar />
               </HideOverflowAndRedoPadding>
               <Attribution />
             </MainContentWrapper>
