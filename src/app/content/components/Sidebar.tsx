@@ -149,10 +149,13 @@ const NavItem = styled(NavItemComponent)`
   overflow: visible;
 
   :active,
-  :hover,
   :focus,
   :visited {
     ${textStyle}
+  }
+
+  :hover {
+    color: ${theme.color.primary.gray.base}
   }
 
   &[aria-label="Current Page"] a {
@@ -217,7 +220,7 @@ const ContentLink = styled(ContentLinkComponent)`
 // tslint:disable-next-line:variable-name
 const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
   margin: 0;
-  padding: 1.2rem 3rem 0 0;
+  padding: 0rem 3rem 0 0;
 
   ${NavItem} {
     margin: 0 0 1.5rem 0;
@@ -280,6 +283,10 @@ const Details = styled.details`
 
     :first-child {
       margin-top: 1.5rem;
+    }
+
+    :last-child {
+      margin-bottom: 0;
     }
   }
 `;
