@@ -12,6 +12,10 @@ import { AppState } from '../types';
 import { assertString } from '../utils';
 import { linkHover, textRegularStyle } from './Typography';
 
+if (typeof(window) !== 'undefined') {
+  import('ally.js/style/focus-within').then((module) => module.default());
+}
+
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
 export const navMobileHeight = 3.6;
@@ -82,7 +86,8 @@ const DropdownContainer = styled.div`
   }
 
   :hover,
-  :focus {
+  :focus,
+  .ally-focus-within {
     ${DropDown} {
       display: block;
     }

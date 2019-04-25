@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ally.js": "^1.4.1",
     "cnx-recipes": "github:openstax/cnx-recipes#dfd753a7fed4e9d4e30a3cdfd4b0a2135969ee12",
     "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
@@ -124,7 +125,7 @@
     "puppeteer": "^1.10.0",
     "react-test-renderer": "^16.6.1",
     "serve-static": "^1.13.2",
-    "stylelint": "^9.10.1",
+    "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.2",
