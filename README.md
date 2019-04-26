@@ -24,21 +24,10 @@ yarn start
 ### to fix scarry untrusted cert warning in chrome
 
 *note:* you must do this for login to work
-*note:* if you have trouble getting the certificate file out of chrome, try it in safari, it works better there.
-
-#### chrome
-- click "not trusted" icon next to address bar
-- drag certificate icon onto desktop
-
-#### safari
-- click cert info
-- drag certificate icon onto desktop
 
 #### trust the certificate
-- drag the certificate into your keychain app
-- double click the cert in the keychain to open it
-- drop down the "trust" menu
-- change to "always trust"
+- run `yarn trust-localhost` after you can see the security error in a browser
+- reload the browser
 
 ## Architecture Overview
 

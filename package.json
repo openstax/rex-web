@@ -30,6 +30,7 @@
     "weak-map": "^1.0.5"
   },
   "scripts": {
+    "trust-localhost": "./script/trust-localhost.bash",
     "lint": "npm run-script lint:bash && npm run-script lint:css && npm run-script lint:typescript",
     "lint:typescript": "tslint -p ./tsconfig.json",
     "lint:exports": "ts-unused-exports ./tsconfig.json",
