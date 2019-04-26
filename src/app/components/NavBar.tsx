@@ -1,3 +1,4 @@
+import Color from 'color';
 import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -159,6 +160,7 @@ const DropDown = styled.ul`
     box-shadow: none;
     position: static;
     border: none;
+    background: none;
   `)}
 `;
 
@@ -196,9 +198,11 @@ const DropdownContainer = styled.div`
     :not(:focus) ${DropDown} {
       ${visuallyHidden}
     }
+    background: ${Color(theme.color.neutral.base).alpha(0).string()};
+    transition: background 200ms;
 
     &:focus {
-      background: ${theme.color.neutral.base};
+      background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
       top: 0;
       left: 0;
       right: 0;
