@@ -5,13 +5,13 @@ import Loadable from 'react-loadable';
 import createApp from './app';
 import { assertWindowDefined } from './app/utils';
 import config from './config';
+import './content.css';
 import createArchiveLoader from './helpers/createArchiveLoader';
 import createOSWebLoader from './helpers/createOSWebLoader';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
 import './index.css';
-import './content.css';
 import * as serviceWorker from './serviceWorker';
 
 const window = assertWindowDefined('Browser entrypoint must be used in the browser');
