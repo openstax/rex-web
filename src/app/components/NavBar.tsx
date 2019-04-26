@@ -23,6 +23,7 @@ if (typeof(window) !== 'undefined') {
 export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
 export const navMobileHeight = 3.6;
+const headerImageMobileHeight = 2;
 
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
@@ -45,7 +46,7 @@ const HeaderImage = styled.img`
   width: auto;
   height: 3rem;
   ${theme.breakpoints.mobile(css`
-    height: 2rem;
+    height: ${headerImageMobileHeight}rem;
   `)}
 `;
 
@@ -53,10 +54,10 @@ const HeaderImage = styled.img`
 const OverlayLogo = styled.img`
   display: none;
   width: auto;
-  height: 2rem;
+  height: ${headerImageMobileHeight}rem;
   position: absolute;
   left: 1.6rem;
-  top: 1rem;
+  top: ${(navMobileHeight - headerImageMobileHeight) / 2}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -195,13 +196,13 @@ const DropdownContainer = styled.div`
   }
 
   ${theme.breakpoints.mobile(css`
-    :not(:focus) ${DropDown} {
+    :not(:focus):not(.ally-focus-within) ${DropDown} {
       ${visuallyHidden}
     }
     background: ${Color(theme.color.neutral.base).alpha(0).string()};
     transition: background 200ms;
 
-    &:focus {
+    &:focus,&.ally-focus-within {
       background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
       top: 0;
       left: 0;
@@ -220,7 +221,7 @@ const DropdownContainer = styled.div`
       ${HamburgerIcon} {
         display: none;
       }
-      ${TimesIcon}, ${OverlayLogo} {
+      & + ${TimesIcon}, ${OverlayLogo} {
         display: block;
       }
     }
@@ -265,7 +266,6 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
               {msg}
               <DownIcon />
               <HamburgerIcon />
-              <TimesIcon />
             </DropDownToggle>}
           </FormattedMessage>
           <DropDown>
@@ -282,6 +282,7 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
           </DropDown>
         </div>
       </DropdownContainer>}
+      <TimesIcon />
     </TopBar>
   </BarWrapper>;
 
