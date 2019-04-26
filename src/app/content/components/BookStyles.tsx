@@ -1,6 +1,6 @@
 // import { getBookStyles } from 'cnx-recipes';
 import { ReactElement } from 'react';
-// import styled from 'styled-components/macro';
+import styled from 'styled-components/macro';
 // import { assertString } from '../../utils';
 
 // tslint:disable-next-line:variable-name
@@ -15,4 +15,4 @@ const BookStylesHoC = (
 //   ${bookStyles}
 // `;
 
-export default BookStylesHoC;
+export default styled(BookStylesHoC)`// Enable this later`;
