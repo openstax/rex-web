@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
 import openstaxLogo from '../../assets/logo.svg';
 import * as authSelect from '../auth/selectors';
@@ -12,6 +13,7 @@ import * as selectNavigation from '../navigation/selectors';
 import theme from '../theme';
 import { AppState } from '../types';
 import { assertString } from '../utils';
+import Times from './Times';
 import { linkHover, textRegularStyle } from './Typography';
 
 if (typeof(window) !== 'undefined') {
@@ -52,6 +54,20 @@ const DownIcon = styled(ChevronDown)`
   margin-left: 1rem;
   height: 1.5rem;
   width: 1.5rem;
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const HamburgerIcon = styled(Hamburger)`
+  margin-left: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  display: none;
+  ${theme.breakpoints.mobile(css`
+    display: inline;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -62,7 +78,7 @@ const DropDown = styled.ul`
   padding: 0.6rem 0;
   position: absolute;
   background: ${theme.color.neutral.base};
-  top: calc(100% - 0.4rem - 0.4rem);
+  top: calc(100% - 0.4rem);
   right: 0;
   border-top: 0.4rem solid ${theme.color.primary.green.base};
 
@@ -84,6 +100,12 @@ const DropDown = styled.ul`
       }
     }
   }
+
+  ${theme.breakpoints.mobile(css`
+    box-shadow: none;
+    position: static;
+    border: none;
+  `)}
 `;
 
 const visuallyHidden = css`
@@ -95,9 +117,17 @@ const visuallyHidden = css`
 `;
 
 // tslint:disable-next-line:variable-name
+const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: ${theme.color.primary.gray.base};
+  display: none;
+`;
+
+// tslint:disable-next-line:variable-name
 const DropdownContainer = styled.div`
   overflow: visible;
-  align-self: stretch;
   position: relative;
 
   :not(:hover):not(.ally-focus-within) ${DropDown} {
@@ -107,6 +137,33 @@ const DropdownContainer = styled.div`
   :not(:hover):not(:focus-within) ${DropDown} {
     ${visuallyHidden}
   }
+
+  ${theme.breakpoints.mobile(css`
+    :not(:active):not(:focus) ${DropDown} {
+      ${visuallyHidden}
+    }
+
+    &:active,
+    &:focus {
+      background: ${theme.color.neutral.base};
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      ${HamburgerIcon} {
+        display: none;
+      }
+      ${TimesIcon} {
+        display: block;
+      }
+    }
+  `)}
 `;
 
 const navElementStyle = css`
@@ -114,13 +171,14 @@ const navElementStyle = css`
   ${h4Style}
   text-decoration: none;
   font-weight: bold;
+  padding: 1rem 0;
+
   color: ${theme.color.primary.gray.base};
 
   :hover {
     color: ${theme.color.primary.gray.darker};
   }
 
-  padding: 1rem 0;
   ${theme.breakpoints.mobile(css`
     font-size: 1.4rem;
     font-weight: normal;
@@ -180,9 +238,9 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
           {msg}
         </Link>}
       </FormattedMessage>}
-      {user && <DropdownContainer>
+      {user && <DropdownContainer tabIndex='0'>
         <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
-          {(msg: Element | string) => <DropDownToggle>{msg}<DownIcon /></DropDownToggle>}
+          {(msg: Element | string) => <DropDownToggle>{msg}<DownIcon /><HamburgerIcon /><TimesIcon tabIndex='-1' /></DropDownToggle>}
         </FormattedMessage>
         <DropDown>
           <li>
