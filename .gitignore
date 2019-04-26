@@ -71,3 +71,5 @@ pip-delete-this-directory.txt
 
 # pytest report
 ui-test.html
+src/content.css
+src/content.css.map

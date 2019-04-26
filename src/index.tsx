@@ -11,6 +11,7 @@ import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
 import './index.css';
+import './content.css';
 import * as serviceWorker from './serviceWorker';
 
 const window = assertWindowDefined('Browser entrypoint must be used in the browser');

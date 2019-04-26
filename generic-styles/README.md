@@ -1,0 +1,1 @@
+These are copy/pasted from [webview/src/scripts/modules/media/body/content-baked.less](https://github.com/openstax/webview/blob/3b6fe735342163dbcd11e3d10a1389fb867114bc/src/scripts/modules/media/body/content-baked.less)
