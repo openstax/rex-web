@@ -73,7 +73,6 @@ function setupProxy(app) {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,
-    protocolRewrite: 'http',
   }));
 
   app.use(proxy(REACT_APP_OS_WEB_API_URL, {
