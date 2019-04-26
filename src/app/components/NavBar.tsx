@@ -7,7 +7,6 @@ import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
 import openstaxLogo from '../../assets/logo.svg';
 import * as authSelect from '../auth/selectors';
 import { User } from '../auth/types';
-import { h4Style } from '../components/Typography';
 import { disablePrint } from '../content/components/utils/disablePrint';
 import * as selectNavigation from '../navigation/selectors';
 import theme from '../theme';
@@ -50,6 +49,16 @@ const HeaderImage = styled.img`
 `;
 
 // tslint:disable-next-line:variable-name
+const OverlayLogo = styled.img`
+  display: none;
+  width: auto;
+  height: 2rem;
+  position: absolute;
+  left: 1.6rem;
+  top: 1rem;
+`;
+
+// tslint:disable-next-line:variable-name
 const DownIcon = styled(ChevronDown)`
   margin-left: 1rem;
   height: 1.5rem;
@@ -61,6 +70,7 @@ const DownIcon = styled(ChevronDown)`
 
 // tslint:disable-next-line:variable-name
 const HamburgerIcon = styled(Hamburger)`
+  margin-top: 0.1rem;
   margin-left: 1rem;
   height: 1.5rem;
   width: 1.5rem;
@@ -68,6 +78,50 @@ const HamburgerIcon = styled(Hamburger)`
   ${theme.breakpoints.mobile(css`
     display: inline;
   `)}
+`;
+
+const navElementStyle = css`
+  display: block;
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 1rem 0;
+  color: ${theme.color.primary.gray.base};
+
+  :hover {
+    color: ${theme.color.primary.gray.darker};
+  }
+
+  ${theme.breakpoints.mobile(css`
+    font-size: 1.4rem;
+    font-weight: normal;
+    padding: 0.7rem 0;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const Link = styled.a`
+  :hover,
+  :active,
+  :focus {
+    padding-bottom: 0.6rem;
+    border-bottom: 0.4rem solid ${theme.color.primary.green.base};
+  }
+
+  ${navElementStyle}
+  ${theme.breakpoints.mobile(css`
+    :hover,
+    :active,
+    :focus {
+      padding-bottom: 0.3rem;
+    }
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const DropDownToggle = styled.span`
+  ${navElementStyle}
+  cursor: pointer;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -117,10 +171,10 @@ const visuallyHidden = css`
 `;
 
 // tslint:disable-next-line:variable-name
-const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
+const TimesIcon = styled((props) => <a href='' tabIndex='-1' aria-hidden='true' {...props}><Times /></a>)`
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 1.6rem;
   color: ${theme.color.primary.gray.base};
   display: none;
 `;
@@ -139,11 +193,10 @@ const DropdownContainer = styled.div`
   }
 
   ${theme.breakpoints.mobile(css`
-    :not(:active):not(:focus) ${DropDown} {
+    :not(:focus) ${DropDown} {
       ${visuallyHidden}
     }
 
-    &:active,
     &:focus {
       background: ${theme.color.neutral.base};
       top: 0;
@@ -154,59 +207,18 @@ const DropdownContainer = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding-top: 40%;
 
+      ${DropDownToggle} {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
       ${HamburgerIcon} {
         display: none;
       }
-      ${TimesIcon} {
+      ${TimesIcon}, ${OverlayLogo} {
         display: block;
       }
-    }
-  `)}
-`;
-
-const navElementStyle = css`
-  display: block;
-  ${h4Style}
-  text-decoration: none;
-  font-weight: bold;
-  padding: 1rem 0;
-
-  color: ${theme.color.primary.gray.base};
-
-  :hover {
-    color: ${theme.color.primary.gray.darker};
-  }
-
-  ${theme.breakpoints.mobile(css`
-    font-size: 1.4rem;
-    font-weight: normal;
-    padding: 0.7rem 0;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-const DropDownToggle = styled.span`
-  ${navElementStyle}
-  cursor: pointer;
-`;
-
-// tslint:disable-next-line:variable-name
-const Link = styled.a`
-  :hover,
-  :active,
-  :focus {
-    padding-bottom: 0.6rem;
-    border-bottom: 0.4rem solid ${theme.color.primary.green.base};
-  }
-
-  ${navElementStyle}
-  ${theme.breakpoints.mobile(css`
-    :hover,
-    :active,
-    :focus {
-      padding-bottom: 0.3rem;
     }
   `)}
 `;
@@ -239,21 +251,32 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
         </Link>}
       </FormattedMessage>}
       {user && <DropdownContainer tabIndex='0'>
-        <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
-          {(msg: Element | string) => <DropDownToggle>{msg}<DownIcon /><HamburgerIcon /><TimesIcon tabIndex='-1' /></DropDownToggle>}
+        <FormattedMessage id='i18n:nav:logo:alt'>
+          {(msg: Element | string) =>
+            <OverlayLogo role='img' src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />}
         </FormattedMessage>
-        <DropDown>
-          <li>
-            <FormattedMessage id='i18n:nav:profile:text'>
-              {(msg: Element | string) => <a href='/accounts/profile'>{msg}</a>}
-            </FormattedMessage>
-          </li>
-          <li>
-            <FormattedMessage id='i18n:nav:logout:text'>
-              {(msg: Element | string) => <a href='/accounts/logout'>{msg}</a>}
-            </FormattedMessage>
-          </li>
-        </DropDown>
+        <div>
+          <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
+            {(msg: Element | string) => <DropDownToggle>
+              {msg}
+              <DownIcon />
+              <HamburgerIcon />
+              <TimesIcon />
+            </DropDownToggle>}
+          </FormattedMessage>
+          <DropDown>
+            <li>
+              <FormattedMessage id='i18n:nav:profile:text'>
+                {(msg: Element | string) => <a href='/accounts/profile'>{msg}</a>}
+              </FormattedMessage>
+            </li>
+            <li>
+              <FormattedMessage id='i18n:nav:logout:text'>
+                {(msg: Element | string) => <a href='/accounts/logout'>{msg}</a>}
+              </FormattedMessage>
+            </li>
+          </DropDown>
+        </div>
       </DropdownContainer>}
     </TopBar>
   </BarWrapper>;

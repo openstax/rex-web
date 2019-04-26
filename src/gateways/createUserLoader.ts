@@ -10,7 +10,7 @@ export interface AccountsUser {
 
 export default (url: string) => {
   return {
-    getCurrentUser: () => fetch(`${url}/api/user`)
+    getCurrentUser: () => fetch(`${url}/api/user`, {credentials: 'include'})
       .then((response) => {
         if (response.status === 200) {
           return response.json() as Promise<AccountsUser>;
