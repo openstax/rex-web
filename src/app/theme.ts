@@ -83,4 +83,5 @@ export default {
   },
   color,
   padding,
+  textColors,
 };

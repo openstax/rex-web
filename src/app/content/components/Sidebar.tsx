@@ -156,6 +156,14 @@ const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />
 `;
 
 // tslint:disable-next-line:variable-name
+const SummaryTitle = styled.span`
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  width: 100%;
+`;
+
+// tslint:disable-next-line:variable-name
 const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
   ({active, className, children}, ref) => <li
     ref={ref}
@@ -165,26 +173,33 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 );
 
 // tslint:disable-next-line:variable-name
+const ContentLink = styled(ContentLinkComponent)`
+  ${textStyle}
+  display: flex;
+  margin-left: ${iconPadding + iconSize}rem;
+  text-decoration: none;
+
+  li[aria-label="Current Page"] & {
+    font-weight: bold;
+  }
+
+`;
+
+// tslint:disable-next-line:variable-name
 const NavItem = styled(NavItemComponent)`
   ${textStyle}
   list-style: none;
   font-size: 1.4rem;
   line-height: 1.6rem;
   overflow: visible;
+  margin: 0 0 1.5rem 0;
 
-  :active,
-  :focus,
-  :visited {
-    ${textStyle}
+  ${SummaryTitle}, ${ContentLink} {
+    :hover {
+      color: ${theme.textColors.black}
+    }
   }
 
-  :hover {
-    color: ${theme.color.primary.gray.base}
-  }
-
-  &[aria-label="Current Page"] a {
-    font-weight: bold;
-  }
 `;
 
 const expandCollapseIconStyle = css`
@@ -201,14 +216,6 @@ const ExpandIcon = styled(CaretRight)`
 // tslint:disable-next-line:variable-name
 const CollapseIcon = styled(CaretDown)`
   ${expandCollapseIconStyle}
-`;
-
-// tslint:disable-next-line:variable-name
-const SummaryTitle = styled.span`
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  width: 100%;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -235,25 +242,20 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   return Math.max(result, numbers.length * numberCharacterWidth + periods.length * numberPeriodWidth);
 }, 0);
 
-// tslint:disable-next-line:variable-name
-const ContentLink = styled(ContentLinkComponent)`
-  display: flex;
-  margin-left: ${iconPadding + iconSize}rem;
-`;
+const getDividerWidth = (section: ArchiveTree) => {
+
+  if (section.title.includes(' | ')) {
+    return 0.6;
+  }
+
+  return 0.4;
+
+};
 
 // tslint:disable-next-line:variable-name
-const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
+const NavOl = styled.ol<{section: ArchiveTree}>`
   margin: 0;
   padding: 0rem 3rem 0 0;
-
-  ${NavItem} {
-    margin: 0 0 1.5rem 0;
-
-    a {
-      ${textStyle}
-      text-decoration: none;
-    }
-  }
 
   .os-number,
   .os-divider,
@@ -267,7 +269,8 @@ const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
   }
 
   ${(props) => {
-    const numberWidth = getNumberWidth(props.contents);
+    const numberWidth = getNumberWidth(props.section.contents);
+    const dividerWidth = getDividerWidth(props.section);
 
     return css`
       .os-number {
@@ -275,7 +278,7 @@ const NavOl = styled.ol<{contents: ArchiveTree['contents']}>`
       }
 
       .os-divider {
-        width: 0.6rem;
+        width: ${dividerWidth}rem;
       }
 
       .os-text {
@@ -323,13 +326,13 @@ interface SidebarProps {
 }
 
 export class Sidebar extends Component<SidebarProps> {
-  public sidebar: HTMLElement | undefined;
-  public activeSection: HTMLElement | undefined;
-  public container: Element | undefined | null;
+  public sidebar = React.createRef<HTMLElement>();
+  public activeSection = React.createRef<HTMLElement>();
+  public container = React.createRef<HTMLElement>();
 
   public render() {
     const {isOpen, book} = this.props;
-    return <SidebarBody isOpen={isOpen} ref={(ref: any) => this.sidebar = ref} aria-label='Table of Contents'>
+    return <SidebarBody isOpen={isOpen} ref={this.sidebar} aria-label='Table of Contents'>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
     </SidebarBody>;
@@ -339,7 +342,7 @@ export class Sidebar extends Component<SidebarProps> {
     this.scrollToSelectedPage();
     this.expandCurrentChapter();
 
-    const sidebar = this.sidebar;
+    const sidebar = this.sidebar.current;
 
     if (!sidebar || typeof(window) === 'undefined') {
       return;
@@ -363,7 +366,7 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   private scrollToSelectedPage() {
-    scrollTocSectionIntoView(this.sidebar, this.activeSection);
+    scrollTocSectionIntoView(this.sidebar.current, this.activeSection.current);
   }
 
   private expandCurrentChapter() {
@@ -372,53 +375,69 @@ export class Sidebar extends Component<SidebarProps> {
       return;
     }
 
-    const currentChapter: HTMLElement = document.querySelector('[aria-label="Current Page"]') as HTMLElement;
+    const currentChapter = this.activeSection.current;
+    let parent: HTMLElement;
+    let counter = 1;
 
-    if ( currentChapter
-      && currentChapter.parentElement
-      && currentChapter.parentElement.parentElement
-      && !currentChapter.parentElement.parentElement.hasAttribute('open')) {
-        currentChapter.parentElement.parentElement.setAttribute('open', '');
+    if ( currentChapter && currentChapter.parentElement) {
+      parent = currentChapter.parentElement;
+
+      while ( parent.getAttribute('aria-label') !== 'Table of Contents'
+        && counter < 10) {
+        console.log(parent);
+
+        if ( parent.tagName === 'DETAILS'
+          && !parent.hasAttribute('open')
+        ) {
+          parent.setAttribute('open', '');
+        }
+
+        if ( parent.parentElement ) {
+          parent = parent.parentElement;
+        } else {
+          return null;
+        }
+        counter++;
+
+      }
     }
-
   }
 
-  private renderChildren = (book: Book, {contents}: ArchiveTree) =>
-    <NavOl contents={contents}>
-        {contents.map((item) => {
-          const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
-
-          return isArchiveTree(item)
-            ? <NavItem>{this.renderTocNode(book, item)}</NavItem>
-            :
-                <NavItem
-                  key={item.id}
-                  ref={active ? ((ref: any) => this.activeSection = ref) : undefined}
-                  active={active}
-                >
-                  <ContentLink
-                    onClick={this.props.onNavigate}
-                    book={book}
-                    page={item}
-                    dangerouslySetInnerHTML={{__html: item.title}}
-                  />
-                </NavItem>;
-        })}
+  private renderChildren = (book: Book, section: ArchiveTree) =>
+    <NavOl section={section}>
+      {section.contents.map((item) => {
+        const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
+        return isArchiveTree(item)
+        ? <NavItem>{this.renderTocNode(book, item)}</NavItem>
+        : <NavItem
+          key={item.id}
+          ref={active ? this.activeSection : null}
+          active={active}
+        >
+          <ContentLink
+            onClick={this.props.onNavigate}
+            book={book}
+            page={item}
+            dangerouslySetInnerHTML={{__html: item.title}}
+          />
+        </NavItem>;
+      })}
     </NavOl>
 
   private renderTocNode = (book: Book, node: ArchiveTree) =>
-  <Details ref={(ref: any) => this.container = ref}>
+    <Details ref={this.container}>
       <Summary>
         <ExpandIcon/>
         <CollapseIcon/>
         <SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
       </Summary>
       {this.renderChildren(book, node)}
-  </Details>
+    </Details>
 
-  private renderTocHeader = () => <ToCHeader>
-    <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
-  </ToCHeader>
+  private renderTocHeader = () =>
+    <ToCHeader>
+      <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
+    </ToCHeader>
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }
