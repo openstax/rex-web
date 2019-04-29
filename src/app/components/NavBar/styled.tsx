@@ -217,6 +217,10 @@ export const DropdownOverlay = styled.div`
       right: 0;
       bottom: 0;
     }
+
+    > div {
+      width: min-content;
+    }
   `)}
 `;
 
