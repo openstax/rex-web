@@ -5,8 +5,8 @@ import * as actions from './actions';
 import { State } from './types';
 
 export const initialState = {
-  user: undefined,
   established: false,
+  user: undefined,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {

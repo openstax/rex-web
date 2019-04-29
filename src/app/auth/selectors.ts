@@ -14,5 +14,5 @@ export const user = createSelector(
 export const loggedOut = createSelector(
   localState,
   user,
-  (state, user) => state.established && !user
+  (state, currentUser) => state.established && !currentUser
 );
