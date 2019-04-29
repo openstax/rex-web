@@ -1,6 +1,6 @@
 import Color from 'color';
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
 import { disablePrint } from '../../content/components/utils/disablePrint';
@@ -12,6 +12,20 @@ export const maxNavWidth = 117;
 export const navDesktopHeight = 5;
 export const navMobileHeight = 3.6;
 const headerImageMobileHeight = 2;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeInAnimation = css`
+  animation: ${100}ms ${fadeIn} ease-out;
+`;
 
 // tslint:disable-next-line:variable-name
 export const TopBar = styled.div`
@@ -40,6 +54,7 @@ export const HeaderImage = styled.img`
 
 // tslint:disable-next-line:variable-name
 export const DropdownContainer = styled.div`
+  ${fadeInAnimation}
   overflow: visible;
   position: relative;
 `;
@@ -108,6 +123,7 @@ export const Link = styled.a`
     border-bottom: 0.4rem solid ${theme.color.primary.green.base};
   }
 
+  ${fadeInAnimation}
   ${navElementStyle}
   ${theme.breakpoints.mobile(css`
     :hover,
