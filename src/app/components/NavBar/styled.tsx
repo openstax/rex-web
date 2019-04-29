@@ -113,7 +113,8 @@ export const Link = styled.a`
     :hover,
     :active,
     :focus {
-      padding-bottom: 0.3rem;
+      padding: 0.7rem 0;
+      border-bottom: none;
     }
   `)}
 `;
