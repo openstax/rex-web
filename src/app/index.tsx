@@ -117,9 +117,6 @@ export default (options: AppOptions) => {
     navigation.utils.changeToLocation(routes, store.dispatch, history.location);
   }
 
-  // the default font
-  services.fontCollector.add('/styles/fonts.css');
-
   for (const initializer of init) {
     const promise = initializer({
       dispatch: store.dispatch,
