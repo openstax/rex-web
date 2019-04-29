@@ -1,4 +1,5 @@
 import { Element, Event, HTMLAnchorElement } from '@openstax/types/lib.dom';
+import { getBookStyles } from 'cnx-recipes';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -6,6 +7,7 @@ import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
 import url from 'url';
 import WeakMap from 'weak-map';
+import { BOOKS } from '../../../config';
 import { typesetMath } from '../../../helpers/mathjax';
 import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
@@ -15,10 +17,10 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
+import { assertString } from '../../utils';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
-import BookStyles from './BookStyles';
 import { contentTextWidth } from './constants';
 
 interface PropTypes {
@@ -92,17 +94,29 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
-    return <BookStyles>
-      {(className: string) => <MainContent className={[this.props.className, className].join(' ')}>
-        <div data-type='chapter'>
-          <div
-            data-type='page'
-            ref={(ref: any) => this.container = ref}
-            dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
-          />
-        </div>
-      </MainContent>}
-    </BookStyles>;
+    const book = this.props.book && BOOKS[this.props.book.id] || null;
+    if (book && book.bookStyleName) {
+      const bookStyles = assertString(getBookStyles().get(book.bookStyleName), 'missing book style: intro-business');
+      const BookStyles = styled.div`${bookStyles}`; // tslint:disable-line:variable-name
+
+      return <BookStyles>
+        <MainContent className={this.props.className} isGenericStyle={false}>
+          <div data-type='chapter'>
+            <div
+              data-type='page'
+              ref={(ref: any) => this.container = ref}
+              dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
+            />
+          </div>
+        </MainContent>}
+      </BookStyles>;
+    } else {
+      return <MainContent className={this.props.className} isGenericStyle={true}>
+        <div 
+          ref={(ref: any) => this.container = ref}
+          dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}/>
+      </MainContent>;
+    }
   }
 
   private getScrollTarget(): Element | null {

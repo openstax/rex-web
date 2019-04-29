@@ -10,7 +10,7 @@ module.exports = {
     '2e737be8-ea65-48c3-aa0a-9f35b4c6a966':{'defaultVersion':'20.1'}, // Astronomy
     '4abf04bf-93a0-45c3-9cbc-2cefd46e68cc':{'defaultVersion':'10.16'}, // Psychology
     // '9ab4ba6d-1e48-486d-a2de-38ae1617ca84':{'defaultVersion':'4.25'}, // Principles of Accounting, Volume 1: Financial Accounting. Broken because contains link to external content.
-    '4e09771f-a8aa-40ce-9063-aa58cc24e77f':{'defaultVersion':'8.5'}, // Introduction to Business
+    '4e09771f-a8aa-40ce-9063-aa58cc24e77f':{'defaultVersion':'8.5', bookStyleName:'intro-business'}, // Introduction to Business
     'bc498e1f-efe9-43a0-8dea-d3569ad09a82':{'defaultVersion':'7.1'}, // Principles of Economics 2e
     'caa57dab-41c7-455e-bd6f-f443cda5519c':{'defaultVersion':'18.1'}, // Prealgebra
     // 'fd53eae1-fa23-47c7-bb1b-972349835c3c':{'defaultVersion':'10.3'}, // Precalculus. Broken because contains link to external content.

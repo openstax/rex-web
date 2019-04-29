@@ -116,7 +116,7 @@ describe('Page', () => {
         </MessageProvider>
       </Provider>
     );
-    const pageElement = root.querySelector('[data-type="page"]');
+    const pageElement = root.querySelector('#main-content > div');
 
     if (!pageElement) {
       return expect(pageElement).toBeTruthy();
@@ -129,7 +129,7 @@ describe('Page', () => {
 
   it('updates content link with new hrefs', () => {
     const {root} = renderDomWithReferences();
-    const [firstLink, secondLink] = Array.from(root.querySelectorAll('[data-type="page"] a'));
+    const [firstLink, secondLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     if (!firstLink || !secondLink) {
       expect(firstLink).toBeTruthy();
@@ -142,8 +142,8 @@ describe('Page', () => {
 
   it('interceptes clicking content links', () => {
     const {root} = renderDomWithReferences();
-    const [firstLink, secondLink, thirdLink] = Array.from(root.querySelectorAll('[data-type="page"] a'));
-    const button = root.querySelector('[data-type="page"] button');
+    const [firstLink, secondLink, thirdLink] = Array.from(root.querySelectorAll('#main-content a'));
+    const button = root.querySelector('#main-content button');
 
     if (!document || !firstLink || !secondLink || !thirdLink || !button) {
       expect(document).toBeTruthy();
@@ -197,7 +197,7 @@ describe('Page', () => {
 
   it('removes listener when it unmounts', () => {
     const { root } = renderDomWithReferences();
-    const links = Array.from(root.querySelectorAll('[data-type="page"] a'));
+    const links = Array.from(root.querySelectorAll('#main-content a'));
 
     for (const link of links) {
       link.removeEventListener = jest.fn();
@@ -213,7 +213,7 @@ describe('Page', () => {
 
   it('doesn\'t break when trying to remove listeners from elements that have no stored handler', () => {
     const { root } = renderDomWithReferences();
-    const pageElement = root.querySelector('[data-type="page"]');
+    const pageElement = root.querySelector('#main-content > div');
 
     if (pageElement && document) {
       pageElement.append(document.createElement('a'));
