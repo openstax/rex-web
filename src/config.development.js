@@ -13,7 +13,7 @@ module.exports = {
     '4e09771f-a8aa-40ce-9063-aa58cc24e77f':{'defaultVersion':'8.5'}, // Introduction to Business
     'bc498e1f-efe9-43a0-8dea-d3569ad09a82':{'defaultVersion':'7.1'}, // Principles of Economics 2e
     'caa57dab-41c7-455e-bd6f-f443cda5519c':{'defaultVersion':'18.1'}, // Prealgebra
-    'fd53eae1-fa23-47c7-bb1b-972349835c3c':{'defaultVersion':'10.3'}, // Precalculus
+    // 'fd53eae1-fa23-47c7-bb1b-972349835c3c':{'defaultVersion':'10.3'}, // Precalculus. Broken because contains link to external content.
   },
   
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
