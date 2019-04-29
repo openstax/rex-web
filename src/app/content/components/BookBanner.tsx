@@ -23,10 +23,11 @@ import {
 import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
-  blue: '#004aa2',
-  gray: '#97999b',
-  green: '#9cd14a',
-  yellow: '#faea36',
+  'blue': '#004aa2',
+  'deep-green': '#9cd14a',
+  'gray': '#97999b',
+  'green': '#9cd14a',
+  'yellow': '#faea36',
 };
 
 const applyBookTextColor = (props: {theme: Book['theme']}) => css`
