@@ -112,7 +112,7 @@ export class PageComponent extends Component<PropTypes> {
       </BookStyles>;
     } else {
       return <MainContent className={this.props.className} isGenericStyle={true}>
-        <div 
+        <div
           ref={(ref: any) => this.container = ref}
           dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}/>
       </MainContent>;
