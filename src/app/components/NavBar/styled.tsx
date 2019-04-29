@@ -216,7 +216,7 @@ export const DropdownOverlay = styled.div`
       height: auto;
       width: auto;
       right: 0;
-      bottom: 0;
+      bottom: -100%;
     }
 
     > div {
