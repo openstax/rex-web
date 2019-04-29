@@ -102,8 +102,27 @@ Array [
 
 @media screen and (max-width:64em) {
   .c2 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c2 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -116,6 +135,12 @@ Array [
 
 @media screen and (max-width:64em) {
   .c5 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -271,8 +296,27 @@ Array [
 
 @media screen and (max-width:64em) {
   .c2 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c2 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -284,13 +328,27 @@ Array [
 
 @media screen and (max-width:64em) {
   .c5 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
 @media screen and (max-width:64em) {
   .c5 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
