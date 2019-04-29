@@ -202,7 +202,6 @@ export const DropdownOverlay = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 40%;
     top: 0;
     left: 0;
     height: 0;
@@ -212,6 +211,7 @@ export const DropdownOverlay = styled.div`
     &:focus,
     &.ally-focus-within,
     ${DropdownToggle}:focus ~ & {
+      padding-top: 40%;
       background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
       height: auto;
       width: auto;
@@ -221,6 +221,7 @@ export const DropdownOverlay = styled.div`
 
     > div {
       width: min-content;
+      overflow: visible;
     }
   `)}
 `;
