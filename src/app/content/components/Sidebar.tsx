@@ -14,7 +14,7 @@ import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page, State } from '../types';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
-import { scrollTocSectionIntoView } from '../utils/domUtils';
+import { expandCurrentChapter, scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
   bookBannerDesktopMiniHeight,
@@ -35,8 +35,12 @@ import { styleWhenSidebarClosed } from './utils/sidebar';
 const sidebarPadding = 1.8;
 const numberCharacterWidth = 0.8;
 const numberPeriodWidth = 0.2;
-const iconPadding = 0;
 const iconSize = 1.7;
+const tocLinkHover = css`
+  :hover {
+    color: ${theme.color.text.black}
+  }
+`;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
@@ -157,10 +161,25 @@ const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />
 
 // tslint:disable-next-line:variable-name
 const SummaryTitle = styled.span`
+  ${tocLinkHover}
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
   width: 100%;
+  display: flex;
+`;
+
+// tslint:disable-next-line:variable-name
+const ContentLink = styled(ContentLinkComponent)`
+  ${textStyle}
+  ${tocLinkHover}
+  display: flex;
+  margin-left: ${iconSize}rem;
+  text-decoration: none;
+
+  li[aria-label="Current Page"] & {
+    font-weight: bold;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -173,19 +192,6 @@ const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = 
 );
 
 // tslint:disable-next-line:variable-name
-const ContentLink = styled(ContentLinkComponent)`
-  ${textStyle}
-  display: flex;
-  margin-left: ${iconPadding + iconSize}rem;
-  text-decoration: none;
-
-  li[aria-label="Current Page"] & {
-    font-weight: bold;
-  }
-
-`;
-
-// tslint:disable-next-line:variable-name
 const NavItem = styled(NavItemComponent)`
   ${textStyle}
   list-style: none;
@@ -193,19 +199,12 @@ const NavItem = styled(NavItemComponent)`
   line-height: 1.6rem;
   overflow: visible;
   margin: 0 0 1.5rem 0;
-
-  ${SummaryTitle}, ${ContentLink} {
-    :hover {
-      color: ${theme.textColors.black}
-    }
-  }
-
 `;
 
 const expandCollapseIconStyle = css`
   height: ${iconSize}rem;
   width: ${iconSize}rem;
-  margin-right: ${iconPadding}rem;
+  margin-right: 0rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -256,17 +255,6 @@ const getDividerWidth = (section: ArchiveTree) => {
 const NavOl = styled.ol<{section: ArchiveTree}>`
   margin: 0;
   padding: 0rem 3rem 0 0;
-
-  .os-number,
-  .os-divider,
-  .os-text {
-    display: inline-block;
-    overflow: hidden;
-  }
-
-  ${SummaryTitle} {
-    display: flex;
-  }
 
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
@@ -340,7 +328,7 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidMount() {
     this.scrollToSelectedPage();
-    this.expandCurrentChapter();
+    expandCurrentChapter(this.activeSection.current);
 
     const sidebar = this.sidebar.current;
 
@@ -362,45 +350,11 @@ export class Sidebar extends Component<SidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
-    this.expandCurrentChapter();
+    expandCurrentChapter(this.activeSection.current);
   }
 
   private scrollToSelectedPage() {
     scrollTocSectionIntoView(this.sidebar.current, this.activeSection.current);
-  }
-
-  private expandCurrentChapter() {
-
-    if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
-      return;
-    }
-
-    const currentChapter = this.activeSection.current;
-    let parent: HTMLElement;
-    let counter = 1;
-
-    if ( currentChapter && currentChapter.parentElement) {
-      parent = currentChapter.parentElement;
-
-      while ( parent.getAttribute('aria-label') !== 'Table of Contents'
-        && counter < 10) {
-        console.log(parent);
-
-        if ( parent.tagName === 'DETAILS'
-          && !parent.hasAttribute('open')
-        ) {
-          parent.setAttribute('open', '');
-        }
-
-        if ( parent.parentElement ) {
-          parent = parent.parentElement;
-        } else {
-          return null;
-        }
-        counter++;
-
-      }
-    }
   }
 
   private renderChildren = (book: Book, section: ArchiveTree) =>
