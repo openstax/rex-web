@@ -158,7 +158,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
       });
     }
-  }
+  };
 
   public componentDidMount() {
     const document = assertDocument();
@@ -198,7 +198,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
         <BookChapter theme={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
       </TopBar>
     </BarWrapper>,
-  ])
+  ]);
 }
 
 export default connect(

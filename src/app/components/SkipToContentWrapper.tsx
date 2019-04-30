@@ -23,11 +23,11 @@ export default class SkipToContentWrapper extends Component {
     } else {
       throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?`);
     }
-  }
+  };
 
   private registerMainContent = (mainContent: HTMLDivElement | null) => {
     if (mainContent) {
       this.mainContent = mainContent;
     }
-  }
+  };
 }

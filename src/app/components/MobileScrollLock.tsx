@@ -76,5 +76,5 @@ export default class MobileScrollLock extends React.Component<Props> {
     ) {
       e.preventDefault();
     }
-  }
+  };
 }
