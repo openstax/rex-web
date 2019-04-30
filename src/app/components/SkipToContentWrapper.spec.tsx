@@ -26,7 +26,7 @@ describe('SkipToContentWrapper', () => {
 
     it('fails when main is not wrapped in a SkipToContentWrapper', () => {
         const breaks = () => renderToDom(<MessageProvider>
-            <MainContent/>
+            <MainContent isGenericStyle={true}/>
         </MessageProvider>);
         expectError('BUG: MainContent must be inside SkipToContentWrapper', breaks);
     });
@@ -34,7 +34,7 @@ describe('SkipToContentWrapper', () => {
     it('succeeds when main content is provided', () => {
         const {node} = renderToDom(<MessageProvider>
             <SkipToContentWrapper>
-                <MainContent/>
+                <MainContent isGenericStyle={true}/>
             </SkipToContentWrapper>
         </MessageProvider>);
 
