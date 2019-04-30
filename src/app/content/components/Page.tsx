@@ -97,7 +97,10 @@ export class PageComponent extends Component<PropTypes> {
     const book = this.props.book && BOOKS[this.props.book.id] || null;
     if (book && book.bookStyleName) {
       const bookStyles = assertString(getBookStyles().get(book.bookStyleName), 'missing book style: intro-business');
-      const BookStyles = styled.div`${bookStyles}`; // tslint:disable-line:variable-name
+      // tslint:disable-next-line:variable-name
+      const BookStyles = styled.div`
+        ${bookStyles}
+      `;
 
       return <BookStyles>
         <MainContent className={this.props.className} isGenericStyle={false}>
