@@ -45,7 +45,7 @@ describe('SkipToContentWrapper', () => {
     it('scrolls and moves focus to mainContent when clicked (a11y)', () => {
         const {node, tree} = renderToDom(<MessageProvider>
             <SkipToContentWrapper>
-                <MainContent/>
+                <MainContent isGenericStyle={true}/>
             </SkipToContentWrapper>
         </MessageProvider>);
 
