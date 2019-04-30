@@ -96,7 +96,8 @@ export class PageComponent extends Component<PropTypes> {
   public render() {
     const book = this.props.book && BOOKS[this.props.book.id] || null;
     if (book && book.bookStyleName) {
-      const bookStyles = assertString(getBookStyles().get(book.bookStyleName), 'missing book style: intro-business');
+      const bookStyles = assertString(getBookStyles().get(book.bookStyleName),
+        `missing book style: "${book.bookStyleName}"`);
       // tslint:disable-next-line:variable-name
       const BookStyles = styled.div`
         ${bookStyles}

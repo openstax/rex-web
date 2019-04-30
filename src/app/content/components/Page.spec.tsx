@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import scrollTo from 'scroll-to-element';
+import { BOOKS } from '../../../config';
 import * as mathjax from '../../../helpers/mathjax';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import mockArchiveLoader, {
@@ -378,4 +379,17 @@ describe('Page', () => {
 
     expect(spy).not.toHaveBeenCalled();
   });
+
+  it('sets data-is-generic-style="true" by default', () => {
+    const { root } = renderDomWithReferences();
+    expect(root.querySelector('#main-content[data-is-generic-style="true"]')).toBeTruthy();
+  });
+
+  it('sets data-is-generic-style="false" for books which should use the custom baked style', () => {
+    BOOKS[book.id].bookStyleName = 'intro-business';
+    const { root } = renderDomWithReferences();
+    delete BOOKS[book.id].bookStyleName;
+    expect(root.querySelector('#main-content[data-is-generic-style="false"]')).toBeTruthy();
+  });
+
 });
