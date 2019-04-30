@@ -1,0 +1,615 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`content matches snapshot for logged in 1`] = `
+.c8 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  max-width: 117rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3rem;
+}
+
+.c4 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  overflow: visible;
+  position: relative;
+}
+
+.c12 {
+  display: none;
+  width: auto;
+  height: 2rem;
+  position: absolute;
+  left: 1.6rem;
+  top: 0.8rem;
+}
+
+.c7 {
+  margin-left: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.c9 {
+  margin-top: 0.1rem;
+  margin-left: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  display: none;
+}
+
+.c6 {
+  display: block;
+  font-size: 1.8rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 1rem 0;
+  font-family: Neue Helvetica W01;
+  color: #5e6062;
+  cursor: pointer;
+}
+
+.c6:hover {
+  color: #424242;
+}
+
+.c13 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.04rem;
+  -moz-letter-spacing: -0.04rem;
+  -ms-letter-spacing: -0.04rem;
+  letter-spacing: -0.04rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  padding-bottom: 0;
+  display: none;
+}
+
+.c14 {
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  overflow: visible;
+  margin: 0;
+  padding: 0.6rem 0;
+  position: absolute;
+  background: #fff;
+  top: calc(100% - 0.4rem);
+  right: 0;
+  border-top: 0.4rem solid #63a524;
+}
+
+.c14 > li {
+  overflow: visible;
+  display: block;
+}
+
+.c14 > li a {
+  overflow: visible;
+  white-space: nowrap;
+  display: block;
+  padding: 0 1rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c14 > li a:hover {
+  color: #0064A0;
+}
+
+.c3:not(:hover):not(.ally-focus-within) .c14 {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3:not(:hover):not(:focus-within) .c14 {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c11 {
+  overflow: visible;
+}
+
+.c15 {
+  position: fixed;
+  top: 1rem;
+  right: 1.6rem;
+  color: #5e6062;
+  display: none;
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 5;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width:64em) {
+  .c1 {
+    height: 3.6rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c2 {
+    height: 2rem;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c12 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c7 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c9 {
+    display: inline;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c6 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    padding: 0.7rem 0;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c13 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c14 {
+    box-shadow: none;
+    position: static;
+    border: none;
+    background: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c11 {
+    background: rgba(255,255,255,0);
+    -webkit-transition: background 200ms;
+    transition: background 200ms;
+    position: fixed;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  .c11:focus,
+  .c11.ally-focus-within,
+  .c5:focus ~ .c11 {
+    padding-top: 40%;
+    background: rgba(255,255,255,0.98);
+    height: auto;
+    width: auto;
+    right: 0;
+    bottom: -100%;
+  }
+
+  .c11 > div {
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+    overflow: visible;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c5:focus ~ .c15,
+  .c10:focus ~ .c15,
+  .c10.ally-focus-within ~ .c15 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="OpenStax Logo"
+        className="c2"
+        role="img"
+        src="logo.svg"
+      />
+    </a>
+    <div
+      className="c3 c4"
+    >
+      <span
+        className="c5 c6"
+        tabIndex="0"
+      >
+        Hi test
+        <svg
+          aria-hidden="true"
+          className="c7 c8"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+            fill="currentColor"
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          className="c9 c8"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+      <div
+        className="c10 c11"
+        tabIndex="-1"
+      >
+        <img
+          aria-hidden="true"
+          className="c12"
+          src="logo.svg"
+        />
+        <div>
+          <h4
+            className="c13"
+          >
+            Hi test
+          </h4>
+          <ul
+            className="c14"
+          >
+            <li>
+              <a
+                href="/accounts/profile"
+              >
+                Account Profile
+              </a>
+            </li>
+            <li>
+              <a
+                href="/accounts/logout"
+              >
+                Log out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <a
+        aria-hidden="true"
+        className="c15"
+        href=""
+        tabIndex="-1"
+      >
+        <svg
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            id="Symbols"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              id="ToC-Panel"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                id="X"
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                  id="Combined-Shape"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`content matches snapshot for logged out 1`] = `
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  max-width: 117rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3rem;
+}
+
+.c3 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  display: block;
+  font-size: 1.8rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 1rem 0;
+  font-family: Neue Helvetica W01;
+  color: #5e6062;
+}
+
+.c3:hover,
+.c3:active,
+.c3:focus {
+  padding-bottom: 0.6rem;
+  border-bottom: 0.4rem solid #63a524;
+}
+
+.c3:hover {
+  color: #424242;
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 5;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width:64em) {
+  .c1 {
+    height: 3.6rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c2 {
+    height: 2rem;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c3 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    padding: 0.7rem 0;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c3:hover,
+  .c3:active,
+  .c3:focus {
+    padding: 0.7rem 0;
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="OpenStax Logo"
+        className="c2"
+        role="img"
+        src="logo.svg"
+      />
+    </a>
+    <a
+      className="c3"
+      href="/accounts/login?r=%2F"
+    >
+      Login
+    </a>
+  </div>
+</div>
+`;
+
+exports[`content matches snapshot for null state 1`] = `
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  max-width: 117rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3rem;
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 5;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width:64em) {
+  .c1 {
+    height: 3.6rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c2 {
+    height: 2rem;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="OpenStax Logo"
+        className="c2"
+        role="img"
+        src="logo.svg"
+      />
+    </a>
+  </div>
+</div>
+`;
