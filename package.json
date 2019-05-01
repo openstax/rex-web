@@ -156,7 +156,7 @@
       "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js"
     },
     "collectCoverageFrom": [
-      "src/{app,helpers}/**/*.{ts,tsx}"
+      "src/{app,helpers,gateways}/**/*.{ts,tsx}"
     ]
   }
 }

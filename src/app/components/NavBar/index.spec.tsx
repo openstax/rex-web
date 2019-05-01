@@ -1,15 +1,15 @@
-import React, {ComponentClass} from 'react';
+import React, { ComponentClass } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import { renderToDom } from '../../../test/reactutils';
 import renderer from 'react-test-renderer';
-import NavBar, {Dropdown} from '.';
-import {Store} from '../../types';
-import {assertWindowDefined} from '../../utils';
+import NavBar, { Dropdown } from '.';
 import createTestStore from '../../../test/createTestStore';
+import { renderToDom } from '../../../test/reactutils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import MessageProvider from '../../MessageProvider';
+import { Store } from '../../types';
+import { assertWindowDefined } from '../../utils';
 
 describe('content', () => {
   let store: Store;
@@ -73,7 +73,7 @@ describe('content', () => {
         tree,
         Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
       );
-      const overlay = ReactDOM.findDOMNode(overlayComponent)
+      const overlay = ReactDOM.findDOMNode(overlayComponent);
 
       getComputedStyle.mockReturnValue({height: '10px'});
 
@@ -93,7 +93,7 @@ describe('content', () => {
         tree,
         Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
       );
-      const overlay = ReactDOM.findDOMNode(overlayComponent)
+      const overlay = ReactDOM.findDOMNode(overlayComponent);
 
       getComputedStyle.mockReturnValue({height: '0px'});
 
