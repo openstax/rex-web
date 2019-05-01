@@ -17,7 +17,7 @@ if (typeof(window) !== 'undefined') {
   import('ally.js/style/focus-within').then((module) => module.default());
 }
 
-class Dropdown extends React.Component<{user: User}> {
+export class Dropdown extends React.Component<{user: User}> {
   private overlay = React.createRef<HTMLElement>();
 
   public render() {

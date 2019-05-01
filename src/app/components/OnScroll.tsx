@@ -9,6 +9,7 @@ export default class OnScroll extends React.Component<Props> {
     if (typeof(document) === 'undefined') {
       return;
     }
+
     document.addEventListener('touchmove', this.props.callback, {passive: false});
     document.addEventListener('scroll', this.props.callback, {passive: false});
   }
