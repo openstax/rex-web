@@ -42,14 +42,41 @@ describe('content', () => {
       expect(tree).toMatchSnapshot();
     });
 
-    it('matches snapshot for logged in', () => {
+    describe('when logged in', () => {
+      beforeEach(() => {
+        store.dispatch(receiveUser({firstName: 'test'}));
+      });
 
-      store.dispatch(receiveUser({firstName: 'test'}));
+      it('matches snapshot', () => {
+        const component = renderer.create(render());
 
-      const component = renderer.create(render());
+        const tree = component.toJSON();
+        expect(tree).toMatchSnapshot();
+      });
 
-      const tree = component.toJSON();
-      expect(tree).toMatchSnapshot();
+      it('doesn\'t prevent default on accounts links', async() => {
+        const window = assertWindowDefined();
+        const {root} = renderToDom(render());
+        const link1 = root.querySelector('a[href="/accounts/logout"]');
+        const link2 = root.querySelector('a[href="/accounts/profile"]');
+
+        if (!link1 || !link2) {
+          expect(link1).toBeTruthy();
+          expect(link2).toBeTruthy();
+          return;
+        }
+
+        const event = window.document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        const preventDefault = event.preventDefault = jest.fn();
+
+        link1.dispatchEvent(event); // this checks for bindings using addEventListener
+        ReactTestUtils.Simulate.click(link1, {preventDefault}); // this checks for react onClick prop
+        link2.dispatchEvent(event);
+        ReactTestUtils.Simulate.click(link2, {preventDefault});
+
+        expect(event.preventDefault).not.toHaveBeenCalled();
+      });
     });
 
     it('matches snapshot for logged out', () => {

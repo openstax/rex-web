@@ -1,6 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`content in browser matches snapshot for logged in 1`] = `
+exports[`content in browser matches snapshot for logged out 1`] = `
+<div
+  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
+>
+  <div
+    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="OpenStax Logo"
+        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
+        role="img"
+        src="logo.svg"
+      />
+    </a>
+    <a
+      className="styled__Link-sc-3syvnw-6 dAtrsj"
+      href="/accounts/login?r=%2F"
+    >
+      Login
+    </a>
+  </div>
+</div>
+`;
+
+exports[`content in browser matches snapshot for null state 1`] = `
+<div
+  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
+>
+  <div
+    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="OpenStax Logo"
+        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
+        role="img"
+        src="logo.svg"
+      />
+    </a>
+  </div>
+</div>
+`;
+
+exports[`content in browser when logged in matches snapshot 1`] = `
 <div
   className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
 >
@@ -78,6 +126,7 @@ exports[`content in browser matches snapshot for logged in 1`] = `
             <li>
               <a
                 href="/accounts/logout"
+                onClick={[Function]}
               >
                 Log out
               </a>
@@ -123,54 +172,6 @@ exports[`content in browser matches snapshot for logged in 1`] = `
         </svg>
       </a>
     </div>
-  </div>
-</div>
-`;
-
-exports[`content in browser matches snapshot for logged out 1`] = `
-<div
-  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
->
-  <div
-    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
-  >
-    <a
-      href="/"
-    >
-      <img
-        alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
-        role="img"
-        src="logo.svg"
-      />
-    </a>
-    <a
-      className="styled__Link-sc-3syvnw-6 dAtrsj"
-      href="/accounts/login?r=%2F"
-    >
-      Login
-    </a>
-  </div>
-</div>
-`;
-
-exports[`content in browser matches snapshot for null state 1`] = `
-<div
-  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
->
-  <div
-    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
-  >
-    <a
-      href="/"
-    >
-      <img
-        alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
-        role="img"
-        src="logo.svg"
-      />
-    </a>
   </div>
 </div>
 `;
