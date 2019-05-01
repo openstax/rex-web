@@ -36,7 +36,7 @@
     "lint:exports": "ts-unused-exports ./tsconfig.json",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
-    "start": "HTTPS=true react-scripts start",
+    "start": "HTTPS=${HTTPS:-true} react-scripts start",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender && npm run-script server",
     "clean": "rm -rf ./build",
     "build": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} react-scripts build",
