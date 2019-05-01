@@ -1,39 +1,41 @@
-from selenium import webdriver
+
 import unittest
 from time import sleep
 
+from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
-
 
 class Citationtexturl(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
-
     def teardown(self):
         self.browser.quit()
 
-    # c476303 attribution section is initially collapsed, expands when clicked
+
+
+#c476303 attribution section is initially collapsed, expands when clicked
     def test_c476303_attribution_initial_status(self):
-        self.browser.get("https://rex-web.herokuapp.com/books/college-physics/pages/preface")
+
+        page_url = "https://rex-web.herokuapp.com/books/college-physics/pages/preface"
+        attribute_xpath_locator = '//*[@id="root"]/div[2]/div[4]/div/div[2]/div/div/details'
+
+        self.browser.get(page_url)
         sleep(2)
-        self.browser.find_element_by_xpath(
-            '//*[@id="root"]/div[2]/div[4]/div/div[2]/div/div/details'
-        ).click()
-        # y = self.browser.get_attribute(x)
-        # print(y)
+        attribute_element = self.browser.find_element_by_xpath(attribute_xpath_locator)
+        attribute_element.click()
+        is_attribute_open = attribute_element.is_selected()
+        print(is_attribute_open)
 
-        # self.assertEqual(self.browser.get_attribute(details),open)
+        
+        #attribute_xpath_after_click = '//*[@id="root"]/div[2]/div[4]/div/div[2]/div/div/details'
+        #attribute_element_after_click = self.browser.find_element_by_xpath(attribute_xpath_after_click)
+        #attribute_element_after_click.click()
+        #is_attribute_closed = attribute_element_after_click.is_selected()
+        #print(is_attribute_closed)
 
-        # url = 'http://localhost:8000/analyse/'
+        sleep(20)
+    
 
-        org = self.browser.find_element_by_xpath(
-            '//*[@id="root"]/div[2]/div[4]/div/div[2]/div/div/details'
-        )
-        # Find the value of org?
-        # val = org.get_attribute("class")
-        y = org.is_selected()
-
-        # class="Attribution__Details-sc-11isnv6-4 fPeJdR"
-        # is_open = "open" in org.get_attribute("class")
-        print(y)
+if __name__ == '__main__': 
+    unittest.main() 
