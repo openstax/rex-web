@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import NavBar, { Dropdown } from '.';
 import createTestStore from '../../../test/createTestStore';
 import { renderToDom } from '../../../test/reactutils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
@@ -12,99 +11,151 @@ import { Store } from '../../types';
 import { assertWindowDefined } from '../../utils';
 
 describe('content', () => {
-  let store: Store;
-
   beforeEach(() => {
-    store = createTestStore();
+    jest.resetModules();
+    jest.resetAllMocks();
   });
 
-  const render = () => <Provider store={store}>
-    <MessageProvider>
-      <NavBar />
-    </MessageProvider>
-  </Provider>;
-
-  it('matches snapshot for null state', () => {
-    const component = renderer.create(render());
-
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('matches snapshot for logged in', () => {
-
-    store.dispatch(receiveUser({firstName: 'test'}));
-
-    const component = renderer.create(render());
-
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('matches snapshot for logged out', () => {
-
-    store.dispatch(receiveLoggedOut());
-
-    const component = renderer.create(render());
-
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  describe('manages scroll based on ovelay', () => {
-    let window: Window;
-    let getComputedStyle: jest.SpyInstance;
-    let getComputedStyleBack: Window['getComputedStyle'];
+  describe('in browser', () => {
+    // tslint:disable-next-line:variable-name
+    let NavBar: any;
+    // tslint:disable-next-line:variable-name
+    let Dropdown: any;
+    let store: Store;
 
     beforeEach(() => {
+      store = createTestStore();
+      NavBar = require('.').default;
+      Dropdown = require('.').Dropdown;
+    });
+
+    const render = () => <Provider store={store}>
+      <MessageProvider>
+        <NavBar />
+      </MessageProvider>
+    </Provider>;
+
+    it('matches snapshot for null state', () => {
+      const component = renderer.create(render());
+
+      const tree = component.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+
+    it('matches snapshot for logged in', () => {
+
       store.dispatch(receiveUser({firstName: 'test'}));
-      window = assertWindowDefined();
-      getComputedStyleBack = window.getComputedStyle;
-      getComputedStyle = window.getComputedStyle = jest.fn();
+
+      const component = renderer.create(render());
+
+      const tree = component.toJSON();
+      expect(tree).toMatchSnapshot();
     });
 
-    afterEach(() => {
-      window.getComputedStyle = getComputedStyleBack;
+    it('matches snapshot for logged out', () => {
+
+      store.dispatch(receiveLoggedOut());
+
+      const component = renderer.create(render());
+
+      const tree = component.toJSON();
+      expect(tree).toMatchSnapshot();
     });
 
-    it('blocks scroll when shown', () => {
-      const {tree} = renderToDom(render());
-      const overlayComponent = ReactTestUtils.findRenderedComponentWithType(
-        tree,
-        Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
-      );
-      const overlay = ReactDOM.findDOMNode(overlayComponent);
+    describe('manages scroll based on ovelay', () => {
+      let window: Window;
+      let getComputedStyle: jest.SpyInstance;
+      let getComputedStyleBack: Window['getComputedStyle'];
 
-      getComputedStyle.mockReturnValue({height: '10px'});
+      beforeEach(() => {
+        store.dispatch(receiveUser({firstName: 'test'}));
+        window = assertWindowDefined();
+        getComputedStyleBack = window.getComputedStyle;
+        getComputedStyle = window.getComputedStyle = jest.fn();
+      });
 
-      const event = window.document.createEvent('UIEvents');
-      event.initEvent('scroll', true, false);
-      const preventDefault = jest.spyOn(event, 'preventDefault');
+      afterEach(() => {
+        window.getComputedStyle = getComputedStyleBack;
+      });
 
-      window.document.dispatchEvent(event);
+      it('blocks scroll when shown', () => {
+        const {tree} = renderToDom(render());
+        const overlayComponent = ReactTestUtils.findRenderedComponentWithType(
+          tree,
+          Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
+        );
+        const overlay = ReactDOM.findDOMNode(overlayComponent);
 
-      expect(getComputedStyle).toHaveBeenCalledWith(overlay);
-      expect(preventDefault).toHaveBeenCalled();
+        getComputedStyle.mockReturnValue({height: '10px'});
+
+        const event = window.document.createEvent('UIEvents');
+        event.initEvent('scroll', true, false);
+        const preventDefault = jest.spyOn(event, 'preventDefault');
+
+        window.document.dispatchEvent(event);
+
+        expect(getComputedStyle).toHaveBeenCalledWith(overlay);
+        expect(preventDefault).toHaveBeenCalled();
+      });
+
+      it('allows scroll when hidden', () => {
+        const {tree} = renderToDom(render());
+        const overlayComponent = ReactTestUtils.findRenderedComponentWithType(
+          tree,
+          Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
+        );
+        const overlay = ReactDOM.findDOMNode(overlayComponent);
+
+        getComputedStyle.mockReturnValue({height: '0px'});
+
+        const event = window.document.createEvent('UIEvents');
+        event.initEvent('scroll', true, false);
+        const preventDefault = jest.spyOn(event, 'preventDefault');
+
+        window.document.dispatchEvent(event);
+
+        expect(getComputedStyle).toHaveBeenCalledWith(overlay);
+        expect(preventDefault).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('polyfill', () => {
+    let loaded: boolean;
+
+    beforeEach(() => {
+      loaded = false;
+
+      jest.mock('ally.js/style/focus-within', () => {
+        loaded = true;
+      });
     });
 
-    it('allows scroll when hidden', () => {
-      const {tree} = renderToDom(render());
-      const overlayComponent = ReactTestUtils.findRenderedComponentWithType(
-        tree,
-        Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
-      );
-      const overlay = ReactDOM.findDOMNode(overlayComponent);
+    describe('inside browser', () => {
+      it('loads', async() => {
+        await import('.');
+        expect(loaded).toBe(true);
+      });
+    });
 
-      getComputedStyle.mockReturnValue({height: '0px'});
+    describe('outside of browser', () => {
+      const documentBack = document;
+      const windowBack = window;
 
-      const event = window.document.createEvent('UIEvents');
-      event.initEvent('scroll', true, false);
-      const preventDefault = jest.spyOn(event, 'preventDefault');
+      beforeEach(() => {
+        delete (global as any).document;
+        delete (global as any).window;
+      });
 
-      window.document.dispatchEvent(event);
+      afterEach(() => {
+        (global as any).document = documentBack;
+        (global as any).window = windowBack;
+      });
 
-      expect(getComputedStyle).toHaveBeenCalledWith(overlay);
-      expect(preventDefault).not.toHaveBeenCalled();
+      it('doesn\'t load', async() => {
+        await import('.');
+        expect(loaded).toBe(false);
+      });
     });
   });
 });
