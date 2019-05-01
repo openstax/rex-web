@@ -13,6 +13,7 @@ class Content(Page):
 
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
+    _toolbar_locator = ()
     _table_of_contents_button_locator = (
         By.CSS_SELECTOR,
         "[aria-label='Click to close the Table of Contents'], [aria-label='Click to open the Table of Contents']",
