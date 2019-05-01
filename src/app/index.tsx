@@ -123,9 +123,8 @@ export default (options: AppOptions) => {
       getState: store.getState,
       ...services,
     });
-    if (promise) {
-      services.promiseCollector.add(promise);
-    }
+
+    services.promiseCollector.add(promise);
   }
 
   return {

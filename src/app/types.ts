@@ -53,7 +53,7 @@ export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
 export type MiddlewareAPI = ReduxMiddlewareAPI<Dispatch, AppState>;
 export type Store = ReduxStore<AppState, AnyAction>;
 
-export type Initializer = (helpers: MiddlewareAPI & AppServices) => Promise<any> | void;
+export type Initializer = (helpers: MiddlewareAPI & AppServices) => Promise<any>;
 
 export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI & AppServices) =>
   (action: ReturnType<C>) => Promise<any> | void;
