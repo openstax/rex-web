@@ -62,7 +62,7 @@ export class Dropdown extends React.Component<{user: User}> {
 // tslint:disable-next-line:variable-name
 const DropdownToggle: SFC<{user: User}> = ({user}) =>
   <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
-    {(msg: Element | string) => <Styled.DropdownToggle tabIndex='0'>
+    {(msg: Element | string) => <Styled.DropdownToggle tabIndex='0' data-testid='user-nav-toggle'>
       {msg}
       <Styled.DownIcon aria-hidden='true' />
       <Styled.HamburgerIcon ariaHidden='true' />
@@ -70,7 +70,7 @@ const DropdownToggle: SFC<{user: User}> = ({user}) =>
   </FormattedMessage>;
 
 // tslint:disable-next-line:variable-name
-const LoggedInState: SFC<{user: User}> = ({user}) => <Styled.DropdownContainer>
+const LoggedInState: SFC<{user: User}> = ({user}) => <Styled.DropdownContainer data-testid='user-nav'>
   <DropdownToggle user={user} />
   <Dropdown user={user} />
   <Styled.TimesIcon />
