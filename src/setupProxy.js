@@ -45,56 +45,54 @@ const isFile = path =>
 
 const isDirectory = path => fs.existsSync(path) && fs.lstatSync(path).isDirectory();
 
+const sendFile = (res, path) => {
+  const body = new Promise((resolve, reject) =>
+    fs.readFile(path, (err, contents) => err ? reject(err) : resolve(contents))
+  );
+  const statusFile = `${path}.status`;
+  const status = new Promise((resolve, reject) => isFile(statusFile)
+    ? fs.readFile(statusFile, (err, contents) => err ? reject(err) : resolve(contents))
+    : resolve(200)
+  );
+
+  Promise.all([body, status]).then(([body, status]) => {
+    res.status(status);
+    res.end(body);
+  });
+};
+
+const findFileIn = (baseDir, reqInfo) => {
+  const filePath = path.join(baseDir, reqInfo.pathname);
+  const queryFilePath = path.join(filePath,
+    reqInfo.search ? encodeURIComponent(reqInfo.search) : ''
+  );
+  const indexFilePath = path.join(filePath, 'index.html');
+
+  if (isFile(queryFilePath)) {
+    return queryFilePath;
+  } else if (isFile(filePath)) {
+    return filePath;
+  } else if (isDirectory(filePath) && isFile(indexFilePath)) {
+    return indexFilePath;
+  } else {
+    return null;
+  }
+};
+
 function setupTestProxy(app) {
   console.info('WEBSERVER: Including fixtures');
 
   app.use((req, res, next) => {
     const reqInfo = getReqInfo(req);
-    const parts = url.parse(req.url);
-
-    const sendFile = path => {
-      const body = new Promise((resolve, reject) =>
-        fs.readFile(path, (err, contents) => err ? reject(err) : resolve(contents))
-      );
-      const statusFile = `${path}.status`;
-      const status = new Promise((resolve, reject) => isFile(statusFile)
-        ? fs.readFile(statusFile, (err, contents) => err ? reject(err) : resolve(contents))
-        : resolve(200)
-      );
-
-      Promise.all([body, status]).then(([body, status]) => {
-        res.status(status);
-        res.end(body);
-      });
-    };
-
-    const findFileIn = baseDir => {
-      const filePath = path.join(baseDir, reqInfo.pathname);
-      console.log(filePath);
-      const queryFilePath = path.join(filePath,
-        parts.search ? encodeURIComponent(reqInfo.search) : ''
-      );
-      const indexFilePath = path.join(filePath, 'index.html');
-
-      if (isFile(queryFilePath)) {
-        return queryFilePath;
-      } else if (isFile(filePath)) {
-        return filePath;
-      } else if (isDirectory(filePath) && isFile(indexFilePath)) {
-        return indexFilePath;
-      } else {
-        return null;
-      }
-    };
 
     const fixtureDir = path.join(__dirname, 'test/fixtures');
-    const authFile = findFileIn(path.join(fixtureDir, 'authenticated'));
-    const publicFile = findFileIn(fixtureDir);
+    const authFile = findFileIn(path.join(fixtureDir, 'authenticated'), reqInfo);
+    const publicFile = findFileIn(fixtureDir, reqInfo);
 
     if (authFile && reqInfo.authenticated) {
-      sendFile(authFile);
+      sendFile(res, authFile);
     } else if (publicFile) {
-      sendFile(publicFile);
+      sendFile(res, publicFile);
     } else {
       next();
     }
