@@ -274,11 +274,11 @@ const Details = styled.details`
   border: none;
   overflow: visible;
 
-  &[open] ${ExpandIcon} {
+  &[open] > ${Summary} > ${ExpandIcon} {
     display: none;
   }
 
-  &:not([open]) ${CollapseIcon} {
+  &:not([open]) > ${Summary} > ${CollapseIcon} {
     display: none;
   }
 

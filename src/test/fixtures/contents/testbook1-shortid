@@ -23,13 +23,20 @@
         "id": "testbook1-testchapter1-uuid@1.0",
         "contents": [
           {
-            "shortId": "testpage2-shortid@1.0",
-            "id": "testbook1-testpage2-uuid@1.0",
-            "title": "<span class=\"os-text\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+            "shortId": "testchapter10@1.0",
+            "id": "",
+            "contents": [
+              {
+                "shortId": "testpage2-shortid@1.0",
+                "id": "testbook1-testpage2-uuid@1.0",
+                "title": "<span class=\"os-text\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+              }
+            ],
+            "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 1.1</span>"
           },
           {
-            "shortId": "testpage1-1-shortid@1.0",
-            "id": "testbook1-testpage1-1-uuid@1.0",
+            "shortId": "testpage11-shortid@1.0",
+            "id": "testbook1-testpage11-uuid@1.0",
             "title": "<span class=\"os-number\">1.1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Physics: An Introduction</span></span>"
           },
           {
