@@ -126,7 +126,6 @@ exports[`content in browser when logged in matches snapshot 1`] = `
             <li>
               <a
                 href="/accounts/logout"
-                onClick={[Function]}
               >
                 Log out
               </a>
