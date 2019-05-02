@@ -173,16 +173,16 @@ Array [
   overflow: hidden;
 }
 
-.c39 {
+.c49 {
   overflow: visible;
 }
 
-.c39 .os-figure,
-.c39 .os-figure:last-child {
+.c49 .os-figure,
+.c49 .os-figure:last-child {
   margin-bottom: 5px;
 }
 
-.c39 * {
+.c49 * {
   overflow: initial;
 }
 
@@ -194,17 +194,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c47 {
+.c57 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c49 {
+.c59 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c45 {
+.c55 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -215,7 +215,7 @@ Array [
   list-style: none;
 }
 
-.c45 a {
+.c55 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -223,16 +223,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c45 a:hover {
+.c55 a:hover {
   color: #0064A0;
 }
 
-.c45::-webkit-details-marker {
+.c55::-webkit-details-marker {
   display: none;
 }
 
-.c45,
-.c45 span {
+.c55,
+.c55 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -243,8 +243,8 @@ Array [
   text-decoration: none;
 }
 
-.c45 a,
-.c45 span a {
+.c55 a,
+.c55 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -252,19 +252,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c45 a:hover,
-.c45 span a:hover {
+.c55 a:hover,
+.c55 span a:hover {
   color: #0064A0;
 }
 
-.c45:hover,
-.c45 span:hover {
+.c55:hover,
+.c55 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c50 {
+.c60 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -273,7 +273,7 @@ Array [
   margin: 0 auto;
 }
 
-.c50 a {
+.c60 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -281,15 +281,15 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c50 a:hover {
+.c60 a:hover {
   color: #0064A0;
 }
 
-.c50 blockquote {
+.c60 blockquote {
   margin-left: 0;
 }
 
-.c43 {
+.c53 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -301,7 +301,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c43 a {
+.c53 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -309,23 +309,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c43 a:hover {
+.c53 a:hover {
   color: #0064A0;
 }
 
-.c43 > .c44 {
+.c53 > .c54 {
   margin-bottom: 1.8rem;
 }
 
-.c43[open] .c46 {
+.c53[open] .c56 {
   display: none;
 }
 
-.c43:not([open]) .c48 {
+.c53:not([open]) .c58 {
   display: none;
 }
 
-.c43 li {
+.c53 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -495,17 +495,17 @@ Array [
   margin-top: -7rem;
 }
 
-.c41 {
+.c51 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c42 {
+.c52 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c40 {
+.c50 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -530,7 +530,7 @@ Array [
   border-bottom: solid 0.1rem #e5e5e5;
 }
 
-.c40 a {
+.c50 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -538,11 +538,11 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c40 a:hover {
+.c50 a:hover {
   color: #0064A0;
 }
 
-.c40 a {
+.c50 a {
   border: none;
 }
 
@@ -750,25 +750,21 @@ Array [
   flex-direction: column;
 }
 
-.c28 ol {
-  padding-inline-start: 10px;
-}
-
-.c28 > nav {
+.c28 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
-  padding: 1rem;
+  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.c28 > nav::before {
+.c28 > ol::before {
   content: "";
   background: #fafafa;
   display: block;
-  height: 1rem;
-  margin: -1rem -1rem 0 -1rem;
+  height: 1.8rem;
+  margin: -1.8rem -1.8rem 0 -1.8rem;
 }
 
 .c28 > * {
@@ -811,7 +807,7 @@ Array [
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-right: 1rem;
+  margin-right: 1.8rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -831,23 +827,145 @@ Array [
   text-align: left;
 }
 
-.c33 {
-  list-style: none;
+.c43 {
   font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.c34 {
-  list-style: none;
-  font-size: 1.4rem;
-  overflow: visible;
-  position: relative;
+.c43:hover {
+  color: #000;
 }
 
-.c34:before {
+.c36 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 1.7rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c36:hover {
+  color: #000;
+}
+
+li[aria-label="Current Page"] .c36 {
   font-weight: bold;
-  content: '>';
-  position: absolute;
-  right: 100%;
+}
+
+.c35 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  list-style: none;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  overflow: visible;
+  margin: 0 0 1.5rem 0;
+}
+
+.c40 {
+  height: 1.7rem;
+  width: 1.7rem;
+  margin-right: 0rem;
+}
+
+.c42 {
+  height: 1.7rem;
+  width: 1.7rem;
+  margin-right: 0rem;
+}
+
+.c38 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  cursor: pointer;
+}
+
+.c38::-webkit-details-marker {
+  display: none;
+}
+
+.c33 {
+  margin: 0;
+  padding: 0rem 3rem 0 0;
+}
+
+.c33 .os-number {
+  width: 0.8rem;
+}
+
+.c33 .os-divider {
+  width: 0.4rem;
+}
+
+.c33 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c33 ol {
+  margin-left: 1.3rem;
+}
+
+.c44 {
+  margin: 0;
+  padding: 0rem 3rem 0 0;
+}
+
+.c44 .os-number {
+  width: 0rem;
+}
+
+.c44 .os-divider {
+  width: 0.4rem;
+}
+
+.c44 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c44 ol {
+  margin-left: 0.5rem;
+}
+
+.c37 {
+  border: none;
+  overflow: visible;
+}
+
+.c37[open] .c39 {
+  display: none;
+}
+
+.c37:not([open]) .c41 {
+  display: none;
+}
+
+.c37 .c34 {
+  margin-bottom: 1.2rem;
+}
+
+.c37 .c34:first-child {
+  margin-top: 1.5rem;
+}
+
+.c37 .c34:last-child {
+  margin-bottom: 0;
 }
 
 .c27 {
@@ -857,7 +975,7 @@ Array [
 }
 
 @media screen {
-  .c39 {
+  .c49 {
     font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
@@ -867,7 +985,7 @@ Array [
     margin-top: 3.2rem;
   }
 
-  .c39 a {
+  .c49 a {
     color: #027EB5;
     cursor: pointer;
     -webkit-text-decoration: none;
@@ -875,7 +993,7 @@ Array [
     border-bottom: #027EB5 solid 0.02em;
   }
 
-  .c39 a:hover {
+  .c49 a:hover {
     color: #0064A0;
   }
 }
@@ -887,24 +1005,24 @@ Array [
 }
 
 @media screen and (max-width:64em) {
-  .c43 {
+  .c53 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c43 {
+  .c53 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c43 > .c44 {
+  .c53 > .c54 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c43 {
+  .c53 {
     display: none;
   }
 }
@@ -993,7 +1111,7 @@ Array [
 }
 
 @media screen {
-  .c35 {
+  .c45 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1003,7 +1121,7 @@ Array [
     transition: margin-left 300ms;
   }
 
-  .c35 *:target::before {
+  .c45 *:target::before {
     content: " ";
     display: block;
     position: relative;
@@ -1014,13 +1132,13 @@ Array [
 }
 
 @media print {
-  .c40 {
+  .c50 {
     display: none;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c40 {
+  .c50 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
   }
@@ -1144,7 +1262,7 @@ Array [
 }
 
 @media screen {
-  .c36 {
+  .c46 {
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1158,7 +1276,7 @@ Array [
 }
 
 @media screen {
-  .c37 {
+  .c47 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1179,7 +1297,7 @@ Array [
 }
 
 @media screen {
-  .c38 {
+  .c48 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1429,207 +1547,412 @@ Array [
               </svg>
             </button>
           </div>
-          <nav>
-            <ol>
-              <li
-                className="c33"
-              >
-                <a
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-text\\">Test Page 1</span>",
-                    }
+          <ol
+            className="c33"
+          >
+            <li
+              className="c34 c35"
+            >
+              <a
+                className="c36"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page 1</span>",
                   }
-                  href="test-page-1"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="c33"
+                }
+                href="test-page-1"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="c34 c35"
+            >
+              <details
+                className="c37"
               >
-                <h3
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                <summary
+                  className="c38"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c39 c40 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 192 512"
+                  >
+                    <path
+                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    className="c41 c42 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                  >
+                    <path
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className="c43"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                      }
                     }
-                  }
-                />
-                <nav>
-                  <ol>
-                    <li
-                      className="c33"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 2</span>",
-                          }
+                  />
+                </summary>
+                <ol
+                  className="c44"
+                >
+                  <li
+                    className="c34 c35"
+                  >
+                    <a
+                      className="c36"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 2</span>",
                         }
-                        href="1-test-page-2"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </nav>
-              </li>
-              <li
-                className="c33"
+                      }
+                      href="1-test-page-2"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="c34 c35"
+            >
+              <details
+                className="c37"
               >
-                <h3
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                <summary
+                  className="c38"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c39 c40 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 192 512"
+                  >
+                    <path
+                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    className="c41 c42 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                  >
+                    <path
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className="c43"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                      }
                     }
-                  }
-                />
-                <nav>
-                  <ol>
-                    <li
-                      className="c33"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 3</span>",
-                          }
+                  />
+                </summary>
+                <ol
+                  className="c44"
+                >
+                  <li
+                    className="c34 c35"
+                  >
+                    <a
+                      className="c36"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 3</span>",
                         }
-                        href="1-test-page-3"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </nav>
-              </li>
-              <li
-                className="c33"
+                      }
+                      href="1-test-page-3"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="c34 c35"
+            >
+              <details
+                className="c37"
               >
-                <h3
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                <summary
+                  className="c38"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c39 c40 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 192 512"
+                  >
+                    <path
+                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    className="c41 c42 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                  >
+                    <path
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className="c43"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                      }
                     }
-                  }
-                />
-                <nav>
-                  <ol>
-                    <li
-                      aria-label="Current Page"
-                      className="c34"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 4</span>",
-                          }
+                  />
+                </summary>
+                <ol
+                  className="c44"
+                >
+                  <li
+                    aria-label="Current Page"
+                    className="c34 c35"
+                  >
+                    <a
+                      className="c36"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 4</span>",
                         }
-                        href="1-test-page-4"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </nav>
-              </li>
-              <li
-                className="c33"
+                      }
+                      href="1-test-page-4"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="c34 c35"
+            >
+              <details
+                className="c37"
               >
-                <h3
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                <summary
+                  className="c38"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c39 c40 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 192 512"
+                  >
+                    <path
+                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    className="c41 c42 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                  >
+                    <path
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className="c43"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                      }
                     }
-                  }
-                />
-                <nav>
-                  <ol>
-                    <li
-                      className="c33"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 5</span>",
-                          }
+                  />
+                </summary>
+                <ol
+                  className="c44"
+                >
+                  <li
+                    className="c34 c35"
+                  >
+                    <a
+                      className="c36"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 5</span>",
                         }
-                        href="1-test-page-5"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </nav>
-              </li>
-              <li
-                className="c33"
+                      }
+                      href="1-test-page-5"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="c34 c35"
+            >
+              <details
+                className="c37"
               >
-                <h3
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                <summary
+                  className="c38"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c39 c40 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 192 512"
+                  >
+                    <path
+                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    className="c41 c42 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                  >
+                    <path
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className="c43"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                      }
                     }
-                  }
-                />
-                <nav>
-                  <ol>
-                    <li
-                      className="c33"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
-                          }
+                  />
+                </summary>
+                <ol
+                  className="c44"
+                >
+                  <li
+                    className="c34 c35"
+                  >
+                    <a
+                      className="c36"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 6</span>",
                         }
-                        href="1-test-page-6"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </nav>
-              </li>
-              <li
-                className="c33"
+                      }
+                      href="1-test-page-6"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="c34 c35"
+            >
+              <details
+                className="c37"
               >
-                <h3
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                <summary
+                  className="c38"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c39 c40 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 192 512"
+                  >
+                    <path
+                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <svg
+                    aria-hidden="true"
+                    className="c41 c42 c15"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                  >
+                    <path
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className="c43"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                      }
                     }
-                  }
-                />
-                <nav>
-                  <ol>
-                    <li
-                      className="c33"
-                    >
-                      <a
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 7</span>",
-                          }
+                  />
+                </summary>
+                <ol
+                  className="c44"
+                >
+                  <li
+                    className="c34 c35"
+                  >
+                    <a
+                      className="c36"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                         }
-                        href="1-test-page-7"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </nav>
-              </li>
-            </ol>
-          </nav>
+                      }
+                      href="1-test-page-7"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+          </ol>
         </div>
         <div
-          className="c35"
+          className="c45"
         >
           <div
-            className="c36"
+            className="c46"
           >
             <div
-              className="c37"
+              className="c47"
             >
               <div
-                className="c38"
+                className="c48"
               >
                 <div
-                  className="c39 "
+                  className="c49 "
                   id="main-content"
                   tabIndex={-1}
                 >
@@ -1647,7 +1970,7 @@ Array [
                   </div>
                 </div>
                 <div
-                  className="c40"
+                  className="c50"
                 >
                   <a
                     aria-label="Previous Page"
@@ -1656,7 +1979,7 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="c41 c5"
+                      className="c51 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -1675,7 +1998,7 @@ Array [
                     Next
                     <svg
                       aria-hidden="true"
-                      className="c42 c5"
+                      className="c52 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -1688,14 +2011,14 @@ Array [
                 </div>
               </div>
               <details
-                className="c43"
+                className="c53"
               >
                 <summary
-                  className="c44 c45"
+                  className="c54 c55"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c46 c47 c15"
+                    className="c56 c57 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1707,7 +2030,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c48 c49 c15"
+                    className="c58 c59 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1722,7 +2045,7 @@ Array [
                   </span>
                 </summary>
                 <div
-                  className="c50"
+                  className="c60"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "
@@ -2345,25 +2668,21 @@ Array [
   flex-direction: column;
 }
 
-.c19 ol {
-  padding-inline-start: 10px;
-}
-
-.c19 > nav {
+.c19 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
-  padding: 1rem;
+  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.c19 > nav::before {
+.c19 > ol::before {
   content: "";
   background: #fafafa;
   display: block;
-  height: 1rem;
-  margin: -1rem -1rem 0 -1rem;
+  height: 1.8rem;
+  margin: -1.8rem -1.8rem 0 -1.8rem;
 }
 
 .c19 > * {
@@ -2406,7 +2725,7 @@ Array [
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-right: 1rem;
+  margin-right: 1.8rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;

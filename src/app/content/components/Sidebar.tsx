@@ -241,16 +241,6 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   return Math.max(result, numbers.length * numberCharacterWidth + periods.length * numberPeriodWidth);
 }, 0);
 
-const getDividerWidth = (section: ArchiveTree) => {
-
-  if (section.title.includes(' | ')) {
-    return 0.6;
-  }
-
-  return 0.4;
-
-};
-
 // tslint:disable-next-line:variable-name
 const NavOl = styled.ol<{section: ArchiveTree}>`
   margin: 0;
@@ -258,7 +248,6 @@ const NavOl = styled.ol<{section: ArchiveTree}>`
 
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
-    const dividerWidth = getDividerWidth(props.section);
 
     return css`
       .os-number {
@@ -266,7 +255,7 @@ const NavOl = styled.ol<{section: ArchiveTree}>`
       }
 
       .os-divider {
-        width: ${dividerWidth}rem;
+        width: 0.5rem;
       }
 
       .os-text {
@@ -362,7 +351,7 @@ export class Sidebar extends Component<SidebarProps> {
       {section.contents.map((item) => {
         const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
         return isArchiveTree(item)
-        ? <NavItem>{this.renderTocNode(book, item)}</NavItem>
+        ? <NavItem key={item.id}>{this.renderTocNode(book, item)}</NavItem>
         : <NavItem
           key={item.id}
           ref={active ? this.activeSection : null}
@@ -376,7 +365,7 @@ export class Sidebar extends Component<SidebarProps> {
           />
         </NavItem>;
       })}
-    </NavOl>
+    </NavOl>;
 
   private renderTocNode = (book: Book, node: ArchiveTree) =>
     <Details ref={this.container}>
@@ -386,12 +375,12 @@ export class Sidebar extends Component<SidebarProps> {
         <SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
       </Summary>
       {this.renderChildren(book, node)}
-    </Details>
+    </Details>;
 
   private renderTocHeader = () =>
     <ToCHeader>
       <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
-    </ToCHeader>
+    </ToCHeader>;
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }

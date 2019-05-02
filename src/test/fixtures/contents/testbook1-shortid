@@ -25,7 +25,17 @@
           {
             "shortId": "testpage2-shortid@1.0",
             "id": "testbook1-testpage2-uuid@1.0",
-            "title": "<span class=\"os-text\">Test Page 2</span>"
+            "title": "<span class=\"os-text\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+          },
+          {
+            "shortId": "testpage1-1-shortid@1.0",
+            "id": "testbook1-testpage1-1-uuid@1.0",
+            "title": "<span class=\"os-number\">1.1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Physics: An Introduction</span></span>"
+          },
+          {
+            "shortId": "testpage8-shortid@1.0",
+            "id": "testbook1-testpage8-uuid@1.0",
+            "title": "<span class=\"os-number\">23.12</span><span class=\"os-divider\"> </span><span class=\"os-text\">RLC Series AC Circuits</span></span>"
           }
         ],
         "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 1</span>"
@@ -40,7 +50,7 @@
             "title": "<span class=\"os-text\">Test Page 3</span>"
           }
         ],
-        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 2</span>"
+        "title": "<span class=\"os-number\">2</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 2</span>"
       },
       {
         "shortId": "testchapter3@1.0",
@@ -52,7 +62,7 @@
             "title": "<span class=\"os-text\">Test Page 4</span>"
           }
         ],
-        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 3</span>"
+        "title": "<span class=\"os-number\">3</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 3</span>"
       },
       {
         "shortId": "testchapter4@1.0",
@@ -64,7 +74,7 @@
             "title": "<span class=\"os-text\">Test Page 5</span>"
           }
         ],
-        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 4</span>"
+        "title": "<span class=\"os-number\">4</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 4</span>"
       },
       {
         "shortId": "testchapter5@1.0",
@@ -76,7 +86,7 @@
             "title": "<span class=\"os-text\">Test Page 6</span>"
           }
         ],
-        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 5</span>"
+        "title": "<span class=\"os-number\">10</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 5</span>"
       },
       {
         "shortId": "testchapter6@1.0",
@@ -88,7 +98,17 @@
             "title": "<span class=\"os-text\">Test Page 7</span>"
           }
         ],
-        "title": "<span class=\"os-number\">1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 6</span>"
+        "title": "<span class=\"os-number\">12</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 6</span>"
+      },
+      {
+        "shortId": "testpage9-shortid@1.0",
+        "id": "testbook1-testpage9-uuid@1.0",
+        "title": "<span class=\"os-number\">A</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Atomic Masses</span></a>"
+      },
+      {
+        "shortId": "testpage10-shortid@1.0",
+        "id": "testbook1-testpage10-uuid@1.0",
+        "title": "<span class=\"os-number\">D</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Glossary of Key Symbols and Notation</span></a>"
       }
     ],
     "title": "Test Book 1"
