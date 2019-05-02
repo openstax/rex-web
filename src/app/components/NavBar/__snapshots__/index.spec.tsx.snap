@@ -67,15 +67,17 @@ exports[`content in browser when logged in matches snapshot 1`] = `
     </a>
     <div
       className="styled__DropdownContainer-sc-3syvnw-2 hqVQJy"
+      data-testid="user-nav"
     >
       <span
         className="styled__DropdownToggle-sc-3syvnw-7 hIXqhe"
+        data-testid="user-nav-toggle"
         tabIndex="0"
       >
         Hi test
         <svg
           aria-hidden="true"
-          className="styled__DownIcon-sc-3syvnw-4 hyHIAz StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="styled__DownIcon-sc-3syvnw-4 hVzTfI StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -87,7 +89,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         </svg>
         <svg
           aria-hidden="true"
-          className="styled__HamburgerIcon-sc-3syvnw-5 ibmliW StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="styled__HamburgerIcon-sc-3syvnw-5 jKoVqd StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
