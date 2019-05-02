@@ -72,11 +72,15 @@ export const OverlayLogo = styled.img`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
-export const DownIcon = styled(ChevronDown)`
+const sharedIconStyles = css`
   margin-left: 1rem;
   height: 1.5rem;
   width: 1.5rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const DownIcon = styled(ChevronDown)`
+  ${sharedIconStyles}
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -85,9 +89,7 @@ export const DownIcon = styled(ChevronDown)`
 // tslint:disable-next-line:variable-name
 export const HamburgerIcon = styled(Hamburger)`
   margin-top: 0.1rem;
-  margin-left: 1rem;
-  height: 1.5rem;
-  width: 1.5rem;
+  ${sharedIconStyles}
   display: none;
   ${theme.breakpoints.mobile(css`
     display: inline;
