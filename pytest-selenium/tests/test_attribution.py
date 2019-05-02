@@ -21,20 +21,30 @@ class Citationtexturl(unittest.TestCase):
         attribute_xpath_locator = '//*[@id="root"]/div[2]/div[4]/div/div[2]/div/div/details'
 
         self.browser.get(page_url)
-        sleep(2)
-        attribute_element = self.browser.find_element_by_xpath(attribute_xpath_locator)
-        attribute_element.click()
-        is_attribute_open = attribute_element.is_selected()
-        print(is_attribute_open)
 
         
+        attribute_element = self.browser.find_element_by_xpath(attribute_xpath_locator)
+
+        #verify attribution is closed by default
+        is_attribute_closed = attribute_element.get_attribute("open")
+        #print(is_attribute_closed)
+        self.assertNotEqual(is_attribute_closed,"true")
+
+
+        #click on attribution and verify it expands
+        attribute_element.click()
+        is_attribute_open = attribute_element.get_attribute("open")
+        #print(is_attribute_open)
+        self.assertEqual(is_attribute_open,"true")
+
+                
         #attribute_xpath_after_click = '//*[@id="root"]/div[2]/div[4]/div/div[2]/div/div/details'
         #attribute_element_after_click = self.browser.find_element_by_xpath(attribute_xpath_after_click)
         #attribute_element_after_click.click()
-        #is_attribute_closed = attribute_element_after_click.is_selected()
+        #is_attribute_closed = attribute_element_after_click.get_attribute("open")
         #print(is_attribute_closed)
 
-        sleep(20)
+        
     
 
 if __name__ == '__main__': 
