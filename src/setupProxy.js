@@ -45,15 +45,14 @@ const isFile = path =>
 
 const isDirectory = path => fs.existsSync(path) && fs.lstatSync(path).isDirectory();
 
+const loadFileContents = (path) => new Promise((resolve, reject) =>
+  fs.readFile(path, (err, contents) => err ? reject(err) : resolve(contents))
+);
+
 const sendFile = (res, path) => {
-  const body = new Promise((resolve, reject) =>
-    fs.readFile(path, (err, contents) => err ? reject(err) : resolve(contents))
-  );
-  const statusFile = `${path}.status`;
-  const status = new Promise((resolve, reject) => isFile(statusFile)
-    ? fs.readFile(statusFile, (err, contents) => err ? reject(err) : resolve(contents))
-    : resolve(200)
-  );
+  const body = loadFileContents(path);
+  const status = loadFileContents(`${path}.status`)
+    .catch(() => 200);
 
   Promise.all([body, status]).then(([body, status]) => {
     res.status(status);
