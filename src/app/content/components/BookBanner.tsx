@@ -27,6 +27,7 @@ const gradients: {[key in Book['theme']]: string} = {
   'deep-green': '#9cd14a',
   'gray': '#97999b',
   'green': '#9cd14a',
+  'light-blue': '#004aa2',
   'yellow': '#faea36',
 };
 

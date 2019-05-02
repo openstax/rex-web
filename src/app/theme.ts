@@ -48,6 +48,10 @@ const color = {
       base: '#63a524',
       foreground: textColors.black,
     },
+    'light-blue': {
+      base: '#002468',
+      foreground: textColors.black,
+    },
     'orange': {
       base: '#f36b32',
       darker: '#e96128',
