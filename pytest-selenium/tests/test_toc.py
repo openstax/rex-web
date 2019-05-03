@@ -12,8 +12,8 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     and closed for mobile and tablet. We need to do different actions based
     on the resolution. When the resolution is desktop we
     click the toc button on the sidebar to close and the toc button on the
-    toolbar to open. It's the other way around for mobile and tablet
-    resolutions and the sidebar is closed by default.
+    toolbar to open. It's the other way around for mobile and tablet because
+    the sidebar is closed by default.
 
     """
     # GIVEN: The selenium driver, base_url, book_slug, and page_slug
