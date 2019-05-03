@@ -22,7 +22,7 @@ class Page(pypom.Page):
 
     @property
     def is_desktop(self):
-        return self.window_width > 1025
+        return self.window_width > 1024
 
     def wait_for_region_to_display(self, region):
         self.wait.until(lambda _: region.is_displayed)
