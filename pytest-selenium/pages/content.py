@@ -10,7 +10,6 @@ class Content(Page):
 
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
-    _sidebar_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents")
 
     @property
     def loaded(self):
