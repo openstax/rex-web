@@ -2,8 +2,8 @@
 import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
-const TEST_NEXT_PAGE_LINK = '1-test-page-2';
-const TEST_LAST_PAGE = '1-test-page-7';
+const TEST_NEXT_PAGE_LINK = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
+const TEST_LAST_PAGE = 'd-glossary-of-key-symbols-and-notation';
 const NEXT_PAGE_ARIA_LABEL = 'Next Page';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_LAST_PAGE_URL = `/books/book-slug-1/pages/${TEST_LAST_PAGE}`;

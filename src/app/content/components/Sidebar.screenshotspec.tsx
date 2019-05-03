@@ -2,16 +2,19 @@
 import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
-const TEST_PAGE_LONG_NUMBER = '23-12-rlc-series-ac-circuits';
+const TEST_PAGE_LONG_NUMBER = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_PAGE_LONG_NUMBER_URL = `/books/book-slug-1/pages/${TEST_PAGE_LONG_NUMBER}`;
+const openToc = '[aria-label="Click to open the Table of Contents"]';
 
 describe('Sidebar', () => {
   it('renders correctly on mobile', async() => {
     setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await scrollDown();
+    await page.waitForSelector(openToc);
+    await page.click(openToc);
+    await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -26,7 +29,6 @@ describe('Sidebar', () => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await scrollDown();
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -39,6 +41,9 @@ describe('Sidebar', () => {
   it('renders correctly expanded chapter on mobile with long numbers', async() => {
     setMobileViewport(page);
     await navigate(page, TEST_PAGE_LONG_NUMBER_URL);
+    await finishRender(page);
+    await page.waitForSelector(openToc);
+    await page.click(openToc);
     await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
@@ -62,8 +67,4 @@ describe('Sidebar', () => {
     });
   });
 
-});
-
-const scrollDown = () => page.evaluate(() => {
-  return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });
