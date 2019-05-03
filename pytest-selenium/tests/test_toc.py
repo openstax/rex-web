@@ -34,7 +34,6 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         # THEN: The sidebar area has been closed
         # AND: The toc button on the toolbar is clicked
         # AND: The side bar is opened again
-
         sidebar.header.click_toc_toggle_button()
 
         assert not sidebar.header.is_displayed
