@@ -1,23 +1,60 @@
 from pages.content import Content
 from . import markers
 
-@markers.test_case('C250849')
+
+@markers.test_case("C250849")
 @markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
 @markers.nondestructive
 def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
+    """ Test that table of contents toggle button opens and closes the sidebar
+
+    The table of contents sidebar is open by default for Desktop resolutions
+    and closed for mobile and tablet. We need to do different actions based
+    on the resolution. This test depending on the resolution should click the
+    appropriate button depending on the state of sidebar.
+
+    """
     # GIVEN: The selenium driver, base_url, book_slug, and page_slug
 
     # WHEN: The book and page URL is loaded
-    #   AND: The table of contents toggle button is clicked
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
-    toc = content.table_of_contents
-    content.click_table_of_contents_button()
+    toolbar = content.toolbar
+    sidebar = content.sidebar
 
-    # THEN:  The table of contents area has been closed
-    # AND:   The table of contents toggle button is clicked again
-    # AND:   The table of contents area is opened
-    assert not toc.is_displayed
+    # AND: Window width is 1024 or greater (Desktop)
+    if selenium.get_window_size()["width"] > 1024:
 
-    content.click_table_of_contents_button()
-    assert toc.is_displayed
+        # Sidebar is open by default
+        assert sidebar.header.is_displayed
+
+        # WHEN: The toc button on the sidebar is clicked
+        # THEN: The sidebar area has been closed
+        # AND: The toc button on the toolbar is clicked
+        # AND: The side bar is opened again
+
+        sidebar.header.click_toc_toggle_button()
+
+        assert not sidebar.header.is_displayed
+
+        toolbar.click_toc_toggle_button()
+
+        assert sidebar.header.is_displayed
+
+    # AND: Window Size is less than 1025 tablet or mobile
+    if selenium.get_window_size()["width"] <= 1024:
+
+        # Sidebar is closed by default
+        assert not sidebar.header.is_displayed
+
+        # WHEN: The toc button on the toolbar is clicked
+        # THEN: The sidbar area is opened
+        # AND: The toc button on the sidebar is clicked
+        # AND: the sidebar area is closed
+        toolbar.click_toc_toggle_button()
+
+        assert sidebar.header.is_displayed
+
+        sidebar.header.click_toc_toggle_button()
+
+        assert not sidebar.header.is_displayed
