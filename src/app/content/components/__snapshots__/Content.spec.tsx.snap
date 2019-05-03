@@ -1162,6 +1162,7 @@ Array [
 
 @media screen {
   .c36 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1671,7 +1672,6 @@ Array [
                     className="c41"
                     href="1-test-page-3"
                     onClick={[Function]}
-                    side="left"
                   >
                     <svg
                       aria-hidden="true"
@@ -1691,7 +1691,6 @@ Array [
                     className="c43"
                     href="1-test-page-5"
                     onClick={[Function]}
-                    side="right"
                   >
                     Next
                     <svg
@@ -2663,6 +2662,7 @@ Array [
 
 @media screen {
   .c25 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
