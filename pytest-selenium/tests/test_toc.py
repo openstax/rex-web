@@ -25,7 +25,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     sidebar = content.sidebar
 
     # AND: Window width is 1024 or greater (Desktop)
-    if selenium.get_window_size()["width"] > 1024:
+    if content.is_desktop:
 
         # Sidebar is open by default
         assert sidebar.header.is_displayed
@@ -43,8 +43,8 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
         assert sidebar.header.is_displayed
 
-    # AND: Window Size is less than 1025 tablet or mobile
-    if selenium.get_window_size()["width"] <= 1024:
+    # AND: Window Size is Mobile
+    if content.is_mobile:
 
         # Sidebar is closed by default
         assert not sidebar.header.is_displayed
