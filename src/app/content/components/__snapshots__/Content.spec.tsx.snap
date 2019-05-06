@@ -142,6 +142,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -194,17 +195,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c59 {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
 .c61 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c57 {
+.c63 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.c59 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -213,6 +214,92 @@ Array [
   margin: 0 auto;
   font-weight: 500;
   list-style: none;
+}
+
+.c59 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c59 a:hover {
+  color: #0064A0;
+}
+
+.c59::-webkit-details-marker {
+  display: none;
+}
+
+.c59,
+.c59 span {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c59 a,
+.c59 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c59 a:hover,
+.c59 span a:hover {
+  color: #0064A0;
+}
+
+.c59:hover,
+.c59 span:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c64 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 57rem;
+  margin: 0 auto;
+}
+
+.c64 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c64 a:hover {
+  color: #0064A0;
+}
+
+.c64 blockquote {
+  margin-left: 0;
+}
+
+.c57 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 2rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c57 a {
@@ -227,105 +314,19 @@ Array [
   color: #0064A0;
 }
 
-.c57::-webkit-details-marker {
-  display: none;
-}
-
-.c57,
-.c57 span {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c57 a,
-.c57 span a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c57 a:hover,
-.c57 span a:hover {
-  color: #0064A0;
-}
-
-.c57:hover,
-.c57 span:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c62 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  max-width: 57rem;
-  margin: 0 auto;
-}
-
-.c62 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c62 a:hover {
-  color: #0064A0;
-}
-
-.c62 blockquote {
-  margin-left: 0;
-}
-
-.c55 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 2rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c55 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
-}
-
-.c55 a:hover {
-  color: #0064A0;
-}
-
-.c55 > .c56 {
+.c57 > .c58 {
   margin-bottom: 1.8rem;
 }
 
-.c55[open] .c58 {
+.c57[open] .c60 {
   display: none;
 }
 
-.c55:not([open]) .c60 {
+.c57:not([open]) .c62 {
   display: none;
 }
 
-.c55 li {
+.c57 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -495,12 +496,12 @@ Array [
   margin-top: -7rem;
 }
 
-.c53 {
+.c54 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c54 {
+.c56 {
   height: 2.5rem;
   width: 2.5rem;
   margin-top: 0.1rem;
@@ -880,13 +881,13 @@ li[aria-label="Current Page"] .c36 {
 .c41 {
   height: 1.7rem;
   width: 1.7rem;
-  margin-right: 0rem;
+  margin-right: 0;
 }
 
 .c43 {
   height: 1.7rem;
   width: 1.7rem;
-  margin-right: 0rem;
+  margin-right: 0;
 }
 
 .c39 {
@@ -904,7 +905,7 @@ li[aria-label="Current Page"] .c36 {
 
 .c33 {
   margin: 0;
-  padding: 0rem 3rem 0 0;
+  padding: 0 3rem 0 0;
 }
 
 .c33 .os-number {
@@ -927,7 +928,7 @@ li[aria-label="Current Page"] .c36 {
 
 .c45 {
   margin: 0;
-  padding: 0rem 3rem 0 0;
+  padding: 0 3rem 0 0;
 }
 
 .c45 .os-number {
@@ -950,7 +951,7 @@ li[aria-label="Current Page"] .c36 {
 
 .c46 {
   margin: 0;
-  padding: 0rem 3rem 0 0;
+  padding: 0 3rem 0 0;
 }
 
 .c46 .os-number {
@@ -1033,24 +1034,24 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen and (max-width:64em) {
-  .c55 {
+  .c57 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c55 {
+  .c57 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c55 > .c56 {
+  .c57 > .c58 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c55 {
+  .c57 {
     display: none;
   }
 }
@@ -1160,13 +1161,13 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen and (max-width:64em) {
-  .c41 {
+  .c53 {
     margin-left: -0.8rem;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c43 {
+  .c55 {
     margin-right: -0.8rem;
   }
 }
@@ -1419,6 +1420,7 @@ li[aria-label="Current Page"] .c36 {
     >
       <div
         className="c11"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -1526,6 +1528,7 @@ li[aria-label="Current Page"] .c36 {
         >
           <div
             className="c29 c30"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -2115,12 +2118,14 @@ li[aria-label="Current Page"] .c36 {
                 >
                   <a
                     aria-label="Previous Page"
+                    className="c53"
                     href="2-test-page-3"
                     onClick={[Function]}
+                    side="left"
                   >
                     <svg
                       aria-hidden="true"
-                      className="c53 c5"
+                      className="c54 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -2133,13 +2138,15 @@ li[aria-label="Current Page"] .c36 {
                   </a>
                   <a
                     aria-label="Next Page"
+                    className="c55"
                     href="4-test-page-5"
                     onClick={[Function]}
+                    side="right"
                   >
                     Next
                     <svg
                       aria-hidden="true"
-                      className="c54 c5"
+                      className="c56 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -2152,14 +2159,14 @@ li[aria-label="Current Page"] .c36 {
                 </div>
               </div>
               <details
-                className="c55"
+                className="c57"
               >
                 <summary
-                  className="c56 c57"
+                  className="c58 c59"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c58 c59 c15"
+                    className="c60 c61 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -2171,7 +2178,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c60 c61 c15"
+                    className="c62 c63 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -2186,7 +2193,7 @@ li[aria-label="Current Page"] .c36 {
                   </span>
                 </summary>
                 <div
-                  className="c62"
+                  className="c64"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "
@@ -2407,6 +2414,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -2426,7 +2434,13 @@ Array [
       </a>
     </div>
   </div>,
-  .c7 {
+  .c33 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c7 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -2453,17 +2467,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c35 {
+.c40 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c37 {
+.c42 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c33 {
+.c38 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2474,7 +2488,7 @@ Array [
   list-style: none;
 }
 
-.c33 a {
+.c38 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2482,16 +2496,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c33 a:hover {
+.c38 a:hover {
   color: #0064A0;
 }
 
-.c33::-webkit-details-marker {
+.c38::-webkit-details-marker {
   display: none;
 }
 
-.c33,
-.c33 span {
+.c38,
+.c38 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2502,8 +2516,8 @@ Array [
   text-decoration: none;
 }
 
-.c33 a,
-.c33 span a {
+.c38 a,
+.c38 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2511,19 +2525,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c33 a:hover,
-.c33 span a:hover {
+.c38 a:hover,
+.c38 span a:hover {
   color: #0064A0;
 }
 
-.c33:hover,
-.c33 span:hover {
+.c38:hover,
+.c38 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c31 {
+.c36 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2535,7 +2549,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c31 a {
+.c36 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2543,23 +2557,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c31 a:hover {
+.c36 a:hover {
   color: #0064A0;
 }
 
-.c31 > .c32 {
+.c36 > .c37 {
   margin-bottom: 1.8rem;
 }
 
-.c31[open] .c34 {
+.c36[open] .c39 {
   display: none;
 }
 
-.c31:not([open]) .c36 {
+.c36:not([open]) .c41 {
   display: none;
 }
 
-.c31 li {
+.c36 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -2583,6 +2597,17 @@ Array [
   position: relative;
   z-index: 4;
   overflow: hidden;
+}
+
+.c32 {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.c35 {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c30 {
@@ -2948,24 +2973,24 @@ Array [
 }
 
 @media screen and (max-width:64em) {
-  .c31 {
+  .c36 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c31 {
+  .c36 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c31 > .c32 {
+  .c36 > .c37 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c31 {
+  .c36 {
     display: none;
   }
 }
@@ -3001,6 +3026,18 @@ Array [
     margin-top: -12rem;
     height: 12rem;
     visibility: hidden;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c31 {
+    margin-left: -0.8rem;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c34 {
+    margin-right: -0.8rem;
   }
 }
 
@@ -3189,6 +3226,7 @@ Array [
     >
       <div
         className="c3"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -3296,6 +3334,7 @@ Array [
         >
           <div
             className="c21 c22"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -3390,21 +3429,53 @@ Array [
                 >
                   <span
                     aria-hidden={true}
-                  />
+                    aria-label="Previous Page"
+                    className="c31"
+                    side="left"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="c32 c33"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                      />
+                    </svg>
+                    Previous
+                  </span>
                   <span
                     aria-hidden={true}
-                  />
+                    aria-label="Next Page"
+                    className="c34"
+                    side="right"
+                  >
+                    Next
+                    <svg
+                      aria-hidden="true"
+                      className="c35 c33"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+                      />
+                    </svg>
+                  </span>
                 </div>
               </div>
               <details
-                className="c31"
+                className="c36"
               >
                 <summary
-                  className="c32 c33"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c34 c35 c7"
+                    className="c39 c40 c7"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -3416,7 +3487,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c36 c37 c7"
+                    className="c41 c42 c7"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"

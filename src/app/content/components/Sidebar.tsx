@@ -379,7 +379,7 @@ export class Sidebar extends Component<SidebarProps> {
     </Details>;
 
   private renderTocHeader = () =>
-    <ToCHeader>
+    <ToCHeader data-testid='tocheader'>
       <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
     </ToCHeader>;
 
