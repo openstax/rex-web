@@ -272,14 +272,15 @@ const NavOl = styled.ol<{section: ArchiveTree}>`
 const Details = styled.details`
   border: none;
   overflow: visible;
+  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+    &[open] > ${Summary} > ${ExpandIcon} {
+      display: none;
+    }
 
-  &[open] > ${Summary} > ${ExpandIcon} {
-    display: none;
-  }
-
-  &:not([open]) > ${Summary} > ${CollapseIcon} {
-    display: none;
-  }
+    &:not([open]) > ${Summary} > ${CollapseIcon} {
+      display: none;
+    }
+  `}
 
   ${NavItem} {
     margin-bottom: 1.2rem;
