@@ -204,7 +204,7 @@ const NavItem = styled(NavItemComponent)`
 const expandCollapseIconStyle = css`
   height: ${iconSize}rem;
   width: ${iconSize}rem;
-  margin-right: 0rem;
+  margin-right: 0;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -244,8 +244,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
 // tslint:disable-next-line:variable-name
 const NavOl = styled.ol<{section: ArchiveTree}>`
   margin: 0;
-  padding: 0rem 3rem 0 0;
-
+  padding: 0 3rem 0 0;
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
@@ -273,14 +272,15 @@ const NavOl = styled.ol<{section: ArchiveTree}>`
 const Details = styled.details`
   border: none;
   overflow: visible;
+  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+    &[open] > ${Summary} > ${ExpandIcon} {
+      display: none;
+    }
 
-  &[open] > ${Summary} > ${ExpandIcon} {
-    display: none;
-  }
-
-  &:not([open]) > ${Summary} > ${CollapseIcon} {
-    display: none;
-  }
+    &:not([open]) > ${Summary} > ${CollapseIcon} {
+      display: none;
+    }
+  `}
 
   ${NavItem} {
     margin-bottom: 1.2rem;
