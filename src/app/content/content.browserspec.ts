@@ -104,7 +104,7 @@ const getScrollTop = () => page.evaluate(() => {
 });
 
 const getTocScrollTop = () => page.evaluate(() => {
-  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > nav');
+  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > ol');
   return scrollyTocNav && scrollyTocNav.scrollTop;
 });
 
@@ -114,6 +114,6 @@ const scrollDown = () => page.evaluate(() => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const scrollTocDown = (px: number) => page.evaluate((px) => {
-  const toc = document && document.querySelector('[aria-label="Table of Contents"] > nav');
+  const toc = document && document.querySelector('[aria-label="Table of Contents"] > ol');
   return toc && toc.scrollBy(0, px || toc.scrollHeight);
 }, px);

@@ -503,6 +503,7 @@ Array [
 .c54 {
   height: 2.5rem;
   width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c52 {
@@ -510,8 +511,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
   max-width: 57rem;
-  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -544,6 +545,10 @@ Array [
 
 .c52 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c21 {
@@ -1151,6 +1156,18 @@ li[aria-label="Current Page"] .c36 {
     margin-top: -12rem;
     height: 12rem;
     visibility: hidden;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c41 {
+    margin-left: -0.8rem;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c43 {
+    margin-right: -0.8rem;
   }
 }
 
@@ -2573,8 +2590,8 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
   max-width: 57rem;
-  margin: 0 auto;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -2607,6 +2624,10 @@ Array [
 
 .c30 a {
   border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c13 {
