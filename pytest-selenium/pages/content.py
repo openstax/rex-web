@@ -51,7 +51,7 @@ class Content(Page):
             return self.page.sidebar.wait_for_region_to_display()
 
     class SideBar(Region):
-        _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents")
+        _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
 
         @property
         def header(self):
