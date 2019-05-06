@@ -143,7 +143,7 @@ const BarWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const Toolbar: SFC = () => <BarWrapper>
-  <TopBar data-testid="toolbar">
+  <TopBar data-testid='toolbar'>
     <SidebarControl />
     <SearchPrintWrapper>
       <FormattedMessage id='i18n:toolbar:search:placeholder'>

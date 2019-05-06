@@ -83,7 +83,7 @@ const BarWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const NavigationBar: SFC = ({}) =>
   <BarWrapper>
-    <TopBar data-testid="navbar">
+    <TopBar data-testid='navbar'>
       <FormattedMessage id='i18n:nav:logo:alt'>
         {(msg: Element | string) => <a href='/'>
           <HeaderImage role='img' src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
