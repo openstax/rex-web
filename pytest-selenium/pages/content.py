@@ -28,7 +28,7 @@ class Content(Page):
         return self.SideBar(self)
 
     class NavBar(Region):
-        _root_locator = (By.CSS_SELECTOR, "div[class^='NavBar__TopBar']")
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
 
         @property
@@ -36,7 +36,7 @@ class Content(Page):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
 
     class ToolBar(Region):
-        _root_locator = (By.CSS_SELECTOR, "div[class^='Toolbar__TopBar']")
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="toolbar"]')
         _toc_toggle_button_locator = (
             By.CSS_SELECTOR,
             "[aria-label='Click to open the Table of Contents']",
@@ -58,7 +58,7 @@ class Content(Page):
             return self.Header(self.page)
 
         class Header(Region):
-            _root_locator = (By.CSS_SELECTOR, "div[class^='Sidebar__ToCHeader']")
+            _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
             _toc_toggle_button_locator = (
                 By.CSS_SELECTOR,
                 "[aria-label='Click to close the Table of Contents']",
