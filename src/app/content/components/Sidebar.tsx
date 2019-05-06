@@ -204,7 +204,7 @@ const NavItem = styled(NavItemComponent)`
 const expandCollapseIconStyle = css`
   height: ${iconSize}rem;
   width: ${iconSize}rem;
-  margin-right: 0rem;
+  margin-right: 0;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -244,8 +244,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
 // tslint:disable-next-line:variable-name
 const NavOl = styled.ol<{section: ArchiveTree}>`
   margin: 0;
-  padding: 0rem 3rem 0 0;
-
+  padding: 0 3rem 0 0;
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
