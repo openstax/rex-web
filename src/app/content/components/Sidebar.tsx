@@ -38,7 +38,7 @@ const numberPeriodWidth = 0.2;
 const iconSize = 1.7;
 const tocLinkHover = css`
   :hover {
-    color: ${theme.color.text.black}
+    color: ${theme.color.text.black};
   }
 `;
 

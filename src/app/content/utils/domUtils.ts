@@ -63,6 +63,11 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | null, activeSect
 };
 
 export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
+
+  if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
+    return;
+  }
+
   let parent: HTMLElement;
 
   if ( activeSection && activeSection.parentElement) {
@@ -77,6 +82,8 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
 
       if ( parent.parentElement ) {
         parent = parent.parentElement;
+      } else {
+        return null;
       }
 
     }
