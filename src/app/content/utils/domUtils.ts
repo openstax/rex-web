@@ -20,10 +20,7 @@ export const findFirstScrollableChild = (element: HTMLElement | null): HTMLEleme
 };
 
 export const tocSectionIsVisible = (scrollable: HTMLElement, section: HTMLElement) => {
-  const additionalOffset = 2;
-
-  return section.offsetTop > scrollable.scrollTop &&
-  (section.offsetTop - scrollable.scrollTop + additionalOffset) < scrollable.offsetHeight;
+  return section.offsetTop > scrollable.scrollTop && section.offsetTop - scrollable.scrollTop < scrollable.offsetHeight;
 };
 
 export const findParentTocSection = (container: HTMLElement, section: HTMLElement) => {
