@@ -35,10 +35,10 @@ interface HidingContentLinkProps {
   side: 'left' | 'right';
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLinkComponent: React.SFC<HidingContentLinkProps> = ({page, book, ...props}) =>
+const HidingContentLinkComponent: React.SFC<HidingContentLinkProps> = ({page, book, side, ...props}) =>
   page !== undefined && book !== undefined
     ? <ContentLink book={book} page={page} {...props} />
-    : <span aria-hidden {...props} />;
+    : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name
 const HidingContentLink = styled(HidingContentLinkComponent)`
