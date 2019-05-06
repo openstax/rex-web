@@ -1,8 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BookBanner renders \`null\` when passed a page that isn't in the book tree 1`] = `null`;
+exports[`BookBanner renders \`null\` when passed a page that isn't in the book tree 1`] = `
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+}
 
-exports[`BookBanner renders \`null\` with no page or book 1`] = `null`;
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`BookBanner renders \`null\` with no page or book 1`] = `
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
 
 exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 Array [
@@ -168,7 +244,6 @@ Array [
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
           }
         }
-        theme="blue"
       />
     </div>
   </div>,
@@ -344,8 +419,6 @@ Array [
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
           }
         }
-        theme="blue"
-        variant="mini"
       />
     </div>
   </div>,
@@ -372,7 +445,6 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   position: relative;
   z-index: 4;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
   -webkit-transform: translateY(-7rem);
   -ms-transform: translateY(-7rem);
   transform: translateY(-7rem);

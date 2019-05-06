@@ -316,7 +316,6 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   public componentDidMount() {
-    this.scrollToSelectedPage();
     expandCurrentChapter(this.activeSection.current);
 
     const sidebar = this.sidebar.current;
@@ -335,11 +334,13 @@ export class Sidebar extends Component<SidebarProps> {
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
     scrollHandler();
+
+    this.scrollToSelectedPage();
   }
 
   public componentDidUpdate() {
-    this.scrollToSelectedPage();
     expandCurrentChapter(this.activeSection.current);
+    this.scrollToSelectedPage();
   }
 
   private scrollToSelectedPage() {

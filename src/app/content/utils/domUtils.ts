@@ -20,7 +20,10 @@ export const findFirstScrollableChild = (element: HTMLElement | null): HTMLEleme
 };
 
 export const tocSectionIsVisible = (scrollable: HTMLElement, section: HTMLElement) => {
-  return section.offsetTop > scrollable.scrollTop && section.offsetTop - scrollable.scrollTop < scrollable.offsetHeight;
+  const additionalOffset = 2;
+
+  return section.offsetTop > scrollable.scrollTop &&
+  (section.offsetTop - scrollable.scrollTop + additionalOffset) < scrollable.offsetHeight;
 };
 
 export const findParentTocSection = (container: HTMLElement, section: HTMLElement) => {
@@ -56,14 +59,10 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | null, activeSect
   const scrollTarget = determineScrollTarget(scrollable, selectedChapter, activeSection);
 
   scrollable.scrollTop = scrollTarget.offsetTop;
+
 };
 
 export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
-
-  if (typeof(document) === 'undefined' || typeof(window) === 'undefined') {
-    return;
-  }
-
   let parent: HTMLElement;
 
   if ( activeSection && activeSection.parentElement) {
@@ -78,8 +77,6 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
 
       if ( parent.parentElement ) {
         parent = parent.parentElement;
-      } else {
-        return null;
       }
 
     }
