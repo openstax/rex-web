@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import {
-  scrollTocSectionIntoView,
+  expandCurrentChapter, scrollTocSectionIntoView,
 } from './domUtils';
 
 describe('scrollTocSectionIntoView', () => {
@@ -116,4 +116,121 @@ describe('scrollTocSectionIntoView', () => {
     scrollTocSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1500);
   });
+});
+
+describe('expandCurrentChapter', () => {
+  let container: HTMLElement;
+
+  beforeEach(() => {
+    if (!document) {
+      throw new Error('jsdom...');
+    }
+
+    container = document.createElement('div');
+  });
+
+  it('expands details element', () => {
+    container.innerHTML = `
+      <details data-testid="details">
+        <div data-testid="target" />
+      </details>
+    `;
+
+    const target: HTMLElement | null = container.querySelector('[data-testid="target"]');
+    const details: HTMLElement | null = container.querySelector('[data-testid="details"]');
+    if ( !target ) { return expect(target).toBeTruthy(); }
+    if ( !details ) { return expect(details).toBeTruthy(); }
+
+    expect(details.getAttribute('open')).toBe(null);
+    expandCurrentChapter(target);
+    expect(details.getAttribute('open')).toBe('');
+  });
+
+  it('expands nested details element', () => {
+    container.innerHTML = `
+      <details data-testid="details1">
+        <details data-testid="details2">
+          <div data-testid="target" />
+        </details>
+      </details>
+    `;
+
+    const target: HTMLElement | null = container.querySelector('[data-testid="target"]');
+    const details1: HTMLElement | null = container.querySelector('[data-testid="details1"]');
+    const details2: HTMLElement | null = container.querySelector('[data-testid="details2"]');
+    if ( !target ) { return expect(target).toBeTruthy(); }
+    if ( !details1 ) { return expect(details1).toBeTruthy(); }
+    if ( !details2 ) { return expect(details2).toBeTruthy(); }
+
+    expect(details1.getAttribute('open')).toBe(null);
+    expect(details2.getAttribute('open')).toBe(null);
+    expandCurrentChapter(target);
+    expect(details1.getAttribute('open')).toBe('');
+    expect(details2.getAttribute('open')).toBe('');
+  });
+
+  it('stops when it reaches the toc', () => {
+    container.innerHTML = `
+      <details data-testid="details1">
+        <div aria-label="Table of Contents">
+          <details data-testid="details2">
+            <div data-testid="target" />
+          </details>
+        </div>
+      </details>
+    `;
+
+    const target: HTMLElement | null = container.querySelector('[data-testid="target"]');
+    const details1: HTMLElement | null = container.querySelector('[data-testid="details1"]');
+    const details2: HTMLElement | null = container.querySelector('[data-testid="details2"]');
+    if ( !target ) { return expect(target).toBeTruthy(); }
+    if ( !details1 ) { return expect(details1).toBeTruthy(); }
+    if ( !details2 ) { return expect(details2).toBeTruthy(); }
+
+    expect(details1.getAttribute('open')).toBe(null);
+    expect(details2.getAttribute('open')).toBe(null);
+    expandCurrentChapter(target);
+    expect(details1.getAttribute('open')).toBe(null);
+    expect(details2.getAttribute('open')).toBe('');
+  });
+
+  it('doesn’t set open attribute if is is already set', () => {
+    container.innerHTML = `
+      <details data-testid="details" open>
+        <div data-testid="target" />
+      </details>
+    `;
+
+    const target: HTMLElement | null = container.querySelector('[data-testid="target"]');
+    const details: HTMLElement | null = container.querySelector('[data-testid="details"]');
+    if ( !target ) { return expect(target).toBeTruthy(); }
+    if ( !details ) { return expect(details).toBeTruthy(); }
+
+    details.setAttribute = jest.fn();
+    expandCurrentChapter(target);
+    expect(details.setAttribute).not.toBeCalled();
+  });
+
+  it('doesn’t set open attribute on non DETAILS elements', () => {
+    container.innerHTML = `
+      <details data-testid="details" open>
+        <div data-testid="randomParent">
+          <div data-testid="target" />
+        </div>
+      </details>
+    `;
+
+    const target: HTMLElement | null = container.querySelector('[data-testid="target"]');
+    const details: HTMLElement | null = container.querySelector('[data-testid="details"]');
+    const randomParent: HTMLElement | null = container.querySelector('[data-testid="randomParent"]');
+
+    if ( !target ) { return expect(target).toBeTruthy(); }
+    if ( !details ) { return expect(details).toBeTruthy(); }
+    if ( !randomParent ) { return expect(randomParent).toBeTruthy(); }
+
+    randomParent.setAttribute = jest.fn();
+    expandCurrentChapter(target);
+    expect(randomParent.setAttribute).not.toBeCalled();
+  });
+
 });
