@@ -17,26 +17,27 @@ if (typeof(window) !== 'undefined') {
   import('ally.js/style/focus-within').then((module) => module.default());
 }
 
-export class Dropdown extends React.Component<{user: User}> {
+export class Dropdown extends React.Component<{user: User, currentPath: string}> {
   private overlay = React.createRef<HTMLElement>();
 
   public render() {
+    const {user, currentPath} = this.props;
     return <OnScroll callback={this.blockScroll}>
       <Styled.DropdownOverlay tabIndex='-1' ref={this.overlay}>
         <Styled.OverlayLogo aria-hidden='true' src={openstaxLogo} />
         <div>
-          <FormattedMessage id='i18n:nav:hello:text' values={{name: this.props.user.firstName}}>
+          <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
             {(msg: Element | string) => <Styled.OverlayHeading>{msg}</Styled.OverlayHeading>}
           </FormattedMessage>
           <Styled.DropdownList>
             <li>
               <FormattedMessage id='i18n:nav:profile:text'>
-                {(msg: Element | string) => <a href='/accounts/profile'>{msg}</a>}
+                {(msg: Element | string) => <a href='/accounts/profile' target='_blank'>{msg}</a>}
               </FormattedMessage>
             </li>
             <li>
               <FormattedMessage id='i18n:nav:logout:text'>
-                {(msg: Element | string) => <a href='/accounts/logout'>{msg}</a>}
+                {(msg: Element | string) => <a href={'/accounts/logout?r=' + currentPath}>{msg}</a>}
               </FormattedMessage>
             </li>
           </Styled.DropdownList>
@@ -70,15 +71,16 @@ const DropdownToggle: SFC<{user: User}> = ({user}) =>
   </FormattedMessage>;
 
 // tslint:disable-next-line:variable-name
-const LoggedInState: SFC<{user: User}> = ({user}) => <Styled.DropdownContainer data-testid='user-nav'>
-  <DropdownToggle user={user} />
-  <Dropdown user={user} />
-  <Styled.TimesIcon />
-</Styled.DropdownContainer>;
+const LoggedInState: SFC<{user: User, currentPath: string}> = ({user, currentPath}) =>
+  <Styled.DropdownContainer data-testid='user-nav'>
+    <DropdownToggle user={user} />
+    <Dropdown user={user} currentPath={currentPath} />
+    <Styled.TimesIcon />
+  </Styled.DropdownContainer>;
 
 // tslint:disable-next-line:variable-name
 const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
-  {(msg: Element | string) => <Styled.Link href={'/accounts/login?r=' + encodeURIComponent(currentPath)}>
+  {(msg: Element | string) => <Styled.Link href={'/accounts/login?r=' + currentPath}>
     {msg}
   </Styled.Link>}
 </FormattedMessage>;
@@ -93,7 +95,7 @@ const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}>
         </a>}
       </FormattedMessage>
       {loggedOut && <LoggedOutState currentPath={currentPath} />}
-      {user && <LoggedInState user={user} />}
+      {user && <LoggedInState user={user} currentPath={currentPath} />}
     </Styled.TopBar>
   </Styled.BarWrapper>;
 
