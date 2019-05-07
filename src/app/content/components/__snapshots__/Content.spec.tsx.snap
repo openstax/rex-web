@@ -142,6 +142,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -1282,6 +1283,7 @@ Array [
     >
       <div
         className="c11"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -1389,6 +1391,7 @@ Array [
         >
           <div
             className="c29 c30"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -1963,6 +1966,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -1982,7 +1986,13 @@ Array [
       </a>
     </div>
   </div>,
-  .c6 {
+  .c32 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c6 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -2009,17 +2019,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c34 {
+.c39 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c36 {
+.c41 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c32 {
+.c37 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2030,7 +2040,7 @@ Array [
   list-style: none;
 }
 
-.c32 a {
+.c37 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2038,16 +2048,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c32 a:hover {
+.c37 a:hover {
   color: #0064A0;
 }
 
-.c32::-webkit-details-marker {
+.c37::-webkit-details-marker {
   display: none;
 }
 
-.c32,
-.c32 span {
+.c37,
+.c37 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2058,8 +2068,8 @@ Array [
   text-decoration: none;
 }
 
-.c32 a,
-.c32 span a {
+.c37 a,
+.c37 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2067,19 +2077,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c32 a:hover,
-.c32 span a:hover {
+.c37 a:hover,
+.c37 span a:hover {
   color: #0064A0;
 }
 
-.c32:hover,
-.c32 span:hover {
+.c37:hover,
+.c37 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c30 {
+.c35 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2091,7 +2101,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c30 a {
+.c35 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2099,25 +2109,36 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c30 a:hover {
+.c35 a:hover {
   color: #0064A0;
 }
 
-.c30 > .c31 {
+.c35 > .c36 {
   margin-bottom: 1.8rem;
 }
 
-.c30[open] .c33 {
+.c35[open] .c38 {
   display: none;
 }
 
-.c30:not([open]) .c35 {
+.c35:not([open]) .c40 {
   display: none;
 }
 
-.c30 li {
+.c35 li {
   margin-bottom: 1rem;
   overflow: visible;
+}
+
+.c31 {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.c34 {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-top: 0.1rem;
 }
 
 .c29 {
@@ -2487,24 +2508,24 @@ Array [
 }
 
 @media screen and (max-width:64em) {
-  .c30 {
+  .c35 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c30 {
+  .c35 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c30 > .c31 {
+  .c35 > .c36 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c30 {
+  .c35 {
     display: none;
   }
 }
@@ -2527,6 +2548,18 @@ Array [
     margin-top: -12rem;
     height: 12rem;
     visibility: hidden;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c30 {
+    margin-left: -0.8rem;
+  }
+}
+
+@media screen and (max-width:64em) {
+  .c33 {
+    margin-right: -0.8rem;
   }
 }
 
@@ -2713,6 +2746,7 @@ Array [
     >
       <div
         className="c2"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -2820,6 +2854,7 @@ Array [
         >
           <div
             className="c20 c21"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -2914,21 +2949,53 @@ Array [
                 >
                   <span
                     aria-hidden={true}
-                  />
+                    aria-label="Previous Page"
+                    className="c30"
+                    side="left"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="c31 c32"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                      />
+                    </svg>
+                    Previous
+                  </span>
                   <span
                     aria-hidden={true}
-                  />
+                    aria-label="Next Page"
+                    className="c33"
+                    side="right"
+                  >
+                    Next
+                    <svg
+                      aria-hidden="true"
+                      className="c34 c32"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+                      />
+                    </svg>
+                  </span>
                 </div>
               </div>
               <details
-                className="c30"
+                className="c35"
               >
                 <summary
-                  className="c31 c32"
+                  className="c36 c37"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c33 c34 c6"
+                    className="c38 c39 c6"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -2940,7 +3007,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c35 c36 c6"
+                    className="c40 c41 c6"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
