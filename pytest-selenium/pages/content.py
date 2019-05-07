@@ -16,8 +16,8 @@ class Content(Page):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
 
     @property
-    def table_of_contents_nav(self):
-        return self.find_element(*self._table_of_contents_nav_locator)
+    def navbar(self):
+        return self.NavBar(self)
 
     @property
     def toolbar(self):
