@@ -1163,6 +1163,7 @@ Array [
 
 @media screen {
   .c36 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -2665,6 +2666,7 @@ Array [
 
 @media screen {
   .c25 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
