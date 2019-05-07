@@ -10,11 +10,6 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 .c2 {
   height: 2.5rem;
   width: 2.5rem;
-}
-
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
   margin-top: 0.1rem;
 }
 
@@ -65,12 +60,6 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 
 @media screen and (max-width:64em) {
   .c1 {
-    margin-left: -0.8rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c4 {
     margin-right: -0.8rem;
   }
 }
@@ -93,33 +82,17 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 >
   <span
     aria-hidden={true}
-    aria-label="Previous Page"
-    className="c1"
-    side="left"
-  >
-    <svg
-      aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-      />
-    </svg>
-    Previous
-  </span>
+  />
   <a
     aria-label="Next Page"
-    className="c4"
+    className="c1"
     href="books/book-slug-1/pages/test-page-1"
     onClick={[Function]}
   >
     Next
     <svg
       aria-hidden="true"
-      className="c5 c3"
+      className="c2 c3"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 24 24"
@@ -133,23 +106,6 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 `;
 
 exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
-.c3 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c2 {
-  height: 2.5rem;
-  width: 2.5rem;
-}
-
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
-  margin-top: 0.1rem;
-}
-
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -195,18 +151,6 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
   display: flex;
 }
 
-@media screen and (max-width:64em) {
-  .c1 {
-    margin-left: -0.8rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c4 {
-    margin-right: -0.8rem;
-  }
-}
-
 @media print {
   .c0 {
     display: none;
@@ -225,42 +169,10 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
 >
   <span
     aria-hidden={true}
-    aria-label="Previous Page"
-    className="c1"
-    side="left"
-  >
-    <svg
-      aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-      />
-    </svg>
-    Previous
-  </span>
+  />
   <span
     aria-hidden={true}
-    aria-label="Next Page"
-    className="c4"
-    side="right"
-  >
-    Next
-    <svg
-      aria-hidden="true"
-      className="c5 c3"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-      />
-    </svg>
-  </span>
+  />
 </div>
 `;
 
@@ -406,11 +318,6 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 .c2 {
   height: 2.5rem;
   width: 2.5rem;
-}
-
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
   margin-top: 0.1rem;
 }
 
@@ -461,12 +368,6 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 
 @media screen and (max-width:64em) {
   .c1 {
-    margin-left: -0.8rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c4 {
     margin-right: -0.8rem;
   }
 }
@@ -489,33 +390,17 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 >
   <span
     aria-hidden={true}
-    aria-label="Previous Page"
-    className="c1"
-    side="left"
-  >
-    <svg
-      aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-      />
-    </svg>
-    Previous
-  </span>
+  />
   <a
     aria-label="Next Page"
-    className="c4"
+    className="c1"
     href="books/book-slug-1/pages/1-test-page-2"
     onClick={[Function]}
   >
     Next
     <svg
       aria-hidden="true"
-      className="c5 c3"
+      className="c2 c3"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 24 24"
@@ -540,12 +425,6 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   width: 2.5rem;
 }
 
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
-  margin-top: 0.1rem;
-}
-
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -594,12 +473,6 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 @media screen and (max-width:64em) {
   .c1 {
     margin-left: -0.8rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c4 {
-    margin-right: -0.8rem;
   }
 }
 
@@ -640,22 +513,6 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   </a>
   <span
     aria-hidden={true}
-    aria-label="Next Page"
-    className="c4"
-    side="right"
-  >
-    Next
-    <svg
-      aria-hidden="true"
-      className="c5 c3"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-      />
-    </svg>
-  </span>
+  />
 </div>
 `;
