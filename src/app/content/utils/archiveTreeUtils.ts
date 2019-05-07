@@ -1,12 +1,14 @@
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree } from '../guards';
-import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
+import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-export function flattenArchiveTree(tree: ArchiveTree): LinkedArchiveTreeSection[] {
+export function flattenArchiveTree(tree: LinkedArchiveTree): LinkedArchiveTreeSection[] {
   return flatten(tree.contents.map((section) =>
-    flatten(isArchiveTree(section) ? flattenArchiveTree(section) : [{...section, parent: tree}]))
-  ).map((section) => ({
+    flatten(isArchiveTree(section)
+      ? flattenArchiveTree({...section, parent: tree})
+      : [{...section, parent: tree}])
+  )).map((section) => ({
     id: stripIdVersion(section.id),
     parent: section.parent,
     shortId: stripIdVersion(section.shortId),
