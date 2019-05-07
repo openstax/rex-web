@@ -142,6 +142,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -1162,6 +1163,7 @@ Array [
 
 @media screen {
   .c36 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1281,6 +1283,7 @@ Array [
     >
       <div
         className="c11"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -1388,6 +1391,7 @@ Array [
         >
           <div
             className="c29 c30"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -1671,7 +1675,6 @@ Array [
                     className="c41"
                     href="1-test-page-3"
                     onClick={[Function]}
-                    side="left"
                   >
                     <svg
                       aria-hidden="true"
@@ -1691,7 +1694,6 @@ Array [
                     className="c43"
                     href="1-test-page-5"
                     onClick={[Function]}
-                    side="right"
                   >
                     Next
                     <svg
@@ -1964,6 +1966,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -2663,6 +2666,7 @@ Array [
 
 @media screen {
   .c25 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -2713,6 +2717,7 @@ Array [
     >
       <div
         className="c2"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -2820,6 +2825,7 @@ Array [
         >
           <div
             className="c20 c21"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"

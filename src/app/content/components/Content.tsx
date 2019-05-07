@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
-import { navDesktopHeight } from '../../components/NavBar';
 import Notifications from '../../notifications/components/Notifications';
 import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
@@ -9,12 +8,15 @@ import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
 import {
-  bookBannerDesktopBigHeight,
+  bookBannerDesktopMiniHeight,
+  bookBannerMobileMiniHeight,
+  contentTextWidth,
   contentWrapperMaxWidth,
   mainContentBackground,
   sidebarDesktopWidth,
   sidebarTransitionTime,
-  toolbarDesktopHeight
+  toolbarDesktopHeight,
+  toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
 import Page from './Page';
@@ -38,10 +40,12 @@ const Background = styled.div`
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
   @media screen {
-    top: ${bookBannerDesktopBigHeight + toolbarDesktopHeight + navDesktopHeight}rem;
+    top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    position: sticky;
+    margin-left: calc((100% - ${contentTextWidth}rem) * 0.75 + ${contentTextWidth}rem);
 
     @media (max-width: ${inlineDisplayBreak}) {
-      top: ${bookBannerDesktopBigHeight + toolbarDesktopHeight}rem;
+      top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
       ${wrapperPadding}
     }
   }
@@ -59,6 +63,7 @@ const CenteredContentRow = styled(CenteredContent)`
 // tslint:disable-next-line:variable-name
 const UndoPadding = isOpenConnector(styled.div`
   @media screen {
+    overflow: visible;
     min-height: 100%;
     display: flex;
     flex-direction: column;

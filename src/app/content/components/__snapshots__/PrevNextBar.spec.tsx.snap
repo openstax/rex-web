@@ -88,7 +88,6 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
     className="c1"
     href="books/book-slug-1/pages/test-page-1"
     onClick={[Function]}
-    side="right"
   >
     Next
     <svg
@@ -273,7 +272,6 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     className="c1"
     href="books/book-slug-1/pages/1-test-page-3"
     onClick={[Function]}
-    side="left"
   >
     <svg
       aria-hidden="true"
@@ -293,7 +291,6 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     className="c4"
     href="books/book-slug-1/pages/1-test-page-5"
     onClick={[Function]}
-    side="right"
   >
     Next
     <svg
@@ -399,7 +396,6 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
     className="c1"
     href="books/book-slug-1/pages/1-test-page-2"
     onClick={[Function]}
-    side="right"
   >
     Next
     <svg
@@ -501,7 +497,6 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
     className="c1"
     href="books/book-slug-1/pages/1-test-page-6"
     onClick={[Function]}
-    side="left"
   >
     <svg
       aria-hidden="true"

@@ -251,7 +251,7 @@ export class Sidebar extends Component<SidebarProps> {
     </ol>
   </nav>
 
-  private renderTocHeader = () => <ToCHeader>
+  private renderTocHeader = () => <ToCHeader data-testid='tocheader'>
     <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
   </ToCHeader>
 
