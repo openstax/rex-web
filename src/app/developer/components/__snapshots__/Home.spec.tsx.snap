@@ -94,6 +94,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"

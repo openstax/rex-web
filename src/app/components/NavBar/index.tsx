@@ -11,7 +11,7 @@ import { assertString } from '../../utils';
 import OnScroll, { OnScrollCallback } from '../OnScroll';
 import * as Styled from './styled';
 
-export {maxNavWidth, navDesktopHeight, navMobileHeight} from './styled';
+export { maxNavWidth, navDesktopHeight, navMobileHeight } from './styled';
 
 if (typeof(window) !== 'undefined') {
   import('ally.js/style/focus-within').then((module) => module.default());
@@ -86,7 +86,7 @@ const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <Formatted
 // tslint:disable-next-line:variable-name
 const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}> = ({user, loggedOut, currentPath}) =>
   <Styled.BarWrapper>
-    <Styled.TopBar>
+    <Styled.TopBar data-testid='navbar'>
       <FormattedMessage id='i18n:nav:logo:alt'>
         {(msg: Element | string) => <a href='/'>
           <Styled.HeaderImage role='img' src={openstaxLogo} alt={assertString(msg, 'alt text must be a string')} />
