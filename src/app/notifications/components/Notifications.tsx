@@ -34,19 +34,26 @@ const connector = connect(
   })
 );
 
+const notificationWidth = 30;
+
 // TODO - magic number to be replaced in `top` when scroll behavior is developed in openstax/unified#179
 export default styled(connector(Notifications))`
-  z-index: 2; /* on top of the navbar */
+  width: ${notificationWidth}rem;
+  height: 0;
+  margin-left: calc(100% - ${notificationWidth}rem);
   top: 0;
-  right: 0;
   overflow: visible;
-  position: fixed;
+  position: sticky;
+  padding-top: 1px; /* clear child margin */
+  margin-top: -1px; /* clear child margin */
 
   @media (max-width: ${inlineDisplayBreak}) {
-    z-index: 1; /* below the navbar */
-    position: sticky;
+    margin: 0;
+    height: auto;
+    width: 100%;
     border-bottom: thin solid ${theme.color.neutral.darkest};
     padding: 0 ${theme.padding.page.desktop}rem;
+    background-color: ${theme.color.neutral.base};
     ${theme.breakpoints.mobile(css`
       padding: 0 ${theme.padding.page.mobile}rem;
     `)}

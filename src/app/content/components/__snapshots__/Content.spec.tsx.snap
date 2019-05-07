@@ -1304,6 +1304,7 @@ li[aria-label="Current Page"] .c36 {
 
 @media screen {
   .c48 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -2121,7 +2122,6 @@ li[aria-label="Current Page"] .c36 {
                     className="c53"
                     href="2-test-page-3"
                     onClick={[Function]}
-                    side="left"
                   >
                     <svg
                       aria-hidden="true"
@@ -2141,7 +2141,6 @@ li[aria-label="Current Page"] .c36 {
                     className="c55"
                     href="4-test-page-5"
                     onClick={[Function]}
-                    side="right"
                   >
                     Next
                     <svg
@@ -2434,13 +2433,7 @@ Array [
       </a>
     </div>
   </div>,
-  .c33 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c7 {
+  .c7 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -2467,17 +2460,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c40 {
+.c35 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c42 {
+.c37 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c38 {
+.c33 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2488,7 +2481,7 @@ Array [
   list-style: none;
 }
 
-.c38 a {
+.c33 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2496,16 +2489,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c38 a:hover {
+.c33 a:hover {
   color: #0064A0;
 }
 
-.c38::-webkit-details-marker {
+.c33::-webkit-details-marker {
   display: none;
 }
 
-.c38,
-.c38 span {
+.c33,
+.c33 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2516,8 +2509,8 @@ Array [
   text-decoration: none;
 }
 
-.c38 a,
-.c38 span a {
+.c33 a,
+.c33 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2525,19 +2518,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c38 a:hover,
-.c38 span a:hover {
+.c33 a:hover,
+.c33 span a:hover {
   color: #0064A0;
 }
 
-.c38:hover,
-.c38 span:hover {
+.c33:hover,
+.c33 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c36 {
+.c31 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2549,7 +2542,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c36 a {
+.c31 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2557,23 +2550,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c36 a:hover {
+.c31 a:hover {
   color: #0064A0;
 }
 
-.c36 > .c37 {
+.c31 > .c32 {
   margin-bottom: 1.8rem;
 }
 
-.c36[open] .c39 {
+.c31[open] .c34 {
   display: none;
 }
 
-.c36:not([open]) .c41 {
+.c31:not([open]) .c36 {
   display: none;
 }
 
-.c36 li {
+.c31 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -2597,17 +2590,6 @@ Array [
   position: relative;
   z-index: 4;
   overflow: hidden;
-}
-
-.c32 {
-  height: 2.5rem;
-  width: 2.5rem;
-}
-
-.c35 {
-  height: 2.5rem;
-  width: 2.5rem;
-  margin-top: 0.1rem;
 }
 
 .c30 {
@@ -2973,24 +2955,24 @@ Array [
 }
 
 @media screen and (max-width:64em) {
-  .c36 {
+  .c31 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:64em) {
-  .c36 {
+  .c31 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c36 > .c37 {
+  .c31 > .c32 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c36 {
+  .c31 {
     display: none;
   }
 }
@@ -3026,18 +3008,6 @@ Array [
     margin-top: -12rem;
     height: 12rem;
     visibility: hidden;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c31 {
-    margin-left: -0.8rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c34 {
-    margin-right: -0.8rem;
   }
 }
 
@@ -3173,6 +3143,7 @@ Array [
 
 @media screen {
   .c26 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -3429,53 +3400,21 @@ Array [
                 >
                   <span
                     aria-hidden={true}
-                    aria-label="Previous Page"
-                    className="c31"
-                    side="left"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c32 c33"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-                      />
-                    </svg>
-                    Previous
-                  </span>
+                  />
                   <span
                     aria-hidden={true}
-                    aria-label="Next Page"
-                    className="c34"
-                    side="right"
-                  >
-                    Next
-                    <svg
-                      aria-hidden="true"
-                      className="c35 c33"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-                      />
-                    </svg>
-                  </span>
+                  />
                 </div>
               </div>
               <details
-                className="c36"
+                className="c31"
               >
                 <summary
-                  className="c37 c38"
+                  className="c32 c33"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c39 c40 c7"
+                    className="c34 c35 c7"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -3487,7 +3426,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c41 c42 c7"
+                    className="c36 c37 c7"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
