@@ -8,6 +8,7 @@ import Loadable from 'react-loadable';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
+import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
 import { notFound } from '../../src/app/errors/routes';
@@ -21,12 +22,14 @@ import { AppServices, AppState } from '../../src/app/types';
 import {
   BOOKS,
   CODE_VERSION,
+  REACT_APP_ACCOUNTS_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID
 } from '../../src/config';
-import createArchiveLoader from '../../src/helpers/createArchiveLoader';
-import createOSWebLoader from '../../src/helpers/createOSWebLoader';
+import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../../src/gateways/createOSWebLoader';
+import createUserLoader from '../../src/gateways/createUserLoader';
 import FontCollector from '../../src/helpers/FontCollector';
 import { startServer } from '../server';
 
@@ -92,7 +95,7 @@ const renderHtml: RenderHtml = (styles, app, state) => {
   });
 };
 
-type MakeRenderPage = (services: Pick<AppServices, 'archiveLoader' | 'osWebLoader'>) =>
+type MakeRenderPage = (services: AppOptions['services']) =>
   (action: AnyMatch, expectedCode: number) => Promise<void>;
 const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode) => {
   const url = matchUrl(action);
@@ -144,12 +147,11 @@ const preparePages: PreparePages = async(archiveLoader, osWebLoader) => {
 };
 
 type RenderPages = (
-  archiveLoader: AppServices['archiveLoader'],
-  osWebLoader: AppServices['osWebLoader'],
+  services: AppOptions['services'],
   pages: Pages
 ) => Promise<void>;
-const renderPages: RenderPages = async(archiveLoader, osWebLoader, pages) => {
-  const renderPage = makeRenderPage({osWebLoader, archiveLoader});
+const renderPages: RenderPages = async(services, pages) => {
+  const renderPage = makeRenderPage(services);
   await asyncPool(50, pages, ({code, page}) => renderPage(page, code));
 };
 
@@ -159,12 +161,13 @@ async function render() {
   const port = await portfinder.getPortPromise();
   const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
+  const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const {server} = await startServer({port, onlyProxy: true});
 
   const pages = await preparePages(archiveLoader, osWebLoader);
 
   await renderManifest();
-  await renderPages(archiveLoader, osWebLoader, pages);
+  await renderPages({archiveLoader, osWebLoader, userLoader}, pages);
 
   const numPages = pages.length;
   const end = (new Date()).getTime();

@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
+import * as auth from './auth';
 import * as content from './content';
 import * as Services from './context/Services';
 import * as developer from './developer';
@@ -20,6 +21,7 @@ import * as notifications from './notifications';
 import { AnyAction, AppServices, AppState, Middleware } from './types';
 
 export const actions = {
+  auth: auth.actions,
   content: content.actions,
   errors: errors.actions,
   head: head.actions,
@@ -37,6 +39,10 @@ export const routes = [
   ...Object.values(errors.routes),
 ];
 
+const init = [
+  ...Object.values(auth.init),
+];
+
 const hooks = [
   ...Object.values(content.hooks),
   ...Object.values(head.hooks),
@@ -47,13 +53,13 @@ const defaultServices = () => ({
   promiseCollector: new PromiseCollector(),
 });
 
-interface Options {
+export interface AppOptions {
   initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
   services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
 }
 
-export default (options: Options) => {
+export default (options: AppOptions) => {
   const {initialEntries, initialState} = options;
 
   const history = typeof window !== 'undefined' && window.history
@@ -70,6 +76,7 @@ export default (options: Options) => {
   }
 
   const reducer = combineReducers<AppState, AnyAction>({
+    auth: auth.reducer,
     content: content.reducer,
     errors: errors.reducer,
     head: head.reducer,
@@ -110,8 +117,15 @@ export default (options: Options) => {
     navigation.utils.changeToLocation(routes, store.dispatch, history.location);
   }
 
-  // the default font
-  services.fontCollector.add('/styles/fonts.css');
+  for (const initializer of init) {
+    const promise = initializer({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      ...services,
+    });
+
+    services.promiseCollector.add(promise);
+  }
 
   return {
     container,
