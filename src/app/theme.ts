@@ -58,6 +58,10 @@ const color = {
       darkest: '#df571e',
       foreground: textColors.white,
     },
+    'red': {
+      base: '#f00',
+      foreground: textColors.black,
+    },
     'yellow': {
       base: '#f4d019',
       foreground: textColors.black,
