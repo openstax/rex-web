@@ -57,7 +57,7 @@ describe('content', () => {
       it('doesn\'t prevent default on accounts links', async() => {
         const window = assertWindowDefined();
         const {root} = renderToDom(render());
-        const link1 = root.querySelector('a[href="/accounts/logout"]');
+        const link1 = root.querySelector('a[href^="/accounts/logout"]');
         const link2 = root.querySelector('a[href="/accounts/profile"]');
 
         if (!link1 || !link2) {

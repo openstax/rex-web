@@ -6,6 +6,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 >
   <div
     className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+    data-testid="navbar"
   >
     <a
       href="/"
@@ -19,7 +20,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     </a>
     <a
       className="styled__Link-sc-3syvnw-6 dAtrsj"
-      href="/accounts/login?r=%2F"
+      href="/accounts/login?r=/"
     >
       Login
     </a>
@@ -33,6 +34,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
 >
   <div
     className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+    data-testid="navbar"
   >
     <a
       href="/"
@@ -54,6 +56,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
 >
   <div
     className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+    data-testid="navbar"
   >
     <a
       href="/"
@@ -121,13 +124,14 @@ exports[`content in browser when logged in matches snapshot 1`] = `
             <li>
               <a
                 href="/accounts/profile"
+                target="_blank"
               >
                 Account Profile
               </a>
             </li>
             <li>
               <a
-                href="/accounts/logout"
+                href="/accounts/logout?r=/"
               >
                 Log out
               </a>
