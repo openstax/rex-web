@@ -8,7 +8,7 @@ import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertDocument } from '../../utils';
+import { assertDefined, assertDocument } from '../../utils';
 import * as select from '../selectors';
 import { ArchiveTreeSection, Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
@@ -126,7 +126,11 @@ export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant
   z-index: ${ifMiniNav(3 /* stay above book content and overlay */, 4 /* above mini nav */)};
   overflow: hidden;
   ${(props: {theme: Book['theme']}) => css`
-    background: linear-gradient(to right, ${theme.color.primary[props.theme].base}, ${gradients[props.theme]});
+    background: linear-gradient(
+      to right,
+      ${assertDefined(theme.color.primary[props.theme], `Could not find values for theme named "${props.theme}"`).base},
+      ${gradients[props.theme]}
+    );
   `}
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
