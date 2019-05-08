@@ -32,6 +32,7 @@ Array [
     Skip to Content
   </a>,
   .c1 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -55,36 +56,8 @@ Array [
   height: 3rem;
 }
 
-.c3 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
-  padding: 1rem 0 1rem 0;
-  margin: 0;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-weight: bold;
-  color: #5e6062;
-  padding: 1rem 0;
-}
-
-.c3:hover {
-  color: #424242;
-}
-
-.c3:hover,
-.c3:active,
-.c3:focus {
-  padding-bottom: 0.6rem;
-  border-bottom: 0.4rem solid #63a524;
-}
-
 .c0 {
+  overflow: visible;
   z-index: 5;
   background: #fff;
   position: relative;
@@ -111,27 +84,6 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c3 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    font-size: 1.4rem;
-    font-weight: normal;
-    padding: 0.7rem 0;
-  }
-
-  .c3:hover,
-  .c3:active,
-  .c3:focus {
-    padding-bottom: 0.3rem;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
   }
@@ -153,12 +105,6 @@ Array [
           role="img"
           src="logo.svg"
         />
-      </a>
-      <a
-        className="c3"
-        href="https://accounts-dev.openstax.org/login"
-      >
-        Login
       </a>
     </div>
   </div>,
@@ -917,15 +863,53 @@ Array [
 
 @media screen and (max-width:75em) {
   .c3 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
 @media screen and (max-width:75em) {
   .c8 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -944,6 +928,12 @@ Array [
 
 @media screen and (max-width:75em) {
   .c6 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -955,13 +945,27 @@ Array [
 
 @media screen and (max-width:75em) {
   .c9 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
 @media screen and (max-width:75em) {
   .c9 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -1856,6 +1860,7 @@ Array [
     Skip to Content
   </a>,
   .c1 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1879,36 +1884,8 @@ Array [
   height: 3rem;
 }
 
-.c3 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
-  padding: 1rem 0 1rem 0;
-  margin: 0;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-weight: bold;
-  color: #5e6062;
-  padding: 1rem 0;
-}
-
-.c3:hover {
-  color: #424242;
-}
-
-.c3:hover,
-.c3:active,
-.c3:focus {
-  padding-bottom: 0.6rem;
-  border-bottom: 0.4rem solid #63a524;
-}
-
 .c0 {
+  overflow: visible;
   z-index: 5;
   background: #fff;
   position: relative;
@@ -1935,27 +1912,6 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c3 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    font-size: 1.4rem;
-    font-weight: normal;
-    padding: 0.7rem 0;
-  }
-
-  .c3:hover,
-  .c3:active,
-  .c3:focus {
-    padding-bottom: 0.3rem;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
   }
@@ -1977,12 +1933,6 @@ Array [
           role="img"
           src="logo.svg"
         />
-      </a>
-      <a
-        className="c3"
-        href="https://accounts-dev.openstax.org/login"
-      >
-        Login
       </a>
     </div>
   </div>,

@@ -1,12 +1,12 @@
 import memoize from 'lodash/fp/memoize';
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
-import { acceptStatus } from './fetch';
+import { acceptStatus } from '../helpers/fetch';
 
 export default (url: string) => {
   const cache = new Map();
-  const loader = memoize((id: string) => fetch(url + id)
-    .then(acceptStatus(200, (status, message) => `Error response from archive "${url + id}" ${status}: ${message}`))
+  const loader = memoize((id: string) => fetch(`${url}/${id}`)
+    .then(acceptStatus(200, (status, message) => `Error response from archive "${url}/${id}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<ArchiveContent>)
     .then((response) => {
       cache.set(id, response);
