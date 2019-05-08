@@ -126,11 +126,9 @@ export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant
   z-index: ${ifMiniNav(3 /* stay above book content and overlay */, 4 /* above mini nav */)};
   overflow: hidden;
   ${(props: {theme: Book['theme']}) => css`
-    background: linear-gradient(
-      to right,
+    background: linear-gradient(to right,
       ${assertDefined(theme.color.primary[props.theme], `Could not find values for theme named "${props.theme}"`).base},
-      ${gradients[props.theme]}
-    );
+      ${gradients[props.theme]});
   `}
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
