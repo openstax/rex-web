@@ -2,10 +2,10 @@
 
 exports[`content in browser matches snapshot for logged out 1`] = `
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
+  className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+    className="styled__TopBar-sc-3syvnw-0 egplav"
     data-testid="navbar"
   >
     <a
@@ -13,13 +13,13 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
+        className="styled__HeaderImage-sc-3syvnw-1 fLLiUi"
         role="img"
         src="logo.svg"
       />
     </a>
     <a
-      className="styled__Link-sc-3syvnw-6 dAtrsj"
+      className="styled__Link-sc-3syvnw-6 ioumkf"
       href="/accounts/login?r=/"
     >
       Login
@@ -30,10 +30,10 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 
 exports[`content in browser matches snapshot for null state 1`] = `
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
+  className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+    className="styled__TopBar-sc-3syvnw-0 egplav"
     data-testid="navbar"
   >
     <a
@@ -41,7 +41,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
+        className="styled__HeaderImage-sc-3syvnw-1 fLLiUi"
         role="img"
         src="logo.svg"
       />
@@ -52,10 +52,10 @@ exports[`content in browser matches snapshot for null state 1`] = `
 
 exports[`content in browser when logged in matches snapshot 1`] = `
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 fcwlKg"
+  className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 fbUyEh"
+    className="styled__TopBar-sc-3syvnw-0 egplav"
     data-testid="navbar"
   >
     <a
@@ -63,7 +63,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 cVBFHU"
+        className="styled__HeaderImage-sc-3syvnw-1 fLLiUi"
         role="img"
         src="logo.svg"
       />
@@ -73,14 +73,14 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       data-testid="user-nav"
     >
       <span
-        className="styled__DropdownToggle-sc-3syvnw-7 hIXqhe"
+        className="styled__DropdownToggle-sc-3syvnw-7 jMKtzt"
         data-testid="user-nav-toggle"
         tabIndex="0"
       >
         Hi test
         <svg
           aria-hidden="true"
-          className="styled__DownIcon-sc-3syvnw-4 hVzTfI StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="styled__DownIcon-sc-3syvnw-4 iLsaaa StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -92,7 +92,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         </svg>
         <svg
           aria-hidden="true"
-          className="styled__HamburgerIcon-sc-3syvnw-5 jKoVqd StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="styled__HamburgerIcon-sc-3syvnw-5 afAcp StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -104,22 +104,22 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="styled__DropdownOverlay-sc-3syvnw-10 pVBCd"
+        className="styled__DropdownOverlay-sc-3syvnw-10 dOpxuI"
         tabIndex="-1"
       >
         <img
           aria-hidden="true"
-          className="styled__OverlayLogo-sc-3syvnw-3 buwqvw"
+          className="styled__OverlayLogo-sc-3syvnw-3 cRDsEj"
           src="logo.svg"
         />
         <div>
           <h4
-            className="styled__OverlayHeading-sc-3syvnw-8 fqozmZ"
+            className="styled__OverlayHeading-sc-3syvnw-8 cSAnFj"
           >
             Hi test
           </h4>
           <ul
-            className="styled__DropdownList-sc-3syvnw-9 jodfiM"
+            className="styled__DropdownList-sc-3syvnw-9 DPoyb"
           >
             <li>
               <a
@@ -141,7 +141,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       </div>
       <a
         aria-hidden="true"
-        className="styled__TimesIcon-sc-3syvnw-11 fmzpeZ"
+        className="styled__TimesIcon-sc-3syvnw-11 fJMbFN"
         href=""
         tabIndex="-1"
       >

@@ -34,7 +34,7 @@ if (process.env.CI) {
   page.setDefaultNavigationTimeout(90 * 1000);
 }
 
-export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: 1200});
+export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: 1250});
 export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
