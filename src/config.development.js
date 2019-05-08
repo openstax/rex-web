@@ -16,7 +16,7 @@ module.exports = {
     // 'fd53eae1-fa23-47c7-bb1b-972349835c3c':{'defaultVersion':'10.3'}, // Precalculus. Broken because contains link to external content.
     '914ac66e-e1ec-486d-8a9c-97b0f7a99774':{defaultVersion:'4.1'}, // Business Ethics
     '02776133-d49d-49cb-bfaa-67c7f61b25a1':{defaultVersion:'6.1'}, // Intermediate Algebra
-    '5bcc0e59-7345-421d-8507-a1e4608685e8':{defaultVersion:'18.14'}, // American Government
+    '9d8df601-4f12-4ac1-8224-b450bf739e5f':{defaultVersion:'5.1'}, // American Government 2e
   },
 
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
