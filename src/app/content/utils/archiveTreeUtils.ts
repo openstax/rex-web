@@ -18,19 +18,16 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): LinkedArchiveTreeSe
 }
 
 export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
-  const getFirstTreeSection = (tree: ArchiveTree) => tree.contents.find(isArchiveTree);
+  const resolvePage = (target: ArchiveTree | ArchiveTreeSection): ArchiveTreeSection =>
+    isArchiveTree(target) ? resolvePage(target.contents[0]) : target;
 
-  const getFirstTreeSectionOrPage = (tree: ArchiveTree): ArchiveTreeSection => {
-    const firstSection = getFirstTreeSection(tree);
+  const firstSubtree = book.tree.contents.find(isArchiveTree);
 
-    if (firstSection) {
-      return getFirstTreeSectionOrPage(firstSection);
-    } else {
-      return tree.contents[0];
-    }
-  };
-
-  return getFirstTreeSectionOrPage(book.tree);
+  if (firstSubtree) {
+    return resolvePage(firstSubtree);
+  } else {
+    return book.tree.contents[0];
+  }
 };
 
 const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
