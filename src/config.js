@@ -15,10 +15,12 @@
 
 let config = {
   APP_ENV: process.env.REACT_APP_ENV,
-  ARCHIVE_URL: process.env.ARCHIVE_URL || 'https://archive.cnx.org/',
-  OS_WEB_URL: process.env.OS_WEB_URL || 'https://openstax.org/',
-  REACT_APP_ARCHIVE_URL: '/contents/',
-  REACT_APP_OS_WEB_API_URL: '/api/v2/pages/',
+  ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts.openstax.org',
+  ARCHIVE_URL: process.env.ARCHIVE_URL || 'https://archive.cnx.org',
+  OS_WEB_URL: process.env.OS_WEB_URL || 'https://openstax.org',
+  REACT_APP_ACCOUNTS_URL: '/accounts',
+  REACT_APP_ARCHIVE_URL: '/contents',
+  REACT_APP_OS_WEB_API_URL: '/api/v2/pages',
 };
 
 if (process.env.REACT_APP_ENV === 'production') {

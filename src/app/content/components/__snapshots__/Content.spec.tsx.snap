@@ -32,6 +32,7 @@ Array [
     Skip to Content
   </a>,
   .c1 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -55,36 +56,8 @@ Array [
   height: 3rem;
 }
 
-.c3 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
-  padding: 1rem 0 1rem 0;
-  margin: 0;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-weight: bold;
-  color: #5e6062;
-  padding: 1rem 0;
-}
-
-.c3:hover {
-  color: #424242;
-}
-
-.c3:hover,
-.c3:active,
-.c3:focus {
-  padding-bottom: 0.6rem;
-  border-bottom: 0.4rem solid #63a524;
-}
-
 .c0 {
+  overflow: visible;
   z-index: 5;
   background: #fff;
   position: relative;
@@ -92,7 +65,7 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c1 {
     height: 3.6rem;
   }
@@ -104,34 +77,13 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c2 {
     height: 2rem;
   }
 }
 
-@media screen and (max-width:64em) {
-  .c3 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c3 {
-    font-size: 1.4rem;
-    font-weight: normal;
-    padding: 0.7rem 0;
-  }
-
-  .c3:hover,
-  .c3:active,
-  .c3:focus {
-    padding-bottom: 0.3rem;
-  }
-}
-
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
   }
@@ -142,6 +94,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -152,12 +105,6 @@ Array [
           role="img"
           src="logo.svg"
         />
-      </a>
-      <a
-        className="c3"
-        href="https://accounts-dev.openstax.org/login"
-      >
-        Login
       </a>
     </div>
   </div>,
@@ -885,19 +832,19 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c26 {
     padding: 0 1.6rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c45 {
     padding: 0 1.6rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c45 {
     min-height: 4rem;
     padding-top: 0.8rem;
@@ -914,35 +861,79 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c3 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
   .c8 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
+  .c8 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
   .c8 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c6 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c6 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -952,15 +943,29 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c9 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c9 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -976,7 +981,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c1 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -989,7 +994,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c7 {
     padding: 1.6rem;
     height: 6rem;
@@ -1018,13 +1023,13 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c41 {
     margin-left: -0.8rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c43 {
     margin-right: -0.8rem;
   }
@@ -1036,20 +1041,20 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c40 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c11 {
     height: 4rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c20 {
     border: none;
     margin-right: 1rem;
@@ -1060,19 +1065,19 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c22 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c25 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c10 {
     top: 6rem;
     padding: 0 1.6rem;
@@ -1085,7 +1090,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c12 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -1094,13 +1099,13 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c18 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c28 {
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
@@ -1110,7 +1115,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c28 {
     overflow-y: hidden;
     -webkit-transform: translateX(-33.5rem);
@@ -1132,7 +1137,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c30 {
     height: 4rem;
   }
@@ -1162,6 +1167,7 @@ Array [
 
 @media screen {
   .c36 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1281,6 +1287,7 @@ Array [
     >
       <div
         className="c11"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -1388,6 +1395,7 @@ Array [
         >
           <div
             className="c29 c30"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -1667,7 +1675,6 @@ Array [
                     className="c41"
                     href="1-test-page-3"
                     onClick={[Function]}
-                    side="left"
                   >
                     <svg
                       aria-hidden="true"
@@ -1687,7 +1694,6 @@ Array [
                     className="c43"
                     href="1-test-page-5"
                     onClick={[Function]}
-                    side="right"
                   >
                     Next
                     <svg
@@ -1850,6 +1856,7 @@ Array [
     Skip to Content
   </a>,
   .c1 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1873,36 +1880,8 @@ Array [
   height: 3rem;
 }
 
-.c3 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
-  padding: 1rem 0 1rem 0;
-  margin: 0;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-weight: bold;
-  color: #5e6062;
-  padding: 1rem 0;
-}
-
-.c3:hover {
-  color: #424242;
-}
-
-.c3:hover,
-.c3:active,
-.c3:focus {
-  padding-bottom: 0.6rem;
-  border-bottom: 0.4rem solid #63a524;
-}
-
 .c0 {
+  overflow: visible;
   z-index: 5;
   background: #fff;
   position: relative;
@@ -1910,7 +1889,7 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c1 {
     height: 3.6rem;
   }
@@ -1922,34 +1901,13 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c2 {
     height: 2rem;
   }
 }
 
-@media screen and (max-width:64em) {
-  .c3 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c3 {
-    font-size: 1.4rem;
-    font-weight: normal;
-    padding: 0.7rem 0;
-  }
-
-  .c3:hover,
-  .c3:active,
-  .c3:focus {
-    padding-bottom: 0.3rem;
-  }
-}
-
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
   }
@@ -1960,6 +1918,7 @@ Array [
   >
     <div
       className="c1"
+      data-testid="navbar"
     >
       <a
         href="/"
@@ -1971,21 +1930,9 @@ Array [
           src="logo.svg"
         />
       </a>
-      <a
-        className="c3"
-        href="https://accounts-dev.openstax.org/login"
-      >
-        Login
-      </a>
     </div>
   </div>,
-  .c32 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c6 {
+  .c6 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -2012,17 +1959,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c39 {
+.c34 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c41 {
+.c36 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c37 {
+.c32 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2033,7 +1980,7 @@ Array [
   list-style: none;
 }
 
-.c37 a {
+.c32 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2041,16 +1988,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c37 a:hover {
+.c32 a:hover {
   color: #0064A0;
 }
 
-.c37::-webkit-details-marker {
+.c32::-webkit-details-marker {
   display: none;
 }
 
-.c37,
-.c37 span {
+.c32,
+.c32 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2061,8 +2008,8 @@ Array [
   text-decoration: none;
 }
 
-.c37 a,
-.c37 span a {
+.c32 a,
+.c32 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2070,19 +2017,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c37 a:hover,
-.c37 span a:hover {
+.c32 a:hover,
+.c32 span a:hover {
   color: #0064A0;
 }
 
-.c37:hover,
-.c37 span:hover {
+.c32:hover,
+.c32 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c35 {
+.c30 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -2094,7 +2041,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c35 a {
+.c30 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -2102,36 +2049,25 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c35 a:hover {
+.c30 a:hover {
   color: #0064A0;
 }
 
-.c35 > .c36 {
+.c30 > .c31 {
   margin-bottom: 1.8rem;
 }
 
-.c35[open] .c38 {
+.c30[open] .c33 {
   display: none;
 }
 
-.c35:not([open]) .c40 {
+.c30:not([open]) .c35 {
   display: none;
 }
 
-.c35 li {
+.c30 li {
   margin-bottom: 1rem;
   overflow: visible;
-}
-
-.c31 {
-  height: 2.5rem;
-  width: 2.5rem;
-}
-
-.c34 {
-  height: 2.5rem;
-  width: 2.5rem;
-  margin-top: 0.1rem;
 }
 
 .c29 {
@@ -2494,31 +2430,31 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c17 {
     padding: 0 1.6rem;
   }
 }
 
-@media screen and (max-width:64em) {
-  .c35 {
+@media screen and (max-width:75em) {
+  .c30 {
     padding: 0 1.6rem;
   }
 }
 
-@media screen and (max-width:64em) {
-  .c35 {
+@media screen and (max-width:75em) {
+  .c30 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c35 > .c36 {
+  .c30 > .c31 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c35 {
+  .c30 {
     display: none;
   }
 }
@@ -2544,38 +2480,26 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
-  .c30 {
-    margin-left: -0.8rem;
-  }
-}
-
-@media screen and (max-width:64em) {
-  .c33 {
-    margin-right: -0.8rem;
-  }
-}
-
 @media print {
   .c29 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c29 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c2 {
     height: 4rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c11 {
     border: none;
     margin-right: 1rem;
@@ -2586,19 +2510,19 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c13 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c16 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c1 {
     top: 6rem;
     padding: 0 1.6rem;
@@ -2611,7 +2535,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c3 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -2620,13 +2544,13 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c9 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c19 {
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
@@ -2636,7 +2560,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c19 {
     overflow-y: hidden;
     -webkit-transform: translateX(-33.5rem);
@@ -2658,7 +2582,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c21 {
     height: 4rem;
   }
@@ -2688,6 +2612,7 @@ Array [
 
 @media screen {
   .c25 {
+    overflow: visible;
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -2738,6 +2663,7 @@ Array [
     >
       <div
         className="c2"
+        data-testid="toolbar"
       >
         <button
           aria-label="Click to open the Table of Contents"
@@ -2845,6 +2771,7 @@ Array [
         >
           <div
             className="c20 c21"
+            data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
@@ -2935,53 +2862,21 @@ Array [
                 >
                   <span
                     aria-hidden={true}
-                    aria-label="Previous Page"
-                    className="c30"
-                    side="left"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c31 c32"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-                      />
-                    </svg>
-                    Previous
-                  </span>
+                  />
                   <span
                     aria-hidden={true}
-                    aria-label="Next Page"
-                    className="c33"
-                    side="right"
-                  >
-                    Next
-                    <svg
-                      aria-hidden="true"
-                      className="c34 c32"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-                      />
-                    </svg>
-                  </span>
+                  />
                 </div>
               </div>
               <details
-                className="c35"
+                className="c30"
               >
                 <summary
-                  className="c36 c37"
+                  className="c31 c32"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c38 c39 c6"
+                    className="c33 c34 c6"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -2993,7 +2888,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c6"
+                    className="c35 c36 c6"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"

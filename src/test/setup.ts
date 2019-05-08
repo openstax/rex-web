@@ -21,6 +21,8 @@ expect.extend({
   toMatchImageSnapshot,
 });
 
+jest.mock('ally.js/style/focus-within');
+
 const ignoreConsoleMessages = [
   /*
    * jsdom chokes on cnx-recipes styles and produces large nasty
