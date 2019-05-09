@@ -1655,7 +1655,6 @@ Array [
               >
                 <div
                   className="c39"
-                  data-is-generic-style={true}
                   id="main-content"
                   tabIndex={-1}
                 >
@@ -2845,7 +2844,6 @@ Array [
               >
                 <div
                   className="c28"
-                  data-is-generic-style={true}
                   id="main-content"
                   tabIndex={-1}
                 >

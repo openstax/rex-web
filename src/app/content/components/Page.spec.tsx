@@ -380,16 +380,4 @@ describe('Page', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('sets data-is-generic-style="true" by default', () => {
-    const { root } = renderDomWithReferences();
-    expect(root.querySelector('#main-content[data-is-generic-style="true"]')).toBeTruthy();
-  });
-
-  it('sets data-is-generic-style="false" for books which should use the custom baked style', () => {
-    BOOKS[book.id].bookStyleName = 'intro-business';
-    const { root } = renderDomWithReferences();
-    delete BOOKS[book.id].bookStyleName;
-    expect(root.querySelector('#main-content[data-is-generic-style="false"]')).toBeTruthy();
-  });
-
 });

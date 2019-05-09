@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "ally.js": "^1.4.1",
-    "cnx-recipes": "github:openstax/cnx-recipes#dfd753a7fed4e9d4e30a3cdfd4b0a2135969ee12",
     "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
     "history": "^4.7.2",
