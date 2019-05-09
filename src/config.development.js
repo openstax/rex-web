@@ -9,6 +9,9 @@ module.exports = {
     '02776133-d49d-49cb-bfaa-67c7f61b25a1':{'defaultVersion':'6.1'}, // Intermediate Algebra
   },
 
+  ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts-dev.openstax.org',
+  OS_WEB_URL: process.env.OS_WEB_URL || 'https://cms-dev.openstax.org',
+
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
   FIXTURES: false,
   DEBUG: true,

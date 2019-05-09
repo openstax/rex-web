@@ -1,6 +1,6 @@
 import memoize from 'lodash/fp/memoize';
 import { Book } from '../app/content/types';
-import { acceptStatus } from './fetch';
+import { acceptStatus } from '../helpers/fetch';
 
 export interface OSWebBook {
   meta: {

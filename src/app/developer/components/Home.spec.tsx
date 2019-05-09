@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
+import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
-import { AppServices, AppState } from '../../types';
+import { AppServices } from '../../types';
 import Home from './Home';
 
 describe('Home', () => {
@@ -22,12 +22,7 @@ describe('Home', () => {
   });
 
   it('matches snapshot', async() => {
-    const state = {
-      navigation: {pathname: '/'},
-      notifications: [],
-    } as unknown as AppState;
-
-    const store = createStore(() => state, state);
+    const store = createTestStore({navigation: new URL('https://localhost')});
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
