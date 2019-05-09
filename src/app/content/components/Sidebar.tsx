@@ -309,7 +309,7 @@ export class Sidebar extends Component<SidebarProps> {
 
   public render() {
     const {isOpen, book} = this.props;
-    return <SidebarBody isOpen={isOpen} ref={this.sidebar} aria-label='Table of Contents'>
+    return <SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label='Table of Contents'>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
     </SidebarBody>;
