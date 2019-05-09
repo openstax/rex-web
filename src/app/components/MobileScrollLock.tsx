@@ -1,4 +1,3 @@
-import { Event } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
@@ -6,6 +5,7 @@ import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/componen
 import { findFirstScrollableParent } from '../content/utils/domUtils';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
+import OnScroll, { OnScrollCallback } from './OnScroll';
 
 // tslint:disable-next-line:variable-name
 const MobileScrollLockBodyClass = createGlobalStyle`
@@ -49,25 +49,13 @@ interface Props {
 
 export default class MobileScrollLock extends React.Component<Props> {
 
-  public componentDidMount() {
-    if (typeof(document) === 'undefined') {
-      return;
-    }
-    document.addEventListener('touchmove', this.blockScroll, {passive: false});
-  }
-
-  public componentWillUnmount() {
-    if (typeof(document) === 'undefined') {
-      return;
-    }
-    document.removeEventListener('touchmove', this.blockScroll);
-  }
-
   public render() {
-    return <Overlay onClick={this.props.onClick}><MobileScrollLockBodyClass /></Overlay>;
+    return <OnScroll callback={this.blockScroll}>
+      <Overlay onClick={this.props.onClick}><MobileScrollLockBodyClass /></Overlay>
+    </OnScroll>;
   }
 
-  private blockScroll = (e: Event) => {
+  private blockScroll: OnScrollCallback = (e) => {
     if (
       typeof(window) !== 'undefined'
       && window.matchMedia(theme.breakpoints.mobileQuery).matches

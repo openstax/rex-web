@@ -6,10 +6,12 @@ import {
 } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
-import createArchiveLoader from '../helpers/createArchiveLoader';
-import createOSWebLoader from '../helpers/createOSWebLoader';
+import createArchiveLoader from '../gateways/createArchiveLoader';
+import createOSWebLoader from '../gateways/createOSWebLoader';
+import createUserLoader from '../gateways/createUserLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
+import { State as authState } from './auth/types';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
 import { State as headState } from './head/types';
@@ -20,6 +22,7 @@ export interface AppState {
   content: contentState;
   errors: errorsState;
   head: headState;
+  auth: authState;
   navigation: navigationState;
   notifications: notificationState;
 }
@@ -29,6 +32,7 @@ export interface AppServices {
   fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
+  userLoader: ReturnType<typeof createUserLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
@@ -48,6 +52,8 @@ export type Dispatch = ReduxDispatch<AnyAction>;
 export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
 export type MiddlewareAPI = ReduxMiddlewareAPI<Dispatch, AppState>;
 export type Store = ReduxStore<AppState, AnyAction>;
+
+export type Initializer = (helpers: MiddlewareAPI & AppServices) => Promise<any>;
 
 export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI & AppServices) =>
   (action: ReturnType<C>) => Promise<any> | void;

@@ -11,7 +11,7 @@ describe('archiveLoader', () => {
   let archiveLoader: AppServices['archiveLoader'];
 
   beforeEach(() => {
-    archiveLoader = require('./createArchiveLoader').default('url/');
+    archiveLoader = require('./createArchiveLoader').default('url');
   });
 
   afterEach(() => {

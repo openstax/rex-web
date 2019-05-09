@@ -81,6 +81,9 @@ const BookTitle = styled.a`
   :hover {
     text-decoration: underline;
   }
+  ${theme.breakpoints.mobile(css`
+    ${bookBannerTextStyle}
+  `)}
 
   ${ifMiniNav(css`
     width: 27rem;
@@ -100,6 +103,7 @@ const BookChapter = styled(({colorSchema: _, variant, ...props}) => variant === 
   display: ${ifMiniNav('inline-block', 'block')};
   margin: 1rem 0 0 0;
   ${theme.breakpoints.mobile(css`
+    ${bookBannerTextStyle}
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;

@@ -1,4 +1,4 @@
-import { OSWebBook } from '../../helpers/createOSWebLoader';
+import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { ArchiveBook, Book } from './types';
 import { getIdVersion, stripIdVersion } from './utils/idUtils';
 

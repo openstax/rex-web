@@ -8,7 +8,7 @@ export const textStyle = css`
 `;
 
 const linkColor = '#027EB5';
-const linkHover = '#0064A0';
+export const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};
   cursor: pointer;
@@ -80,12 +80,13 @@ export const H3 = styled.h3`
   ${h3Style}
 `;
 
-const h4MobileFontSize = 1.6;
-const h4MobileLineHeight = 2;
-export const h4Style = css`
+export const h4DesktopStyle = css`
   ${headingStyle('1.8rem', '2.5rem', '1rem')}
-  ${theme.breakpoints.mobile(css`
-    font-size: ${h4MobileFontSize}rem;
-    line-height: ${h4MobileLineHeight}rem;
-  `)}
+`;
+export const h4MobileStyle = css`
+  ${headingStyle(`1.6rem`, '2rem', '1rem')}
+`;
+export const h4Style = css`
+  ${h4DesktopStyle}
+  ${theme.breakpoints.mobile(h4MobileStyle)}
 `;

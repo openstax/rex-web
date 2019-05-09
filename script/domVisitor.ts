@@ -7,8 +7,8 @@ import { Book } from '../src/app/content/types';
 import { flattenArchiveTree, getBookPageUrlAndParams } from '../src/app/content/utils';
 import { getBooks } from '../src/app/developer/components/utils';
 import config from '../src/config';
-import createArchiveLoader from '../src/helpers/createArchiveLoader';
-import createOSWebLoader from '../src/helpers/createOSWebLoader';
+import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
 const port = process.env.PORT || '8000';
 const rootUrl = `http://localhost:${port}`;

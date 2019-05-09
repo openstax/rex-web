@@ -28,7 +28,7 @@ exports[`BookBanner renders \`null\` when passed a page that isn't in the book t
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -68,7 +68,7 @@ exports[`BookBanner renders \`null\` with no page or book 1`] = `
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -176,22 +176,47 @@ Array [
   background: linear-gradient(to right,#002468,#004aa2);
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c2 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
   .c5 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c5 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -207,7 +232,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
@@ -344,28 +369,61 @@ Array [
   margin-top: -7rem;
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c2 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
   .c2 {
     display: none;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c5 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
+    -webkit-letter-spacing: -0.04rem;
+    -moz-letter-spacing: -0.04rem;
+    -ms-letter-spacing: -0.04rem;
+    letter-spacing: -0.04rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c5 {
+    max-width: 87rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -381,7 +439,7 @@ Array [
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 1.6rem;
     height: 6rem;
@@ -456,7 +514,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     -webkit-transform: translateY(-6rem);
     -ms-transform: translateY(-6rem);
@@ -464,7 +522,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   }
 }
 
-@media screen and (max-width:64em) {
+@media screen and (max-width:75em) {
   .c0 {
     padding: 1.6rem;
     height: 10.4rem;
