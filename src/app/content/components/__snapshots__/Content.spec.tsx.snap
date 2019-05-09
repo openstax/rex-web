@@ -1530,6 +1530,7 @@ li[aria-label="Current Page"] .c36 {
         <div
           aria-label="Table of Contents"
           className="c28"
+          data-testid="toc"
         >
           <div
             className="c29 c30"
@@ -1814,6 +1815,7 @@ li[aria-label="Current Page"] .c36 {
             >
               <details
                 className="c37"
+                open={true}
               >
                 <summary
                   className="c38 c39"
@@ -3252,6 +3254,7 @@ Array [
         <div
           aria-label="Table of Contents"
           className="c20"
+          data-testid="toc"
         >
           <div
             className="c21 c22"
