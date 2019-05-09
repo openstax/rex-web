@@ -17,7 +17,7 @@ const textColors = {
 
 const padding = {
   page: {
-    desktop: 6,
+    desktop: 3.2,
     mobile: 1.6,
   },
 };

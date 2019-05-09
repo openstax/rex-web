@@ -17,4 +17,5 @@ export const contentTextWidth = 84;
 
 export const mainContentBackground = '#fff';
 
-export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + theme.padding.page.desktop;
+export const maxContentGutter = 6;
+export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + maxContentGutter * 2;
