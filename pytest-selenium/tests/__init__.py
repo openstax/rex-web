@@ -1,2 +1,1 @@
-# Add chromedriver to the PATH
-import chromedriver_binary
+import chromedriver_binary  # Add chromedriver to the PATH
