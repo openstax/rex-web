@@ -22,7 +22,7 @@ Array [
 
 .c1 {
   width: 100%;
-  max-width: 117rem;
+  max-width: 129.5rem;
   margin: 0 auto;
 }
 
@@ -37,7 +37,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 106.75rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -67,7 +67,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 106.75rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -117,7 +117,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    max-width: 87rem;
+    max-width: 106.75rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -135,7 +135,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c5 {
-    max-width: 87rem;
+    max-width: 106.75rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -213,7 +213,7 @@ Array [
 
 .c1 {
   width: 100%;
-  max-width: 117rem;
+  max-width: 129.5rem;
   margin: 0 auto;
 }
 
@@ -228,7 +228,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 106.75rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -259,7 +259,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 106.75rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -311,7 +311,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    max-width: 87rem;
+    max-width: 106.75rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -343,7 +343,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c5 {
-    max-width: 87rem;
+    max-width: 106.75rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
