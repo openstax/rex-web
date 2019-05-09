@@ -1,18 +1,14 @@
-import { createMemoryHistory } from 'history';
-import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { combineReducers, createStore } from 'redux';
+import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
-import createReducer from '../../navigation/reducer';
-import { AppServices, AppState } from '../../types';
+import { AppServices, AppState, Store } from '../../types';
 import { openToc } from '../actions';
-import contentReducer, { initialState } from '../reducer';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
 import Content from './Content';
@@ -23,15 +19,13 @@ import { CloseSidebarControl, OpenSidebarControl, SidebarControl } from './Sideb
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let state: AppState;
+  let store: Store;
   const services = {} as AppServices;
   const bookState: Book = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
-    state = cloneDeep({
-      content: initialState,
-      navigation: { pathname: '/books/book-slug-1/pages/doesnotmatter' },
-      notifications: [],
-    }) as any as AppState;
+    store = createTestStore({navigation: new URL('https://localhost/books/book-slug-1/pages/doesnotmatter')});
+    state = store.getState();
 
     archiveLoader = mockArchiveLoader();
     (services as any).archiveLoader = archiveLoader;
@@ -40,8 +34,6 @@ describe('content', () => {
   it('matches snapshot', () => {
     state.content.book = bookState;
     state.content.page = shortPage;
-
-    const store = createStore((s: AppState | undefined) => s || state, state);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -56,8 +48,6 @@ describe('content', () => {
   });
 
   it('renders empty state', () => {
-    const store = createStore((s: AppState | undefined) => s || state, state);
-
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -73,8 +63,6 @@ describe('content', () => {
   it('gets page content out of cached archive query', () => {
     state.content.book = bookState;
     state.content.page = shortPage;
-
-    const store = createStore((s: AppState | undefined) => s || state, state);
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -92,7 +80,6 @@ describe('content', () => {
     state.content.book = bookState;
     state.content.page = shortPage;
 
-    const store = createStore((s: AppState | undefined) => s || state, state);
     archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 
     const component = renderer.create(<Provider store={store}>
@@ -109,8 +96,6 @@ describe('content', () => {
   });
 
   it('renders with ToC in null state', () => {
-    const store = createStore((s: AppState | undefined) => s || state, state);
-
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -125,10 +110,6 @@ describe('content', () => {
   });
 
   it('clicking overlay closes toc', () => {
-    const history = createMemoryHistory();
-    const navigation = createReducer(history.location);
-    const store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
-
     store.dispatch(openToc());
 
     const component = renderer.create(<Provider store={store}>
@@ -148,10 +129,6 @@ describe('content', () => {
   });
 
   it('SidebarControl opens and closes ToC', () => {
-    const history = createMemoryHistory();
-    const navigation = createReducer(history.location);
-    const store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
-
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>

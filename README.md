@@ -2,6 +2,8 @@ Unified **R**eading **Ex**perience
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/maintainability)](https://codeclimate.com/github/openstax/rex-web/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/test_coverage)](https://codeclimate.com/github/openstax/rex-web/test_coverage)
+[![Updates](https://pyup.io/repos/github/openstax/rex-web/shield.svg)](https://pyup.io/repos/github/openstax/rex-web/)
+
 
 ## Development Setup
 
@@ -20,6 +22,14 @@ yarn
 # start (browser will open automatically)
 yarn start
 ```
+
+### to fix scarry untrusted cert warning in chrome
+
+*note:* you must do this for login to work
+
+#### trust the certificate
+- run `yarn trust-localhost` after you can see the security error in a browser
+- reload the browser
 
 ## Architecture Overview
 
