@@ -182,7 +182,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const treeSection = findArchiveTreeSection(book, page.id);
+    const treeSection = findArchiveTreeSection(book.tree, page.id);
     const bookUrl = bookDetailsUrl(book);
 
     if (!treeSection) {

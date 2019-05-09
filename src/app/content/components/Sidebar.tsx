@@ -13,7 +13,7 @@ import { resetToc } from '../actions';
 import { isArchiveTree } from '../guards';
 import * as selectors from '../selectors';
 import { ArchiveTree, Book, Page, State } from '../types';
-import { splitTitleParts } from '../utils/archiveTreeUtils';
+import { archiveTreeContainsSection, splitTitleParts } from '../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollTocSectionIntoView } from '../utils/domUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import {
@@ -316,8 +316,7 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   public componentDidMount() {
-    expandCurrentChapter(this.activeSection.current);
-
+    this.scrollToSelectedPage();
     const sidebar = this.sidebar.current;
 
     if (!sidebar || typeof(window) === 'undefined') {
@@ -334,13 +333,13 @@ export class Sidebar extends Component<SidebarProps> {
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
     scrollHandler();
-
-    this.scrollToSelectedPage();
   }
 
-  public componentDidUpdate() {
-    expandCurrentChapter(this.activeSection.current);
-    this.scrollToSelectedPage();
+  public componentDidUpdate(prevProps: SidebarProps) {
+    if (this.props.page !== prevProps.page) {
+      expandCurrentChapter(this.activeSection.current);
+      this.scrollToSelectedPage();
+    }
   }
 
   private scrollToSelectedPage() {
@@ -350,7 +349,7 @@ export class Sidebar extends Component<SidebarProps> {
   private renderChildren = (book: Book, section: ArchiveTree) =>
     <NavOl section={section}>
       {section.contents.map((item) => {
-        const active = (!!this.props.page) && stripIdVersion(item.id) === this.props.page.id;
+        const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
         return isArchiveTree(item)
         ? <NavItem key={item.id}>{this.renderTocNode(book, item)}</NavItem>
         : <NavItem
@@ -368,15 +367,17 @@ export class Sidebar extends Component<SidebarProps> {
       })}
     </NavOl>;
 
-  private renderTocNode = (book: Book, node: ArchiveTree) =>
-    <Details ref={this.container}>
-      <Summary>
-        <ExpandIcon/>
-        <CollapseIcon/>
-        <SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
-      </Summary>
-      {this.renderChildren(book, node)}
-    </Details>;
+  private renderTocNode = (book: Book, node: ArchiveTree) => <Details
+    ref={this.container}
+    {...this.props.page && archiveTreeContainsSection(node, this.props.page.id) ? {open: true} : {}}
+  >
+    <Summary>
+      <ExpandIcon/>
+      <CollapseIcon/>
+      <SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
+    </Summary>
+    {this.renderChildren(book, node)}
+  </Details>;
 
   private renderTocHeader = () =>
     <ToCHeader data-testid='tocheader'>

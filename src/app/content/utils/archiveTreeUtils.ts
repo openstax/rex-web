@@ -51,10 +51,15 @@ export const splitTitleParts = (str: string) => {
 };
 
 export const findArchiveTreeSection = (
-  book: {tree: ArchiveTree},
+  tree: ArchiveTree,
   pageId: string
 ): LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(book.tree).find(sectionMatcher(pageId));
+  flattenArchiveTree(tree).find(sectionMatcher(pageId));
+
+export const archiveTreeContainsSection = (
+  tree: ArchiveTree,
+  pageId: string
+): boolean => !!findArchiveTreeSection(tree, pageId);
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;
