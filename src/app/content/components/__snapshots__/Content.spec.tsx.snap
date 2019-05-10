@@ -2152,6 +2152,7 @@ li[aria-label="Current Page"] .c35 {
               </div>
               <details
                 className="c56"
+                data-testid="attribution-details"
               >
                 <summary
                   className="c57 c58"
@@ -3346,6 +3347,7 @@ Array [
               </div>
               <details
                 className="c31"
+                data-testid="attribution-details"
               >
                 <summary
                   className="c32 c33"
