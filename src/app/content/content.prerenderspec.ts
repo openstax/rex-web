@@ -32,7 +32,7 @@ describe('content', () => {
     expect(secondHTML).toEqual(firstHTML);
   });
 
-  it('adds content fonts to the head', async() => {
+  it.skip('adds content fonts to the head', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE);
 
