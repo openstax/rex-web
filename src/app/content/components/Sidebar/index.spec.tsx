@@ -3,16 +3,16 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
-import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { renderToDom } from '../../../test/reactutils';
-import MessageProvider from '../../MessageProvider';
-import createReducer from '../../navigation/reducer';
-import { AppState, Store } from '../../types';
-import * as actions from '../actions';
-import contentReducer, { initialState } from '../reducer';
-import { formatBookData } from '../utils';
-import ConnectedSidebar, { Sidebar } from './Sidebar';
+import ConnectedSidebar, { Sidebar } from '.';
+import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { renderToDom } from '../../../../test/reactutils';
+import MessageProvider from '../../../MessageProvider';
+import createReducer from '../../../navigation/reducer';
+import { AppState, Store } from '../../../types';
+import * as actions from '../../actions';
+import contentReducer, { initialState } from '../../reducer';
+import { formatBookData } from '../../utils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
