@@ -9,20 +9,7 @@ import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsSection } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import {
-  CollapseIcon,
-  ContentLink,
-  Details,
-  ExpandIcon,
-  NavItem,
-  NavOl,
-  SidebarBody,
-  SidebarHeaderButton,
-  Summary,
-  SummaryTitle,
-  TimesIcon,
-  ToCHeader
-} from './styled';
+import * as Styled from './styled';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -38,10 +25,10 @@ export class Sidebar extends Component<SidebarProps> {
 
   public render() {
     const {isOpen, book} = this.props;
-    return <SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label='Table of Contents'>
+    return <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label='Table of Contents'>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
-    </SidebarBody>;
+    </Styled.SidebarBody>;
   }
 
   public componentDidMount() {
@@ -76,42 +63,41 @@ export class Sidebar extends Component<SidebarProps> {
   }
 
   private renderChildren = (book: Book, section: ArchiveTree) =>
-    <NavOl section={section}>
+    <Styled.NavOl section={section}>
       {section.contents.map((item) => {
         const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
         return isArchiveTree(item)
-        ? <NavItem key={item.id}>{this.renderTocNode(book, item)}</NavItem>
-        : <NavItem
+        ? <Styled.NavItem key={item.id}>{this.renderTocNode(book, item)}</Styled.NavItem>
+        : <Styled.NavItem
           key={item.id}
           ref={active ? this.activeSection : null}
           active={active}
         >
-          <ContentLink
+          <Styled.ContentLink
             onClick={this.props.onNavigate}
             book={book}
             page={item}
             dangerouslySetInnerHTML={{__html: item.title}}
           />
-        </NavItem>;
+        </Styled.NavItem>;
       })}
-    </NavOl>;
+    </Styled.NavOl>;
 
-  private renderTocNode = (book: Book, node: ArchiveTree) => <Details
+  private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.Details
     ref={this.container}
     {...this.props.page && archiveTreeContainsSection(node, this.props.page.id) ? {open: true} : {}}
   >
-    <Summary>
-      <ExpandIcon/>
-      <CollapseIcon/>
-      <SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
-    </Summary>
+    <Styled.Summary>
+      <Styled.ExpandIcon/>
+      <Styled.CollapseIcon/>
+      <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
+    </Styled.Summary>
     {this.renderChildren(book, node)}
-  </Details>;
+  </Styled.Details>;
 
-  private renderTocHeader = () =>
-    <ToCHeader data-testid='tocheader'>
-      <SidebarHeaderButton><TimesIcon /></SidebarHeaderButton>
-    </ToCHeader>;
+  private renderTocHeader = () => <Styled.ToCHeader data-testid='tocheader'>
+    <Styled.SidebarHeaderButton><Styled.TimesIcon /></Styled.SidebarHeaderButton>
+  </Styled.ToCHeader>;
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }

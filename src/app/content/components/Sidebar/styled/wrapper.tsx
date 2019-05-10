@@ -78,6 +78,10 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 0.2rem;
     flex: 1;
 
+    > li:first-child {
+      margin-top: 0;
+    }
+
     ::before {
       content: "";
       background: ${theme.color.neutral.darker};
@@ -126,14 +130,10 @@ export const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...pr
   display: flex;
   margin-right: ${sidebarPadding}rem;
   flex: 1;
-
-  ${ToCButtonText} {
-    flex: 1;
-    text-align: left;
-  }
-
-  ${ToCHeader} {
-    flex: 1;
-    text-align: left;
-  }
+  ${/* stylelint broken */ css`
+    ${ToCButtonText}, ${ToCHeader} {
+      flex: 1;
+      text-align: left;
+    }
+  `}
 `;

@@ -2,7 +2,7 @@ import React, { ComponentType } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
-import { textStyle } from '../../../../components/Typography';
+import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
 import { splitTitleParts } from '../../../utils/archiveTreeUtils';
@@ -22,17 +22,15 @@ const tocLinkHover = css`
 // tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
   ${tocLinkHover}
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
+  ${labelStyle}
   width: 100%;
   display: flex;
 `;
 
 // tslint:disable-next-line:variable-name
 export const ContentLink = styled(ContentLinkComponent)`
-  ${textStyle}
   ${tocLinkHover}
+  ${labelStyle}
   display: flex;
   margin-left: ${iconSize}rem;
   text-decoration: none;
@@ -53,12 +51,9 @@ export const NavItemComponent: ComponentType<{active?: boolean, className?: stri
 
 // tslint:disable-next-line:variable-name
 export const NavItem = styled(NavItemComponent)`
-  ${textStyle}
   list-style: none;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
   overflow: visible;
-  margin: 0 0 1.5rem 0;
+  margin: 1.2rem 0 0 0;
 `;
 
 const expandCollapseIconStyle = css`
@@ -141,16 +136,4 @@ export const Details = styled.details`
       display: none;
     }
   `}
-
-  ${NavItem} {
-    margin-bottom: 1.2rem;
-
-    :first-child {
-      margin-top: 1.5rem;
-    }
-
-    :last-child {
-      margin-bottom: 0;
-    }
-  }
 `;
