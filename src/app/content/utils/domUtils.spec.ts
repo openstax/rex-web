@@ -72,6 +72,18 @@ describe('scrollTocSectionIntoView', () => {
     expect(sidebar.scrollTop).toBe(2500);
   });
 
+  it('scrolls a child element if the sidebar element is not scrollable', () => {
+    if (!document) {
+      throw new Error('jsdom...');
+    }
+    const randoElement1 = document.createElement('div');
+    randoElement1.appendChild(sidebar);
+
+    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
+    scrollTocSectionIntoView(randoElement1, activeSection);
+    expect(sidebar.scrollTop).toBe(1500);
+  });
+
   it('searches through multiple levels to find the chapter', () => {
     if (!document) {
       throw new Error('jsdom...');
