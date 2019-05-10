@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { combineReducers, createStore } from 'redux';
 import scrollTo from 'scroll-to-element';
-import { BOOKS } from '../../../config';
 import * as mathjax from '../../../helpers/mathjax';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import mockArchiveLoader, {
