@@ -10,6 +10,10 @@ class Content(Page):
 
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
+    _next_locator = (By.CSS_SELECTOR, 'a[aria-label="Next Page"]')
+    _back_locator = (By.CSS_SELECTOR, 'a[aria-label="Previous Page"]')
+
+   
 
     @property
     def loaded(self):
@@ -26,6 +30,58 @@ class Content(Page):
     @property
     def sidebar(self):
         return self.SideBar(self)
+
+    @property
+    def attribution(self):
+        return self.Attribution(self)
+
+    @property
+    def next_link(self):
+        return self.find_element(*self._next_locator)
+
+    def next_click(self):
+            self.offscreen_click(self.next_link)
+
+    @property
+    def back_link(self):
+        return self.find_element(*self._back_locator)
+
+    def back_click(self):
+            self.offscreen_click(self.back_link)
+    
+
+    #@property
+    #def url(Content):
+        #return self
+
+    
+
+
+    class Attribution(Region):
+        _attribute_status_locator = (By.XPATH, "//details[contains(@class,'Attribution__Details')]")
+        #_root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
+        _root_locator = (By.XPATH,"//summary[contains(@class,'Attribution__Summary')]")
+
+        @property
+        def attribution_link(self):
+            return self.find_element(*self._root_locator)
+
+        @property
+        def attribution_status(self):
+            return self.find_element(*self._attribute_status_locator)
+
+        
+        def attribution_click(self):
+            self.offscreen_click(self.attribution_link)
+        
+        @property
+        def is_open(self):
+            return self.attribution_status.get_attribute("open")
+
+
+        
+            
+    
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -52,7 +108,7 @@ class Content(Page):
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
-
+        
         @property
         def header(self):
             return self.Header(self.page)
@@ -63,6 +119,8 @@ class Content(Page):
                 By.CSS_SELECTOR,
                 "[aria-label='Click to close the Table of Contents']",
             )
+            _TOC_section2_locator = (By.XPATH,"//div[@aria-label='Table of Contents']/nav/ol/li[3]/nav/ol/li[1]/a")
+
 
             @property
             def toc_toggle_button(self):
@@ -73,3 +131,12 @@ class Content(Page):
                 return self.wait.until(
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
+
+
+            @property
+            def toc_section2_link(self):
+                return self.find_element(*self._TOC_section2_locator)
+
+            def click_toc_section2_link(self):
+                self.offscreen_click(self.click_toc_section2_link)
+

@@ -24,7 +24,7 @@ class TestAttributionpages(unittest.TestCase):
         return element
 
 
-#c476303 citation/attribution section collapses by default when you navigate to a new page
+#c476304 citation/attribution section collapses by default when you navigate to a new page
     
     def test_c476304_attribution_pages_navigation(self):
         #page_url = base_url + "/books/college-physics/pages/preface"

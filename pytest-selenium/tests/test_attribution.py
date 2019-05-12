@@ -4,7 +4,11 @@ from time import sleep
 
 import pytest
 from selenium import webdriver
+
+from pages.content import Content
+from tests import markers
 #from selenium.common.exceptions import StaleElementReferenceException
+
 
 class TestCitationtexturl():
     #def setUp(self):
@@ -13,17 +17,20 @@ class TestCitationtexturl():
     #def teardown(self):
        # self.browser.quit()
 
-
+    @markers.test_case("C476303")
+    @markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
+    @markers.nondestructive
 
 #c476303 attribution section is initially collapsed, expands when clicked
-    def test_c476303_attribution_initial_status(self, selenium, base_url):
+    def test_c476303_attribution_initial_status(self, selenium, base_url, book_slug, page_slug):
+        page_url = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
         
-        page_url = base_url + "/books/college-physics/pages/preface"
+        #page_url = base_url + "/books/college-physics/pages/preface"
         #page_url = "https://rex-web.herokuapp.com/books/college-physics/pages/preface"
         
         attribute_xpath_locator = "//details[contains(@class,'Attribution__Details')]"
-
-        selenium.get(page_url)
+        
+        #selenium.get(page_url)
 
         
         attribute_element = selenium.find_element_by_xpath(attribute_xpath_locator)
