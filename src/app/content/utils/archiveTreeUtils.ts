@@ -1,12 +1,14 @@
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree } from '../guards';
-import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
+import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-export function flattenArchiveTree(tree: ArchiveTree): LinkedArchiveTreeSection[] {
+export function flattenArchiveTree(tree: LinkedArchiveTree): LinkedArchiveTreeSection[] {
   return flatten(tree.contents.map((section) =>
-    flatten(isArchiveTree(section) ? flattenArchiveTree(section) : [{...section, parent: tree}]))
-  ).map((section) => ({
+    flatten(isArchiveTree(section)
+      ? flattenArchiveTree({...section, parent: tree})
+      : [{...section, parent: tree}])
+  )).map((section) => ({
     id: stripIdVersion(section.id),
     parent: section.parent,
     shortId: stripIdVersion(section.shortId),
@@ -16,19 +18,16 @@ export function flattenArchiveTree(tree: ArchiveTree): LinkedArchiveTreeSection[
 }
 
 export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
-  const getFirstTreeSection = (tree: ArchiveTree) => tree.contents.find(isArchiveTree);
+  const resolvePage = (target: ArchiveTree | ArchiveTreeSection): ArchiveTreeSection =>
+    isArchiveTree(target) ? resolvePage(target.contents[0]) : target;
 
-  const getFirstTreeSectionOrPage = (tree: ArchiveTree): ArchiveTreeSection => {
-    const firstSection = getFirstTreeSection(tree);
+  const firstSubtree = book.tree.contents.find(isArchiveTree);
 
-    if (firstSection) {
-      return getFirstTreeSectionOrPage(firstSection);
-    } else {
-      return tree.contents[0];
-    }
-  };
-
-  return getFirstTreeSectionOrPage(book.tree);
+  if (firstSubtree) {
+    return resolvePage(firstSubtree);
+  } else {
+    return book.tree.contents[0];
+  }
 };
 
 const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
