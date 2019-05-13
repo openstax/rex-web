@@ -15,6 +15,7 @@ const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 const MATHJAX_CONFIG = {
   extensions: ['[a11y]/explorer.js'],
   showProcessingMessages: false,
+  skipStartupTypeset: true,
   styles: {
     '#MathJax_MSIE_Frame': {
       left: '', right: 0, visibility: 'hidden',
@@ -29,6 +30,7 @@ const MATHJAX_CONFIG = {
   },
 };
 
+/*
 const findLatexNodes = (root: Element): Element[] => {
   const latexNodes: Element[] = [];
   for (const node of Array.from(root.querySelectorAll(MATH_DATA_SELECTOR))) {
@@ -51,10 +53,11 @@ const typesetLatexNodes = (latexNodes: Element[], windowImpl: Window) => () => {
   }
 
   windowImpl.MathJax.Hub.Queue(
-    () => windowImpl.MathJax.Hub.Typeset(latexNodes)
+    windowImpl.MathJax.Hub.Typeset(latexNodes),
+    markLatexNodesRendered(latexNodes)
   );
 };
-
+*/
 const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
   const mathMLNodes = Array.from(root.querySelectorAll(MATH_ML_SELECTOR));
 
@@ -67,7 +70,7 @@ const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
     () => windowImpl.MathJax.Hub.Typeset(root)
   );
 };
-
+/*
 const markLatexNodesRendered = (latexNodes: Element[]) => () => {
   // Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
   // uses className += instead of classList because IE
@@ -76,15 +79,14 @@ const markLatexNodesRendered = (latexNodes: Element[]) => () => {
     result.push(node.className += ` ${MATH_RENDERED_CLASS}`);
   }
 };
-
+*/
 // Search document for math and [data-math] elements and then typeset them
 function typesetDocument(root: Element, windowImpl: Window) {
-  const latexNodes = findLatexNodes(root);
+  // const latexNodes = findLatexNodes(root);
 
   windowImpl.MathJax.Hub.Queue(
-    typesetLatexNodes(latexNodes, windowImpl),
-    typesetMathMLNodes(root, windowImpl),
-    markLatexNodesRendered(latexNodes)
+    // typesetLatexNodes(latexNodes, windowImpl),
+    typesetMathMLNodes(root, windowImpl)
   );
 }
 
@@ -110,6 +112,9 @@ getTypesetDocument.cache = new WeakMap();
 const typesetMath = (root: Element, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
   if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.Hub && root.querySelector(COMBINED_MATH_SELECTOR)) {
+    windowImpl.MathJax.Hub.Register.MessageHook('Math Processing Error', (...args: any[]) => {
+      console.log(args);
+    });
     return getTypesetDocument(root, windowImpl)();
   }
 
