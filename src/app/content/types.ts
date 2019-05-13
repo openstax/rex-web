@@ -60,8 +60,12 @@ export interface ArchiveTreeSection {
   title: string;
 }
 
+export interface LinkedArchiveTree extends ArchiveTree {
+  parent?: LinkedArchiveTree;
+}
+
 export interface LinkedArchiveTreeSection extends ArchiveTreeSection {
-  parent: ArchiveTree;
+  parent: LinkedArchiveTree;
 }
 
 export interface ArchiveTree extends ArchiveTreeSection {
