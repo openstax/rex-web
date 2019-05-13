@@ -12,11 +12,11 @@ class MainContent extends Component<PropTypes> {
   private rootEl: Element | null = null;
 
   public componentDidMount() {
-    this.addGenericJs(assertDefined(this.rootEl, 'ref should already have been created'));
+    if (this.rootEl) { this.addGenericJs(this.rootEl); }
   }
 
   public componentDidUpdate() {
-    this.addGenericJs(assertDefined(this.rootEl, 'ref should already have been created'));
+    if (this.rootEl) { this.addGenericJs(this.rootEl); }
   }
 
   // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
