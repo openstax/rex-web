@@ -79,14 +79,17 @@ class TestCitationtexturl():
         sleep(1)
 
 #When - navigating via (TOC link)
-        #toolbar = content.toolbar
+        toolbar = content.toolbar
         sidebar = content.sidebar
         
-        TOC_link = sidebar.header
-        sidebar.click_toc_section2_link()
-        sleep(2)
-        print (attribution.is_open) #none
-        assert not attribution.is_open
+        if content.is_desktop:
+            sidebar.header.click_toc_toggle_button()
+        #sidebar.click_toc_section2_link()
+            sleep(2)
+        #print (attribution.is_open) #none
+        #assert not attribution.is_open
+        if content.is_mobile:
+            toolbar.click_toc_toggle_button()
             
 
 

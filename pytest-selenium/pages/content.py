@@ -106,12 +106,24 @@ class Content(Page):
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
 
+
+
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
+        #_TOC_section2_locator = (By.XPATH, "//nav/ol/li[3]/nav/ol/li[1]/a")
+        _TOC_section2_locator = (By.CSS_SELECTOR, '[href$=to]')
         
         @property
         def header(self):
             return self.Header(self.page)
+
+        @property
+        def toc_section2_link(self):
+            return self.find_element(*self._TOC_section2_locator)
+
+        def click_toc_section2_link(self):
+            self.offscreen_click(self.toc_section2_link)
+
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
@@ -119,7 +131,7 @@ class Content(Page):
                 By.CSS_SELECTOR,
                 "[aria-label='Click to close the Table of Contents']",
             )
-            _TOC_section2_locator = (By.XPATH,"//div[@aria-label='Table of Contents']/nav/ol/li[3]/nav/ol/li[1]/a")
+            
 
 
             @property
@@ -133,10 +145,4 @@ class Content(Page):
                 )
 
 
-            @property
-            def toc_section2_link(self):
-                return self.find_element(*self._TOC_section2_locator)
-
-            def click_toc_section2_link(self):
-                self.offscreen_click(self.click_toc_section2_link)
-
+            
