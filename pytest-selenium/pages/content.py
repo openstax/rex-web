@@ -48,13 +48,14 @@ class Content(Page):
 
     def back_click(self):
             self.offscreen_click(self.back_link)
+
+
+    @property
+    def current_url(self):
+        return self.driver.current_url
     
 
-    #@property
-    #def url(Content):
-        #return self
-
-    
+     
 
 
     class Attribution(Region):
@@ -78,10 +79,10 @@ class Content(Page):
         def is_open(self):
             return self.attribution_status.get_attribute("open")
 
-
+        
+        
         
             
-    
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -124,6 +125,11 @@ class Content(Page):
         def click_toc_section2_link(self):
             self.offscreen_click(self.toc_section2_link)
 
+        @property
+        def toc_list(self):
+            return self.TOC_list(self.page)
+        
+
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
@@ -132,7 +138,6 @@ class Content(Page):
                 "[aria-label='Click to close the Table of Contents']",
             )
             
-
 
             @property
             def toc_toggle_button(self):
@@ -145,4 +150,7 @@ class Content(Page):
                 )
 
 
-            
+        #class TOC_list(Region):
+           # _root_locator = (By.CSS_SELECTOR, "li[class*='Sidebar__NavItem']")
+
+           # _preface_locator = (By.CSS_SELECTOR,  )
