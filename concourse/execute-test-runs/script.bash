@@ -2,6 +2,7 @@
 set -e -u
 
 base_dir=$(pwd)
+failed=0
 
 cd rex-web
 
@@ -25,7 +26,9 @@ do
       export TR_RUN_ID=$tr_run_id
       export BROWSER=$browser
 
-      make test-rail-sauce
+      make test-rail-sauce || failed=1
     fi
   done
 done
+
+exit "$failed"
