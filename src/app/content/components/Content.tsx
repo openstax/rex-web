@@ -19,6 +19,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
+import { Footer } from './Footer';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
@@ -170,6 +171,7 @@ const Content: React.SFC = () => <Layout>
                 <PrevNextBar />
               </HideOverflowAndRedoPadding>
               <Attribution />
+              <Footer/>
             </MainContentWrapper>
           </UndoPadding>
         </ContentPane>
