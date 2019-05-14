@@ -1,3 +1,4 @@
+import pytest
 from pages.content import Content
 from . import markers
 
@@ -62,4 +63,4 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
     else:
 
-        assert false
+        pytest.fail("window must be either mobile or desktop size")
