@@ -41,6 +41,7 @@ class Content(Page):
 
     def next_click(self):
             self.offscreen_click(self.next_link)
+            
 
     @property
     def back_link(self):
@@ -48,21 +49,18 @@ class Content(Page):
 
     def back_click(self):
             self.offscreen_click(self.back_link)
-
+            
 
     @property
     def current_url(self):
         return self.driver.current_url
-    
-
      
 
 
     class Attribution(Region):
-        _attribute_status_locator = (By.XPATH, "//details[contains(@class,'Attribution__Details')]")
-        #_root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
         _root_locator = (By.XPATH,"//summary[contains(@class,'Attribution__Summary')]")
-
+        _attribute_status_locator = (By.XPATH, "//details[contains(@class,'Attribution__Details')]")
+        
         @property
         def attribution_link(self):
             return self.find_element(*self._root_locator)
@@ -74,15 +72,13 @@ class Content(Page):
         
         def attribution_click(self):
             self.offscreen_click(self.attribution_link)
+            return self.page.attribution.wait_for_region_to_display()
         
         @property
         def is_open(self):
-            return self.attribution_status.get_attribute("open")
-
+            return self.attribution_status.get_attribute("open")       
         
-        
-        
-            
+                    
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -111,24 +107,11 @@ class Content(Page):
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
-        #_TOC_section2_locator = (By.XPATH, "//nav/ol/li[3]/nav/ol/li[1]/a")
-        _TOC_section2_locator = (By.CSS_SELECTOR, '[href$=to]')
+
         
         @property
         def header(self):
             return self.Header(self.page)
-
-        @property
-        def toc_section2_link(self):
-            return self.find_element(*self._TOC_section2_locator)
-
-        def click_toc_section2_link(self):
-            self.offscreen_click(self.toc_section2_link)
-
-        @property
-        def toc_list(self):
-            return self.TOC_list(self.page)
-        
 
 
         class Header(Region):
@@ -137,8 +120,10 @@ class Content(Page):
                 By.CSS_SELECTOR,
                 "[aria-label='Click to close the Table of Contents']",
             )
+            _TOC_element_locator = (By.XPATH, "//div[@aria-label='Table of Contents']/nav/ol/li[3]/nav/ol/li[1]/a")
+          
             
-
+            
             @property
             def toc_toggle_button(self):
                 return self.find_element(*self._toc_toggle_button_locator)
@@ -149,8 +134,10 @@ class Content(Page):
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
 
+            @property
+            def toc_element(self):
+                return self.find_element(*self._TOC_element_locator)
 
-        #class TOC_list(Region):
-           # _root_locator = (By.CSS_SELECTOR, "li[class*='Sidebar__NavItem']")
-
-           # _preface_locator = (By.CSS_SELECTOR,  )
+            def click_toc_element(self):
+                self.offscreen_click(self.toc_element)
+            
