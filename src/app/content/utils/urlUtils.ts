@@ -1,7 +1,7 @@
 import { AllHtmlEntities } from 'html-entities';
 import replaceAccentedCharacters from '../replaceAccentedCharacters';
 import { content as contentRoute } from '../routes';
-import { Book, LinkedArchiveTreeSection, Page } from '../types';
+import { Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page } from '../types';
 import { findArchiveTreeSection, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
@@ -25,10 +25,21 @@ const splitTitleParts = (str: string) => {
 };
 
 const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
-  return (splitTitleParts(section.title)[0] || splitTitleParts(section.parent.title)[0] || '')
-    // use dash instead of '.'
-    .replace(/\./g, '-')
-  ;
+  let focusSection: LinkedArchiveTreeSection | LinkedArchiveTree | undefined = section;
+
+  while (focusSection) {
+    const thisNumber = splitTitleParts(focusSection.title)[0];
+
+    if (thisNumber) {
+      return thisNumber
+        // use dash instead of '.'
+        .replace(/\./g, '-');
+    }
+
+    focusSection = focusSection.parent;
+  }
+
+  return '';
 };
 
 const getCleanSectionTitle = (section: LinkedArchiveTreeSection): string => {

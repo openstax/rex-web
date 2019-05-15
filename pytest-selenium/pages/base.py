@@ -1,4 +1,5 @@
 from time import sleep
+from tests.conftest import DESKTOP, MOBILE
 
 import pypom
 from selenium.webdriver.common.keys import Keys
@@ -18,11 +19,11 @@ class Page(pypom.Page):
 
     @property
     def is_mobile(self):
-        return self.window_width <= 1024
+        return self.window_width == MOBILE[0]
 
     @property
     def is_desktop(self):
-        return self.window_width > 1024
+        return self.window_width == DESKTOP[0]
 
 
     def wait_for_region_to_display(self, region):
