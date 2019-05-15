@@ -30,10 +30,16 @@ $ source .venv/bin/activate
 
 ## Run the tests using Pytest
 
-To run a specific test, pass in a value for `-k`:
+To run all the tests, pass in a value for `--base-url`. If this is being run locally `yarn start` will display the local url:
 
 ```bash
-$ pytest -k test_my_feature --driver Chrome ./pytest-selenium/tests
+$ pytest --driver Chrome --base-url https://rex-web.herokuapp.com ./pytest-selenium/tests
+```
+
+To run a specific test, pass in a value for `-k` and `--base-url` for the site url:
+
+```bash
+$ pytest -k test_my_feature --driver Chrome --base-url https://rex-web.herokuapp.com ./pytest-selenium/tests
 ```
 
 ### Additional Pytest Options
@@ -68,10 +74,10 @@ project_id = id_number
 suite_id = id_number
 ```
 
-To run the tests only for the table of contents:
+To run the tests only for TestRail and the table of contents module:
 
 ```bash
-$ pytest -k test_toc --driver Chrome --testrail --testrail-name release01 ./pytest-selenium/tests
+$ pytest -k test_toc --driver Chrome --base-url https://rex-web.herokuapp.com --testrail --testrail-name release01 ./pytest-selenium/tests
 ```
 
 Consult the [pytest-testrail project][pytest-testrail] for more options
