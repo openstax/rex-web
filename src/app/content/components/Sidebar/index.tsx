@@ -88,9 +88,11 @@ export class Sidebar extends Component<SidebarProps> {
     {...this.props.page && archiveTreeContainsSection(node, this.props.page.id) ? {open: true} : {}}
   >
     <Styled.Summary>
-      <Styled.ExpandIcon/>
-      <Styled.CollapseIcon/>
-      <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
+      <Styled.SummaryWrapper>
+        <Styled.ExpandIcon/>
+        <Styled.CollapseIcon/>
+        <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
+      </Styled.SummaryWrapper>
     </Styled.Summary>
     {this.renderChildren(book, node)}
   </Styled.Details>;
