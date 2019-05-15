@@ -36,11 +36,13 @@ const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
   || stripIdVersion(section.id) === stripIdVersion(pageId);
 
 export const splitTitleParts = (str: string) => {
+  console.log(str);
   const match = str
     // remove html tags from tree title
-    .replace(/<[^>]+>/g, '')
+    //.replace(/<[^>]+>/g, '')
     // split out section number from title
-    .match(/^([0-9\.]*)?(.*)$/);
+    //.match(/^([0-9\.]*)?(.*)$/);
+    .match(/<span class=\\"os-number\\">(.*?)<\/span>/);
 
   if (match && match[2]) {
     // ignore the first match which is the whole title
