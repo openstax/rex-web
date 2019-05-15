@@ -58,8 +58,10 @@ class Content(Page):
 
 
     class Attribution(Region):
-        _root_locator = (By.XPATH,"//summary[contains(@class,'Attribution__Summary')]")
+        #_root_locator = (By.CSS_SELECTOR, "summary[aria-label='Citation/Attribution']")
+        _root_locator = (By.XPATH, "//summary[@aria-label='Citation/Attribution']")
         _attribute_status_locator = (By.XPATH, "//details[contains(@class,'Attribution__Details')]")
+        #_attribute_status_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
         
         @property
         def attribution_link(self):
