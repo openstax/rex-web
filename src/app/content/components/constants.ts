@@ -13,7 +13,7 @@ export const toolbarIconColor = theme.color.primary.gray;
 export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;
 
-export const contentTextWidth = 84;
+export const contentTextWidth = 82.5;
 
 export const mainContentBackground = '#fff';
 
