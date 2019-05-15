@@ -46,7 +46,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   height: 5rem;
-  max-width: 129.5rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
@@ -200,7 +200,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 129.5rem;
+  max-width: 128rem;
   margin: 0 auto;
   padding: 2rem 0;
 }
