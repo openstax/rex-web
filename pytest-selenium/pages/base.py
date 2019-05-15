@@ -24,6 +24,7 @@ class Page(pypom.Page):
     def is_desktop(self):
         return self.window_width > 1024
 
+
     def wait_for_region_to_display(self, region):
         self.wait.until(lambda _: region.is_displayed)
         return self
@@ -38,3 +39,5 @@ class Page(pypom.Page):
         # https://stackoverflow.com/a/39918249
         element.send_keys(Keys.ENTER)
         return element
+
+
