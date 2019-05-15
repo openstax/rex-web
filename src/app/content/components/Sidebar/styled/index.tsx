@@ -23,8 +23,8 @@ const tocLinkHover = css`
 export const SummaryTitle = styled.span`
   ${tocLinkHover}
   ${labelStyle}
-  width: 100%;
   display: flex;
+  flex: 1;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -74,13 +74,17 @@ export const CollapseIcon = styled(CaretDown)`
 
 // tslint:disable-next-line:variable-name
 export const Summary = styled.summary`
-  display: flex;
   list-style: none;
   cursor: pointer;
 
   &::-webkit-details-marker {
     display: none;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const SummaryWrapper = styled.div`
+  display: flex;
 `;
 
 const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
@@ -128,11 +132,11 @@ export const Details = styled.details`
   border: none;
   overflow: visible;
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    &[open] > ${Summary} > ${ExpandIcon} {
+    &[open] > ${Summary} ${ExpandIcon} {
       display: none;
     }
 
-    &:not([open]) > ${Summary} > ${CollapseIcon} {
+    &:not([open]) > ${Summary} ${CollapseIcon} {
       display: none;
     }
   `}
