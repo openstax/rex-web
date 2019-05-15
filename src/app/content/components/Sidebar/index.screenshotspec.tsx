@@ -1,5 +1,5 @@
 /** @jest-environment puppeteer */
-import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
+import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_LONG_NUMBER = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';

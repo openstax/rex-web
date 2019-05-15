@@ -6,9 +6,9 @@ import {
   setMobileViewport,
 } from '../../../test/browserutils';
 
-const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/3-test-page-4`;
 
-describe('content', () => {
+describe('navbar', () => {
   it('looks right when logged in on desktop', async() => {
     setDesktopViewport(page);
     await page.setCookie({domain: 'localhost', name: 'session', value: 'logged in'});

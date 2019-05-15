@@ -128,12 +128,11 @@ export const BarWrapper = styled.div<{colorSchema: Book['theme'] | undefined , u
   position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
   z-index: ${ifMiniNav(3 /* stay above book content and overlay */, 4 /* above mini nav */)};
   overflow: hidden;
-  ${(props: {colorSchema: Book['theme'] | undefined }) => {
-    return props.colorSchema && css`
+  ${(props: {colorSchema: Book['theme'] | undefined }) => props.colorSchema && css`
     background: linear-gradient(to right,
       ${theme.color.primary[props.colorSchema].base},
       ${gradients[props.colorSchema]});
-  `; }}
+  `}
 
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
@@ -182,7 +181,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const treeSection = findArchiveTreeSection(book, page.id);
+    const treeSection = findArchiveTreeSection(book.tree, page.id);
     const bookUrl = bookDetailsUrl(book);
 
     if (!treeSection) {

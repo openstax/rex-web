@@ -120,16 +120,16 @@ Array [
   overflow: hidden;
 }
 
-.c51 {
+.c50 {
   overflow: visible;
 }
 
-.c51 .os-figure,
-.c51 .os-figure:last-child {
+.c50 .os-figure,
+.c50 .os-figure:last-child {
   margin-bottom: 5px;
 }
 
-.c51 * {
+.c50 * {
   overflow: initial;
 }
 
@@ -141,17 +141,17 @@ Array [
   padding: 0 3.2rem;
 }
 
-.c61 {
+.c60 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c63 {
+.c62 {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.c59 {
+.c58 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -162,7 +162,7 @@ Array [
   list-style: none;
 }
 
-.c59 a {
+.c58 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -170,16 +170,16 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c59 a:hover {
+.c58 a:hover {
   color: #0064A0;
 }
 
-.c59::-webkit-details-marker {
+.c58::-webkit-details-marker {
   display: none;
 }
 
-.c59,
-.c59 span {
+.c58,
+.c58 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -190,8 +190,8 @@ Array [
   text-decoration: none;
 }
 
-.c59 a,
-.c59 span a {
+.c58 a,
+.c58 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -199,19 +199,19 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c59 a:hover,
-.c59 span a:hover {
+.c58 a:hover,
+.c58 span a:hover {
   color: #0064A0;
 }
 
-.c59:hover,
-.c59 span:hover {
+.c58:hover,
+.c58 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c64 {
+.c63 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -220,7 +220,7 @@ Array [
   margin: 0 auto;
 }
 
-.c64 a {
+.c63 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -228,15 +228,15 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c64 a:hover {
+.c63 a:hover {
   color: #0064A0;
 }
 
-.c64 blockquote {
+.c63 blockquote {
   margin-left: 0;
 }
 
-.c57 {
+.c56 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -248,7 +248,7 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c57 a {
+.c56 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -256,23 +256,23 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c57 a:hover {
+.c56 a:hover {
   color: #0064A0;
 }
 
-.c57 > .c58 {
+.c56 > .c57 {
   margin-bottom: 1.8rem;
 }
 
-.c57[open] .c60 {
+.c56[open] .c59 {
   display: none;
 }
 
-.c57:not([open]) .c62 {
+.c56:not([open]) .c61 {
   display: none;
 }
 
-.c57 li {
+.c56 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -442,18 +442,18 @@ Array [
   margin-top: -7rem;
 }
 
-.c54 {
+.c53 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c56 {
+.c55 {
   height: 2.5rem;
   width: 2.5rem;
   margin-top: 0.1rem;
 }
 
-.c52 {
+.c51 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -478,7 +478,7 @@ Array [
   border-bottom: solid 0.1rem #e5e5e5;
 }
 
-.c52 a {
+.c51 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -486,11 +486,11 @@ Array [
   border-bottom: #027EB5 solid 0.02em;
 }
 
-.c52 a:hover {
+.c51 a:hover {
   color: #0064A0;
 }
 
-.c52 a {
+.c51 a {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -711,6 +711,10 @@ Array [
   flex: 1;
 }
 
+.c28 > ol > li:first-child {
+  margin-top: 0;
+}
+
 .c28 > ol::before {
   content: "";
   background: #fafafa;
@@ -765,13 +769,7 @@ Array [
   flex: 1;
 }
 
-.c31 .c16 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: left;
-}
-
+.c31 .c16,
 .c31 .c29 {
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -779,7 +777,9 @@ Array [
   text-align: left;
 }
 
-.c44 {
+.c43 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
@@ -790,13 +790,16 @@ Array [
   display: flex;
 }
 
-.c44:hover {
+.c43:hover {
   color: #000;
 }
 
-.c36 {
+.c35 {
   font-family: Neue Helvetica W01;
   color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -806,37 +809,33 @@ Array [
   text-decoration: none;
 }
 
-.c36:hover {
+.c35:hover {
   color: #000;
 }
 
-li[aria-label="Current Page"] .c36 {
+li[aria-label="Current Page"] .c35 {
   font-weight: bold;
 }
 
-.c35 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
+.c34 {
   list-style: none;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
   overflow: visible;
-  margin: 0 0 1.5rem 0;
+  margin: 1.2rem 0 0 0;
 }
 
-.c41 {
+.c40 {
   height: 1.7rem;
   width: 1.7rem;
   margin-right: 0;
 }
 
-.c43 {
+.c42 {
   height: 1.7rem;
   width: 1.7rem;
   margin-right: 0;
 }
 
-.c39 {
+.c38 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -845,7 +844,7 @@ li[aria-label="Current Page"] .c36 {
   cursor: pointer;
 }
 
-.c39::-webkit-details-marker {
+.c38::-webkit-details-marker {
   display: none;
 }
 
@@ -872,13 +871,36 @@ li[aria-label="Current Page"] .c36 {
   margin-left: 2.3rem;
 }
 
+.c44 {
+  margin: 0;
+  padding: 0 3rem 0 0;
+}
+
+.c44 .os-number {
+  width: 4rem;
+}
+
+.c44 .os-divider {
+  width: 0.5rem;
+}
+
+.c44 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c44 ol {
+  margin-left: 4.5rem;
+}
+
 .c45 {
   margin: 0;
   padding: 0 3rem 0 0;
 }
 
 .c45 .os-number {
-  width: 4rem;
+  width: 0rem;
 }
 
 .c45 .os-divider {
@@ -892,55 +914,20 @@ li[aria-label="Current Page"] .c36 {
 }
 
 .c45 ol {
-  margin-left: 4.5rem;
-}
-
-.c46 {
-  margin: 0;
-  padding: 0 3rem 0 0;
-}
-
-.c46 .os-number {
-  width: 0rem;
-}
-
-.c46 .os-divider {
-  width: 0.5rem;
-}
-
-.c46 .os-text {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c46 ol {
   margin-left: 0.5rem;
 }
 
-.c37 {
+.c36 {
   border: none;
   overflow: visible;
 }
 
-.c37[open] > .c38 > .c40 {
+.c36[open] > .c37 > .c39 {
   display: none;
 }
 
-.c37:not([open]) > .c38 > .c42 {
+.c36:not([open]) > .c37 > .c41 {
   display: none;
-}
-
-.c37 .c34 {
-  margin-bottom: 1.2rem;
-}
-
-.c37 .c34:first-child {
-  margin-top: 1.5rem;
-}
-
-.c37 .c34:last-child {
-  margin-bottom: 0;
 }
 
 .c27 {
@@ -950,7 +937,7 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen {
-  .c51 {
+  .c50 {
     font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
@@ -960,7 +947,7 @@ li[aria-label="Current Page"] .c36 {
     margin-top: 3.2rem;
   }
 
-  .c51 a {
+  .c50 a {
     color: #027EB5;
     cursor: pointer;
     -webkit-text-decoration: none;
@@ -968,7 +955,7 @@ li[aria-label="Current Page"] .c36 {
     border-bottom: #027EB5 solid 0.02em;
   }
 
-  .c51 a:hover {
+  .c50 a:hover {
     color: #0064A0;
   }
 }
@@ -980,24 +967,24 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen and (max-width:75em) {
-  .c57 {
+  .c56 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c57 {
+  .c56 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c57 > .c58 {
+  .c56 > .c57 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c57 {
+  .c56 {
     display: none;
   }
 }
@@ -1144,7 +1131,7 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen {
-  .c47 {
+  .c46 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1154,7 +1141,7 @@ li[aria-label="Current Page"] .c36 {
     transition: margin-left 300ms;
   }
 
-  .c47 *:target::before {
+  .c46 *:target::before {
     content: " ";
     display: block;
     position: relative;
@@ -1165,25 +1152,25 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen and (max-width:75em) {
-  .c53 {
+  .c52 {
     margin-left: -0.8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c55 {
+  .c54 {
     margin-right: -0.8rem;
   }
 }
 
 @media print {
-  .c52 {
+  .c51 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c52 {
+  .c51 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
   }
@@ -1307,7 +1294,7 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen {
-  .c48 {
+  .c47 {
     overflow: visible;
     min-height: 100%;
     display: -webkit-box;
@@ -1322,7 +1309,7 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen {
-  .c49 {
+  .c48 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1343,7 +1330,7 @@ li[aria-label="Current Page"] .c36 {
 }
 
 @media screen {
-  .c50 {
+  .c49 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1530,6 +1517,7 @@ li[aria-label="Current Page"] .c36 {
         <div
           aria-label="Table of Contents"
           className="c28"
+          data-testid="toc"
         >
           <div
             className="c29 c30"
@@ -1596,10 +1584,10 @@ li[aria-label="Current Page"] .c36 {
             className="c33"
           >
             <li
-              className="c34 c35"
+              className="c34"
             >
               <a
-                className="c36"
+                className="c35"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -1610,17 +1598,17 @@ li[aria-label="Current Page"] .c36 {
               />
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <details
-                className="c37"
+                className="c36"
               >
                 <summary
-                  className="c38 c39"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c15"
+                    className="c39 c40 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1632,7 +1620,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c15"
+                    className="c41 c42 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1643,7 +1631,7 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </svg>
                   <span
-                    className="c44"
+                    className="c43"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -1652,20 +1640,20 @@ li[aria-label="Current Page"] .c36 {
                   />
                 </summary>
                 <ol
-                  className="c45"
+                  className="c44"
                 >
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <details
-                      className="c37"
+                      className="c36"
                     >
                       <summary
-                        className="c38 c39"
+                        className="c37 c38"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c40 c41 c15"
+                          className="c39 c40 c15"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 192 512"
@@ -1677,7 +1665,7 @@ li[aria-label="Current Page"] .c36 {
                         </svg>
                         <svg
                           aria-hidden="true"
-                          className="c42 c43 c15"
+                          className="c41 c42 c15"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 320 512"
@@ -1688,7 +1676,7 @@ li[aria-label="Current Page"] .c36 {
                           />
                         </svg>
                         <span
-                          className="c44"
+                          className="c43"
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -1697,13 +1685,13 @@ li[aria-label="Current Page"] .c36 {
                         />
                       </summary>
                       <ol
-                        className="c46"
+                        className="c45"
                       >
                         <li
-                          className="c34 c35"
+                          className="c34"
                         >
                           <a
-                            className="c36"
+                            className="c35"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
@@ -1717,10 +1705,10 @@ li[aria-label="Current Page"] .c36 {
                     </details>
                   </li>
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
@@ -1731,10 +1719,10 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </li>
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
@@ -1748,17 +1736,17 @@ li[aria-label="Current Page"] .c36 {
               </details>
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <details
-                className="c37"
+                className="c36"
               >
                 <summary
-                  className="c38 c39"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c15"
+                    className="c39 c40 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1770,7 +1758,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c15"
+                    className="c41 c42 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1781,7 +1769,7 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </svg>
                   <span
-                    className="c44"
+                    className="c43"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -1790,13 +1778,13 @@ li[aria-label="Current Page"] .c36 {
                   />
                 </summary>
                 <ol
-                  className="c46"
+                  className="c45"
                 >
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Test Page 3</span>",
@@ -1810,17 +1798,18 @@ li[aria-label="Current Page"] .c36 {
               </details>
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <details
-                className="c37"
+                className="c36"
+                open={true}
               >
                 <summary
-                  className="c38 c39"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c15"
+                    className="c39 c40 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1832,7 +1821,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c15"
+                    className="c41 c42 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1843,7 +1832,7 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </svg>
                   <span
-                    className="c44"
+                    className="c43"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -1852,14 +1841,14 @@ li[aria-label="Current Page"] .c36 {
                   />
                 </summary>
                 <ol
-                  className="c46"
+                  className="c45"
                 >
                   <li
                     aria-label="Current Page"
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -1873,17 +1862,17 @@ li[aria-label="Current Page"] .c36 {
               </details>
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <details
-                className="c37"
+                className="c36"
               >
                 <summary
-                  className="c38 c39"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c15"
+                    className="c39 c40 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1895,7 +1884,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c15"
+                    className="c41 c42 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1906,7 +1895,7 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </svg>
                   <span
-                    className="c44"
+                    className="c43"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -1915,13 +1904,13 @@ li[aria-label="Current Page"] .c36 {
                   />
                 </summary>
                 <ol
-                  className="c46"
+                  className="c45"
                 >
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Test Page 5</span>",
@@ -1935,17 +1924,17 @@ li[aria-label="Current Page"] .c36 {
               </details>
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <details
-                className="c37"
+                className="c36"
               >
                 <summary
-                  className="c38 c39"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c15"
+                    className="c39 c40 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -1957,7 +1946,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c15"
+                    className="c41 c42 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -1968,7 +1957,7 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </svg>
                   <span
-                    className="c44"
+                    className="c43"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -1977,13 +1966,13 @@ li[aria-label="Current Page"] .c36 {
                   />
                 </summary>
                 <ol
-                  className="c46"
+                  className="c45"
                 >
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Test Page 6</span>",
@@ -1997,17 +1986,17 @@ li[aria-label="Current Page"] .c36 {
               </details>
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <details
-                className="c37"
+                className="c36"
               >
                 <summary
-                  className="c38 c39"
+                  className="c37 c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c40 c41 c15"
+                    className="c39 c40 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -2019,7 +2008,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c42 c43 c15"
+                    className="c41 c42 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -2030,7 +2019,7 @@ li[aria-label="Current Page"] .c36 {
                     />
                   </svg>
                   <span
-                    className="c44"
+                    className="c43"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -2039,13 +2028,13 @@ li[aria-label="Current Page"] .c36 {
                   />
                 </summary>
                 <ol
-                  className="c46"
+                  className="c45"
                 >
                   <li
-                    className="c34 c35"
+                    className="c34"
                   >
                     <a
-                      className="c36"
+                      className="c35"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -2059,10 +2048,10 @@ li[aria-label="Current Page"] .c36 {
               </details>
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <a
-                className="c36"
+                className="c35"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
@@ -2073,10 +2062,10 @@ li[aria-label="Current Page"] .c36 {
               />
             </li>
             <li
-              className="c34 c35"
+              className="c34"
             >
               <a
-                className="c36"
+                className="c35"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
@@ -2089,19 +2078,19 @@ li[aria-label="Current Page"] .c36 {
           </ol>
         </div>
         <div
-          className="c47"
+          className="c46"
         >
           <div
-            className="c48"
+            className="c47"
           >
             <div
-              className="c49"
+              className="c48"
             >
               <div
-                className="c50"
+                className="c49"
               >
                 <div
-                  className="c51 "
+                  className="c50 "
                   id="main-content"
                   tabIndex={-1}
                 >
@@ -2119,17 +2108,17 @@ li[aria-label="Current Page"] .c36 {
                   </div>
                 </div>
                 <div
-                  className="c52"
+                  className="c51"
                 >
                   <a
                     aria-label="Previous Page"
-                    className="c53"
+                    className="c52"
                     href="2-test-page-3"
                     onClick={[Function]}
                   >
                     <svg
                       aria-hidden="true"
-                      className="c54 c5"
+                      className="c53 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -2142,14 +2131,14 @@ li[aria-label="Current Page"] .c36 {
                   </a>
                   <a
                     aria-label="Next Page"
-                    className="c55"
+                    className="c54"
                     href="4-test-page-5"
                     onClick={[Function]}
                   >
                     Next
                     <svg
                       aria-hidden="true"
-                      className="c56 c5"
+                      className="c55 c5"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 24 24"
@@ -2162,14 +2151,15 @@ li[aria-label="Current Page"] .c36 {
                 </div>
               </div>
               <details
-                className="c57"
+                className="c56"
+                data-testid="attribution-details"
               >
                 <summary
-                  className="c58 c59"
+                  className="c57 c58"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c60 c61 c15"
+                    className="c59 c60 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -2181,7 +2171,7 @@ li[aria-label="Current Page"] .c36 {
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c62 c63 c15"
+                    className="c61 c62 c15"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -2196,7 +2186,7 @@ li[aria-label="Current Page"] .c36 {
                   </span>
                 </summary>
                 <div
-                  className="c64"
+                  className="c63"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "
@@ -2800,6 +2790,10 @@ Array [
   flex: 1;
 }
 
+.c20 > ol > li:first-child {
+  margin-top: 0;
+}
+
 .c20 > ol::before {
   content: "";
   background: #fafafa;
@@ -2854,13 +2848,7 @@ Array [
   flex: 1;
 }
 
-.c23 .c8 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: left;
-}
-
+.c23 .c8,
 .c23 .c21 {
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -3252,6 +3240,7 @@ Array [
         <div
           aria-label="Table of Contents"
           className="c20"
+          data-testid="toc"
         >
           <div
             className="c21 c22"
@@ -3358,6 +3347,7 @@ Array [
               </div>
               <details
                 className="c31"
+                data-testid="attribution-details"
               >
                 <summary
                   className="c32 c33"

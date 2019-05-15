@@ -60,23 +60,13 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | null, activeSect
 };
 
 export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
-  let parent: HTMLElement;
+  let focus = activeSection;
 
-  if ( activeSection && activeSection.parentElement) {
-    parent = activeSection.parentElement;
-
-    while ( parent.getAttribute('aria-label') !== 'Table of Contents') {
-      if ( parent.tagName === 'DETAILS'
-        && !parent.hasAttribute('open')
-      ) {
-        parent.setAttribute('open', '');
-      }
-
-      if ( parent.parentElement ) {
-        parent = parent.parentElement;
-      } else {
-        return null;
-      }
+  while (focus && focus.getAttribute('aria-label') !== 'Table of Contents') {
+    if (focus.tagName === 'DETAILS' && !focus.hasAttribute('open')) {
+      focus.setAttribute('open', '');
     }
+
+    focus = focus.parentElement;
   }
 };
