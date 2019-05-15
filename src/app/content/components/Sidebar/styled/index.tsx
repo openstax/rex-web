@@ -10,7 +10,7 @@ import ContentLinkComponent from '../../ContentLink';
 
 export * from './wrapper';
 
-const numberCharacterWidth = 0.8;
+const numberCharacterWidth = 1;
 const numberPeriodWidth = 0.2;
 const iconSize = 1.7;
 const tocLinkHover = css`
@@ -89,8 +89,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   if (!num) {
     return result;
   }
-
-  const numbers = num.replace(/[^0-9]/, '');
+  const numbers = num.replace(/[\W]/, '');
   const periods = num.replace(/[^\.]/, '');
 
   return Math.max(result, numbers.length * numberCharacterWidth + periods.length * numberPeriodWidth);
@@ -99,7 +98,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
 // tslint:disable-next-line:variable-name
 export const NavOl = styled.ol<{section: ArchiveTree}>`
   margin: 0;
-  padding: 0 3rem 0 0;
+  padding: 0;
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
@@ -110,6 +109,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
 
       .os-divider {
         width: 0.5rem;
+        text-align: center;
       }
 
       .os-text {
