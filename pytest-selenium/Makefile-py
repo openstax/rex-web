@@ -6,10 +6,10 @@ clean-eggs: ## remove build artifacts
 	find . -name '*.egg' -exec rm -f {} +
 
 clean-pyc: ## remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+	find pytest-selenium -name '*.pyc' -exec rm -f {} +
+	find pytest-selenium -name '*.pyo' -exec rm -f {} +
+	find pytest-selenium -name '*~' -exec rm -f {} +
+	find pytest-selenium -name '__pycache__' -exec rm -fr {} +
 
 clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
@@ -23,6 +23,12 @@ venv:
 
 help_redirect:
 	@$(MAKE) help --no-print-directory
+
+test-go: venv
+	@. .venv/bin/activate && pytest \
+		--base-url=https://localhost:3000 \
+		--driver Chrome \
+		pytest-selenium/tests
 
 test-rail-sauce: venv
 	@. .venv/bin/activate && pytest \
