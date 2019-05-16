@@ -109,15 +109,18 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
     return css`
       .os-number {
         width: ${numberWidth}rem;
+        overflow: hidden;
       }
 
       .os-divider {
         width: 0.5rem;
         text-align: center;
+        overflow: hidden;
       }
 
       .os-text {
         flex: 1;
+        overflow: hidden;
       }
 
       ol {
