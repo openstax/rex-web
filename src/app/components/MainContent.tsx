@@ -39,7 +39,8 @@ class MainContent extends Component<PropTypes> {
     [data-type="example"], [data-type="exercise"],
     [data-type="note"], [data-type="abstract"]`).forEach((el) => {
 
-      const titles = el.querySelectorAll(':scope > .title, :scope > [data-type="title"], :scope > .os-title');
+      // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
+      const titles = Array.from(el.children).filter(child => child.matches('.title, [data-type="title"], .os-title'))
 
       const bodyWrap = assertDefined(document, 'document should be defined').createElement('section');
       bodyWrap.append(...Array.from(el.childNodes));
@@ -67,10 +68,11 @@ class MainContent extends Component<PropTypes> {
 
   public tweakFigures(rootEl: Element) {
     // move caption to bottom of figure
-    rootEl.querySelectorAll('figure > figcaption')
-    .forEach((el) => el.parentElement
-      && el.parentElement.classList.add('ui-has-child-figcaption')
-      && el.parentElement.appendChild(el));
+    rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
+      const parent = assertDefined(el.parentElement, 'figcaption parent should always be defined');
+      parent.classList.add('ui-has-child-figcaption');
+      parent.appendChild(el)
+    });
   }
 
   // Add nofollow to external user-generated links
