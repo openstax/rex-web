@@ -16,7 +16,7 @@ def test_page_url_does_not_change_when_clicking_attribution_link(
     url_before_attribution_click = content.current_url
 
     attribution = content.attribution
-    attribution.attribution_click()
+    attribution.click_attribution_link()
     url_after_attribution_click = content.current_url
 
     # THEN: The page url should not change

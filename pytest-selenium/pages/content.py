@@ -90,7 +90,7 @@ class Content(Page):
         def attribution_status(self):
             return self.find_element(*self._root_locator)
 
-        def attribution_click(self):
+        def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)
             return self.page.attribution.wait_for_region_to_display()
 
