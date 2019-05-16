@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
-import { textRegularStyle } from '../../components/Typography';
+import { textRegularSize, textRegularStyle } from '../../components/Typography';
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
 const instagramUrl = 'https://www.instagram.com/openstax/';
 const linkedInUrl = 'https://www.linkedin.com/company/openstax';
+const riceUrl = 'http://www.rice.edu';
+const copyrightLink = 'https://creativecommons.org/licenses/by/4.0/';
+const supportCenterLink = 'https://openstax.secure.force.com/help';
+const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
-// tslint:disable-next-line:variable-name
-const FooterWrapper = styled.footer`
-    ${textRegularStyle}
-    z-index: 0;
-    opacity: 1;
-    transition: opacity 0.2s;
-`;
-
-const boxed = css`
-    max-width: 120rem;
-    align-items: center;
-    display: flex;
-    flex-flow: column nowrap;
-    margin: 0 auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    width: 100%;
-`;
+const desktopMinWidth = '37.6';
+const mobileMaxWidth = '60.1';
+const mobileMinWidth = '37.5';
 
 const columnLink = css`
     color: inherit;
@@ -57,6 +47,25 @@ const LinkedInIcon = styled(LinkedinIn)`
     ${iconStyles}
 `;
 
+const boxed = css`
+    max-width: 120rem;
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    width: 100%;
+`;
+
+// tslint:disable-next-line:variable-name
+const FooterWrapper = styled.footer`
+    ${textRegularStyle}
+    z-index: 0;
+    opacity: 1;
+    transition: opacity 0.2s;
+`;
+
 // tslint:disable-next-line:variable-name
 const InnerFooter = styled.footer`
     color: #d5d5d5;
@@ -67,11 +76,11 @@ const InnerFooter = styled.footer`
 const FooterTop = styled.div`
     background-color: #424242;
 
-    @media (min-width: 60.1em) {
+    @media (min-width: ${mobileMaxWidth}em) {
         padding: 7rem 0;
     }
 
-    @media (max-width: 37.5em) {
+    @media (max-width: ${mobileMinWidth}em) {
         padding: 2rem 0;
     }
 
@@ -83,17 +92,17 @@ const TopBoxed = styled.div`
     display: grid;
     grid-row-gap: 2rem;
 
-    @media (min-width: 37.6em) {
+    @media (min-width: ${desktopMinWidth}em) {
         align-items: start;
         grid-column-gap: 4rem;
         grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto, 50rem) auto auto auto;
     }
 
-    @media (max-width: 37.5em) {
+    @media (max-width: ${mobileMinWidth}em) {
         grid-template: 'headline' 'mission' 'col1' 'col2' 'col3';
     }
 
-    @media (min-width: 60.1em) {
+    @media (min-width: ${mobileMaxWidth}em) {
         grid-column-gap: 8rem;
     }
 
@@ -103,14 +112,14 @@ const TopBoxed = styled.div`
 const Heading = styled.div`
     grid-area: headline;
 
-    @media (min-width: 37.6em) {
+    @media (min-width: ${desktopMinWidth}em) {
         font-size: 2.4rem;
         font-weight: bold;
         letter-spacing: -0.096rem;
         line-height: normal;
     }
 
-    @media (max-width: 37.5em) {
+    @media (max-width: ${mobileMinWidth}em) {
         font-size: 2rem;
         font-weight: bold;
         letter-spacing: -0.08rem;
@@ -121,7 +130,7 @@ const Heading = styled.div`
 // tslint:disable-next-line:variable-name
 const Mission = styled.div`
     grid-area: mission;
-    @media (min-width: 37.6em) {
+    @media (min-width: ${desktopMinWidth}em) {
         font-size: 1.8rem;
         font-weight: normal;
         letter-spacing: normal;
@@ -134,12 +143,17 @@ const Mission = styled.div`
 const DonateLink = styled.a`
     ${columnLink}
     font-weight: bold;
+    text-underline-position: under;
 `;
 
 // tslint:disable-next-line:variable-name
 const FooterLink = styled.a`
     ${columnLink}
     text-decoration: none;
+
+    :hover {
+        text-decoration: underline;
+    }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -186,11 +200,11 @@ const FooterBottom = styled.div`
     line-height: normal;
     background-color: #3b3b3b;
 
-    @media (min-width: 37.6em) {
+    @media (min-width: ${desktopMinWidth}em) {
         padding: 2.5rem 0;
     }
 
-    @media (max-width: 37.5em) {
+    @media (max-width: ${mobileMinWidth}em) {
         padding: 1.5rem;
     }
 `;
@@ -202,11 +216,11 @@ const BottomBoxed = styled.div`
     grid-column-gap: 4rem;
     grid-row-gap: 1.5rem;
 
-    @media (min-width: 37.6em) {
+    @media (min-width: ${desktopMinWidth}em) {
         grid-auto-flow: column;
     }
 
-    @media (max-width: 37.5em) {
+    @media (max-width: ${mobileMinWidth}em) {
         padding: 0;
     }
 `;
@@ -233,11 +247,11 @@ const Social = styled.div`
 // tslint:disable-next-line:variable-name
 const SocialIcon = styled.a`
     ${columnLink}
+    ${textRegularSize}
     background-color: #959595;
     align-content: center;
     border-radius: 50%;
     display: grid;
-    font-size: 1.6rem;
     height: 3rem;
     justify-content: center;
     overflow: hidden;
@@ -258,47 +272,117 @@ export class Footer extends Component<any> {
             <InnerFooter>
                 <FooterTop>
                     <TopBoxed>
-                        <Heading role='heading'>OpenStax at Rice University is a 501(c)(3) nonprofit charity</Heading>
-                        <Mission>It's our mission to give every student the tools they need to
-                            be successful in the classroom. Help our cause by
-                            <DonateLink href='/give' target='_blank'> donating</DonateLink> today.
+                        <Heading role='heading'>
+                            <FormattedMessage id='i18n:footer:heading'>
+                                {(msg: Element | string) => msg}
+                            </FormattedMessage>
+                        </Heading>
+                        <Mission>
+                            <FormattedMessage id='i18n:footer:mission'>
+                                {(msg: Element | string) => msg}
+                            </FormattedMessage>
+                            <DonateLink href='/give' target='_blank'>
+                                <FormattedMessage id='i18n:footer:donate-link:text'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </DonateLink>
+                            <FormattedMessage id='i18n:footer:donate-link:today'>
+                                {(msg: Element | string) => msg}
+                            </FormattedMessage>.
                         </Mission>
                         <Column1>
-                            <ColumnHeading>Help</ColumnHeading>
-                            <FooterLink href='/contact'>Contact Us</FooterLink>
-                            <FooterLink href='https://openstax.secure.force.com/help'>Support Center</FooterLink>
-                            <FooterLink href='/faq'>FAQ</FooterLink>
+                            <ColumnHeading>
+                                <FormattedMessage id='i18n:footer:column1:help'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </ColumnHeading>
+                            <FooterLink href='/contact'>
+                                <FormattedMessage id='i18n:footer:column1:contact-us'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href={supportCenterLink}>
+                                <FormattedMessage id='i18n:footer:column1:support-center'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href='/faq'>
+                                <FormattedMessage id='i18n:footer:column1:faqs'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
                         </Column1>
                         <Column2>
-                            <ColumnHeading>OpenStax</ColumnHeading>
-                            <FooterLink href='/press'>Press</FooterLink>
-                            <FooterLink href='http://www2.openstax.org/l/218812/2016-10-04/lvk'>Newsletter</FooterLink>
-                            <FooterLink href='/careers'>Careers</FooterLink>
+                            <ColumnHeading>
+                                <FormattedMessage id='i18n:footer:column2:openstax'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </ColumnHeading>
+                            <FooterLink href='/press'>
+                                <FormattedMessage id='i18n:footer:column2:press'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href={newsletterLink}>
+                                <FormattedMessage id='i18n:footer:column2:newsletter'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href='/careers'>
+                                <FormattedMessage id='i18n:footer:column2:careers'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
                         </Column2>
                         <Column3>
-                            <ColumnHeading>Policies</ColumnHeading>
-                            <FooterLink href='/accessibility-statement'>Accessibility Statement</FooterLink>
-                            <FooterLink href='/tos'>Terms of Use</FooterLink>
-                            <FooterLink href='/license'>Licensing</FooterLink>
-                            <FooterLink href='/privacy-policy'>Privacy Policy</FooterLink>
+                            <ColumnHeading>
+                                <FormattedMessage id='i18n:footer:column3:policies'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </ColumnHeading>
+                            <FooterLink href='/accessibility-statement'>
+                                <FormattedMessage id='i18n:footer:column3:accessibility'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href='/tos'>
+                                <FormattedMessage id='i18n:footer:column3:terms'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href='/license'>
+                                <FormattedMessage id='i18n:footer:column3:license'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
+                            <FooterLink href='/privacy-policy'>
+                                <FormattedMessage id='i18n:footer:column3:privacy-policy'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                            </FooterLink>
                         </Column3>
                     </TopBoxed>
                 </FooterTop>
                 <FooterBottom>
                     <BottomBoxed>
                         <Copyrights>
-                            <CopyrightDiv data-html='copyright'>© 1999-2018, Rice University.
-                                Except where otherwise noted,&nbsp;textbooks on this site are licensed under a
-                                <BottomLink href='https://creativecommons.org/licenses/by/4.0/'>
-                                    Creative Commons Attribution&nbsp;4.0 International License
+                            <CopyrightDiv data-html='copyright'>
+                                <FormattedMessage id='i18n:footer:copyright:top-text'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
+                                <BottomLink href={copyrightLink}>
+                                    <FormattedMessage id='i18n:footer:copyright:top-text:link'>
+                                        {(msg: Element | string) => msg}
+                                    </FormattedMessage>
                                 </BottomLink>.
                             </CopyrightDiv>
+
                             <CopyrightDiv data-html='apStatement'>
-                                Advanced Placement<sup>®</sup> and AP<sup>®</sup>
-                                are trademarks registered and/or owned by the College Board,
-                                which is not affiliated with,
-                                and does not endorse, this site.
+                                <FormattedMessage id='i18n:footer:copyright:bottom-text'>
+                                    {(msg: Element | string) => msg}
+                                </FormattedMessage>
                             </CopyrightDiv>
+
                         </Copyrights>
                         <Social role='directory'>
                             <SocialIcon title='facebook' href={fbUrl}>
@@ -313,7 +397,7 @@ export class Footer extends Component<any> {
                             <SocialIcon title='instagram' href={instagramUrl}>
                                 <IGIcon/>
                             </SocialIcon>
-                            <BottomLink href='http://www.rice.edu'>
+                            <BottomLink href={riceUrl}>
                                 <FooterLogo src='/images/rice-white-text.png' alt='Rice University logo'/>
                             </BottomLink>
                         </Social>
