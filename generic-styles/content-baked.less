@@ -100,16 +100,6 @@
     font-weight: normal; //to ensure that all terms with this tag will display unbolded
   }
 
-  // It is already displayed at the top of the page in blue
-  // the `>` is because collated titles (like Key Concepts) contain descendent
-  // document-title elements.
-  [data-type="page"],
-  [data-type="composite-page"] {
-    > [data-type="document-title"] {
-      display: none;
-    }
-  }
-
   > section,
   > figure,
   > [data-type="glossary"],
@@ -442,7 +432,6 @@
         margin: 3rem 0;
       }
     }
-    h2[data-type="document-title"],
     h2.os-title {
       font-size: 2.1rem;
       font-weight: bold;
