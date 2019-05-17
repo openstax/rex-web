@@ -91,9 +91,10 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
-    return <MainContent className={this.props.className}
-        ref={(ref: any) => this.container = ref}
-        dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}/>;
+    return <MainContent className={this.props.className}>
+      <div ref={(ref: any) => this.container = ref}
+        dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}></div>
+    </MainContent>;
   }
 
   private getScrollTarget(): Element | null {
