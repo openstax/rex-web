@@ -42,7 +42,7 @@ export const splitTitleParts = (str: string) => {
     // ignore the first two matches which are the whole title
     return match.slice(2);
   } else {
-    return [null, null];
+    return [null, str];
   }
 };
 

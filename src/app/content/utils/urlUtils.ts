@@ -74,7 +74,6 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
   const result = getUrlParamForPageTitle(treeSection);
-
   getUrlParamForPageIdCache.set(cacheKey, result);
 
   return result;

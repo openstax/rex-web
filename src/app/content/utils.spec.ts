@@ -196,15 +196,6 @@ describe('getUrlParamForPageId', () => {
     );
   });
 
-  it('throws on title with only numbers', () => {
-    book.tree.contents[0].title = '34.2';
-    expect(() =>
-      getUrlParamForPageId(book, 'pagelongid')
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"BUG: could not URL encode page title: \\"34.2\\""`
-    );
-  });
-
   it('throws on invalid id', () => {
     expect(() =>
       getUrlParamForPageId(book, 'wokowokowko')
