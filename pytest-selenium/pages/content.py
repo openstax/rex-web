@@ -67,6 +67,10 @@ class Content(Page):
                 By.CSS_SELECTOR,
                 "[aria-label='Click to close the Table of Contents']",
             )
+            _chapter_div_locator = (
+                By.XPATH,
+                "//div[@aria-label='Table of Contents']/nav/ol/li[2]/nav/ol/li[1]/a",
+            )
 
             @property
             def toc_toggle_button(self):
@@ -78,22 +82,60 @@ class Content(Page):
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
 
+            @property
+            def chapter1_element(self):
+                return self.find_element(*self._chapter_div_locator)
+
+            @property
+            def chapter1_url(self):
+                return self.chapter1_element.get_attribute("href")
+
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
-        _attribute_status_locator = (By.CSS_SELECTOR, 'summary[aria-label="Citation/Attribution"]')
+        _attribution_toggle_locator = (
+            By.CSS_SELECTOR,
+            'summary[aria-label="Citation/Attribution"]',
+        )
+        _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
+        _book_url_locator = (By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _access_for_free_locator = (By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
 
         @property
         def attribution_link(self):
-            return self.find_element(*self._attribute_status_locator)
+            return self.find_element(*self._attribution_toggle_locator)
 
         @property
         def attribution_status(self):
             return self.find_element(*self._root_locator)
 
-        def click_attribution_link(self):
-            self.offscreen_click(self.attribution_link)
-            return self.page.attribution.wait_for_region_to_display()
-
         @property
         def is_open(self):
             return self.attribution_status.get_attribute("open")
+
+        @property
+        def section_url_within_attribution(self):
+            return self.find_element(*self._section_url_locator)
+
+        @property
+        def section_url(self):
+            return self.section_url_within_attribution.get_attribute("href")
+
+        @property
+        def book_url_within_attribution(self):
+            return self.find_element(*self._book_url_locator)
+
+        @property
+        def book_url(self):
+            return self.book_url_within_attribution.get_attribute("href")
+
+        @property
+        def access_for_free_url_within_attribution(self):
+            return self.find_element(*self._access_for_free_locator)
+
+        @property
+        def access_for_free_url(self):
+            return self.access_for_free_url_within_attribution.get_attribute("href")
+
+        def click_attribution_link(self):
+            self.offscreen_click(self.attribution_link)
+            return self.page.attribution.wait_for_region_to_display()
