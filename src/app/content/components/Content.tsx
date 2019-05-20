@@ -19,7 +19,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
-import { Footer } from './Footer';
+import Footer from './Footer/index';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
