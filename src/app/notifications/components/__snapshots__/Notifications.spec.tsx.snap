@@ -124,7 +124,7 @@ exports[`Notifications matches snapshot 1`] = `
   margin-top: -1px;
 }
 
-@media (max-width:73.125em) {
+@media (max-width:80em) {
   .c2 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -140,15 +140,15 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:73.125em) {
+@media (max-width:80em) {
   .c4 {
     padding: 0 1rem;
   }
 }
 
-@media (max-width:73.125em) {
+@media (max-width:80em) {
   .c1 {
-    max-width: 117rem;
+    max-width: 128rem;
     margin: 0 auto;
     box-shadow: none;
     border: none;
@@ -158,7 +158,7 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:73.125em) {
+@media (max-width:80em) {
   .c3 {
     line-height: 1rem;
     margin: 0;
@@ -166,7 +166,7 @@ exports[`Notifications matches snapshot 1`] = `
   }
 }
 
-@media (max-width:73.125em) {
+@media (max-width:80em) {
   .c0 {
     margin: 0;
     height: auto;

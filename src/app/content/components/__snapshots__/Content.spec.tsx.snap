@@ -46,7 +46,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   height: 5rem;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
@@ -156,7 +156,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 57rem;
+  max-width: 82.5rem;
   margin: 0 auto;
   font-weight: 500;
   list-style: none;
@@ -216,7 +216,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 57rem;
+  max-width: 82.5rem;
   margin: 0 auto;
 }
 
@@ -287,7 +287,7 @@ Array [
 
 .c2 {
   width: 100%;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
@@ -302,7 +302,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -332,7 +332,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -363,7 +363,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -385,7 +385,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -459,7 +459,7 @@ Array [
   font-size: 1.6rem;
   line-height: 2.5rem;
   overflow: visible;
-  max-width: 57rem;
+  max-width: 82.5rem;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -514,7 +514,7 @@ Array [
 
 .c11 {
   height: 5rem;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -805,7 +805,7 @@ Array [
 .c27 {
   overflow: visible;
   margin: 0 auto;
-  max-width: 117rem;
+  max-width: 128rem;
 }
 
 @media screen {
@@ -814,7 +814,7 @@ Array [
     color: #424242;
     font-size: 1.6rem;
     line-height: 2.5rem;
-    max-width: 57rem;
+    max-width: 82.5rem;
     margin: 0 auto;
     margin-top: 3.2rem;
   }
@@ -878,7 +878,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c3 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -904,7 +904,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c8 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -928,7 +928,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c6 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -960,7 +960,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c9 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -1197,7 +1197,7 @@ Array [
     -webkit-transition: max-width 300ms;
     transition: max-width 300ms;
     width: 100%;
-    max-width: 83.5rem;
+    max-width: 94.5rem;
   }
 }
 
@@ -1716,8 +1716,10 @@ Array [
               </div>
               <details
                 className="c45"
+                data-testid="attribution-details"
               >
                 <summary
+                  aria-label="Citation/Attribution"
                   className="c46 c47"
                 >
                   <svg
@@ -1874,7 +1876,7 @@ Array [
   -ms-flex-align: center;
   align-items: center;
   height: 5rem;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
@@ -1978,7 +1980,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 57rem;
+  max-width: 82.5rem;
   margin: 0 auto;
   font-weight: 500;
   list-style: none;
@@ -2080,7 +2082,7 @@ Array [
   font-size: 1.6rem;
   line-height: 2.5rem;
   overflow: visible;
-  max-width: 57rem;
+  max-width: 82.5rem;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -2135,7 +2137,7 @@ Array [
 
 .c2 {
   height: 5rem;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2407,7 +2409,7 @@ Array [
 .c18 {
   overflow: visible;
   margin: 0 auto;
-  max-width: 117rem;
+  max-width: 128rem;
 }
 
 @media screen {
@@ -2416,7 +2418,7 @@ Array [
     color: #424242;
     font-size: 1.6rem;
     line-height: 2.5rem;
-    max-width: 57rem;
+    max-width: 82.5rem;
     margin: 0 auto;
     margin-top: 3.2rem;
   }
@@ -2646,7 +2648,7 @@ Array [
     -webkit-transition: max-width 300ms;
     transition: max-width 300ms;
     width: 100%;
-    max-width: 83.5rem;
+    max-width: 94.5rem;
   }
 }
 
@@ -2878,8 +2880,10 @@ Array [
               </div>
               <details
                 className="c30"
+                data-testid="attribution-details"
               >
                 <summary
+                  aria-label="Citation/Attribution"
                   className="c31 c32"
                 >
                   <svg
