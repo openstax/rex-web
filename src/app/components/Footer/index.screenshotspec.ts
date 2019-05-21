@@ -6,26 +6,14 @@ import {
   setMobileViewport,
 } from '../../../test/browserutils';
 
-const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
+const TEST_PAGE_NAME = 'test-page-1';
+const TEST_SIMPLE_PAGE = '1-test-page-4';
+const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/${TEST_SIMPLE_PAGE}`;
 
 describe('content', () => {
-  it('looks right when logged in on desktop', async() => {
-    setDesktopViewport(page);
-    await page.setCookie({domain: 'localhost', name: 'session', value: 'logged in'});
-    await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await finishRender(page);
-    const screen = await page.screenshot();
-    expect(screen).toMatchImageSnapshot({
-      CI: {
-        failureThreshold: 1.5,
-        failureThresholdType: 'percent',
-      },
-    });
-  });
-
-  it('looks right when logged in on mobile', async() => {
+  it('renders correctly next element on mobile without scroll', async() => {
     setMobileViewport(page);
-    await page.setCookie({domain: 'localhost', name: 'session', value: 'logged in'});
     await navigate(page, TEST_SIMPLE_PAGE_URL);
     await finishRender(page);
     const screen = await page.screenshot();
@@ -35,14 +23,12 @@ describe('content', () => {
         failureThresholdType: 'percent',
       },
     });
+
   });
 
-  it('user menu looks right on desktop', async() => {
+  it('renders correctly next element on desktop without scroll', async() => {
     setDesktopViewport(page);
-    await page.setCookie({domain: 'localhost', name: 'session', value: 'logged in'});
     await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await finishRender(page);
-    await page.hover('[data-testid="user-nav"]');
     await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
@@ -53,13 +39,26 @@ describe('content', () => {
     });
   });
 
-  it('user menu looks right on mobile', async() => {
+  it('renders correctly next element on mobile with scroll', async() => {
     setMobileViewport(page);
-    await page.setCookie({domain: 'localhost', name: 'session', value: 'logged in'});
-    await navigate(page, TEST_SIMPLE_PAGE_URL);
+    await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await page.click('[data-testid="user-nav-toggle"]');
+    await scrollDown();
+    const screen = await page.screenshot();
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+
+  });
+
+  it('renders correctly next element on desktop with scroll', async() => {
+    setDesktopViewport(page);
+    await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
+    await scrollDown();
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -68,4 +67,9 @@ describe('content', () => {
       },
     });
   });
+
+});
+
+const scrollDown = () => page.evaluate(() => {
+  return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });

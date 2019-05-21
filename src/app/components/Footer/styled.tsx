@@ -3,7 +3,7 @@ import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
-import { textRegularSize, textRegularStyle } from '../../../components/Typography';
+import { textRegularSize, textRegularStyle } from '../../components/Typography';
 
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
@@ -118,6 +118,13 @@ export const Heading = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+const DonateLink = css`
+    ${columnLink}
+    font-weight: bold;
+    text-underline-position: under;
+`;
+
+// tslint:disable-next-line:variable-name
 export const Mission = styled.div`
     grid-area: mission;
     @media (min-width: ${desktopMinWidth}em) {
@@ -127,13 +134,10 @@ export const Mission = styled.div`
         line-height: normal;
         line-height: 3rem;
     }
-`;
 
-// tslint:disable-next-line:variable-name
-export const DonateLink = styled.a`
-    ${columnLink}
-    font-weight: bold;
-    text-underline-position: under;
+    a {
+      ${DonateLink}
+    }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -223,6 +227,9 @@ export const Copyrights = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const CopyrightDiv = styled.div`
+    a {
+        ${columnLink}
+    }
 `;
 
 // tslint:disable-next-line:variable-name

@@ -1,6 +1,8 @@
 import React, { SFC } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { assertString } from '../../utils';
 import * as Styled from './styled';
+import RiceWhiteLogo from './../../../assets/rice-white-text.png';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
@@ -11,19 +13,11 @@ const copyrightLink = 'https://creativecommons.org/licenses/by/4.0/';
 const supportCenterLink = 'https://openstax.secure.force.com/help';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
-const renderMission = () => <Styled.Mission>
-  <FormattedMessage id='i18n:footer:mission'>
-    {(msg: Element | string) => msg}
-  </FormattedMessage>
-  <Styled.DonateLink href='/give' target='_blank'>
-    <FormattedMessage id='i18n:footer:donate-link:text'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.DonateLink>
-  <FormattedMessage id='i18n:footer:donate-link:today'>
-    {(msg: Element | string) => msg}
-  </FormattedMessage>.
-</Styled.Mission>;
+const renderMission = () => <FormattedHTMLMessage id='i18n:footer:copyright:mission-text'>
+  {(html) => <Styled.Mission
+    dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:copyright:mission-text must return a string')}}
+  ></Styled.Mission>}
+</FormattedHTMLMessage>;
 
 const renderColumn1 = () => <Styled.Column1>
   <Styled.ColumnHeading>
@@ -100,43 +94,44 @@ const renderColumn3 = () => <Styled.Column3>
 </Styled.Column3>;
 
 const renderCopyrights = () => <Styled.Copyrights>
-  <Styled.CopyrightDiv data-html='copyright'>
-    <FormattedMessage id='i18n:footer:copyright:top-text' values={getValues()}>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-    <Styled.BottomLink href={copyrightLink}>
-      <FormattedMessage id='i18n:footer:copyright:top-text:link'>
-        {(msg: Element | string) => msg}
-      </FormattedMessage>
-    </Styled.BottomLink>.
-  </Styled.CopyrightDiv>
-  <Styled.CopyrightDiv data-html='apStatement'>
-    <FormattedMessage id='i18n:footer:copyright:bottom-text'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.CopyrightDiv>
+  <FormattedHTMLMessage id='i18n:footer:copyright:bottom-text' values={getValues()}>
+    {(html) => <Styled.CopyrightDiv data-html='copyright'
+      dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:copyright:top-text must return a string')}}
+    ></Styled.CopyrightDiv>}
+  </FormattedHTMLMessage>
 </Styled.Copyrights>;
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
-  <Styled.SocialIcon title='facebook' href={fbUrl}>
-    <Styled.FBIcon />
-  </Styled.SocialIcon>
-  <Styled.SocialIcon title='twitter' href={twitterUrl}>
-    <Styled.TwitterIcon />
-  </Styled.SocialIcon>
-  <Styled.SocialIcon title='linkedin' href={linkedInUrl}>
-    <Styled.LinkedInIcon />
-  </Styled.SocialIcon>
-  <Styled.SocialIcon title='instagram' href={instagramUrl}>
-    <Styled.IGIcon />
-  </Styled.SocialIcon>
-  <Styled.BottomLink href={riceUrl}>
-    <Styled.FooterLogo src='/images/rice-white-text.png' alt='Rice University logo' />
-  </Styled.BottomLink>
+  <FormattedMessage id='i18n:footer:social:fb:alt'>
+    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={fbUrl}>
+      <Styled.FBIcon />
+    </Styled.SocialIcon>}
+  </FormattedMessage>
+  <FormattedMessage id='i18n:footer:social:tw:alt'>
+    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={twitterUrl}>
+      <Styled.TwitterIcon />
+    </Styled.SocialIcon>}
+  </FormattedMessage>
+  <FormattedMessage id='i18n:footer:social:in:alt'>
+    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={linkedInUrl}>
+      <Styled.LinkedInIcon />
+    </Styled.SocialIcon>}
+  </FormattedMessage>
+  <FormattedMessage id='i18n:footer:social:ig:alt'>
+    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={instagramUrl}>
+      <Styled.IGIcon />
+    </Styled.SocialIcon>}
+  </FormattedMessage>
+  <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
+    {(msg: Element | string) => <Styled.BottomLink href={riceUrl}>
+    <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
+  </Styled.BottomLink>}
+  </FormattedMessage>
 </Styled.Social>;
 
 function getValues() {
   return {
+    copyrightLink,
     currentYear: new Date().getFullYear(),
   };
 }

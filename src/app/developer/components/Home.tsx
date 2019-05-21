@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import Footer from '../../components/Footer';
 import Layout from '../../components/Layout';
 import { bodyCopyRegularStyle, H1 } from '../../components/Typography';
 import { contentWrapperMaxWidth } from '../../content/components/constants';
@@ -25,6 +26,7 @@ const Home: React.SFC = () => <Layout>
     <Notifications />
     <Routes />
   </HomeStyle>
+  <Footer />
 </Layout>;
 
 export default Home;

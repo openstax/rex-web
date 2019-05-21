@@ -20,9 +20,6 @@
   "i18n:prevnext:prev:aria-label": "Previous Page",
   "i18n:prevnext:next:aria-label": "Next Page",
   "i18n:footer:heading": "OpenStax at Rice University is a 501(c)(3) nonprofit charity",
-  "i18n:footer:mission": "It's our mission to give every student the tools they need to be successful in the classroom. Help our cause by ",
-  "i18n:footer:donate-link:text": "donating",
-  "i18n:footer:donate-link:today": " today",
   "i18n:footer:column1:help": "Help",
   "i18n:footer:column1:contact-us": "Contact Us",
   "i18n:footer:column1:support-center": "Support Center",
@@ -36,6 +33,9 @@
   "i18n:footer:column3:terms": "Terms of Use",
   "i18n:footer:column3:license": "Licensing",
   "i18n:footer:column3:privacy-policy": "Privacy Policy",
-  "i18n:footer:copyright:top-text:link": "Creative Commons Attribution 4.0 International License",
-  "i18n:footer:copyright:bottom-text": "Advanced Placement® and AP® are trademarks registered and/or owned by the College Board, which is not affiliated with, and does not endorse, this site."
+  "i18n:footer:social:fb:alt": "facebook",
+  "i18n:footer:social:tw:alt": "twitter",
+  "i18n:footer:social:in:alt": "linkedin",
+  "i18n:footer:social:ig:alt": "instagram",
+  "i18n:footer:social:rice-logo:alt": "Rice University logo"
 }

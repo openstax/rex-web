@@ -4,6 +4,7 @@ import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
 import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
+import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
@@ -19,7 +20,6 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
-import Footer from './Footer/index';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
