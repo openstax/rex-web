@@ -71,3 +71,6 @@ pip-delete-this-directory.txt
 
 # pytest report
 ui-test.html
+pytest-selenium/tests/test_attribution_pages.py
+pytest-selenium/tests/test_attribution_pom.py
+.idea/
