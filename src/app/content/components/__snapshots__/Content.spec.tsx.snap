@@ -1716,8 +1716,10 @@ Array [
               </div>
               <details
                 className="c45"
+                data-testid="attribution-details"
               >
                 <summary
+                  aria-label="Citation/Attribution"
                   className="c46 c47"
                 >
                   <svg
@@ -2878,8 +2880,10 @@ Array [
               </div>
               <details
                 className="c30"
+                data-testid="attribution-details"
               >
                 <summary
+                  aria-label="Citation/Attribution"
                   className="c31 c32"
                 >
                   <svg
