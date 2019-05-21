@@ -42,6 +42,7 @@ export const splitTitleParts = (str: string) => {
     // ignore the first two matches which are the whole title
     return match.slice(2);
   } else {
+    // title did not match the expected HTML format, assume it is unbaked (there is no number and the entire thing is the title)
     return [null, str];
   }
 };
