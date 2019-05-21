@@ -120,6 +120,203 @@ Array [
   overflow: hidden;
 }
 
+.c70 {
+  height: 2rem;
+}
+
+.c71 {
+  height: 2rem;
+}
+
+.c73 {
+  height: 2rem;
+}
+
+.c72 {
+  height: 2rem;
+}
+
+.c53 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  z-index: 0;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.c54 {
+  color: #d5d5d5;
+  display: grid;
+}
+
+.c55 {
+  background-color: #424242;
+}
+
+.c56 {
+  max-width: 120rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-row-gap: 2rem;
+}
+
+.c57 {
+  grid-area: headline;
+}
+
+.c58 {
+  grid-area: mission;
+}
+
+.c58 a {
+  color: inherit;
+  font-weight: bold;
+  text-underline-position: under;
+}
+
+.c61 {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c61:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c74 {
+  color: inherit;
+}
+
+.c59 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-area: col1;
+}
+
+.c62 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-area: col2;
+}
+
+.c63 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-area: col3;
+}
+
+.c60 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  -webkit-letter-spacing: -0.072rem;
+  -moz-letter-spacing: -0.072rem;
+  -ms-letter-spacing: -0.072rem;
+  letter-spacing: -0.072rem;
+  line-height: normal;
+}
+
+.c64 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  line-height: normal;
+  background-color: #3b3b3b;
+}
+
+.c65 {
+  max-width: 120rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-column-gap: 4rem;
+  grid-row-gap: 1.5rem;
+}
+
+.c66 {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.c67 a {
+  color: inherit;
+}
+
+.c68 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+}
+
+.c69 {
+  color: inherit;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  background-color: #959595;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border-radius: 50%;
+  display: grid;
+  height: 3rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 3rem;
+}
+
+.c75 {
+  height: 4rem;
+  -webkit-transform: translateY(0.2rem);
+  -webkit-transform: translateY(0.2rem);
+  -ms-transform: translateY(0.2rem);
+  transform: translateY(0.2rem);
+}
+
 .c39 {
   overflow: visible;
 }
@@ -806,6 +1003,108 @@ Array [
   overflow: visible;
   margin: 0 auto;
   max-width: 128rem;
+}
+
+@media print {
+  .c53 {
+    display: none;
+  }
+}
+
+@media (min-width:60.1em) {
+  .c55 {
+    padding: 7rem 0;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c55 {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c56 {
+    -webkit-align-items: start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+    grid-column-gap: 4rem;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c56 {
+    grid-template: 'headline' 'mission' 'col1' 'col2' 'col3';
+  }
+}
+
+@media (min-width:60.1em) {
+  .c56 {
+    grid-column-gap: 8rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c57 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    -webkit-letter-spacing: -0.096rem;
+    -moz-letter-spacing: -0.096rem;
+    -ms-letter-spacing: -0.096rem;
+    letter-spacing: -0.096rem;
+    line-height: normal;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c57 {
+    font-size: 2rem;
+    font-weight: bold;
+    -webkit-letter-spacing: -0.08rem;
+    -moz-letter-spacing: -0.08rem;
+    -ms-letter-spacing: -0.08rem;
+    letter-spacing: -0.08rem;
+    line-height: normal;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c58 {
+    font-size: 1.8rem;
+    font-weight: normal;
+    -webkit-letter-spacing: normal;
+    -moz-letter-spacing: normal;
+    -ms-letter-spacing: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    line-height: 3rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c64 {
+    padding: 2.5rem 0;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c64 {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c65 {
+    grid-auto-flow: column;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c65 {
+    padding: 0;
+  }
 }
 
 @media screen {
@@ -1821,6 +2120,243 @@ Array [
                   }
                 />
               </details>
+              <footer
+                className="c53"
+              >
+                <footer
+                  className="c54"
+                >
+                  <div
+                    className="c55"
+                  >
+                    <div
+                      className="c56"
+                    >
+                      <div
+                        className="c57"
+                        role="heading"
+                      >
+                        OpenStax at Rice University is a 501(c)(3) nonprofit charity
+                      </div>
+                      <div
+                        className="c58"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "
+    It's our mission to give every student the tools they need to be successful in the classroom. 
+    Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
+",
+                          }
+                        }
+                      />
+                      <div
+                        className="c59"
+                      >
+                        <div
+                          className="c60"
+                        >
+                          Help
+                        </div>
+                        <a
+                          className="c61"
+                          href="/contact"
+                        >
+                          Contact Us
+                        </a>
+                        <a
+                          className="c61"
+                          href="https://openstax.secure.force.com/help"
+                        >
+                          Support Center
+                        </a>
+                        <a
+                          className="c61"
+                          href="/faq"
+                        >
+                          FAQ
+                        </a>
+                      </div>
+                      <div
+                        className="c62"
+                      >
+                        <div
+                          className="c60"
+                        >
+                          OpenStax
+                        </div>
+                        <a
+                          className="c61"
+                          href="/press"
+                        >
+                          Press
+                        </a>
+                        <a
+                          className="c61"
+                          href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                        >
+                          Newsletter
+                        </a>
+                        <a
+                          className="c61"
+                          href="/careers"
+                        >
+                          Careers
+                        </a>
+                      </div>
+                      <div
+                        className="c63"
+                      >
+                        <div
+                          className="c60"
+                        >
+                          Policies
+                        </div>
+                        <a
+                          className="c61"
+                          href="/accessibility-statement"
+                        >
+                          Accessibility Statement
+                        </a>
+                        <a
+                          className="c61"
+                          href="/tos"
+                        >
+                          Terms of Use
+                        </a>
+                        <a
+                          className="c61"
+                          href="/license"
+                        >
+                          Licensing
+                        </a>
+                        <a
+                          className="c61"
+                          href="/privacy-policy"
+                        >
+                          Privacy Policy
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="c64"
+                  >
+                    <div
+                      className="c65"
+                    >
+                      <div
+                        className="c66"
+                      >
+                        <div
+                          className="c67"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "
+    © 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+    are licensed under a
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">
+        Creative Commons Attribution 4.0 International License
+    </a>.
+    <br/><br/>
+    Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
+    which is not affiliated with, and does not endorse, this site.
+",
+                            }
+                          }
+                          data-html="copyright"
+                        />
+                      </div>
+                      <div
+                        className="c68"
+                        role="directory"
+                      >
+                        <a
+                          alt="facebook"
+                          className="c69"
+                          href="https://www.facebook.com/openstax"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c70 c15"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 264 512"
+                          >
+                            <path
+                              d="M215.8 85H264V3.6C255.7 2.5 227.1 0 193.8 0 124.3 0 76.7 42.4 76.7 120.3V192H0v91h76.7v229h94V283h73.6l11.7-91h-85.3v-62.7c0-26.3 7.3-44.3 45.1-44.3z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          alt="twitter"
+                          className="c69"
+                          href="https://twitter.com/openstax"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c71 c15"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 512 512"
+                          >
+                            <path
+                              d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          alt="linkedin"
+                          className="c69"
+                          href="https://www.linkedin.com/company/openstax"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c72 c15"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 448 512"
+                          >
+                            <path
+                              d="M100.3 448H7.4V148.9h92.9V448zM53.8 108.1C24.1 108.1 0 83.5 0 53.8S24.1 0 53.8 0s53.8 24.1 53.8 53.8-24.1 54.3-53.8 54.3zM448 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448h-.1z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          alt="instagram"
+                          className="c69"
+                          href="https://www.instagram.com/openstax/"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c73 c15"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 448 512"
+                          >
+                            <path
+                              d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          className="c74"
+                          href="http://www.rice.edu"
+                        >
+                          <img
+                            alt="Rice University logo"
+                            className="c75"
+                            src="rice-white-text.png"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </footer>
+              </footer>
             </div>
           </div>
         </div>
@@ -1942,6 +2478,203 @@ Array [
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
+}
+
+.c54 {
+  height: 2rem;
+}
+
+.c55 {
+  height: 2rem;
+}
+
+.c57 {
+  height: 2rem;
+}
+
+.c56 {
+  height: 2rem;
+}
+
+.c37 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  z-index: 0;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.c38 {
+  color: #d5d5d5;
+  display: grid;
+}
+
+.c39 {
+  background-color: #424242;
+}
+
+.c40 {
+  max-width: 120rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-row-gap: 2rem;
+}
+
+.c41 {
+  grid-area: headline;
+}
+
+.c42 {
+  grid-area: mission;
+}
+
+.c42 a {
+  color: inherit;
+  font-weight: bold;
+  text-underline-position: under;
+}
+
+.c45 {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c45:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c58 {
+  color: inherit;
+}
+
+.c43 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-area: col1;
+}
+
+.c46 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-area: col2;
+}
+
+.c47 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-area: col3;
+}
+
+.c44 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  -webkit-letter-spacing: -0.072rem;
+  -moz-letter-spacing: -0.072rem;
+  -ms-letter-spacing: -0.072rem;
+  letter-spacing: -0.072rem;
+  line-height: normal;
+}
+
+.c48 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  line-height: normal;
+  background-color: #3b3b3b;
+}
+
+.c49 {
+  max-width: 120rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-column-gap: 4rem;
+  grid-row-gap: 1.5rem;
+}
+
+.c50 {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.c51 a {
+  color: inherit;
+}
+
+.c52 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+}
+
+.c53 {
+  color: inherit;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  background-color: #959595;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border-radius: 50%;
+  display: grid;
+  height: 3rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 3rem;
+}
+
+.c59 {
+  height: 4rem;
+  -webkit-transform: translateY(0.2rem);
+  -webkit-transform: translateY(0.2rem);
+  -ms-transform: translateY(0.2rem);
+  transform: translateY(0.2rem);
 }
 
 .c28 {
@@ -2410,6 +3143,108 @@ Array [
   overflow: visible;
   margin: 0 auto;
   max-width: 128rem;
+}
+
+@media print {
+  .c37 {
+    display: none;
+  }
+}
+
+@media (min-width:60.1em) {
+  .c39 {
+    padding: 7rem 0;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c39 {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c40 {
+    -webkit-align-items: start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+    grid-column-gap: 4rem;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c40 {
+    grid-template: 'headline' 'mission' 'col1' 'col2' 'col3';
+  }
+}
+
+@media (min-width:60.1em) {
+  .c40 {
+    grid-column-gap: 8rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c41 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    -webkit-letter-spacing: -0.096rem;
+    -moz-letter-spacing: -0.096rem;
+    -ms-letter-spacing: -0.096rem;
+    letter-spacing: -0.096rem;
+    line-height: normal;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c41 {
+    font-size: 2rem;
+    font-weight: bold;
+    -webkit-letter-spacing: -0.08rem;
+    -moz-letter-spacing: -0.08rem;
+    -ms-letter-spacing: -0.08rem;
+    letter-spacing: -0.08rem;
+    line-height: normal;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c42 {
+    font-size: 1.8rem;
+    font-weight: normal;
+    -webkit-letter-spacing: normal;
+    -moz-letter-spacing: normal;
+    -ms-letter-spacing: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    line-height: 3rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c48 {
+    padding: 2.5rem 0;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c48 {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c49 {
+    grid-auto-flow: column;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c49 {
+    padding: 0;
+  }
 }
 
 @media screen {
@@ -2915,6 +3750,243 @@ Array [
                   </span>
                 </summary>
               </details>
+              <footer
+                className="c37"
+              >
+                <footer
+                  className="c38"
+                >
+                  <div
+                    className="c39"
+                  >
+                    <div
+                      className="c40"
+                    >
+                      <div
+                        className="c41"
+                        role="heading"
+                      >
+                        OpenStax at Rice University is a 501(c)(3) nonprofit charity
+                      </div>
+                      <div
+                        className="c42"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "
+    It's our mission to give every student the tools they need to be successful in the classroom. 
+    Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
+",
+                          }
+                        }
+                      />
+                      <div
+                        className="c43"
+                      >
+                        <div
+                          className="c44"
+                        >
+                          Help
+                        </div>
+                        <a
+                          className="c45"
+                          href="/contact"
+                        >
+                          Contact Us
+                        </a>
+                        <a
+                          className="c45"
+                          href="https://openstax.secure.force.com/help"
+                        >
+                          Support Center
+                        </a>
+                        <a
+                          className="c45"
+                          href="/faq"
+                        >
+                          FAQ
+                        </a>
+                      </div>
+                      <div
+                        className="c46"
+                      >
+                        <div
+                          className="c44"
+                        >
+                          OpenStax
+                        </div>
+                        <a
+                          className="c45"
+                          href="/press"
+                        >
+                          Press
+                        </a>
+                        <a
+                          className="c45"
+                          href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                        >
+                          Newsletter
+                        </a>
+                        <a
+                          className="c45"
+                          href="/careers"
+                        >
+                          Careers
+                        </a>
+                      </div>
+                      <div
+                        className="c47"
+                      >
+                        <div
+                          className="c44"
+                        >
+                          Policies
+                        </div>
+                        <a
+                          className="c45"
+                          href="/accessibility-statement"
+                        >
+                          Accessibility Statement
+                        </a>
+                        <a
+                          className="c45"
+                          href="/tos"
+                        >
+                          Terms of Use
+                        </a>
+                        <a
+                          className="c45"
+                          href="/license"
+                        >
+                          Licensing
+                        </a>
+                        <a
+                          className="c45"
+                          href="/privacy-policy"
+                        >
+                          Privacy Policy
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="c48"
+                  >
+                    <div
+                      className="c49"
+                    >
+                      <div
+                        className="c50"
+                      >
+                        <div
+                          className="c51"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "
+    © 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+    are licensed under a
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">
+        Creative Commons Attribution 4.0 International License
+    </a>.
+    <br/><br/>
+    Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
+    which is not affiliated with, and does not endorse, this site.
+",
+                            }
+                          }
+                          data-html="copyright"
+                        />
+                      </div>
+                      <div
+                        className="c52"
+                        role="directory"
+                      >
+                        <a
+                          alt="facebook"
+                          className="c53"
+                          href="https://www.facebook.com/openstax"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c54 c6"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 264 512"
+                          >
+                            <path
+                              d="M215.8 85H264V3.6C255.7 2.5 227.1 0 193.8 0 124.3 0 76.7 42.4 76.7 120.3V192H0v91h76.7v229h94V283h73.6l11.7-91h-85.3v-62.7c0-26.3 7.3-44.3 45.1-44.3z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          alt="twitter"
+                          className="c53"
+                          href="https://twitter.com/openstax"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c55 c6"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 512 512"
+                          >
+                            <path
+                              d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          alt="linkedin"
+                          className="c53"
+                          href="https://www.linkedin.com/company/openstax"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c56 c6"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 448 512"
+                          >
+                            <path
+                              d="M100.3 448H7.4V148.9h92.9V448zM53.8 108.1C24.1 108.1 0 83.5 0 53.8S24.1 0 53.8 0s53.8 24.1 53.8 53.8-24.1 54.3-53.8 54.3zM448 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448h-.1z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          alt="instagram"
+                          className="c53"
+                          href="https://www.instagram.com/openstax/"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="c57 c6"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 448 512"
+                          >
+                            <path
+                              d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </a>
+                        <a
+                          className="c58"
+                          href="http://www.rice.edu"
+                        >
+                          <img
+                            alt="Rice University logo"
+                            className="c59"
+                            src="rice-white-text.png"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </footer>
+              </footer>
             </div>
           </div>
         </div>
