@@ -124,8 +124,8 @@ const renderSocialDirectory = () => <Styled.Social role='directory'>
   </FormattedMessage>
   <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
     {(msg: Element | string) => <Styled.BottomLink href={riceUrl}>
-    <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
-  </Styled.BottomLink>}
+      <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
+    </Styled.BottomLink>}
   </FormattedMessage>
 </Styled.Social>;
 

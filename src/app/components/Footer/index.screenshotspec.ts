@@ -2,8 +2,10 @@
 import {
   finishRender,
   navigate,
+  scrollDown,
   setDesktopViewport,
   setMobileViewport,
+  setTallerDesktopViewport,
 } from '../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
@@ -12,22 +14,9 @@ const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/${TEST_SIMPLE_PAGE}`;
 
 describe('content', () => {
-  it('renders correctly next element on mobile without scroll', async() => {
-    setMobileViewport(page);
-    await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await finishRender(page);
-    const screen = await page.screenshot();
-    expect(screen).toMatchImageSnapshot({
-      CI: {
-        failureThreshold: 1.5,
-        failureThresholdType: 'percent',
-      },
-    });
-
-  });
 
   it('renders correctly next element on desktop without scroll', async() => {
-    setDesktopViewport(page);
+    setTallerDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
     await finishRender(page);
     const screen = await page.screenshot();
@@ -43,7 +32,7 @@ describe('content', () => {
     setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await scrollDown();
+    await scrollDown(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -58,7 +47,7 @@ describe('content', () => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await scrollDown();
+    await scrollDown(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -68,8 +57,4 @@ describe('content', () => {
     });
   });
 
-});
-
-const scrollDown = () => page.evaluate(() => {
-  return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });

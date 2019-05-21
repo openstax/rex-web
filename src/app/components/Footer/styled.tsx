@@ -4,6 +4,7 @@ import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
+import { disablePrint } from '../../content/components/utils/disablePrint';
 
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
@@ -54,6 +55,7 @@ export const FooterWrapper = styled.footer`
     z-index: 0;
     opacity: 1;
     transition: opacity 0.2s;
+    ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
