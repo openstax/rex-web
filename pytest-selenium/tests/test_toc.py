@@ -1,3 +1,4 @@
+import pytest
 from pages.content import Content
 from . import markers
 
@@ -43,7 +44,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         assert sidebar.header.is_displayed
 
     # AND: Window Size is Mobile
-    if content.is_mobile:
+    elif content.is_mobile:
 
         # Sidebar is closed by default
         assert not sidebar.header.is_displayed
@@ -59,3 +60,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         sidebar.header.click_toc_toggle_button()
 
         assert not sidebar.header.is_displayed
+
+    else:
+
+        pytest.fail("window must be either mobile or desktop size")
