@@ -27,6 +27,10 @@ class Content(Page):
     def sidebar(self):
         return self.SideBar(self)
 
+    @property
+    def attribution(self):
+        return self.Attribution(self)
+
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
@@ -73,3 +77,35 @@ class Content(Page):
                 return self.wait.until(
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
+
+    class Attribution(Region):
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
+        _attribution_toggle_locator = (
+            By.CSS_SELECTOR,
+            '[data-testid="attribution-details"] summary',
+        )
+        _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
+
+        @property
+        def attribution_link(self):
+            return self.find_element(*self._attribution_toggle_locator)
+
+        @property
+        def attribution_status(self):
+            return self.find_element(*self._root_locator)
+
+        @property
+        def is_open(self):
+            return self.attribution_status.get_attribute("open")
+
+        @property
+        def section_url_within_attribution(self):
+            return self.find_element(*self._section_url_locator)
+
+        @property
+        def section_url(self):
+            return self.section_url_within_attribution.get_attribute("href")
+
+        def click_attribution_link(self):
+            self.offscreen_click(self.attribution_link)
+            return self.page.attribution.wait_for_region_to_display()
