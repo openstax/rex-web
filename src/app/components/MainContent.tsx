@@ -5,7 +5,7 @@ import { mergeRefs } from '../utils';
 
 interface Props {
   className?: string;
-  dangerouslySetInnerHTML: { __html: string; };
+  dangerouslySetInnerHTML?: { __html: string; };
 }
 
 // tslint:disable-next-line:variable-name
