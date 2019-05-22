@@ -141,7 +141,7 @@ const Footer: SFC = () => <Styled.FooterWrapper>
   <Styled.InnerFooter>
     <Styled.FooterTop>
       <Styled.TopBoxed>
-        <Styled.Heading role='heading'>
+        <Styled.Heading role='heading' aria-level={3}>
           <FormattedMessage id='i18n:footer:heading'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
