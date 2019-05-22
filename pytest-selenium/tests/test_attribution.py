@@ -23,5 +23,30 @@ def test_section_url_in_citation_text_shows_url_for_current_page(
         "https://openstax.org/books/" + book_slug + "/pages/" + page_slug
     )
 
-    # validate section url within attribution refers to current page
+    # Validate section url within attribution refers to current page
     assert attribution_section_url_expected == attribution.section_url
+
+
+@markers.test_case("C476303")
+@markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
+@markers.nondestructive
+def test_attribution_collapsed_by_default_expands_when_clicked(
+    selenium, base_url, book_slug, page_slug
+):
+
+    # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
+    # WHEN: The page is fully loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    attribution = content.attribution
+
+    # THEN: The attribution section is collapsed by default
+    assert not attribution.is_open
+
+    # AND: The attribution section opens when clicked
+    attribution.click_attribution_link()
+    assert attribution.is_open
+
+    attribution.click_attribution_link()
+
+    # AND: clicking on attribution again collapses it
+    assert not attribution.is_open
