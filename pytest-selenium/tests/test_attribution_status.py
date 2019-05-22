@@ -23,7 +23,6 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
     assert attribution.is_open
 
     attribution.click_attribution_link()
-    # """click on attribution again and verify it closes
+    """click on attribution again and verify it closes"""
 
-    # """
     assert not attribution.is_open
