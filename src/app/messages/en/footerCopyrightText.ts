@@ -10,6 +10,6 @@ export const bottomText = `
 `;
 
 export const missionText = `
-    It's our mission to give every student the tools they need to be successful in the classroom. 
+    It's our mission to give every student the tools they need to be successful in the classroom.
     Help our cause by <a href="/give" target="_blank">donating</a> today.
 `;

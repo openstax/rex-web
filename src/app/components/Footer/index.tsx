@@ -1,8 +1,8 @@
 import React, { SFC } from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { assertString } from '../../utils';
-import * as Styled from './styled';
 import RiceWhiteLogo from './../../../assets/rice-white-text.png';
+import * as Styled from './styled';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
