@@ -19,7 +19,7 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
     # THEN: The attribution section is collapsed by default
     assert not attribution.is_open
 
-    # AND The attribution section opens when clicked
+    # AND: The attribution section opens when clicked
     attribution.click_attribution_link()
     assert attribution.is_open
 
