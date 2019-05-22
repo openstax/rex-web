@@ -21,9 +21,11 @@
 @table-cell-padding: 1em;
 @base-font: 14px;
 
-#main-content {
+// Styles for the contents of a page.
+// This should **only** be imported inside a containing selector like:
+//
+//     #content { @import 'this_file.less'; }
 
-}
 h1,
 h2,
 h3,
@@ -226,12 +228,12 @@ figure[data-orient="vertical"] {
   // - `.title()` : styling for the title (if there is one since they are optional)
   // - `.body()` : styling for the rest
 
-  // .style(@type) { }
-  // .default-label(@type; @has-title) { }
+  .style(@type) { }
+  .default-label(@type; @has-title) { }
   .title(@type) {
     display: inline-block;
   }
-  // .body(@type) { }
+  .body(@type) { }
 
   // Style the note
   .default-label(note; false) {

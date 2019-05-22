@@ -28,11 +28,12 @@ const gradients: {[key in Book['theme']]: string} = {
   'gray': '#97999b',
   'green': '#9cd14a',
   'light-blue': '#004aa2',
+  'orange': '#FAA461',
   'yellow': '#faea36',
 };
 
-const applyBookTextColor = (props: {theme: Book['theme']}) => css`
-  color: ${theme.color.primary[props.theme].foreground};
+const applyBookTextColor = (props: {colorSchema: Book['theme'] | undefined } ) => props.colorSchema && css`
+  color: ${theme.color.primary[props.colorSchema].foreground};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -97,7 +98,8 @@ const BookTitle = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled((props) => props.variant === 'mini' ? <span {...props} /> : <h1 {...props} />)`
+const BookChapter = styled(({colorSchema: _, variant, ...props}) => variant === 'mini' ?
+  <span {...props} /> : <h1 {...props} />)`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
   font-weight: bold;
@@ -116,7 +118,7 @@ const BookChapter = styled((props) => props.variant === 'mini' ? <span {...props
 `;
 
 // tslint:disable-next-line:variable-name
-export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant: 'mini' | 'big'}>`
+export const BarWrapper = styled.div<{colorSchema: Book['theme'] | undefined , up: boolean, variant: 'mini' | 'big'}>`
   ${disablePrint}
 
   top: 0;
@@ -129,11 +131,14 @@ export const BarWrapper = styled.div<{theme: Book['theme'], up: boolean, variant
   position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
   z-index: ${ifMiniNav(3 /* stay above book content and overlay */, 4 /* above mini nav */)};
   overflow: hidden;
-  ${(props: {theme: Book['theme']}) => css`
+  ${(props: {colorSchema: Book['theme'] | undefined }) => props.colorSchema && css`
     background: linear-gradient(to right,
-      ${assertDefined(theme.color.primary[props.theme], `Could not find values for theme named "${props.theme}"`).base},
-      ${gradients[props.theme]});
+      ${assertDefined(
+        theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
+      ).base},
+      ${gradients[props.colorSchema]});
   `}
+
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
     ${theme.breakpoints.mobile(css`
@@ -166,7 +171,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
       });
     }
-  }
+  };
 
   public componentDidMount() {
     const document = assertDocument();
@@ -178,35 +183,37 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
     const {page, book} = this.props;
 
     if (!book || !page) {
-      return null;
+      return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const treeSection = findArchiveTreeSection(book, page.id);
+    const treeSection = findArchiveTreeSection(book.tree, page.id);
     const bookUrl = bookDetailsUrl(book);
 
     if (!treeSection) {
-      return null;
+      return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
     return this.renderBars(book, bookUrl, treeSection);
   }
 
   private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
-    <BarWrapper theme={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
+    <BarWrapper colorSchema={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
       <TopBar>
-        <BookTitle href={bookUrl} theme={book.theme}><LeftArrow theme={book.theme} />{book.tree.title}</BookTitle>
-        <BookChapter theme={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
-      </TopBar>
-    </BarWrapper>,
-    <BarWrapper theme={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
-      <TopBar>
-        <BookTitle href={bookUrl} variant='mini' theme={book.theme}>
-          <LeftArrow theme={book.theme} />{book.tree.title}
+        <BookTitle href={bookUrl} colorSchema={book.theme}>
+          <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
-        <BookChapter theme={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
+        <BookChapter colorSchema={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
       </TopBar>
     </BarWrapper>,
-  ])
+    <BarWrapper colorSchema={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
+      <TopBar>
+        <BookTitle href={bookUrl} variant='mini' colorSchema={book.theme}>
+          <LeftArrow colorSchema={book.theme} />{book.tree.title}
+        </BookTitle>
+        <BookChapter colorSchema={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
+      </TopBar>
+    </BarWrapper>,
+  ]);
 }
 
 export default connect(

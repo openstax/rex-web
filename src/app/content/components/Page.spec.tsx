@@ -116,7 +116,7 @@ describe('Page', () => {
         </MessageProvider>
       </Provider>
     );
-    const pageElement = root.querySelector('#main-content > div');
+    const pageElement = root.querySelector('#main-content');
 
     if (!pageElement) {
       return expect(pageElement).toBeTruthy();
@@ -213,7 +213,7 @@ describe('Page', () => {
 
   it('doesn\'t break when trying to remove listeners from elements that have no stored handler', () => {
     const { root } = renderDomWithReferences();
-    const pageElement = root.querySelector('#main-content > div');
+    const pageElement = root.querySelector('#main-content');
 
     if (pageElement && document) {
       pageElement.append(document.createElement('a'));

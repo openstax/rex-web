@@ -31,7 +31,7 @@ export interface Book {
   id: string;
   shortId: string;
   title: string;
-  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue';
+  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange';
   tree: ArchiveTree;
   version: string;
   slug: string;
@@ -60,8 +60,12 @@ export interface ArchiveTreeSection {
   title: string;
 }
 
+export interface LinkedArchiveTree extends ArchiveTree {
+  parent?: LinkedArchiveTree;
+}
+
 export interface LinkedArchiveTreeSection extends ArchiveTreeSection {
-  parent: ArchiveTree;
+  parent: LinkedArchiveTree;
 }
 
 export interface ArchiveTree extends ArchiveTreeSection {

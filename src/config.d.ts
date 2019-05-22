@@ -10,7 +10,6 @@ interface Config {
   BOOKS: {
     [key: string]: {
       defaultVersion: string;
-      bookStyleName: string | undefined;
     };
   };
 

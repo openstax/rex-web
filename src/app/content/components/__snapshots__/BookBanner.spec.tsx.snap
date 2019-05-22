@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BookBanner renders \`null\` when passed a page that isn't in the book tree 1`] = `null`;
-
-exports[`BookBanner renders \`null\` with no page or book 1`] = `null`;
-
 exports[`BookBanner renders correctly when you pass a page and book 1`] = `
 Array [
   .c4 {
@@ -22,7 +18,7 @@ Array [
 
 .c1 {
   width: 100%;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
@@ -37,7 +33,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -67,7 +63,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -117,7 +113,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -135,7 +131,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c5 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -193,7 +189,6 @@ Array [
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
           }
         }
-        theme="blue"
       />
     </div>
   </div>,
@@ -213,7 +208,7 @@ Array [
 
 .c1 {
   width: 100%;
-  max-width: 117rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
@@ -228,7 +223,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -259,7 +254,7 @@ Array [
   letter-spacing: -0.04rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  max-width: 87rem;
+  max-width: 105.25rem;
   padding: 0;
   color: #fff;
   white-space: nowrap;
@@ -311,7 +306,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -343,7 +338,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c5 {
-    max-width: 87rem;
+    max-width: 105.25rem;
     padding: 0;
     color: #fff;
     white-space: nowrap;
@@ -402,12 +397,90 @@ Array [
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
           }
         }
-        theme="blue"
-        variant="mini"
       />
     </div>
   </div>,
 ]
+`;
+
+exports[`BookBanner renders empty state when passed a page that isn't in the book tree 1`] = `
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`BookBanner renders empty state with no page or book 1`] = `
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+  className="c0"
+/>
 `;
 
 exports[`BookBanner wrapper transition matches snapshot 1`] = `

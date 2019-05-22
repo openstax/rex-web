@@ -57,7 +57,7 @@ export class Dropdown extends React.Component<{user: User, currentPath: string}>
     if (visible) {
       e.preventDefault();
     }
-  }
+  };
 }
 
 // tslint:disable-next-line:variable-name
@@ -80,7 +80,7 @@ const LoggedInState: SFC<{user: User, currentPath: string}> = ({user, currentPat
 
 // tslint:disable-next-line:variable-name
 const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
-  {(msg: Element | string) => <Styled.Link href={'/accounts/login?r=' + currentPath}>
+  {(msg: Element | string) => <Styled.Link href={'/accounts/login?r=' + currentPath} data-testid='nav-login'>
     {msg}
   </Styled.Link>}
 </FormattedMessage>;
