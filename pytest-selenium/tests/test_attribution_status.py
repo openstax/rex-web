@@ -8,7 +8,6 @@ from tests import markers
 def test_attribution_collapsed_by_default_expands_when_clicked(
     selenium, base_url, book_slug, page_slug
 ):
-    """Attribution section is initially collapsed, expands when clicked"""
 
     # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
     # WHEN: The page is fully loaded
@@ -23,6 +22,6 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
     assert attribution.is_open
 
     attribution.click_attribution_link()
-    """click on attribution again and verify it closes"""
 
+    # AND: clicking on attribution again collapses it
     assert not attribution.is_open
