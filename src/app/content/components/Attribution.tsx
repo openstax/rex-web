@@ -24,6 +24,7 @@ if (typeof(document) !== 'undefined') {
 }
 
 const summaryIconStyle = css`
+  margin-left: -0.3rem;
   height: 1.5rem;
   width: 1.5rem;
 `;
@@ -172,7 +173,7 @@ class Attribution extends Component<Props> {
       currentPath: this.props.currentPath,
       introPageUrl,
     };
-  }
+  };
 }
 
 export default connect(

@@ -9,7 +9,7 @@ import {
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
-const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/3-test-page-4`;
 
 describe('content', () => {
   it('looks right', async() => {
@@ -39,7 +39,7 @@ describe('content', () => {
   it('attribution looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await page.click('details');
+    await page.click('details[data-testid="attribution-details"]');
     const screen = await fullPageScreenshot(page);
 
     expect(screen).toMatchImageSnapshot({

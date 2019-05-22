@@ -35,6 +35,7 @@ if (process.env.CI) {
 }
 
 export const setTallerDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 1074, width: 1250});
+export const desktopWidth = 1250;
 export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: 1250});
 export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
 
@@ -117,6 +118,6 @@ export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string)
 
   expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.8);
+  expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.7);
   expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.87);
 };
