@@ -3,12 +3,13 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
+import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import Times from '../Times';
 import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
 
-export const maxNavWidth = 117;
+export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 5;
 export const navMobileHeight = 3.6;
 const headerImageMobileHeight = 2;

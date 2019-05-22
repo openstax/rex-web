@@ -140,7 +140,7 @@ class Attribution extends Component<Props> {
 
     return <Details ref={this.container} data-testid='attribution-details'>
       <FormattedMessage id='i18n:attribution:toggle'>
-        {(msg) => <Summary>
+        {(msg) => <Summary aria-label={msg}>
           <SummaryClosedIcon />
           <SummaryOpenIcon />
           <span>{msg}</span>

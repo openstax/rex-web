@@ -18,7 +18,8 @@ const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
     if (thisNumber) {
       return thisNumber
         // use dash instead of '.'
-        .replace(/\./g, '-');
+        .replace(/\./g, '-')
+        .toLowerCase();
     }
 
     focusSection = focusSection.parent;
