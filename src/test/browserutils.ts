@@ -34,6 +34,7 @@ if (process.env.CI) {
   page.setDefaultNavigationTimeout(90 * 1000);
 }
 
+export const desktopWidth = 1250;
 export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: 1250});
 export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
 

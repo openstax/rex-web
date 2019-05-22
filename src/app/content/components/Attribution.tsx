@@ -173,7 +173,7 @@ class Attribution extends Component<Props> {
       currentPath: this.props.currentPath,
       introPageUrl,
     };
-  }
+  };
 }
 
 export default connect(

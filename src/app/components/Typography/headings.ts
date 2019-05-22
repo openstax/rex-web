@@ -1,53 +1,6 @@
 import styled, { css } from 'styled-components/macro';
-import theme from '../theme';
-
-export const contentFont = 'Neue Helvetica W01';
-const textStyle = css`
-  font-family: ${contentFont};
-  color: ${theme.color.text.default};
-`;
-
-const linkColor = '#027EB5';
-export const linkHover = '#0064A0';
-export const linkStyle = css`
-  color: ${linkColor};
-  cursor: pointer;
-  text-decoration: none;
-  border-bottom: ${linkColor} solid 0.02em;
-
-  :hover {
-    color: ${linkHover};
-  }
-`;
-export const decoratedLinkStyle = css`
-  color: ${linkColor};
-  cursor: pointer;
-  text-decoration: none;
-
-  :hover {
-    text-decoration: underline;
-    color: ${linkHover};
-  }
-`;
-
-export const textRegularLineHeight = 2.5;
-export const textRegularSize = css`
-  font-size: 1.6rem;
-  line-height: ${textRegularLineHeight}rem;
-`;
-
-export const textRegularStyle = css`
-  ${textStyle}
-  ${textRegularSize}
-`;
-
-export const bodyCopyRegularStyle = css`
-  ${textRegularStyle}
-
-  a {
-    ${linkStyle}
-  }
-`;
+import theme from '../../theme';
+import { textStyle } from './base';
 
 const headingStyle = (fontSize: string, lineHeight: string, topPadding: string) => css`
   ${textStyle}

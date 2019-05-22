@@ -8,14 +8,14 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
   return findFirstScrollableParent(element.parentElement);
 };
 
-export const findFirstScrollableChild = (element: HTMLElement | undefined): HTMLElement | undefined => {
+export const findFirstScrollableChild = (element: HTMLElement | null): HTMLElement | null => {
   if (!element || element.scrollHeight > element.offsetHeight) {
     return element;
   }
 
-  return Array.from(element.children).reduce<HTMLElement | undefined>(
+  return Array.from(element.children).reduce<HTMLElement | null>(
     (result, child) => result || findFirstScrollableChild(child as HTMLElement),
-    undefined
+    null
   );
 };
 
@@ -46,7 +46,7 @@ const determineScrollTarget = (
     : activeSection;
 };
 
-export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activeSection: HTMLElement | undefined) => {
+export const scrollTocSectionIntoView = (sidebar: HTMLElement | null, activeSection: HTMLElement | null) => {
   const scrollable = findFirstScrollableChild(sidebar);
   if (!activeSection || !scrollable || tocSectionIsVisible(scrollable, activeSection)) {
     return;
@@ -56,4 +56,17 @@ export const scrollTocSectionIntoView = (sidebar: HTMLElement | undefined, activ
   const scrollTarget = determineScrollTarget(scrollable, selectedChapter, activeSection);
 
   scrollable.scrollTop = scrollTarget.offsetTop;
+
+};
+
+export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
+  let focus = activeSection;
+
+  while (focus && focus.getAttribute('aria-label') !== 'Table of Contents') {
+    if (focus.tagName === 'DETAILS' && !focus.hasAttribute('open')) {
+      focus.setAttribute('open', '');
+    }
+
+    focus = focus.parentElement;
+  }
 };
