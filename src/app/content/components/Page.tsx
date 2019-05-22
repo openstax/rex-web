@@ -18,7 +18,6 @@ import { AppServices, AppState } from '../../types';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
-import BookStyles from './BookStyles';
 import { contentTextWidth } from './constants';
 
 interface PropTypes {
@@ -92,17 +91,11 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
-    return <BookStyles>
-      {(className: string) => <MainContent className={[this.props.className, className].join(' ')}>
-        <div data-type='chapter'>
-          <div
-            data-type='page'
-            ref={(ref: any) => this.container = ref}
-            dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
-          />
-        </div>
-      </MainContent>}
-    </BookStyles>;
+    return <MainContent
+      className={this.props.className}
+      ref={(ref: any) => this.container = ref}
+      dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
+    />;
   }
 
   private getScrollTarget(): Element | null {

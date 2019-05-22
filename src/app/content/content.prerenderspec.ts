@@ -1,7 +1,6 @@
 /** @jest-environment puppeteer */
 import { finishRender, navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/book-slug-1/pages/test-page-1';
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
 const TEST_PAGE_WITH_LINKS_NAME = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
 const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
@@ -57,28 +56,13 @@ describe('content', () => {
     expect(secondHTML).toEqual(firstHTML);
   });
 
-  it('adds content fonts to the head', async() => {
-    await page.setJavaScriptEnabled(false);
-    await navigate(page, TEST_PAGE);
-
-    const links: string[] = await page.evaluate(() =>
-      document
-        ? Array.from(document.querySelectorAll('head link')).map((element) => element.getAttribute('href'))
-        : []
-    );
-
-    expect(links).toContainEqual(
-      'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'
-    );
-  });
-
   it('updates links in content', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_LINKS);
 
     const links: string[] = await page.evaluate(() =>
       document
-        ? Array.from(document.querySelectorAll('[id="main-content"] [data-type="page"] a'))
+        ? Array.from(document.querySelectorAll('#main-content a'))
           .map((element) => element.getAttribute('href'))
         : []
     );

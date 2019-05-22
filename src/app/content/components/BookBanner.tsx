@@ -8,7 +8,7 @@ import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertDocument } from '../../utils';
+import { assertDefined, assertDocument } from '../../utils';
 import * as select from '../selectors';
 import { ArchiveTreeSection, Book, Page } from '../types';
 import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
@@ -23,10 +23,13 @@ import {
 import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
-  blue: '#004aa2',
-  gray: '#97999b',
-  green: '#9cd14a',
-  yellow: '#faea36',
+  'blue': '#004aa2',
+  'deep-green': '#9cd14a',
+  'gray': '#97999b',
+  'green': '#9cd14a',
+  'light-blue': '#004aa2',
+  'orange': '#FAA461',
+  'yellow': '#faea36',
 };
 
 const applyBookTextColor = (props: {colorSchema: Book['theme'] | undefined } ) => props.colorSchema && css`
@@ -130,7 +133,9 @@ export const BarWrapper = styled.div<{colorSchema: Book['theme'] | undefined , u
   overflow: hidden;
   ${(props: {colorSchema: Book['theme'] | undefined }) => props.colorSchema && css`
     background: linear-gradient(to right,
-      ${theme.color.primary[props.colorSchema].base},
+      ${assertDefined(
+        theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
+      ).base},
       ${gradients[props.colorSchema]});
   `}
 

@@ -30,27 +30,39 @@ const color = {
     foreground: textColors.default,
   },
   primary: {
-    blue: {
+    'blue': {
       base: '#002468',
       foreground: textColors.white,
     },
-    gray: {
+    'deep-green': {
+      base: '#63a524',
+      foreground: textColors.black,
+    },
+    'gray': {
       base: '#5e6062',
       darker: '#424242',
       foreground: textColors.white,
       lighter: '#818181',
     },
-    green: {
+    'green': {
       base: '#63a524',
       foreground: textColors.black,
     },
-    orange: {
+    'light-blue': {
+      base: '#002468',
+      foreground: textColors.black,
+    },
+    'orange': {
       base: '#f36b32',
       darker: '#e96128',
       darkest: '#df571e',
       foreground: textColors.white,
     },
-    yellow: {
+    'red': {
+      base: '#f00',
+      foreground: textColors.black,
+    },
+    'yellow': {
       base: '#f4d019',
       foreground: textColors.black,
     },
