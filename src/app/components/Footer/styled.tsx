@@ -4,6 +4,7 @@ import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
+import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 
 const desktopMinWidth = '37.6';
@@ -38,14 +39,15 @@ export const LinkedInIcon = styled(LinkedinIn)`
     ${iconStyles}
 `;
 
+const boxedMargin = 1.5;
 export const boxed = css`
-    max-width: 120rem;
+    max-width: ${contentWrapperMaxWidth + boxedMargin * 2}rem;
     align-items: center;
     display: flex;
     flex-flow: column nowrap;
     margin: 0 auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: ${boxedMargin}rem;
+    padding-right: ${boxedMargin}rem;
     width: 100%;
 `;
 

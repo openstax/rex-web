@@ -157,7 +157,7 @@ Array [
 }
 
 .c56 {
-  max-width: 120rem;
+  max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -246,7 +246,7 @@ Array [
 }
 
 .c65 {
-  max-width: 120rem;
+  max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -331,11 +331,11 @@ Array [
 }
 
 .c26 {
-  position: relative;
-  overflow: visible;
   min-height: 100%;
   width: 100%;
   padding: 0 3.2rem;
+  position: relative;
+  overflow: visible;
 }
 
 .c49 {
@@ -2143,7 +2143,7 @@ Array [
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "
-    It's our mission to give every student the tools they need to be successful in the classroom. 
+    It's our mission to give every student the tools they need to be successful in the classroom.
     Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
 ",
                           }
@@ -2517,7 +2517,7 @@ Array [
 }
 
 .c40 {
-  max-width: 120rem;
+  max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -2606,7 +2606,7 @@ Array [
 }
 
 .c49 {
-  max-width: 120rem;
+  max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -2691,11 +2691,11 @@ Array [
 }
 
 .c17 {
-  position: relative;
-  overflow: visible;
   min-height: 100%;
   width: 100%;
   padding: 0 3.2rem;
+  position: relative;
+  overflow: visible;
 }
 
 .c34 {
@@ -3773,7 +3773,7 @@ Array [
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "
-    It's our mission to give every student the tools they need to be successful in the classroom. 
+    It's our mission to give every student the tools they need to be successful in the classroom.
     Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
 ",
                           }
