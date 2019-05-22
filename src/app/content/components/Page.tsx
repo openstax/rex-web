@@ -53,7 +53,7 @@ export class PageComponent extends Component<PropTypes> {
       // remove page titles from content (they are in the nav)
       .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
     ;
-  }
+  };
 
   public componentDidMount() {
     const target = this.getScrollTarget();
@@ -149,7 +149,7 @@ export class PageComponent extends Component<PropTypes> {
         state: reference.state,
       }, {hash, search});
     }
-  }
+  };
 
   private postProcess() {
     if (this.container && typeof(window) !== 'undefined') {

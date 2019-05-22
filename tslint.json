@@ -23,6 +23,7 @@
       "check-type-operator",
       "check-preblock"
     ],
+    "semicolon": [true, "always", "strict-bound-class-methods"],
     "max-line-length": [true, 120],
     "trailing-comma": [ true, {
       "multiline": {
