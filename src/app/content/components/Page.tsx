@@ -96,9 +96,7 @@ export class PageComponent extends Component<PropTypes> {
   public render() {
     return <MainContent
       className={this.props.className}
-      ref={(ref: any) => {
-        this.container = ref
-      }}
+      ref={(ref: any) => this.container = ref}
       dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
     />;
   }
