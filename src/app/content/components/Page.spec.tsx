@@ -100,6 +100,76 @@ describe('Page', () => {
     );
   };
 
+  describe('Content tweaks for generic styles', () => {
+    const htmlHelper = (html: string) => {
+      archiveLoader.mock.cachedPage.mockImplementation(() => ({
+        ...page,
+        content: html,
+      }));
+      const {root} = renderToDom(
+        <Provider store={store}>
+          <MessageProvider>
+            <Services.Provider value={services}>
+              <SkipToContentWrapper>
+                <ConnectedPage />
+              </SkipToContentWrapper>
+            </Services.Provider>
+          </MessageProvider>
+        </Provider>
+      );
+      const pageElement = root.querySelector('#main-content');
+
+      if (!pageElement) {
+        return expect(pageElement).toBeTruthy();
+      }
+      return pageElement.innerHTML;
+    };
+
+    it('wraps note titles in a <header> and contents in a <section>', () => {
+      expect(htmlHelper('<div data-type="note"><div data-type="title">TT</div><p>BB</p></div>'))
+      .toEqual('<div data-type="note" class="ui-has-child-title">' +
+      '<header><div data-type="title">TT</div></header><section><p>BB</p></section></div>');
+    });
+
+    it('adds a label to the note when present', () => {
+      expect(htmlHelper('<div data-type="note" data-label="LL"><div data-type="title">notetitle</div></div>'))
+      .toEqual('<div data-type="note" data-label="LL" class="ui-has-child-title">' +
+      '<header><div data-type="title" data-label-parent="LL">notetitle</div></header>' +
+      '<section></section></div>');
+    });
+
+    it('converts notes without titles', () => {
+      expect(htmlHelper('<div data-type="note">notewithouttitle</div>'))
+      .toEqual('<div data-type="note"><header></header><section>notewithouttitle</section></div>');
+    });
+
+    it('moves figure captions to the bottom', () => {
+      expect(htmlHelper('<figure><figcaption>CC</figcaption>FF</figure>'))
+      .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
+    });
+
+    it('adds rel="nofollow" to external links', () => {
+      expect(htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
+      .toEqual('<a href="https://openstax.org/external-url" rel="nofollow">external-link</a>');
+    });
+
+    it('numbers lists that have a start attribute', () => {
+      expect(htmlHelper('<ol start="123"><li>item</li></ol>'))
+      .toEqual('<ol start="123" style="counter-reset: list-item 123"><li>item</li></ol>');
+    });
+
+    it('adds prefix to list items', () => {
+      expect(htmlHelper('<ol data-mark-prefix="[mark-prefix]"><li>item</li></ol>'))
+      .toEqual('<ol data-mark-prefix="[mark-prefix]"><li data-mark-prefix="[mark-prefix]">item</li></ol>');
+    });
+
+    it('adds a suffix to list items', () => {
+      expect(htmlHelper('<ol data-mark-suffix="[mark-suffix]"><li>item</li></ol>'))
+      .toEqual('<ol data-mark-suffix="[mark-suffix]"><li data-mark-suffix="[mark-suffix]">item</li></ol>');
+    });
+
+  });
+
   it('updates content self closing tags', () => {
     archiveLoader.mock.cachedPage.mockImplementation(() => ({
       ...page,
