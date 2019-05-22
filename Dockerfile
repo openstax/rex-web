@@ -65,7 +65,7 @@ FROM slim as built
 ARG PUBLIC_URL
 ARG REACT_APP_CODE_VERSION
 ARG REACT_APP_RELEASE_ID
-ARG REACT_APP_BOOKS="{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"},\"8d50a0af-948b-4204-a71d-4826cba765b8\":{\"defaultVersion\":\"15.3\"}}"
+ARG REACT_APP_BOOKS="{\"031da8d3-b525-429c-80cf-6c8ed997733a\":{\"defaultVersion\":\"14.4\"},\"8d50a0af-948b-4204-a71d-4826cba765b8\":{\"defaultVersion\":\"15.3\"},\"30189442-6998-4686-ac05-ed152b91b9de\":{\"defaultVersion\":\"23.28\"},\"02776133-d49d-49cb-bfaa-67c7f61b25a1\":{\"defaultVersion\":\"6.1\"},\"7fccc9cf-9b71-44f6-800b-f9457fd64335\":{\"defaultVersion\":\"6.1\"},\"14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22\":{\"defaultVersion\":\"15.1\"},\"2e737be8-ea65-48c3-aa0a-9f35b4c6a966\":{\"defaultVersion\":\"20.1\"},\"4abf04bf-93a0-45c3-9cbc-2cefd46e68cc\":{\"defaultVersion\":\"10.16\"},\"4e09771f-a8aa-40ce-9063-aa58cc24e77f\":{\"defaultVersion\":\"8.5\"},\"bc498e1f-efe9-43a0-8dea-d3569ad09a82\":{\"defaultVersion\":\"7.1\"},\"caa57dab-41c7-455e-bd6f-f443cda5519c\":{\"defaultVersion\":\"18.1\"},\"914ac66e-e1ec-486d-8a9c-97b0f7a99774\":{\"defaultVersion\":\"4.1\"},\"9d8df601-4f12-4ac1-8224-b450bf739e5f\":{\"defaultVersion\":\"5.1\"}}"
 
 ENV PUBLIC_URL=$PUBLIC_URL
 ENV REACT_APP_CODE_VERSION=$REACT_APP_CODE_VERSION
