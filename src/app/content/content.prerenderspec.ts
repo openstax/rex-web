@@ -57,21 +57,6 @@ describe('content', () => {
     expect(secondHTML).toEqual(firstHTML);
   });
 
-  it.skip('adds content fonts to the head', async() => {
-    await page.setJavaScriptEnabled(false);
-    await navigate(page, TEST_PAGE);
-
-    const links: string[] = await page.evaluate(() =>
-      document
-        ? Array.from(document.querySelectorAll('head link')).map((element) => element.getAttribute('href'))
-        : []
-    );
-
-    expect(links).toContainEqual(
-      'https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Roboto+Condensed:300,300i,400,400i,700,700i'
-    );
-  });
-
   it('updates links in content', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_LINKS);
