@@ -10,7 +10,7 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('BookBanner', () => {
 
-  it('renders `null` with no page or book', () => {
+  it('renders empty state with no page or book', () => {
     const component = renderer.create(<BookBanner />);
 
     const tree = component.toJSON();
@@ -24,7 +24,7 @@ describe('BookBanner', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders `null` when passed a page that isn\'t in the book tree', () => {
+  it('renders empty state when passed a page that isn\'t in the book tree', () => {
     const pageNotInTree = {...shortPage, id: 'asdfasdfasd'};
     const component = renderer.create(<BookBanner page={pageNotInTree} book={book} />);
 
@@ -37,7 +37,7 @@ describe('BookBanner', () => {
   });
 
   it('wrapper transition matches snapshot', () => {
-    const component = renderer.create(<BarWrapper theme='blue' up={true} />);
+    const component = renderer.create(<BarWrapper colorSchema='blue' up={true} />);
     expect(component.toJSON()).toMatchSnapshot();
   });
 });

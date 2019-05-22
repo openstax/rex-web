@@ -5,7 +5,7 @@ import {
   setDesktopViewport,
 } from '../../test/browserutils';
 
-const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/3-test-page-4`;
 const closeToc = '[aria-label="Click to close the Table of Contents"]';
 const openToc = '[aria-label="Click to open the Table of Contents"]';
 

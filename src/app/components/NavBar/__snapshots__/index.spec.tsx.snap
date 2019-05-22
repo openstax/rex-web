@@ -20,6 +20,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     </a>
     <a
       className="styled__Link-sc-3syvnw-6 ioumkf"
+      data-testid="nav-login"
       href="/accounts/login?r=/"
     >
       Login

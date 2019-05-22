@@ -6,7 +6,7 @@ import {
   setMobileViewport,
 } from '../../../test/browserutils';
 
-const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/1-test-page-4`;
+const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/3-test-page-4`;
 
 describe('navbar when logged in', () => {
   beforeEach(async() => {
