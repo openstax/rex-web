@@ -142,11 +142,13 @@ Array [
 }
 
 .c49 {
+  margin-left: -0.3rem;
   height: 1.5rem;
   width: 1.5rem;
 }
 
 .c51 {
+  margin-left: -0.3rem;
   height: 1.5rem;
   width: 1.5rem;
 }
@@ -1708,8 +1710,10 @@ Array [
               </div>
               <details
                 className="c45"
+                data-testid="attribution-details"
               >
                 <summary
+                  aria-label="Citation/Attribution"
                   className="c46 c47"
                 >
                   <svg
@@ -1956,11 +1960,13 @@ Array [
 }
 
 .c34 {
+  margin-left: -0.3rem;
   height: 1.5rem;
   width: 1.5rem;
 }
 
 .c36 {
+  margin-left: -0.3rem;
   height: 1.5rem;
   width: 1.5rem;
 }
@@ -2862,8 +2868,10 @@ Array [
               </div>
               <details
                 className="c30"
+                data-testid="attribution-details"
               >
                 <summary
+                  aria-label="Citation/Attribution"
                   className="c31 c32"
                 >
                   <svg

@@ -24,6 +24,7 @@ if (typeof(document) !== 'undefined') {
 }
 
 const summaryIconStyle = css`
+  margin-left: -0.3rem;
   height: 1.5rem;
   width: 1.5rem;
 `;
@@ -138,9 +139,9 @@ class Attribution extends Component<Props> {
   public render() {
     const {book} = this.props;
 
-    return <Details ref={this.container}>
+    return <Details ref={this.container} data-testid='attribution-details'>
       <FormattedMessage id='i18n:attribution:toggle'>
-        {(msg) => <Summary>
+        {(msg) => <Summary aria-label={msg}>
           <SummaryClosedIcon />
           <SummaryOpenIcon />
           <span>{msg}</span>
