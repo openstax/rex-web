@@ -15,6 +15,7 @@ const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 const MATHJAX_CONFIG = {
   extensions: ['[a11y]/explorer.js'],
   showProcessingMessages: false,
+  skipStartupTypeset: true,
   styles: {
     '#MathJax_MSIE_Frame': {
       left: '', right: 0, visibility: 'hidden',
@@ -51,7 +52,8 @@ const typesetLatexNodes = (latexNodes: Element[], windowImpl: Window) => () => {
   }
 
   windowImpl.MathJax.Hub.Queue(
-    () => windowImpl.MathJax.Hub.Typeset(latexNodes)
+    () => windowImpl.MathJax.Hub.Typeset(latexNodes),
+    markLatexNodesRendered(latexNodes)
   );
 };
 
@@ -83,8 +85,7 @@ function typesetDocument(root: Element, windowImpl: Window) {
 
   windowImpl.MathJax.Hub.Queue(
     typesetLatexNodes(latexNodes, windowImpl),
-    typesetMathMLNodes(root, windowImpl),
-    markLatexNodesRendered(latexNodes)
+    typesetMathMLNodes(root, windowImpl)
   );
 }
 
