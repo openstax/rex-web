@@ -263,8 +263,7 @@ Array [
   padding-right: 1.5rem;
   width: 100%;
   display: grid;
-  grid-column-gap: 4rem;
-  grid-row-gap: 1.5rem;
+  grid-gap: 1.5rem 4rem;
 }
 
 .c66 {
@@ -311,7 +310,6 @@ Array [
 
 .c75 {
   height: 4rem;
-  -webkit-transform: translateY(0.2rem);
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -1036,7 +1034,7 @@ Array [
 
 @media (max-width:37.5em) {
   .c56 {
-    grid-template: 'headline' 'mission' 'col1' 'col2' 'col3';
+    grid-template: "headline" "mission" "col1" "col2" "col3";
   }
 }
 
@@ -1078,7 +1076,6 @@ Array [
     -moz-letter-spacing: normal;
     -ms-letter-spacing: normal;
     letter-spacing: normal;
-    line-height: normal;
     line-height: 3rem;
   }
 }
@@ -2623,8 +2620,7 @@ Array [
   padding-right: 1.5rem;
   width: 100%;
   display: grid;
-  grid-column-gap: 4rem;
-  grid-row-gap: 1.5rem;
+  grid-gap: 1.5rem 4rem;
 }
 
 .c50 {
@@ -2671,7 +2667,6 @@ Array [
 
 .c59 {
   height: 4rem;
-  -webkit-transform: translateY(0.2rem);
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -3176,7 +3171,7 @@ Array [
 
 @media (max-width:37.5em) {
   .c40 {
-    grid-template: 'headline' 'mission' 'col1' 'col2' 'col3';
+    grid-template: "headline" "mission" "col1" "col2" "col3";
   }
 }
 
@@ -3218,7 +3213,6 @@ Array [
     -moz-letter-spacing: normal;
     -ms-letter-spacing: normal;
     letter-spacing: normal;
-    line-height: normal;
     line-height: 3rem;
   }
 }
