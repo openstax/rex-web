@@ -1,7 +1,6 @@
 /** @jest-environment puppeteer */
 import { finishRender, navigate } from '../../test/browserutils';
 
-const TEST_PAGE = '/books/book-slug-1/pages/test-page-1';
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
 const TEST_PAGE_WITH_LINKS_NAME = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
 const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
