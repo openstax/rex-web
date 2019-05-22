@@ -31,14 +31,33 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
 };
 
 const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
-    stripIdVersion(section.shortId) === stripIdVersion(pageId)
-    || stripIdVersion(section.id) === stripIdVersion(pageId);
+  stripIdVersion(section.shortId) === stripIdVersion(pageId)
+  || stripIdVersion(section.id) === stripIdVersion(pageId);
+
+export const splitTitleParts = (str: string) => {
+  const match = str
+    .match(/(<span class=\"os-number\">(.*?)<\/span>)?.*?<span class=\"os-text\">(.*?)<\/span>/);
+
+  if (match && match[3]) {
+    // ignore the first two matches which are the whole title
+    return match.slice(2);
+  } else {
+    /* title did not match the expected HTML format, assume it is
+    unbaked (there is no number and the entire thing is the title)*/
+    return [null, str];
+  }
+};
 
 export const findArchiveTreeSection = (
-  book: {tree: ArchiveTree},
+  tree: ArchiveTree,
   pageId: string
 ): LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(book.tree).find(sectionMatcher(pageId));
+  flattenArchiveTree(tree).find(sectionMatcher(pageId));
+
+export const archiveTreeContainsSection = (
+  tree: ArchiveTree,
+  pageId: string
+): boolean => !!findArchiveTreeSection(tree, pageId);
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;

@@ -2,27 +2,12 @@ import { AllHtmlEntities } from 'html-entities';
 import replaceAccentedCharacters from '../replaceAccentedCharacters';
 import { content as contentRoute } from '../routes';
 import { Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page } from '../types';
-import { findArchiveTreeSection, flattenArchiveTree } from './archiveTreeUtils';
+import { findArchiveTreeSection, flattenArchiveTree, splitTitleParts } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: Book) {
   return `/details/books/${book.slug}`;
 }
-
-const splitTitleParts = (str: string) => {
-  const match = str
-    // remove html tags from tree title
-    .replace(/<[^>]+>/g, '')
-    // split out section number from title
-    .match(/^([0-9\.]*)?(.*)$/);
-
-  if (match && match[2]) {
-    // ignore the first match which is the whole title
-    return match.slice(1);
-  } else {
-    return [null, null];
-  }
-};
 
 const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
   let focusSection: LinkedArchiveTreeSection | LinkedArchiveTree | undefined = section;
@@ -33,7 +18,8 @@ const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
     if (thisNumber) {
       return thisNumber
         // use dash instead of '.'
-        .replace(/\./g, '-');
+        .replace(/\./g, '-')
+        .toLowerCase();
     }
 
     focusSection = focusSection.parent;
@@ -84,12 +70,11 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     return getUrlParamForPageIdCache.get(cacheKey);
   }
 
-  const treeSection = findArchiveTreeSection(book, pageId);
+  const treeSection = findArchiveTreeSection(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
   const result = getUrlParamForPageTitle(treeSection);
-
   getUrlParamForPageIdCache.set(cacheKey, result);
 
   return result;
