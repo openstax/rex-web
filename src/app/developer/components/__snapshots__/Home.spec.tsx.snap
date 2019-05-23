@@ -651,6 +651,7 @@ Array [
           className="c3"
         >
           <div
+            aria-level={2}
             className="c4"
             role="heading"
           >

@@ -2605,6 +2605,7 @@ li[aria-label="Current Page"] .c35 {
                       className="c68"
                     >
                       <div
+                        aria-level={2}
                         className="c69"
                         role="heading"
                       >
@@ -4258,6 +4259,7 @@ Array [
                       className="c41"
                     >
                       <div
+                        aria-level={2}
                         className="c42"
                         role="heading"
                       >
