@@ -120,3 +120,16 @@ describe('assertDocument', () => {
     });
   });
 });
+
+describe('mergeRefs', () => {
+  it('merges refs', () => {
+    const functionRef = jest.fn();
+    const refObj = {current: undefined};
+    const ref = 'foobar';
+
+    utils.mergeRefs(functionRef, refObj)(ref);
+
+    expect(refObj.current).toBe(ref);
+    expect(functionRef).toHaveBeenCalledWith(ref);
+  });
+});

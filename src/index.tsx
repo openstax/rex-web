@@ -5,6 +5,7 @@ import Loadable from 'react-loadable';
 import createApp from './app';
 import { assertDefined, assertWindowDefined } from './app/utils';
 import config from './config';
+import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createUserLoader from './gateways/createUserLoader';
