@@ -2,14 +2,6 @@ import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
 import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 
-jest.mock('cnx-recipes', () => ({
-  getBookStyles: () => {
-    const styles = new Map();
-    styles.set('intro-business', '/* mocked book style */');
-    return styles;
-  },
-}));
-
 declare global {
   namespace jest {
     interface Matchers<R> {

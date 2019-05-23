@@ -1,3 +1,4 @@
+import { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import {
   ActionHookBody,
@@ -31,6 +32,17 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       return result;
     };
   };
+
+// from https://github.com/facebook/react/issues/13029#issuecomment-445480443
+export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => {
+  refs.forEach((resolvableRef) => {
+    if (typeof resolvableRef === 'function') {
+      resolvableRef(ref);
+    } else if (resolvableRef) {
+      (resolvableRef as any).current = ref;
+    }
+  });
+};
 
 /*
  * util for dealing with array and object index signatures

@@ -1,8 +1,7 @@
-import { getBookStyles } from 'cnx-recipes';
 import { BOOKS } from '../../../config';
 import { Match, RouteHookBody } from '../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../types';
-import { assertDefined, assertString } from '../../utils';
+import { assertDefined } from '../../utils';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { content } from '../routes';
 import * as select from '../selectors';
@@ -15,15 +14,7 @@ import {
   getUrlParamForPageId
 } from '../utils';
 
-const css = assertString(getBookStyles().get('intro-business'), 'missing book style: intro-business');
-const fontMatches = css.match(/"(https:\/\/fonts\.googleapis\.com\/css\?family=.*?)"/);
-const fonts = fontMatches ? fontMatches.slice(1) : [];
-
 const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
-  const {fontCollector} = services;
-
-  fonts.forEach((font) => fontCollector.add(font));
-
   const [book, loader] = await resolveBook(services, match);
   await resolvePage(services, match, book, loader);
 };
