@@ -19,78 +19,50 @@ const renderMission = () => <FormattedHTMLMessage id='i18n:footer:copyright:miss
   ></Styled.Mission>}
 </FormattedHTMLMessage>;
 
+// tslint:disable-next-line:variable-name
+const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHeading>
+  <FormattedMessage id={id}>
+    {(msg: Element | string) => msg}
+  </FormattedMessage>
+</Styled.ColumnHeading>;
+
+// tslint:disable-next-line:variable-name
+const FooterLinkMessage: React.SFC<{id: string, href: string}> = ({id, href}) => <Styled.FooterLink href={href}>
+  <FormattedMessage id={id}>
+    {(msg: Element | string) => msg}
+  </FormattedMessage>
+</Styled.FooterLink>;
+
+// tslint:disable-next-line:variable-name
+const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType}> = ({id, href, Icon}) =>
+  <FormattedMessage id={id}>
+    {(msg: Element | string) =>
+      <Styled.SocialIcon aria-label={assertString(msg, 'aria-label must be a string')} href={href}>
+        <Icon />
+      </Styled.SocialIcon>
+    }
+  </FormattedMessage>;
+
 const renderColumn1 = () => <Styled.Column1>
-  <Styled.ColumnHeading>
-    <FormattedMessage id='i18n:footer:column1:help'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.ColumnHeading>
-  <Styled.FooterLink href='/contact'>
-    <FormattedMessage id='i18n:footer:column1:contact-us'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href={supportCenterLink}>
-    <FormattedMessage id='i18n:footer:column1:support-center'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href='/faq'>
-    <FormattedMessage id='i18n:footer:column1:faqs'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
+  <ColumnHeadingMessage id='i18n:footer:column1:help' />
+  <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
+  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' />
+  <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
 </Styled.Column1>;
 
 const renderColumn2 = () => <Styled.Column2>
-  <Styled.ColumnHeading>
-    <FormattedMessage id='i18n:footer:column2:openstax'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.ColumnHeading>
-  <Styled.FooterLink href='/press'>
-    <FormattedMessage id='i18n:footer:column2:press'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href={newsletterLink}>
-    <FormattedMessage id='i18n:footer:column2:newsletter'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href='/careers'>
-    <FormattedMessage id='i18n:footer:column2:careers'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
+  <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
+  <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
+  <FooterLinkMessage href={newsletterLink} id='i18n:footer:column2:newsletter' />
+  <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
 </Styled.Column2>;
 
 const renderColumn3 = () => <Styled.Column3>
-  <Styled.ColumnHeading>
-    <FormattedMessage id='i18n:footer:column3:policies'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.ColumnHeading>
-  <Styled.FooterLink href='/accessibility-statement'>
-    <FormattedMessage id='i18n:footer:column3:accessibility'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href='/tos'>
-    <FormattedMessage id='i18n:footer:column3:terms'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href='/license'>
-    <FormattedMessage id='i18n:footer:column3:license'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
-  <Styled.FooterLink href='/privacy-policy'>
-    <FormattedMessage id='i18n:footer:column3:privacy-policy'>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>
-  </Styled.FooterLink>
+  <ColumnHeadingMessage id='i18n:footer:column3:policies' />
+  <FooterLinkMessage href='/accessibility-statement' id='i18n:footer:column3:accessibility' />
+  <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
+  <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
+  <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
 </Styled.Column3>;
 
 const renderCopyrights = () => <Styled.Copyrights>
@@ -102,26 +74,10 @@ const renderCopyrights = () => <Styled.Copyrights>
 </Styled.Copyrights>;
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
-  <FormattedMessage id='i18n:footer:social:fb:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={fbUrl}>
-      <Styled.FBIcon />
-    </Styled.SocialIcon>}
-  </FormattedMessage>
-  <FormattedMessage id='i18n:footer:social:tw:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={twitterUrl}>
-      <Styled.TwitterIcon />
-    </Styled.SocialIcon>}
-  </FormattedMessage>
-  <FormattedMessage id='i18n:footer:social:in:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={linkedInUrl}>
-      <Styled.LinkedInIcon />
-    </Styled.SocialIcon>}
-  </FormattedMessage>
-  <FormattedMessage id='i18n:footer:social:ig:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={instagramUrl}>
-      <Styled.IGIcon />
-    </Styled.SocialIcon>}
-  </FormattedMessage>
+  <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
+  <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} Icon={Styled.TwitterIcon} />
+  <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
+  <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
   <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
     {(msg: Element | string) => <Styled.BottomLink href={riceUrl}>
       <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
