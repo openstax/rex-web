@@ -790,7 +790,7 @@ Array [
             role="directory"
           >
             <a
-              alt="facebook"
+              aria-label="facebook"
               className="c16"
               href="https://www.facebook.com/openstax"
             >
@@ -808,7 +808,7 @@ Array [
               </svg>
             </a>
             <a
-              alt="twitter"
+              aria-label="twitter"
               className="c16"
               href="https://twitter.com/openstax"
             >
@@ -826,7 +826,7 @@ Array [
               </svg>
             </a>
             <a
-              alt="linkedin"
+              aria-label="linkedin"
               className="c16"
               href="https://www.linkedin.com/company/openstax"
             >
@@ -844,7 +844,7 @@ Array [
               </svg>
             </a>
             <a
-              alt="instagram"
+              aria-label="instagram"
               className="c16"
               href="https://www.instagram.com/openstax/"
             >

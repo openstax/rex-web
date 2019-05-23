@@ -103,22 +103,22 @@ const renderCopyrights = () => <Styled.Copyrights>
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
   <FormattedMessage id='i18n:footer:social:fb:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={fbUrl}>
+    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={fbUrl}>
       <Styled.FBIcon />
     </Styled.SocialIcon>}
   </FormattedMessage>
   <FormattedMessage id='i18n:footer:social:tw:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={twitterUrl}>
+    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={twitterUrl}>
       <Styled.TwitterIcon />
     </Styled.SocialIcon>}
   </FormattedMessage>
   <FormattedMessage id='i18n:footer:social:in:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={linkedInUrl}>
+    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={linkedInUrl}>
       <Styled.LinkedInIcon />
     </Styled.SocialIcon>}
   </FormattedMessage>
   <FormattedMessage id='i18n:footer:social:ig:alt'>
-    {(msg: Element | string) => <Styled.SocialIcon alt={msg} href={instagramUrl}>
+    {(msg: Element | string) => <Styled.SocialIcon aria-label={msg} href={instagramUrl}>
       <Styled.IGIcon />
     </Styled.SocialIcon>}
   </FormattedMessage>
