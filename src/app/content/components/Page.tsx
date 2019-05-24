@@ -32,7 +32,7 @@ interface PropTypes {
 }
 
 export class PageComponent extends Component<PropTypes> {
-  public container: Element | undefined | null = null;
+  public container: Element | undefined | null;
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: Event) => void>();
 
   public getCleanContent = () => {
