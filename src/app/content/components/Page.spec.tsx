@@ -449,4 +449,38 @@ describe('Page', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
+  it('adds scope to table headers', () => {
+    const tablePage = {
+      content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    };
+
+    state.content.page = tablePage;
+
+    archiveLoader.mockPage(book, tablePage);
+
+    const {root} = renderToDom(
+      <Provider store={store}>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
+      </Provider>
+    );
+
+    const target = root.querySelector('[id="coolheading"]');
+
+    if (target) {
+      expect(target.getAttribute('scope')).toEqual('col');
+    } else {
+      expect(target).toBeTruthy();
+    }
+  });
+
 });
