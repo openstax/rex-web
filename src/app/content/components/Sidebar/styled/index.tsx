@@ -1,3 +1,4 @@
+import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { ComponentType } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown/CaretDown';
@@ -130,8 +131,22 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
   }}
 `;
 
+type DetailsComponentProps = {defaultOpen: boolean} & React.HTMLProps<HTMLDetailsElement>;
+class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
+  constructor(props: DetailsComponentProps) {
+    super(props);
+    this.state = {defaultOpen: props.defaultOpen};
+  }
+  public render() {
+    const {open, defaultOpen: _, ...props} = this.props;
+    const {defaultOpen} = this.state;
+
+    return <details {...props} open={open || defaultOpen} />;
+  }
+}
+
 // tslint:disable-next-line:variable-name
-export const Details = styled.details`
+export const Details = styled(DetailsComponent)`
   border: none;
   overflow: visible;
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
