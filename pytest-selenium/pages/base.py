@@ -18,11 +18,13 @@ class Page(pypom.Page):
 
     @property
     def is_mobile(self):
-        return self.window_width == MOBILE[0]
+        # fuzzy match because scrollbars
+        return abs(self.window_width - MOBILE[0]) < 10
 
     @property
     def is_desktop(self):
-        return self.window_width == DESKTOP[0]
+        # fuzzy match because scrollbars
+        return abs(self.window_width - DESKTOP[0]) < 10
 
     @property
     def current_url(self):
