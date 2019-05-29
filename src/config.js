@@ -18,9 +18,11 @@ let config = {
   ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts.openstax.org',
   ARCHIVE_URL: process.env.ARCHIVE_URL || 'https://archive.cnx.org',
   OS_WEB_URL: process.env.OS_WEB_URL || 'https://openstax.org',
+  SEARCH_SWAGGER: process.env.SEARCH_SWAGGER || 'https://openstax.org/open-search/api/v0/swagger',
   REACT_APP_ACCOUNTS_URL: '/accounts',
   REACT_APP_ARCHIVE_URL: '/contents',
   REACT_APP_OS_WEB_API_URL: '/api/v2/pages',
+  REACT_APP_SEARCH_URL: '/open-search/api/v0',
 };
 
 if (process.env.REACT_APP_ENV === 'production') {

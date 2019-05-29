@@ -71,5 +71,8 @@ pip-delete-this-directory.txt
 
 # pytest report
 ui-test.html
+
+# generated cod
 src/content.css
 src/content.css.map
+open-search
