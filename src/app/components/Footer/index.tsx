@@ -27,7 +27,7 @@ const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHe
 </Styled.ColumnHeading>;
 
 // tslint:disable-next-line:variable-name
-const FooterLinkMessage: React.SFC<{id: string, href: string}> = ({id, href}) => <Styled.FooterLink href={href}>
+const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string }> = ({id, href, target }) => <Styled.FooterLink href={href} target={target? target : '_self'}>
   <FormattedMessage id={id}>
     {(msg: Element | string) => msg}
   </FormattedMessage>
@@ -46,7 +46,7 @@ const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.Compon
 const renderColumn1 = () => <Styled.Column1>
   <ColumnHeadingMessage id='i18n:footer:column1:help' />
   <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
-  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' />
+  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank'/>
   <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
 </Styled.Column1>;
 
@@ -65,13 +65,11 @@ const renderColumn3 = () => <Styled.Column3>
   <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
 </Styled.Column3>;
 
-const renderCopyrights = () => <Styled.Copyrights>
-  <FormattedHTMLMessage id='i18n:footer:copyright:bottom-text' values={getValues()}>
-    {(html) => <Styled.CopyrightDiv data-html='copyright'
-      dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:copyright:top-text must return a string')}}
-    ></Styled.CopyrightDiv>}
-  </FormattedHTMLMessage>
-</Styled.Copyrights>;
+const renderCopyrights = () => <FormattedHTMLMessage id='i18n:footer:copyright:bottom-text' values={getValues()}>
+  {(html) => <Styled.Copyrights
+    dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:copyright:top-text must return a string')}}
+  ></Styled.Copyrights>}
+</FormattedHTMLMessage>;
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
   <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />

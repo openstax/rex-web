@@ -224,10 +224,7 @@ export const BottomBoxed = styled.div`
 export const Copyrights = styled.div`
   display: grid;
   grid-gap: 1rem;
-`;
 
-// tslint:disable-next-line:variable-name
-export const CopyrightDiv = styled.div`
   a {
     ${columnLink}
   }
