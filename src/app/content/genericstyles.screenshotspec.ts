@@ -1,6 +1,5 @@
 /** @jest-environment puppeteer */
 import {
-  finishRender,
   fullPageScreenshot,
   navigate,
   setDesktopViewport,
@@ -17,6 +16,18 @@ const KEY_TERMS_BOLDED = '/books/business-ethics/pages/1-key-terms';*/
 describe('content', () => {
   it('looks right', async() => {
     setDesktopViewport(page);
+    await navigate(page, SPLASH_IMAGE_FULL_WIDTH);
+    const screen = await fullPageScreenshot(page);
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
+  it('looks right on mobile', async() => {
+    setMobileViewport(page);
     await navigate(page, SPLASH_IMAGE_FULL_WIDTH);
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
