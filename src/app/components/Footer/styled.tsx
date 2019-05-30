@@ -77,6 +77,10 @@ export const FooterTop = styled.div`
   @media (max-width: ${mobileMinWidth}em) {
     padding: 2rem 0;
   }
+
+  @media (max-width: ${mobileMaxWidth}em) and (min-width: ${desktopMinWidth}em) {
+    padding: 4rem 0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
