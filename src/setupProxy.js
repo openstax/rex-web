@@ -11,8 +11,10 @@ const {
   FIXTURES,
   ARCHIVE_URL,
   OS_WEB_URL,
+  SEARCH_URL,
   ACCOUNTS_URL,
   REACT_APP_ACCOUNTS_URL,
+  REACT_APP_SEARCH_URL,
   REACT_APP_OS_WEB_API_URL
 } = require('./config');
 
@@ -110,6 +112,12 @@ function setupProxy(app) {
 
   app.use(proxy(REACT_APP_ACCOUNTS_URL, {
     target: ACCOUNTS_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
+  
+  app.use(proxy(REACT_APP_SEARCH_URL, {
+    target: SEARCH_URL,
     changeOrigin: true,
     autoRewrite: true,
   }));

@@ -1,3 +1,4 @@
+import { SearchResult } from '@openstax/open-search-client';
 import { RouteParams, RouteState } from '../navigation/types';
 import { content } from './routes';
 
@@ -13,6 +14,7 @@ export interface State {
     book?: string;
     page?: string;
   };
+  search: SearchResult['rawResults'] | null;
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];

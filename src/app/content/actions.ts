@@ -1,6 +1,8 @@
 import { createStandardAction } from 'typesafe-actions';
 import { ArchivePage, Book, State } from './types';
 
+export const receiveSearchResults = createStandardAction('Content/receiveSearchResults')<State['search']>();
+
 export const openToc = createStandardAction('Content/openToc')<void>();
 export const closeToc = createStandardAction('Content/closeToc')<void>();
 export const resetToc = createStandardAction('Content/resetToc')<void>();

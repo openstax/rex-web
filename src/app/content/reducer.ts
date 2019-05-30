@@ -10,6 +10,7 @@ import { State } from './types';
 export const initialState = {
   loading: {},
   references: [],
+  search: null,
   tocOpen: null,
 };
 
@@ -30,6 +31,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, loading: {...state.loading, page: action.payload}};
     case getType(actions.receivePage): {
       return reduceReceivePage(state, action);
+    }
+    case getType(actions.receiveSearchResults): {
+      return {...state, search: action.payload};
     }
     default:
       return state;
