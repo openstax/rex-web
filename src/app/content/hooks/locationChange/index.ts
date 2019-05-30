@@ -5,7 +5,7 @@ import resolveSearch from './resolveSearch';
 
 const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
   const {book} = await resolveContent(services, match);
-  await resolveSearch(book, services, match);
+  await resolveSearch(book, services);
 };
 
 export default hookBody;

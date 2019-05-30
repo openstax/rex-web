@@ -1,14 +1,11 @@
 import * as selectNavigation from '../../../navigation/selectors';
-import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { content } from '../../routes';
 import { receiveSearchResults, requestSearch } from '../../search/actions';
 import { Book } from '../../types';
 
 export default async(
   book: Book,
-  services: AppServices & MiddlewareAPI,
-  _match: Match<typeof content>
+  services: AppServices & MiddlewareAPI
 ) => {
   const state = services.getState();
   const {search} = selectNavigation.query(state);
