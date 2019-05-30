@@ -16,7 +16,7 @@ export const columnLink = css`
 `;
 
 export const iconStyles = css`
-  height: 2rem;
+  height: 1em;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -155,6 +155,10 @@ export const FooterLink = styled.a`
 // tslint:disable-next-line:variable-name
 export const BottomLink = styled.a`
   ${columnLink}
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-column-gap: 0.7rem;
+  overflow: hidden;
 `;
 
 export const column = css`
@@ -227,6 +231,14 @@ export const Copyrights = styled.div`
 
   a {
     ${columnLink}
+  }
+
+  sup {
+    font-size: 66%;
+    margin-left: 0.1rem;
+    position: relative;
+    top: -0.25em;
+    vertical-align: top;
   }
 `;
 
