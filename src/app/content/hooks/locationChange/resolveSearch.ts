@@ -1,8 +1,8 @@
 import * as selectNavigation from '../../../navigation/selectors';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { receiveSearchResults } from '../../actions';
 import { content } from '../../routes';
+import { receiveSearchResults, requestSearch } from '../../search/actions';
 import { Book } from '../../types';
 
 export default async(
@@ -16,6 +16,8 @@ export default async(
   if (typeof(search) !== 'string') {
     return;
   }
+
+  services.dispatch(requestSearch(search));
 
   const results = await services.searchClient.search({
     books: [`${book.id}@${book.version}`],
