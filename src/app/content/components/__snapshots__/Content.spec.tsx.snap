@@ -2122,6 +2122,20 @@ li[aria-label="Current Page"] .c35 {
                 onClick={[Function]}
               />
             </li>
+            <li
+              className="c34"
+            >
+              <a
+                className="c35"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+                  }
+                }
+                href="test-page-for-generic-styles"
+                onClick={[Function]}
+              />
+            </li>
           </ol>
         </div>
         <div

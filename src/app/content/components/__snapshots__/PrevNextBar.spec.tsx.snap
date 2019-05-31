@@ -425,6 +425,12 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   width: 2.5rem;
 }
 
+.c5 {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-top: 0.1rem;
+}
+
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -476,6 +482,12 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   }
 }
 
+@media screen and (max-width:75em) {
+  .c4 {
+    margin-right: -0.8rem;
+  }
+}
+
 @media print {
   .c0 {
     display: none;
@@ -511,8 +523,24 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
     </svg>
     Previous
   </a>
-  <span
-    aria-hidden={true}
-  />
+  <a
+    aria-label="Next Page"
+    className="c4"
+    href="books/book-slug-1/pages/test-page-for-generic-styles"
+    onClick={[Function]}
+  >
+    Next
+    <svg
+      aria-hidden="true"
+      className="c5 c3"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+      />
+    </svg>
+  </a>
 </div>
 `;
