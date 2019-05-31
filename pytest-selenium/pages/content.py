@@ -91,12 +91,8 @@ class Content(Page):
             return self.find_element(*self._attribution_toggle_locator)
 
         @property
-        def attribution_status(self):
-            return self.find_element(*self._root_locator)
-
-        @property
         def is_open(self):
-            return self.attribution_status.get_attribute("open")
+            return bool(self.root.get_attribute("open"))
 
         @property
         def section_url_within_attribution(self):
@@ -108,4 +104,4 @@ class Content(Page):
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)
-            return self.page.attribution.wait_for_region_to_display()
+            self.page.attribution.wait_for_region_to_display()
