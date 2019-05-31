@@ -336,26 +336,26 @@ Array [
       </div>
     </div>
   </div>,
-  .c18 {
+  .c17 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c17 {
-  height: 2rem;
+.c16 {
+  height: 1em;
 }
 
-.c19 {
-  height: 2rem;
-}
-
-.c21 {
-  height: 2rem;
+.c18 {
+  height: 1em;
 }
 
 .c20 {
-  height: 2rem;
+  height: 1em;
+}
+
+.c19 {
+  height: 1em;
 }
 
 .c0 {
@@ -424,8 +424,12 @@ Array [
   text-decoration: underline;
 }
 
-.c22 {
+.c21 {
   color: inherit;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-column-gap: 0.7rem;
+  overflow: hidden;
 }
 
 .c6 {
@@ -493,11 +497,19 @@ Array [
   grid-gap: 1rem;
 }
 
-.c14 a {
+.c13 a {
   color: inherit;
 }
 
-.c15 {
+.c13 sup {
+  font-size: 66%;
+  margin-left: 0.1rem;
+  position: relative;
+  top: -0.25em;
+  vertical-align: top;
+}
+
+.c14 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -511,7 +523,7 @@ Array [
   justify-content: left;
 }
 
-.c16 {
+.c15 {
   color: inherit;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -530,7 +542,7 @@ Array [
   width: 3rem;
 }
 
-.c23 {
+.c22 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -552,6 +564,12 @@ Array [
 @media (max-width:37.5em) {
   .c2 {
     padding: 2rem 0;
+  }
+}
+
+@media (max-width:60.1em) and (min-width:37.6em) {
+  .c2 {
+    padding: 4rem 0;
   }
 }
 
@@ -662,8 +680,8 @@ Array [
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
-    It's our mission to give every student the tools they need to be successful in the classroom.
-    Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
+  It's our mission to give every student the tools they need to be successful in the classroom.
+  Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
 ",
               }
             }
@@ -679,18 +697,21 @@ Array [
             <a
               className="c8"
               href="/contact"
+              target="_self"
             >
               Contact Us
             </a>
             <a
               className="c8"
               href="https://openstax.secure.force.com/help"
+              target="_blank"
             >
               Support Center
             </a>
             <a
               className="c8"
               href="/faq"
+              target="_self"
             >
               FAQ
             </a>
@@ -706,18 +727,21 @@ Array [
             <a
               className="c8"
               href="/press"
+              target="_self"
             >
               Press
             </a>
             <a
               className="c8"
               href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+              target="_self"
             >
               Newsletter
             </a>
             <a
               className="c8"
               href="/careers"
+              target="_self"
             >
               Careers
             </a>
@@ -733,24 +757,28 @@ Array [
             <a
               className="c8"
               href="/accessibility-statement"
+              target="_self"
             >
               Accessibility Statement
             </a>
             <a
               className="c8"
               href="/tos"
+              target="_self"
             >
               Terms of Use
             </a>
             <a
               className="c8"
               href="/license"
+              target="_self"
             >
               Licensing
             </a>
             <a
               className="c8"
               href="/privacy-policy"
+              target="_self"
             >
               Privacy Policy
             </a>
@@ -765,38 +793,35 @@ Array [
         >
           <div
             className="c13"
-          >
-            <div
-              className="c14"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "
-    © 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "
+  <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">
-        Creative Commons Attribution 4.0 International License
+      Creative Commons Attribution 4.0 International License
     </a>.
-    <br/><br/>
+  </div>
+  <div data-html=\\"apStatement\\">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
     which is not affiliated with, and does not endorse, this site.
+  </div>
 ",
-                }
               }
-              data-html="copyright"
-            />
-          </div>
+            }
+          />
           <div
-            className="c15"
+            className="c14"
             role="directory"
           >
             <a
               aria-label="facebook"
-              className="c16"
+              className="c15"
               href="https://www.facebook.com/openstax"
             >
               <svg
                 aria-hidden="true"
-                className="c17 c18"
+                className="c16 c17"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 264 512"
@@ -809,12 +834,12 @@ Array [
             </a>
             <a
               aria-label="twitter"
-              className="c16"
+              className="c15"
               href="https://twitter.com/openstax"
             >
               <svg
                 aria-hidden="true"
-                className="c19 c18"
+                className="c18 c17"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -827,12 +852,12 @@ Array [
             </a>
             <a
               aria-label="linkedin"
-              className="c16"
+              className="c15"
               href="https://www.linkedin.com/company/openstax"
             >
               <svg
                 aria-hidden="true"
-                className="c20 c18"
+                className="c19 c17"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -845,12 +870,12 @@ Array [
             </a>
             <a
               aria-label="instagram"
-              className="c16"
+              className="c15"
               href="https://www.instagram.com/openstax/"
             >
               <svg
                 aria-hidden="true"
-                className="c21 c18"
+                className="c20 c17"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -862,12 +887,12 @@ Array [
               </svg>
             </a>
             <a
-              className="c22"
+              className="c21"
               href="http://www.rice.edu"
             >
               <img
                 alt="Rice University logo"
-                className="c23"
+                className="c22"
                 src="rice-white-text.png"
               />
             </a>
