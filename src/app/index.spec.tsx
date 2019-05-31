@@ -1,8 +1,9 @@
+import { Location } from 'history';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
-import { AppServices } from './types';
+import { AppServices, AppState } from './types';
 
 describe('create app', () => {
   let history = require('history');
@@ -24,6 +25,14 @@ describe('create app', () => {
     createApp({services});
     expect(createBrowserHistory).toHaveBeenCalled();
     expect(createMemoryHistory).not.toHaveBeenCalled();
+  });
+
+  it('does not initialize location if initialState is passed', () => {
+    const location = {cool: 'location'} as any as Location;
+    const initialState = {navigation: location} as AppState;
+    const {store} = createApp({services, initialState});
+
+    expect(store.getState().navigation).toEqual(location);
   });
 
   it('initializes the location state when initialEntries is passed', () => {

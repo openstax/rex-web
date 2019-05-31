@@ -1,19 +1,22 @@
 import { Location } from 'history';
+import cloneDeep from 'lodash/fp/cloneDeep';
+import { combineReducers, createStore } from 'redux';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
-import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { Match } from '../../navigation/types';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { AppServices, AppState, MiddlewareAPI } from '../../types';
 import * as actions from '../actions';
-import { receiveBook, receivePage } from '../actions';
+import reducer, { initialState } from '../reducer';
 import * as routes from '../routes';
+import { State } from '../types';
 import { formatBookData } from '../utils';
 
 describe('locationChange', () => {
-  let store: Store;
+  let localState: State;
+  let appState: AppState;
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let dispatch: jest.SpyInstance;
   let helpers: MiddlewareAPI & AppServices;
@@ -21,7 +24,10 @@ describe('locationChange', () => {
   let hook = require('./locationChange').default;
 
   beforeEach(() => {
-    store = createTestStore();
+    localState = cloneDeep(initialState);
+    appState = {content: localState} as AppState;
+
+    const store = createStore(combineReducers({content: reducer}), appState);
 
     archiveLoader = mockArchiveLoader();
 
@@ -61,7 +67,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    store.dispatch(receiveBook({...formatBookData(book, mockCmsBook), slug: 'book'}));
+    localState.book = cloneDeep({...formatBookData(book, mockCmsBook), slug: 'book'});
     await hook(payload);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
     expect(archiveLoader.mock.loadBook).not.toHaveBeenCalled();
@@ -92,7 +98,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load page if its already loaded', async() => {
-    store.dispatch(receivePage({...page, references: []}));
+    localState.page = cloneDeep(page);
 
     await hook(payload);
     expect(dispatch).not.toHaveBeenCalledWith(actions.requestPage(expect.anything()));
@@ -116,6 +122,15 @@ describe('locationChange', () => {
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
 
     expect(archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
+  });
+
+  it('doesn\'t break if there are no fonts in the css', () => {
+    const spy = jest.spyOn(helpers.fontCollector, 'add');
+    jest.resetModules();
+    hook = (require('./locationChange').default)(helpers);
+
+    hook(payload);
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('loads more specific data when available', async() => {
@@ -242,7 +257,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t call osweb if book slug is already known', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    localState.book = formatBookData(book, mockCmsBook);
     await hook(payload);
     expect(helpers.osWebLoader.getBookIdFromSlug).not.toHaveBeenCalled();
   });
