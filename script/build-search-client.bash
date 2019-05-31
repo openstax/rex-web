@@ -6,7 +6,7 @@ fi
 
 swagger_url=$(node -e "const {SEARCH_URL, REACT_APP_SEARCH_URL} = require('./src/config'); console.log(SEARCH_URL + REACT_APP_SEARCH_URL + '/swagger')")
 
-tmp_file=$(mktemp -t open-search-client)
+tmp_file=$(mktemp -t open-search-client.XXXXX)
 download_url=$(curl -H "Content-type: application/json" -s \
     -X POST \
     -d "{\"options\": {\"npmName\": \"@openstax/open-search-client\"},\"openAPIUrl\": \"$swagger_url\"}" \
