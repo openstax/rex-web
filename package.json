@@ -44,7 +44,7 @@
     "build:css": "lessc --source-map --source-map-include-source ./generic-styles/index.less ./src/content.css",
     "build:js": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} react-scripts build",
     "build:clean": "npm run-script clean && npm run-script build",
-    "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender",
+    "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/index",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov",
     "pretest:sims": "./script/build-simulations.bash",
