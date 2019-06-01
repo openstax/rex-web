@@ -22,7 +22,7 @@ pytest-selenium==1.16.0
 pytest-testrail==2.3.3
 pytest-variables==1.7.1
 PyYAML==5.1
-requests==2.21.0
+requests==2.22.0
 selenium==3.141.0
 simplejson==3.16.0
 six==1.12.0
