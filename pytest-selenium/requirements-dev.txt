@@ -2,7 +2,7 @@ aspy.yaml==1.3.0
 atomicwrites==1.3.0
 attrs==19.1.0
 certifi==2019.3.9
-cfgv==1.6.0
+cfgv==2.0.0
 chardet==3.0.4
 chromedriver-binary==74.0.3729.6.0
 identify==1.4.2
