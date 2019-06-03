@@ -121,7 +121,23 @@ Array [
 }
 
 .c51 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
   overflow: visible;
+}
+
+.c51 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c51 a:hover {
+  color: #0064A0;
 }
 
 .c51 .os-figure,
@@ -158,8 +174,6 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 82.5rem;
-  margin: 0 auto;
   font-weight: 500;
   list-style: none;
 }
@@ -218,8 +232,6 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 82.5rem;
-  margin: 0 auto;
 }
 
 .c64 a {
@@ -957,31 +969,34 @@ li[aria-label="Current Page"] .c35 {
 
 @media screen {
   .c51 {
-    font-family: Neue Helvetica W01;
-    color: #424242;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
     max-width: 82.5rem;
     margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c51 {
     margin-top: 3.2rem;
-  }
-
-  .c51 a {
-    color: #027EB5;
-    cursor: pointer;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    border-bottom: #027EB5 solid 0.02em;
-  }
-
-  .c51 a:hover {
-    color: #0064A0;
   }
 }
 
 @media screen and (max-width:75em) {
   .c26 {
     padding: 0 1.6rem;
+  }
+}
+
+@media screen {
+  .c59 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c64 {
+    max-width: 82.5rem;
+    margin: 0 auto;
   }
 }
 
@@ -2434,7 +2449,23 @@ Array [
 }
 
 .c29 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
   overflow: visible;
+}
+
+.c29 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom: #027EB5 solid 0.02em;
+}
+
+.c29 a:hover {
+  color: #0064A0;
 }
 
 .c29 .os-figure,
@@ -2471,8 +2502,6 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 82.5rem;
-  margin: 0 auto;
   font-weight: 500;
   list-style: none;
 }
@@ -2920,31 +2949,27 @@ Array [
 
 @media screen {
   .c29 {
-    font-family: Neue Helvetica W01;
-    color: #424242;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
     max-width: 82.5rem;
     margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c29 {
     margin-top: 3.2rem;
-  }
-
-  .c29 a {
-    color: #027EB5;
-    cursor: pointer;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    border-bottom: #027EB5 solid 0.02em;
-  }
-
-  .c29 a:hover {
-    color: #0064A0;
   }
 }
 
 @media screen and (max-width:75em) {
   .c18 {
     padding: 0 1.6rem;
+  }
+}
+
+@media screen {
+  .c33 {
+    max-width: 82.5rem;
+    margin: 0 auto;
   }
 }
 
