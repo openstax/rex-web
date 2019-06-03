@@ -740,7 +740,6 @@ Array [
 .c28 > * {
   -webkit-transition: all 300ms;
   transition: all 300ms;
-  visibility: visible;
   opacity: 1;
 }
 
@@ -1288,7 +1287,6 @@ li[aria-label="Current Page"] .c35 {
   }
 
   .c28 > * {
-    visibility: hidden;
     opacity: 0;
   }
 }
@@ -2890,7 +2888,6 @@ Array [
 .c20 > * {
   -webkit-transition: all 300ms;
   transition: all 300ms;
-  visibility: visible;
   opacity: 1;
 }
 
@@ -3121,7 +3118,6 @@ Array [
   }
 
   .c20 > * {
-    visibility: hidden;
     opacity: 0;
   }
 }
