@@ -2,6 +2,7 @@
 import {
   finishRender,
   navigate,
+  scrollDown,
   setDesktopViewport,
   setMobileViewport,
   setTallerDesktopViewport,
@@ -31,7 +32,7 @@ describe('Footer', () => {
     setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await scrollDown();
+    await scrollDown(page);
     await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
@@ -47,7 +48,7 @@ describe('Footer', () => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
-    await scrollDown();
+    await scrollDown(page);
     await finishRender(page);
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
@@ -58,8 +59,4 @@ describe('Footer', () => {
     });
   });
 
-});
-
-const scrollDown = () => page.evaluate(() => {
-  return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });
