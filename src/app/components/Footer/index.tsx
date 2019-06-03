@@ -15,17 +15,14 @@ const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
 // tslint:disable-next-line:variable-name
 const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?: any}> =
-({id, type, assert, values}) => {
-  if (type === 'mission') {
-    return (<FormattedHTMLMessage id={id}>
-      {(html) => <Styled.Mission dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Mission>
-    }</FormattedHTMLMessage>);
-  } else {
-    return(<FormattedHTMLMessage id={id} values={values}>
-      {(html) => <Styled.Copyrights dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Copyrights>
-    }</FormattedHTMLMessage>);
-  }
-};
+({id, type, assert, values}) => <FormattedHTMLMessage id={id} values={values ? values : null}>
+  {(html) => {  if (type === 'mission') {
+      return(<Styled.Mission dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Mission>);
+    } else {
+      return(<Styled.Copyrights dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Copyrights>);
+    }
+  }}
+</FormattedHTMLMessage>;
 
 const renderMission = () => <SetInnerHTML id='i18n:footer:copyright:mission-text' type='mission'
   assert='i18n:copyright:mission-text must return a string'/>;
