@@ -50,7 +50,7 @@ const color = {
     },
     'light-blue': {
       base: '#002468',
-      foreground: textColors.black,
+      foreground: textColors.white,
     },
     'orange': {
       base: '#f36b32',
