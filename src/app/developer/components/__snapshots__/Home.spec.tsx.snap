@@ -697,6 +697,7 @@ Array [
             <a
               className="c8"
               href="/contact"
+              rel=""
               target="_self"
             >
               Contact Us
@@ -704,6 +705,7 @@ Array [
             <a
               className="c8"
               href="https://openstax.secure.force.com/help"
+              rel="noreferrer"
               target="_blank"
             >
               Support Center
@@ -711,6 +713,7 @@ Array [
             <a
               className="c8"
               href="/faq"
+              rel=""
               target="_self"
             >
               FAQ
@@ -727,6 +730,7 @@ Array [
             <a
               className="c8"
               href="/press"
+              rel=""
               target="_self"
             >
               Press
@@ -734,6 +738,7 @@ Array [
             <a
               className="c8"
               href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+              rel=""
               target="_self"
             >
               Newsletter
@@ -741,6 +746,7 @@ Array [
             <a
               className="c8"
               href="/careers"
+              rel=""
               target="_self"
             >
               Careers
@@ -757,6 +763,7 @@ Array [
             <a
               className="c8"
               href="/accessibility-statement"
+              rel=""
               target="_self"
             >
               Accessibility Statement
@@ -764,6 +771,7 @@ Array [
             <a
               className="c8"
               href="/tos"
+              rel=""
               target="_self"
             >
               Terms of Use
@@ -771,6 +779,7 @@ Array [
             <a
               className="c8"
               href="/license"
+              rel=""
               target="_self"
             >
               Licensing
@@ -778,6 +787,7 @@ Array [
             <a
               className="c8"
               href="/privacy-policy"
+              rel=""
               target="_self"
             >
               Privacy Policy

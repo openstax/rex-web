@@ -27,7 +27,7 @@ const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHe
 </Styled.ColumnHeading>;
 
 // tslint:disable-next-line:variable-name
-const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string }> = ({id, href, target }) => <Styled.FooterLink href={href} target={target? target : '_self'}>
+const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, rel?: string }> = ({id, href, target, rel }) => <Styled.FooterLink href={href} target={target? target : '_self'} rel={rel? rel : ''}>
   <FormattedMessage id={id}>
     {(msg: Element | string) => msg}
   </FormattedMessage>
@@ -46,7 +46,7 @@ const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.Compon
 const renderColumn1 = () => <Styled.Column1>
   <ColumnHeadingMessage id='i18n:footer:column1:help' />
   <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
-  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank'/>
+  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank' rel='noreferrer'/>
   <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
 </Styled.Column1>;
 
