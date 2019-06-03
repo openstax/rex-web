@@ -1,5 +1,6 @@
 import React, { SFC } from 'react';
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import htmlMessage from '../../components/htmlMessage';
 import { assertString } from '../../utils';
 import RiceWhiteLogo from './../../../assets/rice-white-text.png';
 import * as Styled from './styled';
@@ -14,21 +15,9 @@ const supportCenterLink = 'https://openstax.secure.force.com/help';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
 // tslint:disable-next-line:variable-name
-const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?: any}> =
-({id, type, assert, values}) => <FormattedHTMLMessage id={id} values={values ? values : {}}>
-  {(html) => {  if (type === 'mission') {
-      return(<Styled.Mission dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Mission>);
-    } else {
-      return(<Styled.Copyrights dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Copyrights>);
-    }
-  }}
-</FormattedHTMLMessage>;
-
-const renderMission = () => <SetInnerHTML id='i18n:footer:copyright:mission-text' type='mission'
-  assert='i18n:copyright:mission-text must return a string'/>;
-
-const renderCopyrights = () => <SetInnerHTML id='i18n:footer:copyright:bottom-text' type='copyrights'
-  assert='i18n:copyright:top-text must return a string' values={getValues()}/>;
+const Mission = htmlMessage('i18n:footer:copyright:mission-text', Styled.Mission);
+// tslint:disable-next-line:variable-name
+const Copyrights = htmlMessage('i18n:footer:copyright:bottom-text', Styled.Copyrights);
 
 // tslint:disable-next-line:variable-name
 const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHeading>
@@ -106,7 +95,7 @@ const Footer: SFC = () => <Styled.FooterWrapper>
             {(msg: Element | string) => msg}
           </FormattedMessage>
         </Styled.Heading>
-        {renderMission()}
+        <Mission />
         {renderColumn1()}
         {renderColumn2()}
         {renderColumn3()}
@@ -114,7 +103,7 @@ const Footer: SFC = () => <Styled.FooterWrapper>
     </Styled.FooterTop>
     <Styled.FooterBottom>
       <Styled.BottomBoxed>
-        {renderCopyrights()}
+        <Copyrights values={getValues()} />
         {renderSocialDirectory()}
       </Styled.BottomBoxed>
     </Styled.FooterBottom>
