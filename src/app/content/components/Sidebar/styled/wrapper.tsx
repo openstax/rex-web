@@ -28,7 +28,6 @@ const sidebarClosedStyle = css`
   background-color: transparent;
 
   > * {
-    visibility: hidden;
     opacity: 0;
   }
 
@@ -37,7 +36,6 @@ const sidebarClosedStyle = css`
     transform: translateX(-${sidebarMobileWidth + sidebarPadding * 2}rem);
 
     > * {
-      visibility: visible;
       opacity: 1;
     }
   `)}
@@ -93,7 +91,6 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
 
   > * {
     transition: all ${sidebarTransitionTime}ms;
-    visibility: visible;
     opacity: 1;
   }
 
