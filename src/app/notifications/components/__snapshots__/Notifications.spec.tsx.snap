@@ -54,9 +54,8 @@ exports[`Notifications matches snapshot 1`] = `
 .c4 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c4 a:hover {
@@ -103,9 +102,8 @@ exports[`Notifications matches snapshot 1`] = `
 .c3 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c3 a:hover {

@@ -182,9 +182,8 @@ Array [
 .c5 {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c5:hover {
@@ -208,9 +207,8 @@ Array [
 .c0 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c0 a:hover {

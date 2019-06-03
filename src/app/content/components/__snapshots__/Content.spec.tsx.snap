@@ -167,9 +167,8 @@ Array [
 .c59 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c59 a:hover {
@@ -196,9 +195,8 @@ Array [
 .c59 span a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c59 a:hover,
@@ -225,9 +223,8 @@ Array [
 .c64 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c64 a:hover {
@@ -253,9 +250,8 @@ Array [
 .c57 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c57 a:hover {
@@ -483,9 +479,8 @@ Array [
 .c52 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c52 a:hover {
@@ -968,9 +963,8 @@ li[aria-label="Current Page"] .c35 {
   .c51 a {
     color: #027EB5;
     cursor: pointer;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    border-bottom: #027EB5 solid 0.02em;
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
   }
 
   .c51 a:hover {
@@ -2464,9 +2458,8 @@ Array [
 .c33 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c33 a:hover {
@@ -2493,9 +2486,8 @@ Array [
 .c33 span a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c33 a:hover,
@@ -2525,9 +2517,8 @@ Array [
 .c31 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c31 a:hover {
@@ -2600,9 +2591,8 @@ Array [
 .c30 a {
   color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom: #027EB5 solid 0.02em;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c30 a:hover {
@@ -2915,9 +2905,8 @@ Array [
   .c29 a {
     color: #027EB5;
     cursor: pointer;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    border-bottom: #027EB5 solid 0.02em;
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
   }
 
   .c29 a:hover {
