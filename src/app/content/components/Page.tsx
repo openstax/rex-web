@@ -161,6 +161,7 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
+
   @media screen { /* full page width in print */
     max-width: ${contentTextWidth}rem;
     margin: 0 auto;
@@ -170,6 +171,7 @@ export const contentTextStyle = css`
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
+
   @media screen { /* full page width in print */
     margin-top: ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
