@@ -15,7 +15,7 @@ const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
 // tslint:disable-next-line:variable-name
 const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?: any}> =
-({id, type, assert, values}) => <FormattedHTMLMessage id={id} values={values ? values : null}>
+({id, type, assert, values}) => <FormattedHTMLMessage id={id} values={values ? values : {}}>
   {(html) => {  if (type === 'mission') {
       return(<Styled.Mission dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Mission>);
     } else {
