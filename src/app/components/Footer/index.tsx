@@ -14,9 +14,10 @@ const supportCenterLink = 'https://openstax.secure.force.com/help';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
 // tslint:disable-next-line:variable-name
-const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?: any}> = ({id, type, assert, values}) => {
-  if(type == 'mission'){
-    return (<FormattedHTMLMessage id={id}> 
+const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?: any}> =
+({id, type, assert, values}) => {
+  if (type === 'mission') {
+    return (<FormattedHTMLMessage id={id}>
       {(html) => <Styled.Mission dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Mission>
     }</FormattedHTMLMessage>);
   } else {
@@ -24,12 +25,12 @@ const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?
       {(html) => <Styled.Copyrights dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Copyrights>
     }</FormattedHTMLMessage>);
   }
-}
+};
 
-const renderMission = () => <SetInnerHTML id='i18n:footer:copyright:mission-text' type='mission' 
+const renderMission = () => <SetInnerHTML id='i18n:footer:copyright:mission-text' type='mission'
   assert='i18n:copyright:mission-text must return a string'/>;
 
-const renderCopyrights = () => <SetInnerHTML id='i18n:footer:copyright:bottom-text' type='copyrights' 
+const renderCopyrights = () => <SetInnerHTML id='i18n:footer:copyright:bottom-text' type='copyrights'
   assert='i18n:copyright:top-text must return a string' values={getValues()}/>;
 
 // tslint:disable-next-line:variable-name
