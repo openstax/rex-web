@@ -27,7 +27,7 @@ const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHe
 </Styled.ColumnHeading>;
 
 // tslint:disable-next-line:variable-name
-const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, rel?: string }> = 
+const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, rel?: string }> =
   ({id, href, target, rel }) => <Styled.FooterLink href={href} target={target ? target : '_self'} rel={rel ? rel : ''}>
   <FormattedMessage id={id}>
     {(msg: Element | string) => msg}
