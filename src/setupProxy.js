@@ -120,7 +120,7 @@ function setupProxy(app) {
   }));
 
   if (!SKIP_OS_WEB_PROXY) {
-    app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|api.*|\/$/), {
+    app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|\/$/) , {
       target: OS_WEB_URL,
       changeOrigin: true,
     }));

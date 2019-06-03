@@ -21,7 +21,6 @@ interface SidebarProps {
 export class Sidebar extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
-  public container = React.createRef<HTMLElement>();
 
   public render() {
     const {isOpen, book} = this.props;
@@ -84,8 +83,10 @@ export class Sidebar extends Component<SidebarProps> {
     </Styled.NavOl>;
 
   private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.Details
-    ref={this.container}
-    {...this.props.page && archiveTreeContainsSection(node, this.props.page.id) ? {open: true} : {}}
+    {...this.props.page && archiveTreeContainsSection(node, this.props.page.id)
+        ? {defaultOpen: true}
+        : {}
+    }
   >
     <Styled.Summary>
       <Styled.SummaryWrapper>
