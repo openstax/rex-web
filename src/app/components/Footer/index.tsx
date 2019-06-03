@@ -13,11 +13,24 @@ const copyrightLink = 'https://creativecommons.org/licenses/by/4.0/';
 const supportCenterLink = 'https://openstax.secure.force.com/help';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
-const renderMission = () => <FormattedHTMLMessage id='i18n:footer:copyright:mission-text'>
-  {(html) => <Styled.Mission
-    dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:copyright:mission-text must return a string')}}
-  ></Styled.Mission>}
-</FormattedHTMLMessage>;
+// tslint:disable-next-line:variable-name
+const SetInnerHTML: React.SFC<{id: string, type: string, assert: string, values?: any}> = ({id, type, assert, values}) => {
+  if(type == 'mission'){
+    return (<FormattedHTMLMessage id={id}> 
+      {(html) => <Styled.Mission dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Mission>
+    }</FormattedHTMLMessage>);
+  } else {
+    return(<FormattedHTMLMessage id={id} values={values}>
+      {(html) => <Styled.Copyrights dangerouslySetInnerHTML={{__html: assertString(html, assert)}}></Styled.Copyrights>
+    }</FormattedHTMLMessage>);
+  }
+}
+
+const renderMission = () => <SetInnerHTML id='i18n:footer:copyright:mission-text' type='mission' 
+  assert='i18n:copyright:mission-text must return a string'/>;
+
+const renderCopyrights = () => <SetInnerHTML id='i18n:footer:copyright:bottom-text' type='copyrights' 
+  assert='i18n:copyright:top-text must return a string' values={getValues()}/>;
 
 // tslint:disable-next-line:variable-name
 const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHeading>
@@ -65,12 +78,6 @@ const renderColumn3 = () => <Styled.Column3>
   <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
   <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
 </Styled.Column3>;
-
-const renderCopyrights = () => <FormattedHTMLMessage id='i18n:footer:copyright:bottom-text' values={getValues()}>
-  {(html) => <Styled.Copyrights
-    dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:copyright:top-text must return a string')}}
-  ></Styled.Copyrights>}
-</FormattedHTMLMessage>;
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
   <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
