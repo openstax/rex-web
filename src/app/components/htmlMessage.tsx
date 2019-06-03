@@ -10,11 +10,11 @@ type Type = <T extends any>(messageKey: string, Component: ComponentType<HTMLAtt
 
 // tslint:disable-next-line:variable-name
 const htmlMessage: Type = (messageKey, Component) => ({values, ...props}) =>
-    <FormattedHTMLMessage id={messageKey} values={values ? values : {}}>
-      {(msg: string | Element) =>
-        <Component dangerouslySetInnerHTML={{__html: assertString(msg, `${messageKey} must be a string`)}} {...props} />
-      }
-    </FormattedHTMLMessage>
+  <FormattedHTMLMessage id={messageKey} values={values ? values : {}}>
+    {(msg: string | Element) =>
+      <Component dangerouslySetInnerHTML={{__html: assertString(msg, `${messageKey} must be a string`)}} {...props} />
+    }
+  </FormattedHTMLMessage>
 ;
 
 export default htmlMessage;
