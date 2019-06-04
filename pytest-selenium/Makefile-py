@@ -42,7 +42,7 @@ test-rail-sauce: venv
 		--driver SauceLabs \
 		--capability avoidProxy True \
 		--capability browserName $(BROWSER) \
-		--capability screenResolution 2560x1600 \
+		--capability screenResolution 1600x1200 \
 		pytest-selenium/tests
 
 test-local: venv
