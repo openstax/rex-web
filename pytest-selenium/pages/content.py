@@ -13,9 +13,7 @@ class Content(Page):
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
-    # _next_locator = (By.LINK_TEXT, "Next")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
-    # _previous_locator = (By.LINK_TEXT, "Previous")
 
     @property
     def loaded(self):
@@ -51,10 +49,8 @@ class Content(Page):
 
     def click_next_link(self):
         next_href_before_click = self.find_element(*self._next_locator).get_attribute("href")
-
         self.offscreen_click(self.next_link)
-        sleep(0.5)
-
+        sleep(3)
         next_href_after_click = self.find_element(*self._next_locator).get_attribute("href")
         assert next_href_before_click != next_href_after_click, "next link did not work properly"
 
@@ -62,11 +58,8 @@ class Content(Page):
         previous_href_before_click = self.find_element(*self._previous_locator).get_attribute(
             "href"
         )
-
         self.offscreen_click(self.previous_link)
-        # sleep(0.5)
-        return self.wait.until(expected.element_to_be_clickable(*self._previous_locator))
-
+        sleep(3)
         previous_href_after_click = self.find_element(*self._previous_locator).get_attribute("href")
         assert (
             previous_href_before_click != previous_href_after_click
