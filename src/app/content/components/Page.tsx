@@ -15,6 +15,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
+import { assertDefined } from '../../utils';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
@@ -59,6 +60,7 @@ export class PageComponent extends Component<PropTypes> {
     const target = this.getScrollTarget();
     this.postProcess();
     this.linksOn();
+    if (this.container) { this.addGenericJs(this.container); }
     if (target) {
       scrollTo(target);
     }
@@ -71,6 +73,7 @@ export class PageComponent extends Component<PropTypes> {
     if (this.container && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.linksOn();
 
+      this.addGenericJs(this.container);
       if (target) {
         scrollTo(target);
       } else {
@@ -97,6 +100,84 @@ export class PageComponent extends Component<PropTypes> {
       dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
     />;
   }
+
+  // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
+  // .../src/scripts/modules/media/body/body.coffee#L123
+  private addGenericJs(rootEl: Element) {
+    this.addScopeToTables(rootEl);
+    this.wrapElements(rootEl);
+    this.tweakFigures(rootEl);
+    this.addNoFollow(rootEl);
+    this.fixLists(rootEl);
+  }
+
+  private addScopeToTables(rootEl: Element) {
+    rootEl.querySelectorAll('table th').forEach((el) => el.setAttribute('scope', 'col'));
+  }
+
+  // Wrap title and content elements in header and section elements, respectively
+  private wrapElements(rootEl: Element) {
+    rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
+      [data-type="example"], [data-type="exercise"],
+      [data-type="note"], [data-type="abstract"]`).forEach((el) => {
+
+      // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
+      const titles = Array.from(el.children).filter((child) => child.matches('.title, [data-type="title"], .os-title'));
+
+      const bodyWrap = assertDefined(document, 'document should be defined').createElement('section');
+      bodyWrap.append(...Array.from(el.childNodes));
+
+      const titleWrap = assertDefined(document, 'document should be defined').createElement('header');
+      titleWrap.append(...Array.from(titles));
+
+      el.append(titleWrap, bodyWrap);
+
+      // Add an attribute for the parents' `data-label`
+      // since CSS does not support `parent(attr(data-label))`.
+      // When the title exists, this attribute is added before it
+      const label = el.getAttribute('data-label');
+      if (label) {
+        titles.forEach((title) => title.setAttribute('data-label-parent', label));
+      }
+
+      // Add a class for styling since CSS does not support `:has(> .title)`
+      // NOTE: `.toggleClass()` explicitly requires a `false` (not falsy) 2nd argument
+      if (titles.length > 0) {
+        el.classList.add('ui-has-child-title');
+      }
+    });
+  }
+
+  private tweakFigures(rootEl: Element) {
+    // move caption to bottom of figure
+    rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
+      const parent = assertDefined(el.parentElement, 'figcaption parent should always be defined');
+      parent.classList.add('ui-has-child-figcaption');
+      parent.appendChild(el);
+    });
+  }
+
+  // Add nofollow to external user-generated links
+  private addNoFollow(rootEl: Element) {
+    rootEl.querySelectorAll('a[href^="http:"], a[href^="https:"], a[href^="//"]')
+    .forEach((el) => el.setAttribute('rel', 'nofollow'));
+  }
+
+  private fixLists(rootEl: Element) {
+    // Copy data-mark-prefix and -suffix from ol to li so they can be used in css
+    rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
+    [data-type="list"][data-list-type="enumerated"][data-mark-prefix] > [data-type="item"],
+    [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]`).forEach((el) => {
+      const parent = assertDefined(el.parentElement, 'list parent should always be defined');
+      const markPrefix = parent.getAttribute('data-mark-prefix');
+      const markSuffix = parent.getAttribute('data-mark-suffix');
+      if (markPrefix) { el.setAttribute('data-mark-prefix', markPrefix); }
+      if (markSuffix) { el.setAttribute('data-mark-suffix', markSuffix); }
+    });
+    rootEl.querySelectorAll('ol[start], [data-type="list"][data-list-type="enumerated"][start]').forEach((el) => {
+      el.setAttribute('style', `counter-reset: list-item ${el.getAttribute('start')}`);
+    });
+}
 
   private getScrollTarget(): Element | null {
     return this.container && typeof(window) !== 'undefined' && this.props.hash
@@ -161,14 +242,18 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: ${contentTextWidth}rem;
-  margin: 0 auto;
+
+  @media screen { /* full page width in print */
+    max-width: ${contentTextWidth}rem;
+    margin: 0 auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
+  ${contentTextStyle}
+
   @media screen { /* full page width in print */
-    ${contentTextStyle}
     margin-top: ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
       margin-top: ${theme.padding.page.mobile}rem;

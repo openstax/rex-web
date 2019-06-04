@@ -30,8 +30,9 @@ describe('navbar when logged in', () => {
     });
   });
 
-  it('user menu looks right on desktop', async() => {
-    setDesktopViewport(page);
+  it('looks right when logged in on mobile', async() => {
+    setMobileViewport(page);
+    await page.setCookie({domain: 'localhost', name: 'session', value: 'logged in'});
     await navigate(page, TEST_SIMPLE_PAGE_URL);
     await finishRender(page);
     await page.hover('[data-testid="user-nav"]');
