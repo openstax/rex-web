@@ -116,6 +116,11 @@
         "shortId": "testpage10-shortid@1.0",
         "id": "testbook1-testpage10-uuid@1.0",
         "title": "<span class=\"os-number\">D</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Glossary of Key Symbols and Notation</span></a>"
+      },
+      {
+        "shortId": "testpage12-shortid@1.0",
+        "id": "testbook1-testpage12-uuid@1.0",
+        "title": "<span class=\"os-text\">Test Page for Generic Styles</span>"
       }
     ],
     "title": "Test Book 1"

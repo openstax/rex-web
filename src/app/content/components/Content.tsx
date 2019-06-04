@@ -4,6 +4,7 @@ import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
 import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
+import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
@@ -170,6 +171,7 @@ const Content: React.SFC = () => <Layout>
                 <PrevNextBar />
               </HideOverflowAndRedoPadding>
               <Attribution />
+              <Footer/>
             </MainContentWrapper>
           </UndoPadding>
         </ContentPane>
