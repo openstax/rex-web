@@ -17,8 +17,6 @@ body, #root, html {
   flex-direction: column;
   position: relative;
   overflow: visible;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
