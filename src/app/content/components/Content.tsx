@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
-import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
@@ -11,9 +10,9 @@ import CenteredContent from './CenteredContent';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
-  contentTextWidth,
   contentWrapperMaxWidth,
   mainContentBackground,
+  maxContentGutter,
   sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarDesktopHeight,
@@ -39,17 +38,16 @@ const Background = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const ContentNotifications = styled(Notifications)`
-  @media screen {
-    top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-    position: sticky;
-    margin-left: calc((100% - ${contentTextWidth}rem) * 0.75 + ${contentTextWidth}rem);
-
-    @media (max-width: ${inlineDisplayBreak}) {
-      top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
-      ${wrapperPadding}
-    }
-  }
+const ContentNotifications = styled((props) => <Notifications
+  toastInset={maxContentGutter}
+  inlineBreak={contentWrapperMaxWidth - maxContentGutter * 2}
+  {...props}
+/>)`
+  z-index: 1; /* above content */
+  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+  ${theme.breakpoints.mobile(css`
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
