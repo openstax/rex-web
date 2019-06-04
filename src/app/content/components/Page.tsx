@@ -242,14 +242,18 @@ export class PageComponent extends Component<PropTypes> {
 
 export const contentTextStyle = css`
   ${bodyCopyRegularStyle}
-  max-width: ${contentTextWidth}rem;
-  margin: 0 auto;
+
+  @media screen { /* full page width in print */
+    max-width: ${contentTextWidth}rem;
+    margin: 0 auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const StyledPageComponent = styled(PageComponent)`
+  ${contentTextStyle}
+
   @media screen { /* full page width in print */
-    ${contentTextStyle}
     margin-top: ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
       margin-top: ${theme.padding.page.mobile}rem;
