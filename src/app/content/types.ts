@@ -1,5 +1,6 @@
 import { RouteParams, RouteState } from '../navigation/types';
 import { content } from './routes';
+import { State as SearchState } from './search/types';
 
 export interface Params {
   book: string;
@@ -13,6 +14,7 @@ export interface State {
     book?: string;
     page?: string;
   };
+  search: SearchState;
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];
