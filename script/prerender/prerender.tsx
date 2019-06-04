@@ -29,6 +29,7 @@ import {
 } from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
+import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import FontCollector from '../../src/helpers/FontCollector';
 import { startServer } from '../server';
@@ -162,12 +163,13 @@ async function render() {
   const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
+  const searchClient = createSearchClient(`http://localhost:${port}`);
   const {server} = await startServer({port, onlyProxy: true});
 
   const pages = await preparePages(archiveLoader, osWebLoader);
 
   await renderManifest();
-  await renderPages({archiveLoader, osWebLoader, userLoader}, pages);
+  await renderPages({archiveLoader, osWebLoader, userLoader, searchClient}, pages);
 
   const numPages = pages.length;
   const end = (new Date()).getTime();
