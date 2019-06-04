@@ -1,6 +1,7 @@
 #!/bin/bash
 
-if [ -d "./open-search" ]; then
+if [ -d "./node_modules/@openstax/open-search-client" ]; then
+  cp -r "./node_modules/@openstax/open-search-client" .
   exit 0
 fi
 
@@ -17,9 +18,9 @@ curl -s -o "$tmp_file" "$download_url"
 
 unzip "$tmp_file"
 
-mv typescript-fetch-client open-search
+mv typescript-fetch-client open-search-client
 
-cd open-search || exit 1
+cd open-search-client || exit 1
 
 yarn install
 yarn build

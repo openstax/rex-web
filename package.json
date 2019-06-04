@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@openstax/open-search-client": "./open-search/",
+    "@openstax/open-search-client": "./open-search-client/",
     "ally.js": "^1.4.1",
     "color": "^3.1.0",
     "details-polyfill": "^1.1.0",
@@ -64,7 +64,8 @@
     "analyze:bundle": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
     "analyze:dom": "node ./script/entry.js domVisitor",
     "heroku-postbuild": "npm run-script build:clean && npm run-script prerender",
-    "preinstall": "./script/build-search-client.bash"
+    "preinstall": "./script/build-search-client.bash",
+    "postinstall": "rm -rf ./open-search-client"
   },
   "eslintConfig": {
     "extends": "react-app"
