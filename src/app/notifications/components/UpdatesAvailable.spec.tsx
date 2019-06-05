@@ -1,7 +1,14 @@
 import ReactType from 'react';
 import rendererType from 'react-test-renderer';
+import { css, FlattenSimpleInterpolation } from 'styled-components';
 import MessageProvider from '../../MessageProvider';
 import UpdatesAvailable from './UpdatesAvailable';
+
+const mockSetInlineStyle = (style: FlattenSimpleInterpolation) => css`
+  @media (max-width: the-break}) {
+    ${style}
+  }
+`;
 
 describe('UpdatesAvailable', () => {
   describe('in browser', () => {
@@ -22,7 +29,11 @@ describe('UpdatesAvailable', () => {
     });
 
     it('reloads on click', () => {
-      const component = renderer.create(<MessageProvider><UpdatesAvailable /></MessageProvider>);
+      const component = renderer.create(
+        <MessageProvider>
+          <UpdatesAvailable setInlineStyle={mockSetInlineStyle} />
+        </MessageProvider>
+      );
       component.root.findByType('button').props.onClick();
       expect(reload).toHaveBeenCalled();
     });
@@ -49,7 +60,11 @@ describe('UpdatesAvailable', () => {
     });
 
     it('does nothing on click', () => {
-      const component = renderer.create(<MessageProvider><UpdatesAvailable /></MessageProvider>);
+      const component = renderer.create(
+        <MessageProvider>
+          <UpdatesAvailable setInlineStyle={mockSetInlineStyle} />
+        </MessageProvider>
+      );
       component.root.findByType('button').props.onClick();
       expect(() => component.root.findByType('button').props.onClick()).not.toThrow();
     });
