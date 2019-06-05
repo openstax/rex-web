@@ -115,7 +115,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         />
         <div>
           <h4
-            className="styled__OverlayHeading-sc-3syvnw-8 cSAnFj"
+            className="styled__OverlayHeading-sc-3syvnw-8 egjpWh"
           >
             Hi test
           </h4>
