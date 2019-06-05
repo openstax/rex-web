@@ -118,5 +118,6 @@ def test_toc_local(selenium, base_url, book_slug, page_slug):
     sleep(1)
 
     print(toc.chapter_expanded)
-    # print(toc.toc_section)
-    print(toc.toc_section[3].text)
+
+    print(toc.section_link)
+    print(toc.toc_section[2].text)

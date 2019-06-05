@@ -137,11 +137,12 @@ class Content(Page):
                 section = self.find_elements(*self._toc_element_locator)
                 return section
 
+            @property
+            def section_link(self):
                 section_init = []
-                for section_init in section:
+                for section_init in self.toc_section:
                     section_link = section_init.text
                     print(section_link)
-                # print(section[3].text)
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
