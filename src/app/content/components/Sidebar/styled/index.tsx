@@ -25,15 +25,14 @@ const numberCharacterWidth = .7796875;
 const letterCharacterWidth = 1.0375;
 const numberPeriodWidth = .390625;
 const iconSize = 1.7;
-const tocLinkHover = css`
-  :hover {
-    color: ${theme.color.text.black};
-  }
+
+const activeState = css`
+  color: ${theme.color.text.black};
+  text-decoration: underline;
 `;
 
 // tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
-  ${tocLinkHover}
   ${labelStyle}
   display: flex;
   flex: 1;
@@ -41,7 +40,6 @@ export const SummaryTitle = styled.span`
 
 // tslint:disable-next-line:variable-name
 export const ContentLink = styled(ContentLinkComponent)`
-  ${tocLinkHover}
   ${labelStyle}
   display: flex;
   margin-left: ${iconSize}rem;
@@ -49,6 +47,12 @@ export const ContentLink = styled(ContentLinkComponent)`
 
   li[aria-label="Current Page"] & {
     font-weight: bold;
+  }
+
+  :focus,
+  :hover {
+    outline: none;
+    ${activeState}
   }
 `;
 
@@ -92,6 +96,17 @@ export const Summary = styled.summary`
   &::-webkit-details-marker {
     display: none;
   }
+
+  :focus {
+    outline: none;
+  }
+
+  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+    :hover ${SummaryTitle},
+    :focus ${SummaryTitle} {
+      ${activeState}
+    }
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
