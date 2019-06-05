@@ -95,6 +95,10 @@ class Content(Page):
         def header(self):
             return self.Header(self.page)
 
+        @property
+        def toc(self):
+            return self.TableOfContents(self.page)
+
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
             _toc_toggle_button_locator = (
@@ -111,6 +115,32 @@ class Content(Page):
                 return self.wait.until(
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
+
+        class TableOfContents(Region):
+            _root_locator = (By.CSS_SELECTOR, '[data-testid="toc"]')
+            _chapter_div_locator = (By.CSS_SELECTOR, "ol li details")
+
+            # _toc_element_locator = (By.XPATH, "//*[@data-testid='toc']//href")
+            _toc_element_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
+
+            @property
+            def toc_element(self):
+                return self.find_elements(*self._toc_element_locator)
+
+            @property
+            def chapter_expanded(self):
+                return self.find_element(*self._chapter_div_locator).get_attribute("open")
+
+            @property
+            def toc_section(self):
+                # return self.find_element(*self._toc_element_locator)
+                section = self.find_elements(*self._toc_element_locator)
+
+                section_init = []
+                for section_init in section:
+                    section_link = section_init.text
+                    print(section_link)
+                # print(section[3].text)
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')

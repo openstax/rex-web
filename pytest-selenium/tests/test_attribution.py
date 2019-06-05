@@ -80,22 +80,43 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     assert not attribution.is_open
 
     attribution.click_attribution_link()
+    from time import sleep
 
-    # # WHEN: Navigating via TOC link
-    # toolbar = content.toolbar
-    # sidebar = content.sidebar
+    # WHEN: Navigating via TOC link
+    toolbar = content.toolbar
+    sidebar = content.sidebar
 
-    # if content.is_desktop:
-    #     sidebar.header.click_toc_element()
-    #     sleep(2)
-    # # THEN: the citation/attribution section is not open on the new page
-    #     print (attribution.is_open) #none
-    #     assert not attribution.is_open
+    if content.is_desktop:
+        sidebar.header.click_toc_element()
+        sleep(2)
+        # THEN: the citation/attribution section is not open on the new page
+        print(attribution.is_open)  # none
+        assert not attribution.is_open
 
-    # if content.is_mobile:
-    #     toolbar.click_toc_toggle_button()
-    #     sleep(1)
-    #     sidebar.header.click_toc_element()
-    #     sleep(2)
-    #     print (attribution.is_open) #none
-    #     assert not attribution.is_open
+    if content.is_mobile:
+        toolbar.click_toc_toggle_button()
+        sleep(1)
+        sidebar.header.click_toc_element()
+        sleep(2)
+        print(attribution.is_open)  # none
+        assert not attribution.is_open
+
+
+@markers.test_case("C476304")
+@markers.parametrize(
+    "book_slug,page_slug", [("college-physics", "1-2-physical-quantities-and-units")]
+)
+@markers.nondestructive
+def test_toc_local(selenium, base_url, book_slug, page_slug):
+
+    # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
+    # AND: The citation/attribution tab is open
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    toc = content.sidebar.toc
+    from time import sleep
+
+    sleep(1)
+
+    print(toc.chapter_expanded)
+    # print(toc.toc_section)
+    print(toc.toc_section.section[3].text)
