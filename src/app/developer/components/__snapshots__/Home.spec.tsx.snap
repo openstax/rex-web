@@ -517,10 +517,10 @@ Array [
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1rem;
-  -webkit-box-pack: left;
-  -webkit-justify-content: left;
-  -ms-flex-pack: left;
-  justify-content: left;
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+  -ms-flex-pack: end;
+  justify-content: end;
 }
 
 .c15 {
@@ -808,9 +808,7 @@ Array [
                 "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
-    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">
-      Creative Commons Attribution 4.0 International License
-    </a>.
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">Creative Commons Attribution 4.0 International License</a>.
   </div>
   <div data-html=\\"apStatement\\">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
