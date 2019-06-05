@@ -5,6 +5,7 @@ from time import sleep
 
 from pages.base import Page
 from regions.base import Region
+from regions.content_item import ContentItem
 
 
 class Content(Page):
@@ -118,31 +119,47 @@ class Content(Page):
 
         class TableOfContents(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="toc"]')
-            _chapter_div_locator = (By.CSS_SELECTOR, "ol li details")
-
-            # _toc_element_locator = (By.XPATH, "//*[@data-testid='toc']//href")
-            _toc_element_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
-
-            @property
-            def toc_element(self):
-                return self.find_elements(*self._toc_element_locator)
+            _chapter_toggle = (By.CSS_SELECTOR, "ol li details")
+            _toc_chapter_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
 
             @property
             def chapter_expanded(self):
-                return self.find_element(*self._chapter_div_locator).get_attribute("open")
+                return self.find_element(*self._chapter_toggle).get_attribute("open")
 
             @property
-            def toc_section(self):
-                # return self.find_element(*self._toc_element_locator)
-                section = self.find_elements(*self._toc_element_locator)
-                return section
+            def number_of_chapters(self):
+                return len(self.find_elements(*self._chapter_toggle))
 
             @property
-            def section_link(self):
-                section_init = []
-                for section_init in self.toc_section:
-                    section_link = section_init.text
-                    print(section_link)
+            def chapters(self):
+                return [
+                    self.ContentChapter(self.page, self.root, index)
+                    for index in range(len(self.find_elements(*self._chapter_toggle)))
+                ]
+
+            @property
+            def toc_chapter(self):
+                chapter = self.find_elements(*self._toc_chapter_locator)
+                return chapter
+
+            def toc_chapter_click(self):
+                self.offscreen_click(self.toc_chapter)
+                self.page.toc.wait_for_region_to_display()
+
+            @property
+            def chapter_link(self):
+                chapter_init = []
+                for chapter_init in self.toc_chapter:
+                    chapter_link = chapter_init.text
+                    print(chapter_link)
+
+            class ContentChapter(ContentItem):
+                _root_locator_template = "(.//ol/li/details)[{index}]"
+
+                def click(self):
+                    self.root.click()
+                    chapter = self.__class__(self.page, self.parent_root, self.index)
+                    return chapter.wait_for_region_to_display()
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')

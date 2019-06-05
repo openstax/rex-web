@@ -103,9 +103,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 
 
 @markers.test_case("C476304")
-@markers.parametrize(
-    "book_slug,page_slug", [("college-physics", "1-2-physical-quantities-and-units")]
-)
+@markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
 @markers.nondestructive
 def test_toc_local(selenium, base_url, book_slug, page_slug):
 
@@ -119,5 +117,9 @@ def test_toc_local(selenium, base_url, book_slug, page_slug):
 
     print(toc.chapter_expanded)
 
-    print(toc.section_link)
-    print(toc.toc_section[2].text)
+    print(toc.chapter_link)
+    print(toc.toc_chapter[2].text)
+    print(toc.number_of_chapters)
+    chapter = toc.chapters[0]
+    chapter = chapter.click()
+    sleep(3)
