@@ -11,8 +11,19 @@ import ContentLinkComponent from '../../ContentLink';
 
 export * from './wrapper';
 
-const numberCharacterWidth = 1;
-const numberPeriodWidth = 0.2;
+/* to regenerate these numbers, run this in a rex browser window
+(
+  (element) => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.'.split('').reduce(
+    (result, char) => (result[char] = ((element.innerText = char) && element.getBoundingClientRect().width)) && result,
+    {}
+  )
+)(element = document.querySelector('[data-testid=toc] [aria-label="Current Page"] a')
+  .appendChild(document.createElement('span'))
+);
+ */
+const numberCharacterWidth = .7796875;
+const letterCharacterWidth = 1.0375;
+const numberPeriodWidth = .390625;
 const iconSize = 1.7;
 const tocLinkHover = css`
   :hover {
@@ -94,10 +105,15 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   if (!num) {
     return result;
   }
-  const numbers = num.replace(/[\W]/, '');
-  const periods = num.replace(/[^\.]/, '');
+  const letters = num.replace(/[^A-Z]/ig, '');
+  const numbers = num.replace(/[^0-9]/g, '');
+  const periods = num.replace(/[^\.]/g, '');
 
-  return Math.max(result, numbers.length * numberCharacterWidth + periods.length * numberPeriodWidth);
+  return Math.max(result,
+    numbers.length * numberCharacterWidth +
+    letters.length * letterCharacterWidth +
+    periods.length * numberPeriodWidth
+  );
 }, 0);
 
 // tslint:disable-next-line:variable-name
@@ -114,7 +130,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
       }
 
       .os-divider {
-        width: 0.5rem;
+        width: 0.8rem;
         text-align: center;
         overflow: hidden;
       }
