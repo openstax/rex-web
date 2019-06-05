@@ -135,6 +135,7 @@ class Content(Page):
             def toc_section(self):
                 # return self.find_element(*self._toc_element_locator)
                 section = self.find_elements(*self._toc_element_locator)
+                return section
 
                 section_init = []
                 for section_init in section:
