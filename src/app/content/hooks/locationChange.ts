@@ -88,7 +88,7 @@ const loadPage = async(
 ) => {
   services.dispatch(requestPage(match.params.page));
   return await bookLoader.page(pageId).load()
-    .then(loadContentReferences(book))
+    .then(loadContentReferences(services, book))
     .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
   ;
 };
@@ -116,39 +116,57 @@ const resolvePage = async(
   }
 };
 
-const loadContentReference = (
+const resolveExternalBookReference = (
+  {archiveLoader, osWebLoader}: AppServices & MiddlewareAPI,
+  bookId: string,
+  bookVersion: string | undefined
+) => {
+  const book = archiveLoader.book(bookId, bookVersion).load();
+  const slug = osWebLoader.getBookSlugFromId(bookId);
+
+  return Promise.all([book, bookId, slug]);
+};
+
+const loadContentReference = async(
+  services: AppServices & MiddlewareAPI,
   book: Book,
   bookPages: ReturnType<typeof flattenArchiveTree>,
   reference: ReturnType<typeof getContentPageReferences>[0]
 ) => {
-  if (reference.bookUid || reference.bookVersion) {
-    throw new Error('BUG: Cross book references are not supported');
-  }
-  if (!bookPages.find((search) => search.id === reference.pageUid)) {
+
+  const [targetBook, targetBookId, targetBookSlug] = reference.bookUid
+    ? await resolveExternalBookReference(services, reference.bookUid, reference.bookVersion)
+    : [book, book.id, book.slug];
+
+  const targetBookPages = targetBookId === book.id
+    ? bookPages
+    : flattenArchiveTree(targetBook.tree);
+
+  if (!targetBookPages.find((search) => search.id === reference.pageUid)) {
     throw new Error(`BUG: ${reference.pageUid} is not present in the ToC`);
   }
 
   return {
     match: reference.match,
     params: {
-      book: book.slug,
-      page: getUrlParamForPageId(book, reference.pageUid),
+      book: targetBookSlug,
+      page: getUrlParamForPageId(targetBook, reference.pageUid),
     },
     state: {
-      bookUid: book.id,
-      bookVersion: book.version,
+      bookUid: targetBook.id,
+      bookVersion: targetBook.version,
       pageUid: reference.pageUid,
     },
   };
 };
 
-const loadContentReferences = (book: Book) => async(page: ArchivePage) => {
+const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book) => async(page: ArchivePage) => {
   const contentReferences = getContentPageReferences(page.content);
   const bookPages = flattenArchiveTree(book.tree);
   const references: PageReferenceMap[] = [];
 
   for (const reference of contentReferences) {
-    references.push(loadContentReference(book, bookPages, reference));
+    references.push(await loadContentReference(services, book, bookPages, reference));
   }
 
   return {
