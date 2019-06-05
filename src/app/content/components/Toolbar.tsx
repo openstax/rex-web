@@ -160,7 +160,7 @@ const Toolbar: SFC = () => <BarWrapper>
         </SearchInputWrapper>}
       </FormattedMessage>
       <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) => <PrintOptWrapper onClick={() => assertWindow().print()}>
+        {(msg: Element | string) => <PrintOptWrapper onClick={() => assertWindow().print()} data-testid='print'>
           <PrintIcon /><PrintOptions>{msg}</PrintOptions>
         </PrintOptWrapper>}
       </FormattedMessage>

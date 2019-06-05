@@ -1831,6 +1831,7 @@ li[aria-label="Current Page"] .c35 {
           </div>
           <button
             className="c23"
+            data-testid="print"
             onClick={[Function]}
           >
             <svg
@@ -4165,6 +4166,7 @@ Array [
           </div>
           <button
             className="c15"
+            data-testid="print"
             onClick={[Function]}
           >
             <svg
