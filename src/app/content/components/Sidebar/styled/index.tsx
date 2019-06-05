@@ -1,8 +1,6 @@
-import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { ComponentType } from 'react';
 import styled, { css } from 'styled-components/macro';
-import { CaretDown } from 'styled-icons/fa-solid/CaretDown/CaretDown';
-import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { Details } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
@@ -10,6 +8,8 @@ import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import ContentLinkComponent from '../../ContentLink';
 
 export * from './wrapper';
+
+export {Summary, ExpandIcon, CollapseIcon} from '../../../../components/Details';
 
 const numberCharacterWidth = 1;
 const numberPeriodWidth = 0.2;
@@ -55,32 +55,6 @@ export const NavItem = styled(NavItemComponent)`
   list-style: none;
   overflow: visible;
   margin: 1.2rem 0 0 0;
-`;
-
-const expandCollapseIconStyle = css`
-  height: ${iconSize}rem;
-  width: ${iconSize}rem;
-  margin-right: 0;
-`;
-
-// tslint:disable-next-line:variable-name
-export const ExpandIcon = styled(CaretRight)`
-  ${expandCollapseIconStyle}
-`;
-
-// tslint:disable-next-line:variable-name
-export const CollapseIcon = styled(CaretDown)`
-  ${expandCollapseIconStyle}
-`;
-
-// tslint:disable-next-line:variable-name
-export const Summary = styled.summary`
-  list-style: none;
-  cursor: pointer;
-
-  &::-webkit-details-marker {
-    display: none;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -131,7 +105,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
   }}
 `;
 
-type DetailsComponentProps = {defaultOpen: boolean} & React.HTMLProps<HTMLDetailsElement>;
+interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
 class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
   constructor(props: DetailsComponentProps) {
     super(props);
@@ -141,21 +115,11 @@ class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOp
     const {open, defaultOpen: _, ...props} = this.props;
     const {defaultOpen} = this.state;
 
-    return <details {...props} open={open || defaultOpen} />;
+    return <Details {...props} open={open || defaultOpen} />;
   }
 }
 
 // tslint:disable-next-line:variable-name
-export const Details = styled(DetailsComponent)`
-  border: none;
+export const NavDetails = styled(DetailsComponent)`
   overflow: visible;
-  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    &[open] > ${Summary} ${ExpandIcon} {
-      display: none;
-    }
-
-    &:not([open]) > ${Summary} ${CollapseIcon} {
-      display: none;
-    }
-  `}
 `;
