@@ -54,7 +54,7 @@ const Content = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const AttributionDetails = styled((props) => <Details {...props} />)`
+const AttributionDetails = styled(Details)`
   ${bodyCopyRegularStyle}
   box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
