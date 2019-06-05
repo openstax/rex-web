@@ -98,7 +98,7 @@ const PrintOptWrapper = styled.button`
   cursor: pointer;
   border: none;
   padding: 0;
-  background-color: none;
+  background: none;
   align-items: center;
   color: ${toolbarIconColor.base};
 
@@ -160,7 +160,7 @@ const Toolbar: SFC = () => <BarWrapper>
         </SearchInputWrapper>}
       </FormattedMessage>
       <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) => <PrintOptWrapper onClick={() => assertWindow().print()} data-testid='print'>
+        {(msg: Element | string) => <PrintOptWrapper name="print" onClick={() => assertWindow().print()} data-testid='print'>
           <PrintIcon /><PrintOptions>{msg}</PrintOptions>
         </PrintOptWrapper>}
       </FormattedMessage>
