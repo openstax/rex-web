@@ -6,7 +6,7 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { maxNavWidth } from '../../components/NavBar';
 import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
-import { assertString } from '../../utils';
+import { assertString, assertWindow } from '../../utils';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -93,13 +93,18 @@ const SearchInput = styled.input`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintOptWrapper = styled.div`
-  cursor: pointer;
+const PrintOptWrapper = styled.button`
   display: flex;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: none;
   align-items: center;
   color: ${toolbarIconColor.base};
 
-  :hover {
+  :hover,
+  :focus {
+    outline: none;
     color: ${toolbarIconColor.darker};
   }
 `;
@@ -155,7 +160,9 @@ const Toolbar: SFC = () => <BarWrapper>
         </SearchInputWrapper>}
       </FormattedMessage>
       <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) => <PrintOptWrapper><PrintIcon /><PrintOptions>{msg}</PrintOptions></PrintOptWrapper>}
+        {(msg: Element | string) => <PrintOptWrapper onClick={() => assertWindow().print()}>
+          <PrintIcon /><PrintOptions>{msg}</PrintOptions>
+        </PrintOptWrapper>}
       </FormattedMessage>
     </SearchPrintWrapper>
   </TopBar>
