@@ -9,8 +9,7 @@ export const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};
   cursor: pointer;
-  text-decoration: none;
-  border-bottom: ${linkColor} solid 0.02em;
+  text-decoration: underline;
 
   :hover {
     color: ${linkHover};
