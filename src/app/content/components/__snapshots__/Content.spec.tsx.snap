@@ -804,7 +804,7 @@ Array [
   cursor: pointer;
   border: none;
   padding: 0;
-  background-color: none;
+  background: none;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1832,6 +1832,7 @@ li[aria-label="Current Page"] .c35 {
           <button
             className="c23"
             data-testid="print"
+            name="print"
             onClick={[Function]}
           >
             <svg
@@ -3519,7 +3520,7 @@ Array [
   cursor: pointer;
   border: none;
   padding: 0;
-  background-color: none;
+  background: none;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -4167,6 +4168,7 @@ Array [
           <button
             className="c15"
             data-testid="print"
+            name="print"
             onClick={[Function]}
           >
             <svg
