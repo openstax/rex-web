@@ -11,8 +11,9 @@ import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typ
 
 export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 5;
-export const navMobileHeight = 3.6;
-const headerImageMobileHeight = 2;
+export const navMobileHeight = 5;
+const headerImageDesktopHeight = 3;
+const headerImageMobileHeight = 3;
 
 const fadeIn = keyframes`
   0% {
@@ -47,7 +48,7 @@ export const TopBar = styled.div`
 export const HeaderImage = styled.img`
   display: block;
   width: auto;
-  height: 3rem;
+  height: ${headerImageDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
     height: ${headerImageMobileHeight}rem;
   `)}
