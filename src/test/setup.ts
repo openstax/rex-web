@@ -14,7 +14,7 @@ expect.extend({
 });
 
 jest.mock('ally.js/style/focus-within');
-jest.mock('details-element-polyfill');
+jest.mock('details-element-polyfill', () => jest.fn());
 
 const ignoreConsoleMessages = [
   /*
