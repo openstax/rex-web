@@ -1830,9 +1830,9 @@ li[aria-label="Current Page"] .c35 {
             />
           </div>
           <button
+            aria-label="print"
             className="c23"
             data-testid="print"
-            name="print"
             onClick={[Function]}
           >
             <svg
@@ -4166,9 +4166,9 @@ Array [
             />
           </div>
           <button
+            aria-label="print"
             className="c15"
             data-testid="print"
-            name="print"
             onClick={[Function]}
           >
             <svg
