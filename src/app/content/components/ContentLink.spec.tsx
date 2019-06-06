@@ -112,8 +112,8 @@ describe('ContentLink', () => {
     </Provider>);
 
     const event = {
-      preventDefault: jest.fn(),
       metaKey: true,
+      preventDefault: jest.fn(),
     };
 
     component.root.findByType('a').props.onClick(event);
