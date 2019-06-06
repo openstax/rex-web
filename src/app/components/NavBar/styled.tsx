@@ -10,10 +10,10 @@ import Times from '../Times';
 import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
 
 export const maxNavWidth = contentWrapperMaxWidth;
-export const navDesktopHeight = 5;
-export const navMobileHeight = 5;
-const headerImageDesktopHeight = 3;
-const headerImageMobileHeight = 3;
+export const navDesktopHeight = 6.0;
+export const navMobileHeight = 5.5;
+const headerImageDesktopHeight = 3.5;
+const headerImageMobileHeight = 3.5;
 
 const fadeIn = keyframes`
   0% {
