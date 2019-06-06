@@ -94,4 +94,32 @@ describe('ContentLink', () => {
     expect(event.preventDefault).toHaveBeenCalled();
     expect(clickSpy).toHaveBeenCalled();
   });
+
+  it('does not call onClick or dispatch the event when the meta key is pressed', () => {
+    const pathname = '/doesnotmatter';
+    const state = {
+      content: {
+        ...initialState,
+        book, page,
+      },
+      navigation: { pathname },
+    } as any as AppState;
+    const store = createStore((s: AppState | undefined) => s || state, state);
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+    const clickSpy = jest.fn();
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+    </Provider>);
+
+    const event = {
+      preventDefault: jest.fn(),
+      metaKey: true,
+    };
+
+    component.root.findByType('a').props.onClick(event);
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+    expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
 });
