@@ -66,6 +66,10 @@ class Content(Page):
             previous_href_before_click != previous_href_after_click
         ), "previous link did not work properly"
 
+    def wait_for_url_to_change(self, current_url):
+        self.wait.until(lambda _: self.driver.current_url != current_url)
+        return self.wait_for_page_to_load()
+
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
@@ -146,20 +150,38 @@ class Content(Page):
                 self.offscreen_click(self.toc_chapter)
                 self.page.toc.wait_for_region_to_display()
 
-            @property
-            def chapter_link(self):
-                chapter_init = []
-                for chapter_init in self.toc_chapter:
-                    chapter_link = chapter_init.text
-                    print(chapter_link)
-
             class ContentChapter(ContentItem):
                 _root_locator_template = "(.//ol/li/details)[{index}]"
+                _page_link_locator = (By.CSS_SELECTOR, "ol li a")
+
+                @property
+                def has_pages(self):
+                    return self.is_element_displayed(*self._page_link_locator)
+
+                @property
+                def pages(self):
+                    return [
+                        self.ContentPage(self.page, self.root, index)
+                        for index in range(len(self.find_elements(*self._page_link_locator)))
+                    ]
+
+                @property
+                def number_of_pages(self):
+                    return len(self.find_elements(*self._page_link_locator))
 
                 def click(self):
                     self.root.click()
                     chapter = self.__class__(self.page, self.parent_root, self.index)
                     return chapter.wait_for_region_to_display()
+
+                class ContentPage(ContentItem):
+                    _root_locator_template = "(.//ol/li/a)[{index}]"
+                    _title_locator = (By.CSS_SELECTOR, "span.os-text")
+
+                    def click(self):
+                        current_url = self.driver.current_url
+                        self.root.click()
+                        return self.page.wait_for_url_to_change(current_url)
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')

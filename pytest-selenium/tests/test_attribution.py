@@ -116,10 +116,14 @@ def test_toc_local(selenium, base_url, book_slug, page_slug):
     sleep(1)
 
     print(toc.chapter_expanded)
-
-    print(toc.chapter_link)
     print(toc.toc_chapter[2].text)
     print(toc.number_of_chapters)
-    chapter = toc.chapters[0]
+    chapter = toc.chapters[1]
     chapter = chapter.click()
     sleep(3)
+    print(chapter.number_of_pages)
+    page = chapter.pages[4]
+    # chapter_section = page.chapter_section
+    # title = page.title
+    content = page.click()
+    sleep(5)
