@@ -124,10 +124,10 @@ class Content(Page):
         class TableOfContents(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="toc"]')
             _chapter_toggle = (By.CSS_SELECTOR, "ol li details")
-            _toc_chapter_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
+            _toc_chapter_name_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
 
             @property
-            def chapter_expanded(self):
+            def is_chapter_expanded(self):
                 return self.find_element(*self._chapter_toggle).get_attribute("open")
 
             @property
@@ -142,13 +142,9 @@ class Content(Page):
                 ]
 
             @property
-            def toc_chapter(self):
-                chapter = self.find_elements(*self._toc_chapter_locator)
-                return chapter
-
-            def toc_chapter_click(self):
-                self.offscreen_click(self.toc_chapter)
-                self.page.toc.wait_for_region_to_display()
+            def chapter_name(self):
+                chapter_name = self.find_elements(*self._toc_chapter_name_locator)
+                return chapter_name
 
             class ContentChapter(ContentItem):
                 _root_locator_template = "(.//ol/li/details)[{index}]"
@@ -179,9 +175,8 @@ class Content(Page):
                     _title_locator = (By.CSS_SELECTOR, "span.os-text")
 
                     def click(self):
-                        current_url = self.driver.current_url
                         self.root.click()
-                        return self.page.wait_for_url_to_change(current_url)
+                        return self.wait_for_region_to_display()
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
