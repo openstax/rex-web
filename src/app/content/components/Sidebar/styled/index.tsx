@@ -13,7 +13,7 @@ export * from './wrapper';
 
 /* to regenerate these numbers, run this in a rex browser window
 (
-  (element) => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.'.split('').reduce(
+  (element) => 'wW1234567890.'.split('').reduce(
     (result, char) => (result[char] = ((element.innerText = char) && element.getBoundingClientRect().width)) && result,
     {}
   )
