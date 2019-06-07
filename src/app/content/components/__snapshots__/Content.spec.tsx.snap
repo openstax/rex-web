@@ -45,7 +45,7 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 5rem;
+  height: 6rem;
   max-width: 128rem;
   margin: 0 auto;
 }
@@ -53,7 +53,7 @@ Array [
 .c2 {
   display: block;
   width: auto;
-  height: 3rem;
+  height: 3.5rem;
 }
 
 .c0 {
@@ -67,7 +67,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c1 {
-    height: 5rem;
+    height: 5.5rem;
   }
 }
 
@@ -79,7 +79,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3rem;
+    height: 3.5rem;
   }
 }
 
@@ -897,7 +897,7 @@ Array [
   top: 7rem;
   margin-top: -5rem;
   overflow-y: auto;
-  height: calc(100vh - 12rem);
+  height: calc(100vh - 13rem);
   -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
@@ -1580,7 +1580,7 @@ li[aria-label="Current Page"] .c35 {
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
     top: 6rem;
-    height: calc(100vh - 11rem);
+    height: calc(100vh - 11.5rem);
   }
 }
 
@@ -2936,7 +2936,7 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 5rem;
+  height: 6rem;
   max-width: 128rem;
   margin: 0 auto;
 }
@@ -2944,7 +2944,7 @@ Array [
 .c2 {
   display: block;
   width: auto;
-  height: 3rem;
+  height: 3.5rem;
 }
 
 .c0 {
@@ -2958,7 +2958,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c1 {
-    height: 5rem;
+    height: 5.5rem;
   }
 }
 
@@ -2970,7 +2970,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3rem;
+    height: 3.5rem;
   }
 }
 
@@ -3605,7 +3605,7 @@ Array [
   top: 7rem;
   margin-top: -5rem;
   overflow-y: auto;
-  height: calc(100vh - 12rem);
+  height: calc(100vh - 13rem);
   -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
@@ -3971,7 +3971,7 @@ Array [
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
     top: 6rem;
-    height: calc(100vh - 11rem);
+    height: calc(100vh - 11.5rem);
   }
 }
 
