@@ -8,7 +8,7 @@ import { renderToDom } from '../../../test/reactutils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { assertWindowDefined } from '../../utils';
+import { assertWindow } from '../../utils';
 
 describe('content', () => {
   beforeEach(() => {
@@ -55,7 +55,7 @@ describe('content', () => {
       });
 
       it('doesn\'t prevent default on accounts links', async() => {
-        const window = assertWindowDefined();
+        const window = assertWindow();
         const {root} = renderToDom(render());
         const link1 = root.querySelector('a[href^="/accounts/logout"]');
         const link2 = root.querySelector('a[href="/accounts/profile"]');
@@ -96,7 +96,7 @@ describe('content', () => {
 
       beforeEach(() => {
         store.dispatch(receiveUser({firstName: 'test'}));
-        window = assertWindowDefined();
+        window = assertWindow();
         getComputedStyleBack = window.getComputedStyle;
         getComputedStyle = window.getComputedStyle = jest.fn();
       });
