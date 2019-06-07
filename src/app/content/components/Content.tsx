@@ -12,7 +12,6 @@ import {
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   mainContentBackground,
-  maxContentGutter,
   sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarDesktopHeight,
@@ -38,11 +37,7 @@ const Background = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const ContentNotifications = styled((props) => <Notifications
-  toastInset={maxContentGutter}
-  inlineBreak={contentWrapperMaxWidth - maxContentGutter * 2}
-  {...props}
-/>)`
+const ContentNotifications = styled(Notifications)`
   z-index: 1; /* above content */
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
