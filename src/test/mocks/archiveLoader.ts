@@ -63,6 +63,7 @@ export default () => {
         load: () => loadPage(bookId, bookVersion, pageId),
       }),
     }),
+    getBookIdsForPage: (_pageId: string) => Promise.resolve([]),
     mock: { loadBook, loadPage, cachedBook, cachedPage },
     mockPage: (parentBook: ArchiveBook, newPage: ArchivePage) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;

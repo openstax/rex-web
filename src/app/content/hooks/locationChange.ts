@@ -7,12 +7,12 @@ import { content } from '../routes';
 import * as select from '../selectors';
 import { ArchivePage, Book, PageReferenceMap } from '../types';
 import {
-  flattenArchiveTree,
   formatBookData,
   getContentPageReferences,
   getPageIdFromUrlParam,
   getUrlParamForPageId
 } from '../utils';
+import { archiveTreeContainsSection } from '../utils/archiveTreeUtils';
 
 const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
   const [book, loader] = await resolveBook(services, match);
@@ -116,40 +116,42 @@ const resolvePage = async(
   }
 };
 
-const resolveExternalBookReference = (
+const resolveExternalBookReference = async(
   {archiveLoader, osWebLoader}: AppServices & MiddlewareAPI,
-  bookId: string,
-  bookVersion: string | undefined
+  pageId: string
 ) => {
-  const book = archiveLoader.book(bookId, bookVersion).load();
-  const slug = osWebLoader.getBookSlugFromId(bookId);
+  const bookId = (await archiveLoader.getBookIdsForPage(pageId)).filter((id) => BOOKS[id])[0];
 
-  return Promise.all([book, bookId, slug]);
+  if (!bookId) {
+    throw new Error(`BUG: ${pageId} could not be found in any configured books.`);
+  }
+
+  const bookVersion = BOOKS[bookId].defaultVersion;
+
+  const osWebBook = await osWebLoader.getBookFromId(bookId);
+  const archiveBook = await archiveLoader.book(bookId, bookVersion).load();
+  const book = formatBookData(archiveBook, osWebBook);
+
+  if (!archiveTreeContainsSection(book.tree, pageId)) {
+    throw new Error(`BUG: archive thought ${book.id} would contain ${pageId}, but it didn't`);
+  }
+
+  return book;
 };
 
 const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
-  bookPages: ReturnType<typeof flattenArchiveTree>,
   reference: ReturnType<typeof getContentPageReferences>[0]
 ) => {
-
-  const [targetBook, targetBookId, targetBookSlug] = reference.bookUid
-    ? await resolveExternalBookReference(services, reference.bookUid, reference.bookVersion)
-    : [book, book.id, book.slug];
-
-  const targetBookPages = targetBookId === book.id
-    ? bookPages
-    : flattenArchiveTree(targetBook.tree);
-
-  if (!targetBookPages.find((search) => search.id === reference.pageUid)) {
-    throw new Error(`BUG: ${reference.pageUid} is not present in the ToC`);
-  }
+  const targetBook: Book = archiveTreeContainsSection(book.tree, reference.pageUid)
+    ? book
+    : await resolveExternalBookReference(services, reference.pageUid);
 
   return {
     match: reference.match,
     params: {
-      book: targetBookSlug,
+      book: targetBook.slug,
       page: getUrlParamForPageId(targetBook, reference.pageUid),
     },
     state: {
@@ -162,11 +164,10 @@ const loadContentReference = async(
 
 const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book) => async(page: ArchivePage) => {
   const contentReferences = getContentPageReferences(page.content);
-  const bookPages = flattenArchiveTree(book.tree);
   const references: PageReferenceMap[] = [];
 
   for (const reference of contentReferences) {
-    references.push(await loadContentReference(services, book, bookPages, reference));
+    references.push(await loadContentReference(services, book, reference));
   }
 
   return {

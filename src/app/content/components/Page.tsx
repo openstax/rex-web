@@ -19,12 +19,14 @@ import { assertDefined } from '../../utils';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
+import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 
 interface PropTypes {
   page: State['page'];
   book: State['book'];
   hash: string;
+  currentPath: string;
   navigate: typeof push;
   className?: string;
   references: State['references'];
@@ -36,7 +38,7 @@ export class PageComponent extends Component<PropTypes> {
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: Event) => void>();
 
   public getCleanContent = () => {
-    const {book, page, services} = this.props;
+    const {book, page, services, currentPath} = this.props;
 
     const cachedPage = book && page &&
       services.archiveLoader.book(book.id, book.version).page(page.id).cached()
@@ -45,7 +47,7 @@ export class PageComponent extends Component<PropTypes> {
     const pageContent = cachedPage ? cachedPage.content : '';
 
     return this.props.references.reduce((html, reference) =>
-      html.replace(reference.match, content.getUrl(reference.params))
+      html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params)))
     , pageContent)
       // remove body and surrounding content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
@@ -275,6 +277,7 @@ const StyledPageComponent = styled(PageComponent)`
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    currentPath: selectNavigation.pathname(state),
     hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),
