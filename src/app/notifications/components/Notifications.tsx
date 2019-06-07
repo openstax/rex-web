@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { getType } from 'typesafe-actions';
+import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as actions from '../actions';
@@ -9,7 +10,6 @@ import * as select from '../selectors';
 import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
 import UpdatesAvailable from './UpdatesAvailable';
-import { disablePrint } from "../../content/components/utils/disablePrint";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   notifications: AnyNotification[];
