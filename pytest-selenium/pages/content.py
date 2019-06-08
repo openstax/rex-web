@@ -10,7 +10,7 @@ from regions.content_item import ContentItem
 
 class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
-
+    _title_locator = (By.TAG_NAME, "title")
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
@@ -19,6 +19,10 @@ class Content(Page):
     @property
     def loaded(self):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
+
+    @property
+    def title(self):
+        return self.find_element(*self._title_locator)
 
     @property
     def next_link(self):
@@ -49,26 +53,14 @@ class Content(Page):
         return self.find_element(*self._section_url_locator)
 
     def click_next_link(self):
-        next_href_before_click = self.find_element(*self._next_locator).get_attribute("href")
+        title_before_click = self.title.get_attribute("innerHTML")
         self.offscreen_click(self.next_link)
-        sleep(3)
-        next_href_after_click = self.find_element(*self._next_locator).get_attribute("href")
-        assert next_href_before_click != next_href_after_click, "next link did not work properly"
+        self.wait.until(lambda _: title_before_click != self.title.get_attribute("innerHTML"))
 
     def click_previous_link(self):
-        previous_href_before_click = self.find_element(*self._previous_locator).get_attribute(
-            "href"
-        )
+        title_before_click = self.title.get_attribute("innerHTML")
         self.offscreen_click(self.previous_link)
-        sleep(3)
-        previous_href_after_click = self.find_element(*self._previous_locator).get_attribute("href")
-        assert (
-            previous_href_before_click != previous_href_after_click
-        ), "previous link did not work properly"
-
-    def wait_for_url_to_change(self, current_url):
-        self.wait.until(lambda _: self.driver.current_url != current_url)
-        return self.wait_for_page_to_load()
+        self.wait.until(lambda _: title_before_click != self.title.get_attribute("innerHTML"))
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -175,7 +167,12 @@ class Content(Page):
                     _title_locator = (By.CSS_SELECTOR, "span.os-text")
 
                     def click(self):
+                        title_before_click = self.page.title.get_attribute("innerHTML")
                         self.root.click()
+                        self.wait.until(
+                            lambda _: title_before_click
+                            != self.page.title.get_attribute("innerHTML")
+                        )
                         return self.wait_for_region_to_display()
 
     class Attribution(Region):

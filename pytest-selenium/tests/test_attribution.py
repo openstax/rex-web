@@ -87,11 +87,10 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     from time import sleep
 
     if content.is_desktop:
-        chapter = toc.chapters[1]
+        chapter = toc.chapters[12]
         chapter.click()
         page = chapter.pages[4]
         page.click()
-        sleep(5)
 
         # THEN: the citation/attribution section is not open on the new page
         assert not attribution.is_open
@@ -99,11 +98,10 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 
     if content.is_mobile:
         toolbar.click_toc_toggle_button()
-        chapter = toc.chapters[1]
+        chapter = toc.chapters[12]
         chapter.click()
         page = chapter.pages[4]
         page.click()
-        sleep(5)
 
         # THEN: the citation/attribution section is not open on the new page
         assert not attribution.is_open
