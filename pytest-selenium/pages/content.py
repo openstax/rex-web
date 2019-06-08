@@ -54,12 +54,16 @@ class Content(Page):
     def click_next_link(self):
         title_before_click = self.title.get_attribute("innerHTML")
         self.offscreen_click(self.next_link)
-        self.wait.until(lambda _: title_before_click != self.title.get_attribute("innerHTML"))
+        self.wait.until(
+            lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
+        )
 
     def click_previous_link(self):
         title_before_click = self.title.get_attribute("innerHTML")
         self.offscreen_click(self.previous_link)
-        self.wait.until(lambda _: title_before_click != self.title.get_attribute("innerHTML"))
+        self.wait.until(
+            lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
+        )
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -170,9 +174,9 @@ class Content(Page):
                         self.root.click()
                         self.wait.until(
                             lambda _: title_before_click
-                            != self.page.title.get_attribute("innerHTML")
+                            != (self.page.title.get_attribute("innerHTML") or "")
                         )
-                        return self.wait_for_region_to_display()
+                        # return self.wait_for_region_to_display()
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
