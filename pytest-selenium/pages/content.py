@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
-from time import sleep
 
 from pages.base import Page
 from regions.base import Region
