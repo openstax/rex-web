@@ -27,13 +27,13 @@ describe('archiveLoader', () => {
     it('requests data from archive url for book', () => {
       archiveLoader.book('coolid', undefined).load();
 
-      expect(fetch).toHaveBeenCalledWith('url/coolid');
+      expect(fetch).toHaveBeenCalledWith('url/contents/coolid');
     });
 
     it('requests data from archive url for page', () => {
       archiveLoader.book('coolid', undefined).page('coolpageid').load();
 
-      expect(fetch).toHaveBeenCalledWith('url/coolid:coolpageid');
+      expect(fetch).toHaveBeenCalledWith('url/contents/coolid:coolpageid');
     });
 
     it('returns cached book data', async() => {
@@ -55,13 +55,13 @@ describe('archiveLoader', () => {
     it('returns versioned book data', async() => {
       await archiveLoader.book('coolid', 'version').load();
 
-      expect(fetch).toHaveBeenCalledWith('url/coolid@version');
+      expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version');
     });
 
     it('returns versioned page data', async() => {
       await archiveLoader.book('coolid', 'version').page('pageid').load();
 
-      expect(fetch).toHaveBeenCalledWith('url/coolid@version:pageid');
+      expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version:pageid');
     });
 
     it('memoizes requests', () => {
@@ -87,7 +87,7 @@ describe('archiveLoader', () => {
     }
 
     if (error) {
-      expect(error.message).toEqual('Error response from archive "url/coolid" 404: not found');
+      expect(error.message).toEqual('Error response from archive "url/contents/coolid" 404: not found');
     } else {
       expect(error).toBeTruthy();
     }
