@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/fp/isEmpty';
 import memoize from 'lodash/fp/memoize';
 import WeakMap from 'weak-map';
-import { assertWindowDefined } from '../app/utils';
+import { assertWindow } from '../app/utils';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
 const MATH_MARKER_INLINE = '\u200b\u200b\u200b'; // zero-width space
@@ -121,7 +121,7 @@ const typesetMath = (root: Element, windowImpl = window) => {
 // Assumes the script to load MathJax is of the form:
 // `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
 function startMathJax() {
-  const window = assertWindowDefined();
+  const window = assertWindow();
   const configuredCallback = () => window.MathJax.Hub.Configured();
 
   if (window.MathJax && window.MathJax.Hub) {
