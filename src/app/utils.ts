@@ -66,7 +66,7 @@ export const assertString = <X>(x: X, message: string): string => {
   return x;
 };
 
-export const assertWindowDefined = (message: string = 'BUG: Window is undefined') => {
+export const assertWindow = (message: string = 'BUG: Window is undefined') => {
   if (typeof(window) === 'undefined') {
     throw new Error(message);
   }

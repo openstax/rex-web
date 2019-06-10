@@ -1,7 +1,10 @@
-import { FirstArgumentType } from '../types';
+import { AnyAction, FirstArgumentType } from '../types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
+import searchReducer from './search/reducer';
 import { Book } from './types';
+
+jest.mock('./search/reducer');
 
 describe('content reducer', () => {
 
@@ -72,5 +75,13 @@ describe('content reducer', () => {
     } else {
       expect(newState.page).toBeTruthy();
     }
+  });
+
+  it('composes searchReducer', () => {
+    const action = {type: 'foo'} as unknown as AnyAction;
+    const state = initialState;
+    reducer(state, action);
+
+    expect(searchReducer).toHaveBeenCalledWith(state.search, action);
   });
 });

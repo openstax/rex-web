@@ -5,11 +5,13 @@ import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions/dist/types';
 import { AnyAction } from '../types';
 import * as actions from './actions';
+import searchReducer, {initialState as initialSearchState } from './search/reducer';
 import { State } from './types';
 
 export const initialState = {
   loading: {},
   references: [],
+  search: initialSearchState,
   tocOpen: null,
 };
 
@@ -32,6 +34,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return reduceReceivePage(state, action);
     }
     default:
+      const search = searchReducer(state.search, action);
+      if (state.search !== search) {
+        return {...state, search};
+      }
+
       return state;
   }
 };
