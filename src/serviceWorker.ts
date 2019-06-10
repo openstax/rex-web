@@ -1,6 +1,6 @@
 import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import noop from 'lodash/fp/noop';
-import { assertWindowDefined } from './app/utils';
+import { assertWindow } from './app/utils';
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -13,7 +13,7 @@ import { assertWindowDefined } from './app/utils';
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
 
-const window = assertWindowDefined();
+const window = assertWindow();
 const navigator = window.navigator;
 const fetch = window.fetch;
 

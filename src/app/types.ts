@@ -8,6 +8,7 @@ import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createOSWebLoader from '../gateways/createOSWebLoader';
+import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -33,6 +34,7 @@ export interface AppServices {
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   userLoader: ReturnType<typeof createUserLoader>;
+  searchClient: ReturnType<typeof createSearchClient>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
