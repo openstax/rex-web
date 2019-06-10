@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
-import { assertDefined, assertWindowDefined } from './app/utils';
+import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
@@ -16,7 +16,7 @@ import pollUpdates from './helpers/pollUpdates';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-const window = assertWindowDefined('Browser entrypoint must be used in the browser');
+const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
 
 if (window.top === window.self) {

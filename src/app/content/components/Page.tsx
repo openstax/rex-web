@@ -1,4 +1,4 @@
-import { Element, Event, HTMLAnchorElement } from '@openstax/types/lib.dom';
+import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -35,7 +35,7 @@ interface PropTypes {
 
 export class PageComponent extends Component<PropTypes> {
   public container: Element | undefined | null;
-  private clickListeners = new WeakMap<HTMLAnchorElement, (e: Event) => void>();
+  private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
@@ -55,6 +55,8 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
       // remove page titles from content (they are in the nav)
       .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
+      // target blank qualified links
+      .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
     ;
   };
 
@@ -109,7 +111,6 @@ export class PageComponent extends Component<PropTypes> {
     this.addScopeToTables(rootEl);
     this.wrapElements(rootEl);
     this.tweakFigures(rootEl);
-    this.addNoFollow(rootEl);
     this.fixLists(rootEl);
   }
 
@@ -159,12 +160,6 @@ export class PageComponent extends Component<PropTypes> {
     });
   }
 
-  // Add nofollow to external user-generated links
-  private addNoFollow(rootEl: Element) {
-    rootEl.querySelectorAll('a[href^="http:"], a[href^="https:"], a[href^="//"]')
-    .forEach((el) => el.setAttribute('rel', 'nofollow'));
-  }
-
   private fixLists(rootEl: Element) {
     // Copy data-mark-prefix and -suffix from ol to li so they can be used in css
     rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
@@ -210,7 +205,7 @@ export class PageComponent extends Component<PropTypes> {
     });
   }
 
-  private clickListener = (anchor: HTMLAnchorElement) => (e: Event) => {
+  private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
     const {references, navigate} = this.props;
     const href = anchor.getAttribute('href');
 
@@ -225,6 +220,9 @@ export class PageComponent extends Component<PropTypes> {
     const reference = references.find((ref) => content.getUrl(ref.params) === path);
 
     if (reference) {
+      if (e.metaKey) {
+        return;
+      }
       e.preventDefault();
       navigate({
         params: reference.params,
