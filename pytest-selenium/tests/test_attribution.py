@@ -73,7 +73,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 
     attribution.click_attribution_link()
 
-    # WHEN: Navigating via Back link
+    # WHEN: Navigating via Previous link
     content.click_previous_link()
 
     # THEN: The citation/attribution section is not open on the new page
@@ -84,7 +84,6 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     # WHEN: Navigating via TOC link
     toolbar = content.toolbar
     toc = content.sidebar.toc
-    from time import sleep
 
     if content.is_desktop:
         chapter = toc.chapters[12]

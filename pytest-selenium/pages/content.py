@@ -176,7 +176,6 @@ class Content(Page):
                             lambda _: title_before_click
                             != (self.page.title.get_attribute("innerHTML") or "")
                         )
-                        # return self.wait_for_region_to_display()
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
