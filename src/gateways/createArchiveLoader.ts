@@ -11,7 +11,7 @@ interface Extras {
 
 export default (url: string) => {
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
-    .then(acceptStatus(200, (status, message) => `Error response from archive "${url}" ${status}: ${message}`))
+    .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<T>);
 
   const cache = new Map();

@@ -185,7 +185,7 @@ describe('locationChange', () => {
     }]})}));
   });
 
-  it('throws on cross book reference', async() => {
+  it('throws on unknown cross book reference', async() => {
     archiveLoader.mockPage(book, {
       content: 'some /contents/book:pagelongid content',
       id: 'adsfasdf',
@@ -207,7 +207,7 @@ describe('locationChange', () => {
       message = e.message;
     }
 
-    expect(message).toEqual('BUG: Cross book references are not supported');
+    expect(message).toEqual('BUG: book could not be found in any configured books.');
   });
 
   it('throws on reference to unknown id', async() => {
@@ -229,7 +229,7 @@ describe('locationChange', () => {
       message = e.message;
     }
 
-    expect(message).toEqual('BUG: qwerqwer is not present in the ToC');
+    expect(message).toEqual('BUG: qwerqwer could not be found in any configured books.');
   });
 
   it('throws on unknown id', async() => {
