@@ -1,4 +1,4 @@
-import { Element, Event, HTMLAnchorElement } from '@openstax/types/lib.dom';
+import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ interface PropTypes {
 
 export class PageComponent extends Component<PropTypes> {
   public container: Element | undefined | null;
-  private clickListeners = new WeakMap<HTMLAnchorElement, (e: Event) => void>();
+  private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
 
   public getCleanContent = () => {
     const {book, page, services} = this.props;
@@ -203,7 +203,7 @@ export class PageComponent extends Component<PropTypes> {
     });
   }
 
-  private clickListener = (anchor: HTMLAnchorElement) => (e: Event) => {
+  private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
     const {references, navigate} = this.props;
     const href = anchor.getAttribute('href');
 
@@ -218,6 +218,9 @@ export class PageComponent extends Component<PropTypes> {
     const reference = references.find((ref) => content.getUrl(ref.params) === path);
 
     if (reference) {
+      if (e.metaKey) {
+        return;
+      }
       e.preventDefault();
       navigate({
         params: reference.params,
