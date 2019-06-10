@@ -148,9 +148,9 @@ describe('Page', () => {
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
-    it('adds rel="nofollow" to external links', () => {
+    it('adds (target="_blank" rel="noopener nofollow") to external links', () => {
       expect(htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
-      .toEqual('<a href="https://openstax.org/external-url" rel="nofollow">external-link</a>');
+      .toEqual('<a target="_blank" rel="noopener nofollow" href="https://openstax.org/external-url">external-link</a>');
     });
 
     it('numbers lists that have a start attribute', () => {

@@ -53,6 +53,8 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
       // remove page titles from content (they are in the nav)
       .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
+      // target blank qualified links
+      .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
     ;
   };
 
@@ -107,7 +109,6 @@ export class PageComponent extends Component<PropTypes> {
     this.addScopeToTables(rootEl);
     this.wrapElements(rootEl);
     this.tweakFigures(rootEl);
-    this.addNoFollow(rootEl);
     this.fixLists(rootEl);
   }
 
@@ -155,12 +156,6 @@ export class PageComponent extends Component<PropTypes> {
       parent.classList.add('ui-has-child-figcaption');
       parent.appendChild(el);
     });
-  }
-
-  // Add nofollow to external user-generated links
-  private addNoFollow(rootEl: Element) {
-    rootEl.querySelectorAll('a[href^="http:"], a[href^="https:"], a[href^="//"]')
-    .forEach((el) => el.setAttribute('rel', 'nofollow'));
   }
 
   private fixLists(rootEl: Element) {
