@@ -823,11 +823,14 @@ Array [
 }
 
 .c23 {
-  cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -835,7 +838,9 @@ Array [
   color: #5e6062;
 }
 
-.c23:hover {
+.c23:hover,
+.c23:focus {
+  outline: none;
   color: #424242;
 }
 
@@ -1820,8 +1825,11 @@ li[aria-label="Current Page"] .c35 {
               placeholder="Search this book"
             />
           </div>
-          <div
+          <button
+            aria-label="print"
             className="c23"
+            data-testid="print"
+            onClick={[Function]}
           >
             <svg
               aria-hidden="true"
@@ -1838,9 +1846,9 @@ li[aria-label="Current Page"] .c35 {
             <span
               className="c25"
             >
-              Print options
+              Print
             </span>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -3527,11 +3535,14 @@ Array [
 }
 
 .c15 {
-  cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -3539,7 +3550,9 @@ Array [
   color: #5e6062;
 }
 
-.c15:hover {
+.c15:hover,
+.c15:focus {
+  outline: none;
   color: #424242;
 }
 
@@ -4174,8 +4187,11 @@ Array [
               placeholder="Search this book"
             />
           </div>
-          <div
+          <button
+            aria-label="print"
             className="c15"
+            data-testid="print"
+            onClick={[Function]}
           >
             <svg
               aria-hidden="true"
@@ -4192,9 +4208,9 @@ Array [
             <span
               className="c17"
             >
-              Print options
+              Print
             </span>
-          </div>
+          </button>
         </div>
       </div>
     </div>
