@@ -54,7 +54,7 @@ export const NavItemComponent: ComponentType<{active?: boolean, className?: stri
 export const NavItem = styled(NavItemComponent)`
   list-style: none;
   overflow: visible;
-  margin: 1.2rem 0 0 0;
+  margin: 1.7rem 0 0 0;
 `;
 
 const expandCollapseIconStyle = css`
