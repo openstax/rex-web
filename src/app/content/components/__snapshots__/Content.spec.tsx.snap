@@ -1041,7 +1041,7 @@ li[aria-label="Current Page"] .c35 {
 .c34 {
   list-style: none;
   overflow: visible;
-  margin: 1.2rem 0 0 0;
+  margin: 1.7rem 0 0 0;
 }
 
 .c41 {
@@ -1252,6 +1252,18 @@ li[aria-label="Current Page"] .c35 {
     -ms-letter-spacing: normal;
     letter-spacing: normal;
     line-height: 3rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c73 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c72 {
+    line-height: 4.5rem;
   }
 }
 
@@ -3798,6 +3810,18 @@ Array [
     -ms-letter-spacing: normal;
     letter-spacing: normal;
     line-height: 3rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c46 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c45 {
+    line-height: 4.5rem;
   }
 }
 

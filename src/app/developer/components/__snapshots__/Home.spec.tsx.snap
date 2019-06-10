@@ -630,6 +630,18 @@ Array [
   }
 }
 
+@media (max-width:37.5em) {
+  .c8 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c7 {
+    line-height: 4.5rem;
+  }
+}
+
 @media (min-width:37.6em) {
   .c11 {
     padding: 2.5rem 0;
