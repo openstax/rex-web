@@ -139,23 +139,26 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      .os-number {
-        width: ${numberWidth}rem;
-        overflow: hidden;
+      & > ${NavItem} > details > summary,
+      & > ${NavItem} > ${ContentLink} {
+        .os-number {
+          width: ${numberWidth}rem;
+          overflow: hidden;
+        }
+
+        .os-divider {
+          width: 0.8rem;
+          text-align: center;
+          overflow: hidden;
+        }
+
+        .os-text {
+          flex: 1;
+          overflow: hidden;
+        }
       }
 
-      .os-divider {
-        width: 0.8rem;
-        text-align: center;
-        overflow: hidden;
-      }
-
-      .os-text {
-        flex: 1;
-        overflow: hidden;
-      }
-
-      ol {
+      & > ${NavItem} > details > ol {
         margin-left: ${numberWidth + 0.5}rem;
       }
     `;
