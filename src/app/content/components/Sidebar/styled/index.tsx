@@ -37,7 +37,7 @@ export const ContentLink = styled(ContentLinkComponent)`
   text-decoration: none;
 
   li[aria-label="Current Page"] & {
-    font-weight: bold;
+    font-weight: 600;
   }
 `;
 
