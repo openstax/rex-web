@@ -32,7 +32,7 @@ const ListIcon = styled(ListOl)`
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
   font-family: ${contentFont};
-  font-weight: 700;
+  font-weight: 600;
   ${textRegularSize};
   margin: 0;
   padding: 0;

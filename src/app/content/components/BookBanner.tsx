@@ -102,7 +102,7 @@ const BookChapter = styled(({colorSchema: _, variant, ...props}) => variant === 
   <span {...props} /> : <h1 {...props} />)`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
-  font-weight: bold;
+  font-weight: 600;
   display: ${ifMiniNav('inline-block', 'block')};
   margin: 1rem 0 0 0;
   ${theme.breakpoints.mobile(css`
