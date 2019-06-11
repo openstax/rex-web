@@ -13,8 +13,6 @@ body, #root, html {
   padding: 0;
   position: relative;
   overflow: visible;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 @media screen {

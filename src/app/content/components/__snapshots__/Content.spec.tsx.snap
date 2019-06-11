@@ -538,10 +538,10 @@ Array [
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
   max-width: 105.25rem;
@@ -568,10 +568,10 @@ Array [
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
   max-width: 105.25rem;
@@ -599,10 +599,10 @@ Array [
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
   max-width: 105.25rem;
@@ -611,7 +611,7 @@ Array [
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-weight: bold;
+  font-weight: 600;
   display: block;
   margin: 1rem 0 0 0;
 }
@@ -621,10 +621,10 @@ Array [
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
   max-width: 105.25rem;
@@ -633,7 +633,7 @@ Array [
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-weight: bold;
+  font-weight: 600;
   display: inline-block;
   margin: 1rem 0 0 0;
 }
@@ -845,7 +845,7 @@ Array [
 }
 
 .c25 {
-  font-weight: 700;
+  font-weight: 600;
   font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -889,7 +889,7 @@ Array [
 
 .c17 {
   font-family: Neue Helvetica W01;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0;
@@ -1061,7 +1061,7 @@ Array [
 }
 
 li[aria-label="Current Page"] .c35 {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .c34 {
@@ -1337,10 +1337,10 @@ li[aria-label="Current Page"] .c35 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
-    -webkit-letter-spacing: -0.04rem;
-    -moz-letter-spacing: -0.04rem;
-    -ms-letter-spacing: -0.04rem;
-    letter-spacing: -0.04rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
     padding: 1rem 0 1rem 0;
     margin: 0;
   }
@@ -1363,10 +1363,10 @@ li[aria-label="Current Page"] .c35 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
-    -webkit-letter-spacing: -0.04rem;
-    -moz-letter-spacing: -0.04rem;
-    -ms-letter-spacing: -0.04rem;
-    letter-spacing: -0.04rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
     padding: 1rem 0 1rem 0;
     margin: 0;
   }
@@ -1419,10 +1419,10 @@ li[aria-label="Current Page"] .c35 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
-    -webkit-letter-spacing: -0.04rem;
-    -moz-letter-spacing: -0.04rem;
-    -ms-letter-spacing: -0.04rem;
-    letter-spacing: -0.04rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
     padding: 1rem 0 1rem 0;
     margin: 0;
   }
@@ -3557,7 +3557,7 @@ Array [
 }
 
 .c17 {
-  font-weight: 700;
+  font-weight: 600;
   font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -3601,7 +3601,7 @@ Array [
 
 .c9 {
   font-family: Neue Helvetica W01;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0;
