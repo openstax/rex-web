@@ -82,9 +82,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via TOC link
-    toolbar = content.toolbar
     toc = content.sidebar.toc
-
     if content.is_desktop:
         chapter = toc.chapters[12]
         chapter.click()
@@ -96,6 +94,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
         attribution.click_attribution_link()
 
     if content.is_mobile:
+        toolbar = content.toolbar
         toolbar.click_toc_toggle_button()
         chapter = toc.chapters[12]
         chapter.click()
@@ -104,4 +103,3 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 
         # THEN: the citation/attribution section is not open on the new page
         assert not attribution.is_open
-        attribution.click_attribution_link()
