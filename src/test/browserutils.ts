@@ -87,6 +87,9 @@ export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
 });
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
+  // TODO - this is no longer true, book banner has fixed height
+  // even when loading, test removing this.
+  //
   // on pages with the book banner the size of the page gets
   // a little messed up when it IS NOT prerendered
   // (content defaults to min-height = rest of the page
