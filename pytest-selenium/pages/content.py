@@ -122,24 +122,11 @@ class Content(Page):
             _toc_chapter_name_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
 
             @property
-            def is_chapter_expanded(self):
-                return self.find_element(*self._chapter_toggle).get_attribute("open")
-
-            @property
-            def number_of_chapters(self):
-                return len(self.find_elements(*self._chapter_toggle))
-
-            @property
             def chapters(self):
                 return [
                     self.ContentChapter(self.page, self.root, index)
                     for index in range(len(self.find_elements(*self._chapter_toggle)))
                 ]
-
-            @property
-            def chapter_name(self):
-                chapter_name = self.find_elements(*self._toc_chapter_name_locator)
-                return chapter_name
 
             class ContentChapter(ContentItem):
                 _root_locator_template = "(.//ol/li/details)[{index}]"
@@ -155,10 +142,6 @@ class Content(Page):
                         self.ContentPage(self.page, self.root, index)
                         for index in range(len(self.find_elements(*self._page_link_locator)))
                     ]
-
-                @property
-                def number_of_pages(self):
-                    return len(self.find_elements(*self._page_link_locator))
 
                 def click(self):
                     self.root.click()

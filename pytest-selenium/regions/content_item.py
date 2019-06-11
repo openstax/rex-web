@@ -20,21 +20,9 @@ class ContentItem(Region):
         super().__init__(page, root)
 
     @property
-    def has_chapter_section(self):
-        return self.is_element_displayed(*self._chapter_section_span_locator)
-
-    @property
     def chapter_section_span(self):
         return self.find_element(*self._chapter_section_span_locator)
 
     @property
-    def chapter_section(self):
-        return self.chapter_section_span.text
-
-    @property
     def title_span(self):
         return self.find_element(*self._title_span_locator)
-
-    @property
-    def title(self):
-        return self.title_span.text
