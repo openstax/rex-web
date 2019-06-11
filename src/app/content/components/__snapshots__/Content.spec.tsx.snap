@@ -1067,7 +1067,7 @@ li[aria-label="Current Page"] .c35 {
 .c34 {
   list-style: none;
   overflow: visible;
-  margin: 1.7rem 0 0 0;
+  margin: 1.2rem 0 0 0;
 }
 
 .c40 {
@@ -1252,13 +1252,13 @@ li[aria-label="Current Page"] .c35 {
 }
 
 @media (max-width:37.5em) {
-  .c73 {
+  .c72 {
     line-height: 4.5rem;
   }
 }
 
 @media (max-width:37.5em) {
-  .c72 {
+  .c71 {
     line-height: 4.5rem;
   }
 }
@@ -1621,6 +1621,12 @@ li[aria-label="Current Page"] .c35 {
 @media screen and (max-width:75em) {
   .c30 {
     height: 4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c34 {
+    margin-top: 1.7rem;
   }
 }
 
@@ -3834,13 +3840,13 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c46 {
+  .c50 {
     line-height: 4.5rem;
   }
 }
 
 @media (max-width:37.5em) {
-  .c45 {
+  .c49 {
     line-height: 4.5rem;
   }
 }
