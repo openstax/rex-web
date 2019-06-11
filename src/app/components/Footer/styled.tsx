@@ -252,7 +252,7 @@ export const Social = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1rem;
-  justify-content: left;
+  justify-content: end;
 `;
 
 // tslint:disable-next-line:variable-name
