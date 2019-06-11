@@ -25,8 +25,17 @@ interface MiddleProps {
 }
 
 // tslint:disable-next-line:variable-name
+const ListIconStyles = css`
+  padding: 0.4rem;
+  margin-right: 0.5rem;
+`;
+
+// tslint:disable-next-line:variable-name
 const ListIcon = styled(ListOl)`
   ${toolbarIconStyles};
+  ${ListIconStyles};
+  height: 2.4rem;
+  width: 2.4rem;
 `;
 
 // tslint:disable-next-line:variable-name
