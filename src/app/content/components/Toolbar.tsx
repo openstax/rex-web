@@ -111,7 +111,7 @@ const PrintOptWrapper = styled.button`
 
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.span`
-  font-weight: 700;
+  font-weight: 600;
   font-family: ${contentFont};
   ${textRegularSize};
   margin: 0;
