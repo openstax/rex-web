@@ -44,11 +44,11 @@ export const Summary = styled.summary`
 // tslint:disable-next-line:variable-name
 export const Details = styled.details`
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    &[open] > ${Summary} ${ExpandIcon} {
+    &[open] > summary ${ExpandIcon} {
       display: none;
     }
 
-    &:not([open]) > ${Summary} ${CollapseIcon} {
+    &:not([open]) > summary ${CollapseIcon} {
       display: none;
     }
   `}
