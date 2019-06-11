@@ -219,7 +219,6 @@ Array [
 }
 
 .c0 {
-  min-height: 100%;
   width: 100%;
   padding: 0 3.2rem;
   -webkit-flex: 1;
@@ -657,7 +656,7 @@ Array [
 <footer
     className="c0"
   >
-    <footer
+    <div
       className="c1"
     >
       <div
@@ -905,7 +904,7 @@ Array [
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   </footer>,
 ]
 `;
