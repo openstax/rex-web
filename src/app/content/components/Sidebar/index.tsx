@@ -82,7 +82,7 @@ export class Sidebar extends Component<SidebarProps> {
       })}
     </Styled.NavOl>;
 
-  private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.Details
+  private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.NavDetails
     {...this.props.page && archiveTreeContainsSection(node, this.props.page.id)
         ? {defaultOpen: true}
         : {}
@@ -96,7 +96,7 @@ export class Sidebar extends Component<SidebarProps> {
       </Styled.SummaryWrapper>
     </Styled.Summary>
     {this.renderChildren(book, node)}
-  </Styled.Details>;
+  </Styled.NavDetails>;
 
   private renderTocHeader = () => <Styled.ToCHeader data-testid='tocheader'>
     <Styled.SidebarHeaderButton><Styled.TimesIcon /></Styled.SidebarHeaderButton>

@@ -32,7 +32,7 @@ const Background = styled.div`
     overflow: visible; /* so sidebar position: sticky works */
     background-color: ${theme.color.neutral.darker};
     width: 100%;
-    min-height: 100%;
+    height: 100%;
   }
 `;
 

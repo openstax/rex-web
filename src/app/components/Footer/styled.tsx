@@ -61,7 +61,7 @@ export const FooterWrapper = styled.footer`
 `;
 
 // tslint:disable-next-line:variable-name
-export const InnerFooter = styled.footer`
+export const InnerFooter = styled.div`
   color: #d5d5d5;
   display: grid;
 `;
