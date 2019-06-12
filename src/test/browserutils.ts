@@ -34,9 +34,12 @@ if (process.env.CI) {
   page.setDefaultNavigationTimeout(90 * 1000);
 }
 
-export const setTallerDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 1074, width: 1250});
 export const desktopWidth = 1250;
-export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: 1250});
+export const setWideDesktopViewport = (target: puppeteer.Page) =>
+  target.setViewport({height: 1074, width: desktopWidth * 2});
+export const setTallerDesktopViewport = (target: puppeteer.Page) =>
+  target.setViewport({height: 1074, width: desktopWidth});
+export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: desktopWidth});
 export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
 
 export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;

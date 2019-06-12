@@ -4,8 +4,10 @@ import {
   fullPageScreenshot,
   navigate,
   setDesktopViewport,
-  setMobileViewport
+  setMobileViewport,
+  setWideDesktopViewport
 } from '../../test/browserutils';
+import { updateAvailable } from '../notifications/actions';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
@@ -60,6 +62,54 @@ describe('content', () => {
         failureThreshold: 1.5,
         failureThresholdType: 'percent',
       },
+    });
+  });
+
+  describe('notifications', () => {
+    const action = updateAvailable();
+
+    const setup = async() => {
+      await navigate(page, TEST_PAGE_URL);
+      await finishRender(page);
+      await page.evaluate((notificationAction) => window && window.__APP_STORE.dispatch(notificationAction), action);
+      await finishRender(page);
+    };
+
+    it('looks right on inline desktop', async() => {
+      await setDesktopViewport(page);
+      await setup();
+
+      const screen = await page.screenshot();
+      expect(screen).toMatchImageSnapshot({
+        CI: {
+          failureThreshold: 1.5,
+          failureThresholdType: 'percent',
+        },
+      });
+    });
+    it('looks right on toast desktop', async() => {
+      await setWideDesktopViewport(page);
+      await setup();
+
+      const screen = await page.screenshot();
+      expect(screen).toMatchImageSnapshot({
+        CI: {
+          failureThreshold: 1.5,
+          failureThresholdType: 'percent',
+        },
+      });
+    });
+    it('looks right on mobile', async() => {
+      await setMobileViewport(page);
+      await setup();
+
+      const screen = await page.screenshot();
+      expect(screen).toMatchImageSnapshot({
+        CI: {
+          failureThreshold: 1.5,
+          failureThresholdType: 'percent',
+        },
+      });
     });
   });
 });
