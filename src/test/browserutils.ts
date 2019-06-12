@@ -74,7 +74,7 @@ export const finishRender = async(target: puppeteer.Page) => {
   };
 
   while (await stillChanging()) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     lastScreen = newScreen;
   }
 };
