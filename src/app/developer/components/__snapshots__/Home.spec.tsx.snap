@@ -113,10 +113,10 @@ Array [
   color: #424242;
   font-size: 4.8rem;
   line-height: 5rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 0 0 1rem 0;
   margin: 0;
 }
@@ -126,10 +126,10 @@ Array [
   color: #424242;
   font-size: 3.6rem;
   line-height: 4rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 2rem 0 1rem 0;
   margin: 0;
 }
@@ -139,10 +139,10 @@ Array [
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
-  -webkit-letter-spacing: -0.04rem;
-  -moz-letter-spacing: -0.04rem;
-  -ms-letter-spacing: -0.04rem;
-  letter-spacing: -0.04rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
   padding: 1.5rem 0 1rem 0;
   margin: 0;
 }
@@ -219,7 +219,6 @@ Array [
 }
 
 .c0 {
-  min-height: 100%;
   width: 100%;
   padding: 0 3.2rem;
   -webkit-flex: 1;
@@ -515,10 +514,10 @@ Array [
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1rem;
-  -webkit-box-pack: left;
-  -webkit-justify-content: left;
-  -ms-flex-pack: left;
-  justify-content: left;
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+  -ms-flex-pack: end;
+  justify-content: end;
 }
 
 .c15 {
@@ -657,7 +656,7 @@ Array [
 <footer
     className="c0"
   >
-    <footer
+    <div
       className="c1"
     >
       <div
@@ -806,9 +805,7 @@ Array [
                 "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
-    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">
-      Creative Commons Attribution 4.0 International License
-    </a>.
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">Creative Commons Attribution 4.0 International License</a>.
   </div>
   <div data-html=\\"apStatement\\">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
@@ -907,7 +904,7 @@ Array [
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   </footer>,
 ]
 `;

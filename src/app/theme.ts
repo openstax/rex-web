@@ -82,7 +82,8 @@ const color = {
   text: textColors,
 };
 
-const mobileQuery = '(max-width: 75em)';
+const mobileBreak = 75;
+const mobileQuery = `(max-width: ${mobileBreak}em)`;
 
 export default {
   breakpoints: {
@@ -91,6 +92,7 @@ export default {
         ${style}
       }
     `,
+    mobileBreak,
     mobileQuery,
   },
   color,
