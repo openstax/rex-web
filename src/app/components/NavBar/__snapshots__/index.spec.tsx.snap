@@ -5,11 +5,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-<<<<<<< HEAD
-    className="styled__TopBar-sc-3syvnw-0 cKliVY"
-=======
-    className="styled__TopBar-sc-3syvnw-0 hgougu"
->>>>>>> origin/master
+    className="styled__TopBar-sc-3syvnw-0 gCObpy"
     data-testid="navbar"
   >
     <a
@@ -17,7 +13,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 lartDS"
+        className="styled__HeaderImage-sc-3syvnw-1 bAzANV"
         role="img"
         src="logo.svg"
       />
@@ -38,11 +34,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
   className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-<<<<<<< HEAD
-    className="styled__TopBar-sc-3syvnw-0 cKliVY"
-=======
-    className="styled__TopBar-sc-3syvnw-0 hgougu"
->>>>>>> origin/master
+    className="styled__TopBar-sc-3syvnw-0 gCObpy"
     data-testid="navbar"
   >
     <a
@@ -50,7 +42,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 lartDS"
+        className="styled__HeaderImage-sc-3syvnw-1 bAzANV"
         role="img"
         src="logo.svg"
       />
@@ -64,11 +56,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-<<<<<<< HEAD
-    className="styled__TopBar-sc-3syvnw-0 cKliVY"
-=======
-    className="styled__TopBar-sc-3syvnw-0 hgougu"
->>>>>>> origin/master
+    className="styled__TopBar-sc-3syvnw-0 gCObpy"
     data-testid="navbar"
   >
     <a
@@ -76,7 +64,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 lartDS"
+        className="styled__HeaderImage-sc-3syvnw-1 bAzANV"
         role="img"
         src="logo.svg"
       />
@@ -122,7 +110,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       >
         <img
           aria-hidden="true"
-          className="styled__OverlayLogo-sc-3syvnw-3 huHYLV"
+          className="styled__OverlayLogo-sc-3syvnw-3 kstUWZ"
           src="logo.svg"
         />
         <div>

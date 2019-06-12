@@ -67,7 +67,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c1 {
-    height: 5.5rem;
+    height: 5.2rem;
   }
 }
 
@@ -79,7 +79,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3.5rem;
+    height: 3.4rem;
   }
 }
 
@@ -1581,7 +1581,7 @@ li[aria-label="Current Page"] .c35 {
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
     top: 6rem;
-    height: calc(100vh - 11.5rem);
+    height: calc(100vh - 11.2rem);
   }
 }
 
@@ -2960,7 +2960,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c1 {
-    height: 5.5rem;
+    height: 5.2rem;
   }
 }
 
@@ -2972,7 +2972,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3.5rem;
+    height: 3.4rem;
   }
 }
 
@@ -4004,7 +4004,7 @@ Array [
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
     top: 6rem;
-    height: calc(100vh - 11.5rem);
+    height: calc(100vh - 11.2rem);
   }
 }
 

@@ -67,7 +67,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c1 {
-    height: 5.5rem;
+    height: 5.2rem;
   }
 }
 
@@ -79,7 +79,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3.5rem;
+    height: 3.4rem;
   }
 }
 

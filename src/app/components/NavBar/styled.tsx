@@ -11,9 +11,9 @@ import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typ
 
 export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 6.0;
-export const navMobileHeight = 5.5;
+export const navMobileHeight = 5.2;
 const headerImageDesktopHeight = 3.5;
-const headerImageMobileHeight = 3.5;
+const headerImageMobileHeight = 3.4;
 
 const fadeIn = keyframes`
   0% {
