@@ -6,7 +6,7 @@ const headingStyle = (fontSize: string, lineHeight: string, topPadding: string) 
   ${textStyle}
   font-size: ${fontSize};
   line-height: ${lineHeight};
-  letter-spacing: -0.04rem;
+  letter-spacing: -0.02rem;
   padding: ${topPadding} 0 1rem 0;
   margin: 0;
 `;

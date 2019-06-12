@@ -148,9 +148,9 @@ describe('Page', () => {
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
-    it('adds rel="nofollow" to external links', () => {
+    it('adds (target="_blank" rel="noopener nofollow") to external links', () => {
       expect(htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
-      .toEqual('<a href="https://openstax.org/external-url" rel="nofollow">external-link</a>');
+      .toEqual('<a target="_blank" rel="noopener nofollow" href="https://openstax.org/external-url">external-link</a>');
     });
 
     it('numbers lists that have a start attribute', () => {
@@ -263,6 +263,45 @@ describe('Page', () => {
       hash: '',
       search: '',
     }));
+  });
+
+  it('does not intercept clicking content links when meta key is pressed', () => {
+    const {root} = renderDomWithReferences();
+    const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!document || !firstLink) {
+      expect(document).toBeTruthy();
+      expect(firstLink).toBeTruthy();
+      return;
+    }
+
+    const makeEvent = (doc: Document) => {
+      const event = doc.createEvent('MouseEvents');
+      event.initMouseEvent('click',
+        event.cancelBubble,
+        event.cancelable,
+        event.view,
+        event.detail,
+        event.screenX,
+        event.screenY,
+        event.clientX,
+        event.clientY,
+        event.ctrlKey,
+        event.altKey,
+        event.shiftKey,
+        true, // metaKey
+        event.button,
+        event.relatedTarget);
+      event.preventDefault = jest.fn();
+      return event;
+    };
+
+    const evt1 = makeEvent(document);
+
+    firstLink.dispatchEvent(evt1);
+
+    expect(evt1.preventDefault).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('removes listener when it unmounts', () => {
