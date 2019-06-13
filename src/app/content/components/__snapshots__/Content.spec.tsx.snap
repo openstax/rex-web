@@ -1289,13 +1289,13 @@ li[aria-label="Current Page"] .c37 {
 }
 
 @media (max-width:37.5em) {
-  .c72 {
+  .c76 {
     line-height: 4.5rem;
   }
 }
 
 @media (max-width:37.5em) {
-  .c71 {
+  .c75 {
     line-height: 4.5rem;
   }
 }
@@ -1662,7 +1662,7 @@ li[aria-label="Current Page"] .c37 {
 }
 
 @media screen and (max-width:75em) {
-  .c34 {
+  .c35 {
     margin-top: 1.7rem;
   }
 }
