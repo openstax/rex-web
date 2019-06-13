@@ -53,6 +53,8 @@ export default () => {
     return pages && pages[pageId];
   });
 
+  const getBookIdsForPage = jest.fn((_pageId: string) => Promise.resolve([]));
+
   return {
     book: (bookId: string, bookVersion: string | undefined) => ({
       cached: () => cachedBook(bookId, bookVersion),
@@ -63,8 +65,12 @@ export default () => {
         load: () => loadPage(bookId, bookVersion, pageId),
       }),
     }),
-    getBookIdsForPage: (_pageId: string) => Promise.resolve([]),
-    mock: { loadBook, loadPage, cachedBook, cachedPage },
+    getBookIdsForPage,
+    mock: { loadBook, loadPage, cachedBook, cachedPage, getBookIdsForPage },
+    mockBook: (newBook: ArchiveBook) => {
+      localBooks[`${newBook.id}@${newBook.version}`] = newBook;
+      localBookPages[`${newBook.id}@${newBook.version}`] = {};
+    },
     mockPage: (parentBook: ArchiveBook, newPage: ArchivePage) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
