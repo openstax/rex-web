@@ -747,7 +747,7 @@ Array [
             <a
               className="c8"
               href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-              rel=""
+              rel="noreferrer"
               target="_blank"
             >
               Newsletter
@@ -817,7 +817,8 @@ Array [
                 "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
-    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\">Creative Commons Attribution 4.0 International License</a>.
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
+    rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
   </div>
   <div data-html=\\"apStatement\\">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,

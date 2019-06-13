@@ -55,7 +55,7 @@ const renderColumn1 = () => <Styled.Column1>
 const renderColumn2 = () => <Styled.Column2>
   <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
   <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
-  <FooterLinkMessage href={newsletterLink} target='_blank' id='i18n:footer:column2:newsletter' />
+  <FooterLinkMessage href={newsletterLink} target='_blank' rel='noreferrer' id='i18n:footer:column2:newsletter' />
   <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
 </Styled.Column2>;
 
