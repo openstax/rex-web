@@ -43,6 +43,7 @@ const app = createApp({
 });
 
 // bind this to the window so profiling tools can access it
+window.__APP_STORE = app.store;
 window.__APP_SERVICES = app.services;
 window.__APP_ASYNC_HOOKS = app.services.promiseCollector;
 

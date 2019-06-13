@@ -8,7 +8,16 @@ describe('createSearchClient', () => {
     jest.resetModules();
     fetchSpy = (global as any).fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => ({}),
+        json: () => ({
+          hits: {
+            hits: [],
+            total: 0,
+          },
+          overallTook: 0,
+          shards: {},
+          timedOut: false,
+          took: 0,
+        }),
         status: 200,
       })
     );
