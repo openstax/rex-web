@@ -35,11 +35,11 @@ const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, r
 </Styled.FooterLink>;
 
 // tslint:disable-next-line:variable-name
-const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType, target?: string}> =
-  ({id, href, Icon, target}) => <FormattedMessage id={id}>
+const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType}> =
+  ({id, href, Icon}) => <FormattedMessage id={id}>
     {(msg: Element | string) =>
       <Styled.SocialIcon aria-label={assertString(msg, 'aria-label must be a string')} href={href}
-        target={target}>
+        target='_blank' rel='nofollow noopener'>
         <Icon />
       </Styled.SocialIcon>
     }
@@ -68,12 +68,12 @@ const renderColumn3 = () => <Styled.Column3>
 </Styled.Column3>;
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
-  <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} target='_blank' Icon={Styled.FBIcon} />
-  <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} target='_blank' Icon={Styled.TwitterIcon} />
-  <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} target='_blank' Icon={Styled.LinkedInIcon} />
-  <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} target='_blank' Icon={Styled.IGIcon} />
+  <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
+  <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} Icon={Styled.TwitterIcon} />
+  <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
+  <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
   <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
-    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank'>
+    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank' rel='nofollow noopener'>
       <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
     </Styled.BottomLink>}
   </FormattedMessage>

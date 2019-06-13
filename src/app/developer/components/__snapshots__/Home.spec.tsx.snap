@@ -835,6 +835,7 @@ Array [
               aria-label="facebook"
               className="c15"
               href="https://www.facebook.com/openstax"
+              rel="nofollow noopener"
               target="_blank"
             >
               <svg
@@ -854,6 +855,7 @@ Array [
               aria-label="twitter"
               className="c15"
               href="https://twitter.com/openstax"
+              rel="nofollow noopener"
               target="_blank"
             >
               <svg
@@ -873,6 +875,7 @@ Array [
               aria-label="linkedin"
               className="c15"
               href="https://www.linkedin.com/company/openstax"
+              rel="nofollow noopener"
               target="_blank"
             >
               <svg
@@ -892,6 +895,7 @@ Array [
               aria-label="instagram"
               className="c15"
               href="https://www.instagram.com/openstax/"
+              rel="nofollow noopener"
               target="_blank"
             >
               <svg
@@ -910,6 +914,7 @@ Array [
             <a
               className="c21"
               href="http://www.rice.edu"
+              rel="nofollow noopener"
               target="_blank"
             >
               <img
