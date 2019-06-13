@@ -88,6 +88,7 @@ export const TopBoxed = styled.div`
   ${boxed}
   display: grid;
   grid-row-gap: 2rem;
+  overflow: visible;
 
   @media (min-width: ${desktopMinWidth}em) {
     align-items: start;
@@ -168,6 +169,7 @@ export const BottomLink = styled.a`
 export const column = css`
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -218,6 +220,7 @@ export const BottomBoxed = styled.div`
   ${boxed}
   display: grid;
   grid-gap: 1.5rem 4rem;
+  overflow: visible;
 
   @media (min-width: ${desktopMinWidth}em) {
     grid-auto-flow: column;
@@ -232,9 +235,15 @@ export const BottomBoxed = styled.div`
 export const Copyrights = styled.div`
   display: grid;
   grid-gap: 1rem;
+  overflow: visible;
+
+  [data-html="copyright"] {
+    overflow: visible;
+  }
 
   a {
     ${columnLink}
+    overflow: visible;
   }
 
   sup {
@@ -253,6 +262,7 @@ export const Social = styled.div`
   grid-auto-flow: column;
   grid-gap: 1rem;
   justify-content: end;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name

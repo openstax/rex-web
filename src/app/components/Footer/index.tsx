@@ -35,10 +35,11 @@ const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, r
 </Styled.FooterLink>;
 
 // tslint:disable-next-line:variable-name
-const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType}> = ({id, href, Icon}) =>
-  <FormattedMessage id={id}>
+const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType, target?: string}> =
+  ({id, href, Icon, target}) => <FormattedMessage id={id}>
     {(msg: Element | string) =>
-      <Styled.SocialIcon aria-label={assertString(msg, 'aria-label must be a string')} href={href}>
+      <Styled.SocialIcon aria-label={assertString(msg, 'aria-label must be a string')} href={href}
+        target={target}>
         <Icon />
       </Styled.SocialIcon>
     }
@@ -54,7 +55,7 @@ const renderColumn1 = () => <Styled.Column1>
 const renderColumn2 = () => <Styled.Column2>
   <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
   <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
-  <FooterLinkMessage href={newsletterLink} id='i18n:footer:column2:newsletter' />
+  <FooterLinkMessage href={newsletterLink} target='_blank' id='i18n:footer:column2:newsletter' />
   <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
 </Styled.Column2>;
 
@@ -67,12 +68,12 @@ const renderColumn3 = () => <Styled.Column3>
 </Styled.Column3>;
 
 const renderSocialDirectory = () => <Styled.Social role='directory'>
-  <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
-  <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} Icon={Styled.TwitterIcon} />
-  <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
-  <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
+  <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} target='_blank' Icon={Styled.FBIcon} />
+  <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} target='_blank' Icon={Styled.TwitterIcon} />
+  <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} target='_blank' Icon={Styled.LinkedInIcon} />
+  <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} target='_blank' Icon={Styled.IGIcon} />
   <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
-    {(msg: Element | string) => <Styled.BottomLink href={riceUrl}>
+    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank'>
       <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
     </Styled.BottomLink>}
   </FormattedMessage>
