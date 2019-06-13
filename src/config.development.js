@@ -21,8 +21,8 @@ module.exports = {
     '9d8df601-4f12-4ac1-8224-b450bf739e5f':{defaultVersion:'5.1'}, // American Government 2e
   },
 
-  ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts-dev.openstax.org',
-  OS_WEB_URL: process.env.OS_WEB_URL || 'https://cms-dev.openstax.org',
+  ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts.openstax.org',
+  OS_WEB_URL: process.env.OS_WEB_URL || 'https://cms-prod.openstax.org',
   SEARCH_URL: process.env.SEARCH_URL || 'https://search-jun10a.sandbox.openstax.org',
 
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
