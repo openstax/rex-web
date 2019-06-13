@@ -11,6 +11,7 @@ import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
+import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
@@ -131,6 +132,7 @@ const preparePages: PreparePages = async(archiveLoader, osWebLoader) => {
 
   const pages: Pages = [
     {code: 404, page: {route: notFound}},
+    {code: 200, page: {route: developerHome}},
   ];
 
   for (const [bookId, {defaultVersion}] of bookEntries) {
