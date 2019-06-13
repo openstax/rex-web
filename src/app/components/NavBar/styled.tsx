@@ -100,7 +100,7 @@ export const HamburgerIcon = styled(Hamburger)`
 
 export const navElementStyle = css`
   display: block;
-  letter-spacing: 0.02rem;
+  letter-spacing: -0.072rem;
   font-size: 1.8rem;
   text-decoration: none;
   font-weight: bold;
@@ -114,6 +114,7 @@ export const navElementStyle = css`
 
   ${theme.breakpoints.mobile(css`
     font-size: 1.4rem;
+    letter-spacing: 0.02rem;
     padding: 0.7rem 0;
   `)}
 `;

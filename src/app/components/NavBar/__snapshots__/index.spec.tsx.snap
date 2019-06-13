@@ -19,7 +19,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
       />
     </a>
     <a
-      className="styled__Link-sc-3syvnw-6 fRcoRU"
+      className="styled__Link-sc-3syvnw-6 dZAthl"
       data-testid="nav-login"
       href="/accounts/login?r=/"
     >
@@ -74,7 +74,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       data-testid="user-nav"
     >
       <span
-        className="styled__DropdownToggle-sc-3syvnw-7 feYnyM"
+        className="styled__DropdownToggle-sc-3syvnw-7 jPIycf"
         data-testid="user-nav-toggle"
         tabIndex="0"
       >
