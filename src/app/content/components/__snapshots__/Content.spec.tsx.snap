@@ -2692,7 +2692,7 @@ li[aria-label="Current Page"] .c35 {
                         <a
                           className="c72"
                           href="https://openstax.secure.force.com/help"
-                          rel="noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Support Center
@@ -2725,7 +2725,7 @@ li[aria-label="Current Page"] .c35 {
                         <a
                           className="c72"
                           href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                          rel="noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Newsletter
@@ -2814,7 +2814,7 @@ li[aria-label="Current Page"] .c35 {
                           aria-label="facebook"
                           className="c79"
                           href="https://www.facebook.com/openstax"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -2834,7 +2834,7 @@ li[aria-label="Current Page"] .c35 {
                           aria-label="twitter"
                           className="c79"
                           href="https://twitter.com/openstax"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -2854,7 +2854,7 @@ li[aria-label="Current Page"] .c35 {
                           aria-label="linkedin"
                           className="c79"
                           href="https://www.linkedin.com/company/openstax"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -2874,7 +2874,7 @@ li[aria-label="Current Page"] .c35 {
                           aria-label="instagram"
                           className="c79"
                           href="https://www.instagram.com/openstax/"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -2893,7 +2893,7 @@ li[aria-label="Current Page"] .c35 {
                         <a
                           className="c84"
                           href="http://www.rice.edu"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <img
@@ -4435,7 +4435,7 @@ Array [
                         <a
                           className="c50"
                           href="https://openstax.secure.force.com/help"
-                          rel="noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Support Center
@@ -4468,7 +4468,7 @@ Array [
                         <a
                           className="c50"
                           href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                          rel="noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Newsletter
@@ -4557,7 +4557,7 @@ Array [
                           aria-label="facebook"
                           className="c57"
                           href="https://www.facebook.com/openstax"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -4577,7 +4577,7 @@ Array [
                           aria-label="twitter"
                           className="c57"
                           href="https://twitter.com/openstax"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -4597,7 +4597,7 @@ Array [
                           aria-label="linkedin"
                           className="c57"
                           href="https://www.linkedin.com/company/openstax"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -4617,7 +4617,7 @@ Array [
                           aria-label="instagram"
                           className="c57"
                           href="https://www.instagram.com/openstax/"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <svg
@@ -4636,7 +4636,7 @@ Array [
                         <a
                           className="c62"
                           href="http://www.rice.edu"
-                          rel="nofollow noopener"
+                          rel="noopener"
                           target="_blank"
                         >
                           <img

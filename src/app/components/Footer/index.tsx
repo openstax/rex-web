@@ -39,7 +39,7 @@ const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.Compon
   ({id, href, Icon}) => <FormattedMessage id={id}>
     {(msg: Element | string) =>
       <Styled.SocialIcon aria-label={assertString(msg, 'aria-label must be a string')} href={href}
-        target='_blank' rel='nofollow noopener'>
+        target='_blank' rel='noopener'>
         <Icon />
       </Styled.SocialIcon>
     }
@@ -48,14 +48,14 @@ const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.Compon
 const renderColumn1 = () => <Styled.Column1>
   <ColumnHeadingMessage id='i18n:footer:column1:help' />
   <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
-  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank' rel='noreferrer'/>
+  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank' rel='noopener'/>
   <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
 </Styled.Column1>;
 
 const renderColumn2 = () => <Styled.Column2>
   <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
   <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
-  <FooterLinkMessage href={newsletterLink} target='_blank' rel='noreferrer' id='i18n:footer:column2:newsletter' />
+  <FooterLinkMessage href={newsletterLink} target='_blank' rel='noopener' id='i18n:footer:column2:newsletter' />
   <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
 </Styled.Column2>;
 
@@ -73,7 +73,7 @@ const renderSocialDirectory = () => <Styled.Social role='directory'>
   <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
   <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
   <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
-    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank' rel='nofollow noopener'>
+    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
       <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
     </Styled.BottomLink>}
   </FormattedMessage>
