@@ -16,13 +16,22 @@ describe('search reducer', () => {
   });
 
   it('reduces receiveSearchResults', () => {
-    const results = {};
+    const results = {
+      hits: {
+        hits: [],
+        total: 0,
+      },
+      overallTook: 0,
+      shards: {},
+      timedOut: false,
+      took: 0,
+    };
     const state = {
       ...initialState,
       loading: true,
       results: null,
     };
-    const newState = reducer(state, actions.receiveSearchResults({}));
+    const newState = reducer(state, actions.receiveSearchResults(results));
     expect(newState.loading).toEqual(false);
     expect(newState.results).toEqual(results);
   });
