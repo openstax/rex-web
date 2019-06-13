@@ -1,6 +1,12 @@
 #main-content {
   @import "./content-baked.less";
 
+  // gray is used for text color
+  @gray: #424242;
+
+  font-size: @font-size-base;
+  line-height: @line-height-computed;
+
   sup {
     top: -.5em;
   }
@@ -13,8 +19,13 @@
   .os-figure .os-caption-container {
     line-height: 1.7rem;
   }
-  .os-glossary-container dl dt {
-    font-weight: 700;
+  .os-glossary-container {
+    dt {
+      font-weight: 700;
+    }
+    dd {
+      margin-inline-start: 0;
+    }
   }
   blockquote {
     padding: 1rem 2rem;
