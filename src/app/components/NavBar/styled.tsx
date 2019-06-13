@@ -13,7 +13,7 @@ export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 6.0;
 export const navMobileHeight = 5.2;
 const headerImageDesktopHeight = 3.5;
-const headerImageMobileHeight = 3.4;
+const headerImageMobileHeight = 2.8;
 
 const fadeIn = keyframes`
   0% {
@@ -100,6 +100,7 @@ export const HamburgerIcon = styled(Hamburger)`
 
 export const navElementStyle = css`
   display: block;
+  letter-spacing: 0.02rem;
   font-size: 1.8rem;
   text-decoration: none;
   font-weight: bold;
@@ -113,7 +114,6 @@ export const navElementStyle = css`
 
   ${theme.breakpoints.mobile(css`
     font-size: 1.4rem;
-    font-weight: normal;
     padding: 0.7rem 0;
   `)}
 `;

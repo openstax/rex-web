@@ -79,7 +79,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3.4rem;
+    height: 2.8rem;
   }
 }
 
@@ -3009,7 +3009,7 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 3.4rem;
+    height: 2.8rem;
   }
 }
 
