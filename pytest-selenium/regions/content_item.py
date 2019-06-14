@@ -9,7 +9,7 @@ from regions.base import Region
 
 class ContentItem(Region):
     _chapter_section_span_locator = (By.CSS_SELECTOR, "span.os-number")
-    _title_span_locator = (By.CSS_SELECTOR, "span.title")
+    _title_span_locator = (By.CSS_SELECTOR, "span.os-text")
 
     def __init__(self, page, parent_root, index):
         root = parent_root.find_element(

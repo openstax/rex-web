@@ -24,6 +24,10 @@ class Content(Page):
         return self.find_element(*self._title_locator)
 
     @property
+    def title_before_click(self):
+        return self.title.get_attribute("innerHTML")
+
+    @property
     def next_link(self):
         return self.find_element(*self._next_locator)
 
@@ -52,18 +56,10 @@ class Content(Page):
         return self.find_element(*self._section_url_locator)
 
     def click_next_link(self):
-        title_before_click = self.title.get_attribute("innerHTML")
-        self.offscreen_click(self.next_link)
-        self.wait.until(
-            lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
-        )
+        self.offscreen_click_and_wait_for_title_to_load(self.next_link)
 
     def click_previous_link(self):
-        title_before_click = self.title.get_attribute("innerHTML")
-        self.offscreen_click(self.previous_link)
-        self.wait.until(
-            lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
-        )
+        self.offscreen_click_and_wait_for_title_to_load(self.previous_link)
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -131,10 +127,6 @@ class Content(Page):
             class ContentChapter(ContentItem):
                 _root_locator_template = "(.//ol/li/details)[{index}]"
                 _page_link_locator = (By.CSS_SELECTOR, "ol li a")
-
-                @property
-                def has_pages(self):
-                    return self.is_element_displayed(*self._page_link_locator)
 
                 @property
                 def pages(self):

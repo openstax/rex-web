@@ -53,9 +53,7 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
 
 
 @markers.test_case("C476304")
-@markers.parametrize(
-    "book_slug,page_slug", [("college-physics", "1-2-physical-quantities-and-units")]
-)
+@markers.parametrize("book_slug,page_slug", [("college-physics", "1-4-approximation")])
 @markers.nondestructive
 def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, book_slug, page_slug):
 
