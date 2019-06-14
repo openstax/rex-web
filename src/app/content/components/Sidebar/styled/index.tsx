@@ -70,6 +70,9 @@ export const NavItem = styled(NavItemComponent)`
   list-style: none;
   overflow: visible;
   margin: 1.2rem 0 0 0;
+  ${theme.breakpoints.mobile(css`
+    margin-top: 1.7rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
