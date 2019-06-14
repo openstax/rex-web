@@ -76,7 +76,7 @@ describe('Attribution', () => {
         return expect(document).toBeTruthy();
       }
 
-      details.setAttribute('open', 'true');
+      details.setAttribute('open', '');
 
       // wait for dom events to do their thing
       await new Promise((resolve) => setTimeout(resolve, 1));
@@ -92,7 +92,7 @@ describe('Attribution', () => {
         return expect(document).toBeTruthy();
       }
 
-      details.setAttribute('open', 'true');
+      details.setAttribute('open', '');
 
       store.dispatch(actions.receivePage({...shortPage, references: []}));
 
@@ -107,11 +107,11 @@ describe('Attribution', () => {
         return expect(document).toBeTruthy();
       }
 
-      details.setAttribute('open', 'true');
+      details.setAttribute('open', '');
 
       store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
 
-      expect(details.getAttribute('open')).toBe('true');
+      expect(details.getAttribute('open')).toBe('');
     });
 
     it('mounts and unmounts without a dom', () => {
@@ -127,7 +127,7 @@ describe('Attribution', () => {
     beforeEach(() => {
       loaded = false;
 
-      jest.mock('details-polyfill', () => {
+      jest.mock('details-element-polyfill', () => {
         loaded = true;
       });
     });
