@@ -64,7 +64,9 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via next link
+    print(content.title.get_attribute("innerHTML"))
     content.click_next_link()
+    print(content.title.get_attribute("innerHTML"))
 
     # THEN: The citation/attribution section is not open on the new page
     assert not attribution.is_open
