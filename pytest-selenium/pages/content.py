@@ -145,7 +145,7 @@ class Content(Page):
                     _title_locator = (By.CSS_SELECTOR, "span.os-text")
 
                     def click(self):
-                        self.TOC_click_and_wait_for_new_title_to_load()
+                        self.TOC_page_offscreen_click_and_wait_for_new_title_to_load(self.root)
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')

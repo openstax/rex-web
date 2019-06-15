@@ -53,9 +53,7 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
 
 
 @markers.test_case("C476304")
-@markers.parametrize(
-    "book_slug,page_slug", [("college-physics", "20-2-ohms-law-resistance-and-simple-circuits")]
-)
+@markers.parametrize("book_slug,page_slug", [("college-physics", "1-problems-exercises")])
 @markers.nondestructive
 def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, book_slug, page_slug):
 
@@ -66,9 +64,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via next link
-    print(content.title.get_attribute("innerHTML"))
     content.click_next_link()
-    print(content.title.get_attribute("innerHTML"))
 
     # THEN: The citation/attribution section is not open on the new page
     assert not attribution.is_open
@@ -76,9 +72,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via Previous link
-    print(content.title.get_attribute("innerHTML"))
     content.click_previous_link()
-    print(content.title.get_attribute("innerHTML"))
 
     # THEN: The citation/attribution section is not open on the new page
     assert not attribution.is_open
@@ -88,7 +82,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     # WHEN: Navigating via TOC link
     toc = content.sidebar.toc
     if content.is_desktop:
-        chapter = toc.chapters[12]
+        chapter = toc.chapters[22]
         chapter.click()
         page = chapter.pages[4]
         print(content.title.get_attribute("innerHTML"))
@@ -102,7 +96,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     if content.is_mobile:
         toolbar = content.toolbar
         toolbar.click_toc_toggle_button()
-        chapter = toc.chapters[12]
+        chapter = toc.chapters[22]
         chapter.click()
         page = chapter.pages[4]
         print(content.title.get_attribute("innerHTML"))
