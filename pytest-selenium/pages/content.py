@@ -6,27 +6,18 @@ from pages.base import Page
 from regions.base import Region
 from regions.content_item import ContentItem
 
-# class Title(Page):
-#     _root_locator = (By.TAG_NAME, "title")
-
-#     @property
-#     def title(self):
-#         return self.find_element(*self._root_locator)
-
-#     @property
-#     def title_before_click(self):
-#         return self.title.get_attribute("innerHTML")
-
 
 class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
-
+    _title_locator = (By.TAG_NAME, "title")
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
 
-    _title_locator = (By.TAG_NAME, "title")
+    @property
+    def loaded(self):
+        return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
 
     @property
     def title(self):
@@ -35,10 +26,6 @@ class Content(Page):
     @property
     def title_before_click(self):
         return self.title.get_attribute("innerHTML")
-
-    @property
-    def loaded(self):
-        return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
 
     @property
     def next_link(self):
@@ -69,10 +56,10 @@ class Content(Page):
         return self.find_element(*self._section_url_locator)
 
     def click_next_link(self):
-        self.offscreen_click_and_wait_for_title_to_load(self.next_link)
+        self.offscreen_click_and_wait_for_new_title_to_load(self.next_link)
 
     def click_previous_link(self):
-        self.offscreen_click_and_wait_for_title_to_load(self.previous_link)
+        self.offscreen_click_and_wait_for_new_title_to_load(self.previous_link)
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -158,12 +145,7 @@ class Content(Page):
                     _title_locator = (By.CSS_SELECTOR, "span.os-text")
 
                     def click(self):
-                        title_before_click = self.page.title.get_attribute("innerHTML")
-                        self.root.click()
-                        self.wait.until(
-                            lambda _: title_before_click
-                            != (self.page.title.get_attribute("innerHTML") or "")
-                        )
+                        self.TOC_click_and_wait_for_new_title_to_load()
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
