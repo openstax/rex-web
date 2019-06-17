@@ -25,8 +25,9 @@ interface OSWebResponse {
 
 export const fields = 'cnx_id,authors,publish_date,cover_color';
 
-export default (url: string) => {
+export default (prefix: string) => {
 
+  const url = `${prefix}/v2/pages`;
   const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
 
   const firstRecord = (data: OSWebResponse) => {

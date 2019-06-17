@@ -30,6 +30,9 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, navigate, onCl
 
   return <a
     onClick={(e) => {
+      if (e.metaKey) {
+        return;
+      }
       e.preventDefault();
       if (onClick) {
         onClick();

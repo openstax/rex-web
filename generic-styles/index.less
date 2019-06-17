@@ -1,8 +1,31 @@
 #main-content {
   @import "./content-baked.less";
 
-  .os-glossary-container dl dt {
-    font-weight: 700;
+  // gray is used for text color
+  @gray: #424242;
+
+  font-size: @font-size-base;
+  line-height: @line-height-computed;
+
+  sup {
+    top: -.5em;
+  }
+  sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  .os-figure .os-caption-container {
+    line-height: 1.7rem;
+  }
+  .os-glossary-container {
+    dt {
+      font-weight: 700;
+    }
+    dd {
+      margin-inline-start: 0;
+    }
   }
   blockquote {
     padding: 1rem 2rem;
@@ -15,5 +38,5 @@
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }  
+  }
 }

@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { getType } from 'typesafe-actions';
+import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as actions from '../actions';
@@ -58,4 +59,6 @@ export default styled(connector(Notifications))`
       padding: 0 ${theme.padding.page.mobile}rem;
     `)}
   }
+
+  ${disablePrint}
 `;

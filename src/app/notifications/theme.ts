@@ -1,3 +1,3 @@
-import { contentWrapperMaxWidth } from '../content/components/constants';
+import theme from '../theme';
 
-export const inlineDisplayBreak = contentWrapperMaxWidth * 10 / 16 + 'em';
+export const inlineDisplayBreak = theme.breakpoints.mobileBreak + 'em';
