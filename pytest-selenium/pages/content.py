@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as expected
 
 from pages.base import Page
 from regions.base import Region
-from regions.content_item import ContentItem
 
 
 class Content(Page):
@@ -91,10 +90,6 @@ class Content(Page):
         def header(self):
             return self.Header(self.page)
 
-        @property
-        def toc(self):
-            return self.TableOfContents(self.page)
-
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
             _toc_toggle_button_locator = (
@@ -111,41 +106,6 @@ class Content(Page):
                 return self.wait.until(
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
-
-        class TableOfContents(Region):
-            _root_locator = (By.CSS_SELECTOR, '[data-testid="toc"]')
-            _chapter_toggle = (By.CSS_SELECTOR, "ol li details")
-            _toc_chapter_name_locator = (By.XPATH, "(//ol/li/details/summary/div/span)")
-
-            @property
-            def chapters(self):
-                return [
-                    self.ContentChapter(self.page, self.root, index)
-                    for index in range(len(self.find_elements(*self._chapter_toggle)))
-                ]
-
-            class ContentChapter(ContentItem):
-                _root_locator_template = "(.//ol/li/details)[{index}]"
-                _page_link_locator = (By.CSS_SELECTOR, "ol li a")
-
-                @property
-                def pages(self):
-                    return [
-                        self.ContentPage(self.page, self.root, index)
-                        for index in range(len(self.find_elements(*self._page_link_locator)))
-                    ]
-
-                def click(self):
-                    self.root.click()
-                    chapter = self.__class__(self.page, self.parent_root, self.index)
-                    return chapter.wait_for_region_to_display()
-
-                class ContentPage(ContentItem):
-                    _root_locator_template = "(.//ol/li/a)[{index}]"
-                    _title_locator = (By.CSS_SELECTOR, "span.os-text")
-
-                    def click(self):
-                        self.TOC_page_offscreen_click_and_wait_for_new_title_to_load(self.root)
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')

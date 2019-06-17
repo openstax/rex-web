@@ -23,16 +23,3 @@ class Region(pypom.Region):
         # return self.page.offscreen_click(element or self.root)
         element.send_keys(Keys.ENTER)
         return element
-
-    def TOC_page_offscreen_click_and_wait_for_new_title_to_load(self, element):
-        """Clicks a page link in TOC and waits for title to load.
-
-        Clicks the given element for a page link in TOC, even if it is offscreen, by sending the ENTER key.
-        Returns after loading the last element (title) of the page).
-        """
-
-        title_before_click = self.page.title_before_click
-        self.offscreen_click(element)
-        return self.wait.until(
-            lambda _: title_before_click != (self.page.title.get_attribute("innerHTML") or "")
-        )
