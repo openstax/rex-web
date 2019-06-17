@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
@@ -7,7 +8,10 @@ import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
 import { contentFont, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
-import { assertString } from '../../utils';
+import { AppState, Dispatch } from '../../types';
+import { assertString, assertWindow } from '../../utils';
+import { requestSearch } from '../search/actions';
+import * as selectSearch from '../search/selectors';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -56,6 +60,13 @@ const PrintIcon = styled(Print)`
 const CloseIcon = styled(TimesCircle)`
   ${toolbarIconStyles}
   color: ${theme.color.primary.gray.lighter};
+`;
+
+// tslint:disable-next-line:variable-name
+const CloseIconHiddenMobile = styled(CloseIcon)`
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -131,20 +142,25 @@ const MobileSearchInput = styled.input`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintOptWrapper = styled.div`
-  cursor: pointer;
+const PrintOptWrapper = styled.button`
   display: flex;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
   align-items: center;
   color: ${toolbarIconColor.base};
 
-  :hover {
+  :hover,
+  :focus {
+    outline: none;
     color: ${toolbarIconColor.darker};
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const PrintOptions = styled.span`
-  font-weight: 700;
+  font-weight: 600;
   font-family: ${contentFont};
   ${textRegularSize};
   margin: 0;
@@ -199,14 +215,16 @@ const MobileSearchWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
-class Toolbar extends React.Component<{}, {query: string, mobileOpen: boolean}> {
+class Toolbar extends React.Component<{
+  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean
+}> {
   public state = {query: '', mobileOpen: false};
 
   public render() {
 
     const onSubmit = (e: any) => {
       e.preventDefault();
+      this.props.search(this.state.query);
     };
 
     return <BarWrapper>
@@ -221,13 +239,21 @@ class Toolbar extends React.Component<{}, {query: string, mobileOpen: boolean}> 
                 onChange={(e: any) => this.setState({query: e.target.value})}
                 value={this.state.query} />
               <SearchIconMobile onClick={() => this.setState({mobileOpen: !this.state.mobileOpen})} />
-              {!this.state.query && <SearchIconDesktop />}
-              {this.state.query && <CloseIcon onClick={() => this.setState({query: ''})} />}
+              {this.props.query !== this.state.query && <SearchIconDesktop />}
+              {this.props.query === this.state.query &&
+                <CloseIconHiddenMobile onClick={() => this.setState({query: ''})} />
+              }
             </SearchInputWrapper>}
           </FormattedMessage>
           <FormattedMessage id='i18n:toolbar:print:text'>
             {(msg: Element | string) =>
-              <PrintOptWrapper><PrintIcon /><PrintOptions>{msg}</PrintOptions></PrintOptWrapper>
+              <PrintOptWrapper
+                aria-label='print'
+                onClick={() => assertWindow().print()}
+                data-testid='print'
+              >
+                <PrintIcon /><PrintOptions>{msg}</PrintOptions>
+              </PrintOptWrapper>
             }
           </FormattedMessage>
         </SearchPrintWrapper>
@@ -240,7 +266,7 @@ class Toolbar extends React.Component<{}, {query: string, mobileOpen: boolean}> 
                 placeholder={assertString(msg, 'placeholder must be a string')}
                 onChange={(e: any) => this.setState({query: e.target.value})}
                 value={this.state.query} />
-              {this.state.query && <CloseIcon className='closeIcon' onClick={() => this.setState({query: ''})} />}
+              {this.props.query === this.state.query && <CloseIcon onClick={() => this.setState({query: ''})} />}
             </SearchInputWrapper>}
           </FormattedMessage>
       </MobileSearchWrapper>}
@@ -248,4 +274,11 @@ class Toolbar extends React.Component<{}, {query: string, mobileOpen: boolean}> 
   }
 }
 
-export default Toolbar;
+export default connect(
+  (state: AppState) => ({
+    query: selectSearch.query(state),
+  }),
+  (dispatch: Dispatch) => ({
+    search: (query: string) => dispatch(requestSearch(query)),
+  })
+)(Toolbar);

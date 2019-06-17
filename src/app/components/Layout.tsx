@@ -19,7 +19,6 @@ export const wrapperPadding = css`
 
 // tslint:disable-next-line:variable-name
 export const LayoutBody = styled.div`
-  min-height: 100%;
   width: 100%;
   ${wrapperPadding}
 `;

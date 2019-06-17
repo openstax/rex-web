@@ -51,6 +51,7 @@ WORKDIR /code
 
 COPY package.json yarn.lock ./
 COPY ./script ./script
+COPY ./src/config*js ./src/
 
 RUN yarn install
 
