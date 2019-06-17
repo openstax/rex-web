@@ -197,7 +197,8 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   }
 
   private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
-    <BarWrapper colorSchema={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
+    <BarWrapper colorSchema={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}
+                data-testid='bookbanner'>
       <TopBar>
         <BookTitle href={bookUrl} colorSchema={book.theme}>
           <LeftArrow colorSchema={book.theme} />{book.tree.title}

@@ -20,6 +20,10 @@ class Content(Page):
         return self.NavBar(self)
 
     @property
+    def bookbanner(self):
+        return self.BookBanner(self)
+
+    @property
     def toolbar(self):
         return self.ToolBar(self)
 
@@ -38,6 +42,14 @@ class Content(Page):
         @property
         def openstax_logo_link(self):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+
+    class BookBanner(Region):
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
+        _book_title_locator = (By.CSS_SELECTOR, "div > a")
+
+        @property
+        def book_title(self):
+            return self.find_element(*self._book_title_locator).text
 
     class ToolBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="toolbar"]')
