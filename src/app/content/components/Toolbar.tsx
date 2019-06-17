@@ -1,6 +1,6 @@
-import { HTMLInputElement } from '@openstax/types/lib.dom';
-import React, { SFC } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
@@ -8,7 +8,10 @@ import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
 import { contentFont, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
+import { AppState, Dispatch } from '../../types';
 import { assertString, assertWindow } from '../../utils';
+import { requestSearch } from '../search/actions';
+import * as selectSearch from '../search/selectors';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -33,21 +36,18 @@ const barPadding = css`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchIcon = styled(Search)`
+const SearchIconDesktop = styled(Search)`
   ${toolbarIconStyles}
-
-  &[active] {
-    display: none;
-  }
-
   ${theme.breakpoints.mobile(css`
-    &[active] {
-      display: block;
-    }
-
-    &[show] & {
-      background: pink;
-    }
+    display: none;
+  `)}
+`;
+// tslint:disable-next-line:variable-name
+const SearchIconMobile = styled(Search)`
+  ${toolbarIconStyles}
+  display: none;
+  ${theme.breakpoints.mobile(css`
+    display: block;
   `)}
 `;
 
@@ -60,15 +60,13 @@ const PrintIcon = styled(Print)`
 const CloseIcon = styled(TimesCircle)`
   ${toolbarIconStyles}
   color: ${theme.color.primary.gray.lighter};
-  display: none;
+`;
 
-  &[show] {
-    display: block;
-  }
-
-  &:not([show]) {
+// tslint:disable-next-line:variable-name
+const CloseIconHiddenMobile = styled(CloseIcon)`
+  ${theme.breakpoints.mobile(css`
     display: none;
-  }
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -81,14 +79,13 @@ const TopBar = styled.div`
   align-items: center;
   overflow: visible;
   ${barPadding};
-
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchInputWrapper = styled.div`
+const SearchInputWrapper = styled.form`
   display: flex;
   align-items: center;
   margin-right: 4rem;
@@ -107,9 +104,13 @@ const SearchInputWrapper = styled.div`
     margin-right: 1rem;
     height: 100%;
 
-    :after {
-      display: none;
-    }
+    ${(props: {active: boolean}) => props.active && css`
+      background: ${theme.color.primary.gray.base};
+
+      ${SearchIconMobile} {
+        color: ${theme.color.primary.gray.foreground};
+      }
+    `}
   `)}
 `;
 
@@ -141,8 +142,7 @@ const MobileSearchInput = styled.input`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintOptWrapper = styled.div`
-  cursor: pointer;
+const PrintOptWrapper = styled.button`
   display: flex;
   cursor: pointer;
   border: none;
@@ -176,20 +176,11 @@ const SearchPrintWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: visible;
-
   ${theme.breakpoints.mobile(css`
     height: 100%;
     ${SearchInputWrapper} {
       border: none;
       border-radius: 0;
-
-      :hover, :active, &[show] {
-        background: ${theme.color.primary.gray.base};
-
-        ${SearchIcon} {
-          color: ${theme.color.primary.gray.foreground};
-        }
-      }
     }
   `)}
 `;
@@ -216,112 +207,78 @@ const MobileSearchWrapper = styled.div`
     margin: 1rem 0;
   }
 
-  &[show] {
-    display: none;
-  }
-
-  &:not([show]) {
-    display: none;
-  }
-
+  display: none;
   ${barPadding}
   border-top: solid 0.1rem #efeff1;
-
   ${theme.breakpoints.mobile(css`
-    &[show] {
-      display: block;
-    }
+    display: block;
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
-const Toolbar: SFC = () => <BarWrapper>
-  <TopBar data-testid='toolbar'>
-    <SidebarControl />
-    <SearchPrintWrapper id='SearchPrintWrapper'>
-      <FormattedMessage id='i18n:toolbar:search:placeholder'>
-        {(msg: Element | string) => <SearchInputWrapper>
-          <SearchInput
-            aria-label={assertString(msg, 'placeholder must be a string')}
-            placeholder={assertString(msg, 'placeholder must be a string')}
-            onKeyDown={handleKeyDown}
-            data='searchValue' />
-          <SearchIcon id='searchIcon' onClick={showSearchInput} />
-          <CloseIcon className='closeIcon' onClick={clearSearch}/>
-        </SearchInputWrapper>}
-      </FormattedMessage>
-      <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) =>
-          <PrintOptWrapper
-            aria-label='print'
-            onClick={() => assertWindow().print()}
-            data-testid='print'
-          >
-            <PrintIcon /><PrintOptions>{msg}</PrintOptions>
-          </PrintOptWrapper>
-        }
-      </FormattedMessage>
-    </SearchPrintWrapper>
-  </TopBar>
-  <MobileSearchWrapper id='mobileSearchWrapper'>
-    <FormattedMessage id='i18n:toolbar:search:placeholder'>
-        {(msg: Element | string) => <SearchInputWrapper>
-          <MobileSearchInput
-            aria-label={assertString(msg, 'placeholder must be a string')}
-            placeholder={assertString(msg, 'placeholder must be a string')}
-            onKeyDown={handleKeyDown}
-            data='searchValue' />
-          <CloseIcon className='closeIcon' onClick={clearSearch}/>
-        </SearchInputWrapper>}
-      </FormattedMessage>
-  </MobileSearchWrapper>
-</BarWrapper>;
+class Toolbar extends React.Component<{
+  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean
+}> {
+  public state = {query: '', mobileOpen: false};
 
-export default Toolbar;
+  public render() {
 
-const toggleSearchIcon = (opt: string, target: string) => {
-  const searchIcon = document && document.getElementById('searchIcon');
+    const onSubmit = (e: any) => {
+      e.preventDefault();
+      this.props.search(this.state.query);
+    };
 
-  const wrapper = document && document.getElementById(target);
-  const showCloseIcon = wrapper && wrapper.querySelector('.closeIcon');
-
-  if (searchIcon && showCloseIcon) {
-    if ( opt === 'on') {
-      searchIcon.setAttribute('active', '');
-      showCloseIcon.setAttribute('show', '');
-    } else {
-      searchIcon.removeAttribute('active');
-      showCloseIcon.removeAttribute('show');
-    }
-
+    return <BarWrapper>
+      <TopBar data-testid='toolbar'>
+        <SidebarControl />
+        <SearchPrintWrapper id='SearchPrintWrapper'>
+          <FormattedMessage id='i18n:toolbar:search:placeholder'>
+            {(msg: Element | string) => <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit}>
+              <SearchInput
+                aria-label={assertString(msg, 'placeholder must be a string')}
+                placeholder={assertString(msg, 'placeholder must be a string')}
+                onChange={(e: any) => this.setState({query: e.target.value})}
+                value={this.state.query} />
+              <SearchIconMobile onClick={() => this.setState({mobileOpen: !this.state.mobileOpen})} />
+              {this.props.query !== this.state.query && <SearchIconDesktop />}
+              {this.props.query === this.state.query &&
+                <CloseIconHiddenMobile onClick={() => this.setState({query: ''})} />
+              }
+            </SearchInputWrapper>}
+          </FormattedMessage>
+          <FormattedMessage id='i18n:toolbar:print:text'>
+            {(msg: Element | string) =>
+              <PrintOptWrapper
+                aria-label='print'
+                onClick={() => assertWindow().print()}
+                data-testid='print'
+              >
+                <PrintIcon /><PrintOptions>{msg}</PrintOptions>
+              </PrintOptWrapper>
+            }
+          </FormattedMessage>
+        </SearchPrintWrapper>
+      </TopBar>
+      {this.state.mobileOpen && <MobileSearchWrapper id='mobileSearchWrapper'>
+        <FormattedMessage id='i18n:toolbar:search:placeholder'>
+            {(msg: Element | string) => <SearchInputWrapper onSubmit={onSubmit}>
+              <MobileSearchInput
+                aria-label={assertString(msg, 'placeholder must be a string')}
+                placeholder={assertString(msg, 'placeholder must be a string')}
+                onChange={(e: any) => this.setState({query: e.target.value})}
+                value={this.state.query} />
+              {this.props.query === this.state.query && <CloseIcon onClick={() => this.setState({query: ''})} />}
+            </SearchInputWrapper>}
+          </FormattedMessage>
+      </MobileSearchWrapper>}
+    </BarWrapper>;
   }
-};
+}
 
-const showSearchInput = () => {
-  const mobileSearch = document && document.getElementById('mobileSearchWrapper');
-  const searchIcon = document && document.getElementById('searchIcon');
-  if (mobileSearch && searchIcon) {
-    mobileSearch.setAttribute('show', '');
-    searchIcon.parentElement!.setAttribute('show', '');
-  }
-};
-
-const handleKeyDown = (e: any) => {
-  e.persist();
-  const targetId = e.target.parentNode.parentNode.id;
-  if (e.key === 'Enter') {
-    toggleSearchIcon('on', targetId);
-  }
-};
-
-const clearSearch = (e: any) => {
-  e.persist();
-  const target = e.target.parentNode.parentNode;
-  const clearInput: HTMLInputElement | null | undefined =
-    target && (target.querySelector('[data="searchValue"]') as HTMLInputElement);
-
-  if (clearInput) {
-    toggleSearchIcon('off', target.id);
-    clearInput.value = '';
-  }
-};
+export default connect(
+  (state: AppState) => ({
+    query: selectSearch.query(state),
+  }),
+  (dispatch: Dispatch) => ({
+    search: (query: string) => dispatch(requestSearch(query)),
+  })
+)(Toolbar);
