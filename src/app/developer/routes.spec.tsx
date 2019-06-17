@@ -1,11 +1,11 @@
 import React from 'react';
 import createApp from '../index';
 import { AppServices } from '../types';
-import { routes } from './routes';
+import { developerHome } from './routes';
 
 describe('developer route', () => {
   it('makes a url', () => {
-    expect(routes.getUrl()).toEqual(routes.paths[0]);
+    expect(developerHome.getUrl()).toEqual(developerHome.paths[0]);
   });
 
   describe('route renders', () => {
@@ -29,7 +29,7 @@ describe('developer route', () => {
       } as AppServices;
 
       const match = {
-        route: routes,
+        route: developerHome,
       };
       const app = createApp({
         initialEntries: [match],
