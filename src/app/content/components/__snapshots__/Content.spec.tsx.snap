@@ -1300,6 +1300,18 @@ li[aria-label="Current Page"] .c37 {
   }
 }
 
+@media (max-width:37.5em) {
+  .c76 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c75 {
+    line-height: 4.5rem;
+  }
+}
+
 @media (min-width:37.6em) {
   .c79 {
     padding: 2.5rem 0;
@@ -1658,6 +1670,12 @@ li[aria-label="Current Page"] .c37 {
 @media screen and (max-width:75em) {
   .c30 {
     height: 4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c35 {
+    margin-top: 1.7rem;
   }
 }
 
@@ -3890,6 +3908,18 @@ Array [
     -ms-letter-spacing: normal;
     letter-spacing: normal;
     line-height: 3rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c50 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c49 {
+    line-height: 4.5rem;
   }
 }
 

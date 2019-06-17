@@ -155,6 +155,10 @@ export const FooterLink = styled.a`
   :hover {
     text-decoration: underline;
   }
+
+  @media (max-width: ${mobileMinWidth}em) {
+    line-height: 4.5rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -196,6 +200,10 @@ export const ColumnHeading = styled.div`
   font-weight: bold;
   letter-spacing: -0.072rem;
   line-height: normal;
+
+  @media (max-width: ${mobileMinWidth}em) {
+    line-height: 4.5rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
