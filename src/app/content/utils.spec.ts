@@ -26,9 +26,15 @@ describe('getContentPageReferences', () => {
     expect(getContentPageReferences('')).toEqual([]);
   });
 
-  it('picks up basic content reference', () => {
+  it('ignores urls not in links', () => {
     expect(
       getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
+    ).toEqual([]);
+  });
+
+  it('picks up basic content reference', () => {
+    expect(
+      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
         bookUid: undefined,
@@ -41,7 +47,7 @@ describe('getContentPageReferences', () => {
 
   it('picks up book content reference', () => {
     expect(
-      getContentPageReferences('asdfasdfasf /contents/as8s8xu:9sdnjsd9 asdfadf')
+      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu:9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
         bookUid: 'as8s8xu',
@@ -55,7 +61,7 @@ describe('getContentPageReferences', () => {
   it('picks up versioned book content reference', () => {
     expect(
       getContentPageReferences(
-        'asdfasdfasf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf'
+        'asdfasdfasf <a href="/contents/as8s8xu@1.2:9sdnjsd9"></a> asdfadf'
       )
     ).toEqual([
       {
@@ -70,9 +76,9 @@ describe('getContentPageReferences', () => {
   it('picks up multiple references', () => {
     expect(
       getContentPageReferences(`
-      asdfa /contents/as8s8xu9sdnjsd9 sdf
-      /contents/as8s8xu:9sdnjsd9
-      asf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf
+      asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
+      <a href="/contents/as8s8xu:9sdnjsd9"></a>
+      asf <a href="/contents/as8s8xu@1.2:9sdnjsd9"></a> asdfadf
     `)
     ).toEqual([
       {

@@ -154,7 +154,7 @@ describe('locationChange', () => {
       version: '0',
     });
     archiveLoader.mockPage(book, {
-      content: 'some /contents/rando-page-id content',
+      content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
@@ -187,7 +187,7 @@ describe('locationChange', () => {
 
   it('throws on cross book reference', async() => {
     archiveLoader.mockPage(book, {
-      content: 'some /contents/book:pagelongid content',
+      content: 'some <a href="/contents/book:pagelongid"></a> content',
       id: 'adsfasdf',
       shortId: 'asdf',
       title: 'qerqwer',
@@ -207,12 +207,12 @@ describe('locationChange', () => {
       message = e.message;
     }
 
-    expect(message).toEqual('BUG: Cross book references are not supported');
+    expect(message).toEqual('BUG: page "qerqwer" in book "Test Book 1" Cross book references are not supported');
   });
 
   it('throws on reference to unknown id', async() => {
     archiveLoader.mockPage(book, {
-      content: 'some /contents/qwerqwer content',
+      content: 'some <a href="/contents/qwerqwer"></a> content',
       id: 'adsfasdf',
       shortId: 'asdf',
       title: 'qerqwer',
@@ -229,7 +229,9 @@ describe('locationChange', () => {
       message = e.message;
     }
 
-    expect(message).toEqual('BUG: qwerqwer is not present in the ToC');
+    expect(message).toEqual(
+      'BUG: page "qerqwer" in book "Test Book 1" referenced content "qwerqwer" not present in the ToC'
+    );
   });
 
   it('throws on unknown id', async() => {
