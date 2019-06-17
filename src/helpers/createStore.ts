@@ -1,6 +1,18 @@
-import { applyMiddleware, compose, createStore, Middleware, Reducer } from 'redux';
+import {
+  applyMiddleware,
+  compose,
+  createStore,
+  Middleware,
+  Reducer,
+  StoreEnhancerStoreCreator
+} from 'redux';
 import { AnyAction, AppState, Store } from '../app/types';
 import config from '../config';
+import persistState from './persistState';
+
+const persistPaths = [
+  'content.search',
+];
 
 interface Options {
   reducer: Reducer<AppState, AnyAction>;
@@ -17,7 +29,15 @@ export default function({middleware, reducer, initialState}: Options): Store {
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
-  const enhancer = composeEnhancers(applyMiddleware(...middleware));
+  const enhancers = [
+    applyMiddleware(...middleware),
+  ];
+
+  if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined' ) {
+    enhancers.push(persistState(persistPaths, window.sessionStorage));
+  }
+
+  const enhancer = composeEnhancers<StoreEnhancerStoreCreator<{}, {}>>(...enhancers);
 
   const store = createStore(reducer, initialState, enhancer);
 

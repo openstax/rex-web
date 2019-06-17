@@ -1,7 +1,6 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -18,7 +17,8 @@ import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
 import { matchUrl } from './navigation/utils';
 import * as notifications from './notifications';
-import { AnyAction, AppServices, AppState, Middleware } from './types';
+import createReducer from './reducer';
+import { AppServices, AppState, Middleware } from './types';
 
 export const actions = {
   auth: auth.actions,
@@ -75,14 +75,7 @@ export default (options: AppOptions) => {
     }
   }
 
-  const reducer = combineReducers<AppState, AnyAction>({
-    auth: auth.reducer,
-    content: content.reducer,
-    errors: errors.reducer,
-    head: head.reducer,
-    navigation: navigation.createReducer(history.location),
-    notifications: notifications.reducer,
-  });
+  const reducer = createReducer(history);
 
   const services = {
     ...defaultServices(),
