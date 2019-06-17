@@ -21,4 +21,6 @@ export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) =
   services.dispatch(receiveSearchResults(results));
 };
 
-export const searchHook = actionHook(requestSearch, searchHookBody);
+export default [
+  actionHook(requestSearch, searchHookBody),
+];

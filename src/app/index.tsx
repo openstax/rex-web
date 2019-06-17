@@ -44,7 +44,7 @@ const init = [
 ];
 
 const hooks = [
-  ...Object.values(content.hooks),
+  ...content.hooks,
   ...Object.values(head.hooks),
 ];
 
