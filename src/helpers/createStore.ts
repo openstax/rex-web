@@ -8,11 +8,6 @@ import {
 } from 'redux';
 import { AnyAction, AppState, Store } from '../app/types';
 import config from '../config';
-import persistState from './persistState';
-
-const persistPaths = [
-  'content.search',
-];
 
 interface Options {
   reducer: Reducer<AppState, AnyAction>;
@@ -33,12 +28,7 @@ export default function({middleware, reducer, initialState}: Options): Store {
     applyMiddleware(...middleware),
   ];
 
-  if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined' ) {
-    enhancers.push(persistState(persistPaths, window.sessionStorage));
-  }
-
   const enhancer = composeEnhancers<StoreEnhancerStoreCreator<{}, {}>>(...enhancers);
-
   const store = createStore(reducer, initialState, enhancer);
 
   return store;
