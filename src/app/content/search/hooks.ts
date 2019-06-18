@@ -29,11 +29,13 @@ export const syncSearch = async(services: AppServices & MiddlewareAPI) => {
   const state = services.getState();
   const query = select.query(state);
 
-  const history = assertWindow().history;
+  if (typeof(window) === 'undefined' || !window.history || !window.history.state) {
+    return;
+  }
 
-  if (history.state.search && history.state.search !== query) {
-    services.dispatch(requestSearch(history.state.search));
-  } else if (!history.state.search && query) {
+  if (window.history.state.search && window.history.state.search !== query) {
+    services.dispatch(requestSearch(window.history.state.search));
+  } else if (!window.history.state.search && query) {
     saveSearch(query);
   }
 
