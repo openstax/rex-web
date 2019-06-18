@@ -1,22 +1,27 @@
-import { BOOKS } from '../../../config';
-import { Match, RouteHookBody } from '../../navigation/types';
-import { AppServices, MiddlewareAPI } from '../../types';
-import { assertDefined } from '../../utils';
-import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
-import { content } from '../routes';
-import * as select from '../selectors';
-import { ArchivePage, Book, PageReferenceMap } from '../types';
+import { BOOKS } from '../../../../config';
+import { Match } from '../../../navigation/types';
+import { AppServices, MiddlewareAPI } from '../../../types';
+import { assertDefined } from '../../../utils';
+import { receiveBook, receivePage, requestBook, requestPage } from '../../actions';
+import { content } from '../../routes';
+import * as select from '../../selectors';
+import { ArchivePage, Book, PageReferenceMap } from '../../types';
 import {
   flattenArchiveTree,
   formatBookData,
   getContentPageReferences,
   getPageIdFromUrlParam,
   getUrlParamForPageId
-} from '../utils';
+} from '../../utils';
 
-const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
+export default async(
+  services: AppServices & MiddlewareAPI,
+  match: Match<typeof content>
+) => {
   const [book, loader] = await resolveBook(services, match);
-  await resolvePage(services, match, book, loader);
+  const page = await resolvePage(services, match, book, loader);
+
+  return {book, page};
 };
 
 const getBookResponse = async(
@@ -156,5 +161,3 @@ const loadContentReferences = (book: Book) => async(page: ArchivePage) => {
     references,
   };
 };
-
-export default hookBody;

@@ -3,22 +3,10 @@ import * as parentSelectors from '../selectors';
 
 export const localState = createSelector(
   parentSelectors.localState,
-  (parentState) => parentState.navigation
-);
-
-export const pathname = createSelector(
-  localState,
-  (state) => state.pathname
-);
-
-export const hash = createSelector(
-  localState,
-  (state) => state.hash
+  (parentState) => parentState.search
 );
 
 export const query = createSelector(
   localState,
   (state) => state.query
 );
-
-export const location = localState;

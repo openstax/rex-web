@@ -106,9 +106,7 @@ export default (options: AppOptions) => {
     </MessageProvider>
   </Provider>;
 
-  if (!initialState || !initialState.navigation) {
-    navigation.utils.changeToLocation(routes, store.dispatch, history.location);
-  }
+  navigation.utils.changeToLocation(routes, store.dispatch, history.location);
 
   for (const initializer of init) {
     const promise = initializer({
