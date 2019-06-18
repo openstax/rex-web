@@ -10,9 +10,10 @@ import Times from '../Times';
 import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
 
 export const maxNavWidth = contentWrapperMaxWidth;
-export const navDesktopHeight = 5;
-export const navMobileHeight = 3.6;
-const headerImageMobileHeight = 2;
+export const navDesktopHeight = 6.0;
+export const navMobileHeight = 5.2;
+const headerImageDesktopHeight = 3.5;
+const headerImageMobileHeight = 2.8;
 
 const fadeIn = keyframes`
   0% {
@@ -47,7 +48,7 @@ export const TopBar = styled.div`
 export const HeaderImage = styled.img`
   display: block;
   width: auto;
-  height: 3rem;
+  height: ${headerImageDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
     height: ${headerImageMobileHeight}rem;
   `)}
@@ -99,6 +100,7 @@ export const HamburgerIcon = styled(Hamburger)`
 
 export const navElementStyle = css`
   display: block;
+  letter-spacing: -0.072rem;
   font-size: 1.8rem;
   text-decoration: none;
   font-weight: bold;
@@ -112,7 +114,7 @@ export const navElementStyle = css`
 
   ${theme.breakpoints.mobile(css`
     font-size: 1.4rem;
-    font-weight: normal;
+    letter-spacing: 0.02rem;
     padding: 0.7rem 0;
   `)}
 `;
