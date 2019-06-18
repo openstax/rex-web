@@ -47,7 +47,7 @@ describe('osWebLoader', () => {
         message = e.message;
       }
 
-      expect(message).toEqual('OSWeb record not found');
+      expect(message).toEqual('OSWeb record "asdf" not found');
     });
 
     it('throws on error', async() => {
