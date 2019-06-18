@@ -123,14 +123,18 @@ const resolvePage = async(
 
 const loadContentReference = (
   book: Book,
+  page: ArchivePage,
   bookPages: ReturnType<typeof flattenArchiveTree>,
   reference: ReturnType<typeof getContentPageReferences>[0]
 ) => {
   if (reference.bookUid || reference.bookVersion) {
-    throw new Error('BUG: Cross book references are not supported');
+    throw new Error(`BUG: page "${page.title}" in book "${book.title}" Cross book references are not supported`);
   }
   if (!bookPages.find((search) => search.id === reference.pageUid)) {
-    throw new Error(`BUG: ${reference.pageUid} is not present in the ToC`);
+    throw new Error(
+      `BUG: page "${page.title}" in book "${book.title}"` +
+      ` referenced content "${reference.pageUid}" not present in the ToC`
+    );
   }
 
   return {
@@ -153,7 +157,7 @@ const loadContentReferences = (book: Book) => async(page: ArchivePage) => {
   const references: PageReferenceMap[] = [];
 
   for (const reference of contentReferences) {
-    references.push(loadContentReference(book, bookPages, reference));
+    references.push(loadContentReference(book, page, bookPages, reference));
   }
 
   return {
