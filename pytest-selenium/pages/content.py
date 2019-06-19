@@ -55,10 +55,10 @@ class Content(Page):
         return self.find_element(*self._section_url_locator)
 
     def click_next_link(self):
-        self.offscreen_click_and_wait_for_new_title_to_load(self.next_link)
+        self.click_and_wait_for_load(self.next_link)
 
     def click_previous_link(self):
-        self.offscreen_click_and_wait_for_new_title_to_load(self.previous_link)
+        self.click_and_wait_for_load(self.previous_link)
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
