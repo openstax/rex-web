@@ -5,7 +5,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 hgougu"
+    className="styled__TopBar-sc-3syvnw-0 gCObpy"
     data-testid="navbar"
   >
     <a
@@ -13,13 +13,13 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 fLLiUi"
+        className="styled__HeaderImage-sc-3syvnw-1 dsmiIU"
         role="img"
         src="logo.svg"
       />
     </a>
     <a
-      className="styled__Link-sc-3syvnw-6 ioumkf"
+      className="styled__Link-sc-3syvnw-6 dZAthl"
       data-testid="nav-login"
       href="/accounts/login?r=/"
     >
@@ -34,7 +34,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
   className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 hgougu"
+    className="styled__TopBar-sc-3syvnw-0 gCObpy"
     data-testid="navbar"
   >
     <a
@@ -42,7 +42,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 fLLiUi"
+        className="styled__HeaderImage-sc-3syvnw-1 dsmiIU"
         role="img"
         src="logo.svg"
       />
@@ -56,7 +56,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   className="styled__BarWrapper-sc-3syvnw-12 dTBArg"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 hgougu"
+    className="styled__TopBar-sc-3syvnw-0 gCObpy"
     data-testid="navbar"
   >
     <a
@@ -64,7 +64,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 fLLiUi"
+        className="styled__HeaderImage-sc-3syvnw-1 dsmiIU"
         role="img"
         src="logo.svg"
       />
@@ -74,7 +74,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       data-testid="user-nav"
     >
       <span
-        className="styled__DropdownToggle-sc-3syvnw-7 jMKtzt"
+        className="styled__DropdownToggle-sc-3syvnw-7 jPIycf"
         data-testid="user-nav-toggle"
         tabIndex="0"
       >
@@ -110,7 +110,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       >
         <img
           aria-hidden="true"
-          className="styled__OverlayLogo-sc-3syvnw-3 cRDsEj"
+          className="styled__OverlayLogo-sc-3syvnw-3 cVbSzD"
           src="logo.svg"
         />
         <div>
