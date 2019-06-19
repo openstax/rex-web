@@ -29,6 +29,7 @@ const gradients: {[key in Book['theme']]: string} = {
   'green': '#9cd14a',
   'light-blue': '#004aa2',
   'orange': '#FAA461',
+  'red': '#E34361',
   'yellow': '#faea36',
 };
 
@@ -136,7 +137,9 @@ export const BarWrapper = styled.div<{colorSchema: Book['theme'] | undefined , u
       ${assertDefined(
         theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
       ).base},
-      ${gradients[props.colorSchema]});
+      ${assertDefined(
+        gradients[props.colorSchema], `theme ${props.colorSchema} needs gradient defined in BookBanner.tsx`
+      )});
   `}
 
   ${(props) => props.up && css`

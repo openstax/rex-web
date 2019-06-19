@@ -59,8 +59,8 @@ const color = {
       foreground: textColors.white,
     },
     'red': {
-      base: '#f00',
-      foreground: textColors.black,
+      base: '#C22032',
+      foreground: textColors.white,
     },
     'yellow': {
       base: '#f4d019',
