@@ -162,7 +162,7 @@ describe('locationChange', () => {
       version: '0',
     });
     archiveLoader.mockPage(book, {
-      content: 'some /contents/rando-page-id content',
+      content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
@@ -191,53 +191,6 @@ describe('locationChange', () => {
         pageUid: 'rando-page-id',
       },
     }]})}));
-  });
-
-  it('throws on unknown cross book reference', async() => {
-    archiveLoader.mockPage(book, {
-      content: 'some /contents/book:pagelongid content',
-      id: 'adsfasdf',
-      shortId: 'asdf',
-      title: 'qerqwer',
-      version: '0',
-    });
-
-    payload.match.params = {
-      book: 'book',
-      page: 'qerqwer',
-    };
-
-    let message: string | undefined;
-
-    try {
-      await hook(payload);
-    } catch (e) {
-      message = e.message;
-    }
-
-    expect(message).toEqual('BUG: book could not be found in any configured books.');
-  });
-
-  it('throws on reference to unknown id', async() => {
-    archiveLoader.mockPage(book, {
-      content: 'some /contents/qwerqwer content',
-      id: 'adsfasdf',
-      shortId: 'asdf',
-      title: 'qerqwer',
-      version: '0',
-    });
-
-    payload.match.params.page = 'qerqwer';
-
-    let message: string | undefined;
-
-    try {
-      await hook(payload);
-    } catch (e) {
-      message = e.message;
-    }
-
-    expect(message).toEqual('BUG: qwerqwer could not be found in any configured books.');
   });
 
   it('throws on unknown id', async() => {
@@ -307,7 +260,7 @@ describe('locationChange', () => {
       mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
 
       archiveLoader.mockPage(book, {
-        content: 'some /contents/newbookpageid content',
+        content: 'some <a href="/contents/newbookpageid"></a> content',
         id: 'pageid',
         shortId: 'pageshortid',
         title: 'page referencing different book',
@@ -346,6 +299,23 @@ describe('locationChange', () => {
       }]})}));
     });
 
+    it('error when the page is not in any configured book', async() => {
+      archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['garbagebookid']));
+
+      let message: string | undefined;
+
+      try {
+        await hook(payload);
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(message).toEqual(
+        'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
+        ', but it could not be found in any configured books.'
+      );
+    });
+
     it('error when archive returns a book that doesn\'t actually contain the page', async() => {
       archiveLoader.mockBook({
         id: 'garbagebookid',
@@ -372,7 +342,10 @@ describe('locationChange', () => {
         message = e.message;
       }
 
-      expect(message).toEqual('BUG: archive thought garbagebookid would contain newbookpageid, but it didn\'t');
+      expect(message).toEqual(
+        'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
+        ', archive thought it would be in "garbagebookid", but it wasn\'t'
+      );
     });
   });
 });

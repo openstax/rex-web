@@ -118,35 +118,41 @@ const resolvePage = async(
 
 const resolveExternalBookReference = async(
   {archiveLoader, osWebLoader}: AppServices & MiddlewareAPI,
+  book: Book,
+  page: ArchivePage,
   pageId: string
 ) => {
   const bookId = (await archiveLoader.getBookIdsForPage(pageId)).filter((id) => BOOKS[id])[0];
+  const error = (message: string) => new Error(
+    `BUG: "${book.title} / ${page.title}" referenced "${pageId}", ${message}`
+  );
 
   if (!bookId) {
-    throw new Error(`BUG: ${pageId} could not be found in any configured books.`);
+    throw error('but it could not be found in any configured books.');
   }
 
   const bookVersion = BOOKS[bookId].defaultVersion;
 
   const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await archiveLoader.book(bookId, bookVersion).load();
-  const book = formatBookData(archiveBook, osWebBook);
+  const referencedBook = formatBookData(archiveBook, osWebBook);
 
-  if (!archiveTreeContainsSection(book.tree, pageId)) {
-    throw new Error(`BUG: archive thought ${book.id} would contain ${pageId}, but it didn't`);
+  if (!archiveTreeContainsSection(referencedBook.tree, pageId)) {
+    throw error(`archive thought it would be in "${referencedBook.id}", but it wasn't`);
   }
 
-  return book;
+  return referencedBook;
 };
 
 const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
+  page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[0]
 ) => {
   const targetBook: Book = archiveTreeContainsSection(book.tree, reference.pageUid)
     ? book
-    : await resolveExternalBookReference(services, reference.pageUid);
+    : await resolveExternalBookReference(services, book, page, reference.pageUid);
 
   return {
     match: reference.match,
@@ -167,7 +173,7 @@ const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book
   const references: PageReferenceMap[] = [];
 
   for (const reference of contentReferences) {
-    references.push(await loadContentReference(services, book, reference));
+    references.push(await loadContentReference(services, book, page, reference));
   }
 
   return {

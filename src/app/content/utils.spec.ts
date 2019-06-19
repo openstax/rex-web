@@ -26,9 +26,15 @@ describe('getContentPageReferences', () => {
     expect(getContentPageReferences('')).toEqual([]);
   });
 
-  it('picks up basic content reference', () => {
+  it('ignores urls not in links', () => {
     expect(
       getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
+    ).toEqual([]);
+  });
+
+  it('picks up basic content reference', () => {
+    expect(
+      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
         match: '/contents/as8s8xu9sdnjsd9',
@@ -40,8 +46,8 @@ describe('getContentPageReferences', () => {
   it('picks up multiple references', () => {
     expect(
       getContentPageReferences(`
-      asdfa /contents/as8s8xu9sdnjsd9 sdf
-      /contents/9sdnjsd9
+      asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
+      <a href="/contents/9sdnjsd9"></a>
     `)
     ).toEqual([
       {
