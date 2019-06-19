@@ -23,7 +23,7 @@ let config = {
   REACT_APP_ARCHIVE_URL: '/contents',
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
-  BOOKS: process.env.BOOKS || {
+  BOOKS: process.env.REACT_APP_BOOKS || {
     /* American Government 2e */ '9d8df601-4f12-4ac1-8224-b450bf739e5f':{defaultVersion:'5.1'},
     /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22':{defaultVersion:'15.1'},
     /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966':{defaultVersion:'20.1'},
