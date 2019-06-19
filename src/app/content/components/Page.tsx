@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
-import url from 'url';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
 import MainContent from '../../components/MainContent';
@@ -15,16 +14,18 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
-import { assertDefined } from '../../utils';
+import { assertDefined, assertWindow } from '../../utils';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
+import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 
 interface PropTypes {
   page: State['page'];
   book: State['book'];
   hash: string;
+  currentPath: string;
   navigate: typeof push;
   className?: string;
   references: State['references'];
@@ -36,7 +37,7 @@ export class PageComponent extends Component<PropTypes> {
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
 
   public getCleanContent = () => {
-    const {book, page, services} = this.props;
+    const {book, page, services, currentPath} = this.props;
 
     const cachedPage = book && page &&
       services.archiveLoader.book(book.id, book.version).page(page.id).cached()
@@ -45,7 +46,7 @@ export class PageComponent extends Component<PropTypes> {
     const pageContent = cachedPage ? cachedPage.content : '';
 
     return this.props.references.reduce((html, reference) =>
-      html.replace(reference.match, content.getUrl(reference.params))
+      html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params)))
     , pageContent)
       // remove body and surrounding content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
@@ -53,8 +54,10 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
       // remove page titles from content (they are in the nav)
       .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
-      // target blank qualified links
+      // target blank and add `rel` to links that begin with: http:// https:// //
       .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
+      // same as previous, but allow indexing links to relative content
+      .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
     ;
   };
 
@@ -204,23 +207,17 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
-    const {references, navigate} = this.props;
+    const {references, navigate, book} = this.props;
     const href = anchor.getAttribute('href');
 
-    if (!href) {
+    if (!href || !book) {
       return;
     }
 
-    const parsed = url.parse(href);
-    const hash = parsed.hash || '';
-    const search = parsed.search || '';
-    const path = href.replace(hash, '').replace(search, '');
-    const reference = references.find((ref) => content.getUrl(ref.params) === path);
+    const {hash, search, pathname} = new URL(href, assertWindow().location.href);
+    const reference = references.find((ref) => content.getUrl(ref.params) === pathname);
 
-    if (reference) {
-      if (e.metaKey) {
-        return;
-      }
+    if (reference && reference.params.book === book.slug && !e.metaKey) {
       e.preventDefault();
       navigate({
         params: reference.params,
@@ -273,6 +270,7 @@ const StyledPageComponent = styled(PageComponent)`
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    currentPath: selectNavigation.pathname(state),
     hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),

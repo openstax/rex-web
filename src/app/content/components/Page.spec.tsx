@@ -1,13 +1,12 @@
 import { Document } from '@openstax/types/lib.dom';
-import cloneDeep from 'lodash/fp/cloneDeep';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { combineReducers, createStore } from 'redux';
 import scrollTo from 'scroll-to-element';
 import * as mathjax from '../../../helpers/mathjax';
 import PromiseCollector from '../../../helpers/PromiseCollector';
+import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, {
   book,
   page
@@ -20,7 +19,7 @@ import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
-import reducer, { initialState } from '../reducer';
+import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
@@ -39,19 +38,14 @@ describe('Page', () => {
     jest.resetModules();
     jest.resetAllMocks();
 
-    state = (cloneDeep({
+    store = createTestStore({
       content: {
         ...initialState,
-        book,
+        book: formatBookData(book, mockCmsBook),
         page,
       },
-      navigation: {},
-    }) as any) as AppState;
-
-    store = createStore(combineReducers({
-      content: reducer,
-      navigation: (_: AppState['navigation'] | undefined) => state.navigation,
-    }), state);
+    });
+    state = store.getState();
 
     dispatch = jest.spyOn(store, 'dispatch');
     services.promiseCollector = new PromiseCollector();
@@ -77,7 +71,7 @@ describe('Page', () => {
       {
         match: '/content/link',
         params: {
-          book: 'book',
+          book: 'book-slug-1',
           page: 'page-title',
         },
         state: {
@@ -206,7 +200,7 @@ describe('Page', () => {
       expect(secondLink).toBeTruthy();
     }
 
-    expect(firstLink.getAttribute('href')).toEqual('/books/book/pages/page-title');
+    expect(firstLink.getAttribute('href')).toEqual('books/book-slug-1/pages/page-title');
     expect(secondLink.getAttribute('href')).toEqual('/rando/link');
   });
 
@@ -250,7 +244,7 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        book: 'book',
+        book: 'book-slug-1',
         page: 'page-title',
       },
       route: routes.content,

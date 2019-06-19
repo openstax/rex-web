@@ -1,6 +1,6 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { ArchiveBook, Book } from './types';
-import { getIdVersion, stripIdVersion } from './utils/idUtils';
+import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
@@ -8,16 +8,12 @@ export { stripIdVersion } from './utils/idUtils';
 export { scrollTocSectionIntoView } from './utils/domUtils';
 
 export const getContentPageReferences = (content: string) =>
-  (content.match(/"\/contents\/([a-z0-9\-]+(@[\d\.]+)?)(:([a-z0-9\-]+(@[\d\.]+)?))?/g) || [])
+  (content.match(/"\/contents\/([a-z0-9\-]+(@[\d\.]+)?)/g) || [])
     .map((match) => {
-      const id = match.substr(11);
-      const bookId = id.indexOf(':') > -1 && id.split(':')[0];
-      const pageId = id.indexOf(':') > -1 ? id.split(':')[1] : id;
+      const pageId = match.substr(11);
 
       return {
-        bookUid: bookId ? stripIdVersion(bookId) : undefined,
-        bookVersion: bookId ? getIdVersion(bookId) : undefined,
-        match: match.substring(1),
+        match: match.substr(1),
         pageUid: stripIdVersion(pageId),
       };
     });

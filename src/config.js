@@ -20,7 +20,7 @@ let config = {
   OS_WEB_URL: process.env.OS_WEB_URL || 'https://openstax.org',
   SEARCH_URL: process.env.SEARCH_URL || 'https://openstax.org',
   REACT_APP_ACCOUNTS_URL: '/accounts',
-  REACT_APP_ARCHIVE_URL: '/contents',
+  REACT_APP_ARCHIVE_URL: '',
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   BOOKS: process.env.REACT_APP_BOOKS || {
@@ -39,7 +39,8 @@ let config = {
     /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765':{defaultVersion: '7.1'},
     /* Prealgebra */'caa57dab-41c7-455e-bd6f-f443cda5519c':{defaultVersion:'18.1'},
     /* Precalculus */ // 'fd53eae1-fa23-47c7-bb1b-972349835c3c':{defaultVersion:'10.3'}, // Broken because contains link to external content.
-    /* Principles of Accounting, Volume 1 */ // '9ab4ba6d-1e48-486d-a2de-38ae1617ca84':{defaultVersion:'4.25'}, // Broken because contains link to external content.
+    /* Principles of Accounting, Volume 1 */ '9ab4ba6d-1e48-486d-a2de-38ae1617ca84':{defaultVersion:'4.25'},
+    /* Principles of Accounting, Volume 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '14.1'},
     /* Principles of Economics 2e */'bc498e1f-efe9-43a0-8dea-d3569ad09a82':{defaultVersion:'7.1'},
     /* Psychology */ '4abf04bf-93a0-45c3-9cbc-2cefd46e68cc':{defaultVersion:'10.16'},
     /* U.S. History */ 'a7ba2fb8-8925-4987-b182-5f4429d48daa':{defaultVersion: '9.4'},
