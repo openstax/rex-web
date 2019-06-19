@@ -68,7 +68,7 @@ describe('content', () => {
     );
 
     expect(links).toEqual([
-      '/books/book-slug-1/pages/test-page-1',
+      'test-page-1',
     ]);
   });
 });
