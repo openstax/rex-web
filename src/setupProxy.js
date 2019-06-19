@@ -19,6 +19,7 @@ const {
 } = require('./config');
 
 const archivePaths = [
+  '/extras',
   '/contents',
   '/resources',
   '/specials',
