@@ -1751,6 +1751,7 @@ li[aria-label="Current Page"] .c37 {
   >
     <div
       className="c1"
+      data-testid="bookbanner"
     >
       <div
         className="c2"
