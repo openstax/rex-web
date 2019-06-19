@@ -2,6 +2,7 @@ from tests.conftest import DESKTOP, MOBILE
 
 import pypom
 from selenium.webdriver.common.keys import Keys
+import pytest
 
 
 class Page(pypom.Page):
@@ -56,3 +57,10 @@ class Page(pypom.Page):
         return self.wait.until(
             lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
         )
+
+    def assert_element_not_interactable_exception(self, element):
+        with pytest.raises(Exception) as exc_info:
+            element.send_keys(Keys.ENTER)
+
+        exception_raised = exc_info.type
+        assert "ElementNotInteractableException" in str(exception_raised)

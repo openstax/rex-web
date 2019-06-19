@@ -64,3 +64,28 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     else:
 
         pytest.fail("window must be either mobile or desktop size")
+
+
+@markers.test_case("C476818")
+@markers.parametrize("book_slug,page_slug", [("college-physics", "1-1-physics-an-introduction")])
+@markers.nondestructive
+def test_ToC_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
+
+    # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
+    # AND: A mobile resolution
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    toolbar = content.toolbar
+    attribution = content.attribution
+
+    if content.is_mobile:
+        # WHEN: the toc is open
+        toolbar.click_toc_toggle_button()
+
+        # THEN: The links in the content should be disabled
+        content.assert_element_not_interactable_exception(content.next_link)
+        content.assert_element_not_interactable_exception(content.previous_link)
+        content.assert_element_not_interactable_exception(attribution.attribution_link)
+
+    # AND scrolling over it should do nothing
+
+    # AND clicking on a link in the content should not open the link content, instead just close the TOC
