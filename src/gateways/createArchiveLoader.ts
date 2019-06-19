@@ -3,16 +3,29 @@ import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { acceptStatus } from '../helpers/fetch';
 
+interface Extras {
+  books: Array<{
+    ident_hash: string
+  }>;
+}
+
 export default (url: string) => {
+  const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
+    .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
+    .then((response) => response.json() as Promise<T>);
+
   const cache = new Map();
-  const loader = memoize((id: string) => fetch(`${url}/${id}`)
-    .then(acceptStatus(200, (status, message) => `Error response from archive "${url}/${id}" ${status}: ${message}`))
-    .then((response) => response.json() as Promise<ArchiveContent>)
+  const contentsLoader = memoize((id: string) => archiveFetch<ArchiveContent>(`${url}/contents/${id}`)
     .then((response) => {
       cache.set(id, response);
       return response;
     })
   );
+
+  const getBookIdsForPage: (pageId: string) => Promise<string[]> =
+    memoize((pageId) => archiveFetch<Extras>(`${url}/extras/${pageId}`).
+      then(({books}) => books.map(({ident_hash}) => stripIdVersion(ident_hash)))
+    );
 
   return {
     book: (bookId: string, bookVersion: string | undefined) => {
@@ -20,13 +33,14 @@ export default (url: string) => {
 
       return {
         cached: () => cache.get(bookRef) as ArchiveBook | undefined,
-        load: () => loader(bookRef) as Promise<ArchiveBook>,
+        load: () => contentsLoader(bookRef) as Promise<ArchiveBook>,
 
         page: (pageId: string) => ({
           cached: () => cache.get(`${bookRef}:${pageId}`) as ArchivePage | undefined,
-          load: () => loader(`${bookRef}:${pageId}`) as Promise<ArchivePage>,
+          load: () => contentsLoader(`${bookRef}:${pageId}`) as Promise<ArchivePage>,
         }),
       };
     },
+    getBookIdsForPage,
   };
 };
