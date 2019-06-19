@@ -2,7 +2,6 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
-
 from pages.base import Page
 from regions.base import Region
 
@@ -20,12 +19,8 @@ class Content(Page):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
 
     @property
-    def title(self):
-        return self.find_element(*self._title_locator)
-
-    @property
-    def title_before_click(self):
-        return self.title.get_attribute("innerHTML")
+    def book_title(self):
+        return self.bookbanner.book_title
 
     @property
     def next_link(self):
@@ -60,10 +55,14 @@ class Content(Page):
         return self.find_element(*self._section_url_locator)
 
     def click_next_link(self):
-        self.click_and_wait_for_load(self.next_link)
+        self.click_and_check_reference_object_has_changed(
+            self.next_link, self.bookbanner, "chapter_title"
+        )
 
     def click_previous_link(self):
-        self.click_and_wait_for_load(self.previous_link)
+        self.click_and_check_reference_object_has_changed(
+            self.previous_link, self.bookbanner, "chapter_title"
+        )
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -78,6 +77,10 @@ class Content(Page):
         _book_title_locator = (By.CSS_SELECTOR, "div > a")
         _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
         _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
+
+        @property
+        def book_title_element(self):
+            return self.find_element(*self._book_title_locator)
 
         @property
         def book_title(self):
