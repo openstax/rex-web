@@ -34,15 +34,33 @@ class Page(pypom.Page):
         self.wait.until(lambda _: region.is_displayed)
         return self
 
-    def click_and_wait_for_load(self, element):
-        """Clicks an offscreen element and waits for title to load.
+    def offscreen_click(self, element=None):
+        """Clicks an offscreen element (or the region's root).
 
         Clicks the given element, even if it is offscreen, by sending the ENTER key.
-        Returns after loading the last element (title) of the page).
+        Returns the element.
         """
-        title_before_click = self.title_before_click
-        # self.offscreen_click(element)
+        # We actually navigate using the ENTER key because scrolling the page can be flaky
+        # https://stackoverflow.com/a/39918249
         element.send_keys(Keys.ENTER)
+        return element
+
+    def click_and_check_reference_object_has_changed(self, click_element, ref_object, ref_property):
+        """Clicks an offscreen element and waits for previous element to change.
+
+        Clicks the given element, even if it is offscreen, by sending the ENTER key.
+        Gets a property value from a reference object to save as a previous value.
+
+        Returns after waiting until property of the reference object changes.
+
+        :param click_element: the element that needs to be clicked
+        :param ref_object: the reference object that needs to be checked
+        :param ref_property: the property on the reference object that should change
+        """
+        previous_value = getattr(ref_object, ref_property)
+
+        self.offscreen_click(click_element)
+
         return self.wait.until(
-            lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
+            lambda _: previous_value != (getattr(ref_object, ref_property) or "")
         )
