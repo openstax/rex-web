@@ -56,7 +56,7 @@ const defaultServices = () => ({
 export interface AppOptions {
   initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
-  services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
+  services: Pick<AppServices, Exclude<keyof AppServices, 'history' | keyof ReturnType<typeof defaultServices>>>;
 }
 
 export default (options: AppOptions) => {
@@ -80,6 +80,7 @@ export default (options: AppOptions) => {
   const services = {
     ...defaultServices(),
     ...options.services,
+    history,
   };
 
   const middleware: Middleware[] = [

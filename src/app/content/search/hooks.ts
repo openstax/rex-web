@@ -1,7 +1,7 @@
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
-import { actionHook, assertDocument, assertWindow } from '../../utils';
+import { actionHook } from '../../utils';
 import * as contentSelectors from '../selectors';
-import { receiveSearchResults, requestSearch } from './actions';
+import { clearSearch, receiveSearchResults, requestSearch } from './actions';
 import * as select from './selectors';
 
 export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) => async({payload}) => {
@@ -12,7 +12,7 @@ export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) =
     return;
   }
 
-  saveSearch(payload);
+  saveSearch(services, payload);
 
   const results = await services.searchClient.search({
     books: [`${book.id}@${book.version}`],
@@ -22,30 +22,45 @@ export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) =
   });
 
   services.dispatch(receiveSearchResults(results));
+
+  console.log(services.history);
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch = async(services: AppServices & MiddlewareAPI) => {
-  const state = services.getState();
-  const query = select.query(state);
+  const query = select.query(services.getState());
 
-  if (typeof(window) === 'undefined' || !window.history || !window.history.state) {
-    return;
+  if (services.history.action === 'POP') { // on initial load or back/forward button, load state
+    loadSearch(services, query);
+  } else if (services.history.action === 'PUSH') { // on push save the current state to the new record
+    saveSearch(services, query);
   }
 
-  if (window.history.state.search && window.history.state.search !== query) {
-    services.dispatch(requestSearch(window.history.state.search));
-  } else if (!window.history.state.search && query) {
-    saveSearch(query);
-  }
-
+  console.log(services.history);
 };
 
 export default [
   actionHook(requestSearch, searchHookBody),
 ];
 
-function saveSearch(search: string) {
-  const history = assertWindow().history;
-  history.replaceState({...history.state, search}, assertDocument().title);
+function loadSearch(services: AppServices & MiddlewareAPI, query: string | null) {
+  const savedState = services.history.location.state;
+
+  if (savedState && savedState.search && savedState.search !== query) {
+    console.log(`loading ${savedState.search} over ${query}`);
+    services.dispatch(requestSearch(savedState.search));
+  } else if (savedState && !savedState.search) {
+    console.log('clearing search');
+    services.dispatch(clearSearch());
+  }
+}
+
+function saveSearch({history}: AppServices, search: string | null) {
+
+  if (history.location.state && history.location.state.search !== search) {
+    console.log(`saving ${search} over ${history.location.state.search}`);
+    history.replace({
+     state: {...history.location.state, search},
+    });
+  }
 }
