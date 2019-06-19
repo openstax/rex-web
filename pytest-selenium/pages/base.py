@@ -46,7 +46,7 @@ class Page(pypom.Page):
         return element
 
     def click_and_check_reference_object_has_changed(self, click_element, ref_object, ref_property):
-        """Clicks an offscreen element and waits for previous element to change.
+        """Clicks an offscreen element and waits for a reference property to change
 
         Clicks the given element, even if it is offscreen, by sending the ENTER key.
         Gets a property value from a reference object to save as a previous value.
