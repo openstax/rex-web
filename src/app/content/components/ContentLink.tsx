@@ -47,7 +47,8 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, search, naviga
           bookUid: stripIdVersion(book.id),
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),
-          search,
+          search, // TODO - only forward search if navigating within the same book
+                  // TODO - combine this with logic in Page that handles in content links
         },
       });
     }}
