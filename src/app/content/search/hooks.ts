@@ -12,8 +12,6 @@ export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) =
     return;
   }
 
-  saveSearch(services, payload);
-
   const results = await services.searchClient.search({
     books: [`${book.id}@${book.version}`],
     indexStrategy: 'i1',
@@ -22,8 +20,6 @@ export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) =
   });
 
   services.dispatch(receiveSearchResults(results));
-
-  console.log(services.history);
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
@@ -32,8 +28,6 @@ export const syncSearch = async(services: AppServices & MiddlewareAPI) => {
 
   if (services.history.action === 'POP') { // on initial load or back/forward button, load state
     loadSearch(services, query);
-  } else if (services.history.action === 'PUSH') { // on push save the current state to the new record
-    saveSearch(services, query);
   }
 
   console.log(services.history);
@@ -52,15 +46,5 @@ function loadSearch(services: AppServices & MiddlewareAPI, query: string | null)
   } else if (savedState && !savedState.search) {
     console.log('clearing search');
     services.dispatch(clearSearch());
-  }
-}
-
-function saveSearch({history}: AppServices, search: string | null) {
-
-  if (history.location.state && history.location.state.search !== search) {
-    console.log(`saving ${search} over ${history.location.state.search}`);
-    history.replace({
-     state: {...history.location.state, search},
-    });
   }
 }
