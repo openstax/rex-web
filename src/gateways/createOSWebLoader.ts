@@ -30,9 +30,9 @@ export default (prefix: string) => {
   const url = `${prefix}/v2/pages`;
   const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
 
-  const firstRecord = (data: OSWebResponse) => {
+  const firstRecord = (id: string) => (data: OSWebResponse) => {
     if (!data.items[0]) {
-      throw new Error('OSWeb record not found');
+      throw new Error(`OSWeb record "${id}" not found`);
     }
     return data.items[0];
   };
@@ -41,7 +41,7 @@ export default (prefix: string) => {
     (param) => fetcher(param)
       .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
       .then(toJson)
-      .then(firstRecord)
+      .then(firstRecord(param))
   );
 
   const slugLoader = loader((slug: string) => fetch(`${url}?type=books.Book&fields=${fields}&slug=${slug}`));
