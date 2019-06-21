@@ -55,6 +55,7 @@ describe('ContentLink', () => {
         bookUid: 'testbook1-uuid',
         bookVersion: '1.0',
         pageUid: 'testbook1-testpage1-uuid',
+        search: null,
       },
     }));
     expect(event.preventDefault).toHaveBeenCalled();
@@ -89,6 +90,7 @@ describe('ContentLink', () => {
         bookUid: 'testbook1-uuid',
         bookVersion: '1.0',
         pageUid: 'testbook1-testpage1-uuid',
+        search: null,
       },
     }));
     expect(event.preventDefault).toHaveBeenCalled();

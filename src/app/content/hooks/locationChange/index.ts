@@ -3,9 +3,9 @@ import { content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import resolveContent from './resolveContent';
 
-const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
-  await resolveContent(services, match);
-  await syncSearch(services);
+const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
+  await resolveContent(services, action.match);
+  await syncSearch(services)(action);
 };
 
 export default hookBody;

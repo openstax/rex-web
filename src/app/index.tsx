@@ -107,7 +107,7 @@ export default (options: AppOptions) => {
     </MessageProvider>
   </Provider>;
 
-  navigation.utils.changeToLocation(routes, store.dispatch, history.location);
+  navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
 
   for (const initializer of init) {
     const promise = initializer({

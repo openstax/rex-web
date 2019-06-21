@@ -1,5 +1,7 @@
+import { RouteHookBody } from '../../navigation/types';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
 import { actionHook } from '../../utils';
+import { content } from '../routes';
 import * as contentSelectors from '../selectors';
 import { clearSearch, receiveSearchResults, requestSearch } from './actions';
 import * as select from './selectors';
@@ -23,14 +25,12 @@ export const searchHookBody: ActionHookBody<typeof requestSearch> = (services) =
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
-export const syncSearch = async(services: AppServices & MiddlewareAPI) => {
+export const syncSearch: RouteHookBody<typeof content> = (services) => async(locationChange) => {
   const query = select.query(services.getState());
 
-  if (services.history.action === 'POP') { // on initial load or back/forward button, load state
+  if (locationChange.action === 'POP') { // on initial load or back/forward button, load state
     loadSearch(services, query);
   }
-
-  console.log(services.history);
 };
 
 export default [
@@ -41,10 +41,8 @@ function loadSearch(services: AppServices & MiddlewareAPI, query: string | null)
   const savedState = services.history.location.state;
 
   if (savedState && savedState.search && savedState.search !== query) {
-    console.log(`loading ${savedState.search} over ${query}`);
     services.dispatch(requestSearch(savedState.search));
   } else if (savedState && !savedState.search) {
-    console.log('clearing search');
     services.dispatch(clearSearch());
   }
 }

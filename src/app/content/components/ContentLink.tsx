@@ -9,6 +9,7 @@ import { AppState, Dispatch } from '../../types';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import {State as SearchState } from '../search/types';
+import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 
@@ -19,6 +20,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
     shortId: string;
     title: string;
   };
+  currentBook: Book | undefined;
   onClick?: () => void;
   navigate: typeof push;
   currentPath: string;
@@ -27,9 +29,19 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 // tslint:disable-next-line:variable-name
-export const ContentLink: SFC<Props> = ({book, page, currentPath, search, navigate, onClick, ...props}) => {
+export const ContentLink: SFC<Props> = ({
+  book,
+  page,
+  currentBook,
+  currentPath,
+  search,
+  navigate,
+  onClick,
+  ...props
+}) => {
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
+  const bookUid = stripIdVersion(book.id);
 
   return <a
     onClick={(e) => {
@@ -44,10 +56,10 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, search, naviga
         params,
         route: content,
         state : {
-          bookUid: stripIdVersion(book.id),
+          bookUid,
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),
-          search,
+          search: currentBook && currentBook.id === bookUid ? search : null,
         },
       });
     }}
@@ -59,6 +71,7 @@ export const ContentLink: SFC<Props> = ({book, page, currentPath, search, naviga
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
   (state: AppState) => ({
+    currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     search: selectSearch.query(state),
   }),
