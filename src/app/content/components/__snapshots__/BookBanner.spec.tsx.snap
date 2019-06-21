@@ -161,6 +161,7 @@ Array [
 
 <div
     className="c0"
+    data-testid="bookbanner"
   >
     <div
       className="c1"
