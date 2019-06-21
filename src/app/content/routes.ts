@@ -9,6 +9,7 @@ interface State {
   bookUid: string;
   bookVersion: string;
   pageUid: string;
+  search?: string | null;
 }
 
 export const content: Route<Params, State> = {
