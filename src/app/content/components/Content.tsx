@@ -21,7 +21,7 @@ import ContentPane from './ContentPane';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
 import Sidebar from './Sidebar';
-import Toolbar from './Toolbar';
+import Toolbar, { SearchBarControl } from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
@@ -155,6 +155,7 @@ const Content: React.SFC = () => <Layout>
     <Wrapper>
       <CenteredContentRow>
         <Sidebar />
+        <SearchBarControl/>
         <ContentPane>
           <UndoPadding>
             <MainContentWrapper>

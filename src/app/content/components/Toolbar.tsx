@@ -52,6 +52,11 @@ const SearchIconMobile = styled(Search)`
 `;
 
 // tslint:disable-next-line:variable-name
+const SearchIconInsideBar = styled(Search)`
+  ${toolbarIconStyles}
+`;
+
+// tslint:disable-next-line:variable-name
 const PrintIcon = styled(Print)`
   ${toolbarIconStyles}
 `;
@@ -215,33 +220,60 @@ const MobileSearchWrapper = styled.div`
   `)}
 `;
 
+// tslint:disable-next-line:variable-name
+const SearchResultsBar = styled.div`
+  top: calc(7rem + ${toolbarDesktopHeight}rem);
+  overflow-y: auto;
+  height: calc(100vh - 12rem);
+  transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  background-color: #fafafa;
+  z-index: 4;
+  margin-left: -50vw;
+  /*padding-left: 50vw;*/
+  width: calc(50vw + 43.5rem);
+  /*min-width: calc(50vw + 43.5rem);*/
+  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: sticky;
+`;
+
+// tslint:disable-next-line:variable-name
+const SearchQuery = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 class Toolbar extends React.Component<{
-  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean
+  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
-  public state = {query: '', mobileOpen: false};
+  public state = {query: '', mobileOpen: false, formSubmitted: false};
 
   public render() {
 
     const onSubmit = (e: any) => {
       e.preventDefault();
       this.props.search(this.state.query);
+      this.setState({formSubmitted: true});
     };
 
-    return <BarWrapper>
+    return [ <BarWrapper>
       <TopBar data-testid='toolbar'>
         <SidebarControl />
-        <SearchPrintWrapper id='SearchPrintWrapper'>
+        <SearchPrintWrapper>
           <FormattedMessage id='i18n:toolbar:search:placeholder'>
             {(msg: Element | string) => <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit}>
               <SearchInput
                 aria-label={assertString(msg, 'placeholder must be a string')}
                 placeholder={assertString(msg, 'placeholder must be a string')}
-                onChange={(e: any) => this.setState({query: e.target.value})}
+                onChange={(e: any) => this.setState({query: e.target.value, formSubmitted: false})}
                 value={this.state.query} />
               <SearchIconMobile onClick={() => this.setState({mobileOpen: !this.state.mobileOpen})} />
-              {this.props.query !== this.state.query && <SearchIconDesktop />}
-              {this.props.query === this.state.query &&
-                <CloseIconHiddenMobile onClick={() => this.setState({query: ''})} />
+              {!this.state.formSubmitted && <SearchIconDesktop />}
+              {this.state.formSubmitted &&
+                <CloseIconHiddenMobile onClick={() => this.setState({query: '', formSubmitted: false})} />
               }
             </SearchInputWrapper>}
           </FormattedMessage>
@@ -258,19 +290,22 @@ class Toolbar extends React.Component<{
           </FormattedMessage>
         </SearchPrintWrapper>
       </TopBar>
-      {this.state.mobileOpen && <MobileSearchWrapper id='mobileSearchWrapper'>
+      {this.state.mobileOpen && <MobileSearchWrapper>
         <FormattedMessage id='i18n:toolbar:search:placeholder'>
             {(msg: Element | string) => <SearchInputWrapper onSubmit={onSubmit}>
               <MobileSearchInput
                 aria-label={assertString(msg, 'placeholder must be a string')}
                 placeholder={assertString(msg, 'placeholder must be a string')}
-                onChange={(e: any) => this.setState({query: e.target.value})}
+                onChange={(e: any) => this.setState({query: e.target.value, formSubmitted: false})}
                 value={this.state.query} />
-              {this.props.query === this.state.query && <CloseIcon onClick={() => this.setState({query: ''})} />}
+              {this.state.formSubmitted &&
+                <CloseIcon onClick={() => this.setState({query: '', formSubmitted: false})} />
+              }
             </SearchInputWrapper>}
           </FormattedMessage>
       </MobileSearchWrapper>}
-    </BarWrapper>;
+    </BarWrapper>,
+    ];
   }
 }
 
@@ -282,3 +317,12 @@ export default connect(
     search: (query: string) => dispatch(requestSearch(query)),
   })
 )(Toolbar);
+
+// tslint:disable-next-line:variable-name
+export const SearchBarControl = (Control: React.ComponentType<{
+  search: typeof requestSearch, query: string | null}>) =>
+  connect((props: {search: typeof requestSearch, query: string | null}) => <Control {...props}>
+    {props.query && <SearchResultsBar>
+      <SearchQuery><SearchIconInsideBar/></SearchQuery>
+    </SearchResultsBar>}
+  </Control>);
