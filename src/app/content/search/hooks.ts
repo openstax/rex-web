@@ -44,7 +44,7 @@ function loadSearch(
 ) {
   if (savedQuery && savedQuery !== query) {
     services.dispatch(requestSearch(savedQuery));
-  } else if (!savedQuery) {
+  } else if (!savedQuery && query) {
     services.dispatch(clearSearch());
   }
 }
