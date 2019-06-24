@@ -29,7 +29,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async(loc
   const query = select.query(services.getState());
 
   if (locationChange.action === 'POP') { // on initial load or back/forward button, load state
-    loadSearch(services, query);
+    loadSearch(services, query, locationChange.location.state.query);
   }
 };
 
@@ -37,12 +37,14 @@ export default [
   actionHook(requestSearch, searchHookBody),
 ];
 
-function loadSearch(services: AppServices & MiddlewareAPI, query: string | null) {
-  const savedState = services.history.location.state;
-
-  if (savedState && savedState.search && savedState.search !== query) {
-    services.dispatch(requestSearch(savedState.search));
-  } else if (savedState && !savedState.search) {
+function loadSearch(
+  services: AppServices & MiddlewareAPI,
+  query: string | null,
+  savedQuery: string | null
+) {
+  if (savedQuery && savedQuery !== query) {
+    services.dispatch(requestSearch(savedQuery));
+  } else if (!savedQuery) {
     services.dispatch(clearSearch());
   }
 }
