@@ -6,13 +6,13 @@ import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { receiveBook } from '../actions';
 import { formatBookData } from '../utils';
 import { receiveSearchResults, requestSearch } from './actions';
-import { searchHookBody } from './hooks';
+import { requestSearchHook } from './hooks';
 
-describe('searchHook', () => {
+describe('requestSearchHook', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: MiddlewareAPI & AppServices;
-  let hook: ReturnType<typeof searchHookBody>;
+  let hook: ReturnType<typeof requestSearchHook>;
 
   beforeEach(() => {
     store = createTestStore();
@@ -21,7 +21,7 @@ describe('searchHook', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-    hook = searchHookBody(helpers);
+    hook = requestSearchHook(helpers);
     dispatch = jest.spyOn(helpers, 'dispatch');
   });
 

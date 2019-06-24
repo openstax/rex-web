@@ -8,3 +8,8 @@ export const push = (
   match: AnyMatch,
   options: {hash?: string, search?: string} = {}
 ) => callHistoryMethod({method: 'push', ...match, ...options});
+
+export const replace = (
+  match: AnyMatch,
+  options: {hash?: string, search?: string} = {}
+) => callHistoryMethod({method: 'replace', ...match, ...options});
