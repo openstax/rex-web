@@ -7,7 +7,6 @@ import { State } from './types';
 
 export const initialState = {
   loading: false,
-  open: false,
   query: null,
   results: null,
 };
@@ -19,6 +18,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveSearchResults): {
       return {...state, loading: false, results: action.payload};
+    }
+    case getType(actions.clearSearch): {
+      return initialState;
     }
     case getType(locationChange): {
       if (action.payload.action === 'PUSH' && !action.payload.location.state.search) {

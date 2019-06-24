@@ -1,4 +1,5 @@
 import { SearchResult } from '@openstax/open-search-client';
+import { Location } from 'history';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 
 // TODO - sort by page order
@@ -22,3 +23,5 @@ export const getIndexData = (indexName: string) => {
     version,
   };
 };
+
+export const getSearchFromLocation = (location: Location) => location.state && location.state.search;

@@ -9,7 +9,7 @@ import { stripIdVersion } from '../utils/idUtils';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch } from './actions';
 import * as select from './selectors';
-import { getFirstSearchResult, getIndexData } from './utils';
+import { getFirstSearchResult, getIndexData, getSearchFromLocation } from './utils';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload}) => {
   const state = services.getState();
@@ -29,7 +29,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
   services.dispatch(receiveSearchResults(results));
 };
 
-export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => async({payload}) => {
+export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload}) => {
   const firstResult = getFirstSearchResult(payload);
 
   if (!firstResult) {
@@ -51,7 +51,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       `which could not be found in book "${book.id}"`);
   }
 
-  if (services.history.location.state.search === search && page.id === firstResultPage.id) {
+  const savedQuery = getSearchFromLocation(services.history.location);
+  if (savedQuery === search && page.id === firstResultPage.id) {
     return; // if search and page match current history record, noop
   }
 
@@ -74,9 +75,10 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch: RouteHookBody<typeof content> = (services) => async(locationChange) => {
   const query = select.query(services.getState());
+  const savedQuery = getSearchFromLocation(locationChange.location);
 
   if (locationChange.action === 'POP') { // on initial load or back/forward button, load state
-    loadSearch(services, query, locationChange.location.state.search);
+    loadSearch(services, query, savedQuery);
   }
 };
 

@@ -16,9 +16,4 @@ export const hash = createSelector(
   (state) => state.hash
 );
 
-export const query = createSelector(
-  localState,
-  (state) => state.query
-);
-
 export const location = localState;
