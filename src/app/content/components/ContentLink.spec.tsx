@@ -1,13 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { push } from '../../navigation/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { Store } from '../../types';
+import { receiveBook } from '../actions';
 import { content } from '../routes';
+import { requestSearch } from '../search/actions';
 import { formatBookData } from '../utils';
 import ConnectedContentLink from './ContentLink';
 
@@ -20,17 +21,11 @@ describe('ContentLink', () => {
   let consoleError: jest.SpyInstance;
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let helpers: MiddlewareAPI & AppServices;
 
   beforeEach(() => {
     consoleError = jest.spyOn(console, 'error');
     store = createTestStore();
-    helpers = {
-      ...createTestServices(),
-      dispatch: store.dispatch,
-      getState: store.getState,
-    };
-    dispatch = jest.spyOn(helpers, 'dispatch');
+    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   afterEach(() => {
@@ -57,12 +52,41 @@ describe('ContentLink', () => {
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
-      state: {
-        bookUid: 'testbook1-uuid',
-        bookVersion: '1.0',
-        pageUid: 'testbook1-testpage1-uuid',
-        search: null,
-      },
+      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid', search: null },
+    }));
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('dispatches navigation action with search if there is a search', () => {
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveBook(book));
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} />
+    </Provider>);
+
+    const event = click(component);
+
+    expect(dispatch).toHaveBeenCalledWith(push({
+      params: {book: BOOK_SLUG, page: PAGE_SLUG},
+      route: content,
+      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid', search: 'asdf' },
+    }));
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('dispatches navigation action without search when linking to a different book', () => {
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveBook({...book, id: 'differentid'}));
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} />
+    </Provider>);
+
+    const event = click(component);
+
+    expect(dispatch).toHaveBeenCalledWith(push({
+      params: {book: BOOK_SLUG, page: PAGE_SLUG},
+      route: content,
+      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid', search: null },
     }));
     expect(event.preventDefault).toHaveBeenCalled();
   });
@@ -78,12 +102,7 @@ describe('ContentLink', () => {
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
-      state: {
-        bookUid: 'testbook1-uuid',
-        bookVersion: '1.0',
-        pageUid: 'testbook1-testpage1-uuid',
-        search: null,
-      },
+      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid', search: null },
     }));
     expect(event.preventDefault).toHaveBeenCalled();
     expect(clickSpy).toHaveBeenCalled();
