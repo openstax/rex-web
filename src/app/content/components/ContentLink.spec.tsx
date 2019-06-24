@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
+import createTestServices from '../../../test/createTestServices';
+import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { push } from '../../navigation/actions';
-import { AppState } from '../../types';
-import { initialState } from '../reducer';
+import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { content } from '../routes';
 import { formatBookData } from '../utils';
 import ConnectedContentLink from './ContentLink';
@@ -18,37 +18,43 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('ContentLink', () => {
   let consoleError: jest.SpyInstance;
+  let store: Store;
+  let dispatch: jest.SpyInstance;
+  let helpers: MiddlewareAPI & AppServices;
 
   beforeEach(() => {
     consoleError = jest.spyOn(console, 'error');
+    store = createTestStore();
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+    dispatch = jest.spyOn(helpers, 'dispatch');
   });
 
   afterEach(() => {
     consoleError.mockRestore();
   });
 
-  it('dispatches navigation action on click', () => {
-    const pathname = '/doesnotmatter';
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-      navigation: { pathname },
-    } as any as AppState;
-    const store = createStore((s: AppState | undefined) => s || state, state);
-    const dispatchSpy = jest.spyOn(store, 'dispatch');
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book} page={page} />
-    </Provider>);
-
+  const click = (component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
     };
 
     component.root.findByType('a').props.onClick(event);
 
-    expect(dispatchSpy).toHaveBeenCalledWith(push({
+    return event;
+  };
+
+  it('dispatches navigation action on click', () => {
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} />
+    </Provider>);
+
+    const event = click(component);
+
+    expect(dispatch).toHaveBeenCalledWith(push({
       params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
       state: {
@@ -62,28 +68,14 @@ describe('ContentLink', () => {
   });
 
   it('calls onClick when passed', () => {
-    const pathname = '/doesnotmatter';
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-      navigation: { pathname },
-    } as any as AppState;
-    const store = createStore((s: AppState | undefined) => s || state, state);
-    const dispatchSpy = jest.spyOn(store, 'dispatch');
     const clickSpy = jest.fn();
     const component = renderer.create(<Provider store={store}>
       <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
     </Provider>);
 
-    const event = {
-      preventDefault: jest.fn(),
-    };
+    const event = click(component);
 
-    component.root.findByType('a').props.onClick(event);
-
-    expect(dispatchSpy).toHaveBeenCalledWith(push({
+    expect(dispatch).toHaveBeenCalledWith(push({
       params: {book: BOOK_SLUG, page: PAGE_SLUG},
       route: content,
       state: {
@@ -98,16 +90,6 @@ describe('ContentLink', () => {
   });
 
   it('does not call onClick or dispatch the event when the meta key is pressed', () => {
-    const pathname = '/doesnotmatter';
-    const state = {
-      content: {
-        ...initialState,
-        book, page,
-      },
-      navigation: { pathname },
-    } as any as AppState;
-    const store = createStore((s: AppState | undefined) => s || state, state);
-    const dispatchSpy = jest.spyOn(store, 'dispatch');
     const clickSpy = jest.fn();
     const component = renderer.create(<Provider store={store}>
       <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
@@ -120,7 +102,7 @@ describe('ContentLink', () => {
 
     component.root.findByType('a').props.onClick(event);
 
-    expect(dispatchSpy).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
     expect(event.preventDefault).not.toHaveBeenCalled();
     expect(clickSpy).not.toHaveBeenCalled();
   });
