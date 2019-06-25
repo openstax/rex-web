@@ -1,3 +1,4 @@
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
@@ -20,6 +21,10 @@ class Content(Page):
         return self.NavBar(self)
 
     @property
+    def bookbanner(self):
+        return self.BookBanner(self)
+
+    @property
     def toolbar(self):
         return self.ToolBar(self)
 
@@ -38,6 +43,29 @@ class Content(Page):
         @property
         def openstax_logo_link(self):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+
+    class BookBanner(Region):
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
+        _book_title_locator = (By.CSS_SELECTOR, "div > a")
+        _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
+        _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
+
+        @property
+        def book_title(self):
+            return self.find_element(*self._book_title_locator).text
+
+        @property
+        def chapter_title(self):
+            return self.find_element(*self._chapter_title_locator).text
+
+        @property
+        def chapter_section(self):
+            # The section isn't always included on the page so we return None
+            try:
+                element = self.find_element(*self._chapter_section_locator)
+                return element.text
+            except NoSuchElementException:
+                return None
 
     class ToolBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="toolbar"]')

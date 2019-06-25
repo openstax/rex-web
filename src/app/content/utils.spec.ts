@@ -26,43 +26,19 @@ describe('getContentPageReferences', () => {
     expect(getContentPageReferences('')).toEqual([]);
   });
 
-  it('picks up basic content reference', () => {
+  it('ignores urls not in links', () => {
     expect(
       getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
+    ).toEqual([]);
+  });
+
+  it('picks up basic content reference', () => {
+    expect(
+      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
-        bookUid: undefined,
-        bookVersion: undefined,
         match: '/contents/as8s8xu9sdnjsd9',
         pageUid: 'as8s8xu9sdnjsd9',
-      },
-    ]);
-  });
-
-  it('picks up book content reference', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf /contents/as8s8xu:9sdnjsd9 asdfadf')
-    ).toEqual([
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: undefined,
-        match: '/contents/as8s8xu:9sdnjsd9',
-        pageUid: '9sdnjsd9',
-      },
-    ]);
-  });
-
-  it('picks up versioned book content reference', () => {
-    expect(
-      getContentPageReferences(
-        'asdfasdfasf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf'
-      )
-    ).toEqual([
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: '1.2',
-        match: '/contents/as8s8xu@1.2:9sdnjsd9',
-        pageUid: '9sdnjsd9',
       },
     ]);
   });
@@ -70,27 +46,16 @@ describe('getContentPageReferences', () => {
   it('picks up multiple references', () => {
     expect(
       getContentPageReferences(`
-      asdfa /contents/as8s8xu9sdnjsd9 sdf
-      /contents/as8s8xu:9sdnjsd9
-      asf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf
+      asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
+      <a href="/contents/9sdnjsd9"></a>
     `)
     ).toEqual([
       {
-        bookUid: undefined,
-        bookVersion: undefined,
         match: '/contents/as8s8xu9sdnjsd9',
         pageUid: 'as8s8xu9sdnjsd9',
       },
       {
-        bookUid: 'as8s8xu',
-        bookVersion: undefined,
-        match: '/contents/as8s8xu:9sdnjsd9',
-        pageUid: '9sdnjsd9',
-      },
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: '1.2',
-        match: '/contents/as8s8xu@1.2:9sdnjsd9',
+        match: '/contents/9sdnjsd9',
         pageUid: '9sdnjsd9',
       },
     ]);
