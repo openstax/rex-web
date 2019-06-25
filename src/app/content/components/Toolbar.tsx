@@ -122,6 +122,10 @@ const SearchInputWrapper = styled.form`
     border: solid 0.1rem #0cc0dc;
   }
 
+  .ally-focus-within {
+    border: solid 0.1rem #0cc0dc;
+  }
+
   ${theme.breakpoints.mobile(css`
     margin-right: 0;
     height: 100%;
