@@ -1,3 +1,4 @@
+import { HTMLInputElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -6,7 +7,7 @@ import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
-import { contentFont, textRegularSize, textRegularStyle } from '../../components/Typography';
+import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString, assertWindow } from '../../utils';
@@ -23,31 +24,53 @@ import SidebarControl from './SidebarControl';
 import { disablePrint } from './utils/disablePrint';
 
 export const toolbarIconStyles = css`
-  height: 1.4rem;
-  width: 1.4rem;
-  cursor: pointer;
+  height: ${textRegularLineHeight}rem;
+  width: ${textRegularLineHeight}rem;
+  padding: 0.4rem;
 `;
 
 const barPadding = css`
-  padding: 0 ${theme.padding.page.desktop}rem;
+  max-width: ${maxNavWidth}rem;
+  margin: 0 auto;
+  width: calc(100% - ${theme.padding.page.desktop}rem * 2);
   ${theme.breakpoints.mobile(css`
-    padding: 0 ${theme.padding.page.mobile}rem;
+    width: calc(100% - ${theme.padding.page.mobile}rem * 2);
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchIconDesktop = styled(Search)`
-  ${toolbarIconStyles}
+const PlainButton = styled.button`
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  align-items: center;
+  color: ${toolbarIconColor.base};
+  height: 100%;
+  min-width: 45px;
+
+  :hover,
+  :focus {
+    outline: none;
+    color: ${toolbarIconColor.darker};
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const PrintOptWrapper = styled(PlainButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// tslint:disable-next-line:variable-name
+const PrintOptions = styled.span`
+  font-weight: 600;
+  font-family: ${contentFont};
+  ${textRegularSize};
+  margin: 0 0 0 0.5rem;
   ${theme.breakpoints.mobile(css`
     display: none;
-  `)}
-`;
-// tslint:disable-next-line:variable-name
-const SearchIconMobile = styled(Search)`
-  ${toolbarIconStyles}
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    display: block;
   `)}
 `;
 
@@ -57,43 +80,42 @@ const PrintIcon = styled(Print)`
 `;
 
 // tslint:disable-next-line:variable-name
-const CloseIcon = styled(TimesCircle)`
-  ${toolbarIconStyles}
-  color: ${theme.color.primary.gray.lighter};
-`;
+const SearchButton = styled(({desktop, mobile, ...props}) => <PlainButton {...props}><Search /></PlainButton>)`
+  > svg {
+    ${toolbarIconStyles}
+  }
 
-// tslint:disable-next-line:variable-name
-const CloseIconHiddenMobile = styled(CloseIcon)`
-  ${theme.breakpoints.mobile(css`
+  ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}
+  ${(props) => props.mobile && css`
+    display: none;
+    ${theme.breakpoints.mobile(css`
+      display: block;
+    `)}
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
-const TopBar = styled.div`
-  height: ${toolbarDesktopHeight}rem;
-  max-width: ${maxNavWidth}rem;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  overflow: visible;
-  ${barPadding};
-  ${theme.breakpoints.mobile(css`
-    height: ${toolbarMobileHeight}rem;
+const CloseButton = styled(({desktop, ...props}) => <PlainButton {...props}><TimesCircle /></PlainButton>)`
+  > svg {
+    ${toolbarIconStyles}
+  }
+
+  ${(props) => props.desktop && theme.breakpoints.mobile(css`
+    display: none;
   `)}
+  color: ${theme.color.primary.gray.lighter};
 `;
 
 // tslint:disable-next-line:variable-name
 const SearchInputWrapper = styled.form`
   display: flex;
   align-items: center;
-  margin-right: 4rem;
+  margin-right: 2rem;
   position: relative;
   color: ${toolbarIconColor.base};
   border: solid 0.1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
   border-radius: 0.2rem;
 
   :focus-within {
@@ -101,13 +123,13 @@ const SearchInputWrapper = styled.form`
   }
 
   ${theme.breakpoints.mobile(css`
-    margin-right: 1rem;
+    margin-right: 0;
     height: 100%;
 
     ${(props: {active: boolean}) => props.active && css`
       background: ${theme.color.primary.gray.base};
 
-      ${SearchIconMobile} {
+      ${SearchButton} {
         color: ${theme.color.primary.gray.foreground};
       }
     `}
@@ -118,6 +140,7 @@ const generalInput = css`
   ${textRegularStyle}
   color: ${theme.color.text.default};
   line-height: 3.2rem;
+  margin: 0 1rem 0 1rem;
   height: 3.2rem;
   border: none;
   outline: none;
@@ -142,35 +165,8 @@ const MobileSearchInput = styled.input`
 `;
 
 // tslint:disable-next-line:variable-name
-const PrintOptWrapper = styled.button`
-  display: flex;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  align-items: center;
-  color: ${toolbarIconColor.base};
-
-  :hover,
-  :focus {
-    outline: none;
-    color: ${toolbarIconColor.darker};
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const PrintOptions = styled.span`
-  font-weight: 600;
-  font-family: ${contentFont};
-  ${textRegularSize};
-  margin: 0;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
 const SearchPrintWrapper = styled.div`
+  height: 100%;
   text-align: right;
   display: flex;
   justify-content: center;
@@ -202,6 +198,29 @@ const BarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+const Hr = styled.hr`
+  border: 0.1rem solid #efeff1;
+  display: none;
+  margin: 0;
+  ${theme.breakpoints.mobile(css`
+    display: block;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const TopBar = styled.div`
+  height: ${toolbarDesktopHeight}rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: visible;
+  ${barPadding};
+  ${theme.breakpoints.mobile(css`
+    height: ${toolbarMobileHeight}rem;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
 const MobileSearchWrapper = styled.div`
   ${SearchInputWrapper} {
     margin: 1rem 0;
@@ -209,22 +228,38 @@ const MobileSearchWrapper = styled.div`
 
   display: none;
   ${barPadding}
-  border-top: solid 0.1rem #efeff1;
   ${theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
 
 class Toolbar extends React.Component<{
-  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean
+  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
-  public state = {query: '', mobileOpen: false};
+  public state = {query: '', mobileOpen: false, formSubmitted: false};
 
   public render() {
 
-    const onSubmit = (e: any) => {
+    const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      this.props.search(this.state.query);
+      if (this.state.query) {
+        this.props.search(this.state.query);
+        this.setState({formSubmitted: true});
+      }
+    };
+
+    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+      this.setState({query: e.currentTarget.value, formSubmitted: false});
+    };
+
+    const onClear = (e: React.FormEvent) => {
+      e.preventDefault();
+      this.setState({query: '', formSubmitted: false});
+    };
+
+    const toggleMobile = (e: React.FormEvent) => {
+      e.preventDefault();
+      this.setState({mobileOpen: !this.state.mobileOpen});
     };
 
     return <BarWrapper>
@@ -236,12 +271,12 @@ class Toolbar extends React.Component<{
               <SearchInput
                 aria-label={assertString(msg, 'placeholder must be a string')}
                 placeholder={assertString(msg, 'placeholder must be a string')}
-                onChange={(e: any) => this.setState({query: e.target.value})}
+                onChange={onChange}
                 value={this.state.query} />
-              <SearchIconMobile onClick={() => this.setState({mobileOpen: !this.state.mobileOpen})} />
-              {this.props.query !== this.state.query && <SearchIconDesktop />}
-              {this.props.query === this.state.query &&
-                <CloseIconHiddenMobile onClick={() => this.setState({query: ''})} />
+              <SearchButton mobile onClick={toggleMobile} />
+              {!this.state.formSubmitted && <SearchButton desktop />}
+              {this.state.formSubmitted &&
+                <CloseButton desktop onClick={onClear} />
               }
             </SearchInputWrapper>}
           </FormattedMessage>
@@ -258,15 +293,17 @@ class Toolbar extends React.Component<{
           </FormattedMessage>
         </SearchPrintWrapper>
       </TopBar>
+      {this.state.mobileOpen && <Hr />}
       {this.state.mobileOpen && <MobileSearchWrapper id='mobileSearchWrapper'>
         <FormattedMessage id='i18n:toolbar:search:placeholder'>
             {(msg: Element | string) => <SearchInputWrapper onSubmit={onSubmit}>
               <MobileSearchInput
                 aria-label={assertString(msg, 'placeholder must be a string')}
                 placeholder={assertString(msg, 'placeholder must be a string')}
-                onChange={(e: any) => this.setState({query: e.target.value})}
+                onChange={onChange}
                 value={this.state.query} />
-              {this.props.query === this.state.query && <CloseIcon onClick={() => this.setState({query: ''})} />}
+              {!this.state.formSubmitted && <SearchButton />}
+              {this.state.formSubmitted && <CloseButton onClick={onClear} />}
             </SearchInputWrapper>}
           </FormattedMessage>
       </MobileSearchWrapper>}
