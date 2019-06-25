@@ -31,29 +31,25 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload}) => {
   const firstResult = getFirstSearchResult(payload);
-
-  if (!firstResult) {
-    return; // no results
-  }
-
   const state = services.getState();
   const search = select.query(state);
   const {page, book} = selectContent.bookAndPage(state);
+  const firstResultPage = book && firstResult && findArchiveTreeSection(book.tree, firstResult.source.pageId);
+  const savedQuery = getSearchFromLocation(services.history.location);
 
-  if (!page || !book || book.id !== getIndexData(firstResult.index).bookId) {
-    return; // book changed while query was in the air
+  if (
+    !firstResult // no results
+    || !page || !book || book.id !== getIndexData(firstResult.index).bookId // book changed while query was in the air
+    || (
+      firstResultPage && savedQuery === search && page.id === firstResultPage.id
+    ) // if search and page match current history record, noop
+  ) {
+    return;
   }
-
-  const firstResultPage = findArchiveTreeSection(book.tree, firstResult.source.pageId);
 
   if (!firstResultPage) {
     throw new Error(`Search results for "${search}" refernced page "${firstResult.source.pageId}" ` +
       `which could not be found in book "${book.id}"`);
-  }
-
-  const savedQuery = getSearchFromLocation(services.history.location);
-  if (savedQuery === search && page.id === firstResultPage.id) {
-    return; // if search and page match current history record, noop
   }
 
   const navigation = {
