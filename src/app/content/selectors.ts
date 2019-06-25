@@ -9,7 +9,7 @@ export const localState = createSelector(
 
 export const tocOpen = createSelector(
   localState,
-  (state) => state.tocOpen
+  (state) => !state.search.query && state.tocOpen
 );
 
 export const book = createSelector(
