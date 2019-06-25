@@ -105,7 +105,6 @@ const CloseButton = styled(({desktop, ...props}) => <PlainButton {...props}><Tim
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}
-  color: ${theme.color.primary.gray.lighter};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -118,11 +117,11 @@ const SearchInputWrapper = styled.form`
   border: solid 0.1rem;
   border-radius: 0.2rem;
 
-  :focus-within {
+  &:focus-within {
     border: solid 0.1rem #0cc0dc;
   }
 
-  .ally-focus-within {
+  &.ally-focus-within {
     border: solid 0.1rem #0cc0dc;
   }
 
@@ -140,7 +139,13 @@ const SearchInputWrapper = styled.form`
   `)}
 `;
 
-const generalInput = css`
+// tslint:disable-next-line:variable-name
+const SearchInput = styled(({desktop, ...props}) => <FormattedMessage id='i18n:toolbar:search:placeholder'>
+  {(msg) => <input {...props}
+    aria-label={assertString(msg, 'placeholder must be a string')}
+    placeholder={assertString(msg, 'placeholder must be a string')}
+  />}
+</FormattedMessage>)`
   ${textRegularStyle}
   color: ${theme.color.text.default};
   line-height: 3.2rem;
@@ -152,20 +157,13 @@ const generalInput = css`
   ::placeholder {
     color: ${toolbarIconColor.base};
   }
-`;
 
-// tslint:disable-next-line:variable-name
-const SearchInput = styled.input`
-  ${generalInput}
-  ${theme.breakpoints.mobile(css`
+  ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}
-`;
-
-// tslint:disable-next-line:variable-name
-const MobileSearchInput = styled.input`
-  ${generalInput}
-  width: 100%;
+  ${(props) => props.mobile && css`
+    width: 100%;
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -269,21 +267,15 @@ class Toolbar extends React.Component<{
     return <BarWrapper>
       <TopBar data-testid='toolbar'>
         <SidebarControl />
-        <SearchPrintWrapper id='SearchPrintWrapper'>
-          <FormattedMessage id='i18n:toolbar:search:placeholder'>
-            {(msg: Element | string) => <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit}>
-              <SearchInput
-                aria-label={assertString(msg, 'placeholder must be a string')}
-                placeholder={assertString(msg, 'placeholder must be a string')}
-                onChange={onChange}
-                value={this.state.query} />
-              <SearchButton mobile onClick={toggleMobile} />
-              {!this.state.formSubmitted && <SearchButton desktop />}
-              {this.state.formSubmitted &&
-                <CloseButton desktop onClick={onClear} />
-              }
-            </SearchInputWrapper>}
-          </FormattedMessage>
+        <SearchPrintWrapper>
+          <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit}>
+            <SearchInput desktop onChange={onChange} value={this.state.query} />
+            <SearchButton mobile onClick={toggleMobile} />
+            {!this.state.formSubmitted && <SearchButton desktop />}
+            {this.state.formSubmitted &&
+              <CloseButton desktop onClick={onClear} />
+            }
+          </SearchInputWrapper>
           <FormattedMessage id='i18n:toolbar:print:text'>
             {(msg: Element | string) =>
               <PrintOptWrapper
@@ -299,17 +291,13 @@ class Toolbar extends React.Component<{
       </TopBar>
       {this.state.mobileOpen && <Hr />}
       {this.state.mobileOpen && <MobileSearchWrapper id='mobileSearchWrapper'>
-        <FormattedMessage id='i18n:toolbar:search:placeholder'>
-            {(msg: Element | string) => <SearchInputWrapper onSubmit={onSubmit}>
-              <MobileSearchInput
-                aria-label={assertString(msg, 'placeholder must be a string')}
-                placeholder={assertString(msg, 'placeholder must be a string')}
-                onChange={onChange}
-                value={this.state.query} />
-              {!this.state.formSubmitted && <SearchButton />}
-              {this.state.formSubmitted && <CloseButton onClick={onClear} />}
-            </SearchInputWrapper>}
-          </FormattedMessage>
+          <SearchInputWrapper onSubmit={onSubmit}>
+            <SearchInput mobile
+              onChange={onChange}
+              value={this.state.query} />
+            {!this.state.formSubmitted && <SearchButton />}
+            {this.state.formSubmitted && <CloseButton onClick={onClear} />}
+          </SearchInputWrapper>
       </MobileSearchWrapper>}
     </BarWrapper>;
   }
