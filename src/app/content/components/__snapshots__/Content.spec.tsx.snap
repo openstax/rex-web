@@ -1943,17 +1943,20 @@ li[aria-label="Current Page"] .c40 {
         >
           <form
             className="c20 c21"
+            data-testid="desktop-search"
             onSubmit={[Function]}
           >
             <input
               aria-label="Search this book"
               className="c22"
+              data-testid="desktop-search-input"
               onChange={[Function]}
               placeholder="Search this book"
               value=""
             />
             <button
               className="c23 c24"
+              data-testid="mobile-toggle"
               onClick={[Function]}
             >
               <svg
@@ -4431,17 +4434,20 @@ Array [
         >
           <form
             className="c12 c13"
+            data-testid="desktop-search"
             onSubmit={[Function]}
           >
             <input
               aria-label="Search this book"
               className="c14"
+              data-testid="desktop-search-input"
               onChange={[Function]}
               placeholder="Search this book"
               value=""
             />
             <button
               className="c15 c16"
+              data-testid="mobile-toggle"
               onClick={[Function]}
             >
               <svg

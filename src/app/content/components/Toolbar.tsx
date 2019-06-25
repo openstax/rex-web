@@ -280,12 +280,12 @@ class Toolbar extends React.Component<{
       <TopBar data-testid='toolbar'>
         <SidebarControl />
         <SearchPrintWrapper>
-          <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit}>
-            <SearchInput desktop onChange={onChange} value={this.state.query} />
-            <SearchButton mobile onClick={toggleMobile} />
+          <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
+            <SearchInput desktop onChange={onChange} value={this.state.query} data-testid='desktop-search-input' />
+            <SearchButton mobile data-testid='mobile-toggle' onClick={toggleMobile} />
             {!this.state.formSubmitted && <SearchButton desktop />}
             {this.state.formSubmitted &&
-              <CloseButton desktop onClick={onClear} />
+              <CloseButton desktop onClick={onClear} data-testid='desktop-clear-search' />
             }
           </SearchInputWrapper>
           <FormattedMessage id='i18n:toolbar:print:text'>
@@ -304,12 +304,10 @@ class Toolbar extends React.Component<{
       {this.state.mobileOpen && <MobileSearchWrapper>
         <Hr />
         <MobileSearchContainer>
-          <SearchInputWrapper onSubmit={onSubmit}>
-            <SearchInput mobile
-              onChange={onChange}
-              value={this.state.query} />
+          <SearchInputWrapper onSubmit={onSubmit} data-testid='mobile-search'>
+            <SearchInput mobile data-testid='mobile-search-input' onChange={onChange} value={this.state.query} />
             {!this.state.formSubmitted && <SearchButton />}
-            {this.state.formSubmitted && <CloseButton onClick={onClear} />}
+            {this.state.formSubmitted && <CloseButton onClick={onClear} data-testid='mobile-clear-search' />}
           </SearchInputWrapper>
         </MobileSearchContainer>
       </MobileSearchWrapper>}
