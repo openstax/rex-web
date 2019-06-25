@@ -140,7 +140,7 @@ const SearchInputWrapper = styled.form`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchInput = styled(({desktop, ...props}) => <FormattedMessage id='i18n:toolbar:search:placeholder'>
+const SearchInput = styled(({desktop, mobile, ...props}) => <FormattedMessage id='i18n:toolbar:search:placeholder'>
   {(msg) => <input {...props}
     aria-label={assertString(msg, 'placeholder must be a string')}
     placeholder={assertString(msg, 'placeholder must be a string')}
@@ -183,25 +183,33 @@ const SearchPrintWrapper = styled.div`
   `)}
 `;
 
+const shadow = css`
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+`;
+
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
   width: 100%;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+  overflow: visible;
   display: block;
   z-index: 2; /* stay above book content */
   background-color: ${theme.color.neutral.base};
+  height: ${toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
+    height: ${toolbarMobileHeight}rem;
     top: ${bookBannerMobileMiniHeight}rem;
   `)}
 
+  ${shadow}
   ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
 const Hr = styled.hr`
-  border: 0.1rem solid #efeff1;
+  border: none;
+  border-top: 0.1rem solid #efeff1;
   display: none;
   margin: 0;
   ${theme.breakpoints.mobile(css`
@@ -211,25 +219,29 @@ const Hr = styled.hr`
 
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
-  height: ${toolbarDesktopHeight}rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   overflow: visible;
+  align-items: center;
   ${barPadding};
+  height: ${toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
     height: ${toolbarMobileHeight}rem;
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const MobileSearchWrapper = styled.div`
-  ${SearchInputWrapper} {
-    margin: 1rem 0;
-  }
-
-  display: none;
+const MobileSearchContainer = styled.div`
   ${barPadding}
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const MobileSearchWrapper = styled.div`
+  display: none;
+  background-color: ${theme.color.neutral.base};
+  ${shadow}
   ${theme.breakpoints.mobile(css`
     display: block;
   `)}
@@ -289,8 +301,9 @@ class Toolbar extends React.Component<{
           </FormattedMessage>
         </SearchPrintWrapper>
       </TopBar>
-      {this.state.mobileOpen && <Hr />}
-      {this.state.mobileOpen && <MobileSearchWrapper id='mobileSearchWrapper'>
+      {this.state.mobileOpen && <MobileSearchWrapper>
+        <Hr />
+        <MobileSearchContainer>
           <SearchInputWrapper onSubmit={onSubmit}>
             <SearchInput mobile
               onChange={onChange}
@@ -298,6 +311,7 @@ class Toolbar extends React.Component<{
             {!this.state.formSubmitted && <SearchButton />}
             {this.state.formSubmitted && <CloseButton onClick={onClear} />}
           </SearchInputWrapper>
+        </MobileSearchContainer>
       </MobileSearchWrapper>}
     </BarWrapper>;
   }
