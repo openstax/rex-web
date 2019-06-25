@@ -1955,6 +1955,7 @@ li[aria-label="Current Page"] .c40 {
               value=""
             />
             <button
+              aria-label="Search this book"
               className="c23 c24"
               data-testid="mobile-toggle"
               onClick={[Function]}
@@ -4446,6 +4447,7 @@ Array [
               value=""
             />
             <button
+              aria-label="Search this book"
               className="c15 c16"
               data-testid="mobile-toggle"
               onClick={[Function]}

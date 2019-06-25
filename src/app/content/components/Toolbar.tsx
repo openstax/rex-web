@@ -282,7 +282,13 @@ class Toolbar extends React.Component<{
         <SearchPrintWrapper>
           <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
             <SearchInput desktop onChange={onChange} value={this.state.query} data-testid='desktop-search-input' />
-            <SearchButton mobile data-testid='mobile-toggle' onClick={toggleMobile} />
+            <FormattedMessage id='i18n:toolbar:search:toggle'>
+              {(msg) => <SearchButton mobile
+                aria-label={assertString(msg, 'button name must be a string')}
+                data-testid='mobile-toggle'
+                onClick={toggleMobile}
+              />}
+            </FormattedMessage>
             {!this.state.formSubmitted && <SearchButton desktop />}
             {this.state.formSubmitted &&
               <CloseButton desktop onClick={onClear} data-testid='desktop-clear-search' />

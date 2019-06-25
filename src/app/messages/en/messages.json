@@ -14,6 +14,7 @@
   "i18n:nav:profile:text": "Account Profile",
   "i18n:nav:hello:text": "Hi {name}",
   "i18n:toolbar:search:placeholder": "Search this book",
+  "i18n:toolbar:search:toggle": "Search this book",
   "i18n:toolbar:print:text": "Print",
   "i18n:prevnext:prev:text": "Previous",
   "i18n:prevnext:next:text": "Next",
