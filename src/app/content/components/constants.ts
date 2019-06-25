@@ -9,6 +9,9 @@ export const sidebarDesktopWidth = 33.5;
 export const sidebarMobileWidth = 28.8;
 export const sidebarTransitionTime = 300;
 
+export const searchResultsBarDesktopWidth = 43.5;
+export const searchResultsBarMobileWidth = 48;
+
 export const toolbarIconColor = theme.color.primary.gray;
 export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;

@@ -37,5 +37,6 @@
   "i18n:footer:social:tw:alt": "twitter",
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:ig:alt": "instagram",
-  "i18n:footer:social:rice-logo:alt": "Rice University logo"
+  "i18n:footer:social:rice-logo:alt": "Rice University logo",
+  "i18n:search-results:bar:query:results": "search results for "
 }
