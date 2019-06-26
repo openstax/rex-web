@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
-import { Details } from '../../components/Details';
+import { Details, iconSize } from '../../components/Details';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
-import { textRegularStyle } from '../../components/Typography';
+import { labelStyle, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
@@ -20,6 +20,11 @@ import {
 } from './constants';
 import { CollapseIcon, ExpandIcon, Summary, SummaryTitle, SummaryWrapper } from './Sidebar/styled';
 import { toolbarIconStyles } from './Toolbar';
+
+const searchResultsBarVariables = {
+    backgroundColor: '#f1f1f1',
+    mainPadding: 3,
+};
 
 // tslint:disable-next-line:variable-name
 const SearchIconInsideBar = styled(Search)`
@@ -62,8 +67,8 @@ const SearchResultsBar = styled.div`
   }
 
   ${theme.breakpoints.mobile(css`
-    width: calc(50vw + ${searchResultsBarMobileWidth}rem);
-    min-width: calc(50vw + ${searchResultsBarMobileWidth}rem);
+    width: calc(50vw + ${searchResultsBarMobileWidth}vw);
+    min-width: calc(50vw + ${searchResultsBarMobileWidth}vw);
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
   `)}
@@ -102,9 +107,45 @@ const SearchBarSummary = styled(Summary)`
     min-height: 3.8rem;
     display: flex;
     align-items: center;
-    background: #f1f1f1;
+    background: ${searchResultsBarVariables.backgroundColor};
     border-top: solid 0.1rem #d5d5d5;
-    padding-left: 3rem;
+    padding-left: ${searchResultsBarVariables.mainPadding}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const SearchResultsLink = styled.a`
+  ${labelStyle}
+  text-decoration: none;
+  width: 100%;
+`;
+
+// tslint:disable-next-line:variable-name
+const SectionContentPreview = styled.div`
+  ${labelStyle}
+    padding-left: ${searchResultsBarVariables.mainPadding + iconSize + 2.3}rem;
+    min-height: 3.7rem;
+    display: flex;
+    align-items: center;
+    padding-right: 1.6rem;
+    margin: 1rem 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const LinkWrapper = styled.div`
+    min-height: 3.4rem;
+    display: flex;
+    align-items: center;
+    padding-left: ${searchResultsBarVariables.mainPadding + iconSize}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const DetailsOl = styled.ol`
+  padding: 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const NavItem = styled.li`
+    border-bottom: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -131,18 +172,28 @@ const SearchResultsSidebar = (query: any ) => <SearchResultsBar open={query.quer
                         </SummaryTitle>
                     </SummaryWrapper>
                 </SearchBarSummary>
-                <ol>
-                    <li>
-                        <a href='#'>
-                            <span className='os-text'>Introduction</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href='#'>
-                            <span className='os-number'>1.1</span><span className='os-divider'> </span>
-                            <span className='os-text'>Chemistry in Context</span></a>
-                    </li>
-                </ol>
+                <DetailsOl>
+                    <NavItem>
+                        <LinkWrapper>
+                            <SearchResultsLink href='#'>
+                                <span className='os-number'>1.1</span><span className='os-divider'> </span>
+                                <span className='os-text'>Section title</span>
+                            </SearchResultsLink>
+                        </LinkWrapper>
+                        <SectionContentPreview>
+                            died because of a cosmic collision. a tiny moon
+                            whose gravity is so weak that one good throw of a cosmic
+                        </SectionContentPreview>
+                    </NavItem>
+                    <NavItem>
+                        <LinkWrapper>
+                            <SearchResultsLink href='#'>
+                                <span className='os-number'>1.2</span><span className='os-divider'> </span>
+                                <span className='os-text'>Chemistry in Context</span>
+                            </SearchResultsLink>
+                        </LinkWrapper>
+                    </NavItem>
+                </DetailsOl>
             </Details>
         </li>
     </NavOl>
