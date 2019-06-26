@@ -2,11 +2,22 @@ from tests.conftest import DESKTOP, MOBILE
 
 import pypom
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
 class Page(pypom.Page):
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
         super().__init__(driver, base_url, timeout, **url_kwargs)
+
+    _title_locator = (By.TAG_NAME, "title")
+
+    @property
+    def title(self):
+        return self.find_element(*self._title_locator)
+
+    @property
+    def title_before_click(self):
+        return self.title.get_attribute("innerHTML")
 
     @property
     def window_width(self):
@@ -41,7 +52,6 @@ class Page(pypom.Page):
         Returns after loading the last element (title) of the page).
         """
         title_before_click = self.title_before_click
-        # self.offscreen_click(element)
         element.send_keys(Keys.ENTER)
         return self.wait.until(
             lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
