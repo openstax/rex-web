@@ -175,6 +175,7 @@ Array [
   width: 100%;
   display: grid;
   grid-row-gap: 2rem;
+  overflow: visible;
 }
 
 .c72 {
@@ -213,18 +214,21 @@ Array [
 .c74 {
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
   grid-area: col1;
 }
 
 .c77 {
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
   grid-area: col2;
 }
 
 .c78 {
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
   grid-area: col3;
 }
 
@@ -268,15 +272,22 @@ Array [
   width: 100%;
   display: grid;
   grid-gap: 1.5rem 4rem;
+  overflow: visible;
 }
 
 .c81 {
   display: grid;
   grid-gap: 1rem;
+  overflow: visible;
+}
+
+.c81 [data-html="copyright"] {
+  overflow: visible;
 }
 
 .c81 a {
   color: inherit;
+  overflow: visible;
 }
 
 .c81 sup {
@@ -299,6 +310,7 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  overflow: visible;
 }
 
 .c83 {
@@ -1739,6 +1751,7 @@ li[aria-label="Current Page"] .c37 {
   >
     <div
       className="c1"
+      data-testid="bookbanner"
     >
       <div
         className="c2"
@@ -2735,7 +2748,7 @@ li[aria-label="Current Page"] .c37 {
                         <a
                           className="c76"
                           href="https://openstax.secure.force.com/help"
-                          rel="noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Support Center
@@ -2768,8 +2781,8 @@ li[aria-label="Current Page"] .c37 {
                         <a
                           className="c76"
                           href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                          rel=""
-                          target="_self"
+                          rel="noopener"
+                          target="_blank"
                         >
                           Newsletter
                         </a>
@@ -2838,7 +2851,8 @@ li[aria-label="Current Page"] .c37 {
                             "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
-    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">Creative Commons Attribution 4.0 International License</a>.
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
+    rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
   </div>
   <div data-html=\\"apStatement\\">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
@@ -2856,6 +2870,8 @@ li[aria-label="Current Page"] .c37 {
                           aria-label="facebook"
                           className="c83"
                           href="https://www.facebook.com/openstax"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -2874,6 +2890,8 @@ li[aria-label="Current Page"] .c37 {
                           aria-label="twitter"
                           className="c83"
                           href="https://twitter.com/openstax"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -2892,6 +2910,8 @@ li[aria-label="Current Page"] .c37 {
                           aria-label="linkedin"
                           className="c83"
                           href="https://www.linkedin.com/company/openstax"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -2910,6 +2930,8 @@ li[aria-label="Current Page"] .c37 {
                           aria-label="instagram"
                           className="c83"
                           href="https://www.instagram.com/openstax/"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -2927,6 +2949,8 @@ li[aria-label="Current Page"] .c37 {
                         <a
                           className="c88"
                           href="http://www.rice.edu"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <img
                             alt="Rice University logo"
@@ -3117,6 +3141,7 @@ Array [
   width: 100%;
   display: grid;
   grid-row-gap: 2rem;
+  overflow: visible;
 }
 
 .c46 {
@@ -3155,18 +3180,21 @@ Array [
 .c48 {
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
   grid-area: col1;
 }
 
 .c51 {
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
   grid-area: col2;
 }
 
 .c52 {
   display: grid;
   grid-gap: 0.5rem;
+  overflow: visible;
   grid-area: col3;
 }
 
@@ -3210,15 +3238,22 @@ Array [
   width: 100%;
   display: grid;
   grid-gap: 1.5rem 4rem;
+  overflow: visible;
 }
 
 .c55 {
   display: grid;
   grid-gap: 1rem;
+  overflow: visible;
+}
+
+.c55 [data-html="copyright"] {
+  overflow: visible;
 }
 
 .c55 a {
   color: inherit;
+  overflow: visible;
 }
 
 .c55 sup {
@@ -3241,6 +3276,7 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  overflow: visible;
 }
 
 .c57 {
@@ -4467,7 +4503,7 @@ Array [
                         <a
                           className="c50"
                           href="https://openstax.secure.force.com/help"
-                          rel="noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Support Center
@@ -4500,8 +4536,8 @@ Array [
                         <a
                           className="c50"
                           href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                          rel=""
-                          target="_self"
+                          rel="noopener"
+                          target="_blank"
                         >
                           Newsletter
                         </a>
@@ -4570,7 +4606,8 @@ Array [
                             "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
-    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\">Creative Commons Attribution 4.0 International License</a>.
+    <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
+    rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
   </div>
   <div data-html=\\"apStatement\\">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
@@ -4588,6 +4625,8 @@ Array [
                           aria-label="facebook"
                           className="c57"
                           href="https://www.facebook.com/openstax"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -4606,6 +4645,8 @@ Array [
                           aria-label="twitter"
                           className="c57"
                           href="https://twitter.com/openstax"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -4624,6 +4665,8 @@ Array [
                           aria-label="linkedin"
                           className="c57"
                           href="https://www.linkedin.com/company/openstax"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -4642,6 +4685,8 @@ Array [
                           aria-label="instagram"
                           className="c57"
                           href="https://www.instagram.com/openstax/"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <svg
                             aria-hidden="true"
@@ -4659,6 +4704,8 @@ Array [
                         <a
                           className="c62"
                           href="http://www.rice.edu"
+                          rel="noopener"
+                          target="_blank"
                         >
                           <img
                             alt="Rice University logo"

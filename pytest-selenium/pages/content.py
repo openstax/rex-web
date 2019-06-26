@@ -1,3 +1,4 @@
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
@@ -12,7 +13,6 @@ from regions.base import Region
 
 class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
-    _title_locator = (By.TAG_NAME, "title")
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
@@ -22,14 +22,6 @@ class Content(Page):
     @property
     def loaded(self):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
-
-    @property
-    def title(self):
-        return self.find_element(*self._title_locator)
-
-    @property
-    def title_before_click(self):
-        return self.title.get_attribute("innerHTML")
 
     @property
     def next_link(self):
@@ -46,6 +38,10 @@ class Content(Page):
     @property
     def navbar(self):
         return self.NavBar(self)
+
+    @property
+    def bookbanner(self):
+        return self.BookBanner(self)
 
     @property
     def toolbar(self):
@@ -80,10 +76,10 @@ class Content(Page):
         # sleep(5)
 
     def click_next_link(self):
-        self.offscreen_click_and_wait_for_new_title_to_load(self.next_link)
+        self.click_and_wait_for_load(self.next_link)
 
     def click_previous_link(self):
-        self.offscreen_click_and_wait_for_new_title_to_load(self.previous_link)
+        self.click_and_wait_for_load(self.previous_link)
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -92,6 +88,29 @@ class Content(Page):
         @property
         def openstax_logo_link(self):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+
+    class BookBanner(Region):
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
+        _book_title_locator = (By.CSS_SELECTOR, "div > a")
+        _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
+        _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
+
+        @property
+        def book_title(self):
+            return self.find_element(*self._book_title_locator).text
+
+        @property
+        def chapter_title(self):
+            return self.find_element(*self._chapter_title_locator).text
+
+        @property
+        def chapter_section(self):
+            # The section isn't always included on the page so we return None
+            try:
+                element = self.find_element(*self._chapter_section_locator)
+                return element.text
+            except NoSuchElementException:
+                return None
 
     class ToolBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="toolbar"]')

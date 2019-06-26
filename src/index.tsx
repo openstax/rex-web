@@ -27,7 +27,7 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-if (!config.REACT_APP_ARCHIVE_URL) { throw new Error('REACT_APP_ARCHIVE_URL must be defined'); }
+const archiveUrl = assertDefined(config.REACT_APP_ARCHIVE_URL, 'REACT_APP_ARCHIVE_URL must be defined');
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
 const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_URL must be defined');
@@ -35,7 +35,7 @@ const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_U
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
-    archiveLoader: createArchiveLoader(config.REACT_APP_ARCHIVE_URL),
+    archiveLoader: createArchiveLoader(archiveUrl),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
     searchClient: createSearchClient(searchUrl),
     userLoader: createUserLoader(accountsUrl),

@@ -37,38 +37,8 @@ describe('getContentPageReferences', () => {
       getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
-        bookUid: undefined,
-        bookVersion: undefined,
         match: '/contents/as8s8xu9sdnjsd9',
         pageUid: 'as8s8xu9sdnjsd9',
-      },
-    ]);
-  });
-
-  it('picks up book content reference', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu:9sdnjsd9"></a> asdfadf')
-    ).toEqual([
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: undefined,
-        match: '/contents/as8s8xu:9sdnjsd9',
-        pageUid: '9sdnjsd9',
-      },
-    ]);
-  });
-
-  it('picks up versioned book content reference', () => {
-    expect(
-      getContentPageReferences(
-        'asdfasdfasf <a href="/contents/as8s8xu@1.2:9sdnjsd9"></a> asdfadf'
-      )
-    ).toEqual([
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: '1.2',
-        match: '/contents/as8s8xu@1.2:9sdnjsd9',
-        pageUid: '9sdnjsd9',
       },
     ]);
   });
@@ -77,26 +47,15 @@ describe('getContentPageReferences', () => {
     expect(
       getContentPageReferences(`
       asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
-      <a href="/contents/as8s8xu:9sdnjsd9"></a>
-      asf <a href="/contents/as8s8xu@1.2:9sdnjsd9"></a> asdfadf
+      <a href="/contents/9sdnjsd9"></a>
     `)
     ).toEqual([
       {
-        bookUid: undefined,
-        bookVersion: undefined,
         match: '/contents/as8s8xu9sdnjsd9',
         pageUid: 'as8s8xu9sdnjsd9',
       },
       {
-        bookUid: 'as8s8xu',
-        bookVersion: undefined,
-        match: '/contents/as8s8xu:9sdnjsd9',
-        pageUid: '9sdnjsd9',
-      },
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: '1.2',
-        match: '/contents/as8s8xu@1.2:9sdnjsd9',
+        match: '/contents/9sdnjsd9',
         pageUid: '9sdnjsd9',
       },
     ]);

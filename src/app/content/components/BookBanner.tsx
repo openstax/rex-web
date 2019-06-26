@@ -29,6 +29,7 @@ const gradients: {[key in Book['theme']]: string} = {
   'green': '#9cd14a',
   'light-blue': '#004aa2',
   'orange': '#FAA461',
+  'red': '#E34361',
   'yellow': '#faea36',
 };
 
@@ -136,7 +137,9 @@ export const BarWrapper = styled.div<{colorSchema: Book['theme'] | undefined , u
       ${assertDefined(
         theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
       ).base},
-      ${gradients[props.colorSchema]});
+      ${assertDefined(
+        gradients[props.colorSchema], `theme ${props.colorSchema} needs gradient defined in BookBanner.tsx`
+      )});
   `}
 
   ${(props) => props.up && css`
@@ -197,7 +200,8 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   }
 
   private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
-    <BarWrapper colorSchema={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}>
+    <BarWrapper colorSchema={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}
+                data-testid='bookbanner'>
       <TopBar>
         <BookTitle href={bookUrl} colorSchema={book.theme}>
           <LeftArrow colorSchema={book.theme} />{book.tree.title}

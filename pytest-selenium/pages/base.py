@@ -2,12 +2,24 @@ from tests.conftest import DESKTOP, MOBILE
 
 import pypom
 from selenium.webdriver.common.keys import Keys
+
 import pytest
+from selenium.webdriver.common.by import By
 
 
 class Page(pypom.Page):
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
         super().__init__(driver, base_url, timeout, **url_kwargs)
+
+    _title_locator = (By.TAG_NAME, "title")
+
+    @property
+    def title(self):
+        return self.find_element(*self._title_locator)
+
+    @property
+    def title_before_click(self):
+        return self.title.get_attribute("innerHTML")
 
     @property
     def window_width(self):
@@ -35,25 +47,14 @@ class Page(pypom.Page):
         self.wait.until(lambda _: region.is_displayed)
         return self
 
-    def offscreen_click(self, element):
-        """Clicks an offscreen element.
-
-        Clicks the given element, even if it is offscreen, by sending the ENTER key.
-        Returns the element.
-        """
-        # We actually navigate using the ENTER key because scrolling the page can be flaky
-        # https://stackoverflow.com/a/39918249
-        element.send_keys(Keys.ENTER)
-        return element
-
-    def offscreen_click_and_wait_for_new_title_to_load(self, element):
+    def click_and_wait_for_load(self, element):
         """Clicks an offscreen element and waits for title to load.
 
         Clicks the given element, even if it is offscreen, by sending the ENTER key.
         Returns after loading the last element (title) of the page).
         """
         title_before_click = self.title_before_click
-        self.offscreen_click(element)
+        element.send_keys(Keys.ENTER)
         return self.wait.until(
             lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
         )
