@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@openstax/open-search-client": "./open-search-client/",
+    "@sentry/browser": "^5.4.3",
+    "@types/redux-sentry-middleware": "^0.1.0",
     "ally.js": "^1.4.1",
     "color": "^3.1.0",
     "details-element-polyfill": "^2.3.1",
@@ -19,6 +21,7 @@
     "react-redux": "^5.1.0",
     "react-scripts": "2.1.8",
     "redux": "^4.0.1",
+    "redux-sentry-middleware": "^0.0.15",
     "reselect": "^4.0.0",
     "scroll-to-element": "^2.0.2",
     "stacktrace-js": "^2.0.0",
@@ -166,6 +169,9 @@
     "collectCoverageFrom": [
       "src/{app,helpers,gateways}/**/*.{ts,tsx}"
     ],
-    "coverageReporters": ["text-summary", "html"]
+    "coverageReporters": [
+      "text-summary",
+      "html"
+    ]
   }
 }

@@ -1199,6 +1199,58 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@openstax/types/-/types-1.0.2.tgz#8421a412f9ea279c5bebf43f2bb8814f0bfd13c9"
 
+"@sentry/browser@^5.0.0", "@sentry/browser@^5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.4.3.tgz#c9b56611c6b7de624962d2ea3fc0a9318f44a853"
+  integrity sha512-5fPlco0/65RpyNy9LMURrZhX1RT1+CAoR06yU65ZB81N3oRuAGDYE85Hs62t0T3EEGTKrMundINHcq8UD1V0xw==
+  dependencies:
+    "@sentry/core" "5.4.3"
+    "@sentry/types" "5.4.2"
+    "@sentry/utils" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/core@5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.4.3.tgz#c9e3a6cc9f5e296c5a5e19a7a925d9ee9125a95f"
+  integrity sha512-VjRv9BXip2BtCSohi/WQra+Ep4B8ajer1nU1VpKy5tUCjpVfXRpitY23EdEl+MVJH7h6YPZ45JsuFiKGgrtaFQ==
+  dependencies:
+    "@sentry/hub" "5.4.3"
+    "@sentry/minimal" "5.4.3"
+    "@sentry/types" "5.4.2"
+    "@sentry/utils" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/hub@5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-5.4.3.tgz#d6936f976435dd552e06a6a3e9f8cd643e9b9b3f"
+  integrity sha512-97bnk2dDuCdFv2xhujogqPiDDpKOsHxBXH1jOJ5ezr3/uZNsMRr450FDxxJJYDLuSx+qZ/+vUFfdVNjprBsuSg==
+  dependencies:
+    "@sentry/types" "5.4.2"
+    "@sentry/utils" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/minimal@5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-5.4.3.tgz#afaa8f7a3b5074efa8d70a2edac920b2e0cdbe15"
+  integrity sha512-xSCcKDtVtlmJIGmnlNH2fL++4l7iORJ+pOOfTz1Yjm/Il7Tz9wLVodbEfplXmAbOvgG/x9oilbW0MBSnrwKPfQ==
+  dependencies:
+    "@sentry/hub" "5.4.3"
+    "@sentry/types" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/types@5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.4.2.tgz#4ab327bced2cfd961dc7a29f0ff43398f913f6a6"
+  integrity sha512-yh1fd7x5lLOIZ8W3A1I792B3jowJVCWp4HcTRikjTsjbF8lcURY62m+hiLYUFPTIX99AlFRIPiApDkWiwMGYMA==
+
+"@sentry/utils@5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-5.4.2.tgz#c88c6c08d635e1744a443cfefe9e2ed7fa250e4e"
+  integrity sha512-AW7/TGt2HiPQB8lJ8NgMgaFAIDQpKDF+wV8nENRbC1CP1zzcvb1QBF4zBL2auDT4fhkhVa817064s7vlDiJVLQ==
+  dependencies:
+    "@sentry/types" "5.4.2"
+    tslib "^1.9.3"
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.0.0.tgz#5acf239cd2747b1a36ec7e708de05d914cb9b948"
@@ -1485,6 +1537,14 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/redux-sentry-middleware@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@types/redux-sentry-middleware/-/redux-sentry-middleware-0.1.0.tgz#6117bc177c11b576138ddd03f1e0c46970eed20f"
+  integrity sha512-VXFGLhT4i8Nw0oB9Wr/lbkU8zL1IzldJdBheNnFtRkkNastYRTYZMi2KgIz4csoiMbuZ/qTFT+F5741Ekq6o9Q==
+  dependencies:
+    "@sentry/browser" "^5.0.0"
+    redux "^4.0.0"
 
 "@types/rimraf@^0.0.28":
   version "0.0.28"
@@ -9185,6 +9245,11 @@ redent@^2.0.0:
   dependencies:
     indent-string "^3.0.0"
     strip-indent "^2.0.0"
+
+redux-sentry-middleware@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/redux-sentry-middleware/-/redux-sentry-middleware-0.0.15.tgz#38eaee501d63e849380df8d94090b3dd8f0278b8"
+  integrity sha512-ZwnvUyZcpiji6QwTlLAmaV3GM4evM/dMU2jSGfz3VGFmDqCayzKl4zHp6l+voRWRdGGsCbBpyD7amJkq9hXPeQ==
 
 redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"

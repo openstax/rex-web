@@ -14,6 +14,7 @@ import * as head from './head';
 import MessageProvider from './MessageProvider';
 import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
+import Sentry from '../helpers/Sentry';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
 import { matchUrl } from './navigation/utils';
@@ -33,7 +34,7 @@ export const routes = [
   ...(
     process.env.REACT_APP_ENV !== 'production'
       ? Object.values(developer.routes)
-      : /* istanbul ignore next */ []
+      : /* istanbul ignore next */[]
   ),
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
@@ -60,7 +61,7 @@ export interface AppOptions {
 }
 
 export default (options: AppOptions) => {
-  const {initialEntries, initialState} = options;
+  const { initialEntries, initialState } = options;
 
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
@@ -91,6 +92,8 @@ export default (options: AppOptions) => {
 
   const middleware: Middleware[] = [
     navigation.createMiddleware(routes, history),
+    Sentry.initializeWithMiddleware(),
+
     ...hooks.map((hook) => hook(services)),
   ];
 
