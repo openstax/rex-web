@@ -18,7 +18,7 @@ describe('poll updates', () => {
     jest.useFakeTimers();
     store = createStore((_) => ({}));
     store.dispatch = jest.fn(store.dispatch);
-    (global as any).fetch = mockFetch(200, {id: 'releaseid'});
+    (global as any).fetch = mockFetch(200, {release_id: 'releaseid'});
   });
 
   afterEach(() => {
@@ -43,13 +43,13 @@ describe('poll updates', () => {
       pollUpdates = require('./pollUpdates').default;
     });
 
-    it('fetches /rex/release.json', () => {
+    it('fetches /rex/environment.json', () => {
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
-      expect(fetch).toHaveBeenCalledWith('/rex/release.json');
+      expect(fetch).toHaveBeenCalledWith('/rex/environment.json');
     });
 
-    it('fetches /rex/release.json at an interval', () => {
+    it('fetches /rex/environment.json at an interval', () => {
       cancel = pollUpdates(store);
 
       jest.runOnlyPendingTimers();
@@ -57,9 +57,9 @@ describe('poll updates', () => {
       jest.runOnlyPendingTimers();
 
       expect(fetch).toHaveBeenCalledTimes(3);
-      expect(fetch).toHaveBeenNthCalledWith(1, '/rex/release.json');
-      expect(fetch).toHaveBeenNthCalledWith(2, '/rex/release.json');
-      expect(fetch).toHaveBeenNthCalledWith(3, '/rex/release.json');
+      expect(fetch).toHaveBeenNthCalledWith(1, '/rex/environment.json');
+      expect(fetch).toHaveBeenNthCalledWith(2, '/rex/environment.json');
+      expect(fetch).toHaveBeenNthCalledWith(3, '/rex/environment.json');
     });
 
     it('dispatches updateAvailable', async() => {
@@ -81,7 +81,7 @@ describe('poll updates', () => {
       await Promise.resolve(); // clear promise queue for the async poll function
       await Promise.resolve(); // clear promise queue for the mockfetch
       expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenNthCalledWith(1, '/rex/release.json');
+      expect(fetch).toHaveBeenNthCalledWith(1, '/rex/environment.json');
 
       (global as any).fetch = mockFetch(200, {id: 'releaseid2'});
       jest.runOnlyPendingTimers();
@@ -141,7 +141,7 @@ describe('poll', () => {
   beforeEach(() => {
     store = createStore((_) => ({}));
     store.dispatch = jest.fn(store.dispatch);
-    (global as any).fetch = mockFetch(200, {id: 'releaseid'});
+    (global as any).fetch = mockFetch(200, {release_id: 'releaseid'});
     cancel = jest.fn();
     jest.mock('../config', () => ({
       RELEASE_ID: 'releaseid',
@@ -154,7 +154,7 @@ describe('poll', () => {
   });
 
   it('calls cancel if the release is different', async() => {
-    (global as any).fetch = mockFetch(200, {id: 'releaseid2'});
+    (global as any).fetch = mockFetch(200, {release_id: 'releaseid2'});
     await poll(store, cancel)();
     expect(cancel).toHaveBeenCalled();
   });
