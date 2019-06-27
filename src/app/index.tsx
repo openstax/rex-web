@@ -1,7 +1,6 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { combineReducers } from 'redux';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -19,7 +18,8 @@ import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
 import { matchUrl } from './navigation/utils';
 import * as notifications from './notifications';
-import { AnyAction, AppServices, AppState, Middleware } from './types';
+import createReducer from './reducer';
+import { AppServices, AppState, Middleware } from './types';
 
 export const actions = {
   auth: auth.actions,
@@ -45,7 +45,7 @@ const init = [
 ];
 
 const hooks = [
-  ...Object.values(content.hooks),
+  ...content.hooks,
   ...Object.values(head.hooks),
 ];
 
@@ -57,7 +57,7 @@ const defaultServices = () => ({
 export interface AppOptions {
   initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
-  services: Pick<AppServices, Exclude<keyof AppServices, keyof ReturnType<typeof defaultServices>>>;
+  services: Pick<AppServices, Exclude<keyof AppServices, 'history' | keyof ReturnType<typeof defaultServices>>>;
 }
 
 export default (options: AppOptions) => {
@@ -76,18 +76,12 @@ export default (options: AppOptions) => {
     }
   }
 
-  const reducer = combineReducers<AppState, AnyAction>({
-    auth: auth.reducer,
-    content: content.reducer,
-    errors: errors.reducer,
-    head: head.reducer,
-    navigation: navigation.createReducer(history.location),
-    notifications: notifications.reducer,
-  });
+  const reducer = createReducer(history);
 
   const services = {
     ...defaultServices(),
     ...options.services,
+    history,
   };
 
   const middleware: Middleware[] = [
@@ -116,9 +110,7 @@ export default (options: AppOptions) => {
     </MessageProvider>
   </Provider>;
 
-  if (!initialState || !initialState.navigation) {
-    navigation.utils.changeToLocation(routes, store.dispatch, history.location);
-  }
+  navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
 
   for (const initializer of init) {
     const promise = initializer({
