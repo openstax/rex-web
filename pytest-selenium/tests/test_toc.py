@@ -69,23 +69,29 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 @markers.test_case("C476818")
 @markers.parametrize("book_slug,page_slug", [("college-physics", "1-1-physics-an-introduction")])
 @markers.nondestructive
-def test_ToC_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
+@markers.mobile_only
+def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
     # AND: A mobile resolution
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
     attribution = content.attribution
+    sidebar = content.sidebar
 
-    if content.is_mobile:
-        # WHEN: the toc is open
-        toolbar.click_toc_toggle_button()
+    # WHEN: the toc is open
+    toolbar.click_toc_toggle_button()
 
-        # THEN: The links in the content should be disabled
-        content.assert_element_not_interactable_exception(content.next_link)
-        content.assert_element_not_interactable_exception(content.previous_link)
-        content.assert_element_not_interactable_exception(attribution.attribution_link)
+    # THEN: The links in the content should be disabled
+    content.assert_element_not_interactable_exception(content.next_link)
+    content.assert_element_not_interactable_exception(content.previous_link)
+    content.assert_element_not_interactable_exception(attribution.attribution_link)
 
     # AND scrolling over it should do nothing
+    assert content.is_scroll_locked
 
-    # AND clicking on a link in the content should not open the link content, instead just close the TOC
+    # AND clicking anywhere in the content overlay should just close the TOC and content stays in the same page
+    content.click_content_overlay()
+    assert not sidebar.header.is_displayed
+    initial_url = base_url + "/books/" + book_slug + "/pages/" + page_slug
+    assert selenium.current_url == initial_url

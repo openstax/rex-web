@@ -1,9 +1,9 @@
 from tests.conftest import DESKTOP, MOBILE
 
-import pypom
-from selenium.webdriver.common.keys import Keys
-
 import pytest
+import pypom
+
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
@@ -65,10 +65,3 @@ class Page(pypom.Page):
 
         exception_raised = exc_info.type
         assert "ElementNotInteractableException" in str(exception_raised)
-
-    def mobile_only(self):
-        # marker = request.node.get_closest_marker('mobile_only')
-        if self.is_desktop:
-            pytest.skip("Skipping desktop test")
-        # self.driver.set_window_size(reque - st.param)
-        return

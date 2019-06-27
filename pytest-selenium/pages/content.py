@@ -2,11 +2,6 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.touch_actions import TouchActions
-
-import pytest
-from time import sleep
-
 
 from pages.base import Page
 from regions.base import Region
@@ -67,7 +62,7 @@ class Content(Page):
         TOC close button is located at (16, 164).
         So choosing (439, 164) to be the location in the content overlay.
         Using actionchains to click on this position.
-        And verify that page is not changed"""
+        """
         actionChains = ActionChains(self.driver)
         actionChains.move_to_element_with_offset(self.driver.find_element_by_tag_name("body"), 0, 0)
         actionChains.move_by_offset(439, 164).click().perform()
