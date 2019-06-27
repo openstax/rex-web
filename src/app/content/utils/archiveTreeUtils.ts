@@ -1,21 +1,35 @@
 import flatten from 'lodash/fp/flatten';
-import { isArchiveTree } from '../guards';
-import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
+import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
+import {
+  ArchiveTree,
+  ArchiveTreeNode,
+  ArchiveTreeSection,
+  LinkedArchiveTree,
+  LinkedArchiveTreeSection
+} from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-export function flattenArchiveTree(tree: LinkedArchiveTree): LinkedArchiveTreeSection[] {
-  return flatten(tree.contents.map((section) =>
+export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
+  return [tree, ...flatten(tree.contents.map((section) =>
     flatten(isArchiveTree(section)
       ? flattenArchiveTree({...section, parent: tree})
       : [{...section, parent: tree}])
-  )).map((section) => ({
+  ))].map((section) => ({
     id: stripIdVersion(section.id),
-    parent: section.parent,
     shortId: stripIdVersion(section.shortId),
     title: section.title,
     version: getIdVersion(section.id),
+    ...(isLinkedArchiveTree(section) ? {
+      contents: section.contents,
+      parent: section.parent,
+    } : {
+      parent: section.parent,
+    }),
   }));
 }
+
+export const findTreePages = (tree: LinkedArchiveTree): LinkedArchiveTreeSection[] =>
+  flattenArchiveTree(tree).filter(isLinkedArchiveTreeSection);
 
 export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   const resolvePage = (target: ArchiveTree | ArchiveTreeSection): ArchiveTreeSection =>
@@ -30,9 +44,9 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   }
 };
 
-const sectionMatcher = (pageId: string) => (section: ArchiveTreeSection) =>
-  stripIdVersion(section.shortId) === stripIdVersion(pageId)
-  || stripIdVersion(section.id) === stripIdVersion(pageId);
+const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
+  stripIdVersion(node.shortId) === stripIdVersion(nodeId)
+  || stripIdVersion(node.id) === stripIdVersion(nodeId);
 
 export const splitTitleParts = (str: string) => {
   const match = str
@@ -48,16 +62,18 @@ export const splitTitleParts = (str: string) => {
   }
 };
 
-export const findArchiveTreeSection = (
-  tree: ArchiveTree,
-  pageId: string
-): LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find(sectionMatcher(pageId));
+export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
 
-export const archiveTreeContainsSection = (
+export const findArchiveTreeNode = (
   tree: ArchiveTree,
-  pageId: string
-): boolean => !!findArchiveTreeSection(tree, pageId);
+  nodeId: string
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
+  flattenArchiveTree(tree).find(nodeMatcher(nodeId));
+
+export const archiveTreeContainsNode = (
+  tree: ArchiveTree,
+  nodeId: string
+): boolean => !!findArchiveTreeNode(tree, nodeId);
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;
@@ -68,11 +84,25 @@ export const prevNextBookPage = (
   book: {tree: ArchiveTree},
   pageId: string
 ): Sections => {
-  const flattenTree = flattenArchiveTree(book.tree);
-  const index = flattenTree.findIndex(sectionMatcher(pageId));
+  const flattenTree = findTreePages(book.tree);
+  const index = flattenTree.findIndex(nodeMatcher(pageId));
 
   return {
     next: flattenTree[index + 1],
     prev: flattenTree[index - 1],
   };
 };
+
+export const archiveTreeSectionIsBook = (section: LinkedArchiveTree | LinkedArchiveTreeSection) => !section.parent;
+export const archiveTreeSectionIsPage = (section: ArchiveTreeSection) => !isArchiveTree(section);
+export const archiveTreeSectionIsUnit = (section: LinkedArchiveTree | LinkedArchiveTreeSection) =>
+  isArchiveTree(section)
+  && !!section.parent
+  && archiveTreeSectionIsBook(section.parent)
+  && getArchiveTreeSectionNumber(section) === null
+;
+export const archiveTreeSectionIsChapter = (section: LinkedArchiveTree | LinkedArchiveTreeSection) =>
+  isArchiveTree(section)
+  && !archiveTreeSectionIsBook(section)
+  && getArchiveTreeSectionNumber(section) !== null
+;

@@ -4,7 +4,7 @@ import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
 import { actionHook } from '../../utils';
 import { content } from '../routes';
 import * as selectContent from '../selectors';
-import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch } from './actions';
@@ -44,7 +44,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     return; // book changed while query was in the air
   }
 
-  const firstResultPage = findArchiveTreeSection(book.tree, firstResult.source.pageId);
+  const firstResultPage = findArchiveTreeNode(book.tree, firstResult.source.pageId);
 
   if (!firstResultPage) {
     throw new Error(`Search results for "${search}" refernced page "${firstResult.source.pageId}" ` +
