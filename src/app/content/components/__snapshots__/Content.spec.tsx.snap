@@ -1959,6 +1959,7 @@ li[aria-label="Current Page"] .c40 {
               className="c23 c24"
               data-testid="mobile-toggle"
               onClick={[Function]}
+              type="button"
             >
               <svg
                 aria-hidden="true"
@@ -4451,6 +4452,7 @@ Array [
               className="c15 c16"
               data-testid="mobile-toggle"
               onClick={[Function]}
+              type="button"
             >
               <svg
                 aria-hidden="true"
