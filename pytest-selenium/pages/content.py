@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
 
+import pytest
 from time import sleep
 
 
@@ -71,9 +72,8 @@ class Content(Page):
         actionChains.move_to_element_with_offset(self.driver.find_element_by_tag_name("body"), 0, 0)
         actionChains.move_by_offset(439, 164).click().perform()
         return self.wait.until(
-            expected.element_to_be_clickable(self.toolbar._toc_toggle_button_locator)
+            expected.invisibility_of_element_located(self.sidebar.header.toc_toggle_button)
         )
-        # sleep(5)
 
     def click_next_link(self):
         self.click_and_wait_for_load(self.next_link)
@@ -150,22 +150,6 @@ class Content(Page):
                 return self.wait.until(
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
-
-            # def click_content_overlay(self):
-            #     """Click anywhere in the content overlay
-
-            #     Print button is located at coordinatates (439, 164).
-            #     TOC close button is located at (16, 164).
-            #     So choosing (439, 164) to be the location in the content overlay.
-            #     Using actionchains to click on this position.
-            #     And verify that page is not changed"""
-            #     actionChains = ActionChains(self.driver)
-            #     actionChains.move_to_element_with_offset(self.driver.find_element_by_tag_name('body'), 0, 0)
-            #     actionChains.move_by_offset(439, 164).click().perform()
-            #     return self.wait.until(
-            #         expected.element_to_be_clickable(self.page.toolbar._toc_toggle_button_locator)
-            #     )
-            #     sleep(5)
 
     class Attribution(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
