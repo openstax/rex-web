@@ -5,7 +5,7 @@ import { assertDefined } from '../../utils';
 describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof locationChange>;
   const helpers = {} as MiddlewareAPI & AppServices;
-  const action = locationChange({location: new URL('http://localhost/')});
+  const action = locationChange({location: new URL('http://localhost/'), action: 'PUSH'});
 
   beforeEach(() => {
     hookBody = require('./locationChange').hookBody;

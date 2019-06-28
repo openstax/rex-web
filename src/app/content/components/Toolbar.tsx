@@ -284,6 +284,7 @@ class Toolbar extends React.Component<{
             <SearchInput desktop onChange={onChange} value={this.state.query} data-testid='desktop-search-input' />
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <SearchButton mobile
+                type='button'
                 aria-label={assertString(msg, 'button name must be a string')}
                 data-testid='mobile-toggle'
                 onClick={toggleMobile}
