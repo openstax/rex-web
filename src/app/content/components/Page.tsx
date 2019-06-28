@@ -61,6 +61,8 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
       // same as previous, but allow indexing links to relative content
       .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
+      // move figure and table ids up to the parent div
+      .replace(/(<div[^>]*)(>(?!<\/?div>)*?<(?:figure|table)[^>]*?)( id=[^\s>]*)/g, '$1$3$2')
     ;
   };
 
