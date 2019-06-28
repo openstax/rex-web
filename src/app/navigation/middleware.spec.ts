@@ -70,7 +70,7 @@ describe('navigation middleware', () => {
 
     history.push('/foobar');
 
-    expect(dispatch).toHaveBeenCalledWith(actions.locationChange({location: history.location}));
+    expect(dispatch).toHaveBeenCalledWith(actions.locationChange({location: history.location, action: 'PUSH'}));
   });
 
   it('dispatches locationChange with matching route', () => {
@@ -82,6 +82,7 @@ describe('navigation middleware', () => {
     history.push('/test2');
 
     expect(dispatch).toHaveBeenCalledWith(actions.locationChange({
+      action: 'PUSH',
       location: history.location,
       match: {route: routes[1]},
     }));

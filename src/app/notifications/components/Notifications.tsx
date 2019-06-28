@@ -37,7 +37,6 @@ const connector = connect(
 
 const notificationWidth = 30;
 
-// TODO - magic number to be replaced in `top` when scroll behavior is developed in openstax/unified#179
 export default styled(connector(Notifications))`
   width: ${notificationWidth}rem;
   height: 0;
