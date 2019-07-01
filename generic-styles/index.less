@@ -28,9 +28,6 @@
       margin-inline-start: 0;
     }
   }
-  html {
-    -webkit-text-size-adjust: 100%;
-  }
   code {
     color: #c7254e;
     background-color: #f9f2f4;
@@ -48,4 +45,7 @@
     border-collapse: collapse;
     border-spacing: 0;
   }
+}
+html {
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
