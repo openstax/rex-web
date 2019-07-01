@@ -1,12 +1,33 @@
 import { SearchResult } from '@openstax/open-search-client';
 import { Location } from 'history';
+import sortBy from 'lodash/fp/sortBy';
+import { ArchiveTreeSection, Book } from '../types';
+import { findTreePages } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 
-// TODO - sort by page order
-// TODO - sort by `pagePosition`
-export const getFirstSearchResult = (results: SearchResult) => {
-  return results.hits.hits && results.hits.hits[0];
+export const getFirstSearchResult = (book: Book, results: SearchResult) => {
+  const sortedResults = getSearchResultsByPage(book, results);
+
+  if (sortedResults.length > 0) {
+    return {
+      firstResult: sortedResults[0].results[0],
+      firstResultPage: sortedResults[0].page,
+    };
+  }
+
+  return {firstResult: null, firstResultPage: null};
 };
+
+const getSearchResultsForPage = (page: ArchiveTreeSection, results: SearchResult) => results.hits.hits
+  ? results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
+  : [];
+
+export const getSearchResultsByPage = (book: Book, allResults: SearchResult) => findTreePages(book.tree)
+  .map((page) => ({
+    page,
+    results: sortBy('source.pagePosition', getSearchResultsForPage(page, allResults)),
+  }))
+  .filter(({results}) => results.length > 0);
 
 export const getIndexData = (indexName: string) => {
   const tail = getIdVersion(indexName);

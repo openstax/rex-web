@@ -235,26 +235,6 @@ describe('hooks', () => {
       );
     });
 
-    it('throws if first result page cannot be found', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({ ...page, references: [] }));
-      store.dispatch(requestSearch('asdf'));
-      expect(() =>
-        go([
-          {
-            ...hit,
-            source: {
-              ...hit.source,
-              pageId: 'asfd@3',
-            },
-          },
-        ])
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Search results for \\"asdf\\" refernced page \\"asfd@3\\" ` +
-          `which could not be found in book \\"testbook1-uuid\\""`
-      );
-    });
-
     it('dispatches PUSH with first page and search query when page is different', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...shortPage, references: [] }));
