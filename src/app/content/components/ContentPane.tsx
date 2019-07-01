@@ -31,71 +31,57 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     `)}
 
     /*
-      the following rule should not match anything with display: table
-      additionally, it does not work for .os-table even though those divs have display: block
+      common scroll rules for all targets except <table>
+      <table>s do not scroll properly no matter what,
+      so instead we move their ids to the .os-table <div>s
     */
-    *:target:not(figure):not(table):not(.os-figure)\
-    :not(.os-table):not(.equation):not([data-type="equation"]) {
+    *:target:not(table) {
       // allow clicks on elements behind the ::before
       pointer-events: none !important;
 
-      ::before {
+      &::before {
         // make this a valid target for scrolling to
         content: " ";
 
         // inline-block is required to not break paragraphs around inline elements
+        // it also adds a small space above elements that would otherwise touch the navbar
         display: inline-block;
-
-        // the extra 2 rem are required for inline elements to display properly
-        margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 2}rem;
-        height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 2}rem;
 
         // probably not necessary, since the content is just a blank space, but just in case...
         visibility: hidden;
       }
     }
 
+    // scroll rule for targets that are not display: table and do not contain <table> (.os-table)
+    *:target:not(figure):not(table):not(.os-figure):not(.os-table)\
+    :not(.equation):not([data-type="equation"])::before {
+      // the extra 2 rem are required for inline elements to display properly
+      margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 2}rem;
+      height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 2}rem;
+    }
+
     /*
-      the following rules should match everything with display: table and .os-table but not <table>
-      <table>s do not scroll properly no matter what, so instead we move their ids to the .os-tables
+      scroll rules for all targets with display: table (except <table>) and .os-table
       to avoid changing the target's margin-top, each rule has a height that exceeds its margin-top
-      by an amount that should be equal to the normal value of its elements' margin-top and they
-      must be kept in sync if the elements' margin-top changes
+      by an amount that should be equal to the normal value of the elements' margin-top
+      they must be kept in sync if the elements' margin-top changes
     */
 
     // margin-top: 0
     figure:target, .equation:target, [data-type="equation"]:target {
       margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
 
-      pointer-events: none !important;
-
-      ::before {
-        content: " ";
-
-        // inline-block adds a small space above elements that would otherwise touch the navbar
-        display: inline-block;
-
+      &::before {
         height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-
-        visibility: hidden;
       }
     }
 
-    // margin-top: 1.5rem (browser says 20px but 20/14rem is too short; 1.5rem is just right)
+    // margin-top: 1.5rem (normally 20 px, but 20/14rem is too short; 1.5rem is just right)
     .os-table:target {
       margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
 
-      pointer-events: none !important;
-
-      ::before {
-        content: " ";
-
-        // inline-block adds a small space above elements that would otherwise touch the navbar
-        display: inline-block;
-
+      &::before {
         height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 1.5}rem;
-
-        visibility: hidden;
       }
     }
 
@@ -103,17 +89,8 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     .os-figure:target {
       margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
 
-      pointer-events: none !important;
-
-      ::before {
-        content: " ";
-
-        // inline-block adds a small space above elements that would otherwise touch the navbar
-        display: inline-block;
-
+      &::before {
         height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 3}rem;
-
-        visibility: hidden;
       }
     }
   }
