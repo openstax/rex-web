@@ -16,6 +16,8 @@ import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { assertDefined, assertWindow } from '../../utils';
 import { content } from '../routes';
+import * as selectSearch from '../search/selectors';
+import {State as SearchState } from '../search/types';
 import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
@@ -29,6 +31,7 @@ interface PropTypes {
   navigate: typeof push;
   className?: string;
   references: State['references'];
+  search: SearchState['query'];
   services: AppServices;
 }
 
@@ -222,7 +225,10 @@ export class PageComponent extends Component<PropTypes> {
       navigate({
         params: reference.params,
         route: content,
-        state: reference.state,
+        state: {
+          ...reference.state,
+          search: this.props.search,
+        },
       }, {hash, search});
     }
   };
@@ -274,6 +280,7 @@ export default connect(
     hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),
+    search: selectSearch.query(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

@@ -11,6 +11,7 @@ import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
+import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
@@ -118,7 +119,13 @@ const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode)
 
   const html = renderHtml(styles, app, state);
 
-  writeFile(path.join(ASSET_DIR, url), html);
+  const filePath = path.join(ASSET_DIR, url);
+
+  if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
+    writeFile(path.join(filePath, 'index.html'), html);
+  } else {
+    writeFile(filePath, html);
+  }
 };
 
 type Pages = Array<{code: number, page: AnyMatch}>;
@@ -132,6 +139,10 @@ const preparePages: PreparePages = async(archiveLoader, osWebLoader) => {
   const pages: Pages = [
     {code: 404, page: {route: notFound}},
   ];
+
+  if (process.env.REACT_APP_ENV === 'development') {
+    pages.push({code: 200, page: {route: developerHome}});
+  }
 
   for (const [bookId, {defaultVersion}] of bookEntries) {
     const bookLoader = archiveLoader.book(bookId, defaultVersion);
