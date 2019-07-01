@@ -15,6 +15,7 @@
 
 let config = {
   APP_ENV: process.env.REACT_APP_ENV,
+  IS_PRODUCTION: process.env.REACT_APP_ENV === 'production',
   DEPLOYED_ENV: typeof(window) === 'undefined' ? 'server' : window.location.hostname,
   ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts.openstax.org',
   ARCHIVE_URL: process.env.ARCHIVE_URL || 'https://archive.cnx.org',
