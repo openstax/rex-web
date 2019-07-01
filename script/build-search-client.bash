@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ -d "./node_modules/@openstax/open-search-client" ]; then
   cp -r "./node_modules/@openstax/open-search-client" .
