@@ -36,62 +36,62 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
       so instead we move their ids to the .os-table <div>s
     */
     *:target:not(table) {
-      // allow clicks on elements behind the ::before
+      // allow clicks on elements just above the target
       pointer-events: none !important;
-
-      &::before {
-        // make this a valid target for scrolling to
-        content: " ";
-
-        // inline-block is required to not break paragraphs around inline elements
-        // it also adds a small space above elements that would otherwise touch the navbar
-        display: inline-block;
-
-        // probably not necessary, since the content is just a blank space, but just in case...
-        visibility: hidden;
-      }
     }
 
-    // scroll rule for targets that are not display: table and do not contain <table> (.os-table)
-    *:target:not(figure):not(table):not(.os-figure):not(.os-table)\
-    :not(.equation):not([data-type="equation"])::before {
+    // scroll rule for inline targets
+    *:target:not(div):not(figure):not(table)::before {
+      // make the ::before pseudo-element a valid target for scrolling to
+      content: " ";
+
+      // inline-block is required to not break paragraphs around inline elements
+      display: inline-block;
+
+      // probably not necessary, since the content is just a blank space, but just in case...
+      visibility: hidden;
+
       // the extra 2 rem are required for inline elements to display properly
       margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 2}rem;
       height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 2}rem;
     }
 
+    // scroll rule for targets with display: block but not overflow: auto
+    div:target:not(.os-figure):not(.os-table):not(.equation):not([data-type="equation"]) {
+      margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+      padding-top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    }
+
+    // scroll rules for all targets with display: table (except <table>) or overflow: auto
+    figure, .equation, [data-type="equation"], .os-table, .os-figure {
+      &:target {
+        margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
+      }
+    }
+
     /*
-      scroll rules for all targets with display: table (except <table>) and .os-table
-      to avoid changing the target's margin-top, each rule has a height that exceeds its margin-top
-      by an amount that should be equal to the normal value of the elements' margin-top
-      they must be kept in sync if the elements' margin-top changes
+      to avoid changing the layout, the rule above is split into 3 subrules that
+      set the target's padding-top to be slightly higher than the above margin-top
+      by an amount equal to the normal value of the elements' margin-top + padding-top
+      they must be kept in sync if the elements' margin-top or padding-top changes
+      all of the elements below already had padding-top: 0 by default
     */
 
     // margin-top: 0
-    figure:target, .equation:target, [data-type="equation"]:target {
-      margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
-
-      &::before {
-        height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    figure, .equation, [data-type="equation"] {
+      &:target {
+        padding-top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
       }
     }
 
     // margin-top: 1.5rem (normally 20 px, but 20/14rem is too short; 1.5rem is just right)
     .os-table:target {
-      margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
-
-      &::before {
-        height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 1.5}rem;
-      }
+      padding-top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 1.5}rem;
     }
 
     // margin-top: 3rem
     .os-figure:target {
-      margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem !important;
-
-      &::before {
-        height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 3}rem;
-      }
+      padding-top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight + 3}rem;
     }
   }
 `;
