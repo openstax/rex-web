@@ -16,6 +16,10 @@ export const toolbarIconColor = theme.color.primary.gray;
 export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;
 
+export const mobileSearchContainerMargin = 1;
+export const toolbarSearchInputDesktopHeight = 3.2;
+export const toolbarSearchInputMobileHeight = 3.2;
+
 export const contentTextWidth = 82.5;
 
 export const mainContentBackground = '#fff';

@@ -16,9 +16,12 @@ import * as selectSearch from '../search/selectors';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
+  mobileSearchContainerMargin,
   toolbarDesktopHeight,
   toolbarIconColor,
-  toolbarMobileHeight
+  toolbarMobileHeight,
+  toolbarSearchInputDesktopHeight,
+  toolbarSearchInputMobileHeight,
 } from './constants';
 import SidebarControl from './SidebarControl';
 import { disablePrint } from './utils/disablePrint';
@@ -150,7 +153,7 @@ const SearchInput = styled(({desktop, mobile, ...props}) => <FormattedMessage id
   color: ${theme.color.text.default};
   line-height: 3.2rem;
   margin: 0 1rem 0 1rem;
-  height: 3.2rem;
+  height: ${toolbarSearchInputDesktopHeight}rem;
   border: none;
   outline: none;
 
@@ -163,6 +166,7 @@ const SearchInput = styled(({desktop, mobile, ...props}) => <FormattedMessage id
   `)}
   ${(props) => props.mobile && css`
     width: 100%;
+    height: ${toolbarSearchInputMobileHeight}rem;
   `}
 `;
 
@@ -233,13 +237,14 @@ const TopBar = styled.div`
 // tslint:disable-next-line:variable-name
 const MobileSearchContainer = styled.div`
   ${barPadding}
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: ${mobileSearchContainerMargin}rem;
+  margin-bottom: ${mobileSearchContainerMargin}rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const MobileSearchWrapper = styled.div`
   display: none;
+  height: ${toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)};
   background-color: ${theme.color.neutral.base};
   ${shadow}
   ${theme.breakpoints.mobile(css`
@@ -248,7 +253,7 @@ const MobileSearchWrapper = styled.div`
 `;
 
 class Toolbar extends React.Component<{
-  search: typeof requestSearch, query: string | null}, {query: string, mobileOpen: boolean, formSubmitted: boolean
+  search: typeof requestSearch, query: string | null, results: any }, {query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
   public state = {query: '', mobileOpen: false, formSubmitted: false};
 
@@ -259,6 +264,9 @@ class Toolbar extends React.Component<{
       if (this.state.query) {
         this.props.search(this.state.query);
         this.setState({formSubmitted: true});
+
+        console.log(this.props.query);
+        console.log(this.props.results.hits.total);
       }
     };
 
@@ -325,6 +333,7 @@ class Toolbar extends React.Component<{
 export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
+    results: selectSearch.results(state),
   }),
   (dispatch: Dispatch) => ({
     search: (query: string) => dispatch(requestSearch(query)),

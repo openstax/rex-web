@@ -10,3 +10,8 @@ export const query = createSelector(
   localState,
   (state) => state.query
 );
+
+export const results = createSelector(
+  localState,
+  (state) => state.results
+);

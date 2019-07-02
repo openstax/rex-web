@@ -13,10 +13,14 @@ import * as selectSearch from '../search/selectors';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
+  mobileSearchContainerMargin,
   searchResultsBarDesktopWidth,
   searchResultsBarMobileWidth,
   sidebarDesktopWidth,
+  sidebarMobileWidth,
   toolbarDesktopHeight,
+  toolbarMobileHeight,
+  toolbarSearchInputMobileHeight,
 } from './constants';
 import { CollapseIcon, ExpandIcon, Summary, SummaryTitle, SummaryWrapper } from './Sidebar/styled';
 import { toolbarIconStyles } from './Toolbar';
@@ -49,7 +53,7 @@ const SearchResultsBar = styled.div`
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
   z-index: 4;
-  margin-left: calc(-50vw - ${sidebarDesktopWidth}rem);;
+  margin-left: calc(-50vw - ${sidebarDesktopWidth}rem);
   padding-left: 50vw;
   width: calc(50vw + ${searchResultsBarDesktopWidth}rem);
   min-width: calc(50vw + ${searchResultsBarDesktopWidth}rem);
@@ -69,8 +73,10 @@ const SearchResultsBar = styled.div`
   ${theme.breakpoints.mobile(css`
     width: calc(50vw + ${searchResultsBarMobileWidth}vw);
     min-width: calc(50vw + ${searchResultsBarMobileWidth}vw);
-    top: ${bookBannerMobileMiniHeight}rem;
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight
+          + toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
+    margin-left: calc(-50vw - ${sidebarMobileWidth}rem);
   `)}
 
 `;
@@ -145,19 +151,25 @@ const DetailsOl = styled.ol`
 
 // tslint:disable-next-line:variable-name
 const NavItem = styled.li`
+  :not(:last-child) {
     border-bottom: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchResultsSidebar = (query: any ) => <SearchResultsBar open={query.query ? true : false }>
-    <SearchQueryWrapper><FormattedMessage id='i18n:search-results:bar:query:results'>
-            {(msg: Element | string) =>
-                <SearchQuery>
-                <SearchIconInsideBar /><div>{msg} <strong> &lsquo;{query.query}&rsquo;</strong></div>
-                </SearchQuery>
-            }
-        </FormattedMessage>
-        <CloseIcon/>
+const SearchResultsSidebar = (query: any, results: any ) => <SearchResultsBar open={query.query ? true : false }>
+    <SearchQueryWrapper>
+      <FormattedMessage id='i18n:search-results:bar:query:results'>
+        {(msg: Element | string) =>
+          <SearchQuery>
+            <SearchIconInsideBar />
+            <div>
+              <div>{results.results ?  results.results.hits.total : 0 }</div> {msg} <strong> &lsquo;{query.query}&rsquo;</strong>
+            </div>
+          </SearchQuery>
+        }
+      </FormattedMessage>
+      <CloseIcon/>
     </SearchQueryWrapper>
     <NavOl>
         <li>
@@ -196,11 +208,40 @@ const SearchResultsSidebar = (query: any ) => <SearchResultsBar open={query.quer
                 </DetailsOl>
             </Details>
         </li>
+        <li>
+            <Details>
+                <SearchBarSummary>
+                    <SummaryWrapper>
+                        <ExpandIcon/>
+                        <CollapseIcon/>
+                        <SummaryTitle>
+                            <span className='os-number'>2</span><span className='os-divider'> </span>
+                            <span className='os-text'>Observing the sky: The Birth of Astronomy</span>
+                        </SummaryTitle>
+                    </SummaryWrapper>
+                </SearchBarSummary>
+                <DetailsOl>
+                    <NavItem>
+                        <LinkWrapper>
+                            <SearchResultsLink href='#'>
+                                <span className='os-number'>2.1</span><span className='os-divider'> </span>
+                                <span className='os-text'>A Tour of the Universe</span>
+                            </SearchResultsLink>
+                        </LinkWrapper>
+                        <SectionContentPreview>
+                            died because of a cosmic collision. a tiny moon
+                            whose gravity is so weak that one good throw of a cosmic
+                        </SectionContentPreview>
+                    </NavItem>
+                </DetailsOl>
+            </Details>
+        </li>
     </NavOl>
 </SearchResultsBar>;
 
 export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
+    results: selectSearch.results(state),
   })
 )(SearchResultsSidebar);
