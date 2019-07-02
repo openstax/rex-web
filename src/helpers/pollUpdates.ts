@@ -5,12 +5,12 @@ import { APP_ENV, RELEASE_ID } from '../config';
 export type Cancel = () => void;
 
 export const poll = (store: Store, cancel: Cancel) => async() => {
-  const release = await fetch('/rex/release.json')
+  const environment = await fetch('/rex/environment.json')
     .then((response) => response.json())
-    .catch(() => ({id: RELEASE_ID}))
+    .catch(() => ({release_id: RELEASE_ID}))
   ;
 
-  if (release.id !== RELEASE_ID) {
+  if (environment.release_id !== RELEASE_ID) {
     cancel();
     store.dispatch(updateAvailable());
   }
