@@ -1,3 +1,4 @@
+import { SearchResult } from '@openstax/open-search-client/dist/models/SearchResult';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -157,14 +158,15 @@ const NavItem = styled.li`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchResultsSidebar = (query: any, results: any ) => <SearchResultsBar open={query.query ? true : false }>
+const SearchResultsSidebar = ({query, results}: {query: string | null, results: SearchResult | null}) =>
+  <SearchResultsBar open={query ? true : false }>
     <SearchQueryWrapper>
       <FormattedMessage id='i18n:search-results:bar:query:results'>
         {(msg: Element | string) =>
           <SearchQuery>
             <SearchIconInsideBar />
             <div>
-              <div>{results ? results.hits.total : 0 }</div> {msg} <strong> &lsquo;{query.query}&rsquo;</strong>
+              <div>{results ? results.hits.total : 0 }</div> {msg} <strong> &lsquo;{query}&rsquo;</strong>
             </div>
           </SearchQuery>
         }
