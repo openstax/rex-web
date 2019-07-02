@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import scrollTo from 'scroll-to-element';
+import scrollToContent from './utils/scrollToContent';
 import * as mathjax from '../../../helpers/mathjax';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import createTestStore from '../../../test/createTestStore';
@@ -25,7 +25,7 @@ import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
 
 // jest.mock('../../../helpers/mathjax');
-jest.mock('scroll-to-element');
+jest.mock('./utils/scrollToContent');
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -382,7 +382,7 @@ describe('Page', () => {
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
 
-  it('scrolls to selected content on load', () => {
+  it('does not scroll to selected content on load', () => {
     if (!document) {
       return expect(document).toBeTruthy();
     }
@@ -415,7 +415,7 @@ describe('Page', () => {
     const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
-    expect(scrollTo).toHaveBeenCalledWith(target);
+    expect(scrollToContent).not.toHaveBeenCalled();
   });
 
   it('scrolls to selected content on update', () => {
@@ -446,7 +446,7 @@ describe('Page', () => {
       </Provider>
     );
 
-    expect(scrollTo).not.toHaveBeenCalled();
+    expect(scrollToContent).not.toHaveBeenCalled();
 
     store.dispatch(actions.receivePage({
       ...someHashPage,
@@ -456,7 +456,7 @@ describe('Page', () => {
     const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
-    expect(scrollTo).toHaveBeenCalledWith(target);
+    expect(scrollToContent).toHaveBeenCalledWith(target);
   });
 
   it('does nothing when receiving the same content', () => {
