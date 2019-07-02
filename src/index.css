@@ -1,7 +1,3 @@
-html {
-  font-size: 62.5%; /* Now 10px = 1rem! */
-}
-
 @media print {
   html {
     font-size: 8px; /* Open to interpretation */
@@ -13,6 +9,13 @@ body, #root, html {
   padding: 0;
   position: relative;
   overflow: visible;
+}
+
+html {
+  font-size: 62.5%; /* Now 10px = 1rem! */
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 120px;
+  overflow-y: scroll;
 }
 
 @media screen {

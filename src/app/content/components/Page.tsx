@@ -67,13 +67,9 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   public componentDidMount() {
-    const target = this.getScrollTarget();
     this.postProcess();
     this.linksOn();
     if (this.container) { this.addGenericJs(this.container); }
-    if (target) {
-      scrollTo(target);
-    }
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
