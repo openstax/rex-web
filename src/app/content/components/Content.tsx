@@ -1,4 +1,5 @@
 import React from 'react';
+import { createGlobalStyle } from 'styled-components'
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
@@ -25,6 +26,13 @@ import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
+
+// tslint:disable-next-line:variable-name
+const GlobalStyle = createGlobalStyle`
+  html {
+    scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight) * .625}rem;
+  }
+`
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
@@ -148,29 +156,32 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
  *   of things need to know when the sidebar is open/closed.
  */
 // tslint:disable-next-line:variable-name
-const Content: React.SFC = () => <Layout>
-  <Background>
-    <BookBanner/>
-    <Toolbar />
-    <Wrapper>
-      <CenteredContentRow>
-        <Sidebar />
-        <ContentPane>
-          <UndoPadding>
-            <MainContentWrapper>
-              <ContentNotifications />
-              <HideOverflowAndRedoPadding>
-                <Page />
-                <PrevNextBar />
-              </HideOverflowAndRedoPadding>
-              <Attribution />
-              <Footer/>
-            </MainContentWrapper>
-          </UndoPadding>
-        </ContentPane>
-      </CenteredContentRow>
-    </Wrapper>
-  </Background>
-</Layout>;
+const Content: React.SFC = () => <React.Fragment>
+  <GlobalStyle />
+  <Layout>
+    <Background>
+      <BookBanner/>
+      <Toolbar />
+      <Wrapper>
+        <CenteredContentRow>
+          <Sidebar />
+          <ContentPane>
+            <UndoPadding>
+              <MainContentWrapper>
+                <ContentNotifications />
+                <HideOverflowAndRedoPadding>
+                  <Page />
+                  <PrevNextBar />
+                </HideOverflowAndRedoPadding>
+                <Attribution />
+                <Footer/>
+              </MainContentWrapper>
+            </UndoPadding>
+          </ContentPane>
+        </CenteredContentRow>
+      </Wrapper>
+    </Background>
+  </Layout>
+</React.Fragment>;
 
 export default Content;
