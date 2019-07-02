@@ -8,7 +8,7 @@ import { stripIdVersion } from '../utils/idUtils';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch } from './actions';
 import * as select from './selectors';
-import { getFirstSearchResult, getIndexData, getSearchFromLocation } from './utils';
+import { getFirstResultPage, getIndexData, getSearchFromLocation } from './utils';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload}) => {
   const state = services.getState();
@@ -37,7 +37,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     return; // book changed while query was in the air
   }
 
-  const {firstResult, firstResultPage} = getFirstSearchResult(book, payload);
+  const firstResultPage = getFirstResultPage(book, payload);
+  const firstResult = firstResultPage && firstResultPage.results[0];
 
   if (!firstResult || !firstResultPage) {
     return; // no results
@@ -63,7 +64,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     },
   };
 
-  const action = page.id === firstResultPage.id ? replace : push;
+  const action = stripIdVersion(page.id) === stripIdVersion(firstResultPage.id) ? replace : push;
 
   services.dispatch(action(navigation));
 };

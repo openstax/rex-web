@@ -1,33 +1,56 @@
 import { SearchResult } from '@openstax/open-search-client';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
-import { ArchiveTreeSection, Book } from '../types';
-import { findTreePages } from '../utils/archiveTreeUtils';
+import { isArchiveTree } from '../guards';
+import { ArchiveTreeSection, Book, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
+import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
+import { isSearchResultChapter } from './guards';
+import { SearchResultContainer, SearchResultPage } from './types';
 
-export const getFirstSearchResult = (book: Book, results: SearchResult) => {
-  const sortedResults = getSearchResultsByPage(book, results);
+export const getFirstResultPage = (book: Book, results: SearchResult): SearchResultPage | undefined => {
+  const [result] = filterTreeForSearchResults(book.tree, results);
+  const getFirstResult = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
+    ? getFirstResult(container.contents[0])
+    : container;
 
-  if (sortedResults.length > 0) {
-    return {
-      firstResult: sortedResults[0].results[0],
-      firstResultPage: sortedResults[0].page,
-    };
-  }
-
-  return {firstResult: null, firstResultPage: null};
+  return result && getFirstResult(result);
 };
 
-const getSearchResultsForPage = (page: ArchiveTreeSection, results: SearchResult) => results.hits.hits
-  ? results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
-  : [];
+const getSearchResultsForPage = (page: ArchiveTreeSection, results: SearchResult) => sortBy('source.pagePosition',
+  results.hits.hits
+    ?  results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
+    : []
+);
 
-export const getSearchResultsByPage = (book: Book, allResults: SearchResult) => findTreePages(book.tree)
-  .map((page) => ({
-    page,
-    results: sortBy('source.pagePosition', getSearchResultsForPage(page, allResults)),
-  }))
-  .filter(({results}) => results.length > 0);
+const filterTreeForSearchResults = (
+  node: LinkedArchiveTree,
+  searchResults: SearchResult
+): SearchResultContainer[]  => {
+  const containers: SearchResultContainer[] = [];
+  const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
+    parent.contents.map((child) => ({...child, parent}));
+
+  for (const child of linkContents(node)) {
+    if (archiveTreeSectionIsPage(child)) {
+      const results = getSearchResultsForPage(child, searchResults);
+
+      if (results.length > 0) {
+        containers.push({...child, results});
+      }
+    } else if (archiveTreeSectionIsChapter(child)) {
+      const contents = filterTreeForSearchResults(child, searchResults);
+
+      if (contents.length > 0) {
+        containers.push({...child, contents});
+      }
+    } else if (isArchiveTree(node)) {
+      containers.push(...filterTreeForSearchResults(child, searchResults));
+    }
+  }
+
+  return containers;
+};
 
 export const getIndexData = (indexName: string) => {
   const tail = getIdVersion(indexName);
