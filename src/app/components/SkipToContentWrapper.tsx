@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import scrollTo from '../../helpers/scrollTo';
+import scrollToContent from '../content/components/utils/scrollToContent';
 import { MAIN_CONTENT_ID, Provider } from '../context/SkipToContent';
 import HiddenLink from './HiddenLink';
 
@@ -19,7 +19,7 @@ export default class SkipToContentWrapper extends Component {
   private scrollToTarget = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (this.mainContent) {
       event.preventDefault();
-      scrollTo(this.mainContent);
+      scrollToContent(this.mainContent);
     } else {
       throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?`);
     }

@@ -2,7 +2,7 @@ import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom'
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import scrollTo from 'scroll-to-element';
+import scrollToContent from './utils/scrollToContent';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
@@ -81,7 +81,7 @@ export class PageComponent extends Component<PropTypes> {
 
       this.addGenericJs(this.container);
       if (target) {
-        scrollTo(target);
+        scrollToContent(target);
       } else {
         window.scrollTo(0, 0);
       }
