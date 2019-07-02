@@ -60,17 +60,15 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
       // move figure and table ids up to the parent div
       .replace(/(<div[^>]*)(>(?!<\/?div>)*?<(?:figure|table)[^>]*?)( id=[^\s>]*)/g, '$1$3$2')
+      // move all ids out into anchors
+      .replace(/<([^<>]*?)id="([^"]*?)"/g, '<a id="$2"></a><$1data-id="$2"')
     ;
   };
 
   public componentDidMount() {
-    const target = this.getScrollTarget();
     this.postProcess();
     this.linksOn();
     if (this.container) { this.addGenericJs(this.container); }
-    if (target) {
-      scrollTo(target);
-    }
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
