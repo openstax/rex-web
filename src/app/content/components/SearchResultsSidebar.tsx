@@ -7,7 +7,7 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { Details, iconSize } from '../../components/Details';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
-import { labelStyle, textRegularStyle } from '../../components/Typography';
+import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
@@ -28,7 +28,8 @@ import { toolbarIconStyles } from './Toolbar';
 
 const searchResultsBarVariables = {
     backgroundColor: '#f1f1f1',
-    mainPadding: 3,
+    mainPaddingDesktop: 3,
+    mainPaddingMobile: 2,
 };
 
 // tslint:disable-next-line:variable-name
@@ -54,7 +55,7 @@ const SearchResultsBar = styled.div`
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
   z-index: 4;
-  margin-left: calc(-50vw - ${sidebarDesktopWidth}rem);
+  margin-left: calc(-50vw - ${sidebarDesktopWidth}rem - ${searchResultsBarVariables.mainPaddingDesktop}rem);
   padding-left: 50vw;
   width: calc(50vw + ${searchResultsBarDesktopWidth}rem);
   min-width: calc(50vw + ${searchResultsBarDesktopWidth}rem);
@@ -62,6 +63,7 @@ const SearchResultsBar = styled.div`
   display: flex;
   flex-direction: column;
   position: sticky;
+  background: ${searchResultsBarVariables.backgroundColor};
 
   &:not([open]) {
     display: none;
@@ -77,7 +79,7 @@ const SearchResultsBar = styled.div`
     top: ${bookBannerMobileMiniHeight + toolbarMobileHeight
           + toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
-    margin-left: calc(-50vw - ${sidebarMobileWidth}rem);
+    margin-left: calc(-50vw - ${sidebarMobileWidth}rem - ${searchResultsBarVariables.mainPaddingMobile}rem);
   `)}
 
 `;
@@ -87,6 +89,7 @@ const SearchQuery = styled.div`
   ${textRegularStyle}
   display: flex;
   align-items: center;
+  justify-content: center;
   min-height: 4rem;
 
   strong {
@@ -116,7 +119,7 @@ const SearchBarSummary = styled(Summary)`
     align-items: center;
     background: ${searchResultsBarVariables.backgroundColor};
     border-top: solid 0.1rem #d5d5d5;
-    padding-left: ${searchResultsBarVariables.mainPadding}rem;
+    padding-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -129,7 +132,7 @@ const SearchResultsLink = styled.a`
 // tslint:disable-next-line:variable-name
 const SectionContentPreview = styled.div`
   ${labelStyle}
-    padding-left: ${searchResultsBarVariables.mainPadding + iconSize + 2.3}rem;
+    padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
     min-height: 3.7rem;
     display: flex;
     align-items: center;
@@ -142,7 +145,7 @@ const LinkWrapper = styled.div`
     min-height: 3.4rem;
     display: flex;
     align-items: center;
-    padding-left: ${searchResultsBarVariables.mainPadding + iconSize}rem;
+    padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -152,28 +155,54 @@ const DetailsOl = styled.ol`
 
 // tslint:disable-next-line:variable-name
 const NavItem = styled.li`
+  background: ${theme.color.primary.gray.foreground};
   :not(:last-child) {
     border-bottom: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
   }
 `;
 
 // tslint:disable-next-line:variable-name
+const SearchQueryAlignment = styled.div`
+  max-width: 26.5rem;
+  text-align: justify;
+  /*textRegularLineHeight is the close icon height*/
+  margin-top: calc(7rem - ${textRegularLineHeight}rem);
+`;
+
+// tslint:disable-next-line:variable-name
+const CloseIconWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+// tslint:disable-next-line:variable-name
 const SearchResultsSidebar = ({query, results}: {query: string | null, results: SearchResult | null}) =>
   <SearchResultsBar open={query ? true : false }>
-    <SearchQueryWrapper>
-      <FormattedMessage id='i18n:search-results:bar:query:results'>
-        {(msg: Element | string) =>
-          <SearchQuery>
-            <SearchIconInsideBar />
-            <div>
-              <div>{results ? results.hits.total : 0 }</div> {msg} <strong> &lsquo;{query}&rsquo;</strong>
-            </div>
-          </SearchQuery>
-        }
-      </FormattedMessage>
-      <CloseIcon/>
-    </SearchQueryWrapper>
-    <NavOl>
+      {results && results.hits.total > 0 && <SearchQueryWrapper>
+        <FormattedMessage id='i18n:search-results:bar:query:results'>
+          {(msg: Element | string) =>
+            <SearchQuery>
+              <SearchIconInsideBar />
+              <div>
+                {results ? results.hits.total : 0 } {msg} <strong> &lsquo;{query}&rsquo;</strong>
+              </div>
+            </SearchQuery>
+          }
+        </FormattedMessage>
+        <CloseIcon />
+      </SearchQueryWrapper>}
+
+        {results && results.hits.total === 0 && <div>
+          <CloseIconWrapper><CloseIcon/></CloseIconWrapper>
+          <FormattedMessage id='i18n:search-results:bar:query:no-results'>
+            {(msg: Element | string) =>
+              <SearchQuery>
+                <SearchQueryAlignment>{msg} <strong> &lsquo;{query}&rsquo;</strong></SearchQueryAlignment>
+              </SearchQuery>
+            }
+          </FormattedMessage>
+        </div>}
+      {results && results.hits.total > 0 && <NavOl>
         <li>
             <Details>
                 <SearchBarSummary>
@@ -238,7 +267,7 @@ const SearchResultsSidebar = ({query, results}: {query: string | null, results: 
                 </DetailsOl>
             </Details>
         </li>
-    </NavOl>
+    </NavOl>}
 </SearchResultsBar>;
 
 export default connect(

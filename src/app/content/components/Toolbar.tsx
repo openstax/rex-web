@@ -253,7 +253,7 @@ const MobileSearchWrapper = styled.div`
 `;
 
 class Toolbar extends React.Component<{
-  search: typeof requestSearch, query: string | null, results: any }, {query: string, mobileOpen: boolean, formSubmitted: boolean
+  search: typeof requestSearch, query: string | null }, {query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
   public state = {query: '', mobileOpen: false, formSubmitted: false};
 
@@ -264,10 +264,6 @@ class Toolbar extends React.Component<{
       if (this.state.query) {
         this.props.search(this.state.query);
         this.setState({formSubmitted: true});
-
-        console.log(this.props.query);
-        console.log(this.props.results.hits.total);
-        console.log(this.state);
       }
     };
 
@@ -334,7 +330,6 @@ class Toolbar extends React.Component<{
 export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
-    results: selectSearch.results(state),
   }),
   (dispatch: Dispatch) => ({
     search: (query: string) => dispatch(requestSearch(query)),
