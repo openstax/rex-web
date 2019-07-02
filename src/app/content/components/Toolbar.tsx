@@ -267,6 +267,7 @@ class Toolbar extends React.Component<{
 
         console.log(this.props.query);
         console.log(this.props.results.hits.total);
+        console.log(this.state);
       }
     };
 

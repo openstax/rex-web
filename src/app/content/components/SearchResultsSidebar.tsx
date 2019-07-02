@@ -164,7 +164,7 @@ const SearchResultsSidebar = (query: any, results: any ) => <SearchResultsBar op
           <SearchQuery>
             <SearchIconInsideBar />
             <div>
-              <div>{results.results ?  results.results.hits.total : 0 }</div> {msg} <strong> &lsquo;{query.query}&rsquo;</strong>
+              <div>{results ? results.hits.total : 0 }</div> {msg} <strong> &lsquo;{query.query}&rsquo;</strong>
             </div>
           </SearchQuery>
         }
