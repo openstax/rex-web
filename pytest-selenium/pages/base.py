@@ -59,7 +59,7 @@ class Page(pypom.Page):
             lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
         )
 
-    def assert_element_not_interactable_exception(self, element):
+    def assert_element_not_interactable(self, element):
         with pytest.raises(Exception) as exc_info:
             element.send_keys(Keys.ENTER)
 

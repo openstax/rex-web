@@ -1,3 +1,4 @@
+import { History } from 'history';
 import {
   Dispatch as ReduxDispatch,
   Middleware as ReduxMiddleware,
@@ -29,6 +30,7 @@ export interface AppState {
 }
 
 export interface AppServices {
+  history: History;
   promiseCollector: PromiseCollector;
   fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;

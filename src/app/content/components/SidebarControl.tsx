@@ -27,6 +27,7 @@ interface MiddleProps {
 // tslint:disable-next-line:variable-name
 const ListIcon = styled(ListOl)`
   ${toolbarIconStyles};
+  margin-right: 0.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
