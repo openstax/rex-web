@@ -162,33 +162,92 @@ describe('Page', () => {
       .toEqual('<ol data-mark-suffix="[mark-suffix]"><li data-mark-suffix="[mark-suffix]">item</li></ol>');
     });
 
-  });
+    it('updates content self closing tags', () => {
+      expect(htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
+        '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
+      );
+    });
 
-  it('updates content self closing tags', () => {
-    archiveLoader.mock.cachedPage.mockImplementation(() => ({
-      ...page,
-      content: `<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`,
-    }));
-    const {root} = renderToDom(
-      <Provider store={store}>
-        <MessageProvider>
-          <Services.Provider value={services}>
-            <SkipToContentWrapper>
-              <ConnectedPage />
-            </SkipToContentWrapper>
-          </Services.Provider>
-        </MessageProvider>
-      </Provider>
-    );
-    const pageElement = root.querySelector('#main-content');
+    it('moves (first-child) figure and table ids up to the parent div', () => {
+      expect(htmlHelper(`
+        <div class="os-figure">
+          <figure id="figure-id1">
+            <span data-alt="Something happens." data-type="media" id="span-id1">
+              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
+            </span>
+          </figure>
+          <div class="os-caption-container">
+            <span class="os-title-label">Figure </span>
+            <span class="os-number">1.1</span>
+            <span class="os-divider"> </span>
+            <span class="os-caption">Some explanation about the image. (credit: someone)</span>
+          </div>
+        </div>
 
-    if (!pageElement) {
-      return expect(pageElement).toBeTruthy();
-    }
+        <div class="os-table">
+          <table summary="Table 1.1 Something" id="table-id1" class="some-class">
+            <thead>
+              <tr>
+                <th scope="col"><strong>Column 1</strong></th>
+                <th scope="col"><strong>Column 2</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Value 1</td>
+                <td>Value 2</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="os-caption-container">
+            <span class="os-title-label">Table </span>
+            <span class="os-number">1.1</span>
+            <span class="os-divider"> </span>
+            <span data-type="title" class="os-title">Something</span>
+            <span class="os-divider"> </span>
+          </div>
+        </div>
+      `)).toEqual(`
+        <div class="os-figure" id="figure-id1">
+          <figure data-id="figure-id1">
+            <span data-alt="Something happens." data-type="media" id="span-id1">
+              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
+            </span>
+          </figure>
+          <div class="os-caption-container">
+            <span class="os-title-label">Figure </span>
+            <span class="os-number">1.1</span>
+            <span class="os-divider"> </span>
+            <span class="os-caption">Some explanation about the image. (credit: someone)</span>
+          </div>
+        </div>
 
-    expect(pageElement.innerHTML).toEqual(
-      '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
-    );
+        <div class="os-table" id="table-id1">
+          <table summary="Table 1.1 Something" data-id="table-id1" class="some-class">
+            <thead>
+              <tr>
+                <th scope="col"><strong>Column 1</strong></th>
+                <th scope="col"><strong>Column 2</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Value 1</td>
+                <td>Value 2</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="os-caption-container">
+            <span class="os-title-label">Table </span>
+            <span class="os-number">1.1</span>
+            <span class="os-divider"> </span>
+            <span data-type="title" class="os-title">Something</span>
+            <span class="os-divider"> </span>
+          </div>
+        </div>
+      `);
+    });
+
   });
 
   it('updates content link with new hrefs', () => {

@@ -62,7 +62,7 @@ export class PageComponent extends Component<PropTypes> {
       // same as previous, but allow indexing links to relative content
       .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
       // move (first-child) figure and table ids up to the parent div
-      .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?)( id=[^\s>]*)/g, '$1$3$2')
+      .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
     ;
   };
 
