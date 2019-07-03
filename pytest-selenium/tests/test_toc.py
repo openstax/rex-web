@@ -3,7 +3,7 @@ from pages.content import Content
 from . import markers
 
 
-@markers.test_case("C250849")
+@markers.test_case("C250849", "C476816", "C476817")
 @markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
 @markers.nondestructive
 def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
