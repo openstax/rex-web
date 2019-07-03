@@ -171,7 +171,8 @@
     ],
     "coverageReporters": [
       "text-summary",
-      "html"
+      "html",
+      "lcovonly"
     ]
   }
 }
