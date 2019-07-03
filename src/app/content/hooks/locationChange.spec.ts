@@ -242,7 +242,7 @@ describe('locationChange', () => {
 
     beforeEach(() => {
       archiveLoader.mockBook(mockOtherBook);
-      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'unused-page-slug');
+      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
       mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
 
       archiveLoader.mockPage(book, {
