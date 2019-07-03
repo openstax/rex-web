@@ -1,5 +1,7 @@
 import pypom
 
+from selenium.webdriver.common.keys import Keys
+
 
 class Region(pypom.Region):
     @property
@@ -16,4 +18,8 @@ class Region(pypom.Region):
         Clicks the given element, even if it is offscreen, by sending the ENTER key.
         Returns the element.
         """
-        return self.page.offscreen_click(element or self.root)
+        # We actually navigate using the ENTER key because scrolling the page can be flaky
+        # https://stackoverflow.com/a/39918249
+        # return self.page.offscreen_click(element or self.root)
+        element.send_keys(Keys.ENTER)
+        return element
