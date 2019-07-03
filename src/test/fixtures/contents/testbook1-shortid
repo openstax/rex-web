@@ -30,7 +30,7 @@
               {
                 "shortId": "testpage2-shortid@1.0",
                 "id": "testbook1-testpage2-uuid@1.0",
-                "slug": "introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+                "slug": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
                 "title": "<span class=\"os-text\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
               }
             ],
@@ -58,7 +58,7 @@
           {
             "shortId": "testpage3-shortid@1.0",
             "id": "testbook1-testpage3-uuid@1.0",
-            "slug": "test-page-3",
+            "slug": "2-test-page-3",
             "title": "<span class=\"os-text\">Test Page 3</span>"
           }
         ],
@@ -71,7 +71,7 @@
           {
             "shortId": "testpage4-shortid@1.0",
             "id": "testbook1-testpage4-uuid@1.0",
-            "slug": "test-page-4",
+            "slug": "3-test-page-4",
             "title": "<span class=\"os-text\">Test Page 4</span>"
           }
         ],
@@ -84,7 +84,7 @@
           {
             "shortId": "testpage5-shortid@1.0",
             "id": "testbook1-testpage5-uuid@1.0",
-            "slug": "test-page-5",
+            "slug": "4-test-page-5",
             "title": "<span class=\"os-text\">Test Page 5</span>"
           }
         ],
@@ -97,7 +97,7 @@
           {
             "shortId": "testpage6-shortid@1.0",
             "id": "testbook1-testpage6-uuid@1.0",
-            "slug": "test-page-6",
+            "slug": "5-test-page-6",
             "title": "<span class=\"os-text\">Test Page 6</span>"
           }
         ],
@@ -110,7 +110,7 @@
           {
             "shortId": "testpage7-shortid@1.0",
             "id": "testbook1-testpage7-uuid@1.0",
-            "slug": "test-page-7",
+            "slug": "6-test-page-7",
             "title": "<span class=\"os-text\">Test Page 7</span>"
           }
         ],
