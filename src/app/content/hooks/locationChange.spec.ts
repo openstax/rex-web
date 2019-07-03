@@ -145,14 +145,14 @@ describe('locationChange', () => {
       shortId: 'rando-page-shortid',
       title: 'rando page',
       version: '0',
-    });
+    }, 'unused-page-slug');
     archiveLoader.mockPage(book, {
       content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
-    });
+    }, 'unused-page-slug');
 
     payload.match.params.page = 'qwerqewrqwer';
 
@@ -218,6 +218,7 @@ describe('locationChange', () => {
         contents: [],
         id: 'newbookid@0',
         shortId: 'newbookshortid@0',
+        slug: 'newbook',
         title: 'newbook',
       },
       version: '0',
@@ -241,7 +242,7 @@ describe('locationChange', () => {
 
     beforeEach(() => {
       archiveLoader.mockBook(mockOtherBook);
-      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook);
+      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'unused-page-slug');
       mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
 
       archiveLoader.mockPage(book, {
@@ -250,7 +251,7 @@ describe('locationChange', () => {
         shortId: 'pageshortid',
         title: 'page referencing different book',
         version: '0',
-      });
+      }, 'unused-page-slug');
 
       payload.match.params.page = 'page referencing different book';
 

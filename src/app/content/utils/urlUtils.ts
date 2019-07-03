@@ -1,3 +1,4 @@
+import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
 import { Book, Page } from '../types';
 import { findArchiveTreeSection, flattenArchiveTree } from './archiveTreeUtils';
@@ -28,7 +29,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
-  const result = treeSection.slug;
+  const result = assertDefined(treeSection.slug, 'Slug needs to be defined');
   getUrlParamForPageIdCache.set(cacheKey, result);
 
   return result;
@@ -36,7 +37,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {
   for (const section of flattenArchiveTree(book.tree)) {
-    const sectionParam = section.slug;
+    const sectionParam = assertDefined(section.slug, 'Slug needs to be defined');
     if (sectionParam && sectionParam.toLowerCase() === pageParam.toLowerCase()) {
       return stripIdVersion(section.id);
     }

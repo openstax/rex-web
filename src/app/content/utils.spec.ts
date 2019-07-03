@@ -134,6 +134,7 @@ describe('getUrlParamForPageId', () => {
       {
         id: 'somepagelongid@1',
         shortId: 'somepage@1',
+        slug: 'unused-page-slug',
         title: '<span class="os-text">a page</span>',
       },
     ];
@@ -180,6 +181,7 @@ describe('getPageIdFromUrlParam', () => {
           {
             id: 'pagelongid@1',
             shortId: 'page@1',
+            slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
