@@ -2,6 +2,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.touch_actions import TouchActions
 
 from pages.base import Page
 from regions.base import Region
@@ -13,11 +14,15 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
-    _scroll_lock_locator = (By.CSS_SELECTOR, "[class*='MobileScrollLock']")
+    _print_locator = (By.CSS_SELECTOR, '[data-testid="print"]')
 
     @property
     def loaded(self):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
+
+    @property
+    def print(self):
+        return self.find_element(*self._print_locator)
 
     @property
     def next_link(self):
@@ -26,10 +31,6 @@ class Content(Page):
     @property
     def previous_link(self):
         return self.find_element(*self._previous_locator)
-
-    @property
-    def is_scroll_locked(self):
-        return self.find_element(*self._scroll_lock_locator)
 
     @property
     def navbar(self):
@@ -54,6 +55,13 @@ class Content(Page):
     @property
     def section_url_within_attribution(self):
         return self.find_element(*self._section_url_locator)
+
+    def scroll_over_content_overlay(self):
+        """Touch and scroll starting at on_element, moving by xoffset and yoffset.
+
+        """
+        touchActions = TouchActions(self.driver)
+        touchActions.scroll_from_element(self.print, 439, 900).perform()
 
     def click_content_overlay(self):
         """Click anywhere in the content overlay
