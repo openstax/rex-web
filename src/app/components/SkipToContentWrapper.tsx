@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import scrollToContent from '../content/components/utils/scrollToContent';
@@ -20,7 +21,7 @@ export default class SkipToContentWrapper extends Component {
     if (this.mainContent) {
       event.preventDefault();
       scrollToContent(this.mainContent);
-      this.mainContent.focus();
+      (this.mainContent as HTMLElement).focus();
     } else {
       throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?`);
     }
