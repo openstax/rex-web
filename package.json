@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@openstax/open-search-client": "./open-search-client/",
+    "@types/pretty": "^2.0.0",
     "ally.js": "^1.4.1",
     "color": "^3.1.0",
     "details-element-polyfill": "^2.3.1",
@@ -12,6 +13,7 @@
     "jest": "24.7.1",
     "lodash": "^4.17.11",
     "path-to-regexp": "^3.0.0",
+    "pretty": "^2.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
     "react": "^16.8.6",
