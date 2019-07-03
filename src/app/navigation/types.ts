@@ -1,4 +1,4 @@
-import { Location } from 'history';
+import { Action, Location } from 'history';
 import { OutputParams } from 'query-string';
 import { ComponentType } from 'react';
 import { routes } from '../';
@@ -34,7 +34,7 @@ export type Match<R extends AnyRoute> =
     ? {}
     : MatchWithState<R>);
 
-export type HistoryAction<R extends AnyRoute> = Match<R> & {
+export type HistoryAction<R extends AnyRoute = AnyRoute> = Match<R> & {
   method: 'push' | 'replace';
   hash?: string;
   search?: string;
@@ -52,14 +52,15 @@ export interface Route<P, S = undefined> {
   component: ComponentType;
 }
 
-export interface LocationChange {
+export interface LocationChange<M = GenericMatch> {
   location: Location;
-  match?: AnyMatch;
+  match?: M;
+  action: Action;
 }
 
 export type AnyRoute = typeof routes[number];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
 
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
-  (locationChange: {location: Location, match: Match<R>}) =>
+  (locationChange: Required<LocationChange<Match<R>>>) =>
     Promise<any> | void;

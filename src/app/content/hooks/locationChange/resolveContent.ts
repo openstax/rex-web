@@ -1,22 +1,27 @@
-import { BOOKS } from '../../../config';
-import { Match, RouteHookBody } from '../../navigation/types';
-import { AppServices, MiddlewareAPI } from '../../types';
-import { assertDefined } from '../../utils';
-import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
-import { content } from '../routes';
-import * as select from '../selectors';
-import { ArchivePage, Book, PageReferenceMap } from '../types';
+import { BOOKS } from '../../../../config';
+import { Match } from '../../../navigation/types';
+import { AppServices, MiddlewareAPI } from '../../../types';
+import { assertDefined } from '../../../utils';
+import { receiveBook, receivePage, requestBook, requestPage } from '../../actions';
+import { content } from '../../routes';
+import * as select from '../../selectors';
+import { ArchivePage, Book, PageReferenceMap } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
   getPageIdFromUrlParam,
   getUrlParamForPageId
-} from '../utils';
-import { archiveTreeContainsSection } from '../utils/archiveTreeUtils';
+} from '../../utils';
+import { archiveTreeContainsSection } from '../../utils/archiveTreeUtils';
 
-const hookBody: RouteHookBody<typeof content> = (services) => async({match}) => {
+export default async(
+  services: AppServices & MiddlewareAPI,
+  match: Match<typeof content>
+) => {
   const [book, loader] = await resolveBook(services, match);
-  await resolvePage(services, match, book, loader);
+  const page = await resolvePage(services, match, book, loader);
+
+  return {book, page};
 };
 
 const getBookResponse = async(
@@ -105,6 +110,10 @@ const resolvePage = async(
 
   if (!pageId) {
     // TODO - 404 handling
+    // content links within the content are audited before they're clicked
+    // and other content links come from the ToC, so if we've gotten
+    // this far and the page is not found an exception is probably fine.
+    // maybe just a _better_ exception
     throw new Error('Page not found');
   }
 
@@ -181,5 +190,3 @@ const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book
     references,
   };
 };
-
-export default hookBody;

@@ -65,6 +65,7 @@ describe('routeHook', () => {
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = routeHook(routes[0], () => hookSpy);
     const payload = {
+      action: 'POP' as 'POP',
       location: {} as Location,
       match: {
         route: routes[0],
@@ -81,6 +82,7 @@ describe('routeHook', () => {
     const helpers = {dispatch: () => undefined, getState: () => ({} as AppState)} as any as MiddlewareAPI & AppServices;
     const middleware = routeHook(routes[0], () => hookSpy);
     const payload = {
+      action: 'POP' as 'POP',
       location: {} as Location,
       match: {
         route: routes[1],
