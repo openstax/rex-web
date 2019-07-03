@@ -1,5 +1,5 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight) * .625}rem;
   }
-`
+`;
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`

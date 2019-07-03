@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import scrollToContent from './utils/scrollToContent';
 import * as mathjax from '../../../helpers/mathjax';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import createTestStore from '../../../test/createTestStore';
@@ -23,6 +22,7 @@ import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
+import scrollToContent from './utils/scrollToContent';
 
 // jest.mock('../../../helpers/mathjax');
 jest.mock('./utils/scrollToContent');

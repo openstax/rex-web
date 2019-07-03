@@ -2,7 +2,6 @@ import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import scrollToContent from './utils/scrollToContent';
 import styled, { css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typography';
@@ -15,6 +14,7 @@ import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page';
 import { disablePrint } from './utils/disablePrint';
+import scrollToContent from './utils/scrollToContent';
 import { wrapperPadding } from './Wrapper';
 
 const summaryIconStyle = css`

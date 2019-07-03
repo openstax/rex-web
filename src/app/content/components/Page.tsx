@@ -2,7 +2,6 @@ import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom'
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import scrollToContent from './utils/scrollToContent';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
@@ -22,6 +21,7 @@ import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
+import scrollToContent from './utils/scrollToContent';
 
 interface PropTypes {
   page: State['page'];
