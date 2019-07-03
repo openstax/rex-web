@@ -20,7 +20,7 @@ import {
   toolbarIconColor,
   toolbarMobileHeight
 } from './constants';
-import SidebarControl from './SidebarControl';
+import { OpenSidebarControl } from './SidebarControl';
 import { disablePrint } from './utils/disablePrint';
 
 export const toolbarIconStyles = css`
@@ -278,7 +278,7 @@ class Toolbar extends React.Component<{
 
     return <BarWrapper>
       <TopBar data-testid='toolbar'>
-        <SidebarControl />
+        <OpenSidebarControl />
         <SearchPrintWrapper>
           <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
             <SearchInput desktop onChange={onChange} value={this.state.query} data-testid='desktop-search-input' />
