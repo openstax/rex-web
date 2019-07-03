@@ -23,8 +23,8 @@ export default (url: string) => {
   );
 
   const getBookIdsForPage: (pageId: string) => Promise<string[]> =
-    memoize((pageId) => archiveFetch<Extras>(`${url}/extras/${pageId}`).
-      then(({books}) => books.map(({ident_hash}) => stripIdVersion(ident_hash)))
+    memoize((pageId) => archiveFetch<Extras>(`${url}/extras/${pageId}`)
+      .then(({books}) => books.map(({ident_hash}) => stripIdVersion(ident_hash)))
     );
 
   return {

@@ -357,6 +357,7 @@ describe('Page', () => {
     }
 
     const spy = jest.spyOn(window, 'scrollTo');
+    spy.mockImplementation(() => null);
 
     renderToDom(
       <Provider store={store}>
@@ -478,7 +479,9 @@ describe('Page', () => {
       </Provider>
     );
 
-    store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
+    renderer.act(() => {
+      store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
+    });
 
     expect(spy).not.toHaveBeenCalled();
   });
