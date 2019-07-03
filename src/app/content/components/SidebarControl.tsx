@@ -93,13 +93,3 @@ export const OpenSidebarControl = lockControlState(false, SidebarControl);
 
 // tslint:disable-next-line:variable-name
 export const CloseSidebarControl = lockControlState(true, SidebarControl);
-
-// bug in types, only class components can return an array
-export default class CombinedSidebarControl extends React.Component {
-  public render() {
-    return [
-      <OpenSidebarControl {...this.props} key='open-sidebar' />,
-      <CloseSidebarControl {...this.props} key='close-sidebar' />,
-    ];
-  }
-}
