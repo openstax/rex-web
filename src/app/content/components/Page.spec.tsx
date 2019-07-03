@@ -65,7 +65,7 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
       `,
-    });
+    }, 'unused?1');
 
     state.content.references = [
       {
@@ -398,7 +398,7 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     state.content.page = someHashPage;
 
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused?2');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -432,7 +432,7 @@ describe('Page', () => {
     };
 
     state.navigation.hash = '#somehash';
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused?3');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -494,7 +494,7 @@ describe('Page', () => {
 
     state.content.page = tablePage;
 
-    archiveLoader.mockPage(book, tablePage);
+    archiveLoader.mockPage(book, tablePage, 'unused?4');
 
     const {root} = renderToDom(
       <Provider store={store}>

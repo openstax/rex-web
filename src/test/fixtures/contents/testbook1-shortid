@@ -16,6 +16,7 @@
       {
         "shortId": "testpage1-shortid@1.0",
         "id": "testbook1-testpage1-uuid@1.0",
+        "slug": "test-page-1",
         "title": "<span class=\"os-text\">Test Page 1</span>"
       },
       {
@@ -29,6 +30,7 @@
               {
                 "shortId": "testpage2-shortid@1.0",
                 "id": "testbook1-testpage2-uuid@1.0",
+                "slug": "introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
                 "title": "<span class=\"os-text\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
               }
             ],
@@ -37,11 +39,13 @@
           {
             "shortId": "testpage11-shortid@1.0",
             "id": "testbook1-testpage11-uuid@1.0",
+            "slug": "1-1-physics-an-introduction",
             "title": "<span class=\"os-number\">1.1</span><span class=\"os-divider\"> </span><span class=\"os-text\">Physics: An Introduction</span></span>"
           },
           {
             "shortId": "testpage8-shortid@1.0",
             "id": "testbook1-testpage8-uuid@1.0",
+            "slug": "23-12-rlc-series-ac-circuits",
             "title": "<span class=\"os-number\">23.12</span><span class=\"os-divider\"> </span><span class=\"os-text\">RLC Series AC Circuits</span></span>"
           }
         ],
@@ -54,6 +58,7 @@
           {
             "shortId": "testpage3-shortid@1.0",
             "id": "testbook1-testpage3-uuid@1.0",
+            "slug": "test-page-3",
             "title": "<span class=\"os-text\">Test Page 3</span>"
           }
         ],
@@ -66,6 +71,7 @@
           {
             "shortId": "testpage4-shortid@1.0",
             "id": "testbook1-testpage4-uuid@1.0",
+            "slug": "test-page-4",
             "title": "<span class=\"os-text\">Test Page 4</span>"
           }
         ],
@@ -78,6 +84,7 @@
           {
             "shortId": "testpage5-shortid@1.0",
             "id": "testbook1-testpage5-uuid@1.0",
+            "slug": "test-page-5",
             "title": "<span class=\"os-text\">Test Page 5</span>"
           }
         ],
@@ -90,6 +97,7 @@
           {
             "shortId": "testpage6-shortid@1.0",
             "id": "testbook1-testpage6-uuid@1.0",
+            "slug": "test-page-6",
             "title": "<span class=\"os-text\">Test Page 6</span>"
           }
         ],
@@ -102,6 +110,7 @@
           {
             "shortId": "testpage7-shortid@1.0",
             "id": "testbook1-testpage7-uuid@1.0",
+            "slug": "test-page-7",
             "title": "<span class=\"os-text\">Test Page 7</span>"
           }
         ],
@@ -110,16 +119,19 @@
       {
         "shortId": "testpage9-shortid@1.0",
         "id": "testbook1-testpage9-uuid@1.0",
+        "slug": "a-atomic-masses",
         "title": "<span class=\"os-number\">A</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Atomic Masses</span></a>"
       },
       {
         "shortId": "testpage10-shortid@1.0",
         "id": "testbook1-testpage10-uuid@1.0",
+        "slug": "d-glossary-of-key-symbols-and-notation",
         "title": "<span class=\"os-number\">D</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Glossary of Key Symbols and Notation</span></a>"
       },
       {
         "shortId": "testpage12-shortid@1.0",
         "id": "testbook1-testpage12-uuid@1.0",
+        "slug": "test-page-for-generic-styles",
         "title": "<span class=\"os-text\">Test Page for Generic Styles</span>"
       }
     ],
