@@ -9,10 +9,9 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): LinkedArchiveTreeSe
       ? flattenArchiveTree({...section, parent: tree})
       : [{...section, parent: tree}])
   )).map((section) => ({
+    ...section,
     id: stripIdVersion(section.id),
-    parent: section.parent,
     shortId: stripIdVersion(section.shortId),
-    title: section.title,
     version: getIdVersion(section.id),
   }));
 }

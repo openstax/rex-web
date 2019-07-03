@@ -2,6 +2,7 @@ import fs from 'fs';
 import cloneDeep from 'lodash/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchivePage } from '../../app/content/types';
+import { getUrlParamForPageId } from '../../app/content/utils';
 
 export const book = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid'), 'utf8')
@@ -76,6 +77,7 @@ export default () => {
       localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
         id: `${newPage.id}@${newPage.version}`,
         shortId: `${newPage.shortId}@${newPage.version}`,
+        slug: getUrlParamForPageId(parentBook, newPage.title),
         title: newPage.title,
       });
     },
