@@ -86,10 +86,12 @@ export default (options: AppOptions) => {
 
   const middleware: Middleware[] = [
     navigation.createMiddleware(routes, history),
-    Sentry.initializeWithMiddleware(),
-
     ...hooks.map((hook) => hook(services)),
   ];
+
+  if (Sentry.isEnabled) {
+    middleware.push(Sentry.initializeWithMiddleware());
+  }
 
   /* istanbul ignore next */
   if (process.env.REACT_APP_ENV === 'development') {

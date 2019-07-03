@@ -20,7 +20,6 @@ jest.mock('@sentry/browser', () => ({
 describe('Sentry error logging', () => {
 
   beforeEach(() => {
-    Sentry.isInitialized = false;
     jest.clearAllMocks();
   });
 
@@ -57,12 +56,14 @@ describe('Sentry error logging', () => {
   it('skips logging when not production', () => {
     config.IS_PRODUCTION = false;
     Sentry.initializeWithMiddleware();
-    //    expect(SentryLibrary.captureException).not.toHaveBeenCalled();
-
+    expect(Sentry.isEnabled).toBe(false);
     Sentry.captureException(new Error('this is bad'));
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
+
+    config.IS_PRODUCTION = true;
+    expect(Sentry.isEnabled).toBe(true);
     Sentry.log('test');
-    expect(SentryLibrary.captureMessage).not.toHaveBeenCalled();
+    expect(SentryLibrary.captureMessage).toHaveBeenCalled();
   });
 
 });
