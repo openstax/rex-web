@@ -110,7 +110,9 @@ describe('content', () => {
   });
 
   it('clicking overlay closes toc', () => {
-    store.dispatch(openToc());
+    renderer.act(() => {
+      store.dispatch(openToc());
+    });
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -124,7 +126,9 @@ describe('content', () => {
     const mobileScrollLock = component.root.findByType(MobileScrollLock);
 
     expect(sidebarComponent.props.isOpen).toBe(true);
-    mobileScrollLock.props.onClick();
+    renderer.act(() => {
+      mobileScrollLock.props.onClick();
+    });
     expect(sidebarComponent.props.isOpen).toBe(false);
   });
 

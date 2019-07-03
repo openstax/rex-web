@@ -1,5 +1,4 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
-import ReactDOM from 'react-dom';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
@@ -9,6 +8,7 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 let React: any; // tslint:disable-line:variable-name
+let ReactDOM: any; // tslint:disable-line:variable-name
 let renderer: any;
 let Provider: any; // tslint:disable-line:variable-name
 let renderToDom: any;
@@ -18,6 +18,7 @@ describe('Attribution', () => {
     jest.resetAllMocks();
     jest.resetModules();
     React = require('react');
+    ReactDOM = require('react-dom');
     Provider = require('react-redux').Provider;
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
