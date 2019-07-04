@@ -164,6 +164,6 @@
     "collectCoverageFrom": [
       "src/{app,helpers,gateways}/**/*.{ts,tsx}"
     ],
-    "coverageReporters": ["text-summary", "html"]
+    "coverageReporters": ["text-summary", "html", "lcovonly"]
   }
 }
