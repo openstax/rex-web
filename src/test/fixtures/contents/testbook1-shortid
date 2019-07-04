@@ -97,7 +97,7 @@
           {
             "shortId": "testpage6-shortid@1.0",
             "id": "testbook1-testpage6-uuid@1.0",
-            "slug": "5-test-page-6",
+            "slug": "10-test-page-6",
             "title": "<span class=\"os-text\">Test Page 6</span>"
           }
         ],
@@ -110,7 +110,7 @@
           {
             "shortId": "testpage7-shortid@1.0",
             "id": "testbook1-testpage7-uuid@1.0",
-            "slug": "6-test-page-7",
+            "slug": "12-test-page-7",
             "title": "<span class=\"os-text\">Test Page 7</span>"
           }
         ],
