@@ -62,8 +62,10 @@ describe('Sentry error logging', () => {
 
     config.IS_PRODUCTION = true;
     expect(Sentry.isEnabled).toBe(true);
-    Sentry.log('test');
-    expect(SentryLibrary.captureMessage).toHaveBeenCalled();
+    Sentry.log('test log');
+    Sentry.warn('test warn');
+    Sentry.error('test error');
+    expect(SentryLibrary.captureMessage).toHaveBeenCalledTimes(3);
   });
 
 });
