@@ -39,6 +39,12 @@ describe('content', () => {
         }
       });
 
+      // react-dom and react-dom/server handle empty value attributes
+      // inconsistently
+      root.querySelectorAll('[value=""]').forEach((element) => {
+        element.removeAttribute('value');
+      });
+
       return root.innerHTML;
     };
 
