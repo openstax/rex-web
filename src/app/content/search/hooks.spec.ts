@@ -189,6 +189,8 @@ describe('hooks', () => {
     });
 
     it('noops if there are no results', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
       go();
       expect(dispatch).not.toHaveBeenCalled();
     });
