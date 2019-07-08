@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { ArchiveTree, Book } from './types';
+import { Book } from './types';
 import {
   getContentPageReferences,
   getPageIdFromUrlParam,

@@ -4,6 +4,7 @@ import { findDefaultBookPage } from './archiveTreeUtils';
 const makeArchiveSection = (title: string): ArchiveTreeSection => ({
   id: `${title}-id`,
   shortId: `${title}-shortid`,
+  slug: `${title}-slug`,
   title,
 });
 const makeArchiveTree = (title: string, contents: ArchiveTree['contents']): ArchiveTree => ({
