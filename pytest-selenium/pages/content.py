@@ -1,6 +1,8 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.touch_actions import TouchActions
 
 
 from pages.base import Page
@@ -14,10 +16,15 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
+    _print_locator = (By.CSS_SELECTOR, '[data-testid="print"]')
 
     @property
     def loaded(self):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
+
+    @property
+    def print(self):
+        return self.find_element(*self._print_locator)
 
     @property
     def next_link(self):
@@ -50,6 +57,28 @@ class Content(Page):
     @property
     def section_url_within_attribution(self):
         return self.find_element(*self._section_url_locator)
+
+    def scroll_over_content_overlay(self):
+        """Touch and scroll starting at on_element, moving by xoffset and yoffset.
+
+        """
+        touchActions = TouchActions(self.driver)
+        touchActions.scroll_from_element(self.print, 439, 900).perform()
+
+    def click_content_overlay(self):
+        """Click anywhere in the content overlay
+
+        Print button is located at coordinatates (439, 164).
+        TOC close button is located at (16, 164).
+        So choosing (439, 164) to be the location in the content overlay.
+        Using actionchains to click on this position.
+        """
+        actionChains = ActionChains(self.driver)
+        actionChains.move_to_element_with_offset(self.driver.find_element_by_tag_name("body"), 0, 0)
+        actionChains.move_by_offset(439, 164).click().perform()
+        return self.wait.until(
+            expected.invisibility_of_element_located(self.sidebar.header.toc_toggle_button)
+        )
 
     def click_next_link(self):
         self.click_and_wait_for_load(self.next_link)

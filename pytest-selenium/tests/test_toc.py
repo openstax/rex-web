@@ -102,3 +102,38 @@ def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug
 
     # THEN: The page loads and the ToC is automatically closed
     assert not sidebar.is_displayed
+
+
+@markers.test_case("C476818")
+@markers.parametrize("book_slug,page_slug", [("college-physics", "1-1-physics-an-introduction")])
+@markers.nondestructive
+@markers.mobile_only
+def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
+
+    # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
+    # AND: A mobile resolution
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    toolbar = content.toolbar
+    attribution = content.attribution
+    sidebar = content.sidebar
+
+    # WHEN: the toc is open
+    toolbar.click_toc_toggle_button()
+
+    # THEN: The links in the content should be disabled
+    content.assert_element_not_interactable_exception(content.next_link)
+    content.assert_element_not_interactable_exception(content.previous_link)
+    content.assert_element_not_interactable_exception(attribution.attribution_link)
+
+    # AND scrolling over it should do nothing
+    with pytest.raises(Exception) as exc_info:
+        content.scroll_over_content_overlay()
+
+    exception_raised = exc_info.type
+    assert "ElementClickInterceptedException" in str(exception_raised)
+
+    # AND clicking anywhere in the content overlay should just close the TOC and content stays in the same page
+    initial_url = selenium.current_url
+    content.click_content_overlay()
+    assert not sidebar.is_displayed
+    assert selenium.current_url == initial_url
