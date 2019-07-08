@@ -82,7 +82,7 @@ const color = {
   text: textColors,
 };
 
-const mobileBreak = 75;
+export const mobileBreak = 75;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
 
 export default {
