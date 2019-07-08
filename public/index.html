@@ -35,5 +35,22 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <script>
+      (function() {
+      var w = window, d = document;
+      w['pi']=function() {
+      w['pi'].commands = w['pi'].commands || [];
+      w['pi'].commands.push(arguments);
+      };
+      var s = d.createElement('script'); s.async = 1;
+      s.src = '//js.pulseinsights.com/surveys.js';
+      var f = d.getElementsByTagName('script')[0];
+      f.parentNode.insertBefore(s, f);
+      
+      pi('identify', 'PI-16384954');
+      pi('get', 'surveys');
+      })();
+    </script>
   </body>
 </html>
