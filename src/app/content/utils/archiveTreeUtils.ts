@@ -29,6 +29,9 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
   }));
 }
 
+export const linkArchiveTree = (tree: ArchiveTree): LinkedArchiveTree =>
+  flattenArchiveTree(tree)[0] as LinkedArchiveTree;
+
 export const findTreePages = (tree: LinkedArchiveTree): LinkedArchiveTreeSection[] =>
   flattenArchiveTree(tree).filter(archiveTreeSectionIsPage);
 
@@ -103,10 +106,10 @@ export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
   && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
-  && getArchiveTreeSectionNumber(section) === null
+  && getArchiveTreeSectionNumber(section) === undefined
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
-  && getArchiveTreeSectionNumber(section) !== null
+  && getArchiveTreeSectionNumber(section) !== undefined
 ;

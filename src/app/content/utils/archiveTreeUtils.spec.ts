@@ -1,3 +1,4 @@
+import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { ArchiveTree, ArchiveTreeSection } from '../types';
 import {
   archiveTreeSectionIsBook,
@@ -60,39 +61,6 @@ describe('findDefaultBookPage', () => {
 });
 
 describe('tree section identifiers', () => {
-  const treeWithoutUnits: ArchiveTree = {
-    contents: [
-      {
-        id: 'preface@1',
-        shortId: 'prefaceshortid@1',
-        title: '<span class="os-divider"> </span><span class="os-text">preface</span>',
-      },
-      {
-        contents: [
-          {
-            id: 'page1@1',
-            shortId: 'page1shortid@1',
-            // tslint:disable-next-line:max-line-length
-            title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">page 1</span>',
-          },
-          {
-            id: 'page2@1',
-            shortId: 'page2shortid@1',
-            // tslint:disable-next-line:max-line-length
-            title: '<span class="os-number">1.2</span><span class="os-divider"> </span><span class="os-text">page 2</span>',
-          },
-        ],
-        id: 'chapter1@1',
-        shortId: 'chapter1shortid@1',
-        // tslint:disable-next-line:max-line-length
-        title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
-      },
-    ],
-    id: 'bookid@1',
-    shortId: 'bookshortid@1',
-    title: '<span class="os-text">cool book</span>',
-  };
-
   it('identifies the book', () => {
     expect(archiveTreeSectionIsBook(treeWithoutUnits)).toBe(true);
     expect(archiveTreeSectionIsPage(treeWithoutUnits)).toBe(false);
@@ -124,5 +92,18 @@ describe('tree section identifiers', () => {
     expect(archiveTreeSectionIsPage(chapter)).toBe(false);
     expect(archiveTreeSectionIsUnit(chapter)).toBe(false);
     expect(archiveTreeSectionIsChapter(chapter)).toBe(true);
+  });
+
+  it('identifies units', () => {
+    const unit = findArchiveTreeNode(treeWithUnits, 'unitid');
+
+    if (!unit) {
+      return expect(unit).toBeTruthy();
+    }
+
+    expect(archiveTreeSectionIsBook(unit)).toBe(false);
+    expect(archiveTreeSectionIsPage(unit)).toBe(false);
+    expect(archiveTreeSectionIsUnit(unit)).toBe(true);
+    expect(archiveTreeSectionIsChapter(unit)).toBe(false);
   });
 });
