@@ -2,6 +2,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
+
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
@@ -9,13 +10,22 @@ from regions.toc import TableOfContents
 
 class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
-
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
+    _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
+    _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
 
     @property
     def loaded(self):
         return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
+
+    @property
+    def next_link(self):
+        return self.find_element(*self._next_locator)
+
+    @property
+    def previous_link(self):
+        return self.find_element(*self._previous_locator)
 
     @property
     def navbar(self):
@@ -36,6 +46,16 @@ class Content(Page):
     @property
     def attribution(self):
         return self.Attribution(self)
+
+    @property
+    def section_url_within_attribution(self):
+        return self.find_element(*self._section_url_locator)
+
+    def click_next_link(self):
+        self.click_and_wait_for_load(self.next_link)
+
+    def click_previous_link(self):
+        self.click_and_wait_for_load(self.previous_link)
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
