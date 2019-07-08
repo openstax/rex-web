@@ -1,5 +1,5 @@
 import { ArchiveTree, ArchiveTreeSection } from '../types';
-import { findDefaultBookPage } from './archiveTreeUtils';
+import { findDefaultBookPage, splitTitleParts } from './archiveTreeUtils';
 
 const makeArchiveSection = (title: string): ArchiveTreeSection => ({
   id: `${title}-id`,
@@ -50,5 +50,11 @@ describe('findDefaultBookPage', () => {
     ])};
 
     expect(findDefaultBookPage(book)).toBe(firstPage);
+  });
+});
+
+describe('splitTitleParts', () => {
+  it('returns null when book is not baked', () => {
+    expect(splitTitleParts('unbaked-title')).toEqual([null, 'unbaked-title']);
   });
 });

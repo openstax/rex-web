@@ -95,6 +95,13 @@ describe('getUrlParamForPageId', () => {
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('preface');
   });
 
+  it('throws on invalid id', () => {
+    expect(() =>
+      getUrlParamForPageId(book, 'wokowokowko')
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"BUG: could not find page \\"wokowokowko\\" in undefined"`
+    );
+  });
 });
 
 describe('getPageIdFromUrlParam', () => {
