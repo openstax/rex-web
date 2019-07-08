@@ -29,7 +29,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
-  const result = assertDefined(treeSection.slug, 'Slug needs to be defined');
+  const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
   getUrlParamForPageIdCache.set(cacheKey, result);
 
   return result;
@@ -37,7 +37,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {
   for (const section of flattenArchiveTree(book.tree)) {
-    const sectionParam = assertDefined(section.slug, 'Slug needs to be defined');
+    const sectionParam = assertDefined(section.slug, `could not find page slug for "${section.id}" in ${book.title}`);
     if (sectionParam && sectionParam.toLowerCase() === pageParam.toLowerCase()) {
       return stripIdVersion(section.id);
     }
