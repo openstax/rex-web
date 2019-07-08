@@ -24,12 +24,16 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
     toolbar = content.toolbar
     sidebar = content.sidebar
+    toc = content.sidebar.toc
 
     # AND: Window width is 1024 or greater (Desktop)
     if content.is_desktop:
 
-        # Sidebar is open by default
+        # THEN: Sidebar is open by default
         assert sidebar.header.is_displayed
+
+        # AND: The page name in the sidebar is bolded to indicate that its selected
+        toc.assert_page_name_in_TOC_is_bolded()
 
         # WHEN: The toc button on the sidebar is clicked
         # THEN: The sidebar area has been closed
@@ -46,7 +50,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     # AND: Window Size is Mobile
     elif content.is_mobile:
 
-        # Sidebar is closed by default
+        # THEN: Sidebar is closed by default
         assert not sidebar.header.is_displayed
 
         # WHEN: The toc button on the toolbar is clicked
@@ -56,6 +60,9 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         toolbar.click_toc_toggle_button()
 
         assert sidebar.header.is_displayed
+
+        # AND: The page name in the sidebar is bolded to indicate that its selected
+        toc.assert_page_name_in_TOC_is_bolded()
 
         sidebar.header.click_toc_toggle_button()
 
