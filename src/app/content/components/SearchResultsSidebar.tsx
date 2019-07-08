@@ -161,7 +161,7 @@ const CloseIconWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-/*const LoadingWrapper = styled.div`
+const LoadingWrapper = styled.div`
   background-color: #f1f1f1;
   bottom: 0;
   height: 100vh;
@@ -190,11 +190,11 @@ const InnerLoaderOverlay = styled.div`
   position: absolute;
   top: 50%;
   width: 10rem;
-`;*/
+`;
 
 // tslint:disable-next-line:variable-name
 const SearchResultsSidebar = ({query, results}: {query: string | null, results: SearchResult | null}) =>
-  <SearchResultsBar open={query ? true : false }>
+  <SearchResultsBar>
       {results && results.hits.total > 0 && <SearchQueryWrapper>
         <FormattedMessage id='i18n:search-results:bar:query:results'>
           {(msg: Element | string) =>
