@@ -1,5 +1,6 @@
-import * as dom from '@openstax/types/lib.dom';
+import fs from 'fs';
 import fetch from 'node-fetch';
+import path from 'path';
 import { basename } from 'path';
 import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
@@ -13,42 +14,20 @@ import createOSWebLoader from '../src/gateways/createOSWebLoader';
 const port = process.env.PORT || '8000';
 const rootUrl = `http://localhost:${port}`;
 const devTools = false;
-const onlyOneBook = process.argv[3]; // because it's being called via entry.js
+const auditName = process.argv[3]; // because it's being called via entry.js
+const onlyOneBook = process.argv[4];
+const auditPath = `./audits/${auditName}`;
 
-function browserFindMatches(): string[] {
-  // Note: This executes in the browser context
-  if (!document) {
-    throw new Error(`BUG: Should run in browser context`);
-  }
-  function nearestId(el: dom.Element): string {
-    const id = el.getAttribute('id');
-    if (id) {
-      return id;
-    } else if (el.parentElement) {
-      return nearestId(el.parentElement);
-    }
-    throw new Error('BUG: Could not find an ancestor with an id');
-  }
-
-  // Remove all the MJX_Assistive_MathML elements because they
-  // can be wider even though they are not visible
-  document.querySelectorAll('.MJX_Assistive_MathML').forEach((el) => el.remove());
-
-  const wideIds = new Set<string>();
-  const root = document.querySelector('#main-content > div');
-  if (!root) {
-    throw new Error(`BUG: Could not find content root`);
-  }
-  const rootRight = root.getBoundingClientRect().right;
-  root.querySelectorAll('*').forEach((c) => {
-    if (c.getBoundingClientRect().right > rootRight) {
-      wideIds.add(nearestId(c));
-    }
-  });
-  return Array.from(wideIds);
+if (!auditName) {
+  throw new Error(`audit name is required`);
+}
+if (!fs.existsSync(path.resolve(__dirname, `${auditPath}.ts`))) {
+  throw new Error(`audit ${auditName} doesn't exist`);
 }
 
-async function visitPages(page: puppeteer.Page, bookPages: string[]) {
+export type Audit = () => string[];
+
+async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audit) {
   const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
@@ -60,7 +39,7 @@ async function visitPages(page: puppeteer.Page, bookPages: string[]) {
     await page.goto(`${rootUrl}${pageUrl}`);
     await page.waitForSelector('body[data-rex-loaded="true"]');
 
-    const matches = await page.evaluate(browserFindMatches);
+    const matches = await page.evaluate(audit);
     if (matches.length > 0) {
       bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
     }
@@ -69,6 +48,7 @@ async function visitPages(page: puppeteer.Page, bookPages: string[]) {
 }
 
 async function run() {
+  const audit = (await import(auditPath)).default;
   const browser = await puppeteer.launch({
     devtools: devTools,
   });
@@ -78,7 +58,7 @@ async function run() {
   page.setDefaultNavigationTimeout(60 * 1000);
 
   for (const book of books) {
-    await visitPages(page, findBookPages(book));
+    await visitPages(page, findBookPages(book), audit);
   }
 
   await browser.close();
