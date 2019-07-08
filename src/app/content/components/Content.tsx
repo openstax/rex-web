@@ -31,6 +31,9 @@ import { wrapperPadding } from './Wrapper';
 const GlobalStyle = createGlobalStyle`
   html {
     scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight) * .625}rem;
+    ${theme.breakpoints.mobile(css`
+      scroll-padding-top: ${(bookBannerMobileMiniHeight + toolbarMobileHeight) * .625}rem;
+    `)}
   }
 `;
 
