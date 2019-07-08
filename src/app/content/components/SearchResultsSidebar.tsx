@@ -54,10 +54,10 @@ const NavOl = styled.ol`
 const SearchResultsBar = styled(SidebarBody)`
   top: calc(${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-top: 0;
-  margin-left: calc(-50vw - ${sidebarDesktopWidth}rem);
-  padding-left: 50vw;
-  width: calc(50vw + ${searchResultsBarDesktopWidth}rem);
-  min-width: calc(50vw + ${searchResultsBarDesktopWidth}rem);
+  padding: 0;
+  margin-left: -${sidebarDesktopWidth}rem;
+  width: ${searchResultsBarDesktopWidth}rem;
+  min-width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${searchResultsBarVariables.backgroundColor};
 
   ${theme.breakpoints.mobile(css`
