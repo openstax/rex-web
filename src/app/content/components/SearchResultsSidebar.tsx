@@ -8,7 +8,8 @@ import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { Details, iconSize } from '../../components/Details';
 import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
-import { AppState } from '../../types';
+import { AppState, Dispatch } from '../../types';
+import { clearSearch } from '../search/actions';
 import * as selectSearch from '../search/selectors';
 import {
   bookBannerDesktopMiniHeight,
@@ -61,11 +62,12 @@ const SearchResultsBar = styled(SidebarBody)`
   background-color: ${searchResultsBarVariables.backgroundColor};
 
   ${theme.breakpoints.mobile(css`
-    width: calc(50vw + ${searchResultsBarMobileWidth}vw);
-    min-width: calc(50vw + ${searchResultsBarMobileWidth}vw);
+    width: ${searchResultsBarMobileWidth}rem;
+    min-width: ${searchResultsBarMobileWidth}rem;
     top: ${bookBannerMobileMiniHeight + toolbarMobileHeight
           + toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)}rem;
-    margin-left: calc(-50vw - ${sidebarMobileWidth}rem);
+    margin-left: -${sidebarMobileWidth}rem;
+    padding: 0;
   `)}
 
   > ${NavOl} {
@@ -192,9 +194,15 @@ const InnerLoaderOverlay = styled.div`
   width: 10rem;
 `;*/
 
+interface SearchResultsSidebarProps {
+  query: string | null;
+  results: SearchResult | null;
+  onClose: () => void;
+}
 // tslint:disable-next-line:variable-name
-const SearchResultsSidebar = ({query, results}: {query: string | null, results: SearchResult | null}) =>
-  <SearchResultsBar open={query ? true : false }>
+const SearchResultsSidebar = ({query, results, onClose}: SearchResultsSidebarProps) => !query
+  ? null
+  : <SearchResultsBar open={query ? true : false }>
       {results && results.hits.total > 0 && <SearchQueryWrapper>
         <FormattedMessage id='i18n:search-results:bar:query:results'>
           {(msg: Element | string) =>
@@ -206,11 +214,10 @@ const SearchResultsSidebar = ({query, results}: {query: string | null, results: 
             </SearchQuery>
           }
         </FormattedMessage>
-        <CloseIcon />
+        <CloseIcon onClick={onClose}/>
       </SearchQueryWrapper>}
-
         {results && results.hits.total === 0 && <div>
-          <CloseIconWrapper><CloseIcon/></CloseIconWrapper>
+          <CloseIconWrapper><CloseIcon onClick={onClose} /></CloseIconWrapper>
           <FormattedMessage id='i18n:search-results:bar:query:no-results'>
             {(msg: Element | string) =>
               <SearchQuery>
@@ -291,5 +298,10 @@ export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
     results: selectSearch.results(state),
+  }),
+  (dispatch: Dispatch) => ({
+    onClose: () => {
+      dispatch(clearSearch());
+    },
   })
 )(SearchResultsSidebar);
