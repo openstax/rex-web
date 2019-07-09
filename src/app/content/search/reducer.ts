@@ -14,7 +14,7 @@ export const initialState = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.requestSearch): {
-      return {...state, loading: true, query: action.payload};
+      return {...initialState, loading: true, query: action.payload};
     }
     case getType(actions.receiveSearchResults): {
       return {...state, loading: false, results: action.payload};
