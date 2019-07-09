@@ -446,7 +446,7 @@ describe('Page', () => {
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
 
-  it('does not scroll to selected content on load', () => {
+  it('does not scroll to selected content on initial load', () => {
     if (!document) {
       return expect(document).toBeTruthy();
     }
