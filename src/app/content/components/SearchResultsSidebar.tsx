@@ -1,4 +1,4 @@
-import { SearchResult } from '@openstax/open-search-client/dist/models/SearchResult';
+import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -10,7 +10,9 @@ import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../compo
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { clearSearch } from '../search/actions';
+import { isSearchResultChapter } from '../search/guards';
 import * as selectSearch from '../search/selectors';
+import { SearchResultChapter, SearchResultContainer, SearchResultPage } from '../search/types';
 import Loader from './../../components/Loader';
 import {
   bookBannerDesktopMiniHeight,
@@ -122,7 +124,6 @@ const SectionContentPreview = styled.div`
   ${labelStyle}
     padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
     min-height: 3.7rem;
-    display: flex;
     align-items: center;
     padding-right: 1.6rem;
     margin: 1rem 0;
@@ -187,116 +188,93 @@ const CloseIconButton = styled.button`
   background: transparent;
 `;
 
+// tslint:disable-next-line:variable-name
+const SearchResultContainers = (props: {containers: SearchResultContainer[]}) => <React.Fragment>
+  {props.containers.map((node: SearchResultContainer) => isSearchResultChapter(node)
+    ? <SearchResultsDropdown chapter={node} key={node.id} />
+    : <SearchResult page={node} key={node.id} />
+  )}
+</React.Fragment>;
+
+// tslint:disable-next-line:variable-name
+const SearchResult = (props: {page: SearchResultPage}) => <NavItem>
+  <LinkWrapper>
+    <SearchResultsLink href='#' dangerouslySetInnerHTML={{__html: props.page.title}} />
+  </LinkWrapper>
+  {props.page.results.map((hit: SearchResultHit) =>
+    hit.highlight && hit.highlight.visibleContent
+      ? hit.highlight.visibleContent.map((highlight: string) =>
+          <SectionContentPreview dangerouslySetInnerHTML={{__html: highlight}} />
+        )
+      : []
+  )}
+</NavItem>;
+
+// tslint:disable-next-line:variable-name
+const SearchResultsDropdown = (props: {chapter: SearchResultChapter}) => <li>
+  <Details>
+    <SearchBarSummary>
+      <SummaryWrapper>
+        <ExpandIcon/>
+        <CollapseIcon/>
+        <SummaryTitle dangerouslySetInnerHTML={{__html: props.chapter.title}} />
+      </SummaryWrapper>
+    </SearchBarSummary>
+    <DetailsOl>
+      <SearchResultContainers containers={props.chapter.contents} />
+    </DetailsOl>
+  </Details>
+</li>;
+
 interface SearchResultsSidebarProps {
   query: string | null;
-  results: SearchResult | null;
+  totalHits: number | null;
+  results: SearchResultContainer[] | null;
   onClose: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const SearchResultsSidebar = ({query, results, onClose}: SearchResultsSidebarProps) => !query
-? null
-: <SearchResultsBar>
-    {!results && <LoadingWrapper>
-      <Loader/>
-    </LoadingWrapper>}
-      {results && results.hits.total > 0 && <SearchQueryWrapper>
+const SearchResultsSidebar = ({query, totalHits, results, onClose}: SearchResultsSidebarProps) => !query
+  ? null
+  : <SearchResultsBar>
+      {!results && <LoadingWrapper>
+        <Loader/>
+      </LoadingWrapper>}
+      {totalHits && totalHits > 0 && <SearchQueryWrapper>
         <FormattedMessage id='i18n:search-results:bar:query:results'>
           {(msg: Element | string) =>
             <SearchQuery>
               <SearchIconInsideBar />
               <div>
-                {results ? results.hits.total : 0 } {msg} <strong> &lsquo;{query}&rsquo;</strong>
+                {results ? totalHits : 0 } {msg} <strong> &lsquo;{query}&rsquo;</strong>
               </div>
             </SearchQuery>
           }
         </FormattedMessage>
         <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
       </SearchQueryWrapper>}
-        {results && results.hits.total === 0 && <div>
-          <CloseIconWrapper>
-            <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
-          </CloseIconWrapper>
-          <FormattedMessage id='i18n:search-results:bar:query:no-results'>
-            {(msg: Element | string) =>
-              <SearchQuery>
-                <SearchQueryAlignment>{msg} <strong> &lsquo;{query}&rsquo;</strong></SearchQueryAlignment>
-              </SearchQuery>
-            }
-          </FormattedMessage>
-        </div>}
-      {results && results.hits.total > 0 && <NavOl>
-        <li>
-            <Details>
-                <SearchBarSummary>
-                    <SummaryWrapper>
-                        <ExpandIcon/>
-                        <CollapseIcon/>
-                        <SummaryTitle>
-                            <span className='os-number'>1</span><span className='os-divider'> </span>
-                            <span className='os-text'>Science and the universe: A Brief Tour</span>
-                        </SummaryTitle>
-                    </SummaryWrapper>
-                </SearchBarSummary>
-                <DetailsOl>
-                    <NavItem>
-                        <LinkWrapper>
-                            <SearchResultsLink href='#'>
-                                <span className='os-number'>1.1</span><span className='os-divider'> </span>
-                                <span className='os-text'>Section title</span>
-                            </SearchResultsLink>
-                        </LinkWrapper>
-                        <SectionContentPreview>
-                            died because of a cosmic collision. a tiny moon
-                            whose gravity is so weak that one good throw of a cosmic
-                        </SectionContentPreview>
-                    </NavItem>
-                    <NavItem>
-                        <LinkWrapper>
-                            <SearchResultsLink href='#'>
-                                <span className='os-number'>1.2</span><span className='os-divider'> </span>
-                                <span className='os-text'>Chemistry in Context</span>
-                            </SearchResultsLink>
-                        </LinkWrapper>
-                    </NavItem>
-                </DetailsOl>
-            </Details>
-        </li>
-        <li>
-            <Details>
-                <SearchBarSummary>
-                    <SummaryWrapper>
-                        <ExpandIcon/>
-                        <CollapseIcon/>
-                        <SummaryTitle>
-                            <span className='os-number'>2</span><span className='os-divider'> </span>
-                            <span className='os-text'>Observing the sky: The Birth of Astronomy</span>
-                        </SummaryTitle>
-                    </SummaryWrapper>
-                </SearchBarSummary>
-                <DetailsOl>
-                    <NavItem>
-                        <LinkWrapper>
-                            <SearchResultsLink href='#'>
-                                <span className='os-number'>2.1</span><span className='os-divider'> </span>
-                                <span className='os-text'>A Tour of the Universe</span>
-                            </SearchResultsLink>
-                        </LinkWrapper>
-                        <SectionContentPreview>
-                            died because of a cosmic collision. a tiny moon
-                            whose gravity is so weak that one good throw of a cosmic
-                        </SectionContentPreview>
-                    </NavItem>
-                </DetailsOl>
-            </Details>
-        </li>
-    </NavOl>}
-</SearchResultsBar>;
+      {results && totalHits && totalHits === 0 && <div>
+        <CloseIconWrapper>
+          <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
+        </CloseIconWrapper>
+        <FormattedMessage id='i18n:search-results:bar:query:no-results'>
+          {(msg: Element | string) =>
+            <SearchQuery>
+              <SearchQueryAlignment>{msg} <strong> &lsquo;{query}&rsquo;</strong></SearchQueryAlignment>
+            </SearchQuery>
+          }
+        </FormattedMessage>
+      </div>}
+      {results && totalHits && totalHits > 0 && <NavOl>
+        <SearchResultContainers containers={results} />
+      </NavOl>}
+    </SearchResultsBar>;
 
 export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
     results: selectSearch.results(state),
+    totalHits: selectSearch.totalHits(state),
   }),
   (dispatch: Dispatch) => ({
     onClose: () => {
