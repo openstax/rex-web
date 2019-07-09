@@ -14,7 +14,6 @@ const EXPECTED_SCROLL_TOPS: { [testCase: string]: number[] } = {
 };
 
 describe('Content', () => {
-
   for (const testCase of Object.keys(TEST_CASES)) {
     describe(testCase, () => {
       beforeEach(() => {
