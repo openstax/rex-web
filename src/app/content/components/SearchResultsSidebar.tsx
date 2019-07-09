@@ -64,6 +64,7 @@ const SearchResultsBar = styled(SidebarBody)`
   ${theme.breakpoints.mobile(css`
     width: 100%;
     min-width: 100%;
+    margin-top: 0;
     top: ${bookBannerMobileMiniHeight + toolbarMobileHeight
           + toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)}rem;
     margin-left: -${sidebarMobileWidth}rem;
