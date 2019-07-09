@@ -24,7 +24,7 @@
         "contents": [
           {
             "shortId": "testchapter10@1.0",
-            "id": "",
+            "id": "testbook1-testchapter10@1.0",
             "contents": [
               {
                 "shortId": "testpage2-shortid@1.0",
