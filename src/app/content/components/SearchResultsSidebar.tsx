@@ -17,7 +17,6 @@ import {
   bookBannerMobileMiniHeight,
   mobileSearchContainerMargin,
   searchResultsBarDesktopWidth,
-  searchResultsBarMobileWidth,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   toolbarDesktopHeight,
