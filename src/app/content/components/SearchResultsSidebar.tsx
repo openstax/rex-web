@@ -179,16 +179,25 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `;
 
+// tslint:disable-next-line:variable-name
+const CloseIconButton = styled.button`
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+`;
+
 interface SearchResultsSidebarProps {
   query: string | null;
   results: SearchResult | null;
   onClose: () => void;
 }
+
 // tslint:disable-next-line:variable-name
-const SearchResultsSidebar = ({query, results}: {query: string | null, results: SearchResult | null}) =>!query
+const SearchResultsSidebar = ({query, results, onClose}: SearchResultsSidebarProps) => !query
 ? null
 : <SearchResultsBar>
-    {!results && query && <LoadingWrapper>
+    {!results && <LoadingWrapper>
       <Loader/>
     </LoadingWrapper>}
       {results && results.hits.total > 0 && <SearchQueryWrapper>
@@ -202,10 +211,12 @@ const SearchResultsSidebar = ({query, results}: {query: string | null, results: 
             </SearchQuery>
           }
         </FormattedMessage>
-        <CloseIcon onClick={onClose}/>
+        <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
       </SearchQueryWrapper>}
         {results && results.hits.total === 0 && <div>
-          <CloseIconWrapper><CloseIcon onClick={onClose} /></CloseIconWrapper>
+          <CloseIconWrapper>
+            <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
+          </CloseIconWrapper>
           <FormattedMessage id='i18n:search-results:bar:query:no-results'>
             {(msg: Element | string) =>
               <SearchQuery>
