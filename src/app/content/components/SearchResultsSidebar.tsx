@@ -83,7 +83,7 @@ const SearchQuery = styled.div`
   ${textRegularStyle}
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   min-height: 4rem;
 
   strong {
@@ -95,7 +95,7 @@ const SearchQuery = styled.div`
 const SearchQueryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   background: ${theme.color.neutral.base};
   padding: 1rem 0;
 `;
@@ -155,6 +155,8 @@ const SearchQueryAlignment = styled.div`
   text-align: justify;
   /*textRegularLineHeight is the close icon height*/
   margin-top: calc(7rem - ${textRegularLineHeight}rem);
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -175,8 +177,6 @@ const LoadingWrapper = styled.div`
   background-color: ${searchResultsBarVariables.backgroundColor};
   z-index: 5;
   transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
-  display: flex;
-  justify-content: center;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -198,6 +198,9 @@ const SearchResultsSidebar = ({query, results, onClose}: SearchResultsSidebarPro
 ? null
 : <SearchResultsBar>
     {!results && <LoadingWrapper>
+      <CloseIconWrapper>
+        <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
+      </CloseIconWrapper>
       <Loader/>
     </LoadingWrapper>}
       {results && results.hits.total > 0 && <SearchQueryWrapper>
