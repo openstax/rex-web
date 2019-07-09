@@ -11,7 +11,7 @@ import { AppState } from '../../types';
 import { assertDefined, assertDocument } from '../../utils';
 import * as select from '../selectors';
 import { ArchiveTreeSection, Book, Page } from '../types';
-import { findArchiveTreeSection } from '../utils/archiveTreeUtils';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import {
   bookBannerDesktopBigHeight,
@@ -189,7 +189,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const treeSection = findArchiveTreeSection(book.tree, page.id);
+    const treeSection = findArchiveTreeNode(book.tree, page.id);
     const bookUrl = bookDetailsUrl(book);
 
     if (!treeSection) {
