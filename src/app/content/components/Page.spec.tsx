@@ -17,15 +17,20 @@ import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
+import { scrollTo } from '../../utils';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
-import scrollToContent from './utils/scrollToContent';
 
 // jest.mock('../../../helpers/mathjax');
-jest.mock('./utils/scrollToContent');
+// https://github.com/facebook/jest/issues/936#issuecomment-463644784
+jest.mock('../../utils', () => ({
+  // remove cast to any when the jest type is updated to include requireActual()
+  ...(jest as any).requireActual('../../utils'),
+  scrollTo: jest.fn(),
+}));
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -474,7 +479,7 @@ describe('Page', () => {
     const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
-    expect(scrollToContent).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
   });
 
   it('scrolls to selected content on update', () => {
@@ -505,7 +510,7 @@ describe('Page', () => {
       </Provider>
     );
 
-    expect(scrollToContent).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
 
     store.dispatch(actions.receivePage({
       ...someHashPage,
@@ -515,7 +520,7 @@ describe('Page', () => {
     const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
-    expect(scrollToContent).toHaveBeenCalledWith(target);
+    expect(scrollTo).toHaveBeenCalledWith(target);
   });
 
   it('does nothing when receiving the same content', () => {

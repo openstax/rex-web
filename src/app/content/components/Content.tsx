@@ -30,9 +30,9 @@ import { wrapperPadding } from './Wrapper';
 // tslint:disable-next-line:variable-name
 const GlobalStyle = createGlobalStyle`
   html {
-    scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight) * .625}rem;
+    scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight)}em;
     ${theme.breakpoints.mobile(css`
-      scroll-padding-top: ${(bookBannerMobileMiniHeight + toolbarMobileHeight) * .625}rem;
+      scroll-padding-top: ${(bookBannerMobileMiniHeight + toolbarMobileHeight)}em;
     `)}
   }
 `;
@@ -159,32 +159,30 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
  *   of things need to know when the sidebar is open/closed.
  */
 // tslint:disable-next-line:variable-name
-const Content: React.SFC = () => <React.Fragment>
+const Content: React.SFC = () => <Layout>
   <GlobalStyle />
-  <Layout>
-    <Background>
-      <BookBanner/>
-      <Toolbar />
-      <Wrapper>
-        <CenteredContentRow>
-          <Sidebar />
-          <ContentPane>
-            <UndoPadding>
-              <MainContentWrapper>
-                <ContentNotifications />
-                <HideOverflowAndRedoPadding>
-                  <Page />
-                  <PrevNextBar />
-                </HideOverflowAndRedoPadding>
-                <Attribution />
-                <Footer/>
-              </MainContentWrapper>
-            </UndoPadding>
-          </ContentPane>
-        </CenteredContentRow>
-      </Wrapper>
-    </Background>
-  </Layout>
-</React.Fragment>;
+  <Background>
+    <BookBanner/>
+    <Toolbar />
+    <Wrapper>
+      <CenteredContentRow>
+        <Sidebar />
+        <ContentPane>
+          <UndoPadding>
+            <MainContentWrapper>
+              <ContentNotifications />
+              <HideOverflowAndRedoPadding>
+                <Page />
+                <PrevNextBar />
+              </HideOverflowAndRedoPadding>
+              <Attribution />
+              <Footer/>
+            </MainContentWrapper>
+          </UndoPadding>
+        </ContentPane>
+      </CenteredContentRow>
+    </Wrapper>
+  </Background>
+</Layout>;
 
 export default Content;

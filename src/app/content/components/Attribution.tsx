@@ -8,13 +8,12 @@ import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typog
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertString } from '../../utils';
+import { assertString, scrollTo } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page';
 import { disablePrint } from './utils/disablePrint';
-import scrollToContent from './utils/scrollToContent';
 import { wrapperPadding } from './Wrapper';
 
 const summaryIconStyle = css`
@@ -99,8 +98,7 @@ class Attribution extends Component<Props> {
       return;
     }
 
-    this.toggleHandler = () => container.getAttribute('open') !== null &&
-                               scrollToContent(container);
+    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
     container.addEventListener('toggle', this.toggleHandler);
   }
 

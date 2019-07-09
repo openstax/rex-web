@@ -1,8 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import scrollToContent from '../content/components/utils/scrollToContent';
 import { MAIN_CONTENT_ID, Provider } from '../context/SkipToContent';
+import { scrollTo } from '../utils';
 import HiddenLink from './HiddenLink';
 
 export default class SkipToContentWrapper extends Component {
@@ -20,7 +20,7 @@ export default class SkipToContentWrapper extends Component {
   private scrollToTarget = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (this.mainContent) {
       event.preventDefault();
-      scrollToContent(this.mainContent);
+      scrollTo(this.mainContent);
       (this.mainContent as HTMLElement).focus();
     } else {
       throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?`);

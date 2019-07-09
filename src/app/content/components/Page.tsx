@@ -13,7 +13,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
-import { assertDefined, assertWindow } from '../../utils';
+import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import {State as SearchState } from '../search/types';
@@ -21,7 +21,6 @@ import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
-import scrollToContent from './utils/scrollToContent';
 
 interface PropTypes {
   page: State['page'];
@@ -81,7 +80,7 @@ export class PageComponent extends Component<PropTypes> {
 
       this.addGenericJs(this.container);
       if (target) {
-        scrollToContent(target);
+        scrollTo(target);
       } else {
         window.scrollTo(0, 0);
       }

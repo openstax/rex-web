@@ -1,4 +1,5 @@
 import { Ref } from 'react';
+import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
 import {
   ActionHookBody,
@@ -80,4 +81,18 @@ export const assertDocument = (message: string = 'BUG: Document is undefined') =
   }
 
   return document;
+};
+
+export const scrollTo = (elem: Element | string) => {
+  assertWindow();
+  assertDocument();
+
+  const html = document!.documentElement;
+  if (!html) {
+    throw new Error('BUG: Document Element is undefined');
+  }
+
+  const padding = window!.getComputedStyle(html).getPropertyValue('scroll-padding-top');
+  const offset = -parseFloat(padding) || 0;
+  return scrollToElement(elem, {offset});
 };
