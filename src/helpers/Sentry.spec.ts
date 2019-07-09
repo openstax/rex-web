@@ -68,4 +68,15 @@ describe('Sentry error logging', () => {
     expect(SentryLibrary.captureMessage).toHaveBeenCalledTimes(3);
   });
 
+  it('uses isEnabled in capture message', () => {
+    const mock = jest.spyOn(Sentry, 'isEnabled', 'get');
+    mock.mockImplementation(() => false);
+    Sentry.log('test log');
+    expect(SentryLibrary.captureMessage).not.toHaveBeenCalled();
+    mock.mockImplementation(() => true);
+    expect(Sentry.isEnabled).toBe(true);
+    Sentry.log('test log');
+    expect(SentryLibrary.captureMessage).toHaveBeenCalled();
+    mock.mockRestore();
+  });
 });
