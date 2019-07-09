@@ -83,7 +83,7 @@ const PrintIcon = styled(Print)`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchButton = styled(({desktop, mobile, ...props}) => <PlainButton {...props}><Search /></PlainButton>)`
+const SearchButton = styled(({ desktop, mobile, ...props }) => <PlainButton {...props}><Search /></PlainButton>)`
   > svg {
     ${toolbarIconStyles}
   }
@@ -100,7 +100,7 @@ const SearchButton = styled(({desktop, mobile, ...props}) => <PlainButton {...pr
 `;
 
 // tslint:disable-next-line:variable-name
-const CloseButton = styled(({desktop, ...props}) => <PlainButton {...props}><TimesCircle /></PlainButton>)`
+const CloseButton = styled(({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>)`
   > svg {
     ${toolbarIconStyles}
   }
@@ -132,7 +132,7 @@ const SearchInputWrapper = styled.form`
     margin-right: 0;
     height: 100%;
 
-    ${(props: {active: boolean}) => props.active && css`
+    ${(props: { active: boolean }) => props.active && css`
       background: ${theme.color.primary.gray.base};
 
       ${SearchButton} {
@@ -143,7 +143,7 @@ const SearchInputWrapper = styled.form`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchInput = styled(({desktop, mobile, ...props}) => <FormattedMessage id='i18n:toolbar:search:placeholder'>
+const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage id='i18n:toolbar:search:placeholder'>
   {(msg) => <input {...props}
     aria-label={assertString(msg, 'placeholder must be a string')}
     placeholder={assertString(msg, 'placeholder must be a string')}
@@ -253,9 +253,11 @@ const MobileSearchWrapper = styled.div`
 `;
 
 class Toolbar extends React.Component<{
-  search: typeof requestSearch, query: string | null }, {query: string, mobileOpen: boolean, formSubmitted: boolean
+  search: typeof requestSearch, query: string | null
+}, {
+  query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
-  public state = {query: '', mobileOpen: false, formSubmitted: false};
+  public state = { query: '', mobileOpen: false, formSubmitted: false };
 
   public render() {
 
@@ -263,22 +265,22 @@ class Toolbar extends React.Component<{
       e.preventDefault();
       if (this.state.query) {
         this.props.search(this.state.query);
-        this.setState({formSubmitted: true});
+        this.setState({ formSubmitted: true });
       }
     };
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({query: e.currentTarget.value, formSubmitted: false});
+      this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
     const onClear = (e: React.FormEvent) => {
       e.preventDefault();
-      this.setState({query: '', formSubmitted: false});
+      this.setState({ query: '', formSubmitted: false });
     };
 
     const toggleMobile = (e: React.FormEvent) => {
       e.preventDefault();
-      this.setState({mobileOpen: !this.state.mobileOpen});
+      this.setState({ mobileOpen: !this.state.mobileOpen });
     };
 
     return <BarWrapper>

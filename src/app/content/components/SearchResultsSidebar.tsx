@@ -10,6 +10,7 @@ import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../compo
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
+import Loader from './../../components/Loader';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -162,39 +163,26 @@ const CloseIconWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const LoadingWrapper = styled.div`
-  background-color: #f1f1f1;
-  bottom: 0;
-  height: 100vh;
-  left: 0;
-  opacity: 1;
   overflow: hidden;
-  -webkit-perspective: 100rem;
-  perspective: 100rem;
-  position: fixed;
   right: 0;
   top: 0;
-  -webkit-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-  width: 100vw;
-  z-index: 200;
-  transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
-`;
-
-// tslint:disable-next-line:variable-name
-const InnerLoaderOverlay = styled.div`
-  height: 10rem;
-  left: 50%;
-  margin-left: -5rem;
-  margin-top: -5rem;
   position: absolute;
-  top: 50%;
-  width: 10rem;
+  transition: opacity 0.2s;
+  width: 100%;
+  height: 100%;
+  background-color: ${searchResultsBarVariables.backgroundColor};
+  z-index: 5;
+  transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
+  display: flex;
+  justify-content: center;
 `;
 
 // tslint:disable-next-line:variable-name
 const SearchResultsSidebar = ({query, results}: {query: string | null, results: SearchResult | null}) =>
   <SearchResultsBar>
+    {!results && query && <LoadingWrapper>
+      <Loader/>
+    </LoadingWrapper>}
       {results && results.hits.total > 0 && <SearchQueryWrapper>
         <FormattedMessage id='i18n:search-results:bar:query:results'>
           {(msg: Element | string) =>
