@@ -1,16 +1,16 @@
 import { AllHtmlEntities } from 'html-entities';
 import replaceAccentedCharacters from '../replaceAccentedCharacters';
 import { content as contentRoute } from '../routes';
-import { Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page } from '../types';
-import { findArchiveTreeSection, flattenArchiveTree, splitTitleParts } from './archiveTreeUtils';
+import { Book, LinkedArchiveTreeNode, Page } from '../types';
+import { findArchiveTreeNode, flattenArchiveTree, splitTitleParts } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: Book) {
   return `/details/books/${book.slug}`;
 }
 
-const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
-  let focusSection: LinkedArchiveTreeSection | LinkedArchiveTree | undefined = section;
+const getCleanSectionNumber = (section: LinkedArchiveTreeNode): string => {
+  let focusSection: LinkedArchiveTreeNode | undefined = section;
 
   while (focusSection) {
     const thisNumber = splitTitleParts(focusSection.title)[0];
@@ -28,7 +28,7 @@ const getCleanSectionNumber = (section: LinkedArchiveTreeSection): string => {
   return '';
 };
 
-const getCleanSectionTitle = (section: LinkedArchiveTreeSection): string => {
+const getCleanSectionTitle = (section: LinkedArchiveTreeNode): string => {
   const decoder = new AllHtmlEntities();
 
   return replaceAccentedCharacters(decoder.decode(splitTitleParts(section.title)[1] || ''))
@@ -39,7 +39,7 @@ const getCleanSectionTitle = (section: LinkedArchiveTreeSection): string => {
     .toLowerCase();
 };
 
-const getUrlParamForPageTitle = (section: LinkedArchiveTreeSection): string => {
+const getUrlParamForPageTitle = (section: LinkedArchiveTreeNode): string => {
   const cleanNumber = getCleanSectionNumber(section);
   const cleanTitle = getCleanSectionTitle(section);
 
@@ -70,7 +70,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     return getUrlParamForPageIdCache.get(cacheKey);
   }
 
-  const treeSection = findArchiveTreeSection(book.tree, pageId);
+  const treeSection = findArchiveTreeNode(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }

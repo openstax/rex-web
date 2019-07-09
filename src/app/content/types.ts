@@ -56,11 +56,13 @@ export interface Page {
   version: string;
 }
 
-export interface ArchiveTreeSection {
+export interface ArchiveTreeNode {
   id: string;
   shortId: string;
   title: string;
 }
+
+export type ArchiveTreeSection = ArchiveTreeNode;
 
 export interface LinkedArchiveTree extends ArchiveTree {
   parent?: LinkedArchiveTree;
@@ -69,6 +71,8 @@ export interface LinkedArchiveTree extends ArchiveTree {
 export interface LinkedArchiveTreeSection extends ArchiveTreeSection {
   parent: LinkedArchiveTree;
 }
+
+export type LinkedArchiveTreeNode = LinkedArchiveTreeSection | LinkedArchiveTree;
 
 export interface ArchiveTree extends ArchiveTreeSection {
   contents: Array<ArchiveTree | ArchiveTreeSection>;
