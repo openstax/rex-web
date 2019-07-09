@@ -63,8 +63,8 @@ const SearchResultsBar = styled(SidebarBody)`
   background-color: ${searchResultsBarVariables.backgroundColor};
 
   ${theme.breakpoints.mobile(css`
-    width: ${searchResultsBarMobileWidth}rem;
-    min-width: ${searchResultsBarMobileWidth}rem;
+    width: 100%;
+    min-width: 100%;
     top: ${bookBannerMobileMiniHeight + toolbarMobileHeight
           + toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)}rem;
     margin-left: -${sidebarMobileWidth}rem;
