@@ -123,9 +123,7 @@ describe('assertDocument', () => {
 
 describe('assertDocumentElement', () => {
   it('returns value', () => {
-    utils.assertDocument();
-
-    expect(utils.assertDocumentElement()).toBe(document!.documentElement);
+    expect(utils.assertDocumentElement()).toBe(utils.assertDocument().documentElement);
     expect(utils.assertDocumentElement()).toBeTruthy();
   });
 
@@ -133,11 +131,11 @@ describe('assertDocumentElement', () => {
     let documentElementBackup: HTMLElement | null = null;
 
     beforeEach(() => {
-      utils.assertDocument();
-      documentElementBackup = document!.documentElement;
+      const document = utils.assertDocument();
+      documentElementBackup = document.documentElement;
       Object.defineProperty(document, 'documentElement', {
         configurable: true,
-        value: undefined,
+        value: null,
         writable: false,
       });
     });
@@ -154,7 +152,7 @@ describe('assertDocumentElement', () => {
 
     it('throws', () => {
       expect(() => utils.assertDocumentElement()).toThrowErrorMatchingInlineSnapshot(
-        `"BUG: Document Element is undefined"`
+        `"BUG: Document Element is null"`
       );
     });
   });
