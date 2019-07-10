@@ -30,27 +30,32 @@ import { toolbarIconStyles } from './Toolbar';
 
 const searchResultsBarVariables = {
     backgroundColor: '#f1f1f1',
+    iconRightPadding: 0.7,
     mainPaddingDesktop: 3,
     mainPaddingMobile: 2,
+    mainRightPaddingDesktop: 1.4,
 };
 
 // tslint:disable-next-line:variable-name
 const SearchIconInsideBar = styled(Search)`
   ${toolbarIconStyles}
   color: ${theme.color.primary.gray.darker};
-  margin-right: 0.7rem;
-  margin-left: 3rem;
+  margin-right: ${searchResultsBarVariables.iconRightPadding}rem;
+  margin-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled(Times)`
   ${toolbarIconStyles}
   color: ${theme.color.primary.gray.lighter};
-  margin-right: 1.4rem;
+  margin-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const NavOl = styled.ol`
+  .os-divider {
+    width: 0.4rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -74,6 +79,9 @@ const SearchResultsBar = styled(SidebarBody)`
   `)}
 
   > ${NavOl} {
+    ::before {
+      display: none;
+    }
     margin: 0;
     padding: 0;
   }
@@ -122,11 +130,19 @@ const SearchResultsLink = styled.a`
 // tslint:disable-next-line:variable-name
 const SectionContentPreview = styled.div`
   ${labelStyle}
-    padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
+    margin-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
     min-height: 3.7rem;
     align-items: center;
     padding-right: 1.6rem;
-    margin: 1rem 0;
+    padding: 1rem 0;
+    :not(:last-child) {
+      border-bottom: solid 0.1rem ${searchResultsBarVariables.backgroundColor};
+    }
+  max-width: 35.3rem;
+
+  em {
+    font-weight: bold;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -135,6 +151,8 @@ const LinkWrapper = styled.div`
     display: flex;
     align-items: center;
     padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize}rem;
+    padding-top: 1rem;
+    padding-bottom: 0.6rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -186,6 +204,13 @@ const CloseIconButton = styled.button`
   padding: 0;
   margin: 0;
   background: transparent;
+`;
+
+// tslint:disable-next-line:variable-name
+const HeaderQuery = styled.div`
+  max-width: calc(${searchResultsBarDesktopWidth - (textRegularLineHeight * 2)
+              - searchResultsBarVariables.mainPaddingDesktop
+              - searchResultsBarVariables.mainRightPaddingDesktop}rem)
 `;
 
 // tslint:disable-next-line:variable-name
@@ -245,9 +270,9 @@ const SearchResultsSidebar = ({query, totalHits, results, onClose}: SearchResult
           {(msg: Element | string) =>
             <SearchQuery>
               <SearchIconInsideBar />
-              <div>
+              <HeaderQuery>
                 {results ? totalHits : 0 } {msg} <strong> &lsquo;{query}&rsquo;</strong>
-              </div>
+              </HeaderQuery>
             </SearchQuery>
           }
         </FormattedMessage>
