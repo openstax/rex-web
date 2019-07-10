@@ -65,7 +65,7 @@ describe('findDefaultBookPage', () => {
 describe('splitTitleParts', () => {
   it('returns null when book is not baked', () => {
     expect(splitTitleParts('unbaked-title')).toEqual([null, 'unbaked-title']);
-  })
+  });
 });
 
 describe('tree section identifiers', () => {
