@@ -1,7 +1,7 @@
 import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
 import { Book, Page } from '../types';
-import { findArchiveTreeSection, flattenArchiveTree } from './archiveTreeUtils';
+import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: Book) {
@@ -25,7 +25,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     return getUrlParamForPageIdCache.get(cacheKey);
   }
 
-  const treeSection = findArchiveTreeSection(book.tree, pageId);
+  const treeSection = findArchiveTreeNode(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }

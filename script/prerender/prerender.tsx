@@ -10,7 +10,8 @@ import asyncPool from 'tiny-async-pool';
 import { AppOptions } from '../../src/app';
 import createApp from '../../src/app';
 import { content } from '../../src/app/content/routes';
-import { flattenArchiveTree, stripIdVersion } from '../../src/app/content/utils';
+import { stripIdVersion } from '../../src/app/content/utils';
+import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
@@ -151,7 +152,7 @@ const preparePages: PreparePages = async(archiveLoader, osWebLoader) => {
     const bookSlug = await osWebLoader.getBookSlugFromId(bookId);
     const book = await bookLoader.load();
 
-    await asyncPool(20, flattenArchiveTree(book.tree), (section) =>
+    await asyncPool(20, findTreePages(book.tree), (section) =>
       prepareContentPage(bookLoader, bookSlug, stripIdVersion(section.id),
         assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`))
         .then((page) => pages.push({code: 200, page}))
@@ -197,7 +198,7 @@ async function render() {
 }
 
 render().catch((e) => {
-  console.error(e.message); // tslint:disable-line:no-console
+  console.error(e.message, e.stack); // tslint:disable-line:no-console
   process.exit(1);
 });
 

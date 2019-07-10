@@ -80,6 +80,8 @@ describe('getUrlParamForPageId', () => {
             title: '<span class="os-text">Preface</span>',
           },
         ],
+        id: 'booklongid@1',
+        shortId: 'book@1',
         title: 'book',
       },
     }) as Book;
@@ -118,6 +120,9 @@ describe('getPageIdFromUrlParam', () => {
             title: '<span class="os-text">Preface</span>',
           },
         ],
+        id: 'booklongid@1',
+        shortId: 'book@1',
+        slug: 'book-slug',
         title: 'book',
       },
     }) as Book;
