@@ -20,9 +20,7 @@ export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: 
   filterTreeForSearchResults(linkArchiveTree(bookTree), searchResults);
 
 const getSearchResultsForPage = (page: ArchiveTreeSection, results: SearchResult) => sortBy('source.pagePosition',
-  results.hits.hits
-    ?  results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
-    : []
+  results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
 );
 
 const filterTreeForSearchResults = (
