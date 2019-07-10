@@ -84,23 +84,29 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     ],
 )
 @markers.nondestructive
+# @markers.mobile_only
 def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug, page_slug):
     # GIVEN: The selenium driver, base_url, book_slug, and page_slug is opened in mobile resolution
     # AND: The TOC is opened
 
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
-    toolbar = content.toolbar
+    # toolbar = content.toolbar
     sidebar = content.sidebar
     toc = content.sidebar.toc
 
-    toolbar.click_toc_toggle_button()
+    # toolbar.click_toc_toggle_button()
 
     # WHEN: The page in the ToC is clicked
-    pages = toc.pages[5]
+    # THEN: The page loads and the ToC is automatically closed
+
+    pages = toc.pages[0]
     pages.click()
 
-    # THEN: The page loads and the ToC is automatically closed
+    from time import sleep
+
+    # sleep(4)
+
     assert not sidebar.is_displayed
 
 

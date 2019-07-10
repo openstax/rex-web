@@ -1,9 +1,21 @@
 import pypom
 
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
 class Region(pypom.Region):
+
+    _title_locator = (By.TAG_NAME, "title")
+
+    @property
+    def title(self):
+        return self.find_element(*self._title_locator)
+
+    @property
+    def title_before_click(self):
+        return self.title.get_attribute("innerHTML")
+
     @property
     def is_displayed(self):
         return self.root.is_displayed()
