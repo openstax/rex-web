@@ -16,7 +16,7 @@ const makeSearchResultHit = (tree: ArchiveTree, page: ArchiveTreeSection): Searc
     pagePosition: 60,
   },
 });
-const makeSearchResult = (hits: SearchResult['hits']['hits'] | undefined) => ({
+const makeSearchResult = (hits: SearchResult['hits']['hits'] = []) => ({
   hits: { hits, total: 0 },
   overallTook: 75,
   shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
@@ -26,7 +26,7 @@ const makeSearchResult = (hits: SearchResult['hits']['hits'] | undefined) => ({
 
 describe('getFirstResultPage', () => {
   it('works with empty results', () => {
-    const searchResults: SearchResult = makeSearchResult(undefined);
+    const searchResults: SearchResult = makeSearchResult();
     expect(getFirstResultPage({tree: treeWithoutUnits}, searchResults)).toEqual(undefined);
   });
 
