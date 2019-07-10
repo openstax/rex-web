@@ -83,15 +83,23 @@ export const assertDocument = (message: string = 'BUG: Document is undefined') =
   return document;
 };
 
-export const scrollTo = (elem: Element | string) => {
-  assertWindow();
+export const assertDocumentElement = (message: string = 'BUG: Document Element is undefined') => {
   assertDocument();
 
-  const html = document!.documentElement;
-  if (!html) {
-    throw new Error('BUG: Document Element is undefined');
+  const documentElement = document!.documentElement;
+
+  if (typeof(documentElement) === 'undefined') {
+    throw new Error(message);
   }
 
+  return documentElement;
+};
+
+export const scrollTo = (elem: Element | string) => {
+  assertWindow();
+  assertDocumentElement();
+
+  const html = document!.documentElement!;
   const padding = window!.getComputedStyle(html).getPropertyValue('scroll-padding-top');
   const offset = -parseFloat(padding) || 0;
   return scrollToElement(elem, {offset});

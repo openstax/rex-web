@@ -121,6 +121,45 @@ describe('assertDocument', () => {
   });
 });
 
+describe('assertDocumentElement', () => {
+  it('returns value', () => {
+    utils.assertDocument();
+
+    expect(utils.assertDocumentElement()).toBe(document!.documentElement);
+    expect(utils.assertDocumentElement()).toBeTruthy();
+  });
+
+  describe('with a non-html document', () => {
+    let documentElementBackup: HTMLElement | null = null;
+
+    beforeEach(() => {
+      utils.assertDocument();
+      documentElementBackup = document!.documentElement;
+      Object.defineProperty(document, 'documentElement', {
+        configurable: true,
+        value: undefined,
+        writable: false,
+      });
+    });
+
+    afterEach(() => {
+      if (documentElementBackup) {
+        Object.defineProperty(document, 'documentElement', {
+          configurable: true,
+          value: documentElementBackup,
+          writable: false,
+        });
+      }
+    });
+
+    it('throws', () => {
+      expect(() => utils.assertDocumentElement()).toThrowErrorMatchingInlineSnapshot(
+        `"BUG: Document Element is undefined"`
+      );
+    });
+  });
+});
+
 describe('mergeRefs', () => {
   it('merges refs', () => {
     const functionRef = jest.fn();
