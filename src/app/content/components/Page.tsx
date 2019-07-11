@@ -54,7 +54,7 @@ export class PageComponent extends Component<PropTypes> {
       // remove body and surrounding content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
       // fix assorted self closing tags
-      .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
+      .replace(/<(em|h3|iframe|span|strong|sub|sup|u|figcaption)([^>]*?)\/>/g, '<$1$2></$1>')
       // remove page titles from content (they are in the nav)
       .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
       // target blank and add `rel` to links that begin with: http:// https:// //
