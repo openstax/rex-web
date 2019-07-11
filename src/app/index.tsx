@@ -34,7 +34,7 @@ export const routes = [
   ...(
     process.env.REACT_APP_ENV !== 'production'
       ? Object.values(developer.routes)
-      : /* istanbul ignore next */[]
+      : /* istanbul ignore next */ []
   ),
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
@@ -61,7 +61,7 @@ export interface AppOptions {
 }
 
 export default (options: AppOptions) => {
-  const { initialEntries, initialState } = options;
+  const {initialEntries, initialState} = options;
 
   const history = typeof window !== 'undefined' && window.history
     ? createBrowserHistory()
