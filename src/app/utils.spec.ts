@@ -128,25 +128,17 @@ describe('assertDocumentElement', () => {
   });
 
   describe('with a non-html document', () => {
-    let documentElementBackup: HTMLElement | null = null;
+    let mock: jest.Mock<HTMLElement | null> | undefined;
 
     beforeEach(() => {
-      const document = utils.assertDocument();
-      documentElementBackup = document.documentElement;
-      Object.defineProperty(document, 'documentElement', {
-        configurable: true,
-        value: null,
-        writable: false,
+      mock = jest.spyOn(utils.assertDocument(), 'documentElement', 'get').mockImplementation(() => {
+        return null;
       });
     });
 
     afterEach(() => {
-      if (documentElementBackup) {
-        Object.defineProperty(document, 'documentElement', {
-          configurable: true,
-          value: documentElementBackup,
-          writable: false,
-        });
+      if (mock) {
+        mock.mockRestore();
       }
     });
 
