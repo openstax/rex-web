@@ -1,17 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { Middleware } from 'redux';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
-import { Middleware } from 'redux';
 
-var mockedSentry = {
-  isEnabled: false,
+// tslint:disable-next-line
+var mockedSentry = { // var is needed so that the mock is hoisted
   initializeWithMiddleware: jest.fn(
     (() => () => (next) => (action: any) => { next(action); }) as Middleware
   ),
+  isEnabled: false,
 };
-
 jest.mock('../helpers/Sentry', () => mockedSentry);
 
 describe('create app', () => {
