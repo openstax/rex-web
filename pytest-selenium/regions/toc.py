@@ -27,9 +27,10 @@ class TableOfContents(Region):
     def active_page(self):
         return self.find_element(*self._active_page_locator)
 
-    def assert_page_name_in_TOC_is_bolded(self):
+    @property
+    def font_property_of_selected_page(self):
         bold = self.active_page.value_of_css_property("font-weight")
-        assert bold == "400"
+        return bold
 
     @property
     def head(self):
