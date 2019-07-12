@@ -14,6 +14,7 @@ var mockedSentry = { // var is needed so that the mock is hoisted
 };
 jest.mock('../helpers/Sentry', () => mockedSentry);
 
+
 describe('create app', () => {
   let history = require('history');
   let createApp = require('./index').default;
