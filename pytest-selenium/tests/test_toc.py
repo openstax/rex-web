@@ -83,9 +83,9 @@ def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, boo
     toolbar.click_toc_toggle_button()
 
     # THEN: The links in the content should be disabled
-    content.assert_element_not_interactable_exception(content.next_link)
-    content.assert_element_not_interactable_exception(content.previous_link)
-    content.assert_element_not_interactable_exception(attribution.attribution_link)
+    content.assert_element_not_interactable(content.next_link)
+    content.assert_element_not_interactable(content.previous_link)
+    content.assert_element_not_interactable(attribution.attribution_link)
 
     # AND scrolling over it should do nothing
     with pytest.raises(Exception) as exc_info:
