@@ -3,16 +3,19 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
-import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
+import { contentFont, textRegularLineHeight,
+        textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString, assertWindow } from '../../utils';
-import { requestSearch } from '../search/actions';
+import { clearSearch, requestSearch } from '../search/actions';
 import * as selectSearch from '../search/selectors';
+import { SearchResultContainer } from '../search/types';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -20,6 +23,7 @@ import {
   toolbarDesktopHeight,
   toolbarIconColor,
   toolbarMobileHeight,
+  toolbarMobileSearchWrapperHeight,
   toolbarSearchInputDesktopHeight,
   toolbarSearchInputMobileHeight,
 } from './constants';
@@ -131,6 +135,8 @@ const SearchInputWrapper = styled.form`
   ${theme.breakpoints.mobile(css`
     margin-right: 0;
     height: 100%;
+    overflow: hidden;
+    width: 100%;
 
     ${(props: { active: boolean }) => props.active && css`
       background: ${theme.color.primary.gray.base};
@@ -166,7 +172,6 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   `)}
   ${(props) => props.mobile && css`
     width: 100%;
-    height: ${toolbarSearchInputMobileHeight}rem;
   `}
 `;
 
@@ -239,12 +244,18 @@ const MobileSearchContainer = styled.div`
   ${barPadding}
   margin-top: ${mobileSearchContainerMargin}rem;
   margin-bottom: ${mobileSearchContainerMargin}rem;
+  height: ${toolbarSearchInputMobileHeight}rem;
+  ${theme.breakpoints.mobile(css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const MobileSearchWrapper = styled.div`
   display: none;
-  height: ${toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)};
+  height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
   ${theme.breakpoints.mobile(css`
@@ -252,12 +263,40 @@ const MobileSearchWrapper = styled.div`
   `)}
 `;
 
-class Toolbar extends React.Component<{
-  search: typeof requestSearch, query: string | null
-}, {
+// tslint:disable-next-line:variable-name
+const LeftArrow = styled(ChevronLeft)`
+  width: 2.5rem;
+  height: 2.5rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const ToggleSeachResultsText = styled.button`
+  ${textRegularStyle}
+  margin: 0;
+  padding: 0;
+  color: #027eb5;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+`;
+
+// tslint:disable-next-line:variable-name
+const InnerText = styled.div`
+  width: 11.2rem;
+  text-align: left;
+`;
+
+interface SearchResultsSidebarProps {
+  search: typeof requestSearch;
+  query: string | null;
+  onClose: () => void;
+  results: SearchResultContainer[] | null;
+}
+
+class Toolbar extends React.Component<SearchResultsSidebarProps, {
   query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
-  public state = { query: '', mobileOpen: false, formSubmitted: false };
+  public state = { query: '', mobileOpen: this.props.results ? true : false, formSubmitted: false };
 
   public render() {
 
@@ -281,6 +320,9 @@ class Toolbar extends React.Component<{
     const toggleMobile = (e: React.FormEvent) => {
       e.preventDefault();
       this.setState({ mobileOpen: !this.state.mobileOpen });
+      if (!this.props.results) {
+        this.props.onClose();
+      }
     };
 
     return <BarWrapper>
@@ -299,7 +341,7 @@ class Toolbar extends React.Component<{
             </FormattedMessage>
             {!this.state.formSubmitted && <SearchButton desktop />}
             {this.state.formSubmitted &&
-              <CloseButton desktop onClick={onClear} data-testid='desktop-clear-search' />
+              <CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
           </SearchInputWrapper>
           <FormattedMessage id='i18n:toolbar:print:text'>
@@ -318,10 +360,14 @@ class Toolbar extends React.Component<{
       {this.state.mobileOpen && <MobileSearchWrapper>
         <Hr />
         <MobileSearchContainer>
+          {this.props.results && !this.state.mobileOpen &&
+            <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
+              {(msg) => <ToggleSeachResultsText><LeftArrow/><InnerText>{msg}</InnerText></ToggleSeachResultsText>}
+            </FormattedMessage>
+          }
           <SearchInputWrapper onSubmit={onSubmit} data-testid='mobile-search'>
             <SearchInput mobile data-testid='mobile-search-input' onChange={onChange} value={this.state.query} />
-            {!this.state.formSubmitted && <SearchButton />}
-            {this.state.formSubmitted && <CloseButton onClick={onClear} data-testid='mobile-clear-search' />}
+            {this.state.query && <CloseButton type='button' onClick={onClear} data-testid='mobile-clear-search' />}
           </SearchInputWrapper>
         </MobileSearchContainer>
       </MobileSearchWrapper>}
@@ -332,8 +378,12 @@ class Toolbar extends React.Component<{
 export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
+    results: selectSearch.results(state),
   }),
   (dispatch: Dispatch) => ({
+    onClose: () => {
+      dispatch(clearSearch());
+    },
     search: (query: string) => dispatch(requestSearch(query)),
   })
 )(Toolbar);

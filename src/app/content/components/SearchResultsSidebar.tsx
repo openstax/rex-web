@@ -1,11 +1,13 @@
 import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
-import React from 'react';
+import { HTMLElement } from '@openstax/types/lib.dom';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { Details, iconSize } from '../../components/Details';
+import { navDesktopHeight } from '../../components/NavBar';
 import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
@@ -13,19 +15,19 @@ import { clearSearch } from '../search/actions';
 import { isSearchResultChapter } from '../search/guards';
 import * as selectSearch from '../search/selectors';
 import { SearchResultChapter, SearchResultContainer, SearchResultPage } from '../search/types';
+import * as select from '../selectors';
+import { Book } from '../types';
 import Loader from './../../components/Loader';
 import {
   bookBannerDesktopMiniHeight,
-  bookBannerMobileMiniHeight,
-  mobileSearchContainerMargin,
   searchResultsBarDesktopWidth,
-  sidebarDesktopWidth,
-  sidebarMobileWidth,
   toolbarDesktopHeight,
   toolbarMobileHeight,
+  toolbarMobileSearchWrapperHeight,
   toolbarSearchInputMobileHeight,
 } from './constants';
-import { CollapseIcon, ExpandIcon, SidebarBody, Summary, SummaryTitle, SummaryWrapper } from './Sidebar/styled';
+import ContentLinkComponent from './ContentLink';
+import { CollapseIcon, ExpandIcon, Summary, SummaryTitle, SummaryWrapper } from './Sidebar/styled';
 import { toolbarIconStyles } from './Toolbar';
 
 const searchResultsBarVariables = {
@@ -59,22 +61,27 @@ const NavOl = styled.ol`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchResultsBar = styled(SidebarBody)`
+const SearchResultsBar = styled.div`
   top: calc(${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-top: 0;
   padding: 0;
-  margin-left: -${sidebarDesktopWidth}rem;
+  position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
-  min-width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${searchResultsBarVariables.backgroundColor};
+  box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight
+                        + toolbarDesktopHeight}rem);
 
   ${theme.breakpoints.mobile(css`
+    position: fixed;
+    right: 0;
     width: 100%;
-    min-width: 100%;
-    margin-top: 0;
-    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight
-          + toolbarSearchInputMobileHeight + (mobileSearchContainerMargin * 2)}rem;
-    margin-left: -${sidebarMobileWidth}rem;
+    margin-top: ${toolbarMobileSearchWrapperHeight}rem;
+    top: ${bookBannerDesktopMiniHeight
+      + toolbarMobileHeight
+      + toolbarSearchInputMobileHeight
+      + toolbarMobileSearchWrapperHeight}rem;
     padding: 0;
   `)}
 
@@ -121,24 +128,26 @@ const SearchBarSummary = styled(Summary)`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchResultsLink = styled.a`
+const SearchResultsLink = styled.div`
   ${labelStyle}
-  text-decoration: none;
   width: 100%;
 `;
 
 // tslint:disable-next-line:variable-name
-const SectionContentPreview = styled.div`
+const SectionContentPreview = styled(ContentLinkComponent)`
   ${labelStyle}
-    margin-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
-    min-height: 3.7rem;
-    align-items: center;
-    padding-right: 1.6rem;
-    padding: 1rem 0;
-    :not(:last-child) {
-      border-bottom: solid 0.1rem ${searchResultsBarVariables.backgroundColor};
-    }
+  margin-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
+  min-height: 3.7rem;
+  align-items: center;
+  padding-right: 1.6rem;
+  padding: 1rem 0;
   max-width: 35.3rem;
+  display: block;
+  text-decoration: none;
+
+  :not(:last-child) {
+    border-bottom: solid 0.1rem ${searchResultsBarVariables.backgroundColor};
+  }
 
   em {
     font-weight: bold;
@@ -214,29 +223,32 @@ const HeaderQuery = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchResultContainers = (props: {containers: SearchResultContainer[]}) => <React.Fragment>
+const SearchResultContainers = (props: {containers: SearchResultContainer[], book: Book}) => <React.Fragment>
   {props.containers.map((node: SearchResultContainer) => isSearchResultChapter(node)
-    ? <SearchResultsDropdown chapter={node} key={node.id} />
-    : <SearchResult page={node} key={node.id} />
+    ? <SearchResultsDropdown chapter={node} key={node.id} book={props.book}/>
+    : <SearchResult page={node} key={node.id} book={props.book}/>
   )}
 </React.Fragment>;
 
 // tslint:disable-next-line:variable-name
-const SearchResult = (props: {page: SearchResultPage}) => <NavItem>
+const SearchResult = (props: {page: SearchResultPage, book: Book}) => <NavItem>
   <LinkWrapper>
-    <SearchResultsLink href='#' dangerouslySetInnerHTML={{__html: props.page.title}} />
+    <SearchResultsLink dangerouslySetInnerHTML={{__html: props.page.title}} />
   </LinkWrapper>
   {props.page.results.map((hit: SearchResultHit) =>
-    hit.highlight && hit.highlight.visibleContent
+    hit.source && hit.highlight && hit.highlight.visibleContent
       ? hit.highlight.visibleContent.map((highlight: string) =>
-          <SectionContentPreview dangerouslySetInnerHTML={{__html: highlight}} />
+          <SectionContentPreview
+              book={props.book}
+              page={props.page}
+              dangerouslySetInnerHTML={{__html: highlight}}/>
         )
       : []
   )}
 </NavItem>;
 
 // tslint:disable-next-line:variable-name
-const SearchResultsDropdown = (props: {chapter: SearchResultChapter}) => <li>
+const SearchResultsDropdown = (props: {chapter: SearchResultChapter, book: Book}) => <li>
   <Details>
     <SearchBarSummary>
       <SummaryWrapper>
@@ -246,7 +258,7 @@ const SearchResultsDropdown = (props: {chapter: SearchResultChapter}) => <li>
       </SummaryWrapper>
     </SearchBarSummary>
     <DetailsOl>
-      <SearchResultContainers containers={props.chapter.contents} />
+      <SearchResultContainers containers={props.chapter.contents} book={props.book} />
     </DetailsOl>
   </Details>
 </li>;
@@ -256,29 +268,36 @@ interface SearchResultsSidebarProps {
   totalHits: number | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
+  book?: Book;
 }
 
-// tslint:disable-next-line:variable-name
-const SearchResultsSidebar = ({query, totalHits, results, onClose}: SearchResultsSidebarProps) => !query
-  ? null
-  : <SearchResultsBar>
+export class SearchResultsSidebar extends Component<SearchResultsSidebarProps> {
+  public searchSidebar = React.createRef<HTMLElement>();
+
+  public render() {
+    const {query, totalHits, results, onClose, book} = this.props;
+    return !query ? <SearchResultsBar ref={this.searchSidebar}></SearchResultsBar>
+    : <SearchResultsBar ref={this.searchSidebar}>
       {!results && <LoadingWrapper>
+        <CloseIconWrapper>
+          <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
+        </CloseIconWrapper>
         <Loader/>
       </LoadingWrapper>}
-      {totalHits && totalHits > 0 && <SearchQueryWrapper>
+      {totalHits && <SearchQueryWrapper>
         <FormattedMessage id='i18n:search-results:bar:query:results'>
           {(msg: Element | string) =>
             <SearchQuery>
               <SearchIconInsideBar />
               <HeaderQuery>
-                {results ? totalHits : 0 } {msg} <strong> &lsquo;{query}&rsquo;</strong>
+                {totalHits} {msg} <strong> &lsquo;{query}&rsquo;</strong>
               </HeaderQuery>
             </SearchQuery>
           }
         </FormattedMessage>
         <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
       </SearchQueryWrapper>}
-      {results && totalHits && totalHits === 0 && <div>
+      {!totalHits && <div>
         <CloseIconWrapper>
           <CloseIconButton onClick={onClose}><CloseIcon /></CloseIconButton>
         </CloseIconWrapper>
@@ -290,13 +309,36 @@ const SearchResultsSidebar = ({query, totalHits, results, onClose}: SearchResult
           }
         </FormattedMessage>
       </div>}
-      {results && totalHits && totalHits > 0 && <NavOl>
-        <SearchResultContainers containers={results} />
+      {book && results && totalHits && <NavOl>
+        <SearchResultContainers containers={results} book={book} />
       </NavOl>}
     </SearchResultsBar>;
+  }
+
+  public componentDidMount = () => {
+    const searchSidebar = this.searchSidebar.current;
+
+    if (!searchSidebar || typeof(window) === 'undefined') {
+      return;
+    }
+
+    const scrollHandler = () => {
+      const top = searchSidebar.getBoundingClientRect().top;
+      searchSidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
+    };
+
+    const animation = () => requestAnimationFrame(scrollHandler);
+
+    window.addEventListener('scroll', animation, {passive: true});
+    window.addEventListener('resize', animation, {passive: true});
+    scrollHandler();
+  };
+
+}
 
 export default connect(
   (state: AppState) => ({
+    book: select.book(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     totalHits: selectSearch.totalHits(state),

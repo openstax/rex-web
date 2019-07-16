@@ -108,6 +108,13 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   }
 `);
 
+// tslint:disable-next-line:variable-name
+const OutterWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+`;
+
 /*
  * this layout is a mess for these reasons:
  * - the navs must have the default padding inside their containers so their
@@ -153,25 +160,27 @@ const Content: React.SFC = () => <Layout>
   <Background>
     <BookBanner/>
     <Toolbar />
-    <Wrapper>
-      <CenteredContentRow>
-        <Sidebar />
-        <SearchResultsSidebar/>
-        <ContentPane>
-          <UndoPadding>
-            <MainContentWrapper>
-              <ContentNotifications />
-              <HideOverflowAndRedoPadding>
-                <Page />
-                <PrevNextBar />
-              </HideOverflowAndRedoPadding>
-              <Attribution />
-              <Footer/>
-            </MainContentWrapper>
-          </UndoPadding>
-        </ContentPane>
-      </CenteredContentRow>
-    </Wrapper>
+    <OutterWrapper>
+      <SearchResultsSidebar/>
+      <Wrapper>
+        <CenteredContentRow>
+          <Sidebar />
+          <ContentPane>
+            <UndoPadding>
+              <MainContentWrapper>
+                <ContentNotifications />
+                <HideOverflowAndRedoPadding>
+                  <Page />
+                  <PrevNextBar />
+                </HideOverflowAndRedoPadding>
+                <Attribution />
+                <Footer/>
+              </MainContentWrapper>
+            </UndoPadding>
+          </ContentPane>
+        </CenteredContentRow>
+      </Wrapper>
+    </OutterWrapper>
   </Background>
 </Layout>;
 

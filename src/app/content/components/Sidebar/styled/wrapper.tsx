@@ -26,6 +26,7 @@ const sidebarClosedStyle = css`
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
   background-color: transparent;
+  pointer-events: none;
 
   > * {
     opacity: 0;

@@ -40,5 +40,6 @@
   "i18n:footer:social:ig:alt": "instagram",
   "i18n:footer:social:rice-logo:alt": "Rice University logo",
   "i18n:search-results:bar:query:results": "search results for ",
-  "i18n:search-results:bar:query:no-results": "Sorry, no results found for "
+  "i18n:search-results:bar:query:no-results": "Sorry, no results found for ",
+  "i18n:search-results:bar:toggle-text:mobile": "Search results"
 }
