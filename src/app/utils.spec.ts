@@ -128,10 +128,11 @@ describe('assertDocumentElement', () => {
   });
 
   describe('with a non-html document', () => {
-    let mock: jest.Mock<HTMLElement | null> | undefined;
+    let mock: jest.SpyInstance;
 
     beforeEach(() => {
-      mock = jest.spyOn(utils.assertDocument(), 'documentElement', 'get').mockImplementation(() => {
+      mock = jest.spyOn(utils.assertDocument(), 'documentElement', 'get');
+      mock.mockImplementation(() => {
         return null;
       });
     });
