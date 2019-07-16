@@ -102,11 +102,27 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
+    const html = this.getCleanContent() || this.getPrerenderedContent();
+
     return <MainContent
       className={this.props.className}
       ref={(ref: any) => this.container = ref}
-      dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
+      dangerouslySetInnerHTML={{ __html: html}}
     />;
+  }
+
+  private getPrerenderedContent() {
+    if (
+      typeof(window) !== 'undefined'
+      && this.props.page
+      && window.__PRELOADED_STATE__
+      && window.__PRELOADED_STATE__.content
+      && window.__PRELOADED_STATE__.content.page
+      && window.__PRELOADED_STATE__.content.page.id === this.props.page.id
+    ) {
+      return this.props.services.prerenderedContent || '';
+    }
+    return '';
   }
 
   // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd

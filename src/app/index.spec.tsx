@@ -1,8 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
+let React: any; // tslint:disable-line:variable-name
+let renderer: any;
 
 describe('create app', () => {
   let history = require('history');
@@ -13,6 +13,8 @@ describe('create app', () => {
 
   beforeEach(() => {
     jest.resetModules();
+    React = require('react');
+    renderer = require('react-test-renderer');
     history = require('history');
     createApp = require('./index').default;
 
