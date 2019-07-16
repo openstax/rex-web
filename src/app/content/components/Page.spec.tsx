@@ -21,8 +21,10 @@ import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
+import allImagesLoaded from './utils/allImagesLoaded';
 
-// jest.mock('../../../helpers/mathjax');
+jest.mock('./utils/allImagesLoaded', () => jest.fn());
+
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../utils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
@@ -40,6 +42,8 @@ describe('Page', () => {
   beforeEach(() => {
     jest.resetModules();
     jest.resetAllMocks();
+
+    (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
 
     store = createTestStore({
       content: {
@@ -449,6 +453,63 @@ describe('Page', () => {
     }));
 
     expect(spy).toHaveBeenCalledWith(0, 0);
+  });
+
+  it('waits for images to load before scrolling to a target element', async() => {
+    if (!document) {
+      return expect(document).toBeTruthy();
+    }
+
+    const someHashPage = {
+      content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
+      id: 'adsfasdf',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    };
+
+    state.navigation.hash = '#somehash';
+    archiveLoader.mockPage(book, someHashPage);
+
+    const {root} = renderToDom(
+      <Provider store={store}>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
+      </Provider>
+    );
+
+    let resolveImageLoaded: undefined | ((value?: void | PromiseLike<void> | undefined) => void);
+    const allImagesLoadedPromise = new Promise<void>((resolve) => {
+      resolveImageLoaded = resolve;
+    });
+
+    if (!resolveImageLoaded) {
+      return expect(resolveImageLoaded).toBeTruthy();
+    }
+
+    (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(allImagesLoadedPromise);
+
+    store.dispatch(actions.receivePage({
+      ...someHashPage,
+      references: [],
+    }));
+
+    await Promise.resolve();
+
+    expect(scrollTo).not.toHaveBeenCalled();
+
+    resolveImageLoaded();
+    await Promise.resolve();
+
+    const target = root.querySelector('[id="somehash"]');
+
+    expect(target).toBeTruthy();
+    expect(scrollTo).toHaveBeenCalledWith(target);
   });
 
   it('does not scroll to selected content on initial load', () => {
