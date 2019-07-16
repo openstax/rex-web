@@ -1583,15 +1583,6 @@ li[aria-label="Current Page"] .c38 {
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms;
   }
-
-  .c52 *:target::before {
-    content: " ";
-    display: block;
-    position: relative;
-    margin-top: -12rem;
-    height: 12rem;
-    visibility: hidden;
-  }
 }
 
 @media screen and (max-width:75em) {
@@ -4115,15 +4106,6 @@ Array [
     overflow: visible;
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms;
-  }
-
-  .c26 *:target::before {
-    content: " ";
-    display: block;
-    position: relative;
-    margin-top: -12rem;
-    height: 12rem;
-    visibility: hidden;
   }
 }
 

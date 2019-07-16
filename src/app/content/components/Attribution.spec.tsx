@@ -113,6 +113,10 @@ describe('Attribution', () => {
       store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
 
       expect(details.getAttribute('open')).toBe('');
+
+      // clear scrollTo that happens on toggle before finishing the test
+      // or there are errors
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     it('mounts and unmounts without a dom', () => {

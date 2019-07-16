@@ -1,5 +1,5 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
-import React, { Ref } from 'react';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
+import React from 'react';
 import { Consumer, MAIN_CONTENT_ID } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const MainContent = React.forwardRef<Ref<HTMLElement>, Props>(({children, ...props}, ref) => <Consumer>
+const MainContent = React.forwardRef<HTMLDivElement, Props>(({children, ...props}, ref) => <Consumer>
   {({registerMainContent}) => <div
     id={MAIN_CONTENT_ID}
     ref={mergeRefs(ref, registerMainContent)}
