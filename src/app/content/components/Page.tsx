@@ -80,7 +80,7 @@ export class PageComponent extends Component<PropTypes> {
 
       this.addGenericJs(this.container);
       if (target) {
-        scrollTo(target);
+        this.allImagesLoaded().then(() => scrollTo(target));
       } else {
         window.scrollTo(0, 0);
       }
@@ -188,6 +188,20 @@ export class PageComponent extends Component<PropTypes> {
       Array.from(this.container.querySelectorAll('a')).forEach(cb);
     }
   }
+
+  private allImagesLoaded = () => {
+    if (!this.container) {
+      return Promise.resolve();
+    }
+
+    return Promise.all(Array.from(this.container.querySelectorAll('img')).map((img) => img.complete
+      ? Promise.resolve()
+      : new Promise<void>((resolve) => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
+      })
+    )).then((): void => undefined);
+  };
 
   private linksOn() {
     this.mapLinks((a) => {
