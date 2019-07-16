@@ -1,19 +1,24 @@
-import React, { ComponentClass } from 'react';
+import { ComponentClass } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
-import { renderToDom } from '../../../test/reactutils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
+let React: any; // tslint:disable-line:variable-name
+let renderer: any;
+let Provider: any; // tslint:disable-line:variable-name
+let renderToDom: any;
 
 describe('content', () => {
   beforeEach(() => {
     jest.resetModules();
     jest.resetAllMocks();
+    React = require('react');
+    Provider = require('react-redux').Provider;
+    renderer = require('react-test-renderer');
+    renderToDom = require('../../../test/reactutils').renderToDom;
   });
 
   describe('in browser', () => {

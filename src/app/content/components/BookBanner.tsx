@@ -99,8 +99,8 @@ const BookTitle = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled(({colorSchema: _, variant, ...props}) => variant === 'mini' ?
-  <span {...props} /> : <h1 {...props} />)`
+const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => variant === 'mini' ?
+  <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
   font-weight: 600;
