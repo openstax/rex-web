@@ -482,7 +482,7 @@ describe('Page', () => {
     expect(scrollTo).not.toHaveBeenCalled();
   });
 
-  it('scrolls to selected content on update', () => {
+  it('scrolls to selected content on update', async() => {
     if (!document) {
       return expect(document).toBeTruthy();
     }
@@ -516,6 +516,8 @@ describe('Page', () => {
       ...someHashPage,
       references: [],
     }));
+
+    await Promise.resolve();
 
     const target = root.querySelector('[id="somehash"]');
 
