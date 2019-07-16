@@ -2,6 +2,7 @@ module.exports = {
   RELEASE_ID: 'development',
   CODE_VERSION: 'development',
 
+  ARCHIVE_URL: 'https://archive-staging.cnx.org',
   ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts.openstax.org',
   OS_WEB_URL: process.env.OS_WEB_URL || 'https://cms-prod.openstax.org',
   SEARCH_URL: process.env.SEARCH_URL || 'https://search-jul11.sandbox.openstax.org',
