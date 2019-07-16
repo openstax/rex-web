@@ -54,17 +54,12 @@ describe('NavigationProvider', () => {
 
     const store = createStore(() => rootState, rootState);
 
-    const navigation = renderer
+    const headings = renderer
       .create(<Provider store={store}><NavigationProvider routes={routes} /></Provider>)
       .root
-      .findByType(NavigationProvider)
-      .children[0]
+      .findAllByType('h1')
     ;
 
-    expect(navigation).not.toBeInstanceOf(String);
-
-    if (typeof(navigation) !== 'string') {
-      expect(navigation.children).toHaveLength(0);
-    }
+    expect(headings.length).toBe(0);
   });
 });

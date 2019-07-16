@@ -37,6 +37,7 @@ export const ContentLink: SFC<Props> = ({
   search,
   navigate,
   onClick,
+  children,
   ...props
 }) => {
   const {url, params} = getBookPageUrlAndParams(book, page);
@@ -65,7 +66,7 @@ export const ContentLink: SFC<Props> = ({
     }}
     href={relativeUrl}
     {...props}
-  />;
+  >{children}</a>;
 };
 
 // tslint:disable-next-line:variable-name

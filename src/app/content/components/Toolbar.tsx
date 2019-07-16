@@ -27,7 +27,7 @@ import {
   toolbarSearchInputDesktopHeight,
   toolbarSearchInputMobileHeight,
 } from './constants';
-import SidebarControl from './SidebarControl';
+import { OpenSidebarControl } from './SidebarControl';
 import { disablePrint } from './utils/disablePrint';
 
 export const toolbarIconStyles = css`
@@ -299,7 +299,6 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
   public state = { query: '', mobileOpen: this.props.results ? true : false, formSubmitted: false };
 
   public render() {
-
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (this.state.query) {
@@ -327,10 +326,10 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
 
     return <BarWrapper>
       <TopBar data-testid='toolbar'>
-        <SidebarControl />
+        <OpenSidebarControl />
         <SearchPrintWrapper>
           <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
-            <SearchInput desktop onChange={onChange} value={this.state.query} data-testid='desktop-search-input' />
+            <SearchInput desktop data-testid='desktop-search-input' onChange={onChange} value={this.state.query} />
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <SearchButton mobile
                 type='button'
