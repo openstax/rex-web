@@ -11,7 +11,7 @@ import {
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
-  <A extends AnyAction>(action: A): action is ReturnType<C> => action.type === getType(actionCreator);
+  (action: AnyAction): action is ReturnType<C> => action.type === getType(actionCreator);
 
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {

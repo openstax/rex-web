@@ -25,6 +25,8 @@ const Notifications: SFC<Props> = ({notifications, className}) => notifications.
         case getType(actions.updateAvailable): {
           return <UpdatesAvailable key={index} />;
         }
+        default:
+          return null;
       }
     })}
   </div>;

@@ -1,26 +1,34 @@
-import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
+import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
-import { AppState } from '../../types';
+import { Store } from '../../types';
 import { updateAvailable } from '../actions';
-import { initialState } from '../reducer';
 import ConnectedNotifications from './Notifications';
 
 describe('Notifications', () => {
-  let state: AppState;
+  let store: Store;
 
   beforeEach(() => {
-    state = cloneDeep({
-      notifications: initialState,
-    }) as any as AppState;
+    store = createTestStore();
   });
 
   it('matches snapshot', () => {
-    state.notifications.push(updateAvailable());
-    const store = createStore((s: AppState | undefined) => s || state, state);
+    store.dispatch(updateAvailable());
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ConnectedNotifications />
+      </MessageProvider>
+    </Provider>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot for unknown notification', () => {
+    store.getState().notifications.push({type: 'foobar'} as any);
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>

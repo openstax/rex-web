@@ -2,7 +2,7 @@ import omit from 'lodash/fp/omit';
 import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { ActionType } from 'typesafe-actions/dist/types';
+import { ActionType } from 'typesafe-actions';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';

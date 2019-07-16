@@ -1,24 +1,27 @@
-import createMemoryHistory from 'history/createMemoryHistory';
 import cloneDeep from 'lodash/fp/cloneDeep';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import { combineReducers, createStore } from 'redux';
+import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { renderToDom } from '../../../test/reactutils';
 import MessageProvider from '../../MessageProvider';
-import createReducer from '../../navigation/reducer';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
-import contentReducer, { initialState } from '../reducer';
+import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
+let React: any; // tslint:disable-line:variable-name
+let ReactDOM: any; // tslint:disable-line:variable-name
+let renderer: any;
+let Provider: any; // tslint:disable-line:variable-name
+let renderToDom: any;
 
 describe('Attribution', () => {
   beforeEach(() => {
-    jest.resetModules();
     jest.resetAllMocks();
+    jest.resetModules();
+    React = require('react');
+    ReactDOM = require('react-dom');
+    Provider = require('react-redux').Provider;
+    renderer = require('react-test-renderer');
+    renderToDom = require('../../../test/reactutils').renderToDom;
   });
 
   describe('in browser', () => {
@@ -42,9 +45,7 @@ describe('Attribution', () => {
         navigation: { pathname: 'cool path name' },
       }) as any) as AppState;
 
-      const history = createMemoryHistory();
-      const navigation = createReducer(history.location);
-      store = createStore(combineReducers({content: contentReducer, navigation, notifications: () => []}), state);
+      store = createTestStore(state);
     });
 
     const render = () => <Provider store={store}>

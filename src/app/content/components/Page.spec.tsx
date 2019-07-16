@@ -4,12 +4,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
-import PromiseCollector from '../../../helpers/PromiseCollector';
+import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import mockArchiveLoader, {
-  book,
-  page
-} from '../../../test/mocks/archiveLoader';
+import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
@@ -18,6 +15,7 @@ import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { scrollTo } from '../../utils';
+import { assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
@@ -37,7 +35,7 @@ describe('Page', () => {
   let state: AppState;
   let store: Store;
   let dispatch: jest.SpyInstance;
-  const services = {} as AppServices & MiddlewareAPI;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     jest.resetModules();
@@ -52,9 +50,15 @@ describe('Page', () => {
     });
     state = store.getState();
 
+    const testServices = createTestServices();
+
+    services = {
+      ...testServices,
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     dispatch = jest.spyOn(store, 'dispatch');
-    services.promiseCollector = new PromiseCollector();
-    services.archiveLoader = archiveLoader = mockArchiveLoader();
+    archiveLoader = testServices.archiveLoader;
   });
 
   const renderDomWithReferences = () => {
@@ -421,6 +425,7 @@ describe('Page', () => {
     }
 
     const spy = jest.spyOn(window, 'scrollTo');
+    spy.mockImplementation(() => null);
 
     renderToDom(
       <Provider store={store}>
@@ -544,7 +549,9 @@ describe('Page', () => {
       </Provider>
     );
 
-    store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
+    renderer.act(() => {
+      store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
+    });
 
     expect(spy).not.toHaveBeenCalled();
   });
@@ -583,4 +590,62 @@ describe('Page', () => {
     }
   });
 
+  describe('with prerendered state', () => {
+    beforeEach(() => {
+      assertWindow().__PRELOADED_STATE__ = state;
+    });
+
+    afterEach(() => {
+      delete assertWindow().__PRELOADED_STATE__;
+    });
+
+    it('uses prerendered content', () => {
+      services.prerenderedContent = 'prerendered content';
+      archiveLoader.mock.cachedPage.mockImplementation(() => undefined);
+
+      const {root} = renderToDom(
+        <Provider store={store}>
+          <MessageProvider>
+            <SkipToContentWrapper>
+              <Services.Provider value={services}>
+                <ConnectedPage />
+              </Services.Provider>
+            </SkipToContentWrapper>
+          </MessageProvider>
+        </Provider>
+      );
+
+      const target = root.querySelector('[id="main-content"]');
+
+      if (!target) {
+        return expect(target).toBeTruthy();
+      }
+
+      expect(target.innerHTML).toEqual('prerendered content');
+    });
+
+    it('defaults to empty page', () => {
+      archiveLoader.mock.cachedPage.mockImplementation(() => undefined);
+
+      const {root} = renderToDom(
+        <Provider store={store}>
+          <MessageProvider>
+            <SkipToContentWrapper>
+              <Services.Provider value={services}>
+                <ConnectedPage />
+              </Services.Provider>
+            </SkipToContentWrapper>
+          </MessageProvider>
+        </Provider>
+      );
+
+      const target = root.querySelector('[id="main-content"]');
+
+      if (!target) {
+        return expect(target).toBeTruthy();
+      }
+
+      expect(target.innerHTML).toEqual('');
+    });
+  });
 });
