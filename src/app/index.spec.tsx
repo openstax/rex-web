@@ -1,8 +1,18 @@
+import { Middleware } from 'redux';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
 let React: any; // tslint:disable-line:variable-name
 let renderer: any;
+
+// tslint:disable-next-line
+var mockedSentry = { // var is needed so that the mock is hoisted
+  initializeWithMiddleware: jest.fn(
+    (() => () => (next) => (action: any) => { next(action); }) as Middleware
+  ),
+  isEnabled: false,
+};
+jest.mock('../helpers/Sentry', () => mockedSentry);
 
 describe('create app', () => {
   let history = require('history');
@@ -58,6 +68,13 @@ describe('create app', () => {
 
       expect(app.history.location.pathname).toEqual('url');
       expect(match.route.getUrl).toHaveBeenCalled();
+    });
+
+    it('adds sentry middleware when it is enabled', () => {
+      mockedSentry.isEnabled = true;
+      createApp({services});
+      expect(mockedSentry.initializeWithMiddleware).toHaveBeenCalled();
+      mockedSentry.isEnabled = false;
     });
   });
 
