@@ -4,6 +4,8 @@ import { Middleware } from 'redux';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
+let React: any; // tslint:disable-line:variable-name
+let renderer: any;
 
 // tslint:disable-next-line
 var mockedSentry = { // var is needed so that the mock is hoisted
@@ -23,6 +25,8 @@ describe('create app', () => {
 
   beforeEach(() => {
     jest.resetModules();
+    React = require('react');
+    renderer = require('react-test-renderer');
     history = require('history');
     createApp = require('./index').default;
 
