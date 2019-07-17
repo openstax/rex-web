@@ -1,15 +1,13 @@
-import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { combineReducers, createStore } from 'redux';
+import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, lastPage, page as firstPage, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import MessageProvider from '../../MessageProvider';
-import { createReducer } from '../../navigation';
 import { AppState, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
-import contentReducer, { initialState } from '../reducer';
+import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import PrevNextBar from './PrevNextBar';
 
@@ -21,9 +19,7 @@ describe('PrevNextBar', () => {
     const state = {
       content: initialState,
     } as any as AppState;
-    const history = createMemoryHistory();
-    const navigation = createReducer(history.location);
-    store = createStore(combineReducers({content: contentReducer, navigation}), state);
+    store = createTestStore(state);
   });
 
   const render = () => <Provider store={store}>

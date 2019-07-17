@@ -1,17 +1,15 @@
-import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { combineReducers, createStore } from 'redux';
 import ConnectedSidebar, { Sidebar } from '.';
+import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
-import createReducer from '../../../navigation/reducer';
 import { AppState, Store } from '../../../types';
 import * as actions from '../../actions';
-import contentReducer, { initialState } from '../../reducer';
+import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domUtils';
 
@@ -29,9 +27,7 @@ describe('Sidebar', () => {
         book, page,
       },
     } as any as AppState;
-    const history = createMemoryHistory();
-    const navigation = createReducer(history.location);
-    store = createStore(combineReducers({content: contentReducer, navigation}), state);
+    store = createTestStore(state);
   });
 
   it('expands and scrolls to current chapter', () => {
@@ -42,7 +38,9 @@ describe('Sidebar', () => {
     expect(expandCurrentChapter).not.toHaveBeenCalled();
     expect(scrollTocSectionIntoView).toHaveBeenCalledTimes(1);
 
-    store.dispatch(actions.receivePage({...shortPage, references: []}));
+    renderer.act(() => {
+      store.dispatch(actions.receivePage({...shortPage, references: []}));
+    });
 
     expect(expandCurrentChapter).toHaveBeenCalled();
     expect(scrollTocSectionIntoView).toHaveBeenCalledTimes(2);
@@ -54,9 +52,13 @@ describe('Sidebar', () => {
     </Provider></MessageProvider>);
 
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
-    store.dispatch(actions.closeToc());
+    renderer.act(() => {
+      store.dispatch(actions.closeToc());
+    });
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
-    store.dispatch(actions.openToc());
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 

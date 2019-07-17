@@ -8,7 +8,7 @@ export { stripIdVersion } from './utils/idUtils';
 export { scrollTocSectionIntoView } from './utils/domUtils';
 
 export const getContentPageReferences = (content: string) =>
-  (content.match(/"\/contents\/([a-z0-9\-]+(@[\d\.]+)?)/g) || [])
+  (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
     .map((match) => {
       const pageId = match.substr(11);
 

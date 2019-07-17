@@ -125,5 +125,5 @@ export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string)
   expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.7);
-  expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.87);
+  expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.86);
 };

@@ -2,7 +2,6 @@ import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom'
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
@@ -14,7 +13,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
-import { assertDefined, assertWindow } from '../../utils';
+import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import {State as SearchState } from '../search/types';
@@ -22,6 +21,7 @@ import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
+import allImagesLoaded from './utils/allImagesLoaded';
 
 interface PropTypes {
   page: State['page'];
@@ -54,24 +54,22 @@ export class PageComponent extends Component<PropTypes> {
       // remove body and surrounding content
       .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
       // fix assorted self closing tags
-      .replace(/<(em|h3|iframe|span|strong|sub|sup|u)([^>]*?)\/>/g, '<$1$2></$1>')
+      .replace(/<(em|h3|iframe|span|strong|sub|sup|u|figcaption)([^>]*?)\/>/g, '<$1$2></$1>')
       // remove page titles from content (they are in the nav)
       .replace(/<h(1|2) data-type="document-title".*?<\/h(1|2)>/, '')
       // target blank and add `rel` to links that begin with: http:// https:// //
       .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
       // same as previous, but allow indexing links to relative content
       .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
+      // move (first-child) figure and table ids up to the parent div
+      .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
     ;
   };
 
   public componentDidMount() {
-    const target = this.getScrollTarget();
     this.postProcess();
     this.linksOn();
     if (this.container) { this.addGenericJs(this.container); }
-    if (target) {
-      scrollTo(target);
-    }
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
@@ -83,7 +81,7 @@ export class PageComponent extends Component<PropTypes> {
 
       this.addGenericJs(this.container);
       if (target) {
-        scrollTo(target);
+        allImagesLoaded(this.container).then(() => scrollTo(target));
       } else {
         window.scrollTo(0, 0);
       }
@@ -102,11 +100,27 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
+    const html = this.getCleanContent() || this.getPrerenderedContent();
+
     return <MainContent
       className={this.props.className}
       ref={(ref: any) => this.container = ref}
-      dangerouslySetInnerHTML={{ __html: this.getCleanContent()}}
+      dangerouslySetInnerHTML={{ __html: html}}
     />;
+  }
+
+  private getPrerenderedContent() {
+    if (
+      typeof(window) !== 'undefined'
+      && this.props.page
+      && window.__PRELOADED_STATE__
+      && window.__PRELOADED_STATE__.content
+      && window.__PRELOADED_STATE__.content.page
+      && window.__PRELOADED_STATE__.content.page.id === this.props.page.id
+    ) {
+      return this.props.services.prerenderedContent || '';
+    }
+    return '';
   }
 
   // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd

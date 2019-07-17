@@ -1,4 +1,5 @@
 import { Location } from 'history';
+import { OSWebBook } from '../../../gateways/createOSWebLoader';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import createTestStore from '../../../test/createTestStore';
@@ -229,7 +230,7 @@ describe('locationChange', () => {
       title: 'page in a new book',
       version: '0',
     };
-    const mockCmsOtherBook = {
+    const mockCmsOtherBook: OSWebBook = {
       authors: [{value: {name: 'different author'}}],
       cnx_id: 'newbookid',
       cover_color: 'blue',
@@ -263,7 +264,7 @@ describe('locationChange', () => {
 
     it('load', async() => {
       archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['newbookid']));
-      osWebLoader.getBookFromId.mockReturnValue(mockCmsOtherBook);
+      osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       await hook(payload);
 
@@ -317,7 +318,7 @@ describe('locationChange', () => {
       });
       archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['garbagebookid']));
       mockConfig.BOOKS.garbagebookid = {defaultVersion: '0'};
-      osWebLoader.getBookFromId.mockReturnValue(mockCmsOtherBook);
+      osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       let message: string | undefined;
 

@@ -1,4 +1,4 @@
-import { ActionType } from 'typesafe-actions/dist/types';
+import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 
 export type AnyNotification = ActionType<typeof actions>;
