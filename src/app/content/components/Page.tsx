@@ -2,7 +2,6 @@ import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom'
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
@@ -14,7 +13,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
-import { assertDefined, assertWindow } from '../../utils';
+import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import {State as SearchState } from '../search/types';
@@ -22,6 +21,7 @@ import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
+import allImagesLoaded from './utils/allImagesLoaded';
 
 interface PropTypes {
   page: State['page'];
@@ -61,17 +61,15 @@ export class PageComponent extends Component<PropTypes> {
       .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
       // same as previous, but allow indexing links to relative content
       .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
+      // move (first-child) figure and table ids up to the parent div
+      .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
     ;
   };
 
   public componentDidMount() {
-    const target = this.getScrollTarget();
     this.postProcess();
     this.linksOn();
     if (this.container) { this.addGenericJs(this.container); }
-    if (target) {
-      scrollTo(target);
-    }
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
@@ -83,7 +81,7 @@ export class PageComponent extends Component<PropTypes> {
 
       this.addGenericJs(this.container);
       if (target) {
-        scrollTo(target);
+        allImagesLoaded(this.container).then(() => scrollTo(target));
       } else {
         window.scrollTo(0, 0);
       }
