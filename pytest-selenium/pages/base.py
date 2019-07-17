@@ -65,3 +65,17 @@ class Page(pypom.Page):
 
         exception_raised = exc_info.type
         assert "ElementNotInteractableException" in str(exception_raised)
+
+    def width(self, element):
+        return (
+            self.driver.execute_script(
+                "return window.getComputedStyle(arguments[0]).width;", element
+            )
+        ).strip("px")
+
+    def height(self, element):
+        return (
+            self.driver.execute_script(
+                "return window.getComputedStyle(arguments[0]).height;", element
+            )
+        ).strip("px")
