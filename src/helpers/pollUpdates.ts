@@ -28,16 +28,7 @@ interface Environment {
   release_id: string;
 }
 
-export const poll = (store: Store) => async() => {
-  const environment = await fetch('/rex/environment.json')
-    .then((response) => response.json() as Promise<Environment>)
-    .catch(() => null)
-  ;
-
-  if (!environment) {
-    return;
-  }
-
+const processEnvironment = (store: Store, environment: Environment) => {
   const releaseId = environment.release_id;
 
   if (
@@ -48,6 +39,17 @@ export const poll = (store: Store) => async() => {
   }
 
   previousObservedReleaseId = releaseId;
+};
+
+export const poll = (store: Store) => async() => {
+  const environment = await fetch('/rex/environment.json')
+    .then((response) => response.json() as Promise<Environment>)
+    .catch(() => null)
+  ;
+
+  if (environment) {
+    processEnvironment(store, environment);
+  }
 };
 
 export default (store: Store): Cancel => {
