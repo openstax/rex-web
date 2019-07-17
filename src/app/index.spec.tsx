@@ -1,5 +1,3 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
 import { Middleware } from 'redux';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
