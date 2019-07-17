@@ -109,6 +109,10 @@ class Content(Page):
         def header(self):
             return self.Header(self.page)
 
+        # @property
+        # def toc(self):
+        #     return TableOfContents(self)
+
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
             _toc_toggle_button_locator = (

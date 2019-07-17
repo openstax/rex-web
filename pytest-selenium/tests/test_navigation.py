@@ -12,7 +12,10 @@ def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_
     toc = content.sidebar.toc
 
     # confirm first page is selected
-    assert toc.active_page.text == toc.pages[0].page_title()
+    assert toc.active_section.text == toc.pages[0].section_title()
+
+    print(toc.active_section.text)
+    print(toc.pages[3].section_title())
 
     with pytest.raises(Exception) as exc_info:
         assert not content.previous_link.is_displayed
@@ -30,7 +33,7 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
     toc = content.sidebar.toc
 
     # -1 gives the last element in the list. confirm last page is selected
-    assert toc.active_page.text == toc.pages[-1].page_title()
+    assert toc.active_section.text == toc.pages[-1].section_title()
 
     with pytest.raises(Exception) as exc_info:
         assert not content.next_link.is_displayed
