@@ -7,7 +7,6 @@ from selenium.webdriver.common.touch_actions import TouchActions
 
 from pages.base import Page
 from regions.base import Region
-from regions.toc import TableOfContents
 
 
 class Content(Page):
@@ -58,24 +57,26 @@ class Content(Page):
     def section_url_within_attribution(self):
         return self.find_element(*self._section_url_locator)
 
-    def scroll_over_content_overlay(self):
+    def scroll_over_content_overlay(self, x, y):
         """Touch and scroll starting at on_element, moving by xoffset and yoffset.
 
+        x & y are random numbers computed from the sidebar/window width/height respectively.
+        Using touchactions to scroll from the print element.
+        Selenium is not throwing any exception while scrolling over the content overlay using scroll(x,y).
+        Hence using scroll_from_element(element, x, y) to capture & assert the exception.
         """
         touchActions = TouchActions(self.driver)
-        touchActions.scroll_from_element(self.print, 439, 900).perform()
+        touchActions.scroll_from_element(self.print, x, y).perform()
 
-    def click_content_overlay(self):
+    def click_content_overlay(self, x, y):
         """Click anywhere in the content overlay
 
-        Print button is located at coordinatates (439, 164).
-        TOC close button is located at (16, 164).
-        So choosing (439, 164) to be the location in the content overlay.
+        x & y are random numbers computed from the sidebar/window width/height respectively.
         Using actionchains to click on this position.
         """
         actionChains = ActionChains(self.driver)
         actionChains.move_to_element_with_offset(self.driver.find_element_by_tag_name("body"), 0, 0)
-        actionChains.move_by_offset(439, 164).click().perform()
+        actionChains.move_by_offset(x, y).click().perform()
         return self.wait.until(
             expected.invisibility_of_element_located(self.sidebar.header.toc_toggle_button)
         )
@@ -138,10 +139,6 @@ class Content(Page):
         @property
         def header(self):
             return self.Header(self.page)
-
-        @property
-        def toc(self):
-            return TableOfContents(self)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')

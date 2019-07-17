@@ -1,9 +1,10 @@
 import pytest
 from pages.content import Content
 from . import markers
+import random
 
 
-@markers.test_case("C250849", "C242270")
+@markers.test_case("C250849")
 @markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
 @markers.nondestructive
 def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
@@ -24,17 +25,12 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
     toolbar = content.toolbar
     sidebar = content.sidebar
-    toc = content.sidebar.toc
 
     # AND: Window width is 1024 or greater (Desktop)
     if content.is_desktop:
 
-        # THEN: Sidebar is open by default
+        # Sidebar is open by default
         assert sidebar.header.is_displayed
-
-        # AND: The page name in the sidebar is bolded to indicate that its selected
-        bold = "400"
-        assert toc.font_property_of_selected_page == bold
 
         # WHEN: The toc button on the sidebar is clicked
         # THEN: The sidebar area has been closed
@@ -51,20 +47,16 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     # AND: Window Size is Mobile
     elif content.is_mobile:
 
-        # THEN: Sidebar is closed by default
+        # Sidebar is closed by default
         assert not sidebar.header.is_displayed
 
         # WHEN: The toc button on the toolbar is clicked
         # THEN: The sidebar area is opened
-        # AND: The page name in the sidebar is bolded to indicate that its selected
         # AND: The toc button on the sidebar is clicked
         # AND: the sidebar area is closed
         toolbar.click_toc_toggle_button()
 
         assert sidebar.header.is_displayed
-
-        bold = "400"
-        assert toc.font_property_of_selected_page == bold
 
         sidebar.header.click_toc_toggle_button()
 
@@ -75,48 +67,13 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         pytest.fail("window must be either mobile or desktop size")
 
 
-@markers.test_case("C476819")
-@markers.parametrize(
-    "book_slug,page_slug",
-    [
-        (
-            "college-physics",
-            "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
-        )
-    ],
-)
-@markers.nondestructive
-# @markers.mobile_only
-def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug, page_slug):
-    # GIVEN: The selenium driver, base_url, book_slug, and page_slug is opened in mobile resolution
-    # AND: The TOC is opened
-
-    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-
-    # toolbar = content.toolbar
-    sidebar = content.sidebar
-    toc = content.sidebar.toc
-
-    # toolbar.click_toc_toggle_button()
-
-    # WHEN: The page in the ToC is clicked
-    # THEN: The page loads and the ToC is automatically closed
-
-    pages = toc.pages[0]
-    pages.click()
-
-    from time import sleep
-
-    # sleep(4)
-
-    assert not sidebar.is_displayed
-
-
 @markers.test_case("C476818")
 @markers.parametrize("book_slug,page_slug", [("college-physics", "1-1-physics-an-introduction")])
 @markers.nondestructive
 @markers.mobile_only
-def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
+def test_local_toc_disables_interacting_with_content_on_mobile(
+    selenium, base_url, book_slug, page_slug
+):
 
     # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
     # AND: A mobile resolution
@@ -133,15 +90,32 @@ def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, boo
     content.assert_element_not_interactable(content.previous_link)
     content.assert_element_not_interactable(attribution.attribution_link)
 
-    # AND scrolling over it should do nothing
+    # Compute the content overlay region from the sidebar/window width.
+    sidebar_width = content.width(sidebar.root)
+    window_width = content.window_width
+    sidebar_width_left_offset = sidebar.root.get_attribute("offsetLeft")
+    sidebar_width_offset = int(sidebar_width) + int(sidebar_width_left_offset)
+
+    # Compute the content overlay region from the sidebar/window height.
+    navbar_height = content.height(content.navbar.root)
+    bookbanner_height = content.height(content.bookbanner.root)
+    sidebar_height_offset = int(navbar_height) + int(bookbanner_height)
+    window_height = int(content.height(sidebar.root)) + sidebar_height_offset
+
+    # Generate a random number from the computed values
+    x = random.randint(sidebar_width_offset, window_width)
+    y = random.randint(sidebar_height_offset, window_height)
+
+    # AND scrolling over content overlay should do nothing
     with pytest.raises(Exception) as exc_info:
-        content.scroll_over_content_overlay()
+        content.scroll_over_content_overlay(x, y)
 
     exception_raised = exc_info.type
     assert "ElementClickInterceptedException" in str(exception_raised)
 
     # AND clicking anywhere in the content overlay should just close the TOC and content stays in the same page
     initial_url = selenium.current_url
-    content.click_content_overlay()
+    content.click_content_overlay(x, y)
+
     assert not sidebar.is_displayed
     assert selenium.current_url == initial_url
