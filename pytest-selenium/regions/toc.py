@@ -36,8 +36,9 @@ class TableOfContents(Region):
         def click(self):
             self.click_and_wait_for_load(self.root)
 
+        @property
         def section_title(self):
             # section_title = self.find_element(*self._title_locator).text
-            section_title = self.find_element(*self._title_locator).get_attribute("txtContent")
+            section_title = self.root.get_attribute("textContent")
             # try .get_attribute.txtContent to get section number plus title
             return section_title
