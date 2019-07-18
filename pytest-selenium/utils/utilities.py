@@ -15,10 +15,12 @@ class Utility(object):
 
 
 class WaitForTitleChange(object):
-    """."""
-
     def click_and_wait_for_load(self, element: WebElement = None) -> None:
-        """."""
+        """Clicks an offscreen element and waits for title to load.
+
+        Clicks the given element, even if it is offscreen, by sending the ENTER key.
+        Returns after loading the last element (title) of the page).
+        """
         title_before_click = self.page_title
         target = element if element else self.root
         target.send_keys(Keys.ENTER)

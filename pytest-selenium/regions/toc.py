@@ -12,16 +12,10 @@ class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
-    _section_name_locator = (By.CSS_SELECTOR, "li>a>span.os-text")
 
     @property
     def active_section(self):
         return self.find_element(*self._active_section_locator)
-
-    @property
-    def font_property_of_selected_section(self):
-        bold = self.active_section.value_of_css_property("font-weight")
-        return bold
 
     @property
     def sections(self):
@@ -31,14 +25,10 @@ class TableOfContents(Region):
         ]
 
     class ContentPage(ContentItem, WaitForTitleChange):
-        _title_locator = (By.CSS_SELECTOR, "span.os-text")
-
         def click(self):
             self.click_and_wait_for_load(self.root)
 
         @property
         def section_title(self):
-            # section_title = self.find_element(*self._title_locator).text
             section_title = self.root.get_attribute("textContent")
-            # try .get_attribute.txtContent to get section number plus title
             return section_title
