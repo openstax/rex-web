@@ -23,9 +23,8 @@ export const toolbarSearchInputMobileWidth = 18.5;
 export const toolbarToggleSearchBarTextMobileWidth = 11.2;
 export const toolbarMobileSearchWrapperHeight = toolbarSearchInputMobileHeight
 + (mobileSearchContainerMargin * 2) + 0.1;
-export const toolbarMobileElementsHeight = bookBannerDesktopMiniHeight
+export const toolbarMobileElementsHeight = bookBannerMobileMiniHeight
 + toolbarMobileHeight
-+ toolbarSearchInputMobileHeight
 + toolbarMobileSearchWrapperHeight;
 
 export const contentTextWidth = 82.5;

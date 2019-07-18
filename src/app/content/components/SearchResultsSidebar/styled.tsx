@@ -11,7 +11,6 @@ import {
     searchResultsBarDesktopWidth,
     toolbarDesktopHeight,
     toolbarMobileElementsHeight,
-    toolbarMobileSearchWrapperHeight,
   } from '../constants';
 import ContentLinkComponent from '../ContentLink';
 import { Summary } from '../Sidebar/styled';
@@ -65,7 +64,7 @@ export const SearchResultsBar = styled.div`
     right: 0;
     width: 100%;
     margin-top: 0;
-    top: ${toolbarMobileElementsHeight + toolbarMobileSearchWrapperHeight}rem;
+    top: ${toolbarMobileElementsHeight}rem;
     padding: 0;
   `)}
 
