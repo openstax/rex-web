@@ -205,9 +205,7 @@ const BarWrapper = styled.div`
   display: block;
   z-index: 2; /* stay above book content */
   background-color: ${theme.color.neutral.base};
-  height: ${toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
-    height: ${toolbarMobileHeight}rem;
     top: ${bookBannerMobileMiniHeight}rem;
   `)}
 
@@ -296,7 +294,13 @@ interface SearchResultsSidebarProps {
 class Toolbar extends React.Component<SearchResultsSidebarProps, {
   query: string, mobileOpen: boolean, formSubmitted: boolean
 }> {
-  public state = { query: '', mobileOpen: this.props.results ? true : false, formSubmitted: false };
+  public state = { query: '', mobileOpen: false, formSubmitted: false };
+
+  public componentWillUpdate(newProps: SearchResultsSidebarProps) {
+    if (newProps.query && newProps.query !== this.props.query && newProps.query !== this.state.query) {
+      this.setState({query: newProps.query, mobileOpen: true});
+    }
+  }
 
   public render() {
     const onSubmit = (e: React.FormEvent) => {
@@ -319,7 +323,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
     const toggleMobile = (e: React.FormEvent) => {
       e.preventDefault();
       this.setState({ mobileOpen: !this.state.mobileOpen });
-      if (!this.props.results) {
+      if (this.props.results) {
         this.props.onClose();
       }
     };

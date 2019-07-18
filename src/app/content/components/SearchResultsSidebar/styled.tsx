@@ -60,8 +60,6 @@ export const SearchResultsBar = styled.div`
                         + toolbarDesktopHeight}rem);
 
   ${theme.breakpoints.mobile(css`
-    position: fixed;
-    right: 0;
     width: 100%;
     margin-top: 0;
     top: ${toolbarMobileElementsHeight}rem;

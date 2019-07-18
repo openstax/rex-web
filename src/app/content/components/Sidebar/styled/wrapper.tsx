@@ -31,15 +31,6 @@ const sidebarClosedStyle = css`
   > * {
     opacity: 0;
   }
-
-  ${theme.breakpoints.mobile(css`
-    background-color: ${theme.color.neutral.darker};
-    transform: translateX(-${sidebarMobileWidth + sidebarPadding * 2}rem);
-
-    > * {
-      opacity: 1;
-    }
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name

@@ -71,7 +71,6 @@ export class SearchResultsBarWrapper extends Component<SearchResultsSidebarProps
       const top = searchSidebar.getBoundingClientRect().top;
       console.log(top);
       searchSidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
-      searchSidebar.style.setProperty('top', `calc(${top}px)`);
     };
 
     const animation = () => requestAnimationFrame(scrollHandler);
