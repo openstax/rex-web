@@ -4,7 +4,8 @@ from selenium.webdriver.common.keys import Keys
 from pages import content
 from pages.base import Page
 from regions.base import Region
-from regions.content_item import ContentItem
+
+# from regions.content_item import ContentItem
 from utils.utilities import WaitForTitleChange
 
 
@@ -24,7 +25,7 @@ class TableOfContents(Region):
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
-    class ContentPage(ContentItem, WaitForTitleChange):
+    class ContentPage(Region, WaitForTitleChange):
         def click(self):
             self.click_and_wait_for_load(self.root)
 
