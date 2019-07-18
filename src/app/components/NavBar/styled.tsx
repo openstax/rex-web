@@ -248,7 +248,11 @@ export const DropdownOverlay = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const TimesIcon = styled((props) => <a href='' tabIndex='-1' aria-hidden='true' {...props}><Times /></a>)`
+export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='true' {...props}><Times /></button>)`
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
   position: fixed;
   top: 1rem;
   right: 1.6rem;

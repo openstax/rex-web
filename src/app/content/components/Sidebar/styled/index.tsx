@@ -58,7 +58,7 @@ export const ContentLink = styled(ContentLinkComponent)`
 
 // tslint:disable-next-line:variable-name
 export const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
-  ({active, className, children}, ref) => <li
+  ({active, className, children}, ref?: React.Ref<HTMLLIElement>) => <li
     ref={ref}
     className={className}
     {...(active ? {'aria-label': 'Current Page'} : {})}
@@ -102,7 +102,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   }
   const letters = num.replace(/[^A-Z]/ig, '');
   const numbers = num.replace(/[^0-9]/g, '');
-  const periods = num.replace(/[^\.]/g, '');
+  const periods = num.replace(/[^.]/g, '');
 
   return Math.max(result,
     numbers.length * numberCharacterWidth +
