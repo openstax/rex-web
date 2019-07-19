@@ -18,7 +18,7 @@ import { APP_ENV, RELEASE_ID } from '../config';
  */
 
 const pollInterval = 1000 * 60; // 1m
-const trustAfter = 1000 * 60 * 60; // 1h
+export const trustAfter = 1000 * 60 * 60; // 1h
 const pageLoaded = new Date().getTime();
 const trustRelease = () => (new Date().getTime()) - pageLoaded > trustAfter;
 let previousObservedReleaseId: string | undefined;
