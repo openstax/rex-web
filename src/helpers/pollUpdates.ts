@@ -32,8 +32,8 @@ const processEnvironment = (store: Store, environment: Environment) => {
   const releaseId = environment.release_id;
 
   if (
-    environment.release_id !== RELEASE_ID
-    && (trustRelease() || previousObservedReleaseId !== releaseId)
+    (trustRelease() && environment.release_id !== RELEASE_ID)
+    || (previousObservedReleaseId && previousObservedReleaseId !== releaseId)
   ) {
     store.dispatch(updateAvailable());
   }
