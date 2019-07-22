@@ -21,7 +21,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, page_slug):
     """
     # GIVEN: The selenium driver, base_url, book_slug, and page_slug
 
-    # WHEN: The book and page URL is loaded
+    # WHEN: The page is loaded
     book_list = utility.Library()
     book_slug = book_list.random_book_slug()
 
