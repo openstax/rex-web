@@ -2,6 +2,8 @@ import os
 
 import pytest
 
+import sys
+
 # Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1500, 1080)
 # this used to be 414x738, but it looks like chrome won't resize lower than 500
@@ -78,3 +80,9 @@ def chrome_options(chrome_options, pytestconfig, language):
     chrome_options.add_experimental_option("prefs", {"intl.accept_languages": language})
 
     return chrome_options
+
+
+def pytest_runtest_setup(item):
+    for marker in item.iter_markers(name="my_marker"):
+        print(marker)
+        sys.stdout.flush()

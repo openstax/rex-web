@@ -8,8 +8,20 @@ from selenium.webdriver.common.by import By
 class Page(pypom.Page):
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
         super().__init__(driver, base_url, timeout, **url_kwargs)
+        self.random = None
+        self._books = ["biology-2e", "anatomy-and-physiology"]
 
     _title_locator = (By.TAG_NAME, "title")
+
+    def books(self):
+        """Return the books library."""
+        return self._books
+
+    def random_book_slug(self):
+        # book_with_units = ["biology-2e", "anatomy-and-physiology"]
+        from random import choice
+
+        return self.random.choice(self.books())
 
     @property
     def title(self):
