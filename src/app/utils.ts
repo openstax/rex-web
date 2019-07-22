@@ -95,7 +95,7 @@ export const assertDocumentElement = (message: string = 'BUG: Document Element i
 
 export const scrollTo = (elem: Element | string) => {
   const body = assertDocument().body;
-  const padding = assertWindow().getComputedStyle(body).getPropertyValue('scroll-padding-top');
-  const offset = -parseFloat(padding) || 0;
+  const padding = body.getAttribute('data-scroll-padding') || '0';
+  const offset = parseFloat(padding) || 0;
   return scrollToElement(elem, {offset});
 };
