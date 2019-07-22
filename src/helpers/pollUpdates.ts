@@ -18,7 +18,7 @@ import { APP_ENV, RELEASE_ID } from '../config';
  */
 
 const pollInterval = 1000 * 60; // 1m
-const trustAfter = 1000 * 60 * 60; // 1h
+export const trustAfter = 1000 * 60 * 60; // 1h
 const pageLoaded = new Date().getTime();
 const trustRelease = () => (new Date().getTime()) - pageLoaded > trustAfter;
 let previousObservedReleaseId: string | undefined;
@@ -32,8 +32,8 @@ const processEnvironment = (store: Store, environment: Environment) => {
   const releaseId = environment.release_id;
 
   if (
-    environment.release_id !== RELEASE_ID
-    && (trustRelease() || previousObservedReleaseId !== releaseId)
+    (trustRelease() && releaseId !== RELEASE_ID)
+    || (previousObservedReleaseId && previousObservedReleaseId !== releaseId)
   ) {
     store.dispatch(updateAvailable());
   }
