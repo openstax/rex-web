@@ -6,9 +6,9 @@ import random
 
 
 @markers.test_case("C250849")
-@markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
+@markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
+def test_toc_toggle_button_opens_and_closes(selenium, base_url, page_slug):
     """ Test that table of contents toggle button opens and closes the sidebar
 
     The table of contents sidebar is open by default for desktop resolutions
@@ -22,17 +22,10 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     # GIVEN: The selenium driver, base_url, book_slug, and page_slug
 
     # WHEN: The book and page URL is loaded
-    book_slug = utility.Library
-    x = utility.Library.books()
-    print(x)
+    book_list = utility.Library()
+    book_slug = book_list.random_book_slug()
 
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-
-    # x = (content.books()) #works
-    # print(x) #works
-    # print(random.choice(x)) #works
-
-    print(content.random_book_slug())
 
     toolbar = content.toolbar
     sidebar = content.sidebar
