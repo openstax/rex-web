@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
-import random
 
+import random
 
 from pages.base import Page
 from regions.base import Region
@@ -27,12 +27,12 @@ class Content(Page):
         return self.find_element(*self._print_locator)
 
     @property
-    def next_link(self):
-        return self.find_element(*self._next_locator)
-
-    @property
     def previous_link(self):
         return self.find_element(*self._previous_locator)
+
+    @property
+    def next_link(self):
+        return self.find_element(*self._next_locator)
 
     @property
     def navbar(self):

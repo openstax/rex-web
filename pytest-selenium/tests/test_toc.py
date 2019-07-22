@@ -88,22 +88,6 @@ def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, boo
     content.assert_element_not_interactable(content.previous_link)
     content.assert_element_not_interactable(attribution.attribution_link)
 
-    # # Compute the content overlay region from the sidebar/window width.
-    # sidebar_width = content.width(sidebar.root)
-    # window_width = content.window_width
-    # sidebar_width_left_offset = sidebar.root.get_attribute("offsetLeft")
-    # sidebar_width_offset = int(sidebar_width) + int(sidebar_width_left_offset)
-
-    # # Compute the content overlay region from the sidebar/window height.
-    # navbar_height = content.height(content.navbar.root)
-    # bookbanner_height = content.height(content.bookbanner.root)
-    # sidebar_height_offset = int(navbar_height) + int(bookbanner_height)
-    # window_height = int(content.height(sidebar.root)) + sidebar_height_offset
-
-    # # Generate a random number from the computed values
-    # x = random.randint(sidebar_width_offset, window_width)
-    # y = random.randint(sidebar_height_offset, window_height)
-
     # AND scrolling over content overlay should do nothing
     with pytest.raises(Exception) as exc_info:
         content.scroll_over_content_overlay()
