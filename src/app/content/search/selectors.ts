@@ -22,3 +22,8 @@ export const results = createSelector(
   parentSelectors.book,
   (state, book) => !!state.results && !!book ? getFormattedSearchResults(book.tree, state.results) : null
 );
+
+export const open = createSelector(
+  localState,
+  (state) => state.open
+);

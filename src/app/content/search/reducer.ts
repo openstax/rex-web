@@ -7,6 +7,7 @@ import { State } from './types';
 
 export const initialState = {
   loading: false,
+  open: false,
   query: null,
   results: null,
 };
@@ -14,10 +15,10 @@ export const initialState = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.requestSearch): {
-      return {...initialState, loading: true, query: action.payload};
+      return {...initialState, loading: true, query: action.payload, open: true};
     }
     case getType(actions.receiveSearchResults): {
-      return {...state, loading: false, results: action.payload};
+      return {...state, loading: false, results: action.payload, open: true};
     }
     case getType(actions.clearSearch): {
       return initialState;
@@ -26,6 +27,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return action.payload.action === 'PUSH' && !action.payload.location.state.search
         ? initialState
         : state;
+    }
+    case getType(actions.toggleSearchSidebar): {
+      return {...state, open: action.payload};
     }
     default:
       return state;

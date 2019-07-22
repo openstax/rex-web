@@ -13,6 +13,8 @@ interface SearchResultsSidebarProps {
   totalHits: number | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
+  toggleSearchSidebar: (open: boolean) => void;
+  open: boolean;
   book?: Book;
 }
 
@@ -20,9 +22,9 @@ export class SearchResultsBarWrapper extends Component<SearchResultsSidebarProps
   public searchSidebar = React.createRef<HTMLElement>();
 
   public render() {
-    const {query, totalHits, results, onClose, book} = this.props;
+    const {query, totalHits, results, onClose, book, open, toggleSearchSidebar} = this.props;
 
-    return <Styled.SearchResultsBar ref={this.searchSidebar}>
+    return <Styled.SearchResultsBar ref={this.searchSidebar} open={open}>
       {!results && <Styled.LoadingWrapper>
         <Styled.CloseIconWrapper>
           <Styled.CloseIconButton onClick={onClose}><Styled.CloseIcon /></Styled.CloseIconButton>
@@ -55,7 +57,7 @@ export class SearchResultsBarWrapper extends Component<SearchResultsSidebarProps
         </FormattedMessage>
       </div>}
       {book && results && totalHits && <Styled.NavOl>
-        <SearchResultContainers containers={results} book={book} />
+        <SearchResultContainers containers={results} book={book} toggle={toggleSearchSidebar}/>
       </Styled.NavOl>}
       </Styled.SearchResultsBar>;
   }
@@ -69,7 +71,6 @@ export class SearchResultsBarWrapper extends Component<SearchResultsSidebarProps
 
     const scrollHandler = () => {
       const top = searchSidebar.getBoundingClientRect().top;
-      console.log(top);
       searchSidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
     };
 

@@ -6,6 +6,7 @@ export interface State {
   results: SearchResult | null;
   loading: boolean;
   query: null | string;
+  open: boolean;
 }
 
 export type SearchResultPage = ArchiveTreeSection & {

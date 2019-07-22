@@ -6,3 +6,4 @@ export const receiveSearchResults = createStandardAction('Content/Search/receive
 >();
 export const requestSearch = createStandardAction('Content/Search/request')<string>();
 export const clearSearch = createStandardAction('Content/Search/clear')();
+export const toggleSearchSidebar = createStandardAction('Content/Search/toggle')<boolean>();
