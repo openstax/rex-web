@@ -13,7 +13,8 @@ import { receiveBook, receivePage } from '../actions';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
 
-const mockConfig = {BOOKS: {
+// tslint:disable-next-line
+var mockConfig = {BOOKS: { // var is needed so that the mock is hoisted
  [book.id]: {defaultVersion: book.version},
 } as {[key: string]: {defaultVersion: string}}};
 

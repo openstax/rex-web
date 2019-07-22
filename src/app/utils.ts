@@ -1,6 +1,8 @@
 import { Ref } from 'react';
 import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
+import Sentry from '../helpers/Sentry';
+
 import {
   ActionHookBody,
   AnyAction,
@@ -23,13 +25,17 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       const result = next(action);
 
       if (matches(action)) {
-        const promise = boundHook(action);
+        try {
+          const promise = boundHook(action);
+          if (promise) {
+            services.promiseCollector.add(promise);
+          }
+        } catch (e) {
+          // how to get store ?
 
-        if (promise) {
-          services.promiseCollector.add(promise);
+          Sentry.captureException(e);
         }
       }
-
       return result;
     };
   };
