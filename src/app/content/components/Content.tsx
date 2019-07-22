@@ -29,10 +29,10 @@ import { wrapperPadding } from './Wrapper';
 
 // tslint:disable-next-line:variable-name
 const GlobalStyle = createGlobalStyle`
-  html {
-    scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight)}em;
+  body {
+    scroll-padding: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight) * 10}px 0 0 0;
     ${theme.breakpoints.mobile(css`
-      scroll-padding-top: ${(bookBannerMobileMiniHeight + toolbarMobileHeight)}em;
+      scroll-padding: ${(bookBannerMobileMiniHeight + toolbarMobileHeight) * 10}px 0 0 0;
     `)}
   }
 `;
