@@ -13,15 +13,14 @@ export const renderSitemap = (filename: string, urls: SitemapItemOptions[]) => {
     max
   )(urls);
 
-  const url = sitemapPath(filename);
+  const filePath = sitemapPath(filename);
+  const url = `https://openstax.org${filePath}`;
 
   sitemaps.push({url, lastmod});
-  writeAssetFile(url, bookSitemap.toString());
+  writeAssetFile(filePath, bookSitemap.toString());
 };
 
 export const renderSitemapIndex = () => {
-  const sitemapIndex = sitemap.buildSitemapIndex({
-    urls: sitemaps,
-  });
+  const sitemapIndex = sitemap.buildSitemapIndex({ urls: sitemaps });
   writeAssetFile(sitemapPath('index'), sitemapIndex.toString());
 };
