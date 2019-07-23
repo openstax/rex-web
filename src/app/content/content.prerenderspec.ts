@@ -1,4 +1,5 @@
 /** @jest-environment puppeteer */
+import pretty from 'pretty';
 import { finishRender, navigate } from '../../test/browserutils';
 
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
@@ -38,6 +39,12 @@ describe('content', () => {
         }
       });
 
+      // react-dom and react-dom/server handle empty value attributes
+      // inconsistently
+      root.querySelectorAll('[value=""]').forEach((element) => {
+        element.removeAttribute('value');
+      });
+
       return root.innerHTML;
     };
 
@@ -53,7 +60,7 @@ describe('content', () => {
     const secondHTML = await page.evaluate(getHtml);
 
     expect(typeof(firstHTML)).toEqual('string');
-    expect(secondHTML).toEqual(firstHTML);
+    expect(pretty(secondHTML)).toEqual(pretty(firstHTML));
   });
 
   it('updates links in content', async() => {
