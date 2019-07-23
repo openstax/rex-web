@@ -9,8 +9,8 @@ import theme from '../../../theme';
 import {
     bookBannerDesktopMiniHeight,
     searchResultsBarDesktopWidth,
+    searchSidebarTopOffset,
     toolbarDesktopHeight,
-    toolbarMobileElementsHeight,
   } from '../constants';
 import ContentLinkComponent from '../ContentLink';
 import { Summary } from '../Sidebar/styled';
@@ -62,7 +62,7 @@ export const SearchResultsBar = styled.div`
   ${theme.breakpoints.mobile(css`
     width: 100%;
     margin-top: 0;
-    top: ${toolbarMobileElementsHeight}rem;
+    top: ${searchSidebarTopOffset}rem;
     padding: 0;
   `)}
 

@@ -8,23 +8,23 @@ import { SearchResultContainer } from '../../search/types';
 import { Book } from '../../types';
 import * as Styled from './styled';
 
-interface SearchResultsSidebarProps {
+interface ResultsSidebarProps {
   query: string | null;
   totalHits: number | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
-  toggleSearchSidebar: (open: boolean) => void;
-  open: boolean;
+  closeSearchResults: () => void;
+  mobileOpen: boolean;
   book?: Book;
 }
 
-export class SearchResultsBarWrapper extends Component<SearchResultsSidebarProps> {
+export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public searchSidebar = React.createRef<HTMLElement>();
 
   public render() {
-    const {query, totalHits, results, onClose, book, open, toggleSearchSidebar} = this.props;
+    const {query, totalHits, results, onClose, book, closeSearchResults} = this.props;
 
-    return <Styled.SearchResultsBar ref={this.searchSidebar} open={open}>
+    return <Styled.SearchResultsBar ref={this.searchSidebar}>
       {!results && <Styled.LoadingWrapper>
         <Styled.CloseIconWrapper>
           <Styled.CloseIconButton onClick={onClose}><Styled.CloseIcon /></Styled.CloseIconButton>
@@ -57,7 +57,7 @@ export class SearchResultsBarWrapper extends Component<SearchResultsSidebarProps
         </FormattedMessage>
       </div>}
       {book && results && totalHits && <Styled.NavOl>
-        <SearchResultContainers containers={results} book={book} toggle={toggleSearchSidebar}/>
+        <SearchResultContainers containers={results} book={book} closeSearchResults={closeSearchResults}/>
       </Styled.NavOl>}
       </Styled.SearchResultsBar>;
   }

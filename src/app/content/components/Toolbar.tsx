@@ -3,17 +3,21 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
+import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
-import { contentFont, textRegularLineHeight,
-        textRegularSize, textRegularStyle } from '../../components/Typography';
+import {
+  contentFont,
+  textRegularLineHeight,
+  textRegularSize,
+  textRegularStyle
+} from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString, assertWindow } from '../../utils';
-import { clearSearch, requestSearch, toggleSearchSidebar } from '../search/actions';
+import { clearSearch, openSearchResults, requestSearch } from '../search/actions';
 import * as selectSearch from '../search/selectors';
 import { SearchResultContainer } from '../search/types';
 import {
@@ -262,7 +266,7 @@ const MobileSearchWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const LeftArrow = styled(ChevronLeft)`
+const LeftArrow = styled(AngleLeft)`
   width: 2.5rem;
   height: 2.5rem;
 `;
@@ -288,9 +292,9 @@ interface SearchResultsSidebarProps {
   search: typeof requestSearch;
   query: string | null;
   onClose: () => void;
-  toggleSearchSidebar: (open: boolean) => void;
+  openSearchResults: () => void;
   results: SearchResultContainer[] | null;
-  open: boolean;
+  mobileOpen: boolean;
 }
 
 class Toolbar extends React.Component<SearchResultsSidebarProps, {
@@ -330,9 +334,9 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       }
     };
 
-    const toggleSearchbar = (e: React.FormEvent) => {
+    const openSearchbar = (e: React.FormEvent) => {
       e.preventDefault();
-      this.props.toggleSearchSidebar(true);
+      this.props.openSearchResults();
     };
 
     return <BarWrapper>
@@ -370,9 +374,9 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       {this.state.mobileOpen && <MobileSearchWrapper>
         <Hr />
         <MobileSearchContainer>
-          {!this.props.open && this.props.query &&
+          {!this.props.mobileOpen && this.props.query &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <ToggleSeachResultsText onClick={toggleSearchbar}>
+              {(msg) => <ToggleSeachResultsText onClick={openSearchbar}>
                 <LeftArrow/><InnerText>{msg}</InnerText>
               </ToggleSeachResultsText>}
             </FormattedMessage>
@@ -389,7 +393,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
 
 export default connect(
   (state: AppState) => ({
-    open: selectSearch.open(state),
+    mobileOpen: selectSearch.mobileOpen(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
   }),
@@ -397,7 +401,7 @@ export default connect(
     onClose: () => {
       dispatch(clearSearch());
     },
+    openSearchResults: () => dispatch(openSearchResults()),
     search: (query: string) => dispatch(requestSearch(query)),
-    toggleSearchSidebar: (open: boolean) => dispatch(toggleSearchSidebar(open)),
   })
 )(Toolbar);
