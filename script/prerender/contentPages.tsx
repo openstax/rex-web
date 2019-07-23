@@ -128,7 +128,7 @@ export const prepareBooks = async(
   }));
 };
 
-type Pages = Array<{code: number, page: AnyMatch}>;
+export type Pages = Array<{code: number, page: AnyMatch}>;
 
 export const prepareErrorPages = (): Promise<Pages> => Promise.resolve([
   {code: 404, page: {route: notFound}},

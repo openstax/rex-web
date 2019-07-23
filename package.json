@@ -5,8 +5,8 @@
   "dependencies": {
     "@openstax/open-search-client": "./open-search-client/",
     "@sentry/browser": "^5.5.0",
-    "@types/redux-sentry-middleware": "^0.1.0",
     "@types/pretty": "^2.0.0",
+    "@types/redux-sentry-middleware": "^0.1.0",
     "ally.js": "^1.4.1",
     "color": "^3.1.0",
     "details-element-polyfill": "^2.3.1",
@@ -139,6 +139,7 @@
     "puppeteer": "^1.10.0",
     "react-test-renderer": "^16.6.1",
     "serve-static": "^1.13.2",
+    "sitemap": "^3.2.2",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-config-styled-components": "^0.1.1",

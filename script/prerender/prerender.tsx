@@ -23,6 +23,7 @@ import {
   renderPages
 } from './contentPages';
 import { writeAssetFile } from './fileUtils';
+import { addSitemapPages, renderSitemap } from './sitemap';
 
 (global as any).fetch = fetch;
 
@@ -51,9 +52,11 @@ async function render() {
   for (const {loader, book} of books) {
     const bookPages = await prepareBookPages(loader, book);
 
+    addSitemapPages(bookPages);
     await renderPages({archiveLoader, osWebLoader, userLoader, searchClient}, bookPages);
   }
 
+  await renderSitemap();
   await renderManifest();
 
   const {numPages, elapsedMinutes} = getStats();
