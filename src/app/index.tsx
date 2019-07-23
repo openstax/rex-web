@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
+import Sentry from '../helpers/Sentry';
 import * as auth from './auth';
 import * as content from './content';
 import * as Services from './context/Services';
@@ -87,6 +88,10 @@ export default (options: AppOptions) => {
     navigation.createMiddleware(routes, history),
     ...hooks.map((hook) => hook(services)),
   ];
+
+  if (Sentry.isEnabled) {
+    middleware.push(Sentry.initializeWithMiddleware());
+  }
 
   /* istanbul ignore next */
   if (process.env.REACT_APP_ENV === 'development') {

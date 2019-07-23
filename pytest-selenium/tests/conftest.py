@@ -21,9 +21,14 @@ def selenium(selenium, request):
     This fixture will also parametrize all of the tests to run them on both a
     Desktop resolution and a mobile resolution.
 
+    This fixture also helps skip desktop for tests focussing only on mobile.
+
     Desktop size: 1920x1080
     Mobile size: 738x414 (iPhone 7+)
     """
+    marker = request.node.get_closest_marker("mobile_only")
+    if marker and request.param == DESKTOP:
+        pytest.skip("Skipping desktop test")
     selenium.set_window_size(*request.param)
     return selenium
 

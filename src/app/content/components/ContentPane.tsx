@@ -7,11 +7,9 @@ import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
 import { State } from '../types';
 import {
-  bookBannerDesktopMiniHeight,
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
-  toolbarDesktopHeight
 } from './constants';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
@@ -29,15 +27,6 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     ${theme.breakpoints.mobile(css`
       margin-left: -${sidebarMobileWidth}rem;
     `)}
-
-    *:target::before {
-      content: " ";
-      display: block;
-      position: relative;
-      margin-top: -${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-      height: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-      visibility: hidden;
-    }
   }
 `;
 

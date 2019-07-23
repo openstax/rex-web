@@ -93,7 +93,7 @@ Array [
   position: relative;
   z-index: 4;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
+  background: linear-gradient(to right, #002468, #004aa2);
 }
 
 @media screen and (max-width:75em) {
@@ -286,7 +286,7 @@ Array [
   position: sticky;
   z-index: 3;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
+  background: linear-gradient(to right, #002468, #004aa2);
   margin-top: -7rem;
 }
 
@@ -504,7 +504,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   position: relative;
   z-index: 4;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
+  background: linear-gradient(to right, #002468, #004aa2);
   -webkit-transform: translateY(-7rem);
   -ms-transform: translateY(-7rem);
   transform: translateY(-7rem);
