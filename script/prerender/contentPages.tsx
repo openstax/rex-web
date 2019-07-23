@@ -1,7 +1,9 @@
+import moment from 'moment';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Loadable from 'react-loadable';
+import { EnumChangefreq } from 'sitemap';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import { AppOptions } from '../../src/app';
@@ -19,6 +21,7 @@ import * as navigationSelectors from '../../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../../src/app/navigation/types';
 import { matchUrl } from '../../src/app/navigation/utils';
 import { AppServices, AppState } from '../../src/app/types';
+import { assertDefined } from '../../src/app/utils';
 import { BOOKS } from '../../src/config';
 import FontCollector from '../../src/helpers/FontCollector';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
@@ -143,10 +146,34 @@ export const prepareDeveloperPages = (): Promise<Pages> => Promise.resolve(
 export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   book: Book
-): Promise<Pages> => asyncPool(20, findTreePages(book.tree), (section) =>
+) => asyncPool(20, findTreePages(book.tree), (section) =>
   prepareContentPage(bookLoader, book.slug, stripIdVersion(section.id))
     .then((page) => ({code: 200, page}))
 );
+
+export const getBookSitemap = (
+  bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
+  pages: Array<{page: Match<typeof content>}>
+) => pages.map((record) => {
+  const matchState = assertDefined(
+    record.page.state,
+    'match state wasn\'t defined, it should have been'
+  );
+  const archivePage = assertDefined(
+    bookLoader.page(matchState.pageUid).cached(),
+    'page wasn\'t cached, it should have been'
+  );
+
+  const modified = archivePage.history.length > 0
+    ? archivePage.history[0].revised
+    : undefined;
+
+  return {
+    changefreq: EnumChangefreq.MONTHLY,
+    lastmod: modified && moment(modified).format('YYYY-MM-DD'),
+    url: matchUrl(record.page),
+  };
+});
 
 type RenderPages = (
   services: AppOptions['services'],

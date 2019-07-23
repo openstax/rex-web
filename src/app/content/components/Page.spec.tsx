@@ -445,6 +445,7 @@ describe('Page', () => {
 
     store.dispatch(actions.receivePage({
       content: 'some other content',
+      history: [],
       id: 'adsfasdf',
       references: [],
       shortId: 'asdf',
@@ -462,6 +463,7 @@ describe('Page', () => {
 
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
+      history: [],
       id: 'adsfasdf',
       shortId: 'asdf',
       title: 'qerqwer',
@@ -519,6 +521,7 @@ describe('Page', () => {
 
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
+      history: [],
       id: 'adsfasdf',
       shortId: 'asdf',
       title: 'qerqwer',
@@ -555,6 +558,7 @@ describe('Page', () => {
 
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
+      history: [],
       id: 'adsfasdf',
       shortId: 'asdf',
       title: 'qerqwer',
@@ -620,6 +624,7 @@ describe('Page', () => {
   it('adds scope to table headers', () => {
     const tablePage = {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
+      history: [],
       id: 'adsfasdf',
       shortId: 'asdf',
       title: 'qerqwer',

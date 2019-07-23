@@ -1,16 +1,27 @@
-import sitemap from 'sitemap';
-import { matchUrl } from '../../src/app/navigation/utils';
-import { Pages } from './contentPages';
+import { filter, flow, get, identity, map, max } from 'lodash/fp';
+import sitemap, { SitemapItemOptions } from 'sitemap';
 import { writeAssetFile } from './fileUtils';
 
-const rexSitemap = sitemap.createSitemap({
-  hostname: 'https://openstax.org',
-});
+const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
+const sitemaps: SitemapItemOptions[] = [];
 
-export const addSitemapPages = (pages: Pages) => {
-  pages.forEach((record) => rexSitemap.add({url: matchUrl(record.page)}));
+export const renderSitemap = (filename: string, urls: SitemapItemOptions[]) => {
+  const bookSitemap = sitemap.createSitemap({ hostname: 'https://openstax.org', urls });
+  const lastmod = flow(
+    map<SitemapItemOptions, (string | undefined)>(get('lastmod')),
+    filter<string | undefined>(identity),
+    max
+  )(urls);
+
+  const url = sitemapPath(filename);
+
+  sitemaps.push({url, lastmod});
+  writeAssetFile(url, bookSitemap.toString());
 };
 
-export const renderSitemap = () => {
-  writeAssetFile('/rex/sitemap.xml', rexSitemap.toString());
+export const renderSitemapIndex = () => {
+  const sitemapIndex = sitemap.buildSitemapIndex({
+    urls: sitemaps,
+  });
+  writeAssetFile(sitemapPath('index'), sitemapIndex.toString());
 };

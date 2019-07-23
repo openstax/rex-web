@@ -96,6 +96,9 @@ export interface ArchivePage {
   content: string;
   version: string;
   title: string;
+  history: Array<{
+    revised: string;
+  }>;
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;

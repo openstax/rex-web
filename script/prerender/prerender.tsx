@@ -15,6 +15,7 @@ import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import { startServer } from '../server';
 import {
+  getBookSitemap,
   getStats,
   prepareBookPages,
   prepareBooks,
@@ -23,7 +24,7 @@ import {
   renderPages
 } from './contentPages';
 import { writeAssetFile } from './fileUtils';
-import { addSitemapPages, renderSitemap } from './sitemap';
+import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 (global as any).fetch = fetch;
 
@@ -52,11 +53,11 @@ async function render() {
   for (const {loader, book} of books) {
     const bookPages = await prepareBookPages(loader, book);
 
-    addSitemapPages(bookPages);
+    renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
     await renderPages({archiveLoader, osWebLoader, userLoader, searchClient}, bookPages);
   }
 
-  await renderSitemap();
+  await renderSitemapIndex();
   await renderManifest();
 
   const {numPages, elapsedMinutes} = getStats();
