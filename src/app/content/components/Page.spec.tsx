@@ -445,9 +445,9 @@ describe('Page', () => {
 
     store.dispatch(actions.receivePage({
       content: 'some other content',
-      history: [],
       id: 'adsfasdf',
       references: [],
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -463,8 +463,8 @@ describe('Page', () => {
 
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
-      history: [],
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -521,8 +521,8 @@ describe('Page', () => {
 
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
-      history: [],
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -558,8 +558,8 @@ describe('Page', () => {
 
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
-      history: [],
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -624,8 +624,8 @@ describe('Page', () => {
   it('adds scope to table headers', () => {
     const tablePage = {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
-      history: [],
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',

@@ -164,13 +164,9 @@ export const getBookSitemap = (
     'page wasn\'t cached, it should have been'
   );
 
-  const modified = archivePage.history.length > 0
-    ? archivePage.history[0].revised
-    : undefined;
-
   return {
     changefreq: EnumChangefreq.MONTHLY,
-    lastmod: modified && moment(modified).format('YYYY-MM-DD'),
+    lastmod: moment(archivePage.revised).format('YYYY-MM-DD'),
     url: matchUrl(record.page),
   };
 });

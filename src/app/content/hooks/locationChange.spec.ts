@@ -142,16 +142,16 @@ describe('locationChange', () => {
   it('loads a page with a content reference', async() => {
     archiveLoader.mockPage(book, {
       content: 'rando content',
-      history: [],
       id: 'rando-page-id',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'rando-page-shortid',
       title: 'rando page',
       version: '0',
     });
     archiveLoader.mockPage(book, {
       content: 'some <a href="/contents/rando-page-id"></a> content',
-      history: [],
       id: 'asdfasfasdfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
@@ -227,8 +227,8 @@ describe('locationChange', () => {
     };
     const mockPageInOtherBook = {
       content: 'dope content bruh',
-      history: [],
       id: 'newbookpageid',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'newbookpageshortid',
       title: 'page in a new book',
       version: '0',
@@ -250,8 +250,8 @@ describe('locationChange', () => {
 
       archiveLoader.mockPage(book, {
         content: 'some <a href="/contents/newbookpageid"></a> content',
-        history: [],
         id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
         shortId: 'pageshortid',
         title: 'page referencing different book',
         version: '0',
