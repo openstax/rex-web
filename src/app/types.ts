@@ -30,13 +30,14 @@ export interface AppState {
 }
 
 export interface AppServices {
-  history: History;
-  promiseCollector: PromiseCollector;
-  fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
+  fontCollector: FontCollector;
+  history: History;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
-  userLoader: ReturnType<typeof createUserLoader>;
+  prerenderedContent?: string;
+  promiseCollector: PromiseCollector;
   searchClient: ReturnType<typeof createSearchClient>;
+  userLoader: ReturnType<typeof createUserLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

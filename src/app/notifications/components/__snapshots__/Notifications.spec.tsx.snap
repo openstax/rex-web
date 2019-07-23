@@ -214,3 +214,38 @@ exports[`Notifications matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`Notifications matches snapshot for unknown notification 1`] = `
+.c0 {
+  width: 30rem;
+  height: 0;
+  margin-left: calc(100% - 30rem);
+  top: 0;
+  overflow: visible;
+  position: -webkit-sticky;
+  position: sticky;
+  padding-top: 1px;
+  margin-top: -1px;
+}
+
+@media (max-width:75em) {
+  .c0 {
+    margin: 0;
+    height: auto;
+    width: 100%;
+    border-bottom: thin solid #e5e5e5;
+    padding: 0 3.2rem;
+    background-color: #fff;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;

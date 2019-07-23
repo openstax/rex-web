@@ -6,7 +6,7 @@ import { resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
-import { archiveTreeContainsSection } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
@@ -83,7 +83,7 @@ export class Sidebar extends Component<SidebarProps> {
     </Styled.NavOl>;
 
   private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.NavDetails
-    {...this.props.page && archiveTreeContainsSection(node, this.props.page.id)
+    {...this.props.page && archiveTreeContainsNode(node, this.props.page.id)
         ? {defaultOpen: true}
         : {}
     }

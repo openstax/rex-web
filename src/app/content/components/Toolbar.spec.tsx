@@ -97,7 +97,7 @@ describe('search', () => {
     findById('desktop-search-input').props.onChange(inputEvent);
 
     const event = makeEvent();
-    findById('desktop-search').props.onSubmit(event);
+    renderer.act(() => findById('desktop-search').props.onSubmit(event));
     expect(event.preventDefault).toHaveBeenCalled();
 
     expect(dispatch).toHaveBeenCalledWith(requestSearch('cool search'));
@@ -121,7 +121,7 @@ describe('search', () => {
     findById('mobile-search-input').props.onChange(inputEvent);
 
     const event = makeEvent();
-    findById('mobile-search').props.onSubmit(event);
+    renderer.act(() => findById('mobile-search').props.onSubmit(event));
     expect(event.preventDefault).toHaveBeenCalled();
 
     expect(dispatch).toHaveBeenCalledWith(requestSearch('cool search'));

@@ -12,7 +12,7 @@ import {
   getPageIdFromUrlParam,
   getUrlParamForPageId
 } from '../../utils';
-import { archiveTreeContainsSection } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
 
 export default async(
   services: AppServices & MiddlewareAPI,
@@ -146,7 +146,7 @@ const resolveExternalBookReference = async(
   const archiveBook = await archiveLoader.book(bookId, bookVersion).load();
   const referencedBook = formatBookData(archiveBook, osWebBook);
 
-  if (!archiveTreeContainsSection(referencedBook.tree, pageId)) {
+  if (!archiveTreeContainsNode(referencedBook.tree, pageId)) {
     throw error(`archive thought it would be in "${referencedBook.id}", but it wasn't`);
   }
 
@@ -159,7 +159,7 @@ const loadContentReference = async(
   page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[0]
 ) => {
-  const targetBook: Book = archiveTreeContainsSection(book.tree, reference.pageUid)
+  const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageUid)
     ? book
     : await resolveExternalBookReference(services, book, page, reference.pageUid);
 
