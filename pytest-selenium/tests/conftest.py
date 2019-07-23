@@ -1,8 +1,11 @@
+import sys
+
 import os
 
 import pytest
 
-import sys
+from utils import utility
+
 
 # Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1500, 1080)
@@ -91,3 +94,9 @@ def pytest_runtest_setup(item):
     for marker in item.iter_markers(name="my_marker"):
         print(marker)
         sys.stdout.flush()
+
+
+@pytest.fixture
+def book_slug():
+    book_list = utility.Library()
+    return book_list.random_book_slug()

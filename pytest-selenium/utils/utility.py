@@ -1,5 +1,4 @@
 import random
-from random import choice
 
 
 class Library(object):

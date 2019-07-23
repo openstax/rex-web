@@ -1,14 +1,12 @@
 import pytest
 from pages.content import Content
 from . import markers
-from utils import utility
-import random
 
 
 @markers.test_case("C250849")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_toc_toggle_button_opens_and_closes(selenium, base_url, page_slug):
+def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
     """ Test that table of contents toggle button opens and closes the sidebar
 
     The table of contents sidebar is open by default for desktop resolutions
@@ -20,11 +18,6 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, page_slug):
 
     """
     # GIVEN: The selenium driver, base_url, book_slug, and page_slug
-
-    # WHEN: The page is loaded
-    book_list = utility.Library()
-    book_slug = book_list.random_book_slug()
-
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
     toolbar = content.toolbar
@@ -72,7 +65,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, page_slug):
 
 
 @markers.test_case("C476818")
-@markers.parametrize("book_slug,page_slug", [("college-physics", "1-1-physics-an-introduction")])
+@markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @markers.mobile_only
 def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
