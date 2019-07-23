@@ -2,7 +2,7 @@ import { updateAvailable } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import createTestStore from '../test/createTestStore';
-import pollUpdatesType, { Cancel, poll as pollType } from './pollUpdates';
+import pollUpdatesType, { Cancel, poll as pollType, trustAfter } from './pollUpdates';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
   json: () => Promise.resolve(data),
@@ -15,12 +15,19 @@ describe('poll updates', () => {
   const fetchBackup = fetch;
   let store: Store;
   let dispatch: jest.SpyInstance;
+  const dateBackup = Date;
 
   beforeEach(() => {
     jest.useFakeTimers();
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
     (global as any).fetch = mockFetch(200, {release_id: 'releaseid'});
+
+    function MockDate() {
+      return null;
+    }
+    MockDate.prototype.getTime = jest.fn(() => (new dateBackup()).getTime());
+    (global as any).Date = MockDate;
   });
 
   afterEach(() => {
@@ -31,6 +38,7 @@ describe('poll updates', () => {
     }
     jest.resetModules();
     (global as any).fetch = fetchBackup;
+    (global as any).Date = dateBackup;
   });
 
   describe('in production', () => {
@@ -62,6 +70,31 @@ describe('poll updates', () => {
       expect(fetch).toHaveBeenNthCalledWith(2, '/rex/environment.json');
       expect(fetch).toHaveBeenNthCalledWith(3, '/rex/environment.json');
       expect(fetch).toHaveBeenNthCalledWith(4, '/rex/environment.json');
+    });
+
+    it('doesn\'t dispatch if release differs from built release until specified time elapses', async() => {
+      (global as any).fetch = mockFetch(200, {release_id: 'releaseid2'});
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue
+      await Promise.resolve(); // clear promise queue
+      await Promise.resolve(); // clear promise queue
+
+      expect(dispatch).not.toHaveBeenCalled();
+
+      (Date as any).prototype.getTime.mockReturnValue((new dateBackup()).getTime() + trustAfter);
+      // make date be 1h in the future
+
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue
+      await Promise.resolve(); // clear promise queue
+      await Promise.resolve(); // clear promise queue
+
+      expect(dispatch).toHaveBeenCalledWith(updateAvailable());
     });
 
     it('dispatches updateAvailable if release changes', async() => {
