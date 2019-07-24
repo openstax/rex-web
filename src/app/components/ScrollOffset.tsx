@@ -41,8 +41,9 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     assertWindow().addEventListener('click', this.clickHandler);
     assertWindow().addEventListener('resize', this.resizeHandler);
 
-    this.scrollForOffset();
     this.resizeHandler();
+    this.scrollForOffset();
+    this.scrollOnce();
   }
 
   public componentWillUnmount() {
