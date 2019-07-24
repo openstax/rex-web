@@ -9,6 +9,7 @@ import { State } from './types';
 export const initialState = {};
 
 const reducer: Reducer<State, AnyAction> = (state = {}, action) => {
+  console.log(action)
   switch (action.type) {
     case getType(recordError):
       return { ...state, error: action.payload };
