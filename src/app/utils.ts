@@ -26,14 +26,17 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       const result = next(action);
 
       if (matches(action)) {
+        const catchError = (e: Error) => {
+          stateHelpers.dispatch(recordError(e));
+          Sentry.captureException(e);
+        };
         try {
           const promise = boundHook(action);
           if (promise) {
-            services.promiseCollector.add(promise);
+            services.promiseCollector.add(promise.catch(catchError));
           }
         } catch (e) {
-          recordError(e);
-          Sentry.captureException(e);
+          catchError(e);
         }
       }
       return result;
