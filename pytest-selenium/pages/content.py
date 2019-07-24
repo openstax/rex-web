@@ -161,10 +161,7 @@ class Content(Page):
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
-        _default_page_locator = (
-            By.XPATH,
-            "//div[@aria-label='Table of Contents']/ol/li[2]/details/ol/li/a | //div[@aria-label='Table of Contents']/ol/li[2]/details/ol/li/details/ol/li/a",
-        )
+        _default_page_locator = (By.XPATH, "./ol/li[2]//a")
 
         @property
         def header(self):

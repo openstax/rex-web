@@ -57,10 +57,10 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
 
 
 @markers.test_case("C480905")
+# @markers.parametrize("page_slug", ["preface"])
 @markers.parametrize(
-    "book_slug,page_slug", [("biology-2e", "preface"), ("college-physics", "preface")]
+    "book_slug,page_slug", [("college-physics", "preface"), ("biology-2e", "preface")]
 )
-# @markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
 @markers.nondestructive
 def test_book_url_in_citation_text_shows_url_for_default_page(
     selenium, base_url, book_slug, page_slug
@@ -76,6 +76,7 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
     # THEN: The book url in the the citation section should reference default page of the book
     default_page_url = content.sidebar.default_page_url
     default_page_slug = default_page_url.split("/")[-1]
+    print(default_page_slug)
 
     attribution_book_url_expected = (
         "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
