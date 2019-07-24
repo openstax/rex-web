@@ -14,12 +14,8 @@ class Page(pypom.Page):
     _title_locator = (By.TAG_NAME, "title")
 
     @property
-    def title(self):
-        return self.find_element(*self._title_locator)
-
-    @property
-    def title_before_click(self):
-        return self.title.get_attribute("innerHTML")
+    def page_title(self):
+        return self.find_element(*self._title_locator).get_attribute("innerHTML")
 
     @property
     def window_width(self):
@@ -49,7 +45,6 @@ class Page(pypom.Page):
 
     def click_and_wait_for_load(self, element):
         """Clicks an offscreen element and waits for title to load.
-
         Clicks the given element, even if it is offscreen, by sending the ENTER key.
         Returns after loading the last element (title) of the page).
         """

@@ -8,6 +8,8 @@ import random
 
 from pages.base import Page
 from regions.base import Region
+from regions.toc import TableOfContents
+from utils.utility import WaitForTitleChange
 
 
 class Content(Page):
@@ -165,6 +167,10 @@ class Content(Page):
         @property
         def header(self):
             return self.Header(self.page)
+
+        @property
+        def toc(self):
+            return TableOfContents(self)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')

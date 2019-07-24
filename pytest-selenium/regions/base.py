@@ -24,3 +24,14 @@ class Region(pypom.Region):
         # return self.page.offscreen_click(element or self.root)
         element.send_keys(Keys.ENTER)
         return element
+
+    @property
+    def page_title(self) -> str:
+        """Return the Page title from the DOM header.
+        :return: the page title
+        :rtype: str
+        """
+        target = self.page
+        while not isinstance(target, pypom.Page):
+            target = target.page
+        return target.page_title
