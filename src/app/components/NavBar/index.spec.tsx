@@ -1,19 +1,24 @@
-import React, { ComponentClass } from 'react';
+import { ComponentClass } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
-import { renderToDom } from '../../../test/reactutils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { assertWindowDefined } from '../../utils';
+import { assertWindow } from '../../utils';
+let React: any; // tslint:disable-line:variable-name
+let renderer: any;
+let Provider: any; // tslint:disable-line:variable-name
+let renderToDom: any;
 
 describe('content', () => {
   beforeEach(() => {
     jest.resetModules();
     jest.resetAllMocks();
+    React = require('react');
+    Provider = require('react-redux').Provider;
+    renderer = require('react-test-renderer');
+    renderToDom = require('../../../test/reactutils').renderToDom;
   });
 
   describe('in browser', () => {
@@ -55,7 +60,7 @@ describe('content', () => {
       });
 
       it('doesn\'t prevent default on accounts links', async() => {
-        const window = assertWindowDefined();
+        const window = assertWindow();
         const {root} = renderToDom(render());
         const link1 = root.querySelector('a[href^="/accounts/logout"]');
         const link2 = root.querySelector('a[href="/accounts/profile"]');
@@ -96,7 +101,7 @@ describe('content', () => {
 
       beforeEach(() => {
         store.dispatch(receiveUser({firstName: 'test'}));
-        window = assertWindowDefined();
+        window = assertWindow();
         getComputedStyleBack = window.getComputedStyle;
         getComputedStyle = window.getComputedStyle = jest.fn();
       });

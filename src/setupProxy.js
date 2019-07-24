@@ -11,12 +11,15 @@ const {
   FIXTURES,
   ARCHIVE_URL,
   OS_WEB_URL,
+  SEARCH_URL,
   ACCOUNTS_URL,
   REACT_APP_ACCOUNTS_URL,
+  REACT_APP_SEARCH_URL,
   REACT_APP_OS_WEB_API_URL
 } = require('./config');
 
 const archivePaths = [
+  '/extras',
   '/contents',
   '/resources',
   '/specials',
@@ -98,31 +101,54 @@ function setupTestProxy(app) {
   });
 }
 
-function setupProxy(app) {
-  if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
-  if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
-
+function archiveProxy(app) {
   archivePaths.forEach(path => app.use(proxy(path, {
     target: `${ARCHIVE_URL}${path}`,
     prependPath: false,
     changeOrigin: true,
   })));
+}
 
+function accountsProxy(app) {
   app.use(proxy(REACT_APP_ACCOUNTS_URL, {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,
   }));
+}
 
+function searchProxy(app) {
+  app.use(proxy(REACT_APP_SEARCH_URL, {
+    target: SEARCH_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
+}
+
+function osWebApiProxy(app) {
   app.use(proxy(REACT_APP_OS_WEB_API_URL, {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
+}
+
+function osWebProxy(app) {
+  app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|\/$/) , {
+    target: OS_WEB_URL,
+    changeOrigin: true,
+  }));
+}
+
+function setupProxy(app) {
+  if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
+  if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
+
+  archiveProxy(app);
+  accountsProxy(app);
+  searchProxy(app);
+  osWebApiProxy(app);
 
   if (!SKIP_OS_WEB_PROXY) {
-    app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|api.*|\/$/), {
-      target: OS_WEB_URL,
-      changeOrigin: true,
-    }));
+    osWebProxy(app);
   }
 }

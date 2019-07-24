@@ -12,9 +12,7 @@ import { openToc } from '../actions';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
 import Content from './Content';
-import Page from './Page';
 import { Sidebar } from './Sidebar';
-import { CloseSidebarControl, OpenSidebarControl, SidebarControl } from './SidebarControl';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -90,7 +88,7 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const pageComponent = component.root.findByType(Page);
+    const pageComponent = component.root.findByProps({id: 'main-content'});
 
     expect(pageComponent).toBeDefined();
   });
@@ -110,7 +108,9 @@ describe('content', () => {
   });
 
   it('clicking overlay closes toc', () => {
-    store.dispatch(openToc());
+    renderer.act(() => {
+      store.dispatch(openToc());
+    });
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -124,7 +124,9 @@ describe('content', () => {
     const mobileScrollLock = component.root.findByType(MobileScrollLock);
 
     expect(sidebarComponent.props.isOpen).toBe(true);
-    mobileScrollLock.props.onClick();
+    renderer.act(() => {
+      mobileScrollLock.props.onClick();
+    });
     expect(sidebarComponent.props.isOpen).toBe(false);
   });
 
@@ -138,9 +140,21 @@ describe('content', () => {
     </Provider>);
 
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
-    component.root.findAllByType(CloseSidebarControl)[0].findByType(SidebarControl).props.onClick();
+
+    renderer.act(() => {
+      component.root
+        .findByProps({'aria-label': 'Click to close the Table of Contents'})
+        .props.onClick();
+    });
+
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
-    component.root.findAllByType(OpenSidebarControl)[0].findByType(SidebarControl).props.onClick();
+
+    renderer.act(() => {
+      component.root
+        .findByProps({'aria-label': 'Click to open the Table of Contents'})
+        .props.onClick();
+    });
+
     expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
   });
 });

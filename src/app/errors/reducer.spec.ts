@@ -4,7 +4,7 @@ import { locationChange } from '../navigation/actions';
 import reducer, { initialState } from './reducer';
 import { notFound } from './routes';
 
-describe('content reducer', () => {
+describe('error reducer', () => {
 
   it('reduces locationChange with no match', () => {
     const state = {
@@ -17,7 +17,7 @@ describe('content reducer', () => {
       search: '',
       state: {},
     };
-    const newState = reducer(state, locationChange({location}));
+    const newState = reducer(state, locationChange({location, action: 'PUSH'}));
 
     expect(newState.code).toEqual(404);
   });
@@ -34,7 +34,7 @@ describe('content reducer', () => {
       state: {},
     };
     const match = {route: notFound};
-    const newState = reducer(state, locationChange({location, match}));
+    const newState = reducer(state, locationChange({location, match, action: 'PUSH'}));
 
     expect(newState.code).toEqual(404);
   });
@@ -54,7 +54,7 @@ describe('content reducer', () => {
       params: {book: 'book', page: 'page'},
       route: content,
     };
-    const newState = reducer(state, locationChange({location, match}));
+    const newState = reducer(state, locationChange({location, match, action: 'POP'}));
 
     expect(newState.code).toEqual(200);
   });

@@ -16,7 +16,7 @@ export const shortPage = JSON.parse(
 ) as ArchivePage;
 
 export const lastPage = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage7-shortid'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage12-shortid'), 'utf8')
 ) as ArchivePage;
 
 const books: {[key: string]: ArchiveBook} = {
@@ -45,13 +45,15 @@ export default () => {
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
-  const cachedBook = jest.fn((bookId, bookVersion) => {
+  const cachedBook = jest.fn((bookId, bookVersion): ArchiveBook | undefined => {
     return resolveBook(bookId, bookVersion);
   });
-  const cachedPage = jest.fn((bookId, bookVersion, pageId) => {
+  const cachedPage = jest.fn((bookId, bookVersion, pageId): ArchivePage | undefined => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     return pages && pages[pageId];
   });
+
+  const getBookIdsForPage = jest.fn((_pageId: string) => Promise.resolve([] as string[]));
 
   return {
     book: (bookId: string, bookVersion: string | undefined) => ({
@@ -63,7 +65,12 @@ export default () => {
         load: () => loadPage(bookId, bookVersion, pageId),
       }),
     }),
-    mock: { loadBook, loadPage, cachedBook, cachedPage },
+    getBookIdsForPage,
+    mock: { loadBook, loadPage, cachedBook, cachedPage, getBookIdsForPage },
+    mockBook: (newBook: ArchiveBook) => {
+      localBooks[`${newBook.id}@${newBook.version}`] = newBook;
+      localBookPages[`${newBook.id}@${newBook.version}`] = {};
+    },
     mockPage: (parentBook: ArchiveBook, newPage: ArchivePage) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({

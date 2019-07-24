@@ -1,7 +1,8 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { getType } from 'typesafe-actions';
+import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as actions from '../actions';
@@ -16,7 +17,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications: SFC<Props> = ({notifications, className}) => notifications.length === 0
+const Notifications = ({notifications, className}: Props) => notifications.length === 0
   ? null
   : <div className={className}>
     {notifications.map((notification, index) => {
@@ -24,6 +25,8 @@ const Notifications: SFC<Props> = ({notifications, className}) => notifications.
         case getType(actions.updateAvailable): {
           return <UpdatesAvailable key={index} />;
         }
+        default:
+          return null;
       }
     })}
   </div>;
@@ -36,7 +39,6 @@ const connector = connect(
 
 const notificationWidth = 30;
 
-// TODO - magic number to be replaced in `top` when scroll behavior is developed in openstax/unified#179
 export default styled(connector(Notifications))`
   width: ${notificationWidth}rem;
   height: 0;
@@ -58,4 +60,6 @@ export default styled(connector(Notifications))`
       padding: 0 ${theme.padding.page.mobile}rem;
     `)}
   }
+
+  ${disablePrint}
 `;

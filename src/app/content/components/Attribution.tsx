@@ -2,49 +2,38 @@ import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
-import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
-import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertString } from '../../utils';
+import { assertString, scrollTo } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
-import { bookBannerDesktopMiniHeight, toolbarDesktopHeight } from './constants';
 import { contentTextStyle } from './Page';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 
-if (typeof(document) !== 'undefined') {
-  import('details-polyfill');
-}
-
 const summaryIconStyle = css`
-  height: 1.5rem;
-  width: 1.5rem;
+  margin-left: -0.3rem;
 `;
+
 // tslint:disable-next-line:variable-name
-const SummaryClosedIcon = styled(CaretRight)`
+const SummaryClosedIcon = styled((props) => <ExpandIcon {...props} />)`
   ${summaryIconStyle}
 `;
 // tslint:disable-next-line:variable-name
-const SummaryOpenIcon = styled(CaretDown)`
+const SummaryOpenIcon = styled((props) => <CollapseIcon {...props} />)`
   ${summaryIconStyle}
 `;
 
 // tslint:disable-next-line:variable-name
-const Summary = styled.summary`
+const AttributionSummary = styled((props) => <Summary {...props} />)`
   ${contentTextStyle}
   font-weight: 500;
   list-style: none;
-
-  ::-webkit-details-marker {
-    display: none;
-  }
 
   &,
   span {
@@ -63,7 +52,7 @@ const Content = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const Details = styled.details`
+const AttributionDetails = styled(Details)`
   ${bodyCopyRegularStyle}
   box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
   margin: 2rem 0 0 0;
@@ -71,16 +60,8 @@ const Details = styled.details`
   ${wrapperPadding}
   padding-top: 1.8rem;
 
-  > ${Summary} {
+  > ${AttributionSummary} {
     margin-bottom: 1.8rem;
-  }
-
-  &[open] ${SummaryClosedIcon} {
-    display: none;
-  }
-
-  &:not([open]) ${SummaryOpenIcon} {
-    display: none;
   }
 
   ${theme.breakpoints.mobile(css`
@@ -117,8 +98,7 @@ class Attribution extends Component<Props> {
       return;
     }
 
-    const offset = -1 * (bookBannerDesktopMiniHeight + toolbarDesktopHeight) * 10;
-    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container, {offset});
+    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
     container.addEventListener('toggle', this.toggleHandler);
   }
 
@@ -138,20 +118,20 @@ class Attribution extends Component<Props> {
   public render() {
     const {book} = this.props;
 
-    return <Details ref={this.container}>
+    return <AttributionDetails ref={this.container} data-testid='attribution-details'>
       <FormattedMessage id='i18n:attribution:toggle'>
-        {(msg) => <Summary>
+        {(msg) => <AttributionSummary aria-label={msg}>
           <SummaryClosedIcon />
           <SummaryOpenIcon />
           <span>{msg}</span>
-        </Summary>}
+        </AttributionSummary>}
       </FormattedMessage>
       {book && <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
         ></Content>}
       </FormattedHTMLMessage>}
-    </Details>;
+    </AttributionDetails>;
   }
 
   private getValues = (book: Book) => {
@@ -172,7 +152,7 @@ class Attribution extends Component<Props> {
       currentPath: this.props.currentPath,
       introPageUrl,
     };
-  }
+  };
 }
 
 export default connect(

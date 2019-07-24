@@ -1,16 +1,16 @@
 import React from 'react';
+import { createGlobalStyle } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
-import { inlineDisplayBreak } from '../../notifications/theme';
 import theme from '../../theme';
+import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import CenteredContent from './CenteredContent';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
-  contentTextWidth,
   contentWrapperMaxWidth,
   mainContentBackground,
   sidebarDesktopWidth,
@@ -28,27 +28,32 @@ import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
 
 // tslint:disable-next-line:variable-name
+const GlobalStyle = createGlobalStyle`
+  html {
+    scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight)}em;
+    ${theme.breakpoints.mobile(css`
+      scroll-padding-top: ${(bookBannerMobileMiniHeight + toolbarMobileHeight)}em;
+    `)}
+  }
+`;
+
+// tslint:disable-next-line:variable-name
 const Background = styled.div`
   @media screen {
     overflow: visible; /* so sidebar position: sticky works */
     background-color: ${theme.color.neutral.darker};
     width: 100%;
-    min-height: 100%;
+    height: 100%;
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  @media screen {
-    top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-    position: sticky;
-    margin-left: calc((100% - ${contentTextWidth}rem) * 0.75 + ${contentTextWidth}rem);
-
-    @media (max-width: ${inlineDisplayBreak}) {
-      top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
-      ${wrapperPadding}
-    }
-  }
+  z-index: 1; /* above content */
+  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+  ${theme.breakpoints.mobile(css`
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -155,6 +160,7 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
  */
 // tslint:disable-next-line:variable-name
 const Content: React.SFC = () => <Layout>
+  <GlobalStyle />
   <Background>
     <BookBanner/>
     <Toolbar />
@@ -170,6 +176,7 @@ const Content: React.SFC = () => <Layout>
                 <PrevNextBar />
               </HideOverflowAndRedoPadding>
               <Attribution />
+              <Footer/>
             </MainContentWrapper>
           </UndoPadding>
         </ContentPane>

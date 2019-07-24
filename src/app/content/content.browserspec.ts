@@ -1,12 +1,13 @@
 /** @jest-environment puppeteer */
 import {
   checkLighthouse,
+  desktopWidth,
   h1Content,
   navigate,
 } from '../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';
-const TEST_LONG_PAGE_NAME = '1-test-page-3';
+const TEST_LONG_PAGE_NAME = '2-test-page-3';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_LONG_PAGE_URL = `/books/book-slug-1/pages/${TEST_LONG_PAGE_NAME}`;
 
@@ -39,7 +40,7 @@ describe('content', () => {
     - and doesn't close the sidebar
   `, async() => {
     // set a viewport where the sidebar scrolls but "Test Page 3" is visible
-    page.setViewport({height: 500, width: 1200});
+    page.setViewport({height: 300, width: desktopWidth});
     await navigate(page, TEST_PAGE_URL);
 
     // assert initial state
@@ -104,7 +105,7 @@ const getScrollTop = () => page.evaluate(() => {
 });
 
 const getTocScrollTop = () => page.evaluate(() => {
-  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > nav');
+  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > ol');
   return scrollyTocNav && scrollyTocNav.scrollTop;
 });
 
@@ -114,6 +115,6 @@ const scrollDown = () => page.evaluate(() => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const scrollTocDown = (px: number) => page.evaluate((px) => {
-  const toc = document && document.querySelector('[aria-label="Table of Contents"] > nav');
+  const toc = document && document.querySelector('[aria-label="Table of Contents"] > ol');
   return toc && toc.scrollBy(0, px || toc.scrollHeight);
 }, px);

@@ -1,9 +1,18 @@
-import { Location } from 'history';
-import React from 'react';
-import renderer from 'react-test-renderer';
+import { Middleware } from 'redux';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
-import { AppServices, AppState } from './types';
+import { AppServices } from './types';
+let React: any; // tslint:disable-line:variable-name
+let renderer: any;
+
+// tslint:disable-next-line
+var mockedSentry = { // var is needed so that the mock is hoisted
+  initializeWithMiddleware: jest.fn(
+    (() => () => (next) => (action: any) => { next(action); }) as Middleware
+  ),
+  isEnabled: false,
+};
+jest.mock('../helpers/Sentry', () => mockedSentry);
 
 describe('create app', () => {
   let history = require('history');
@@ -14,6 +23,8 @@ describe('create app', () => {
 
   beforeEach(() => {
     jest.resetModules();
+    React = require('react');
+    renderer = require('react-test-renderer');
     history = require('history');
     createApp = require('./index').default;
 
@@ -25,14 +36,6 @@ describe('create app', () => {
     createApp({services});
     expect(createBrowserHistory).toHaveBeenCalled();
     expect(createMemoryHistory).not.toHaveBeenCalled();
-  });
-
-  it('does not initialize location if initialState is passed', () => {
-    const location = {cool: 'location'} as any as Location;
-    const initialState = {navigation: location} as AppState;
-    const {store} = createApp({services, initialState});
-
-    expect(store.getState().navigation).toEqual(location);
   });
 
   it('initializes the location state when initialEntries is passed', () => {
@@ -65,6 +68,13 @@ describe('create app', () => {
 
       expect(app.history.location.pathname).toEqual('url');
       expect(match.route.getUrl).toHaveBeenCalled();
+    });
+
+    it('adds sentry middleware when it is enabled', () => {
+      mockedSentry.isEnabled = true;
+      createApp({services});
+      expect(mockedSentry.initializeWithMiddleware).toHaveBeenCalled();
+      mockedSentry.isEnabled = false;
     });
   });
 

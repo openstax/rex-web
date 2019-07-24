@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
 import { contentFont, textRegularSize } from '../../components/Typography';
 import { AppState, Dispatch } from '../../types';
@@ -11,7 +11,6 @@ import * as selectors from '../selectors';
 import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar';
-import { styleWhenSidebarClosed } from './utils/sidebar';
 
 interface InnerProps {
   message: string;
@@ -27,12 +26,13 @@ interface MiddleProps {
 // tslint:disable-next-line:variable-name
 const ListIcon = styled(ListOl)`
   ${toolbarIconStyles};
+  margin-right: 0.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
   font-family: ${contentFont};
-  font-weight: 700;
+  font-weight: 600;
   ${textRegularSize};
   margin: 0;
   padding: 0;
@@ -89,26 +89,7 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
   />);
 
 // tslint:disable-next-line:variable-name
-export const OpenSidebarControl = lockControlState(false, styled(SidebarControl)`
-  display: none;
-  ${styleWhenSidebarClosed(css`
-    display: flex;
-  `)}
-`);
+export const OpenSidebarControl = lockControlState(false, SidebarControl);
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebarControl = lockControlState(true, styled(SidebarControl)`
-  ${styleWhenSidebarClosed(css`
-    display: none;
-  `)}
-`);
-
-// bug in types, only class components can return an array
-export default class CombinedSidebarControl extends React.Component {
-  public render() {
-    return [
-      <OpenSidebarControl {...this.props} key='open-sidebar' />,
-      <CloseSidebarControl {...this.props} key='close-sidebar' />,
-    ];
-  }
-}
+export const CloseSidebarControl = lockControlState(true, SidebarControl);

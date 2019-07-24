@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
 import {
   ActionHookBody,
@@ -9,7 +11,7 @@ import {
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
-  <A extends AnyAction>(action: A): action is ReturnType<C> => action.type === getType(actionCreator);
+  (action: AnyAction): action is ReturnType<C> => action.type === getType(actionCreator);
 
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {
@@ -32,6 +34,17 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
     };
   };
 
+// from https://github.com/facebook/react/issues/13029#issuecomment-445480443
+export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => {
+  refs.forEach((resolvableRef) => {
+    if (typeof resolvableRef === 'function') {
+      resolvableRef(ref);
+    } else if (resolvableRef) {
+      (resolvableRef as any).current = ref;
+    }
+  });
+};
+
 /*
  * util for dealing with array and object index signatures
  * don't include undefined
@@ -46,7 +59,7 @@ export const assertDefined = <X>(x: X, message: string) => {
   return x!;
 };
 
-export const assertString = <X>(x: X, message: string) => {
+export const assertString = <X>(x: X, message: string): string => {
   if (typeof x !== 'string') {
     throw new Error(message);
   }
@@ -54,7 +67,7 @@ export const assertString = <X>(x: X, message: string) => {
   return x;
 };
 
-export const assertWindowDefined = (message: string = 'BUG: Window is undefined') => {
+export const assertWindow = (message: string = 'BUG: Window is undefined') => {
   if (typeof(window) === 'undefined') {
     throw new Error(message);
   }
@@ -68,4 +81,21 @@ export const assertDocument = (message: string = 'BUG: Document is undefined') =
   }
 
   return document;
+};
+
+export const assertDocumentElement = (message: string = 'BUG: Document Element is null') => {
+  const documentElement = assertDocument().documentElement;
+
+  if (documentElement === null) {
+    throw new Error(message);
+  }
+
+  return documentElement;
+};
+
+export const scrollTo = (elem: Element | string) => {
+  const html = assertDocumentElement();
+  const padding = assertWindow().getComputedStyle(html).getPropertyValue('scroll-padding-top');
+  const offset = -parseFloat(padding) || 0;
+  return scrollToElement(elem, {offset});
 };

@@ -46,6 +46,12 @@ describe('navigation middleware', () => {
     const history = createMemoryHistory();
     const next = jest.fn((_: AnyAction) => undefined);
     const dispatch = jest.fn((_: AnyAction) => undefined);
+    const state = {
+      bookUid: '',
+      bookVersion: '',
+      pageUid: '',
+      search: '',
+    };
 
     const pushSpy = jest.spyOn(history, 'push');
     pushSpy.mockImplementation(() => null);
@@ -53,12 +59,12 @@ describe('navigation middleware', () => {
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
       route: routes[0],
-      state: 'state',
+      state,
     }));
 
     expect(pushSpy).toHaveBeenCalledWith({
       pathname: 'url',
-      state: 'state',
+      state,
     });
   });
 
@@ -70,7 +76,7 @@ describe('navigation middleware', () => {
 
     history.push('/foobar');
 
-    expect(dispatch).toHaveBeenCalledWith(actions.locationChange({location: history.location}));
+    expect(dispatch).toHaveBeenCalledWith(actions.locationChange({location: history.location, action: 'PUSH'}));
   });
 
   it('dispatches locationChange with matching route', () => {
@@ -82,6 +88,7 @@ describe('navigation middleware', () => {
     history.push('/test2');
 
     expect(dispatch).toHaveBeenCalledWith(actions.locationChange({
+      action: 'PUSH',
       location: history.location,
       match: {route: routes[1]},
     }));

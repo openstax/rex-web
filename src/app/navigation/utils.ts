@@ -1,14 +1,20 @@
-import { Location } from 'history';
+import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import pathToRegexp, { Key } from 'path-to-regexp';
 import { Dispatch } from 'redux';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
-import { AnyMatch, AnyRoute, GenericMatch, Match, RouteHookBody, RouteState } from './types';
+import { AnyMatch, AnyRoute, GenericMatch, LocationChange, Match, RouteHookBody, RouteState } from './types';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
+
+export const locationChangeForRoute = <R extends AnyRoute>(
+  route: R,
+  locationChange: LocationChange
+): locationChange is Required<LocationChange<Match<R>>> =>
+  !!locationChange.match && locationChange.match.route.name === route.name;
 
 const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   const [, ...values] = match;
@@ -42,9 +48,9 @@ export const matchUrl = (action: AnyMatch) => hasParams(action)
   ? action.route.getUrl(action.params)
   : action.route.getUrl();
 
-export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location) => {
+export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
-  dispatch(actions.locationChange({location, match}));
+  dispatch(actions.locationChange({location, match, action}));
 });
 
 export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
@@ -52,8 +58,8 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
     const boundHook = body(stateHelpers);
 
     return (action) => {
-      if (matchForRoute(route, action.payload.match)) {
-        return boundHook({location: action.payload.location, match: action.payload.match});
+      if (locationChangeForRoute(route, action.payload)) {
+        return boundHook(action.payload);
       }
     };
   });

@@ -12,7 +12,7 @@ describe('osWebLoader', () => {
   let osWebLoader: AppServices['osWebLoader'];
 
   beforeEach(() => {
-    osWebLoader = require('./createOSWebLoader').default('url/');
+    osWebLoader = require('./createOSWebLoader').default('url');
   });
 
   afterEach(() => {
@@ -32,7 +32,7 @@ describe('osWebLoader', () => {
 
       it('gets book id', async() => {
         const id = await osWebLoader.getBookIdFromSlug('asdf');
-        expect(fetch).toHaveBeenCalledWith(`url/?type=books.Book&fields=${fields}&slug=asdf`);
+        expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&slug=asdf`);
         expect(id).toEqual('qwer');
       });
     });
@@ -47,7 +47,7 @@ describe('osWebLoader', () => {
         message = e.message;
       }
 
-      expect(message).toEqual('OSWeb record not found');
+      expect(message).toEqual('OSWeb record "asdf" not found');
     });
 
     it('throws on error', async() => {
@@ -74,7 +74,7 @@ describe('osWebLoader', () => {
 
     it('gets book slug', async() => {
       const slug = await osWebLoader.getBookSlugFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith(`url/?type=books.Book&fields=${fields}&cnx_id=qwer`);
+      expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&cnx_id=qwer`);
       expect(slug).toEqual('asdf');
     });
   });
@@ -90,7 +90,7 @@ describe('osWebLoader', () => {
 
     it('gets book', async() => {
       const result = await osWebLoader.getBookFromSlug('asdf');
-      expect(fetch).toHaveBeenCalledWith(`url/?type=books.Book&fields=${fields}&slug=asdf`);
+      expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&slug=asdf`);
       expect(result).toEqual(book);
     });
   });
@@ -106,7 +106,7 @@ describe('osWebLoader', () => {
 
     it('gets book', async() => {
       const result = await osWebLoader.getBookFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith(`url/?type=books.Book&fields=${fields}&cnx_id=qwer`);
+      expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&cnx_id=qwer`);
       expect(result).toEqual(book);
     });
   });

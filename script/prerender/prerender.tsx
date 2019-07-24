@@ -10,7 +10,9 @@ import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
-import { flattenArchiveTree, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
+import { getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
+import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
+import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
@@ -29,6 +31,7 @@ import {
 } from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
+import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import FontCollector from '../../src/helpers/FontCollector';
 import { startServer } from '../server';
@@ -117,7 +120,13 @@ const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode)
 
   const html = renderHtml(styles, app, state);
 
-  writeFile(path.join(ASSET_DIR, url), html);
+  const filePath = path.join(ASSET_DIR, url);
+
+  if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
+    writeFile(path.join(filePath, 'index.html'), html);
+  } else {
+    writeFile(filePath, html);
+  }
 };
 
 type Pages = Array<{code: number, page: AnyMatch}>;
@@ -132,12 +141,16 @@ const preparePages: PreparePages = async(archiveLoader, osWebLoader) => {
     {code: 404, page: {route: notFound}},
   ];
 
+  if (process.env.REACT_APP_ENV === 'development') {
+    pages.push({code: 200, page: {route: developerHome}});
+  }
+
   for (const [bookId, {defaultVersion}] of bookEntries) {
     const bookLoader = archiveLoader.book(bookId, defaultVersion);
     const bookSlug = await osWebLoader.getBookSlugFromId(bookId);
     const book = await bookLoader.load();
 
-    await asyncPool(20, flattenArchiveTree(book.tree), (section) =>
+    await asyncPool(20, findTreePages(book.tree), (section) =>
       prepareContentPage(bookLoader, bookSlug, stripIdVersion(section.id))
         .then((page) => pages.push({code: 200, page}))
     );
@@ -162,12 +175,13 @@ async function render() {
   const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
+  const searchClient = createSearchClient(`http://localhost:${port}`);
   const {server} = await startServer({port, onlyProxy: true});
 
   const pages = await preparePages(archiveLoader, osWebLoader);
 
   await renderManifest();
-  await renderPages({archiveLoader, osWebLoader, userLoader}, pages);
+  await renderPages({archiveLoader, osWebLoader, userLoader, searchClient}, pages);
 
   const numPages = pages.length;
   const end = (new Date()).getTime();
@@ -181,7 +195,7 @@ async function render() {
 }
 
 render().catch((e) => {
-  console.error(e.message); // tslint:disable-line:no-console
+  console.error(e.message, e.stack); // tslint:disable-line:no-console
   process.exit(1);
 });
 

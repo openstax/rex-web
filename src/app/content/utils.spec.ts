@@ -1,10 +1,8 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import cloneDeep from 'lodash/cloneDeep';
 import { ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
   getPageIdFromUrlParam,
-  scrollTocSectionIntoView,
   stripIdVersion,
   toRelativeUrl
 } from './utils';
@@ -28,43 +26,19 @@ describe('getContentPageReferences', () => {
     expect(getContentPageReferences('')).toEqual([]);
   });
 
-  it('picks up basic content reference', () => {
+  it('ignores urls not in links', () => {
     expect(
       getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
+    ).toEqual([]);
+  });
+
+  it('picks up basic content reference', () => {
+    expect(
+      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
-        bookUid: undefined,
-        bookVersion: undefined,
         match: '/contents/as8s8xu9sdnjsd9',
         pageUid: 'as8s8xu9sdnjsd9',
-      },
-    ]);
-  });
-
-  it('picks up book content reference', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf /contents/as8s8xu:9sdnjsd9 asdfadf')
-    ).toEqual([
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: undefined,
-        match: '/contents/as8s8xu:9sdnjsd9',
-        pageUid: '9sdnjsd9',
-      },
-    ]);
-  });
-
-  it('picks up versioned book content reference', () => {
-    expect(
-      getContentPageReferences(
-        'asdfasdfasf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf'
-      )
-    ).toEqual([
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: '1.2',
-        match: '/contents/as8s8xu@1.2:9sdnjsd9',
-        pageUid: '9sdnjsd9',
       },
     ]);
   });
@@ -72,145 +46,19 @@ describe('getContentPageReferences', () => {
   it('picks up multiple references', () => {
     expect(
       getContentPageReferences(`
-      asdfa /contents/as8s8xu9sdnjsd9 sdf
-      /contents/as8s8xu:9sdnjsd9
-      asf /contents/as8s8xu@1.2:9sdnjsd9 asdfadf
+      asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
+      <a href="/contents/9sdnjsd9"></a>
     `)
     ).toEqual([
       {
-        bookUid: undefined,
-        bookVersion: undefined,
         match: '/contents/as8s8xu9sdnjsd9',
         pageUid: 'as8s8xu9sdnjsd9',
       },
       {
-        bookUid: 'as8s8xu',
-        bookVersion: undefined,
-        match: '/contents/as8s8xu:9sdnjsd9',
-        pageUid: '9sdnjsd9',
-      },
-      {
-        bookUid: 'as8s8xu',
-        bookVersion: '1.2',
-        match: '/contents/as8s8xu@1.2:9sdnjsd9',
+        match: '/contents/9sdnjsd9',
         pageUid: '9sdnjsd9',
       },
     ]);
-  });
-});
-
-describe('scrollTocSectionIntoView', () => {
-  let activeSection: HTMLElement;
-  let activeChapter: HTMLElement;
-  let sidebar: HTMLElement;
-
-  beforeEach(() => {
-    if (!document) {
-      throw new Error('jsdom...');
-    }
-    activeSection = document.createElement('li');
-    activeChapter = document.createElement('li');
-    sidebar = document.createElement('div');
-
-    Object.defineProperty(sidebar, 'scrollTop', { value: 0, writable: true });
-    Object.defineProperty(sidebar, 'offsetHeight', {
-      value: 1000,
-      writable: true,
-    });
-    Object.defineProperty(sidebar, 'scrollHeight', {
-      value: 5000,
-      writable: true,
-    });
-  });
-
-  it('does nothing if activeSection is undefined', () => {
-    scrollTocSectionIntoView(sidebar, undefined);
-    expect(sidebar.scrollTop).toBe(0);
-  });
-
-  it('does nothing if sidebar is undefined', () => {
-    expect(() =>
-      scrollTocSectionIntoView(undefined, activeSection)
-    ).not.toThrow();
-  });
-
-  it('does nothing if section is already visible', () => {
-    Object.defineProperty(activeSection, 'offsetTop', { value: 500 });
-    scrollTocSectionIntoView(sidebar, activeSection);
-    expect(sidebar.scrollTop).toBe(0);
-  });
-
-  it('udpates scroll position if the section is not visible', () => {
-    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
-    scrollTocSectionIntoView(sidebar, activeSection);
-    expect(sidebar.scrollTop).toBe(1500);
-  });
-
-  it('udpates scroll position to the chapter heading if its available and it fits', () => {
-    Object.defineProperty(activeChapter, 'offsetTop', { value: 1400 });
-    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
-    Object.defineProperty(activeSection, 'parentElement', {
-      value: activeChapter,
-    });
-
-    scrollTocSectionIntoView(sidebar, activeSection);
-    expect(sidebar.scrollTop).toBe(1400);
-  });
-
-  it('udpates scroll position to the section heading if the chapter is too long', () => {
-    Object.defineProperty(activeChapter, 'offsetTop', { value: 1000 });
-    Object.defineProperty(activeSection, 'offsetTop', { value: 2500 });
-    Object.defineProperty(activeSection, 'parentElement', {
-      value: activeChapter,
-    });
-
-    scrollTocSectionIntoView(sidebar, activeSection);
-    expect(sidebar.scrollTop).toBe(2500);
-  });
-
-  it('searches through multiple levels to find the chapter', () => {
-    if (!document) {
-      throw new Error('jsdom...');
-    }
-    const randoElement1 = document.createElement('div');
-    const randoElement2 = document.createElement('div');
-
-    Object.defineProperty(activeChapter, 'offsetTop', { value: 1400 });
-    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
-    Object.defineProperty(activeSection, 'parentElement', {
-      value: randoElement2,
-    });
-    Object.defineProperty(randoElement2, 'parentElement', {
-      value: randoElement1,
-    });
-    Object.defineProperty(randoElement1, 'parentElement', {
-      value: activeChapter,
-    });
-
-    scrollTocSectionIntoView(sidebar, activeSection);
-    expect(sidebar.scrollTop).toBe(1400);
-  });
-
-  it('stops searching when it finds the sidebar', () => {
-    if (!document) {
-      throw new Error('jsdom...');
-    }
-    const randoElement1 = document.createElement('div');
-    const randoElement2 = document.createElement('div');
-
-    Object.defineProperty(activeChapter, 'offsetTop', { value: 1400 });
-    Object.defineProperty(activeSection, 'offsetTop', { value: 1500 });
-    Object.defineProperty(activeSection, 'parentElement', {
-      value: randoElement2,
-    });
-    Object.defineProperty(randoElement2, 'parentElement', {
-      value: randoElement1,
-    });
-    Object.defineProperty(randoElement1, 'parentElement', { value: sidebar });
-    Object.defineProperty(sidebar, 'parentElement', { value: activeChapter });
-
-    scrollTocSectionIntoView(sidebar, activeSection);
-    expect(sidebar.scrollTop).toBe(1500);
   });
 });
 
@@ -231,6 +79,8 @@ describe('getUrlParamForPageId', () => {
             title: '<span class="os-text">Preface</span>',
           },
         ],
+        id: 'booklongid@1',
+        shortId: 'book@1',
         title: 'book',
       },
     }) as Book;
@@ -313,15 +163,6 @@ describe('getUrlParamForPageId', () => {
     );
   });
 
-  it('throws on title with only numbers', () => {
-    book.tree.contents[0].title = '34.2';
-    expect(() =>
-      getUrlParamForPageId(book, 'pagelongid')
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"BUG: could not URL encode page title: \\"34.2\\""`
-    );
-  });
-
   it('throws on invalid id', () => {
     expect(() =>
       getUrlParamForPageId(book, 'wokowokowko')
@@ -344,6 +185,8 @@ describe('getPageIdFromUrlParam', () => {
             title: '<span class="os-text">Preface</span>',
           },
         ],
+        id: 'booklongid@1',
+        shortId: 'book@1',
         title: 'book',
       },
     }) as Book;
@@ -384,12 +227,18 @@ describe('toRelativeUrl', () => {
   });
 
   it('when deeply under the same Page (unused)', () => {
-    const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter/doesnotmatter`, PAGE_URL);
+    const url = toRelativeUrl(
+      `${PAGE_URL}/doesnotmatter/doesnotmatter`,
+      PAGE_URL
+    );
     expect(url).toMatchInlineSnapshot(`"../../page1"`);
   });
 
   it('when in a different book', () => {
-    const url = toRelativeUrl('/books/doesnotmatter/pages/doesnotmatter', PAGE_URL);
+    const url = toRelativeUrl(
+      '/books/doesnotmatter/pages/doesnotmatter',
+      PAGE_URL
+    );
     expect(url).toMatchInlineSnapshot(`"../../book1/pages/page1"`);
   });
 

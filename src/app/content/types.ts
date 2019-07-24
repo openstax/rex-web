@@ -1,5 +1,6 @@
 import { RouteParams, RouteState } from '../navigation/types';
 import { content } from './routes';
+import { State as SearchState } from './search/types';
 
 export interface Params {
   book: string;
@@ -13,6 +14,7 @@ export interface State {
     book?: string;
     page?: string;
   };
+  search: SearchState;
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];
@@ -31,7 +33,7 @@ export interface Book {
   id: string;
   shortId: string;
   title: string;
-  theme: 'blue' | 'green' | 'gray' | 'yellow';
+  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   tree: ArchiveTree;
   version: string;
   slug: string;
@@ -54,11 +56,13 @@ export interface Page {
   version: string;
 }
 
-export interface ArchiveTreeSection {
+export interface ArchiveTreeNode {
   id: string;
   shortId: string;
   title: string;
 }
+
+export type ArchiveTreeSection = ArchiveTreeNode;
 
 export interface LinkedArchiveTree extends ArchiveTree {
   parent?: LinkedArchiveTree;
@@ -67,6 +71,8 @@ export interface LinkedArchiveTree extends ArchiveTree {
 export interface LinkedArchiveTreeSection extends ArchiveTreeSection {
   parent: LinkedArchiveTree;
 }
+
+export type LinkedArchiveTreeNode = LinkedArchiveTreeSection | LinkedArchiveTree;
 
 export interface ArchiveTree extends ArchiveTreeSection {
   contents: Array<ArchiveTree | ArchiveTreeSection>;

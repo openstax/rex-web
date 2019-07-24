@@ -1,3 +1,4 @@
+import { History } from 'history';
 import {
   Dispatch as ReduxDispatch,
   Middleware as ReduxMiddleware,
@@ -8,6 +9,7 @@ import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createOSWebLoader from '../gateways/createOSWebLoader';
+import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -28,10 +30,13 @@ export interface AppState {
 }
 
 export interface AppServices {
-  promiseCollector: PromiseCollector;
-  fontCollector: FontCollector;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
+  fontCollector: FontCollector;
+  history: History;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
+  prerenderedContent?: string;
+  promiseCollector: PromiseCollector;
+  searchClient: ReturnType<typeof createSearchClient>;
   userLoader: ReturnType<typeof createUserLoader>;
 }
 

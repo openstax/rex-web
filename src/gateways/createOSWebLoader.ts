@@ -25,13 +25,14 @@ interface OSWebResponse {
 
 export const fields = 'cnx_id,authors,publish_date,cover_color';
 
-export default (url: string) => {
+export default (prefix: string) => {
 
+  const url = `${prefix}/v2/pages`;
   const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
 
-  const firstRecord = (data: OSWebResponse) => {
+  const firstRecord = (id: string) => (data: OSWebResponse) => {
     if (!data.items[0]) {
-      throw new Error('OSWeb record not found');
+      throw new Error(`OSWeb record "${id}" not found`);
     }
     return data.items[0];
   };
@@ -40,7 +41,7 @@ export default (url: string) => {
     (param) => fetcher(param)
       .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
       .then(toJson)
-      .then(firstRecord)
+      .then(firstRecord(param))
   );
 
   const slugLoader = loader((slug: string) => fetch(`${url}?type=books.Book&fields=${fields}&slug=${slug}`));

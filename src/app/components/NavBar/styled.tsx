@@ -3,15 +3,17 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
+import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import Times from '../Times';
 import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
 
-export const maxNavWidth = 117;
-export const navDesktopHeight = 5;
-export const navMobileHeight = 3.6;
-const headerImageMobileHeight = 2;
+export const maxNavWidth = contentWrapperMaxWidth;
+export const navDesktopHeight = 6.0;
+export const navMobileHeight = 5.2;
+const headerImageDesktopHeight = 3.5;
+const headerImageMobileHeight = 2.8;
 
 const fadeIn = keyframes`
   0% {
@@ -46,7 +48,7 @@ export const TopBar = styled.div`
 export const HeaderImage = styled.img`
   display: block;
   width: auto;
-  height: 3rem;
+  height: ${headerImageDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
     height: ${headerImageMobileHeight}rem;
   `)}
@@ -98,6 +100,7 @@ export const HamburgerIcon = styled(Hamburger)`
 
 export const navElementStyle = css`
   display: block;
+  letter-spacing: -0.072rem;
   font-size: 1.8rem;
   text-decoration: none;
   font-weight: bold;
@@ -111,7 +114,7 @@ export const navElementStyle = css`
 
   ${theme.breakpoints.mobile(css`
     font-size: 1.4rem;
-    font-weight: normal;
+    letter-spacing: 0.02rem;
     padding: 0.7rem 0;
   `)}
 `;
@@ -245,7 +248,11 @@ export const DropdownOverlay = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const TimesIcon = styled((props) => <a href='' tabIndex='-1' aria-hidden='true' {...props}><Times /></a>)`
+export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='true' {...props}><Times /></button>)`
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
   position: fixed;
   top: 1rem;
   right: 1.6rem;

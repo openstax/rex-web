@@ -120,3 +120,46 @@ describe('assertDocument', () => {
     });
   });
 });
+
+describe('assertDocumentElement', () => {
+  it('returns value', () => {
+    expect(utils.assertDocumentElement()).toBe(utils.assertDocument().documentElement);
+    expect(utils.assertDocumentElement()).toBeTruthy();
+  });
+
+  describe('with a non-html document', () => {
+    let mock: jest.SpyInstance;
+
+    beforeEach(() => {
+      mock = jest.spyOn(utils.assertDocument(), 'documentElement', 'get');
+      mock.mockImplementation(() => {
+        return null;
+      });
+    });
+
+    afterEach(() => {
+      if (mock) {
+        mock.mockRestore();
+      }
+    });
+
+    it('throws', () => {
+      expect(() => utils.assertDocumentElement()).toThrowErrorMatchingInlineSnapshot(
+        `"BUG: Document Element is null"`
+      );
+    });
+  });
+});
+
+describe('mergeRefs', () => {
+  it('merges refs', () => {
+    const functionRef = jest.fn();
+    const refObj = {current: undefined};
+    const ref = 'foobar';
+
+    utils.mergeRefs(functionRef, refObj)(ref);
+
+    expect(refObj.current).toBe(ref);
+    expect(functionRef).toHaveBeenCalledWith(ref);
+  });
+});
