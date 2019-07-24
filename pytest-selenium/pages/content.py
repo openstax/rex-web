@@ -8,9 +8,11 @@ import random
 
 from pages.base import Page
 from regions.base import Region
+from regions.toc import TableOfContents
+from utils.utilities import WaitForTitleChange
 
 
-class Content(Page):
+class Content(Page, WaitForTitleChange):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
@@ -170,6 +172,9 @@ class Content(Page):
         @property
         def default_page_url(self):
             return self.find_element(*self._default_page_locator).get_attribute("href")
+
+        def toc(self):
+            return TableOfContents(self)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')

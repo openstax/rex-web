@@ -14,12 +14,8 @@ class Page(pypom.Page):
     _title_locator = (By.TAG_NAME, "title")
 
     @property
-    def title(self):
-        return self.find_element(*self._title_locator)
-
-    @property
-    def title_before_click(self):
-        return self.title.get_attribute("innerHTML")
+    def page_title(self):
+        return self.find_element(*self._title_locator).get_attribute("innerHTML")
 
     @property
     def window_width(self):
