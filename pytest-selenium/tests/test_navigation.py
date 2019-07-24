@@ -41,7 +41,7 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
     toolbar = content.toolbar
     toc = content.sidebar.toc
 
-    # confirm last page is selected. -1 gives the last element in the list.
+    # confirm last page is selected.
     if toc.active_section.get_attribute("textContent") != toc.sections[-1].section_title:
         while content.is_mobile:
             toolbar.click_toc_toggle_button()

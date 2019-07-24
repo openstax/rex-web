@@ -5,7 +5,6 @@ from pages import content
 from pages.base import Page
 from regions.base import Region
 
-# from regions.content_item import ContentItem
 from utils.utilities import WaitForTitleChange
 
 
