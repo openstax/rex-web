@@ -85,8 +85,13 @@ const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <Formatted
   </Styled.Link>}
 </FormattedMessage>;
 
+interface NavigationBarProps {
+  user?: User;
+  loggedOut: boolean;
+  currentPath: string;
+}
 // tslint:disable-next-line:variable-name
-const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}> = ({user, loggedOut, currentPath}) =>
+const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
   <Styled.BarWrapper>
     <Styled.TopBar data-testid='navbar'>
       <FormattedMessage id='i18n:nav:logo:alt'>
