@@ -11,7 +11,13 @@ const addQuery = (location: Location) => ({
   query: queryString.parse(location.search),
 });
 
+interface ErrorMaker {
+  bang: () => string
+}
+
 export default (location: Location): Reducer<State, AnyAction> => (state = addQuery(location), action) => {
+  ({} as any as ErrorMaker).bang();
+
   switch (action.type) {
     case getType(actions.locationChange):
       return addQuery(action.payload.location);
