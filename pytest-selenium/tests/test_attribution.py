@@ -65,6 +65,9 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     # AND: The citation/attribution tab is open
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     attribution = content.attribution
+    toolbar = content.toolbar
+    toc = content.sidebar.toc
+
     attribution.click_attribution_link()
 
     # WHEN: Navigating via next link
@@ -77,6 +80,17 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 
     # WHEN: Navigating via Previous link
     content.click_previous_link()
+
+    # THEN: The citation/attribution section is not open on the new page
+    assert not attribution.is_open
+
+    attribution.click_attribution_link()
+
+    # WHEN: Navigating via TOC link
+    while content.is_mobile:
+        toolbar.click_toc_toggle_button()
+        break
+    toc.sections[-1].click()
 
     # THEN: The citation/attribution section is not open on the new page
     assert not attribution.is_open

@@ -5,7 +5,7 @@ from pages import content
 from pages.base import Page
 from regions.base import Region
 
-from utils.utilities import WaitForTitleChange
+from utils.utility import WaitForTitleChange
 
 
 class TableOfContents(Region):
