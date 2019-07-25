@@ -2,25 +2,24 @@
 import styled, { css } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
-import { iconSize } from '../../../components/Details';
-import { navDesktopHeight } from '../../../components/NavBar';
-import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../../components/Typography';
-import theme from '../../../theme';
+import { iconSize } from '../../../../components/Details';
+import { navDesktopHeight } from '../../../../components/NavBar';
+import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../../../components/Typography';
+import theme from '../../../../theme';
 import {
     bookBannerDesktopMiniHeight,
     searchResultsBarDesktopWidth,
     searchSidebarTopOffset,
     toolbarDesktopHeight,
-  } from '../constants';
-import ContentLinkComponent from '../ContentLink';
-import { Summary } from '../Sidebar/styled';
-import { toolbarIconStyles } from '../Toolbar';
+  } from '../../../components/constants';
+import ContentLinkComponent from '../../../components/ContentLink';
+import { Summary } from '../../../components/Sidebar/styled';
+import { toolbarIconStyles } from '../../../components/Toolbar';
 
 const searchResultsBarVariables = {
-    backgroundColor: '#f1f1f1',
+    backgroundColor: theme.searchSidebar.background,
     iconRightPadding: 0.7,
     mainPaddingDesktop: 3,
-    mainPaddingMobile: 2,
     mainRightPaddingDesktop: 1.4,
 };
 
@@ -56,8 +55,7 @@ export const SearchResultsBar = styled.div`
   background-color: ${searchResultsBarVariables.backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 2;
-  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight
-                        + toolbarDesktopHeight}rem);
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
 
   ${theme.breakpoints.mobile(css`
     width: 100%;

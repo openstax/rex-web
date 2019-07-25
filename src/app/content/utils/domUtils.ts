@@ -70,3 +70,10 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
     focus = focus.parentElement;
   }
 };
+
+export const scrollHandler = (element: HTMLElement | number) => {
+  if ( element instanceof HTMLElement) {
+    const top = element.getBoundingClientRect().top;
+    element.style.setProperty('height', `calc(100vh - ${top}px)`);
+  }
+};

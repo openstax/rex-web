@@ -6,22 +6,18 @@ import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
 export { wrapperPadding } from '../../components/Layout';
 
-const searchOpen = styled(LayoutBody)`
-  ${theme.breakpoints.mobile(css`
-    ${(props: { mobileOpen: boolean; }) => props.mobileOpen && css` display: none;`}
-  `)};
-`;
-
 // tslint:disable-next-line:variable-name
 export const Wrapper = styled(LayoutBody)`
   position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */
   flex: 1;
-  ${searchOpen}
+  ${theme.breakpoints.mobile(css`
+    ${(props: { mobileOpen: boolean; }) => props.mobileOpen && css` display: none;`}
+  `)};
 `;
 
 export default connect(
   (state: AppState) => ({
     mobileOpen: selectSearch.mobileOpen(state),
   })
-)(searchOpen);
+)(Wrapper);

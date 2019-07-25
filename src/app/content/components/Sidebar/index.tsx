@@ -7,7 +7,7 @@ import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
-import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domUtils';
+import { expandCurrentChapter, scrollHandler, scrollTocSectionIntoView } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
 
@@ -38,16 +38,11 @@ export class Sidebar extends Component<SidebarProps> {
       return;
     }
 
-    const scrollHandler = () => {
-      const top = sidebar.getBoundingClientRect().top;
-      sidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
-    };
-
     const animation = () => requestAnimationFrame(scrollHandler);
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
-    scrollHandler();
+    scrollHandler(sidebar);
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {

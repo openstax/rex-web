@@ -22,6 +22,10 @@ const padding = {
   },
 };
 
+const searchSidebar = {
+  background: '#f1f1f1',
+};
+
 const color = {
   neutral: {
     base: '#fff',
@@ -97,4 +101,5 @@ export default {
   },
   color,
   padding,
+  searchSidebar,
 };

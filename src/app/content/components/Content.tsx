@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
+import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
@@ -21,7 +22,6 @@ import {
 import ContentPane from './ContentPane';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
-import SearchResultsSidebar from './SearchResultsSidebar';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';

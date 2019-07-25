@@ -1,11 +1,11 @@
-
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { SearchResultContainers } from '.';
-import Loader from '../../../components/Loader';
-import { SearchResultContainer } from '../../search/types';
-import { Book } from '../../types';
+import Loader from '../../../../components/Loader';
+import { Book } from '../../../types';
+import { scrollHandler } from '../../../utils/domUtils';
+import { SearchResultContainer } from '../../types';
+import { SearchResultContainers } from './SearchResultContainers';
 import * as Styled from './styled';
 
 interface ResultsSidebarProps {
@@ -25,13 +25,13 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const {query, totalHits, results, onClose, book, closeSearchResults} = this.props;
 
     return <Styled.SearchResultsBar ref={this.searchSidebar}>
-      {!results && <Styled.LoadingWrapper>
+      {!results ? <Styled.LoadingWrapper>
         <Styled.CloseIconWrapper>
           <Styled.CloseIconButton onClick={onClose}><Styled.CloseIcon /></Styled.CloseIconButton>
         </Styled.CloseIconWrapper>
         <Loader/>
-      </Styled.LoadingWrapper>}
-      {totalHits && <Styled.SearchQueryWrapper>
+      </Styled.LoadingWrapper> : null }
+      {totalHits ? <Styled.SearchQueryWrapper>
         <FormattedMessage id='i18n:search-results:bar:query:results'>
           {(msg: Element | string) =>
             <Styled.SearchQuery>
@@ -43,7 +43,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           }
         </FormattedMessage>
         <Styled.CloseIconButton onClick={onClose}><Styled.CloseIcon /></Styled.CloseIconButton>
-      </Styled.SearchQueryWrapper>}
+      </Styled.SearchQueryWrapper> : null }
       {!totalHits && <div>
         <Styled.CloseIconWrapper>
           <Styled.CloseIconButton onClick={onClose}><Styled.CloseIcon /></Styled.CloseIconButton>
@@ -56,7 +56,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           }
         </FormattedMessage>
       </div>}
-      {book && results && totalHits && <Styled.NavOl>
+      {book && results && results.length > 0 && totalHits && <Styled.NavOl>
         <SearchResultContainers containers={results} book={book} closeSearchResults={closeSearchResults}/>
       </Styled.NavOl>}
       </Styled.SearchResultsBar>;
@@ -69,15 +69,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       return;
     }
 
-    const scrollHandler = () => {
-      const top = searchSidebar.getBoundingClientRect().top;
-      searchSidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
-    };
-
     const animation = () => requestAnimationFrame(scrollHandler);
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
-    scrollHandler();
+    scrollHandler(searchSidebar);
   };
 }
