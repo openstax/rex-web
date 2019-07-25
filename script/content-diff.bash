@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+# i struggled with getopt(s) for about two hours before breaking down and doing this
+if [[ "$*" =~ (^(--profile=([^ ]+) )?([^ ]+) ([^ ]+)$) ]]; then
+  aws_profile="${BASH_REMATCH[3]}"
+  first_release="${BASH_REMATCH[4]}"
+  second_release="${BASH_REMATCH[5]}"
+else
+  echo "invalid command"
+  exit 1;
+fi
+
 function stripToContent() {
   while IFS= read -r -d '' -u 9
   do
@@ -15,8 +25,10 @@ function stripToContent() {
   done 9< <( find books -type f -exec printf '%s\0' {} + )
 }
 
-first_release="$1"
-second_release="$2"
+if [[ -n $aws_profile ]]; then
+  echo "switching to aws profile: $aws_profile";
+  export AWS_DEFAULT_PROFILE=$aws_profile
+fi
 
 git checkout --orphan "content-diffs--$first_release-$second_release"
 git clean -fd
