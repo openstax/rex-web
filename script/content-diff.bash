@@ -1,4 +1,6 @@
 #!/bin/bash
+# shellcheck disable=SC2016
+# sed expression needs $s
 set -e
 
 # i struggled with getopt(s) for about two hours before breaking down and doing this
