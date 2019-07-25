@@ -12,6 +12,7 @@ class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
+    _default_page_locator = (By.CSS_SELECTOR, "li:nth-of-type(2) a")
 
     @property
     def active_section(self):
@@ -23,6 +24,10 @@ class TableOfContents(Region):
             self.ContentPage(self, section_link)
             for section_link in self.find_elements(*self._section_link_locator)
         ]
+
+    @property
+    def default_page_url(self):
+        return self.find_element(*self._default_page_locator).get_attribute("href")
 
     class ContentPage(Region, WaitForTitleChange):
         def click(self):

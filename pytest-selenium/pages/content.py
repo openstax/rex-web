@@ -163,15 +163,10 @@ class Content(Page, WaitForTitleChange):
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
-        _default_page_locator = (By.XPATH, "./ol/li[2]//a")
 
         @property
         def header(self):
             return self.Header(self.page)
-
-        @property
-        def default_page_url(self):
-            return self.find_element(*self._default_page_locator).get_attribute("href")
 
         def toc(self):
             return TableOfContents(self)
