@@ -90,7 +90,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     while content.is_mobile:
         toolbar.click_toc_toggle_button()
         break
-    toc.sections[-1].click()
+    toc().sections[-1].click()
 
     # THEN: The citation/attribution section is not open on the new page
     assert not attribution.is_open
