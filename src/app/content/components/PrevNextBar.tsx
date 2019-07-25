@@ -35,7 +35,7 @@ interface HidingContentLinkProps {
   side: 'left' | 'right';
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLinkComponent: React.SFC<HidingContentLinkProps> = ({page, book, side, ...props}) =>
+const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) =>
   page !== undefined && book !== undefined
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
@@ -84,7 +84,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
+const PrevNextBar = ({book, prevNext}: PropTypes) => <BarWrapper>
   <FormattedMessage id='i18n:prevnext:prev:aria-label'>
     {(ariaLabel: Element | string) =>
     <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel}>

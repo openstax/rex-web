@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Details } from '../../../../components/Details';
 import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
@@ -56,9 +56,13 @@ export const ContentLink = styled(ContentLinkComponent)`
   }
 `;
 
+interface NavItemComponentProps {
+  active?: boolean;
+  className?: string;
+}
 // tslint:disable-next-line:variable-name
-export const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
-  ({active, className, children}, ref?: React.Ref<HTMLLIElement>) => <li
+export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
+  ({active, className, children}, ref) => <li
     ref={ref}
     className={className}
     {...(active ? {'aria-label': 'Current Page'} : {})}
