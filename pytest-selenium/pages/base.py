@@ -43,18 +43,6 @@ class Page(pypom.Page):
         self.wait.until(lambda _: region.is_displayed)
         return self
 
-    def click_and_wait_for_load(self, element):
-        """Clicks an offscreen element and waits for title to load.
-
-        Clicks the given element, even if it is offscreen, by sending the ENTER key.
-        Returns after loading the last element (title) of the page).
-        """
-        title_before_click = self.title_before_click
-        element.send_keys(Keys.ENTER)
-        return self.wait.until(
-            lambda _: title_before_click != (self.title.get_attribute("innerHTML") or "")
-        )
-
     def assert_element_not_interactable(self, element):
         with pytest.raises(Exception) as exc_info:
             element.send_keys(Keys.ENTER)
