@@ -21,7 +21,7 @@ export function expectError(message: string, fn: () => void) {
 }
 
 // Utility to handle nulls and SFCs
-export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C>, container?: HTMLElement) {
+export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, container?: HTMLElement) {
 
   // tslint:disable-next-line:variable-name
   const Wrapper = class extends Component {
@@ -35,7 +35,7 @@ export function renderToDom<C extends ComponentType<{}>>(subject: ReactElement<C
   }
 
   const domContainer = container || document.createElement('div');
-  const c = ReactDOM.render(<Wrapper />, domContainer) as C;
+  const c = ReactDOM.render<C>(<Wrapper />, domContainer) as C;
 
   if (!c) {
       throw new Error(`BUG: Component was not rendered`);

@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { getType } from 'typesafe-actions';
@@ -17,7 +17,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications: SFC<Props> = ({notifications, className}) => notifications.length === 0
+const Notifications = ({notifications, className}: Props) => notifications.length === 0
   ? null
   : <div className={className}>
     {notifications.map((notification, index) => {

@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as expected
 
 
 @markers.test_case("C476302")
-@markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
+@markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_section_url_in_citation_text_shows_url_for_current_page(
     selenium, base_url, book_slug, page_slug
@@ -29,7 +29,7 @@ def test_section_url_in_citation_text_shows_url_for_current_page(
 
 
 @markers.test_case("C476303")
-@markers.parametrize("book_slug,page_slug", [("college-physics", "preface")])
+@markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_attribution_collapsed_by_default_expands_when_clicked(
     selenium, base_url, book_slug, page_slug
@@ -53,7 +53,7 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
 
 
 @markers.test_case("C476304")
-@markers.parametrize("book_slug,page_slug", [("college-physics", "2-3-time-velocity-and-speed")])
+@markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, book_slug, page_slug):
 

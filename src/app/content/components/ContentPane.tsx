@@ -36,7 +36,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane: React.SFC<Props> = ({isOpen, onClick, children}) => <Wrapper isOpen={isOpen}>
+const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
   {isOpen && <MobileScrollLock onClick={onClick} />}
   {children}
 </Wrapper>;

@@ -1,24 +1,4 @@
-// Constants from bootstrap/less/variables.less
-@gray-base:             #000;
-@gray-dark:             lighten(@gray-base, 20%);   // #333
-@gray:                  lighten(@gray-base, 33.5%); // #555
-@gray-medium:           #606163;
-@gray-light:            #cdcdcd;
-@gray-lighter:          gainsboro;
-@gray-lightest:         #ededed;
-@font-size-base:        14px;
-@line-height-base:      1.428571429; // 20/14
-@line-height-computed:  floor((@font-size-base * @line-height-base)); // ~20px
-@table-bg:              transparent;
-@table-border-color:    #ddd;
-@body-bg:               #fff;
-@table-bg-accent:       #f9f9f9;
-@screen-sm:             768px;
-@screen-sm-min:         @screen-sm;
-@screen-xs-max:         (@screen-sm-min - 1);
-
-
-@table-cell-padding: 1em;
+@table-cell-padding: 0.5em 1em;
 @base-font: 14px;
 
 // Styles for the contents of a page.
@@ -437,18 +417,26 @@ table {
   }
 
   // Cells
-  thead,
+  thead {
+    tr > th { 
+      padding: @table-cell-padding;
+    }
+  }
   tbody {
     tr > td[data-align="right"]{
       text-align: right;
     }
+    tr > td {
+      padding: @table-cell-padding;
+      border: 0.1rem solid @table-border-color;
   }
+}
   tfoot {
     > tr {
       > th,
       > td {
         padding: @table-cell-padding;
-        border-top: 0.1rem solid @table-border-color;
+        border: 0.1rem solid @table-border-color;
         line-height: @line-height-base;
         vertical-align: top;
       }
@@ -458,41 +446,20 @@ table {
   // Bottom align for column headings
   thead > tr > th,
   thead > tr > td {
-    border-bottom: 0.2rem solid @table-border-color;
+    border: 0.2rem solid @table-border-color;
     font-weight: bold;
     text-align: left;
     vertical-align: bottom;
   }
 
-  // Remove top border from thead by default
-  caption + thead,
-  colgroup + thead,
-  thead:first-child {
-    tr:first-child {
-      th, td {
-        border-top: 0;
-      }
-    }
-  }
-
   // Account for multiple tbody instances
   tbody + tbody {
-    border-top: 0.2rem solid @table-border-color;
+    border: 0.2rem solid @table-border-color;
   }
 
   // Nesting
   table {
     background-color: @body-bg;
-  }
-
-  // Zebra striping
-  > tbody {
-    > tr:nth-child(odd) {
-      > td,
-      > th {
-        background-color: @table-bg-accent;
-      }
-    }
   }
 }
 
