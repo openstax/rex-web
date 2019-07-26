@@ -54,12 +54,12 @@ export async function prepareContentPage(
 
 const indexHtml = readAssetFile('index.html');
 
-const renderHtml = async(
+const prepareApp = async(
   services: AppOptions['services'],
-  url: string,
   action: AnyMatch,
   expectedCode: number
-): Promise<string> => {
+) => {
+  const url = matchUrl(action);
   const app = createApp({initialEntries: [action], services});
 
   await app.services.promiseCollector.calm();
@@ -75,6 +75,11 @@ const renderHtml = async(
     throw new Error(`UNSUPPORTED: url: ${url} expected code ${expectedCode}, got ${errorSelectors.code(state)}`);
   }
 
+  return {app, state, styles, url};
+};
+
+type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
+const renderHtml: RenderHtml = (styles, app, state) => {
   const modules: string[] = [];
 
   return injectHTML(indexHtml, {
@@ -107,9 +112,9 @@ export const getStats = () => {
 type MakeRenderPage = (services: AppOptions['services']) =>
   (action: AnyMatch, expectedCode: number) => Promise<void>;
 const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode) => {
-  const url = matchUrl(action);
+  const {app, styles, state, url} = await prepareApp(services, action, expectedCode);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
-  const html = await renderHtml(services, url, action, expectedCode);
+  const html = await renderHtml(styles, app, state);
 
   numPages++;
 
