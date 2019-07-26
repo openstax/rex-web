@@ -21,12 +21,30 @@ const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
 `;
 
 /*
- * everything from here down is only necessary because some browsers (**ahem** safari 11, edge)
- * do not support scroll-padding. safari *claims* to support scroll-padding, but doesn't outside
+ * everything from here down is only necessary because some browsers do not support
+ * scroll-padding. safari *claims* to support scroll-padding, but doesn't outside
  * the context of a scroll snap position
  *
  * https://bugs.webkit.org/show_bug.cgi?id=179379
  */
+
+/*
+ * how close to the element's getBoundingClientRect().top does the window
+ * have to be after a scroll for us to think that it was intentionally scrolled
+ * to
+ *
+ * this used to be 2 but safari yeilds 2.5ish sometimes
+ */
+const matchingThreshold = 3;
+
+/*
+ * number of times to check the scroll after page load before assuming everything
+ * after that is triggered by the user scrolling.
+ *
+ * firefox seems to try to set the scroll twice a couple seconds apart on load, so
+ * initial browser scroll + initial fix + second browser scroll = 3
+ */
+const pageLoadScrollChecks = 3;
 
 export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
 
@@ -42,8 +60,7 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     assertWindow().addEventListener('resize', this.resizeHandler);
 
     this.resizeHandler();
-    this.scrollForOffset();
-    this.scrollOnce();
+    this.checkScroll(pageLoadScrollChecks);
   }
 
   public componentWillUnmount() {
@@ -65,13 +82,17 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
 
   private clickHandler = (e: MouseEvent) => {
     if (isHtmlElement(e.target) && e.target.matches('a[href^="#"]')) {
-      this.scrollOnce();
+      this.checkScroll();
     }
   };
 
-  private scrollOnce = () => {
+  private checkScroll = (maxChecks: number = 1) => {
+    let scrolls = 0;
     const handler = () => {
-      assertDocument().removeEventListener('scroll', handler);
+      scrolls++;
+      if (scrolls >= maxChecks) {
+        assertDocument().removeEventListener('scroll', handler);
+      }
       this.scrollForOffset();
     };
     assertDocument().addEventListener('scroll', handler);
@@ -89,7 +110,7 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
       return;
     }
 
-    if (target.getBoundingClientRect().top < 2) {
+    if (Math.abs(target.getBoundingClientRect().top) < matchingThreshold) {
       window.scrollBy(0, this.getOffset(window));
     }
   };
