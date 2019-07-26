@@ -3,7 +3,7 @@ import React from 'react';
 import { createGlobalStyle, css } from 'styled-components/macro';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
-import { assertDocument, assertWindow } from '../utils';
+import { assertDocument, assertWindow, remsToPx } from '../utils';
 
 interface ScrollOffsetProps {
   desktopOffset: number;
@@ -13,9 +13,9 @@ interface ScrollOffsetProps {
 // tslint:disable-next-line:variable-name
 const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
   body {
-    scroll-padding: ${(props) => props.desktopOffset * 10}px 0 0 0;
+    scroll-padding: ${(props) => props.desktopOffset}rem 0 0 0;
     ${theme.breakpoints.mobile(css`
-      scroll-padding: ${(props: ScrollOffsetProps) => props.mobileOffset * 10}px 0 0 0;
+      scroll-padding: ${(props: ScrollOffsetProps) => props.mobileOffset}rem 0 0 0;
     `)}
   }
 `;
@@ -49,8 +49,8 @@ const pageLoadScrollChecks = 3;
 export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
 
   public getOffset = (window: Window) => -(window.matchMedia(theme.breakpoints.mobileQuery).matches
-    ? this.props.mobileOffset * 10
-    : this.props.desktopOffset * 10
+    ? remsToPx(this.props.mobileOffset)
+    : remsToPx(this.props.desktopOffset)
   );
 
   public componentDidMount() {

@@ -99,3 +99,11 @@ export const scrollTo = (elem: Element | string) => {
   const offset = parseFloat(padding) || 0;
   return scrollToElement(elem, {offset});
 };
+
+export const remsToPx = (rems: number) => {
+  const bodyFontSize = typeof(window) === 'undefined'
+    ? 10
+    : Number(window.getComputedStyle(window.document.body).fontSize) || 10;
+
+  return rems * bodyFontSize;
+};
