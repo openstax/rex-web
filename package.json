@@ -12,7 +12,7 @@
     "details-element-polyfill": "^2.3.1",
     "history": "^4.7.2",
     "html-entities": "^1.2.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "path-to-regexp": "^3.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
@@ -70,8 +70,7 @@
     "analyze:bundle": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
     "analyze:dom": "node ./script/entry.js domVisitor",
     "heroku-postbuild": "npm run-script build:clean && npm run-script prerender",
-    "preinstall": "./script/build-search-client.bash",
-    "postinstall": "rm -rf ./open-search-client"
+    "preinstall": "./script/build-search-client.bash"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -99,7 +98,7 @@
     "@types/ignore-styles": "^5.0.0",
     "@types/jest": "^24.0.15",
     "@types/jest-image-snapshot": "^2.4.0",
-    "@types/lodash": "^4.14.117",
+    "@types/lodash": "^4.14.136",
     "@types/md5-file": "^4.0.0",
     "@types/node": "^12.0.10",
     "@types/node-fetch": "^2.1.4",
