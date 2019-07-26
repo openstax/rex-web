@@ -1,5 +1,4 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { isHtmlElement } from '../../guards';
 
 export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
   if (!element || element.scrollHeight > element.offsetHeight) {
