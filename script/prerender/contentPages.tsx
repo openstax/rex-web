@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dateFns from 'date-fns';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -171,7 +171,7 @@ export const getBookSitemap = (
 
   return {
     changefreq: EnumChangefreq.MONTHLY,
-    lastmod: moment(archivePage.revised).format('YYYY-MM-DD'),
+    lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
     url: matchUrl(record.page),
   };
 });
