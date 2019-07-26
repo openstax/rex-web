@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
+import { typesetMath } from '../../../helpers/mathjax';
 import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
@@ -66,12 +67,14 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   public componentDidMount() {
+    this.postProcess();
     this.linksOn();
     if (this.container) { this.addGenericJs(this.container); }
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
+    this.postProcess();
 
     if (this.container && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.linksOn();
@@ -243,6 +246,13 @@ export class PageComponent extends Component<PropTypes> {
       }, {hash, search});
     }
   };
+
+  private postProcess() {
+    if (this.container && typeof(window) !== 'undefined') {
+      const promise = typesetMath(this.container, window);
+      this.props.services.promiseCollector.add(promise);
+    }
+  }
 }
 
 export const contentTextStyle = css`
