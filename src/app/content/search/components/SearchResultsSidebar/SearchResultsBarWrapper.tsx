@@ -2,13 +2,14 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
-import { Book } from '../../../types';
+import { Book, Page } from '../../../types';
 import { scrollHandler } from '../../../utils/domUtils';
 import { SearchResultContainer } from '../../types';
 import { SearchResultContainers } from './SearchResultContainers';
 import * as Styled from './styled';
 
 interface ResultsSidebarProps {
+  currentPage: Page | undefined;
   query: string | null;
   totalHits: number | null;
   results: SearchResultContainer[] | null;
@@ -22,7 +23,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public searchSidebar = React.createRef<HTMLElement>();
 
   public render() {
-    const {query, totalHits, results, onClose, book, closeSearchResults} = this.props;
+    const {currentPage, query, totalHits, results, onClose, book, closeSearchResults} = this.props;
 
     return <Styled.SearchResultsBar ref={this.searchSidebar}>
       {!results ? <Styled.LoadingWrapper>
@@ -57,7 +58,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </FormattedMessage>
       </div>}
       {book && results && results.length > 0 && totalHits && <Styled.NavOl>
-        <SearchResultContainers containers={results} book={book} closeSearchResults={closeSearchResults}/>
+        <SearchResultContainers currentPage={currentPage}
+        containers={results} book={book} closeSearchResults={closeSearchResults}/>
       </Styled.NavOl>}
       </Styled.SearchResultsBar>;
   }

@@ -1,4 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import { isHtmlElement } from '../../guards';
 
 export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
   if (!element || element.scrollHeight > element.offsetHeight) {
@@ -72,8 +73,12 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
 };
 
 export const scrollHandler = (element: HTMLElement | number) => {
-  if ( element instanceof HTMLElement) {
-    const top = element.getBoundingClientRect().top;
-    element.style.setProperty('height', `calc(100vh - ${top}px)`);
+  if (!isHtmlElement(element)) {
+    return;
   }
+
+  const top = element.getBoundingClientRect().top;
+  element.style.setProperty('height', `calc(100vh - ${top}px)`);
+
+  console.log(top);
 };
