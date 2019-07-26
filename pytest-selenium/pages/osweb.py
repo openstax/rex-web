@@ -1,4 +1,4 @@
-from pypom import Page
+from pages.base import Page
 from selenium.webdriver.common.by import By
 
 
