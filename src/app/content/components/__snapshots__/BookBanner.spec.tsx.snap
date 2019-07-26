@@ -264,6 +264,7 @@ Array [
   font-weight: 600;
   display: inline-block;
   margin: 1rem 0 0 0;
+  max-width: 78.25rem;
 }
 
 .c0 {
@@ -351,6 +352,12 @@ Array [
     -webkit-line-clamp: 2;
     max-height: 4rem;
     margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: none;
   }
 }
 
