@@ -54,8 +54,27 @@ export async function prepareContentPage(
 
 const indexHtml = readAssetFile('index.html');
 
-type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
-const renderHtml: RenderHtml = (styles, app, state) => {
+const renderHtml = async(
+  services: AppOptions['services'],
+  url: string,
+  action: AnyMatch,
+  expectedCode: number
+): Promise<string> => {
+  const app = createApp({initialEntries: [action], services});
+
+  await app.services.promiseCollector.calm();
+
+  const state = app.store.getState();
+  const styles = new ServerStyleSheet();
+  const pathname = navigationSelectors.pathname(state);
+
+  if (pathname !== url) {
+    throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
+  }
+  if (errorSelectors.code(state) !== expectedCode) {
+    throw new Error(`UNSUPPORTED: url: ${url} expected code ${expectedCode}, got ${errorSelectors.code(state)}`);
+  }
+
   const modules: string[] = [];
 
   return injectHTML(indexHtml, {
@@ -90,22 +109,8 @@ type MakeRenderPage = (services: AppOptions['services']) =>
 const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode) => {
   const url = matchUrl(action);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
-  const app = createApp({initialEntries: [action], services});
+  const html = await renderHtml(services, url, action, expectedCode);
 
-  await app.services.promiseCollector.calm();
-
-  const state = app.store.getState();
-  const styles = new ServerStyleSheet();
-  const pathname = navigationSelectors.pathname(state);
-
-  if (pathname !== url) {
-    throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
-  }
-  if (errorSelectors.code(state) !== expectedCode) {
-    throw new Error(`UNSUPPORTED: url: ${url} expected code ${expectedCode}, got ${errorSelectors.code(state)}`);
-  }
-
-  const html = renderHtml(styles, app, state);
   numPages++;
 
   if (assetDirectoryExists(url)) {
