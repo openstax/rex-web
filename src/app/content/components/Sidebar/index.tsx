@@ -38,11 +38,15 @@ export class Sidebar extends Component<SidebarProps> {
       return;
     }
 
-    const animation = () => requestAnimationFrame(scrollHandler);
+    const scrollHandlerCallback = () => {
+      scrollHandler(sidebar);
+    };
+
+    const animation = () => requestAnimationFrame(scrollHandlerCallback);
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
-    scrollHandler(sidebar);
+    scrollHandlerCallback();
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {

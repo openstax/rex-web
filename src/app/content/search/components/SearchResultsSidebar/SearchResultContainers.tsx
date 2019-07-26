@@ -3,11 +3,11 @@ import React from 'react';
 import { Details, ExpandIcon } from '../../../../components/Details';
 import { CollapseIcon, SummaryTitle, SummaryWrapper } from '../../../components/Sidebar/styled';
 import { Book, Page } from '../../../types';
+import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { isSearchResultChapter } from '../../guards';
 import { SearchResultChapter, SearchResultContainer, SearchResultPage } from '../../types';
 import * as Styled from './styled';
-import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 
 // tslint:disable-next-line:variable-name
 export const SearchResultContainers = (props: {

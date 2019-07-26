@@ -72,13 +72,7 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
   }
 };
 
-export const scrollHandler = (element: HTMLElement | number) => {
-  if (!isHtmlElement(element)) {
-    return;
-  }
-
+export const scrollHandler = (element: HTMLElement) => {
   const top = element.getBoundingClientRect().top;
   element.style.setProperty('height', `calc(100vh - ${top}px)`);
-
-  console.log(top);
 };

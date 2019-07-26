@@ -71,10 +71,14 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       return;
     }
 
-    const animation = () => requestAnimationFrame(scrollHandler);
+    const scrollHandlerCallback = () => {
+      scrollHandler(searchSidebar);
+    };
+
+    const animation = () => requestAnimationFrame(scrollHandlerCallback);
 
     window.addEventListener('scroll', animation, {passive: true});
     window.addEventListener('resize', animation, {passive: true});
-    scrollHandler(searchSidebar);
+    scrollHandlerCallback();
   };
 }
