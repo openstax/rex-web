@@ -10,7 +10,7 @@ import { clearSearch, receiveSearchResults, requestSearch } from './actions';
 import * as select from './selectors';
 import { getFirstResultPage, getIndexData, getSearchFromLocation } from './utils';
 
-export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload}) => {
+export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
   const book = selectContent.book(state);
 
@@ -25,15 +25,15 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     searchStrategy: 's1',
   });
 
-  services.dispatch(receiveSearchResults(results));
+  services.dispatch(receiveSearchResults(results, meta));
 };
 
-export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload}) => {
+export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
   const state = services.getState();
   const search = select.query(state);
   const {page, book} = selectContent.bookAndPage(state);
 
-  if (!page || !book) {
+  if (!page || !book || (meta && meta.skipNavigation)) {
     return; // book changed while query was in the air
   }
 
@@ -90,7 +90,7 @@ function loadSearch(
   savedQuery: string | null
 ) {
   if (savedQuery && savedQuery !== query) {
-    services.dispatch(requestSearch(savedQuery));
+    services.dispatch(requestSearch(savedQuery, {skipNavigation: true}));
   } else if (!savedQuery && query) {
     services.dispatch(clearSearch());
   }
