@@ -1,3 +1,22 @@
+// Constants from bootstrap/less/variables.less
+@gray-base:             #000;
+@gray-dark:             lighten(@gray-base, 20%);   // #333
+@gray:                  lighten(@gray-base, 33.5%); // #555
+@gray-medium:           #606163;
+@gray-light:            #cdcdcd;
+@gray-lighter:          gainsboro;
+@gray-lightest:         #ededed;
+@font-size-base:        14px;
+@line-height-base:      1.428571429; // 20/14
+@line-height-computed:  floor((@font-size-base * @line-height-base)); // ~20px
+@table-bg:              transparent;
+@table-border-color:    #ddd;
+@body-bg:               #fff;
+@table-bg-accent:       #f9f9f9;
+@screen-sm:             768px;
+@screen-sm-min:         @screen-sm;
+@screen-xs-max:         (@screen-sm-min - 1);
+
 #main-content {
   @import "./content-baked.less";
 
@@ -12,6 +31,9 @@
   }
   h3 {
     font-size: 2.1rem;
+  }
+  h4 {
+    font-size: 1.6rem;
   }
   sub, sup {
     font-size: 75%;

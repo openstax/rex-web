@@ -1,3 +1,4 @@
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 
 export const MAIN_CONTENT_ID = 'main-content';

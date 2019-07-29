@@ -2,18 +2,16 @@ import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import scrollTo from 'scroll-to-element';
 import styled, { css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { bodyCopyRegularStyle, decoratedLinkStyle } from '../../components/Typography';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertString } from '../../utils';
+import { assertString, scrollTo } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
-import { bookBannerDesktopMiniHeight, toolbarDesktopHeight } from './constants';
 import { contentTextStyle } from './Page';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
@@ -100,8 +98,7 @@ class Attribution extends Component<Props> {
       return;
     }
 
-    const offset = -1 * (bookBannerDesktopMiniHeight + toolbarDesktopHeight) * 10;
-    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container, {offset});
+    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
     container.addEventListener('toggle', this.toggleHandler);
   }
 

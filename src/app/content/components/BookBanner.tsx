@@ -72,6 +72,7 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
   (props: {variant: 'mini' | 'big'}) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
+const bookTitleMiniNavDestkopWidth = 27;
 // tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
@@ -90,7 +91,7 @@ const BookTitle = styled.a`
   `)}
 
   ${ifMiniNav(css`
-    width: 27rem;
+    width: ${bookTitleMiniNavDestkopWidth}rem;
 
     ${theme.breakpoints.mobile(css`
       display: none;
@@ -99,8 +100,8 @@ const BookTitle = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookChapter = styled(({colorSchema: _, variant, ...props}) => variant === 'mini' ?
-  <span {...props} /> : <h1 {...props} />)`
+const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => variant === 'mini' ?
+  <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
   font-weight: 600;
@@ -115,6 +116,13 @@ const BookChapter = styled(({colorSchema: _, variant, ...props}) => variant === 
 
     max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
+  `)}
+  ${ifMiniNav(css`
+    max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
+
+    ${theme.breakpoints.mobile(css`
+      max-width: none;
+    `)}
   `)}
 `;
 

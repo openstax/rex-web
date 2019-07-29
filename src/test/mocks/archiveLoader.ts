@@ -45,15 +45,15 @@ export default () => {
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
-  const cachedBook = jest.fn((bookId, bookVersion) => {
+  const cachedBook = jest.fn((bookId, bookVersion): ArchiveBook | undefined => {
     return resolveBook(bookId, bookVersion);
   });
-  const cachedPage = jest.fn((bookId, bookVersion, pageId) => {
+  const cachedPage = jest.fn((bookId, bookVersion, pageId): ArchivePage | undefined => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     return pages && pages[pageId];
   });
 
-  const getBookIdsForPage = jest.fn((_pageId: string) => Promise.resolve([]));
+  const getBookIdsForPage = jest.fn((_pageId: string) => Promise.resolve([] as string[]));
 
   return {
     book: (bookId: string, bookVersion: string | undefined) => ({

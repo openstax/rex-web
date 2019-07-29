@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Details } from '../../../../components/Details';
 import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
@@ -56,8 +56,12 @@ export const ContentLink = styled(ContentLinkComponent)`
   }
 `;
 
+interface NavItemComponentProps {
+  active?: boolean;
+  className?: string;
+}
 // tslint:disable-next-line:variable-name
-export const NavItemComponent: ComponentType<{active?: boolean, className?: string}> = React.forwardRef(
+export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
   ({active, className, children}, ref) => <li
     ref={ref}
     className={className}
@@ -102,7 +106,7 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   }
   const letters = num.replace(/[^A-Z]/ig, '');
   const numbers = num.replace(/[^0-9]/g, '');
-  const periods = num.replace(/[^\.]/g, '');
+  const periods = num.replace(/[^.]/g, '');
 
   return Math.max(result,
     numbers.length * numberCharacterWidth +
