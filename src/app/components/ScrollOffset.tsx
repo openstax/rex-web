@@ -33,9 +33,9 @@ const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
  * have to be after a scroll for us to think that it was intentionally scrolled
  * to
  *
- * this used to be 2 but safari yeilds 2.5ish sometimes
+ * this used to be 2 but safari has been seen producing up to 3.4
  */
-const matchingThreshold = 3;
+const matchingThreshold = 4;
 
 /*
  * number of times to check the scroll after page load before assuming everything
