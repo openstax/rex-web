@@ -90,7 +90,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     while content.is_mobile:
         toolbar.click_toc_toggle_button()
         break
-    toc().sections[-1].click()
+    toc.sections[-1].click()
 
     # THEN: The citation/attribution section is not open on the new page
     assert not attribution.is_open
@@ -111,7 +111,7 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
     attribution.click_attribution_link()
 
     # THEN: The book url in the the citation section should reference the default page of the book
-    default_page_url = toc().default_page_url
+    default_page_url = toc.default_page_url
     default_page_slug = default_page_url.split("/")[-1]
 
     attribution_book_url_expected = (

@@ -168,6 +168,7 @@ class Content(Page, WaitForTitleChange):
         def header(self):
             return self.Header(self.page)
 
+        @property
         def toc(self):
             return TableOfContents(self)
 
