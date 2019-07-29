@@ -447,6 +447,7 @@ describe('Page', () => {
       content: 'some other content',
       id: 'adsfasdf',
       references: [],
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -463,6 +464,7 @@ describe('Page', () => {
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -520,6 +522,7 @@ describe('Page', () => {
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -556,6 +559,7 @@ describe('Page', () => {
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -621,6 +625,7 @@ describe('Page', () => {
     const tablePage = {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
