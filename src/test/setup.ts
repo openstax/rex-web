@@ -1,3 +1,4 @@
+import { FrameRequestCallback } from '@openstax/types/lib.dom';
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
 import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
@@ -46,3 +47,41 @@ if (process.env.CI) {
 } else {
   jest.setTimeout(120 * 1000);
 }
+
+let requestAnimationFrame: jest.SpyInstance;
+let matchMedia: jest.SpyInstance;
+beforeEach(() => {
+  if (typeof(window) === 'undefined') {
+    return;
+  }
+
+  matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
+    return {
+      addListener: jest.fn(),
+      matches: false,
+      media: query,
+      onchange: null,
+      removeListener: jest.fn(),
+    };
+  });
+
+  requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(
+    (cb: FrameRequestCallback) => {
+      cb(0);
+      return 0;
+    }
+  );
+});
+
+beforeEach(() => {
+  // clean up styled-components between tests
+  (window as any).scCGSHMRCache = {};
+});
+
+afterEach(() => {
+  if (typeof(window) === 'undefined') {
+    return;
+  }
+  matchMedia.mockReset();
+  requestAnimationFrame.mockRestore();
+});

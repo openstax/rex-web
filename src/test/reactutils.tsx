@@ -1,4 +1,4 @@
-import { FrameRequestCallback, HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
@@ -50,26 +50,3 @@ export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, c
     tree: c,
   };
 }
-
-let requestAnimationFrame: jest.SpyInstance;
-beforeEach(() => {
-  if (typeof(window) !== 'undefined') {
-    requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(
-      (cb: FrameRequestCallback) => {
-        cb(0);
-        return 0;
-      }
-    );
-  }
-});
-
-beforeEach(() => {
-  // clean up styled-components between tests
-  (window as any).scCGSHMRCache = {};
-});
-
-afterEach(() => {
-  if (typeof(window) !== 'undefined') {
-    requestAnimationFrame.mockRestore();
-  }
-});
