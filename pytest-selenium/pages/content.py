@@ -42,7 +42,7 @@ class Content(Page):
         return self.find_element(*self._profile_locator)
 
     @property
-    def logou(self):
+    def logout(self):
         return self.find_element(*self._logout_locator)
 
     def next_link(self):
@@ -126,6 +126,9 @@ class Content(Page):
 
     def click_previous_link(self):
         self.click_and_wait_for_load(self.previous_link)
+
+    def click_login(self):
+        self.login.click()
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
