@@ -3,7 +3,7 @@ import React from 'react';
 import { createGlobalStyle, css } from 'styled-components/macro';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
-import { assertDocument, assertWindow, remsToPx } from '../utils';
+import { assertWindow, remsToPx } from '../utils';
 
 interface ScrollOffsetProps {
   desktopOffset: number;
@@ -91,18 +91,15 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     const handler = () => {
       scrolls++;
       if (scrolls >= maxChecks) {
-        assertDocument().removeEventListener('scroll', handler);
+        assertWindow().removeEventListener('scroll', handler);
       }
       this.scrollForOffset();
     };
-    assertDocument().addEventListener('scroll', handler);
+    assertWindow().addEventListener('scroll', handler);
   };
 
   private scrollForOffset = () => {
-    if (typeof(window) === 'undefined') {
-      return;
-    }
-
+    const window = assertWindow();
     const targetId = window.location.hash.slice(1);
     const target = window.document.getElementById(targetId);
 

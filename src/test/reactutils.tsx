@@ -41,9 +41,7 @@ export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, c
       throw new Error(`BUG: Component was not rendered`);
   }
   const node = ReactDOM.findDOMNode(c) as HTMLElement;
-  if (!node || !node.parentNode) {
-      throw new Error(`BUG: Could not find DOM node`);
-  }
+
   return {
     node,
     root: domContainer as HTMLElement,

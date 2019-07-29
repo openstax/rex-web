@@ -50,10 +50,15 @@ if (process.env.CI) {
 
 let requestAnimationFrame: jest.SpyInstance;
 let matchMedia: jest.SpyInstance;
+let scrollTo: jest.SpyInstance;
+let scrollBy: jest.SpyInstance;
 beforeEach(() => {
   if (typeof(window) === 'undefined') {
     return;
   }
+
+  scrollTo = window.scrollTo = jest.fn();
+  scrollBy = window.scrollBy = jest.fn();
 
   matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
     return {
@@ -83,5 +88,7 @@ afterEach(() => {
     return;
   }
   matchMedia.mockReset();
+  scrollTo.mockReset();
+  scrollBy.mockReset();
   requestAnimationFrame.mockRestore();
 });
