@@ -1,4 +1,4 @@
-export default {
+const books = {
   /* American Government 2e */ '9d8df601-4f12-4ac1-8224-b450bf739e5f': {defaultVersion: '5.3'},
   /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': {defaultVersion: '15.5'},
   /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': {defaultVersion: '21.8'},
@@ -26,3 +26,5 @@ export default {
   /* Psychology */ '4abf04bf-93a0-45c3-9cbc-2cefd46e68cc': {defaultVersion: '10.24'},
   /* U.S. History */ 'a7ba2fb8-8925-4987-b182-5f4429d48daa': {defaultVersion: '9.5'},
 };
+
+module.exports = books;
