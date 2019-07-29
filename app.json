@@ -3,7 +3,6 @@
   "scripts": {
   },
   "env": {
-    "NODE_ENV": "production",
     "REACT_APP_ENV": "development",
     "REACT_APP_RELEASE_ID": "heroku",
     "REACT_APP_CODE_VERSION": "heroku"
