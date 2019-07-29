@@ -13,6 +13,9 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
+    _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
+    _profile_locator = (By.XPATH, "//*[contains(text(), 'Account Profile')]/a")
+    _logout_locator = (By.XPATH, "//*[contains(text(), 'Log out')]/a")
 
     @property
     def loaded(self):
@@ -25,6 +28,18 @@ class Content(Page):
     @property
     def previous_link(self):
         return self.find_element(*self._previous_locator)
+
+    @property
+    def login(self):
+        return self.find_element(*self._login_locator)
+
+    @property
+    def account_profile(self):
+        return self.find_element(*self._profile_locator)
+
+    @property
+    def logou(self):
+        return self.find_element(*self._logout_locator)
 
     @property
     def navbar(self):
