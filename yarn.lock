@@ -4128,6 +4128,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-fns@^1.30.1:
+  version "1.30.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
+  integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -7476,6 +7481,11 @@ lodash._reinterpolate@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
 
+lodash.chunk@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.chunk/-/lodash.chunk-4.2.0.tgz#66e5ce1f76ed27b4303d8c6512e8d1216e8106bc"
+  integrity sha1-ZuXOH3btJ7QwPYxlEujRIW6BBrw=
+
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
@@ -7491,6 +7501,11 @@ lodash.isequal@^4.5.0:
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
+
+lodash.padstart@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash.padstart/-/lodash.padstart-4.6.1.tgz#d2e3eebff0d9d39ad50f5cbd1b52a7bce6bb611b"
+  integrity sha1-0uPuv/DZ05rVD1y9G1KnvOa7YRs=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -10658,6 +10673,16 @@ sisteransi@^1.0.0:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.1.tgz#208a2443e1fc40b05ccad4de0aa8798b27249ca1"
   integrity sha512-Qs1o9b0ORUzmh04fZjVzqeQ0L9tmJCL1eyivJcDNCY16gOEvR299INgXwBdy2bq38bVgSpq4DDfhgQx515ToLQ==
 
+sitemap@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/sitemap/-/sitemap-3.2.2.tgz#3f77c358fa97b555c879e457098e39910095c62b"
+  integrity sha512-TModL/WU4m2q/mQcrDgNANn0P4LwprM9MMvG4hu5zP4c6IIKs2YLTu6nXXnNr8ODW/WFtxKggiJ1EGn2W0GNmg==
+  dependencies:
+    lodash.chunk "^4.2.0"
+    lodash.padstart "^4.6.1"
+    whatwg-url "^7.0.0"
+    xmlbuilder "^13.0.0"
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
@@ -12404,6 +12429,11 @@ xdg-basedir@^3.0.0:
 xml-name-validator@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
+
+xmlbuilder@^13.0.0:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-13.0.2.tgz#02ae33614b6a047d1c32b5389c1fdacb2bce47a7"
+  integrity sha512-Eux0i2QdDYKbdbA6AM6xE4m6ZTZr4G4xF9kahI2ukSEMCzwce2eX9WlTI5J3s+NU7hpasFsr8hWIONae7LluAQ==
 
 xmlchars@^2.1.1:
   version "2.1.1"
