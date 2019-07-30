@@ -12,7 +12,6 @@ import { content } from '../../src/app/content/routes';
 import { Book } from '../../src/app/content/types';
 import { formatBookData, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
-import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
@@ -146,12 +145,6 @@ export type Pages = Array<{code: number, page: AnyMatch}>;
 export const prepareErrorPages = (): Promise<Pages> => Promise.resolve([
   {code: 404, page: {route: notFound}},
 ]);
-
-export const prepareDeveloperPages = (): Promise<Pages> => Promise.resolve(
-  process.env.REACT_APP_ENV === 'development'
-    ? [{code: 200, page: {route: developerHome}}]
-    : []
-);
 
 export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
