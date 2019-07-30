@@ -17,7 +17,6 @@ export const content: Route<Params, State> = {
     loader: () => import(/* webpackChunkName: "Content" */ './components/Content'),
     loading: () => null,
     modules: ['Content'],
-    webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/Content')],
   }),
   getUrl: (params: Params): string => pathToRegexp.compile(CONTENT_PATH)(params),
   name: 'Content',
