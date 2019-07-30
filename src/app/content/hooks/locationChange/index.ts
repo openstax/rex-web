@@ -4,7 +4,7 @@ import { syncSearch } from '../../search/hooks';
 import resolveContent from './resolveContent';
 
 interface ErrorMaker {
-  bang: () => string
+  bang: () => string;
 }
 
 const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {

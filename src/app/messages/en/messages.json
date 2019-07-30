@@ -1,5 +1,8 @@
 {
-  "i18n:404": "page not found",
+  "i18n:error:404": "page not found",
+  "i18n:error:boundary:heading": "System Error",
+  "i18n:error:boundary:body": "We’re sorry but a system error was encountered",
+  "i18n:error:boundary:action": "Our support staff has been notified of the error and we’ll investigate it further.",
   "i18n:a11y:skipToContent": "Skip to Content",
   "i18n:notification:update:header": "Updates Available",
   "i18n:notification:update:body": "This page needs to be reloaded.",

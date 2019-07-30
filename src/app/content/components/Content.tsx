@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
+import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import Footer from './../../components/Footer';
@@ -155,27 +156,30 @@ const Content: React.SFC = () => <Layout>
     mobileOffset={bookBannerMobileMiniHeight + toolbarMobileHeight}
   />
   <Background>
-    <BookBanner/>
+    <BookBanner />
     <Toolbar />
     <Wrapper>
       <CenteredContentRow>
-        <Sidebar />
+        <ErrorBoundary><Sidebar /></ErrorBoundary>
         <ContentPane>
-          <UndoPadding>
-            <MainContentWrapper>
-              <ContentNotifications />
-              <HideOverflowAndRedoPadding>
-                <Page />
-                <PrevNextBar />
-              </HideOverflowAndRedoPadding>
-              <Attribution />
-              <Footer/>
-            </MainContentWrapper>
-          </UndoPadding>
+          <ErrorBoundary>
+            <UndoPadding>
+              <MainContentWrapper>
+                <ContentNotifications />
+                <HideOverflowAndRedoPadding>
+                  <Page />
+                  <PrevNextBar />
+                </HideOverflowAndRedoPadding>
+                <Attribution />
+                <Footer />
+              </MainContentWrapper>
+            </UndoPadding>
+          </ErrorBoundary>
         </ContentPane>
       </CenteredContentRow>
     </Wrapper>
   </Background>
 </Layout>;
+
 
 export default Content;
