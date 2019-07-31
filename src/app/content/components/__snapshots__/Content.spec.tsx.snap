@@ -120,15 +120,541 @@ Array [
   overflow: hidden;
 }
 
-.c85 {
-  height: 1em;
+.c46 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c48 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c66 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c66::before {
+  display: none;
+}
+
+.c66::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c66::-webkit-details-marker {
+  display: none;
+}
+
+.c41[open] > summary .c45 {
+  display: none;
+}
+
+.c41:not([open]) > summary .c47 {
+  display: none;
+}
+
+.c22 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+}
+
+.c22:hover,
+.c22:focus {
+  outline: none;
+  color: #424242;
+}
+
+.c24 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c24:hover,
+.c24:focus {
+  outline: none;
+  color: #424242;
+}
+
+.c26 {
+  font-weight: 600;
+  font-family: Neue Helvetica W01;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0 0 0 0.5rem;
+}
+
+.c25 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c21 {
+  display: none;
+}
+
+.c21 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c23 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 2rem;
+  position: relative;
+  color: #5e6062;
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+}
+
+.c19:focus-within {
+  border: solid 0.1rem #0cc0dc;
+}
+
+.c19.ally-focus-within {
+  border: solid 0.1rem #0cc0dc;
+}
+
+.c20 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #424242;
+  line-height: 3.2rem;
+  margin: 0 1rem 0 1rem;
+  height: 3.2rem;
+  border: none;
+  outline: none;
+}
+
+.c20::-webkit-input-placeholder {
+  color: #5e6062;
+}
+
+.c20::-moz-placeholder {
+  color: #5e6062;
+}
+
+.c20:-ms-input-placeholder {
+  color: #5e6062;
+}
+
+.c20::placeholder {
+  color: #5e6062;
+}
+
+.c17 {
+  height: 100%;
+  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.c10 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  width: 100%;
+  overflow: visible;
+  display: block;
+  z-index: 2;
+  background-color: #fff;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+}
+
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  overflow: visible;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 128rem;
+  margin: 0 auto;
+  width: calc(100% - 3.2rem * 2);
+  height: 5rem;
+}
+
+.c13 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  margin-right: 0.5rem;
+}
+
+.c16 {
+  font-family: Neue Helvetica W01;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.c12 {
+  color: #5e6062;
+  border: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  background: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.c12:hover {
+  color: #424242;
+}
+
+.c30 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  margin-top: -5rem;
+  overflow-y: auto;
+  height: calc(100vh - 13rem);
+  -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  background-color: #fafafa;
+  z-index: 3;
+  margin-left: -50vw;
+  padding-left: 50vw;
+  width: calc(50vw + 33.5rem);
+  min-width: calc(50vw + 33.5rem);
+  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c30 > ol {
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c30 > ol > li:first-child {
+  margin-top: 0;
+}
+
+.c30 > ol::before {
+  content: "";
+  background: #fafafa;
+  display: block;
+  height: 1.8rem;
+  margin: -1.8rem -1.8rem 0 -1.8rem;
+}
+
+.c30 > * {
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  opacity: 1;
+}
+
+.c32 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  overflow: visible;
+  box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
+}
+
+.c34 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  margin-right: 0;
+  padding-right: 0;
+  color: #818181;
+}
+
+.c34:hover {
+  color: #5e6062;
+}
+
+.c33 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 1.8rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c33 .c15,
+.c33 .c31 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: left;
+}
+
+.c50 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c39 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 1.7rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+li[aria-label="Current Page"] .c39 {
+  font-weight: 600;
+}
+
+.c39:focus,
+.c39:hover {
+  outline: none;
+  color: #000;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c37 {
+  list-style: none;
+  overflow: visible;
+  margin: 1.2rem 0 0 0;
+}
+
+.c43 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c43::before {
+  display: none;
+}
+
+.c43::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c43::-webkit-details-marker {
+  display: none;
+}
+
+.c43:focus {
+  outline: none;
+}
+
+.c43:hover .c49,
+.c43:focus .c49 {
+  color: #000;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c44 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c35 {
+  margin: 0;
+  padding: 0;
+}
+
+.c35 > .c36 > details > summary .os-number,
+.c35 > .c36 > .c38 .os-number {
+  width: 1.559375rem;
+  overflow: hidden;
+}
+
+.c35 > .c36 > details > summary .os-divider,
+.c35 > .c36 > .c38 .os-divider {
+  width: 0.8rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.c35 > .c36 > details > summary .os-text,
+.c35 > .c36 > .c38 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
+}
+
+.c35 > .c36 > details > ol {
+  margin-left: 2.059375rem;
+}
+
+.c51 {
+  margin: 0;
+  padding: 0;
+}
+
+.c51 > .c36 > details > summary .os-number,
+.c51 > .c36 > .c38 .os-number {
+  width: 3.509375rem;
+  overflow: hidden;
+}
+
+.c51 > .c36 > details > summary .os-divider,
+.c51 > .c36 > .c38 .os-divider {
+  width: 0.8rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.c51 > .c36 > details > summary .os-text,
+.c51 > .c36 > .c38 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
+}
+
+.c51 > .c36 > details > ol {
+  margin-left: 4.009375rem;
+}
+
+.c52 {
+  margin: 0;
+  padding: 0;
+}
+
+.c52 > .c36 > details > summary .os-number,
+.c52 > .c36 > .c38 .os-number {
+  width: 0rem;
+  overflow: hidden;
+}
+
+.c52 > .c36 > details > summary .os-divider,
+.c52 > .c36 > .c38 .os-divider {
+  width: 0.8rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.c52 > .c36 > details > summary .os-text,
+.c52 > .c36 > .c38 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
+}
+
+.c52 > .c36 > details > ol {
+  margin-left: 0.5rem;
+}
+
+.c40 {
+  overflow: visible;
 }
 
 .c86 {
-  height: 1em;
-}
-
-.c88 {
   height: 1em;
 }
 
@@ -136,7 +662,15 @@ Array [
   height: 1em;
 }
 
-.c69 {
+.c89 {
+  height: 1em;
+}
+
+.c88 {
+  height: 1em;
+}
+
+.c70 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -147,16 +681,16 @@ Array [
   transition: opacity 0.2s;
 }
 
-.c70 {
+.c71 {
   color: #d5d5d5;
   display: grid;
 }
 
-.c71 {
+.c72 {
   background-color: #424242;
 }
 
-.c72 {
+.c73 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -178,32 +712,32 @@ Array [
   overflow: visible;
 }
 
-.c73 {
+.c74 {
   grid-area: headline;
 }
 
-.c74 {
+.c75 {
   grid-area: mission;
 }
 
-.c74 a {
+.c75 a {
   color: inherit;
   font-weight: bold;
   text-underline-position: under;
 }
 
-.c77 {
+.c78 {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c77:hover {
+.c78:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c89 {
+.c90 {
   color: inherit;
   display: inline-grid;
   grid-auto-flow: column;
@@ -211,28 +745,28 @@ Array [
   overflow: hidden;
 }
 
-.c75 {
+.c76 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col1;
 }
 
-.c78 {
+.c79 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c79 {
+.c80 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col3;
 }
 
-.c76 {
+.c77 {
   font-size: 1.8rem;
   font-weight: bold;
   -webkit-letter-spacing: -0.072rem;
@@ -242,7 +776,7 @@ Array [
   line-height: normal;
 }
 
-.c80 {
+.c81 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -253,7 +787,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c81 {
+.c82 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -275,22 +809,22 @@ Array [
   overflow: visible;
 }
 
-.c82 {
+.c83 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c82 [data-html="copyright"] {
+.c83 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c82 a {
+.c83 a {
   color: inherit;
   overflow: visible;
 }
 
-.c82 sup {
+.c83 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -298,7 +832,7 @@ Array [
   vertical-align: top;
 }
 
-.c83 {
+.c84 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -313,7 +847,7 @@ Array [
   overflow: visible;
 }
 
-.c84 {
+.c85 {
   color: inherit;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -332,49 +866,14 @@ Array [
   width: 3rem;
 }
 
-.c90 {
+.c91 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
 }
 
-.c45 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c47 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c65 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c65::before {
-  display: none;
-}
-
-.c65::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c65::-webkit-details-marker {
-  display: none;
-}
-
-.c40[open] > summary .c44 {
-  display: none;
-}
-
-.c40:not([open]) > summary .c46 {
-  display: none;
-}
-
-.c56 {
+.c57 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -382,42 +881,45 @@ Array [
   overflow: visible;
 }
 
-.c56 a {
+.c57 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c56 a:hover {
+.c57 a:hover {
   color: #0064A0;
 }
 
-.c56 .os-figure,
-.c56 .os-figure:last-child {
+.c57 .os-figure,
+.c57 .os-figure:last-child {
   margin-bottom: 5px;
 }
 
-.c56 * {
+.c57 * {
   overflow: initial;
 }
 
-.c27 {
+.c28 {
   width: 100%;
   padding: 0 3.2rem;
   position: relative;
   overflow: visible;
-}
-
-.c66 {
-  margin-left: -0.3rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 
 .c67 {
   margin-left: -0.3rem;
 }
 
-.c64 {
+.c68 {
+  margin-left: -0.3rem;
+}
+
+.c65 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -426,19 +928,19 @@ Array [
   list-style: none;
 }
 
-.c64 a {
+.c65 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c64 a:hover {
+.c65 a:hover {
   color: #0064A0;
 }
 
-.c64,
-.c64 span {
+.c65,
+.c65 span {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -449,49 +951,49 @@ Array [
   text-decoration: none;
 }
 
-.c64 a,
-.c64 span a {
+.c65 a,
+.c65 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c64 a:hover,
-.c64 span a:hover {
+.c65 a:hover,
+.c65 span a:hover {
   color: #0064A0;
 }
 
-.c64:hover,
-.c64 span:hover {
+.c65:hover,
+.c65 span:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c68 {
+.c69 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c68 a {
+.c69 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c68 a:hover {
+.c69 a:hover {
   color: #0064A0;
 }
 
-.c68 blockquote {
+.c69 blockquote {
   margin-left: 0;
 }
 
-.c62 {
+.c63 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -503,30 +1005,30 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c62[open] > summary .c44 {
+.c63[open] > summary .c45 {
   display: none;
 }
 
-.c62:not([open]) > summary .c46 {
+.c63:not([open]) > summary .c47 {
   display: none;
 }
 
-.c62 a {
+.c63 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c62 a:hover {
+.c63 a:hover {
   color: #0064A0;
 }
 
-.c62 > .c63 {
+.c63 > .c64 {
   margin-bottom: 1.8rem;
 }
 
-.c62 li {
+.c63 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
@@ -697,18 +1199,18 @@ Array [
   margin-top: -7rem;
 }
 
-.c59 {
+.c60 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c61 {
+.c62 {
   height: 2.5rem;
   width: 2.5rem;
   margin-top: 0.1rem;
 }
 
-.c57 {
+.c58 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -733,557 +1235,180 @@ Array [
   border-bottom: solid 0.1rem #e5e5e5;
 }
 
-.c57 a {
+.c58 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c57 a:hover {
+.c58 a:hover {
   color: #0064A0;
 }
 
-.c57 a {
+.c58 a {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-}
-
-.c22 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-}
-
-.c22:hover,
-.c22:focus {
-  outline: none;
-  color: #424242;
-}
-
-.c24 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c24:hover,
-.c24:focus {
-  outline: none;
-  color: #424242;
-}
-
-.c26 {
-  font-weight: 600;
-  font-family: Neue Helvetica W01;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0 0 0 0.5rem;
-}
-
-.c25 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c21 {
-  display: none;
-}
-
-.c21 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c23 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c19 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-right: 2rem;
-  position: relative;
-  color: #5e6062;
-  border: solid 0.1rem;
-  border-radius: 0.2rem;
-}
-
-.c19:focus-within {
-  border: solid 0.1rem #0cc0dc;
-}
-
-.c19.ally-focus-within {
-  border: solid 0.1rem #0cc0dc;
-}
-
-.c20 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #424242;
-  line-height: 3.2rem;
-  margin: 0 1rem 0 1rem;
-  height: 3.2rem;
-  border: none;
-  outline: none;
-}
-
-.c20::-webkit-input-placeholder {
-  color: #5e6062;
-}
-
-.c20::-moz-placeholder {
-  color: #5e6062;
-}
-
-.c20:-ms-input-placeholder {
-  color: #5e6062;
-}
-
-.c20::placeholder {
-  color: #5e6062;
-}
-
-.c17 {
-  height: 100%;
-  text-align: right;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-}
-
-.c10 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 2;
-  background-color: #fff;
-  height: 5rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-}
-
-.c11 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  overflow: visible;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  max-width: 128rem;
-  margin: 0 auto;
-  width: calc(100% - 3.2rem * 2);
-  height: 5rem;
-}
-
-.c13 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  margin-right: 0.5rem;
-}
-
-.c16 {
-  font-family: Neue Helvetica W01;
-  font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.c12 {
-  color: #5e6062;
-  border: none;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  background: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.c12:hover {
-  color: #424242;
 }
 
 .c29 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  margin-top: -5rem;
-  overflow-y: auto;
-  height: calc(100vh - 13rem);
-  -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
-  -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
-  transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
-  background-color: #fafafa;
-  z-index: 3;
-  margin-left: -50vw;
-  padding-left: 50vw;
-  width: calc(50vw + 33.5rem);
-  min-width: calc(50vw + 33.5rem);
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c29 > ol {
-  -webkit-overflow-scrolling: touch;
-  position: relative;
-  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c29 > ol > li:first-child {
-  margin-top: 0;
-}
-
-.c29 > ol::before {
-  content: "";
-  background: #fafafa;
-  display: block;
-  height: 1.8rem;
-  margin: -1.8rem -1.8rem 0 -1.8rem;
-}
-
-.c29 > * {
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  opacity: 1;
-}
-
-.c31 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 5rem;
-  overflow: visible;
-  box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
-}
-
-.c33 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  margin-right: 0;
-  padding-right: 0;
-  color: #818181;
-}
-
-.c33:hover {
-  color: #5e6062;
-}
-
-.c32 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-right: 1.8rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c32 .c15,
-.c32 .c30 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: left;
-}
-
-.c49 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c38 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 1.7rem;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-li[aria-label="Current Page"] .c38 {
-  font-weight: 600;
-}
-
-.c38:focus,
-.c38:hover {
-  outline: none;
-  color: #000;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c36 {
-  list-style: none;
-  overflow: visible;
-  margin: 1.2rem 0 0 0;
-}
-
-.c42 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c42::before {
-  display: none;
-}
-
-.c42::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c42::-webkit-details-marker {
-  display: none;
-}
-
-.c42:focus {
-  outline: none;
-}
-
-.c42:hover .c48,
-.c42:focus .c48 {
-  color: #000;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c43 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c34 {
-  margin: 0;
-  padding: 0;
-}
-
-.c34 > .c35 > details > summary .os-number,
-.c34 > .c35 > .c37 .os-number {
-  width: 1.559375rem;
-  overflow: hidden;
-}
-
-.c34 > .c35 > details > summary .os-divider,
-.c34 > .c35 > .c37 .os-divider {
-  width: 0.8rem;
-  text-align: center;
-  overflow: hidden;
-}
-
-.c34 > .c35 > details > summary .os-text,
-.c34 > .c35 > .c37 .os-text {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  overflow: hidden;
-}
-
-.c34 > .c35 > details > ol {
-  margin-left: 2.059375rem;
-}
-
-.c50 {
-  margin: 0;
-  padding: 0;
-}
-
-.c50 > .c35 > details > summary .os-number,
-.c50 > .c35 > .c37 .os-number {
-  width: 3.509375rem;
-  overflow: hidden;
-}
-
-.c50 > .c35 > details > summary .os-divider,
-.c50 > .c35 > .c37 .os-divider {
-  width: 0.8rem;
-  text-align: center;
-  overflow: hidden;
-}
-
-.c50 > .c35 > details > summary .os-text,
-.c50 > .c35 > .c37 .os-text {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  overflow: hidden;
-}
-
-.c50 > .c35 > details > ol {
-  margin-left: 4.009375rem;
-}
-
-.c51 {
-  margin: 0;
-  padding: 0;
-}
-
-.c51 > .c35 > details > summary .os-number,
-.c51 > .c35 > .c37 .os-number {
-  width: 0rem;
-  overflow: hidden;
-}
-
-.c51 > .c35 > details > summary .os-divider,
-.c51 > .c35 > .c37 .os-divider {
-  width: 0.8rem;
-  text-align: center;
-  overflow: hidden;
-}
-
-.c51 > .c35 > details > summary .os-text,
-.c51 > .c35 > .c37 .os-text {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  overflow: hidden;
-}
-
-.c51 > .c35 > details > ol {
-  margin-left: 0.5rem;
-}
-
-.c39 {
-  overflow: visible;
-}
-
-.c28 {
   overflow: visible;
   margin: 0 auto;
   max-width: 128rem;
 }
 
+.c27 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  overflow: visible;
+}
+
+@media screen and (max-width:75em) {
+  .c26 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c21 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c23 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c19 {
+    margin-right: 0;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c20 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c17 {
+    height: 100%;
+  }
+
+  .c17 .c18 {
+    border: none;
+    border-radius: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c10 {
+    top: 6rem;
+  }
+}
+
 @media print {
-  .c69 {
+  .c10 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    width: calc(100% - 1.6rem * 2);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c30 {
+    width: calc(50vw + 28.8rem);
+    min-width: calc(50vw + 28.8rem);
+    margin-top: -4rem;
+    top: 6rem;
+    height: calc(100vh - 11.2rem);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c30 {
+    overflow-y: hidden;
+    -webkit-transform: translateX(-33.5rem);
+    -ms-transform: translateX(-33.5rem);
+    transform: translateX(-33.5rem);
+    box-shadow: none;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  .c30 > * {
+    opacity: 0;
+  }
+}
+
+@media print {
+  .c30 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c32 {
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c37 {
+    margin-top: 1.7rem;
+  }
+}
+
+@media print {
+  .c70 {
     display: none;
   }
 }
 
 @media (min-width:60.1em) {
-  .c71 {
+  .c72 {
     padding: 7rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c71 {
+  .c72 {
     padding: 2rem 0;
   }
 }
 
 @media (max-width:60.1em) and (min-width:37.6em) {
-  .c71 {
+  .c72 {
     padding: 4rem 0;
   }
 }
 
 @media (min-width:37.6em) {
-  .c72 {
+  .c73 {
     -webkit-align-items: start;
     -webkit-box-align: start;
     -ms-flex-align: start;
@@ -1294,19 +1419,19 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media (max-width:37.5em) {
-  .c72 {
+  .c73 {
     grid-template: "headline" "mission" "col1" "col2" "col3";
   }
 }
 
 @media (min-width:60.1em) {
-  .c72 {
+  .c73 {
     grid-column-gap: 8rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c73 {
+  .c74 {
     font-size: 2.4rem;
     font-weight: bold;
     -webkit-letter-spacing: -0.096rem;
@@ -1318,7 +1443,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media (max-width:37.5em) {
-  .c73 {
+  .c74 {
     font-size: 2rem;
     font-weight: bold;
     -webkit-letter-spacing: -0.08rem;
@@ -1330,7 +1455,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media (min-width:37.6em) {
-  .c74 {
+  .c75 {
     font-size: 1.8rem;
     font-weight: normal;
     -webkit-letter-spacing: normal;
@@ -1342,93 +1467,93 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media (max-width:37.5em) {
+  .c78 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
   .c77 {
     line-height: 4.5rem;
   }
 }
 
-@media (max-width:37.5em) {
-  .c76 {
-    line-height: 4.5rem;
-  }
-}
-
 @media (min-width:37.6em) {
-  .c80 {
+  .c81 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c80 {
+  .c81 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c81 {
+  .c82 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c81 {
+  .c82 {
     padding: 0;
   }
 }
 
 @media screen {
-  .c56 {
+  .c57 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c56 {
+  .c57 {
     margin-top: 3.2rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c27 {
+  .c28 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen {
-  .c64 {
+  .c65 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c68 {
+  .c69 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c62 {
+  .c63 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c62 {
+  .c63 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c62 > .c41 {
+  .c63 > .c42 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c62 {
+  .c63 {
     display: none;
   }
 }
@@ -1581,7 +1706,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media screen {
-  .c52 {
+  .c53 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1593,137 +1718,27 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media screen and (max-width:75em) {
-  .c58 {
+  .c59 {
     margin-left: -0.8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c60 {
+  .c61 {
     margin-right: -0.8rem;
   }
 }
 
 @media print {
-  .c57 {
+  .c58 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c57 {
+  .c58 {
     margin: 3.5rem auto 3.7rem auto;
     border: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c26 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c21 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c23 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c19 {
-    margin-right: 0;
-    height: 100%;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c20 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    height: 100%;
-  }
-
-  .c17 .c18 {
-    border: none;
-    border-radius: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    height: 4rem;
-    top: 6rem;
-  }
-}
-
-@media print {
-  .c10 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c11 {
-    width: calc(100% - 1.6rem * 2);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c11 {
-    height: 4rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c29 {
-    width: calc(50vw + 28.8rem);
-    min-width: calc(50vw + 28.8rem);
-    margin-top: -4rem;
-    top: 6rem;
-    height: calc(100vh - 11.2rem);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c29 {
-    overflow-y: hidden;
-    -webkit-transform: translateX(-33.5rem);
-    -ms-transform: translateX(-33.5rem);
-    transform: translateX(-33.5rem);
-    box-shadow: none;
-    background-color: transparent;
-  }
-
-  .c29 > * {
-    opacity: 0;
-  }
-}
-
-@media print {
-  .c29 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c31 {
-    height: 4rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c36 {
-    margin-top: 1.7rem;
   }
 }
 
@@ -1737,7 +1752,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media screen {
-  .c28 {
+  .c29 {
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1750,7 +1765,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media screen {
-  .c53 {
+  .c54 {
     overflow: visible;
     min-height: 100%;
     display: -webkit-box;
@@ -1765,7 +1780,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media screen {
-  .c54 {
+  .c55 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1786,7 +1801,7 @@ li[aria-label="Current Page"] .c38 {
 }
 
 @media screen {
-  .c55 {
+  .c56 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1981,609 +1996,609 @@ li[aria-label="Current Page"] .c38 {
         className="c28"
       >
         <div
-          aria-label="Table of Contents"
           className="c29"
-          data-testid="toc"
         >
           <div
-            className="c30 c31"
-            data-testid="tocheader"
+            aria-label="Table of Contents"
+            className="c30"
+            data-testid="toc"
           >
-            <button
-              aria-label="Click to close the Table of Contents"
-              className="c32 c12"
-              onClick={[Function]}
+            <div
+              className="c31 c32"
+              data-testid="tocheader"
             >
-              <svg
-                aria-hidden="true"
-                className="c13 c14"
-                fill="currentColor"
-                focusable="false"
-                viewBox="0 0 512 512"
+              <button
+                aria-label="Click to close the Table of Contents"
+                className="c33 c12"
+                onClick={[Function]}
               >
-                <path
-                  d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"
+                <svg
+                  aria-hidden="true"
+                  className="c13 c14"
                   fill="currentColor"
-                />
-              </svg>
-              <span
-                className="c15 c16"
-              >
-                Table of contents
-              </span>
-              <svg
-                aria-hidden="true"
-                className="c33"
-                focusable="false"
-                height="15px"
-                version="1.1"
-                viewBox="0 0 15 15"
-                width="15px"
-              >
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c15 c16"
+                >
+                  Table of contents
+                </span>
+                <svg
+                  aria-hidden="true"
+                  className="c34"
+                  focusable="false"
+                  height="15px"
+                  version="1.1"
+                  viewBox="0 0 15 15"
+                  width="15px"
                 >
                   <g
-                    fill="currentColor"
-                    transform="translate(-302.000000, -18.000000)"
+                    fill="none"
+                    fillRule="evenodd"
+                    stroke="none"
+                    strokeWidth="1"
                   >
                     <g
-                      transform="translate(302.000000, 18.000000)"
+                      fill="currentColor"
+                      transform="translate(-302.000000, -18.000000)"
                     >
-                      <path
-                        d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                      />
+                      <g
+                        transform="translate(302.000000, 18.000000)"
+                      >
+                        <path
+                          d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                        />
+                      </g>
                     </g>
                   </g>
-                </g>
-              </svg>
-            </button>
+                </svg>
+              </button>
+            </div>
+            <ol
+              className="c35"
+            >
+              <li
+                className="c36 c37"
+              >
+                <a
+                  className="c38 c39"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+                    }
+                  }
+                  href="test-page-1"
+                  onClick={[Function]}
+                />
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <details
+                  className="c40 c41"
+                >
+                  <summary
+                    className="c42 c43"
+                  >
+                    <div
+                      className="c44"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="c45 c46 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 192 512"
+                      >
+                        <path
+                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="c47 c48 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span
+                        className="c49 c50"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                          }
+                        }
+                      />
+                    </div>
+                  </summary>
+                  <ol
+                    className="c51"
+                  >
+                    <li
+                      className="c36 c37"
+                    >
+                      <details
+                        className="c40 c41"
+                      >
+                        <summary
+                          className="c42 c43"
+                        >
+                          <div
+                            className="c44"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="c45 c46 c14"
+                              fill="currentColor"
+                              focusable="false"
+                              viewBox="0 0 192 512"
+                            >
+                              <path
+                                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                            <svg
+                              aria-hidden="true"
+                              className="c47 c48 c14"
+                              fill="currentColor"
+                              focusable="false"
+                              viewBox="0 0 320 512"
+                            >
+                              <path
+                                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                            <span
+                              className="c49 c50"
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+                                }
+                              }
+                            />
+                          </div>
+                        </summary>
+                        <ol
+                          className="c52"
+                        >
+                          <li
+                            className="c36 c37"
+                          >
+                            <a
+                              className="c38 c39"
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+                                }
+                              }
+                              href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                              onClick={[Function]}
+                            />
+                          </li>
+                        </ol>
+                      </details>
+                    </li>
+                    <li
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
+                          }
+                        }
+                        href="1-1-physics-an-introduction"
+                        onClick={[Function]}
+                      />
+                    </li>
+                    <li
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
+                          }
+                        }
+                        href="23-12-rlc-series-ac-circuits"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </details>
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <details
+                  className="c40 c41"
+                >
+                  <summary
+                    className="c42 c43"
+                  >
+                    <div
+                      className="c44"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="c45 c46 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 192 512"
+                      >
+                        <path
+                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="c47 c48 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span
+                        className="c49 c50"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                          }
+                        }
+                      />
+                    </div>
+                  </summary>
+                  <ol
+                    className="c52"
+                  >
+                    <li
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-text\\">Test Page 3</span>",
+                          }
+                        }
+                        href="2-test-page-3"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </details>
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <details
+                  className="c40 c41"
+                  open={true}
+                >
+                  <summary
+                    className="c42 c43"
+                  >
+                    <div
+                      className="c44"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="c45 c46 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 192 512"
+                      >
+                        <path
+                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="c47 c48 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span
+                        className="c49 c50"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                          }
+                        }
+                      />
+                    </div>
+                  </summary>
+                  <ol
+                    className="c52"
+                  >
+                    <li
+                      aria-label="Current Page"
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-text\\">Test Page 4</span>",
+                          }
+                        }
+                        href="3-test-page-4"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </details>
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <details
+                  className="c40 c41"
+                >
+                  <summary
+                    className="c42 c43"
+                  >
+                    <div
+                      className="c44"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="c45 c46 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 192 512"
+                      >
+                        <path
+                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="c47 c48 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span
+                        className="c49 c50"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                          }
+                        }
+                      />
+                    </div>
+                  </summary>
+                  <ol
+                    className="c52"
+                  >
+                    <li
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-text\\">Test Page 5</span>",
+                          }
+                        }
+                        href="4-test-page-5"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </details>
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <details
+                  className="c40 c41"
+                >
+                  <summary
+                    className="c42 c43"
+                  >
+                    <div
+                      className="c44"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="c45 c46 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 192 512"
+                      >
+                        <path
+                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="c47 c48 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span
+                        className="c49 c50"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                          }
+                        }
+                      />
+                    </div>
+                  </summary>
+                  <ol
+                    className="c52"
+                  >
+                    <li
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+                          }
+                        }
+                        href="10-test-page-6"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </details>
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <details
+                  className="c40 c41"
+                >
+                  <summary
+                    className="c42 c43"
+                  >
+                    <div
+                      className="c44"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="c45 c46 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 192 512"
+                      >
+                        <path
+                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="c47 c48 c14"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span
+                        className="c49 c50"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                          }
+                        }
+                      />
+                    </div>
+                  </summary>
+                  <ol
+                    className="c52"
+                  >
+                    <li
+                      className="c36 c37"
+                    >
+                      <a
+                        className="c38 c39"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<span class=\\"os-text\\">Test Page 7</span>",
+                          }
+                        }
+                        href="12-test-page-7"
+                        onClick={[Function]}
+                      />
+                    </li>
+                  </ol>
+                </details>
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <a
+                  className="c38 c39"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
+                    }
+                  }
+                  href="a-atomic-masses"
+                  onClick={[Function]}
+                />
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <a
+                  className="c38 c39"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
+                    }
+                  }
+                  href="d-glossary-of-key-symbols-and-notation"
+                  onClick={[Function]}
+                />
+              </li>
+              <li
+                className="c36 c37"
+              >
+                <a
+                  className="c38 c39"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+                    }
+                  }
+                  href="test-page-for-generic-styles"
+                  onClick={[Function]}
+                />
+              </li>
+            </ol>
           </div>
-          <ol
-            className="c34"
-          >
-            <li
-              className="c35 c36"
-            >
-              <a
-                className="c37 c38"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "<span class=\\"os-text\\">Test Page 1</span>",
-                  }
-                }
-                href="test-page-1"
-                onClick={[Function]}
-              />
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <details
-                className="c39 c40"
-              >
-                <summary
-                  className="c41 c42"
-                >
-                  <div
-                    className="c43"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c44 c45 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c46 c47 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span
-                      className="c48 c49"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
-                        }
-                      }
-                    />
-                  </div>
-                </summary>
-                <ol
-                  className="c50"
-                >
-                  <li
-                    className="c35 c36"
-                  >
-                    <details
-                      className="c39 c40"
-                    >
-                      <summary
-                        className="c41 c42"
-                      >
-                        <div
-                          className="c43"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c44 c45 c14"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 192 512"
-                          >
-                            <path
-                              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                          <svg
-                            aria-hidden="true"
-                            className="c46 c47 c14"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 320 512"
-                          >
-                            <path
-                              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                          <span
-                            className="c48 c49"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
-                              }
-                            }
-                          />
-                        </div>
-                      </summary>
-                      <ol
-                        className="c51"
-                      >
-                        <li
-                          className="c35 c36"
-                        >
-                          <a
-                            className="c37 c38"
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
-                              }
-                            }
-                            href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                            onClick={[Function]}
-                          />
-                        </li>
-                      </ol>
-                    </details>
-                  </li>
-                  <li
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
-                        }
-                      }
-                      href="1-1-physics-an-introduction"
-                      onClick={[Function]}
-                    />
-                  </li>
-                  <li
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
-                        }
-                      }
-                      href="23-12-rlc-series-ac-circuits"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </details>
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <details
-                className="c39 c40"
-              >
-                <summary
-                  className="c41 c42"
-                >
-                  <div
-                    className="c43"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c44 c45 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c46 c47 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span
-                      className="c48 c49"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
-                        }
-                      }
-                    />
-                  </div>
-                </summary>
-                <ol
-                  className="c51"
-                >
-                  <li
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-text\\">Test Page 3</span>",
-                        }
-                      }
-                      href="2-test-page-3"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </details>
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <details
-                className="c39 c40"
-                open={true}
-              >
-                <summary
-                  className="c41 c42"
-                >
-                  <div
-                    className="c43"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c44 c45 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c46 c47 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span
-                      className="c48 c49"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
-                        }
-                      }
-                    />
-                  </div>
-                </summary>
-                <ol
-                  className="c51"
-                >
-                  <li
-                    aria-label="Current Page"
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-text\\">Test Page 4</span>",
-                        }
-                      }
-                      href="3-test-page-4"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </details>
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <details
-                className="c39 c40"
-              >
-                <summary
-                  className="c41 c42"
-                >
-                  <div
-                    className="c43"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c44 c45 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c46 c47 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span
-                      className="c48 c49"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
-                        }
-                      }
-                    />
-                  </div>
-                </summary>
-                <ol
-                  className="c51"
-                >
-                  <li
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-text\\">Test Page 5</span>",
-                        }
-                      }
-                      href="4-test-page-5"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </details>
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <details
-                className="c39 c40"
-              >
-                <summary
-                  className="c41 c42"
-                >
-                  <div
-                    className="c43"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c44 c45 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c46 c47 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span
-                      className="c48 c49"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
-                        }
-                      }
-                    />
-                  </div>
-                </summary>
-                <ol
-                  className="c51"
-                >
-                  <li
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-text\\">Test Page 6</span>",
-                        }
-                      }
-                      href="10-test-page-6"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </details>
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <details
-                className="c39 c40"
-              >
-                <summary
-                  className="c41 c42"
-                >
-                  <div
-                    className="c43"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c44 c45 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c46 c47 c14"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span
-                      className="c48 c49"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
-                        }
-                      }
-                    />
-                  </div>
-                </summary>
-                <ol
-                  className="c51"
-                >
-                  <li
-                    className="c35 c36"
-                  >
-                    <a
-                      className="c37 c38"
-                      dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<span class=\\"os-text\\">Test Page 7</span>",
-                        }
-                      }
-                      href="12-test-page-7"
-                      onClick={[Function]}
-                    />
-                  </li>
-                </ol>
-              </details>
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <a
-                className="c37 c38"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
-                  }
-                }
-                href="a-atomic-masses"
-                onClick={[Function]}
-              />
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <a
-                className="c37 c38"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
-                  }
-                }
-                href="d-glossary-of-key-symbols-and-notation"
-                onClick={[Function]}
-              />
-            </li>
-            <li
-              className="c35 c36"
-            >
-              <a
-                className="c37 c38"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
-                  }
-                }
-                href="test-page-for-generic-styles"
-                onClick={[Function]}
-              />
-            </li>
-          </ol>
-        </div>
-        <div
-          className="c52"
-        >
           <div
             className="c53"
           >
@@ -2595,98 +2610,101 @@ li[aria-label="Current Page"] .c38 {
               >
                 <div
                   className="c56"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page</div>",
+                >
+                  <div
+                    className="c57"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page</div>",
+                      }
                     }
-                  }
-                  id="main-content"
-                  tabIndex={-1}
-                />
-                <div
-                  className="c57"
-                >
-                  <a
-                    aria-label="Previous Page"
+                    id="main-content"
+                    tabIndex={-1}
+                  />
+                  <div
                     className="c58"
-                    href="2-test-page-3"
-                    onClick={[Function]}
                   >
-                    <svg
-                      aria-hidden="true"
-                      className="c59 c5"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 24 24"
+                    <a
+                      aria-label="Previous Page"
+                      className="c59"
+                      href="2-test-page-3"
+                      onClick={[Function]}
                     >
-                      <path
-                        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-                      />
-                    </svg>
-                    Previous
-                  </a>
-                  <a
-                    aria-label="Next Page"
-                    className="c60"
-                    href="4-test-page-5"
-                    onClick={[Function]}
-                  >
-                    Next
-                    <svg
-                      aria-hidden="true"
-                      className="c61 c5"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 24 24"
+                      <svg
+                        aria-hidden="true"
+                        className="c60 c5"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                        />
+                      </svg>
+                      Previous
+                    </a>
+                    <a
+                      aria-label="Next Page"
+                      className="c61"
+                      href="4-test-page-5"
+                      onClick={[Function]}
                     >
-                      <path
-                        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-                      />
-                    </svg>
-                  </a>
+                      Next
+                      <svg
+                        aria-hidden="true"
+                        className="c62 c5"
+                        fill="currentColor"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <details
-                className="c62"
-                data-testid="attribution-details"
-              >
-                <summary
-                  aria-label="Citation/Attribution"
-                  className="c63 c64 c41 c65"
+                <details
+                  className="c63"
+                  data-testid="attribution-details"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c66 c44 c45 c14"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 192 512"
+                  <summary
+                    aria-label="Citation/Attribution"
+                    className="c64 c65 c42 c66"
                   >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                    <svg
+                      aria-hidden="true"
+                      className="c67 c45 c46 c14"
                       fill="currentColor"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="c67 c46 c47 c14"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 320 512"
-                  >
-                    <path
-                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="c68 c47 c48 c14"
                       fill="currentColor"
-                    />
-                  </svg>
-                  <span>
-                    Citation/Attribution
-                  </span>
-                </summary>
-                <div
-                  className="c68"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span>
+                      Citation/Attribution
+                    </span>
+                  </summary>
+                  <div
+                    className="c69"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "
 <p>
   Want to cite, share, or modify this book? This book is Sweet License
   1.0 and you must attribute OpenStax.
@@ -2749,14 +2767,11 @@ li[aria-label="Current Page"] .c38 {
   not be reproduced without the prior and express written consent of Rice University.</strong>
 </p>
 ",
+                      }
                     }
-                  }
-                />
-              </details>
-              <footer
-                className="c69"
-              >
-                <div
+                  />
+                </details>
+                <footer
                   className="c70"
                 >
                   <div
@@ -2766,143 +2781,146 @@ li[aria-label="Current Page"] .c38 {
                       className="c72"
                     >
                       <div
-                        aria-level={2}
                         className="c73"
-                        role="heading"
                       >
-                        OpenStax at Rice University is a 501(c)(3) nonprofit charity
-                      </div>
-                      <div
-                        className="c74"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "
+                        <div
+                          aria-level={2}
+                          className="c74"
+                          role="heading"
+                        >
+                          OpenStax at Rice University is a 501(c)(3) nonprofit charity
+                        </div>
+                        <div
+                          className="c75"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "
   It's our mission to give every student the tools they need to be successful in the classroom.
   Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
 ",
+                            }
                           }
-                        }
-                      />
-                      <div
-                        className="c75"
-                      >
+                        />
                         <div
                           className="c76"
                         >
-                          Help
+                          <div
+                            className="c77"
+                          >
+                            Help
+                          </div>
+                          <a
+                            className="c78"
+                            href="/contact"
+                            rel=""
+                            target="_self"
+                          >
+                            Contact Us
+                          </a>
+                          <a
+                            className="c78"
+                            href="https://openstax.secure.force.com/help"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Support Center
+                          </a>
+                          <a
+                            className="c78"
+                            href="/faq"
+                            rel=""
+                            target="_self"
+                          >
+                            FAQ
+                          </a>
                         </div>
-                        <a
-                          className="c77"
-                          href="/contact"
-                          rel=""
-                          target="_self"
-                        >
-                          Contact Us
-                        </a>
-                        <a
-                          className="c77"
-                          href="https://openstax.secure.force.com/help"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          Support Center
-                        </a>
-                        <a
-                          className="c77"
-                          href="/faq"
-                          rel=""
-                          target="_self"
-                        >
-                          FAQ
-                        </a>
-                      </div>
-                      <div
-                        className="c78"
-                      >
                         <div
-                          className="c76"
+                          className="c79"
                         >
-                          OpenStax
+                          <div
+                            className="c77"
+                          >
+                            OpenStax
+                          </div>
+                          <a
+                            className="c78"
+                            href="/press"
+                            rel=""
+                            target="_self"
+                          >
+                            Press
+                          </a>
+                          <a
+                            className="c78"
+                            href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Newsletter
+                          </a>
+                          <a
+                            className="c78"
+                            href="/careers"
+                            rel=""
+                            target="_self"
+                          >
+                            Careers
+                          </a>
                         </div>
-                        <a
-                          className="c77"
-                          href="/press"
-                          rel=""
-                          target="_self"
-                        >
-                          Press
-                        </a>
-                        <a
-                          className="c77"
-                          href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          Newsletter
-                        </a>
-                        <a
-                          className="c77"
-                          href="/careers"
-                          rel=""
-                          target="_self"
-                        >
-                          Careers
-                        </a>
-                      </div>
-                      <div
-                        className="c79"
-                      >
                         <div
-                          className="c76"
+                          className="c80"
                         >
-                          Policies
+                          <div
+                            className="c77"
+                          >
+                            Policies
+                          </div>
+                          <a
+                            className="c78"
+                            href="/accessibility-statement"
+                            rel=""
+                            target="_self"
+                          >
+                            Accessibility Statement
+                          </a>
+                          <a
+                            className="c78"
+                            href="/tos"
+                            rel=""
+                            target="_self"
+                          >
+                            Terms of Use
+                          </a>
+                          <a
+                            className="c78"
+                            href="/license"
+                            rel=""
+                            target="_self"
+                          >
+                            Licensing
+                          </a>
+                          <a
+                            className="c78"
+                            href="/privacy-policy"
+                            rel=""
+                            target="_self"
+                          >
+                            Privacy Policy
+                          </a>
                         </div>
-                        <a
-                          className="c77"
-                          href="/accessibility-statement"
-                          rel=""
-                          target="_self"
-                        >
-                          Accessibility Statement
-                        </a>
-                        <a
-                          className="c77"
-                          href="/tos"
-                          rel=""
-                          target="_self"
-                        >
-                          Terms of Use
-                        </a>
-                        <a
-                          className="c77"
-                          href="/license"
-                          rel=""
-                          target="_self"
-                        >
-                          Licensing
-                        </a>
-                        <a
-                          className="c77"
-                          href="/privacy-policy"
-                          rel=""
-                          target="_self"
-                        >
-                          Privacy Policy
-                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className="c80"
-                  >
                     <div
                       className="c81"
                     >
                       <div
                         className="c82"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "
+                      >
+                        <div
+                          className="c83"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
@@ -2913,110 +2931,111 @@ li[aria-label="Current Page"] .c38 {
     which is not affiliated with, and does not endorse, this site.
   </div>
 ",
+                            }
                           }
-                        }
-                      />
-                      <div
-                        className="c83"
-                        role="directory"
-                      >
-                        <a
-                          aria-label="facebook"
+                        />
+                        <div
                           className="c84"
-                          href="https://www.facebook.com/openstax"
-                          rel="noopener"
-                          target="_blank"
+                          role="directory"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="c85 c14"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 320 512"
+                          <a
+                            aria-label="facebook"
+                            className="c85"
+                            href="https://www.facebook.com/openstax"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                            <svg
+                              aria-hidden="true"
+                              className="c86 c14"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          aria-label="twitter"
-                          className="c84"
-                          href="https://twitter.com/openstax"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c86 c14"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 512 512"
+                              focusable="false"
+                              viewBox="0 0 320 512"
+                            >
+                              <path
+                                d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
+                            aria-label="twitter"
+                            className="c85"
+                            href="https://twitter.com/openstax"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                            <svg
+                              aria-hidden="true"
+                              className="c87 c14"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          aria-label="linkedin"
-                          className="c84"
-                          href="https://www.linkedin.com/company/openstax"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c87 c14"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 448 512"
+                              focusable="false"
+                              viewBox="0 0 512 512"
+                            >
+                              <path
+                                d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
+                            aria-label="linkedin"
+                            className="c85"
+                            href="https://www.linkedin.com/company/openstax"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                            <svg
+                              aria-hidden="true"
+                              className="c88 c14"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          aria-label="instagram"
-                          className="c84"
-                          href="https://www.instagram.com/openstax/"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c88 c14"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 448 512"
+                              focusable="false"
+                              viewBox="0 0 448 512"
+                            >
+                              <path
+                                d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
+                            aria-label="instagram"
+                            className="c85"
+                            href="https://www.instagram.com/openstax/"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                            <svg
+                              aria-hidden="true"
+                              className="c89 c14"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          className="c89"
-                          href="http://www.rice.edu"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <img
-                            alt="Rice University logo"
+                              focusable="false"
+                              viewBox="0 0 448 512"
+                            >
+                              <path
+                                d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
                             className="c90"
-                            src="rice-white-text.png"
-                          />
-                        </a>
+                            href="http://www.rice.edu"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            <img
+                              alt="Rice University logo"
+                              className="c91"
+                              src="rice-white-text.png"
+                            />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </footer>
+                </footer>
+              </div>
             </div>
           </div>
         </div>
@@ -3140,458 +3159,39 @@ Array [
   overflow: hidden;
 }
 
-.c59 {
-  height: 1em;
-}
-
-.c60 {
-  height: 1em;
-}
-
-.c62 {
-  height: 1em;
-}
-
-.c61 {
-  height: 1em;
+.c40 {
+  height: 1.7rem;
+  width: 1.7rem;
 }
 
 .c43 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  z-index: 0;
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-}
-
-.c44 {
-  color: #d5d5d5;
-  display: grid;
-}
-
-.c45 {
-  background-color: #424242;
-}
-
-.c46 {
-  max-width: 131rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
-  -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap;
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  width: 100%;
-  display: grid;
-  grid-row-gap: 2rem;
-  overflow: visible;
-}
-
-.c47 {
-  grid-area: headline;
-}
-
-.c48 {
-  grid-area: mission;
-}
-
-.c48 a {
-  color: inherit;
-  font-weight: bold;
-  text-underline-position: under;
-}
-
-.c51 {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c51:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c63 {
-  color: inherit;
-  display: inline-grid;
-  grid-auto-flow: column;
-  grid-column-gap: 0.7rem;
-  overflow: hidden;
-}
-
-.c49 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col1;
-}
-
-.c52 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col2;
-}
-
-.c53 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col3;
-}
-
-.c50 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  -webkit-letter-spacing: -0.072rem;
-  -moz-letter-spacing: -0.072rem;
-  -ms-letter-spacing: -0.072rem;
-  letter-spacing: -0.072rem;
-  line-height: normal;
-}
-
-.c54 {
-  font-size: 1.2rem;
-  font-weight: normal;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  line-height: normal;
-  background-color: #3b3b3b;
-}
-
-.c55 {
-  max-width: 131rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
-  -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap;
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  width: 100%;
-  display: grid;
-  grid-gap: 1.5rem 4rem;
-  overflow: visible;
-}
-
-.c56 {
-  display: grid;
-  grid-gap: 1rem;
-  overflow: visible;
-}
-
-.c56 [data-html="copyright"] {
-  overflow: visible;
-}
-
-.c56 a {
-  color: inherit;
-  overflow: visible;
-}
-
-.c56 sup {
-  font-size: 66%;
-  margin-left: 0.1rem;
-  position: relative;
-  top: -0.25em;
-  vertical-align: top;
-}
-
-.c57 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-  -webkit-box-pack: end;
-  -webkit-justify-content: end;
-  -ms-flex-pack: end;
-  justify-content: end;
-  overflow: visible;
-}
-
-.c58 {
-  color: inherit;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  background-color: #959595;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 50%;
-  display: grid;
-  height: 3rem;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 3rem;
-}
-
-.c64 {
-  height: 4rem;
-  -webkit-transform: translateY(0.2rem);
-  -ms-transform: translateY(0.2rem);
-  transform: translateY(0.2rem);
-}
-
-.c39 {
   height: 1.7rem;
   width: 1.7rem;
-}
-
-.c42 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c36 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c36::before {
-  display: none;
-}
-
-.c36::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c36::-webkit-details-marker {
-  display: none;
-}
-
-.c65[open] > summary .c38 {
-  display: none;
-}
-
-.c65:not([open]) > summary .c41 {
-  display: none;
-}
-
-.c30 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  overflow: visible;
-}
-
-.c30 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c30 a:hover {
-  color: #0064A0;
-}
-
-.c30 .os-figure,
-.c30 .os-figure:last-child {
-  margin-bottom: 5px;
-}
-
-.c30 * {
-  overflow: initial;
-}
-
-.c19 {
-  width: 100%;
-  padding: 0 3.2rem;
-  position: relative;
-  overflow: visible;
 }
 
 .c37 {
-  margin-left: -0.3rem;
-}
-
-.c40 {
-  margin-left: -0.3rem;
-}
-
-.c34 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-weight: 500;
   list-style: none;
-}
-
-.c34 a {
-  color: #027EB5;
   cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
 }
 
-.c34 a:hover {
-  color: #0064A0;
-}
-
-.c34,
-.c34 span {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c34 a,
-.c34 span a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c34 a:hover,
-.c34 span a:hover {
-  color: #0064A0;
-}
-
-.c34:hover,
-.c34 span:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c32 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 2rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c32[open] > summary .c38 {
+.c37::before {
   display: none;
 }
 
-.c32:not([open]) > summary .c41 {
+.c37::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c37::-webkit-details-marker {
   display: none;
 }
 
-.c32 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
+.c66[open] > summary .c39 {
+  display: none;
 }
 
-.c32 a:hover {
-  color: #0064A0;
-}
-
-.c32 > .c33 {
-  margin-bottom: 1.8rem;
-}
-
-.c32 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c1 {
-  top: 0;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 13rem;
-  -webkit-transition: -webkit-transform 200ms;
-  -webkit-transition: transform 200ms;
-  transition: transform 200ms;
-  position: relative;
-  z-index: 4;
-  overflow: hidden;
-}
-
-.c31 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  overflow: visible;
-  max-width: 82.5rem;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin: 5rem auto 4rem auto;
-  border-top: solid 0.1rem #e5e5e5;
-  border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c31 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c31 a:hover {
-  color: #0064A0;
-}
-
-.c31 a {
-  border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c66:not([open]) > summary .c42 {
+  display: none;
 }
 
 .c14 {
@@ -3756,7 +3356,6 @@ Array [
   display: block;
   z-index: 2;
   background-color: #fff;
-  height: 5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -3818,7 +3417,7 @@ Array [
   color: #424242;
 }
 
-.c21 {
+.c22 {
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
@@ -3844,7 +3443,7 @@ Array [
   flex-direction: column;
 }
 
-.c21 > ol {
+.c22 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
   padding: 1.8rem 1.8rem 1.8rem 0.2rem;
@@ -3853,11 +3452,11 @@ Array [
   flex: 1;
 }
 
-.c21 > ol > li:first-child {
+.c22 > ol > li:first-child {
   margin-top: 0;
 }
 
-.c21 > ol::before {
+.c22 > ol::before {
   content: "";
   background: #fafafa;
   display: block;
@@ -3865,13 +3464,13 @@ Array [
   margin: -1.8rem -1.8rem 0 -1.8rem;
 }
 
-.c21 > * {
+.c22 > * {
   -webkit-transition: all 300ms;
   transition: all 300ms;
   opacity: 1;
 }
 
-.c23 {
+.c24 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3885,7 +3484,7 @@ Array [
   box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
 }
 
-.c25 {
+.c26 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
@@ -3894,11 +3493,11 @@ Array [
   color: #818181;
 }
 
-.c25:hover {
+.c26:hover {
   color: #5e6062;
 }
 
-.c24 {
+.c25 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3909,224 +3508,451 @@ Array [
   flex: 1;
 }
 
-.c24 .c7,
-.c24 .c22 {
+.c25 .c7,
+.c25 .c23 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-align: left;
 }
 
+.c60 {
+  height: 1em;
+}
+
+.c61 {
+  height: 1em;
+}
+
+.c63 {
+  height: 1em;
+}
+
+.c62 {
+  height: 1em;
+}
+
+.c44 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  z-index: 0;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.c45 {
+  color: #d5d5d5;
+  display: grid;
+}
+
+.c46 {
+  background-color: #424242;
+}
+
+.c47 {
+  max-width: 131rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-row-gap: 2rem;
+  overflow: visible;
+}
+
+.c48 {
+  grid-area: headline;
+}
+
+.c49 {
+  grid-area: mission;
+}
+
+.c49 a {
+  color: inherit;
+  font-weight: bold;
+  text-underline-position: under;
+}
+
+.c52 {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c52:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c64 {
+  color: inherit;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-column-gap: 0.7rem;
+  overflow: hidden;
+}
+
+.c50 {
+  display: grid;
+  grid-gap: 0.5rem;
+  overflow: visible;
+  grid-area: col1;
+}
+
+.c53 {
+  display: grid;
+  grid-gap: 0.5rem;
+  overflow: visible;
+  grid-area: col2;
+}
+
+.c54 {
+  display: grid;
+  grid-gap: 0.5rem;
+  overflow: visible;
+  grid-area: col3;
+}
+
+.c51 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  -webkit-letter-spacing: -0.072rem;
+  -moz-letter-spacing: -0.072rem;
+  -ms-letter-spacing: -0.072rem;
+  letter-spacing: -0.072rem;
+  line-height: normal;
+}
+
+.c55 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  line-height: normal;
+  background-color: #3b3b3b;
+}
+
+.c56 {
+  max-width: 131rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-gap: 1.5rem 4rem;
+  overflow: visible;
+}
+
+.c57 {
+  display: grid;
+  grid-gap: 1rem;
+  overflow: visible;
+}
+
+.c57 [data-html="copyright"] {
+  overflow: visible;
+}
+
+.c57 a {
+  color: inherit;
+  overflow: visible;
+}
+
+.c57 sup {
+  font-size: 66%;
+  margin-left: 0.1rem;
+  position: relative;
+  top: -0.25em;
+  vertical-align: top;
+}
+
+.c58 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+  -ms-flex-pack: end;
+  justify-content: end;
+  overflow: visible;
+}
+
+.c59 {
+  color: inherit;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  background-color: #959595;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border-radius: 50%;
+  display: grid;
+  height: 3rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 3rem;
+}
+
+.c65 {
+  height: 4rem;
+  -webkit-transform: translateY(0.2rem);
+  -ms-transform: translateY(0.2rem);
+  transform: translateY(0.2rem);
+}
+
+.c31 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  overflow: visible;
+}
+
+.c31 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c31 a:hover {
+  color: #0064A0;
+}
+
+.c31 .os-figure,
+.c31 .os-figure:last-child {
+  margin-bottom: 5px;
+}
+
+.c31 * {
+  overflow: initial;
+}
+
 .c20 {
+  width: 100%;
+  padding: 0 3.2rem;
+  position: relative;
+  overflow: visible;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c38 {
+  margin-left: -0.3rem;
+}
+
+.c41 {
+  margin-left: -0.3rem;
+}
+
+.c35 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  list-style: none;
+}
+
+.c35 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c35 a:hover {
+  color: #0064A0;
+}
+
+.c35,
+.c35 span {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c35 a,
+.c35 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c35 a:hover,
+.c35 span a:hover {
+  color: #0064A0;
+}
+
+.c35:hover,
+.c35 span:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c33 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 2rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c33[open] > summary .c39 {
+  display: none;
+}
+
+.c33:not([open]) > summary .c42 {
+  display: none;
+}
+
+.c33 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c33 a:hover {
+  color: #0064A0;
+}
+
+.c33 > .c34 {
+  margin-bottom: 1.8rem;
+}
+
+.c33 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c1 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.c32 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  overflow: visible;
+  max-width: 82.5rem;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 5rem auto 4rem auto;
+  border-top: solid 0.1rem #e5e5e5;
+  border-bottom: solid 0.1rem #e5e5e5;
+}
+
+.c32 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c32 a:hover {
+  color: #0064A0;
+}
+
+.c32 a {
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c21 {
   overflow: visible;
   margin: 0 auto;
   max-width: 128rem;
 }
 
-@media print {
-  .c43 {
-    display: none;
-  }
-}
-
-@media (min-width:60.1em) {
-  .c45 {
-    padding: 7rem 0;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c45 {
-    padding: 2rem 0;
-  }
-}
-
-@media (max-width:60.1em) and (min-width:37.6em) {
-  .c45 {
-    padding: 4rem 0;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c46 {
-    -webkit-align-items: start;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: start;
-    grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c46 {
-    grid-template: "headline" "mission" "col1" "col2" "col3";
-  }
-}
-
-@media (min-width:60.1em) {
-  .c46 {
-    grid-column-gap: 8rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c47 {
-    font-size: 2.4rem;
-    font-weight: bold;
-    -webkit-letter-spacing: -0.096rem;
-    -moz-letter-spacing: -0.096rem;
-    -ms-letter-spacing: -0.096rem;
-    letter-spacing: -0.096rem;
-    line-height: normal;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c47 {
-    font-size: 2rem;
-    font-weight: bold;
-    -webkit-letter-spacing: -0.08rem;
-    -moz-letter-spacing: -0.08rem;
-    -ms-letter-spacing: -0.08rem;
-    letter-spacing: -0.08rem;
-    line-height: normal;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c48 {
-    font-size: 1.8rem;
-    font-weight: normal;
-    -webkit-letter-spacing: normal;
-    -moz-letter-spacing: normal;
-    -ms-letter-spacing: normal;
-    letter-spacing: normal;
-    line-height: 3rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c51 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c50 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c54 {
-    padding: 2.5rem 0;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c54 {
-    padding: 1.5rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c55 {
-    grid-auto-flow: column;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c55 {
-    padding: 0;
-  }
-}
-
-@media screen {
-  .c30 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen {
-  .c30 {
-    margin-top: 3.2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c19 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen {
-  .c34 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c32 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c32 {
-    min-height: 4rem;
-    padding-top: 0.8rem;
-  }
-
-  .c32 > .c35 {
-    margin-bottom: 0.8rem;
-  }
-}
-
-@media print {
-  .c32 {
-    display: none;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    padding: 1.6rem;
-    height: 10.4rem;
-  }
-}
-
-@media screen {
-  .c26 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    width: 100%;
-    overflow: visible;
-    -webkit-transition: margin-left 300ms;
-    transition: margin-left 300ms;
-  }
-}
-
-@media print {
-  .c31 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c31 {
-    margin: 3.5rem auto 3.7rem auto;
-    border: 0;
-  }
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  overflow: visible;
 }
 
 @media screen and (max-width:75em) {
@@ -4151,6 +3977,8 @@ Array [
   .c11 {
     margin-right: 0;
     height: 100%;
+    overflow: hidden;
+    width: 100%;
   }
 }
 
@@ -4173,7 +4001,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    height: 4rem;
     top: 6rem;
   }
 }
@@ -4197,7 +4024,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c21 {
+  .c22 {
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
     margin-top: -4rem;
@@ -4207,29 +4034,236 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c21 {
+  .c22 {
     overflow-y: hidden;
     -webkit-transform: translateX(-33.5rem);
     -ms-transform: translateX(-33.5rem);
     transform: translateX(-33.5rem);
     box-shadow: none;
     background-color: transparent;
+    pointer-events: none;
   }
 
-  .c21 > * {
+  .c22 > * {
     opacity: 0;
   }
 }
 
 @media print {
-  .c21 {
+  .c22 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c23 {
+  .c24 {
     height: 4rem;
+  }
+}
+
+@media print {
+  .c44 {
+    display: none;
+  }
+}
+
+@media (min-width:60.1em) {
+  .c46 {
+    padding: 7rem 0;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c46 {
+    padding: 2rem 0;
+  }
+}
+
+@media (max-width:60.1em) and (min-width:37.6em) {
+  .c46 {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c47 {
+    -webkit-align-items: start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+    grid-column-gap: 4rem;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c47 {
+    grid-template: "headline" "mission" "col1" "col2" "col3";
+  }
+}
+
+@media (min-width:60.1em) {
+  .c47 {
+    grid-column-gap: 8rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c48 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    -webkit-letter-spacing: -0.096rem;
+    -moz-letter-spacing: -0.096rem;
+    -ms-letter-spacing: -0.096rem;
+    letter-spacing: -0.096rem;
+    line-height: normal;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c48 {
+    font-size: 2rem;
+    font-weight: bold;
+    -webkit-letter-spacing: -0.08rem;
+    -moz-letter-spacing: -0.08rem;
+    -ms-letter-spacing: -0.08rem;
+    letter-spacing: -0.08rem;
+    line-height: normal;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c49 {
+    font-size: 1.8rem;
+    font-weight: normal;
+    -webkit-letter-spacing: normal;
+    -moz-letter-spacing: normal;
+    -ms-letter-spacing: normal;
+    letter-spacing: normal;
+    line-height: 3rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c52 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c51 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c55 {
+    padding: 2.5rem 0;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c55 {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width:37.6em) {
+  .c56 {
+    grid-auto-flow: column;
+  }
+}
+
+@media (max-width:37.5em) {
+  .c56 {
+    padding: 0;
+  }
+}
+
+@media screen {
+  .c31 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c31 {
+    margin-top: 3.2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c20 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen {
+  .c35 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c33 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c33 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c33 > .c36 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c33 {
+    display: none;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+@media screen {
+  .c27 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    overflow: visible;
+    -webkit-transition: margin-left 300ms;
+    transition: margin-left 300ms;
+  }
+}
+
+@media print {
+  .c32 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c32 {
+    margin: 3.5rem auto 3.7rem auto;
+    border: 0;
   }
 }
 
@@ -4243,7 +4277,7 @@ Array [
 }
 
 @media screen {
-  .c20 {
+  .c21 {
     min-height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -4256,7 +4290,7 @@ Array [
 }
 
 @media screen {
-  .c27 {
+  .c28 {
     overflow: visible;
     min-height: 100%;
     display: -webkit-box;
@@ -4271,7 +4305,7 @@ Array [
 }
 
 @media screen {
-  .c28 {
+  .c29 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -4292,7 +4326,7 @@ Array [
 }
 
 @media screen {
-  .c29 {
+  .c30 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -4423,71 +4457,71 @@ Array [
         className="c20"
       >
         <div
-          aria-label="Table of Contents"
           className="c21"
-          data-testid="toc"
         >
           <div
-            className="c22 c23"
-            data-testid="tocheader"
+            aria-label="Table of Contents"
+            className="c22"
+            data-testid="toc"
           >
-            <button
-              aria-label="Click to close the Table of Contents"
-              className="c24 c4"
-              onClick={[Function]}
+            <div
+              className="c23 c24"
+              data-testid="tocheader"
             >
-              <svg
-                aria-hidden="true"
-                className="c5 c6"
-                fill="currentColor"
-                focusable="false"
-                viewBox="0 0 512 512"
+              <button
+                aria-label="Click to close the Table of Contents"
+                className="c25 c4"
+                onClick={[Function]}
               >
-                <path
-                  d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"
+                <svg
+                  aria-hidden="true"
+                  className="c5 c6"
                   fill="currentColor"
-                />
-              </svg>
-              <span
-                className="c7 c8"
-              >
-                Table of contents
-              </span>
-              <svg
-                aria-hidden="true"
-                className="c25"
-                focusable="false"
-                height="15px"
-                version="1.1"
-                viewBox="0 0 15 15"
-                width="15px"
-              >
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c7 c8"
+                >
+                  Table of contents
+                </span>
+                <svg
+                  aria-hidden="true"
+                  className="c26"
+                  focusable="false"
+                  height="15px"
+                  version="1.1"
+                  viewBox="0 0 15 15"
+                  width="15px"
                 >
                   <g
-                    fill="currentColor"
-                    transform="translate(-302.000000, -18.000000)"
+                    fill="none"
+                    fillRule="evenodd"
+                    stroke="none"
+                    strokeWidth="1"
                   >
                     <g
-                      transform="translate(302.000000, 18.000000)"
+                      fill="currentColor"
+                      transform="translate(-302.000000, -18.000000)"
                     >
-                      <path
-                        d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                      />
+                      <g
+                        transform="translate(302.000000, 18.000000)"
+                      >
+                        <path
+                          d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                        />
+                      </g>
                     </g>
                   </g>
-                </g>
-              </svg>
-            </button>
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-        <div
-          className="c26"
-        >
           <div
             className="c27"
           >
@@ -4499,66 +4533,66 @@ Array [
               >
                 <div
                   className="c30"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "",
+                >
+                  <div
+                    className="c31"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "",
+                      }
                     }
-                  }
-                  id="main-content"
-                  tabIndex={-1}
-                />
-                <div
-                  className="c31"
-                >
-                  <span
-                    aria-hidden={true}
+                    id="main-content"
+                    tabIndex={-1}
                   />
-                  <span
-                    aria-hidden={true}
-                  />
+                  <div
+                    className="c32"
+                  >
+                    <span
+                      aria-hidden={true}
+                    />
+                    <span
+                      aria-hidden={true}
+                    />
+                  </div>
                 </div>
-              </div>
-              <details
-                className="c32"
-                data-testid="attribution-details"
-              >
-                <summary
-                  aria-label="Citation/Attribution"
-                  className="c33 c34 c35 c36"
+                <details
+                  className="c33"
+                  data-testid="attribution-details"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c37 c38 c39 c6"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 192 512"
+                  <summary
+                    aria-label="Citation/Attribution"
+                    className="c34 c35 c36 c37"
                   >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                    <svg
+                      aria-hidden="true"
+                      className="c38 c39 c40 c6"
                       fill="currentColor"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="c40 c41 c42 c6"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 320 512"
-                  >
-                    <path
-                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="c41 c42 c43 c6"
                       fill="currentColor"
-                    />
-                  </svg>
-                  <span>
-                    Citation/Attribution
-                  </span>
-                </summary>
-              </details>
-              <footer
-                className="c43"
-              >
-                <div
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span>
+                      Citation/Attribution
+                    </span>
+                  </summary>
+                </details>
+                <footer
                   className="c44"
                 >
                   <div
@@ -4568,143 +4602,146 @@ Array [
                       className="c46"
                     >
                       <div
-                        aria-level={2}
                         className="c47"
-                        role="heading"
                       >
-                        OpenStax at Rice University is a 501(c)(3) nonprofit charity
-                      </div>
-                      <div
-                        className="c48"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "
+                        <div
+                          aria-level={2}
+                          className="c48"
+                          role="heading"
+                        >
+                          OpenStax at Rice University is a 501(c)(3) nonprofit charity
+                        </div>
+                        <div
+                          className="c49"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "
   It's our mission to give every student the tools they need to be successful in the classroom.
   Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
 ",
+                            }
                           }
-                        }
-                      />
-                      <div
-                        className="c49"
-                      >
+                        />
                         <div
                           className="c50"
                         >
-                          Help
+                          <div
+                            className="c51"
+                          >
+                            Help
+                          </div>
+                          <a
+                            className="c52"
+                            href="/contact"
+                            rel=""
+                            target="_self"
+                          >
+                            Contact Us
+                          </a>
+                          <a
+                            className="c52"
+                            href="https://openstax.secure.force.com/help"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Support Center
+                          </a>
+                          <a
+                            className="c52"
+                            href="/faq"
+                            rel=""
+                            target="_self"
+                          >
+                            FAQ
+                          </a>
                         </div>
-                        <a
-                          className="c51"
-                          href="/contact"
-                          rel=""
-                          target="_self"
-                        >
-                          Contact Us
-                        </a>
-                        <a
-                          className="c51"
-                          href="https://openstax.secure.force.com/help"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          Support Center
-                        </a>
-                        <a
-                          className="c51"
-                          href="/faq"
-                          rel=""
-                          target="_self"
-                        >
-                          FAQ
-                        </a>
-                      </div>
-                      <div
-                        className="c52"
-                      >
                         <div
-                          className="c50"
+                          className="c53"
                         >
-                          OpenStax
+                          <div
+                            className="c51"
+                          >
+                            OpenStax
+                          </div>
+                          <a
+                            className="c52"
+                            href="/press"
+                            rel=""
+                            target="_self"
+                          >
+                            Press
+                          </a>
+                          <a
+                            className="c52"
+                            href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Newsletter
+                          </a>
+                          <a
+                            className="c52"
+                            href="/careers"
+                            rel=""
+                            target="_self"
+                          >
+                            Careers
+                          </a>
                         </div>
-                        <a
-                          className="c51"
-                          href="/press"
-                          rel=""
-                          target="_self"
-                        >
-                          Press
-                        </a>
-                        <a
-                          className="c51"
-                          href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          Newsletter
-                        </a>
-                        <a
-                          className="c51"
-                          href="/careers"
-                          rel=""
-                          target="_self"
-                        >
-                          Careers
-                        </a>
-                      </div>
-                      <div
-                        className="c53"
-                      >
                         <div
-                          className="c50"
+                          className="c54"
                         >
-                          Policies
+                          <div
+                            className="c51"
+                          >
+                            Policies
+                          </div>
+                          <a
+                            className="c52"
+                            href="/accessibility-statement"
+                            rel=""
+                            target="_self"
+                          >
+                            Accessibility Statement
+                          </a>
+                          <a
+                            className="c52"
+                            href="/tos"
+                            rel=""
+                            target="_self"
+                          >
+                            Terms of Use
+                          </a>
+                          <a
+                            className="c52"
+                            href="/license"
+                            rel=""
+                            target="_self"
+                          >
+                            Licensing
+                          </a>
+                          <a
+                            className="c52"
+                            href="/privacy-policy"
+                            rel=""
+                            target="_self"
+                          >
+                            Privacy Policy
+                          </a>
                         </div>
-                        <a
-                          className="c51"
-                          href="/accessibility-statement"
-                          rel=""
-                          target="_self"
-                        >
-                          Accessibility Statement
-                        </a>
-                        <a
-                          className="c51"
-                          href="/tos"
-                          rel=""
-                          target="_self"
-                        >
-                          Terms of Use
-                        </a>
-                        <a
-                          className="c51"
-                          href="/license"
-                          rel=""
-                          target="_self"
-                        >
-                          Licensing
-                        </a>
-                        <a
-                          className="c51"
-                          href="/privacy-policy"
-                          rel=""
-                          target="_self"
-                        >
-                          Privacy Policy
-                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className="c54"
-                  >
                     <div
                       className="c55"
                     >
                       <div
                         className="c56"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "
+                      >
+                        <div
+                          className="c57"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "
   <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
@@ -4715,110 +4752,111 @@ Array [
     which is not affiliated with, and does not endorse, this site.
   </div>
 ",
+                            }
                           }
-                        }
-                      />
-                      <div
-                        className="c57"
-                        role="directory"
-                      >
-                        <a
-                          aria-label="facebook"
+                        />
+                        <div
                           className="c58"
-                          href="https://www.facebook.com/openstax"
-                          rel="noopener"
-                          target="_blank"
+                          role="directory"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="c59 c6"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 320 512"
+                          <a
+                            aria-label="facebook"
+                            className="c59"
+                            href="https://www.facebook.com/openstax"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                            <svg
+                              aria-hidden="true"
+                              className="c60 c6"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          aria-label="twitter"
-                          className="c58"
-                          href="https://twitter.com/openstax"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c60 c6"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 512 512"
+                              focusable="false"
+                              viewBox="0 0 320 512"
+                            >
+                              <path
+                                d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
+                            aria-label="twitter"
+                            className="c59"
+                            href="https://twitter.com/openstax"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                            <svg
+                              aria-hidden="true"
+                              className="c61 c6"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          aria-label="linkedin"
-                          className="c58"
-                          href="https://www.linkedin.com/company/openstax"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c61 c6"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 448 512"
+                              focusable="false"
+                              viewBox="0 0 512 512"
+                            >
+                              <path
+                                d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
+                            aria-label="linkedin"
+                            className="c59"
+                            href="https://www.linkedin.com/company/openstax"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                            <svg
+                              aria-hidden="true"
+                              className="c62 c6"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          aria-label="instagram"
-                          className="c58"
-                          href="https://www.instagram.com/openstax/"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="c62 c6"
-                            fill="currentColor"
-                            focusable="false"
-                            viewBox="0 0 448 512"
+                              focusable="false"
+                              viewBox="0 0 448 512"
+                            >
+                              <path
+                                d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
+                            aria-label="instagram"
+                            className="c59"
+                            href="https://www.instagram.com/openstax/"
+                            rel="noopener"
+                            target="_blank"
                           >
-                            <path
-                              d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                            <svg
+                              aria-hidden="true"
+                              className="c63 c6"
                               fill="currentColor"
-                            />
-                          </svg>
-                        </a>
-                        <a
-                          className="c63"
-                          href="http://www.rice.edu"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <img
-                            alt="Rice University logo"
+                              focusable="false"
+                              viewBox="0 0 448 512"
+                            >
+                              <path
+                                d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </a>
+                          <a
                             className="c64"
-                            src="rice-white-text.png"
-                          />
-                        </a>
+                            href="http://www.rice.edu"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            <img
+                              alt="Rice University logo"
+                              className="c65"
+                              src="rice-white-text.png"
+                            />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </footer>
+                </footer>
+              </div>
             </div>
           </div>
         </div>

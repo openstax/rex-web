@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
 import { Book, Page } from '../../../types';
-import { scrollHandler } from '../../../utils/domUtils';
+import { scrollHandler, scrollTocSectionIntoView } from '../../../utils/domUtils';
 import { SearchResultContainer } from '../../types';
 import { SearchResultContainers } from './SearchResultContainers';
 import * as Styled from './styled';
@@ -21,6 +21,7 @@ interface ResultsSidebarProps {
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public searchSidebar = React.createRef<HTMLElement>();
+  public activeSection = React.createRef<HTMLElement>();
 
   public render() {
     const {currentPage, query, totalHits, results, onClose, book, closeSearchResults} = this.props;
@@ -58,13 +59,14 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </FormattedMessage>
       </div>}
       {book && results && results.length > 0 && totalHits && <Styled.NavOl>
-        <SearchResultContainers currentPage={currentPage}
+        <SearchResultContainers currentPage={currentPage} activeSectionRef={this.activeSection}
         containers={results} book={book} closeSearchResults={closeSearchResults}/>
       </Styled.NavOl>}
       </Styled.SearchResultsBar>;
   }
 
   public componentDidMount = () => {
+    this.scrollToSelectedPage();
     const searchSidebar = this.searchSidebar.current;
 
     if (!searchSidebar || typeof(window) === 'undefined') {
@@ -81,4 +83,12 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     window.addEventListener('resize', animation, {passive: true});
     scrollHandlerCallback();
   };
+
+  public componentDidUpdate() {
+    this.scrollToSelectedPage();
+  }
+
+  private scrollToSelectedPage() {
+    scrollTocSectionIntoView(this.searchSidebar.current, this.activeSection.current);
+  }
 }

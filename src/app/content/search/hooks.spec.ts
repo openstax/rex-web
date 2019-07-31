@@ -115,7 +115,7 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalled();
     });
 
-    it('searches for saved query on POP if it is differet from current query', () => {
+    it('returns "Skip Navigation" for saved query on POP if it is differet from current query', () => {
       store.dispatch(requestSearch('asdf'));
 
       hook({
@@ -127,7 +127,7 @@ describe('hooks', () => {
         match: {} as any,
       });
 
-      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer'));
+      expect(dispatch).not.toHaveBeenCalledWith(requestSearch('qwer'));
     });
 
     it('doesn\'t dispatch on POP if saved query is same as current query', () => {

@@ -15,6 +15,7 @@ export const SearchResultContainers = (props: {
   containers: SearchResultContainer[];
   book: Book;
   closeSearchResults: () => void;
+  activeSectionRef: HTMLElement;
 }) => (
   <React.Fragment>
     {props.containers.map((node: SearchResultContainer) =>
@@ -24,6 +25,7 @@ export const SearchResultContainers = (props: {
           chapter={node}
           book={props.book}
           closeSearchResults={props.closeSearchResults}
+          activeSectionRef={props.activeSectionRef}
         />
       ) : (
         <SearchResult
@@ -31,6 +33,7 @@ export const SearchResultContainers = (props: {
           page={node}
           book={props.book}
           closeSearchResults={props.closeSearchResults}
+          activeSectionRef={props.activeSectionRef}
         ></SearchResult>
       )
     )}
@@ -43,10 +46,11 @@ const SearchResult = (props: {
   page: SearchResultPage;
   book: Book;
   closeSearchResults: () => void;
+  activeSectionRef: HTMLElement;
 }) => {
   const active = props.page && props.currentPage
     && stripIdVersion(props.currentPage.id) === stripIdVersion(props.page.id);
-  return <Styled.NavItem>
+  return <Styled.NavItem ref={active ? props.activeSectionRef : null }>
     <Styled.LinkWrapper {...(active ? {'aria-label': 'Current Page'} : {})}>
       <Styled.SearchResultsLink
         dangerouslySetInnerHTML={{ __html: props.page.title }}
@@ -75,6 +79,7 @@ const SearchResultsDropdown = (props: {
   chapter: SearchResultChapter;
   book: Book;
   closeSearchResults: () => void;
+  activeSectionRef: HTMLElement;
 }) => {
 
   const active = props.currentPage && props.chapter
@@ -96,6 +101,7 @@ const SearchResultsDropdown = (props: {
           containers={props.chapter.contents}
           book={props.book}
           closeSearchResults={props.closeSearchResults}
+          activeSectionRef={props.activeSectionRef}
         />
       </Styled.DetailsOl>
     </Details>
