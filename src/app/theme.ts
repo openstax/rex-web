@@ -35,8 +35,8 @@ const color = {
       foreground: textColors.white,
     },
     'deep-green': {
-      base: '#63a524',
-      foreground: textColors.black,
+      base: '#067056',
+      foreground: textColors.white,
     },
     'gray': {
       base: '#5e6062',
@@ -49,8 +49,8 @@ const color = {
       foreground: textColors.black,
     },
     'light-blue': {
-      base: '#002468',
-      foreground: textColors.white,
+      base: '#0DC0DC',
+      foreground: textColors.black,
     },
     'orange': {
       base: '#f36b32',
