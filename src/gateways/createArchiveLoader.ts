@@ -28,7 +28,7 @@ export default (url: string) => {
     );
 
   return {
-    book: (bookId: string, bookVersion: string | undefined) => {
+    book: (bookId: string, bookVersion?: string) => {
       const bookRef = bookVersion ? `${stripIdVersion(bookId)}@${bookVersion}` : stripIdVersion(bookId);
 
       return {

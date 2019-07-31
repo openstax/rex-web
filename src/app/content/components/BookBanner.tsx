@@ -24,10 +24,10 @@ import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
   'blue': '#004aa2',
-  'deep-green': '#9cd14a',
+  'deep-green': '#12A28C',
   'gray': '#97999b',
   'green': '#9cd14a',
-  'light-blue': '#004aa2',
+  'light-blue': '#1EE1F0',
   'orange': '#FAA461',
   'red': '#E34361',
   'yellow': '#faea36',

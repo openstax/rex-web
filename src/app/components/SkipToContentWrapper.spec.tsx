@@ -8,13 +8,6 @@ import SkipToContentWrapper from './SkipToContentWrapper';
 
 describe('SkipToContentWrapper', () => {
 
-    beforeEach(() => {
-        if (window) {
-            // In JSDom on travis: `window.scrollTo` is not defined so we define it here
-            window.scrollTo = () => { /* do nothing */ };
-        }
-    });
-
     it('errors when no main content is provided', () => {
         const {node} = renderToDom(<MessageProvider>
             <SkipToContentWrapper/>
