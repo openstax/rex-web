@@ -46,7 +46,7 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
             toolbar.click_toc_toggle_button()
         toc.sections[-1].click()
 
-    # THEN:The "next" link should be hidden
+    # THEN: The "next" link should be hidden
     with pytest.raises(Exception) as exc_info:
         assert not content.next_link.is_displayed
 
