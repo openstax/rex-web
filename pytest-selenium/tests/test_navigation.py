@@ -14,10 +14,9 @@ def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_
     toc = content.sidebar.toc
 
     # confirm first page is selected
-    if toc.active_section.get_attribute("textContent") != toc.sections[0].section_title:
-        while content.is_mobile:
+    if toc.first_section != toc.active_section:
+        if content.is_mobile:
             toolbar.click_toc_toggle_button()
-            break
         toc.sections[0].click()
 
     # THEN: The "previous" link should be hidden
@@ -41,11 +40,10 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
     toolbar = content.toolbar
     toc = content.sidebar.toc
 
-    # confirm last page is selected.
-    if toc.active_section.get_attribute("textContent") != toc.sections[-1].section_title:
-        while content.is_mobile:
+    # confirm last page is selected
+    if toc.last_section != toc.active_section:
+        if content.is_mobile:
             toolbar.click_toc_toggle_button()
-            break
         toc.sections[-1].click()
 
     # THEN:The "next" link should be hidden

@@ -15,7 +15,7 @@ class TableOfContents(Region):
 
     @property
     def active_section(self):
-        return self.find_element(*self._active_section_locator)
+        return self.find_element(*self._active_section_locator).get_attribute("textContent")
 
     @property
     def sections(self):
@@ -24,11 +24,18 @@ class TableOfContents(Region):
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
+    @property
+    def first_section(self):
+        return self.sections[0].section_title
+
+    @property
+    def last_section(self):
+        return self.sections[-1].section_title
+
     class ContentPage(Region, WaitForTitleChange):
         def click(self):
             self.click_and_wait_for_load(self.root)
 
         @property
         def section_title(self):
-            section_title = self.root.get_attribute("textContent")
-            return section_title
+            return self.root.get_attribute("textContent")
