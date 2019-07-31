@@ -94,8 +94,16 @@ export const assertDocumentElement = (message: string = 'BUG: Document Element i
 };
 
 export const scrollTo = (elem: Element | string) => {
-  const html = assertDocumentElement();
-  const padding = assertWindow().getComputedStyle(html).getPropertyValue('scroll-padding-top');
-  const offset = -parseFloat(padding) || 0;
+  const body = assertDocument().body;
+  const padding = body.getAttribute('data-scroll-padding') || '0';
+  const offset = parseFloat(padding) || 0;
   return scrollToElement(elem, {offset});
+};
+
+export const remsToPx = (rems: number) => {
+  const bodyFontSize = typeof(window) === 'undefined'
+    ? 10
+    : parseFloat(window.getComputedStyle(window.document.body).fontSize || '') || 10;
+
+  return rems * bodyFontSize;
 };

@@ -2,6 +2,7 @@ import PromiseCollector from '../helpers/PromiseCollector';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
+import { assertDocument } from './utils';
 
 describe('checkActionType', () => {
   it('matches action matching creator', () => {
@@ -161,5 +162,32 @@ describe('mergeRefs', () => {
 
     expect(refObj.current).toBe(ref);
     expect(functionRef).toHaveBeenCalledWith(ref);
+  });
+});
+
+describe('remsToPx', () => {
+
+  it('converts based on body font size', () => {
+    assertDocument().body.style.fontSize = '14px';
+    expect(utils.remsToPx(1)).toEqual(14);
+  });
+
+  describe('outside of browser', () => {
+    const documentBack = document;
+    const windowBack = window;
+
+    beforeEach(() => {
+      delete (global as any).document;
+      delete (global as any).window;
+    });
+
+    afterEach(() => {
+      (global as any).document = documentBack;
+      (global as any).window = windowBack;
+    });
+
+    it('uses base rem size of 10', () => {
+      expect(utils.remsToPx(1)).toEqual(10);
+    });
   });
 });
