@@ -16,7 +16,7 @@ import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
-import { Meta } from '../../src/app/head/types';
+import { Meta, Link } from '../../src/app/head/types';
 import * as navigationSelectors from '../../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../../src/app/navigation/types';
 import { matchUrl } from '../../src/app/navigation/utils';
@@ -92,6 +92,7 @@ const renderHtml: RenderHtml = (styles, app, state) => {
     ),
     fonts: app.services.fontCollector.fonts,
     meta: headSelectors.meta(state),
+    link: headSelectors.link(state),
     modules,
     state,
     styles,
@@ -195,11 +196,12 @@ interface Options {
   styles: ServerStyleSheet;
   fonts: FontCollector['fonts'];
   meta: Meta[];
+  link: Link[];
   state: AppState;
   modules: string[];
   title: string;
 }
-function injectHTML(html: string, {body, styles, state, fonts, meta, modules, title}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta, link, modules, title}: Options) {
 
   const assetManifest = JSON.parse(readAssetFile('asset-manifest.json'));
 
@@ -217,6 +219,9 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, modules, ti
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +
     meta.map(
       (tag) => `<meta ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
+    ) +
+    link.map(
+      (tag) => `<link ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
     ) +
     styles.getStyleTags() +
     '</head>'

@@ -6,6 +6,7 @@ import { State } from './types';
 
 export const initialState = {
   meta: [],
+  link: [],
   title: 'OpenStax',
 };
 

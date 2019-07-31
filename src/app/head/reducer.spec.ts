@@ -6,6 +6,9 @@ describe('head reducer', () => {
     meta: [
       {property: 'prop', content: 'content'},
     ],
+    link: [
+      {rel: 'canonical', href: '../test-url'}
+    ],
     title: 'cool title',
   });
 
