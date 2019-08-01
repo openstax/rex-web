@@ -12,7 +12,6 @@ import { content } from '../../src/app/content/routes';
 import { Book } from '../../src/app/content/types';
 import { formatBookData, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
-import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
@@ -147,12 +146,6 @@ export const prepareErrorPages = (): Promise<Pages> => Promise.resolve([
   {code: 404, page: {route: notFound}},
 ]);
 
-export const prepareDeveloperPages = (): Promise<Pages> => Promise.resolve(
-  process.env.REACT_APP_ENV === 'development'
-    ? [{code: 200, page: {route: developerHome}}]
-    : []
-);
-
 export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   book: Book
@@ -203,9 +196,31 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, modules, ti
 
   const assetManifest = JSON.parse(readAssetFile('asset-manifest.json'));
 
-  const extractAssets = () => Object.keys(assetManifest)
-    .filter((asset) => modules.indexOf(asset.replace('.js', '')) > -1)
-    .map((k) => assetManifest[k]);
+  /*
+   * separate chunks are automatically made for vendor code
+   * (https://facebook.github.io/create-react-app/docs/production-build)
+   *
+   * Loadable.preloadReady() only waits for the react-loadable chunks,
+   * apparently some of those are triggering the load of some of the
+   * numbered chunks and pre-rendering breaks as it waits for them
+   * to download.
+   *
+   * i'm not aware of any way to tell which ones we need ahead of time
+   * and render script tags for them here, so we're just loading all
+   * the numbered chunks.
+   *
+   * it would probably be better to wait for completion of any chunks
+   * that are requested dynamically, but i'm not seeing a way in
+   * webpack's api to do that.
+   */
+  const extractAssets = () => Object.keys(assetManifest.files)
+    .filter((asset) =>
+      // chunks requested by react-loadable
+      modules.indexOf(asset.replace('.js', '')) > -1
+      // all numbered chunks
+      || asset.match(/static\/js\/[0-9]+.[0-9a-z]+.chunk.js$/)
+    )
+    .map((k) => assetManifest.files[k]);
 
   const scripts = extractAssets().map(
     (c) => `<script type="text/javascript" src="${c}"></script>`

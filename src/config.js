@@ -25,15 +25,15 @@ let config = {
   REACT_APP_ARCHIVE_URL: '',
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
-  BOOKS: process.env.REACT_APP_BOOKS || require('./books'),
+  BOOKS: process.env.REACT_APP_BOOKS || require('./config.books'),
 };
 
 if (process.env.REACT_APP_ENV === 'production') {
-  Object.assign(config, require('./config.production.js'));
+  Object.assign(config, require('./config.production'));
 } else if (process.env.REACT_APP_ENV === 'test') {
-  Object.assign(config, require('./config.test.js'));
+  Object.assign(config, require('./config.test'));
 } else {
-  Object.assign(config, require('./config.development.js'));
+  Object.assign(config, require('./config.development'));
 }
 
 module.exports = config;
