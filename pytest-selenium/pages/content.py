@@ -129,7 +129,7 @@ class Content(Page):
 
         @property
         def book_title(self):
-            return self.find_element(*self._book_title_locator).text
+            return self.find_element(*self._book_title_locator)
 
         @property
         def chapter_title(self):
