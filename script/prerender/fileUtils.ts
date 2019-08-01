@@ -19,6 +19,9 @@ function makeDirectories(filepath: string) {
 }
 
 function writeFile(filepath: string, contents: string) {
+  if (filepath === `${ASSET_DIR}/index.html`) {
+    throw new Error(`can't write to index.html`);
+  }
   makeDirectories(filepath);
   fs.writeFile(filepath, contents, () => null);
 }
