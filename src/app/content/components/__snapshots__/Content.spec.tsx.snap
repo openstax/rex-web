@@ -708,6 +708,32 @@ Array [
   margin-top: 0.1rem;
 }
 
+.c58 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c58:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c60 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c60:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
 .c57 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -731,17 +757,6 @@ Array [
   margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c57 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c57 a:hover {
-  color: #0064A0;
 }
 
 .c57 a {
@@ -3573,17 +3588,6 @@ Array [
   margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c31 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c31 a:hover {
-  color: #0064A0;
 }
 
 .c31 a {
