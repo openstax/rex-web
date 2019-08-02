@@ -14,10 +14,10 @@ def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_
     toc = content.sidebar.toc
 
     # confirm first page is selected
-    if toc.first_section != toc.active_section:
+    if not toc.first_section.is_active:
         if content.is_mobile:
             toolbar.click_toc_toggle_button()
-        toc.sections[0].click()
+        toc.first_section.click()
 
     # THEN: The "previous" link should be hidden
     with pytest.raises(Exception) as exc_info:
@@ -41,10 +41,10 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
     toc = content.sidebar.toc
 
     # confirm last page is selected
-    if toc.last_section != toc.active_section:
+    if not toc.last_section.is_active:
         if content.is_mobile:
             toolbar.click_toc_toggle_button()
-        toc.sections[-1].click()
+        toc.last_section.click()
 
     # THEN: The "next" link should be hidden
     with pytest.raises(Exception) as exc_info:
@@ -53,5 +53,5 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
     exception_raised = exc_info.type
     assert "NoSuchElementException" in str(exception_raised)
 
-    # AND: The "previous" link should be visible
+    # AND: The "previous" link should not be hidden
     assert content.previous_link.is_displayed
