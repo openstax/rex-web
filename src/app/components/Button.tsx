@@ -21,6 +21,7 @@ type Size = 'large' | 'medium' | 'small';
 // tslint:disable-next-line:variable-name
 const Button = styled.button<{variant?: Variant, size?: Size}>`
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   font-family: ${contentFont};
