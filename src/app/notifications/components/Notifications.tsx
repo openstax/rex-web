@@ -9,6 +9,7 @@ import * as actions from '../actions';
 import * as select from '../selectors';
 import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
+import AcceptCookies from './AcceptCookies';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
@@ -24,6 +25,9 @@ const Notifications = ({notifications, className}: Props) => notifications.lengt
       switch (notification.type) {
         case getType(actions.updateAvailable): {
           return <UpdatesAvailable key={index} />;
+        }
+        case getType(actions.acceptCookies): {
+          return <AcceptCookies key={index} />;
         }
         default:
           return null;

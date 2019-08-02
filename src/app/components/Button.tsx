@@ -25,6 +25,7 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
   justify-content: center;
   font-family: ${contentFont};
   border-radius: 0.2rem;
+  white-space: nowrap;
   ${(props) => props.size === 'large' && `
     font-size: 1.6rem;
     height: 5rem;

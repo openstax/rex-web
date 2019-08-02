@@ -9,6 +9,7 @@ export const initialState = [];
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.updateAvailable):
+    case getType(actions.acceptCookies):
       return state.find(({type}) => type === action.type)
         ? state
         : [...state, action];
