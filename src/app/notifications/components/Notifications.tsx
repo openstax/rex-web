@@ -27,7 +27,7 @@ const Notifications = ({notifications, className}: Props) => notifications.lengt
           return <UpdatesAvailable key={index} />;
         }
         case getType(actions.acceptCookies): {
-          return <AcceptCookies key={index} />;
+          return <AcceptCookies key={index} notification={notification} />;
         }
         default:
           return null;

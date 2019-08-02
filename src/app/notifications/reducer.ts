@@ -13,6 +13,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return state.find(({type}) => type === action.type)
         ? state
         : [...state, action];
+    case getType(actions.dismissNotification):
+      return state.filter((notification) => notification !== action.payload);
     default:
       return state;
   }
