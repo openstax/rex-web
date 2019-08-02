@@ -37,6 +37,24 @@ class Content(Page, WaitForTitleChange):
         return self.find_element(*self._next_locator)
 
     @property
+    def previous_link_is_displayed(self):
+        try:
+            assert self.previous_link.is_displayed()
+        except NoSuchElementException:
+            return False
+        else:
+            return True
+
+    @property
+    def next_link_is_displayed(self):
+        try:
+            assert self.next_link.is_displayed()
+        except NoSuchElementException:
+            return False
+        else:
+            return True
+
+    @property
     def navbar(self):
         return self.NavBar(self)
 

@@ -20,11 +20,7 @@ def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_
         toc.first_section.click()
 
     # THEN: The "previous" link should be hidden
-    with pytest.raises(Exception) as exc_info:
-        assert not content.previous_link.is_displayed
-
-    exception_raised = exc_info.type
-    assert "NoSuchElementException" in str(exception_raised)
+    assert not content.previous_link_is_displayed
 
     # AND: The "next" link should not be hidden
     assert content.next_link.is_displayed
@@ -47,11 +43,7 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
         toc.last_section.click()
 
     # THEN: The "next" link should be hidden
-    with pytest.raises(Exception) as exc_info:
-        assert not content.next_link.is_displayed
-
-    exception_raised = exc_info.type
-    assert "NoSuchElementException" in str(exception_raised)
+    assert not content.next_link_is_displayed
 
     # AND: The "previous" link should not be hidden
     assert content.previous_link.is_displayed
