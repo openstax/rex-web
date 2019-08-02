@@ -268,6 +268,15 @@ export const contentTextStyle = css`
 const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
 
+  > #main-content {
+    /* this is questionable, it makes the focus outline contain the
+     * vertical padding of the header and not be squiggly, but
+     * also increases the top margin of the content by the header's
+     * margin which is set by the content styles.
+     */
+    overflow-x: hidden;
+  }
+
   @media screen { /* full page width in print */
     margin-top: ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
