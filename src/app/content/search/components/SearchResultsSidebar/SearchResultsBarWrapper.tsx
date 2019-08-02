@@ -44,7 +44,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
             </Styled.SearchQuery>
           }
         </FormattedMessage>
-        <Styled.CloseIconButton onClick={onClose}><Styled.CloseIcon /></Styled.CloseIconButton>
+        <Styled.CloseIconButton onClick={onClose} aria-label="Close search sidebar">
+          <Styled.CloseIcon />
+        </Styled.CloseIconButton>
       </Styled.SearchQueryWrapper> : null }
       {!totalHits && <div>
         <Styled.CloseIconWrapper>
