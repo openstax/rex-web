@@ -1,10 +1,10 @@
-import { getCanonicalUrl } from '../../developer/components/utils';
 import { setHead } from '../../head/actions';
 import { Link } from '../../head/types';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import * as select from '../selectors';
+import { getCanonicalUrl } from '../utils/canonicalUrl';
 
 const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
   getState,

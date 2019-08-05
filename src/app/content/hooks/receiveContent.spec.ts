@@ -1,12 +1,13 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
+import { CANONICAL_MAP } from '../../../canonicalBookMap';
 import archiveLoader, { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
 import osWebLoader, { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { CANONICAL_MAP, getCanonicalUrl } from '../../developer/components/utils';
 import { ActionHookBody, AppServices, AppState, MiddlewareAPI } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { initialState } from '../reducer';
 import { Book, Page, State } from '../types';
 import { formatBookData } from '../utils';
+import { getCanonicalUrl } from '../utils/canonicalUrl';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
