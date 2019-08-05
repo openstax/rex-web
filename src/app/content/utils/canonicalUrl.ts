@@ -3,7 +3,8 @@ import { BOOKS } from '../../../config';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { formatBookData } from '../utils';
-import { getUrlParamForPageId } from './urlUtils';
+import { findArchiveTreeNode } from './archiveTreeUtils';
+import { getUrlParamForPageTitle } from './urlUtils';
 
 export async function getBook(
   archiveLoader: AppServices['archiveLoader'],
@@ -28,9 +29,9 @@ export async function getCanonicalUrlParams(
     const version = assertDefined(BOOKS[id], `Could not find ${id} in BOOKS config`).defaultVersion;
 
     const canonicalBook = await getBook(archiveLoader, osWebLoader, id, version);
-    const pageInBook = getUrlParamForPageId(canonicalBook, pageShortId, true);
-
-    if (pageInBook) {
+    const treeSection = findArchiveTreeNode(canonicalBook.tree, pageShortId);
+    if (treeSection) {
+      const pageInBook = getUrlParamForPageTitle(treeSection);
       return {book: canonicalBook.slug, page: pageInBook};
     }
   }

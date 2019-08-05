@@ -39,7 +39,7 @@ const getCleanSectionTitle = (section: LinkedArchiveTreeNode): string => {
     .toLowerCase();
 };
 
-const getUrlParamForPageTitle = (section: LinkedArchiveTreeNode): string => {
+export const getUrlParamForPageTitle = (section: LinkedArchiveTreeNode): string => {
   const cleanNumber = getCleanSectionNumber(section);
   const cleanTitle = getCleanSectionTitle(section);
 
