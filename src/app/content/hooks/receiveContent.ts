@@ -3,8 +3,9 @@ import { Link } from '../../head/types';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receiveBook, receivePage } from '../actions';
+import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
-import { getCanonicalUrl } from '../utils/canonicalUrl';
+import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 
 const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
   getState,
@@ -30,9 +31,9 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
 
   const links: Link[] = [];
 
-  const canonical = await getCanonicalUrl(archiveLoader, osWebLoader, book.id, page.shortId);
+  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId);
   if (canonical) {
-    links.push({rel: 'canonical', href: `../../${canonical.bookSlug}/pages/${canonical.pageSlug}`});
+    links.push({rel: 'canonical', href: contentRoute.getUrl(canonical)});
   }
 
   dispatch(setHead({

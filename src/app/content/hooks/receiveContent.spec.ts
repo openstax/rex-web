@@ -7,7 +7,7 @@ import { receiveBook, receivePage } from '../actions';
 import { initialState } from '../reducer';
 import { Book, Page, State } from '../types';
 import { formatBookData } from '../utils';
-import { getCanonicalUrl } from '../utils/canonicalUrl';
+import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -102,7 +102,7 @@ describe('setHead hook', () => {
     it('returns nothing when the book does not have a canonical book entry', async() => {
       const bookId = 'unique-snowflake-book';
       const pageShortId = 'unique-snowflake-page';
-      const x = await getCanonicalUrl(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
       expect(x).toBeNull();
     });
 
@@ -110,15 +110,15 @@ describe('setHead hook', () => {
       const bookId = archiveBook.id;
       const pageShortId = page.shortId;
       CANONICAL_MAP[bookId] = [ bookId ];
-      const x = await getCanonicalUrl(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
-      expect(x).not.toBeNull();
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
     });
 
     it('returns nothing when the page is only in the current book (not in the canonical book)', async() => {
       const bookId = archiveBook.id;
       const pageShortId = 'unique-snowflake-page';
       CANONICAL_MAP[bookId] = [ bookId ];
-      const x = await getCanonicalUrl(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
       expect(x).toBeNull();
     });
 

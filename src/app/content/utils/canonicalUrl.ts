@@ -17,7 +17,7 @@ export async function getBook(
   return formatBookData(archiveBook, osWebBook);
 }
 
-export async function getCanonicalUrl(
+export async function getCanonicalUrlParams(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader'],
   bookId: string,
@@ -31,7 +31,7 @@ export async function getCanonicalUrl(
     const pageInBook = getUrlParamForPageId(canonicalBook, pageShortId, true);
 
     if (pageInBook) {
-      return {bookSlug: canonicalBook.slug, pageSlug: pageInBook};
+      return {book: canonicalBook.slug, page: pageInBook};
     }
   }
 
