@@ -10,11 +10,18 @@ export async function getBooks(
   const books: Book[] = [];
 
   for (const [bookId, {defaultVersion}] of bookEntries) {
-    const bookLoader = archiveLoader.book(bookId, defaultVersion);
-    const osWebBook = await osWebLoader.getBookFromId(bookId);
-    const archiveBook = await bookLoader.load();
-
-    books.push(formatBookData(archiveBook, osWebBook));
+    books.push(await getBook(bookId, defaultVersion, archiveLoader, osWebLoader));
   }
   return books;
+}
+
+export async function getBook(
+    bookId: string, 
+    defaultVersion: string,
+    archiveLoader: AppServices['archiveLoader'],
+    osWebLoader: AppServices['osWebLoader']) {
+  const bookLoader = archiveLoader.book(bookId, defaultVersion);
+  const osWebBook = await osWebLoader.getBookFromId(bookId);
+  const archiveBook = await bookLoader.load();
+  return formatBookData(archiveBook, osWebBook)
 }
