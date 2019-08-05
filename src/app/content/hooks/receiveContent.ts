@@ -1,12 +1,16 @@
+import { getCanonicalUrl } from '../../developer/components/utils';
 import { setHead } from '../../head/actions';
+import { Link } from '../../head/types';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import * as select from '../selectors';
-import { getCanonicalUrl } from '../../developer/components/utils';
-import { Link } from '../../head/types';
 
-const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getState, dispatch, archiveLoader, osWebLoader}) => async () => {
+const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
+  getState,
+  dispatch,
+  archiveLoader,
+  osWebLoader}) => async() => {
 
   const state = getState();
   const book = select.book(state);
@@ -26,17 +30,17 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getS
 
   const links: Link[] = [];
 
-  const canonical = await getCanonicalUrl(archiveLoader, osWebLoader, book.id, page.shortId)
+  const canonical = await getCanonicalUrl(archiveLoader, osWebLoader, book.id, page.shortId);
   if (canonical) {
-    links.push({rel: 'canonical', href: `../../${canonical.bookSlug}/pages/${canonical.pageSlug}`})
+    links.push({rel: 'canonical', href: `../../${canonical.bookSlug}/pages/${canonical.pageSlug}`});
   }
 
   dispatch(setHead({
+    link: links,
     meta: [
       {property: 'og:description', content: ''},
       {name: 'theme-color', content: theme.color.primary[book.theme].base},
     ],
-    link: links,
     title: `${book.title} / ${page.title}`,
   }));
 };

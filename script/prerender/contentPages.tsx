@@ -6,8 +6,8 @@ import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
-import { AppOptions } from '../../src/app';
 import createApp from '../../src/app';
+import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import { Book } from '../../src/app/content/types';
 import { formatBookData, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
@@ -16,7 +16,7 @@ import { developerHome } from '../../src/app/developer/routes';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
-import { Meta, Link } from '../../src/app/head/types';
+import { Link, Meta } from '../../src/app/head/types';
 import * as navigationSelectors from '../../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../../src/app/navigation/types';
 import { matchUrl } from '../../src/app/navigation/utils';
@@ -91,8 +91,8 @@ const renderHtml: RenderHtml = (styles, app, state) => {
       </StyleSheetManager>
     ),
     fonts: app.services.fontCollector.fonts,
-    meta: headSelectors.meta(state),
     link: headSelectors.link(state),
+    meta: headSelectors.meta(state),
     modules,
     state,
     styles,

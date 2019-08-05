@@ -3,11 +3,11 @@ import reducer, { initialState } from './reducer';
 
 describe('head reducer', () => {
   const action = setHead({
+    link: [
+      {rel: 'canonical', href: '../test-url'},
+    ],
     meta: [
       {property: 'prop', content: 'content'},
-    ],
-    link: [
-      {rel: 'canonical', href: '../test-url'}
     ],
     title: 'cool title',
   });

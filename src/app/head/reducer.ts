@@ -5,8 +5,8 @@ import * as actions from './actions';
 import { State } from './types';
 
 export const initialState = {
-  meta: [],
   link: [],
+  meta: [],
   title: 'OpenStax',
 };
 
