@@ -63,10 +63,7 @@ export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'sho
 };
 
 const getUrlParamForPageIdCache = new Map();
-export const getUrlParamForPageId = (
-  book: Pick<Book, 'id' | 'tree' | 'title'>,
-  pageId: string,
-  emptyIfNotFound: boolean = false): string => {
+export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): string => {
 
   const cacheKey = `${book.id}:${pageId}`;
 
@@ -76,11 +73,7 @@ export const getUrlParamForPageId = (
 
   const treeSection = findArchiveTreeNode(book.tree, pageId);
   if (!treeSection) {
-    if (emptyIfNotFound) {
-      return '';
-    } else {
-      throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
-    }
+    throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
   const result = getUrlParamForPageTitle(treeSection);
   getUrlParamForPageIdCache.set(cacheKey, result);
