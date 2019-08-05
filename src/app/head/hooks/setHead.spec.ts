@@ -6,6 +6,7 @@ describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof setHead>;
   const helpers = {} as MiddlewareAPI & AppServices;
   const action = setHead({
+    link: [],
     meta: [{name: 'fake', content: 'meta'}],
     title: 'cool title',
   });

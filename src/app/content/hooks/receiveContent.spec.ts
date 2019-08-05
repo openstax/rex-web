@@ -30,62 +30,62 @@ describe('setHead hook', () => {
     hookBody = require('./receiveContent').default;
   });
 
-  it('dispatches setHead when receiveBook is dispatched', () => {
+  it('dispatches setHead when receiveBook is dispatched', async() => {
     const head = {some: 'data'};
     mockSetHead.mockImplementation(() => head);
 
     localState.book = book;
     localState.page = page;
 
-    hookBody(helpers)(receiveBook(book));
+    await hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).toHaveBeenCalledWith(head);
   });
 
-  it('dispatches setHead when receivePage is dispatched', () => {
+  it('dispatches setHead when receivePage is dispatched', async() => {
     const head = {some: 'data'};
     mockSetHead.mockImplementation(() => head);
 
     localState.book = book;
     localState.page = page;
 
-    hookBody(helpers)(receivePage({...page, references: []}));
+    await hookBody(helpers)(receivePage({...page, references: []}));
 
     expect(helpers.dispatch).toHaveBeenCalledWith(head);
   });
 
-  it('does nothing if book is loading', () => {
+  it('does nothing if book is loading', async() => {
     localState.book = { title: 'book', id: 'book' } as Book;
     localState.page = { title: 'page', id: 'page' } as Page;
     localState.loading.book = 'book2';
 
-    hookBody(helpers)(receiveBook(book));
+    await hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
 
-  it('does nothing if page is loading', () => {
+  it('does nothing if page is loading', async() => {
     localState.book = { title: 'book', id: 'book' } as Book;
     localState.page = { title: 'page', id: 'page' } as Page;
     localState.loading.page = 'page2';
 
-    hookBody(helpers)(receiveBook({} as Book));
+    await hookBody(helpers)(receiveBook({} as Book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
 
-  it('does nothing if page is not loaded', () => {
+  it('does nothing if page is not loaded', async() => {
     localState.book = { title: 'book', id: 'book' } as Book;
 
-    hookBody(helpers)(receiveBook(book));
+    await hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
 
-  it('does nothing if book is not loaded', () => {
+  it('does nothing if book is not loaded', async() => {
     localState.page = { title: 'page', id: 'page' } as Page;
 
-    hookBody(helpers)(receiveBook(book));
+    await hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
   });
