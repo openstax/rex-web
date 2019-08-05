@@ -13,6 +13,7 @@ describe('setHead hook', () => {
 
   beforeEach(() => {
     hookBody = require('./setHead').hookBody;
+    assertDefined(assertDefined(document, 'document must be defined').head, 'document must have a head').innerHTML = '';
   });
 
   it('adds link', () => {
