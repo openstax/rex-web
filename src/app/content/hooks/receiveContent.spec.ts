@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
-import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import archiveLoader, { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
+import osWebLoader, { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { CANONICAL_MAP, getCanonicalUrl } from '../../developer/components/utils';
 import { ActionHookBody, AppServices, AppState, MiddlewareAPI } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { initialState } from '../reducer';
@@ -88,5 +89,53 @@ describe('setHead hook', () => {
     await hookBody(helpers)(receiveBook(book));
 
     expect(helpers.dispatch).not.toHaveBeenCalled();
+  });
+
+  describe('getCanonicalURL', () => {
+
+    beforeEach(() => {
+      helpers.archiveLoader = archiveLoader();
+      helpers.osWebLoader = osWebLoader();
+    });
+
+    it('returns nothing when the book does not have a canonical book entry', async() => {
+      const bookId = 'unique-snowflake-book';
+      const pageShortId = 'unique-snowflake-page';
+      const x = await getCanonicalUrl(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      expect(x).toBeNull();
+    });
+
+    it('finds a canonical book for a page', async() => {
+      const bookId = archiveBook.id;
+      const pageShortId = page.shortId;
+      CANONICAL_MAP[bookId] = [ bookId ];
+      const x = await getCanonicalUrl(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      expect(x).not.toBeNull();
+    });
+
+    it('returns nothing when the page is only in the current book (not in the canonical book)', async() => {
+      const bookId = archiveBook.id;
+      const pageShortId = 'unique-snowflake-page';
+      CANONICAL_MAP[bookId] = [ bookId ];
+      const x = await getCanonicalUrl(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      expect(x).toBeNull();
+    });
+
+    it('adds <link rel="canonical">', async() => {
+      const bookId = archiveBook.id;
+      CANONICAL_MAP[bookId] = [ bookId ];
+
+      const head = {some: 'data'};
+      mockSetHead.mockImplementation(() => head);
+
+      localState.book = book;
+      localState.page = page;
+
+      await hookBody(helpers)(receiveBook(book));
+
+      expect(helpers.dispatch).toHaveBeenCalledWith(head);
+
+    });
+
   });
 });
