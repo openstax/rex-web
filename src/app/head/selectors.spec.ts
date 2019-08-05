@@ -9,6 +9,17 @@ describe('localState', () => {
   });
 });
 
+describe('link', () => {
+  it('returns link', () => {
+    const rootState = {head: {
+      ...initialState,
+      link: ['one', 'two'],
+    }} as any as AppState;
+
+    expect(selectors.link(rootState)).toEqual(['one', 'two']);
+  });
+});
+
 describe('meta', () => {
   it('returns meta', () => {
     const rootState = {head: {
