@@ -471,7 +471,7 @@ describe('Page', () => {
     };
 
     state.navigation.hash = '#somehash';
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused3');
 
     const {root} = renderToDom(
       <Provider store={store}>
