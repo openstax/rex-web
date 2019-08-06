@@ -397,10 +397,6 @@ Array [
   color: #0064A0;
 }
 
-.c56 > #main-content {
-  overflow-x: hidden;
-}
-
 .c56 .os-figure,
 .c56 .os-figure:last-child {
   margin-bottom: 5px;
@@ -3428,10 +3424,6 @@ Array [
 
 .c30 a:hover {
   color: #0064A0;
-}
-
-.c30 > #main-content {
-  overflow-x: hidden;
 }
 
 .c30 .os-figure,
