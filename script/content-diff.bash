@@ -46,8 +46,7 @@ fi
 git checkout --orphan "content-diffs--$first_release-$second_release"
 git clean -fd
 
-aws s3 sync "s3://unified-web-primary/rex/releases/$first_release/books/chemistry-2e" books/chemistry-2e
-aws s3 sync "s3://unified-web-primary/rex/releases/$first_release/books/chemistry-atoms-first-2e" books/chemistry-atoms-first-2e
+aws s3 sync "s3://unified-web-primary/rex/releases/$first_release/books" books/
 stripToContent
 
 git add books
@@ -55,8 +54,7 @@ git -c commit.gpgsign=false commit -m "stripped content for $first_release"
 
 rm -rf books/*
 
-aws s3 sync "s3://unified-web-primary/rex/releases/$second_release/books/chemistry-2e" books/chemistry-2e
-aws s3 sync "s3://unified-web-primary/rex/releases/$second_release/books/chemistry-atoms-first-2e" books/chemistry-atoms-first-2e
+aws s3 sync "s3://unified-web-primary/rex/releases/$second_release/books" books/
 stripToContent
 
 git add books
