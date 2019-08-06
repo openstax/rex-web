@@ -17,11 +17,6 @@ class TableOfContents(Region):
         return self.find_element(*self._active_section_locator)
 
     @property
-    def font_property_of_selected_section(self):
-        bold = self.active_section.value_of_css_property("font-weight")
-        return bold
-
-    @property
     def sections(self):
         return [
             self.ContentPage(self, section_link)

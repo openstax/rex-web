@@ -33,8 +33,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         assert sidebar.header.is_displayed
 
         # AND: The page name in the sidebar is bolded to indicate that its selected
-        bold = "400"
-        assert toc.font_property_of_selected_section == bold
+        toc.assert_selected_section_in_TOC_is_bold(toc.active_section)
 
         # WHEN: The toc button on the sidebar is clicked
         # THEN: The sidebar area has been closed
@@ -63,8 +62,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
         assert sidebar.header.is_displayed
 
-        bold = "400"
-        assert toc.font_property_of_selected_section == bold
+        toc.assert_selected_section_in_TOC_is_bold(toc.active_section)
 
         sidebar.header.click_toc_toggle_button()
 

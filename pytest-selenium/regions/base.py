@@ -35,3 +35,6 @@ class Region(pypom.Region):
         while not isinstance(target, pypom.Page):
             target = target.page
         return target.page_title
+
+    def assert_selected_section_in_TOC_is_bold(self, element):
+        assert element.value_of_css_property("font-weight") == "400"
