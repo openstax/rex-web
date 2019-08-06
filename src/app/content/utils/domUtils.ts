@@ -71,7 +71,22 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
   }
 };
 
-export const scrollHandler = (element: HTMLElement) => {
-  const top = element.getBoundingClientRect().top;
-  element.style.setProperty('height', `calc(100vh - ${top}px)`);
+export const setSidebarHeight = (sidebar: HTMLElement, window: Window) => {
+  const scrollHandlerCallback = () => {
+    const top = sidebar.getBoundingClientRect().top;
+    sidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
+  };
+
+  const animation = () => requestAnimationFrame(scrollHandlerCallback);
+
+  window.addEventListener('scroll', animation, { passive: true });
+  window.addEventListener('resize', animation, { passive: true });
+
+  return {
+    callback: scrollHandlerCallback,
+    deregister: () => {
+      window.removeEventListener('scroll', animation);
+      window.removeEventListener('resize', animation);
+    },
+  };
 };

@@ -10,6 +10,7 @@ import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
 import {
   contentFont,
+  linkColor,
   textRegularLineHeight,
   textRegularSize,
   textRegularStyle
@@ -24,6 +25,7 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   mobileSearchContainerMargin,
+  toolbalHrHeight,
   toolbarDesktopHeight,
   toolbarIconColor,
   toolbarMobileHeight,
@@ -220,7 +222,7 @@ const BarWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const Hr = styled.hr`
   border: none;
-  border-top: 0.1rem solid #efeff1;
+  border-top: ${toolbalHrHeight}rem solid #efeff1;
   display: none;
   margin: 0;
   ${theme.breakpoints.mobile(css`
@@ -276,7 +278,7 @@ const ToggleSeachResultsText = styled.button`
   ${textRegularStyle}
   margin: 0;
   padding: 0;
-  color: #027eb5;
+  color: ${linkColor};
   display: flex;
   align-items: center;
   overflow: visible;
@@ -291,10 +293,10 @@ const InnerText = styled.div`
 interface SearchResultsSidebarProps {
   search: typeof requestSearch;
   query: string | null;
-  onClose: () => void;
+  clearSearch: () => void;
   openSearchResults: () => void;
   results: SearchResultContainer[] | null;
-  mobileOpen: boolean;
+  searchResultsOpen: boolean;
 }
 
 class Toolbar extends React.Component<SearchResultsSidebarProps, {
@@ -326,15 +328,16 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       this.setState({ query: '', formSubmitted: false });
     };
 
-    const toggleMobile = (e: React.FormEvent) => {
+    const toggleMobile = (e: React.MouseEvent<HTMLInputElement>) => {
       e.preventDefault();
-      this.setState({ mobileOpen: !this.state.mobileOpen });
-      if (this.props.results) {
-        this.props.onClose();
+      const mobileOpen = !this.state.mobileOpen;
+      this.setState({mobileOpen});
+      if (!mobileOpen) {
+        this.props.clearSearch();
       }
     };
 
-    const openSearchbar = (e: React.FormEvent) => {
+    const openSearchbar = (e: React.MouseEvent<HTMLInputElement>) => {
       e.preventDefault();
       this.props.openSearchResults();
     };
@@ -374,7 +377,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       {this.state.mobileOpen && <MobileSearchWrapper>
         <Hr />
         <MobileSearchContainer>
-          {!this.props.mobileOpen && this.props.query &&
+          {!this.props.searchResultsOpen && this.props.query &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
               {(msg) => <ToggleSeachResultsText onClick={openSearchbar}>
                 <LeftArrow/><InnerText>{msg}</InnerText>
@@ -393,12 +396,12 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
 
 export default connect(
   (state: AppState) => ({
-    mobileOpen: selectSearch.mobileOpen(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
+    searchResultsOpen: selectSearch.searchResultsOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    onClose: () => {
+    clearSearch: () => {
       dispatch(clearSearch());
     },
     openSearchResults: () => dispatch(openSearchResults()),

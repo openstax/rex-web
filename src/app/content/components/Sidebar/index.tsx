@@ -7,7 +7,7 @@ import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
-import { expandCurrentChapter, scrollHandler, scrollTocSectionIntoView } from '../../utils/domUtils';
+import { expandCurrentChapter, scrollTocSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
 
@@ -18,7 +18,7 @@ interface SidebarProps {
   page?: Page;
 }
 
-export class Sidebar extends Component<SidebarProps> {
+export class TableOfContents extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
 
@@ -38,15 +38,9 @@ export class Sidebar extends Component<SidebarProps> {
       return;
     }
 
-    const scrollHandlerCallback = () => {
-      scrollHandler(sidebar);
-    };
-
-    const animation = () => requestAnimationFrame(scrollHandlerCallback);
-
-    window.addEventListener('scroll', animation, {passive: true});
-    window.addEventListener('resize', animation, {passive: true});
-    scrollHandlerCallback();
+    const {callback, deregister} = setSidebarHeight(sidebar, window);
+    callback();
+    this.deregister = deregister;
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {
@@ -55,6 +49,11 @@ export class Sidebar extends Component<SidebarProps> {
       this.scrollToSelectedPage();
     }
   }
+
+  public componentWillUnmount() {
+    this.deregister();
+  }
+  private deregister: () => void = () => null;
 
   private scrollToSelectedPage() {
     scrollTocSectionIntoView(this.sidebar.current, this.activeSection.current);
@@ -112,4 +111,4 @@ export default connect(
   (dispatch: Dispatch) => ({
     onNavigate: () => dispatch(resetToc()),
   })
-)(Sidebar);
+)(TableOfContents);

@@ -5,8 +5,6 @@ module.exports = {
 
   BOOKS: {'testbook1-uuid':{'defaultVersion':'1.0'}},
 
-  SEARCH_URL: process.env.SEARCH_URL || 'https://search-jul11.sandbox.openstax.org',
-
   FIXTURES: true,
 
   PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 62873,

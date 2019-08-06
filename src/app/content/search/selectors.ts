@@ -23,7 +23,7 @@ export const results = createSelector(
   (state, book) => !!state.results && !!book ? getFormattedSearchResults(book.tree, state.results) : null
 );
 
-export const mobileOpen = createSelector(
+export const searchResultsOpen = createSelector(
   localState,
   (state) => state.mobileOpen
 );

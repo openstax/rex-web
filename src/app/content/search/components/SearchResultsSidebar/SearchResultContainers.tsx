@@ -1,5 +1,6 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Details, ExpandIcon } from '../../../../components/Details';
 import { CollapseIcon, SummaryTitle, SummaryWrapper } from '../../../components/Sidebar/styled';
 import { Book, Page } from '../../../types';
@@ -26,6 +27,7 @@ export const SearchResultContainers = (props: {
           book={props.book}
           closeSearchResults={props.closeSearchResults}
           activeSectionRef={props.activeSectionRef}
+          key={node.id}
         />
       ) : (
         <SearchResult
@@ -34,6 +36,7 @@ export const SearchResultContainers = (props: {
           book={props.book}
           closeSearchResults={props.closeSearchResults}
           activeSectionRef={props.activeSectionRef}
+          key={node.id}
         ></SearchResult>
       )
     )}
@@ -51,15 +54,20 @@ const SearchResult = (props: {
   const active = props.page && props.currentPage
     && stripIdVersion(props.currentPage.id) === stripIdVersion(props.page.id);
   return <Styled.NavItem ref={active ? props.activeSectionRef : null }>
-    <Styled.LinkWrapper {...(active ? {'aria-label': 'Current Page'} : {})}>
-      <Styled.SearchResultsLink
-        dangerouslySetInnerHTML={{ __html: props.page.title }}
-      />
-    </Styled.LinkWrapper>
+    <FormattedMessage id='i18n:search-results:bar:current-page'>
+      {(msg: Element | string) =>
+        <Styled.LinkWrapper {...(active ? {'aria-label': msg} : {})}>
+          <Styled.SearchResultsLink
+            dangerouslySetInnerHTML={{ __html: props.page.title }}
+          />
+        </Styled.LinkWrapper>
+      }
+    </FormattedMessage>
     {props.page.results.map((hit: SearchResultHit) =>
       hit.source && hit.highlight && hit.highlight.visibleContent
-        ? hit.highlight.visibleContent.map((highlight: string) => {
+        ? hit.highlight.visibleContent.map((highlight: string, index: number) => {
             return <Styled.SectionContentPreview
+              key={index}
               book={props.book}
               page={props.page}
               onClick={() => {

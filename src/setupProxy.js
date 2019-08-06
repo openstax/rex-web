@@ -68,7 +68,6 @@ const findFileIn = (baseDir, reqInfo) => {
   const queryFilePath = path.join(filePath,
     reqInfo.search ? encodeURIComponent(reqInfo.search) : ''
   );
-  console.log(queryFilePath);
   const indexFilePath = path.join(filePath, 'index.html');
 
   if (isFile(queryFilePath)) {
