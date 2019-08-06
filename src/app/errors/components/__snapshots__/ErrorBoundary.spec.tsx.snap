@@ -1,13 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorBoundary matches snapshot 1`] = `
-.c4 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c0 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,11 +15,12 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   width: 30rem;
   font-family: Neue Helvetica W01;
   color: #424242;
+  background-color: white;
   box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
   border-radius: 0.5rem;
 }
 
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -37,7 +32,7 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   margin-bottom: 1.5rem;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -52,7 +47,7 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   text-align: center;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -65,11 +60,17 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   margin-bottom: 1.5rem;
 }
 
-.c1 + .c5 {
+.c2 + .c6 {
   margin-top: 0;
 }
 
-.c6 {
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
   color: white;
   padding: 1rem;
   margin-top: 2rem;
@@ -77,18 +78,22 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   background-color: #959595;
 }
 
+.c0 {
+  margin: 2rem auto;
+}
+
 <div
-  className="c0"
+  className="c0 c1"
 >
   <header
-    className="c1 c2"
+    className="c2 c3"
   >
     <h1
-      className="c3"
+      className="c4"
     >
       <svg
         aria-hidden="true"
-        className="c4"
+        className="c5"
         color="red"
         fill="currentColor"
         focusable="false"
@@ -105,13 +110,13 @@ exports[`ErrorBoundary matches snapshot 1`] = `
     </h1>
   </header>
   <div
-    className="c5"
+    className="c6"
   >
     <div>
       We’re sorry but a system error was encountered
     </div>
     <div
-      className="c6"
+      className="c7"
     >
       Error: this is a bug
     </div>

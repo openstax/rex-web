@@ -1,30 +1,37 @@
 import React, { ReactNode } from 'react';
-import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Sentry from '../../../helpers/Sentry';
-import { Dispatch } from '../../types';
-import { recordError } from '../actions';
+import ErrorCard from './ErrorCard';
 
 interface Props {
   children: ReactNode;
-  recordError: (error: Error) => void;
 }
 
-class ErrorBoundary extends React.Component<Props> {
+interface State {
+  error?: Error;
+}
+
+// tslint:disable-next-line:variable-name
+const ErrorContent = styled(ErrorCard)`
+  margin: 2rem auto;
+`;
+
+
+class ErrorBoundary extends React.Component<Props, State> {
+
+  public state = { error: undefined };
 
   public componentDidCatch(error: Error) {
-    this.props.recordError(error);
-    // also log the error to an error reporting service
+    this.setState({ error });
     Sentry.captureException(error);
   }
 
   public render() {
+    if (this.state.error) {
+      return <ErrorContent error={this.state.error as any as Error} />;
+    }
     return this.props.children;
   }
 }
 
-export default connect(
-  () => ({}),
-  (dispatch: Dispatch) => ({
-    recordError: (err: Error) => dispatch(recordError(err)),
-  })
-)(ErrorBoundary);
+export default ErrorBoundary;

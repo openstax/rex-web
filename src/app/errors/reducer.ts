@@ -11,7 +11,7 @@ export const initialState = {};
 const reducer: Reducer<State, AnyAction> = (state = {}, action) => {
   switch (action.type) {
     case getType(clearCurrentError):
-      return { ...state, error: undefined };
+      return initialState;
     case getType(recordError):
       return { ...state, error: action.payload };
     case getType(navigation.actions.locationChange):

@@ -8,7 +8,6 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
 import { contentFont, textRegularLineHeight, textRegularSize, textRegularStyle } from '../../components/Typography';
-import ErrorModal from '../../errors/components/ErrorModal';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString, assertWindow } from '../../utils';
@@ -278,7 +277,6 @@ class Toolbar extends React.Component<{
 
     return <BarWrapper>
       <TopBar data-testid='toolbar'>
-        <ErrorModal />
         <OpenSidebarControl />
         <SearchPrintWrapper>
           <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>

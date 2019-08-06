@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorCard matches snapshot 1`] = `
-.c4 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -21,7 +15,8 @@ exports[`ErrorCard matches snapshot 1`] = `
   width: 30rem;
   font-family: Neue Helvetica W01;
   color: #424242;
-  box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0px 4rem rgba(0,0,0,0.08);
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
   border-radius: 0.5rem;
 }
 
@@ -67,6 +62,12 @@ exports[`ErrorCard matches snapshot 1`] = `
 
 .c1 + .c5 {
   margin-top: 0;
+}
+
+.c4 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
 }
 
 .c6 {

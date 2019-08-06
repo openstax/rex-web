@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorModal matches snapshot 1`] = `
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: auto;
+  overflow: hidden;
+  padding: 3rem;
+  width: 30rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
+  border-radius: 0.5rem;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  font-size: 1.4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.c3 + .c7 {
+  margin-top: 0;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c6 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c8 {
+  color: white;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  background-color: #959595;
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c10:hover {
+  background-color: #e96128;
+}
+
+.c10:active {
+  background-color: #df571e;
+}
+
+.c11 {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 2;
+  position: fixed;
+  background-color: black;
+  opacity: 0.7;
+}
+
+.c0 {
+  top: 0;
+  z-index: 12;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+}
+
+.c1 {
+  z-index: 3;
+}
+
+<div
+  className="error-modal c0"
+>
+  <div
+    className="c1 c2"
+  >
+    <header
+      className="c3 c4"
+    >
+      <h1
+        className="c5"
+      >
+        <svg
+          aria-hidden="true"
+          className="c6"
+          color="red"
+          fill="currentColor"
+          focusable="false"
+          height="45px"
+          viewBox="0 0 576 512"
+        >
+          <path
+            d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+            fill="currentColor"
+          />
+        </svg>
+         
+        System Error
+      </h1>
+    </header>
+    <div
+      className="c7"
+    >
+      <div>
+        We’re sorry but a system error was encountered
+      </div>
+      <div
+        className="c8"
+      >
+        Error: unknown error
+      </div>
+      <p>
+        Our support staff has been notified of the error and we’ll investigate it further.
+      </p>
+    </div>
+    <div
+      className="c9"
+    >
+      <button
+        className="c10"
+        onClick={[Function]}
+      >
+        Dismiss
+      </button>
+    </div>
+  </div>
+  <div
+    className="c11"
+  />
+</div>
+`;
