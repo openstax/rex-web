@@ -286,7 +286,8 @@ const ToggleSeachResultsText = styled.button`
 
 // tslint:disable-next-line:variable-name
 const InnerText = styled.div`
-  width: 11.2rem;
+  white-space: nowrap;
+  margin-right: 1rem;
   text-align: left;
 `;
 

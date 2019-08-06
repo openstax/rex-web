@@ -56,7 +56,9 @@ export const SearchResultsBar = styled.div`
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 2;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
-
+  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(css`
+    display: none;
+  `)}
   ${theme.breakpoints.mobile(css`
     width: 100%;
     margin-top: 0;
@@ -68,10 +70,10 @@ export const SearchResultsBar = styled.div`
     ::before {
       display: none;
     }
+
     margin: 0;
     padding: 0;
   }
-
 `;
 
 // tslint:disable-next-line:variable-name
@@ -98,12 +100,12 @@ export const SearchQueryWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const SearchBarSummary = styled(Summary)`
-    min-height: 3.8rem;
-    display: flex;
-    align-items: center;
-    background: ${searchResultsBarVariables.backgroundColor};
-    border-top: solid 0.1rem #d5d5d5;
-    padding-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
+  min-height: 3.8rem;
+  display: flex;
+  align-items: center;
+  background: ${searchResultsBarVariables.backgroundColor};
+  border-top: solid 0.1rem #d5d5d5;
+  padding-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -135,12 +137,12 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
 
 // tslint:disable-next-line:variable-name
 export const LinkWrapper = styled.div`
-    min-height: 3.4rem;
-    display: flex;
-    align-items: center;
-    padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize}rem;
-    padding-top: 1rem;
-    padding-bottom: 0.6rem;
+  min-height: 3.4rem;
+  display: flex;
+  align-items: center;
+  padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize}rem;
+  padding-top: 1rem;
+  padding-bottom: 0.6rem;
 `;
 
 // tslint:disable-next-line:variable-name

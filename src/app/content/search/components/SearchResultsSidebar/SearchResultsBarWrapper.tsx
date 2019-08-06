@@ -83,10 +83,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book } = this.props;
+    const { results, book, searchResultsOpen } = this.props;
 
     return (
-      <Styled.SearchResultsBar ref={this.searchSidebar}>
+      <Styled.SearchResultsBar searchResultsOpen={searchResultsOpen} ref={this.searchSidebar}>
         {!results ? this.loadindState : null}
         {results && results.length > 0 ? this.totalResults : null}
         {results && results.length === 0 ? this.noResults : null}
