@@ -24,10 +24,10 @@ import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
   'blue': '#004aa2',
-  'deep-green': '#9cd14a',
+  'deep-green': '#12A28C',
   'gray': '#97999b',
   'green': '#9cd14a',
-  'light-blue': '#004aa2',
+  'light-blue': '#1EE1F0',
   'orange': '#FAA461',
   'red': '#E34361',
   'yellow': '#faea36',
@@ -72,6 +72,7 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
   (props: {variant: 'mini' | 'big'}) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
+const bookTitleMiniNavDestkopWidth = 27;
 // tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
@@ -90,7 +91,7 @@ const BookTitle = styled.a`
   `)}
 
   ${ifMiniNav(css`
-    width: 27rem;
+    width: ${bookTitleMiniNavDestkopWidth}rem;
 
     ${theme.breakpoints.mobile(css`
       display: none;
@@ -115,6 +116,13 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
 
     max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
+  `)}
+  ${ifMiniNav(css`
+    max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
+
+    ${theme.breakpoints.mobile(css`
+      max-width: none;
+    `)}
   `)}
 `;
 

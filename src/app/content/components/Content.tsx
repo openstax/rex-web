@@ -1,7 +1,7 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
+import ScrollOffset from '../../components/ScrollOffset';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import Footer from './../../components/Footer';
@@ -26,16 +26,6 @@ import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 import { wrapperPadding } from './Wrapper';
-
-// tslint:disable-next-line:variable-name
-const GlobalStyle = createGlobalStyle`
-  html {
-    scroll-padding-top: ${(bookBannerDesktopMiniHeight + toolbarDesktopHeight)}em;
-    ${theme.breakpoints.mobile(css`
-      scroll-padding-top: ${(bookBannerMobileMiniHeight + toolbarMobileHeight)}em;
-    `)}
-  }
-`;
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
@@ -160,7 +150,10 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
  */
 // tslint:disable-next-line:variable-name
 const Content: React.SFC = () => <Layout>
-  <GlobalStyle />
+  <ScrollOffset
+    desktopOffset={bookBannerDesktopMiniHeight + toolbarDesktopHeight}
+    mobileOffset={bookBannerMobileMiniHeight + toolbarMobileHeight}
+  />
   <Background>
     <BookBanner/>
     <Toolbar />

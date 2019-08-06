@@ -1,3 +1,4 @@
+import { FrameRequestCallback } from '@openstax/types/lib.dom';
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
 import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
@@ -46,3 +47,44 @@ if (process.env.CI) {
 } else {
   jest.setTimeout(120 * 1000);
 }
+
+let requestAnimationFrame: jest.SpyInstance;
+let matchMedia: jest.SpyInstance;
+let scrollTo: jest.SpyInstance;
+let scrollBy: jest.SpyInstance;
+beforeEach(() => {
+  if (typeof(window) === 'undefined') {
+    return;
+  }
+
+  scrollTo = window.scrollTo = jest.fn();
+  scrollBy = window.scrollBy = jest.fn();
+
+  matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
+    return {
+      addListener: jest.fn(),
+      matches: false,
+      media: query,
+      onchange: null,
+      removeListener: jest.fn(),
+    };
+  });
+
+  requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(
+    (cb: FrameRequestCallback) => {
+      cb(0);
+      return 0;
+    }
+  );
+});
+
+afterEach(() => {
+  if (typeof(window) === 'undefined') {
+    return;
+  }
+  (window as any).scCGSHMRCache = {};
+  matchMedia.mockReset();
+  scrollTo.mockReset();
+  scrollBy.mockReset();
+  requestAnimationFrame.mockRestore();
+});
