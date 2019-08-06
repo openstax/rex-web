@@ -1,5 +1,5 @@
 import flow from 'lodash/fp/flow';
-import React, { SFC } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
@@ -29,7 +29,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 // tslint:disable-next-line:variable-name
-export const ContentLink: SFC<Props> = ({
+export const ContentLink = ({
   book,
   page,
   currentBook,
@@ -37,8 +37,9 @@ export const ContentLink: SFC<Props> = ({
   search,
   navigate,
   onClick,
+  children,
   ...props
-}) => {
+}: React.PropsWithChildren<Props>) => {
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
@@ -65,7 +66,7 @@ export const ContentLink: SFC<Props> = ({
     }}
     href={relativeUrl}
     {...props}
-  />;
+  >{children}</a>;
 };
 
 // tslint:disable-next-line:variable-name

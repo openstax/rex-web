@@ -1,4 +1,5 @@
 import { Location } from 'history';
+import { OSWebBook } from '../../../gateways/createOSWebLoader';
 import FontCollector from '../../../helpers/FontCollector';
 import PromiseCollector from '../../../helpers/PromiseCollector';
 import createTestStore from '../../../test/createTestStore';
@@ -142,6 +143,7 @@ describe('locationChange', () => {
     archiveLoader.mockPage(book, {
       content: 'rando content',
       id: 'rando-page-id',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'rando-page-shortid',
       title: 'rando page',
       version: '0',
@@ -149,6 +151,7 @@ describe('locationChange', () => {
     archiveLoader.mockPage(book, {
       content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
@@ -226,11 +229,12 @@ describe('locationChange', () => {
     const mockPageInOtherBook = {
       content: 'dope content bruh',
       id: 'newbookpageid',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'newbookpageshortid',
       title: 'page in a new book',
       version: '0',
     };
-    const mockCmsOtherBook = {
+    const mockCmsOtherBook: OSWebBook = {
       authors: [{value: {name: 'different author'}}],
       cnx_id: 'newbookid',
       cover_color: 'blue',
@@ -248,6 +252,7 @@ describe('locationChange', () => {
       archiveLoader.mockPage(book, {
         content: 'some <a href="/contents/newbookpageid"></a> content',
         id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
         shortId: 'pageshortid',
         title: 'page referencing different book',
         version: '0',
@@ -264,7 +269,7 @@ describe('locationChange', () => {
 
     it('load', async() => {
       archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['newbookid']));
-      osWebLoader.getBookFromId.mockReturnValue(mockCmsOtherBook);
+      osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       await hook(payload);
 
@@ -319,7 +324,7 @@ describe('locationChange', () => {
       });
       archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['garbagebookid']));
       mockConfig.BOOKS.garbagebookid = {defaultVersion: '0'};
-      osWebLoader.getBookFromId.mockReturnValue(mockCmsOtherBook);
+      osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       let message: string | undefined;
 

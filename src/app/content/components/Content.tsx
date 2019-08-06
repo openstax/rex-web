@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
+import ScrollOffset from '../../components/ScrollOffset';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import Footer from './../../components/Footer';
@@ -149,6 +150,10 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
  */
 // tslint:disable-next-line:variable-name
 const Content: React.SFC = () => <Layout>
+  <ScrollOffset
+    desktopOffset={bookBannerDesktopMiniHeight + toolbarDesktopHeight}
+    mobileOffset={bookBannerMobileMiniHeight + toolbarMobileHeight}
+  />
   <Background>
     <BookBanner/>
     <Toolbar />

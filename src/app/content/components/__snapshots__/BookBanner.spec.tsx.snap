@@ -93,7 +93,7 @@ Array [
   position: relative;
   z-index: 4;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
+  background: linear-gradient(to right, #002468, #004aa2);
 }
 
 @media screen and (max-width:75em) {
@@ -264,6 +264,7 @@ Array [
   font-weight: 600;
   display: inline-block;
   margin: 1rem 0 0 0;
+  max-width: 78.25rem;
 }
 
 .c0 {
@@ -286,7 +287,7 @@ Array [
   position: sticky;
   z-index: 3;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
+  background: linear-gradient(to right, #002468, #004aa2);
   margin-top: -7rem;
 }
 
@@ -351,6 +352,12 @@ Array [
     -webkit-line-clamp: 2;
     max-height: 4rem;
     margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: none;
   }
 }
 
@@ -504,7 +511,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   position: relative;
   z-index: 4;
   overflow: hidden;
-  background: linear-gradient(to right,#002468,#004aa2);
+  background: linear-gradient(to right, #002468, #004aa2);
   -webkit-transform: translateY(-7rem);
   -ms-transform: translateY(-7rem);
   transform: translateY(-7rem);

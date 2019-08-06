@@ -1,4 +1,5 @@
 import { Ref } from 'react';
+import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
 import {
   ActionHookBody,
@@ -10,7 +11,7 @@ import {
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
-  <A extends AnyAction>(action: A): action is ReturnType<C> => action.type === getType(actionCreator);
+  (action: AnyAction): action is ReturnType<C> => action.type === getType(actionCreator);
 
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {
@@ -80,4 +81,29 @@ export const assertDocument = (message: string = 'BUG: Document is undefined') =
   }
 
   return document;
+};
+
+export const assertDocumentElement = (message: string = 'BUG: Document Element is null') => {
+  const documentElement = assertDocument().documentElement;
+
+  if (documentElement === null) {
+    throw new Error(message);
+  }
+
+  return documentElement;
+};
+
+export const scrollTo = (elem: Element | string) => {
+  const body = assertDocument().body;
+  const padding = body.getAttribute('data-scroll-padding') || '0';
+  const offset = parseFloat(padding) || 0;
+  return scrollToElement(elem, {offset});
+};
+
+export const remsToPx = (rems: number) => {
+  const bodyFontSize = typeof(window) === 'undefined'
+    ? 10
+    : parseFloat(window.getComputedStyle(window.document.body).fontSize || '') || 10;
+
+  return rems * bodyFontSize;
 };

@@ -54,7 +54,7 @@ const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
 
 export const splitTitleParts = (str: string) => {
   const match = str
-    .match(/(<span class=\"os-number\">(.*?)<\/span>)?.*?<span class=\"os-text\">(.*?)<\/span>/);
+    .match(/(<span class="os-number">(.*?)<\/span>)?.*?<span class="os-text">(.*?)<\/span>/);
 
   if (match && match[3]) {
     // ignore the first two matches which are the whole title
