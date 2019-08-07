@@ -254,8 +254,10 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
   padding: 0;
   background: none;
   position: fixed;
-  top: 1rem;
-  right: 1.6rem;
+  height: ${navMobileHeight}rem;
+  width: ${navMobileHeight}rem;
+  top: 0;
+  right: 0;
   color: ${theme.color.primary.gray.base};
   display: none;
   ${theme.breakpoints.mobile(css`
