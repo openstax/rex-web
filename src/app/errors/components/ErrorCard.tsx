@@ -21,13 +21,15 @@ const Card = styled.div`
   border-radius: 0.5rem;
 `;
 
-Card.Header = styled.header`
+// tslint:disable-next-line:variable-name
+const Header = styled.header`
   display: flex;
   align-items: center;
   margin-bottom: ${margin * 0.5}rem;
 `;
 
-Card.Heading = styled.h1`
+// tslint:disable-next-line:variable-name
+const Heading = styled.h1`
   display: flex;
   align-items: center;
   margin: 0;
@@ -36,7 +38,8 @@ Card.Heading = styled.h1`
   text-align: center;
 `;
 
-Card.Body = styled.div`
+// tslint:disable-next-line:variable-name
+const Body = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 1.4rem;
@@ -48,7 +51,8 @@ Card.Body = styled.div`
   }
 `;
 
-Card.Footer = styled.div`
+// tslint:disable-next-line:variable-name
+export const Footer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
@@ -64,7 +68,7 @@ const ErrorPanel = styled.div`
 
 interface Props {
   error: Error;
-  className?: String,
+  className?: string,
   footer?: JSX.Element,
 }
 
@@ -75,16 +79,16 @@ const ErrorCard: React.SFC<Props> = ({
 
   return (
     <Card className={className}>
-      <Card.Header>
+      <Header>
         <FormattedMessage id='i18n:error:boundary:heading'>
           {(message) => (
-            <Card.Heading>
+            <Heading>
               <ExclamationTriangle height='45px' color='red' /> {message}
-            </Card.Heading>
+            </Heading>
           )}
         </FormattedMessage>
-      </Card.Header>
-      <Card.Body>
+      </Header>
+      <Body>
         <FormattedMessage id='i18n:error:boundary:body'>
           {(body) => (<div>{body}</div>)}
         </FormattedMessage>
@@ -94,11 +98,10 @@ const ErrorCard: React.SFC<Props> = ({
         <FormattedMessage id='i18n:error:boundary:action'>
           {(action) => (<p>{action}</p>)}
         </FormattedMessage>
-      </Card.Body>
+      </Body>
       {footer}
     </Card>
-  )
+  );
 };
-
 
 export default ErrorCard;

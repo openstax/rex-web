@@ -5,9 +5,8 @@ import { AppState } from '../../types';
 import Button from '../../components/Button';
 import { Dispatch } from '../../types';
 import { clearCurrentError } from '../actions';
-import Card from '../../components/Card';
 import { currentError } from '../selectors';
-import ErrorCard from './ErrorCard';
+import ErrorCard, { Footer } from './ErrorCard';
 import theme from '../../theme';
 
 // tslint:disable-next-line:variable-name
@@ -35,34 +34,36 @@ const Modal = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const ModalBody = styled(ErrorCard)`
+const CardWrapper = styled.div`
   z-index: 3;
 `;
 
-interface Props {
+interface PropTypes {
   error?: Error;
   clearError: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorModal: React.SFC<Props> = ({ error, clearError }) => {
+const ErrorModal = ({ error, clearError }: PropTypes) => {
   if (!error) { return null; }
 
   return (
-    <Modal className="error-modal">
-      <ModalBody
-        error={error}
-        footer={
-          <Card.Footer>
-            <Button
-              onClick={clearError}
-              variant='primary'
-            >
-              Dismiss
-            </Button>
-          </Card.Footer>
-        }
-      />
+    <Modal className='error-modal'>
+      <CardWrapper>
+        <ErrorCard
+          error={error}
+          footer={
+            <Footer>
+              <Button
+                onClick={clearError}
+                variant='primary'
+              >
+                Dismiss
+              </Button>
+            </Footer>
+          }
+        />
+      </CardWrapper>
       <Mask />
     </Modal>
   );
