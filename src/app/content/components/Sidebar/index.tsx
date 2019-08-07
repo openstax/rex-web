@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ErrorBoundary from '../../../errors/components/ErrorBoundary';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
@@ -23,10 +24,12 @@ export class Sidebar extends Component<SidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
 
   public render() {
-    const {isOpen, book} = this.props;
+    const { isOpen, book } = this.props;
     return <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label='Table of Contents'>
-      {this.renderTocHeader()}
-      {book && this.renderToc(book)}
+      <ErrorBoundary>
+        {this.renderTocHeader()}
+        {book && this.renderToc(book)}
+      </ErrorBoundary>
     </Styled.SidebarBody>;
   }
 
@@ -34,7 +37,7 @@ export class Sidebar extends Component<SidebarProps> {
     this.scrollToSelectedPage();
     const sidebar = this.sidebar.current;
 
-    if (!sidebar || typeof(window) === 'undefined') {
+    if (!sidebar || typeof (window) === 'undefined') {
       return;
     }
 
@@ -45,8 +48,8 @@ export class Sidebar extends Component<SidebarProps> {
 
     const animation = () => requestAnimationFrame(scrollHandler);
 
-    window.addEventListener('scroll', animation, {passive: true});
-    window.addEventListener('resize', animation, {passive: true});
+    window.addEventListener('scroll', animation, { passive: true });
+    window.addEventListener('resize', animation, { passive: true });
     scrollHandler();
   }
 
@@ -66,33 +69,33 @@ export class Sidebar extends Component<SidebarProps> {
       {section.contents.map((item) => {
         const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
         return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id}>{this.renderTocNode(book, item)}</Styled.NavItem>
-        : <Styled.NavItem
-          key={item.id}
-          ref={active ? this.activeSection : null}
-          active={active}
-        >
-          <Styled.ContentLink
-            onClick={this.props.onNavigate}
-            book={book}
-            page={item}
-            dangerouslySetInnerHTML={{__html: item.title}}
-          />
-        </Styled.NavItem>;
+          ? <Styled.NavItem key={item.id}>{this.renderTocNode(book, item)}</Styled.NavItem>
+          : <Styled.NavItem
+            key={item.id}
+            ref={active ? this.activeSection : null}
+            active={active}
+          >
+            <Styled.ContentLink
+              onClick={this.props.onNavigate}
+              book={book}
+              page={item}
+              dangerouslySetInnerHTML={{ __html: item.title }}
+            />
+          </Styled.NavItem>;
       })}
     </Styled.NavOl>;
 
   private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.NavDetails
     {...this.props.page && archiveTreeContainsNode(node, this.props.page.id)
-        ? {defaultOpen: true}
-        : {}
+      ? { defaultOpen: true }
+      : {}
     }
   >
     <Styled.Summary>
       <Styled.SummaryWrapper>
-        <Styled.ExpandIcon/>
-        <Styled.CollapseIcon/>
-        <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
+        <Styled.ExpandIcon />
+        <Styled.CollapseIcon />
+        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: node.title }} />
       </Styled.SummaryWrapper>
     </Styled.Summary>
     {this.renderChildren(book, node)}
