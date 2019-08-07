@@ -213,6 +213,7 @@ describe('locationChange', () => {
 
   describe('cross book references', () => {
     const mockOtherBook = {
+      history: [],
       id: 'newbookid',
       license: {name: '', version: ''},
       shortId: 'newbookshortid',
@@ -308,6 +309,7 @@ describe('locationChange', () => {
 
     it('error when archive returns a book that doesn\'t actually contain the page', async() => {
       archiveLoader.mockBook({
+        history: [],
         id: 'garbagebookid',
         license: {name: '', version: ''},
         shortId: 'garbagebookshortid',

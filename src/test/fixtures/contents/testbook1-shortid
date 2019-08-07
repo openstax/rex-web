@@ -9,6 +9,7 @@
     "version": "1.0",
     "name": "Sweet License"
   },
+  "history": [],
   "tree": {
     "shortId": "testbook1-shortid@1.0",
     "id": "testbook1-uuid@1.0",
