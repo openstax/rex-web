@@ -31,10 +31,10 @@ import { wrapperPadding } from './Wrapper';
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
   @media screen {
-  overflow: visible; /* so sidebar position: sticky works */
-  background-color: ${theme.color.neutral.darker};
-  width: 100%;
-  height: 100%;
+    overflow: visible; /* so sidebar position: sticky works */
+    background-color: ${theme.color.neutral.darker};
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -43,8 +43,8 @@ const ContentNotifications = styled(Notifications)`
   z-index: 1; /* above content */
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
-top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
-`)}
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -59,55 +59,55 @@ const CenteredContentRow = styled(CenteredContent)`
 // tslint:disable-next-line:variable-name
 const UndoPadding = isOpenConnector(styled.div`
   @media screen {
-  overflow: visible;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-right: -${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-  margin: 0 -${theme.padding.page.mobile}rem;
-  `)}
+    overflow: visible;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-right: -${theme.padding.page.desktop}rem;
+    ${theme.breakpoints.mobile(css`
+      margin: 0 -${theme.padding.page.mobile}rem;
+    `)}
 
     ${styleWhenSidebarClosed(css`
-  margin-left: -${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
+      margin-left: -${theme.padding.page.desktop}rem;
+      ${theme.breakpoints.mobile(css`
         margin-left: -${theme.padding.page.mobile}rem;
-  `)}
-  `)}
+      `)}
+    `)}
   }
-  `);
+`);
 
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = isOpenConnector(styled.div`
   @media screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: visible;
-  background-color: ${mainContentBackground};
-  transition: max-width ${sidebarTransitionTime}ms;
-  width: 100%;
-  max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
-  ${theme.breakpoints.mobile(css`
-  max-width: ${contentWrapperMaxWidth}rem;
-  `)}
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    background-color: ${mainContentBackground};
+    transition: max-width ${sidebarTransitionTime}ms;
+    width: 100%;
+    max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
+    ${theme.breakpoints.mobile(css`
+      max-width: ${contentWrapperMaxWidth}rem;
+    `)}
     ${styleWhenSidebarClosed(css`
-  max-width: ${contentWrapperMaxWidth}rem;
-  margin: 0 auto;
-  `)}
+      max-width: ${contentWrapperMaxWidth}rem;
+      margin: 0 auto;
+    `)}
   }
-  `);
+`);
 
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   @media screen {
-  flex: 1;
-  ${wrapperPadding}
-  ${styleWhenSidebarClosed(css`
-  ${wrapperPadding}
-  `)}
+    flex: 1;
+    ${wrapperPadding}
+    ${styleWhenSidebarClosed(css`
+      ${wrapperPadding}
+    `)}
   }
-  `);
+`);
 
 /*
  * this layout is a mess for these reasons:
@@ -179,8 +179,6 @@ const Content: React.SFC = () => <Layout>
       </ErrorBoundary>
     </Wrapper>
   </Background>
-</Layout >;
-
-
+</Layout>;
 
 export default Content;
