@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
-import { bodyCopyRegularStyle, textRegularLineHeight } from '../../components/Typography';
+import { decoratedLinkStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
@@ -42,6 +42,7 @@ const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentL
 
 // tslint:disable-next-line:variable-name
 const HidingContentLink = styled(HidingContentLinkComponent)`
+  ${decoratedLinkStyle}
   ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
     margin-left: -0.8rem;
   `)}
@@ -53,7 +54,7 @@ const HidingContentLink = styled(HidingContentLinkComponent)`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${disablePrint}
-  ${bodyCopyRegularStyle}
+  ${textRegularStyle}
   overflow: visible;
   max-width: ${contentTextWidth}rem;
   justify-content: space-between;
