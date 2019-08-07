@@ -171,7 +171,7 @@ describe('assertDocumentElement', () => {
 describe('mergeRefs', () => {
   it('merges refs', () => {
     const functionRef = jest.fn();
-    const refObj = { current: undefined };
+    const refObj = {current: undefined};
     const ref = 'foobar';
 
     utils.mergeRefs(functionRef, refObj)(ref);
