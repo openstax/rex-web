@@ -22,8 +22,8 @@ class ErrorBoundary extends React.Component<Props, State> {
   public state = { error: undefined };
 
   public componentDidCatch(error: Error) {
-    this.setState({ error });
     Sentry.captureException(error);
+    this.setState({ error });
   }
 
   public render() {
