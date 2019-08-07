@@ -15,3 +15,15 @@ export const developerHome: Route<undefined, undefined> = {
   name: 'Developer Home',
   paths: [ROUTES_PATH],
 };
+
+const CONTENT_TESTING_PATH = '/rex/testing-links/:book';
+export const contentTestingLinks: Route<{book: string}, undefined> = {
+  component: Loadable({
+    loader: () => import(/* webpackChunkName: "DeveloperHome" */ './components/ContentTestingLinks'),
+    loading: () => null,
+    modules: ['ContentTestingLinks'],
+  }),
+  getUrl: (params: {book: string}): string => pathToRegexp.compile(CONTENT_TESTING_PATH)(params),
+  name: 'Content Testing Links',
+  paths: [CONTENT_TESTING_PATH],
+};

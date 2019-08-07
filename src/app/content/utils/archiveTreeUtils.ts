@@ -8,7 +8,7 @@ import {
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection
 } from '../types';
-import { getIdVersion, stripIdVersion } from './idUtils';
+import { stripIdVersion } from './idUtils';
 
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
   return [tree, ...flatten(tree.contents.map((section) =>
@@ -16,10 +16,9 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
       ? flattenArchiveTree({...section, parent: tree})
       : [{...section, parent: tree}])
   ))].map((section) => ({
-    id: stripIdVersion(section.id),
-    shortId: stripIdVersion(section.shortId),
+    id: section.id,
+    shortId: section.shortId,
     title: section.title,
-    version: getIdVersion(section.id),
     ...(isLinkedArchiveTree(section) ? {
       contents: section.contents,
       parent: section.parent,

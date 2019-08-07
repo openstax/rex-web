@@ -1,5 +1,5 @@
 
-export const hasParams = (payload: any & {params?: object}): payload is {params: object} =>
+export const hasParams = <P>(payload: any & {params?: P}): payload is {params: Exclude<P, undefined>} =>
   payload.params !== undefined;
 
 export const hasState = (payload: any & {state?: object}): payload is {state: object} =>

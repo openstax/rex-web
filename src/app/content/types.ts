@@ -47,6 +47,9 @@ export interface Book {
       name: string;
     }
   }>;
+  history: Array<{
+    version: string;
+  }>;
 }
 
 export interface Page {
@@ -88,6 +91,9 @@ export interface ArchiveBook {
     name: string;
     version: string;
   };
+  history: Array<{
+    version: string;
+  }>;
 }
 
 export interface ArchivePage {

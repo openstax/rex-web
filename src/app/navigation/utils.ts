@@ -45,7 +45,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
 };
 
 export const matchUrl = (action: AnyMatch) => hasParams(action)
-  ? action.route.getUrl(action.params)
+  ? action.route.getUrl(action.params as any)
   : action.route.getUrl();
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {

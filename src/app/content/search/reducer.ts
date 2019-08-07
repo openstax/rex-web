@@ -23,7 +23,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return initialState;
     }
     case getType(locationChange): {
-      return action.payload.action === 'PUSH' && !action.payload.location.state.search
+      return action.payload.action === 'PUSH' && (
+        !action.payload.location.state ||
+        !action.payload.location.state.search
+      )
         ? initialState
         : state;
     }

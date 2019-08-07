@@ -58,6 +58,7 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
     'license',
     'authors',
     'publish_date',
+    'history',
   ], action.payload);
   return {...state, loading, book};
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components/macro';
 import theme, { ColorSet } from '../theme';
 import { contentFont } from './Typography';
@@ -18,13 +19,40 @@ const applyColor = (color: ColorSet) => `
 type Variant = 'primary' | 'secondary' | 'default';
 type Size = 'large' | 'medium' | 'small';
 
+type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+
+interface ButtonProps<T extends ComponentType | undefined> {
+  variant?: Variant;
+  size?: Size;
+  className?: string;
+  component?: T extends undefined ? undefined :
+    T extends ComponentType ? React.ReactComponentElement<T>:
+    never;
+}
+
+function isDefined<T>(thing: T): thing is Exclude<T, undefined> {
+  if (thing) {
+    return true;
+  }
+  return false;
+}
+
 // tslint:disable-next-line:variable-name
-const Button = styled.button<{variant?: Variant, size?: Size}>`
+function ButtonHoc<T extends ComponentType | undefined>({variant, size, component, ...props}: ButtonProps<T>) {
+  if (isDefined(component)) {
+    return React.cloneElement(component, {className: props.className});
+  }
+  return <button {...props} />;
+}
+
+// tslint:disable-next-line:variable-name
+const Button = styled(ButtonHoc)`
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: ${contentFont};
   border-radius: 0.2rem;
+  text-decoration: none;
   ${(props) => props.size === 'large' && `
     font-size: 1.6rem;
     height: 5rem;
@@ -64,6 +92,7 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
 // tslint:disable-next-line:variable-name
 export const ButtonGroup = styled.div`
   display: grid;
+  grid-auto-flow: column;
   grid-gap: 1rem;
 `;
 

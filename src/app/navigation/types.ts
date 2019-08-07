@@ -5,12 +5,14 @@ import { routes } from '../';
 import { AnyAction, AppServices, MiddlewareAPI } from '../types';
 
 export type State = Location & {
+  params?: UnionRouteParams<AnyRoute>;
   query: OutputParams
 };
 
 export type RouteParams<R> = R extends Route<infer P> ? P : never;
 export type RouteState<R> = R extends Route<any, infer S> ? S : never;
 
+type UnionRouteParams<R> = R extends AnyRoute ? RouteParams<R> : never;
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
 type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
 
@@ -58,7 +60,7 @@ export interface LocationChange<M = GenericMatch> {
   action: Action;
 }
 
-export type AnyRoute = typeof routes[number];
+export type AnyRoute = typeof routes[keyof typeof routes];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
 
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>

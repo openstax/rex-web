@@ -30,15 +30,11 @@ export const actions = {
   notifications: notifications.actions,
 };
 
-export const routes = [
-  ...(
-    process.env.REACT_APP_ENV !== 'production'
-      ? Object.values(developer.routes)
-      : /* istanbul ignore next */ []
-  ),
-  ...Object.values(content.routes),
-  ...Object.values(errors.routes),
-];
+export const routes = {
+  ...developer.routes,
+  ...content.routes,
+  ...errors.routes,
+};
 
 const init = [
   ...Object.values(auth.init),
@@ -85,7 +81,7 @@ export default (options: AppOptions) => {
   };
 
   const middleware: Middleware[] = [
-    navigation.createMiddleware(routes, history),
+    navigation.createMiddleware(Object.values(routes), history),
     ...hooks.map((hook) => hook(services)),
   ];
 
@@ -107,12 +103,12 @@ export default (options: AppOptions) => {
   const container = () => <Provider store={store}>
     <MessageProvider>
       <Services.Provider value={services} >
-        <navigation.components.NavigationProvider routes={routes} />
+        <navigation.components.NavigationProvider routes={Object.values(routes)} />
       </Services.Provider>
     </MessageProvider>
   </Provider>;
 
-  navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
+  navigation.utils.changeToLocation(Object.values(routes), store.dispatch, history.location, 'POP');
 
   for (const initializer of init) {
     const promise = initializer({
