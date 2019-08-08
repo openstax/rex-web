@@ -17,7 +17,7 @@ interface State {
   issues: string[];
 }
 
-class ContentTestingLinks extends React.Component<Props, State> {
+class Audit extends React.Component<Props, State> {
   public state = {
     done: false,
     issues: [],
@@ -35,6 +35,8 @@ class ContentTestingLinks extends React.Component<Props, State> {
     }
   }
 
+  // TODO - also check page titles
+  // TODO - cancel when component unmounts
   public checkHistory = async(book: Book) => {
     const {services: {archiveLoader, osWebLoader}} = this.props;
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
@@ -93,4 +95,4 @@ export default connect(
   (state: AppState) => ({
     book: state.developer.book,
   })
-)(withServices(ContentTestingLinks));
+)(withServices(Audit));
