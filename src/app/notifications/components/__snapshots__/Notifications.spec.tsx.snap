@@ -44,6 +44,11 @@ exports[`Notifications matches snapshot 1`] = `
   width: 100%;
 }
 
+.c2 .c5 {
+  padding: 1rem;
+  margin: 0;
+}
+
 .c4 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -125,56 +130,49 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 @media (max-width:75em) {
-  .c2 {
-    padding: 1rem;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+  .c2 > .c5 {
+    display: block;
+    padding: 1.6rem 0 0 0;
   }
 }
 
 @media (max-width:75em) {
   .c4 {
-    padding: 0 1rem;
+    padding: 0;
   }
 }
 
 @media (max-width:75em) {
   .c1 {
-    max-width: 128rem;
-    margin: 0 auto;
+    margin: 1.6rem;
     box-shadow: none;
     border: none;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
+    background-color: initial;
+  }
+
+  .c1 > .c5 {
+    padding: 0;
   }
 }
 
 @media (max-width:75em) {
   .c3 {
-    line-height: 1rem;
-    margin: 0;
+    padding: 0;
+    line-height: 2rem;
     background-color: initial;
   }
 }
 
 @media (max-width:75em) {
   .c0 {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+    background-color: #fafafa;
     margin: 0;
     height: auto;
     width: 100%;
-    border-bottom: thin solid #e5e5e5;
-    padding: 0 3.2rem;
-    background-color: #fff;
   }
 }
 
@@ -233,12 +231,11 @@ exports[`Notifications matches snapshot for unknown notification 1`] = `
 
 @media (max-width:75em) {
   .c0 {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+    background-color: #fafafa;
     margin: 0;
     height: auto;
     width: 100%;
-    border-bottom: thin solid #e5e5e5;
-    padding: 0 3.2rem;
-    background-color: #fff;
   }
 }
 
