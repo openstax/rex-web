@@ -25,7 +25,7 @@ def test_login(selenium, base_url, book_slug, page_slug):
     assert expected_page_url == selenium.current_url
 
     # accounts = Login(page=Content(selenium, base_url='base_url + "/accounts/login?r=/books/"'))
-    accounts = Login()
+    accounts = Login(selenium)
     accounts.enter_user_info(name_or_email="teacher01")
     accounts.next_click()
     accounts.password(password="staxly16")
