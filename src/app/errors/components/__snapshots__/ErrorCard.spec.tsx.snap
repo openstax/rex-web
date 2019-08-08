@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorCard matches snapshot 1`] = `
+.c3 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -20,7 +26,7 @@ exports[`ErrorCard matches snapshot 1`] = `
   border-radius: 0.5rem;
 }
 
-.c2 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,7 +38,7 @@ exports[`ErrorCard matches snapshot 1`] = `
   margin-bottom: 1.5rem;
 }
 
-.c3 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -47,7 +53,7 @@ exports[`ErrorCard matches snapshot 1`] = `
   text-align: center;
 }
 
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -60,17 +66,11 @@ exports[`ErrorCard matches snapshot 1`] = `
   margin-bottom: 1.5rem;
 }
 
-.c1 + .c5 {
++ .c4 {
   margin-top: 0;
 }
 
-.c4 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c6 {
+.c5 {
   color: white;
   padding: 1rem;
   margin-top: 2rem;
@@ -82,14 +82,14 @@ exports[`ErrorCard matches snapshot 1`] = `
   className="c0"
 >
   <header
-    className="c1 c2"
+    className="c1"
   >
     <h1
-      className="c3"
+      className="c2"
     >
       <svg
         aria-hidden="true"
-        className="c4"
+        className="c3"
         color="red"
         fill="currentColor"
         focusable="false"
@@ -106,13 +106,13 @@ exports[`ErrorCard matches snapshot 1`] = `
     </h1>
   </header>
   <div
-    className="c5"
+    className="c4"
   >
     <div>
       We’re sorry but a system error was encountered
     </div>
     <div
-      className="c6"
+      className="c5"
     >
       Error: unknown error
     </div>

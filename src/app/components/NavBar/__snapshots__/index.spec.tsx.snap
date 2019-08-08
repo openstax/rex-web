@@ -142,7 +142,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       </div>
       <button
         aria-hidden="true"
-        className="styled__TimesIcon-sc-3syvnw-11 frKFSo"
+        className="styled__TimesIcon-sc-3syvnw-11 fxKuAF"
         tabIndex={-1}
       >
         <svg
