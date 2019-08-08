@@ -58,7 +58,7 @@ export class PageComponent extends Component<PropTypes> {
       // remove page titles from content (they are in the nav)
       .replace(/<(h1|h2|div) data-type="document-title".*?<\/\1>/, '')
       // target blank and add `rel` to links that begin with: http:// https:// //
-      .replace(/<a(.*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow"$1>')
+      .replace(/<a ([^>]*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow" $1>')
       // same as previous, but allow indexing links to relative content
       .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
       // move (first-child) figure and table ids up to the parent div
