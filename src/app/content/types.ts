@@ -60,6 +60,7 @@ export interface ArchiveTreeNode {
   id: string;
   shortId: string;
   title: string;
+  slug: string;
 }
 
 export type ArchiveTreeSection = ArchiveTreeNode;
