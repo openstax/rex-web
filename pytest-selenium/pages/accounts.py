@@ -1,9 +1,9 @@
-from pypom import Region
+from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
 
 
-class Login(Region):
+class Login(Page):
     _user_field_locator = (By.ID, "login_username_or_email")
     _password_field_locator = (By.ID, "login_password")
     _login_submit_button_locator = (By.CSS_SELECTOR, "[type=submit]")
@@ -21,6 +21,8 @@ class Login(Region):
         """Click the NEXT button."""
         self.find_element(*self._login_submit_button_locator).click()
         return self
+
+    login_click = next_click
 
     @property
     def password_field(self):

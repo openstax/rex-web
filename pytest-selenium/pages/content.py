@@ -128,15 +128,31 @@ class Content(Page):
         self.click_and_wait_for_load(self.previous_link)
 
     def click_login(self):
-        self.login.click()
+        login_link = self.wait.until(expected.visibility_of_element_located(self.login))
+        login_link.click()
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
+        _user_nav_locator = (By.CSS_SELECTOR, '[data-testid="user-nav"]')
+        _account_profile_locator = (By.XPATH, "//li[contains(text(), 'Account Profile')]/a")
+        _logout_locator = (By.XPATH, "//li[contains(text(), 'Log out')]/a")
 
         @property
         def openstax_logo_link(self):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+
+        @property
+        def user_nav(self):
+            return self.find_element(*self._user_nav_locator)
+
+        @property
+        def account_profile(self):
+            return self.find_element(*self._account_profile_locator)
+
+        @property
+        def logout(self):
+            return self.find_element(*self._logout_locator)
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
