@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro';
 import { ButtonGroup } from '../../components/Button';
-import { maxNavWidth } from '../../components/NavBar';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { inlineDisplayBreak } from '../theme';
@@ -9,11 +8,16 @@ import { inlineDisplayBreak } from '../theme';
 export const Group = styled.div`
   width: 100%;
 
-  @media (max-width: ${inlineDisplayBreak}) {
+  ${ButtonGroup} {
     padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin: 0;
+  }
+
+  @media (max-width: ${inlineDisplayBreak}) {
+    > ${ButtonGroup} {
+      display: block;
+      padding: ${theme.padding.page.mobile}rem 0 0 0;
+    }
   }
 `;
 
@@ -24,7 +28,7 @@ export const P = styled.p`
   padding: 1rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
-    padding: 0 1rem;
+    padding: 0;
   }
 `;
 
@@ -41,17 +45,21 @@ export const Body = styled.div`
   box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2);
   overflow: visible;
 
-  @media (max-width: ${inlineDisplayBreak}) {
-    max-width: ${maxNavWidth}rem;
-    margin: 0 auto;
-    box-shadow: none;
-    border: none;
-    flex-direction: row;
-  }
-
   > ${ButtonGroup} {
     padding: 1rem;
     margin: 0;
+  }
+
+  @media (max-width: ${inlineDisplayBreak}) {
+    margin: ${theme.padding.page.mobile}rem;
+    box-shadow: none;
+    border: none;
+    flex-direction: row;
+    background-color: initial;
+
+    > ${ButtonGroup} {
+      padding: 0;
+    }
   }
 `;
 
@@ -65,8 +73,8 @@ export const Header = styled.div`
   margin-bottom: 1rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
-    line-height: 1rem;
-    margin: 0;
+    padding: 0;
+    line-height: 2rem;
     background-color: initial;
   }
 `;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { getType } from 'typesafe-actions';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
@@ -54,15 +54,11 @@ export default styled(connector(Notifications))`
   margin-top: -1px; /* clear child margin */
 
   @media (max-width: ${inlineDisplayBreak}) {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+    background-color: ${theme.color.neutral.darker};
     margin: 0;
     height: auto;
     width: 100%;
-    border-bottom: thin solid ${theme.color.neutral.darkest};
-    padding: 0 ${theme.padding.page.desktop}rem;
-    background-color: ${theme.color.neutral.base};
-    ${theme.breakpoints.mobile(css`
-      padding: 0 ${theme.padding.page.mobile}rem;
-    `)}
   }
 
   ${disablePrint}

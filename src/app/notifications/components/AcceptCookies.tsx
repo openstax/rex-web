@@ -19,12 +19,12 @@ const AcceptCookies = ({dismiss}: {dismiss: () => void}) => <Body>
        dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:notification:cookies:body must return a string')}}
       />}
     </FormattedHTMLMessage>
+    <ButtonGroup>
+      <FormattedMessage id='i18n:notification:cookies:ok'>
+        {(txt) => <Button variant='primary' onClick={dismiss}>{txt}</Button>}
+      </FormattedMessage>
+    </ButtonGroup>
   </Group>
-  <ButtonGroup>
-    <FormattedMessage id='i18n:notification:cookies:ok'>
-      {(txt) => <Button variant='primary' onClick={dismiss}>{txt}</Button>}
-    </FormattedMessage>
-  </ButtonGroup>
 </Body>;
 
 export default connect(
