@@ -33,6 +33,7 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
     padding: 0 3rem;
   `}
   ${(props) => (props.size === 'medium' || props.size === undefined) && `
+    min-width: 12rem;
     font-size: 1.6rem;
     height: 4rem;
     padding: 0 3rem;
