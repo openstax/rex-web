@@ -16,6 +16,8 @@ exports[`Button matches snapshot - default 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -54,6 +56,8 @@ exports[`Button matches snapshot - large 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 5rem;
   padding: 0 3rem;
@@ -73,7 +77,6 @@ exports[`Button matches snapshot - large 1`] = `
 
 <button
   className="c0"
-  size="large"
 />
 `;
 
@@ -93,6 +96,8 @@ exports[`Button matches snapshot - medium 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -112,7 +117,6 @@ exports[`Button matches snapshot - medium 1`] = `
 
 <button
   className="c0"
-  size="medium"
 />
 `;
 
@@ -132,6 +136,8 @@ exports[`Button matches snapshot - primary 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -170,6 +176,8 @@ exports[`Button matches snapshot - secondary 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -208,6 +216,8 @@ exports[`Button matches snapshot - small 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.4rem;
   height: 3rem;
   padding: 0 2rem;
@@ -227,6 +237,5 @@ exports[`Button matches snapshot - small 1`] = `
 
 <button
   className="c0"
-  size="small"
 />
 `;

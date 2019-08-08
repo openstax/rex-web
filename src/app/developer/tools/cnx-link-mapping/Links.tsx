@@ -1,43 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BOOKS } from '../../../config';
-import { H1 } from '../../components/Typography';
-import ContentLink from '../../content/components/ContentLink';
-import { ArchiveTreeSection, Book } from '../../content/types';
-import { findDefaultBookPage, findTreePages } from '../../content/utils/archiveTreeUtils';
-import { getBookPageUrlAndParams } from '../../content/utils/urlUtils';
-import withServices from '../../context/Services';
-import { AppServices, AppState } from '../../types';
-import { assertDefined } from '../../utils';
-import Layout from './Layout';
-import { makeUnifiedBookLoader } from './utils';
+import { H1 } from '../../../components/Typography';
+import ContentLink from '../../../content/components/ContentLink';
+import { ArchiveTreeSection, Book } from '../../../content/types';
+import { findDefaultBookPage, findTreePages } from '../../../content/utils/archiveTreeUtils';
+import { getBookPageUrlAndParams } from '../../../content/utils/urlUtils';
+import withServices from '../../../context/Services';
+import { AppServices, AppState } from '../../../types';
+import Layout from '../../components/Layout';
 
 interface Props {
   services: AppServices;
-  bookUid: string | undefined;
-}
-interface State {
   book?: Book;
 }
 
-class ContentTestingLinks extends React.Component<Props, State> {
-  public state: State = {};
-
-  public async componentDidMount() {
-    const {bookUid, services: {archiveLoader, osWebLoader}} = this.props;
-
-    if (!bookUid) {
-      throw new Error('bookUid should be defined');
-    }
-
-    const bookVersion = assertDefined(BOOKS[bookUid], 'book not configured...').defaultVersion;
-    const book = await makeUnifiedBookLoader(archiveLoader, osWebLoader)(bookUid, bookVersion);
-
-    this.setState({book});
-  }
-
+class ContentTestingLinks extends React.Component<Props> {
   public render() {
-    const book = this.state.book;
+    const { book } = this.props;
     return <Layout>
       {book ? this.renderContent(book) : this.renderLoading()}
     </Layout>;
@@ -100,6 +79,6 @@ class ContentTestingLinks extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
-    bookUid: state.navigation.params && state.navigation.params.book,
+    book: state.developer.book,
   })
 )(withServices(ContentTestingLinks));

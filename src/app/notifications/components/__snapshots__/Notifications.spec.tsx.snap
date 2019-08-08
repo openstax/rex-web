@@ -16,6 +16,8 @@ exports[`Notifications matches snapshot 1`] = `
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -35,6 +37,7 @@ exports[`Notifications matches snapshot 1`] = `
 
 .c6 {
   display: grid;
+  grid-auto-flow: column;
   grid-gap: 1rem;
 }
 

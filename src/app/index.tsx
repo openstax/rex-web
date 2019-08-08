@@ -24,6 +24,7 @@ import { AppServices, AppState, Middleware } from './types';
 export const actions = {
   auth: auth.actions,
   content: content.actions,
+  developer: developer.actions,
   errors: errors.actions,
   head: head.actions,
   navigation: navigation.actions,
@@ -42,6 +43,7 @@ const init = [
 
 const hooks = [
   ...content.hooks,
+  ...developer.hooks,
   ...Object.values(head.hooks),
 ];
 

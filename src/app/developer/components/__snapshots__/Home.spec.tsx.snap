@@ -108,7 +108,7 @@ Array [
       </a>
     </div>
   </div>,
-  .c2 {
+  .c1 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 4.8rem;
@@ -121,7 +121,7 @@ Array [
   margin: 0;
 }
 
-.c3 {
+.c2 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
@@ -134,7 +134,7 @@ Array [
   margin: 0;
 }
 
-.c5 {
+.c7 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
@@ -147,7 +147,7 @@ Array [
   margin: 0;
 }
 
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -162,6 +162,8 @@ Array [
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -171,51 +173,56 @@ Array [
   font-weight: regular;
 }
 
-.c7:hover {
+.c6:hover {
   background-color: #fafafa;
 }
 
-.c7:active {
+.c6:active {
   background-color: #e5e5e5;
 }
 
-.c6 {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
 }
 
-.c6:hover {
-  color: #0064A0;
+.c5:hover {
+  background-color: #e96128;
+}
+
+.c5:active {
+  background-color: #df571e;
 }
 
 .c4 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+}
+
+.c3 {
   padding: 1rem;
-}
-
-.c1 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  max-width: 128rem;
-  margin: 0 auto;
-  padding: 2rem 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c1 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c1 a:hover {
-  color: #0064A0;
 }
 
 .c0 {
@@ -224,10 +231,17 @@ Array [
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 128rem;
+  margin: 0 auto;
+  padding: 2rem 0;
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c7 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
@@ -242,93 +256,132 @@ Array [
 <div
     className="c0"
   >
-    <div
+    <h1
       className="c1"
     >
-      <h1
+      REX Developer Homepage
+    </h1>
+    <div>
+      <h2
         className="c2"
       >
-        REX Developer Homepage
-      </h1>
-      <div>
-        <h2
-          className="c3"
-        >
-          Books
-        </h2>
-        <div
-          className="c4"
-        >
-          <ul>
-            <li>
-              <h3
-                className="c5"
-              >
-                <a
-                  className="c6"
-                  href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                  onClick={[Function]}
+        Books
+      </h2>
+      <div
+        className="c3"
+      >
+        <table>
+          <thead>
+            <tr>
+              <th>
+                title
+              </th>
+              <th>
+                id
+              </th>
+              <th>
+                version
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Test Book 1
+              </td>
+              <td>
+                testbook1-uuid
+              </td>
+              <td>
+                1.0
+              </td>
+              <td>
+                <div
+                  className="c4"
                 >
-                  Test Book 1
-                </a>
-              </h3>
-            </li>
-          </ul>
-        </div>
+                  <a
+                    className="c5"
+                    href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                    onClick={[Function]}
+                  >
+                    Open
+                  </a>
+                  <a
+                    className="c6"
+                    href="/rex/testing-links/testbook1-uuid"
+                    onClick={[Function]}
+                  >
+                    content testing links
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div>
-        <h2
-          className="c3"
+    </div>
+    <div>
+      <h2
+        className="c2"
+      >
+        Notifications
+      </h2>
+      <div
+        className="c3"
+      >
+        <button
+          className="c6"
+          onClick={[Function]}
         >
-          Notifications
-        </h2>
-        <div
-          className="c4"
-        >
-          <button
+          update available
+        </button>
+      </div>
+    </div>
+    <div>
+      <h2
+        className="c2"
+      >
+        Routes
+      </h2>
+      <div
+        className="c3"
+      >
+        <div>
+          <h3
             className="c7"
-            onClick={[Function]}
           >
-            update available
-          </button>
+            Developer Home
+          </h3>
+          path: 
+          /
         </div>
-      </div>
-      <div>
-        <h2
-          className="c3"
-        >
-          Routes
-        </h2>
-        <div
-          className="c4"
-        >
-          <div>
-            <h3
-              className="c5"
-            >
-              Developer Home
-            </h3>
-            path: 
-            /
-          </div>
-          <div>
-            <h3
-              className="c5"
-            >
-              Content
-            </h3>
-            path: 
-            /books/:book/pages/:page
-          </div>
-          <div>
-            <h3
-              className="c5"
-            >
-              NotFound
-            </h3>
-            path: 
-            /(.*)
-          </div>
+        <div>
+          <h3
+            className="c7"
+          >
+            Content Testing Links
+          </h3>
+          path: 
+          /rex/testing-links/:book
+        </div>
+        <div>
+          <h3
+            className="c7"
+          >
+            Content
+          </h3>
+          path: 
+          /books/:book/pages/:page
+        </div>
+        <div>
+          <h3
+            className="c7"
+          >
+            NotFound
+          </h3>
+          path: 
+          /(.*)
         </div>
       </div>
     </div>

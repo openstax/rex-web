@@ -1,42 +1,28 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
-import { BOOKS } from '../../../config';
 import Button from '../../components/Button';
 import { ButtonGroup } from '../../components/Button';
+import RouteLink from '../../components/RouteLink';
 import ContentLink from '../../content/components/ContentLink';
 import { Book } from '../../content/types';
 import { findDefaultBookPage } from '../../content/utils';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
-import { AppServices, Dispatch } from '../../types';
-import { contentTestingLinks } from '../routes';
+import { AppServices, AppState, Dispatch } from '../../types';
+import { bookTools } from '../routes';
 import Panel from './Panel';
-import { getBooks } from './utils';
 
 interface Props {
   services: AppServices;
   navigate: typeof push;
-}
-interface State {
   books: Book[];
 }
 
-class Books extends React.Component<Props, State> {
-  public state: State = {
-    books: [],
-  };
-
-  public async componentDidMount() {
-    const {archiveLoader, osWebLoader} = this.props.services;
-    const bookEntries = Object.entries(BOOKS);
-    const books: State['books'] = await getBooks(archiveLoader, osWebLoader, bookEntries);
-
-    this.setState({books});
-  }
+class Books extends React.Component<Props> {
 
   public render() {
-    const {books} = this.state;
+    const {books} = this.props;
 
     return <Panel title='Books'>
       <table>
@@ -60,7 +46,7 @@ class Books extends React.Component<Props, State> {
                   component={this.renderBookLink(book)}
                 />
                 <Button
-                  component={this.contentTestingLink(book)}
+                  component={this.toolsLink(book)}
                 />
               </ButtonGroup>
             </td>
@@ -75,27 +61,17 @@ class Books extends React.Component<Props, State> {
     return <ContentLink book={book} page={page}>Open</ContentLink>;
   }
 
-  private contentTestingLink(book: Book) {
-
-    return <a
-      href={contentTestingLinks.getUrl({book: book.id})}
-      onClick={(e) => {
-        if (e.metaKey) {
-          return;
-        }
-        e.preventDefault();
-        this.props.navigate({
-          params: {book: book.id},
-          route: contentTestingLinks,
-        });
-
-      }}
-    >content testing links</a>;
+  private toolsLink(book: Book) {
+    return <RouteLink match={{
+      params: {book: book.id},
+      route: bookTools,
+    }}>tools</RouteLink>;
   }
 }
 
 export default connect(
-  () => ({
+  (state: AppState) => ({
+    books: state.developer.books,
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

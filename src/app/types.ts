@@ -15,6 +15,7 @@ import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as authState } from './auth/types';
 import { State as contentState } from './content/types';
+import { State as developerState } from './developer/reducer';
 import { State as errorsState } from './errors/types';
 import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
@@ -25,6 +26,7 @@ export interface AppState {
   errors: errorsState;
   head: headState;
   auth: authState;
+  developer: developerState;
   navigation: navigationState;
   notifications: notificationState;
 }
