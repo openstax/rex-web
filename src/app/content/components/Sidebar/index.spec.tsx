@@ -11,7 +11,7 @@ import { AppState, Store } from '../../../types';
 import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
-import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domUtils';
+import * as domUtils from '../../utils/domUtils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -29,6 +29,9 @@ describe('TableOfContents', () => {
   });
 
   it('expands and scrolls to current chapter', () => {
+    const scrollTocSectionIntoView = jest.spyOn(domUtils, 'scrollTocSectionIntoView');
+    const expandCurrentChapter = jest.spyOn(domUtils, 'expandCurrentChapter');
+
     renderer.create(<MessageProvider><Provider store={store}>
       <ConnectedTableOfContents />
     </Provider></MessageProvider>);
