@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Store } from '../../types';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
+import { Store } from '../../types';
 import { clearCurrentError } from '../actions';
 
 import ErrorModal from './ErrorModal';
@@ -17,7 +17,6 @@ describe('ErrorModal', () => {
     error = new Error('unknown error');
     store = createTestStore({ errors: { error } });
     dispatch = jest.spyOn(store, 'dispatch');
-
   });
   it('matches snapshot', () => {
     const tree = renderer
@@ -33,5 +32,4 @@ describe('ErrorModal', () => {
     renderer.act(() => { btn.props.onClick(); });
     expect(dispatch).toHaveBeenCalledWith(clearCurrentError());
   });
-
 });

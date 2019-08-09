@@ -55,7 +55,7 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
           footer={
             <Footer>
               <Button
-                data-testid="clear-error"
+                data-testid='clear-error'
                 onClick={clearError}
                 variant='primary'
               >
