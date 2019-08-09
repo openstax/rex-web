@@ -12,7 +12,7 @@ import { openToc } from '../actions';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
 import Content from './Content';
-import { Sidebar } from './Sidebar';
+import { TableOfContents } from './Sidebar';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -102,9 +102,9 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const sidebarComponent = component.root.findByType(Sidebar);
+    const tableOfContentsComponent = component.root.findByType(TableOfContents);
 
-    expect(sidebarComponent.props.isOpen).toBe(null);
+    expect(tableOfContentsComponent.props.isOpen).toBe(null);
   });
 
   it('clicking overlay closes toc', () => {
@@ -120,14 +120,14 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const sidebarComponent = component.root.findByType(Sidebar);
+    const tableOfContentsComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(MobileScrollLock);
 
-    expect(sidebarComponent.props.isOpen).toBe(true);
+    expect(tableOfContentsComponent.props.isOpen).toBe(true);
     renderer.act(() => {
       mobileScrollLock.props.onClick();
     });
-    expect(sidebarComponent.props.isOpen).toBe(false);
+    expect(tableOfContentsComponent.props.isOpen).toBe(false);
   });
 
   it('SidebarControl opens and closes ToC', () => {
@@ -139,7 +139,7 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 
     renderer.act(() => {
       component.root
@@ -147,7 +147,7 @@ describe('content', () => {
         .props.onClick();
     });
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
 
     renderer.act(() => {
       component.root
@@ -155,6 +155,6 @@ describe('content', () => {
         .props.onClick();
     });
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
   });
 });

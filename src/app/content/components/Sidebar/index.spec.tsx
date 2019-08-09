@@ -15,8 +15,6 @@ import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domU
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
-jest.mock('../../utils/domUtils');
-
 describe('TableOfContents', () => {
   let store: Store;
 
