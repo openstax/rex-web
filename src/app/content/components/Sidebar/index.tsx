@@ -7,7 +7,7 @@ import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
-import { expandCurrentChapter, scrollTocSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
+import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
 
@@ -56,7 +56,7 @@ export class TableOfContents extends Component<SidebarProps> {
   private deregister: () => void = () => null;
 
   private scrollToSelectedPage() {
-    scrollTocSectionIntoView(this.sidebar.current, this.activeSection.current);
+    scrollSidebarSectionIntoView(this.sidebar.current, this.activeSection.current);
   }
 
   private renderChildren = (book: Book, section: ArchiveTree) =>

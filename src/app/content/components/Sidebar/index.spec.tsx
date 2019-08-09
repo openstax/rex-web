@@ -44,7 +44,7 @@ describe('TableOfContents', () => {
   });
 
   it('expands and scrolls to current chapter', () => {
-    const scrollTocSectionIntoView = jest.spyOn(domUtils, 'scrollTocSectionIntoView');
+    const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
     const expandCurrentChapter = jest.spyOn(domUtils, 'expandCurrentChapter');
 
     renderer.create(<MessageProvider><Provider store={store}>
@@ -52,14 +52,14 @@ describe('TableOfContents', () => {
     </Provider></MessageProvider>);
 
     expect(expandCurrentChapter).not.toHaveBeenCalled();
-    expect(scrollTocSectionIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
 
     renderer.act(() => {
       store.dispatch(actions.receivePage({...shortPage, references: []}));
     });
 
     expect(expandCurrentChapter).toHaveBeenCalled();
-    expect(scrollTocSectionIntoView).toHaveBeenCalledTimes(2);
+    expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(2);
   });
 
   it('opens and closes', () => {

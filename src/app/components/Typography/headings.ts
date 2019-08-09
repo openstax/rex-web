@@ -19,7 +19,7 @@ export const H2 = styled.h2`
   ${headingStyle('3.6rem', '4rem', '2rem')}
 `;
 
-const h3MobileFontSize = 1.6;
+export const h3MobileFontSize = 1.6;
 export const h3MobileLineHeight = 2;
 export const h3Style = css`
   ${headingStyle('2.4rem', '3rem', '1.5rem')}

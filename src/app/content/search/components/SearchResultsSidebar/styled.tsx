@@ -4,7 +4,12 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { iconSize } from '../../../../components/Details';
 import { navDesktopHeight } from '../../../../components/NavBar';
-import { labelStyle, textRegularLineHeight, textRegularStyle } from '../../../../components/Typography';
+import {
+  h3MobileFontSize,
+  labelStyle,
+  textRegularLineHeight,
+  textRegularStyle
+} from '../../../../components/Typography';
 import theme from '../../../../theme';
 import {
     bookBannerDesktopMiniHeight,
@@ -47,7 +52,7 @@ export const NavOl = styled.ol`
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
-  top: calc(${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
+  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   margin-top: 0;
   padding: 0;
   position: sticky;
@@ -104,7 +109,7 @@ export const SearchBarSummary = styled(Summary)`
   display: flex;
   align-items: center;
   background: ${searchResultsBarVariables.backgroundColor};
-  border-top: solid 0.1rem #d5d5d5;
+  border-top: solid 0.1rem ${theme.searchSidebar.border};
   padding-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
 `;
 
@@ -120,7 +125,7 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
   margin-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
   min-height: 3.7rem;
   align-items: center;
-  padding-right: 1.6rem;
+  padding-right: ${h3MobileFontSize}rem;
   padding: 1rem 0;
   max-width: 35.3rem;
   display: block;
@@ -162,8 +167,7 @@ export const NavItem = styled.li`
 export const SearchQueryAlignment = styled.div`
   max-width: 26.5rem;
   text-align: justify;
-  /*textRegularLineHeight is the close icon height*/
-  margin-top: calc(7rem - ${textRegularLineHeight}rem);
+  margin-top: 7rem;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -187,7 +191,6 @@ export const LoadingWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${searchResultsBarVariables.backgroundColor};
-  z-index: 5;
   transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
 `;
 

@@ -29,10 +29,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ? initialState
         : state;
     }
-    case getType(actions.openSearchResults): {
+    case getType(actions.openSearchResultsMobile): {
       return {...state, mobileOpen: true};
     }
-    case getType(actions.closeSearchResults): {
+    case getType(actions.closeSearchResultsMobile): {
       return {...state, mobileOpen: false};
     }
     default:
