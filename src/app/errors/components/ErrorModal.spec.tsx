@@ -1,20 +1,37 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Store } from '../../types';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
+import { clearCurrentError } from '../actions';
+
 import ErrorModal from './ErrorModal';
 
 describe('ErrorModal', () => {
+  let store: Store;
+  let error: Error;
+  let dispatch: jest.SpyInstance;
 
+  beforeEach(() => {
+    error = new Error('unknown error');
+    store = createTestStore({ errors: { error } });
+    dispatch = jest.spyOn(store, 'dispatch');
+
+  });
   it('matches snapshot', () => {
-
-    const error = new Error('unknown error');
-    const store = createTestStore({ errors: { error } });
-
     const tree = renderer
       .create(<MessageProvider><Provider store={store}><ErrorModal /></Provider></MessageProvider>)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('clears errors', () => {
+    const tree = renderer.create(<MessageProvider><Provider store={store}><ErrorModal /></Provider></MessageProvider>);
+
+    const btn = tree.root.findByProps({ 'data-testid': 'clear-error' });
+    renderer.act(() => { btn.props.onClick(); });
+    expect(dispatch).toHaveBeenCalledWith(clearCurrentError());
+  });
+
 });

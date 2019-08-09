@@ -206,6 +206,7 @@ exports[`ErrorModal matches snapshot 1`] = `
       >
         <button
           className="c9"
+          data-testid="clear-error"
           onClick={[Function]}
         >
           Dismiss
