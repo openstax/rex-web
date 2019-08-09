@@ -16,7 +16,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 }
 
 .c0 {
-  top: calc(12rem);
+  top: 12rem;
   margin-top: 0;
   padding: 0;
   position: -webkit-sticky;
@@ -64,7 +64,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 .c6 {
   max-width: 26.5rem;
   text-align: justify;
-  margin-top: calc(7rem - 2.5rem);
+  margin-top: 7rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -109,6 +109,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 }
 
 <div
+  aria-label="Search results sidebar"
   className="c0"
   data-testid="search-results-sidebar"
 >
@@ -182,7 +183,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c0 {
-  top: calc(12rem);
+  top: 12rem;
   margin-top: 0;
   padding: 0;
   position: -webkit-sticky;
@@ -331,6 +332,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 <div
+  aria-label="Search results sidebar"
   className="c0"
   data-testid="search-results-sidebar"
 >
@@ -506,7 +508,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 }
 
 .c0 {
-  top: calc(12rem);
+  top: 12rem;
   margin-top: 0;
   padding: 0;
   position: -webkit-sticky;
@@ -548,7 +550,6 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   width: 100%;
   height: 100%;
   background-color: #f1f1f1;
-  z-index: 5;
   -webkit-transition: opacity 0.5s 0.3s,-webkit-transform 0.2s 0.2s;
   -webkit-transition: opacity 0.5s 0.3s,transform 0.2s 0.2s;
   transition: opacity 0.5s 0.3s,transform 0.2s 0.2s;
@@ -583,13 +584,13 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 }
 
 <div
+  aria-label="Search results sidebar"
   className="c0"
   data-testid="search-results-sidebar"
 >
   <div
+    aria-label="Loading results"
     className="c1"
-    onClose={[Function]}
-    results={null}
   >
     <div
       className="c2"

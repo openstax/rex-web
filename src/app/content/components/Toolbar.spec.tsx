@@ -8,7 +8,12 @@ import { makeSearchResults } from '../../../test/searchResults';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
-import { closeSearchResults, openSearchResults, receiveSearchResults, requestSearch } from '../search/actions';
+import {
+  closeSearchResultsMobile,
+  openSearchResultsMobile,
+  receiveSearchResults,
+  requestSearch
+} from '../search/actions';
 import Toolbar from './Toolbar';
 
 describe('print button', () => {
@@ -155,7 +160,7 @@ describe('search', () => {
     renderer.act(() => {
       store.dispatch(requestSearch('cool search'));
       store.dispatch(receiveSearchResults(makeSearchResults()));
-      store.dispatch(closeSearchResults());
+      store.dispatch(closeSearchResultsMobile());
     });
 
     expect(findById('back-to-search-results')).toBeTruthy();
@@ -168,16 +173,16 @@ describe('search', () => {
     renderer.act(() => {
       store.dispatch(requestSearch('cool search'));
       store.dispatch(receiveSearchResults(makeSearchResults()));
-      store.dispatch(closeSearchResults());
+      store.dispatch(closeSearchResultsMobile());
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(openSearchResults());
+    expect(dispatch).not.toHaveBeenCalledWith(openSearchResultsMobile());
 
     renderer.act(() => {
       findById('back-to-search-results').props.onClick(makeEvent());
     });
 
-    expect(dispatch).toHaveBeenCalledWith(openSearchResults());
+    expect(dispatch).toHaveBeenCalledWith(openSearchResultsMobile());
   });
 
   it('input value syncs between mobile and desktop', () => {
