@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
 import { Book, Page } from '../../../types';
 import {
-  scrollTocSectionIntoView,
+  scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
 import { SearchResultContainer } from '../../types';
@@ -23,16 +23,21 @@ interface ResultsSidebarProps {
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
-  public loadindState = <Styled.LoadingWrapper {...this.props}>
-    <Styled.CloseIconWrapper>
-      <Styled.CloseIconButton onClick={this.props.onClose}>
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
-    </Styled.CloseIconWrapper>
-    <Loader />
-  </Styled.LoadingWrapper>;
+  private searchSidebar = React.createRef<HTMLElement>();
+  private activeSection = React.createRef<HTMLElement>();
 
-  public totalResults = <Styled.SearchQueryWrapper>
+  public loadindState = () => <FormattedMessage id='i18n:search-results:bar:loading-state'>
+    {(msg: Element | string) => <Styled.LoadingWrapper aria-label={msg}>
+      <Styled.CloseIconWrapper>
+        <Styled.CloseIconButton onClick={this.props.onClose}>
+          <Styled.CloseIcon />
+        </Styled.CloseIconButton>
+      </Styled.CloseIconWrapper>
+      <Loader />
+    </Styled.LoadingWrapper>}
+  </FormattedMessage>;
+
+  public totalResults = () => <Styled.SearchQueryWrapper>
     <FormattedMessage id='i18n:search-results:bar:query:results'>
       {(msg: Element | string) => (
         <Styled.SearchQuery>
@@ -52,7 +57,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </Styled.CloseIconButton>
   </Styled.SearchQueryWrapper>;
 
-  public noResults = <div>
+  public noResults = () => <div>
     <Styled.CloseIconWrapper>
       <Styled.CloseIconButton onClick={this.props.onClose}>
         <Styled.CloseIcon />
@@ -69,9 +74,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </FormattedMessage>
   </div>;
 
-  private searchSidebar = React.createRef<HTMLElement>();
-  private activeSection = React.createRef<HTMLElement>();
-
   public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
     <SearchResultContainers
       currentPage={this.props.currentPage}
@@ -86,12 +88,16 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const { results, book, searchResultsOpen } = this.props;
 
     return (
-      <Styled.SearchResultsBar searchResultsOpen={searchResultsOpen} ref={this.searchSidebar}>
-        {!results ? this.loadindState : null}
-        {results && results.length > 0 ? this.totalResults : null}
-        {results && results.length === 0 ? this.noResults : null}
-        {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
-      </Styled.SearchResultsBar>
+      <FormattedMessage id='i18n:search-results:bar'>
+        {(msg: Element | string) => (
+          <Styled.SearchResultsBar aria-label={msg} searchResultsOpen={searchResultsOpen} ref={this.searchSidebar}>
+            {!results ? this.loadindState() : null}
+            {results && results.length > 0 ? this.totalResults() : null}
+            {results && results.length === 0 ? this.noResults() : null}
+            {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+          </Styled.SearchResultsBar>
+        )}
+      </FormattedMessage>
     );
   }
 
@@ -118,7 +124,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   private deregister: () => void = () => null;
 
   private scrollToSelectedPage() {
-    scrollTocSectionIntoView(
+    scrollSidebarSectionIntoView(
       this.searchSidebar.current,
       this.activeSection.current
     );

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
 import * as select from '../../../selectors';
 import { Book, Page } from '../../../types';
-import { clearSearch, closeSearchResults } from '../../actions';
+import { clearSearch, closeSearchResultsMobile } from '../../actions';
 import * as selectSearch from '../../selectors';
 import { SearchResultContainer } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
@@ -38,7 +38,7 @@ export default connect(
   }),
   (dispatch: Dispatch) => ({
     closeSearchResults: () => {
-      dispatch(closeSearchResults());
+      dispatch(closeSearchResultsMobile());
     },
     onClose: () => {
       dispatch(clearSearch());

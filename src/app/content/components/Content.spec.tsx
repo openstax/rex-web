@@ -12,7 +12,7 @@ import { openToc } from '../actions';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
 import Content from './Content';
-import { Sidebar } from './Sidebar';
+import { TableOfContents } from './Sidebar';
 
 describe('content', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -102,7 +102,7 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const sidebarComponent = component.root.findByType(Sidebar);
+    const sidebarComponent = component.root.findByType(TableOfContents);
 
     expect(sidebarComponent.props.isOpen).toBe(null);
   });
@@ -120,7 +120,7 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const sidebarComponent = component.root.findByType(Sidebar);
+    const sidebarComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(MobileScrollLock);
 
     expect(sidebarComponent.props.isOpen).toBe(true);
@@ -139,7 +139,7 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 
     renderer.act(() => {
       component.root
@@ -147,7 +147,7 @@ describe('content', () => {
         .props.onClick();
     });
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
 
     renderer.act(() => {
       component.root
@@ -155,6 +155,6 @@ describe('content', () => {
         .props.onClick();
     });
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
   });
 });

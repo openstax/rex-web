@@ -46,7 +46,7 @@ const determineScrollTarget = (
     : activeSection;
 };
 
-export const scrollTocSectionIntoView = (sidebar: HTMLElement | null, activeSection: HTMLElement | null) => {
+export const scrollSidebarSectionIntoView = (sidebar: HTMLElement | null, activeSection: HTMLElement | null) => {
   const scrollable = findFirstScrollableChild(sidebar);
   if (!activeSection || !scrollable || tocSectionIsVisible(scrollable, activeSection)) {
     return;

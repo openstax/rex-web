@@ -18,7 +18,7 @@ import {
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString, assertWindow } from '../../utils';
-import { clearSearch, openSearchResults, requestSearch } from '../search/actions';
+import { clearSearch, openSearchResultsMobile, requestSearch } from '../search/actions';
 import * as selectSearch from '../search/selectors';
 import { SearchResultContainer } from '../search/types';
 import {
@@ -405,7 +405,7 @@ export default connect(
     clearSearch: () => {
       dispatch(clearSearch());
     },
-    openSearchResults: () => dispatch(openSearchResults()),
+    openSearchResults: () => dispatch(openSearchResultsMobile()),
     search: (query: string) => dispatch(requestSearch(query)),
   })
 )(Toolbar);

@@ -10,16 +10,17 @@ import { isSearchResultChapter } from '../../guards';
 import { SearchResultChapter, SearchResultContainer, SearchResultPage } from '../../types';
 import * as Styled from './styled';
 
-// tslint:disable-next-line:variable-name
-export const SearchResultContainers = (props: {
+interface SearchResultContainersProps {
   currentPage: Page | undefined;
   containers: SearchResultContainer[];
   book: Book;
   closeSearchResults: () => void;
   activeSectionRef: HTMLElement;
-}) => (
+}
+// tslint:disable-next-line:variable-name
+export const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
   <React.Fragment>
-    {props.containers.map((node: SearchResultContainer) =>
+    {containers.map((node: SearchResultContainer) =>
       isSearchResultChapter(node) ? (
         <SearchResultsDropdown
           currentPage={props.currentPage}
@@ -70,9 +71,7 @@ const SearchResult = (props: {
               key={index}
               book={props.book}
               page={props.page}
-              onClick={() => {
-                props.closeSearchResults();
-              }}
+              onClick={props.closeSearchResults}
               dangerouslySetInnerHTML={{ __html: highlight }}
             />;
           })
