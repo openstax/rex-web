@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
-import { makeFindByTestId, makeFindOrNullByTestId } from '../../../test/reactutils';
+import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
@@ -57,14 +57,6 @@ describe('search', () => {
       <Toolbar />
     </MessageProvider>
   </Provider>);
-
-  const makeEvent = () => ({
-    preventDefault: jest.fn(),
-  });
-  const makeInputEvent = (value: string) => ({
-    currentTarget: {value},
-    preventDefault: jest.fn(),
-  });
 
   it('opens and closes mobile interface', () => {
     const component = render();

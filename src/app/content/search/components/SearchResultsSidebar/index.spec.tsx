@@ -6,19 +6,21 @@ import SearchResultsSidebar from '.';
 import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
-import { makeFindOrNullByTestId, renderToDom } from '../../../../../test/reactutils';
+import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, renderToDom } from '../../../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../../../test/searchResults';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import { receiveBook } from '../../../actions';
 import { formatBookData } from '../../../utils';
-import { receiveSearchResults, requestSearch } from '../../actions';
+import { clearSearch, closeSearchResultsMobile, receiveSearchResults, requestSearch } from '../../actions';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
     store.dispatch(receiveBook(formatBookData(archiveBook, mockCmsBook)));
   });
 
@@ -70,5 +72,37 @@ describe('SearchResultsSidebar', () => {
 
     const tree = renderer.create(render()).toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('closes search results when one is clicked', () => {
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults([makeSearchResultHit({book: archiveBook, page})])));
+
+    const component = renderer.create(render());
+    const findById = makeFindByTestId(component.root);
+
+    expect(dispatch).not.toHaveBeenCalledWith(closeSearchResultsMobile());
+
+    renderer.act(() => {
+      findById('search-result').props.onClick(makeEvent());
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
+  });
+
+  it('clears search when closed', () => {
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults([makeSearchResultHit({book: archiveBook, page})])));
+
+    const component = renderer.create(render());
+    const findById = makeFindByTestId(component.root);
+
+    expect(dispatch).not.toHaveBeenCalledWith(clearSearch());
+
+    renderer.act(() => {
+      findById('close-search').props.onClick(makeEvent());
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(clearSearch());
   });
 });

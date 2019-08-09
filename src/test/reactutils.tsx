@@ -55,3 +55,11 @@ export const makeFindByTestId = (instance: renderer.ReactTestInstance) =>
 
 export const makeFindOrNullByTestId = (instance: renderer.ReactTestInstance) =>
   (id: string): renderer.ReactTestInstance | null => instance.findAllByProps({'data-testid': id})[0] || null;
+
+export const makeEvent = () => ({
+  preventDefault: jest.fn(),
+});
+export const makeInputEvent = (value: string) => ({
+  currentTarget: {value},
+  preventDefault: jest.fn(),
+});

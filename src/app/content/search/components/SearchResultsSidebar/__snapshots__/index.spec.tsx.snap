@@ -371,6 +371,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     <button
       aria-label="Close search sidebar"
       className="c6"
+      data-testid="close-search"
       onClick={[Function]}
     >
       <svg
@@ -412,6 +413,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             "__html": "cool <em>highlight</em> bruh",
           }
         }
+        data-testid="search-result"
         href="books/book-slug-1/pages/test-page-1"
         onClick={[Function]}
       />

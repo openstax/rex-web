@@ -68,6 +68,7 @@ const SearchResult = (props: {
       hit.source && hit.highlight && hit.highlight.visibleContent
         ? hit.highlight.visibleContent.map((highlight: string, index: number) => {
             return <Styled.SectionContentPreview
+              data-testid='search-result'
               key={index}
               book={props.book}
               page={props.page}
