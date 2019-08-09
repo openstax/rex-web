@@ -12,9 +12,7 @@ const selectSearchInputDesktop = '[data-testid="desktop-search-input"]';
 const clearSearchInputSelector = '[data-testid="desktop-clear-search"]';
 const closeSearchSidebarDesktopSelector = '[aria-label="Close search sidebar"]';
 const searchSidebarSelector = '[aria-label="Search results sidebar"]';
-const loadingResultsSelector = '[aria-label="Loading results"]';
 const workingSearchText = 'moon\n';
-const unsuccessfulSearchText = 'abcde\n';
 
 const openAndTriggerSearchDesktop = async(text: string) => {
   await page.waitForSelector(selectSearchInputDesktop);

@@ -1,9 +1,9 @@
 import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
-import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client/dist/models/SearchResultHitSource';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { push, replace } from '../../navigation/actions';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
@@ -161,28 +161,10 @@ describe('hooks', () => {
 
   describe('receiveSearchHook', () => {
     let hook: ReturnType<typeof receiveSearchHook>;
-    const hit: SearchResultHit = {
-      highlight: { visibleContent: ['cool <em>highlight</em> bruh'] },
-      index: `${book.id}@${book.version}_i1`,
-      score: 2,
-      source: {
-        elementId: 'fs-id1544727',
-        elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
-        pageId: `${page.id}@${page.version}`,
-        pagePosition: 60,
-      },
-    };
+    const hit = makeSearchResultHit({book, page});
 
     const go = (hits: SearchResultHit[] = []) =>
-      hook(
-        receiveSearchResults({
-          hits: { hits, total: 0 },
-          overallTook: 75,
-          shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
-          timedOut: false,
-          took: 0,
-        })
-      );
+      hook(receiveSearchResults(makeSearchResults(hits)));
 
     beforeEach(() => {
       hook = receiveSearchHook(helpers);

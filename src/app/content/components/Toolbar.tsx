@@ -380,7 +380,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
         <MobileSearchContainer>
           {!this.props.searchResultsOpen && this.props.query &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <ToggleSeachResultsText onClick={openSearchbar}>
+              {(msg) => <ToggleSeachResultsText onClick={openSearchbar} data-testid='back-to-search-results'>
                 <LeftArrow/><InnerText>{msg}</InnerText>
               </ToggleSeachResultsText>}
             </FormattedMessage>

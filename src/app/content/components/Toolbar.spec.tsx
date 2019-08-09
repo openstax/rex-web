@@ -3,14 +3,18 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
+import { makeSearchResults } from '../../../test/searchResults';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
-import { requestSearch } from '../search/actions';
+import { closeSearchResults, openSearchResults, receiveSearchResults, requestSearch } from '../search/actions';
 import Toolbar from './Toolbar';
 
 const makeFindByTestId = (instance: renderer.ReactTestInstance) =>
   (id: string) => instance.findByProps({'data-testid': id});
+
+const makeFindOrNullByTestId = (instance: renderer.ReactTestInstance) =>
+  (id: string): renderer.ReactTestInstance | null => instance.findAllByProps({'data-testid': id})[0] || null;
 
 describe('print button', () => {
   let store: Store;
@@ -89,6 +93,17 @@ describe('search', () => {
     expect(dispatch).not.toHaveBeenCalledWith(requestSearch('cool search'));
   });
 
+  it('loads search query into text input', () => {
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+
+    expect(findById('desktop-search-input').props.value).toEqual('');
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+    });
+    expect(findById('desktop-search-input').props.value).toEqual('cool search');
+  });
+
   it('search and clear work on desktop', () => {
     const component = render();
     const findById = makeFindByTestId(component.root);
@@ -133,6 +148,41 @@ describe('search', () => {
     expect(clearClick.preventDefault).toHaveBeenCalled();
 
     expect(findById('mobile-search-input').props.value).toEqual('');
+  });
+
+  it('shows the "back to results" link after selecting a result', () => {
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+    const findOrNull = makeFindOrNullByTestId(component.root);
+
+    expect(findOrNull('back-to-search-results')).toBe(null);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+      store.dispatch(closeSearchResults());
+    });
+
+    expect(findById('back-to-search-results')).toBeTruthy();
+  });
+
+  it('clicking "back to results" opens results', () => {
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+      store.dispatch(closeSearchResults());
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(openSearchResults());
+
+    renderer.act(() => {
+      findById('back-to-search-results').props.onClick(makeEvent());
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(openSearchResults());
   });
 
   it('input value syncs between mobile and desktop', () => {

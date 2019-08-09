@@ -102,9 +102,9 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const sidebarComponent = component.root.findByType(TableOfContents);
+    const tableOfContentsComponent = component.root.findByType(TableOfContents);
 
-    expect(sidebarComponent.props.isOpen).toBe(null);
+    expect(tableOfContentsComponent.props.isOpen).toBe(null);
   });
 
   it('clicking overlay closes toc', () => {
@@ -120,14 +120,14 @@ describe('content', () => {
       </Services.Provider>
     </Provider>);
 
-    const sidebarComponent = component.root.findByType(TableOfContents);
+    const tableOfContentsComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(MobileScrollLock);
 
-    expect(sidebarComponent.props.isOpen).toBe(true);
+    expect(tableOfContentsComponent.props.isOpen).toBe(true);
     renderer.act(() => {
       mobileScrollLock.props.onClick();
     });
-    expect(sidebarComponent.props.isOpen).toBe(false);
+    expect(tableOfContentsComponent.props.isOpen).toBe(false);
   });
 
   it('SidebarControl opens and closes ToC', () => {
