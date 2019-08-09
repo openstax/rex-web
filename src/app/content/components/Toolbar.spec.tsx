@@ -3,18 +3,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
+import { makeFindByTestId, makeFindOrNullByTestId } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { closeSearchResults, openSearchResults, receiveSearchResults, requestSearch } from '../search/actions';
 import Toolbar from './Toolbar';
-
-const makeFindByTestId = (instance: renderer.ReactTestInstance) =>
-  (id: string) => instance.findByProps({'data-testid': id});
-
-const makeFindOrNullByTestId = (instance: renderer.ReactTestInstance) =>
-  (id: string): renderer.ReactTestInstance | null => instance.findAllByProps({'data-testid': id})[0] || null;
 
 describe('print button', () => {
   let store: Store;

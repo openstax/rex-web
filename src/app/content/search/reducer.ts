@@ -13,6 +13,7 @@ export const initialState = {
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
+
   switch (action.type) {
     case getType(actions.requestSearch): {
       return {...initialState, loading: true, query: action.payload, mobileOpen: true};

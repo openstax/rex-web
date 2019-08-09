@@ -1,4 +1,5 @@
 import React from 'react';
+import { unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import ConnectedTableOfContents, { TableOfContents } from '.';
@@ -26,6 +27,20 @@ describe('TableOfContents', () => {
       },
     } as any as AppState;
     store = createTestStore(state);
+  });
+
+  it('mounts and unmounts without a dom', () => {
+    const component = renderer.create(<MessageProvider><Provider store={store}>
+      <ConnectedTableOfContents />
+    </Provider></MessageProvider>);
+    expect(() => component.unmount()).not.toThrow();
+  });
+
+  it('mounts and unmmounts with a dom', () => {
+    const {root} = renderToDom(<MessageProvider><Provider store={store}>
+      <ConnectedTableOfContents />
+    </Provider></MessageProvider>);
+    expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
   it('expands and scrolls to current chapter', () => {
