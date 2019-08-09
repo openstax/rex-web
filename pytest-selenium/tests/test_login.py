@@ -20,7 +20,6 @@ def test_login(selenium, base_url, book_slug, page_slug):
 
     # THEN: The page navigates to accounts/login
     expected_page_url = base_url + "/accounts/login?r=/books/" + book_slug + "/pages/" + page_slug
-    print(expected_page_url)
 
     assert expected_page_url == selenium.current_url
 
@@ -29,5 +28,5 @@ def test_login(selenium, base_url, book_slug, page_slug):
     accounts.enter_user_info(name_or_email="teacher01")
     accounts.next_click()
     accounts.password(password="staxly16")
-    accounts.next_click()
+    accounts.submit()
     sleep(5)
