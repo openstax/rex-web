@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
 import createTestStore from '../../../../../test/createTestStore';
-import { book as archiveBook, page } from '../../../../../test/mocks/archiveLoader';
+import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, renderToDom } from '../../../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../../../test/searchResults';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
-import { receiveBook } from '../../../actions';
+import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
 import { clearSearch, closeSearchResultsMobile, receiveSearchResults, requestSearch } from '../../actions';
 
@@ -67,8 +67,13 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('matches snapshot with results', () => {
+    store.dispatch(receivePage({...pageInChapter, references: []}));
     store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults([makeSearchResultHit({book: archiveBook, page})])));
+    store.dispatch(receiveSearchResults(makeSearchResults([
+      makeSearchResultHit({book: archiveBook, page}),
+      makeSearchResultHit({book: archiveBook, page: pageInChapter}),
+      makeSearchResultHit({book: archiveBook, page: pageInOtherChapter}),
+    ])));
 
     const tree = renderer.create(render()).toJSON();
     expect(tree).toMatchSnapshot();
