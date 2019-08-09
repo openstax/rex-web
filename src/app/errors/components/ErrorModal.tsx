@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { AppState } from '../../types';
 import Button from '../../components/Button';
+import theme from '../../theme';
+import { AppState } from '../../types';
 import { Dispatch } from '../../types';
 import { clearCurrentError } from '../actions';
 import { currentError } from '../selectors';
 import ErrorCard, { Footer } from './ErrorCard';
-import theme from '../../theme';
 
 // tslint:disable-next-line:variable-name
 const Mask = styled.div`

@@ -1,12 +1,12 @@
 import React, { SFC } from 'react';
 import styled, { css } from 'styled-components/macro';
+import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
 import NavBar from './NavBar';
 import SkipToContentWrapper from './SkipToContentWrapper';
-import ErrorModal from '../errors/components/ErrorModal';
 
 // tslint:disable-next-line:variable-name
-const Layout: SFC = ({children}) => <SkipToContentWrapper>
+const Layout: SFC = ({ children }) => <SkipToContentWrapper>
   <NavBar />
   <ErrorModal />
   {children}

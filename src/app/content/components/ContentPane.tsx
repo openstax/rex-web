@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import styled, { css } from 'styled-components/macro';
 import MobileScrollLock from '../../components/MobileScrollLock';
+import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
@@ -15,7 +15,7 @@ import {
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
+const Wrapper = styled.div<{ isOpen: State['tocOpen'] }>`
   @media screen {
     flex: 1;
     width: 100%;
@@ -37,7 +37,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
+const ContentPane = ({ isOpen, onClick, children }: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
   <ErrorBoundary>
     {isOpen && <MobileScrollLock onClick={onClick} />}
     {children}

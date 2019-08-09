@@ -68,8 +68,8 @@ const ErrorPanel = styled.div`
 
 interface Props {
   error: Error;
-  className?: string,
-  footer?: JSX.Element,
+  className?: string;
+  footer?: JSX.Element;
 }
 
 // tslint:disable-next-line:variable-name
