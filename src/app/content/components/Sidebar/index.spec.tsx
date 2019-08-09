@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import ConnectedSidebar, { Sidebar } from '.';
+import ConnectedTableOfContents, { TableOfContents } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
@@ -17,7 +17,7 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 jest.mock('../../utils/domUtils');
 
-describe('Sidebar', () => {
+describe('TableOfContents', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('Sidebar', () => {
 
   it('expands and scrolls to current chapter', () => {
     renderer.create(<MessageProvider><Provider store={store}>
-      <ConnectedSidebar />
+      <ConnectedTableOfContents />
     </Provider></MessageProvider>);
 
     expect(expandCurrentChapter).not.toHaveBeenCalled();
@@ -48,25 +48,25 @@ describe('Sidebar', () => {
 
   it('opens and closes', () => {
     const component = renderer.create(<MessageProvider><Provider store={store}>
-      <ConnectedSidebar />
+      <ConnectedTableOfContents />
     </Provider></MessageProvider>);
 
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(null);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
     renderer.act(() => {
       store.dispatch(actions.closeToc());
     });
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(false);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
     renderer.act(() => {
       store.dispatch(actions.openToc());
     });
-    expect(component.root.findByType(Sidebar).props.isOpen).toBe(true);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
   });
 
   it('resets toc on navigate', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
     const component = renderer.create(<MessageProvider><Provider store={store}>
-      <ConnectedSidebar />
+      <ConnectedTableOfContents />
     </Provider></MessageProvider>);
 
     component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null});
@@ -80,7 +80,7 @@ describe('Sidebar', () => {
     }
 
     const render = () => <MessageProvider><Provider store={store}>
-      <ConnectedSidebar />
+      <ConnectedTableOfContents />
     </Provider></MessageProvider>;
 
     const {node} = renderToDom(render());
