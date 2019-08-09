@@ -1,7 +1,7 @@
-import { updateAvailable } from '../app/notifications/actions';
+import { updateAvailable, appMessage } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
-import { APP_ENV, RELEASE_ID } from '../config';
+import { APP_ENV, RELEASE_ID, FEATURES_NOTIFICATION, ENVIRONMENT_URL } from '../config';
 
 /*
  * when a page is initially loaded, the built in release
@@ -24,8 +24,20 @@ const trustRelease = () => (new Date().getTime()) - pageLoaded > trustAfter;
 let previousObservedReleaseId: string | undefined;
 
 export type Cancel = () => void;
+interface Message {
+  id: string;
+  html: string;
+  dismissable: boolean;
+  start_at: string;
+  end_at: string;
+  url_regex: string;
+}
+
+interface Messages extends Array<Message>{}
+
 interface Environment {
   release_id: string;
+  messages?: Messages | undefined;
 }
 
 const processEnvironment = (store: Store, environment: Environment) => {
@@ -41,19 +53,29 @@ const processEnvironment = (store: Store, environment: Environment) => {
   previousObservedReleaseId = releaseId;
 };
 
+const processMessages = (store: Store, messages: Messages) => {
+  messages.forEach((message) => {
+    store.dispatch(appMessage(message))
+  })
+}
+
 export const poll = (store: Store) => async() => {
-  const environment = await fetch('/rex/environment.json')
+  const environment = await fetch(`https://cors-anywhere.herokuapp.com/${ENVIRONMENT_URL}`)
     .then((response) => response.json() as Promise<Environment>)
     .catch(() => null)
   ;
 
   if (environment) {
     processEnvironment(store, environment);
+
+    if (environment.messages) {
+      processMessages(store, environment.messages)
+    }
   }
 };
 
 export default (store: Store): Cancel => {
-  if (APP_ENV !== 'production') {
+  if ( !(APP_ENV === 'production' || FEATURES_NOTIFICATION) ){
     return () => undefined;
   }
 
