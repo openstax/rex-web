@@ -1627,7 +1627,7 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@openstax/types/-/types-1.0.2.tgz#8421a412f9ea279c5bebf43f2bb8814f0bfd13c9"
 
-"@sentry/browser@^5.0.0", "@sentry/browser@^5.6.0":
+"@sentry/browser@5.6.1", "@sentry/browser@^5.0.0", "@sentry/browser@^5.6.1":
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.6.1.tgz#9bb64d2b8371c70e3725b3f6a95835f3ca6ff8ee"
   integrity sha512-EtuI3YUIXfSzbF2Z7c5UXcdkcjZj83Y0vj73kMXBxxYsmDkyU+KtJFFvonSUrLILMqYBNZXTgCrfglLfFkl7kA==
@@ -2047,9 +2047,9 @@
     csstype "^2.2.0"
 
 "@types/redux-sentry-middleware@^0.1.0":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@types/redux-sentry-middleware/-/redux-sentry-middleware-0.1.1.tgz#0d8e009fc30cd19ca57af91edbd38e141caf3fe0"
-  integrity sha512-otm5CZ4mzdYojWlyeEN5GTLGjlTmeLxnvt3VkCXaMUSAZMUpY4k5vaumVv+dDMUyzSzAL3qig/ignwH44KcSXA==
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@types/redux-sentry-middleware/-/redux-sentry-middleware-0.1.0.tgz#6117bc177c11b576138ddd03f1e0c46970eed20f"
+  integrity sha512-VXFGLhT4i8Nw0oB9Wr/lbkU8zL1IzldJdBheNnFtRkkNastYRTYZMi2KgIz4csoiMbuZ/qTFT+F5741Ekq6o9Q==
   dependencies:
     "@sentry/browser" "^5.0.0"
     redux "^4.0.0"
@@ -10017,15 +10017,7 @@ redux-sentry-middleware@^0.0.15:
   resolved "https://registry.yarnpkg.com/redux-sentry-middleware/-/redux-sentry-middleware-0.0.15.tgz#38eaee501d63e849380df8d94090b3dd8f0278b8"
   integrity sha512-ZwnvUyZcpiji6QwTlLAmaV3GM4evM/dMU2jSGfz3VGFmDqCayzKl4zHp6l+voRWRdGGsCbBpyD7amJkq9hXPeQ==
 
-redux@^4.0.0:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
-  integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
-  dependencies:
-    loose-envify "^1.4.0"
-    symbol-observable "^1.2.0"
-
-redux@^4.0.1:
+redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   dependencies:
@@ -11315,7 +11307,6 @@ svgo@^1.1.1:
 symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
-  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-tree@^3.2.2:
   version "3.2.2"
@@ -11547,14 +11538,9 @@ ts-unused-exports@^2.0.11:
     strip-json-comments "^2.0.1"
     typescript "^2.9.2"
 
-tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
-
-tslib@^1.9.3:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
-  integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
 tslint@^5.11.0:
   version "5.11.0"
