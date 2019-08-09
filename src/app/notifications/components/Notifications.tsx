@@ -11,6 +11,7 @@ import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
 import AcceptCookies from './AcceptCookies';
 import UpdatesAvailable from './UpdatesAvailable';
+import AppMessage from './AppMessage';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   notifications: AnyNotification[];
@@ -28,6 +29,9 @@ const Notifications = ({notifications, className}: Props) => notifications.lengt
         }
         case getType(actions.acceptCookies): {
           return <AcceptCookies key={index} notification={notification} />;
+        }
+        case getType(actions.appMessage): {
+          return <AppMessage key={index} notification={notification} />;
         }
         default:
           return null;

@@ -1,7 +1,7 @@
-import { updateAvailable } from '../app/notifications/actions';
+import { updateAvailable, appMessage } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
-import { APP_ENV, RELEASE_ID } from '../config';
+import { APP_ENV, RELEASE_ID, ENVIRONMENT_URL } from '../config';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 
 /*
@@ -35,6 +35,17 @@ interface Environment {
   configs: EnvironmentConfigs;
 }
 
+interface Message {
+  id: string;
+  html: string;
+  dismissable: boolean;
+  start_at: string;
+  end_at: string;
+  url_regex: string;
+}
+
+interface Messages extends Array<Message>{}
+
 const processEnvironment = (store: Store, environment: Environment) => {
   processReleaseId(store, environment);
 
@@ -63,15 +74,24 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
     googleAnalyticsClient.setTrackingIds(ids);
   }
 };
+const processMessages = (store: Store, messages: Messages) => {
+  messages.forEach((message) => {
+    store.dispatch(appMessage(message))
+  })
+}
 
 export const poll = (store: Store) => async() => {
-  const environment = await fetch('/rex/environment.json')
+  const environment = await fetch(`https://cors-anywhere.herokuapp.com/${ENVIRONMENT_URL}`)
     .then((response) => response.json() as Promise<Environment>)
     .catch(() => null)
   ;
 
   if (environment) {
     processEnvironment(store, environment);
+
+    if (environment.messages) {
+      processMessages(store, environment.messages)
+    }
   }
 };
 
