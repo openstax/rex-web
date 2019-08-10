@@ -22,7 +22,7 @@ class Login(Page):
         self.find_element(*self._login_submit_button_locator).click()
         return self
 
-    submit = next_click
+    login_click = next_click
 
     @property
     def password_field(self):
