@@ -24,11 +24,19 @@ def test_login(selenium, base_url, book_slug, page_slug):
     accounts.next_click()
     accounts.password(password="staxly16")
     accounts.login_click()
-    sleep(5)
+    selenium.implicitly_wait(10)
 
     # AND after successful login, redirects back to the preface page
     assert page_url_before_login == selenium.current_url
 
     # AND the user menu displayed in the nav includes Account Profile and Logout
+    user_nav = content.navbar
+    user_nav.hover_over_username()
+    selenium.implicitly_wait(10)
+    assert user_nav.account_profile.is_displayed()
+    assert user_nav.logout.is_displayed()
+    sleep(5)
 
     # AND reloading does not reset the state back to logged out
+    selenium.refresh()
+    assert user_nav.user_is_logged_in
