@@ -3,7 +3,11 @@ import random
 
 class Library(object):
     def __init__(self):
-        self._book_slug_list = ["chemistry-2e", "chemistry-atoms-first-2e"]
+        self._book_slug_list = [
+            "chemistry-2e",
+            "chemistry-atoms-first-2e",
+            "anatomy-and-physiology",
+        ]
 
         self._user_email_list = [
             "mn45+rexstudent01@rice.edu",
