@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { H1 } from '../../../components/Typography';
 import ContentLink from '../../../content/components/ContentLink';
 import { ArchiveTreeSection, Book } from '../../../content/types';
-import { findDefaultBookPage, findTreePages } from '../../../content/utils/archiveTreeUtils';
+import { makeUnifiedBookLoader } from '../../../content/utils';
+import { findArchiveTreeNode, findDefaultBookPage, findTreePages } from '../../../content/utils/archiveTreeUtils';
 import { getBookPageUrlAndParams } from '../../../content/utils/urlUtils';
 import withServices from '../../../context/Services';
 import { AppServices, AppState } from '../../../types';
@@ -14,12 +15,28 @@ interface Props {
   book?: Book;
 }
 
-class ContentTestingLinks extends React.Component<Props> {
+interface State {
+  oldBook?: Book;
+}
+
+class ContentTestingLinks extends React.Component<Props, State> {
+  public state: State = {};
+
   public render() {
     const { book } = this.props;
     return <Layout>
       {book ? this.renderContent(book) : this.renderLoading()}
     </Layout>;
+  }
+
+  public async componentWillUpdate(newProps: Props) {
+    const {services: {archiveLoader, osWebLoader}} = this.props;
+    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+
+    if (newProps.book && this.props.book !== newProps.book) {
+      const oldBook = await bookLoader(newProps.book.id, newProps.book.history[2].version);
+      this.setState({oldBook});
+    }
   }
 
   private renderContent = (book: Book) => {
@@ -45,7 +62,7 @@ class ContentTestingLinks extends React.Component<Props> {
             <td dangerouslySetInnerHTML={{__html: page.title}} />
             <td>{this.renderRexLink(book, page)}</td>
             <td>{this.renderCurrentCnxLink(book, page)}</td>
-            <td>{this.renderOldCnxLink(book, page)}</td>
+            <td>{this.renderOldCnxLink(page)}</td>
           </tr>)}
         </tbody>
 
@@ -53,10 +70,19 @@ class ContentTestingLinks extends React.Component<Props> {
     </div>;
   };
 
-  private renderOldCnxLink = (book: Book, page?: ArchiveTreeSection) => {
-    const url = page
-      ? `https://cnx.org/contents/${book.shortId}@${book.history[2].version}:${page.shortId}`
-      : `https://cnx.org/contents/${book.shortId}@${book.history[2].version}`;
+  private renderOldCnxLink = (page?: ArchiveTreeSection) => {
+    const { oldBook } = this.state;
+
+    if (!oldBook) {
+      return null;
+    }
+
+    const oldPage = page && findArchiveTreeNode(oldBook.tree, page.shortId);
+
+    const url = oldPage
+      ? `https://cnx.org/contents/${oldBook.shortId}@${oldBook.version}:${oldPage.shortId}`
+      : `https://cnx.org/contents/${oldBook.shortId}@${oldBook.version}`;
+
     return <a href={url}>{url}</a>;
   };
 
