@@ -25,6 +25,9 @@ describe('setHead hook', () => {
     helpers.dispatch = jest.fn();
     helpers.getState = () => ({content: localState} as AppState);
 
+    helpers.archiveLoader = archiveLoader();
+    helpers.osWebLoader = osWebLoader();
+
     jest.mock('../../head/actions', () => ({
       setHead: mockSetHead,
     }));
@@ -94,16 +97,11 @@ describe('setHead hook', () => {
 
   describe('getCanonicalURL', () => {
 
-    beforeEach(() => {
-      helpers.archiveLoader = archiveLoader();
-      helpers.osWebLoader = osWebLoader();
-    });
-
-    it('returns nothing when the book does not have a canonical book entry', async() => {
-      const bookId = 'unique-snowflake-book';
-      const pageShortId = 'unique-snowflake-page';
+    it('returns the current book when the book does not have a canonical book entry', async() => {
+      const bookId = archiveBook.id;
+      const pageShortId = page.shortId;
       const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
-      expect(x).toBeNull();
+      expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
     });
 
     it('finds a canonical book for a page', async() => {

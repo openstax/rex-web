@@ -1,7 +1,7 @@
 import { setHead } from '../../head/actions';
-import { Link } from '../../head/types';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
+import { assertDefined } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
@@ -29,15 +29,15 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
     return;
   }
 
-  const links: Link[] = [];
-
-  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId);
-  if (canonical) {
-    links.push({rel: 'canonical', href: contentRoute.getUrl(canonical)});
-  }
+  const canonical = assertDefined(
+    await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId),
+    'should have found a canonical book and page');
+  const canonicalUrl = contentRoute.getUrl(canonical);
 
   dispatch(setHead({
-    link: links,
+    link: [
+      {rel: 'canonical', href: canonicalUrl},
+    ],
     meta: [
       {property: 'og:description', content: ''},
       {name: 'theme-color', content: theme.color.primary[book.theme].base},

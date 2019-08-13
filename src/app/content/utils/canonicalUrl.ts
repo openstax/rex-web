@@ -25,6 +25,8 @@ export async function getCanonicalUrlParams(
   pageShortId: string
   ) {
   const canonicals: string[] = CANONICAL_MAP[bookId] || [];
+  canonicals.push(bookId); // use the current book as a last resort
+
   for (const id of canonicals) {
     const version = assertDefined(BOOKS[id], `Could not find ${id} in BOOKS config`).defaultVersion;
 
