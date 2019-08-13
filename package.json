@@ -94,7 +94,6 @@
     "@types/color": "^3.0.0",
     "@types/express": "^4.16.0",
     "@types/history": "^4.7.2",
-    "@types/html-entities": "^1.2.16",
     "@types/ignore-styles": "^5.0.0",
     "@types/jest": "^24.0.15",
     "@types/jest-image-snapshot": "^2.4.0",
