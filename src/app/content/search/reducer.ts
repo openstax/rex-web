@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
+import { openToc } from '../actions';
 import * as actions from './actions';
 import { State } from './types';
 
@@ -21,6 +22,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.receiveSearchResults): {
       return {...state, loading: false, results: action.payload};
     }
+    case getType(openToc):
     case getType(actions.clearSearch): {
       return initialState;
     }

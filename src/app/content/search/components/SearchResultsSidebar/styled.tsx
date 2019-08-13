@@ -2,7 +2,6 @@
 import styled, { css } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
-import { iconSize } from '../../../../components/Details';
 import { navDesktopHeight } from '../../../../components/NavBar';
 import {
   h3MobileFontSize,
@@ -55,8 +54,8 @@ export const SearchResultsBar = styled.div`
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${searchResultsBarVariables.backgroundColor};
-  box-shadow: 0.1rem 0rem 0.2rem 0.2rem rgba(0,0,0,0.14);
-  z-index: 2;
+  box-shadow: 0.2rem 0rem 0.2rem 0rem rgba(0,0,0,0.1);
+  z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(css`
     display: none;
@@ -89,6 +88,7 @@ export const SearchQuery = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
+  line-height: 1.3;
 
   strong {
     padding-left: 0.4rem;
@@ -112,11 +112,11 @@ export const SearchBarSummary = styled(Summary)`
   align-items: center;
   background: ${searchResultsBarVariables.backgroundColor};
   border-top: solid 0.1rem ${theme.searchSidebar.border};
-  padding-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
-
+  padding: 1rem 0 1rem ${searchResultsBarVariables.mainPaddingDesktop}rem;
   ${SummaryTitle} {
     font-weight: bold;
     padding-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
+    line-height: 1.3;
   }
 `;
 
@@ -125,18 +125,20 @@ export const SearchResultsLink = styled.div`
   ${labelStyle}
   width: 100%;
   font-weight: 500;
+  line-height: 1.3;
 `;
 
 // tslint:disable-next-line:variable-name
 export const SectionContentPreview = styled(ContentLinkComponent)`
   ${labelStyle}
-  margin-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
+  margin-left: 6.6rem;
   min-height: 3.7rem;
   align-items: center;
   margin-right: ${h3MobileFontSize}rem;
-  padding: 1rem 0;
+  padding: 1.2rem 0;
   display: block;
   text-decoration: none;
+  line-height: 1.3;
 
   :not(:last-child) {
     border-bottom: solid 0.1rem ${searchResultsBarVariables.backgroundColor};
@@ -152,7 +154,7 @@ export const LinkWrapper = styled.div`
   min-height: 3.4rem;
   display: flex;
   align-items: center;
-  padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize}rem;
+  padding-left: 4.3rem;
   padding-top: 1.2rem;
   padding-bottom: 0.8rem;
   border-top: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
@@ -220,4 +222,5 @@ export const LoadingWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const HeaderQuery = styled.div`
   width: 100%;
+  align-self: center;
 `;

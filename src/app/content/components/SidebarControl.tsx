@@ -87,7 +87,7 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
   connector((props: MiddleProps) => <Control
     {...props}
     message={isOpen ? openMessage : closedMessage}
-    onClick={isOpen ? props.closeToc : () => { props.openToc(); props.clearSearch(); }}
+    onClick={isOpen ? props.closeToc : props.openToc}
   />);
 
 // tslint:disable-next-line:variable-name

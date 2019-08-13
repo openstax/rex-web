@@ -122,6 +122,15 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
+
+    const activeSection = this.activeSection.current;
+    if (activeSection) {
+      const firstResult = activeSection.querySelector('a');
+      if (firstResult) {
+        firstResult.focus();
+      }
+    }
+
   }
 
   public componentWillUnmount() {
