@@ -16,9 +16,6 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
-    _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
-    _profile_locator = (By.XPATH, "//*[contains(text(), 'Account Profile')]/a")
-    _logout_locator = (By.XPATH, "//*[contains(text(), 'Log out')]/a")
     _print_locator = (By.CSS_SELECTOR, '[data-testid="print"]')
 
     @property
@@ -32,18 +29,6 @@ class Content(Page):
     @property
     def previous_link(self):
         return self.find_element(*self._previous_locator)
-
-    @property
-    def login(self):
-        return self.find_element(*self._login_locator)
-
-    @property
-    def account_profile(self):
-        return self.find_element(*self._profile_locator)
-
-    @property
-    def logout(self):
-        return self.find_element(*self._logout_locator)
 
     def next_link(self):
         return self.find_element(*self._next_locator)
@@ -127,14 +112,11 @@ class Content(Page):
     def click_previous_link(self):
         self.click_and_wait_for_load(self.previous_link)
 
-    def click_login(self):
-        # login_link = self.wait.until(expected.visibility_of_element_located(self.login))
-        self.login.click()
-
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
         _user_nav_locator = (By.CSS_SELECTOR, '[data-testid="user-nav"]')
+        _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
         _user_nav_toggle_locator = (By.CSS_SELECTOR, '[data-testid="user-nav-toggle"]')
         _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
         _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
@@ -148,6 +130,14 @@ class Content(Page):
             return self.find_element(*self._user_nav_locator)
 
         @property
+        def login(self):
+            return self.find_element(*self._login_locator)
+
+        @property
+        def user_is_not_logged_in(self):
+            return bool(self.login)
+
+        @property
         def user_is_logged_in(self):
             return bool(self.find_element(*self._user_nav_toggle_locator))
 
@@ -158,6 +148,9 @@ class Content(Page):
         @property
         def logout(self):
             return self.find_element(*self._logout_locator)
+
+        def click_login(self):
+            self.login.click()
 
         def hover_over_user_name(self):
             actionChains = ActionChains(self.driver)
