@@ -46,19 +46,19 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
             {this.props.results && this.props.results.length} {msg}{' '}
             <strong> &lsquo;{this.props.query}&rsquo;</strong>
           </Styled.HeaderQuery>
+          <Styled.CloseIconButton
+            onClick={this.props.onClose}
+            data-testid='close-search'
+            aria-label='Close search sidebar'
+          >
+            <Styled.CloseIcon />
+          </Styled.CloseIconButton>
         </Styled.SearchQuery>
       )}
     </FormattedMessage>
-    <Styled.CloseIconButton
-      onClick={this.props.onClose}
-      data-testid='close-search'
-      aria-label='Close search sidebar'
-    >
-      <Styled.CloseIcon />
-    </Styled.CloseIconButton>
   </Styled.SearchQueryWrapper>;
 
-  public noResults = () => <div>
+  public noResults = () => <Styled.NoResultsWrapper>
     <Styled.CloseIconWrapper>
       <Styled.CloseIconButton onClick={this.props.onClose}>
         <Styled.CloseIcon />
@@ -73,7 +73,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </Styled.SearchQuery>
       )}
     </FormattedMessage>
-  </div>;
+  </Styled.NoResultsWrapper>;
 
   public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
     <SearchResultContainers

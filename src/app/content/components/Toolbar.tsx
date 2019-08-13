@@ -10,6 +10,7 @@ import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
 import {
   contentFont,
+  labelStyle,
   linkColor,
   textRegularLineHeight,
   textRegularSize,
@@ -40,6 +41,12 @@ export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;
   width: ${textRegularLineHeight}rem;
   padding: 0.4rem;
+`;
+
+const closeIconStyles = css`
+  height: 1.6rem;
+  width: 1.6rem;
+  color: #cdcdcd;
 `;
 
 const barPadding = css`
@@ -112,7 +119,7 @@ const SearchButton = styled(({ desktop, mobile, ...props }) => <PlainButton {...
 // tslint:disable-next-line:variable-name
 const CloseButton = styled(({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>)`
   > svg {
-    ${toolbarIconStyles}
+    ${closeIconStyles}
   }
 
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
@@ -129,13 +136,16 @@ const SearchInputWrapper = styled.form`
   color: ${toolbarIconColor.base};
   border: solid 0.1rem;
   border-radius: 0.2rem;
+  width: 38rem;
 
   &:focus-within {
-    border: solid 0.1rem #0cc0dc;
+    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, .5);
   }
 
   &.ally-focus-within {
-    border: solid 0.1rem #0cc0dc;
+    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, .5);
   }
 
   ${theme.breakpoints.mobile(css`
@@ -161,24 +171,23 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
     placeholder={assertString(msg, 'placeholder must be a string')}
   />}
 </FormattedMessage>)`
-  ${textRegularStyle}
-  color: ${theme.color.text.default};
+  ${labelStyle}
   line-height: 3.2rem;
   margin: 0 1rem 0 1rem;
   height: ${toolbarSearchInputDesktopHeight}rem;
   border: none;
   outline: none;
+  width: 100%;
 
   ::placeholder {
-    color: ${toolbarIconColor.base};
+    ${labelStyle}
+    color: ${theme.color.text.label};
+    line-height: 2rem;
   }
 
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}
-  ${(props) => props.mobile && css`
-    width: 100%;
-  `}
 `;
 
 // tslint:disable-next-line:variable-name

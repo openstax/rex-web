@@ -21,6 +21,7 @@ interface MiddleProps {
   isOpen: State['tocOpen'];
   openToc: () => void;
   closeToc: () => void;
+  clearSearch: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -75,6 +76,7 @@ const connector = connect(
     isOpen:  selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
+    clearSearch: () => dispatch(actions.search.clearSearch()),
     closeToc:  () => dispatch(actions.closeToc()),
     openToc: () => dispatch(actions.openToc()),
   })
@@ -85,7 +87,7 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
   connector((props: MiddleProps) => <Control
     {...props}
     message={isOpen ? openMessage : closedMessage}
-    onClick={isOpen ? props.closeToc : props.openToc}
+    onClick={isOpen ? props.closeToc : () => { props.openToc(); props.clearSearch(); }}
   />);
 
 // tslint:disable-next-line:variable-name

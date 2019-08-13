@@ -7,7 +7,6 @@ import { navDesktopHeight } from '../../../../components/NavBar';
 import {
   h3MobileFontSize,
   labelStyle,
-  textRegularLineHeight,
   textRegularStyle
 } from '../../../../components/Typography';
 import theme from '../../../../theme';
@@ -18,7 +17,7 @@ import {
     toolbarDesktopHeight,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
-import { Summary } from '../../../components/Sidebar/styled';
+import { Summary, SummaryTitle } from '../../../components/Sidebar/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
 
 const searchResultsBarVariables = {
@@ -38,9 +37,7 @@ export const SearchIconInsideBar = styled(Search)`
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled(Times)`
-  ${toolbarIconStyles}
   color: ${theme.color.primary.gray.lighter};
-  margin-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -58,7 +55,7 @@ export const SearchResultsBar = styled.div`
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${searchResultsBarVariables.backgroundColor};
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0.1rem 0rem 0.2rem 0.2rem rgba(0,0,0,0.14);
   z-index: 2;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(css`
@@ -82,12 +79,16 @@ export const SearchResultsBar = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+export const NoResultsWrapper = styled.div`
+`;
+
+// tslint:disable-next-line:variable-name
 export const SearchQuery = styled.div`
   ${textRegularStyle}
   display: flex;
-  align-items: center;
-  justify-content: end;
-  min-height: 4rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
 
   strong {
     padding-left: 0.4rem;
@@ -100,7 +101,8 @@ export const SearchQueryWrapper = styled.div`
   justify-content: space-between;
   align-items: baseline;
   background: ${theme.color.neutral.base};
-  padding: 1rem 0;
+  padding: 1.2rem 0;
+  min-height: 4rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -111,12 +113,18 @@ export const SearchBarSummary = styled(Summary)`
   background: ${searchResultsBarVariables.backgroundColor};
   border-top: solid 0.1rem ${theme.searchSidebar.border};
   padding-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
+
+  ${SummaryTitle} {
+    font-weight: bold;
+    padding-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsLink = styled.div`
   ${labelStyle}
   width: 100%;
+  font-weight: 500;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -125,9 +133,8 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
   margin-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize + 2.3}rem;
   min-height: 3.7rem;
   align-items: center;
-  padding-right: ${h3MobileFontSize}rem;
+  margin-right: ${h3MobileFontSize}rem;
   padding: 1rem 0;
-  max-width: 35.3rem;
   display: block;
   text-decoration: none;
 
@@ -146,8 +153,9 @@ export const LinkWrapper = styled.div`
   display: flex;
   align-items: center;
   padding-left: ${searchResultsBarVariables.mainPaddingDesktop + iconSize}rem;
-  padding-top: 1rem;
-  padding-bottom: 0.6rem;
+  padding-top: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-top: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -158,24 +166,39 @@ export const DetailsOl = styled.ol`
 // tslint:disable-next-line:variable-name
 export const NavItem = styled.li`
   background: ${theme.color.primary.gray.foreground};
-  :not(:last-child) {
-    border-bottom: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
-  }
 `;
 
 // tslint:disable-next-line:variable-name
 export const SearchQueryAlignment = styled.div`
   max-width: 26.5rem;
-  text-align: justify;
+  text-align: center;
   margin-top: 7rem;
   margin-left: auto;
   margin-right: auto;
 `;
 
 // tslint:disable-next-line:variable-name
+export const CloseIconButton = styled.button`
+  border: none;
+  margin: 0;
+  ${toolbarIconStyles}
+  background: transparent;
+  margin-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
+  overflow: hidden;
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)};
+`;
+
+// tslint:disable-next-line:variable-name
 export const CloseIconWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin: 1.4rem 1.4rem 0 0;
+
+  ${CloseIconButton} {
+    margin: 0;
+  }
   ${theme.breakpoints.mobile(css`
     display: none;
   `)};
@@ -195,19 +218,6 @@ export const LoadingWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIconButton = styled.button`
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)};
-`;
-
-// tslint:disable-next-line:variable-name
 export const HeaderQuery = styled.div`
-  max-width: calc(${searchResultsBarDesktopWidth - (textRegularLineHeight * 2)
-              - searchResultsBarVariables.mainPaddingDesktop
-              - searchResultsBarVariables.mainRightPaddingDesktop}rem)
+  width: 100%;
 `;
