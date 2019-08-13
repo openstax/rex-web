@@ -56,7 +56,7 @@ class ContentTestingLinks extends React.Component<Props, State> {
             <td>no page</td>
             <td>{this.renderRexLink(book, findDefaultBookPage(book))}</td>
             <td>{this.renderCurrentCnxLink(book)}</td>
-            <td>{this.renderOldCnxLink(book)}</td>
+            <td>{this.renderOldCnxLink()}</td>
           </tr>
           {findTreePages(book.tree).map((page) => <tr key={page.id}>
             <td dangerouslySetInnerHTML={{__html: page.title}} />
