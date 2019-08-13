@@ -19,7 +19,6 @@ import {
   getStats,
   prepareBookPages,
   prepareBooks,
-  prepareDeveloperPages,
   prepareErrorPages,
   renderPages
 } from './contentPages';
@@ -47,7 +46,6 @@ async function render() {
   const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient};
 
   await renderPages(renderHelpers, await prepareErrorPages());
-  await renderPages(renderHelpers, await prepareDeveloperPages());
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
   for (const {loader, book} of books) {
