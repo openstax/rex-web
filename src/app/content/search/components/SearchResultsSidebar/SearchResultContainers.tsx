@@ -92,7 +92,7 @@ const SearchResultsDropdown = (props: {
 
   const active = props.currentPage && props.chapter
     && archiveTreeContainsNode(props.chapter, props.currentPage.id);
-  return <li>
+  return <Styled.ListItem>
     <Details {...(active ? {open: true} : {})}>
       <Styled.SearchBarSummary>
         <SummaryWrapper>
@@ -113,5 +113,5 @@ const SearchResultsDropdown = (props: {
         />
       </Styled.DetailsOl>
     </Details>
-  </li>;
+  </Styled.ListItem>;
 };

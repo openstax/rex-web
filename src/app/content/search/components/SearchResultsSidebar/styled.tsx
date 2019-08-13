@@ -224,3 +224,8 @@ export const HeaderQuery = styled.div`
   width: 100%;
   align-self: center;
 `;
+
+// tslint:disable-next-line:variable-name
+export const ListItem = styled.li`
+  display: block;
+`;

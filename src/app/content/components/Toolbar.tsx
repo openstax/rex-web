@@ -172,7 +172,7 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   />}
 </FormattedMessage>)`
   ${labelStyle}
-  line-height: 3.2rem;
+  line-height: 2rem;
   margin: 0 1rem 0 1rem;
   height: ${toolbarSearchInputDesktopHeight}rem;
   border: none;
