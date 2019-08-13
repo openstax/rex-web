@@ -159,9 +159,12 @@ class Content(Page):
         def logout(self):
             return self.find_element(*self._logout_locator)
 
-        def hover_over_username(self):
+        def hover_over_user_name(self):
             actionChains = ActionChains(self.driver)
             actionChains.move_to_element(self.user_nav).perform()
+
+        def click_user_name(self):
+            self.user_nav.click()
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
