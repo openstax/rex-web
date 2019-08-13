@@ -152,6 +152,7 @@ Array [
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -162,6 +163,8 @@ Array [
   justify-content: center;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
