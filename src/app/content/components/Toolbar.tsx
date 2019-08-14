@@ -16,9 +16,10 @@ import {
   textRegularSize,
   textRegularStyle
 } from '../../components/Typography';
+import { isHtmlElement } from '../../guards';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
-import { assertString, assertWindow } from '../../utils';
+import { assertDocument, assertString, assertWindow } from '../../utils';
 import { clearSearch, openSearchResultsMobile, requestSearch } from '../search/actions';
 import * as selectSearch from '../search/selectors';
 import { SearchResultContainer } from '../search/types';
@@ -164,6 +165,15 @@ const SearchInputWrapper = styled.form`
   `)}
 `;
 
+const hideSearchChrome = css`
+  ::-webkit-search-decoration,
+  ::-webkit-search-cancel-button,
+  ::-webkit-search-results-button,
+  ::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+`;
+
 // tslint:disable-next-line:variable-name
 const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage id='i18n:toolbar:search:placeholder'>
   {(msg) => <input {...props}
@@ -178,6 +188,8 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   border: none;
   outline: none;
   width: 100%;
+
+  ${hideSearchChrome}
 
   ::placeholder {
     ${labelStyle}
@@ -323,7 +335,11 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
   public render() {
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      const activeElement = assertDocument().activeElement;
       if (this.state.query) {
+        if (isHtmlElement(activeElement)) {
+          activeElement.blur();
+        }
         this.props.search(this.state.query);
         this.setState({ formSubmitted: true });
       }
@@ -357,7 +373,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
         <OpenSidebarControl />
         <SearchPrintWrapper>
           <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
-            <SearchInput desktop data-testid='desktop-search-input' onChange={onChange} value={this.state.query} />
+            <SearchInput desktop type='search' data-testid='desktop-search-input' onChange={onChange} value={this.state.query} />
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
                 {(val) => <SearchButton mobile
@@ -399,8 +415,8 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
               </ToggleSeachResultsText>}
             </FormattedMessage>
           }
-          <SearchInputWrapper onSubmit={onSubmit} data-testid='mobile-search'>
-            <SearchInput mobile data-testid='mobile-search-input' onChange={onChange} value={this.state.query} />
+          <SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
+            <SearchInput mobile type='search' data-testid='mobile-search-input' onChange={onChange} value={this.state.query} />
             {this.state.query && <CloseButton type='button' onClick={onClear} data-testid='mobile-clear-search' />}
           </SearchInputWrapper>
         </MobileSearchContainer>
