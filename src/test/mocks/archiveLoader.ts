@@ -79,11 +79,12 @@ export default () => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
     },
-    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage) => {
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
         id: `${newPage.id}@${newPage.version}`,
         shortId: `${newPage.shortId}@${newPage.version}`,
+        slug: pageSlug,
         title: newPage.title,
       });
     },

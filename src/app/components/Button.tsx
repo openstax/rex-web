@@ -21,16 +21,19 @@ type Size = 'large' | 'medium' | 'small';
 // tslint:disable-next-line:variable-name
 const Button = styled.button<{variant?: Variant, size?: Size}>`
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   font-family: ${contentFont};
   border-radius: 0.2rem;
+  white-space: nowrap;
   ${(props) => props.size === 'large' && `
     font-size: 1.6rem;
     height: 5rem;
     padding: 0 3rem;
   `}
   ${(props) => (props.size === 'medium' || props.size === undefined) && `
+    min-width: 12rem;
     font-size: 1.6rem;
     height: 4rem;
     padding: 0 3rem;

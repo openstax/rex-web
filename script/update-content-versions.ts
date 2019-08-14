@@ -1,13 +1,13 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
-import books from '../src/books';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
+import books from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 
 (global as any).fetch = fetch;
 
-const booksPath = path.resolve(__dirname, '../src/books.js');
+const booksPath = path.resolve(__dirname, '../src/config.books.js');
 let fileContents = fs.readFileSync(booksPath, 'utf8');
 
 const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
