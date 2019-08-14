@@ -1,5 +1,5 @@
 
-import styled, { css } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { navDesktopHeight } from '../../../../components/NavBar';
@@ -46,6 +46,16 @@ export const NavOl = styled.ol`
   }
 `;
 
+const animateIn = keyframes`
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+`;
+
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
@@ -75,6 +85,8 @@ export const SearchResultsBar = styled.div`
     margin: 0;
     padding: 0;
   }
+
+  animation: ${animateIn} 5s;
 `;
 
 // tslint:disable-next-line:variable-name
