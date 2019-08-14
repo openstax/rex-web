@@ -40,8 +40,12 @@ class Page(pypom.Page):
     @property
     def current_url(self):
         return self.driver.current_url
+
+    def wait_for_region_to_display(self, region):
+        self.wait.until(lambda _: region.is_displayed)
+        return self
     
-    def click_and_wait_for_load(self, element: WebElement) -> None:
+    def click_and_wait_for_load(self, element: WebElement):
         """Clicks an offscreen element and waits for title to load.
 
         Clicks the given element, even if it is offscreen, by sending the ENTER key.
@@ -50,10 +54,6 @@ class Page(pypom.Page):
         title_before_click = self.page_title
         element.send_keys(Keys.ENTER)
         return self.wait.until(lambda _: title_before_click != (self.page_title))
-
-    def wait_for_region_to_display(self, region):
-        self.wait.until(lambda _: region.is_displayed)
-        return self
 
     def element_is_not_interactable(self, element):
         try:
