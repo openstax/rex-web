@@ -10,7 +10,7 @@ import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import { Book } from '../../src/app/content/types';
-import { formatBookData, getUrlParamForPageId, stripIdVersion } from '../../src/app/content/utils';
+import { formatBookData, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
@@ -28,7 +28,8 @@ import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils
 export async function prepareContentPage(
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   bookSlug: string,
-  pageId: string
+  pageId: string,
+  pageSlug: string
 ) {
   const book = await bookLoader.load();
   const page = await bookLoader.page(pageId).load();
@@ -36,7 +37,7 @@ export async function prepareContentPage(
   const action: Match<typeof content> = {
     params: {
       book: bookSlug,
-      page: getUrlParamForPageId(book, page.id),
+      page: pageSlug,
     },
     route: content,
     state: {
@@ -151,7 +152,9 @@ export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   book: Book
 ) => asyncPool(20, findTreePages(book.tree), (section) =>
-  prepareContentPage(bookLoader, book.slug, stripIdVersion(section.id))
+  prepareContentPage(bookLoader, book.slug, stripIdVersion(section.id),
+    assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
+  )
     .then((page) => ({code: 200, page}))
 );
 

@@ -7,11 +7,13 @@ import {
   archiveTreeSectionIsUnit,
   findArchiveTreeNode,
   findDefaultBookPage,
+  splitTitleParts,
 } from './archiveTreeUtils';
 
 const makeArchiveSection = (title: string): ArchiveTreeSection => ({
   id: `${title}-id`,
   shortId: `${title}-shortid`,
+  slug: `${title}-slug`,
   title,
 });
 const makeArchiveTree = (title: string, contents: ArchiveTree['contents']): ArchiveTree => ({
@@ -57,6 +59,12 @@ describe('findDefaultBookPage', () => {
     ])};
 
     expect(findDefaultBookPage(book)).toBe(firstPage);
+  });
+});
+
+describe('splitTitleParts', () => {
+  it('returns null when book is not baked', () => {
+    expect(splitTitleParts('unbaked-title')).toEqual([null, 'unbaked-title']);
   });
 });
 

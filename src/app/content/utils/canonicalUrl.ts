@@ -4,7 +4,6 @@ import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from './archiveTreeUtils';
-import { getUrlParamForPageTitle } from './urlUtils';
 
 export async function getBook(
   archiveLoader: AppServices['archiveLoader'],
@@ -23,8 +22,9 @@ export async function getCanonicalUrlParams(
   osWebLoader: AppServices['osWebLoader'],
   bookId: string,
   pageShortId: string
-  ) {
+) {
   const canonicals: string[] = CANONICAL_MAP[bookId] || [];
+
   canonicals.push(bookId); // use the current book as a last resort
 
   for (const id of canonicals) {
@@ -33,7 +33,7 @@ export async function getCanonicalUrlParams(
     const canonicalBook = await getBook(archiveLoader, osWebLoader, id, version);
     const treeSection = findArchiveTreeNode(canonicalBook.tree, pageShortId);
     if (treeSection) {
-      const pageInBook = getUrlParamForPageTitle(treeSection);
+      const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
       return {book: canonicalBook.slug, page: pageInBook};
     }
   }
