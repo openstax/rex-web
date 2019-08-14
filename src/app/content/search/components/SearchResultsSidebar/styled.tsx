@@ -60,11 +60,22 @@ export const SearchResultsBar = styled.div`
   ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(css`
     display: none;
   `)}
+
+  transition: margin-left 300ms;
+  margin-left: 0;
+  ${(props: {closed: boolean}) => props.closed && css`
+    margin-left: -${searchResultsBarDesktopWidth}rem;
+  `}
+
   ${theme.breakpoints.mobile(css`
     width: 100%;
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
     padding: 0;
+
+    ${(props: {closed: boolean}) => props.closed && css`
+      display: none;
+    `}
   `)}
 
   > ${NavOl} {
