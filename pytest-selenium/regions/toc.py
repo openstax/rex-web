@@ -5,8 +5,6 @@ from pages import content
 from pages.base import Page
 from regions.base import Region
 
-from utils.utility import WaitForTitleChange
-
 
 class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
@@ -27,11 +25,11 @@ class TableOfContents(Region):
     def last_section(self):
         return self.sections[-1]
 
-    class ContentPage(Region, WaitForTitleChange):
+    class ContentPage(Region):
         _is_active_locator = (By.XPATH, "./..")
 
         def click(self):
-            self.click_and_wait_for_load(self.root)
+            self.page.click_and_wait_for_load(self.root)
 
         @property
         def section_title(self):

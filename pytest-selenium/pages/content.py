@@ -9,10 +9,9 @@ import random
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
-from utils.utility import WaitForTitleChange
 
 
-class Content(Page, WaitForTitleChange):
+class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
