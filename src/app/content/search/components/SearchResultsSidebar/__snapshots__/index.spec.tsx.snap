@@ -1,18 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
-.c4 {
+.c5 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c3 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
+.c4 {
   color: #818181;
-  margin-right: 1.4rem;
 }
 
 .c0 {
@@ -21,23 +17,23 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   padding: 0;
   position: -webkit-sticky;
   position: sticky;
-  width: 43.5rem;
+  width: 44rem;
   background-color: #f1f1f1;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 2;
+  box-shadow: 0.2rem 0rem 0.2rem 0rem rgba(0,0,0,0.1);
+  z-index: 1;
   height: calc(100vh - 18rem);
 }
 
-.c0 > .c7 {
+.c0 > .c8 {
   margin: 0;
   padding: 0;
 }
 
-.c0 > .c7::before {
+.c0 > .c8::before {
   display: none;
 }
 
-.c5 {
+.c6 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -46,27 +42,39 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: end;
-  -ms-flex-pack: end;
-  justify-content: end;
-  min-height: 4rem;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+  line-height: 1.3;
 }
 
-.c5 strong {
+.c6 strong {
   padding-left: 0.4rem;
 }
 
-.c6 {
+.c7 {
   max-width: 26.5rem;
-  text-align: justify;
+  text-align: center;
   margin-top: 7rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.c3 {
+  border: none;
+  margin: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  background: transparent;
+  margin-right: 1.4rem;
+  overflow: hidden;
 }
 
 .c1 {
@@ -78,13 +86,11 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  margin: 1.4rem 1.4rem 0 0;
 }
 
-.c2 {
-  border: none;
-  padding: 0;
+.c1 .c2 {
   margin: 0;
-  background: transparent;
 }
 
 @media screen and (max-width:75em) {
@@ -97,13 +103,13 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c1 {
+  .c3 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c2 {
+  .c1 {
     display: none;
   }
 }
@@ -113,17 +119,19 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   className="c0"
   data-testid="search-results-sidebar"
 >
-  <div>
+  <div
+    className=""
+  >
     <div
       className="c1"
     >
       <button
-        className="c2"
+        className="c2 c3"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
+          className="c4 c5"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 352 512"
@@ -136,10 +144,10 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
       </button>
     </div>
     <div
-      className="c5"
+      className="c6"
     >
       <div
-        className="c6"
+        className="c7"
       >
         Sorry, no results found for 
          
@@ -161,25 +169,25 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   overflow: hidden;
 }
 
-.c18 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
 .c20 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c14[open] > summary .c17 {
-  display: none;
-}
-
-.c14:not([open]) > summary .c19 {
-  display: none;
-}
-
 .c22 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c16[open] > summary .c19 {
+  display: none;
+}
+
+.c16:not([open]) > summary .c21 {
+  display: none;
+}
+
+.c24 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
@@ -194,7 +202,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   flex: 1;
 }
 
-.c16 {
+.c18 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -210,15 +218,11 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   margin-left: 3rem;
 }
 
-.c7 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
+.c8 {
   color: #818181;
-  margin-right: 1.4rem;
 }
 
-.c9 .os-divider {
+.c10 .os-divider {
   width: 0.4rem;
 }
 
@@ -228,19 +232,19 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   padding: 0;
   position: -webkit-sticky;
   position: sticky;
-  width: 43.5rem;
+  width: 44rem;
   background-color: #f1f1f1;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 2;
+  box-shadow: 0.2rem 0rem 0.2rem 0rem rgba(0,0,0,0.1);
+  z-index: 1;
   height: calc(100vh - 18rem);
 }
 
-.c0 > .c8 {
+.c0 > .c9 {
   margin: 0;
   padding: 0;
 }
 
-.c0 > .c8::before {
+.c0 > .c9::before {
   display: none;
 }
 
@@ -253,15 +257,16 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: end;
-  -ms-flex-pack: end;
-  justify-content: end;
-  min-height: 4rem;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+  line-height: 1.3;
 }
 
 .c2 strong {
@@ -282,10 +287,11 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   -ms-flex-align: baseline;
   align-items: baseline;
   background: #fff;
-  padding: 1rem 0;
+  padding: 1.2rem 0;
+  min-height: 4rem;
 }
 
-.c15 {
+.c17 {
   list-style: none;
   cursor: pointer;
   min-height: 3.8rem;
@@ -299,39 +305,36 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   align-items: center;
   background: #f1f1f1;
   border-top: solid 0.1rem #d5d5d5;
-  padding-left: 3rem;
+  padding: 1rem 0 1rem 3rem;
 }
 
-.c15::before {
+.c17::before {
   display: none;
 }
 
-.c15::-moz-list-bullet {
+.c17::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c15::-webkit-details-marker {
+.c17::-webkit-details-marker {
   display: none;
 }
 
-.c15:focus {
+.c17:focus {
   outline: none;
 }
 
-.c15:hover .c21,
-.c15:focus .c21 {
+.c17:hover .c23,
+.c17:focus .c23 {
   color: #000;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  width: 100%;
+.c17 .c23 {
+  font-weight: bold;
+  padding-right: 1.4rem;
+  line-height: 1.3;
 }
 
 .c13 {
@@ -340,29 +343,40 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
-  margin-left: 7rem;
+  width: 100%;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.c14 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  margin-left: 6.6rem;
   min-height: 3.7rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-right: 1.6rem;
-  padding: 1rem 0;
-  max-width: 35.3rem;
+  margin-right: 1.6rem;
+  padding: 1.2rem 0;
   display: block;
   -webkit-text-decoration: none;
   text-decoration: none;
+  line-height: 1.3;
 }
 
-.c13:not(:last-child) {
+.c14:not(:last-child) {
   border-bottom: solid 0.1rem #f1f1f1;
 }
 
-.c13 em {
+.c14 em {
   font-weight: bold;
 }
 
-.c11 {
+.c12 {
   min-height: 3.4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -372,32 +386,44 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-left: 4.7rem;
-  padding-top: 1rem;
-  padding-bottom: 0.6rem;
+  padding-left: 4.3rem;
+  padding-top: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-top: solid 0.2rem #f1f1f1;
 }
 
-.c23 {
+.c25 {
   padding: 0;
 }
 
-.c10 {
+.c11 {
   background: #fff;
 }
 
-.c10:not(:last-child) {
-  border-bottom: solid 0.2rem #f1f1f1;
+.c7 {
+  border: none;
+  margin: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  background: transparent;
+  margin-right: 1.4rem;
+  overflow: hidden;
 }
 
-.c6 {
-  border: none;
-  padding: 0;
+.c26 .c6 {
   margin: 0;
-  background: transparent;
 }
 
 .c5 {
-  max-width: calc(34.1rem);
+  width: 100%;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.c15 {
+  display: block;
 }
 
 @media screen and (max-width:75em) {
@@ -410,7 +436,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c6 {
+  .c7 {
     display: none;
   }
 }
@@ -451,38 +477,38 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           ’
         </strong>
       </div>
-    </div>
-    <button
-      aria-label="Close search sidebar"
-      className="c6"
-      data-testid="close-search"
-      onClick={[Function]}
-    >
-      <svg
-        aria-hidden="true"
-        className="c7 c4"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 352 512"
+      <button
+        aria-label="Close search sidebar"
+        className="c6 c7"
+        data-testid="close-search"
+        onClick={[Function]}
       >
-        <path
-          d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+        <svg
+          aria-hidden="true"
+          className="c8 c4"
           fill="currentColor"
-        />
-      </svg>
-    </button>
+          focusable="false"
+          viewBox="0 0 352 512"
+        >
+          <path
+            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+    </div>
   </div>
   <ol
-    className="c8 c9"
+    className="c9 c10"
   >
     <li
-      className="c10"
+      className="c11"
     >
       <div
-        className="c11"
+        className="c12"
       >
         <div
-          className="c12"
+          className="c13"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -491,7 +517,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         />
       </div>
       <a
-        className="c13"
+        className="c14"
         dangerouslySetInnerHTML={
           Object {
             "__html": "cool <em>highlight</em> bruh",
@@ -502,20 +528,22 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         onClick={[Function]}
       />
     </li>
-    <li>
+    <li
+      className="c15"
+    >
       <details
-        className="c14"
+        className="c16"
         open={true}
       >
         <summary
-          className="c15"
+          className="c17"
         >
           <div
-            className="c16"
+            className="c18"
           >
             <svg
               aria-hidden="true"
-              className="c17 c18 c4"
+              className="c19 c20 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 192 512"
@@ -527,7 +555,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </svg>
             <svg
               aria-hidden="true"
-              className="c19 c20 c4"
+              className="c21 c22 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 320 512"
@@ -538,7 +566,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="c21 c22"
+              className="c23 c24"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -548,17 +576,17 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </div>
         </summary>
         <ol
-          className="c23"
+          className="c25"
         >
           <li
-            className="c10"
+            className="c11"
           >
             <div
               aria-label="Current Page"
-              className="c11"
+              className="c12"
             >
               <div
-                className="c12"
+                className="c13"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 6</span>",
@@ -567,7 +595,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="c13"
+              className="c14"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "cool <em>highlight</em> bruh",
@@ -581,19 +609,21 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </ol>
       </details>
     </li>
-    <li>
+    <li
+      className="c15"
+    >
       <details
-        className="c14"
+        className="c16"
       >
         <summary
-          className="c15"
+          className="c17"
         >
           <div
-            className="c16"
+            className="c18"
           >
             <svg
               aria-hidden="true"
-              className="c17 c18 c4"
+              className="c19 c20 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 192 512"
@@ -605,7 +635,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </svg>
             <svg
               aria-hidden="true"
-              className="c19 c20 c4"
+              className="c21 c22 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 320 512"
@@ -616,7 +646,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="c21 c22"
+              className="c23 c24"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -626,16 +656,16 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </div>
         </summary>
         <ol
-          className="c23"
+          className="c25"
         >
           <li
-            className="c10"
+            className="c11"
           >
             <div
-              className="c11"
+              className="c12"
             >
               <div
-                className="c12"
+                className="c13"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -644,7 +674,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="c13"
+              className="c14"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "cool <em>highlight</em> bruh",
@@ -663,7 +693,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 `;
 
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
-.c6 {
+.c7 {
   enable-background: new 0 0 57.6 39.1;
   -webkit-animation: iuEIAH 0.3s forwards 0.3s;
   animation: iuEIAH 0.3s forwards 0.3s;
@@ -681,21 +711,21 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   width: 5rem;
 }
 
-.c6 * {
+.c7 * {
   -webkit-animation: fadeIn 0.3s forwards;
   animation: fadeIn 0.3s forwards;
 }
 
-.c6 .os-green,
-.c6 .os-orange,
-.c6 .os-gray,
-.c6 .os-yellow,
-.c6 .os-blue {
+.c7 .os-green,
+.c7 .os-orange,
+.c7 .os-gray,
+.c7 .os-yellow,
+.c7 .os-blue {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 
-.c6 .os-green {
+.c7 .os-green {
   -webkit-animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center left;
@@ -703,7 +733,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center left;
 }
 
-.c6 .os-orange {
+.c7 .os-orange {
   -webkit-animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
@@ -711,7 +741,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c6 .os-gray {
+.c7 .os-gray {
   -webkit-animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
@@ -719,7 +749,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c6 .os-yellow {
+.c7 .os-yellow {
   -webkit-animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   -webkit-transform-origin: center right;
@@ -727,7 +757,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c6 .os-blue {
+.c7 .os-blue {
   -webkit-animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center;
@@ -735,18 +765,14 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center;
 }
 
-.c5 {
+.c6 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c4 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
+.c5 {
   color: #818181;
-  margin-right: 1.4rem;
 }
 
 .c0 {
@@ -755,20 +781,31 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   padding: 0;
   position: -webkit-sticky;
   position: sticky;
-  width: 43.5rem;
+  width: 44rem;
   background-color: #f1f1f1;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 2;
+  box-shadow: 0.2rem 0rem 0.2rem 0rem rgba(0,0,0,0.1);
+  z-index: 1;
   height: calc(100vh - 18rem);
 }
 
-.c0 > .c7 {
+.c0 > .c8 {
   margin: 0;
   padding: 0;
 }
 
-.c0 > .c7::before {
+.c0 > .c8::before {
   display: none;
+}
+
+.c4 {
+  border: none;
+  margin: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  background: transparent;
+  margin-right: 1.4rem;
+  overflow: hidden;
 }
 
 .c2 {
@@ -780,6 +817,11 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  margin: 1.4rem 1.4rem 0 0;
+}
+
+.c2 .c3 {
+  margin: 0;
 }
 
 .c1 {
@@ -797,13 +839,6 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transition: opacity 0.5s 0.3s,transform 0.2s 0.2s;
 }
 
-.c3 {
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-}
-
 @media screen and (max-width:75em) {
   .c0 {
     width: 100%;
@@ -814,13 +849,13 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 }
 
 @media screen and (max-width:75em) {
-  .c2 {
+  .c4 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c3 {
+  .c2 {
     display: none;
   }
 }
@@ -838,12 +873,12 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       className="c2"
     >
       <button
-        className="c3"
+        className="c3 c4"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c4 c5"
+          className="c5 c6"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 352 512"
@@ -856,7 +891,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       </button>
     </div>
     <svg
-      className="c6"
+      className="c7"
       id="Layer_1"
       version="1.1"
       viewBox="0 0 57.6 39.1"

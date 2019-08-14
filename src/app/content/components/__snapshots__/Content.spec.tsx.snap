@@ -251,43 +251,71 @@ Array [
   color: #5e6062;
   border: solid 0.1rem;
   border-radius: 0.2rem;
+  width: 38rem;
 }
 
 .c19:focus-within {
-  border: solid 0.1rem #0cc0dc;
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,.5);
 }
 
 .c19.ally-focus-within {
-  border: solid 0.1rem #0cc0dc;
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,.5);
 }
 
 .c20 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #424242;
-  line-height: 3.2rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  line-height: 2rem;
   margin: 0 1rem 0 1rem;
   height: 3.2rem;
   border: none;
   outline: none;
+  width: 100%;
 }
 
 .c20::-webkit-input-placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c20::-moz-placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c20:-ms-input-placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c20::placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c17 {
@@ -1931,6 +1959,7 @@ li[aria-label="Current Page"] .c39 {
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
+              value="Search"
             >
               <svg
                 aria-hidden="true"
@@ -1947,6 +1976,7 @@ li[aria-label="Current Page"] .c39 {
             </button>
             <button
               className="c23 c22"
+              value="Search"
             >
               <svg
                 aria-hidden="true"
@@ -3290,43 +3320,71 @@ Array [
   color: #5e6062;
   border: solid 0.1rem;
   border-radius: 0.2rem;
+  width: 38rem;
 }
 
 .c11:focus-within {
-  border: solid 0.1rem #0cc0dc;
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,.5);
 }
 
 .c11.ally-focus-within {
-  border: solid 0.1rem #0cc0dc;
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,.5);
 }
 
 .c12 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #424242;
-  line-height: 3.2rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  line-height: 2rem;
   margin: 0 1rem 0 1rem;
   height: 3.2rem;
   border: none;
   outline: none;
+  width: 100%;
 }
 
 .c12::-webkit-input-placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c12::-moz-placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c12:-ms-input-placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c12::placeholder {
-  color: #5e6062;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  color: #6f6f6f;
+  line-height: 2rem;
 }
 
 .c9 {
@@ -4392,6 +4450,7 @@ Array [
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
+              value="Search"
             >
               <svg
                 aria-hidden="true"
@@ -4408,6 +4467,7 @@ Array [
             </button>
             <button
               className="c15 c14"
+              value="Search"
             >
               <svg
                 aria-hidden="true"
