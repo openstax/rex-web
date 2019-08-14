@@ -183,7 +183,7 @@ class Content(Page):
 
         @property
         def toc(self):
-            return TableOfContents(self)
+            return TableOfContents(self.page)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')

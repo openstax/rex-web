@@ -13,7 +13,7 @@ class TableOfContents(Region):
     @property
     def sections(self):
         return [
-            self.ContentPage(self, section_link)
+            self.ContentPage(self.page, section_link)
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
