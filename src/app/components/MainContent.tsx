@@ -1,5 +1,6 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import styled from 'styled-components/macro';
 import { Consumer, MAIN_CONTENT_ID } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
 
@@ -9,14 +10,24 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const MainContent = React.forwardRef<HTMLDivElement, Props>(({children, ...props}, ref) => <Consumer>
+const HideOutline = styled.div`
+  outline: none;
+`;
+
+// tslint:disable-next-line:variable-name
+const MainContent = React.forwardRef<HTMLDivElement, Props>(({children, className, ...props}, ref) => <Consumer>
   {({registerMainContent}) => <div
-    id={MAIN_CONTENT_ID}
     ref={mergeRefs(ref, registerMainContent)}
-    tabIndex={-1}
-    {...props}
+    className={className}
+    tabIndex={0}
   >
-    {children}
+    <HideOutline
+      id={MAIN_CONTENT_ID}
+      tabIndex={-1}
+      {...props}
+    >
+      {children}
+    </HideOutline>
   </div>}
 </Consumer>);
 

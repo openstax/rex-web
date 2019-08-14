@@ -90,9 +90,12 @@ def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, boo
     toolbar.click_toc_toggle_button()
 
     # THEN: The links in the content should be disabled
-    content.assert_element_not_interactable(content.next_link)
-    content.assert_element_not_interactable(content.previous_link)
-    content.assert_element_not_interactable(attribution.attribution_link)
+    if content.next_link_is_displayed:
+        assert content.element_is_not_interactable(content.next_link)
+    if content.previous_link_is_displayed:
+        assert content.element_is_not_interactable(content.previous_link)
+
+    assert content.element_is_not_interactable(attribution.attribution_link)
 
     # AND scrolling over content overlay should do nothing
     with pytest.raises(Exception) as exc_info:
@@ -110,7 +113,7 @@ def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, boo
 
 
 @markers.test_case("C476819")
-@markers.parametrize("page_slug", ["index"])
+@markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @markers.mobile_only
 def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug, page_slug):
@@ -127,7 +130,7 @@ def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug
     # WHEN: The page in the ToC is clicked
     # THEN: The page loads and the ToC is automatically closed
 
-    section = toc.sections[0]
+    section = toc.sections[-1]
     section.click()
 
     assert not sidebar.is_displayed

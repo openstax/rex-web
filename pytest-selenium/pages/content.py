@@ -9,7 +9,6 @@ import random
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
-from utils.utility import WaitForTitleChange
 
 
 class Content(Page):
@@ -35,6 +34,20 @@ class Content(Page):
     @property
     def next_link(self):
         return self.find_element(*self._next_locator)
+
+    @property
+    def previous_link_is_displayed(self):
+        try:
+            return self.previous_link.is_displayed()
+        except NoSuchElementException:
+            return False
+
+    @property
+    def next_link_is_displayed(self):
+        try:
+            return self.next_link.is_displayed()
+        except NoSuchElementException:
+            return False
 
     @property
     def navbar(self):
