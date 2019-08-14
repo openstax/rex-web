@@ -8,7 +8,7 @@ import * as selectSearch from '../../selectors';
 import { SearchResultContainer } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
-interface SearchResultsSidebarProps {
+interface Props {
   currentPage: Page | undefined;
   book?: Book;
   query: string | null;
@@ -19,11 +19,31 @@ interface SearchResultsSidebarProps {
   closeSearchResults: () => void;
 }
 
-export class SearchResultsSidebar extends Component<SearchResultsSidebarProps> {
-  public render() {
-    const {query} = this.props;
+interface State {
+  closed: boolean;
+  results: SearchResultContainer[] | null;
+  query: string | null;
+  totalHits: number | null;
+}
 
-    return query && <SearchResultsBarWrapper {...this.props} />;
+export class SearchResultsSidebar extends Component<Props, State> {
+  public state = {
+    closed: true,
+    query: null,
+    results: null,
+    totalHits: null,
+  };
+
+  public componentWillReceiveProps(newProps: Props) {
+    if (this.state.results && !newProps.results) {
+      this.setState({closed: true});
+    } else {
+      this.setState({...newProps, closed: !newProps.query});
+    }
+  }
+
+  public render() {
+    return <SearchResultsBarWrapper {...this.props} {...this.state} />;
   }
 }
 
