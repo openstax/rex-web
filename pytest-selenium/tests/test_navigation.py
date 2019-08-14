@@ -4,7 +4,7 @@ from tests import markers
 
 
 @markers.test_case("C477321")
-@markers.parametrize("page_slug", [("index")])
+@markers.parametrize("page_slug", [("previous")])
 @markers.nondestructive
 def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_slug):
 

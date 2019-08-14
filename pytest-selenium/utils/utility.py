@@ -1,6 +1,3 @@
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.remote.webelement import WebElement
-
 import random
 
 
