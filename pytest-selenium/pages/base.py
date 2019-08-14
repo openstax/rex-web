@@ -3,6 +3,7 @@ from tests.conftest import DESKTOP, MOBILE
 import pytest
 import pypom
 
+from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -43,12 +44,13 @@ class Page(pypom.Page):
         self.wait.until(lambda _: region.is_displayed)
         return self
 
-    def assert_element_not_interactable(self, element):
-        with pytest.raises(Exception) as exc_info:
+    def element_is_not_interactable(self, element):
+        try:
             element.send_keys(Keys.ENTER)
+        except ElementNotInteractableException:
+            return True
 
-        exception_raised = exc_info.type
-        assert "ElementNotInteractableException" in str(exception_raised)
+        return False
 
     def width(self, element):
         return (

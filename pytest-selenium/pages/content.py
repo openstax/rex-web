@@ -39,20 +39,16 @@ class Content(Page, WaitForTitleChange):
     @property
     def previous_link_is_displayed(self):
         try:
-            assert self.previous_link.is_displayed()
+            return self.previous_link.is_displayed()
         except NoSuchElementException:
             return False
-        else:
-            return True
 
     @property
     def next_link_is_displayed(self):
         try:
-            assert self.next_link.is_displayed()
+            return self.next_link.is_displayed()
         except NoSuchElementException:
             return False
-        else:
-            return True
 
     @property
     def navbar(self):
