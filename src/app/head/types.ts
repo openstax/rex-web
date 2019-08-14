@@ -5,5 +5,5 @@ export interface Link {rel: 'canonical'; href: string; }
 export interface State {
   title: string;
   meta: Meta[];
-  link: Link[];
+  links: Link[];
 }

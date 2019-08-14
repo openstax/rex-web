@@ -9,14 +9,14 @@ describe('localState', () => {
   });
 });
 
-describe('link', () => {
+describe('links', () => {
   it('returns link', () => {
     const rootState = {head: {
       ...initialState,
-      link: ['one', 'two'],
+      links: ['one', 'two'],
     }} as any as AppState;
 
-    expect(selectors.link(rootState)).toEqual(['one', 'two']);
+    expect(selectors.links(rootState)).toEqual(['one', 'two']);
   });
 });
 

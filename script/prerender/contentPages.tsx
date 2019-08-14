@@ -91,7 +91,7 @@ const renderHtml: RenderHtml = (styles, app, state) => {
       </StyleSheetManager>
     ),
     fonts: app.services.fontCollector.fonts,
-    link: headSelectors.link(state),
+    links: headSelectors.links(state),
     meta: headSelectors.meta(state),
     modules,
     state,
@@ -192,12 +192,12 @@ interface Options {
   styles: ServerStyleSheet;
   fonts: FontCollector['fonts'];
   meta: Meta[];
-  link: Link[];
+  links: Link[];
   state: AppState;
   modules: string[];
   title: string;
 }
-function injectHTML(html: string, {body, styles, state, fonts, meta, link, modules, title}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta, links, modules, title}: Options) {
 
   const assetManifest = JSON.parse(readAssetFile('asset-manifest.json'));
 
@@ -238,7 +238,7 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, link, modul
     meta.map(
       (tag) => `<meta ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
     ) +
-    link.map(
+    links.map(
       (tag) => `<link ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
     ) +
     styles.getStyleTags() +

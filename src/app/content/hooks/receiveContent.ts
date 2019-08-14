@@ -31,11 +31,12 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
 
   const canonical = assertDefined(
     await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId),
-    'should have found a canonical book and page');
+    'should have found a canonical book and page'
+  );
   const canonicalUrl = contentRoute.getUrl(canonical);
 
   dispatch(setHead({
-    link: [
+    links: [
       {rel: 'canonical', href: canonicalUrl},
     ],
     meta: [
