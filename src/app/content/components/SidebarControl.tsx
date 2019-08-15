@@ -21,7 +21,6 @@ interface MiddleProps {
   isOpen: State['tocOpen'];
   openToc: () => void;
   closeToc: () => void;
-  clearSearch: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -76,7 +75,6 @@ const connector = connect(
     isOpen:  selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    clearSearch: () => dispatch(actions.search.clearSearch()),
     closeToc:  () => dispatch(actions.closeToc()),
     openToc: () => dispatch(actions.openToc()),
   })
