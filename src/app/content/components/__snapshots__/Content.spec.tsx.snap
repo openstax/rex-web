@@ -348,8 +348,12 @@ Array [
   border: none;
   outline: none;
   width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+}
+
+.c20::-webkit-search-decoration,
+.c20::-webkit-search-cancel-button,
+.c20::-webkit-search-results-button,
+.c20::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -2251,6 +2255,7 @@ li[aria-label="Current Page"] .c46 {
           </div>
           <svg
             className="c34"
+            data-testid="loader"
             id="Layer_1"
             version="1.1"
             viewBox="0 0 57.6 39.1"
@@ -3720,8 +3725,12 @@ Array [
   border: none;
   outline: none;
   width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+}
+
+.c12::-webkit-search-decoration,
+.c12::-webkit-search-cancel-button,
+.c12::-webkit-search-results-button,
+.c12::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -5019,6 +5028,7 @@ Array [
           </div>
           <svg
             className="c26"
+            data-testid="loader"
             id="Layer_1"
             version="1.1"
             viewBox="0 0 57.6 39.1"

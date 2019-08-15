@@ -127,6 +127,7 @@ const LoadingIcon = styled.svg`
 
 export default () => (
   <LoadingIcon
+    data-testid='loader'
     version='1.1'
     id='Layer_1'
     x='0px'

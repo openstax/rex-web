@@ -6,7 +6,7 @@ import SearchResultsSidebar from '.';
 import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
-import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, renderToDom } from '../../../../../test/reactutils';
+import { makeEvent, makeFindByTestId, renderToDom } from '../../../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../../../test/searchResults';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
@@ -42,19 +42,19 @@ describe('SearchResultsSidebar', () => {
     expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
-  it('doesn\'t render if there is no search', () => {
+  it('is closed when there is no search', () => {
     const component = renderer.create(render());
-    const findOrNull = makeFindOrNullByTestId(component.root);
+    const findById = makeFindByTestId(component.root);
 
-    expect(findOrNull('search-results-sidebar')).toBe(null);
+    expect(findById('search-results-sidebar').props.closed).toBe(true);
   });
 
   it('shows sidebar with loading state if there is a search', () => {
     store.dispatch(requestSearch('cool search'));
     const component = renderer.create(render());
-    const findOrNull = makeFindOrNullByTestId(component.root);
+    const findById = makeFindByTestId(component.root);
 
-    expect(findOrNull('search-results-sidebar')).not.toBe(null);
+    expect(() => findById('loader')).not.toThrow();
     expect(component.toJSON()).toMatchSnapshot();
   });
 

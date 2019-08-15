@@ -27,12 +27,23 @@ interface State {
 }
 
 export class SearchResultsSidebar extends Component<Props, State> {
-  public state = {
+  public state: State = {
     closed: true,
     query: null,
     results: null,
     totalHits: null,
   };
+
+  public constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      closed: this.state.closed,
+      query: props.query,
+      results: props.results,
+      totalHits: props.totalHits,
+    };
+  }
 
   public componentWillReceiveProps(newProps: Props) {
     if (this.state.results && !newProps.results) {
