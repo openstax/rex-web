@@ -44,16 +44,19 @@ export const toolbarIconStyles = css`
   padding: 0.4rem;
 `;
 
+const hideSearchChrome = css`
+  ::-webkit-search-decoration,
+  ::-webkit-search-cancel-button,
+  ::-webkit-search-results-button,
+  ::-webkit-search-results-decoration {
+    appearance: none;
+  }
+`;
+
 const closeIconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
   color: #cdcdcd;
-`;
-
-const hideSearchChrome = css`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 `;
 
 const barPadding = css`
@@ -179,14 +182,13 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   />}
 </FormattedMessage>)`
   ${labelStyle}
+  ${hideSearchChrome}
   line-height: 2;
   margin: 0 1rem 0 1rem;
   height: ${toolbarSearchInputDesktopHeight}rem;
   border: none;
   outline: none;
   width: 100%;
-
-  ${hideSearchChrome}
 
   ::placeholder {
     ${labelStyle}
