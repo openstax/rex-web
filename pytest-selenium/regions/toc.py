@@ -1,14 +1,11 @@
 from selenium.webdriver.common.by import By
 
-from pages import content
-from pages.base import Page
 from regions.base import Region
 
 
 class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
-
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     @property
@@ -18,7 +15,7 @@ class TableOfContents(Region):
     @property
     def sections(self):
         return [
-            self.ContentPage(self, section_link)
+            self.ContentPage(self.page, section_link)
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
@@ -34,10 +31,7 @@ class TableOfContents(Region):
         _is_active_locator = (By.XPATH, "./..")
 
         def click(self):
-            print(
-                f"Page {self}\nParent {self.page}\nGrandparent{self.page.page}\nGreat {self.page.page.page}"
-            )
-            self.page.page.click_and_wait_for_load(self.root)
+            self.page.click_and_wait_for_load(self.root)
 
         @property
         def section_title(self):
