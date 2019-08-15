@@ -3,6 +3,8 @@ from tests.conftest import DESKTOP, MOBILE
 import pytest
 import pypom
 
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -43,12 +45,23 @@ class Page(pypom.Page):
         self.wait.until(lambda _: region.is_displayed)
         return self
 
-    def assert_element_not_interactable(self, element):
-        with pytest.raises(Exception) as exc_info:
-            element.send_keys(Keys.ENTER)
+    def click_and_wait_for_load(self, element: WebElement):
+        """Clicks an offscreen element and waits for title to load.
 
-        exception_raised = exc_info.type
-        assert "ElementNotInteractableException" in str(exception_raised)
+        Clicks the given element, even if it is offscreen, by sending the ENTER key.
+        Returns after loading the last element (title) of the page).
+        """
+        title_before_click = self.page_title
+        element.send_keys(Keys.ENTER)
+        return self.wait.until(lambda _: title_before_click != (self.page_title))
+
+    def element_is_not_interactable(self, element):
+        try:
+            element.send_keys(Keys.ENTER)
+        except ElementNotInteractableException:
+            return True
+
+        return False
 
     def width(self, element):
         return (

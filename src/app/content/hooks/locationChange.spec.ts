@@ -143,17 +143,19 @@ describe('locationChange', () => {
     archiveLoader.mockPage(book, {
       content: 'rando content',
       id: 'rando-page-id',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'rando-page-shortid',
       title: 'rando page',
       version: '0',
-    });
+    }, 'rando-page');
     archiveLoader.mockPage(book, {
       content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
-    });
+    }, 'qwerqewrqwer');
 
     payload.match.params.page = 'qwerqewrqwer';
 
@@ -219,6 +221,7 @@ describe('locationChange', () => {
         contents: [],
         id: 'newbookid@0',
         shortId: 'newbookshortid@0',
+        slug: 'newbook',
         title: 'newbook',
       },
       version: '0',
@@ -226,6 +229,7 @@ describe('locationChange', () => {
     const mockPageInOtherBook = {
       content: 'dope content bruh',
       id: 'newbookpageid',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'newbookpageshortid',
       title: 'page in a new book',
       version: '0',
@@ -242,16 +246,17 @@ describe('locationChange', () => {
 
     beforeEach(() => {
       archiveLoader.mockBook(mockOtherBook);
-      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook);
+      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
       mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
 
       archiveLoader.mockPage(book, {
         content: 'some <a href="/contents/newbookpageid"></a> content',
         id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
         shortId: 'pageshortid',
         title: 'page referencing different book',
         version: '0',
-      });
+      }, 'page-referencing-different-book');
 
       payload.match.params.page = 'page referencing different book';
 
@@ -312,6 +317,7 @@ describe('locationChange', () => {
           contents: [],
           id: 'garbagebookid@0',
           shortId: 'garbagebookshortid@0',
+          slug: 'garbage-book',
           title: 'garbage book',
         },
         version: '0',

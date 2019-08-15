@@ -78,7 +78,7 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
       `,
-    });
+    }, 'unused?1');
 
     state.content.references = [
       {
@@ -447,6 +447,7 @@ describe('Page', () => {
       content: 'some other content',
       id: 'adsfasdf',
       references: [],
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -463,13 +464,14 @@ describe('Page', () => {
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
 
     state.navigation.hash = '#somehash';
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused3');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -520,6 +522,7 @@ describe('Page', () => {
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -528,7 +531,7 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     state.content.page = someHashPage;
 
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused?2');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -556,13 +559,14 @@ describe('Page', () => {
     const someHashPage = {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
 
     state.navigation.hash = '#somehash';
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused?3');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -621,6 +625,7 @@ describe('Page', () => {
     const tablePage = {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -628,7 +633,7 @@ describe('Page', () => {
 
     state.content.page = tablePage;
 
-    archiveLoader.mockPage(book, tablePage);
+    archiveLoader.mockPage(book, tablePage, 'unused?4');
 
     const {root} = renderToDom(
       <Provider store={store}>

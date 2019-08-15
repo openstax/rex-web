@@ -9,10 +9,9 @@ import random
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
-from utils.utility import WaitForTitleChange
 
 
-class Content(Page, WaitForTitleChange):
+class Content(Page):
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
     _body_locator = (By.TAG_NAME, "body")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
@@ -37,6 +36,20 @@ class Content(Page, WaitForTitleChange):
         return self.find_element(*self._next_locator)
 
     @property
+    def previous_link_is_displayed(self):
+        try:
+            return self.previous_link.is_displayed()
+        except NoSuchElementException:
+            return False
+
+    @property
+    def next_link_is_displayed(self):
+        try:
+            return self.next_link.is_displayed()
+        except NoSuchElementException:
+            return False
+
+    @property
     def navbar(self):
         return self.NavBar(self)
 
@@ -55,10 +68,6 @@ class Content(Page, WaitForTitleChange):
     @property
     def attribution(self):
         return self.Attribution(self)
-
-    @property
-    def section_url_within_attribution(self):
-        return self.find_element(*self._section_url_locator)
 
     @property
     def sidebar_width_offset(self):
@@ -131,7 +140,7 @@ class Content(Page, WaitForTitleChange):
 
         @property
         def book_title(self):
-            return self.find_element(*self._book_title_locator).text
+            return self.find_element(*self._book_title_locator)
 
         @property
         def chapter_title(self):
@@ -170,7 +179,7 @@ class Content(Page, WaitForTitleChange):
 
         @property
         def toc(self):
-            return TableOfContents(self)
+            return TableOfContents(self.page)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
