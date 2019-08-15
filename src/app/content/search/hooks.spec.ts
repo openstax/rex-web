@@ -5,7 +5,7 @@ import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { push, replace } from '../../navigation/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
@@ -163,8 +163,8 @@ describe('hooks', () => {
     let hook: ReturnType<typeof receiveSearchHook>;
     const hit = makeSearchResultHit({book, page});
 
-    const go = (hits: SearchResultHit[] = []) =>
-      hook(receiveSearchResults(makeSearchResults(hits)));
+    const go = (hits: SearchResultHit[] = [], meta?: ArgumentTypes<typeof receiveSearchResults>[1]) =>
+      hook(receiveSearchResults(makeSearchResults(hits), meta));
 
     beforeEach(() => {
       hook = receiveSearchHook(helpers);
@@ -188,6 +188,14 @@ describe('hooks', () => {
 
     it('noops if there is no book or page selected', () => {
       go([hit]);
+      expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('noops if you pass the skipNavigation flag', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...shortPage, references: []}));
+      store.dispatch(requestSearch('asdf'));
+      go([hit], {skipNavigation: true});
       expect(dispatch).not.toHaveBeenCalled();
     });
 

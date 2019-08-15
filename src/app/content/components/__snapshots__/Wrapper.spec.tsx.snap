@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wrapper matches snapshot 1`] = `
+.c0 {
+  width: 100%;
+  padding: 0 3.2rem;
+  position: relative;
+  overflow: visible;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`wrapper matches snapshot with search open 1`] = `
+.c0 {
+  width: 100%;
+  padding: 0 3.2rem;
+  position: relative;
+  overflow: visible;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;

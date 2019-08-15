@@ -7,7 +7,7 @@ import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } f
 import { makeSearchResults } from '../../../test/searchResults';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { assertWindow } from '../../utils';
+import { assertDocument, assertWindow } from '../../utils';
 import {
   closeSearchResultsMobile,
   openSearchResultsMobile,
@@ -94,6 +94,28 @@ describe('search', () => {
       store.dispatch(requestSearch('cool search'));
     });
     expect(findById('desktop-search-input').props.value).toEqual('cool search');
+  });
+
+  it('tries to blur the focused element on submit', () => {
+    const component = render();
+    const document = assertDocument();
+    const findById = makeFindByTestId(component.root);
+
+    const inputEvent = makeInputEvent('cool search');
+    findById('desktop-search-input').props.onChange(inputEvent);
+
+    const htmlelement = document.createElement('div');
+    Object.defineProperty(document, 'activeElement', {value: htmlelement, writable: true});
+    const blur1 = jest.spyOn(htmlelement, 'blur');
+    renderer.act(() => findById('desktop-search').props.onSubmit(makeEvent()));
+    expect(blur1).toHaveBeenCalled();
+
+    // test non HTMLElement branch
+    const svgelement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    Object.defineProperty(document, 'activeElement', {value: svgelement});
+    const blur2 = jest.spyOn(svgelement, 'blur');
+    renderer.act(() => findById('desktop-search').props.onSubmit(makeEvent()));
+    expect(blur2).not.toHaveBeenCalled();
   });
 
   it('search and clear work on desktop', () => {
