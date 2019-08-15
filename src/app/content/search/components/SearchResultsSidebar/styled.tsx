@@ -1,4 +1,3 @@
-
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
@@ -209,7 +208,7 @@ export const CloseIconButton = styled.button`
   overflow: hidden;
   ${theme.breakpoints.mobile(css`
     display: none;
-  `)};
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -219,7 +218,7 @@ export const CloseIconWrapper = styled.div`
   margin: 1.4rem 1.4rem 0 0;
   ${theme.breakpoints.mobile(css`
     display: none;
-  `)};
+  `)}
 
   ${CloseIconButton} {
     margin: 0;
