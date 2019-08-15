@@ -50,6 +50,12 @@ const closeIconStyles = css`
   color: #cdcdcd;
 `;
 
+const hideSearchChrome = css`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+`;
+
 const barPadding = css`
   max-width: ${maxNavWidth}rem;
   margin: 0 auto;
@@ -141,12 +147,12 @@ const SearchInputWrapper = styled.form`
 
   &:focus-within {
     border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-    box-shadow: 0 0 4px 0 rgba(13, 192, 220, .5);
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
   }
 
   &.ally-focus-within {
     border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-    box-shadow: 0 0 4px 0 rgba(13, 192, 220, .5);
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
   }
 
   ${theme.breakpoints.mobile(css`
@@ -163,15 +169,6 @@ const SearchInputWrapper = styled.form`
       }
     `}
   `)}
-`;
-
-const hideSearchChrome = css`
-  ::-webkit-search-decoration,
-  ::-webkit-search-cancel-button,
-  ::-webkit-search-results-button,
-  ::-webkit-search-results-decoration {
-    -webkit-appearance: none;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -373,7 +370,8 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
         <OpenSidebarControl />
         <SearchPrintWrapper>
           <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
-            <SearchInput desktop type='search' data-testid='desktop-search-input' onChange={onChange} value={this.state.query} />
+            <SearchInput desktop type='search' data-testid='desktop-search-input'
+              onChange={onChange} value={this.state.query} />
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
                 {(val) => <SearchButton mobile
@@ -416,7 +414,8 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
             </FormattedMessage>
           }
           <SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
-            <SearchInput mobile type='search' data-testid='mobile-search-input' onChange={onChange} value={this.state.query} />
+            <SearchInput mobile type='search' data-testid='mobile-search-input'
+              onChange={onChange} value={this.state.query} />
             {this.state.query && <CloseButton type='button' onClick={onClear} data-testid='mobile-clear-search' />}
           </SearchInputWrapper>
         </MobileSearchContainer>

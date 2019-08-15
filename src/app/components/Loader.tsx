@@ -89,31 +89,36 @@ const LoadingIcon = styled.svg`
   }
 
   .os-green {
-    animation: ${moveGreen} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
+    animation:
+      ${moveGreen} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
       infinite alternate;
     transform-origin: center left;
   }
 
   .os-orange {
-    animation: ${moveOrange} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
+    animation:
+      ${moveOrange} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
       infinite alternate;
     transform-origin: center right;
   }
 
   .os-gray {
-    animation: ${moveGray} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
+    animation:
+      ${moveGray} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
       infinite alternate;
     transform-origin: center right;
   }
 
   .os-yellow {
-    animation: ${moveYellow} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.6s
+    animation:
+      ${moveYellow} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.6s
       infinite alternate;
     transform-origin: center right;
   }
 
   .os-blue {
-    animation: ${moveBlue} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
+    animation:
+      ${moveBlue} 0.6s cubic-bezier(0.81, 0.41, 0.13, 0.74) 0.5s
       infinite alternate;
     transform-origin: center;
   }

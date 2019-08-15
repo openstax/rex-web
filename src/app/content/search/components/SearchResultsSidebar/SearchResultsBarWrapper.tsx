@@ -59,7 +59,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </FormattedMessage>
   </Styled.SearchQueryWrapper>;
 
-  public noResults = () => <Styled.NoResultsWrapper>
+  public noResults = () => <div>
     <Styled.CloseIconWrapper>
       <Styled.CloseIconButton onClick={this.props.onClose}>
         <Styled.CloseIcon />
@@ -74,7 +74,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </Styled.SearchQuery>
       )}
     </FormattedMessage>
-  </Styled.NoResultsWrapper>;
+  </div>;
 
   public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
     <SearchResultContainers

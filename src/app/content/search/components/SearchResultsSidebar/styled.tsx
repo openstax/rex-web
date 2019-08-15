@@ -64,7 +64,7 @@ export const SearchResultsBar = styled.div`
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${searchResultsBarVariables.backgroundColor};
-  box-shadow: 0.2rem 0rem 0.2rem 0rem rgba(0,0,0,0.1);
+  box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(css`
@@ -101,10 +101,6 @@ export const SearchResultsBar = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const NoResultsWrapper = styled.div`
-`;
-
-// tslint:disable-next-line:variable-name
 export const SearchQuery = styled.div`
   ${textRegularStyle}
   display: flex;
@@ -136,6 +132,7 @@ export const SearchBarSummary = styled(Summary)`
   background: ${searchResultsBarVariables.backgroundColor};
   border-top: solid 0.1rem ${theme.searchSidebar.border};
   padding: 1rem 0 1rem ${searchResultsBarVariables.mainPaddingDesktop}rem;
+
   ${SummaryTitle} {
     font-weight: bold;
     padding-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
@@ -204,9 +201,9 @@ export const SearchQueryAlignment = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const CloseIconButton = styled.button`
+  ${toolbarIconStyles}
   border: none;
   margin: 0;
-  ${toolbarIconStyles}
   background: transparent;
   margin-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
   overflow: hidden;
@@ -220,13 +217,13 @@ export const CloseIconWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 1.4rem 1.4rem 0 0;
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)};
 
   ${CloseIconButton} {
     margin: 0;
   }
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -235,7 +232,6 @@ export const LoadingWrapper = styled.div`
   right: 0;
   top: 0;
   position: absolute;
-  transition: opacity 0.2s;
   width: 100%;
   height: 100%;
   background-color: ${searchResultsBarVariables.backgroundColor};
