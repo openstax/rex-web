@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
+import { assertDefined } from '../../../../utils';
 import { Book, Page } from '../../../types';
 import {
   scrollSidebarSectionIntoView,
@@ -127,10 +128,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
     const activeSection = this.activeSection.current;
     if (activeSection) {
-      const firstResult = activeSection.querySelector('a');
-      if (firstResult) {
-        firstResult.focus();
-      }
+      const firstResult = assertDefined(activeSection.querySelector('a'),
+        'there should always be at least one result if there is an active section'
+      );
+      firstResult.focus();
     }
 
   }

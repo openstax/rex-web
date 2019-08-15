@@ -38,7 +38,7 @@ export const SearchResultContainers = ({containers, ...props}: SearchResultConta
           closeSearchResults={props.closeSearchResults}
           activeSectionRef={props.activeSectionRef}
           key={node.id}
-        ></SearchResult>
+        />
       )
     )}
   </React.Fragment>
