@@ -110,10 +110,12 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
 `);
 
 // tslint:disable-next-line:variable-name
-const OutterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  overflow: visible;
+const OuterWrapper = styled.div`
+  @media screen {
+    display: flex;
+    flex-direction: row;
+    overflow: visible;
+  }
 `;
 
 /*
@@ -165,7 +167,7 @@ const Content: React.SFC = () => <Layout>
   <Background>
     <BookBanner/>
     <Toolbar />
-    <OutterWrapper>
+    <OuterWrapper>
       <SearchResultsSidebar/>
       <Wrapper>
         <CenteredContentRow>
@@ -185,7 +187,7 @@ const Content: React.SFC = () => <Layout>
           </ContentPane>
         </CenteredContentRow>
       </Wrapper>
-    </OutterWrapper>
+    </OuterWrapper>
   </Background>
 </Layout>;
 

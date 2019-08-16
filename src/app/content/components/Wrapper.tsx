@@ -12,7 +12,11 @@ interface WrapperProps { searchResultsOpen: boolean; }
 export const Wrapper = styled(LayoutBody)`
   position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */
-  flex: 1;
+
+  @media screen {
+    flex: 1;
+  }
+
   ${(props: WrapperProps) => props.searchResultsOpen && theme.breakpoints.mobile(css`
     display: none;
   `)}

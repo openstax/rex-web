@@ -59,7 +59,7 @@ const animateIn = keyframes`
   }
 
   to {
-    opacity: 1:
+    opacity: 1;
     transform: translateX(0);
   }
 `;
