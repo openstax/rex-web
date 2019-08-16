@@ -19,6 +19,8 @@ import ContentLinkComponent from '../../../components/ContentLink';
 import { Summary, SummaryTitle } from '../../../components/Sidebar/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
 
+const borderColor = '#d5d5d5';
+const backgroundColor = '#f1f1f1';
 const headerHeight = 4;
 
 // tslint:disable-next-line:variable-name
@@ -66,7 +68,7 @@ export const SearchResultsBar = styled.div`
   padding: 0;
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
-  background-color: ${theme.searchSidebar.background};
+  background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
@@ -131,8 +133,8 @@ export const SearchBarSummary = styled(Summary)`
   min-height: 3.8rem;
   display: flex;
   align-items: center;
-  background: ${theme.searchSidebar.background};
-  border-top: solid 0.1rem ${theme.searchSidebar.border};
+  background: ${backgroundColor};
+  border-top: solid 0.1rem ${borderColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
 
   ${SummaryTitle} {
@@ -172,7 +174,7 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
   line-height: 1.3;
 
   :not(:last-child) {
-    border-bottom: solid 0.1rem ${theme.searchSidebar.background};
+    border-bottom: solid 0.1rem ${backgroundColor};
   }
 
   em {
@@ -192,7 +194,7 @@ export const LinkWrapper = styled.div`
   padding-left: 4.3rem;
   padding-top: 1.2rem;
   padding-bottom: 0.8rem;
-  border-top: solid 0.2rem ${theme.searchSidebar.background};
+  border-top: solid 0.2rem ${backgroundColor};
   ${theme.breakpoints.mobile(css`
     padding-left: 3.3rem;
   `)}
@@ -255,7 +257,7 @@ export const LoadingWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: ${theme.searchSidebar.background};
+  background-color: ${backgroundColor};
   transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
 `;
 
