@@ -28,10 +28,6 @@ let config = {
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   REACT_APP_ENVIRONMENT_URL: '/rex/environment.json',
   BOOKS: process.env.REACT_APP_BOOKS || require('./config.books'),
-  FEATURES_NOTIFICATION: (
-    process.env.REACT_APP_FEATURES_NOTIFICATION === 'true' ||
-    process.env.REACT_APP_FEATURES_NOTIFICATION === true
-  ),
 };
 
 if (process.env.REACT_APP_ENV === 'production') {

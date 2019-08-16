@@ -20,7 +20,6 @@ interface Config {
 
   PORT: number;
   DEBUG: boolean;
-  FEATURES_NOTIFICATION: boolean;
 }
 
 declare const config: Config;

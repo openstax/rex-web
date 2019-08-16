@@ -11,7 +11,6 @@ module.exports = {
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
   FIXTURES: false,
   DEBUG: true,
-  FEATURES_NOTIFICATION: true,
 
   PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 8000,
 };
