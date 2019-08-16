@@ -1,5 +1,6 @@
 import React, { SFC } from 'react';
 import styled, { css } from 'styled-components/macro';
+import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
 import NavBar from './NavBar';
@@ -9,7 +10,9 @@ import SkipToContentWrapper from './SkipToContentWrapper';
 const Layout: SFC = ({ children }) => <SkipToContentWrapper>
   <NavBar />
   <ErrorModal />
-  {children}
+  <ErrorBoundary>
+    {children}
+  </ErrorBoundary>
 </SkipToContentWrapper>;
 
 export const wrapperPadding = css`

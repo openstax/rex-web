@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import { ExclamationTriangle } from 'styled-icons/fa-solid/ExclamationTriangle';
 import { textStyle } from '../../components/Typography/base';
-import theme from '../../theme';
 
 const margin = 3.0;
 
@@ -57,23 +56,13 @@ export const Footer = styled.div`
   justify-content: flex-end;
 `;
 
-// tslint:disable-next-line:variable-name
-const ErrorPanel = styled.div`
-  color: white;
-  padding: 1rem;
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  background-color: ${theme.color.secondary.lightGray.base};
-`;
-
 interface Props {
-  error: Error;
   className?: string;
   footer?: JSX.Element;
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorCard = ({error, className, footer}: Props) => <Card className={className}>
+const ErrorCard = ({className, footer}: Props) => <Card className={className}>
   <Header>
     <FormattedMessage id='i18n:error:boundary:heading'>
       {(message) => (
@@ -87,9 +76,6 @@ const ErrorCard = ({error, className, footer}: Props) => <Card className={classN
     <FormattedMessage id='i18n:error:boundary:body'>
       {(body) => (<div>{body}</div>)}
     </FormattedMessage>
-    <ErrorPanel>
-      {error.toString()}
-    </ErrorPanel>
     <FormattedMessage id='i18n:error:boundary:action'>
       {(action) => (<p>{action}</p>)}
     </FormattedMessage>

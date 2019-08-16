@@ -51,7 +51,6 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
     <Modal className='error-modal'>
       <CardWrapper>
         <ErrorCard
-          error={error}
           footer={
             <Footer>
               <Button

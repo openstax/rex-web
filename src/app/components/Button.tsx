@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import theme, { ColorSet } from '../theme';
 import { contentFont } from './Typography';
 
@@ -23,6 +23,7 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   font-family: ${contentFont};
   border-radius: 0.2rem;
   ${(props) => props.size === 'large' && `
@@ -64,6 +65,10 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
 // tslint:disable-next-line:variable-name
 export const ButtonGroup = styled.div`
   display: grid;
+  ${(props: {expand: boolean}) => props.expand === false && css`
+    grid-auto-columns: min-content;
+  `}
+  grid-auto-flow: column;
   grid-gap: 1rem;
 `;
 
