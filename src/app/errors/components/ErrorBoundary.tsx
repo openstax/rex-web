@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
 import ErrorCard from './ErrorCard';
 
@@ -11,11 +11,8 @@ interface State {
   error?: Error;
 }
 
-// the styled-componts typing currently has errors with
-// styled(ErrorCard) otherwise we'd use that, couldn't figure out
-// the magic typecasting to allow it
 // tslint:disable-next-line:variable-name
-const ErrorWrapper = styled.div`
+const ErrorWrapper = styled(ErrorCard)`
   margin: 2rem auto;
 `;
 
@@ -31,9 +28,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   public render() {
     if (this.state.error) {
       return (
-        <ErrorWrapper>
-          <ErrorCard error={this.state.error as any as Error} />
-        </ErrorWrapper>
+        <ErrorWrapper error={this.state.error as any as Error} />
       );
     }
     return this.props.children;

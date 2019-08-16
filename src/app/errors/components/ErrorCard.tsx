@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { ExclamationTriangle } from 'styled-icons/fa-solid/ExclamationTriangle';
 import { textStyle } from '../../components/Typography/base';
 import theme from '../../theme';
@@ -73,35 +73,28 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorCard: React.SFC<Props> = ({
-  error, className, footer,
-}) => {
-
-  return (
-    <Card className={className}>
-      <Header>
-        <FormattedMessage id='i18n:error:boundary:heading'>
-          {(message) => (
-            <Heading>
-              <ExclamationTriangle height='45px' color='red' /> {message}
-            </Heading>
-          )}
-        </FormattedMessage>
-      </Header>
-      <Body>
-        <FormattedMessage id='i18n:error:boundary:body'>
-          {(body) => (<div>{body}</div>)}
-        </FormattedMessage>
-        <ErrorPanel>
-          {error.toString()}
-        </ErrorPanel>
-        <FormattedMessage id='i18n:error:boundary:action'>
-          {(action) => (<p>{action}</p>)}
-        </FormattedMessage>
-      </Body>
-      {footer}
-    </Card>
-  );
-};
+const ErrorCard = ({error, className, footer}: Props) => <Card className={className}>
+  <Header>
+    <FormattedMessage id='i18n:error:boundary:heading'>
+      {(message) => (
+        <Heading>
+          <ExclamationTriangle height='45px' color='red' /> {message}
+        </Heading>
+      )}
+    </FormattedMessage>
+  </Header>
+  <Body>
+    <FormattedMessage id='i18n:error:boundary:body'>
+      {(body) => (<div>{body}</div>)}
+    </FormattedMessage>
+    <ErrorPanel>
+      {error.toString()}
+    </ErrorPanel>
+    <FormattedMessage id='i18n:error:boundary:action'>
+      {(action) => (<p>{action}</p>)}
+    </FormattedMessage>
+  </Body>
+  {footer}
+</Card>;
 
 export default ErrorCard;
