@@ -24,8 +24,8 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c0 > .c7 {
@@ -269,8 +269,8 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c0 > .c9 {
@@ -882,8 +882,8 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c0 > .c7 {

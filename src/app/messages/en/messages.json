@@ -19,6 +19,7 @@
   "i18n:toolbar:search:placeholder": "Search this book",
   "i18n:toolbar:search:toggle": "Search this book",
   "i18n:toolbar:print:text": "Print",
+  "i18n:toolbar:print:aria-label": "print",
   "i18n:prevnext:prev:text": "Previous",
   "i18n:prevnext:next:text": "Next",
   "i18n:prevnext:prev:aria-label": "Previous Page",

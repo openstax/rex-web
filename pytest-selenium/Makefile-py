@@ -47,7 +47,7 @@ test-rail-sauce: venv
 
 test-local: venv
 	@. .venv/bin/activate && pytest \
-		--base-url http://localhost:3000 \
+		--base-url https://localhost:3000 \
 		--driver Chrome \
 		pytest-selenium/tests \
 

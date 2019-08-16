@@ -351,6 +351,9 @@ Array [
   border: none;
   outline: none;
   width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .c20::-webkit-search-decoration,
@@ -790,8 +793,8 @@ li[aria-label="Current Page"] .c46 {
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c28 > .c100 {
@@ -2205,6 +2208,7 @@ li[aria-label="Current Page"] .c46 {
             </button>
           </form>
           <button
+            aria-label="print"
             className="c24"
             data-testid="print"
             onClick={[Function]}
@@ -3755,6 +3759,9 @@ Array [
   border: none;
   outline: none;
   width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .c12::-webkit-search-decoration,
@@ -4017,8 +4024,8 @@ Array [
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c20 > .c75 {
@@ -5005,6 +5012,7 @@ Array [
             </button>
           </form>
           <button
+            aria-label="print"
             className="c16"
             data-testid="print"
             onClick={[Function]}

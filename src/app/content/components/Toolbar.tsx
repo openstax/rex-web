@@ -192,6 +192,7 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   border: none;
   outline: none;
   width: 100%;
+  appearance: textfield;
 
   ::placeholder {
     ${labelStyle}
@@ -396,13 +397,16 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
             }
           </SearchInputWrapper>
           <FormattedMessage id='i18n:toolbar:print:text'>
-            {(msg: Element | string) =>
-              <PrintOptWrapper
-                onClick={() => assertWindow().print()}
-                data-testid='print'
-              >
-                <PrintIcon /><PrintOptions>{msg}</PrintOptions>
-              </PrintOptWrapper>
+            {(msg: Element | string) => <FormattedMessage id='i18n:toolbar:print:aria-label'>
+              {(label: Element | string) =>
+                <PrintOptWrapper
+                  onClick={() => assertWindow().print()}
+                  aria-label={label}
+                  data-testid='print'
+                >
+                  <PrintIcon /><PrintOptions>{msg}</PrintOptions>
+                </PrintOptWrapper>
+              }</FormattedMessage>
             }
           </FormattedMessage>
         </SearchPrintWrapper>
