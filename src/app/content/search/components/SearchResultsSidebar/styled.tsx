@@ -18,6 +18,7 @@ import {
 import ContentLinkComponent from '../../../components/ContentLink';
 import { Summary, SummaryTitle } from '../../../components/Sidebar/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
+import { disablePrint } from '../../../components/utils/disablePrint';
 
 const borderColor = '#d5d5d5';
 const backgroundColor = '#f1f1f1';
@@ -105,6 +106,7 @@ export const SearchResultsBar = styled.div`
   }
 
   animation: ${animateIn} 5s;
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
