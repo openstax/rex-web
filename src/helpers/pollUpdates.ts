@@ -1,4 +1,5 @@
 import { updateAvailable, appMessage } from '../app/notifications/actions';
+import { Messages } from '../app/notifications/types'
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import { APP_ENV, RELEASE_ID, ENVIRONMENT_URL } from '../config';
@@ -35,17 +36,6 @@ interface Environment {
   configs: EnvironmentConfigs;
 }
 
-interface Message {
-  id: string;
-  html: string;
-  dismissable: boolean;
-  start_at: string;
-  end_at: string;
-  url_regex: string;
-}
-
-interface Messages extends Array<Message>{}
-
 const processEnvironment = (store: Store, environment: Environment) => {
   processReleaseId(store, environment);
 
@@ -75,13 +65,11 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   }
 };
 const processMessages = (store: Store, messages: Messages) => {
-  messages.forEach((message) => {
-    store.dispatch(appMessage(message))
-  })
+  store.dispatch(appMessage(messages))
 }
 
 export const poll = (store: Store) => async() => {
-  const environment = await fetch(`https://cors-anywhere.herokuapp.com/${ENVIRONMENT_URL}`)
+  const environment = await fetch(ENVIRONMENT_URL)
     .then((response) => response.json() as Promise<Environment>)
     .catch(() => null)
   ;

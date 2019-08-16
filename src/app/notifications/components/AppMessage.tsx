@@ -5,7 +5,7 @@ import { ActionType } from 'typesafe-actions';
 import Button, { ButtonGroup } from '../../components/Button';
 import { Dispatch } from '../../types';
 import { assertString } from '../../utils';
-import { appMessage, dismissNotification } from '../actions';
+import { dismissAppMessage, dismissNotification } from '../actions';
 import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
@@ -30,7 +30,7 @@ const AppMessage = ({dismiss}: {dismiss: () => void}) => <Body>
 export default connect(
   () => ({
   }),
-  (dispatch: Dispatch, ownProps: {notification: ActionType<typeof appMessage>}) => ({
+  (dispatch: Dispatch, ownProps: {notification: ActionType<typeof dismissAppMessage>}) => ({
     dismiss: () => dispatch(dismissNotification(ownProps.notification)),
   })
 )(AppMessage);
