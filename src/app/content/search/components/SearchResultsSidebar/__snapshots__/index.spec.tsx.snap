@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c4 {
   color: #818181;
+}
+
+.c4:hover {
+  color: #5e6062;
 }
 
 .c0 {
@@ -30,16 +28,16 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   animation: gTwDaX 5s;
 }
 
-.c0 > .c8 {
+.c0 > .c7 {
   margin: 0;
   padding: 0;
 }
 
-.c0 > .c8::before {
+.c0 > .c7::before {
   display: none;
 }
 
-.c6 {
+.c5 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -60,11 +58,11 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   line-height: 1.3;
 }
 
-.c6 strong {
+.c5 strong {
   padding-left: 0.4rem;
 }
 
-.c7 {
+.c6 {
   max-width: 26.5rem;
   text-align: center;
   margin-top: 7rem;
@@ -76,6 +74,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
+  cursor: pointer;
   border: none;
   margin: 0;
   background: transparent;
@@ -136,23 +135,40 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c4 c5"
-          fill="currentColor"
+          className="c4"
           focusable="false"
-          viewBox="0 0 352 512"
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
         >
-          <path
-            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-            fill="currentColor"
-          />
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
         </svg>
       </button>
     </div>
     <div
-      className="c6"
+      className="c5"
     >
       <div
-        className="c7"
+        className="c6"
       >
         Sorry, no results found for 
          
@@ -225,6 +241,10 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 
 .c8 {
   color: #818181;
+}
+
+.c8:hover {
+  color: #5e6062;
 }
 
 .c10 .os-divider {
@@ -374,6 +394,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
+  cursor: pointer;
   margin-left: 6.6rem;
   min-height: 3.7rem;
   -webkit-align-items: center;
@@ -424,6 +445,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
+  cursor: pointer;
   border: none;
   margin: 0;
   background: transparent;
@@ -447,12 +469,36 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 @media screen and (max-width:75em) {
+  .c3 {
+    margin-left: 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
   .c0 {
     width: 100%;
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c17 {
+    padding: 1rem 0 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    margin-left: 5rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c12 {
+    padding-left: 3.3rem;
   }
 }
 
@@ -499,22 +545,38 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </strong>
       </div>
       <button
-        aria-label="Close search sidebar"
         className="c6 c7"
         data-testid="close-search"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c8 c4"
-          fill="currentColor"
+          className="c8"
           focusable="false"
-          viewBox="0 0 352 512"
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
         >
-          <path
-            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-            fill="currentColor"
-          />
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
         </svg>
       </button>
     </div>
@@ -714,7 +776,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 `;
 
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
-.c7 {
+.c6 {
   enable-background: new 0 0 57.6 39.1;
   -webkit-animation: iuEIAH 0.3s forwards 0.3s;
   animation: iuEIAH 0.3s forwards 0.3s;
@@ -732,21 +794,21 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   width: 5rem;
 }
 
-.c7 * {
+.c6 * {
   -webkit-animation: fadeIn 0.3s forwards;
   animation: fadeIn 0.3s forwards;
 }
 
-.c7 .os-green,
-.c7 .os-orange,
-.c7 .os-gray,
-.c7 .os-yellow,
-.c7 .os-blue {
+.c6 .os-green,
+.c6 .os-orange,
+.c6 .os-gray,
+.c6 .os-yellow,
+.c6 .os-blue {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 
-.c7 .os-green {
+.c6 .os-green {
   -webkit-animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center left;
@@ -754,7 +816,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center left;
 }
 
-.c7 .os-orange {
+.c6 .os-orange {
   -webkit-animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
@@ -762,7 +824,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c7 .os-gray {
+.c6 .os-gray {
   -webkit-animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
@@ -770,7 +832,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c7 .os-yellow {
+.c6 .os-yellow {
   -webkit-animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   -webkit-transform-origin: center right;
@@ -778,7 +840,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c7 .os-blue {
+.c6 .os-blue {
   -webkit-animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center;
@@ -786,14 +848,12 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center;
 }
 
-.c6 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c5 {
   color: #818181;
+}
+
+.c5:hover {
+  color: #5e6062;
 }
 
 .c0 {
@@ -815,12 +875,12 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   animation: gTwDaX 5s;
 }
 
-.c0 > .c8 {
+.c0 > .c7 {
   margin: 0;
   padding: 0;
 }
 
-.c0 > .c8::before {
+.c0 > .c7::before {
   display: none;
 }
 
@@ -828,6 +888,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
+  cursor: pointer;
   border: none;
   margin: 0;
   background: transparent;
@@ -904,20 +965,37 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       >
         <svg
           aria-hidden="true"
-          className="c5 c6"
-          fill="currentColor"
+          className="c5"
           focusable="false"
-          viewBox="0 0 352 512"
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
         >
-          <path
-            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-            fill="currentColor"
-          />
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
         </svg>
       </button>
     </div>
     <svg
-      className="c7"
+      className="c6"
       data-testid="loader"
       id="Layer_1"
       version="1.1"

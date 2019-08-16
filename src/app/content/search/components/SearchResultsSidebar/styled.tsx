@@ -33,7 +33,6 @@ export const SearchIconInsideBar = styled(Search)`
   color: ${theme.color.primary.gray.darker};
   margin-right: ${searchResultsBarVariables.iconRightPadding}rem;
   margin-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
-
   ${theme.breakpoints.mobile(css`
     margin-left: ${h3MobileFontSize}rem;
   `)}
@@ -196,7 +195,6 @@ export const LinkWrapper = styled.div`
   padding-top: 1.2rem;
   padding-bottom: 0.8rem;
   border-top: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
-
   ${theme.breakpoints.mobile(css`
     padding-left: 3.3rem;
   `)}
