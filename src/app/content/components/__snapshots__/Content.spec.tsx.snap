@@ -351,6 +351,9 @@ Array [
   border: none;
   outline: none;
   width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .c20::-webkit-search-decoration,
@@ -2203,6 +2206,7 @@ li[aria-label="Current Page"] .c46 {
             </button>
           </form>
           <button
+            aria-label="print"
             className="c24"
             data-testid="print"
             onClick={[Function]}
@@ -3753,6 +3757,9 @@ Array [
   border: none;
   outline: none;
   width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .c12::-webkit-search-decoration,
@@ -5001,6 +5008,7 @@ Array [
             </button>
           </form>
           <button
+            aria-label="print"
             className="c16"
             data-testid="print"
             onClick={[Function]}
