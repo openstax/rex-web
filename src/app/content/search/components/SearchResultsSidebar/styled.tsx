@@ -4,7 +4,6 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { navDesktopHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
 import {
-  h3MobileFontSize,
   labelStyle,
   textRegularStyle
 } from '../../../../components/Typography';
@@ -20,21 +19,19 @@ import ContentLinkComponent from '../../../components/ContentLink';
 import { Summary, SummaryTitle } from '../../../components/Sidebar/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
 
-const searchResultsBarVariables = {
-    backgroundColor: theme.searchSidebar.background,
-    iconRightPadding: 0.7,
-    mainPaddingDesktop: 3,
-    mainRightPaddingDesktop: 1.4,
-};
+const borderColor = '#d5d5d5';
+const backgroundColor = '#f1f1f1';
+const headerHeight = 4;
 
 // tslint:disable-next-line:variable-name
 export const SearchIconInsideBar = styled(Search)`
   ${toolbarIconStyles}
+  height: ${headerHeight}rem;
   color: ${theme.color.primary.gray.darker};
-  margin-right: ${searchResultsBarVariables.iconRightPadding}rem;
-  margin-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
+  margin-right: 0.7rem;
+  margin-left: ${theme.padding.page.desktop}rem;
   ${theme.breakpoints.mobile(css`
-    margin-left: ${h3MobileFontSize}rem;
+    margin-left: ${theme.padding.page.mobile}rem;
   `)}
 `;
 
@@ -73,7 +70,7 @@ export const SearchResultsBar = styled.div`
   padding: 0;
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
-  background-color: ${searchResultsBarVariables.backgroundColor};
+  background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
@@ -130,8 +127,7 @@ export const SearchQueryWrapper = styled.div`
   justify-content: space-between;
   align-items: baseline;
   background: ${theme.color.neutral.base};
-  padding: 1.2rem 0;
-  min-height: 4rem;
+  min-height: ${headerHeight}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -139,18 +135,22 @@ export const SearchBarSummary = styled(Summary)`
   min-height: 3.8rem;
   display: flex;
   align-items: center;
-  background: ${searchResultsBarVariables.backgroundColor};
-  border-top: solid 0.1rem ${theme.searchSidebar.border};
-  padding: 1rem 0 1rem ${searchResultsBarVariables.mainPaddingDesktop}rem;
+  background: ${backgroundColor};
+  border-top: solid 0.1rem ${borderColor};
+  padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
 
   ${SummaryTitle} {
     font-weight: bold;
-    padding-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
+    padding-right: ${theme.padding.page.desktop}rem;
     line-height: 1.3;
   }
 
   ${theme.breakpoints.mobile(css`
-    padding: 1rem 0 1rem ${h3MobileFontSize}rem;
+    padding-left: ${theme.padding.page.mobile}rem;
+
+    ${SummaryTitle} {
+      padding-right: ${theme.padding.page.mobile}rem;
+    }
   `)}
 `;
 
@@ -169,14 +169,14 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
   margin-left: 6.6rem;
   min-height: 3.7rem;
   align-items: center;
-  margin-right: ${h3MobileFontSize}rem;
+  margin-right: ${theme.padding.page.mobile}rem;
   padding: 1.2rem 0;
   display: block;
   text-decoration: none;
   line-height: 1.3;
 
   :not(:last-child) {
-    border-bottom: solid 0.1rem ${searchResultsBarVariables.backgroundColor};
+    border-bottom: solid 0.1rem ${backgroundColor};
   }
 
   em {
@@ -196,7 +196,7 @@ export const LinkWrapper = styled.div`
   padding-left: 4.3rem;
   padding-top: 1.2rem;
   padding-bottom: 0.8rem;
-  border-top: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
+  border-top: solid 0.2rem ${backgroundColor};
   ${theme.breakpoints.mobile(css`
     padding-left: 3.3rem;
   `)}
@@ -226,10 +226,12 @@ export const CloseIconButton = styled.button`
   ${toolbarIconStyles}
   cursor: pointer;
   border: none;
-  margin: 0;
+  padding: 0;
+  margin: 0.3rem; /* some space to show focus outline */
   background: transparent;
-  margin-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
-  overflow: hidden;
+  overflow: visible;
+  height: ${headerHeight - 0.3}rem;
+  width: ${headerHeight - 0.3}rem;
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -257,13 +259,14 @@ export const LoadingWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: ${searchResultsBarVariables.backgroundColor};
+  background-color: ${backgroundColor};
   transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
 `;
 
 // tslint:disable-next-line:variable-name
 export const HeaderQuery = styled.div`
-  width: 100%;
+  flex: 1;
+  padding: 1rem 0;
   align-self: center;
 `;
 

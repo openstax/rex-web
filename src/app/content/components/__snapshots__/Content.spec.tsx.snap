@@ -812,10 +812,12 @@ li[aria-label="Current Page"] .c46 {
   padding: 0.4rem;
   cursor: pointer;
   border: none;
-  margin: 0;
+  padding: 0;
+  margin: 0.3rem;
   background: transparent;
-  margin-right: 1.4rem;
-  overflow: hidden;
+  overflow: visible;
+  height: 3.7rem;
+  width: 3.7rem;
 }
 
 .c30 {
@@ -4041,10 +4043,12 @@ Array [
   padding: 0.4rem;
   cursor: pointer;
   border: none;
-  margin: 0;
+  padding: 0;
+  margin: 0.3rem;
   background: transparent;
-  margin-right: 1.4rem;
-  overflow: hidden;
+  overflow: visible;
+  height: 3.7rem;
+  width: 3.7rem;
 }
 
 .c22 {
