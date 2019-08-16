@@ -45,6 +45,8 @@ export const toolbarIconStyles = css`
 `;
 
 const hideSearchChrome = css`
+  appearance: textfield;
+
   ::-webkit-search-decoration,
   ::-webkit-search-cancel-button,
   ::-webkit-search-results-button,
