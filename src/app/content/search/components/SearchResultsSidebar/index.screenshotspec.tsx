@@ -63,12 +63,28 @@ describe('Search sidebar', () => {
     });
   });
 
-  it('renders correctly with no search results', async() => {
+  it('renders correctly with no search results on desktop', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
     await finishRender(page);
 
     await openAndTriggerSearchDesktop(noResultsSearchText);
+
+    const screen = await page.screenshot();
+    expect(screen).toMatchImageSnapshot({
+      CI: {
+        failureThreshold: 1.5,
+        failureThresholdType: 'percent',
+      },
+    });
+  });
+
+  it('renders correctly with no search results on mobile', async() => {
+    setMobileViewport(page);
+    await navigate(page, TEST_PAGE_URL);
+    await finishRender(page);
+
+    await openAndTriggerSearchMobile(noResultsSearchText);
 
     const screen = await page.screenshot();
     expect(screen).toMatchImageSnapshot({
