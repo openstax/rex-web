@@ -32,7 +32,7 @@ import {
   toolbarIconColor,
   toolbarMobileHeight,
   toolbarMobileSearchWrapperHeight,
-  toolbarSearchInputDesktopHeight,
+  toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight,
 } from './constants';
 import { OpenSidebarControl } from './SidebarControl';
@@ -188,7 +188,7 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   ${hideSearchChrome}
   line-height: 2;
   margin: 0 1rem 0 1rem;
-  height: ${toolbarSearchInputDesktopHeight}rem;
+  height: ${toolbarSearchInputHeight}rem;
   border: none;
   outline: none;
   width: 100%;
@@ -357,7 +357,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       this.setState({ query: '', formSubmitted: false });
     };
 
-    const toggleMobile = (e: React.MouseEvent<HTMLInputElement>) => {
+    const toggleMobile = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       const mobileOpen = !this.state.mobileOpen;
       this.setState({mobileOpen});
@@ -366,7 +366,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       }
     };
 
-    const openSearchbar = (e: React.MouseEvent<HTMLInputElement>) => {
+    const openSearchbar = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       this.props.openSearchResults();
     };
