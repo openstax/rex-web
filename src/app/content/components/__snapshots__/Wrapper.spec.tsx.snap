@@ -6,14 +6,19 @@ exports[`wrapper matches snapshot 1`] = `
   padding: 0 3.2rem;
   position: relative;
   overflow: visible;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
 }
 
 @media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
+  }
+}
+
+@media screen {
+  .c0 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
   }
 }
 
@@ -28,14 +33,19 @@ exports[`wrapper matches snapshot with search open 1`] = `
   padding: 0 3.2rem;
   position: relative;
   overflow: visible;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
 }
 
 @media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
+  }
+}
+
+@media screen {
+  .c0 {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
   }
 }
 

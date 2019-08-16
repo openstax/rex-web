@@ -24,8 +24,8 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ikkLzT 5s;
-  animation: ikkLzT 5s;
+  -webkit-animation: ekodWl 5s;
+  animation: ekodWl 5s;
 }
 
 .c0 > .c7 {
@@ -106,6 +106,12 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
     display: none;
   }
 }
@@ -269,8 +275,8 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ikkLzT 5s;
-  animation: ikkLzT 5s;
+  -webkit-animation: ekodWl 5s;
+  animation: ekodWl 5s;
 }
 
 .c0 > .c9 {
@@ -487,6 +493,12 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
     display: none;
   }
 }
@@ -882,8 +894,8 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ikkLzT 5s;
-  animation: ikkLzT 5s;
+  -webkit-animation: ekodWl 5s;
+  animation: ekodWl 5s;
 }
 
 .c0 > .c7 {
@@ -944,6 +956,12 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
     display: none;
   }
 }
