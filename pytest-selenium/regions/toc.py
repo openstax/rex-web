@@ -7,11 +7,16 @@ class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
-    _default_page_locator = (By.CSS_SELECTOR, "li:nth-of-type(2) a")
+    _default_page_locator = (By.CSS_SELECTOR, "li:nth-child(2) li:nth-of-type(1) a")
 
     @property
     def active_section(self):
         return self.find_element(*self._active_section_locator)
+
+    @property
+    def default_page_slug(self):
+        default_page_url = self.find_element(*self._default_page_locator).get_attribute("href")
+        return default_page_url.split("/")[-1]
 
     @property
     def sections(self):
@@ -21,9 +26,6 @@ class TableOfContents(Region):
         ]
 
     @property
-    def default_page_url(self):
-        return self.find_element(*self._default_page_locator).get_attribute("href")
-
     def first_section(self):
         return self.sections[0]
 

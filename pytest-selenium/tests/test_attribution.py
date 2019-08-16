@@ -1,8 +1,3 @@
-from selenium.webdriver.support import expected_conditions as expected
-
-from urllib.parse import urlparse
-from urllib.parse import urlsplit
-
 from pages.content import Content
 from tests import markers
 
@@ -111,11 +106,30 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
     attribution.click_attribution_link()
 
     # THEN: The book url in the the citation section should reference the default page of the book
-    default_page_url = toc.default_page_url
-    default_page_slug = default_page_url.split("/")[-1]
-
     attribution_book_url_expected = (
-        "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
+        "https://openstax.org/books/" + book_slug + "/pages/" + toc.default_page_slug
     )
 
     assert attribution_book_url_expected == attribution.book_url
+
+
+@markers.test_case("C480906")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_access_free_url_in_citation_text_shows_url_for_default_page(
+    selenium, base_url, book_slug, page_slug
+):
+    # GIVEN: A page is loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    attribution = content.attribution
+    toc = content.sidebar.toc
+
+    # WHEN: The attribution section is expanded
+    attribution.click_attribution_link()
+
+    # THEN: The access for free at url in the the citation section should reference the default page of the book
+    attribution_access_free_url_expected = (
+        "https://openstax.org/books/" + book_slug + "/pages/" + toc.default_page_slug
+    )
+
+    assert attribution_access_free_url_expected == attribution.access_free_url

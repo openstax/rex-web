@@ -206,6 +206,7 @@ class Content(Page):
         )
         _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
         _book_url_locator = (By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _access_free_locator = (By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
 
         @property
         def attribution_link(self):
@@ -230,6 +231,14 @@ class Content(Page):
         @property
         def book_url(self):
             return self.book_url_within_attribution.get_attribute("href")
+
+        @property
+        def access_free_url_within_attribution(self):
+            return self.find_element(*self._access_free_locator)
+
+        @property
+        def access_free_url(self):
+            return self.access_free_url_within_attribution.get_attribute("href")
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)
