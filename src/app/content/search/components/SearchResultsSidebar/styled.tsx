@@ -1,7 +1,8 @@
+import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
-import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { navDesktopHeight } from '../../../../components/NavBar';
+import Times from '../../../../components/Times';
 import {
   h3MobileFontSize,
   labelStyle,
@@ -13,6 +14,7 @@ import {
     searchResultsBarDesktopWidth,
     searchSidebarTopOffset,
     toolbarDesktopHeight,
+    toolbarIconColor,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
 import { Summary, SummaryTitle } from '../../../components/Sidebar/styled';
@@ -31,11 +33,19 @@ export const SearchIconInsideBar = styled(Search)`
   color: ${theme.color.primary.gray.darker};
   margin-right: ${searchResultsBarVariables.iconRightPadding}rem;
   margin-left: ${searchResultsBarVariables.mainPaddingDesktop}rem;
+
+  ${theme.breakpoints.mobile(css`
+    margin-left: ${h3MobileFontSize}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled(Times)`
-  color: ${theme.color.primary.gray.lighter};
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  color: ${toolbarIconColor.lighter};
+
+  :hover {
+    color: ${toolbarIconColor.base};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -137,6 +147,10 @@ export const SearchBarSummary = styled(Summary)`
     padding-right: ${searchResultsBarVariables.mainRightPaddingDesktop}rem;
     line-height: 1.3;
   }
+
+  ${theme.breakpoints.mobile(css`
+    padding: 1rem 0 1rem ${h3MobileFontSize}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -150,6 +164,7 @@ export const SearchResultsLink = styled.div`
 // tslint:disable-next-line:variable-name
 export const SectionContentPreview = styled(ContentLinkComponent)`
   ${labelStyle}
+  cursor: pointer;
   margin-left: 6.6rem;
   min-height: 3.7rem;
   align-items: center;
@@ -166,6 +181,10 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
   em {
     font-weight: bold;
   }
+
+  ${theme.breakpoints.mobile(css`
+    margin-left: 5rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -177,6 +196,10 @@ export const LinkWrapper = styled.div`
   padding-top: 1.2rem;
   padding-bottom: 0.8rem;
   border-top: solid 0.2rem ${searchResultsBarVariables.backgroundColor};
+
+  ${theme.breakpoints.mobile(css`
+    padding-left: 3.3rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -201,6 +224,7 @@ export const SearchQueryAlignment = styled.div`
 // tslint:disable-next-line:variable-name
 export const CloseIconButton = styled.button`
   ${toolbarIconStyles}
+  cursor: pointer;
   border: none;
   margin: 0;
   background: transparent;

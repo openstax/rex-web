@@ -10,7 +10,7 @@ const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 
 const selectSearchInputDesktop = '[data-testid="desktop-search-input"]';
 const clearSearchInputSelector = '[data-testid="desktop-clear-search"]';
-const closeSearchSidebarDesktopSelector = '[aria-label="Close search sidebar"]';
+const closeSearchSidebarDesktopSelector = '[data-testid="close-search"]';
 const searchSidebarSelector = '[aria-label="Search results sidebar"]';
 const workingSearchText = 'moon\n';
 

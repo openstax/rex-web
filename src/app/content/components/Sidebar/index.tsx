@@ -1,5 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
@@ -24,10 +25,14 @@ export class TableOfContents extends Component<SidebarProps> {
 
   public render() {
     const {isOpen, book} = this.props;
-    return <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label='Table of Contents'>
-      {this.renderTocHeader()}
-      {book && this.renderToc(book)}
-    </Styled.SidebarBody>;
+    return <FormattedMessage id='i18n:toc:title'>
+      {(msg: Element | string) =>
+        <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label={msg}>
+          {this.renderTocHeader()}
+          {book && this.renderToc(book)}
+        </Styled.SidebarBody>
+      }
+    </FormattedMessage>;
   }
 
   public componentDidMount() {

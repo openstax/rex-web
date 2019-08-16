@@ -50,6 +50,7 @@ const hideSearchChrome = css`
   ::-webkit-search-results-button,
   ::-webkit-search-results-decoration {
     appearance: none;
+    display: none;
   }
 `;
 
@@ -395,7 +396,6 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
           <FormattedMessage id='i18n:toolbar:print:text'>
             {(msg: Element | string) =>
               <PrintOptWrapper
-                aria-label='print'
                 onClick={() => assertWindow().print()}
                 data-testid='print'
               >
