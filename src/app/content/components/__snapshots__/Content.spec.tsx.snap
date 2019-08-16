@@ -793,8 +793,8 @@ li[aria-label="Current Page"] .c46 {
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c28 > .c100 {
@@ -4022,8 +4022,8 @@ Array [
   transition: margin-left 300ms;
   margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: gTwDaX 5s;
-  animation: gTwDaX 5s;
+  -webkit-animation: ikkLzT 5s;
+  animation: ikkLzT 5s;
 }
 
 .c20 > .c75 {
