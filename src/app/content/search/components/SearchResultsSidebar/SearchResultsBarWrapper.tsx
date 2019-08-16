@@ -13,13 +13,13 @@ import { SearchResultContainers } from './SearchResultContainers';
 import * as Styled from './styled';
 
 interface ResultsSidebarProps {
-  closed: boolean;
   currentPage: Page | undefined;
   query: string | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   closeSearchResults: () => void;
   searchResultsOpen: boolean;
+  mobileOpen: boolean;
   book?: Book;
 }
 
@@ -87,13 +87,13 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book, searchResultsOpen, closed } = this.props;
+    const { results, book, searchResultsOpen, mobileOpen } = this.props;
 
     return (
       <FormattedMessage id='i18n:search-results:bar'>
         {(msg: Element | string) => (
           <Styled.SearchResultsBar
-            closed={closed}
+            mobileOpen={mobileOpen}
             aria-label={msg}
             searchResultsOpen={searchResultsOpen}
             ref={this.searchSidebar}

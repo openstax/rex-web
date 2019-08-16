@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { navDesktopHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
@@ -12,6 +12,7 @@ import {
     bookBannerDesktopMiniHeight,
     searchResultsBarDesktopWidth,
     searchSidebarTopOffset,
+    sidebarTransitionTime,
     toolbarDesktopHeight,
     toolbarIconColor,
   } from '../../../components/constants';
@@ -52,18 +53,24 @@ export const NavOl = styled.ol`
   }
 `;
 
-const animateIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+const sidebarOpenStyle = css`
+  transition: transform ${sidebarTransitionTime}ms;
+  opacity: 1;
+  transform: translateX(100%);
+  margin-left: -${searchResultsBarDesktopWidth}rem;
+  ${theme.breakpoints.mobile(css`
+    transform: none;
+    margin-left: 0;
+  `)}
 `;
-
+const sidebarClosedStyle = css`
+  opacity: 0;
+  transform: translateX(0);
+  ${theme.breakpoints.mobile(css`
+    transform: none;
+    display: none;
+  `)}
+`;
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
@@ -75,25 +82,14 @@ export const SearchResultsBar = styled.div`
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
-  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-
-  transition: margin-left 300ms;
-  margin-left: 0;
-  ${(props: {closed: boolean}) => props.closed && css`
-    margin-left: -${searchResultsBarDesktopWidth}rem;
-  `}
-
+  ${sidebarOpenStyle}
+  ${(props: {mobileOpen: boolean}) => !props.mobileOpen && theme.breakpoints.mobile(sidebarClosedStyle)}
+  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && sidebarClosedStyle}
   ${theme.breakpoints.mobile(css`
     width: 100%;
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
     padding: 0;
-
-    ${(props: {closed: boolean}) => props.closed && css`
-      display: none;
-    `}
   `)}
 
   > ${NavOl} {
@@ -105,7 +101,6 @@ export const SearchResultsBar = styled.div`
     padding: 0;
   }
 
-  animation: ${animateIn} 5s;
   ${disablePrint}
 `;
 

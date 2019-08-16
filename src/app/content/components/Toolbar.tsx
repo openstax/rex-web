@@ -321,7 +321,7 @@ interface SearchResultsSidebarProps {
   clearSearch: () => void;
   openSearchResults: () => void;
   results: SearchResultContainer[] | null;
-  searchResultsOpen: boolean;
+  searchMobileOpen: boolean;
 }
 
 class Toolbar extends React.Component<SearchResultsSidebarProps, {
@@ -414,7 +414,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       {this.state.mobileOpen && <MobileSearchWrapper>
         <Hr />
         <MobileSearchContainer>
-          {!this.props.searchResultsOpen && this.props.query &&
+          {!this.props.searchMobileOpen && this.props.query &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
               {(msg) => <ToggleSeachResultsText onClick={openSearchbar} data-testid='back-to-search-results'>
                 <LeftArrow/><InnerText>{msg}</InnerText>
@@ -436,7 +436,7 @@ export default connect(
   (state: AppState) => ({
     query: selectSearch.query(state),
     results: selectSearch.results(state),
-    searchResultsOpen: selectSearch.searchResultsOpen(state),
+    searchMobileOpen: selectSearch.mobileOpen(state),
   }),
   (dispatch: Dispatch) => ({
     clearSearch: () => {
