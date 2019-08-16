@@ -70,14 +70,6 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   margin-top: 0;
 }
 
-.c6 {
-  color: white;
-  padding: 1rem;
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  background-color: #959595;
-}
-
 .c0 {
   margin: 2rem auto;
 }
@@ -114,11 +106,6 @@ exports[`ErrorBoundary matches snapshot 1`] = `
   >
     <div>
       We’re sorry but a system error was encountered
-    </div>
-    <div
-      className="c6"
-    >
-      Error: this is a bug
     </div>
     <p>
       Our support staff has been notified of the error and we’ll investigate it further.
