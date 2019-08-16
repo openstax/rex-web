@@ -190,6 +190,7 @@ const SearchInput = styled(({ desktop, mobile, ...props }) => <FormattedMessage 
   border: none;
   outline: none;
   width: 100%;
+  appearance: textfield;
 
   ::placeholder {
     ${labelStyle}
