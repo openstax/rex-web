@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { ActionType } from 'typesafe-actions';
 import Button, { ButtonGroup } from '../../components/Button';
 import { Dispatch } from '../../types';
 import { assertString } from '../../utils';
-import { dismissAppMessage, dismissNotification } from '../actions';
+import { dismissNotification } from '../actions';
+import { AppMessageNotification } from '../types';
 import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
@@ -30,7 +30,7 @@ const AppMessage = ({dismiss}: {dismiss: () => void}) => <Body>
 export default connect(
   () => ({
   }),
-  (dispatch: Dispatch, ownProps: {notification: ActionType<typeof dismissAppMessage>}) => ({
+  (dispatch: Dispatch, ownProps: {notification: AppMessageNotification}) => ({
     dismiss: () => dispatch(dismissNotification(ownProps.notification)),
   })
 )(AppMessage);

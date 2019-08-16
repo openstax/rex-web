@@ -11,12 +11,13 @@ export interface Message {
 }
 
 export interface AppMessageNotification {
-  type: string;
+  type: 'Notification/appMessage';
   payload: Message;
 }
 
 export type Messages = Message[];
 
-export type AnyNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >> | AppMessageNotification;
-export type AppMessagesAction = ActionType<typeof actions.appMessage>;
+export type AnyNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
+  | AppMessageNotification;
+
 export type State =  AnyNotification[];
