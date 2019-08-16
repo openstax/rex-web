@@ -342,6 +342,9 @@ Array [
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
   line-height: 2;
   margin: 0 1rem 0 1rem;
   height: 3.2rem;
@@ -3741,6 +3744,9 @@ Array [
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
   line-height: 2;
   margin: 0 1rem 0 1rem;
   height: 3.2rem;
