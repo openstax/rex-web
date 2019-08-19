@@ -26,9 +26,7 @@ export const Wrapper = styled(LayoutBody)`
   ${(props: WrapperProps) => props.searchResultsOpen && `
     margin-left: ${searchResultsBarDesktopWidth}rem;
   `}
-  ${(props: WrapperProps) => props.searchMobileOpen && theme.breakpoints.mobile(css`
-    display: none;
-  `)}
+
   ${theme.breakpoints.mobile(css`
     margin-left: 0;
   `)}

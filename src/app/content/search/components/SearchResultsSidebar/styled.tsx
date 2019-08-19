@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { navDesktopHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
@@ -53,22 +53,66 @@ export const NavOl = styled.ol`
   }
 `;
 
+const sidebarOpenAnimationDesktop = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+`;
+
+const sidebarHideAnimationDesktop = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+
+  99% {
+    transform: translateX(0);
+  }
+
+  100% {
+    visibility: hidden;
+    transform: translateX(0);
+  }
+`;
+
+const sidebarOpenAnimationMobile = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+`;
+
+const sidebarHideAnimationMobile = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+
+  99% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(0);
+    visibility: hidden;
+  }
+`;
 const sidebarOpenStyle = css`
-  transition: transform ${sidebarTransitionTime}ms;
-  opacity: 1;
-  transform: translateX(100%);
   margin-left: -${searchResultsBarDesktopWidth}rem;
+  animation: ${sidebarOpenAnimationDesktop} ${sidebarTransitionTime}ms forwards;
   ${theme.breakpoints.mobile(css`
-    transform: none;
-    margin-left: 0;
+    animation: ${sidebarOpenAnimationMobile} ${sidebarTransitionTime}ms forwards;
   `)}
 `;
 const sidebarClosedStyle = css`
-  opacity: 0;
-  transform: translateX(0);
+  animation: ${sidebarHideAnimationDesktop} ${sidebarTransitionTime}ms forwards;
   ${theme.breakpoints.mobile(css`
-    transform: none;
-    display: none;
+    animation: ${sidebarHideAnimationMobile} ${sidebarTransitionTime}ms forwards;
   `)}
 `;
 // tslint:disable-next-line:variable-name
@@ -86,6 +130,7 @@ export const SearchResultsBar = styled.div`
   ${(props: {mobileOpen: boolean}) => !props.mobileOpen && theme.breakpoints.mobile(sidebarClosedStyle)}
   ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && sidebarClosedStyle}
   ${theme.breakpoints.mobile(css`
+    margin-left: -100%;
     width: 100%;
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
