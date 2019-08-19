@@ -171,7 +171,7 @@ export const SearchInputWrapper = styled.form`
 // tslint:disable-next-line:variable-name
 export const SearchInput = styled(({desktop, mobile, ...props}) =>
   <FormattedMessage id='i18n:toolbar:search:placeholder'>
-    {(msg) => <input {...props}
+    {(msg) => <input {...props} autoFocus
       aria-label={assertString(msg, 'placeholder must be a string')}
       placeholder={assertString(msg, 'placeholder must be a string')}
     />}
