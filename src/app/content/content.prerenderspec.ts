@@ -32,6 +32,8 @@ describe('content', () => {
       // these attributes are intended to be changed on page load
       [
         ['[data-testid="toc"]', 'style'],
+        ['[data-testid="search-results-sidebar"]', 'style'],
+        ['[data-testid="loader"] path', 'style'],
       ].forEach(([selector, attribute]) => {
         const element = root.querySelector(selector);
         if (element) {
