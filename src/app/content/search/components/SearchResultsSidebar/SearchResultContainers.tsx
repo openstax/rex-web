@@ -72,8 +72,9 @@ const SearchResult = (props: {
               book={props.book}
               page={props.page}
               onClick={props.closeSearchResults}
-              dangerouslySetInnerHTML={{ __html: highlight }}
-            />;
+            >
+              <span tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }}></span>
+            </Styled.SectionContentPreview>;
           })
         : []
     )}

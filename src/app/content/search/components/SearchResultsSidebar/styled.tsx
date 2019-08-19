@@ -194,7 +194,6 @@ export const SearchBarSummaryContainer = styled.div`
   background: ${backgroundColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
   border-top: solid 0.1rem ${borderColor};
-
   ${theme.breakpoints.mobile(css`
     padding-left: ${theme.padding.page.mobile}rem;
 
@@ -269,6 +268,7 @@ export const DetailsOl = styled.ol`
 
 // tslint:disable-next-line:variable-name
 export const NavItem = styled.li`
+  overflow: visible;
   background: ${theme.color.primary.gray.foreground};
 `;
 
