@@ -23,6 +23,7 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     ${styleWhenSidebarClosed(css`
       margin-left: -${sidebarDesktopWidth}rem;
     `)}
+
     ${theme.breakpoints.mobile(css`
       margin-left: -${sidebarMobileWidth}rem;
     `)}
