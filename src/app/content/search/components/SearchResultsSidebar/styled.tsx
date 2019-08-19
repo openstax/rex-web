@@ -17,7 +17,7 @@ import {
     toolbarIconColor,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
-import { Summary, SummaryTitle } from '../../../components/Sidebar/styled';
+import { Summary, SummaryTitle } from '../../../components/TableOfContents/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
 import { disablePrint } from '../../../components/utils/disablePrint';
 

@@ -2,7 +2,7 @@ import { SearchResultHit } from '@openstax/open-search-client';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Details, ExpandIcon } from '../../../../components/Details';
-import { CollapseIcon, SummaryTitle, SummaryWrapper } from '../../../components/Sidebar/styled';
+import { CollapseIcon, SummaryTitle, SummaryWrapper } from '../../../components/TableOfContents/styled';
 import { Book, Page } from '../../../types';
 import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
