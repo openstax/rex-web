@@ -17,7 +17,7 @@ import {
     toolbarIconColor,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
-import { Summary, SummaryTitle } from '../../../components/TableOfContents/styled';
+import { Summary } from '../../../components/TableOfContents/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
@@ -172,6 +172,14 @@ export const SearchQueryWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+export const SummaryTitle = styled.span`
+  ${labelStyle}
+  font-weight: bold;
+  padding-right: ${theme.padding.page.desktop}rem;
+  line-height: 1.3;
+`;
+
+// tslint:disable-next-line:variable-name
 export const SearchBarSummary = styled(Summary)`
   min-height: 3.8rem;
   display: flex;
@@ -179,13 +187,6 @@ export const SearchBarSummary = styled(Summary)`
   background: ${backgroundColor};
   border-top: solid 0.1rem ${borderColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
-
-  ${SummaryTitle} {
-    font-weight: bold;
-    padding-right: ${theme.padding.page.desktop}rem;
-    line-height: 1.3;
-  }
-
   ${theme.breakpoints.mobile(css`
     padding-left: ${theme.padding.page.mobile}rem;
 

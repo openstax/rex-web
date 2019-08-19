@@ -1,8 +1,7 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Details, ExpandIcon } from '../../../../components/Details';
-import { CollapseIcon, SummaryTitle, SummaryWrapper } from '../../../components/TableOfContents/styled';
+import { CollapseIcon, Details, ExpandIcon } from '../../../../components/Details';
 import { Book, Page } from '../../../types';
 import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -95,13 +94,11 @@ const SearchResultsDropdown = (props: {
   return <Styled.ListItem>
     <Details {...(active ? {open: true} : {})}>
       <Styled.SearchBarSummary>
-        <SummaryWrapper>
-          <ExpandIcon />
-          <CollapseIcon />
-          <SummaryTitle
-            dangerouslySetInnerHTML={{ __html: props.chapter.title }}
-          />
-        </SummaryWrapper>
+        <ExpandIcon />
+        <CollapseIcon />
+        <Styled.SummaryTitle
+          dangerouslySetInnerHTML={{ __html: props.chapter.title }}
+        />
       </Styled.SearchBarSummary>
       <Styled.DetailsOl>
         <SearchResultContainers
