@@ -64,19 +64,17 @@ const SearchResult = (props: {
       }
     </FormattedMessage>
     {props.page.results.map((hit: SearchResultHit) =>
-      hit.source && hit.highlight && hit.highlight.visibleContent
-        ? hit.highlight.visibleContent.map((highlight: string, index: number) => {
-            return <Styled.SectionContentPreview
-              data-testid='search-result'
-              key={index}
-              book={props.book}
-              page={props.page}
-              onClick={props.closeSearchResults}
-            >
-              <span tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }}></span>
-            </Styled.SectionContentPreview>;
-          })
-        : []
+      hit.highlight.visibleContent.map((highlight: string, index: number) => {
+        return <Styled.SectionContentPreview
+          data-testid='search-result'
+          key={index}
+          book={props.book}
+          page={props.page}
+          onClick={props.closeSearchResults}
+        >
+          <span tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }}></span>
+        </Styled.SectionContentPreview>;
+      })
     )}
   </Styled.NavItem>;
 };
