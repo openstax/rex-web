@@ -127,7 +127,6 @@ export const SearchResultsBar = styled.div`
   z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   ${sidebarOpenStyle}
-  ${(props: {mobileOpen: boolean}) => !props.mobileOpen && theme.breakpoints.mobile(sidebarClosedStyle)}
   ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && sidebarClosedStyle}
   ${theme.breakpoints.mobile(css`
     margin-left: -100%;

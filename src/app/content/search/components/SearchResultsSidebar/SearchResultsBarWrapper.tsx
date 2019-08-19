@@ -19,7 +19,6 @@ interface ResultsSidebarProps {
   onClose: () => void;
   closeSearchResults: () => void;
   searchResultsOpen: boolean;
-  mobileOpen: boolean;
   book?: Book;
 }
 
@@ -87,13 +86,12 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book, searchResultsOpen, mobileOpen } = this.props;
+    const { results, book, searchResultsOpen } = this.props;
 
     return (
       <FormattedMessage id='i18n:search-results:bar'>
         {(msg: Element | string) => (
           <Styled.SearchResultsBar
-            mobileOpen={mobileOpen}
             aria-label={msg}
             searchResultsOpen={searchResultsOpen}
             ref={this.searchSidebar}

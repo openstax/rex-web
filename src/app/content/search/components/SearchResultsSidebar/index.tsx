@@ -16,7 +16,6 @@ interface Props {
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
-  mobileOpen: boolean;
   closeSearchResults: () => void;
 }
 
@@ -62,7 +61,6 @@ export default connect(
   (state: AppState) => ({
     book: select.book(state),
     currentPage: select.page(state),
-    mobileOpen: selectSearch.mobileOpen(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),

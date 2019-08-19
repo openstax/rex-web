@@ -1,4 +1,5 @@
 import { HTMLInputElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -20,9 +21,8 @@ import { isHtmlElement } from '../../guards';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertDocument, assertString, assertWindow } from '../../utils';
-import { clearSearch, openSearchResultsMobile, requestSearch } from '../search/actions';
+import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../search/actions';
 import * as selectSearch from '../search/selectors';
-import { SearchResultContainer } from '../search/types';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -315,23 +315,28 @@ const InnerText = styled.div`
   text-align: left;
 `;
 
-interface SearchResultsSidebarProps {
+interface Props {
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
   openSearchResults: () => void;
-  results: SearchResultContainer[] | null;
-  searchMobileOpen: boolean;
+  openMobileToolbar: () => void;
+  mobileToolbarOpen: boolean;
+  searchSidebarOpen: boolean;
+  hasSearchResults: boolean;
 }
 
-class Toolbar extends React.Component<SearchResultsSidebarProps, {
-  query: string, mobileOpen: boolean, formSubmitted: boolean
-}> {
-  public state = { query: '', mobileOpen: false, formSubmitted: false };
+interface State {
+  query: string;
+  formSubmitted: boolean;
+}
 
-  public componentWillUpdate(newProps: SearchResultsSidebarProps) {
+class Toolbar extends React.Component<Props, State> {
+  public state = { query: '', formSubmitted: false };
+
+  public componentWillUpdate(newProps: Props) {
     if (newProps.query && newProps.query !== this.props.query && newProps.query !== this.state.query) {
-      this.setState({query: newProps.query, mobileOpen: true});
+      this.setState({query: newProps.query});
     }
   }
 
@@ -359,10 +364,11 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
 
     const toggleMobile = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      const mobileOpen = !this.state.mobileOpen;
-      this.setState({mobileOpen});
-      if (!mobileOpen) {
+
+      if (this.props.mobileToolbarOpen) {
         this.props.clearSearch();
+      } else {
+        this.props.openMobileToolbar();
       }
     };
 
@@ -375,7 +381,7 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
       <TopBar data-testid='toolbar'>
         <OpenSidebarControl />
         <SearchPrintWrapper>
-          <SearchInputWrapper active={this.state.mobileOpen} onSubmit={onSubmit} data-testid='desktop-search'>
+          <SearchInputWrapper active={this.props.mobileToolbarOpen} onSubmit={onSubmit} data-testid='desktop-search'>
             <SearchInput desktop type='search' data-testid='desktop-search-input'
               onChange={onChange} value={this.state.query} />
             <FormattedMessage id='i18n:toolbar:search:toggle'>
@@ -411,10 +417,10 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
           </FormattedMessage>
         </SearchPrintWrapper>
       </TopBar>
-      {this.state.mobileOpen && <MobileSearchWrapper>
+      {this.props.mobileToolbarOpen && <MobileSearchWrapper>
         <Hr />
         <MobileSearchContainer>
-          {!this.props.searchMobileOpen && this.props.query &&
+          {!this.props.searchSidebarOpen && this.props.hasSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
               {(msg) => <ToggleSeachResultsText onClick={openSearchbar} data-testid='back-to-search-results'>
                 <LeftArrow/><InnerText>{msg}</InnerText>
@@ -434,15 +440,15 @@ class Toolbar extends React.Component<SearchResultsSidebarProps, {
 
 export default connect(
   (state: AppState) => ({
+    hasSearchResults: selectSearch.hasResults(state),
+    mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     query: selectSearch.query(state),
-    results: selectSearch.results(state),
-    searchMobileOpen: selectSearch.mobileOpen(state),
+    searchSidebarOpen: selectSearch.searchResultsOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    clearSearch: () => {
-      dispatch(clearSearch());
-    },
-    openSearchResults: () => dispatch(openSearchResultsMobile()),
-    search: (query: string) => dispatch(requestSearch(query)),
+    clearSearch: flow(clearSearch, dispatch),
+    openMobileToolbar: flow(openMobileToolbar, dispatch),
+    openSearchResults: flow(openSearchResultsMobile, dispatch),
+    search: flow(requestSearch, dispatch),
   })
 )(Toolbar);

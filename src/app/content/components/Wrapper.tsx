@@ -10,7 +10,6 @@ export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
   searchResultsOpen: boolean;
-  searchMobileOpen: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -34,7 +33,6 @@ export const Wrapper = styled(LayoutBody)`
 
 export default connect(
   (state: AppState) => ({
-    searchMobileOpen: selectSearch.mobileOpen(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
   })
 )(Wrapper);
