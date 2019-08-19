@@ -20,12 +20,9 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
   z-index: 1;
   height: calc(100vh - 18rem);
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-  margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ekodWl 5s;
-  animation: ekodWl 5s;
+  -webkit-animation: jnNuMv 300ms forwards;
+  animation: jnNuMv 300ms forwards;
 }
 
 .c0 > .c7 {
@@ -102,11 +99,18 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 {
+    -webkit-animation: jnNuMv 300ms forwards;
+    animation: jnNuMv 300ms forwards;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: -100%;
     width: 100%;
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
-    display: none;
   }
 }
 
@@ -271,12 +275,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
   z-index: 1;
   height: calc(100vh - 18rem);
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-  margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ekodWl 5s;
-  animation: ekodWl 5s;
+  -webkit-animation: jnNuMv 300ms forwards;
+  animation: jnNuMv 300ms forwards;
 }
 
 .c0 > .c9 {
@@ -489,11 +490,18 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 {
+    -webkit-animation: jnNuMv 300ms forwards;
+    animation: jnNuMv 300ms forwards;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: -100%;
     width: 100%;
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
-    display: none;
   }
 }
 
@@ -890,12 +898,9 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
   z-index: 1;
   height: calc(100vh - 18rem);
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-  margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ekodWl 5s;
-  animation: ekodWl 5s;
+  -webkit-animation: jnNuMv 300ms forwards;
+  animation: jnNuMv 300ms forwards;
 }
 
 .c0 > .c7 {
@@ -952,11 +957,18 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 
 @media screen and (max-width:75em) {
   .c0 {
+    -webkit-animation: jnNuMv 300ms forwards;
+    animation: jnNuMv 300ms forwards;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: -100%;
     width: 100%;
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
-    display: none;
   }
 }
 

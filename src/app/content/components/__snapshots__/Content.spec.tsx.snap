@@ -789,12 +789,11 @@ li[aria-label="Current Page"] .c46 {
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
   z-index: 1;
   height: calc(100vh - 18rem);
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-  margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ekodWl 5s;
-  animation: ekodWl 5s;
+  -webkit-animation: jnNuMv 300ms forwards;
+  animation: jnNuMv 300ms forwards;
+  -webkit-animation: iVVDrC 300ms forwards;
+  animation: iVVDrC 300ms forwards;
 }
 
 .c28 > .c100 {
@@ -1105,6 +1104,8 @@ li[aria-label="Current Page"] .c46 {
   padding: 0 3.2rem;
   position: relative;
   overflow: visible;
+  -webkit-transition: margin-left 300ms;
+  transition: margin-left 300ms;
 }
 
 .c75 {
@@ -1585,17 +1586,25 @@ li[aria-label="Current Page"] .c46 {
 
 @media screen and (max-width:75em) {
   .c28 {
-    display: none;
+    -webkit-animation: jnNuMv 300ms forwards;
+    animation: jnNuMv 300ms forwards;
   }
 }
 
 @media screen and (max-width:75em) {
   .c28 {
+    -webkit-animation: cBYHWt 300ms forwards;
+    animation: cBYHWt 300ms forwards;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c28 {
+    margin-left: -100%;
     width: 100%;
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
-    display: none;
   }
 }
 
@@ -1760,6 +1769,12 @@ li[aria-label="Current Page"] .c46 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c35 {
+    margin-left: 0;
   }
 }
 
@@ -4033,12 +4048,11 @@ Array [
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
   z-index: 1;
   height: calc(100vh - 18rem);
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-  margin-left: 0;
   margin-left: -44rem;
-  -webkit-animation: ekodWl 5s;
-  animation: ekodWl 5s;
+  -webkit-animation: jnNuMv 300ms forwards;
+  animation: jnNuMv 300ms forwards;
+  -webkit-animation: iVVDrC 300ms forwards;
+  animation: iVVDrC 300ms forwards;
 }
 
 .c20 > .c75 {
@@ -4349,6 +4363,8 @@ Array [
   padding: 0 3.2rem;
   position: relative;
   overflow: visible;
+  -webkit-transition: margin-left 300ms;
+  transition: margin-left 300ms;
 }
 
 .c46 {
@@ -4619,17 +4635,25 @@ Array [
 
 @media screen and (max-width:75em) {
   .c20 {
-    display: none;
+    -webkit-animation: jnNuMv 300ms forwards;
+    animation: jnNuMv 300ms forwards;
   }
 }
 
 @media screen and (max-width:75em) {
   .c20 {
+    -webkit-animation: cBYHWt 300ms forwards;
+    animation: cBYHWt 300ms forwards;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c20 {
+    margin-left: -100%;
     width: 100%;
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
-    display: none;
   }
 }
 
@@ -4794,6 +4818,12 @@ Array [
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c27 {
+    margin-left: 0;
   }
 }
 
