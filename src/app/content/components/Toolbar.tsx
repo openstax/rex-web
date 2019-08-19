@@ -11,8 +11,8 @@ import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../components/NavBar';
 import {
   contentFont,
+  decoratedLinkStyle,
   labelStyle,
-  linkColor,
   textRegularLineHeight,
   textRegularSize,
   textRegularStyle
@@ -298,13 +298,10 @@ const LeftArrow = styled(AngleLeft)`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToggleSeachResultsText = styled.button`
+const ToggleSeachResultsText = styled.a`
   ${textRegularStyle}
-  margin: 0;
-  padding: 0;
-  color: ${linkColor};
+  ${decoratedLinkStyle}
   display: flex;
-  align-items: center;
   overflow: visible;
 `;
 

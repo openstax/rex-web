@@ -4,7 +4,7 @@ import { textStyle } from './base';
 export * from './base';
 export * from './headings';
 
-export const linkColor = '#027EB5';
+const linkColor = '#027EB5';
 export const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};
