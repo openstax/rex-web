@@ -55,7 +55,7 @@ export const NavOl = styled.ol`
   }
 `;
 
-const sidebarOpenAnimationDesktop = keyframes`
+const sidebarOpenAnimation = keyframes`
   0% {
     transform: translateX(0);
   }
@@ -65,7 +65,7 @@ const sidebarOpenAnimationDesktop = keyframes`
   }
 `;
 
-const sidebarHideAnimationDesktop = keyframes`
+const sidebarHideAnimation = keyframes`
   0% {
     transform: translateX(100%);
   }
@@ -80,43 +80,6 @@ const sidebarHideAnimationDesktop = keyframes`
   }
 `;
 
-const sidebarOpenAnimationMobile = keyframes`
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-`;
-
-const sidebarHideAnimationMobile = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-
-  99% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(0);
-    visibility: hidden;
-  }
-`;
-const sidebarOpenStyle = css`
-  margin-left: -${searchResultsBarDesktopWidth}rem;
-  animation: ${sidebarOpenAnimationDesktop} ${sidebarTransitionTime}ms forwards;
-  ${theme.breakpoints.mobile(css`
-    animation: ${sidebarOpenAnimationMobile} ${sidebarTransitionTime}ms forwards;
-  `)}
-`;
-const sidebarClosedStyle = css`
-  animation: ${sidebarHideAnimationDesktop} ${sidebarTransitionTime}ms forwards;
-  ${theme.breakpoints.mobile(css`
-    animation: ${sidebarHideAnimationMobile} ${sidebarTransitionTime}ms forwards;
-  `)}
-`;
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   overflow: visible;
@@ -129,8 +92,11 @@ export const SearchResultsBar = styled.div`
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
-  ${sidebarOpenStyle}
-  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && sidebarClosedStyle}
+  margin-left: -${searchResultsBarDesktopWidth}rem;
+  animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
+  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && css`
+    animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
+  `}
   ${theme.breakpoints.mobile(css`
     margin-left: -100%;
     width: 100%;
