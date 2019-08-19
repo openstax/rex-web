@@ -1,7 +1,7 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { CollapseIcon, Details, ExpandIcon } from '../../../../components/Details';
+import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
 import { Book, Page } from '../../../types';
 import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -92,13 +92,15 @@ const SearchResultsDropdown = (props: {
   const active = props.currentPage && props.chapter
     && archiveTreeContainsNode(props.chapter, props.currentPage.id);
   return <Styled.ListItem>
-    <Details {...(active ? {open: true} : {})}>
-      <Styled.SearchBarSummary>
-        <ExpandIcon />
-        <CollapseIcon />
-        <Styled.SummaryTitle
-          dangerouslySetInnerHTML={{ __html: props.chapter.title }}
-        />
+    <Styled.Details {...(active ? {open: true} : {})}>
+      <Styled.SearchBarSummary tabIndex={0}>
+        <Styled.SearchBarSummaryContainer tabIndex={-1}>
+          <ExpandIcon />
+          <CollapseIcon />
+          <Styled.SummaryTitle
+            dangerouslySetInnerHTML={{ __html: props.chapter.title }}
+          />
+        </Styled.SearchBarSummaryContainer>
       </Styled.SearchBarSummary>
       <Styled.DetailsOl>
         <SearchResultContainers
@@ -109,6 +111,6 @@ const SearchResultsDropdown = (props: {
           activeSectionRef={props.activeSectionRef}
         />
       </Styled.DetailsOl>
-    </Details>
+    </Styled.Details>
   </Styled.ListItem>;
 };

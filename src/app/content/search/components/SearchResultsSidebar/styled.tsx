@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
+import { Details as BaseDetails, Summary } from '../../../../components/Details';
 import { navDesktopHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
 import {
@@ -17,7 +18,6 @@ import {
     toolbarIconColor,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
-import { Summary } from '../../../components/TableOfContents/styled';
 import { toolbarIconStyles } from '../../../components/Toolbar';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
@@ -48,6 +48,8 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 
 // tslint:disable-next-line:variable-name
 export const NavOl = styled.ol`
+  overflow: visible;
+
   .os-divider {
     width: 0.4rem;
   }
@@ -117,6 +119,7 @@ const sidebarClosedStyle = css`
 `;
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
+  overflow: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   margin-top: 0;
   padding: 0;
@@ -180,13 +183,18 @@ export const SummaryTitle = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchBarSummary = styled(Summary)`
-  min-height: 3.8rem;
+export const Details = styled(BaseDetails)`
+  overflow: visible;
+`;
+
+// tslint:disable-next-line:variable-name
+export const SearchBarSummaryContainer = styled.div`
   display: flex;
   align-items: center;
   background: ${backgroundColor};
-  border-top: solid 0.1rem ${borderColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
+  border-top: solid 0.1rem ${borderColor};
+
   ${theme.breakpoints.mobile(css`
     padding-left: ${theme.padding.page.mobile}rem;
 
@@ -194,6 +202,15 @@ export const SearchBarSummary = styled(Summary)`
       padding-right: ${theme.padding.page.mobile}rem;
     }
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const SearchBarSummary = styled(Summary)`
+  min-height: 3.8rem;
+
+  > * {
+    outline: none;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -246,6 +263,7 @@ export const LinkWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const DetailsOl = styled.ol`
+  overflow: visible;
   padding: 0;
 `;
 
@@ -314,5 +332,6 @@ export const HeaderQuery = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const ListItem = styled.li`
+  overflow: visible;
   display: block;
 `;
