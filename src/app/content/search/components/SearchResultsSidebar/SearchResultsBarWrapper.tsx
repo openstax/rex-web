@@ -86,7 +86,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book, searchResultsOpen } = this.props;
+    const { results, book, searchResultsOpen, query } = this.props;
 
     return (
       <FormattedMessage id='i18n:search-results:bar'>
@@ -94,6 +94,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           <Styled.SearchResultsBar
             aria-label={msg}
             searchResultsOpen={searchResultsOpen}
+            hasQuery={!!query}
             ref={this.searchSidebar}
             data-testid='search-results-sidebar'
           >

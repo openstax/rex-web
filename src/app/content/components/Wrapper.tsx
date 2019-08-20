@@ -10,6 +10,7 @@ export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
   searchResultsOpen: boolean;
+  hasQuery: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -22,7 +23,7 @@ export const Wrapper = styled(LayoutBody)`
     flex: 1;
   }
 
-  ${(props: WrapperProps) => props.searchResultsOpen && `
+  ${(props: WrapperProps) => (props.searchResultsOpen || props.hasQuery) && css`
     margin-left: ${searchResultsBarDesktopWidth}rem;
   `}
 
@@ -33,6 +34,7 @@ export const Wrapper = styled(LayoutBody)`
 
 export default connect(
   (state: AppState) => ({
+    hasQuery: !!selectSearch.query(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
   })
 )(Wrapper);

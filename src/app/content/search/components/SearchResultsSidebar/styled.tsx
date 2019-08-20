@@ -1,4 +1,5 @@
 import React from 'react';
+import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Search } from 'styled-icons/fa-solid/Search';
 import { Details as BaseDetails, Summary } from '../../../../components/Details';
@@ -80,6 +81,13 @@ const sidebarHideAnimation = keyframes`
   }
 `;
 
+export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) => css`
+  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && theme.breakpoints.mobile(closedStyle)}
+  ${(props: {searchResultsOpen: boolean, hasQuery: boolean}) =>
+    !props.searchResultsOpen && !props.hasQuery && closedStyle
+  }
+`;
+
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   overflow: visible;
@@ -94,9 +102,9 @@ export const SearchResultsBar = styled.div`
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-left: -${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
-  ${(props: {searchResultsOpen: boolean}) => !props.searchResultsOpen && css`
+  ${styleWhenSearchClosed(css`
     animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
-  `}
+  `)}
   ${theme.breakpoints.mobile(css`
     margin-left: -100%;
     width: 100%;
