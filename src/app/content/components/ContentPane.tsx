@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import MobileScrollLock from '../../components/MobileScrollLock';
-import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
@@ -38,10 +37,8 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ContentPane = ({ isOpen, onClick, children }: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
-  <ErrorBoundary>
-    {isOpen && <MobileScrollLock onClick={onClick} />}
-    {children}
-  </ErrorBoundary>
+  {isOpen && <MobileScrollLock onClick={onClick} />}
+  {children}
 </Wrapper>;
 
 const dispatchConnector = connect(
