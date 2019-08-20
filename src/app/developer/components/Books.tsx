@@ -62,10 +62,12 @@ class Books extends React.Component<Props> {
   }
 
   private toolsLink(book: Book) {
-    return <RouteLink match={{
-      params: {book: book.id},
-      route: bookTools,
-    }}>tools</RouteLink>;
+    return <Button
+      component={<RouteLink match={{
+        params: {book: book.id},
+        route: bookTools,
+      }}>tools</RouteLink>}
+    />;
   }
 }
 

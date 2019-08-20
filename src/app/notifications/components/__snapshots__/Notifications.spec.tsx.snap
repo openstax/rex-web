@@ -6,6 +6,7 @@ exports[`Notifications matches snapshot 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -18,6 +19,8 @@ exports[`Notifications matches snapshot 1`] = `
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -43,6 +46,11 @@ exports[`Notifications matches snapshot 1`] = `
 
 .c2 {
   width: 100%;
+}
+
+.c2 .c5 {
+  padding: 1rem;
+  margin: 0;
 }
 
 .c4 {
@@ -126,55 +134,49 @@ exports[`Notifications matches snapshot 1`] = `
 }
 
 @media (max-width:75em) {
-  .c2 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+  .c2 > .c5 {
+    display: block;
+    padding: 1.6rem 0 0 0;
   }
 }
 
 @media (max-width:75em) {
   .c4 {
-    padding: 0 1rem;
+    padding: 0;
   }
 }
 
 @media (max-width:75em) {
   .c1 {
-    max-width: 128rem;
-    margin: 0 auto;
+    margin: 1.6rem;
     box-shadow: none;
     border: none;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
+    background-color: initial;
+  }
+
+  .c1 > .c5 {
+    padding: 0;
   }
 }
 
 @media (max-width:75em) {
   .c3 {
-    line-height: 1rem;
-    margin: 0;
+    padding: 0;
+    line-height: 2rem;
     background-color: initial;
   }
 }
 
 @media (max-width:75em) {
   .c0 {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+    background-color: #fafafa;
     margin: 0;
     height: auto;
     width: 100%;
-    border-bottom: thin solid #e5e5e5;
-    padding: 0 3.2rem;
-    background-color: #fff;
   }
 }
 
@@ -215,6 +217,37 @@ exports[`Notifications matches snapshot 1`] = `
       </button>
     </div>
   </div>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      <div
+        className="c3"
+      >
+        Privacy and cookies
+      </div>
+      <p
+        className="c4"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "This site uses cookies to optimize your experience on our platform. By continuing to use this site you agree to use our cookies. If you'd like more information or would like to opt out please see our <a href=\\"/privacy-policy\\" target=\\"blank\\">Privacy Policy</a>",
+          }
+        }
+      />
+      <div
+        className="c5 c6"
+      >
+        <button
+          className="c7"
+          onClick={[Function]}
+        >
+          Got it!
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -233,12 +266,11 @@ exports[`Notifications matches snapshot for unknown notification 1`] = `
 
 @media (max-width:75em) {
   .c0 {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+    background-color: #fafafa;
     margin: 0;
     height: auto;
     width: 100%;
-    border-bottom: thin solid #e5e5e5;
-    padding: 0 3.2rem;
-    background-color: #fff;
   }
 }
 

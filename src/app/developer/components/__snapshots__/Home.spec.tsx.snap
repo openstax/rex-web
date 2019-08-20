@@ -134,7 +134,7 @@ Array [
   margin: 0;
 }
 
-.c7 {
+.c5 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
@@ -147,11 +147,12 @@ Array [
   margin: 0;
 }
 
-.c6 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -164,6 +165,8 @@ Array [
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -173,52 +176,12 @@ Array [
   font-weight: regular;
 }
 
-.c6:hover {
+.c4:hover {
   background-color: #fafafa;
 }
 
-.c6:active {
+.c4:active {
   background-color: #e5e5e5;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  font-family: Neue Helvetica W01;
-  border-radius: 0.2rem;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #fff;
-  background-color: #f36b32;
-  font-weight: bold;
-  border: none;
-}
-
-.c5:hover {
-  background-color: #e96128;
-}
-
-.c5:active {
-  background-color: #df571e;
-}
-
-.c4 {
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
 }
 
 .c3 {
@@ -241,7 +204,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c7 {
+  .c5 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
@@ -285,39 +248,7 @@ Array [
               <th />
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                Test Book 1
-              </td>
-              <td>
-                testbook1-uuid
-              </td>
-              <td>
-                1.0
-              </td>
-              <td>
-                <div
-                  className="c4"
-                >
-                  <a
-                    className="c5"
-                    href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                    onClick={[Function]}
-                  >
-                    Open
-                  </a>
-                  <a
-                    className="c6"
-                    href="/rex/testing-links/testbook1-uuid"
-                    onClick={[Function]}
-                  >
-                    content testing links
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
+          <tbody />
         </table>
       </div>
     </div>
@@ -331,7 +262,7 @@ Array [
         className="c3"
       >
         <button
-          className="c6"
+          className="c4"
           onClick={[Function]}
         >
           update available
@@ -349,7 +280,7 @@ Array [
       >
         <div>
           <h3
-            className="c7"
+            className="c5"
           >
             Developer Home
           </h3>
@@ -358,16 +289,34 @@ Array [
         </div>
         <div>
           <h3
-            className="c7"
+            className="c5"
           >
-            Content Testing Links
+            Book Tools
           </h3>
           path: 
-          /rex/testing-links/:book
+          /rex/tools/:book
         </div>
         <div>
           <h3
-            className="c7"
+            className="c5"
+          >
+            Audit TOC History
+          </h3>
+          path: 
+          /rex/tools/:book/audit-toc
+        </div>
+        <div>
+          <h3
+            className="c5"
+          >
+            CNX Link Mapping
+          </h3>
+          path: 
+          /rex/tools/:book/cnx-mapping
+        </div>
+        <div>
+          <h3
+            className="c5"
           >
             Content
           </h3>
@@ -376,7 +325,7 @@ Array [
         </div>
         <div>
           <h3
-            className="c7"
+            className="c5"
           >
             NotFound
           </h3>

@@ -10,10 +10,12 @@ interface Props {
   children: React.ReactNode;
   match: AnyMatch;
   navigate: typeof push;
+  className?: string;
 }
 
-function RouteLink({match, navigate, children}: Props) {
+function RouteLink({match, className, navigate, children}: Props) {
   return <a
+    className={className}
     href={matchUrl(match)}
     onClick={(e) => {
       if (e.metaKey) {

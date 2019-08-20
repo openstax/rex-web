@@ -48,17 +48,20 @@ function ButtonHoc<T extends ComponentType | undefined>({variant, size, componen
 // tslint:disable-next-line:variable-name
 const Button = styled(ButtonHoc)`
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   font-family: ${contentFont};
   border-radius: 0.2rem;
   text-decoration: none;
+  white-space: nowrap;
   ${(props) => props.size === 'large' && `
     font-size: 1.6rem;
     height: 5rem;
     padding: 0 3rem;
   `}
   ${(props) => (props.size === 'medium' || props.size === undefined) && `
+    min-width: 12rem;
     font-size: 1.6rem;
     height: 4rem;
     padding: 0 3rem;
