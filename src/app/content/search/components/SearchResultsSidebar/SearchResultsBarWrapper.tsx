@@ -15,6 +15,7 @@ import * as Styled from './styled';
 interface ResultsSidebarProps {
   currentPage: Page | undefined;
   query: string | null;
+  hasQuery: boolean;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   closeSearchResults: () => void;
@@ -86,7 +87,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book, searchResultsOpen, query } = this.props;
+    const { results, book, searchResultsOpen, hasQuery } = this.props;
 
     return (
       <FormattedMessage id='i18n:search-results:bar'>
@@ -94,7 +95,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           <Styled.SearchResultsBar
             aria-label={msg}
             searchResultsOpen={searchResultsOpen}
-            hasQuery={!!query}
+            hasQuery={hasQuery}
             ref={this.searchSidebar}
             data-testid='search-results-sidebar'
           >

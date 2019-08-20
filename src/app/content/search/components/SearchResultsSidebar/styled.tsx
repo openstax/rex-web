@@ -211,6 +211,10 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
     border-bottom: solid 0.1rem ${backgroundColor};
   }
 
+  > * {
+    outline: none;
+  }
+
   em {
     font-weight: bold;
   }
@@ -273,6 +277,7 @@ export const CloseIconButton = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const CloseIconWrapper = styled.div`
+  overflow: visible;
   display: flex;
   justify-content: flex-end;
   margin: 1.4rem 1.4rem 0 0;

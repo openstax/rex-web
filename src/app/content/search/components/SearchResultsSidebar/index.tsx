@@ -12,6 +12,7 @@ interface Props {
   currentPage: Page | undefined;
   book?: Book;
   query: string | null;
+  hasQuery: boolean;
   totalHits: number | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
@@ -61,6 +62,7 @@ export default connect(
   (state: AppState) => ({
     book: select.book(state),
     currentPage: select.page(state),
+    hasQuery: !!selectSearch.query(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
