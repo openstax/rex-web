@@ -3,7 +3,7 @@ import { makeUnifiedBookLoader } from '../content/utils';
 import { RouteHookBody } from '../navigation/types';
 import { routeHook } from '../navigation/utils';
 import { assertDefined } from '../utils';
-import { receiveBook, receiveBooks } from './actions';
+import { receiveBook, receiveBooks, receiveSearchStatus } from './actions';
 import * as routes from './routes';
 
 const receiveNavigation: RouteHookBody<typeof routes.developerHome> = (services) => async() => {
@@ -12,7 +12,10 @@ const receiveNavigation: RouteHookBody<typeof routes.developerHome> = (services)
     bookLoader(bookId, defaultVersion)
   ));
 
+  const searchInfo = await services.searchClient.info();
+
   services.dispatch(receiveBooks(books));
+  services.dispatch(receiveSearchStatus(searchInfo));
 };
 
 type singleBookTools = typeof routes.bookTools | typeof routes.cnxLinkMapping | typeof routes.auditTocHistory;
