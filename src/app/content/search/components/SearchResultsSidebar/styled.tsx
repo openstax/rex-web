@@ -18,7 +18,7 @@ import {
     toolbarIconColor,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
-import { toolbarIconStyles } from '../../../components/Toolbar';
+import { toolbarIconStyles } from '../../../components/Toolbar/styled';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
 const borderColor = '#d5d5d5';
