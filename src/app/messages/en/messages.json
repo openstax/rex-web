@@ -19,6 +19,7 @@
   "i18n:toolbar:search:placeholder": "Search this book",
   "i18n:toolbar:search:toggle": "Search this book",
   "i18n:toolbar:print:text": "Print",
+  "i18n:toolbar:print:aria-label": "print",
   "i18n:prevnext:prev:text": "Previous",
   "i18n:prevnext:next:text": "Next",
   "i18n:prevnext:prev:aria-label": "Previous Page",
@@ -41,5 +42,12 @@
   "i18n:footer:social:tw:alt": "twitter",
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:ig:alt": "instagram",
-  "i18n:footer:social:rice-logo:alt": "Rice University logo"
+  "i18n:footer:social:rice-logo:alt": "Rice University logo",
+  "i18n:search-results:bar": "Search results sidebar",
+  "i18n:search-results:bar:loading-state": "Loading results",
+  "i18n:search-results:bar:query:results": "search results for ",
+  "i18n:search-results:bar:query:no-results": "Sorry, no results found for ",
+  "i18n:search-results:bar:toggle-text:mobile": "Search results",
+  "i18n:search-results:bar:current-page": "Current Page",
+  "i18n:search-results:bar:search-icon:value": "Search"
 }
