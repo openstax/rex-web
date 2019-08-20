@@ -507,6 +507,7 @@ Array [
 }
 
 .c30 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3937,6 +3938,7 @@ Array [
 }
 
 .c22 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

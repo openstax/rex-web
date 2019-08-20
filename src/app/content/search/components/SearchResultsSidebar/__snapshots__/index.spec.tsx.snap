@@ -83,6 +83,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 }
 
 .c1 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -402,6 +403,10 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 
 .c14:not(:last-child) {
   border-bottom: solid 0.1rem #f1f1f1;
+}
+
+.c14 > * {
+  outline: none;
 }
 
 .c14 em {
@@ -922,6 +927,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 }
 
 .c2 {
+  overflow: visible;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
