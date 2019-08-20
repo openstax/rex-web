@@ -15,7 +15,7 @@ import {
   toolbarMobileHeight
 } from '../../constants';
 import { CloseSidebarControl, ToCButtonText } from '../../SidebarControl';
-import { toolbarIconStyles } from '../../Toolbar';
+import { toolbarIconStyles } from '../../Toolbar/styled';
 import { disablePrint } from '../../utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../utils/sidebar';
 
@@ -26,19 +26,11 @@ const sidebarClosedStyle = css`
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
   background-color: transparent;
+  pointer-events: none;
 
   > * {
     opacity: 0;
   }
-
-  ${theme.breakpoints.mobile(css`
-    background-color: ${theme.color.neutral.darker};
-    transform: translateX(-${sidebarMobileWidth + sidebarPadding * 2}rem);
-
-    > * {
-      opacity: 1;
-    }
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
