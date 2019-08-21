@@ -2184,6 +2184,7 @@ li[aria-label="Current Page"] .c46 {
           >
             <input
               aria-label="Search this book"
+              autoFocus={true}
               className="c20"
               data-testid="desktop-search-input"
               onChange={[Function]}
@@ -5011,6 +5012,7 @@ Array [
           >
             <input
               aria-label="Search this book"
+              autoFocus={true}
               className="c12"
               data-testid="desktop-search-input"
               onChange={[Function]}
