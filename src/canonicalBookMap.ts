@@ -7,6 +7,9 @@ export const CANONICAL_MAP: ObjectLiteral<string[] | undefined> = {
   /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': [
     /* Principles of Economics 2e */'bc498e1f-efe9-43a0-8dea-d3569ad09a82',
   ],
+  /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': [
+    /* Principles of Management */'c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e',
+  ],
   /* Principles of Microeconomics 2e */ '5c09762c-b540-47d3-9541-dda1f44f16e5': [
     /* Principles of Economics 2e */'bc498e1f-efe9-43a0-8dea-d3569ad09a82',
   ],
