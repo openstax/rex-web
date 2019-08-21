@@ -37,7 +37,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
 
   dispatch(setHead({
     links: [
-      {rel: 'canonical', href: canonicalUrl},
+      {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
     ],
     meta: [
       {property: 'og:description', content: ''},
