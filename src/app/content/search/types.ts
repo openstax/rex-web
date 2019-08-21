@@ -13,7 +13,7 @@ export interface State {
 
 export interface SelectedResult {
   result: SearchResultHit;
-  highlight: string;
+  highlight: number;
 }
 
 export type SearchResultPage = ArchiveTreeSection & {

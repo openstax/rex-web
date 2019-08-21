@@ -324,7 +324,6 @@ describe('Page', () => {
         bookUid: 'book',
         bookVersion: 'version',
         pageUid: 'page',
-        search: null,
       },
     }, {
       hash: '',

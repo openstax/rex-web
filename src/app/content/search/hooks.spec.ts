@@ -122,12 +122,12 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: 'qwer' },
+          state: { search: {query: 'qwer'} },
         },
         match: {} as any,
       });
 
-      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {skipNavigation: true}));
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer'));
     });
 
     it('doesn\'t dispatch on POP if saved query is same as current query', () => {
@@ -137,7 +137,7 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: 'asdf' },
+          state: { search: {query: 'asdf'} },
         },
         match: {} as any,
       });
@@ -151,7 +151,7 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: '' },
+          state: { search: {query: ''} },
         },
         match: {} as any,
       });
@@ -181,21 +181,13 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      helpers.history.replace({ state: { search: 'asdf' } });
+      helpers.history.replace({ state: { search: {query: 'asdf'} } });
       go([hit]);
       expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('noops if there is no book or page selected', () => {
       go([hit]);
-      expect(dispatch).not.toHaveBeenCalled();
-    });
-
-    it('noops if you pass the skipNavigation flag', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({...shortPage, references: []}));
-      store.dispatch(requestSearch('asdf'));
-      go([hit], {skipNavigation: true});
       expect(dispatch).not.toHaveBeenCalled();
     });
 
@@ -240,7 +232,7 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: 'asdf',
+            search: expect.objectContaining({query: 'asdf'}),
           },
         })
       );
@@ -259,7 +251,7 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: 'asdf',
+            search: expect.objectContaining({query: 'asdf'}),
           },
         })
       );

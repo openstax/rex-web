@@ -1,4 +1,5 @@
 import { SearchResultHit } from '@openstax/open-search-client';
+import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -77,15 +78,14 @@ const SearchResult = (props: {
       hit.highlight.visibleContent.map((highlight: string, index: number) =>
         <Styled.SectionContentPreview
           selectedResult={
-            props.selectedResult &&
-            hit === props.selectedResult.result &&
-            highlight === props.selectedResult.highlight
+            isEqual(props.selectedResult, {result: hit, highlight: index})
           }
           data-testid='search-result'
           key={index}
           book={props.book}
           page={props.page}
-          onClick={() => props.selectResult({result: hit, highlight})}
+          search={{selectedResult: {result: hit, highlight: index}}}
+          onClick={props.selectResult}
         >
           <span tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }}></span>
         </Styled.SectionContentPreview>
@@ -136,8 +136,7 @@ export default connect(
     selectedResult: selectSearch.selectedResult(state),
   }),
   (dispatch: Dispatch) => ({
-    selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => {
-      dispatch(selectSearchResult(payload));
+    selectResult: () => {
       dispatch(closeSearchResultsMobile());
     },
   })

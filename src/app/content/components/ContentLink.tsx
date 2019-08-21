@@ -5,10 +5,10 @@ import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
+import { RouteState } from '../../navigation/types';
 import { AppState, Dispatch } from '../../types';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
-import {State as SearchState } from '../search/types';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
@@ -24,7 +24,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
   onClick?: () => void;
   navigate: typeof push;
   currentPath: string;
-  search: SearchState['query'];
+  search: RouteState<typeof content>['search'];
   className?: string;
 }
 
@@ -60,7 +60,10 @@ export const ContentLink = ({
           bookUid,
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),
-          search: currentBook && currentBook.id === bookUid ? search : null,
+          ...(currentBook && currentBook.id === bookUid && search && Object.values(search).filter((x) => !!x).length > 0
+            ? {search}
+            : {}
+          ),
         },
       });
     }}
@@ -71,10 +74,14 @@ export const ContentLink = ({
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState) => ({
+  (state: AppState, ownProps: {search?: Partial<RouteState<typeof content>['search']>}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
-    search: selectSearch.query(state),
+    search: ({
+      query: selectSearch.query(state),
+      selectedResult: selectSearch.selectedResult(state),
+      ...(ownProps.search ? ownProps.search : {}),
+    }),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

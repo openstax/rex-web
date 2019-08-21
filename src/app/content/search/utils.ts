@@ -1,6 +1,8 @@
 import { SearchResult } from '@openstax/open-search-client';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
+import { RouteState } from '../../navigation/types';
+import { content } from '../routes';
 import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
@@ -14,10 +16,10 @@ export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult)
     : container;
 
   const firstResultPage = result && findFirstResultPage(result);
-  const firstResult = firstResultPage.results[0];
+  const firstResult = firstResultPage && firstResultPage.results[0];
 
   if (firstResult) {
-    return {result: firstResult, highlight: firstResult.highlight.visibleContent[0]};
+    return {result: firstResult, highlight: 0};
   }
 
   return null;
@@ -75,4 +77,5 @@ export const getIndexData = (indexName: string) => {
   };
 };
 
-export const getSearchFromLocation = (location: Location) => location.state && location.state.search;
+export const getSearchFromLocation = (location: Location): RouteState<typeof content>['search'] =>
+  location.state && location.state.search;

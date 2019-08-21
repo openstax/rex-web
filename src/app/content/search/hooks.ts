@@ -1,6 +1,7 @@
+import isEqual from 'lodash/fp/isEqual';
 import { push, replace } from '../../navigation/actions';
 import { RouteHookBody } from '../../navigation/types';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
+import { ActionHookBody } from '../../types';
 import { actionHook, assertDefined } from '../../utils';
 import { content } from '../routes';
 import * as selectContent from '../selectors';
@@ -32,35 +33,32 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
   const state = services.getState();
   const {page, book} = selectContent.bookAndPage(state);
-  const search = select.query(state);
-  const savedQuery = getSearchFromLocation(services.history.location);
+  const query = select.query(state);
+  const savedSearch = getSearchFromLocation(services.history.location);
 
   if (!page || !book) {
     return; // book changed while query was in the air
   }
 
-  const firstResult = getFirstResult(book, payload);
+  const selectedResult = meta && meta.selectedResult ? meta.selectedResult : getFirstResult(book, payload);
 
-  if (firstResult && book.id === getIndexData(firstResult.result.index).bookId) {
-    services.dispatch(selectSearchResult(firstResult));
-  }
-
-  if (!firstResult) {
+  if (!selectedResult) {
     return;
   }
 
-  const targetPageId = firstResult.result.source.pageId;
+  const targetPageId = selectedResult.result.source.pageId;
   const targetPage = assertDefined(
     findArchiveTreeNode(book.tree, targetPageId),
     'search result pointed to page that wasn\'t in book'
   );
 
-  if (savedQuery === search && page.id === stripIdVersion(targetPage.id)) {
+  const savedQuery = savedSearch ? savedSearch.query : null;
+  if (savedQuery === query && page.id === stripIdVersion(targetPage.id)) {
     return; // if search and page match current history record, noop
   }
 
-  if (meta && meta.skipNavigation) {
-    return;
+  if (selectedResult && book.id === getIndexData(selectedResult.result.index).bookId) {
+    services.dispatch(selectSearchResult(selectedResult));
   }
 
   const navigation = {
@@ -70,7 +68,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       bookUid: book.id,
       bookVersion: book.version,
       pageUid: stripIdVersion(targetPage.id),
-      search,
+      search: {query, selectedResult},
     },
   };
 
@@ -82,10 +80,20 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch: RouteHookBody<typeof content> = (services) => async(locationChange) => {
   const query = select.query(services.getState());
-  const savedQuery = getSearchFromLocation(locationChange.location);
+  const selectedResult = select.selectedResult(services.getState());
+  const savedSearch = getSearchFromLocation(locationChange.location);
 
-  if (locationChange.action === 'POP') { // on initial load or back/forward button, load state
-    loadSearch(services, query, savedQuery);
+  if (savedSearch && savedSearch.query && savedSearch.query !== query) {
+    services.dispatch(
+      requestSearch(
+        savedSearch.query,
+        savedSearch.selectedResult ? {selectedResult: savedSearch.selectedResult} : undefined
+      )
+    );
+  } else if (savedSearch && savedSearch.selectedResult && !isEqual(savedSearch.selectedResult, selectedResult)) {
+    services.dispatch(selectSearchResult(savedSearch.selectedResult));
+  } else if ((!savedSearch || !savedSearch.query) && query) {
+    services.dispatch(clearSearch());
   }
 };
 
@@ -93,15 +101,3 @@ export default [
   actionHook(requestSearch, requestSearchHook),
   actionHook(receiveSearchResults, receiveSearchHook),
 ];
-
-function loadSearch(
-  services: AppServices & MiddlewareAPI,
-  query: string | null,
-  savedQuery: string | null
-) {
-  if (savedQuery && savedQuery !== query) {
-    services.dispatch(requestSearch(savedQuery, {skipNavigation: true}));
-  } else if (!savedQuery && query) {
-    services.dispatch(clearSearch());
-  }
-}

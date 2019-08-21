@@ -116,29 +116,6 @@ describe('SearchResultsSidebar', () => {
     expect(assertDocument().activeElement).toBe(activeElement);
   });
 
-  it('focuses first result when opened', () => {
-    store.dispatch(receivePage({ ...page, references: [] }));
-    store.dispatch(requestSearch('cool search'));
-    renderToDom(render());
-
-    store.dispatch(
-      receiveSearchResults(
-        makeSearchResults([makeSearchResultHit({ book: archiveBook, page })])
-      )
-    );
-
-    const activeElement = assertDocument().activeElement;
-
-    if (!activeElement) {
-      return expect(activeElement).toBeTruthy();
-    }
-
-    expect(activeElement.getAttribute('data-testid')).toEqual('search-result');
-    expect(activeElement.textContent).toMatchInlineSnapshot(
-      `"cool highlight bruh"`
-    );
-  });
-
   it('closes search results when one is clicked', () => {
     store.dispatch(requestSearch('cool search'));
     store.dispatch(
