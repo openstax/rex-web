@@ -2,7 +2,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
-import { assertDefined } from '../../../../utils';
 import { Book } from '../../../types';
 import {
   scrollSidebarSectionIntoView,
@@ -17,7 +16,6 @@ interface ResultsSidebarProps {
   hasQuery: boolean;
   results: SearchResultContainer[] | null;
   onClose: () => void;
-  closeSearchResults: () => void;
   searchResultsOpen: boolean;
   book?: Book;
   totalHits: number | null;
@@ -85,7 +83,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       activeSectionRef={this.activeSection}
       containers={results}
       book={book}
-      closeSearchResults={this.props.closeSearchResults}
     />
   </Styled.NavOl>;
 
@@ -127,15 +124,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
-
-    const activeSection = this.activeSection.current;
-    if (activeSection) {
-      const firstResult = assertDefined(activeSection.querySelector('a'),
-        'there should always be at least one result if there is an active section'
-      );
-      firstResult.focus();
-    }
-
   }
 
   public componentWillUnmount() {

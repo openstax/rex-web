@@ -1,14 +1,15 @@
 import { push, replace } from '../../navigation/actions';
 import { RouteHookBody } from '../../navigation/types';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
-import { actionHook } from '../../utils';
+import { actionHook, assertDefined } from '../../utils';
 import { content } from '../routes';
 import * as selectContent from '../selectors';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
-import { clearSearch, receiveSearchResults, requestSearch } from './actions';
+import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import * as select from './selectors';
-import { getFirstResultPage, getIndexData, getSearchFromLocation } from './utils';
+import { getFirstResult, getIndexData, getSearchFromLocation } from './utils';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -30,41 +31,50 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
   const state = services.getState();
-  const search = select.query(state);
   const {page, book} = selectContent.bookAndPage(state);
-
-  if (!page || !book || (meta && meta.skipNavigation)) {
-    return; // book changed while query was in the air
-  }
-
-  const firstResultPage = getFirstResultPage(book, payload);
-  const firstResult = firstResultPage && firstResultPage.results[0];
-
-  if (!firstResult || !firstResultPage) {
-    return; // no results
-  }
-
-  if (book.id !== getIndexData(firstResult.index).bookId) {
-    return; // book changed while query was in the air
-  }
-
+  const search = select.query(state);
   const savedQuery = getSearchFromLocation(services.history.location);
-  if (savedQuery === search && page.id === stripIdVersion(firstResultPage.id)) {
+
+  if (!page || !book) {
+    return; // book changed while query was in the air
+  }
+
+  const firstResult = getFirstResult(book, payload);
+
+  if (firstResult && book.id === getIndexData(firstResult.result.index).bookId) {
+    services.dispatch(selectSearchResult(firstResult));
+  }
+
+  if (!firstResult) {
+    return;
+  }
+
+  const targetPageId = firstResult.result.source.pageId;
+  const targetPage = assertDefined(
+    findArchiveTreeNode(book.tree, targetPageId),
+    'search result pointed to page that wasn\'t in book'
+  );
+
+  if (savedQuery === search && page.id === stripIdVersion(targetPage.id)) {
     return; // if search and page match current history record, noop
   }
 
+  if (meta && meta.skipNavigation) {
+    return;
+  }
+
   const navigation = {
-    params: getBookPageUrlAndParams(book, firstResultPage).params,
+    params: getBookPageUrlAndParams(book, targetPage).params,
     route: content,
     state : {
       bookUid: book.id,
       bookVersion: book.version,
-      pageUid: stripIdVersion(firstResultPage.id),
+      pageUid: stripIdVersion(targetPage.id),
       search,
     },
   };
 
-  const action = stripIdVersion(page.id) === stripIdVersion(firstResultPage.id) ? replace : push;
+  const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
 
   services.dispatch(action(navigation));
 };

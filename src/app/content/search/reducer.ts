@@ -6,11 +6,12 @@ import { openToc } from '../actions';
 import * as actions from './actions';
 import { State } from './types';
 
-export const initialState = {
+export const initialState: State = {
   loading: false,
   mobileToolbarOpen: false,
   query: null,
   results: null,
+  selectedResult: null,
   sidebarOpen: false,
 };
 
@@ -22,6 +23,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveSearchResults): {
       return {...state, loading: false, results: action.payload};
+    }
+    case getType(actions.selectSearchResult): {
+      return {...state, selectedResult: action.payload};
     }
     case getType(actions.openMobileToolbar): {
       return {...state, mobileToolbarOpen: true};

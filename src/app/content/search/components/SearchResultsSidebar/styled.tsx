@@ -195,21 +195,23 @@ export const SearchResultsLink = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SectionContentPreview = styled(ContentLinkComponent)`
+export const SectionContentPreview = styled(({selectedResult, ...props}) => <ContentLinkComponent {...props} />)`
   ${labelStyle}
   cursor: pointer;
-  margin-left: 6.6rem;
   min-height: 3.7rem;
   align-items: center;
-  margin-right: ${theme.padding.page.mobile}rem;
-  padding: 1.2rem 0;
   display: block;
   text-decoration: none;
   line-height: 1.3;
+  padding: 1.2rem ${theme.padding.page.mobile}rem 1.2rem 6.6rem;
 
   :not(:last-child) {
     border-bottom: solid 0.1rem ${backgroundColor};
   }
+
+  ${(props: {selectedResult: boolean}) => props.selectedResult && css`
+    background: ${theme.color.neutral.darker};
+  `}
 
   ::before{
     content: '... '
@@ -224,7 +226,7 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
   }
 
   ${theme.breakpoints.mobile(css`
-    margin-left: 5rem;
+    padding-left: 5rem;
   `)}
 `;
 
@@ -252,11 +254,6 @@ export const DetailsOl = styled.ol`
 export const NavItem = styled.li`
   overflow: visible;
   background: ${theme.color.primary.gray.foreground};
-
-  &:focus-within,
-  &.ally-focus-within {
-    background: ${theme.color.neutral.darker};
-  }
 `;
 
 // tslint:disable-next-line:variable-name

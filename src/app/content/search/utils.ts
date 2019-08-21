@@ -5,15 +5,22 @@ import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeNo
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
-import { SearchResultContainer, SearchResultPage } from './types';
+import { SearchResultContainer, SearchResultPage, SelectedResult } from './types';
 
-export const getFirstResultPage = (book: {tree: ArchiveTree}, results: SearchResult): SearchResultPage | undefined => {
+export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
-  const getFirstResult = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
-    ? getFirstResult(container.contents[0])
+  const findFirstResultPage = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
+    ? findFirstResultPage(container.contents[0])
     : container;
 
-  return result && getFirstResult(result);
+  const firstResultPage = result && findFirstResultPage(result);
+  const firstResult = firstResultPage.results[0];
+
+  if (firstResult) {
+    return {result: firstResult, highlight: firstResult.highlight.visibleContent[0]};
+  }
+
+  return null;
 };
 
 export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>

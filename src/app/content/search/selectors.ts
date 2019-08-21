@@ -22,6 +22,11 @@ export const query = createSelector(
   (state) => state.query
 );
 
+export const selectedResult = createSelector(
+  localState,
+  (state) => state.selectedResult
+);
+
 export const totalHits = createSelector(
   localState,
   (state) => !!state.results ? state.results.hits.total : null
