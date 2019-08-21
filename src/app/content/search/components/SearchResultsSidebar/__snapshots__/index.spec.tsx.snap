@@ -197,12 +197,12 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   overflow: hidden;
 }
 
-.c20 {
+.c21 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c22 {
+.c23 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -259,12 +259,12 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   display: none;
 }
 
-.c26 > .c9 {
+.c27 > .c9 {
   margin: 0;
   padding: 0;
 }
 
-.c26 > .c9::before {
+.c27 > .c9::before {
   display: none;
 }
 
@@ -310,7 +310,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   min-height: 4rem;
 }
 
-.c24 {
+.c25 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
@@ -321,19 +321,19 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   line-height: 1.3;
 }
 
-.c16 {
+.c17 {
   overflow: visible;
 }
 
-.c16[open] > summary .c19 {
+.c17[open] > summary .c20 {
   display: none;
 }
 
-.c16:not([open]) > summary .c21 {
+.c17:not([open]) > summary .c22 {
   display: none;
 }
 
-.c18 {
+.c19 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -347,25 +347,25 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   border-top: solid 0.1rem #d5d5d5;
 }
 
-.c17 {
+.c18 {
   list-style: none;
   cursor: pointer;
   min-height: 3.8rem;
 }
 
-.c17::before {
+.c18::before {
   display: none;
 }
 
-.c17::-moz-list-bullet {
+.c18::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c17::-webkit-details-marker {
+.c18::-webkit-details-marker {
   display: none;
 }
 
-.c17 > * {
+.c18 > * {
   outline: none;
 }
 
@@ -380,7 +380,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   line-height: 1.3;
 }
 
-.c14 {
+.c15 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
@@ -401,15 +401,23 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   line-height: 1.3;
 }
 
-.c14:not(:last-child) {
+.c15:not(:last-child) {
   border-bottom: solid 0.1rem #f1f1f1;
 }
 
-.c14 > * {
+.c15 em {
+  font-weight: bold;
+}
+
+.c15::before {
+  content: '... ';
+}
+
+.c15::after content:' ...' > * {
   outline: none;
 }
 
-.c14 em {
+.c15::after em {
   font-weight: bold;
 }
 
@@ -429,7 +437,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   border-top: solid 0.2rem #f1f1f1;
 }
 
-.c25 {
+.c26 {
   overflow: visible;
   padding: 0;
 }
@@ -453,7 +461,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   width: 3.7rem;
 }
 
-.c27 .c6 {
+.c28 .c6 {
   margin: 0;
 }
 
@@ -467,9 +475,14 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   align-self: center;
 }
 
-.c15 {
+.c16 {
   overflow: visible;
   display: block;
+}
+
+.c14:focus-within,
+.c14.ally-focus-within {
+  background: #fafafa;
 }
 
 @media screen and (max-width:75em) {
@@ -495,17 +508,17 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c18 {
+  .c19 {
     padding-left: 1.6rem;
   }
 
-  .c18 .c23 {
+  .c19 .c24 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c15::after {
     margin-left: 5rem;
   }
 }
@@ -613,40 +626,45 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           }
         />
       </div>
-      <a
+      <div
         className="c14"
-        data-testid="search-result"
-        href="books/book-slug-1/pages/test-page-1"
         onClick={[Function]}
       >
-        <span
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "cool <em>highlight</em> bruh",
+        <a
+          className="c15"
+          data-testid="search-result"
+          href="books/book-slug-1/pages/test-page-1"
+          onClick={[Function]}
+        >
+          <span
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "cool <em>highlight</em> bruh",
+              }
             }
-          }
-          tabIndex={-1}
-        />
-      </a>
+            tabIndex={-1}
+          />
+        </a>
+      </div>
     </li>
     <li
-      className="c15"
+      className="c16"
     >
       <details
-        className="c16"
+        className="c17"
         open={true}
       >
         <summary
-          className="c17"
+          className="c18"
           tabIndex={0}
         >
           <div
-            className="c18"
+            className="c19"
             tabIndex={-1}
           >
             <svg
               aria-hidden="true"
-              className="c19 c20 c4"
+              className="c20 c21 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 192 512"
@@ -658,7 +676,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </svg>
             <svg
               aria-hidden="true"
-              className="c21 c22 c4"
+              className="c22 c23 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 320 512"
@@ -669,7 +687,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="c23 c24"
+              className="c24 c25"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -679,7 +697,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </div>
         </summary>
         <ol
-          className="c25"
+          className="c26"
         >
           <li
             className="c11"
@@ -697,42 +715,47 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 }
               />
             </div>
-            <a
+            <div
               className="c14"
-              data-testid="search-result"
-              href="books/book-slug-1/pages/10-test-page-6"
               onClick={[Function]}
             >
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "cool <em>highlight</em> bruh",
+              <a
+                className="c15"
+                data-testid="search-result"
+                href="books/book-slug-1/pages/10-test-page-6"
+                onClick={[Function]}
+              >
+                <span
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "cool <em>highlight</em> bruh",
+                    }
                   }
-                }
-                tabIndex={-1}
-              />
-            </a>
+                  tabIndex={-1}
+                />
+              </a>
+            </div>
           </li>
         </ol>
       </details>
     </li>
     <li
-      className="c15"
+      className="c16"
     >
       <details
-        className="c16"
+        className="c17"
       >
         <summary
-          className="c17"
+          className="c18"
           tabIndex={0}
         >
           <div
-            className="c18"
+            className="c19"
             tabIndex={-1}
           >
             <svg
               aria-hidden="true"
-              className="c19 c20 c4"
+              className="c20 c21 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 192 512"
@@ -744,7 +767,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </svg>
             <svg
               aria-hidden="true"
-              className="c21 c22 c4"
+              className="c22 c23 c4"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 320 512"
@@ -755,7 +778,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="c23 c24"
+              className="c24 c25"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -765,7 +788,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </div>
         </summary>
         <ol
-          className="c25"
+          className="c26"
         >
           <li
             className="c11"
@@ -782,21 +805,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 }
               />
             </div>
-            <a
+            <div
               className="c14"
-              data-testid="search-result"
-              href="books/book-slug-1/pages/12-test-page-7"
               onClick={[Function]}
             >
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "cool <em>highlight</em> bruh",
+              <a
+                className="c15"
+                data-testid="search-result"
+                href="books/book-slug-1/pages/12-test-page-7"
+                onClick={[Function]}
+              >
+                <span
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "cool <em>highlight</em> bruh",
+                    }
                   }
-                }
-                tabIndex={-1}
-              />
-            </a>
+                  tabIndex={-1}
+                />
+              </a>
+            </div>
           </li>
         </ol>
       </details>

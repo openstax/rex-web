@@ -211,12 +211,16 @@ export const SectionContentPreview = styled(ContentLinkComponent)`
     border-bottom: solid 0.1rem ${backgroundColor};
   }
 
-  > * {
-    outline: none;
+  ::before{
+    content: '... '
   }
 
-  em {
-    font-weight: bold;
+  ::after {
+    content: ' ...'
+  }
+
+  > * {
+    outline: none;
   }
 
   ${theme.breakpoints.mobile(css`
@@ -248,6 +252,11 @@ export const DetailsOl = styled.ol`
 export const NavItem = styled.li`
   overflow: visible;
   background: ${theme.color.primary.gray.foreground};
+
+  &:focus-within,
+  &.ally-focus-within {
+    background: ${theme.color.neutral.darker};
+  }
 `;
 
 // tslint:disable-next-line:variable-name

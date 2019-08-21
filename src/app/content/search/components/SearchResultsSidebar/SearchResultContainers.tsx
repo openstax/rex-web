@@ -1,7 +1,10 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
+import { AppState } from '../../../../types';
+import * as select from '../../../selectors';
 import { Book, Page } from '../../../types';
 import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -17,7 +20,7 @@ interface SearchResultContainersProps {
   activeSectionRef: HTMLElement;
 }
 // tslint:disable-next-line:variable-name
-export const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
+const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
   <React.Fragment>
     {containers.map((node: SearchResultContainer) =>
       isSearchResultChapter(node) ? (
@@ -64,8 +67,8 @@ const SearchResult = (props: {
       }
     </FormattedMessage>
     {props.page.results.map((hit: SearchResultHit) =>
-      hit.highlight.visibleContent.map((highlight: string, index: number) => {
-        return <Styled.SectionContentPreview
+      hit.highlight.visibleContent.map((highlight: string, index: number) =>
+        <Styled.SectionContentPreview
           data-testid='search-result'
           key={index}
           book={props.book}
@@ -73,8 +76,8 @@ const SearchResult = (props: {
           onClick={props.closeSearchResults}
         >
           <span tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }}></span>
-        </Styled.SectionContentPreview>;
-      })
+        </Styled.SectionContentPreview>
+      )
     )}
   </Styled.NavItem>;
 };
@@ -87,7 +90,6 @@ const SearchResultsDropdown = (props: {
   closeSearchResults: () => void;
   activeSectionRef: HTMLElement;
 }) => {
-
   const active = props.currentPage && props.chapter
     && archiveTreeContainsNode(props.chapter, props.currentPage.id);
   return <Styled.ListItem>
@@ -113,3 +115,9 @@ const SearchResultsDropdown = (props: {
     </Styled.Details>
   </Styled.ListItem>;
 };
+
+export default connect(
+  (state: AppState) => ({
+    currentPage: select.page(state),
+  })
+)(SearchResultContainers);
