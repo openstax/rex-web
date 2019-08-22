@@ -53,7 +53,11 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   );
 
   const savedQuery = savedSearch ? savedSearch.query : null;
-  if (savedQuery === query && page.id === stripIdVersion(targetPage.id)) {
+  if (
+    savedQuery === query &&
+    page.id === stripIdVersion(targetPage.id) &&
+    isEqual(select.selectedResult(state), selectedResult)
+  ) {
     return; // if search and page match current history record, noop
   }
 
