@@ -63,7 +63,7 @@ const SearchResult = (props: {
   const active = props.page && props.currentPage
     && stripIdVersion(props.currentPage.id) === stripIdVersion(props.page.id);
 
-  return <Styled.NavItem ref={active ? props.activeSectionRef : null }>
+  return <Styled.NavItem>
     <FormattedMessage id='i18n:search-results:bar:current-page'>
       {(msg: Element | string) =>
         <Styled.LinkWrapper {...(active ? {'aria-label': msg} : {})}>
@@ -74,7 +74,7 @@ const SearchResult = (props: {
       }
     </FormattedMessage>
     {props.page.results.map((hit: SearchResultHit) =>
-      hit.highlight.visibleContent.map((highlight: string, index: number) =>
+      hit.highlight.visibleContent.map((highlight: string, index: number) => 
         <Styled.SectionContentPreview
           selectedResult={
             isEqual(props.selectedResult, {result: hit, highlight: index})
@@ -85,6 +85,7 @@ const SearchResult = (props: {
           page={props.page}
           search={{selectedResult: {result: hit, highlight: index}}}
           onClick={props.selectResult}
+          ref={isEqual(props.selectedResult, {result: hit, highlight: index}) ? props.activeSectionRef : null}
         >
           <span tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }}></span>
         </Styled.SectionContentPreview>
