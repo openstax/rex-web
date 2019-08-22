@@ -21,12 +21,14 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getS
     return;
   }
 
+  const title = `${page.title} - ${book.title} - OpenStax`;
+
   dispatch(setHead({
     meta: [
-      {property: 'og:description', content: ''},
+      {property: 'og:title', content: title},
       {name: 'theme-color', content: theme.color.primary[book.theme].base},
     ],
-    title: `${book.title} / ${page.title}`,
+    title,
   }));
 };
 
