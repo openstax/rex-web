@@ -74,7 +74,7 @@ const SearchResult = (props: {
       }
     </FormattedMessage>
     {props.page.results.map((hit: SearchResultHit) =>
-      hit.highlight.visibleContent.map((highlight: string, index: number) => 
+      hit.highlight.visibleContent.map((highlight: string, index: number) =>
         <Styled.SectionContentPreview
           selectedResult={
             isEqual(props.selectedResult, {result: hit, highlight: index})
