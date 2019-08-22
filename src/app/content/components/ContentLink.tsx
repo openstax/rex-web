@@ -29,22 +29,24 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 // tslint:disable-next-line:variable-name
-export const ContentLink = ({
-  book,
-  page,
-  currentBook,
-  currentPath,
-  search,
-  navigate,
-  onClick,
-  children,
-  ...props
-}: React.PropsWithChildren<Props>) => {
+export const ContentLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
+  const {
+    book,
+    page,
+    currentBook,
+    currentPath,
+    search,
+    navigate,
+    onClick,
+    children,
+    ...anchorProps
+  } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
 
   return <a
+    ref={ref}
     onClick={(e) => {
       if (e.metaKey) {
         return;
@@ -68,9 +70,9 @@ export const ContentLink = ({
       });
     }}
     href={relativeUrl}
-    {...props}
+    {...anchorProps}
   >{children}</a>;
-};
+});
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
