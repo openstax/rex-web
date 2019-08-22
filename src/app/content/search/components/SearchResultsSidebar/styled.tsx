@@ -203,7 +203,7 @@ export const SectionContentPreview = styled(({selectedResult, ...props}) => <Con
   display: block;
   text-decoration: none;
   line-height: 1.3;
-  padding: 0 ${theme.padding.page.mobile}rem 0 6.6rem;
+  padding: 0 0 0 6.6rem;
 
   :not(:last-child) > div {
     border-bottom: solid 0.1rem ${backgroundColor};
@@ -214,7 +214,7 @@ export const SectionContentPreview = styled(({selectedResult, ...props}) => <Con
   `}
 
   > div {
-    padding: 1.2rem 0;
+    padding: 1.2rem ${theme.padding.page.mobile}rem 1.2rem 0;
 
     ::before{
       content: '... '
