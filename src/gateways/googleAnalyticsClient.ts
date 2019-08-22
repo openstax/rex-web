@@ -36,12 +36,7 @@ class GoogleAnalyticsClient {
   public ga(command_name: string, ...params: any[]) {
     let command = {name: command_name, params: params} as Command;
 
-    // The client may not be fully initialized by the time the first
-    // command comes in; in that case, save the command until that
-    // initialization.
-
     if (this.isReadyForCommands()) {
-      this.flushPendingCommands();
       this.commandEachTracker(command);
     }
     else {
@@ -53,8 +48,8 @@ class GoogleAnalyticsClient {
     this.ga('set', 'userid', id);
   }
 
-  public trackPageView(url: string) {
-    this.ga('send', 'pageview', url);
+  public trackPageView(path: string) {
+    this.ga('send', 'pageview', path);
   }
 
   public setTrackingIds(ids: Array<string>) {
@@ -68,6 +63,8 @@ class GoogleAnalyticsClient {
       this.trackerNames.push(trackerName);
       this.GA('create', id, 'auto', trackerName);
     }
+
+    this.flushPendingCommands();
   }
 
 }

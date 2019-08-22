@@ -76,7 +76,7 @@ export const poll = (store: Store) => async() => {
 };
 
 export default (store: Store): Cancel => {
-  if (APP_ENV == 'production') {
+  if (APP_ENV !== 'production') {
     return () => undefined;
   }
 
