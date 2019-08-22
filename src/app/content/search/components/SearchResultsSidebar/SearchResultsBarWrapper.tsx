@@ -26,14 +26,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   private searchSidebar = React.createRef<HTMLElement>();
   private activeSection = React.createRef<HTMLElement>();
 
-  public translationForResultsNumber = (translationId: string) =>
-    <FormattedMessage id={translationId}>
-      {(msg: Element | string) => <Styled.HeaderQuery>
-        {this.props.totalHits} {msg}{' '}
-        <strong> &lsquo;{this.props.query}&rsquo;</strong>
-      </Styled.HeaderQuery>}
-    </FormattedMessage>;
-
   public loadindState = () => <FormattedMessage id='i18n:search-results:bar:loading-state'>
     {(msg: Element | string) => <Styled.LoadingWrapper aria-label={msg}>
       <Styled.CloseIconWrapper>
@@ -48,10 +40,13 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public totalResults = () => <Styled.SearchQueryWrapper>
     <Styled.SearchQuery>
       <Styled.SearchIconInsideBar />
-        {(this.props.totalHits === 1) ?
-          this.translationForResultsNumber('i18n:search-results:bar:query:one-result')
-          : this.translationForResultsNumber('i18n:search-results:bar:query:multi-results')
-        }
+        <Styled.HeaderQuery>
+          {this.props.totalHits}{' '}
+          <FormattedMessage
+            id='i18n:search-results:bar:query:results'
+            values={{total: this.props.totalHits}}/>
+          <strong> &lsquo;{this.props.query}&rsquo;</strong>
+        </Styled.HeaderQuery>
         <Styled.CloseIconButton
           onClick={this.props.onClose}
           data-testid='close-search'

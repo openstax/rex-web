@@ -7,7 +7,6 @@ import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
 import { AppState, Dispatch, FirstArgumentType } from '../../../../types';
 import * as select from '../../../selectors';
 import { Book, Page } from '../../../types';
-import { archiveTreeContainsNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
@@ -103,10 +102,8 @@ const SearchResultsDropdown = (props: {
   selectedResult: SelectedResult | null;
   activeSectionRef: HTMLElement;
 }) => {
-  const active = props.currentPage && props.chapter
-    && archiveTreeContainsNode(props.chapter, props.currentPage.id);
   return <Styled.ListItem>
-    <Styled.Details {...(active ? {open: true} : {})}>
+    <Styled.Details open>
       <Styled.SearchBarSummary tabIndex={0}>
         <Styled.SearchBarSummaryContainer tabIndex={-1}>
           <ExpandIcon />
