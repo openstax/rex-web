@@ -225,20 +225,12 @@ class Content(Page):
             return self.section_url_within_attribution.get_attribute("href")
 
         @property
-        def book_url_within_attribution(self):
-            return self.find_element(*self._book_url_locator)
-
-        @property
         def book_url(self):
-            return self.book_url_within_attribution.get_attribute("href")
-
-        @property
-        def access_free_url_within_attribution(self):
-            return self.find_element(*self._access_free_locator)
+            return self.find_element(*self._book_url_locator).get_attribute("href")
 
         @property
         def access_free_url(self):
-            return self.access_free_url_within_attribution.get_attribute("href")
+            return self.find_element(*self._access_free_locator).get_attribute("href")
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)
