@@ -1,7 +1,7 @@
 import { SearchResult } from '@openstax/open-search-client';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
-import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
+import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
@@ -19,9 +19,10 @@ export const getFirstResultPage = (book: {tree: ArchiveTree}, results: SearchRes
 export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
   filterTreeForSearchResults(linkArchiveTree(bookTree), searchResults);
 
-const getSearchResultsForPage = (page: ArchiveTreeSection, results: SearchResult) => sortBy('source.pagePosition',
-  results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
-);
+export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
+  sortBy('source.pagePosition',
+    results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
+  );
 
 const filterTreeForSearchResults = (
   node: LinkedArchiveTree,

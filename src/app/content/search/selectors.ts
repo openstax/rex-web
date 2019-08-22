@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getFormattedSearchResults } from './utils';
+import { getFormattedSearchResults, getSearchResultsForPage } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -36,4 +36,10 @@ export const results = createSelector(
 export const mobileToolbarOpen = createSelector(
   localState,
   (state) => state.mobileToolbarOpen
+);
+
+export const currentPageResults = createSelector(
+  localState,
+  parentSelectors.page,
+  (state, page) => state.results && page ? getSearchResultsForPage(page, state.results) : []
 );
