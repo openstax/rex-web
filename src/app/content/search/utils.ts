@@ -1,4 +1,4 @@
-import { SearchResult } from '@openstax/open-search-client';
+import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import { RouteState } from '../../navigation/types';
@@ -79,3 +79,14 @@ export const getIndexData = (indexName: string) => {
 
 export const getSearchFromLocation = (location: Location): RouteState<typeof content>['search'] =>
   location.state && location.state.search;
+
+export const countTotalHighlights = (results: SearchResultHit[]) => {
+  let count = 0;
+  results.map((hit: SearchResultHit) =>
+    hit.highlight.visibleContent.map(() => {
+      count++;
+    })
+  );
+
+  return count;
+};

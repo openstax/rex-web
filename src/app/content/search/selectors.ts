@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getFormattedSearchResults } from './utils';
+import { countTotalHighlights, getFormattedSearchResults } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -29,7 +29,7 @@ export const selectedResult = createSelector(
 
 export const totalHits = createSelector(
   localState,
-  (state) => !!state.results ? state.results.hits.total : null
+  (state) => !!state.results ? countTotalHighlights(state.results.hits.hits) : null
 );
 
 export const results = createSelector(
