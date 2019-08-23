@@ -89,13 +89,24 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
       const partRange = rangy.createRange();
       const partMatches = part.match(/<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*/g) || [];
 
-      partRange.findText(part.replace(/<\/?strong>|\n/g, ''), {
+      const found = partRange.findText(part.replace(/<\/?strong>|\n/g, ''), {
         withinRange: elementRange.cloneRange(),
       });
 
+      if (!found) {
+        console.log('not found');
+      }
       return partMatches
         .map((match) => match.replace(/<\/?strong>|\n/g, ''))
-        .map((match) => findTextInRange(partRange, match))
+        .map((match) => {
+          console.log('match',
+            match
+          ,
+            elementRange.cloneRange(),
+            elementRange
+          );
+          return findTextInRange(partRange, match);
+        })
         .reduce((flat, sub) => [...flat, ...sub], [])
       ;
     })

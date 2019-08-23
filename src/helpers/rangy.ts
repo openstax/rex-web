@@ -7,21 +7,25 @@ const rangy = UntypedRangy as RangyStatic<RangyRange & TextRange>;
 
 export default rangy;
 
-export const findTextInRange = (withinRange: RangyRange, text: string, carriedRange?: RangyRange): RangyRange[] => {
-  const range = carriedRange || rangy.createRange();
+export const findTextInRange = (
+  withinRange: RangyRange,
+  text: string,
+  range: RangyRange = rangy.createRange()
+): RangyRange[] => {
   const foundMatch = range.findText(text, {
     withinRange: withinRange.cloneRange(),
   });
 
-  if (!foundMatch) {
+  console.log('within', withinRange);
+  if (!foundMatch || !range.intersectsRange(withinRange)) {
     return [];
   }
 
-  const nextRange = range.cloneRange();
-  nextRange.collapse(false);
+  const match = range.cloneRange();
+  range.collapse(false);
 
   return [
-    range,
-    ...findTextInRange(withinRange, text, nextRange),
+    match,
+    ...findTextInRange(withinRange, text, range),
   ];
 };
