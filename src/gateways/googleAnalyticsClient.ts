@@ -10,8 +10,6 @@ class GoogleAnalyticsClient {
   private trackerNames: Array<string> = [];
   private pendingCommands: Array<Command> = [];
 
-  private GA = assertWindow().ga;
-
   private saveCommandForLater(command: Command) {
     this.pendingCommands.push(command);
   }
@@ -31,6 +29,11 @@ class GoogleAnalyticsClient {
 
   private isReadyForCommands() {
     return (this.trackerNames.length > 0);
+  }
+
+  // The real, low-level Google Analytics function
+  private GA(command_name: string, ...params: any[]) {
+    return assertWindow().ga(command_name, ...params);
   }
 
   public ga(command_name: string, ...params: any[]) {
