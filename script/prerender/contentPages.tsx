@@ -89,7 +89,12 @@ const renderHtml: RenderHtml = (styles, app, state) => {
       </Loadable.Capture>
     </StyleSheetManager>
   );
-  const bodySnippet = body.substring(body.indexOf('<div id="main-content"')).replace(/<[^>]*>/g, ' ').trim().substring(0, 155);
+  const bodySnippet = body.substring(body.indexOf('<div id="main-content"'))
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/ +/g, ' ')
+    .trim()
+    .substring(0, 155)
+    .trim();
 
   return injectHTML(indexHtml, {
     body,
