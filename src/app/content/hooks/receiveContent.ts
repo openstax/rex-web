@@ -22,9 +22,16 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({getS
   }
 
   const title = `${page.title} - ${book.title} - OpenStax`;
+  const description = page.abstract.replace(/<[^>]*>/g, ' ')
+    .replace(/ +/g, ' ')
+    .trim()
+    .substring(0, 155)
+    .trim();
 
   dispatch(setHead({
     meta: [
+      {name: 'description', content: description},
+      {property: 'og:description', content: description},
       {property: 'og:title', content: title},
       {name: 'theme-color', content: theme.color.primary[book.theme].base},
     ],

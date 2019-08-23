@@ -50,6 +50,7 @@ export interface Book {
 }
 
 export interface Page {
+  abstract: string;
   id: string;
   shortId: string;
   title: string;
@@ -92,6 +93,7 @@ export interface ArchiveBook {
 }
 
 export interface ArchivePage {
+  abstract: string;
   id: string;
   shortId: string;
   content: string;

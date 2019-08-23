@@ -82,24 +82,16 @@ type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, 
 const renderHtml: RenderHtml = (styles, app, state) => {
   const modules: string[] = [];
 
-  const body = renderToString(
-    <StyleSheetManager sheet={styles.instance}>
-      <Loadable.Capture report={(m) => modules.push(m)}>
-        <app.container />
-      </Loadable.Capture>
-    </StyleSheetManager>
-  );
-  const bodySnippet = body.substring(body.indexOf('<div id="main-content"'))
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/ +/g, ' ')
-    .trim()
-    .substring(0, 155)
-    .trim();
-
   return injectHTML(indexHtml, {
-    body,
+    body: renderToString(
+      <StyleSheetManager sheet={styles.instance}>
+        <Loadable.Capture report={(m) => modules.push(m)}>
+          <app.container />
+        </Loadable.Capture>
+      </StyleSheetManager>
+    ),
     fonts: app.services.fontCollector.fonts,
-    meta: [...headSelectors.meta(state), {property: 'og:description', content: bodySnippet}],
+    meta: headSelectors.meta(state),
     modules,
     state,
     styles,
