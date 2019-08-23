@@ -102,6 +102,10 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
             match: match[1].replace(/<\/?strong>|\n/g, ''),
         }));
 
+      if (partMatches.length === 0) {
+        return [];
+      }
+
       const found = partRange.findText(part.replace(/<\/?strong>|\n/g, ''), {
         withinRange: elementRange.cloneRange(),
       });
