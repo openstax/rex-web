@@ -77,11 +77,6 @@ const SearchResult = (props: {
       hit.highlight.visibleContent.map((highlight: string, index: number) => {
         const thisResult = {result: hit, highlight: index};
         const isSelected = isEqual(props.selectedResult, thisResult);
-
-        if (isSelected) {
-          console.log(props.activeSectionRef);
-        }
-
         return <Styled.SectionContentPreview
           selectedResult={isSelected}
           data-testid='search-result'
