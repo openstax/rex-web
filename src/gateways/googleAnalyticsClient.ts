@@ -22,8 +22,8 @@ class GoogleAnalyticsClient {
   }
 
   private commandEachTracker(command: Command) {
-    for (let trackerName of this.trackerNames) {
-      this.GA(trackerName + '.' + command.name, ...command.params);
+    for (const trackerName of this.trackerNames) {
+      this.ga(trackerName + '.' + command.name, ...command.params);
     }
   }
 
@@ -32,11 +32,11 @@ class GoogleAnalyticsClient {
   }
 
   // The real, low-level Google Analytics function
-  private GA(command_name: string, ...params: any[]) {
+  private ga(command_name: string, ...params: any[]) {
     return assertWindow().ga(command_name, ...params);
   }
 
-  public ga(command_name: string, ...params: any[]) {
+  public gaProxy(command_name: string, ...params: any[]) {
     let command = {name: command_name, params: params} as Command;
 
     if (this.isReadyForCommands()) {
@@ -48,23 +48,23 @@ class GoogleAnalyticsClient {
   };
 
   public setUserId(id: string) {
-    this.ga('set', 'userid', id);
+    this.gaProxy('set', 'userid', id);
   }
 
   public trackPageView(path: string) {
-    this.ga('send', 'pageview', path);
+    this.gaProxy('send', 'pageview', path);
   }
 
   public setTrackingIds(ids: Array<string>) {
     // Ignore tracking ID changes for the moment
     if (this.trackerNames.length > 0) { return; }
 
-    for (let id of ids) {
+    for (const id of ids) {
       // Build a tracker for each ID, use the ID as the basis of the
       // tracker name (must be alphanumeric)
       let trackerName = 't' + id.replace(/-/g,'');
       this.trackerNames.push(trackerName);
-      this.GA('create', id, 'auto', trackerName);
+      this.ga('create', id, 'auto', trackerName);
     }
 
     this.flushPendingCommands();
@@ -72,7 +72,7 @@ class GoogleAnalyticsClient {
 
 }
 
-let singleton = new GoogleAnalyticsClient();
+const singleton = new GoogleAnalyticsClient();
 
 export { GoogleAnalyticsClient };
 export default singleton;
