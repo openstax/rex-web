@@ -1,3 +1,4 @@
+import { SearchResultHit } from '@openstax/open-search-client';
 import React from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
@@ -21,6 +22,8 @@ import {
 import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/styled';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { Book } from '../../../types';
+import { SearchResultPage, SelectedResult } from '../../types';
 
 const borderColor = '#d5d5d5';
 const backgroundColor = '#f1f1f1';
@@ -194,8 +197,19 @@ export const SearchResultsLink = styled.div`
   line-height: 1.3;
 `;
 
+interface SectionContentPreviewProps {
+  children: Element;
+  selectedResult: boolean;
+  key: number;
+  book: Book;
+  page: SearchResultPage;
+  search: { selectedResult: { result: SearchResultHit; highlight: number; }; };
+  onClick: (payload: SelectedResult) => void;
+}
+
 // tslint:disable-next-line:variable-name
-export const SectionContentPreview = styled(({selectedResult, ...props}) => <ContentLinkComponent {...props} />)`
+export const SectionContentPreview = React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>
+  (styled(({selectedResult, ref, ...props}) => <ContentLinkComponent {...props} />)`
   ${labelStyle}
   cursor: pointer;
   min-height: 3.7rem;
@@ -232,7 +246,7 @@ export const SectionContentPreview = styled(({selectedResult, ...props}) => <Con
   ${theme.breakpoints.mobile(css`
     padding-left: 5rem;
   `)}
-`;
+`);
 
 // tslint:disable-next-line:variable-name
 export const LinkWrapper = styled.div`

@@ -85,7 +85,9 @@ const SearchResult = (props: {
           page={props.page}
           search={{selectedResult: {result: hit, highlight: index}}}
           onClick={props.selectResult}
-          ref={isEqual(props.selectedResult, {result: hit, highlight: index}) ? props.activeSectionRef : null}
+          {...(isEqual(props.selectedResult, {result: hit, highlight: index}) ?
+            {ref : props.activeSectionRef } : { })
+          }
         >
           <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />
         </Styled.SectionContentPreview>

@@ -45,6 +45,8 @@ export const ContentLink = React.forwardRef<HTMLAnchorElement, Props>((props, re
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
 
+  console.log(ref);
+
   return <a
     ref={ref}
     onClick={(e) => {
