@@ -20,7 +20,7 @@ interface SearchResultContainersProps {
   book: Book;
   selectedResult: SelectedResult | null;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
-  activeSectionRef: HTMLElement;
+  activeSectionRef: React.RefObject<HTMLAnchorElement>;
 }
 // tslint:disable-next-line:variable-name
 const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
@@ -58,7 +58,7 @@ const SearchResult = (props: {
   book: Book;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
   selectedResult: SelectedResult | null;
-  activeSectionRef: HTMLElement;
+  activeSectionRef: React.RefObject<HTMLAnchorElement>;
 }) => {
   const active = props.page && props.currentPage
     && stripIdVersion(props.currentPage.id) === stripIdVersion(props.page.id);
@@ -103,7 +103,7 @@ const SearchResultsDropdown = (props: {
   book: Book;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
   selectedResult: SelectedResult | null;
-  activeSectionRef: HTMLElement;
+  activeSectionRef: React.RefObject<HTMLAnchorElement>;
 }) => {
   return <Styled.ListItem>
     <Styled.Details open>
