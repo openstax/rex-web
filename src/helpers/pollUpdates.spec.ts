@@ -96,7 +96,7 @@ describe('poll updates', () => {
 
       expect(dispatch).not.toHaveBeenCalled();
 
-      (Date as any).prototype.getTime.mockReturnValue((new dateBackup()).getTime() + trustAfter);
+      (Date as any).prototype.getTime.mockReturnValue((new dateBackup()).getTime() + trustAfter * 1.5);
       // make date be 1h in the future
 
       jest.runOnlyPendingTimers();
