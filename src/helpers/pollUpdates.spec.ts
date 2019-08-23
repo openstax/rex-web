@@ -2,9 +2,8 @@ import { updateAvailable } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import createTestStore from '../test/createTestStore';
+import { Cancel, trustAfter } from './pollUpdates';
 import { resetModules } from '../test/utils';
-import pollUpdatesType, { Cancel, poll as pollType, trustAfter } from './pollUpdates';
-import googleAnalyticsClient from '../gateways/googleAnalyticsClient'
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
   json: () => Promise.resolve(data),
@@ -23,13 +22,14 @@ describe('poll updates', () => {
     jest.useFakeTimers();
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
+
     (global as any).fetch = mockFetch(200, {
-      release_id: 'releaseid',
       configs: {
         google_analytics: [
-          "UA-0000000-1"
-        ]
-      }
+          'UA-0000000-1',
+        ],
+      },
+      release_id: 'releaseid',
     });
 
     function MockDate() {
@@ -51,15 +51,17 @@ describe('poll updates', () => {
   });
 
   describe('in production', () => {
-    let pollUpdates: typeof pollUpdatesType;
+    let pollUpdates: typeof import ('./pollUpdates').default;
+    let googleAnalyticsClient: typeof import ('../gateways/googleAnalyticsClient').default;
 
     beforeEach(() => {
-      resetModules();
       jest.mock('../config', () => ({
         APP_ENV: 'production',
         RELEASE_ID: 'releaseid',
       }));
+      jest.resetModules();
       pollUpdates = require('./pollUpdates').default;
+      googleAnalyticsClient = require('../gateways/googleAnalyticsClient').default;
     });
 
     it('fetches /rex/environment.json imeediately', () => {
@@ -118,7 +120,7 @@ describe('poll updates', () => {
       expect(dispatch).toHaveBeenCalledWith(updateAvailable());
     });
 
-    xit('initializes google analytics', async() => {
+    it('initializes google analytics', async() => {
       const mock = jest.fn(() => ({}));
       googleAnalyticsClient.setTrackingIds = mock;
 
@@ -128,7 +130,7 @@ describe('poll updates', () => {
       await Promise.resolve(); // clear promise queue for the async poll function
       await Promise.resolve(); // clear promise queue for the mockfetch
 
-      expect(mock).toHaveBeenCalledWith(["UA-0000000-1"])
+      expect(mock).toHaveBeenCalledWith(['UA-0000000-1']);
     });
 
     it('does nothing while focus is away', async() => {
@@ -182,7 +184,7 @@ describe('poll updates', () => {
 
 describe('poll', () => {
   const fetchBackup = fetch;
-  let poll: typeof pollType;
+  let poll: typeof import ('./pollUpdates').poll;
   let store: Store;
   let dispatch: jest.SpyInstance;
 
