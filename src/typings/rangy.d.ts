@@ -11,6 +11,7 @@ declare module 'rangy' {
     intersectsOrTouchesRange(range: RangyRange): boolean;
     intersectsRange(range: RangyRange): boolean;
     intersection(range: RangyRange): RangyRange;
+    cloneRange<T extends RangyRange>(this: T): T;
     union(range: RangyRange): RangyRange;
     containsNode(node: Node, partial: boolean): boolean;
     containsNodeContents(node: Node): boolean;
@@ -38,7 +39,7 @@ declare module 'rangy' {
       wholeWordsOnly?: boolean,
       wrap?: boolean,
       direction?: 'backward' | 'forward',
-    }) => void;
+    }) => boolean;
   }
 
   export interface RangyStatic<R extends RangyRange = RangyRange> {

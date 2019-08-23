@@ -1,6 +1,12 @@
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
+import { SearchResultHit } from '@openstax/open-search-client';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
+import { RangyRange, TextRange } from 'rangy';
+import rangy from '../../../helpers/rangy';
+import { findTextInRange } from '../../../helpers/rangy';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
@@ -70,3 +76,52 @@ export const getIndexData = (indexName: string) => {
 };
 
 export const getSearchFromLocation = (location: Location) => location.state && location.state.search;
+
+const getHighlightRanges = (element: HTMLElement, highlight: string): Array<RangyRange & TextRange> => {
+  const elementRange = rangy.createRange();
+  elementRange.selectNodeContents(element);
+
+  // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,
+  // luckily you can't actually search for non-text elements, so they won't be in a matches
+  // only in surrounding context, so find matches in each part separately
+  return highlight.split('…')
+    .map((part) => {
+      const partRange = rangy.createRange();
+      const partMatches = part.match(/<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*/g) || [];
+
+      partRange.findText(part.replace(/<\/?strong>|\n/g, ''), {
+        withinRange: elementRange.cloneRange(),
+      });
+
+      return partMatches
+        .map((match) => match.replace(/<\/?strong>|\n/g, ''))
+        .map((match) => findTextInRange(partRange, match))
+        .reduce((flat, sub) => [...flat, ...sub], [])
+      ;
+    })
+    .reduce((flat, sub) => [...flat, ...sub], [])
+  ;
+};
+
+export const highlightResults = (highlighter: Highlighter, results: SearchResultHit[]) => {
+  for (const hit of results) {
+    const element = highlighter.getReferenceElement(hit.source.elementId) as HTMLElement;
+
+    if (!element) {
+      return;
+    }
+
+    for (const highlight of hit.highlight.visibleContent) {
+
+      getHighlightRanges(element, highlight).forEach((range) => {
+        try {
+          highlighter.highlight(
+            new Highlight(range.nativeRange, range.toString())
+          );
+        } catch (error) {
+          console.error(error); // tslint:disable-line:no-console
+        }
+      });
+    }
+  }
+};

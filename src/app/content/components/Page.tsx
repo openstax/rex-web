@@ -1,4 +1,4 @@
-import Highlighter, { Highlight } from '@openstax/highlighter';
+import Highlighter from '@openstax/highlighter';
 import { SearchResultHit } from '@openstax/open-search-client';
 import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
-import rangy from '../../../helpers/rangy';
 import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
@@ -20,6 +19,7 @@ import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import {State as SearchState } from '../search/types';
+import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
@@ -134,33 +134,7 @@ export class PageComponent extends Component<PropTypes> {
 
     this.searchHighlighter.eraseAll();
 
-    for (const hit of searchResults) {
-      const elementId = hit.source.elementId;
-      const element = this.container.querySelector(`[id="${elementId}"]`);
-
-      if (!element) {
-        return;
-      }
-
-      for (const rawHighlight of hit.highlight.visibleContent) {
-        const elementRange = rangy.createRange();
-        elementRange.selectNodeContents(element);
-        const highlightText = rawHighlight.replace(/<\/?strong>/g, '');
-        const range = rangy.createRange();
-
-        range.findText(highlightText, {
-          withinRange: elementRange,
-        });
-
-        try {
-          this.searchHighlighter.highlight(
-            new Highlight(range.nativeRange, highlightText)
-          );
-        } catch (error) {
-          console.error(error); // tslint:disable-line:no-console
-        }
-      }
-    }
+    highlightResults(this.searchHighlighter, searchResults);
   };
 
   private getPrerenderedContent() {
@@ -332,7 +306,7 @@ const StyledPageComponent = styled(PageComponent)`
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   .search-highlight {
-    background-color: yellow;
+    background-color: #ff9e4b;
   }
 
   .os-figure,
