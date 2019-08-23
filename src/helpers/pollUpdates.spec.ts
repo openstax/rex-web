@@ -2,6 +2,7 @@ import { updateAvailable } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import createTestStore from '../test/createTestStore';
+import { resetModules } from '../test/utils';
 import pollUpdatesType, { Cancel, poll as pollType, trustAfter } from './pollUpdates';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
@@ -36,7 +37,7 @@ describe('poll updates', () => {
     } else {
       throw new Error('test did not set its cancel function, probably leaking timers');
     }
-    jest.resetModules();
+    resetModules();
     (global as any).fetch = fetchBackup;
     (global as any).Date = dateBackup;
   });
@@ -45,7 +46,7 @@ describe('poll updates', () => {
     let pollUpdates: typeof pollUpdatesType;
 
     beforeEach(() => {
-      jest.resetModules();
+      resetModules();
       jest.mock('../config', () => ({
         APP_ENV: 'production',
         RELEASE_ID: 'releaseid',

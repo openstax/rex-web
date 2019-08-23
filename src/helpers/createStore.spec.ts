@@ -1,5 +1,6 @@
 import { AppState } from '../app/types';
 import cs from './createStore';
+import { resetModules } from "../test/utils";
 
 declare const window: Window;
 
@@ -7,7 +8,7 @@ describe('createStore', () => {
   let redux = require('redux');
 
   afterEach(() => {
-    jest.resetModules();
+    resetModules();
     redux = require('redux');
   });
 

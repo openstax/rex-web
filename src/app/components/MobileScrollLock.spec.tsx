@@ -3,6 +3,7 @@ import ReactType, { ComponentType } from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import rendererType from 'react-test-renderer';
 import { renderToDom } from '../../test/reactutils';
+import { resetModules } from '../../test/utils';
 
 describe('MobileScrollLock', () => {
 
@@ -112,7 +113,7 @@ describe('MobileScrollLock', () => {
     let React: typeof ReactType; // tslint:disable-line:variable-name
 
     beforeEach(() => {
-      jest.resetModules();
+      resetModules();
       delete (global as any).window;
       delete (global as any).document;
 

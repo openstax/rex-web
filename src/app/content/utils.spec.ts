@@ -6,6 +6,7 @@ import {
   stripIdVersion,
   toRelativeUrl
 } from './utils';
+import { resetModules } from "../../test/utils";
 
 describe('stripIdVersion', () => {
   it('strips ids', () => {
@@ -67,7 +68,7 @@ describe('getUrlParamForPageId', () => {
   let getUrlParamForPageId: any;
 
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     getUrlParamForPageId = require('./utils').getUrlParamForPageId;
 
     book = cloneDeep({

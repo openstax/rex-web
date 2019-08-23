@@ -12,6 +12,7 @@ import * as actions from '../actions';
 import { receiveBook, receivePage } from '../actions';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
+import { resetModules } from "../../../test/utils";
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -60,7 +61,7 @@ describe('locationChange', () => {
   });
 
   afterEach(() => {
-    jest.resetModules();
+    resetModules();
   });
 
   it('loads book', async() => {

@@ -2,6 +2,7 @@ import { Middleware } from 'redux';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
+import { resetModules } from "../test/utils";
 let React: any; // tslint:disable-line:variable-name
 let renderer: any;
 
@@ -22,7 +23,7 @@ describe('create app', () => {
   const services = {} as AppServices;
 
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     React = require('react');
     renderer = require('react-test-renderer');
     history = require('history');
