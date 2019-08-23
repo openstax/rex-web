@@ -2,6 +2,10 @@ import { GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
 
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 describe('GoogleAnalyticsClient', () => {
   let client: GoogleAnalyticsClient;
   let mockGa: any; // jest.Mock<UniversalAnalytics.ga, []>;
@@ -40,7 +44,13 @@ describe('GoogleAnalyticsClient', () => {
       it('saves the commands and sends them after tracking IDs set', async() => {
         client.trackPageView('/some/path');
         expect(mockGa).not.toHaveBeenCalled();
+
+        let sleepMs:number = 5;
+        await sleep(sleepMs);
+
         client.setTrackingIds(["foo"]);
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
+        expect(mockGa.mock.calls[1][2]).toBeGreaterThanOrEqual(sleepMs);
         expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'pageview', '/some/path');
       })
     });
@@ -49,10 +59,13 @@ describe('GoogleAnalyticsClient', () => {
       it('sends them right away to all trackers', async() => {
         client.setTrackingIds(["foo", "bar"]);
         client.trackPageView('/some/path');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', 0);
         expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'pageview', '/some/path');
+        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
         expect(mockGa).toHaveBeenCalledWith('tbar.send', 'pageview', '/some/path');
       });
     })
+
   });
 
   describe('setTrackingIds', () => {

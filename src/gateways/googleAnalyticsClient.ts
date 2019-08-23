@@ -5,24 +5,39 @@ interface Command {
   params: Array<any>;
 }
 
+class PendingCommand {
+  command: Command;
+  savedAt: Date;
+
+  constructor(command: Command, savedAt: Date = new Date()) {
+    this.command = command;
+    this.savedAt = savedAt;
+  }
+
+  public queueTime() {
+    return (new Date()).getTime() - this.savedAt.getTime();
+  }
+}
+
 class GoogleAnalyticsClient {
 
   private trackerNames: Array<string> = [];
-  private pendingCommands: Array<Command> = [];
+  private pendingCommands: Array<PendingCommand> = [];
 
   private saveCommandForLater(command: Command) {
-    this.pendingCommands.push(command);
+    this.pendingCommands.push(new PendingCommand(command));
   }
 
   private flushPendingCommands() {
     for (let pendingCommand of this.pendingCommands) {
-      this.commandEachTracker(pendingCommand);
+      this.commandEachTracker(pendingCommand.command, pendingCommand.queueTime());
     }
     this.pendingCommands = [];
   }
 
-  private commandEachTracker(command: Command) {
+  private commandEachTracker(command: Command, queueTime: number = 0) {
     for (const trackerName of this.trackerNames) {
+      this.ga(trackerName + '.' + 'set', 'queueTime', queueTime);
       this.ga(trackerName + '.' + command.name, ...command.params);
     }
   }
