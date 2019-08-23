@@ -16,7 +16,6 @@ export const findTextInRange = (
     withinRange: withinRange.cloneRange(),
   });
 
-  console.log('within', withinRange);
   if (!foundMatch || !range.intersectsRange(withinRange)) {
     return [];
   }
