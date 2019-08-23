@@ -77,6 +77,15 @@ export const getIndexData = (indexName: string) => {
 
 export const getSearchFromLocation = (location: Location) => location.state && location.state.search;
 
+function getMatches(string: string, regex: RegExp) {
+  const matches: RegExpExecArray[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(string))) { // tslint:disable-line:no-conditional-assignment
+    matches.push(match);
+  }
+  return matches;
+}
+
 const getHighlightRanges = (element: HTMLElement, highlight: string): Array<RangyRange & TextRange> => {
   const elementRange = rangy.createRange();
   elementRange.selectNodeContents(element);
@@ -87,26 +96,26 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   return highlight.split('…')
     .map((part) => {
       const partRange = rangy.createRange();
-      const partMatches = part.match(/<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*/g) || [];
+      const partMatches = getMatches(part, /.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g)
+        .map((match) => ({
+            context: match[0].replace(/<\/?strong>|\n/g, ''),
+            match: match[1].replace(/<\/?strong>|\n/g, ''),
+        }));
 
       const found = partRange.findText(part.replace(/<\/?strong>|\n/g, ''), {
         withinRange: elementRange.cloneRange(),
       });
 
       if (!found) {
-        console.log('not found');
+        // TODO - log
+        return [];
       }
       return partMatches
-        .map((match) => match.replace(/<\/?strong>|\n/g, ''))
-        .map((match) => {
-          console.log('match',
-            match
-          ,
-            elementRange.cloneRange(),
-            elementRange
-          );
-          return findTextInRange(partRange, match);
-        })
+        .map(({context, match}) =>
+          findTextInRange(partRange, context)
+            .map((contextRange) => findTextInRange(contextRange, match))
+            .reduce((flat, sub) => [...flat, ...sub], [])
+        )
         .reduce((flat, sub) => [...flat, ...sub], [])
       ;
     })
@@ -123,13 +132,13 @@ export const highlightResults = (highlighter: Highlighter, results: SearchResult
     }
 
     for (const highlight of hit.highlight.visibleContent) {
-
       getHighlightRanges(element, highlight).forEach((range) => {
         try {
           highlighter.highlight(
             new Highlight(range.nativeRange, range.toString())
           );
         } catch (error) {
+          // TODO - log
           console.error(error); // tslint:disable-line:no-console
         }
       });
