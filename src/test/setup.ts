@@ -75,6 +75,8 @@ beforeEach(() => {
       return 0;
     }
   );
+
+  window.ga = jest.fn<UniversalAnalytics.ga, []>(() => ({}));
 });
 
 afterEach(() => {
