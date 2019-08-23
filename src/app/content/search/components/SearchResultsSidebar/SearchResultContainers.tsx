@@ -74,24 +74,27 @@ const SearchResult = (props: {
       }
     </FormattedMessage>
     {props.page.results.map((hit: SearchResultHit) =>
-      hit.highlight.visibleContent.map((highlight: string, index: number) =>
-        <Styled.SectionContentPreview
-          selectedResult={
-            isEqual(props.selectedResult, {result: hit, highlight: index})
-          }
+      hit.highlight.visibleContent.map((highlight: string, index: number) => {
+        const thisResult = {result: hit, highlight: index};
+        const isSelected = isEqual(props.selectedResult, thisResult);
+
+        if (isSelected) {
+          console.log(props.activeSectionRef);
+        }
+
+        return <Styled.SectionContentPreview
+          selectedResult={isSelected}
           data-testid='search-result'
           key={index}
           book={props.book}
           page={props.page}
-          search={{selectedResult: {result: hit, highlight: index}}}
-          onClick={props.selectResult}
-          {...(isEqual(props.selectedResult, {result: hit, highlight: index}) ?
-            {ref : props.activeSectionRef } : { })
-          }
+          search={{selectedResult: thisResult}}
+          onClick={() => props.selectResult(thisResult)}
+          {...isSelected ?  {ref: props.activeSectionRef} : {}}
         >
           <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />
-        </Styled.SectionContentPreview>
-      )
+        </Styled.SectionContentPreview>;
+      })
     )}
   </Styled.NavItem>;
 };

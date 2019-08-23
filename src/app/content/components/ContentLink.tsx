@@ -13,7 +13,7 @@ import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
+interface Props {
   book: Book;
   page: {
     id: string;
@@ -26,10 +26,11 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
   currentPath: string;
   search: RouteState<typeof content>['search'];
   className?: string;
+  myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
 
 // tslint:disable-next-line:variable-name
-export const ContentLink = React.forwardRef<HTMLAnchorElement, Props>((props, ref) => {
+export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const {
     book,
     page,
@@ -39,16 +40,15 @@ export const ContentLink = React.forwardRef<HTMLAnchorElement, Props>((props, re
     navigate,
     onClick,
     children,
+    myForwardedRef,
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
 
-  console.log(ref);
-
   return <a
-    ref={ref}
+    ref={myForwardedRef}
     onClick={(e) => {
       if (e.metaKey) {
         return;
@@ -74,7 +74,7 @@ export const ContentLink = React.forwardRef<HTMLAnchorElement, Props>((props, re
     href={relativeUrl}
     {...anchorProps}
   >{children}</a>;
-});
+};
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
@@ -97,4 +97,9 @@ export const StyledContentLink = styled(ConnectedContentLink)`
   ${linkStyle}
 `;
 
-export default ConnectedContentLink;
+export default React.forwardRef<
+  HTMLAnchorElement,
+  Omit<React.ComponentProps<typeof ConnectedContentLink>, 'myForwardedRef'>
+>((props, ref) =>
+  <ConnectedContentLink {...props} myForwardedRef={ref} />
+);

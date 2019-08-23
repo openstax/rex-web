@@ -127,6 +127,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   private deregister: () => void = () => null;
 
   private scrollToSelectedPage() {
+    console.log(this.activeSection.current);
     scrollSidebarSectionIntoView(
       this.searchSidebar.current,
       this.activeSection.current
