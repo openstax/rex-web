@@ -19,6 +19,7 @@ export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'sho
 
 const getUrlParamForPageIdCache = new Map();
 export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): string => {
+
   const cacheKey = `${book.id}:${pageId}`;
 
   if (getUrlParamForPageIdCache.has(cacheKey)) {
