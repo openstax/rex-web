@@ -81,12 +81,5 @@ export const getSearchFromLocation = (location: Location): RouteState<typeof con
   location.state && location.state.search;
 
 export const countTotalHighlights = (results: SearchResultHit[]) => {
-  let count = 0;
-  results.map((hit: SearchResultHit) =>
-    hit.highlight.visibleContent.map(() => {
-      count++;
-    })
-  );
-
-  return count;
+  return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
 };
