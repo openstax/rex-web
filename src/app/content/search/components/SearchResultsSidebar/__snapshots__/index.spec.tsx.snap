@@ -622,7 +622,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         <span
           dangerouslySetInnerHTML={
             Object {
-              "__html": "cool <em>highlight</em> bruh",
+              "__html": "cool <strong>highlight</strong> bruh",
             }
           }
           tabIndex={-1}
@@ -706,7 +706,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <span
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "cool <em>highlight</em> bruh",
+                    "__html": "cool <strong>highlight</strong> bruh",
                   }
                 }
                 tabIndex={-1}
@@ -791,7 +791,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <span
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "cool <em>highlight</em> bruh",
+                    "__html": "cool <strong>highlight</strong> bruh",
                   }
                 }
                 tabIndex={-1}

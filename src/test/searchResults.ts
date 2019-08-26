@@ -3,13 +3,21 @@ import { ArchiveBook, ArchivePage } from '../app/content/types';
 import * as mockArchive from './mocks/archiveLoader';
 
 export const makeSearchResultHit = (
-  {book, page}: {book: ArchiveBook, page: ArchivePage} = {book: mockArchive.book, page: mockArchive.page}
+  {book, page, highlights, sourceId}: {
+    book: ArchiveBook,
+    page: ArchivePage,
+    highlights?: string[],
+    sourceId?: string,
+  } = {
+    book: mockArchive.book,
+    page: mockArchive.page,
+  }
 ): SearchResultHit => ({
-  highlight: { visibleContent: ['cool <em>highlight</em> bruh'] },
+  highlight: { visibleContent: highlights || ['cool <strong>highlight</strong> bruh'] },
   index: `${book.id}@${book.version}_i1`,
   score: 2,
   source: {
-    elementId: 'fs-id1544727',
+    elementId: sourceId || 'fs-id1544727',
     elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
     pageId: `${page.id}@${page.version}`,
     pagePosition: 60,

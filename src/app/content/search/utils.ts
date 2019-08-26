@@ -87,36 +87,33 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,
   // luckily you can't actually search for non-text elements, so they won't be in a matches
   // only in surrounding context, so find matches in each part separately
-  return highlight.split('…')
-    .map((part) => {
-      const partRange = rangy.createRange();
-      const partMatches = getHighlightPartMatches(part)
-        .map((match) => ({
-            context: match[0].replace(/<\/?strong>|\n/g, ''),
-            match: match[1].replace(/<\/?strong>|\n/g, ''),
-        }));
+  return highlight.split('…').map((part) => {
+    const partMatches = getHighlightPartMatches(part)
+      .map((match) => ({
+          context: match[0].replace(/<\/?strong>|\n/g, ''),
+          match: match[1].replace(/<\/?strong>|\n/g, ''),
+      }));
 
-      if (partMatches.length === 0) {
-        return [];
-      }
+    if (partMatches.length === 0) {
+      return [];
+    }
 
-      const found = partRange.findText(part.replace(/<\/?strong>|\n/g, ''), {
-        withinRange: elementRange.cloneRange(),
-      });
+    const [partRange] = findTextInRange(elementRange, part.replace(/<\/?strong>|\n/g, ''));
 
-      if (!found) {
-        // TODO - log
-        return [];
-      }
-      return partMatches
-        .map(({context, match}) =>
-          findTextInRange(partRange, context)
-            .map((contextRange) => findTextInRange(contextRange, match))
-            .reduce((flat, sub) => [...flat, ...sub], [])
-        )
-        .reduce((flat, sub) => [...flat, ...sub], [])
-      ;
-    })
+    if (!partRange) {
+      // TODO - log
+      return [];
+    }
+
+    return partMatches
+      .map(({context, match}) =>
+        findTextInRange(partRange, context)
+          .map((contextRange) => findTextInRange(contextRange, match))
+          .reduce((flat, sub) => [...flat, ...sub], [])
+      )
+      .reduce((flat, sub) => [...flat, ...sub], [])
+    ;
+  })
     .reduce((flat, sub) => [...flat, ...sub], [])
   ;
 };
@@ -131,14 +128,9 @@ export const highlightResults = (highlighter: Highlighter, results: SearchResult
 
     for (const highlight of hit.highlight.visibleContent) {
       getHighlightRanges(element, highlight).forEach((range) => {
-        try {
-          highlighter.highlight(
-            new Highlight(range.nativeRange, range.toString())
-          );
-        } catch (error) {
-          // TODO - log
-          console.error(error); // tslint:disable-line:no-console
-        }
+        highlighter.highlight(
+          new Highlight(range.nativeRange, range.toString())
+        );
       });
     }
   }
