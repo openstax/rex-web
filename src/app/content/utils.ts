@@ -6,7 +6,7 @@ import { stripIdVersion } from './utils/idUtils';
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
-export { scrollTocSectionIntoView } from './utils/domUtils';
+export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
 export const getContentPageReferences = (content: string) =>
   (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
