@@ -1,14 +1,16 @@
+import isEqual from 'lodash/fp/isEqual';
 import { push, replace } from '../../navigation/actions';
 import { RouteHookBody } from '../../navigation/types';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
-import { actionHook } from '../../utils';
+import { ActionHookBody } from '../../types';
+import { actionHook, assertDefined } from '../../utils';
 import { content } from '../routes';
 import * as selectContent from '../selectors';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
-import { clearSearch, receiveSearchResults, requestSearch } from './actions';
+import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import * as select from './selectors';
-import { getFirstResultPage, getIndexData, getSearchFromLocation } from './utils';
+import { getFirstResult, getIndexData, getSearchFromLocation } from './utils';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -30,41 +32,53 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
   const state = services.getState();
-  const search = select.query(state);
   const {page, book} = selectContent.bookAndPage(state);
+  const query = select.query(state);
+  const savedSearch = getSearchFromLocation(services.history.location);
 
-  if (!page || !book || (meta && meta.skipNavigation)) {
+  if (!page || !book) {
     return; // book changed while query was in the air
   }
 
-  const firstResultPage = getFirstResultPage(book, payload);
-  const firstResult = firstResultPage && firstResultPage.results[0];
+  const selectedResult = meta && meta.selectedResult ? meta.selectedResult : getFirstResult(book, payload);
 
-  if (!firstResult || !firstResultPage) {
-    return; // no results
+  if (!selectedResult) {
+    return;
   }
 
-  if (book.id !== getIndexData(firstResult.index).bookId) {
-    return; // book changed while query was in the air
-  }
+  const targetPageId = selectedResult.result.source.pageId;
+  const targetPage = assertDefined(
+    findArchiveTreeNode(book.tree, targetPageId),
+    'search result pointed to page that wasn\'t in book'
+  );
 
-  const savedQuery = getSearchFromLocation(services.history.location);
-  if (savedQuery === search && page.id === stripIdVersion(firstResultPage.id)) {
+  const savedQuery = savedSearch ? savedSearch.query : null;
+  if (
+    savedQuery === query &&
+    page.id === stripIdVersion(targetPage.id) &&
+    isEqual(select.selectedResult(state), selectedResult)
+  ) {
     return; // if search and page match current history record, noop
   }
 
+  if (book.id !== getIndexData(selectedResult.result.index).bookId) {
+    return;
+  }
+
+  services.dispatch(selectSearchResult(selectedResult));
+
   const navigation = {
-    params: getBookPageUrlAndParams(book, firstResultPage).params,
+    params: getBookPageUrlAndParams(book, targetPage).params,
     route: content,
     state : {
       bookUid: book.id,
       bookVersion: book.version,
-      pageUid: stripIdVersion(firstResultPage.id),
-      search,
+      pageUid: stripIdVersion(targetPage.id),
+      search: {query, selectedResult},
     },
   };
 
-  const action = stripIdVersion(page.id) === stripIdVersion(firstResultPage.id) ? replace : push;
+  const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
 
   services.dispatch(action(navigation));
 };
@@ -72,10 +86,20 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch: RouteHookBody<typeof content> = (services) => async(locationChange) => {
   const query = select.query(services.getState());
-  const savedQuery = getSearchFromLocation(locationChange.location);
+  const selectedResult = select.selectedResult(services.getState());
+  const savedSearch = getSearchFromLocation(locationChange.location);
 
-  if (locationChange.action === 'POP') { // on initial load or back/forward button, load state
-    loadSearch(services, query, savedQuery);
+  if (savedSearch && savedSearch.query && savedSearch.query !== query) {
+    services.dispatch(
+      requestSearch(
+        savedSearch.query,
+        savedSearch.selectedResult ? {selectedResult: savedSearch.selectedResult} : undefined
+      )
+    );
+  } else if (savedSearch && savedSearch.selectedResult && !isEqual(savedSearch.selectedResult, selectedResult)) {
+    services.dispatch(selectSearchResult(savedSearch.selectedResult));
+  } else if ((!savedSearch || !savedSearch.query) && query) {
+    services.dispatch(clearSearch());
   }
 };
 
@@ -83,15 +107,3 @@ export default [
   actionHook(requestSearch, requestSearchHook),
   actionHook(receiveSearchResults, receiveSearchHook),
 ];
-
-function loadSearch(
-  services: AppServices & MiddlewareAPI,
-  query: string | null,
-  savedQuery: string | null
-) {
-  if (savedQuery && savedQuery !== query) {
-    services.dispatch(requestSearch(savedQuery, {skipNavigation: true}));
-  } else if (!savedQuery && query) {
-    services.dispatch(clearSearch());
-  }
-}
