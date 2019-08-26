@@ -61,7 +61,11 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     return; // if search and page match current history record, noop
   }
 
-  if (selectedResult && book.id === getIndexData(selectedResult.result.index).bookId) {
+  if (book.id !== getIndexData(selectedResult.result.index).bookId) {
+    return;
+  }
+
+  if (selectedResult) {
     services.dispatch(selectSearchResult(selectedResult));
   }
 

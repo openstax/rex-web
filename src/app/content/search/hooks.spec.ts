@@ -10,7 +10,7 @@ import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { formatBookData } from '../utils';
-import { clearSearch, receiveSearchResults, requestSearch } from './actions';
+import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
 
 describe('hooks', () => {
@@ -181,6 +181,7 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
       helpers.history.replace({ state: { search: {query: 'asdf'} } });
       go([hit]);
       expect(dispatch).not.toHaveBeenCalled();
