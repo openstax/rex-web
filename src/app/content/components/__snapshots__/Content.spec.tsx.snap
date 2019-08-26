@@ -778,6 +778,10 @@ Array [
   color: #0064A0;
 }
 
+.c64 .search-highlight {
+  background-color: #ff9e4b;
+}
+
 .c64 .os-figure,
 .c64 .os-figure:last-child {
   margin-bottom: 5px;
@@ -4207,6 +4211,10 @@ Array [
 
 .c38 a:hover {
   color: #0064A0;
+}
+
+.c38 .search-highlight {
+  background-color: #ff9e4b;
 }
 
 .c38 .os-figure,

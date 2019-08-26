@@ -72,11 +72,13 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   public componentDidMount() {
-    const container = assertDefined(this.container, 'container should be defined in didMount');
+    if (!this.container) {
+      return;
+    }
     this.postProcess();
     this.linksOn();
-    this.addGenericJs(container);
-    this.searchHighlighter = new Highlighter(container, {
+    this.addGenericJs(this.container);
+    this.searchHighlighter = new Highlighter(this.container, {
       className: 'search-highlight',
     });
   }
