@@ -1,5 +1,5 @@
+import { resetModules } from '../test/utils';
 import createSearchClient from './createSearchClient';
-import { resetModules } from "../test/utils";
 
 describe('createSearchClient', () => {
   const fetchBackup = fetch;

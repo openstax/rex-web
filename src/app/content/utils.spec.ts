@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import { resetModules } from '../../test/utils';
 import { Book } from './types';
 import {
   getContentPageReferences,
@@ -6,7 +7,6 @@ import {
   stripIdVersion,
   toRelativeUrl
 } from './utils';
-import { resetModules } from "../../test/utils";
 
 describe('stripIdVersion', () => {
   it('strips ids', () => {

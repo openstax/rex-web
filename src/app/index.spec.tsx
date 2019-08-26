@@ -1,8 +1,8 @@
 import { Middleware } from 'redux';
+import { resetModules } from '../test/utils';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
-import { resetModules } from "../test/utils";
 let React: any; // tslint:disable-line:variable-name
 let renderer: any;
 

@@ -6,13 +6,13 @@ import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../test/utils';
 import { Match } from '../../navigation/types';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
 import { receiveBook, receivePage } from '../actions';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
-import { resetModules } from "../../../test/utils";
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},

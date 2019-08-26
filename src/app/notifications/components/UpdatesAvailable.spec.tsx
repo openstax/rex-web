@@ -1,8 +1,8 @@
 import ReactType from 'react';
 import rendererType from 'react-test-renderer';
+import { resetModules } from '../../../test/utils';
 import MessageProvider from '../../MessageProvider';
 import UpdatesAvailable from './UpdatesAvailable';
-import { resetModules } from "../../../test/utils";
 
 describe('UpdatesAvailable', () => {
   describe('in browser', () => {

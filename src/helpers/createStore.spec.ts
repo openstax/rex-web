@@ -1,6 +1,6 @@
 import { AppState } from '../app/types';
+import { resetModules } from '../test/utils';
 import cs from './createStore';
-import { resetModules } from "../test/utils";
 
 declare const window: Window;
 
