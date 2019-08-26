@@ -65,9 +65,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     return;
   }
 
-  if (selectedResult) {
-    services.dispatch(selectSearchResult(selectedResult));
-  }
+  services.dispatch(selectSearchResult(selectedResult));
 
   const navigation = {
     params: getBookPageUrlAndParams(book, targetPage).params,

@@ -130,6 +130,40 @@ describe('hooks', () => {
       expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer'));
     });
 
+    it('searches for saved query with selectedResult on POP if it is differet from current query', () => {
+      store.dispatch(requestSearch('asdf'));
+
+      const hit = makeSearchResultHit({book, page});
+      const selectedResult = {result: hit, highlight: 0};
+      hook({
+        action: 'POP',
+        location: {
+          ...assertWindow().location,
+          state: { search: {query: 'qwer', selectedResult}},
+        },
+        match: {} as any,
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {selectedResult}));
+    });
+
+    it('dispatches selectSearchResult if query and page are the same', () => {
+      store.dispatch(requestSearch('asdf'));
+
+      const hit = makeSearchResultHit({book, page});
+      const selectedResult = {result: hit, highlight: 0};
+      hook({
+        action: 'POP',
+        location: {
+          ...assertWindow().location,
+          state: { search: {query: 'asdf', selectedResult}},
+        },
+        match: {} as any,
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult(selectedResult));
+    });
+
     it('doesn\'t dispatch on POP if saved query is same as current query', () => {
       store.dispatch(requestSearch('asdf'));
 
@@ -177,7 +211,7 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalled();
     });
 
-    it('noops if search and page match intended already', () => {
+    it('noops if search, page, and selected search match intended already', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
@@ -253,6 +287,26 @@ describe('hooks', () => {
             bookVersion: book.version,
             pageUid: page.id,
             search: expect.objectContaining({query: 'asdf'}),
+          },
+        })
+      );
+    });
+
+    it('uses the provided selectedResult', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const selectedResult = {result: hit, highlight: 0};
+      go([hit], {selectedResult});
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+            search: expect.objectContaining({selectedResult}),
           },
         })
       );
