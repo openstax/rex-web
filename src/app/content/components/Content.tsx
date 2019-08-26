@@ -4,6 +4,7 @@ import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
+import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
@@ -21,7 +22,7 @@ import {
 import ContentPane from './ContentPane';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
-import Sidebar from './Sidebar';
+import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
@@ -108,6 +109,15 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   }
 `);
 
+// tslint:disable-next-line:variable-name
+const OuterWrapper = styled.div`
+  @media screen {
+    display: flex;
+    flex-direction: row;
+    overflow: visible;
+  }
+`;
+
 /*
  * this layout is a mess for these reasons:
  * - the navs must have the default padding inside their containers so their
@@ -157,24 +167,27 @@ const Content: React.SFC = () => <Layout>
   <Background>
     <BookBanner/>
     <Toolbar />
-    <Wrapper>
-      <CenteredContentRow>
-        <Sidebar />
-        <ContentPane>
-          <UndoPadding>
-            <MainContentWrapper>
-              <ContentNotifications />
-              <HideOverflowAndRedoPadding>
-                <Page />
-                <PrevNextBar />
-              </HideOverflowAndRedoPadding>
-              <Attribution />
-              <Footer/>
-            </MainContentWrapper>
-          </UndoPadding>
-        </ContentPane>
-      </CenteredContentRow>
-    </Wrapper>
+    <OuterWrapper>
+      <SearchResultsSidebar/>
+      <Wrapper>
+        <CenteredContentRow>
+          <TableOfContents />
+          <ContentPane>
+            <UndoPadding>
+              <MainContentWrapper>
+                <ContentNotifications />
+                <HideOverflowAndRedoPadding>
+                  <Page />
+                  <PrevNextBar />
+                </HideOverflowAndRedoPadding>
+                <Attribution />
+                <Footer/>
+              </MainContentWrapper>
+            </UndoPadding>
+          </ContentPane>
+        </CenteredContentRow>
+      </Wrapper>
+    </OuterWrapper>
   </Background>
 </Layout>;
 

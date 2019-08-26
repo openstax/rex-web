@@ -3,9 +3,11 @@ import { SearchResultHit } from '@openstax/open-search-client/dist/models/Search
 import { ArchiveTree, ArchiveTreeSection } from '../types';
 
 export interface State {
-  results: SearchResult | null;
   loading: boolean;
+  mobileToolbarOpen: boolean;
   query: null | string;
+  results: SearchResult | null;
+  sidebarOpen: boolean;
 }
 
 export type SearchResultPage = ArchiveTreeSection & {

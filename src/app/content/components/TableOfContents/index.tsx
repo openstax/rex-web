@@ -1,5 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
@@ -7,7 +8,7 @@ import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
-import { expandCurrentChapter, scrollTocSectionIntoView } from '../../utils/domUtils';
+import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
 
@@ -18,16 +19,20 @@ interface SidebarProps {
   page?: Page;
 }
 
-export class Sidebar extends Component<SidebarProps> {
+export class TableOfContents extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
 
   public render() {
     const {isOpen, book} = this.props;
-    return <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label='Table of Contents'>
-      {this.renderTocHeader()}
-      {book && this.renderToc(book)}
-    </Styled.SidebarBody>;
+    return <FormattedMessage id='i18n:toc:title'>
+      {(msg: Element | string) =>
+        <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label={msg}>
+          {this.renderTocHeader()}
+          {book && this.renderToc(book)}
+        </Styled.SidebarBody>
+      }
+    </FormattedMessage>;
   }
 
   public componentDidMount() {
@@ -38,16 +43,9 @@ export class Sidebar extends Component<SidebarProps> {
       return;
     }
 
-    const scrollHandler = () => {
-      const top = sidebar.getBoundingClientRect().top;
-      sidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
-    };
-
-    const animation = () => requestAnimationFrame(scrollHandler);
-
-    window.addEventListener('scroll', animation, {passive: true});
-    window.addEventListener('resize', animation, {passive: true});
-    scrollHandler();
+    const {callback, deregister} = setSidebarHeight(sidebar, window);
+    callback();
+    this.deregister = deregister;
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {
@@ -57,8 +55,13 @@ export class Sidebar extends Component<SidebarProps> {
     }
   }
 
+  public componentWillUnmount() {
+    this.deregister();
+  }
+  private deregister: () => void = () => null;
+
   private scrollToSelectedPage() {
-    scrollTocSectionIntoView(this.sidebar.current, this.activeSection.current);
+    scrollSidebarSectionIntoView(this.sidebar.current, this.activeSection.current);
   }
 
   private renderChildren = (book: Book, section: ArchiveTree) =>
@@ -113,4 +116,4 @@ export default connect(
   (dispatch: Dispatch) => ({
     onNavigate: () => dispatch(resetToc()),
   })
-)(Sidebar);
+)(TableOfContents);

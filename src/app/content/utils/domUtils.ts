@@ -46,7 +46,7 @@ const determineScrollTarget = (
     : activeSection;
 };
 
-export const scrollTocSectionIntoView = (sidebar: HTMLElement | null, activeSection: HTMLElement | null) => {
+export const scrollSidebarSectionIntoView = (sidebar: HTMLElement | null, activeSection: HTMLElement | null) => {
   const scrollable = findFirstScrollableChild(sidebar);
   if (!activeSection || !scrollable || tocSectionIsVisible(scrollable, activeSection)) {
     return;
@@ -69,4 +69,24 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
 
     focus = focus.parentElement;
   }
+};
+
+export const setSidebarHeight = (sidebar: HTMLElement, window: Window) => {
+  const scrollHandlerCallback = () => {
+    const top = sidebar.getBoundingClientRect().top;
+    sidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
+  };
+
+  const animation = () => requestAnimationFrame(scrollHandlerCallback);
+
+  window.addEventListener('scroll', animation, { passive: true });
+  window.addEventListener('resize', animation, { passive: true });
+
+  return {
+    callback: scrollHandlerCallback,
+    deregister: () => {
+      window.removeEventListener('scroll', animation);
+      window.removeEventListener('resize', animation);
+    },
+  };
 };
