@@ -130,6 +130,7 @@ class Toolbar extends React.Component<Props, State> {
           }
           <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
+              autoFocus
               onChange={onChange} value={this.state.query} />
             {this.state.query && <Styled.CloseButton
               type='button'
