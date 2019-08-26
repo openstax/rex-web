@@ -48,7 +48,7 @@ const init = [
 const hooks = [
   ...content.hooks,
   ...Object.values(head.hooks),
-  ...Object.values(appHooks)
+  ...Object.values(appHooks),
 ];
 
 const defaultServices = () => ({

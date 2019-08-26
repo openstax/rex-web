@@ -27,7 +27,7 @@ let previousObservedReleaseId: string | undefined;
 export type Cancel = () => void;
 
 interface EnvironmentConfigs {
-  google_analytics?: Array<string> | undefined;
+  google_analytics?: string[] | undefined;
 }
 
 interface Environment {
@@ -56,13 +56,13 @@ const processReleaseId = (store: Store, environment: Environment) => {
   previousObservedReleaseId = releaseId;
 };
 
-const processGoogleAnalyticsIds = (environment_configs: EnvironmentConfigs) => {
-  const ids = environment_configs.google_analytics
+const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
+  const ids = environmentConfigs.google_analytics;
 
   if (ids) {
-    googleAnalyticsClient.setTrackingIds(ids)
+    googleAnalyticsClient.setTrackingIds(ids);
   }
-}
+};
 
 export const poll = (store: Store) => async() => {
   const environment = await fetch('/rex/environment.json')
@@ -76,7 +76,7 @@ export const poll = (store: Store) => async() => {
 };
 
 export default (store: Store): Cancel => {
-  if (APP_ENV == 'test') { return () => undefined; }
+  if (APP_ENV === 'test') { return () => undefined; }
 
   const handler = poll(store);
   const document = assertDocument();
