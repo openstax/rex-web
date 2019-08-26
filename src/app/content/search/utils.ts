@@ -7,6 +7,7 @@ import sortBy from 'lodash/fp/sortBy';
 import { RangyRange, TextRange } from 'rangy';
 import rangy from '../../../helpers/rangy';
 import { findTextInRange } from '../../../helpers/rangy';
+import { getAllRegexMatches } from '../../utils';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
@@ -77,14 +78,7 @@ export const getIndexData = (indexName: string) => {
 
 export const getSearchFromLocation = (location: Location) => location.state && location.state.search;
 
-function getMatches(string: string, regex: RegExp) {
-  const matches: RegExpExecArray[] = [];
-  let match: RegExpExecArray | null;
-  while ((match = regex.exec(string))) { // tslint:disable-line:no-conditional-assignment
-    matches.push(match);
-  }
-  return matches;
-}
+const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
 const getHighlightRanges = (element: HTMLElement, highlight: string): Array<RangyRange & TextRange> => {
   const elementRange = rangy.createRange();
@@ -96,7 +90,7 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   return highlight.split('…')
     .map((part) => {
       const partRange = rangy.createRange();
-      const partMatches = getMatches(part, /.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g)
+      const partMatches = getHighlightPartMatches(part)
         .map((match) => ({
             context: match[0].replace(/<\/?strong>|\n/g, ''),
             match: match[1].replace(/<\/?strong>|\n/g, ''),

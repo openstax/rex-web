@@ -127,10 +127,7 @@ export class PageComponent extends Component<PropTypes> {
   private updateHighlights = () => {
     const { searchResults } = this.props;
 
-    if (!this.container) {
-      return;
-    }
-    if (!this.searchHighlighter) {
+    if (!this.container || !this.searchHighlighter) {
       return;
     }
 
