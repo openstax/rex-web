@@ -29,7 +29,8 @@ import {
   clearSearch,
   closeSearchResultsMobile,
   receiveSearchResults,
-  requestSearch
+  requestSearch,
+  selectSearchResult
 } from '../../actions';
 
 describe('SearchResultsSidebar', () => {
@@ -89,15 +90,17 @@ describe('SearchResultsSidebar', () => {
   it('matches snapshot with results', () => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('cool search'));
+    const selectedResult = makeSearchResultHit({ book: archiveBook, page });
     store.dispatch(
       receiveSearchResults(
         makeSearchResults([
-          makeSearchResultHit({ book: archiveBook, page }),
+          selectedResult,
           makeSearchResultHit({ book: archiveBook, page: pageInChapter }),
           makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
         ])
       )
     );
+    store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
 
     const tree = renderer.create(render()).toJSON();
     expect(tree).toMatchSnapshot();
