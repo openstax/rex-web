@@ -8,11 +8,11 @@ function sleep(ms: number) {
 
 describe('GoogleAnalyticsClient', () => {
   let client: GoogleAnalyticsClient;
-  let mockGa: any; // jest.Mock<UniversalAnalytics.ga, []>;
+  let mockGa: any;
 
   beforeEach(() => {
     client = new GoogleAnalyticsClient();
-    mockGa = jest.fn<UniversalAnalytics.ga, []>(() => ({}));
+    mockGa = jest.fn<UniversalAnalytics.ga, []>();
     window.ga = mockGa;
   });
 
