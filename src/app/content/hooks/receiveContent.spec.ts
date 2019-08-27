@@ -63,7 +63,7 @@ describe('setHead hook', () => {
 
     await hook(receiveBook(combinedBook));
 
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
   it('does nothing if page is loading', async() => {
@@ -73,7 +73,7 @@ describe('setHead hook', () => {
 
     await hook(receiveBook({} as Book));
 
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
   it('does nothing if page is not loaded', async() => {
@@ -81,7 +81,7 @@ describe('setHead hook', () => {
 
     await hook(receiveBook(combinedBook));
 
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
   it('does nothing if book is not loaded', async() => {
@@ -89,7 +89,7 @@ describe('setHead hook', () => {
 
     await hook(receiveBook(combinedBook));
 
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
   describe('meta description', () => {
