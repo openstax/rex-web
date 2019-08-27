@@ -10,7 +10,7 @@ import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { formatBookData } from '../utils';
-import { clearSearch, receiveSearchResults, requestSearch } from './actions';
+import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
 
 describe('hooks', () => {
@@ -122,12 +122,46 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: 'qwer' },
+          state: { search: {query: 'qwer'} },
         },
         match: {} as any,
       });
 
-      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {skipNavigation: true}));
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer'));
+    });
+
+    it('searches for saved query with selectedResult on POP if it is differet from current query', () => {
+      store.dispatch(requestSearch('asdf'));
+
+      const hit = makeSearchResultHit({book, page});
+      const selectedResult = {result: hit, highlight: 0};
+      hook({
+        action: 'POP',
+        location: {
+          ...assertWindow().location,
+          state: { search: {query: 'qwer', selectedResult}},
+        },
+        match: {} as any,
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {selectedResult}));
+    });
+
+    it('dispatches selectSearchResult if query and page are the same', () => {
+      store.dispatch(requestSearch('asdf'));
+
+      const hit = makeSearchResultHit({book, page});
+      const selectedResult = {result: hit, highlight: 0};
+      hook({
+        action: 'POP',
+        location: {
+          ...assertWindow().location,
+          state: { search: {query: 'asdf', selectedResult}},
+        },
+        match: {} as any,
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult(selectedResult));
     });
 
     it('doesn\'t dispatch on POP if saved query is same as current query', () => {
@@ -137,7 +171,7 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: 'asdf' },
+          state: { search: {query: 'asdf'} },
         },
         match: {} as any,
       });
@@ -151,7 +185,7 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: '' },
+          state: { search: {query: ''} },
         },
         match: {} as any,
       });
@@ -177,25 +211,18 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalled();
     });
 
-    it('noops if search and page match intended already', () => {
+    it('noops if search, page, and selected search match intended already', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      helpers.history.replace({ state: { search: 'asdf' } });
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+      helpers.history.replace({ state: { search: {query: 'asdf'} } });
       go([hit]);
       expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('noops if there is no book or page selected', () => {
       go([hit]);
-      expect(dispatch).not.toHaveBeenCalled();
-    });
-
-    it('noops if you pass the skipNavigation flag', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({...shortPage, references: []}));
-      store.dispatch(requestSearch('asdf'));
-      go([hit], {skipNavigation: true});
       expect(dispatch).not.toHaveBeenCalled();
     });
 
@@ -240,7 +267,7 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: 'asdf',
+            search: expect.objectContaining({query: 'asdf'}),
           },
         })
       );
@@ -259,7 +286,27 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: 'asdf',
+            search: expect.objectContaining({query: 'asdf'}),
+          },
+        })
+      );
+    });
+
+    it('uses the provided selectedResult', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const selectedResult = {result: hit, highlight: 0};
+      go([hit], {selectedResult});
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+            search: expect.objectContaining({selectedResult}),
           },
         })
       );

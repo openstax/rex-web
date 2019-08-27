@@ -12,13 +12,13 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
+import { RouteState } from '../../navigation/types';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
 import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
-import {State as SearchState } from '../search/types';
 import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
@@ -34,8 +34,8 @@ interface PropTypes {
   navigate: typeof push;
   className?: string;
   references: State['references'];
-  search: SearchState['query'];
   searchResults: SearchResultHit[];
+  search: RouteState<typeof content>['search'];
   services: AppServices;
 }
 
@@ -325,7 +325,13 @@ export default connect(
     hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),
-    search: selectSearch.query(state),
+    search: selectSearch.query(state) || selectSearch.selectedResult(state)
+      ? {
+        query: selectSearch.query(state),
+        selectedResult: selectSearch.selectedResult(state),
+      }
+      : undefined
+    ,
     searchResults: selectSearch.currentPageResults(state),
   }),
   (dispatch: Dispatch) => ({

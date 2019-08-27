@@ -1,26 +1,33 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { SearchResult } from '@openstax/open-search-client';
-import { SearchResultHit } from '@openstax/open-search-client';
+import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import { RangyRange, TextRange } from 'rangy';
-import rangy from '../../../helpers/rangy';
-import { findTextInRange } from '../../../helpers/rangy';
+import rangy, { findTextInRange } from '../../../helpers/rangy';
+import { RouteState } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
+import { content } from '../routes';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
-import { SearchResultContainer, SearchResultPage } from './types';
+import { SearchResultContainer, SearchResultPage, SelectedResult } from './types';
 
-export const getFirstResultPage = (book: {tree: ArchiveTree}, results: SearchResult): SearchResultPage | undefined => {
+export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
-  const getFirstResult = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
-    ? getFirstResult(container.contents[0])
+  const findFirstResultPage = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
+    ? findFirstResultPage(container.contents[0])
     : container;
 
-  return result && getFirstResult(result);
+  const firstResultPage = result && findFirstResultPage(result);
+  const firstResult = firstResultPage && firstResultPage.results[0];
+
+  if (firstResult) {
+    return {result: firstResult, highlight: 0};
+  }
+
+  return null;
 };
 
 export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
@@ -76,7 +83,12 @@ export const getIndexData = (indexName: string) => {
   };
 };
 
-export const getSearchFromLocation = (location: Location) => location.state && location.state.search;
+export const countTotalHighlights = (results: SearchResultHit[]) => {
+  return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
+};
+
+export const getSearchFromLocation = (location: Location): RouteState<typeof content>['search'] =>
+  location.state && location.state.search;
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 

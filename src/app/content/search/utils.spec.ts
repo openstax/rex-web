@@ -8,7 +8,7 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
 import { ArchivePage } from '../types';
-import { getFirstResultPage, getFormattedSearchResults, highlightResults } from './utils';
+import { getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
   default: class {
@@ -19,11 +19,11 @@ jest.mock('@openstax/highlighter/dist/Highlight', () => ({
   },
 }));
 
-describe('getFirstResultPage', () => {
+describe('getFirstResult', () => {
 
   it('works with empty results', () => {
     const searchResults: SearchResult = makeSearchResults([]);
-    expect(getFirstResultPage({tree: treeWithoutUnits}, searchResults)).toEqual(undefined);
+    expect(getFirstResult({tree: treeWithoutUnits}, searchResults)).toEqual(null);
   });
 
   it('finds chapter page', () => {
@@ -35,13 +35,13 @@ describe('getFirstResultPage', () => {
       chapterHit,
     ]);
 
-    const result = getFirstResultPage({tree: treeWithoutUnits}, searchResults);
+    const result = getFirstResult({tree: treeWithoutUnits}, searchResults);
 
     if (!result) {
       return expect(result).toBeTruthy();
     }
 
-    expect(result.id).toEqual(treeWithoutUnits.contents[1].contents![0].id);
+    expect(result.result.source.pageId).toEqual(treeWithoutUnits.contents[1].contents![0].id);
   });
 });
 

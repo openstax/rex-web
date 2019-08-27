@@ -50,6 +50,7 @@ class Toolbar extends React.Component<Props, State> {
     };
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
@@ -83,7 +84,7 @@ class Toolbar extends React.Component<Props, State> {
             data-testid='desktop-search'
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-              onChange={onChange} value={this.state.query} />
+              onChange={onChange} value={this.state.query}/>
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
                 {(val) => <Styled.SearchButton mobile
