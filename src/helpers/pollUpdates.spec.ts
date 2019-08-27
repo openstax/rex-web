@@ -5,16 +5,19 @@ import createTestStore from '../test/createTestStore';
 import { Cancel, trustAfter } from './pollUpdates';
 import { resetModules } from '../test/utils';
 
-const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
+const mockFetchResponse = (code: number, data: any) => Promise.resolve({
   json: () => Promise.resolve(data),
   status: code,
   text: () => Promise.resolve(data),
-}));
+});
+
+const mockFetch = (code: number, data: any) => jest.fn(() => mockFetchResponse(code, data));
 
 describe('poll updates', () => {
   let cancel: Cancel;
   const fetchBackup = fetch;
   let store: Store;
+  let fetchSpy: jest.SpyInstance;
   let dispatch: jest.SpyInstance;
   const dateBackup = Date;
 
@@ -23,7 +26,7 @@ describe('poll updates', () => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
 
-    (global as any).fetch = mockFetch(200, {
+    fetchSpy = (global as any).fetch = mockFetch(200, {
       configs: {
         google_analytics: [
           'UA-0000000-1',
@@ -131,6 +134,26 @@ describe('poll updates', () => {
       await Promise.resolve(); // clear promise queue for the mockfetch
 
       expect(mock).toHaveBeenCalledWith(['UA-0000000-1']);
+    });
+
+    it('doesn\'t initialize google analytics when there are no ids', async() => {
+      fetchSpy.mockReturnValue(mockFetchResponse(200, {
+        configs: {
+          google_analytics: [
+          ],
+        },
+        release_id: 'releaseid',
+      }));
+      const mock = jest.fn(() => ({}));
+      googleAnalyticsClient.setTrackingIds = mock;
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue for the async poll function
+      await Promise.resolve(); // clear promise queue for the mockfetch
+
+      expect(mock).not.toHaveBeenCalled();
     });
 
     it('does nothing while focus is away', async() => {

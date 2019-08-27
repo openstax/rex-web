@@ -59,7 +59,7 @@ const processReleaseId = (store: Store, environment: Environment) => {
 const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   const ids = environmentConfigs.google_analytics;
 
-  if (ids) {
+  if (ids && ids.length > 0) {
     googleAnalyticsClient.setTrackingIds(ids);
   }
 };
