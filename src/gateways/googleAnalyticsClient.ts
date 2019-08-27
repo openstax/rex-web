@@ -35,8 +35,8 @@ class GoogleAnalyticsClient {
     }
   }
 
-  public setUserId(id: string) {
-    this.gaProxy('set', 'userid', id);
+  public setUserId(id: string | undefined) {
+    this.gaProxy('set', 'userId', id);
   }
 
   public trackPageView(path: string) {
