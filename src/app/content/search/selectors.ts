@@ -32,10 +32,15 @@ export const totalHits = createSelector(
   (state) => !!state.results ? countTotalHighlights(state.results.hits.hits) : null
 );
 
-export const results = createSelector(
+export const getRawResults = createSelector(
   localState,
+  (state) => state.results
+);
+
+export const results = createSelector(
+  getRawResults,
   parentSelectors.book,
-  (state, book) => !!state.results && !!book ? getFormattedSearchResults(book.tree, state.results) : null
+  (rawResults, book) => rawResults && book ? getFormattedSearchResults(book.tree, rawResults) : null
 );
 
 export const mobileToolbarOpen = createSelector(
@@ -44,7 +49,7 @@ export const mobileToolbarOpen = createSelector(
 );
 
 export const currentPageResults = createSelector(
-  localState,
+  getRawResults,
   parentSelectors.page,
-  (state, page) => state.results && page ? getSearchResultsForPage(page, state.results) : []
+  (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
 );

@@ -2,6 +2,7 @@ import Highlighter from '@openstax/highlighter';
 import { SearchResultHit } from '@openstax/open-search-client';
 import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
+import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -19,6 +20,7 @@ import { AppServices, AppState } from '../../types';
 import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
+import { SelectedResult } from '../search/types';
 import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
@@ -43,6 +45,7 @@ export class PageComponent extends Component<PropTypes> {
   public container: Element | undefined | null;
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
   private searchHighlighter: Highlighter | undefined;
+  private searchResultMap: ReturnType<typeof highlightResults> = [];
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
@@ -101,6 +104,18 @@ export class PageComponent extends Component<PropTypes> {
     if (prevProps.searchResults !== this.props.searchResults) {
       this.updateHighlights();
     }
+
+    if (
+      this.container &&
+      this.props.search &&
+      this.props.search.selectedResult &&
+      (
+        !prevProps.search ||
+        (this.props.search.selectedResult !== prevProps.search.selectedResult)
+      )
+    ) {
+      this.scrollToSearch(this.container, this.props.search.selectedResult);
+    }
   }
 
   public getSnapshotBeforeUpdate() {
@@ -124,6 +139,19 @@ export class PageComponent extends Component<PropTypes> {
     />;
   }
 
+  private scrollToSearch = (container: Element, selected: SelectedResult) => {
+    const elementHighlights = this.searchResultMap.find((map) => isEqual(map.result, selected.result));
+    const selectedHighlights = elementHighlights && elementHighlights.highlights[selected.highlight];
+    const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
+
+    if (firstSelectedHighlight) {
+      firstSelectedHighlight.focus();
+
+      allImagesLoaded(container)
+        .then(() => scrollTo(firstSelectedHighlight.elements[0]));
+    }
+  };
+
   private updateHighlights = () => {
     const { searchResults } = this.props;
 
@@ -132,8 +160,7 @@ export class PageComponent extends Component<PropTypes> {
     }
 
     this.searchHighlighter.eraseAll();
-
-    highlightResults(this.searchHighlighter, searchResults);
+    this.searchResultMap = highlightResults(this.searchHighlighter, searchResults);
   };
 
   private getPrerenderedContent() {
