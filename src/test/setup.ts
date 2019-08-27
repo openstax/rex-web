@@ -51,6 +51,8 @@ let requestAnimationFrame: jest.SpyInstance;
 let matchMedia: jest.SpyInstance;
 let scrollTo: jest.SpyInstance;
 let scrollBy: jest.SpyInstance;
+let mockGa: any;
+
 beforeEach(() => {
   if (typeof(window) === 'undefined') {
     return;
@@ -75,6 +77,9 @@ beforeEach(() => {
       return 0;
     }
   );
+
+  mockGa = jest.fn();
+  window.ga = mockGa;
 });
 
 afterEach(() => {
