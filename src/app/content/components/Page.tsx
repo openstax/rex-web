@@ -304,8 +304,10 @@ const StyledPageComponent = styled(PageComponent)`
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
-  .search-highlight {
-    background-color: #ff9e4b;
+  @media screen {
+    .search-highlight {
+      background-color: #ff9e4b;
+    }
   }
 
   .os-figure,

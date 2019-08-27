@@ -21,15 +21,14 @@ export const Wrapper = styled(LayoutBody)`
 
   @media screen {
     flex: 1;
+    ${(props: WrapperProps) => (props.searchResultsOpen || props.hasQuery) && css`
+      margin-left: ${searchResultsBarDesktopWidth}rem;
+    `}
+
+    ${theme.breakpoints.mobile(css`
+      margin-left: 0;
+    `)}
   }
-
-  ${(props: WrapperProps) => (props.searchResultsOpen || props.hasQuery) && css`
-    margin-left: ${searchResultsBarDesktopWidth}rem;
-  `}
-
-  ${theme.breakpoints.mobile(css`
-    margin-left: 0;
-  `)}
 `;
 
 export default connect(
