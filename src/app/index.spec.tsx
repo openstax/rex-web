@@ -1,4 +1,5 @@
 import { Middleware } from 'redux';
+import { resetModules } from '../test/utils';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
@@ -22,7 +23,7 @@ describe('create app', () => {
   const services = {} as AppServices;
 
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     React = require('react');
     renderer = require('react-test-renderer');
     history = require('history');
