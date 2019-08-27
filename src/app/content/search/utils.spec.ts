@@ -3,7 +3,7 @@ import { SearchResultHit } from '@openstax/open-search-client/dist/models/Search
 import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client/dist/models/SearchResultHitSource';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { ArchiveTree, ArchiveTreeSection } from '../types';
-import { getFirstResultPage, getFormattedSearchResults } from './utils';
+import { getFirstResult, getFormattedSearchResults } from './utils';
 
 const makeSearchResultHit = (tree: ArchiveTree, page: ArchiveTreeSection): SearchResultHit => ({
   highlight: { visibleContent: ['cool <em>highlight</em> bruh'] },
@@ -24,10 +24,10 @@ const makeSearchResult = (hits: SearchResult['hits']['hits'] = []) => ({
   took: 0,
 });
 
-describe('getFirstResultPage', () => {
+describe('getFirstResult', () => {
   it('works with empty results', () => {
     const searchResults: SearchResult = makeSearchResult();
-    expect(getFirstResultPage({tree: treeWithoutUnits}, searchResults)).toEqual(undefined);
+    expect(getFirstResult({tree: treeWithoutUnits}, searchResults)).toEqual(null);
   });
 
   it('finds chapter page', () => {
@@ -36,13 +36,13 @@ describe('getFirstResultPage', () => {
       chapterHit,
     ]);
 
-    const result = getFirstResultPage({tree: treeWithoutUnits}, searchResults);
+    const result = getFirstResult({tree: treeWithoutUnits}, searchResults);
 
     if (!result) {
       return expect(result).toBeTruthy();
     }
 
-    expect(result.id).toEqual(treeWithoutUnits.contents[1].contents![0].id);
+    expect(result.result.source.pageId).toEqual(treeWithoutUnits.contents[1].contents![0].id);
   });
 });
 
