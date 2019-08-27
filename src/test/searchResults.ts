@@ -1,11 +1,15 @@
 import { SearchResultHit, SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
-import { ArchiveBook, ArchivePage } from '../app/content/types';
+import { ArchiveBook, ArchivePage, ArchiveTreeSection } from '../app/content/types';
+import { getIdVersion, stripIdVersion } from '../app/content/utils/idUtils';
 import * as mockArchive from './mocks/archiveLoader';
+
+const isArchiveTreeSection = (thing: ArchivePage | ArchiveTreeSection): thing is ArchiveTreeSection =>
+  !(thing as ArchivePage).version;
 
 export const makeSearchResultHit = (
   {book, page, highlights, sourceId}: {
     book: ArchiveBook,
-    page: ArchivePage,
+    page: ArchivePage | ArchiveTreeSection,
     highlights?: string[],
     sourceId?: string,
   } = {
@@ -19,7 +23,7 @@ export const makeSearchResultHit = (
   source: {
     elementId: sourceId || 'fs-id1544727',
     elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
-    pageId: `${page.id}@${page.version}`,
+    pageId: `${stripIdVersion(page.id)}@${isArchiveTreeSection(page) ? getIdVersion(page.id) : page.version}`,
     pagePosition: 60,
   },
 });
