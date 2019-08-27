@@ -1,5 +1,6 @@
 import ReactType from 'react';
 import rendererType from 'react-test-renderer';
+import { resetModules } from '../../../test/utils';
 import MessageProvider from '../../MessageProvider';
 import UpdatesAvailable from './UpdatesAvailable';
 
@@ -36,7 +37,7 @@ describe('UpdatesAvailable', () => {
     let React: typeof ReactType; // tslint:disable-line:variable-name
 
     beforeEach(() => {
-      jest.resetModules();
+      resetModules();
       delete (global as any).window;
       delete (global as any).document;
       React = require('react');

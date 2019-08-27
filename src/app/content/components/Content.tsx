@@ -8,7 +8,6 @@ import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
-import CenteredContent from './CenteredContent';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -48,7 +47,11 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-const CenteredContentRow = styled(CenteredContent)`
+const CenteredContentRow = styled.div`
+  overflow: visible; /* so sidebar position: sticky works */
+  margin: 0 auto;
+  max-width: ${contentWrapperMaxWidth}rem;
+
   @media screen {
     min-height: 100%;
     display: flex;

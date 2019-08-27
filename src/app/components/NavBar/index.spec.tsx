@@ -2,6 +2,7 @@ import { ComponentClass } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
+import { resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
@@ -13,7 +14,7 @@ let renderToDom: any;
 
 describe('content', () => {
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     jest.resetAllMocks();
     React = require('react');
     Provider = require('react-redux').Provider;

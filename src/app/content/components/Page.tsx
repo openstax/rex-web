@@ -1,3 +1,5 @@
+import Highlighter from '@openstax/highlighter';
+import { SearchResultHit } from '@openstax/open-search-client';
 import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
@@ -17,6 +19,7 @@ import { AppServices, AppState } from '../../types';
 import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
+import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
 import { toRelativeUrl } from '../utils/urlUtils';
@@ -31,6 +34,7 @@ interface PropTypes {
   navigate: typeof push;
   className?: string;
   references: State['references'];
+  searchResults: SearchResultHit[];
   search: RouteState<typeof content>['search'];
   services: AppServices;
 }
@@ -38,6 +42,7 @@ interface PropTypes {
 export class PageComponent extends Component<PropTypes> {
   public container: Element | undefined | null;
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
+  private searchHighlighter: Highlighter | undefined;
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
@@ -67,9 +72,15 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   public componentDidMount() {
+    if (!this.container) {
+      return;
+    }
     this.postProcess();
     this.linksOn();
-    if (this.container) { this.addGenericJs(this.container); }
+    this.addGenericJs(this.container);
+    this.searchHighlighter = new Highlighter(this.container, {
+      className: 'search-highlight',
+    });
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
@@ -85,6 +96,10 @@ export class PageComponent extends Component<PropTypes> {
       } else {
         window.scrollTo(0, 0);
       }
+    }
+
+    if (prevProps.searchResults !== this.props.searchResults) {
+      this.updateHighlights();
     }
   }
 
@@ -108,6 +123,18 @@ export class PageComponent extends Component<PropTypes> {
       dangerouslySetInnerHTML={{ __html: html}}
     />;
   }
+
+  private updateHighlights = () => {
+    const { searchResults } = this.props;
+
+    if (!this.container || !this.searchHighlighter) {
+      return;
+    }
+
+    this.searchHighlighter.eraseAll();
+
+    highlightResults(this.searchHighlighter, searchResults);
+  };
 
   private getPrerenderedContent() {
     if (
@@ -277,6 +304,12 @@ const StyledPageComponent = styled(PageComponent)`
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
+  @media screen {
+    .search-highlight {
+      background-color: #ff9e4b;
+    }
+  }
+
   .os-figure,
   .os-figure:last-child {
     margin-bottom: 5px; /* fix double scrollbar bug */
@@ -301,6 +334,7 @@ export default connect(
       }
       : undefined
     ,
+    searchResults: selectSearch.currentPageResults(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
