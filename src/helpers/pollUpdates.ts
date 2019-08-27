@@ -76,7 +76,9 @@ export const poll = (store: Store) => async() => {
 };
 
 export default (store: Store): Cancel => {
-  if (APP_ENV === 'test') { return () => undefined; }
+  if (APP_ENV === 'test') {
+    return () => undefined;
+  }
 
   const handler = poll(store);
   const document = assertDocument();

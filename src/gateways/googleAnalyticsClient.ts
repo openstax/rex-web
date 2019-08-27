@@ -26,7 +26,7 @@ class GoogleAnalyticsClient {
   private pendingCommands: PendingCommand[] = [];
 
   public gaProxy(commandName: string, ...params: any[]) {
-    const command = {name: commandName, params} as Command;
+    const command: Command = {name: commandName, params};
 
     if (this.isReadyForCommands()) {
       this.commandEachTracker(command);
@@ -50,7 +50,7 @@ class GoogleAnalyticsClient {
     for (const id of ids) {
       // Build a tracker for each ID, use the ID as the basis of the
       // tracker name (must be alphanumeric)
-      const trackerName = 't' + id.replace( /-/g, '' );
+      const trackerName = 't' + id.replace( /[^a-z0-9]+/ig, '' );
       this.trackerNames.push(trackerName);
       this.ga('create', id, 'auto', trackerName);
     }
