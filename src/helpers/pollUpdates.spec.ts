@@ -2,8 +2,8 @@ import { updateAvailable } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import createTestStore from '../test/createTestStore';
-import { Cancel, trustAfter } from './pollUpdates';
 import { resetModules } from '../test/utils';
+import { Cancel, trustAfter } from './pollUpdates';
 
 const mockFetchResponse = (code: number, data: any) => Promise.resolve({
   json: () => Promise.resolve(data),
