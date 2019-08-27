@@ -3,18 +3,21 @@ import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import createTestStore from '../test/createTestStore';
 import { resetModules } from '../test/utils';
-import pollUpdatesType, { Cancel, poll as pollType, trustAfter } from './pollUpdates';
+import { Cancel, trustAfter } from './pollUpdates';
 
-const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
+const mockFetchResponse = (code: number, data: any) => Promise.resolve({
   json: () => Promise.resolve(data),
   status: code,
   text: () => Promise.resolve(data),
-}));
+});
+
+const mockFetch = (code: number, data: any) => jest.fn(() => mockFetchResponse(code, data));
 
 describe('poll updates', () => {
   let cancel: Cancel;
   const fetchBackup = fetch;
   let store: Store;
+  let fetchSpy: jest.SpyInstance;
   let dispatch: jest.SpyInstance;
   const dateBackup = Date;
 
@@ -22,7 +25,15 @@ describe('poll updates', () => {
     jest.useFakeTimers();
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
-    (global as any).fetch = mockFetch(200, {release_id: 'releaseid'});
+
+    fetchSpy = (global as any).fetch = mockFetch(200, {
+      configs: {
+        google_analytics: [
+          'UA-0000000-1',
+        ],
+      },
+      release_id: 'releaseid',
+    });
 
     function MockDate() {
       return null;
@@ -43,15 +54,17 @@ describe('poll updates', () => {
   });
 
   describe('in production', () => {
-    let pollUpdates: typeof pollUpdatesType;
+    let pollUpdates: typeof import ('./pollUpdates').default;
+    let googleAnalyticsClient: typeof import ('../gateways/googleAnalyticsClient').default;
 
     beforeEach(() => {
-      resetModules();
       jest.mock('../config', () => ({
         APP_ENV: 'production',
         RELEASE_ID: 'releaseid',
       }));
+      jest.resetModules();
       pollUpdates = require('./pollUpdates').default;
+      googleAnalyticsClient = require('../gateways/googleAnalyticsClient').default;
     });
 
     it('fetches /rex/environment.json imeediately', () => {
@@ -86,7 +99,7 @@ describe('poll updates', () => {
 
       expect(dispatch).not.toHaveBeenCalled();
 
-      (Date as any).prototype.getTime.mockReturnValue((new dateBackup()).getTime() + trustAfter);
+      (Date as any).prototype.getTime.mockReturnValue((new dateBackup()).getTime() + trustAfter * 1.5);
       // make date be 1h in the future
 
       jest.runOnlyPendingTimers();
@@ -108,6 +121,39 @@ describe('poll updates', () => {
       await Promise.resolve(); // clear promise queue for the mockfetch
 
       expect(dispatch).toHaveBeenCalledWith(updateAvailable());
+    });
+
+    it('initializes google analytics', async() => {
+      const mock = jest.fn(() => ({}));
+      googleAnalyticsClient.setTrackingIds = mock;
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue for the async poll function
+      await Promise.resolve(); // clear promise queue for the mockfetch
+
+      expect(mock).toHaveBeenCalledWith(['UA-0000000-1']);
+    });
+
+    it('doesn\'t initialize google analytics when there are no ids', async() => {
+      fetchSpy.mockReturnValue(mockFetchResponse(200, {
+        configs: {
+          google_analytics: [
+          ],
+        },
+        release_id: 'releaseid',
+      }));
+      const mock = jest.fn(() => ({}));
+      googleAnalyticsClient.setTrackingIds = mock;
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue for the async poll function
+      await Promise.resolve(); // clear promise queue for the mockfetch
+
+      expect(mock).not.toHaveBeenCalled();
     });
 
     it('does nothing while focus is away', async() => {
@@ -161,7 +207,7 @@ describe('poll updates', () => {
 
 describe('poll', () => {
   const fetchBackup = fetch;
-  let poll: typeof pollType;
+  let poll: typeof import ('./pollUpdates').poll;
   let store: Store;
   let dispatch: jest.SpyInstance;
 
