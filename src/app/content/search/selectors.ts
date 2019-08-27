@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getFormattedSearchResults, countTotalHighlights, getSearchResultsForPage } from './utils';
+import { countTotalHighlights, getFormattedSearchResults, getSearchResultsForPage } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
