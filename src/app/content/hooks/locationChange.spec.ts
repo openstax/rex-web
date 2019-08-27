@@ -141,6 +141,7 @@ describe('locationChange', () => {
 
   it('loads a page with a content reference', async() => {
     archiveLoader.mockPage(book, {
+      abstract: '',
       content: 'rando content',
       id: 'rando-page-id',
       revised: '2018-07-30T15:58:45Z',
@@ -149,6 +150,7 @@ describe('locationChange', () => {
       version: '0',
     }, 'rando-page');
     archiveLoader.mockPage(book, {
+      abstract: '',
       content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
       revised: '2018-07-30T15:58:45Z',
@@ -213,6 +215,7 @@ describe('locationChange', () => {
 
   describe('cross book references', () => {
     const mockOtherBook = {
+      abstract: '',
       id: 'newbookid',
       license: {name: '', version: ''},
       shortId: 'newbookshortid',
@@ -227,6 +230,7 @@ describe('locationChange', () => {
       version: '0',
     };
     const mockPageInOtherBook = {
+      abstract: '',
       content: 'dope content bruh',
       id: 'newbookpageid',
       revised: '2018-07-30T15:58:45Z',
@@ -250,6 +254,7 @@ describe('locationChange', () => {
       mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
 
       archiveLoader.mockPage(book, {
+        abstract: '',
         content: 'some <a href="/contents/newbookpageid"></a> content',
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
