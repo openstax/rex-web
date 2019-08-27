@@ -30,7 +30,8 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
   }
 
   const title = `${page.title} - ${book.title} - OpenStax`;
-  const description = page.abstract.replace(/<[^>]*>/g, ' ')
+
+  const description = page.abstract && page.abstract.replace(/<[^>]*>/g, ' ')
     .replace(/ +/g, ' ')
     .trim()
     .substring(0, 155)
@@ -46,8 +47,10 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
       {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
     ],
     meta: [
-      {name: 'description', content: description},
-      {property: 'og:description', content: description},
+      ...(description ? [
+        {name: 'description', content: description},
+        {property: 'og:description', content: description},
+      ] : []),
       {property: 'og:title', content: title},
       {name: 'theme-color', content: theme.color.primary[book.theme].base},
     ],
