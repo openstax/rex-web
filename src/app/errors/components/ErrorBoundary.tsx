@@ -7,6 +7,7 @@ import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
+import theme from '../../theme';
 
 interface Props {
   children: ReactNode;
@@ -20,6 +21,7 @@ interface State {
 const ErrorWrapper = styled.div`
   flex: 1;
   margin: 3rem auto;
+  padding: 0 ${theme.padding.page.mobile}rem;
 `;
 
 // tslint:disable-next-line:variable-name
