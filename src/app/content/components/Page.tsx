@@ -1,6 +1,6 @@
 import Highlighter from '@openstax/highlighter';
 import { SearchResultHit } from '@openstax/open-search-client';
-import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
+import { Element, HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
@@ -42,7 +42,7 @@ interface PropTypes {
 }
 
 export class PageComponent extends Component<PropTypes> {
-  public container: Element | undefined | null;
+  public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
   private searchHighlighter: Highlighter | undefined;
   private searchResultMap: ReturnType<typeof highlightResults> = [];
@@ -75,13 +75,13 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   public componentDidMount() {
-    if (!this.container) {
+    if (!this.container.current) {
       return;
     }
     this.postProcess();
     this.linksOn();
-    this.addGenericJs(this.container);
-    this.searchHighlighter = new Highlighter(this.container, {
+    this.addGenericJs(this.container.current);
+    this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
   }
@@ -90,12 +90,12 @@ export class PageComponent extends Component<PropTypes> {
     const target = this.getScrollTarget();
     this.postProcess();
 
-    if (this.container && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
+    if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.linksOn();
 
-      this.addGenericJs(this.container);
+      this.addGenericJs(this.container.current);
       if (target) {
-        allImagesLoaded(this.container).then(() => scrollTo(target));
+        allImagesLoaded(this.container.current).then(() => scrollTo(target));
       } else {
         window.scrollTo(0, 0);
       }
@@ -106,7 +106,8 @@ export class PageComponent extends Component<PropTypes> {
     }
 
     if (
-      this.container &&
+      this.container.current &&
+      this.searchHighlighter &&
       this.props.search &&
       this.props.search.selectedResult &&
       (
@@ -114,7 +115,7 @@ export class PageComponent extends Component<PropTypes> {
         (this.props.search.selectedResult !== prevProps.search.selectedResult)
       )
     ) {
-      this.scrollToSearch(this.container, this.props.search.selectedResult);
+      this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
     }
   }
 
@@ -124,7 +125,7 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public componentWillUnmount() {
-    if (this.container) {
+    if (this.container.current) {
       this.linksOff();
     }
   }
@@ -134,15 +135,17 @@ export class PageComponent extends Component<PropTypes> {
 
     return <MainContent
       className={this.props.className}
-      ref={(ref: any) => this.container = ref}
+      ref={this.container}
       dangerouslySetInnerHTML={{ __html: html}}
     />;
   }
 
-  private scrollToSearch = (container: Element, selected: SelectedResult) => {
+  private scrollToSearch = (container: HTMLElement, highlighter: Highlighter, selected: SelectedResult) => {
     const elementHighlights = this.searchResultMap.find((map) => isEqual(map.result, selected.result));
     const selectedHighlights = elementHighlights && elementHighlights.highlights[selected.highlight];
     const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
+
+    highlighter.clearFocus();
 
     if (firstSelectedHighlight) {
       firstSelectedHighlight.focus();
@@ -155,7 +158,7 @@ export class PageComponent extends Component<PropTypes> {
   private updateHighlights = () => {
     const { searchResults } = this.props;
 
-    if (!this.container || !this.searchHighlighter) {
+    if (!this.container.current || !this.searchHighlighter) {
       return;
     }
 
@@ -249,14 +252,14 @@ export class PageComponent extends Component<PropTypes> {
 }
 
   private getScrollTarget(): Element | null {
-    return this.container && typeof(window) !== 'undefined' && this.props.hash
-      ? this.container.querySelector(`[id="${this.props.hash.replace(/^#/, '')}"]`)
+    return this.container.current && typeof(window) !== 'undefined' && this.props.hash
+      ? this.container.current.querySelector(`[id="${this.props.hash.replace(/^#/, '')}"]`)
       : null;
   }
 
   private mapLinks(cb: (a: HTMLAnchorElement) => void) {
-    if (this.container) {
-      Array.from(this.container.querySelectorAll('a')).forEach(cb);
+    if (this.container.current) {
+      Array.from(this.container.current.querySelectorAll('a')).forEach(cb);
     }
   }
 
@@ -302,8 +305,8 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private postProcess() {
-    if (this.container && typeof(window) !== 'undefined') {
-      const promise = typesetMath(this.container, window);
+    if (this.container.current && typeof(window) !== 'undefined') {
+      const promise = typesetMath(this.container.current, window);
       this.props.services.promiseCollector.add(promise);
     }
   }
@@ -334,6 +337,10 @@ const StyledPageComponent = styled(PageComponent)`
   @media screen {
     .search-highlight {
       background-color: #ff9e4b;
+
+      &.focus {
+        background-color: #ffd17e;
+      }
     }
   }
 

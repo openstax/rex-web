@@ -138,7 +138,7 @@ export const highlightResults = (
     const element = highlighter.getReferenceElement(hit.source.elementId) as HTMLElement;
 
     if (!element) {
-      return {result: hit, highlights: []};
+      return {result: hit, highlights: {}};
     }
 
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
