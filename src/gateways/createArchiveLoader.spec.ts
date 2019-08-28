@@ -1,4 +1,5 @@
 import { AppServices } from '../app/types';
+import { resetModules } from '../test/utils';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
   json: () => Promise.resolve(data),
@@ -15,7 +16,7 @@ describe('archiveLoader', () => {
   });
 
   afterEach(() => {
-    jest.resetModules();
+    resetModules();
     (global as any).fetch = fetchBackup;
   });
 

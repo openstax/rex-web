@@ -23,6 +23,7 @@ declare global {
       new(): dom.Element;
     };
     MathJax: any;
+    ga: UniversalAnalytics.ga;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;

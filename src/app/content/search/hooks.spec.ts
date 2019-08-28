@@ -1,16 +1,16 @@
 import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
-import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client/dist/models/SearchResultHitSource';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { push, replace } from '../../navigation/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { formatBookData } from '../utils';
-import { clearSearch, receiveSearchResults, requestSearch } from './actions';
+import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
 
 describe('hooks', () => {
@@ -122,12 +122,46 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: 'qwer' },
+          state: { search: {query: 'qwer'} },
         },
         match: {} as any,
       });
 
       expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer'));
+    });
+
+    it('searches for saved query with selectedResult on POP if it is differet from current query', () => {
+      store.dispatch(requestSearch('asdf'));
+
+      const hit = makeSearchResultHit({book, page});
+      const selectedResult = {result: hit, highlight: 0};
+      hook({
+        action: 'POP',
+        location: {
+          ...assertWindow().location,
+          state: { search: {query: 'qwer', selectedResult}},
+        },
+        match: {} as any,
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {selectedResult}));
+    });
+
+    it('dispatches selectSearchResult if query and page are the same', () => {
+      store.dispatch(requestSearch('asdf'));
+
+      const hit = makeSearchResultHit({book, page});
+      const selectedResult = {result: hit, highlight: 0};
+      hook({
+        action: 'POP',
+        location: {
+          ...assertWindow().location,
+          state: { search: {query: 'asdf', selectedResult}},
+        },
+        match: {} as any,
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult(selectedResult));
     });
 
     it('doesn\'t dispatch on POP if saved query is same as current query', () => {
@@ -137,7 +171,7 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: 'asdf' },
+          state: { search: {query: 'asdf'} },
         },
         match: {} as any,
       });
@@ -151,7 +185,7 @@ describe('hooks', () => {
         action: 'POP',
         location: {
           ...assertWindow().location,
-          state: { search: '' },
+          state: { search: {query: ''} },
         },
         match: {} as any,
       });
@@ -161,28 +195,10 @@ describe('hooks', () => {
 
   describe('receiveSearchHook', () => {
     let hook: ReturnType<typeof receiveSearchHook>;
-    const hit: SearchResultHit = {
-      highlight: { visibleContent: ['cool <em>highlight</em> bruh'] },
-      index: `${book.id}@${book.version}_i1`,
-      score: 2,
-      source: {
-        elementId: 'fs-id1544727',
-        elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
-        pageId: `${page.id}@${page.version}`,
-        pagePosition: 60,
-      },
-    };
+    const hit = makeSearchResultHit({book, page});
 
-    const go = (hits: SearchResultHit[] = []) =>
-      hook(
-        receiveSearchResults({
-          hits: { hits, total: 0 },
-          overallTook: 75,
-          shards: { total: 1, successful: 1, skipped: 0, failed: 0 },
-          timedOut: false,
-          took: 0,
-        })
-      );
+    const go = (hits: SearchResultHit[] = [], meta?: ArgumentTypes<typeof receiveSearchResults>[1]) =>
+      hook(receiveSearchResults(makeSearchResults(hits), meta));
 
     beforeEach(() => {
       hook = receiveSearchHook(helpers);
@@ -195,11 +211,12 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalled();
     });
 
-    it('noops if search and page match intended already', () => {
+    it('noops if search, page, and selected search match intended already', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      helpers.history.replace({ state: { search: 'asdf' } });
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+      helpers.history.replace({ state: { search: {query: 'asdf'} } });
       go([hit]);
       expect(dispatch).not.toHaveBeenCalled();
     });
@@ -250,7 +267,7 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: 'asdf',
+            search: expect.objectContaining({query: 'asdf'}),
           },
         })
       );
@@ -269,7 +286,27 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: 'asdf',
+            search: expect.objectContaining({query: 'asdf'}),
+          },
+        })
+      );
+    });
+
+    it('uses the provided selectedResult', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const selectedResult = {result: hit, highlight: 0};
+      go([hit], {selectedResult});
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+            search: expect.objectContaining({selectedResult}),
           },
         })
       );

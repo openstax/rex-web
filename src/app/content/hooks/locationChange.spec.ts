@@ -6,6 +6,7 @@ import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../test/utils';
 import { Match } from '../../navigation/types';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
@@ -61,7 +62,7 @@ describe('locationChange', () => {
   });
 
   afterEach(() => {
-    jest.resetModules();
+    resetModules();
   });
 
   it('loads book', async() => {
@@ -236,7 +237,7 @@ describe('locationChange', () => {
       version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
-      authors: [{value: {name: 'different author'}}],
+      authors: [{value: {name: 'different author', senior_author: true}}],
       cnx_id: 'newbookid',
       cover_color: 'blue',
       meta: {

@@ -9,6 +9,7 @@ import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
+import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
@@ -17,8 +18,10 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { scrollTo } from '../../utils';
 import { assertWindow } from '../../utils';
 import * as actions from '../actions';
+import { receivePage } from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
+import { requestSearch } from '../search/actions';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
@@ -40,7 +43,7 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     jest.resetAllMocks();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
@@ -66,7 +69,7 @@ describe('Page', () => {
   });
 
   const renderDomWithReferences = () => {
-    archiveLoader.mockPage(book, {
+    const pageWithRefereces = {
       ...page,
       content: `
         some text
@@ -78,9 +81,10 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
       `,
-    }, 'unused?1');
+    };
+    archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
 
-    state.content.references = [
+    store.dispatch(receivePage({...pageWithRefereces, references: [
       {
         match: '/content/link',
         params: {
@@ -93,7 +97,8 @@ describe('Page', () => {
           pageUid: 'page',
         },
       },
-    ];
+    ]}));
+
     return renderToDom(
       <Provider store={store}>
         <MessageProvider>
@@ -278,6 +283,7 @@ describe('Page', () => {
 
   it('interceptes clicking content links', () => {
     const {root} = renderDomWithReferences();
+    dispatch.mockReset();
     const [firstLink, secondLink, thirdLink] = Array.from(root.querySelectorAll('#main-content a'));
     const button = root.querySelector('#main-content button');
 
@@ -324,7 +330,45 @@ describe('Page', () => {
         bookUid: 'book',
         bookVersion: 'version',
         pageUid: 'page',
-        search: null,
+      },
+    }, {
+      hash: '',
+      search: '',
+    }));
+  });
+
+  it('passes search when clicking content links to same book', () => {
+    store.dispatch(requestSearch('asdf'));
+    const {root} = renderDomWithReferences();
+    const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!firstLink || !document) {
+      return expect(firstLink).toBeTruthy();
+    }
+
+    const makeEvent = (doc: Document) => {
+      const event = doc.createEvent('MouseEvents');
+      event.initEvent('click', true, false);
+      event.preventDefault();
+      event.preventDefault = jest.fn();
+      return event;
+    };
+
+    const evt1 = makeEvent(document);
+
+    firstLink.dispatchEvent(evt1);
+
+    expect(dispatch).toHaveBeenCalledWith(push({
+      params: {
+        book: 'book-slug-1',
+        page: 'page-title',
+      },
+      route: routes.content,
+      state: {
+        bookUid: 'book',
+        bookVersion: 'version',
+        pageUid: 'page',
+        search: expect.objectContaining({query: 'asdf'}),
       },
     }, {
       hash: '',
@@ -334,6 +378,7 @@ describe('Page', () => {
 
   it('does not intercept clicking content links when meta key is pressed', () => {
     const {root} = renderDomWithReferences();
+    dispatch.mockReset();
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     if (!document || !firstLink) {

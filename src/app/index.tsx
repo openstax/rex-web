@@ -12,6 +12,7 @@ import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
+import * as appHooks from './hooks';
 import MessageProvider from './MessageProvider';
 import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
@@ -48,6 +49,7 @@ const init = [
 const hooks = [
   ...content.hooks,
   ...Object.values(head.hooks),
+  ...Object.values(appHooks),
 ];
 
 const defaultServices = () => ({

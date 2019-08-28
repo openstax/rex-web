@@ -6,6 +6,7 @@ exports[`Button matches snapshot - default 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -17,6 +18,8 @@ exports[`Button matches snapshot - default 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -45,6 +48,7 @@ exports[`Button matches snapshot - large 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -56,6 +60,7 @@ exports[`Button matches snapshot - large 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
   font-size: 1.6rem;
   height: 5rem;
   padding: 0 3rem;
@@ -85,6 +90,7 @@ exports[`Button matches snapshot - medium 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -96,6 +102,8 @@ exports[`Button matches snapshot - medium 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -125,6 +133,7 @@ exports[`Button matches snapshot - primary 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -136,6 +145,8 @@ exports[`Button matches snapshot - primary 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -164,6 +175,7 @@ exports[`Button matches snapshot - secondary 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -175,6 +187,8 @@ exports[`Button matches snapshot - secondary 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
+  min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
   padding: 0 3rem;
@@ -203,6 +217,7 @@ exports[`Button matches snapshot - small 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -214,6 +229,7 @@ exports[`Button matches snapshot - small 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  white-space: nowrap;
   font-size: 1.4rem;
   height: 3rem;
   padding: 0 2rem;

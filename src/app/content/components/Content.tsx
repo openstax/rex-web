@@ -5,10 +5,10 @@ import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
+import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
-import CenteredContent from './CenteredContent';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -22,7 +22,7 @@ import {
 import ContentPane from './ContentPane';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
-import Sidebar from './Sidebar';
+import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
@@ -48,7 +48,11 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-const CenteredContentRow = styled(CenteredContent)`
+const CenteredContentRow = styled.div`
+  overflow: visible; /* so sidebar position: sticky works */
+  margin: 0 auto;
+  max-width: ${contentWrapperMaxWidth}rem;
+
   @media screen {
     min-height: 100%;
     display: flex;
@@ -109,6 +113,15 @@ const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   }
 `);
 
+// tslint:disable-next-line:variable-name
+const OuterWrapper = styled.div`
+  @media screen {
+    display: flex;
+    flex-direction: row;
+    overflow: visible;
+  }
+`;
+
 /*
  * this layout is a mess for these reasons:
  * - the navs must have the default padding inside their containers so their
@@ -158,10 +171,12 @@ const Content: React.SFC = () => <Layout>
   <Background>
     <BookBanner />
     <Toolbar />
-    <Wrapper>
-      <ErrorBoundary>
-        <CenteredContentRow>
-          <Sidebar />
+    <OuterWrapper>
+      <SearchResultsSidebar/>
+      <Wrapper>
+        <ErrorBoundary>
+          <CenteredContentRow>
+          <TableOfContents />
           <ContentPane>
             <UndoPadding>
               <MainContentWrapper>
@@ -171,13 +186,14 @@ const Content: React.SFC = () => <Layout>
                   <PrevNextBar />
                 </HideOverflowAndRedoPadding>
                 <Attribution />
-                <Footer />
+                <Footer/>
               </MainContentWrapper>
             </UndoPadding>
           </ContentPane>
         </CenteredContentRow>
-      </ErrorBoundary>
-    </Wrapper>
+        </ErrorBoundary>
+      </Wrapper>
+    </OuterWrapper>
   </Background>
 </Layout>;
 
