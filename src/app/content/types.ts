@@ -45,6 +45,7 @@ export interface Book {
   authors: Array<{
     value: {
       name: string;
+      senior_author: boolean;
     }
   }>;
 }
