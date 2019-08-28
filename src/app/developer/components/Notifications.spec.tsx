@@ -1,28 +1,62 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
+import createTestStore from '../../../test/createTestStore';
 import { makeFindByTestId } from '../../../test/reactutils';
+import { recordError } from '../../errors/actions';
 import { updateAvailable } from '../../notifications/actions';
-import { AppState } from '../../types';
+import { Store } from '../../types';
 import Notifications from './Notifications';
 
 describe('Notifications', () => {
+  let store: Store;
+  let dispatch: jest.SpyInstance;
+  let consoleError: jest.SpyInstance;
+  let component: renderer.ReactTestRenderer;
 
-  it('dispatches updateAvailable', () => {
-    const state = {} as AppState;
-    const store = createStore((_: undefined | AppState) => state, state);
-    const dispatchSpy = jest.spyOn(store, 'dispatch');
-    const component = renderer.create(<Provider store={store}>
+  beforeEach(() => {
+    store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
+    consoleError = jest.spyOn(console, 'error');
+    component = renderer.create(<Provider store={store}>
       <Notifications />
     </Provider>);
 
-    const findById = makeFindByTestId(component.root);
+    consoleError.mockImplementation(() => null);
+  });
 
+  afterEach(() => {
+    consoleError.mockRestore();
+  });
+
+  it('dispatches updateAvailable', () => {
+    const findById = makeFindByTestId(component.root);
     const button = findById('trigger-updates-available');
 
-    button.props.onClick();
+    renderer.act(() => {
+      button.props.onClick();
+    });
+    expect(dispatch).toHaveBeenCalledWith(updateAvailable());
+  });
 
-    expect(dispatchSpy).toHaveBeenCalledWith(updateAvailable());
+  it('dispatches updateAvailable', () => {
+    const findById = makeFindByTestId(component.root);
+    const button = findById('trigger-modal-error');
+
+    renderer.act(() => {
+      button.props.onClick();
+    });
+    expect(dispatch).toHaveBeenCalledWith(recordError(expect.anything()));
+  });
+
+  it('throws on inline error', () => {
+    const findById = makeFindByTestId(component.root);
+    const button = findById('trigger-inline-error');
+
+    expect(() =>
+      renderer.act(() =>
+        button.props.onClick()
+      )
+    ).toThrow();
   });
 });

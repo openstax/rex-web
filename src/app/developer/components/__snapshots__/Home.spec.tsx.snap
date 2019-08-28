@@ -308,12 +308,14 @@ Array [
             </button>
             <button
               className="c8"
+              data-testid="trigger-inline-error"
               onClick={[Function]}
             >
               inline error
             </button>
             <button
               className="c8"
+              data-testid="trigger-modal-error"
               onClick={[Function]}
             >
               modal error
