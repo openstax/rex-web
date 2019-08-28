@@ -43,6 +43,15 @@ class GoogleAnalyticsClient {
     this.gaProxy('send', 'pageview', path);
   }
 
+  public trackEvent(category: string, action: string, label?: string, value?: number) {
+    // building an args array lets jest mock expectations be happier
+    const args: any[] = [];
+    if (label) { args.push(label); }
+    if (value) { args.push(value); }
+
+    this.gaProxy('send', 'event', category, action, ...args);
+  }
+
   public setTrackingIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
     if (this.trackerNames.length > 0) { return; }
