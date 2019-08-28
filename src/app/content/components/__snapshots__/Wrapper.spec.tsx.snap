@@ -24,12 +24,6 @@ exports[`wrapper matches snapshot 1`] = `
   }
 }
 
-@media screen and (max-width:75em) {
-  .c0 {
-    margin-left: 0;
-  }
-}
-
 <div
   className="c0"
 />
@@ -43,7 +37,6 @@ exports[`wrapper matches snapshot with search open 1`] = `
   overflow: visible;
   -webkit-transition: margin-left 300ms;
   transition: margin-left 300ms;
-  margin-left: 44rem;
 }
 
 @media screen and (max-width:75em) {
@@ -57,12 +50,7 @@ exports[`wrapper matches snapshot with search open 1`] = `
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    margin-left: 0;
+    margin-left: 44rem;
   }
 }
 

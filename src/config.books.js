@@ -10,7 +10,7 @@ const books = {
 // disabled to reduce build size  /* Calculus Volume 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': {defaultVersion: '5.3'},
   /* Chemistry 2e */ '7fccc9cf-9b71-44f6-800b-f9457fd64335': {defaultVersion: '8.28'},
   /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f': {defaultVersion: '5.43'},
-  /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': {defaultVersion: '17.1'},
+  /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': {defaultVersion: '14.4'},
   /* College Physics for AP® Courses */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': {defaultVersion: '26.2'},
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '15.8'},
 // disabled to reduce build size  /* Intermediate Algebra */ '02776133-d49d-49cb-bfaa-67c7f61b25a1': {defaultVersion: '8.1'},

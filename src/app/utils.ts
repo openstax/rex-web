@@ -107,3 +107,18 @@ export const remsToPx = (rems: number) => {
 
   return rems * bodyFontSize;
 };
+
+export const getAllRegexMatches = (regex: RegExp) => {
+  if (!regex.global) {
+    throw new Error('getAllRegexMatches must be used with the global flag');
+  }
+
+  return (string: string) => {
+    const matches: RegExpExecArray[] = [];
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(string)) ) { // tslint:disable-line:no-conditional-assignment
+      matches.push(match);
+    }
+    return matches;
+  };
+};

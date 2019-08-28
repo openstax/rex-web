@@ -1620,6 +1620,13 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
+"@openstax/highlighter@1.2.0-beta.3":
+  version "1.2.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.2.0-beta.3.tgz#cb3783ca630af0c91bc398b9ac9558ec062ece8c"
+  integrity sha512-ci23X0M5gF+GUVLzXAw+sl9k6rOynGSyVdOPFMroi4mQNMmKPTkENpktK1M4rRz3O0fdrLicOLK6IU81ARrBPA==
+  dependencies:
+    serialize-selection "^1.1.1"
+
 "@openstax/open-search-client@./open-search-client/":
   version "0.1.0"
 
@@ -1863,6 +1870,10 @@
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/google.analytics@0.0.40":
+  version "0.0.40"
+  resolved "https://registry.yarnpkg.com/@types/google.analytics/-/google.analytics-0.0.40.tgz#35526e9d78333423c430ade1c821ce54d0f0f850"
 
 "@types/history@^4.7.2":
   version "4.7.2"
@@ -9701,6 +9712,11 @@ range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+rangy@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/rangy/-/rangy-1.3.0.tgz#b7c9a70aea05e5d8cdc74a8d4c8273d697271904"
+  integrity sha1-t8mnCuoF5djNx0qNTIJz1pcnGQQ=
+
 raven@^2.2.1:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/raven/-/raven-2.6.4.tgz#458d4a380c8fbb59e0150c655625aaf60c167ea3"
@@ -10551,6 +10567,11 @@ send@0.16.2:
 serialize-javascript@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.5.0.tgz#1aa336162c88a890ddad5384baebc93a655161fe"
+
+serialize-selection@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/serialize-selection/-/serialize-selection-1.1.1.tgz#d77d17ca999220d40019e23f4383dca4ff6ace35"
+  integrity sha1-130XypmSINQAGeI/Q4PcpP9qzjU=
 
 serve-index@^1.7.2:
   version "1.9.1"
