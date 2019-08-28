@@ -143,8 +143,10 @@ class Attribution extends Component<Props> {
     // this compensates
     bookPublishDate.setMinutes(bookPublishDate.getMinutes() + bookPublishDate.getTimezoneOffset());
 
+    const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
+
     return {
-      bookAuthors: book.authors.map(({value: {name}}) => name).join(', '),
+      bookAuthors: seniorAuthors.map(({value: {name}}) => name).join(', '),
       bookLicenseName: book.license.name,
       bookLicenseVersion: book.license.version,
       bookPublishDate,
