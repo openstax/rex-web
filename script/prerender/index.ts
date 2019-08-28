@@ -32,9 +32,9 @@ ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
     const bn = path.basename(filename).replace(/(\.\w{3})$/, `.${hash}$1`);
     const filePath = `/static/media/${bn}`;
 
-    if (fs.existsSync(path.resolve(__dirname, '../../build', filePath))) {
+    if (fs.existsSync(path.resolve(__dirname, '../../build', filePath.replace(/^\//, '')))) {
       // file exists in build folder, refrence it by url here
-      mod.exports = `${process.env.PUBLIC_URL || ''}${path}`;
+      mod.exports = `${process.env.PUBLIC_URL || ''}${filePath}`;
     } else {
       // file doesn't exist in build folder, assume it is an inlined image
       // and inline it again here
