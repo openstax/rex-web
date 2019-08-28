@@ -18,7 +18,6 @@ exports[`ErrorModal matches snapshot 1`] = `
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
-  white-space: nowrap;
   min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -38,7 +37,6 @@ exports[`ErrorModal matches snapshot 1`] = `
 }
 
 .c8 {
-  font-weight: 300;
   padding: 1.5rem 0;
 }
 
@@ -55,8 +53,21 @@ exports[`ErrorModal matches snapshot 1`] = `
   width: 40rem;
   font-family: Neue Helvetica W01;
   color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
   background-color: white;
   box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
+}
+
+.c2 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 a:hover {
+  color: #0064A0;
 }
 
 .c3 {
@@ -81,9 +92,14 @@ exports[`ErrorModal matches snapshot 1`] = `
 .c4 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -93,7 +109,6 @@ exports[`ErrorModal matches snapshot 1`] = `
   -ms-flex-align: center;
   align-items: center;
   margin: 0;
-  font-weight: 500;
   padding: 1.5rem 0;
 }
 
@@ -113,11 +128,6 @@ exports[`ErrorModal matches snapshot 1`] = `
 }
 
 .c6 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -144,6 +154,7 @@ exports[`ErrorModal matches snapshot 1`] = `
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
+  cursor: pointer;
   margin-right: 0;
   padding-right: 0;
   color: #818181;
@@ -192,6 +203,21 @@ exports[`ErrorModal matches snapshot 1`] = `
 
 .c1 {
   z-index: 3;
+}
+
+@media screen and (max-width:75em) {
+  .c4 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
 }
 
 @media screen and (max-width:75em) {
@@ -262,7 +288,7 @@ exports[`ErrorModal matches snapshot 1`] = `
           dangerouslySetInnerHTML={
             Object {
               "__html": "
-  We’re not quite sure what went wrong. You can try refreshing the page, or contact
+  We're not quite sure what went wrong. You can try refreshing the page, or contact
   our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a> for help.
 ",
             }

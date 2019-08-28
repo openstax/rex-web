@@ -31,10 +31,11 @@ import { wrapperPadding } from './Wrapper';
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
   @media screen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     overflow: visible; /* so sidebar position: sticky works */
     background-color: ${theme.color.neutral.darker};
-    width: 100%;
-    height: 100%;
   }
 `;
 
@@ -170,30 +171,30 @@ const Content: React.SFC = () => <Layout>
   />
   <Background>
     <BookBanner />
-    <Toolbar />
-    <OuterWrapper>
-      <SearchResultsSidebar/>
-      <Wrapper>
-        <ErrorBoundary>
+    <ErrorBoundary>
+      <Toolbar />
+      <OuterWrapper>
+        <SearchResultsSidebar/>
+        <Wrapper>
           <CenteredContentRow>
-          <TableOfContents />
-          <ContentPane>
-            <UndoPadding>
-              <MainContentWrapper>
-                <ContentNotifications />
-                <HideOverflowAndRedoPadding>
-                  <Page />
-                  <PrevNextBar />
-                </HideOverflowAndRedoPadding>
-                <Attribution />
-                <Footer/>
-              </MainContentWrapper>
-            </UndoPadding>
-          </ContentPane>
-        </CenteredContentRow>
-        </ErrorBoundary>
-      </Wrapper>
-    </OuterWrapper>
+            <TableOfContents />
+            <ContentPane>
+              <UndoPadding>
+                <MainContentWrapper>
+                  <ContentNotifications />
+                  <HideOverflowAndRedoPadding>
+                    <Page />
+                    <PrevNextBar />
+                  </HideOverflowAndRedoPadding>
+                  <Attribution />
+                  <Footer/>
+                </MainContentWrapper>
+              </UndoPadding>
+            </ContentPane>
+          </CenteredContentRow>
+        </Wrapper>
+      </OuterWrapper>
+    </ErrorBoundary>
   </Background>
 </Layout>;
 

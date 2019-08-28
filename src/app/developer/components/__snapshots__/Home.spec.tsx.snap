@@ -164,7 +164,6 @@ Array [
   white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
-  white-space: nowrap;
   min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -185,6 +184,7 @@ Array [
 
 .c7 {
   display: grid;
+  overflow: visible;
   grid-auto-columns: min-content;
   grid-auto-flow: column;
   grid-gap: 1rem;
@@ -301,18 +301,21 @@ Array [
           >
             <button
               className="c8"
+              data-testid="trigger-updates-available"
               onClick={[Function]}
             >
               update available
             </button>
             <button
               className="c8"
+              data-testid="trigger-inline-error"
               onClick={[Function]}
             >
               inline error
             </button>
             <button
               className="c8"
+              data-testid="trigger-modal-error"
               onClick={[Function]}
             >
               modal error

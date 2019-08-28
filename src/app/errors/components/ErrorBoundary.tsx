@@ -2,10 +2,12 @@ import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
+import Footer from '../../components/Footer';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
-import { labelStyle } from '../../components/Typography';
+import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
+import theme from '../../theme';
 
 interface Props {
   children: ReactNode;
@@ -17,7 +19,9 @@ interface State {
 
 // tslint:disable-next-line:variable-name
 const ErrorWrapper = styled.div`
+  flex: 1;
   margin: 3rem auto;
+  padding: 0 ${theme.padding.page.mobile}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -28,8 +32,7 @@ const HeadingWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
-  ${labelStyle}
-  font-weight: 300;
+  ${bodyCopyRegularStyle};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -46,7 +49,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   public render() {
     if (this.state.error) {
-      return (
+      return <React.Fragment>
         <ErrorWrapper error={this.state.error as any as Error}>
           <HeadingWrapper>
             <FormattedMessage id='i18n:error:boundary:sub-heading'>
@@ -55,7 +58,8 @@ class ErrorBoundary extends React.Component<Props, State> {
           </HeadingWrapper>
           <BodyWithLink values={{supportCenterLink}}/>
         </ErrorWrapper>
-      );
+        <Footer />
+      </React.Fragment>;
     }
     return this.props.children;
   }
