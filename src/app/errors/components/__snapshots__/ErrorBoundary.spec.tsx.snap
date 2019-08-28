@@ -1,115 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorBoundary matches snapshot 1`] = `
-.c4 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin: auto;
-  overflow: hidden;
-  padding: 3rem;
-  width: 30rem;
+.c2 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  background-color: white;
-  box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
-  border-radius: 0.5rem;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 2rem 0 1rem 0;
   margin: 0;
-  font-size: 2.4rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  font-size: 1.4rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-+ .c5 {
-  margin-top: 0;
 }
 
 .c0 {
-  margin: 2rem auto;
+  margin: 3rem auto;
+}
+
+.c1 {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.c3 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  font-weight: 300;
 }
 
 <div
-  className="c0 c1"
+  className="c0"
 >
-  <header
-    className="c2"
-  >
-    <h1
-      className="c3"
-    >
-      <svg
-        aria-hidden="true"
-        className="c4"
-        color="red"
-        fill="currentColor"
-        focusable="false"
-        height="45px"
-        viewBox="0 0 576 512"
-      >
-        <path
-          d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-          fill="currentColor"
-        />
-      </svg>
-       
-      System Error
-    </h1>
-  </header>
   <div
-    className="c5"
+    className="c1"
   >
-    <div>
-      We’re sorry but a system error was encountered
-    </div>
-    <p>
-      Our support staff has been notified of the error and we’ll investigate it further.
-    </p>
+    <h2
+      className="c2"
+    >
+      Uh-oh, there's been a glitch
+    </h2>
   </div>
+  <div
+    className="c3"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "
+  We’re not quite sure what went wrong. You can try refreshing the page, or contact
+  our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a> for help.
+",
+      }
+    }
+  />
 </div>
 `;

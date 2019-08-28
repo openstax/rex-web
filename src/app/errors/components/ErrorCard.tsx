@@ -7,7 +7,7 @@ import htmlMessage from '../../components/htmlMessage';
 import { h3Style, labelStyle } from '../../components/Typography';
 import { textStyle } from '../../components/Typography/base';
 import { toolbarIconColor } from '../../content/components/constants';
-import { toolbarIconStyles } from '../../content/components/Toolbar';
+import { toolbarIconStyles } from '../../content/components/Toolbar/styled';
 import theme from '../../theme';
 
 const margin = 3.0;

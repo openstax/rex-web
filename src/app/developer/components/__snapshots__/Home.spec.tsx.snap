@@ -311,6 +311,12 @@ Array [
             >
               inline error
             </button>
+            <button
+              className="c8"
+              onClick={[Function]}
+            >
+              modal error
+            </button>
           </div>
         </div>
       </div>
