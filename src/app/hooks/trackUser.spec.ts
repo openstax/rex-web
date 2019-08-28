@@ -2,6 +2,7 @@ import { GoogleAnalyticsClient } from '../../gateways/googleAnalyticsClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import { receiveUser } from '../auth/actions';
 import { User } from '../auth/types';
+import { doAcceptCookies } from '../notifications/acceptCookies';
 import { trackUserHookBody } from './trackUser';
 
 declare const window: Window;
@@ -9,7 +10,7 @@ declare const window: Window;
 describe('trackUser', () => {
   let client: GoogleAnalyticsClient;
   let mockGa: any;
-  const helpers: any = undefined; // unused by hook
+  const helpers: any = {dispatch: jest.fn()};
   let user: User;
 
   beforeEach(() => {
@@ -26,9 +27,16 @@ describe('trackUser', () => {
     expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
   });
 
-  it('tracks the user in GDPR', async() => {
+  it('does not track the user in GDPR', async() => {
     user.isNotGdprLocation = false;
     await (trackUserHookBody(helpers))(receiveUser(user));
     expect(mockGa).not.toHaveBeenCalled();
+  });
+
+  it('tracks if accept cookies not needed', async() => {
+    doAcceptCookies();
+    user.isNotGdprLocation = true;
+    await (trackUserHookBody(helpers))(receiveUser(user));
+    expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
   });
 });
