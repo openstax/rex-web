@@ -1,10 +1,25 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
-import { ExclamationTriangle } from 'styled-icons/fa-solid/ExclamationTriangle';
+import Times from '../../../app/components/Times';
+import { supportCenterLink } from '../../components/Footer';
+import htmlMessage from '../../components/htmlMessage';
+import { h3Style, labelStyle } from '../../components/Typography';
 import { textStyle } from '../../components/Typography/base';
+import { toolbarIconColor } from '../../content/components/constants';
+import { toolbarIconStyles } from '../../content/components/Toolbar';
+import theme from '../../theme';
 
 const margin = 3.0;
+
+// tslint:disable-next-line:variable-name
+const BodyErrorText = styled.div`
+  font-weight: 300;
+  padding: ${margin * 0.5}rem 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 // tslint:disable-next-line:variable-name
 const Card = styled.div`
@@ -12,12 +27,10 @@ const Card = styled.div`
   flex-direction: column;
   margin: auto;
   overflow: hidden;
-  padding: ${margin}rem;
-  width: 30rem;
+  width: 40rem;
   ${textStyle};
   background-color: white;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0 4rem rgba(0, 0, 0, 0.08);
-  border-radius: 0.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -25,25 +38,35 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   margin-bottom: ${margin * 0.5}rem;
+  padding: ${margin * 0.5}rem ${margin}rem;
+  background: #f1f1f1;
+  border-bottom: solid 0.1rem ${theme.color.neutral.darker};
+  justify-content: space-between;
 `;
 
 // tslint:disable-next-line:variable-name
 const Heading = styled.h1`
+  ${labelStyle}
   display: flex;
   align-items: center;
   margin: 0;
-  font-size: 2.4rem;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 500;
+  padding: ${margin * 0.5}rem 0;
+`;
+
+// tslint:disable-next-line:variable-name
+const BodyHeading = styled.h3`
+  ${h3Style}
+  font-weight: 400;
+  padding: ${margin * 0.5}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
 const Body = styled.div`
+  ${labelStyle}
   display: flex;
   flex-direction: column;
-  font-size: 1.4rem;
-  margin-top: ${margin * 0.5}rem;
-  margin-bottom: ${margin * 0.5}rem;
+  padding: 0 ${margin}rem;
 
   ${Card.Header} + & { /* stylelint-disable */
   margin-top: 0;
@@ -53,32 +76,47 @@ const Body = styled.div`
 // tslint:disable-next-line:variable-name
 export const Footer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  padding: ${margin}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  ${toolbarIconStyles};
+  margin-right: 0;
+  padding-right: 0;
+  color: ${toolbarIconColor.lighter};
+
+  :hover {
+    color: ${toolbarIconColor.base};
+  }
+  height: 2rem;
+  width: 2rem;
 `;
 
 interface Props {
   className?: string;
   footer?: JSX.Element;
+  clearError?: () => void;
+  errorMsg?: Error | undefined;
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorCard = ({className, footer}: Props) => <Card className={className}>
+const ErrorCard = ({className, footer, clearError}: Props) => <Card className={className}>
   <Header>
     <FormattedMessage id='i18n:error:boundary:heading'>
       {(message) => (
         <Heading>
-          <ExclamationTriangle height='45px' color='red' /> {message}
+          {message}
         </Heading>
       )}
     </FormattedMessage>
+    <CloseModalIcon onClick={clearError}/>
   </Header>
   <Body>
-    <FormattedMessage id='i18n:error:boundary:body'>
-      {(body) => (<div>{body}</div>)}
+    <FormattedMessage id='i18n:error:boundary:sub-heading'>
+      {(msg) => <BodyHeading>{msg}</BodyHeading>}
     </FormattedMessage>
-    <FormattedMessage id='i18n:error:boundary:action'>
-      {(action) => (<p>{action}</p>)}
-    </FormattedMessage>
+    <BodyWithLink values={{supportCenterLink}}/>
   </Body>
   {footer}
 </Card>;
