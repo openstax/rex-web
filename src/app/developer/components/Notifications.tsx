@@ -22,7 +22,7 @@ const Notifications = ({updateAvailable, error}: Props) => {
 
   return <Panel title='Notifications'>
     <ButtonGroup expand={false}>
-      <Button onClick={updateAvailable}>update available</Button>
+      <Button onClick={updateAvailable} data-testid='trigger-updates-available'>update available</Button>
       <Button onClick={() => setError(true)}>inline error</Button>
       <Button onClick={() => error(new Error('this is an error'))}>modal error</Button>
     </ButtonGroup>

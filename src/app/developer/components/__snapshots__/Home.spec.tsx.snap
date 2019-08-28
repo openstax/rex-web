@@ -301,6 +301,7 @@ Array [
           >
             <button
               className="c8"
+              data-testid="trigger-updates-available"
               onClick={[Function]}
             >
               update available
