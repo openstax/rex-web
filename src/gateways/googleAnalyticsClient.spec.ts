@@ -23,8 +23,8 @@ describe('GoogleAnalyticsClient', () => {
         client.setUserId('jimbo');
         expect(mockGa).not.toHaveBeenCalled();
         client.setTrackingIds(['foo', 'bar']);
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userid', 'jimbo');
-        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userid', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userId', 'jimbo');
       });
     });
 
@@ -32,7 +32,7 @@ describe('GoogleAnalyticsClient', () => {
       it('sets it after tracking ID set', async() => {
         client.setTrackingIds(['foo']);
         client.setUserId('jimbo');
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userid', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'jimbo');
       });
     });
 

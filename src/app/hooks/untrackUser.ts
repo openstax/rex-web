@@ -1,10 +1,12 @@
-import { receiveLoggedOut } from '../auth/actions';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
+import { receiveLoggedOut } from '../auth/actions';
 import { ActionHookBody } from '../types';
 import { actionHook } from '../utils';
 
-const hookBody: ActionHookBody<typeof receiveLoggedOut> = () => async({}) => {
+const untrackUserHookBody: ActionHookBody<typeof receiveLoggedOut> = () => async() => {
   googleAnalyticsClient.setUserId(undefined);
 };
 
-export default actionHook(receiveLoggedOut, hookBody);
+export { untrackUserHookBody };
+
+export default actionHook(receiveLoggedOut, untrackUserHookBody);
