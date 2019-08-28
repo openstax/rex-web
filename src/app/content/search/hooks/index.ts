@@ -13,10 +13,6 @@ import * as select from '../selectors';
 import { getFirstResult, getIndexData, getSearchFromLocation } from '../utils';
 import trackSearch from './trackSearch';
 
-export {
-  trackSearch,
-};
-
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
   const book = selectContent.book(state);
