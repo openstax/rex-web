@@ -14,12 +14,11 @@ import { receiveBook, receivePage } from '../actions';
 import * as routes from '../routes';
 import { formatBookData } from '../utils';
 
-// tslint:disable-next-line
-var mockConfig = {BOOKS: { // var is needed so that the mock is hoisted
+const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
 } as {[key: string]: {defaultVersion: string}}};
 
-jest.mock('../../../config', () => mockConfig);
+jest.doMock('../../../config', () => mockConfig);
 
 describe('locationChange', () => {
   let store: Store;
