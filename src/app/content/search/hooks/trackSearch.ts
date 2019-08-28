@@ -1,8 +1,8 @@
-import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
-import { requestSearch } from '../content/search/actions';
-import * as select from '../content/selectors';
-import { ActionHookBody } from '../types';
-import { actionHook } from '../utils';
+import googleAnalyticsClient from '../../../../gateways/googleAnalyticsClient';
+import { ActionHookBody } from '../../../types';
+import { actionHook } from '../../../utils';
+import * as select from '../../selectors';
+import { requestSearch } from '../actions';
 
 export const trackSearchHookBody: ActionHookBody<typeof requestSearch> = ({getState}) => async(theSearchRequest) => {
   const state = getState();

@@ -1,7 +1,7 @@
-import { GoogleAnalyticsClient } from '../../gateways/googleAnalyticsClient';
-import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
-import { requestSearch } from '../content/search/actions';
-import { AppServices, AppState, MiddlewareAPI } from '../types';
+import { GoogleAnalyticsClient } from '../../../../gateways/googleAnalyticsClient';
+import googleAnalyticsClient from '../../../../gateways/googleAnalyticsClient';
+import { AppServices, AppState, MiddlewareAPI } from '../../../types';
+import { requestSearch } from '../actions';
 import { trackSearchHookBody } from './trackSearch';
 
 declare const window: Window;

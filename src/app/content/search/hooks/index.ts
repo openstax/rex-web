@@ -1,16 +1,21 @@
 import isEqual from 'lodash/fp/isEqual';
-import { push, replace } from '../../navigation/actions';
-import { RouteHookBody } from '../../navigation/types';
-import { ActionHookBody } from '../../types';
-import { actionHook, assertDefined } from '../../utils';
-import { content } from '../routes';
-import * as selectContent from '../selectors';
-import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
-import { stripIdVersion } from '../utils/idUtils';
-import { getBookPageUrlAndParams } from '../utils/urlUtils';
-import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
-import * as select from './selectors';
-import { getFirstResult, getIndexData, getSearchFromLocation } from './utils';
+import { push, replace } from '../../../navigation/actions';
+import { RouteHookBody } from '../../../navigation/types';
+import { ActionHookBody } from '../../../types';
+import { actionHook, assertDefined } from '../../../utils';
+import { content } from '../../routes';
+import * as selectContent from '../../selectors';
+import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { stripIdVersion } from '../../utils/idUtils';
+import { getBookPageUrlAndParams } from '../../utils/urlUtils';
+import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import * as select from '../selectors';
+import { getFirstResult, getIndexData, getSearchFromLocation } from '../utils';
+import trackSearch from './trackSearch';
+
+export {
+  trackSearch,
+};
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -104,6 +109,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async(loc
 };
 
 export default [
+  trackSearch,
   actionHook(requestSearch, requestSearchHook),
   actionHook(receiveSearchResults, receiveSearchHook),
 ];
