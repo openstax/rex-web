@@ -144,7 +144,7 @@ describe('hooks', () => {
         match: {} as any,
       });
 
-      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {selectedResult}));
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {isResultReload: true, selectedResult}));
     });
 
     it('dispatches selectSearchResult if query and page are the same', () => {

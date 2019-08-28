@@ -9,7 +9,9 @@ export const trackSearchHookBody: ActionHookBody<typeof requestSearch> = ({getSt
   const book = select.book(state);
   const slug = !book ? 'unknown' : book.slug;
 
-  googleAnalyticsClient.trackEvent('REX search', theSearchRequest.payload, slug);
+  if (!theSearchRequest.meta || !theSearchRequest.meta.isResultReload) {
+    googleAnalyticsClient.trackEvent('REX search', theSearchRequest.payload, slug);
+  }
 };
 
 export default actionHook(requestSearch, trackSearchHookBody);

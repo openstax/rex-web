@@ -98,7 +98,10 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async(loc
     services.dispatch(
       requestSearch(
         savedSearch.query,
-        savedSearch.selectedResult ? {selectedResult: savedSearch.selectedResult} : undefined
+        savedSearch.selectedResult ? {
+          isResultReload: true,
+          selectedResult: savedSearch.selectedResult,
+        } : undefined
       )
     );
   } else if (savedSearch && savedSearch.selectedResult && !isEqual(savedSearch.selectedResult, selectedResult)) {
