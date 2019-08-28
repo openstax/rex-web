@@ -236,7 +236,7 @@ describe('locationChange', () => {
       version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
-      authors: [{value: {name: 'different author'}}],
+      authors: [{value: {name: 'different author', senior_author: true}}],
       cnx_id: 'newbookid',
       cover_color: 'blue',
       meta: {
