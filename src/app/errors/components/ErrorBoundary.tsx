@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
+import Footer from '../../components/Footer';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../components/Typography';
@@ -17,6 +18,7 @@ interface State {
 
 // tslint:disable-next-line:variable-name
 const ErrorWrapper = styled.div`
+  flex: 1;
   margin: 3rem auto;
 `;
 
@@ -45,7 +47,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   public render() {
     if (this.state.error) {
-      return (
+      return <React.Fragment>
         <ErrorWrapper error={this.state.error as any as Error}>
           <HeadingWrapper>
             <FormattedMessage id='i18n:error:boundary:sub-heading'>
@@ -54,7 +56,8 @@ class ErrorBoundary extends React.Component<Props, State> {
           </HeadingWrapper>
           <BodyWithLink values={{supportCenterLink}}/>
         </ErrorWrapper>
-      );
+        <Footer />
+      </React.Fragment>;
     }
     return this.props.children;
   }
