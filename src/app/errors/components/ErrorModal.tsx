@@ -37,7 +37,7 @@ const Modal = styled.div`
 
 // tslint:disable-next-line:variable-name
 const CardWrapper = styled.div`
-  z-index: 3;
+  z-index: ${theme.zIndex.sidebar};
 `;
 
 interface PropTypes {

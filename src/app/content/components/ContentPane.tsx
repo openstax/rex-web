@@ -14,7 +14,7 @@ import {
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{ isOpen: State['tocOpen'] }>`
+const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
   @media screen {
     flex: 1;
     width: 100%;
@@ -36,7 +36,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({ isOpen, onClick, children }: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
+const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
   {isOpen && <MobileScrollLock onClick={onClick} />}
   {children}
 </Wrapper>;
