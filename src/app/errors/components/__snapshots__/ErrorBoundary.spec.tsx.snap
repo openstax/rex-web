@@ -26,10 +26,19 @@ exports[`ErrorBoundary matches snapshot 1`] = `
 .c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.c3 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3 a:hover {
+  color: #0064A0;
 }
 
 <div
@@ -49,7 +58,7 @@ exports[`ErrorBoundary matches snapshot 1`] = `
     dangerouslySetInnerHTML={
       Object {
         "__html": "
-  We’re not quite sure what went wrong. You can try refreshing the page, or contact
+  We're not quite sure what went wrong. You can try refreshing the page, or contact
   our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a> for help.
 ",
       }

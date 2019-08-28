@@ -4,8 +4,7 @@ import styled from 'styled-components/macro';
 import Times from '../../../app/components/Times';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
-import { h3Style, labelStyle } from '../../components/Typography';
-import { textStyle } from '../../components/Typography/base';
+import { bodyCopyRegularStyle, h3Style, h4Style } from '../../components/Typography';
 import { toolbarIconColor } from '../../content/components/constants';
 import { toolbarIconStyles } from '../../content/components/Toolbar/styled';
 import theme from '../../theme';
@@ -14,7 +13,6 @@ const margin = 3.0;
 
 // tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
-  font-weight: 300;
   padding: ${margin * 0.5}rem 0;
 `;
 
@@ -28,7 +26,7 @@ const Card = styled.div`
   margin: auto;
   overflow: hidden;
   width: 40rem;
-  ${textStyle};
+  ${bodyCopyRegularStyle};
   background-color: white;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0 4rem rgba(0, 0, 0, 0.08);
 `;
@@ -46,11 +44,10 @@ const Header = styled.header`
 
 // tslint:disable-next-line:variable-name
 const Heading = styled.h1`
-  ${labelStyle}
+  ${h4Style}
   display: flex;
   align-items: center;
   margin: 0;
-  font-weight: 500;
   padding: ${margin * 0.5}rem 0;
 `;
 
@@ -63,7 +60,6 @@ const BodyHeading = styled.h3`
 
 // tslint:disable-next-line:variable-name
 const Body = styled.div`
-  ${labelStyle}
   display: flex;
   flex-direction: column;
   padding: 0 ${margin}rem;
@@ -82,6 +78,7 @@ export const Footer = styled.div`
 // tslint:disable-next-line:variable-name
 export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles};
+  cursor: pointer;
   margin-right: 0;
   padding-right: 0;
   color: ${toolbarIconColor.lighter};

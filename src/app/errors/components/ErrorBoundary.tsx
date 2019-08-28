@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
-import { labelStyle } from '../../components/Typography';
+import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 
 interface Props {
@@ -28,8 +28,7 @@ const HeadingWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
-  ${labelStyle}
-  font-weight: 300;
+  ${bodyCopyRegularStyle};
 `;
 
 // tslint:disable-next-line:variable-name
