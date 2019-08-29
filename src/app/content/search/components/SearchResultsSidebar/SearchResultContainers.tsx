@@ -10,7 +10,6 @@ import { Book, Page } from '../../../types';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
-import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer, SearchResultPage, SelectedResult } from '../../types';
 import * as Styled from './styled';
 
@@ -131,7 +130,6 @@ const SearchResultsDropdown = (props: {
 export default connect(
   (state: AppState) => ({
     currentPage: select.page(state),
-    selectedResult: selectSearch.selectedResult(state),
   }),
   (dispatch: Dispatch) => ({
     selectResult: () => {
