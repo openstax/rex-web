@@ -9,3 +9,7 @@ export const doAcceptCookies = () => {
 export const isAcceptCookiesNeeded = () => {
   return Cookies.get(acknowledgedKey) !== 'true';
 };
+
+export const clearAcceptCookies = () => {
+  Cookies.remove(acknowledgedKey);
+};

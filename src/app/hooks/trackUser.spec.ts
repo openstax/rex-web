@@ -1,8 +1,10 @@
+import { getType } from 'typesafe-actions';
 import { GoogleAnalyticsClient } from '../../gateways/googleAnalyticsClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import { receiveUser } from '../auth/actions';
 import { User } from '../auth/types';
-import { doAcceptCookies } from '../notifications/acceptCookies';
+import { clearAcceptCookies, doAcceptCookies } from '../notifications/acceptCookies';
+import { acceptCookies } from '../notifications/actions';
 import { trackUserHookBody } from './trackUser';
 
 declare const window: Window;
@@ -10,7 +12,8 @@ declare const window: Window;
 describe('trackUser', () => {
   let client: GoogleAnalyticsClient;
   let mockGa: any;
-  const helpers: any = {dispatch: jest.fn()};
+  const dispatchMock = jest.fn();
+  const helpers: any = {dispatch: dispatchMock};
   let user: User;
 
   beforeEach(() => {
@@ -19,24 +22,65 @@ describe('trackUser', () => {
     window.ga = mockGa;
     client.setTrackingIds(['foo']);
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'a_uuid'};
+    jest.resetAllMocks();
   });
 
-  it('tracks the user not in GDPR', async() => {
-    user.isNotGdprLocation = true;
-    await (trackUserHookBody(helpers))(receiveUser(user));
-    expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
+  describe('user not in GDPR', () => {
+    beforeEach(() => {
+      user.isNotGdprLocation = true;
+    });
+
+    describe('user already accepted Cookies', () => {
+      beforeEach(() => {
+        doAcceptCookies();
+      });
+
+      it('tracks the user', async() => {
+        await (trackUserHookBody(helpers))(receiveUser(user));
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
+      });
+
+      it('does not prompt to accept cookies', async() => {
+        await (trackUserHookBody(helpers))(receiveUser(user));
+        expect(dispatchMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('user not yet accepted cookies', () => {
+      beforeEach(() => {
+        clearAcceptCookies();
+      });
+
+      it('tracks the user', async() => {
+        await (trackUserHookBody(helpers))(receiveUser(user));
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
+      });
+
+      it('prompts to accept cookies', async() => {
+        await (trackUserHookBody(helpers))(receiveUser(user));
+        expect(dispatchMock).toHaveBeenCalledWith({
+          meta: undefined,
+          payload: undefined,
+          type: getType(acceptCookies),
+        });
+      });
+    });
   });
 
-  it('does not track the user in GDPR', async() => {
-    user.isNotGdprLocation = false;
-    await (trackUserHookBody(helpers))(receiveUser(user));
-    expect(mockGa).not.toHaveBeenCalled();
+  describe('user in the GDPR', () => {
+    beforeEach(() => {
+      user.isNotGdprLocation = false;
+    });
+
+    it('does not track the user', async() => {
+      await (trackUserHookBody(helpers))(receiveUser(user));
+      expect(mockGa).not.toHaveBeenCalled();
+    });
+
+    it('does not prompt to accept cookies', async() => {
+      await (trackUserHookBody(helpers))(receiveUser(user));
+      expect(dispatchMock).not.toHaveBeenCalled();
+    });
   });
 
-  it('tracks if accept cookies not needed', async() => {
-    doAcceptCookies();
-    user.isNotGdprLocation = true;
-    await (trackUserHookBody(helpers))(receiveUser(user));
-    expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
-  });
 });

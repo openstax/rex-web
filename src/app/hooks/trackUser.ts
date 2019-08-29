@@ -6,11 +6,11 @@ import { ActionHookBody } from '../types';
 import { actionHook } from '../utils';
 
 export const trackUserHookBody: ActionHookBody<typeof receiveUser> = (middleware) => async({payload}) => {
-  if (isAcceptCookiesNeeded()) {
-    middleware.dispatch(acceptCookies());
-  }
-
   if (payload.isNotGdprLocation) {
+    if (isAcceptCookiesNeeded()) {
+      middleware.dispatch(acceptCookies());
+    }
+
     googleAnalyticsClient.setUserId(payload.uuid);
   }
 };
