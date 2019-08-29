@@ -5,5 +5,5 @@ import reducer from './reducer';
 export {
   actions,
   reducer,
-  hooks
+  hooks,
 };

@@ -1,10 +1,10 @@
 import { getType } from 'typesafe-actions';
-import { GoogleAnalyticsClient } from '../../gateways/googleAnalyticsClient';
-import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
-import { receiveUser } from '../auth/actions';
-import { User } from '../auth/types';
-import { clearAcceptCookies, doAcceptCookies } from '../notifications/acceptCookies';
-import { acceptCookies } from '../notifications/actions';
+import { GoogleAnalyticsClient } from '../../../gateways/googleAnalyticsClient';
+import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
+import { clearAcceptCookies, doAcceptCookies } from '../../notifications/acceptCookies';
+import { acceptCookies } from '../../notifications/actions';
+import { receiveUser } from '../actions';
+import { User } from '../types';
 import { trackUserHookBody } from './trackUser';
 
 declare const window: Window;

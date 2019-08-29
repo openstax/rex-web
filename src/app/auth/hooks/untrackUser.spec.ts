@@ -1,6 +1,6 @@
-import { GoogleAnalyticsClient } from '../../gateways/googleAnalyticsClient';
-import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
-import { receiveLoggedOut } from '../auth/actions';
+import { GoogleAnalyticsClient } from '../../../gateways/googleAnalyticsClient';
+import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
+import { receiveLoggedOut } from '../actions';
 import { untrackUserHookBody } from './untrackUser';
 
 declare const window: Window;
