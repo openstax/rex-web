@@ -34,6 +34,7 @@ interface EnvironmentConfigs {
 interface Environment {
   release_id: string;
   configs: EnvironmentConfigs;
+  messages: Messages;
 }
 
 const processEnvironment = (store: Store, environment: Environment) => {
