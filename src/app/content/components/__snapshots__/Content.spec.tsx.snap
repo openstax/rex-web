@@ -1711,11 +1711,11 @@ li[aria-label="Current Page"] .c46 {
 
 @media screen {
   .c64 .search-highlight {
-    background-color: #ff9e4b;
+    background-color: #ffd17e;
   }
 
   .c64 .search-highlight.focus {
-    background-color: #ffd17e;
+    background-color: #ff9e4b;
   }
 }
 
@@ -4765,11 +4765,11 @@ Array [
 
 @media screen {
   .c38 .search-highlight {
-    background-color: #ff9e4b;
+    background-color: #ffd17e;
   }
 
   .c38 .search-highlight.focus {
-    background-color: #ffd17e;
+    background-color: #ff9e4b;
   }
 }
 
