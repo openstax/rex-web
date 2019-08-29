@@ -1717,6 +1717,10 @@ li[aria-label="Current Page"] .c46 {
   .c64 .search-highlight.focus {
     background-color: #ff9e4b;
   }
+
+  .c64 .search-highlight.focus .search-highlight {
+    background-color: unset;
+  }
 }
 
 @media screen and (max-width:75em) {
@@ -4770,6 +4774,10 @@ Array [
 
   .c38 .search-highlight.focus {
     background-color: #ff9e4b;
+  }
+
+  .c38 .search-highlight.focus .search-highlight {
+    background-color: unset;
   }
 }
 
