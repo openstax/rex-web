@@ -130,20 +130,32 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   ;
 };
 
-export const highlightResults = (highlighter: Highlighter, results: SearchResultHit[]) => {
-  for (const hit of results) {
+export const highlightResults = (
+  highlighter: Highlighter,
+  results: SearchResultHit[]
+): Array<{result: SearchResultHit, highlights: {[key: number]: Highlight[]}}> =>
+  results.map((hit) => {
     const element = highlighter.getReferenceElement(hit.source.elementId) as HTMLElement;
 
     if (!element) {
-      return;
+      return {result: hit, highlights: {}};
     }
 
-    for (const highlight of hit.highlight.visibleContent) {
-      getHighlightRanges(element, highlight).forEach((range) => {
-        highlighter.highlight(
-          new Highlight(range.nativeRange, range.toString())
-        );
+    const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
+      const highlights = getHighlightRanges(element, highlightText).map((range) => {
+        const highlight = new Highlight(range.nativeRange, range.toString());
+        highlighter.highlight(highlight);
+        return highlight;
       });
-    }
-  }
-};
+
+      return {index, highlights};
+    })
+      .reduce((map, {index, highlights}) => ({
+        ...map,
+        [index]: highlights,
+      }), {} as {[key: number]: Highlight[]})
+    ;
+
+    return {result: hit, highlights: hitHighlights};
+  })
+  ;
