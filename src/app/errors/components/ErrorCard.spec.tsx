@@ -6,10 +6,8 @@ import ErrorCard from './ErrorCard';
 describe('ErrorCard', () => {
 
   it('matches snapshot', () => {
-    const error = new Error('unknown error');
-
     const tree = renderer
-      .create(<MessageProvider><ErrorCard error={error} /></MessageProvider>)
+      .create(<MessageProvider><ErrorCard /></MessageProvider>)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

@@ -94,7 +94,6 @@ interface Props {
   className?: string;
   footer?: JSX.Element;
   clearError?: () => void;
-  errorMsg?: Error | undefined;
 }
 
 // tslint:disable-next-line:variable-name
