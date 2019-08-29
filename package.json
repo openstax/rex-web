@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@openstax/highlighter": "1.2.0-beta.3",
+    "@openstax/highlighter": "1.2.0-beta.4",
     "@openstax/open-search-client": "./open-search-client/",
     "@sentry/browser": "^5.5.0",
     "@types/google.analytics": "0.0.40",
