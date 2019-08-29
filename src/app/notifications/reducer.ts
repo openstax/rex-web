@@ -3,6 +3,8 @@ import { getType } from 'typesafe-actions';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import { Message, State, AppMessagesAction, AppMessageNotification } from './types';
+import { isAppMessageDismissed } from './dismissAppMessages'
+
 import {	
   find,
   isUndefined,
@@ -48,11 +50,16 @@ function isURLMatch(message: Message) {
   return true
 }
 
+function isNotDismissed(message: Message) {
+  return !isAppMessageDismissed(message)
+}
+
 function filterForMessageToAdd(state: State, action: AppMessagesAction) {	
   return action.payload
     .filter((message: Message) => (	
       isNotInNotifications(message, state) &&
         isCurrent(message) &&
+        isNotDismissed(message) &&
         isURLMatch(message)
     ))	
     .map((message: Message) => ({	

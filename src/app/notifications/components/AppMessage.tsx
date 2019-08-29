@@ -7,6 +7,7 @@ import { assertString } from '../../utils';
 import { dismissNotification } from '../actions';
 import { AppMessageNotification } from '../types';
 import { Body, Group, Header, P } from './Card';
+import { dismissAppMessage } from '../dismissAppMessages'
 
 // tslint:disable-next-line:variable-name
 const AppMessage = ({dismiss}: {dismiss: () => void}) => <Body>
@@ -31,6 +32,9 @@ export default connect(
   () => ({
   }),
   (dispatch: Dispatch, ownProps: {notification: AppMessageNotification}) => ({
-    dismiss: () => dispatch(dismissNotification(ownProps.notification)),
+    dismiss: () => {
+      dispatch(dismissNotification(ownProps.notification));
+      dismissAppMessage(ownProps.notification.payload);
+    }
   })
 )(AppMessage);
