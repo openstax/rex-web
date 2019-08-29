@@ -336,10 +336,10 @@ const StyledPageComponent = styled(PageComponent)`
 
   @media screen {
     .search-highlight {
-      background-color: #ff9e4b;
+      background-color: #ffd17e;
 
       &.focus {
-        background-color: #ffd17e;
+        background-color: #ff9e4b;
       }
     }
   }
