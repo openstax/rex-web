@@ -6,6 +6,7 @@ import { receiveBook, receivePage } from '../actions';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
+import getCleanContent from '../utils/getCleanContent';
 
 const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
   getState,
@@ -31,7 +32,8 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
 
   const title = `${page.title} - ${book.title} - OpenStax`;
 
-  const description = page.abstract && page.abstract.replace(/<[^>]*>/g, ' ')
+  const description = (page.abstract ? page.abstract : getCleanContent(book, page, archiveLoader))
+    .replace(/<[^>]*>/g, ' ')
     .replace(/ +/g, ' ')
     .trim()
     .substring(0, 155)
