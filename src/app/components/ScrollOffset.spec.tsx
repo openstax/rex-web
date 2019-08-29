@@ -1,6 +1,7 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import { renderToDom } from '../../test/reactutils';
 import { assertDocument, assertWindow } from '../utils';
 import ScrollOffset from './ScrollOffset';
@@ -23,8 +24,8 @@ describe('ScrollOffset', () => {
   let removeEventListener: jest.SpyInstance;
   let container: HTMLElement;
 
-  const render = () => <div>
-    <ScrollOffset desktopOffset={10} mobileOffset={5} />
+  const render = (props?: {desktopOffset?: number, mobileOffset?: number}) => <div>
+    <ScrollOffset desktopOffset={10} mobileOffset={5} {...props} />
     <a href='#somehash' data-testid='hash-link'>hash link</a>
     <a href='#somefakehash' data-testid='bad-hash-link'>hash link</a>
     <a href='/url' data-testid='non-hash-link'>non-hash link</a>
@@ -43,6 +44,11 @@ describe('ScrollOffset', () => {
   afterEach(() => {
     addEventListener.mockRestore();
     removeEventListener.mockRestore();
+  });
+
+  it('updates', () => {
+    const element = renderer.create(render());
+    expect(() => element.update(render({mobileOffset: 40}))).not.toThrow();
   });
 
   it('removes listener when it unmounts', () => {
