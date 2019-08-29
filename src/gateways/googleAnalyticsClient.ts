@@ -43,6 +43,22 @@ class GoogleAnalyticsClient {
     this.gaProxy('send', 'pageview', path);
   }
 
+  public trackEvent(category: string, action: string, label?: string, value?: number) {
+    // This method takes optional arguments and wraps a call to `gaProxy`.  If we passed
+    // the optional arguments on to gaProxy, it'd get `undefined`s some of the time for
+    // those arguments.  We mock the ga method inside `gaProxy` and do things like expect
+    // it to be called with the arguments passed to `trackEvent`.  So that the "optionalness"
+    // of these arguments jives with the expectations we set on the `ga` mock, we make sure
+    // to only pass on to `gaProxy` the arguments that are provided to `trackEvent`.  If this
+    // doesn't make sense put all arguments in the `args` arrow below and watch the tests explode.
+
+    const args: any[] = [];
+    if (label) { args.push(label); }
+    if (value) { args.push(value); }
+
+    this.gaProxy('send', 'event', category, action, ...args);
+  }
+
   public setTrackingIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
     if (this.trackerNames.length > 0) { return; }
