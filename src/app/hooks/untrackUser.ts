@@ -4,7 +4,7 @@ import { ActionHookBody } from '../types';
 import { actionHook } from '../utils';
 
 const untrackUserHookBody: ActionHookBody<typeof receiveLoggedOut> = () => async() => {
-  googleAnalyticsClient.setUserId(undefined);
+  googleAnalyticsClient.unsetUserId();
 };
 
 export { untrackUserHookBody };

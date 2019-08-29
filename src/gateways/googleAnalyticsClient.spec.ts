@@ -38,6 +38,17 @@ describe('GoogleAnalyticsClient', () => {
 
   });
 
+  describe('unsetUserId', () => {
+
+    it('unsets it', async() => {
+      client.setTrackingIds(['foo', 'bar']);
+      client.unsetUserId();
+      expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', undefined);
+      expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userId', undefined);
+    });
+
+  });
+
   describe('trackPageView', () => {
 
     describe('called before tracking ID set', () => {
