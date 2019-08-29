@@ -11,7 +11,10 @@ export const receiveSearchResults = createAction('Content/Search/receiveResults'
 export const requestSearch = createAction('Content/Search/request', (action) =>
   (
     query: string,
-    meta?: {selectedResult?: SelectedResult | null}
+    meta?: {
+      isResultReload: boolean,
+      selectedResult?: SelectedResult | null,
+    }
   ) => action(query, meta)
 );
 

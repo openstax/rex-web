@@ -99,4 +99,25 @@ describe('GoogleAnalyticsClient', () => {
 
   });
 
+  describe('trackEvent', () => {
+    beforeEach(() => {
+      client.setTrackingIds(['foo']);
+    });
+
+    it('calls with category and action', async() => {
+      client.trackEvent('category', 'action');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action');
+    });
+
+    it('calls with category, action, and label', async() => {
+      client.trackEvent('category', 'action', 'label');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action', 'label');
+    });
+
+    it('calls with category, action, label, and value', async() => {
+      client.trackEvent('category', 'action', 'label', 42);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action', 'label', 42);
+    });
+  });
+
 });
