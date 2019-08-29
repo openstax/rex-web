@@ -9,6 +9,12 @@ import {
   flow,
 } from 'lodash/fp';
 
+import {
+  isBefore,
+  startOfToday,
+  endOfToday,
+} from 'date-fns';
+
 export const initialState = [];
 
 function isNotInNotifications(message: Message, state: State) {
@@ -21,6 +27,23 @@ function isNotInNotifications(message: Message, state: State) {
 }
 
 function isCurrent(message: Message) {
+  if (message.start_at){
+    if (isBefore(startOfToday(), new Date(message.start_at))) {
+      return false
+    }
+  }
+  if (message.end_at){
+    if (isBefore(new Date(message.end_at), endOfToday())) {
+      return false
+    }
+  }
+  return true
+}
+
+function isURLMatch(message: Message) {
+  if (message.url_regex) {
+    return false
+  }
   console.log(message)
   return true
 }
@@ -29,7 +52,8 @@ function filterForMessageToAdd(state: State, action: AppMessagesAction) {
   return action.payload
     .filter((message: Message) => (	
       isNotInNotifications(message, state) &&
-        isCurrent(message)
+        isCurrent(message) &&
+        isURLMatch(message)
     ))	
     .map((message: Message) => ({	
       payload: message,	

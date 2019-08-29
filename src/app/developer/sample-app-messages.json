@@ -3,6 +3,6 @@
   "html": "<h1>cool message</h1>",
   "dismissable": true,
   "start_at": null,
-  "end_at": "2019-08-09T12:00:00-04:00",
+  "end_at": "2019-09-09T12:00:00-04:00",
   "url_regex": null
 }]
