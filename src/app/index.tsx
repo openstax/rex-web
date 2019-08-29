@@ -48,6 +48,8 @@ const init = [
 const hooks = [
   ...content.hooks,
   ...Object.values(head.hooks),
+  ...Object.values(notifications.hooks),
+  ...Object.values(auth.hooks),
   ...Object.values(appHooks),
 ];
 
