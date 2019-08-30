@@ -66,7 +66,6 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
             </Footer>
           }
           clearError={clearError}
-          errorMsg={error}
         />
       </CardWrapper>
       <Mask />
