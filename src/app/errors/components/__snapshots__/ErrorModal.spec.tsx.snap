@@ -304,7 +304,7 @@ exports[`ErrorModal matches snapshot 1`] = `
           onClick={[Function]}
         >
            
-          Ok
+          OK
         </button>
       </div>
     </div>
