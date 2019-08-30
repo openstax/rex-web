@@ -1,8 +1,11 @@
 import PromiseCollector from '../helpers/PromiseCollector';
+import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
 import { assertDocument } from './utils';
+
+jest.mock('../helpers/Sentry');
 
 describe('checkActionType', () => {
   it('matches action matching creator', () => {
@@ -70,6 +73,19 @@ describe('actionHook', () => {
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
 
     expect(helpers.promiseCollector.promises.length).toBe(1);
+  });
+
+  it('catches and logs errors', () => {
+    const hookSpy = jest.fn(() => { throw new Error(`an error`); });
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
   });
 });
 

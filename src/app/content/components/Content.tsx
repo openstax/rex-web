@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
+import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
+import { AppState } from '../../types';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
+import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
@@ -16,6 +20,7 @@ import {
   sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarDesktopHeight,
+  toolbarMobileExpandedHeight,
   toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
@@ -30,10 +35,11 @@ import { wrapperPadding } from './Wrapper';
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
   @media screen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     overflow: visible; /* so sidebar position: sticky works */
     background-color: ${theme.color.neutral.darker};
-    width: 100%;
-    height: 100%;
   }
 `;
 
@@ -162,36 +168,42 @@ const OuterWrapper = styled.div`
  *   of things need to know when the sidebar is open/closed.
  */
 // tslint:disable-next-line:variable-name
-const Content: React.SFC = () => <Layout>
+const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
     desktopOffset={bookBannerDesktopMiniHeight + toolbarDesktopHeight}
-    mobileOffset={bookBannerMobileMiniHeight + toolbarMobileHeight}
+    mobileOffset={bookBannerMobileMiniHeight + (mobileExpanded ? toolbarMobileExpandedHeight : toolbarMobileHeight)}
   />
   <Background>
-    <BookBanner/>
-    <Toolbar />
-    <OuterWrapper>
-      <SearchResultsSidebar/>
-      <Wrapper>
-        <CenteredContentRow>
-          <TableOfContents />
-          <ContentPane>
-            <UndoPadding>
-              <MainContentWrapper>
-                <ContentNotifications />
-                <HideOverflowAndRedoPadding>
-                  <Page />
-                  <PrevNextBar />
-                </HideOverflowAndRedoPadding>
-                <Attribution />
-                <Footer/>
-              </MainContentWrapper>
-            </UndoPadding>
-          </ContentPane>
-        </CenteredContentRow>
-      </Wrapper>
-    </OuterWrapper>
+    <BookBanner />
+    <ErrorBoundary>
+      <Toolbar />
+      <OuterWrapper>
+        <SearchResultsSidebar/>
+        <Wrapper>
+          <CenteredContentRow>
+            <TableOfContents />
+            <ContentPane>
+              <UndoPadding>
+                <MainContentWrapper>
+                  <ContentNotifications />
+                  <HideOverflowAndRedoPadding>
+                    <Page />
+                    <PrevNextBar />
+                  </HideOverflowAndRedoPadding>
+                  <Attribution />
+                  <Footer/>
+                </MainContentWrapper>
+              </UndoPadding>
+            </ContentPane>
+          </CenteredContentRow>
+        </Wrapper>
+      </OuterWrapper>
+    </ErrorBoundary>
   </Background>
 </Layout>;
 
-export default Content;
+export default connect(
+  (state: AppState) => ({
+    mobileExpanded: mobileToolbarOpen(state),
+  })
+)(Content);

@@ -18,7 +18,7 @@ const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
 } as {[key: string]: {defaultVersion: string}}};
 
-jest.mock('../../../config', () => mockConfig);
+jest.doMock('../../../config', () => mockConfig);
 
 describe('locationChange', () => {
   let store: Store;

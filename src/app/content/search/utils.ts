@@ -99,7 +99,7 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,
   // luckily you can't actually search for non-text elements, so they won't be in a matches
   // only in surrounding context, so find matches in each part separately
-  return highlight.split('…').map((part) => {
+  const highlights = highlight.split('…').map((part) => {
     const partMatches = getHighlightPartMatches(part)
       .map((match) => ({
           context: match[0].replace(/<\/?strong>|\n/g, ''),
@@ -128,22 +128,40 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   })
     .reduce((flat, sub) => [...flat, ...sub], [])
   ;
+
+  if (highlights.length === 0) {
+    return [elementRange];
+  }
+
+  return highlights;
 };
 
-export const highlightResults = (highlighter: Highlighter, results: SearchResultHit[]) => {
-  for (const hit of results) {
+export const highlightResults = (
+  highlighter: Highlighter,
+  results: SearchResultHit[]
+): Array<{result: SearchResultHit, highlights: {[key: number]: Highlight[]}}> =>
+  results.map((hit) => {
     const element = highlighter.getReferenceElement(hit.source.elementId) as HTMLElement;
 
     if (!element) {
-      return;
+      return {result: hit, highlights: {}};
     }
 
-    for (const highlight of hit.highlight.visibleContent) {
-      getHighlightRanges(element, highlight).forEach((range) => {
-        highlighter.highlight(
-          new Highlight(range.nativeRange, range.toString())
-        );
+    const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
+      const highlights = getHighlightRanges(element, highlightText).map((range) => {
+        const highlight = new Highlight(range.nativeRange, range.toString());
+        highlighter.highlight(highlight);
+        return highlight;
       });
-    }
-  }
-};
+
+      return {index, highlights};
+    })
+      .reduce((map, {index, highlights}) => ({
+        ...map,
+        [index]: highlights,
+      }), {} as {[key: number]: Highlight[]})
+    ;
+
+    return {result: hit, highlights: hitHighlights};
+  })
+  ;

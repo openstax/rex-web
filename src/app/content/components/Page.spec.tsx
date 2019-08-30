@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { Document } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,6 +10,7 @@ import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
+import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
@@ -16,12 +18,13 @@ import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { scrollTo } from '../../utils';
-import { assertWindow } from '../../utils';
+import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
-import { requestSearch } from '../search/actions';
+import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
+import * as searchUtils from '../search/utils';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
@@ -445,7 +448,54 @@ describe('Page', () => {
     }
   });
 
-  it('mounts and unmounts without a dom', () => {
+  it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
+    renderDomWithReferences();
+
+    const hit = makeSearchResultHit({book, page});
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it('scrolls to search result when selected', async() => {
+    renderDomWithReferences();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
         <MessageProvider>
@@ -457,6 +507,10 @@ describe('Page', () => {
         </MessageProvider>
       </Provider>
     );
+
+    renderer.act(() => {
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
 
     expect(element.unmount).not.toThrow();
   });

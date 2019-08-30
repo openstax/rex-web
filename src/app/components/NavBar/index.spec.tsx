@@ -4,6 +4,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
 import { resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
+import { User } from '../../auth/types';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
@@ -28,11 +29,13 @@ describe('content', () => {
     // tslint:disable-next-line:variable-name
     let Dropdown: any;
     let store: Store;
+    let user: User;
 
     beforeEach(() => {
       store = createTestStore();
       NavBar = require('.').default;
       Dropdown = require('.').Dropdown;
+      user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
     });
 
     const render = () => <Provider store={store}>
@@ -50,7 +53,7 @@ describe('content', () => {
 
     describe('when logged in', () => {
       beforeEach(() => {
-        store.dispatch(receiveUser({firstName: 'test'}));
+        store.dispatch(receiveUser(user));
       });
 
       it('matches snapshot', () => {
@@ -101,7 +104,7 @@ describe('content', () => {
       let getComputedStyleBack: Window['getComputedStyle'];
 
       beforeEach(() => {
-        store.dispatch(receiveUser({firstName: 'test'}));
+        store.dispatch(receiveUser(user));
         window = assertWindow();
         getComputedStyleBack = window.getComputedStyle;
         getComputedStyle = window.getComputedStyle = jest.fn();

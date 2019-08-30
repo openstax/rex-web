@@ -5,7 +5,7 @@ import * as select from '../../../selectors';
 import { Book } from '../../../types';
 import { clearSearch } from '../../actions';
 import * as selectSearch from '../../selectors';
-import { SearchResultContainer } from '../../types';
+import { SearchResultContainer, SelectedResult } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 interface Props {
@@ -16,18 +16,21 @@ interface Props {
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
+  selectedResult: SelectedResult | null;
 }
 
 interface State {
   results: SearchResultContainer[] | null;
   query: string | null;
   totalHits: number | null;
+  selectedResult: SelectedResult | null;
 }
 
 export class SearchResultsSidebar extends Component<Props, State> {
   public state: State = {
     query: null,
     results: null,
+    selectedResult: null,
     totalHits: null,
   };
 
@@ -51,6 +54,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
     return {
       query: props.query,
       results: props.results,
+      selectedResult: props.selectedResult,
       totalHits: props.totalHits,
     };
   }
@@ -63,6 +67,7 @@ export default connect(
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
+    selectedResult: selectSearch.selectedResult(state),
     totalHits: selectSearch.totalHits(state),
   }),
   (dispatch: Dispatch) => ({
