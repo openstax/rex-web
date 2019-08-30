@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import Button from '../../components/Button';
 import * as notifications from '../../notifications/actions';
 import { Dispatch } from '../../types';
-import Panel from './Panel';
-
 import demoAppMessages from '../sample-app-messages.json';
+import Panel from './Panel';
 
 interface Props {
   updateAvailable: () => void;
