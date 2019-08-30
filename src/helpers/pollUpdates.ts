@@ -3,7 +3,7 @@ import { Messages } from '../app/notifications/types';
 import { shouldLoadAppMessage } from '../app/notifications/utils';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
-import { APP_ENV, ENVIRONMENT_URL, RELEASE_ID } from '../config';
+import { APP_ENV, RELEASE_ID } from '../config';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 
 /*
@@ -74,7 +74,7 @@ const processMessages = (store: Store, messages: Messages) => {
 };
 
 export const poll = (store: Store) => async() => {
-  const environment = await fetch(ENVIRONMENT_URL)
+  const environment = await fetch('/rex/environment.json')
     .then((response) => response.json() as Promise<Environment>)
     .catch(() => null)
   ;

@@ -21,12 +21,10 @@ let config = {
   ARCHIVE_URL: process.env.ARCHIVE_URL || 'https://archive.cnx.org',
   OS_WEB_URL: process.env.OS_WEB_URL || 'https://openstax.org',
   SEARCH_URL: process.env.SEARCH_URL || 'https://openstax.org',
-  ENVIRONMENT_URL: process.env.REACT_APP_ENIVRONMENT_URL || '/rex/environment.json',
   REACT_APP_ACCOUNTS_URL: '/accounts',
   REACT_APP_ARCHIVE_URL: '',
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
-  REACT_APP_ENVIRONMENT_URL: '/rex/environment.json',
   BOOKS: process.env.REACT_APP_BOOKS || require('./config.books'),
 };
 
