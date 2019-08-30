@@ -45,7 +45,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     box-shadow ${sidebarTransitionTime}ms ease-in-out,
     background-color ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
-  z-index: 3; /* stay above book content and overlay */
+  z-index: ${theme.zIndex.sidebar};
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + ${sidebarDesktopWidth}rem);

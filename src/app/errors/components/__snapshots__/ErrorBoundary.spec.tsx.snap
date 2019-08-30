@@ -1,127 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home matches snapshot 1`] = `
+exports[`ErrorBoundary matches snapshot 1`] = `
 Array [
-  .c0 {
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:focus {
-  -webkit-clip: auto;
-  clip: auto;
-  height: auto;
-  width: auto;
-  z-index: 20;
-}
-
-<a
-    className="c0"
-    href="#main-content"
-    onClick={[Function]}
-  >
-    Skip to Content
-  </a>,
-  .c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 5;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-<div
-    className="c0"
-  >
-    <div
-      className="c1"
-      data-testid="navbar"
-    >
-      <a
-        href="/"
-      >
-        <img
-          alt="OpenStax Logo"
-          className="c2"
-          role="img"
-          src="logo.svg"
-        />
-      </a>
-    </div>
-  </div>,
-  .c2 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 4.8rem;
-  line-height: 5rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 0 0 1rem 0;
-  margin: 0;
-}
-
-.c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
@@ -134,120 +15,35 @@ Array [
   margin: 0;
 }
 
-.c5 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 2.4rem;
-  line-height: 3rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 1.5rem 0 1rem 0;
-  margin: 0;
-}
-
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  white-space: nowrap;
-  font-family: Neue Helvetica W01;
-  border-radius: 0.2rem;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c8:hover {
-  background-color: #fafafa;
-}
-
-.c8:active {
-  background-color: #e5e5e5;
-}
-
-.c7 {
-  display: grid;
-  overflow: visible;
-  grid-auto-columns: min-content;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-}
-
-.c6 {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c6:hover {
-  color: #0064A0;
-}
-
-.c4 {
-  padding: 1rem;
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 3rem auto;
+  padding: 0 1.6rem;
 }
 
 .c1 {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  max-width: 128rem;
-  margin: 0 auto;
-  padding: 2rem 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
 }
 
-.c1 a {
+.c3 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c1 a:hover {
+.c3 a:hover {
   color: #0064A0;
-}
-
-.c0 {
-  width: 100%;
-  padding: 0 3.2rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-@media screen and (max-width:75em) {
-  .c5 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
 }
 
 <div
@@ -256,112 +52,23 @@ Array [
     <div
       className="c1"
     >
-      <h1
+      <h2
         className="c2"
       >
-        REX Developer Homepage
-      </h1>
-      <div>
-        <h2
-          className="c3"
-        >
-          Books
-        </h2>
-        <div
-          className="c4"
-        >
-          <ul>
-            <li>
-              <h3
-                className="c5"
-              >
-                <a
-                  className="c6"
-                  href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                  onClick={[Function]}
-                >
-                  Test Book 1
-                </a>
-              </h3>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <h2
-          className="c3"
-        >
-          Notifications
-        </h2>
-        <div
-          className="c4"
-        >
-          <div
-            className="c7"
-          >
-            <button
-              className="c8"
-              data-testid="trigger-updates-available"
-              onClick={[Function]}
-            >
-              update available
-            </button>
-            <button
-              className="c8"
-              data-testid="trigger-inline-error"
-              onClick={[Function]}
-            >
-              inline error
-            </button>
-            <button
-              className="c8"
-              data-testid="trigger-modal-error"
-              onClick={[Function]}
-            >
-              modal error
-            </button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h2
-          className="c3"
-        >
-          Routes
-        </h2>
-        <div
-          className="c4"
-        >
-          <div>
-            <h3
-              className="c5"
-            >
-              Developer Home
-            </h3>
-            path: 
-            /
-          </div>
-          <div>
-            <h3
-              className="c5"
-            >
-              Content
-            </h3>
-            path: 
-            /books/:book/pages/:page
-          </div>
-          <div>
-            <h3
-              className="c5"
-            >
-              NotFound
-            </h3>
-            path: 
-            /(.*)
-          </div>
-        </div>
-      </div>
+        Uh-oh, there's been a glitch
+      </h2>
     </div>
+    <div
+      className="c3"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "
+  We're not quite sure what went wrong. You can try refreshing the page, or contact
+  our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a> for help.
+",
+        }
+      }
+    />
   </div>,
   .c17 {
   display: inline-block;
