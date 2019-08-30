@@ -1,6 +1,9 @@
 import { Ref } from 'react';
 import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
+import Sentry from '../helpers/Sentry';
+import { recordError } from './errors/actions';
+
 import {
   ActionHookBody,
   AnyAction,
@@ -23,13 +26,19 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       const result = next(action);
 
       if (matches(action)) {
-        const promise = boundHook(action);
-
-        if (promise) {
-          services.promiseCollector.add(promise);
+        const catchError = (e: Error) => {
+          Sentry.captureException(e);
+          stateHelpers.dispatch(recordError(e));
+        };
+        try {
+          const promise = boundHook(action);
+          if (promise) {
+            services.promiseCollector.add(promise.catch(catchError));
+          }
+        } catch (e) {
+          catchError(e);
         }
       }
-
       return result;
     };
   };
