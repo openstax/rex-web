@@ -1,7 +1,4 @@
-import {
-  differenceInDays,
-  endOfToday,
-} from 'date-fns';
+import { differenceInDays } from 'date-fns';
 import * as Cookies from 'js-cookie';
 import { Message } from './types';
 
@@ -10,7 +7,7 @@ const getMessageKey = (message: Message) => `${messageDismissedPrefix}_${message
 
 export const dismissAppMessage = (message: Message) => {
   const daysToExpire = message.end_at
-    ? differenceInDays(new Date(message.end_at), endOfToday()) + 7
+    ? Math.max(1, differenceInDays(new Date(), new Date(message.end_at)))
     : 60
   ;
 
