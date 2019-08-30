@@ -2,7 +2,7 @@
   "i18n:error:404": "page not found",
   "i18n:error:boundary:heading": "Error",
   "i18n:error:boundary:sub-heading": "Uh-oh, there's been a glitch",
-  "i18n:error:boundary:action-btn-text": "Ok",
+  "i18n:error:boundary:action-btn-text": "OK",
   "i18n:a11y:skipToContent": "Skip to Content",
   "i18n:notification:update:header": "Updates Available",
   "i18n:notification:update:body": "This page needs to be reloaded.",

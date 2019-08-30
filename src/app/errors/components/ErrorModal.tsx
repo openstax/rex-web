@@ -19,7 +19,7 @@ const Mask = styled.div`
   display: flex;
   z-index: 2;
   position: fixed;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 `;
 
 // tslint:disable-next-line:variable-name
