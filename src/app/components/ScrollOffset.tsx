@@ -73,6 +73,10 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     return <GlobalStyle {...this.props} />;
   }
 
+  public componentDidUpdate() {
+    this.resizeHandler();
+  }
+
   private resizeHandler = () => {
     const window = assertWindow();
     const body = window.document.body;
