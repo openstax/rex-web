@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
+import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -34,10 +35,11 @@ import { wrapperPadding } from './Wrapper';
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
   @media screen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     overflow: visible; /* so sidebar position: sticky works */
     background-color: ${theme.color.neutral.darker};
-    width: 100%;
-    height: 100%;
   }
 `;
 
@@ -172,29 +174,31 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
     mobileOffset={bookBannerMobileMiniHeight + (mobileExpanded ? toolbarMobileExpandedHeight : toolbarMobileHeight)}
   />
   <Background>
-    <BookBanner/>
-    <Toolbar />
-    <OuterWrapper>
-      <SearchResultsSidebar/>
-      <Wrapper>
-        <CenteredContentRow>
-          <TableOfContents />
-          <ContentPane>
-            <UndoPadding>
-              <MainContentWrapper>
-                <ContentNotifications />
-                <HideOverflowAndRedoPadding>
-                  <Page />
-                  <PrevNextBar />
-                </HideOverflowAndRedoPadding>
-                <Attribution />
-                <Footer/>
-              </MainContentWrapper>
-            </UndoPadding>
-          </ContentPane>
-        </CenteredContentRow>
-      </Wrapper>
-    </OuterWrapper>
+    <BookBanner />
+    <ErrorBoundary>
+      <Toolbar />
+      <OuterWrapper>
+        <SearchResultsSidebar/>
+        <Wrapper>
+          <CenteredContentRow>
+            <TableOfContents />
+            <ContentPane>
+              <UndoPadding>
+                <MainContentWrapper>
+                  <ContentNotifications />
+                  <HideOverflowAndRedoPadding>
+                    <Page />
+                    <PrevNextBar />
+                  </HideOverflowAndRedoPadding>
+                  <Attribution />
+                  <Footer/>
+                </MainContentWrapper>
+              </UndoPadding>
+            </ContentPane>
+          </CenteredContentRow>
+        </Wrapper>
+      </OuterWrapper>
+    </ErrorBoundary>
   </Background>
 </Layout>;
 

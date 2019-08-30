@@ -166,7 +166,7 @@ describe('highlightResults', () => {
     const results = [
       makeSearchResultHit({
         book: mockArchive.book,
-        highlights: ['asdf foo'],
+        highlights: ['asdf foo … <strong>asdf</strong>'],
         page: mockArchive.page,
       }),
     ];
@@ -177,10 +177,10 @@ describe('highlightResults', () => {
 
     highlightResults(highlighter, results);
 
-    expect(highlight).not.toBeCalled();
+    expect(highlight.mock.calls[0][0]!.content).toBe('asdf');
   });
 
-  it('works if text can\'t be found', () => {
+  it('falls back on whole element if text can\'t be found', () => {
     const results = [
       makeSearchResultHit({
         book: mockArchive.book,
@@ -192,12 +192,13 @@ describe('highlightResults', () => {
     findTextInRange.mockReturnValue([]);
 
     const element = assertDocument().createElement('p');
+    element.textContent = 'Asdfasdf asdfklj adlk fasd;lfk ajsdf';
     element.id = results[0].source.elementId;
     container.append(element);
 
     highlightResults(highlighter, results);
 
-    expect(highlight).not.toBeCalled();
+    expect(highlight.mock.calls[0][0]!.content).toBe(element.textContent);
   });
 
   it('works if element is not found', () => {

@@ -338,11 +338,11 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #f1f1f1;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  background: #d5d5d5;
   padding: 1rem 0 1rem 3.2rem;
   border-top: solid 0.1rem #d5d5d5;
 }
@@ -397,7 +397,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   text-decoration: none;
   line-height: 1.3;
   padding: 0 0 0 6.6rem;
-  background: #fafafa;
+  background: #f1f1f1;
 }
 
 .c14:not(:last-child) > div {
