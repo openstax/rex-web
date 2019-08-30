@@ -5,23 +5,23 @@ import * as notifications from '../../notifications/actions';
 import { Dispatch } from '../../types';
 import Panel from './Panel';
 
-import demoAppMessages from '../sample-app-messages.json'
+import demoAppMessages from '../sample-app-messages.json';
 
 interface Props {
   updateAvailable: () => void;
-  appMessages: () => void;
+  sendMessages: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications = ({updateAvailable, appMessages}: Props) => <Panel title='Notifications'>
+const Notifications = ({updateAvailable, sendMessages}: Props) => <Panel title='Notifications'>
   <Button onClick={updateAvailable}>update available</Button>
-  <Button onClick={appMessages}>message</Button>
+  <Button onClick={sendMessages}>message</Button>
 </Panel>;
 
 export default connect<{}, React.ComponentProps<typeof Notifications>>(
   () => ({}),
   (dispatch: Dispatch): Props => ({
+    sendMessages: () => dispatch(notifications.receiveMessages(demoAppMessages)),
     updateAvailable: () => dispatch(notifications.updateAvailable()),
-    appMessages: () => dispatch(notifications.appMessage(demoAppMessages)),
   })
 )(Notifications);

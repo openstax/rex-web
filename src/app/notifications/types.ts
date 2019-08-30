@@ -20,6 +20,4 @@ export type Messages = Message[];
 export type AnyNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
   | AppMessageNotification;
 
-export type AppMessagesAction = ActionType<typeof actions.appMessage>;	
-
 export type State =  AnyNotification[];

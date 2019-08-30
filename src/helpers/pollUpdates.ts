@@ -1,8 +1,9 @@
-import { updateAvailable, appMessage } from '../app/notifications/actions';
-import { Messages } from '../app/notifications/types'
+import { receiveMessages, updateAvailable } from '../app/notifications/actions';
+import { Messages } from '../app/notifications/types';
+import { shouldLoadAppMessage } from '../app/notifications/utils';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
-import { APP_ENV, RELEASE_ID, ENVIRONMENT_URL } from '../config';
+import { APP_ENV, ENVIRONMENT_URL, RELEASE_ID } from '../config';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 
 /*
@@ -43,6 +44,9 @@ const processEnvironment = (store: Store, environment: Environment) => {
   if (environment.configs) {
     processGoogleAnalyticsIds(environment.configs);
   }
+  if (environment.messages) {
+    processMessages(store, environment.messages.filter(shouldLoadAppMessage));
+  }
 };
 
 const processReleaseId = (store: Store, environment: Environment) => {
@@ -66,8 +70,8 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   }
 };
 const processMessages = (store: Store, messages: Messages) => {
-  store.dispatch(appMessage(messages))
-}
+  store.dispatch(receiveMessages(messages));
+};
 
 export const poll = (store: Store) => async() => {
   const environment = await fetch(ENVIRONMENT_URL)
@@ -77,10 +81,6 @@ export const poll = (store: Store) => async() => {
 
   if (environment) {
     processEnvironment(store, environment);
-
-    if (environment.messages) {
-      processMessages(store, environment.messages)
-    }
   }
 };
 
