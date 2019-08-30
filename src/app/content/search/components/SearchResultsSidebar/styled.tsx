@@ -164,8 +164,8 @@ export const Details = styled(BaseDetails)`
 // tslint:disable-next-line:variable-name
 export const SearchBarSummaryContainer = styled.div`
   display: flex;
-  align-items: center;
-  background: ${backgroundColor};
+  align-items: normal;
+  background: ${borderColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
   border-top: solid 0.1rem ${borderColor};
   ${theme.breakpoints.mobile(css`
@@ -218,7 +218,7 @@ export const SectionContentPreview = styled(
   }
 
   ${(props: {selectedResult: boolean}) => props.selectedResult && css`
-    background: ${theme.color.neutral.darker};
+    background: ${backgroundColor};
   `}
 
   > div {
