@@ -10,6 +10,7 @@ import * as content from './content';
 import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
+import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
 import * as appHooks from './hooks';
 import MessageProvider from './MessageProvider';
@@ -108,13 +109,17 @@ export default (options: AppOptions) => {
     reducer,
   });
 
-  const container = () => <Provider store={store}>
-    <MessageProvider>
-      <Services.Provider value={services} >
-        <navigation.components.NavigationProvider routes={routes} />
-      </Services.Provider>
-    </MessageProvider>
-  </Provider>;
+  const container = () => (
+    <Provider store={store}>
+      <ErrorBoundary>
+        <MessageProvider>
+          <Services.Provider value={services} >
+            <navigation.components.NavigationProvider routes={routes} />
+          </Services.Provider>
+        </MessageProvider>
+      </ErrorBoundary>
+    </Provider>
+  );
 
   navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
 

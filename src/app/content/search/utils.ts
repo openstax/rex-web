@@ -99,7 +99,7 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,
   // luckily you can't actually search for non-text elements, so they won't be in a matches
   // only in surrounding context, so find matches in each part separately
-  return highlight.split('…').map((part) => {
+  const highlights = highlight.split('…').map((part) => {
     const partMatches = getHighlightPartMatches(part)
       .map((match) => ({
           context: match[0].replace(/<\/?strong>|\n/g, ''),
@@ -128,6 +128,12 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): Array<Rang
   })
     .reduce((flat, sub) => [...flat, ...sub], [])
   ;
+
+  if (highlights.length === 0) {
+    return [elementRange];
+  }
+
+  return highlights;
 };
 
 export const highlightResults = (
