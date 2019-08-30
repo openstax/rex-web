@@ -340,6 +340,10 @@ const StyledPageComponent = styled(PageComponent)`
 
       &.focus {
         background-color: #ff9e4b;
+
+        .search-highlight {
+          background-color: unset;
+        }
       }
     }
   }
