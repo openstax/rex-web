@@ -145,6 +145,10 @@ export class PageComponent extends Component<PropTypes> {
 
     this.searchHighlighter.eraseAll();
     this.searchResultMap = highlightResults(this.searchHighlighter, searchResults);
+
+    if (this.props.search && this.props.search.selectedResult) {
+      this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
+    }
   };
 
   private getPrerenderedContent() {
