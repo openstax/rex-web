@@ -590,6 +590,7 @@ describe('Page', () => {
     );
 
     store.dispatch(actions.receivePage({
+      abstract: '',
       content: 'some other content',
       id: 'adsfasdf',
       references: [],
@@ -608,6 +609,7 @@ describe('Page', () => {
     }
 
     const someHashPage = {
+      abstract: '',
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
@@ -666,6 +668,7 @@ describe('Page', () => {
     }
 
     const someHashPage = {
+      abstract: '',
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
@@ -703,6 +706,7 @@ describe('Page', () => {
     }
 
     const someHashPage = {
+      abstract: '',
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
@@ -769,6 +773,7 @@ describe('Page', () => {
 
   it('adds scope to table headers', () => {
     const tablePage = {
+      abstract: '',
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
