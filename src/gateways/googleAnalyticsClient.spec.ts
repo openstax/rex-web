@@ -23,8 +23,8 @@ describe('GoogleAnalyticsClient', () => {
         client.setUserId('jimbo');
         expect(mockGa).not.toHaveBeenCalled();
         client.setTrackingIds(['foo', 'bar']);
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userid', 'jimbo');
-        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userid', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userId', 'jimbo');
       });
     });
 
@@ -32,8 +32,19 @@ describe('GoogleAnalyticsClient', () => {
       it('sets it after tracking ID set', async() => {
         client.setTrackingIds(['foo']);
         client.setUserId('jimbo');
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userid', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'jimbo');
       });
+    });
+
+  });
+
+  describe('unsetUserId', () => {
+
+    it('unsets it', async() => {
+      client.setTrackingIds(['foo', 'bar']);
+      client.unsetUserId();
+      expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', undefined);
+      expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userId', undefined);
     });
 
   });
@@ -97,6 +108,27 @@ describe('GoogleAnalyticsClient', () => {
       });
     });
 
+  });
+
+  describe('trackEvent', () => {
+    beforeEach(() => {
+      client.setTrackingIds(['foo']);
+    });
+
+    it('calls with category and action', async() => {
+      client.trackEvent('category', 'action');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action');
+    });
+
+    it('calls with category, action, and label', async() => {
+      client.trackEvent('category', 'action', 'label');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action', 'label');
+    });
+
+    it('calls with category, action, label, and value', async() => {
+      client.trackEvent('category', 'action', 'label', 42);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action', 'label', 42);
+    });
   });
 
 });

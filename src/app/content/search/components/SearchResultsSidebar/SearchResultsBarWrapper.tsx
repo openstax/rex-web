@@ -7,7 +7,7 @@ import {
   scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
-import { SearchResultContainer } from '../../types';
+import { SearchResultContainer, SelectedResult } from '../../types';
 import SearchResultContainers from './SearchResultContainers';
 import * as Styled from './styled';
 
@@ -19,6 +19,7 @@ interface ResultsSidebarProps {
   searchResultsOpen: boolean;
   book?: Book;
   totalHits: number | null;
+  selectedResult: SelectedResult | null;
 }
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
@@ -76,6 +77,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
     <SearchResultContainers
       activeSectionRef={this.activeSection}
+      selectedResult={this.props.selectedResult}
       containers={results}
       book={book}
     />
