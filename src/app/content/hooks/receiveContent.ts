@@ -53,10 +53,8 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
       {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
     ],
     meta: [
-      ...(description ? [
-        {name: 'description', content: description},
-        {property: 'og:description', content: description},
-      ] : []),
+      {name: 'description', content: description},
+      {property: 'og:description', content: description},
       {property: 'og:title', content: title},
       {property: 'og:url', content: `https://openstax.org${canonicalUrl}`},
       {name: 'theme-color', content: theme.color.primary[book.theme].base},

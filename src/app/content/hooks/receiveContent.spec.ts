@@ -116,7 +116,7 @@ describe('setHead hook', () => {
         ]),
       })));
     });
-    it('dispatches sethead with description tags', async() => {
+    it('always dispatches sethead with description tags', async() => {
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({
         ...page,
@@ -132,7 +132,7 @@ describe('setHead hook', () => {
         references: [],
       }));
 
-      expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.objectContaining({
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
           expect.objectContaining({name: 'description'}),
           expect.objectContaining({property: 'og:description'}),
