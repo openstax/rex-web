@@ -308,6 +308,12 @@ Array [
             </button>
             <button
               className="c8"
+              onClick={[Function]}
+            >
+              app messages
+            </button>
+            <button
+              className="c8"
               data-testid="trigger-inline-error"
               onClick={[Function]}
             >
