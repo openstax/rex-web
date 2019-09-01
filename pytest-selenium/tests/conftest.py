@@ -100,3 +100,13 @@ def pytest_runtest_setup(item):
 def book_slug():
     book_list = utility.Library()
     return book_list.random_book_slug()
+
+
+@pytest.fixture
+def email():
+    return utility.Library().random_user_email
+
+
+@pytest.fixture
+def password():
+    return utility.Library().password
