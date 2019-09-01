@@ -29,3 +29,9 @@ class Login(Page):
         return self
 
     click_login = click_next
+
+    def login(self, email, password):
+        self.enter_user_email()
+        self.click_next()
+        self.enter_password()
+        self.click_login()
