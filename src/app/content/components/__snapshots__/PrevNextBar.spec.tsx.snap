@@ -13,6 +13,19 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   margin-top: 0.1rem;
 }
 
+.c1 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -36,17 +49,6 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
 }
 
 .c0 a {
@@ -131,17 +133,6 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `
 }
 
 .c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 a {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -192,6 +183,32 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   margin-top: 0.1rem;
 }
 
+.c1 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -215,17 +232,6 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
 }
 
 .c0 a {
@@ -318,6 +324,19 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   margin-top: 0.1rem;
 }
 
+.c1 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -341,17 +360,6 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
 }
 
 .c0 a {
@@ -421,6 +429,19 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   width: 2.5rem;
 }
 
+.c1 {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -444,17 +465,6 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   margin: 5rem auto 4rem auto;
   border-top: solid 0.1rem #e5e5e5;
   border-bottom: solid 0.1rem #e5e5e5;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
 }
 
 .c0 a {
