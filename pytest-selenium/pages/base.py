@@ -79,3 +79,6 @@ class Page(pypom.Page):
                 "return window.getComputedStyle(arguments[0]).height;", element
             )
         ).strip("px")
+
+    def banner_color(self, element):
+        return element.value_of_css_property("background-image")
