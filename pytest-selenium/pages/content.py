@@ -31,7 +31,6 @@ class Content(Page):
     def previous_link(self):
         return self.find_element(*self._previous_locator)
 
-    @property
     def next_link(self):
         return self.find_element(*self._next_locator)
 
@@ -131,10 +130,49 @@ class Content(Page):
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
+        _user_nav_locator = (By.CSS_SELECTOR, '[data-testid="user-nav"]')
+        _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
+        _user_nav_toggle_locator = (By.CSS_SELECTOR, '[data-testid="user-nav-toggle"]')
+        _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
+        _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
 
         @property
         def openstax_logo_link(self):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+
+        @property
+        def user_nav(self):
+            return self.find_element(*self._user_nav_locator)
+
+        @property
+        def login(self):
+            return self.find_element(*self._login_locator)
+
+        @property
+        def user_is_not_logged_in(self):
+            return bool(self.login)
+
+        @property
+        def user_is_logged_in(self):
+            return bool(self.find_element(*self._user_nav_toggle_locator))
+
+        @property
+        def account_profile(self):
+            return self.find_element(*self._account_profile_locator)
+
+        @property
+        def logout(self):
+            return self.find_element(*self._logout_locator)
+
+        def click_login(self):
+            self.login.click()
+
+        def hover_over_user_name(self):
+            actionChains = ActionChains(self.driver)
+            actionChains.move_to_element(self.user_nav).perform()
+
+        def click_user_name(self):
+            self.user_nav.click()
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
