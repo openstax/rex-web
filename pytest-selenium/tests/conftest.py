@@ -83,7 +83,7 @@ def chrome_options(chrome_options, pytestconfig, language):
     if pytestconfig.getoption("--disable-dev-shm-usage"):
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-    chrome_options.add_experimental_option('w3c', False)
+    chrome_options.add_experimental_option("w3c", False)
 
     # Set the browser language
     chrome_options.add_argument("--lang={lang}".format(lang=language))
@@ -102,3 +102,13 @@ def pytest_runtest_setup(item):
 def book_slug():
     book_list = utility.Library()
     return book_list.random_book_slug()
+
+
+@pytest.fixture
+def email():
+    return utility.Library().random_user_email
+
+
+@pytest.fixture
+def password():
+    return utility.Library().password

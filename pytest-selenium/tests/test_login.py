@@ -6,7 +6,7 @@ from tests import markers
 @markers.test_case("C477326", "C477327")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_login_and_logout(selenium, base_url, book_slug, page_slug):
+def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, password):
 
     # GIVEN: Page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -22,10 +22,11 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug):
 
     # Enter login credentials
     accounts = Login(selenium)
-    accounts.enter_user_email()
-    accounts.click_next()
-    accounts.enter_password()
-    accounts.click_login()
+    # accounts.enter_user_email()
+    # accounts.click_next()
+    # accounts.enter_password()
+    # accounts.click_login()
+    accounts.login(email, password)
 
     # AND: After successful login, redirects back to the preface page
     assert page_url_before_login == selenium.current_url
