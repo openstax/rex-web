@@ -1,6 +1,11 @@
 from pages.content import Content
 from pages.accounts import Login
+from pages.osweb import WebBase
 from tests import markers
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+
+from selenium.webdriver.common.keys import Keys
 
 
 @markers.test_case("C477326", "C477327")
@@ -52,3 +57,39 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
     # AND: Reloading does not reset the state back to logged in
     selenium.refresh()
     assert user_nav.user_is_not_logged_in
+
+
+@markers.test_case("C477329")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, email, password):
+
+    # Openstax.org and REX are open in different tabs in logged - in state
+
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    user_nav = content.navbar
+
+    user_nav.click_login()
+    accounts = Login(selenium)
+    accounts.login(email, password)
+
+    # open osweb url in a new tab
+    selenium.execute_script("""window.open("","_blank");""")
+    selenium.switch_to_window(selenium.window_handles[1])
+    osweb = WebBase(selenium, base_url).open()
+
+    osweb.user_nav.click()
+
+    # osweb.hover_over_user_name()
+
+    osweb.click_logout()
+
+    from time import sleep
+
+    sleep(3)
+
+
+# click the logout link in openstax.org
+
+# REX tab will stay the same logged-in state
+# AND REX tab goes to logged-out state on a reload or navigating to a feature that requires a login
