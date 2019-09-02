@@ -9,7 +9,7 @@ export const hookBody: ActionHookBody<typeof locationChange> = () => () => {
 
   const head = assertDefined(document.head, 'document must have a head');
 
-  head.querySelectorAll('meta[data-rex-page]').forEach((tag) => tag.remove());
+  head.querySelectorAll('meta[data-rex-page],link[data-rex-page]').forEach((tag) => tag.remove());
 };
 
 export default actionHook(locationChange, hookBody);

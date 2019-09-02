@@ -15,8 +15,8 @@ import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { RouteState } from '../../navigation/types';
 import theme from '../../theme';
-import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
+import { Dispatch } from '../../types';
 import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
@@ -24,6 +24,7 @@ import { SelectedResult } from '../search/types';
 import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
+import getCleanContent from '../utils/getCleanContent';
 import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
@@ -49,29 +50,9 @@ export class PageComponent extends Component<PropTypes> {
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
-
-    const cachedPage = book && page &&
-      services.archiveLoader.book(book.id, book.version).page(page.id).cached()
-    ;
-
-    const pageContent = cachedPage ? cachedPage.content : '';
-
-    return this.props.references.reduce((html, reference) =>
-      html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params)))
-    , pageContent)
-      // remove body and surrounding content
-      .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
-      // fix assorted self closing tags
-      .replace(/<(em|h3|iframe|span|strong|sub|sup|u|figcaption)([^>]*?)\/>/g, '<$1$2></$1>')
-      // remove page titles from content (they are in the nav)
-      .replace(/<(h1|h2|div) data-type="document-title".*?<\/\1>/, '')
-      // target blank and add `rel` to links that begin with: http:// https:// //
-      .replace(/<a ([^>]*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow" $1>')
-      // same as previous, but allow indexing links to relative content
-      .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
-      // move (first-child) figure and table ids up to the parent div
-      .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
-    ;
+    return getCleanContent(book, page, services.archiveLoader, (pageContent) =>
+      this.props.references.reduce((html, reference) =>
+        html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
   };
 
   public componentDidMount() {
@@ -164,6 +145,10 @@ export class PageComponent extends Component<PropTypes> {
 
     this.searchHighlighter.eraseAll();
     this.searchResultMap = highlightResults(this.searchHighlighter, searchResults);
+
+    if (this.props.search && this.props.search.selectedResult) {
+      this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
+    }
   };
 
   private getPrerenderedContent() {
@@ -340,6 +325,10 @@ const StyledPageComponent = styled(PageComponent)`
 
       &.focus {
         background-color: #ff9e4b;
+
+        .search-highlight {
+          background-color: unset;
+        }
       }
     }
   }

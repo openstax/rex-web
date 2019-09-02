@@ -272,7 +272,7 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
 // tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div`
   overflow: visible;
-  z-index: 5; /* above book nav */
+  z-index: ${theme.zIndex.navbar}; /* above book nav */
   background: ${theme.color.neutral.base};
   position: relative; /* drop shadow above notifications */
   padding: 0 ${theme.padding.page.desktop}rem;
