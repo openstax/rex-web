@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import { makeFindByTestId } from '../../../test/reactutils';
 import { recordError } from '../../errors/actions';
-import { updateAvailable } from '../../notifications/actions';
+import { receiveMessages, updateAvailable } from '../../notifications/actions';
 import { Store } from '../../types';
 import Notifications from './Notifications';
 
@@ -47,6 +47,16 @@ describe('Notifications', () => {
       button.props.onClick();
     });
     expect(dispatch).toHaveBeenCalledWith(recordError(expect.anything()));
+  });
+
+  it('dispatches receiveMessages', () => {
+    const findById = makeFindByTestId(component.root);
+    const button = findById('trigger-messages');
+
+    renderer.act(() => {
+      button.props.onClick();
+    });
+    expect(dispatch).toHaveBeenCalledWith(receiveMessages(expect.anything()));
   });
 
   it('throws on inline error', () => {

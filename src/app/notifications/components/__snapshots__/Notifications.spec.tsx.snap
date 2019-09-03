@@ -57,7 +57,7 @@ exports[`Notifications matches snapshot 1`] = `
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  margin: 0;
+  margin: 1rem 0 0 0;
   padding: 1rem;
 }
 
@@ -106,7 +106,6 @@ exports[`Notifications matches snapshot 1`] = `
   font-weight: bold;
   background-color: #fafafa;
   line-height: 4rem;
-  margin-bottom: 1rem;
 }
 
 .c3 a {
@@ -245,6 +244,27 @@ exports[`Notifications matches snapshot 1`] = `
           Got it!
         </button>
       </div>
+    </div>
+  </div>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      <div
+        className="c3"
+      >
+        Notification
+      </div>
+      <p
+        className="c4"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "asdf",
+          }
+        }
+      />
     </div>
   </div>
 </div>
