@@ -215,58 +215,6 @@ exports[`Notifications matches snapshot 1`] = `
       </button>
     </div>
   </div>
-  <div
-    className="c1"
-  >
-    <div
-      className="c2"
-    >
-      <div
-        className="c3"
-      >
-        Privacy and cookies
-      </div>
-      <p
-        className="c4"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "This site uses cookies to optimize your experience on our platform. By continuing to use this site you agree to use our cookies. If you'd like more information or would like to opt out please see our <a href=\\"/privacy-policy\\" target=\\"blank\\">Privacy Policy</a>",
-          }
-        }
-      />
-      <div
-        className="c5 c6"
-      >
-        <button
-          className="c7"
-          onClick={[Function]}
-        >
-          Got it!
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="c1"
-  >
-    <div
-      className="c2"
-    >
-      <div
-        className="c3"
-      >
-        Notification
-      </div>
-      <p
-        className="c4"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "asdf",
-          }
-        }
-      />
-    </div>
-  </div>
 </div>
 `;
 
