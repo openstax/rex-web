@@ -48,6 +48,7 @@ describe('setHead hook', () => {
 
   it('does nothing if book is loading', async() => {
     store.dispatch(receiveBook(combinedBook));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(requestBook('asdf'));
 
     await hook(receivePage({...page, references: []}));
@@ -57,6 +58,7 @@ describe('setHead hook', () => {
 
   it('does nothing if page is loading', async() => {
     store.dispatch(receiveBook(combinedBook));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(requestPage('asdf'));
 
     await hook(receivePage({...page, references: []}));
