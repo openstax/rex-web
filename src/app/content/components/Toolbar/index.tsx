@@ -30,6 +30,16 @@ interface State {
 class Toolbar extends React.Component<Props, State> {
   public state = { query: '', formSubmitted: false };
 
+  constructor(props: any) {
+    super(props);
+    this.state = { query: '', formSubmitted: false };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  public onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ query: e.currentTarget.value, formSubmitted: false });
+  };
+
   public componentWillUpdate(newProps: Props) {
     if (newProps.query && newProps.query !== this.props.query && newProps.query !== this.state.query) {
       this.setState({query: newProps.query});
@@ -47,11 +57,6 @@ class Toolbar extends React.Component<Props, State> {
         this.props.search(this.state.query);
         this.setState({ formSubmitted: true });
       }
-    };
-
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
     const onClear = (e: React.FormEvent) => {
@@ -84,7 +89,8 @@ class Toolbar extends React.Component<Props, State> {
             data-testid='desktop-search'
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-              onChange={onChange} value={this.state.query}/>
+              onChange={this.onChange}
+              value={this.state.query}/>
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
                 {(val) => <Styled.SearchButton mobile
@@ -131,7 +137,7 @@ class Toolbar extends React.Component<Props, State> {
           <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
-              onChange={onChange} value={this.state.query} />
+              onChange={this.onChange} value={this.state.query} />
             {this.state.query && <Styled.CloseButton
               type='button'
               onClick={onClear}

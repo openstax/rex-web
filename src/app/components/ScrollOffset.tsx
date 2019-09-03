@@ -47,6 +47,7 @@ const matchingThreshold = 4;
 const pageLoadScrollChecks = 3;
 
 export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
+  public state = { componentMounted: false };
 
   public getOffset = (window: Window) => -(window.matchMedia(theme.breakpoints.mobileQuery).matches
     ? remsToPx(this.props.mobileOffset)
@@ -61,6 +62,8 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
 
     this.resizeHandler();
     this.checkScroll(pageLoadScrollChecks);
+
+    this.setState({componentMounted : true});
   }
 
   public componentWillUnmount() {
@@ -70,7 +73,7 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
   }
 
   public render() {
-    return <GlobalStyle {...this.props} />;
+    return this.state.componentMounted ? null : <GlobalStyle {...this.props} />;
   }
 
   public componentDidUpdate() {
