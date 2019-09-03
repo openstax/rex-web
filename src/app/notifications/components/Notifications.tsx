@@ -6,10 +6,12 @@ import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as actions from '../actions';
+import { appMessageType } from '../reducer';
 import * as select from '../selectors';
 import { inlineDisplayBreak } from '../theme';
 import { AnyNotification } from '../types';
 import AcceptCookies from './AcceptCookies';
+import AppMessage from './AppMessage';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
@@ -28,6 +30,9 @@ const Notifications = ({notifications, className}: Props) => notifications.lengt
         }
         case getType(actions.acceptCookies): {
           return <AcceptCookies key={index} notification={notification} />;
+        }
+        case appMessageType: {
+          return <AppMessage key={index} notification={notification} />;
         }
         default:
           return null;
