@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
+import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
@@ -487,6 +487,53 @@ describe('Page', () => {
 
     store.dispatch(receiveSearchResults(makeSearchResults([hit])));
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('scrolls to search result when selected before page navigation', async() => {
+    renderDomWithReferences();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page: shortPage});
+
+    const highlightElement = assertDocument().createElement('span');
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {},
+        result: hit,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    // make sure nothing happened
+    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
+
+    // do navigation
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit,
+      },
+    ]);
+    store.dispatch(receivePage({...shortPage, references: []}));
 
     // after images are loaded
     await Promise.resolve();
