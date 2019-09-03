@@ -6,11 +6,14 @@ import { Dispatch } from '../../types';
 import { dismissNotification } from '../actions';
 import { dismissAppMessage } from '../dismissAppMessages';
 import { AppMessageNotification } from '../types';
-import { Body, Group, P } from './Card';
+import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
 const AppMessage = ({dismiss, notification}: {dismiss: () => void, notification: AppMessageNotification}) => <Body>
   <Group>
+    <FormattedMessage id='i18n:notification:appmessage:header'>
+      {(txt) => <Header>{txt}</Header>}
+    </FormattedMessage>
     <P dangerouslySetInnerHTML={{__html: notification.payload.html}} />
     {!!notification.payload.dismissable && <ButtonGroup>
       <FormattedMessage id='i18n:notification:appmessage:dismiss'>

@@ -252,6 +252,11 @@ exports[`Notifications matches snapshot 1`] = `
     <div
       className="c2"
     >
+      <div
+        className="c3"
+      >
+        Notification
+      </div>
       <p
         className="c4"
         dangerouslySetInnerHTML={
