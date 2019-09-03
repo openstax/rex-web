@@ -2,7 +2,7 @@ import { setHead } from '../../head/actions';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { assertDefined } from '../../utils';
-import { receiveBook, receivePage } from '../actions';
+import { receivePage } from '../actions';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
@@ -15,7 +15,7 @@ const stripHtmlAndTrim = (str: string) => str
   .substring(0, 155)
   .trim();
 
-const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
+const hookBody: ActionHookBody<typeof receivePage> = ({
   getState,
   dispatch,
   archiveLoader,
