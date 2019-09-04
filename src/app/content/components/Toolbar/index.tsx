@@ -30,16 +30,6 @@ interface State {
 class Toolbar extends React.Component<Props, State> {
   public state = { query: '', formSubmitted: false };
 
-  constructor(props: any) {
-    super(props);
-    this.state = { query: '', formSubmitted: false };
-    this.onChange = this.onChange.bind(this);
-  }
-
-  public onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ query: e.currentTarget.value, formSubmitted: false });
-  };
-
   public componentWillUpdate(newProps: Props) {
     if (newProps.query && newProps.query !== this.props.query && newProps.query !== this.state.query) {
       this.setState({query: newProps.query});
@@ -79,6 +69,10 @@ class Toolbar extends React.Component<Props, State> {
       this.props.openSearchResults();
     };
 
+    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+      this.setState({ query: e.currentTarget.value, formSubmitted: false });
+    };
+
     return <Styled.BarWrapper>
       <Styled.TopBar data-testid='toolbar'>
         <OpenSidebarControl />
@@ -89,7 +83,7 @@ class Toolbar extends React.Component<Props, State> {
             data-testid='desktop-search'
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-              onChange={this.onChange}
+              onChange={onChange}
               value={this.state.query}/>
             <FormattedMessage id='i18n:toolbar:search:toggle'>
               {(msg) => <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
@@ -137,7 +131,7 @@ class Toolbar extends React.Component<Props, State> {
           <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
-              onChange={this.onChange} value={this.state.query} />
+              onChange={onChange} value={this.state.query} />
             {this.state.query && <Styled.CloseButton
               type='button'
               onClick={onClear}
