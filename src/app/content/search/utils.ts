@@ -3,8 +3,7 @@ import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
-import { RangyRange, TextRange } from 'rangy';
-import rangy, { findTextInRange } from '../../../helpers/rangy';
+import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
 import { RouteState } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import { content } from '../routes';
@@ -92,8 +91,8 @@ export const getSearchFromLocation = (location: Location): RouteState<typeof con
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
-const getHighlightRanges = (element: HTMLElement, highlight: string): Array<RangyRange & TextRange> => {
-  const elementRange = rangy.createRange();
+const getHighlightRanges = (element: HTMLElement, highlight: string): RangyRange[] => {
+  const elementRange = rangy.createRangyRange();
   elementRange.selectNodeContents(element);
 
   // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,
