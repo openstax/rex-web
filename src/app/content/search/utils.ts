@@ -92,7 +92,7 @@ export const getSearchFromLocation = (location: Location): RouteState<typeof con
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
 const getHighlightRanges = (element: HTMLElement, highlight: string): RangyRange[] => {
-  const elementRange = rangy.createRangyRange();
+  const elementRange = rangy.createRange();
   elementRange.selectNodeContents(element);
 
   // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,

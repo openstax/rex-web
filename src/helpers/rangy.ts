@@ -14,7 +14,7 @@ export default rangy;
 export const findTextInRange = (
   withinRange: RangyRange,
   text: string,
-  range: RangyRange = rangy.createRangyRange()
+  range: RangyRange = rangy.createRange()
 ): RangyRange[] => {
   const foundMatch = range.findText(text, {
     withinRange: withinRange.cloneRange(),

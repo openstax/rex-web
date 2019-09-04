@@ -51,7 +51,7 @@ describe('findTextInRange', () => {
       .mockReturnValueOnce(firstMatch)
       .mockReturnValueOnce(secondMatch);
 
-    rangy.createRangyRange.mockReturnValueOnce(searchRange);
+    rangy.createRange.mockReturnValueOnce(searchRange);
 
     const result = findTextInRange(withinRange as unknown as RangyRange, 'cool text');
 
