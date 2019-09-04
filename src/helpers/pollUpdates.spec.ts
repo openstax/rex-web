@@ -1,4 +1,4 @@
-import { updateAvailable } from '../app/notifications/actions';
+import { receiveMessages, updateAvailable } from '../app/notifications/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import createTestStore from '../test/createTestStore';
@@ -134,6 +134,28 @@ describe('poll updates', () => {
       await Promise.resolve(); // clear promise queue for the mockfetch
 
       expect(mock).toHaveBeenCalledWith(['UA-0000000-1']);
+    });
+
+    it('dispatches app messages', async() => {
+      const messages = [
+        {
+          dismissable: false,
+          end_at: null,
+          html: 'asdf',
+          id: '1',
+          start_at: null,
+          url_regex: null,
+        },
+      ];
+      (global as any).fetch = mockFetch(200, {release_id: 'releaseid2', messages});
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue for the async poll function
+      await Promise.resolve(); // clear promise queue for the mockfetch
+
+      expect(dispatch).toHaveBeenCalledWith(receiveMessages(messages));
     });
 
     it('doesn\'t initialize google analytics when there are no ids', async() => {
