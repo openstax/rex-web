@@ -42,10 +42,6 @@ export const routes = [
   ...Object.values(errors.routes),
 ];
 
-const init = [
-  ...Object.values(auth.init),
-];
-
 const hooks = [
   ...content.hooks,
   ...Object.values(head.hooks),
@@ -121,16 +117,6 @@ export default (options: AppOptions) => {
   );
 
   navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
-
-  for (const initializer of init) {
-    const promise = initializer({
-      dispatch: store.dispatch,
-      getState: store.getState,
-      ...services,
-    });
-
-    services.promiseCollector.add(promise);
-  }
 
   return {
     container,
