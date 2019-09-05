@@ -13,7 +13,6 @@ import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
-import * as appHooks from './hooks';
 import MessageProvider from './MessageProvider';
 import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
@@ -43,16 +42,11 @@ export const routes = [
   ...Object.values(errors.routes),
 ];
 
-const init = [
-  ...Object.values(auth.init),
-];
-
 const hooks = [
   ...content.hooks,
   ...Object.values(head.hooks),
   ...Object.values(notifications.hooks),
   ...Object.values(auth.hooks),
-  ...Object.values(appHooks),
 ];
 
 const defaultServices = () => ({
@@ -123,16 +117,6 @@ export default (options: AppOptions) => {
   );
 
   navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
-
-  for (const initializer of init) {
-    const promise = initializer({
-      dispatch: store.dispatch,
-      getState: store.getState,
-      ...services,
-    });
-
-    services.promiseCollector.add(promise);
-  }
 
   return {
     container,
