@@ -46,3 +46,7 @@ class Library(object):
     @property
     def password(self):
         return self._password
+
+class FontProperties(object):
+    def is_bold(self, element):
+        return element.value_of_css_property("font-weight") == "400"
