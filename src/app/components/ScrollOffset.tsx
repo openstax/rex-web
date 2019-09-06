@@ -58,6 +58,8 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     // hashchange event is unreliable because it is not sent
     // when clicking the same link twice
     assertWindow().addEventListener('click', this.clickHandler);
+    // but listen to hashchange anyway to catch manually editing the url hash
+    assertWindow().addEventListener('hashchange', this.hashchangeHandler);
     assertWindow().addEventListener('resize', this.resizeHandler);
 
     this.resizeHandler();
@@ -69,6 +71,7 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
   public componentWillUnmount() {
     const window = assertWindow();
     window.removeEventListener('click', this.clickHandler);
+    window.removeEventListener('hashchange', this.hashchangeHandler);
     window.removeEventListener('resize', this.resizeHandler);
   }
 
@@ -85,6 +88,10 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     const body = window.document.body;
 
     body.setAttribute('data-scroll-padding', String(this.getOffset(window)));
+  };
+
+  private hashchangeHandler = () => {
+    this.checkScroll();
   };
 
   private clickHandler = (e: MouseEvent) => {
