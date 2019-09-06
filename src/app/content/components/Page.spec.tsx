@@ -269,6 +269,42 @@ describe('Page', () => {
       `);
     });
 
+    it('wraps solutions', () => {
+      expect(htmlHelper(`
+        <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
+          <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
+          <div data-type="problem" id="problem1"><div class="os-problem-container">
+            <p id="paragraph1">blah blah blah</p>
+          </div></div>
+          <div data-type="solution" id="fs-id2913818" data-print-placement="here">
+            <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
+            <div class="os-solution-container">
+              <p id="paragraph2">answer answer answer.</p>
+            </div>
+          </div>
+        </div>
+      `)).toEqual(`
+        <div data-type="exercise" id="exercise1" data-element-type="check-understanding" class="ui-has-child-title">` +
+        `<header><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3></header>` +
+        `<section>
+          ` + `
+          <div data-type="problem" id="problem1"><div class="os-problem-container">
+            <p id="paragraph1">blah blah blah</p>
+          </div></div>
+          <div data-type="solution" id="fs-id2913818" data-print-placement="here">
+        <div class="ui-toggle-wrapper">
+          <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
+        </div>
+        <section class="ui-body" role="alert">
+            <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
+            <div class="os-solution-container">
+              <p id="paragraph2">answer answer answer.</p>
+            </div>
+          </section>
+      </div>
+        </section></div>
+      `);
+    });
   });
 
   it('updates content link with new hrefs', () => {
