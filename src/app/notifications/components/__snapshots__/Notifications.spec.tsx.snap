@@ -440,6 +440,48 @@ exports[`Notifications matches snapshot 2`] = `
 `;
 
 exports[`Notifications matches snapshot 3`] = `
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c7:hover {
+  background-color: #e96128;
+}
+
+.c7:active {
+  background-color: #df571e;
+}
+
+.c6 {
+  display: grid;
+  overflow: visible;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+}
+
 .c2 {
   width: 100%;
 }
@@ -603,6 +645,16 @@ exports[`Notifications matches snapshot 3`] = `
           }
         }
       />
+    </div>
+    <div
+      className="c5 c6"
+    >
+      <button
+        className="c7"
+        onClick={[Function]}
+      >
+        OK
+      </button>
     </div>
   </div>
 </div>
