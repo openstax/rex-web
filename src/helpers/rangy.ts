@@ -1,9 +1,13 @@
 import UntypedRangy, { RangyRange as BaseRangyRange, RangyStatic, TextRange } from 'rangy';
 import 'rangy/lib/rangy-textrange';
 
-type RangyRange = BaseRangyRange & TextRange;
+export type RangyRange = BaseRangyRange & TextRange;
 
 const rangy = UntypedRangy as RangyStatic<RangyRange & TextRange>;
+
+if (!rangy.initialized) {
+  rangy.init();
+}
 
 export default rangy;
 
