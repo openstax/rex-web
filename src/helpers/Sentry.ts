@@ -17,7 +17,7 @@ export default {
   },
 
   get isEnabled() {
-    return IS_INITIALIZED && config.IS_PRODUCTION;
+    return IS_INITIALIZED && config.SENTRY_ENABLED;
   },
 
   captureException(error: any) {

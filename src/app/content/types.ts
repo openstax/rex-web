@@ -45,11 +45,13 @@ export interface Book {
   authors: Array<{
     value: {
       name: string;
+      senior_author: boolean;
     }
   }>;
 }
 
 export interface Page {
+  abstract: string;
   id: string;
   shortId: string;
   title: string;
@@ -60,6 +62,7 @@ export interface ArchiveTreeNode {
   id: string;
   shortId: string;
   title: string;
+  slug: string;
 }
 
 export type ArchiveTreeSection = ArchiveTreeNode;
@@ -91,11 +94,13 @@ export interface ArchiveBook {
 }
 
 export interface ArchivePage {
+  abstract: string;
   id: string;
   shortId: string;
   content: string;
   version: string;
   title: string;
+  revised: string;
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;

@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { updateAvailable } from '../actions';
+import { acceptCookies, receiveMessages, updateAvailable } from '../actions';
 import ConnectedNotifications from './Notifications';
 
 describe('Notifications', () => {
@@ -16,6 +16,15 @@ describe('Notifications', () => {
 
   it('matches snapshot', () => {
     store.dispatch(updateAvailable());
+    store.dispatch(acceptCookies());
+    store.dispatch(receiveMessages([{
+      dismissable: false,
+      end_at: null,
+      html: 'asdf',
+      id: '1',
+      start_at: null,
+      url_regex: null,
+    }]));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>

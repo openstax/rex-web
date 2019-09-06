@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { ArchiveTree, Book } from './types';
+import { resetModules } from '../../test/utils';
+import { Book } from './types';
 import {
   getContentPageReferences,
   getPageIdFromUrlParam,
@@ -67,7 +68,7 @@ describe('getUrlParamForPageId', () => {
   let getUrlParamForPageId: any;
 
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     getUrlParamForPageId = require('./utils').getUrlParamForPageId;
 
     book = cloneDeep({
@@ -76,6 +77,7 @@ describe('getUrlParamForPageId', () => {
           {
             id: 'pagelongid@1',
             shortId: 'page@1',
+            slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
@@ -94,73 +96,6 @@ describe('getUrlParamForPageId', () => {
   it('finds title in book tree using the long id', () => {
     expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('preface');
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('preface');
-  });
-
-  it('works with section numbers', () => {
-    book.tree.contents[0].title =
-      '<span class="os-number">2.1</span><span class="os-divider"> </span><span class="os-text">Section 1</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('2-1-section-1');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('2-1-section-1');
-  });
-
-  it('works with multiple spaces in the section name', () => {
-    book.tree.contents[0].title =
-      '<span class="os-text">Section   asdf qwer</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual(
-      'section-asdf-qwer'
-    );
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual(
-      'section-asdf-qwer'
-    );
-  });
-
-  it('replaces wonky characters', () => {
-    book.tree.contents[0].title = '<span class="os-text">Sèctĭꝋn</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('section');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('section');
-  });
-
-  it('replaces htmlentities', () => {
-    book.tree.contents[0].title =
-      '<span class="os-text">Section &amp; section</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('section-section');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual(
-      'section-section'
-    );
-  });
-
-  it('defaults section number to chapter number', () => {
-    book.tree.contents[0].title =
-      '<span class="os-number">2</span><span class="os-divider"> </span><span class="os-text">Chapter 2</span>';
-    (book.tree.contents[0] as ArchiveTree).contents = [
-      {
-        id: 'somepagelongid@1',
-        shortId: 'somepage@1',
-        title: '<span class="os-text">a page</span>',
-      },
-    ];
-    expect(getUrlParamForPageId(book, 'somepagelongid')).toEqual('2-a-page');
-    expect(getUrlParamForPageId(book, 'somepagelongid@1')).toEqual('2-a-page');
-  });
-
-  it('replaces all spece delimitiers with a single dash', () => {
-    book.tree.contents[0].title =
-      '<span class="os-text">Section asdf __qwer-asdf</span>';
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual(
-      'section-asdf-qwer-asdf'
-    );
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual(
-      'section-asdf-qwer-asdf'
-    );
-  });
-
-  it('throws on empty title', () => {
-    book.tree.contents[0].title = '';
-    expect(() =>
-      getUrlParamForPageId(book, 'pagelongid')
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"BUG: could not URL encode page title: \\"\\""`
-    );
   });
 
   it('throws on invalid id', () => {
@@ -182,11 +117,13 @@ describe('getPageIdFromUrlParam', () => {
           {
             id: 'pagelongid@1',
             shortId: 'page@1',
+            slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
         shortId: 'book@1',
+        slug: 'book-slug',
         title: 'book',
       },
     }) as Book;

@@ -254,8 +254,10 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
   padding: 0;
   background: none;
   position: fixed;
-  top: 1rem;
-  right: 1.6rem;
+  height: ${navMobileHeight}rem;
+  width: ${navMobileHeight}rem;
+  top: 0;
+  right: 0;
   color: ${theme.color.primary.gray.base};
   display: none;
   ${theme.breakpoints.mobile(css`
@@ -270,7 +272,7 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
 // tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div`
   overflow: visible;
-  z-index: 5; /* above book nav */
+  z-index: ${theme.zIndex.navbar}; /* above book nav */
   background: ${theme.color.neutral.base};
   position: relative; /* drop shadow above notifications */
   padding: 0 ${theme.padding.page.desktop}rem;

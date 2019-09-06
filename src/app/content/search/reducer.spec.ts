@@ -98,15 +98,15 @@ describe('search reducer', () => {
       query: 'asdfasdf',
     };
 
-    const newState = flow<State, State, State>(
-      (s) => reducer(s, locationChange({
+    const newState = flow(
+      (s: State): State => reducer(s, locationChange({
         action: 'POP',
         location: {
           ...assertWindow().location,
           state: {},
         },
       })),
-      (s) => reducer(s, locationChange({
+      (s: State): State => reducer(s, locationChange({
         action: 'POP',
         location: {
           ...assertWindow().location,
@@ -127,15 +127,15 @@ describe('search reducer', () => {
       query: 'asdfasdf',
     };
 
-    const newState = flow<State, State, State>(
-      (s) => reducer(s, locationChange({
+    const newState = flow(
+      (s: State): State => reducer(s, locationChange({
         action: 'REPLACE',
         location: {
           ...assertWindow().location,
           state: {},
         },
       })),
-      (s) => reducer(s, locationChange({
+      (s: State): State => reducer(s, locationChange({
         action: 'REPLACE',
         location: {
           ...assertWindow().location,

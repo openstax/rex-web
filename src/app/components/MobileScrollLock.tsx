@@ -30,7 +30,7 @@ const fadeIn = keyframes`
 const Overlay = styled.div`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
-  z-index: 2; /* stay above book content */
+  z-index: ${theme.zIndex.overlay}; /* stay above book content */
   position: absolute;
   content: "";
   top: -${toolbarDesktopHeight}rem;

@@ -16,6 +16,17 @@ export const initialState = {
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
+  const contentState = reduceContent(state, action);
+  const search = searchReducer(contentState.search, action);
+  if (contentState.search !== search) {
+    return {...contentState, search};
+  }
+  return contentState;
+};
+
+export default reducer;
+
+function reduceContent(state: State, action: AnyAction) {
   switch (action.type) {
     case getType(actions.openToc):
       return {...state, tocOpen: true};
@@ -34,16 +45,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return reduceReceivePage(state, action);
     }
     default:
-      const search = searchReducer(state.search, action);
-      if (state.search !== search) {
-        return {...state, search};
-      }
-
       return state;
   }
-};
-
-export default reducer;
+}
 
 function reduceReceiveBook(state: State, action: ActionType<typeof actions.receiveBook>) {
   const loading = omit('book', state.loading);
@@ -64,6 +68,6 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
 
 function reduceReceivePage(state: State, action: ActionType<typeof actions.receivePage>) {
   const loading = omit('page', state.loading);
-  const page = pick(['id', 'shortId', 'title', 'version'], action.payload);
+  const page = pick(['abstract', 'id', 'shortId', 'title', 'version'], action.payload);
   return {...state, loading, page, references: action.payload.references};
 }

@@ -1,4 +1,5 @@
 import { AppServices } from '../app/types';
+import { resetModules } from '../test/utils';
 import { fields } from './createOSWebLoader';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
@@ -16,7 +17,7 @@ describe('osWebLoader', () => {
   });
 
   afterEach(() => {
-    jest.resetModules();
+    resetModules();
     (global as any).fetch = fetchBackup;
   });
 

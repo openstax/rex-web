@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { Document } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,19 +7,24 @@ import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
+import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
+import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
+import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { scrollTo } from '../../utils';
-import { assertWindow } from '../../utils';
+import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
+import { receivePage } from '../actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
+import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
+import * as searchUtils from '../search/utils';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
@@ -40,7 +46,7 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    jest.resetModules();
+    resetModules();
     jest.resetAllMocks();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
@@ -66,7 +72,7 @@ describe('Page', () => {
   });
 
   const renderDomWithReferences = () => {
-    archiveLoader.mockPage(book, {
+    const pageWithRefereces = {
       ...page,
       content: `
         some text
@@ -78,9 +84,10 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
       `,
-    });
+    };
+    archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
 
-    state.content.references = [
+    store.dispatch(receivePage({...pageWithRefereces, references: [
       {
         match: '/content/link',
         params: {
@@ -93,7 +100,8 @@ describe('Page', () => {
           pageUid: 'page',
         },
       },
-    ];
+    ]}));
+
     return renderToDom(
       <Provider store={store}>
         <MessageProvider>
@@ -278,6 +286,7 @@ describe('Page', () => {
 
   it('interceptes clicking content links', () => {
     const {root} = renderDomWithReferences();
+    dispatch.mockReset();
     const [firstLink, secondLink, thirdLink] = Array.from(root.querySelectorAll('#main-content a'));
     const button = root.querySelector('#main-content button');
 
@@ -324,7 +333,45 @@ describe('Page', () => {
         bookUid: 'book',
         bookVersion: 'version',
         pageUid: 'page',
-        search: null,
+      },
+    }, {
+      hash: '',
+      search: '',
+    }));
+  });
+
+  it('passes search when clicking content links to same book', () => {
+    store.dispatch(requestSearch('asdf'));
+    const {root} = renderDomWithReferences();
+    const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!firstLink || !document) {
+      return expect(firstLink).toBeTruthy();
+    }
+
+    const makeEvent = (doc: Document) => {
+      const event = doc.createEvent('MouseEvents');
+      event.initEvent('click', true, false);
+      event.preventDefault();
+      event.preventDefault = jest.fn();
+      return event;
+    };
+
+    const evt1 = makeEvent(document);
+
+    firstLink.dispatchEvent(evt1);
+
+    expect(dispatch).toHaveBeenCalledWith(push({
+      params: {
+        book: 'book-slug-1',
+        page: 'page-title',
+      },
+      route: routes.content,
+      state: {
+        bookUid: 'book',
+        bookVersion: 'version',
+        pageUid: 'page',
+        search: expect.objectContaining({query: 'asdf'}),
       },
     }, {
       hash: '',
@@ -334,6 +381,7 @@ describe('Page', () => {
 
   it('does not intercept clicking content links when meta key is pressed', () => {
     const {root} = renderDomWithReferences();
+    dispatch.mockReset();
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     if (!document || !firstLink) {
@@ -400,7 +448,101 @@ describe('Page', () => {
     }
   });
 
-  it('mounts and unmounts without a dom', () => {
+  it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
+    renderDomWithReferences();
+
+    const hit = makeSearchResultHit({book, page});
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it('scrolls to search result when selected', async() => {
+    renderDomWithReferences();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('scrolls to search result when selected before page navigation', async() => {
+    renderDomWithReferences();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page: shortPage});
+
+    const highlightElement = assertDocument().createElement('span');
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {},
+        result: hit,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    // make sure nothing happened
+    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
+
+    // do navigation
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit,
+      },
+    ]);
+    store.dispatch(receivePage({...shortPage, references: []}));
+
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
         <MessageProvider>
@@ -412,6 +554,10 @@ describe('Page', () => {
         </MessageProvider>
       </Provider>
     );
+
+    renderer.act(() => {
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
 
     expect(element.unmount).not.toThrow();
   });
@@ -444,9 +590,11 @@ describe('Page', () => {
     );
 
     store.dispatch(actions.receivePage({
+      abstract: '',
       content: 'some other content',
       id: 'adsfasdf',
       references: [],
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -461,15 +609,17 @@ describe('Page', () => {
     }
 
     const someHashPage = {
+      abstract: '',
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
 
     state.navigation.hash = '#somehash';
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused3');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -518,8 +668,10 @@ describe('Page', () => {
     }
 
     const someHashPage = {
+      abstract: '',
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -528,7 +680,7 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     state.content.page = someHashPage;
 
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused?2');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -554,15 +706,17 @@ describe('Page', () => {
     }
 
     const someHashPage = {
+      abstract: '',
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
 
     state.navigation.hash = '#somehash';
-    archiveLoader.mockPage(book, someHashPage);
+    archiveLoader.mockPage(book, someHashPage, 'unused?3');
 
     const {root} = renderToDom(
       <Provider store={store}>
@@ -619,8 +773,10 @@ describe('Page', () => {
 
   it('adds scope to table headers', () => {
     const tablePage = {
+      abstract: '',
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
@@ -628,7 +784,7 @@ describe('Page', () => {
 
     state.content.page = tablePage;
 
-    archiveLoader.mockPage(book, tablePage);
+    archiveLoader.mockPage(book, tablePage, 'unused?4');
 
     const {root} = renderToDom(
       <Provider store={store}>

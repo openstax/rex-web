@@ -3,7 +3,7 @@ import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 
 if (typeof(document) !== 'undefined') {
-  import('details-element-polyfill');
+  import(/* webpackChunkName: "details-element-polyfill" */ 'details-element-polyfill');
 }
 
 export const iconSize = 1.7;

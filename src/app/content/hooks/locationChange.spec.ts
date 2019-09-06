@@ -6,6 +6,7 @@ import createTestStore from '../../../test/createTestStore';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import mockOSWebLoader from '../../../test/mocks/osWebLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../test/utils';
 import { Match } from '../../navigation/types';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
@@ -17,7 +18,7 @@ const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
 } as {[key: string]: {defaultVersion: string}}};
 
-jest.mock('../../../config', () => mockConfig);
+jest.doMock('../../../config', () => mockConfig);
 
 describe('locationChange', () => {
   let store: Store;
@@ -60,7 +61,7 @@ describe('locationChange', () => {
   });
 
   afterEach(() => {
-    jest.resetModules();
+    resetModules();
   });
 
   it('loads book', async() => {
@@ -141,19 +142,23 @@ describe('locationChange', () => {
 
   it('loads a page with a content reference', async() => {
     archiveLoader.mockPage(book, {
+      abstract: '',
       content: 'rando content',
       id: 'rando-page-id',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'rando-page-shortid',
       title: 'rando page',
       version: '0',
-    });
+    }, 'rando-page');
     archiveLoader.mockPage(book, {
+      abstract: '',
       content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
-    });
+    }, 'qwerqewrqwer');
 
     payload.match.params.page = 'qwerqewrqwer';
 
@@ -211,6 +216,7 @@ describe('locationChange', () => {
 
   describe('cross book references', () => {
     const mockOtherBook = {
+      abstract: '',
       id: 'newbookid',
       license: {name: '', version: ''},
       shortId: 'newbookshortid',
@@ -219,19 +225,22 @@ describe('locationChange', () => {
         contents: [],
         id: 'newbookid@0',
         shortId: 'newbookshortid@0',
+        slug: 'newbook',
         title: 'newbook',
       },
       version: '0',
     };
     const mockPageInOtherBook = {
+      abstract: '',
       content: 'dope content bruh',
       id: 'newbookpageid',
+      revised: '2018-07-30T15:58:45Z',
       shortId: 'newbookpageshortid',
       title: 'page in a new book',
       version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
-      authors: [{value: {name: 'different author'}}],
+      authors: [{value: {name: 'different author', senior_author: true}}],
       cnx_id: 'newbookid',
       cover_color: 'blue',
       meta: {
@@ -242,16 +251,18 @@ describe('locationChange', () => {
 
     beforeEach(() => {
       archiveLoader.mockBook(mockOtherBook);
-      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook);
+      archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
       mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
 
       archiveLoader.mockPage(book, {
+        abstract: '',
         content: 'some <a href="/contents/newbookpageid"></a> content',
         id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
         shortId: 'pageshortid',
         title: 'page referencing different book',
         version: '0',
-      });
+      }, 'page-referencing-different-book');
 
       payload.match.params.page = 'page referencing different book';
 
@@ -312,6 +323,7 @@ describe('locationChange', () => {
           contents: [],
           id: 'garbagebookid@0',
           shortId: 'garbagebookshortid@0',
+          slug: 'garbage-book',
           title: 'garbage book',
         },
         version: '0',
