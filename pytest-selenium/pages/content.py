@@ -9,6 +9,7 @@ import random
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
+from regions.search_sidebar import SearchSidebar
 
 
 class Content(Page):
@@ -165,10 +166,20 @@ class Content(Page):
             By.CSS_SELECTOR,
             "[aria-label='Click to open the Table of Contents']",
         )
+        _search_textbox_locator = (By.CSS_SELECTOR, '[data-testid="desktop-search-input"]')
+        _search_button_desktop_locator = (By.CSS_SELECTOR, 'button:nth-of-type(2)[value="Search"]')
 
         @property
         def toc_toggle_button(self):
             return self.find_element(*self._toc_toggle_button_locator)
+
+        @property
+        def search_textbox(self):
+            return self.find_element(*self._search_textbox_locator)
+
+        @property
+        def search_button(self):
+            return self.find_element(*self._search_button_desktop_locator)
 
         def click_toc_toggle_button(self):
             self.offscreen_click(self.toc_toggle_button)
@@ -184,6 +195,10 @@ class Content(Page):
         @property
         def toc(self):
             return TableOfContents(self.page)
+
+        @property
+        def search_sidebar(self):
+            return SearchSidebar(self.page)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
