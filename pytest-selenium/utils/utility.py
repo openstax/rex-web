@@ -3,7 +3,14 @@ import random
 
 class Library(object):
     def __init__(self):
-        self._book_slug_list = ["chemistry-2e", "chemistry-atoms-first-2e"]
+        self._book_slug_list = [
+            "chemistry-2e",
+            "chemistry-atoms-first-2e",
+            "concepts-biology",
+            "biology-2e",
+            "biology-ap-courses",
+            "anatomy-and-physiology",
+        ]
 
     @property
     def books(self) -> [str]:
