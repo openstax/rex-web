@@ -9,9 +9,9 @@ import OnScroll, { OnScrollCallback } from './OnScroll';
 
 // tslint:disable-next-line:variable-name
 const MobileScrollLockBodyClass = createGlobalStyle`
-  body {
+  body.body {
     ${theme.breakpoints.mobile(css`
-      overflow: hidden !important;
+      overflow: hidden;
     `)}
   }
 `;
