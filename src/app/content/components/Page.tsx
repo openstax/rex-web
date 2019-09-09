@@ -73,7 +73,6 @@ export class PageComponent extends Component<PropTypes> {
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.addGenericJs(this.container.current);
-      this.listenersOn();
 
       if (target) {
         allImagesLoaded(this.container.current).then(() => scrollTo(target));
@@ -98,6 +97,8 @@ export class PageComponent extends Component<PropTypes> {
     ) {
       this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
     }
+
+    this.listenersOn();
   }
 
   public getSnapshotBeforeUpdate() {
