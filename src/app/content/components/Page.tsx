@@ -69,9 +69,9 @@ export class PageComponent extends Component<PropTypes> {
 
   public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
-    this.postProcess();
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
+      this.postProcess();
       this.linksOn();
 
       this.addGenericJs(this.container.current);
