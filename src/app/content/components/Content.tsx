@@ -45,7 +45,7 @@ const Background = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  z-index: 1; /* above content */
+  z-index: ${theme.zIndex.contentNotifications};
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
