@@ -308,7 +308,7 @@ export class PageComponent extends Component<PropTypes> {
       solution.setAttribute('aria-label', 'show solution');
     } else {
       solution.className += ' ui-solution-visible';
-      solution.removeAttribute('aria-expanded');
+      solution.setAttribute('aria-expanded', '');
       solution.setAttribute('aria-label', 'hide solution');
     }
   };
