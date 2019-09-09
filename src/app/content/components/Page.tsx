@@ -59,7 +59,7 @@ export class PageComponent extends Component<PropTypes> {
     if (!this.container.current) {
       return;
     }
-    this.postProcess();
+    this.postProcess(this.container.current);
     this.linksOn();
     this.addGenericJs(this.container.current);
     this.searchHighlighter = new Highlighter(this.container.current, {
@@ -71,7 +71,7 @@ export class PageComponent extends Component<PropTypes> {
     const target = this.getScrollTarget();
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
-      this.postProcess();
+      this.postProcess(this.container.current);
       this.linksOn();
 
       this.addGenericJs(this.container.current);
@@ -289,11 +289,9 @@ export class PageComponent extends Component<PropTypes> {
     }
   };
 
-  private postProcess() {
-    if (this.container.current && typeof(window) !== 'undefined') {
-      const promise = typesetMath(this.container.current, window);
-      this.props.services.promiseCollector.add(promise);
-    }
+  private postProcess(container: HTMLElement) {
+    const promise = typesetMath(container, assertWindow());
+    this.props.services.promiseCollector.add(promise);
   }
 }
 
