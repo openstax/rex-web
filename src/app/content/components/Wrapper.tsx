@@ -11,16 +11,18 @@ import { searchResultsBarDesktopWidth, sidebarTransitionTime } from './constants
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
-  isOpen: boolean;
+  hasQuery: boolean;
+  searchResultsOpen: boolean;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-export const Wrapper = styled(({isOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
-  <LayoutBody {...props}>
-    {isOpen && <MobileScrollLock overlay={false} />}
-    {children}
-  </LayoutBody>
+export const Wrapper = styled(
+  ({hasQuery, searchResultsOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
+    <LayoutBody {...props}>
+      {searchResultsOpen && <MobileScrollLock overlay={false} />}
+      {children}
+    </LayoutBody>
 )`
   position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */
@@ -28,7 +30,7 @@ export const Wrapper = styled(({isOpen, children, ...props}: React.PropsWithChil
 
   @media screen {
     flex: 1;
-    ${(props: WrapperProps) => props.isOpen && css`
+    ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
       margin-left: ${searchResultsBarDesktopWidth}rem;
     `}
 
@@ -40,6 +42,7 @@ export const Wrapper = styled(({isOpen, children, ...props}: React.PropsWithChil
 
 export default connect(
   (state: AppState) => ({
-    isOpen: !!selectSearch.query(state) && selectSearch.searchResultsOpen(state),
+    hasQuery: !!selectSearch.query(state),
+    searchResultsOpen: selectSearch.searchResultsOpen(state),
   })
 )(Wrapper);
