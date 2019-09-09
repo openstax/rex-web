@@ -8,12 +8,11 @@ from regions.base import Region
 
 class SearchSidebar(Region):
     _root_locator = (By.CSS_SELECTOR, '[data-testid="search-results-sidebar"]')
-    _no_results_locator = (By.XPATH, "//*[contains(text(), 'Sorry, no results found for ')]")
+    _no_results_locator = (By.XPATH, "//*[contains(text(), 'Sorry, no results found for')]")
 
     @property
     def no_results(self):
-        if self.find_element(*self._no_results_locator).is_displayed:
-            return True
+        return self.find_element(*self._no_results_locator)
 
     # @property
     # def has_no_results(self):

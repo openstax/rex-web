@@ -1,6 +1,6 @@
 from random import choice
 from string import digits, ascii_letters
-
+import pytest
 from pages.content import Content
 from tests import markers
 from regions.search_sidebar import SearchSidebar
@@ -18,13 +18,15 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
     query = "".join(choice(digits + ascii_letters) for i in range(25))
 
     toolbar = content.toolbar
+    search_sidebar = content.sidebar.search_sidebar
     # WHEN: search is triggered for a string (eg. hdsgfjhsdhbj) which yields no results
 
     toolbar.search_textbox.send_keys(query)
 
     toolbar.search_button.click()
-    print(SearchSidebar.no_results)
-    assert SearchSidebar.no_results
+
+    print(search_sidebar.no_results.is_displayed)
+    assert search_sidebar.no_results.is_displayed
 
     sleep(1)
 
