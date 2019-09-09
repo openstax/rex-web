@@ -6,6 +6,7 @@ import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { isNull } from 'util';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
 import MainContent from '../../components/MainContent';
@@ -40,6 +41,8 @@ interface PropTypes {
   searchResults: SearchResultHit[];
   search: RouteState<typeof content>['search'];
   services: AppServices;
+  tocIsOpen: boolean;
+  searchResultsOpen: boolean;
 }
 
 export class PageComponent extends Component<PropTypes> {
@@ -97,6 +100,12 @@ export class PageComponent extends Component<PropTypes> {
       )
     ) {
       this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
+    }
+
+    if (!this.props.tocIsOpen && !isNull(this.props.tocIsOpen)
+      && !this.props.searchResultsOpen && !isNull(this.props.searchResultsOpen)
+      && this.container.current) {
+      this.container.current.focus();
     }
   }
 
@@ -358,6 +367,8 @@ export default connect(
       : undefined
     ,
     searchResults: selectSearch.currentPageResults(state),
+    searchResultsOpen: selectSearch.searchResultsOpen(state),
+    tocIsOpen: select.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
