@@ -81,6 +81,9 @@ export class PageComponent extends Component<PropTypes> {
         allImagesLoaded(this.container.current).then(() => scrollTo(target));
       } else {
         window.scrollTo(0, 0);
+        if (prevProps.page && prevProps.page !== this.props.page) {
+          this.container.current.focus();
+        }
       }
     }
 
