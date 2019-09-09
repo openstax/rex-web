@@ -1,5 +1,8 @@
-import { Element, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
+import Highlighter from '@openstax/highlighter';
+import { SearchResultHit } from '@openstax/open-search-client';
+import { Element, HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
+import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -10,15 +13,18 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
+import { RouteState } from '../../navigation/types';
 import theme from '../../theme';
-import { Dispatch } from '../../types';
 import { AppServices, AppState } from '../../types';
+import { Dispatch } from '../../types';
 import { assertDefined, assertWindow, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
-import {State as SearchState } from '../search/types';
+import { SelectedResult } from '../search/types';
+import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
+import getCleanContent from '../utils/getCleanContent';
 import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
@@ -31,60 +37,66 @@ interface PropTypes {
   navigate: typeof push;
   className?: string;
   references: State['references'];
-  search: SearchState['query'];
+  searchResults: SearchResultHit[];
+  search: RouteState<typeof content>['search'];
   services: AppServices;
 }
 
 export class PageComponent extends Component<PropTypes> {
-  public container: Element | undefined | null;
+  public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
+  private searchHighlighter: Highlighter | undefined;
+  private searchResultMap: ReturnType<typeof highlightResults> = [];
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
-
-    const cachedPage = book && page &&
-      services.archiveLoader.book(book.id, book.version).page(page.id).cached()
-    ;
-
-    const pageContent = cachedPage ? cachedPage.content : '';
-
-    return this.props.references.reduce((html, reference) =>
-      html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params)))
-    , pageContent)
-      // remove body and surrounding content
-      .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
-      // fix assorted self closing tags
-      .replace(/<(em|h3|iframe|span|strong|sub|sup|u|figcaption)([^>]*?)\/>/g, '<$1$2></$1>')
-      // remove page titles from content (they are in the nav)
-      .replace(/<(h1|h2|div) data-type="document-title".*?<\/\1>/, '')
-      // target blank and add `rel` to links that begin with: http:// https:// //
-      .replace(/<a ([^>]*?href="(https?:\/\/|\/\/).*?)>/g, '<a target="_blank" rel="noopener nofollow" $1>')
-      // same as previous, but allow indexing links to relative content
-      .replace(/<a(.*?href="\.\.\/.*?)>/g, '<a target="_blank"$1>')
-      // move (first-child) figure and table ids up to the parent div
-      .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
-    ;
+    return getCleanContent(book, page, services.archiveLoader, (pageContent) =>
+      this.props.references.reduce((html, reference) =>
+        html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
   };
 
   public componentDidMount() {
+    if (!this.container.current) {
+      return;
+    }
     this.postProcess();
     this.linksOn();
-    if (this.container) { this.addGenericJs(this.container); }
+    this.addGenericJs(this.container.current);
+    this.searchHighlighter = new Highlighter(this.container.current, {
+      className: 'search-highlight',
+    });
   }
 
   public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
     this.postProcess();
 
-    if (this.container && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
+    if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.linksOn();
 
-      this.addGenericJs(this.container);
+      this.addGenericJs(this.container.current);
       if (target) {
-        allImagesLoaded(this.container).then(() => scrollTo(target));
+        allImagesLoaded(this.container.current).then(() => scrollTo(target));
       } else {
         window.scrollTo(0, 0);
       }
+    }
+
+    if (prevProps.searchResults !== this.props.searchResults) {
+      this.updateHighlights();
+    }
+
+    if (
+      this.container.current &&
+      this.searchHighlighter &&
+      this.props.search &&
+      this.props.search.selectedResult &&
+      (
+        !prevProps.search ||
+        (this.props.search.selectedResult !== prevProps.search.selectedResult)
+      )
+    ) {
+      this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
     }
   }
 
@@ -94,7 +106,7 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public componentWillUnmount() {
-    if (this.container) {
+    if (this.container.current) {
       this.linksOff();
     }
   }
@@ -104,10 +116,40 @@ export class PageComponent extends Component<PropTypes> {
 
     return <MainContent
       className={this.props.className}
-      ref={(ref: any) => this.container = ref}
+      ref={this.container}
       dangerouslySetInnerHTML={{ __html: html}}
     />;
   }
+
+  private scrollToSearch = (container: HTMLElement, highlighter: Highlighter, selected: SelectedResult) => {
+    const elementHighlights = this.searchResultMap.find((map) => isEqual(map.result, selected.result));
+    const selectedHighlights = elementHighlights && elementHighlights.highlights[selected.highlight];
+    const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
+
+    highlighter.clearFocus();
+
+    if (firstSelectedHighlight) {
+      firstSelectedHighlight.focus();
+
+      allImagesLoaded(container)
+        .then(() => scrollTo(firstSelectedHighlight.elements[0]));
+    }
+  };
+
+  private updateHighlights = () => {
+    const { searchResults } = this.props;
+
+    if (!this.container.current || !this.searchHighlighter) {
+      return;
+    }
+
+    this.searchHighlighter.eraseAll();
+    this.searchResultMap = highlightResults(this.searchHighlighter, searchResults);
+
+    if (this.props.search && this.props.search.selectedResult) {
+      this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
+    }
+  };
 
   private getPrerenderedContent() {
     if (
@@ -195,14 +237,14 @@ export class PageComponent extends Component<PropTypes> {
 }
 
   private getScrollTarget(): Element | null {
-    return this.container && typeof(window) !== 'undefined' && this.props.hash
-      ? this.container.querySelector(`[id="${this.props.hash.replace(/^#/, '')}"]`)
+    return this.container.current && typeof(window) !== 'undefined' && this.props.hash
+      ? this.container.current.querySelector(`[id="${this.props.hash.replace(/^#/, '')}"]`)
       : null;
   }
 
   private mapLinks(cb: (a: HTMLAnchorElement) => void) {
-    if (this.container) {
-      Array.from(this.container.querySelectorAll('a')).forEach(cb);
+    if (this.container.current) {
+      Array.from(this.container.current.querySelectorAll('a')).forEach(cb);
     }
   }
 
@@ -248,8 +290,8 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private postProcess() {
-    if (this.container && typeof(window) !== 'undefined') {
-      const promise = typesetMath(this.container, window);
+    if (this.container.current && typeof(window) !== 'undefined') {
+      const promise = typesetMath(this.container.current, window);
       this.props.services.promiseCollector.add(promise);
     }
   }
@@ -277,6 +319,20 @@ const StyledPageComponent = styled(PageComponent)`
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
+  @media screen {
+    .search-highlight {
+      background-color: #ffd17e;
+
+      &.focus {
+        background-color: #ff9e4b;
+
+        .search-highlight {
+          background-color: unset;
+        }
+      }
+    }
+  }
+
   .os-figure,
   .os-figure:last-child {
     margin-bottom: 5px; /* fix double scrollbar bug */
@@ -294,7 +350,14 @@ export default connect(
     hash: selectNavigation.hash(state),
     page: select.page(state),
     references: select.contentReferences(state),
-    search: selectSearch.query(state),
+    search: selectSearch.query(state) || selectSearch.selectedResult(state)
+      ? {
+        query: selectSearch.query(state),
+        selectedResult: selectSearch.selectedResult(state),
+      }
+      : undefined
+    ,
+    searchResults: selectSearch.currentPageResults(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

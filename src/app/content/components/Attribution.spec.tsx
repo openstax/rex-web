@@ -2,6 +2,7 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../test/utils';
 import MessageProvider from '../../MessageProvider';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
@@ -16,7 +17,7 @@ let renderToDom: any;
 describe('Attribution', () => {
   beforeEach(() => {
     jest.resetAllMocks();
-    jest.resetModules();
+    resetModules();
     React = require('react');
     ReactDOM = require('react-dom');
     Provider = require('react-redux').Provider;

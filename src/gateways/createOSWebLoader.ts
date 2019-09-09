@@ -10,6 +10,7 @@ export interface OSWebBook {
   authors: Array<{
     value: {
       name: string;
+      senior_author: boolean;
     }
   }>;
   cover_color: Book['theme'];
