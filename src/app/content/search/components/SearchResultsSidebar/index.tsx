@@ -41,7 +41,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
   }
 
   public componentWillReceiveProps(newProps: Props) {
-    if (newProps.results) {
+    if (newProps.results || (newProps.query !== this.state.query && !this.state.query)) {
       this.setState(this.getStateProps(newProps));
     }
   }
