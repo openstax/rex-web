@@ -48,7 +48,10 @@ const ContentNotifications = styled(Notifications)`
   z-index: ${theme.zIndex.contentNotifications};
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+    top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
+        ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
+        : bookBannerMobileMiniHeight + toolbarMobileHeight
+    }rem;
   `)}
 `;
 
@@ -185,7 +188,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
             <ContentPane>
               <UndoPadding>
                 <MainContentWrapper>
-                  <ContentNotifications />
+                  <ContentNotifications mobileExpanded={mobileExpanded} />
                   <HideOverflowAndRedoPadding>
                     <Page />
                     <PrevNextBar />
