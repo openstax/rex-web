@@ -1401,7 +1401,7 @@ li[aria-label="Current Page"] .c46 {
 }
 
 .c42 > .c43 > details > ol {
-  margin-left: 2.059375rem;
+  margin-left: 2.359375rem;
 }
 
 .c58 {
@@ -1431,7 +1431,7 @@ li[aria-label="Current Page"] .c46 {
 }
 
 .c58 > .c43 > details > ol {
-  margin-left: 4.009375rem;
+  margin-left: 4.309375rem;
 }
 
 .c59 {
@@ -1461,7 +1461,7 @@ li[aria-label="Current Page"] .c46 {
 }
 
 .c59 > .c43 > details > ol {
-  margin-left: 0.5rem;
+  margin-left: 0.8rem;
 }
 
 .c47 {
