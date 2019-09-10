@@ -73,6 +73,12 @@ describe('ScrollOffset', () => {
     expect(assertWindow().scrollBy).not.toHaveBeenCalled();
   });
 
+  it('handles hashchange', () => {
+    const window = assertWindow();
+    window.dispatchEvent(new (window as any).Event('hashchange', {bubbles: true}));
+    expect(addEventListener).toHaveBeenCalledWith('scroll', expect.anything());
+  });
+
   describe('when clicking a hash link', () => {
     let hashLink: HTMLElement;
     let getElementById: jest.SpyInstance;
