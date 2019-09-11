@@ -5,13 +5,13 @@ import createTestStore from '../../../test/createTestStore';
 import { resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
-import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
 let React: any; // tslint:disable-line:variable-name
 let renderer: any;
 let Provider: any; // tslint:disable-line:variable-name
 let renderToDom: any;
+let MessageProvider: typeof import ('../../MessageProvider').default; // tslint:disable-line:variable-name
 
 describe('content', () => {
   beforeEach(() => {
@@ -21,6 +21,7 @@ describe('content', () => {
     Provider = require('react-redux').Provider;
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
+    MessageProvider = require('../../MessageProvider').default;
   });
 
   describe('in browser', () => {

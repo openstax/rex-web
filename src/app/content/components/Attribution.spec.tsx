@@ -3,7 +3,6 @@ import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
-import MessageProvider from '../../MessageProvider';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -13,6 +12,7 @@ let ReactDOM: any; // tslint:disable-line:variable-name
 let renderer: any;
 let Provider: any; // tslint:disable-line:variable-name
 let renderToDom: any;
+let MessageProvider: typeof import ('../../MessageProvider').default; // tslint:disable-line:variable-name
 
 describe('Attribution', () => {
   beforeEach(() => {
@@ -23,6 +23,7 @@ describe('Attribution', () => {
     Provider = require('react-redux').Provider;
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
+    MessageProvider = require('../../MessageProvider').default;
   });
 
   describe('in browser', () => {
