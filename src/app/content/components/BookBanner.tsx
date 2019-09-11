@@ -185,7 +185,9 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   };
 
   public componentDidMount() {
-    const document = assertDocument();
+    if (typeof document === 'undefined') {
+      return;
+    }
     document.addEventListener('scroll', this.handleScroll);
     this.handleScroll();
   }
