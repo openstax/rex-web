@@ -29,6 +29,10 @@ import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
+if (typeof(document) !== 'undefined') {
+  import(/* webpackChunkName: "nodelist-foreach-polyfill" */ 'nodelist-foreach-polyfill');
+}
+
 interface PropTypes {
   page: State['page'];
   book: State['book'];

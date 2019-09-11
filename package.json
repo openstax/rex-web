@@ -17,6 +17,7 @@
     "html-entities": "^1.2.1",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
+    "nodelist-foreach-polyfill": "^1.2.0",
     "path-to-regexp": "^3.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
@@ -87,8 +88,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/pretty": "^2.0.0",
-    "@types/redux-sentry-middleware": "^0.1.0",
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
@@ -108,6 +107,7 @@
     "@types/md5-file": "^4.0.0",
     "@types/node": "^12.0.10",
     "@types/node-fetch": "^2.1.4",
+    "@types/pretty": "^2.0.0",
     "@types/progress": "^2.0.3",
     "@types/puppeteer": "^1.10.0",
     "@types/query-string": "^6.2.0",
@@ -117,6 +117,7 @@
     "@types/react-loadable": "^5.5.0",
     "@types/react-redux": "^7.1.1",
     "@types/react-test-renderer": "^16.8.2",
+    "@types/redux-sentry-middleware": "^0.1.0",
     "@types/serve-static": "^1.13.2",
     "@types/stacktrace-js": "^0.0.32",
     "@types/styled-components": "^4.1.12",
