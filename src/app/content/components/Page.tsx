@@ -304,7 +304,7 @@ export class PageComponent extends Component<PropTypes> {
     const solution = button.parentElement.parentElement;
 
     if (solution.classList.contains('ui-solution-visible')) {
-      solution.className = solution.className.replace('ui-solution-visible', '');
+      solution.classList.remove('ui-solution-visible');
       solution.removeAttribute('aria-expanded');
       solution.setAttribute('aria-label', 'show solution');
     } else {
