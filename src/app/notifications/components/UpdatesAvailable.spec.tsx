@@ -1,11 +1,10 @@
-import rendererType from 'react-test-renderer';
 import { resetModules } from '../../../test/utils';
 
 describe('UpdatesAvailable', () => {
-  let MessageProvider: typeof import ('../../MessageProvider').default; // tslint:disable-line:variable-name
-  let React: typeof import ('react'); // tslint:disable-line:variable-name
-  let UpdatesAvailable: typeof import ('./UpdatesAvailable').default; // tslint:disable-line:variable-name
-  let renderer: typeof rendererType;
+  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
+  let React = require('react'); // tslint:disable-line:variable-name
+  let UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
+  let renderer = require('react-test-renderer');
 
   beforeEach(() => {
     resetModules();

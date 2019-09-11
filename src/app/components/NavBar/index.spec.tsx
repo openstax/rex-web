@@ -7,13 +7,14 @@ import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
-let React: any; // tslint:disable-line:variable-name
-let renderer: any;
-let Provider: any; // tslint:disable-line:variable-name
-let renderToDom: any;
-let MessageProvider: typeof import ('../../MessageProvider').default; // tslint:disable-line:variable-name
 
 describe('content', () => {
+  let React: any; // tslint:disable-line:variable-name
+  let renderer: any;
+  let Provider: any; // tslint:disable-line:variable-name
+  let renderToDom: any;
+  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
+
   beforeEach(() => {
     resetModules();
     jest.resetAllMocks();

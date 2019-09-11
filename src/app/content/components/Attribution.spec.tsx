@@ -7,14 +7,15 @@ import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
-let React: any; // tslint:disable-line:variable-name
-let ReactDOM: any; // tslint:disable-line:variable-name
-let renderer: any;
-let Provider: any; // tslint:disable-line:variable-name
-let renderToDom: any;
-let MessageProvider: typeof import ('../../MessageProvider').default; // tslint:disable-line:variable-name
 
 describe('Attribution', () => {
+  let React: any; // tslint:disable-line:variable-name
+  let ReactDOM: any; // tslint:disable-line:variable-name
+  let renderer: any;
+  let Provider: any; // tslint:disable-line:variable-name
+  let renderToDom: any;
+  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
+
   beforeEach(() => {
     jest.resetAllMocks();
     resetModules();
