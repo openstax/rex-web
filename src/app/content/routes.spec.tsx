@@ -1,13 +1,17 @@
-import React from 'react';
 import { book, page } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
-import createApp from '../index';
+import { resetModules } from '../../test/utils';
 import { Match } from '../navigation/types';
 import { AppServices } from '../types';
-import { content } from './routes';
 
 describe('content route', () => {
+  let content: any;
+  let React: any; // tslint:disable-line:variable-name
+  let renderer: any;
+  let createApp: any;
+
   it('generates a url', () => {
+    content = require('./routes').content;
     const url = content.getUrl({book: 'book', page: 'page'});
     expect(url).toEqual('/books/book/pages/page');
   });
@@ -15,12 +19,14 @@ describe('content route', () => {
   describe('route renders', () => {
     const windowBackup = window;
     const documentBackup = document;
-    let renderer: any;
 
     beforeEach(() => {
+      resetModules();
       delete (global as any).window;
-      delete (global as any).document;
+      content = require('./routes').content;
       renderer = require('react-test-renderer');
+      React = require('react');
+      createApp = require('../index').default;
     });
 
     afterEach(() => {

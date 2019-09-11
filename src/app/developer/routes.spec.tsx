@@ -1,22 +1,29 @@
-import React from 'react';
-import createApp from '../index';
+import { resetModules } from '../../test/utils';
 import { AppServices } from '../types';
-import { developerHome } from './routes';
 
 describe('developer route', () => {
+  let React: any; // tslint:disable-line:variable-name
+  let renderer: any;
+  let createApp: any;
+  let developerHome: any;
+
   it('makes a url', () => {
+    developerHome = require('./routes').default;
     expect(developerHome.getUrl()).toEqual(developerHome.paths[0]);
   });
 
   describe('route renders', () => {
     const windowBackup = window;
     const documentBackup = document;
-    let renderer: any;
 
     beforeEach(() => {
+      resetModules();
       delete (global as any).window;
       delete (global as any).document;
+      React = require('react');
       renderer = require('react-test-renderer');
+      createApp = require('../index').default;
+      developerHome = require('./routes').default;
     });
 
     afterEach(() => {
