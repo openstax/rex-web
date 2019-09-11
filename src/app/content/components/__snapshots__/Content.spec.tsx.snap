@@ -663,6 +663,7 @@ Array [
 }
 
 .c28 {
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: 12rem;
   margin-top: 0;
@@ -4087,6 +4088,7 @@ Array [
 }
 
 .c20 {
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: 12rem;
   margin-top: 0;
