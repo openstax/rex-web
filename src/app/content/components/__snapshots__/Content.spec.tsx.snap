@@ -451,12 +451,10 @@ Array [
 .c20 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   appearance: textfield;
+  font-size: 1.6rem;
   line-height: 2;
   margin: 0 1rem 0 1rem;
   height: 3.2rem;
@@ -479,43 +477,19 @@ Array [
 }
 
 .c20::-webkit-input-placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c20::-moz-placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c20:-ms-input-placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c20::placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c17 {
@@ -3901,12 +3875,10 @@ Array [
 .c12 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   appearance: textfield;
+  font-size: 1.6rem;
   line-height: 2;
   margin: 0 1rem 0 1rem;
   height: 3.2rem;
@@ -3929,43 +3901,19 @@ Array [
 }
 
 .c12::-webkit-input-placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c12::-moz-placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c12:-ms-input-placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c12::placeholder {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
   color: #6f6f6f;
-  line-height: inherit;
 }
 
 .c9 {
