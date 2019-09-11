@@ -4,6 +4,7 @@ import { HTMLAnchorElement, HTMLButtonElement, HTMLDivElement, HTMLElement, Mous
 import flow from 'lodash/fp/flow';
 import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
+import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
@@ -30,6 +31,7 @@ import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 interface PropTypes {
+  intl: IntlShape;
   page: State['page'];
   book: State['book'];
   hash: string;
@@ -239,12 +241,14 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   private wrapSolutions(rootEl: HTMLElement) {
+    const title = this.props.intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
+
     // Wrap solutions in a div so "Show/Hide Solutions" work
     rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
       const contents = el.innerHTML;
       el.innerHTML = `
         <div class="ui-toggle-wrapper">
-          <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
+          <button class="btn-link ui-toggle" title="${title}"></button>
         </div>
         <section class="ui-body" role="alert">${contents}</section>
       `;
@@ -306,11 +310,11 @@ export class PageComponent extends Component<PropTypes> {
     if (solution.classList.contains('ui-solution-visible')) {
       solution.classList.remove('ui-solution-visible');
       solution.removeAttribute('aria-expanded');
-      solution.setAttribute('aria-label', 'show solution');
+      solution.setAttribute('aria-label', this.props.intl.formatMessage({id: 'i18n:content:solution:show'}));
     } else {
       solution.className += ' ui-solution-visible';
       solution.setAttribute('aria-expanded', '');
-      solution.setAttribute('aria-label', 'hide solution');
+      solution.setAttribute('aria-label', this.props.intl.formatMessage({id: 'i18n:content:solution:hide'}));
     }
   };
 
@@ -392,7 +396,7 @@ const StyledPageComponent = styled(PageComponent)`
   }
 `;
 
-export default connect(
+const connector = connect(
   (state: AppState) => ({
     book: select.book(state),
     currentPath: selectNavigation.pathname(state),
@@ -411,4 +415,10 @@ export default connect(
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
   })
-)(withServices(StyledPageComponent));
+);
+
+export default flow(
+  injectIntl,
+  withServices,
+  connector
+)(StyledPageComponent);
