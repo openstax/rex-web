@@ -7756,6 +7756,11 @@ mdn-data@~1.1.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-1.1.4.tgz#50b5d4ffc4575276573c4eedb8780812a8419f01"
 
+mdn-polyfills@^5.18.0:
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/mdn-polyfills/-/mdn-polyfills-5.18.0.tgz#a7d6ad45753dfd359f3d50b381cdb0a625581e50"
+  integrity sha512-ZPfQnRpxGex77QdYXEX2ucbaEpNzLZjCjEGL6NDAbBqsqkQBIhQkTrCsIKBzNMM3Iofk2MOFq/YoU/fyklOGPw==
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -8208,11 +8213,6 @@ node-releases@^1.1.8:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.10.tgz#5dbeb6bc7f4e9c85b899e2e7adcc0635c9b2adf7"
   dependencies:
     semver "^5.3.0"
-
-nodelist-foreach-polyfill@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/nodelist-foreach-polyfill/-/nodelist-foreach-polyfill-1.2.0.tgz#92bca739959af68271734087e48474c2fef5152c"
-  integrity sha512-hPW0tSoi1gJ3diSOyjFYOsYLZjnxF04psobzKA5GGGCz3fKHnLODwgdyXQq2cddYlvmT3q+ZNEBrfBdMkYPLaA==
 
 "nomnom@>= 1.5.x":
   version "1.8.1"

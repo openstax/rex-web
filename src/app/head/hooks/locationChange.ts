@@ -3,7 +3,7 @@ import { ActionHookBody } from '../../types';
 import { actionHook, assertDefined } from '../../utils';
 
 if (typeof(document) !== 'undefined') {
-  import(/* webpackChunkName: "nodelist-foreach-polyfill" */ 'nodelist-foreach-polyfill');
+  import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
 
 export const hookBody: ActionHookBody<typeof locationChange> = () => () => {

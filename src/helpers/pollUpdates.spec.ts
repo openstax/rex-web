@@ -62,7 +62,7 @@ describe('poll updates', () => {
         APP_ENV: 'production',
         RELEASE_ID: 'releaseid',
       }));
-      jest.resetModules();
+      resetModules();
       pollUpdates = require('./pollUpdates').default;
       googleAnalyticsClient = require('../gateways/googleAnalyticsClient').default;
     });
