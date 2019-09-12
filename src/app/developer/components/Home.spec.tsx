@@ -1,26 +1,16 @@
+import React from 'react';
+import { Provider } from 'react-redux';
+import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import { resetModules } from '../../../test/utils';
-import { AppServices } from '../../types';
+import * as Services from '../../context/Services';
+import MessageProvider from '../../MessageProvider';
+import Home from './Home';
 
 describe('Home', () => {
-  let React: any; // tslint:disable-line:variable-name
-  let Provider: any; // tslint:disable-line:variable-name
-  let Home: any; // tslint:disable-line:variable-name
-  let renderer: any;
-  let MessageProvider: any; // tslint:disable-line:variable-name
-  let Services: any; // tslint:disable-line:variable-name
-  let services: AppServices;
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
-    resetModules();
-    React = require('react');
-    Provider = require('react-redux').Provider;
-    renderer = require('react-test-renderer');
-    Home = require('./Home').default;
-    Services = require('../../context/Services');
-    MessageProvider = require('../../MessageProvider').default;
-
     services = createTestServices();
   });
 
