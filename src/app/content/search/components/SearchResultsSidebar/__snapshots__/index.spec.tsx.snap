@@ -10,6 +10,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 }
 
 .c0 {
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: 12rem;
   margin-top: 0;
@@ -234,6 +235,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c0 {
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: 12rem;
   margin-top: 0;
@@ -602,9 +604,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       >
         3
          
-        <span>
-          search results for 
-        </span>
+        search results for 
         <strong>
            ‘
           cool search
@@ -941,6 +941,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 }
 
 .c0 {
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: 12rem;
   margin-top: 0;
