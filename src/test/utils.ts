@@ -2,12 +2,12 @@ import mockRangy from './mocks/rangy';
 
 export const resetModules = () => {
   jest.resetModules();
-  jest.mock('rangy', () => mockRangy);
-  jest.mock('rangy/lib/rangy-textrange', () => ({}));
-  jest.mock('ally.js/style/focus-within');
-  jest.mock('mdn-polyfills/Node.prototype.children');
-  jest.mock('mdn-polyfills/NodeList.prototype.forEach');
-  jest.mock('details-element-polyfill', () => jest.fn());
+  jest.doMock('rangy', () => mockRangy);
+  jest.doMock('rangy/lib/rangy-textrange', () => ({}));
+  jest.doMock('ally.js/style/focus-within');
+  jest.doMock('mdn-polyfills/Node.prototype.children', () => ({}));
+  jest.doMock('mdn-polyfills/NodeList.prototype.forEach', () => ({}));
+  jest.doMock('details-element-polyfill', () => jest.fn());
 
   return {
     MessageProvider: require('../app/MessageProvider').default,

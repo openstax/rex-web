@@ -37,14 +37,17 @@ describe('setHead hook', () => {
 
   describe('outside the browser', () => {
     const documentBackup = document;
+    const windowBackup = window;
 
     beforeEach(() => {
       delete (global as any).document;
+      delete (global as any).window;
       hookBody = require('./locationChange').hookBody;
     });
 
     afterEach(() => {
       (global as any).document = documentBackup;
+      (global as any).window = windowBackup;
     });
 
     it('doesn\'t break', () => {
