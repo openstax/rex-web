@@ -23,10 +23,8 @@ describe('content route', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      resetModules();
+      ({React, renderer} = resetModules());
       content = require('./routes').content;
-      renderer = require('react-test-renderer');
-      React = require('react');
       createApp = require('../index').default;
     });
 

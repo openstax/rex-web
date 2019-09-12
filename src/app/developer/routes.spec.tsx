@@ -19,9 +19,7 @@ describe('developer route', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      resetModules();
-      React = require('react');
-      renderer = require('react-test-renderer');
+      ({React, renderer} = resetModules());
       createApp = require('../index').default;
       developerHome = require('./routes').developerHome;
     });
