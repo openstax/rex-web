@@ -1955,7 +1955,6 @@ li[aria-label="Current Page"] .c47 {
     box-shadow: none;
     background-color: transparent;
     pointer-events: none;
-    visibility: hidden;
   }
 
   .c38 > * {
@@ -4847,7 +4846,6 @@ Array [
     box-shadow: none;
     background-color: transparent;
     pointer-events: none;
-    visibility: hidden;
   }
 
   .c30 > * {
