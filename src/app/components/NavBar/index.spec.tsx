@@ -157,19 +157,24 @@ describe('content', () => {
 
   describe('polyfill', () => {
     let loaded: boolean;
+    let init: jest.SpyInstance;
 
     beforeEach(() => {
       loaded = false;
+      init = jest.fn();
 
-      jest.mock('ally.js/style/focus-within', () => {
+      jest.doMock('ally.js/style/focus-within', () => {
         loaded = true;
+        return init;
       });
     });
 
     describe('inside browser', () => {
       it('loads', async() => {
-        await import('.');
+        require('.');
+        await Promise.resolve();
         expect(loaded).toBe(true);
+        expect(init).toHaveBeenCalled();
       });
     });
 
@@ -188,8 +193,10 @@ describe('content', () => {
       });
 
       it('doesn\'t load', async() => {
-        await import('.');
+        require('.');
+        await Promise.resolve();
         expect(loaded).toBe(false);
+        expect(init).not.toHaveBeenCalled();
       });
     });
   });

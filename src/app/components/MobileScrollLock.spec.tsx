@@ -1,17 +1,17 @@
 import { Document, Element, MediaQueryList } from '@openstax/types/lib.dom';
-import ReactType, { ComponentType } from 'react';
-import { unmountComponentAtNode } from 'react-dom';
+import { ComponentType } from 'react';
 import rendererType from 'react-test-renderer';
-import { renderToDom } from '../../test/reactutils';
 import { resetModules } from '../../test/utils';
 
 describe('MobileScrollLock', () => {
+  let React: ReturnType<typeof resetModules>['React']; // tslint:disable-line:variable-name
+  let renderToDom: ReturnType<typeof resetModules>['renderToDom'];
+  let ReactDOM: ReturnType<typeof resetModules>['ReactDOM']; // tslint:disable-line:variable-name
 
   describe('in browser', () => {
     let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
-    let React: typeof ReactType; // tslint:disable-line:variable-name
     beforeEach(() => {
-      React = require('react');
+      ({React, renderToDom, ReactDOM} = resetModules());
       MobileScrollLock = require('./MobileScrollLock').default;
     });
 
@@ -21,7 +21,7 @@ describe('MobileScrollLock', () => {
       }
 
       const {root} = renderToDom(<MobileScrollLock />);
-      expect(() => unmountComponentAtNode(root)).not.toThrow();
+      expect(() => ReactDOM.unmountComponentAtNode(root)).not.toThrow();
     });
 
     describe('when scrolling', () => {
@@ -110,20 +110,17 @@ describe('MobileScrollLock', () => {
 
     let renderer: typeof rendererType;
     let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
-    let React: typeof ReactType; // tslint:disable-line:variable-name
 
     beforeEach(() => {
-      resetModules();
       delete (global as any).window;
       delete (global as any).document;
+      ({React, renderToDom, renderer} = resetModules());
 
       const styled = require('styled-components');
       // this is broken when unmounting without a dom
       styled.createGlobalStyle = () => () => null;
 
       MobileScrollLock = require('./MobileScrollLock').default;
-      React = require('react');
-      renderer = require('react-test-renderer');
     });
 
     afterEach(() => {
