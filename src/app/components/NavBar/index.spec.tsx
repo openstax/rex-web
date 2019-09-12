@@ -152,6 +152,21 @@ describe('content', () => {
         expect(getComputedStyle).toHaveBeenCalledWith(overlay);
         expect(preventDefault).not.toHaveBeenCalled();
       });
+
+      it('noops without a dom', () => {
+        const element = renderer.create(render());
+        const OnScroll = require('../OnScroll').default; // tslint:disable-line:variable-name
+        const onScroll = element.root.findByType(OnScroll);
+
+        const event = window.document.createEvent('UIEvents');
+        event.initEvent('scroll', true, false);
+        const preventDefault = jest.spyOn(event, 'preventDefault');
+
+        onScroll.props.callback(event);
+
+        expect(getComputedStyle).not.toHaveBeenCalled();
+        expect(preventDefault).not.toHaveBeenCalled();
+      });
     });
   });
 
