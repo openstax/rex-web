@@ -39,6 +39,7 @@ describe('poll updates', () => {
       return null;
     }
     MockDate.prototype.getTime = jest.fn(() => (new dateBackup()).getTime());
+    MockDate.now = jest.fn(() => (new dateBackup()).getTime());
     (global as any).Date = MockDate;
   });
 

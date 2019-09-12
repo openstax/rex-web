@@ -1,14 +1,10 @@
 import { resetModules } from '../../../test/utils';
 
 describe('UpdatesAvailable', () => {
-  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
-  let React = require('react'); // tslint:disable-line:variable-name
+  let React: ReturnType<typeof resetModules>['React']; // tslint:disable-line:variable-name
+  let renderer: ReturnType<typeof resetModules>['renderer'];
+  let MessageProvider: ReturnType<typeof resetModules>['MessageProvider']; // tslint:disable-line:variable-name
   let UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
-  let renderer = require('react-test-renderer');
-
-  beforeEach(() => {
-    resetModules();
-  });
 
   describe('in browser', () => {
     const reloadBackup = window!.location.reload;
@@ -16,10 +12,8 @@ describe('UpdatesAvailable', () => {
 
     beforeEach(() => {
       reload = window!.location.reload = jest.fn();
-      MessageProvider = require('../../MessageProvider').default;
-      React = require('react');
-      UpdatesAvailable = require('./UpdatesAvailable').default;
-      renderer = require('react-test-renderer');
+      ({React, renderer, MessageProvider} = resetModules());
+      UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
     });
 
     afterEach(() => {
@@ -40,10 +34,8 @@ describe('UpdatesAvailable', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      React = require('react');
-      renderer = require('react-test-renderer');
-      MessageProvider = require('../../MessageProvider').default;
-      UpdatesAvailable = require('./UpdatesAvailable').default;
+      ({React, renderer, MessageProvider} = resetModules());
+      UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
     });
 
     afterEach(() => {
