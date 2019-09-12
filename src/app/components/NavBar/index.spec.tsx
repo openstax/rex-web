@@ -1,5 +1,4 @@
 import { ComponentClass } from 'react';
-import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
 import { resetModules } from '../../../test/utils';
@@ -9,20 +8,16 @@ import { Store } from '../../types';
 import { assertWindow } from '../../utils';
 
 describe('content', () => {
-  let React: any; // tslint:disable-line:variable-name
-  let renderer: any;
-  let Provider: any; // tslint:disable-line:variable-name
-  let renderToDom: any;
-  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof resetModules>['React']; // tslint:disable-line:variable-name
+  let renderer: ReturnType<typeof resetModules>['renderer'];
+  let Provider: ReturnType<typeof resetModules>['Provider']; // tslint:disable-line:variable-name
+  let renderToDom: ReturnType<typeof resetModules>['renderToDom'];
+  let ReactDOM: ReturnType<typeof resetModules>['ReactDOM']; // tslint:disable-line:variable-name
+  let MessageProvider: ReturnType<typeof resetModules>['MessageProvider']; // tslint:disable-line:variable-name
 
   beforeEach(() => {
-    resetModules();
+    ({React, Provider, renderer, ReactDOM, renderToDom, MessageProvider} = resetModules());
     jest.resetAllMocks();
-    React = require('react');
-    Provider = require('react-redux').Provider;
-    renderer = require('react-test-renderer');
-    renderToDom = require('../../../test/reactutils').renderToDom;
-    MessageProvider = require('../../MessageProvider').default;
   });
 
   describe('in browser', () => {
@@ -34,10 +29,10 @@ describe('content', () => {
     let user: User;
 
     beforeEach(() => {
+      user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
       store = createTestStore();
       NavBar = require('.').default;
       Dropdown = require('.').Dropdown;
-      user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
     });
 
     const render = () => <Provider store={store}>
@@ -48,8 +43,9 @@ describe('content', () => {
 
     it('matches snapshot for null state', () => {
       const component = renderer.create(render());
-
       const tree = component.toJSON();
+      component.unmount();
+
       expect(tree).toMatchSnapshot();
     });
 
@@ -60,8 +56,9 @@ describe('content', () => {
 
       it('matches snapshot', () => {
         const component = renderer.create(render());
-
         const tree = component.toJSON();
+        component.unmount();
+
         expect(tree).toMatchSnapshot();
       });
 
@@ -91,12 +88,12 @@ describe('content', () => {
     });
 
     it('matches snapshot for logged out', () => {
-
       store.dispatch(receiveLoggedOut());
 
       const component = renderer.create(render());
-
       const tree = component.toJSON();
+      component.unmount();
+
       expect(tree).toMatchSnapshot();
     });
 

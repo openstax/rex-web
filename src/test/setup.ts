@@ -86,7 +86,6 @@ afterEach(() => {
   if (typeof(window) === 'undefined') {
     return;
   }
-  (window as any).scCGSHMRCache = {};
   matchMedia.mockReset();
   scrollTo.mockReset();
   scrollBy.mockReset();
