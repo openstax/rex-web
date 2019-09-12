@@ -1,20 +1,164 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorCard matches snapshot 1`] = `
+.c6 {
+  padding: 1.5rem 0;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: auto;
+  overflow: hidden;
+  width: 40rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 3rem;
+  background: #f1f1f1;
+  border-bottom: solid 0.1rem #fafafa;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0;
+  padding: 1.5rem 0;
+}
+
+.c5 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  font-weight: 400;
+  padding: 1.5rem 0;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 3rem;
+}
+
++ .c4 {
+  margin-top: 0;
+}
+
+.c3 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  margin-right: 0;
+  padding-right: 0;
+  color: #818181;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c3:hover {
+  color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
 <div
-  className="ErrorCard__Card-sc-4m26nf-1 brfjef"
+  className="c0"
 >
   <header
-    className="ErrorCard__Header-sc-4m26nf-2 gvbhnG"
+    className="c1"
   >
     <h1
-      className="ErrorCard__Heading-sc-4m26nf-3 jUmKYj"
+      className="c2"
     >
       Error
     </h1>
     <svg
       aria-hidden="true"
-      className="ErrorCard__CloseModalIcon-sc-4m26nf-7 jLRIRZ"
+      className="c3"
       focusable="false"
       height="15px"
       version="1.1"
@@ -43,15 +187,15 @@ exports[`ErrorCard matches snapshot 1`] = `
     </svg>
   </header>
   <div
-    className="ErrorCard__Body-sc-4m26nf-5 fziILt"
+    className="c4"
   >
     <h3
-      className="ErrorCard__BodyHeading-sc-4m26nf-4 fMOzYU"
+      className="c5"
     >
       Uh-oh, there's been a glitch
     </h3>
     <div
-      className="ErrorCard__BodyErrorText-sc-4m26nf-0 elIzwY"
+      className="c6"
       dangerouslySetInnerHTML={
         Object {
           "__html": "

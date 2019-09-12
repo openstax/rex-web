@@ -8,6 +8,7 @@ export const resetModules = () => {
   jest.doMock('mdn-polyfills/Node.prototype.children', () => ({}));
   jest.doMock('mdn-polyfills/NodeList.prototype.forEach', () => ({}));
   jest.doMock('details-element-polyfill', () => jest.fn());
+  require('jest-styled-components');
 
   return {
     MessageProvider: require('../app/MessageProvider').default,

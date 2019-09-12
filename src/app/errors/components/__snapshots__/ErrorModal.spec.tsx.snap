@@ -1,26 +1,252 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorModal matches snapshot 1`] = `
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c10:hover {
+  background-color: #e96128;
+}
+
+.c10:active {
+  background-color: #df571e;
+}
+
+.c8 {
+  padding: 1.5rem 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: auto;
+  overflow: hidden;
+  width: 40rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0,0,0,0.05),0 0 4rem rgba(0,0,0,0.08);
+}
+
+.c2 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 a:hover {
+  color: #0064A0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 3rem;
+  background: #f1f1f1;
+  border-bottom: solid 0.1rem #fafafa;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c4 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0;
+  padding: 1.5rem 0;
+}
+
+.c7 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  font-weight: 400;
+  padding: 1.5rem 0;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 3rem;
+}
+
++ .c6 {
+  margin-top: 0;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 3rem;
+}
+
+.c5 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  margin-right: 0;
+  padding-right: 0;
+  color: #818181;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c5:hover {
+  color: #5e6062;
+}
+
+.c11 {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 2;
+  position: fixed;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.c0 {
+  top: 0;
+  z-index: 12;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 {
+  z-index: 3;
+}
+
+@media screen and (max-width:75em) {
+  .c4 {
+    font-family: Neue Helvetica W01;
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c7 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
 <div
-  className="error-modal ErrorModal__Modal-sc-1q7eiy-1 dzXYEn"
+  className="error-modal c0"
 >
   <div
-    className="ErrorModal__CardWrapper-sc-1q7eiy-2 fqiOyp"
+    className="c1"
   >
     <div
-      className="ErrorCard__Card-sc-4m26nf-1 brfjef"
+      className="c2"
     >
       <header
-        className="ErrorCard__Header-sc-4m26nf-2 gvbhnG"
+        className="c3"
       >
         <h1
-          className="ErrorCard__Heading-sc-4m26nf-3 jUmKYj"
+          className="c4"
         >
           Error
         </h1>
         <svg
           aria-hidden="true"
-          className="ErrorCard__CloseModalIcon-sc-4m26nf-7 jLRIRZ"
+          className="c5"
           focusable="false"
           height="15px"
           onClick={[Function]}
@@ -50,15 +276,15 @@ exports[`ErrorModal matches snapshot 1`] = `
         </svg>
       </header>
       <div
-        className="ErrorCard__Body-sc-4m26nf-5 fziILt"
+        className="c6"
       >
         <h3
-          className="ErrorCard__BodyHeading-sc-4m26nf-4 fMOzYU"
+          className="c7"
         >
           Uh-oh, there's been a glitch
         </h3>
         <div
-          className="ErrorCard__BodyErrorText-sc-4m26nf-0 elIzwY"
+          className="c8"
           dangerouslySetInnerHTML={
             Object {
               "__html": "
@@ -70,10 +296,10 @@ exports[`ErrorModal matches snapshot 1`] = `
         />
       </div>
       <div
-        className="ErrorCard__Footer-sc-4m26nf-6 ifAqFm"
+        className="c9"
       >
         <button
-          className="Button-ayg7nk-0 bsjhuD"
+          className="c10"
           data-testid="clear-error"
           onClick={[Function]}
         >
@@ -84,7 +310,7 @@ exports[`ErrorModal matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="ErrorModal__Mask-sc-1q7eiy-0 jlDyPt"
+    className="c11"
   />
 </div>
 `;
