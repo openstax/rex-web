@@ -72,7 +72,7 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
   }
 
   public componentWillUnmount() {
-    if (typeof window === 'undefined') {
+    if (typeof(window) === 'undefined') {
       return;
     }
     window.removeEventListener('click', this.clickHandler);
