@@ -164,7 +164,7 @@ describe('content', () => {
     beforeEach(() => {
       loaded = false;
 
-      jest.mock('ally.js/style/focus-within', () => {
+      jest.mock('focus-within-polyfill', () => {
         loaded = true;
       });
     });

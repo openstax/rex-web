@@ -147,7 +147,7 @@ export const SearchInputWrapper = styled.form`
     box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
   }
 
-  &.ally-focus-within {
+  &.focus-within {
     border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
     box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
   }
