@@ -1,9 +1,10 @@
 import Highlighter from '@openstax/highlighter';
 import { SearchResultHit } from '@openstax/open-search-client';
-import { Element, HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLButtonElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
+import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
@@ -30,6 +31,7 @@ import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 interface PropTypes {
+  intl: IntlShape;
   page: State['page'];
   book: State['book'];
   hash: string;
@@ -44,7 +46,7 @@ interface PropTypes {
 
 export class PageComponent extends Component<PropTypes> {
   public container = React.createRef<HTMLDivElement>();
-  private clickListeners = new WeakMap<HTMLAnchorElement, (e: MouseEvent) => void>();
+  private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlighter: Highlighter | undefined;
   private searchResultMap: ReturnType<typeof highlightResults> = [];
 
@@ -60,8 +62,8 @@ export class PageComponent extends Component<PropTypes> {
       return;
     }
     this.postProcess(this.container.current);
-    this.linksOn();
     this.addGenericJs(this.container.current);
+    this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
@@ -72,9 +74,9 @@ export class PageComponent extends Component<PropTypes> {
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.postProcess(this.container.current);
-      this.linksOn();
-
       this.addGenericJs(this.container.current);
+      this.listenersOn();
+
       if (target) {
         allImagesLoaded(this.container.current).then(() => scrollTo(target));
       } else {
@@ -98,16 +100,18 @@ export class PageComponent extends Component<PropTypes> {
     ) {
       this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
     }
+
+    this.listenersOn();
   }
 
   public getSnapshotBeforeUpdate() {
-    this.linksOff();
+    this.listenersOff();
     return null;
   }
 
   public componentWillUnmount() {
     if (this.container.current) {
-      this.linksOff();
+      this.listenersOff();
     }
   }
 
@@ -167,19 +171,20 @@ export class PageComponent extends Component<PropTypes> {
 
   // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
   // .../src/scripts/modules/media/body/body.coffee#L123
-  private addGenericJs(rootEl: Element) {
+  private addGenericJs(rootEl: HTMLElement) {
     this.addScopeToTables(rootEl);
     this.wrapElements(rootEl);
     this.tweakFigures(rootEl);
     this.fixLists(rootEl);
+    this.wrapSolutions(rootEl);
   }
 
-  private addScopeToTables(rootEl: Element) {
+  private addScopeToTables(rootEl: HTMLElement) {
     rootEl.querySelectorAll('table th').forEach((el) => el.setAttribute('scope', 'col'));
   }
 
   // Wrap title and content elements in header and section elements, respectively
-  private wrapElements(rootEl: Element) {
+  private wrapElements(rootEl: HTMLElement) {
     rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
       [data-type="example"], [data-type="exercise"],
       [data-type="note"], [data-type="abstract"]`).forEach((el) => {
@@ -211,7 +216,7 @@ export class PageComponent extends Component<PropTypes> {
     });
   }
 
-  private tweakFigures(rootEl: Element) {
+  private tweakFigures(rootEl: HTMLElement) {
     // move caption to bottom of figure
     rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
       const parent = assertDefined(el.parentElement, 'figcaption parent should always be defined');
@@ -220,7 +225,7 @@ export class PageComponent extends Component<PropTypes> {
     });
   }
 
-  private fixLists(rootEl: Element) {
+  private fixLists(rootEl: HTMLElement) {
     // Copy data-mark-prefix and -suffix from ol to li so they can be used in css
     rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
     [data-type="list"][data-list-type="enumerated"][data-mark-prefix] > [data-type="item"],
@@ -234,7 +239,22 @@ export class PageComponent extends Component<PropTypes> {
     rootEl.querySelectorAll('ol[start], [data-type="list"][data-list-type="enumerated"][start]').forEach((el) => {
       el.setAttribute('style', `counter-reset: list-item ${el.getAttribute('start')}`);
     });
-}
+  }
+
+  private wrapSolutions(rootEl: HTMLElement) {
+    const title = this.props.intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
+
+    // Wrap solutions in a div so "Show/Hide Solutions" work
+    rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
+      const contents = el.innerHTML;
+      el.innerHTML = `
+        <div class="ui-toggle-wrapper">
+          <button class="btn-link ui-toggle" title="${title}"></button>
+        </div>
+        <section class="ui-body" role="alert">${contents}</section>
+      `;
+    });
+  }
 
   private getScrollTarget(): Element | null {
     return this.container.current && typeof(window) !== 'undefined' && this.props.hash
@@ -248,22 +268,56 @@ export class PageComponent extends Component<PropTypes> {
     }
   }
 
-  private linksOn() {
+  private mapSolutions(cb: (a: HTMLButtonElement) => void) {
+    if (this.container.current) {
+      Array.from(this.container.current.querySelectorAll<HTMLButtonElement>(
+        '[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle, .solution > .ui-toggle-wrapper > .ui-toggle'
+      )).forEach(cb);
+    }
+  }
+
+  private listenersOn() {
     this.mapLinks((a) => {
       const handler = this.clickListener(a);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
-  }
 
-  private linksOff() {
-    this.mapLinks((a) => {
-      const handler = this.clickListeners.get(a);
-      if (handler) {
-        a.removeEventListener('click', handler);
-      }
+    this.mapSolutions((button) => {
+      const handler = this.toggleSolution(button);
+      this.clickListeners.set(button, handler);
+      button.addEventListener('click', handler);
     });
   }
+
+  private listenersOff() {
+    const removeIfExists = (el: HTMLElement) => {
+      const handler = this.clickListeners.get(el);
+      if (handler) {
+        el.removeEventListener('click', handler);
+      }
+    };
+
+    this.mapLinks(removeIfExists);
+    this.mapSolutions(removeIfExists);
+  }
+
+  private toggleSolution = (button: HTMLElement) => () => {
+    if (!button.parentElement || !button.parentElement.parentElement) {
+      return;
+    }
+    const solution = button.parentElement.parentElement;
+
+    if (solution.classList.contains('ui-solution-visible')) {
+      solution.classList.remove('ui-solution-visible');
+      solution.removeAttribute('aria-expanded');
+      solution.setAttribute('aria-label', this.props.intl.formatMessage({id: 'i18n:content:solution:show'}));
+    } else {
+      solution.className += ' ui-solution-visible';
+      solution.setAttribute('aria-expanded', '');
+      solution.setAttribute('aria-label', this.props.intl.formatMessage({id: 'i18n:content:solution:hide'}));
+    }
+  };
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
     const {references, navigate, book} = this.props;
@@ -341,7 +395,7 @@ const StyledPageComponent = styled(PageComponent)`
   }
 `;
 
-export default connect(
+const connector = connect(
   (state: AppState) => ({
     book: select.book(state),
     currentPath: selectNavigation.pathname(state),
@@ -360,4 +414,10 @@ export default connect(
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
   })
-)(withServices(StyledPageComponent));
+);
+
+export default flow(
+  injectIntl,
+  withServices,
+  connector
+)(StyledPageComponent);
