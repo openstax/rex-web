@@ -42,8 +42,6 @@ interface PropTypes {
   searchResults: SearchResultHit[];
   search: RouteState<typeof content>['search'];
   services: AppServices;
-  tocIsOpen: boolean;
-  searchResultsOpen: boolean;
 }
 
 export class PageComponent extends Component<PropTypes> {
@@ -419,8 +417,6 @@ const connector = connect(
       : undefined
     ,
     searchResults: selectSearch.currentPageResults(state),
-    searchResultsOpen: selectSearch.searchResultsOpen(state),
-    tocIsOpen: select.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
