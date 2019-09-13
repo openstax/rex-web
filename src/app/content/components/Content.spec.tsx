@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
@@ -7,8 +8,11 @@ import mockArchiveLoader, {
   shortPage
 } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { renderToDom } from '../../../test/reactutils';
+import MainContent from '../../components/MainContent';
 import MobileScrollLock from '../../components/MobileScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
+import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { AppServices, AppState, Store } from '../../types';
@@ -69,6 +73,30 @@ describe('content', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('does not focus main content on initial load (a11y)', () => {
+    const {tree} = renderToDom(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const wrapper = ReactTestUtils.findRenderedComponentWithType(tree, Content);
+
+    console.log(wrapper.props);
+
+    if (!window) {
+      expect(window).toBeTruthy();
+    } else if (!wrapper) {
+      expect(wrapper).toBeTruthy();
+    } else {
+      const mainContent = (wrapper as unknown) as HTMLElement;
+      const spyFocus = jest.spyOn(mainContent, 'focus');
+      expect(spyFocus).toHaveBeenCalledTimes(0);
+    }
   });
 
   it('provides the right scroll offset when mobile search collapsed', () => {
