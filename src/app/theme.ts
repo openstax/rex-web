@@ -101,7 +101,7 @@ export default {
     focusedHiddenLink: 20,
     modal: 12,
     navbar: 5,
-    overlay: 2,
-    sidebar: 3,
+    overlay: 3,
+    sidebar: 4,
   },
 };

@@ -693,7 +693,7 @@ Array [
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 3;
+  z-index: 4;
   height: calc(100vh - 18rem);
   margin-left: -44rem;
   -webkit-animation: jnNuMv 300ms forwards;
@@ -1203,7 +1203,7 @@ Array [
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
-  z-index: 3;
+  z-index: 4;
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + 33.5rem);
@@ -4140,7 +4140,7 @@ Array [
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 3;
+  z-index: 4;
   height: calc(100vh - 18rem);
   margin-left: -44rem;
   -webkit-animation: jnNuMv 300ms forwards;
@@ -4446,7 +4446,7 @@ Array [
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
-  z-index: 3;
+  z-index: 4;
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + 33.5rem);
