@@ -24,9 +24,6 @@ export default {
     if (this.isEnabled) {
       Sentry.captureException(error);
     }
-    if (config.DEPLOYED_ENV !== 'productionn') {
-      console.error(error);
-    }
   },
 
   captureMessage(message: string, level: Sentry.Severity) {

@@ -443,7 +443,7 @@ Array [
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
-.c19.ally-focus-within {
+.c19.focus-within {
   border: solid 0.1rem #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
@@ -3561,7 +3561,7 @@ Array [
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
-.c11.ally-focus-within {
+.c11.focus-within {
   border: solid 0.1rem #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
