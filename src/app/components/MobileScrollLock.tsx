@@ -9,7 +9,7 @@ import OnScroll, { OnScrollCallback } from './OnScroll';
 
 // tslint:disable-next-line:variable-name
 const MobileScrollLockBodyClass = createGlobalStyle`
-  body {
+  body.body {
     ${theme.breakpoints.mobile(css`
       overflow: hidden;
     `)}
@@ -45,13 +45,17 @@ const Overlay = styled.div`
 
 interface Props {
   onClick?: () => void;
+  overlay?: boolean;
 }
 
 export default class MobileScrollLock extends React.Component<Props> {
 
   public render() {
     return <OnScroll callback={this.blockScroll}>
-      <Overlay onClick={this.props.onClick}><MobileScrollLockBodyClass /></Overlay>
+      <MobileScrollLockBodyClass />
+      {this.props.overlay !== false &&
+        <Overlay onClick={this.props.onClick} />
+      }
     </OnScroll>;
   }
 
