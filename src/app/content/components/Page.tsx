@@ -60,10 +60,10 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   public scrollToTop(prevProps: PropTypes, container: HTMLElement, window: Window) {
-    window.scrollTo(0, 0);
     if (prevProps.page && prevProps.page !== this.props.page) {
       container.focus();
     }
+    window.scrollTo(0, 0);
   }
 
   public componentDidMount() {
@@ -81,7 +81,6 @@ export class PageComponent extends Component<PropTypes> {
   public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
     this.postProcess();
-
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.addGenericJs(this.container.current);
 
