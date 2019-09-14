@@ -63,6 +63,10 @@ class Content(Page):
         return self.ToolBar(self)
 
     @property
+    def mobile(self):
+        return self.MobileSearch(self)
+
+    @property
     def sidebar(self):
         return self.SideBar(self)
 
@@ -166,8 +170,9 @@ class Content(Page):
             By.CSS_SELECTOR,
             "[aria-label='Click to open the Table of Contents']",
         )
-        _search_textbox_locator = (By.CSS_SELECTOR, '[data-testid="desktop-search-input"]')
+        _search_textbox_desktop_locator = (By.CSS_SELECTOR, '[data-testid="desktop-search-input"]')
         _search_button_desktop_locator = (By.CSS_SELECTOR, 'button:nth-of-type(2)[value="Search"]')
+        _search_button_mobile_locator = (By.CSS_SELECTOR, '[data-testid="mobile-toggle"]')
 
         @property
         def toc_toggle_button(self):
@@ -175,15 +180,37 @@ class Content(Page):
 
         @property
         def search_textbox(self):
-            return self.find_element(*self._search_textbox_locator)
+            return self.find_element(*self._search_textbox_desktop_locator)
 
         @property
         def search_button(self):
             return self.find_element(*self._search_button_desktop_locator)
 
+        @property
+        def search_button_mobile(self):
+            return self.find_element(*self._search_button_mobile_locator)
+
         def click_toc_toggle_button(self):
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
+
+        def click_search(self):
+            self.offscreen_click(self.search_button)
+            self.page.sidebar.search_sidebar.wait_for_region_to_display()
+
+        def click_search_icon(self):
+            self.offscreen_click(self.search_button_mobile)
+
+    class MobileSearch(Region):
+        _search_textbox_mobile_locator = (By.CSS_SELECTOR, '[data-testid="mobile-search-input"]')
+
+        @property
+        def search_textbox(self):
+            return self.find_element(*self._search_textbox_mobile_locator)
+
+        def trigger_search(self):
+            self.offscreen_click(self.search_textbox)
+            self.page.sidebar.search_sidebar.wait_for_region_to_display()
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")

@@ -11,19 +11,10 @@ class SearchSidebar(Region):
     _no_results_locator = (By.XPATH, "//*[contains(text(), 'Sorry, no results found for')]")
 
     @property
-    def no_results(self):
-        return self.find_element(*self._no_results_locator)
-
-    # @property
-    # def has_no_results(self):
-    #     if self.is_element_present(self.no_results):
-    #         return True
-    #     else:
-    #         return False
-
-    @property
     def has_no_results(self):
         if self.is_element_present(*self._no_results_locator):
             return True
-        else:
-            return False
+
+    @property
+    def no_results_message(self):
+        return self.find_element(*self._no_results_locator).get_attribute("textContent")
