@@ -5,7 +5,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 class WebBase(Page):
     _root_locator = (By.CSS_SELECTOR, "body.page-loaded")
-    _user_nav_locator = (By.CSS_SELECTOR, '[class="login dropdown"]')
+    _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-dropdown"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
 
     @property

@@ -80,7 +80,7 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
     osweb.user_nav.click()
 
-    # osweb.hover_over_user_name()
+    osweb.hover_over_user_name()
 
     osweb.click_logout()
 
