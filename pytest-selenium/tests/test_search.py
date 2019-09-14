@@ -24,14 +24,11 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
     search_term = "".join(choice(digits + ascii_letters) for i in range(25))
 
     # WHEN: search is triggered for a term which yields no results
-    if content.is_mobile:
-        toolbar.click_search_icon()
-        mobile.search_textbox.send_keys(search_term)
-        mobile.trigger_search()
-
     if content.is_desktop:
-        toolbar.search_textbox.send_keys(search_term)
-        toolbar.click_search()
+        toolbar.search_for(search_term)
+
+    if content.is_mobile:
+        mobile.search_for(search_term)
 
     # THEN: search sidebar displays the message "Sorry, no results found for ‘<search_term>'"
     assert search_sidebar.has_no_results
@@ -41,3 +38,31 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
 
     # AND: user stays in the same page as before executing the search
     assert content.current_url == page_before_search
+
+
+# @markers.test_case("c")
+@markers.parametrize("page_slug,search_term", [("preface", "molecule")])
+# @markers.parametrize("search_term", ["molecule"])
+@markers.nondestructive
+def test_search_results(selenium, base_url, book_slug, page_slug, search_term):
+    # GIVEN: book page is loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    toolbar = content.toolbar
+    mobile = content.mobile
+    sidebar = content.sidebar
+    search_sidebar = content.sidebar.search_sidebar
+
+    # WHEN: search is triggered for a term which yields no results
+    if content.is_desktop:
+        toolbar.search_for(search_term)
+
+    if content.is_mobile:
+        mobile.search_for(search_term)
+
+    sleep(3)
+
+    # assert TOC is closed when search results are open
+    assert not sidebar.header.is_displayed
+
+    # assert no search results message is not displayed
+    assert not search_sidebar.has_no_results
