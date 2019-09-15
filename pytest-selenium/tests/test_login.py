@@ -2,17 +2,12 @@ from pages.content import Content
 from pages.accounts import Login
 from pages.osweb import WebBase
 from tests import markers
-from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
-
-from selenium.webdriver.common.keys import Keys
 
 
 @markers.test_case("C477326", "C477327")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, password):
-
     # GIVEN: Page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     user_nav = content.navbar
@@ -63,7 +58,6 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, email, password):
-
     # GIVEN: Rex and Openstax.org are open in different tabs in logged - in state
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     user_nav = content.navbar
@@ -76,18 +70,21 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
     selenium.execute_script("""window.open("","_blank");""")
     selenium.switch_to_window(selenium.window_handles[1])
     osweb = WebBase(selenium, base_url).open()
-
+    osweb.wait_for_load()
     # verify osweb is in logged-in state
     # assert osweb.user_is_logged_in
 
-    # click the logout link in openstax.org
-    osweb.click_logout()
+    # WHEN: click the logout link in openstax.org
+    if content.is_desktop:
+        assert osweb.user_is_logged_in
+        osweb.click_logout()
 
-    from time import sleep
+    if content.is_mobile:
+        osweb.mobile_user_nav.click()
+        assert osweb.user_is_logged_in
+        osweb.click_logout_in_mobile()
 
-    sleep(5)
-
-    # REX tab will stay the same logged-in state
+    # THEN: REX tab will stay the same logged-in state
     selenium.switch_to_window(selenium.window_handles[0])
     assert user_nav.user_is_logged_in
 
