@@ -64,8 +64,7 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
 @markers.nondestructive
 def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, email, password):
 
-    # Openstax.org and REX are open in different tabs in logged - in state
-
+    # GIVEN: Rex and Openstax.org are open in different tabs in logged - in state
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     user_nav = content.navbar
 
@@ -78,18 +77,20 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
     selenium.switch_to_window(selenium.window_handles[1])
     osweb = WebBase(selenium, base_url).open()
 
-    osweb.user_nav.click()
+    # verify osweb is in logged-in state
+    # assert osweb.user_is_logged_in
 
-    osweb.hover_over_user_name()
-
+    # click the logout link in openstax.org
     osweb.click_logout()
 
     from time import sleep
 
-    sleep(3)
+    sleep(5)
 
+    # REX tab will stay the same logged-in state
+    selenium.switch_to_window(selenium.window_handles[0])
+    assert user_nav.user_is_logged_in
 
-# click the logout link in openstax.org
-
-# REX tab will stay the same logged-in state
-# AND REX tab goes to logged-out state on a reload or navigating to a feature that requires a login
+    # AND REX tab goes to logged-out state on a reload
+    selenium.refresh()
+    assert user_nav.user_is_not_logged_in

@@ -1,5 +1,6 @@
 from pages.base import Page
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 
 
@@ -17,16 +18,19 @@ class WebBase(Page):
     def user_nav(self):
         return self.find_element(*self._user_nav_locator)
 
+    # @property
+    # def user_is_logged_in(self):
+    #     if self.user_nav.is_present():
+    #         if self.expected.invisibility_of_element_located(self.toc_toggle_button):
+    #             return True
+
     @property
     def logout(self):
         return self.find_element(*self._logout_locator)
 
-    def hover_over_user_name(self):
-        actionChains = ActionChains(self.driver)
-        actionChains.move_to_element(self.user_nav).perform()
-
     def click_logout(self):
-        self.offscreen_click(self.logout)
+        actionChains = ActionChains(self.driver)
+        actionChains.move_to_element(self.user_nav).click(self.logout).perform()
 
     def wait_for_load(self):
         return self.wait.until(lambda _: self.loaded)
