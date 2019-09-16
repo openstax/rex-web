@@ -1,17 +1,18 @@
 import { Document, Element, MediaQueryList } from '@openstax/types/lib.dom';
-import ReactType, { ComponentType } from 'react';
-import { unmountComponentAtNode } from 'react-dom';
+import { ComponentType } from 'react';
 import rendererType from 'react-test-renderer';
-import { renderToDom } from '../../test/reactutils';
-import { resetModules } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 
 describe('MobileScrollLock', () => {
+  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
 
   describe('in browser', () => {
     let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
-    let React: typeof ReactType; // tslint:disable-line:variable-name
     beforeEach(() => {
-      React = require('react');
+      resetModules();
+      ({React, renderToDom, ReactDOM} = reactAndFriends());
       MobileScrollLock = require('./MobileScrollLock').default;
     });
 
@@ -21,7 +22,7 @@ describe('MobileScrollLock', () => {
       }
 
       const {root} = renderToDom(<MobileScrollLock />);
-      expect(() => unmountComponentAtNode(root)).not.toThrow();
+      expect(() => ReactDOM.unmountComponentAtNode(root)).not.toThrow();
     });
 
     describe('when scrolling', () => {
@@ -110,20 +111,18 @@ describe('MobileScrollLock', () => {
 
     let renderer: typeof rendererType;
     let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
-    let React: typeof ReactType; // tslint:disable-line:variable-name
 
     beforeEach(() => {
-      resetModules();
       delete (global as any).window;
       delete (global as any).document;
+      resetModules();
+      ({React, renderToDom, renderer} = reactAndFriends());
 
       const styled = require('styled-components');
       // this is broken when unmounting without a dom
       styled.createGlobalStyle = () => () => null;
 
       MobileScrollLock = require('./MobileScrollLock').default;
-      React = require('react');
-      renderer = require('react-test-renderer');
     });
 
     afterEach(() => {
