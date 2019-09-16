@@ -1,5 +1,5 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
-import { resetModules } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 import { assertDocument, assertWindow } from '../utils';
 
 const scroll = () => {
@@ -16,10 +16,10 @@ const click = (target: HTMLElement | Element) => {
 };
 
 describe('ScrollOffset', () => {
-  let React: ReturnType<typeof resetModules>['React']; // tslint:disable-line:variable-name
-  let renderer: ReturnType<typeof resetModules>['renderer'];
-  let renderToDom: ReturnType<typeof resetModules>['renderToDom'];
-  let ReactDOM: ReturnType<typeof resetModules>['ReactDOM']; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let renderer: ReturnType<typeof reactAndFriends>['renderer'];
+  let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
   let ScrollOffset = require('./ScrollOffset').default; // tslint:disable-line:variable-name
 
   const render = (props?: {desktopOffset?: number, mobileOffset?: number}) => <div>
@@ -37,7 +37,8 @@ describe('ScrollOffset', () => {
     let container: HTMLElement;
 
     beforeEach(() => {
-      ({React, renderer, ReactDOM, renderToDom} = resetModules());
+      resetModules();
+      ({React, renderer, ReactDOM, renderToDom} = reactAndFriends());
       ScrollOffset = require('./ScrollOffset').default;
       addEventListener = jest.spyOn(assertWindow(), 'addEventListener');
       removeEventListener = jest.spyOn(assertWindow(), 'removeEventListener');
@@ -173,7 +174,8 @@ describe('ScrollOffset', () => {
     beforeEach(() => {
       delete (global as any).document;
       delete (global as any).window;
-      ({React, renderer, ReactDOM, renderToDom} = resetModules());
+      resetModules();
+      ({React, renderer, ReactDOM, renderToDom} = reactAndFriends());
       const styled = require('styled-components');
       // this is broken when unmounting without a dom
       styled.createGlobalStyle = () => () => null;

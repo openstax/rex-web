@@ -1,7 +1,7 @@
 import createTestServices from '../../test/createTestServices';
 import { book, page } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
-import { resetModules } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 import { Match } from '../navigation/types';
 
 describe('content route', () => {
@@ -23,7 +23,8 @@ describe('content route', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      ({React, renderer} = resetModules());
+      resetModules();
+      ({React, renderer} = reactAndFriends());
       content = require('./routes').content;
       createApp = require('../index').default;
     });

@@ -9,7 +9,9 @@ export const resetModules = () => {
   jest.doMock('mdn-polyfills/NodeList.prototype.forEach', () => ({}));
   jest.doMock('details-element-polyfill', () => jest.fn());
   require('jest-styled-components');
+};
 
+export const reactAndFriends = () => {
   return {
     MessageProvider: require('../app/MessageProvider').default,
     Provider: require('react-redux').Provider,

@@ -1,5 +1,5 @@
 import createTestServices from '../../test/createTestServices';
-import { resetModules } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 
 describe('developer route', () => {
   let React: any; // tslint:disable-line:variable-name
@@ -19,7 +19,8 @@ describe('developer route', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      ({React, renderer} = resetModules());
+      resetModules();
+      ({React, renderer} = reactAndFriends());
       createApp = require('../index').default;
       developerHome = require('./routes').developerHome;
     });

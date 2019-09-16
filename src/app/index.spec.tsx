@@ -1,5 +1,5 @@
 import createTestServices from '../test/createTestServices';
-import { resetModules } from '../test/utils';
+import { reactAndFriends, resetModules } from '../test/utils';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices } from './types';
@@ -21,7 +21,8 @@ describe('create app', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    ({React, renderer} = resetModules());
+    resetModules();
+    ({React, renderer} = reactAndFriends());
     history = require('history');
     services = createTestServices();
 

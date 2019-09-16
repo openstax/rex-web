@@ -1,17 +1,18 @@
 import { Document, Element, MediaQueryList } from '@openstax/types/lib.dom';
 import { ComponentType } from 'react';
 import rendererType from 'react-test-renderer';
-import { resetModules } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 
 describe('MobileScrollLock', () => {
-  let React: ReturnType<typeof resetModules>['React']; // tslint:disable-line:variable-name
-  let renderToDom: ReturnType<typeof resetModules>['renderToDom'];
-  let ReactDOM: ReturnType<typeof resetModules>['ReactDOM']; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
 
   describe('in browser', () => {
     let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
     beforeEach(() => {
-      ({React, renderToDom, ReactDOM} = resetModules());
+      resetModules();
+      ({React, renderToDom, ReactDOM} = reactAndFriends());
       MobileScrollLock = require('./MobileScrollLock').default;
     });
 
@@ -114,7 +115,8 @@ describe('MobileScrollLock', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      ({React, renderToDom, renderer} = resetModules());
+      resetModules();
+      ({React, renderToDom, renderer} = reactAndFriends());
 
       const styled = require('styled-components');
       // this is broken when unmounting without a dom
