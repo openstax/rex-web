@@ -17,8 +17,8 @@ describe('content', () => {
 
   beforeEach(() => {
     resetModules();
-    ({React, Provider, renderer, ReactDOM, renderToDom, MessageProvider} = reactAndFriends());
     jest.resetAllMocks();
+    ({React, Provider, renderer, ReactDOM, renderToDom, MessageProvider} = reactAndFriends());
   });
 
   describe('in browser', () => {
@@ -173,15 +173,12 @@ describe('content', () => {
 
   describe('polyfill', () => {
     let loaded: boolean;
-    let init: jest.SpyInstance;
 
     beforeEach(() => {
       loaded = false;
-      init = jest.fn();
 
       jest.doMock('focus-within-polyfill', () => {
         loaded = true;
-        return init;
       });
     });
 
@@ -190,7 +187,6 @@ describe('content', () => {
         require('.');
         await Promise.resolve();
         expect(loaded).toBe(true);
-        expect(init).toHaveBeenCalled();
       });
     });
 
@@ -212,7 +208,6 @@ describe('content', () => {
         require('.');
         await Promise.resolve();
         expect(loaded).toBe(false);
-        expect(init).not.toHaveBeenCalled();
       });
     });
   });
