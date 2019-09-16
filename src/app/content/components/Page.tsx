@@ -26,7 +26,7 @@ import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
 import getCleanContent from '../utils/getCleanContent';
-import { toRelativeUrl } from '../utils/urlUtils';
+import { getBookPageUrlAndParams, toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
@@ -76,11 +76,13 @@ export class PageComponent extends Component<PropTypes> {
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.addGenericJs(this.container.current);
 
-      if (target) {
-        allImagesLoaded(this.container.current).then(() => scrollTo(target));
-      } else {
+      if (!target) {
         window.scrollTo(0, 0);
       }
+    }
+
+    if (this.container.current && typeof(window) !== 'undefined' && target) {
+      allImagesLoaded(this.container.current).then(() => scrollTo(target));
     }
 
     if (prevProps.searchResults !== this.props.searchResults) {
@@ -319,10 +321,10 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
-    const {references, navigate, book} = this.props;
+    const {references, navigate, book, page} = this.props;
     const href = anchor.getAttribute('href');
 
-    if (!href || !book) {
+    if (!href || !book || !page) {
       return;
     }
 
@@ -335,9 +337,16 @@ export class PageComponent extends Component<PropTypes> {
         params: reference.params,
         route: content,
         state: {
+          ...this.props.services.history.location.state,
           ...reference.state,
-          search: this.props.search,
         },
+      }, {hash, search});
+    } else if (hash && !e.metaKey) {
+      e.preventDefault();
+      navigate({
+        params: getBookPageUrlAndParams(book, page).params,
+        route: content,
+        state: this.props.services.history.location.state,
       }, {hash, search});
     }
   };
