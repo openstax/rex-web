@@ -1028,7 +1028,7 @@ Array [
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
-  z-index: 3;
+  z-index: 4;
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + 33.5rem);
@@ -3943,7 +3943,7 @@ Array [
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
-  z-index: 3;
+  z-index: 4;
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + 33.5rem);
