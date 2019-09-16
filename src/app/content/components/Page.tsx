@@ -30,6 +30,10 @@ import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
+if (typeof(document) !== 'undefined') {
+  import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
+}
+
 interface PropTypes {
   intl: IntlShape;
   page: State['page'];
@@ -57,11 +61,18 @@ export class PageComponent extends Component<PropTypes> {
         html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
   };
 
+  public scrollToTop(prevProps: PropTypes, container: HTMLElement, window: Window) {
+    if (prevProps.page && prevProps.page !== this.props.page) {
+      container.focus();
+    }
+    window.scrollTo(0, 0);
+  }
+
   public componentDidMount() {
     if (!this.container.current) {
       return;
     }
-    this.postProcess();
+    this.postProcess(this.container.current);
     this.addGenericJs(this.container.current);
     this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
@@ -71,15 +82,16 @@ export class PageComponent extends Component<PropTypes> {
 
   public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
-    this.postProcess();
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
+      this.postProcess(this.container.current);
       this.addGenericJs(this.container.current);
+      this.listenersOn();
 
       if (target) {
         allImagesLoaded(this.container.current).then(() => scrollTo(target));
       } else {
-        window.scrollTo(0, 0);
+        this.scrollToTop(prevProps, this.container.current, window);
       }
     }
 
@@ -195,7 +207,7 @@ export class PageComponent extends Component<PropTypes> {
       bodyWrap.append(...Array.from(el.childNodes));
 
       const titleWrap = assertDefined(document, 'document should be defined').createElement('header');
-      titleWrap.append(...Array.from(titles));
+      titleWrap.append(...titles);
 
       el.append(titleWrap, bodyWrap);
 
@@ -342,11 +354,9 @@ export class PageComponent extends Component<PropTypes> {
     }
   };
 
-  private postProcess() {
-    if (this.container.current && typeof(window) !== 'undefined') {
-      const promise = typesetMath(this.container.current, window);
-      this.props.services.promiseCollector.add(promise);
-    }
+  private postProcess(container: HTMLElement) {
+    const promise = typesetMath(container, assertWindow());
+    this.props.services.promiseCollector.add(promise);
   }
 }
 
