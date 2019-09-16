@@ -128,45 +128,4 @@ describe('Attribution', () => {
       expect(element.unmount).not.toThrow();
     });
   });
-
-  describe('polyfill', () => {
-    let loaded: boolean;
-
-    beforeEach(() => {
-      loaded = false;
-
-      jest.mock('details-element-polyfill', () => {
-        loaded = true;
-      });
-    });
-
-    describe('inside browser', () => {
-      it('loads', async() => {
-        await import('./Attribution');
-        expect(loaded).toBe(true);
-      });
-    });
-
-    describe('outside of browser', () => {
-      const documentBack = document;
-      const windowBack = window;
-
-      beforeEach(() => {
-        delete (global as any).document;
-        delete (global as any).window;
-      });
-
-      afterEach(() => {
-        (global as any).document = documentBack;
-        (global as any).window = windowBack;
-      });
-
-      it('doesn\'t load', async() => {
-
-        await import('./Attribution');
-
-        expect(loaded).toBe(false);
-      });
-    });
-  });
 });
