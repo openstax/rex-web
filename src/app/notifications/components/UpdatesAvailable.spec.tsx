@@ -1,14 +1,10 @@
-import { resetModules } from '../../../test/utils';
+import { reactAndFriends, resetModules } from '../../../test/utils';
 
 describe('UpdatesAvailable', () => {
-  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
-  let React = require('react'); // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let renderer: ReturnType<typeof reactAndFriends>['renderer'];
+  let MessageProvider: ReturnType<typeof reactAndFriends>['MessageProvider']; // tslint:disable-line:variable-name
   let UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
-  let renderer = require('react-test-renderer');
-
-  beforeEach(() => {
-    resetModules();
-  });
 
   describe('in browser', () => {
     const reloadBackup = window!.location.reload;
@@ -16,10 +12,9 @@ describe('UpdatesAvailable', () => {
 
     beforeEach(() => {
       reload = window!.location.reload = jest.fn();
-      MessageProvider = require('../../MessageProvider').default;
-      React = require('react');
-      UpdatesAvailable = require('./UpdatesAvailable').default;
-      renderer = require('react-test-renderer');
+      resetModules();
+      ({React, renderer, MessageProvider} = reactAndFriends());
+      UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
     });
 
     afterEach(() => {
@@ -40,10 +35,9 @@ describe('UpdatesAvailable', () => {
     beforeEach(() => {
       delete (global as any).window;
       delete (global as any).document;
-      React = require('react');
-      renderer = require('react-test-renderer');
-      MessageProvider = require('../../MessageProvider').default;
-      UpdatesAvailable = require('./UpdatesAvailable').default;
+      resetModules();
+      ({React, renderer, MessageProvider} = reactAndFriends());
+      UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
     });
 
     afterEach(() => {

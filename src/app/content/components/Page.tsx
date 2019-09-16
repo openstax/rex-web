@@ -30,6 +30,10 @@ import { toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
+if (typeof(document) !== 'undefined') {
+  import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
+}
+
 interface PropTypes {
   intl: IntlShape;
   page: State['page'];
@@ -203,7 +207,7 @@ export class PageComponent extends Component<PropTypes> {
       bodyWrap.append(...Array.from(el.childNodes));
 
       const titleWrap = assertDefined(document, 'document should be defined').createElement('header');
-      titleWrap.append(...Array.from(titles));
+      titleWrap.append(...titles);
 
       el.append(titleWrap, bodyWrap);
 
