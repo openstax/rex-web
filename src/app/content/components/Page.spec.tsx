@@ -2,6 +2,7 @@ import { Highlight } from '@openstax/highlighter';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
@@ -26,7 +27,7 @@ import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import { formatBookData } from '../utils';
-import ConnectedPage from './Page';
+import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
@@ -898,6 +899,40 @@ describe('Page', () => {
       expect(target.getAttribute('scope')).toEqual('col');
     } else {
       expect(target).toBeTruthy();
+    }
+  });
+
+  it('does not focus main content on initial load', () => {
+    state.content = initialState;
+
+    const {tree} = renderToDom(
+      <Provider store={store}>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
+      </Provider>
+    );
+
+    store.dispatch(receivePage({...shortPage, references: []}));
+
+    const wrapper = ReactTestUtils.findRenderedComponentWithType(tree, PageComponent);
+
+    if (!window) {
+      expect(window).toBeTruthy();
+    } else if (!wrapper) {
+      expect(wrapper).toBeTruthy();
+    } else {
+      const mainContent = wrapper.container.current;
+
+      if (!mainContent) {
+        return expect(mainContent).toBeTruthy();
+      }
+      const spyFocus = jest.spyOn(mainContent, 'focus');
+      expect(spyFocus).toHaveBeenCalledTimes(0);
     }
   });
 
