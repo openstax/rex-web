@@ -57,6 +57,13 @@ export class PageComponent extends Component<PropTypes> {
         html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
   };
 
+  public scrollToTop(prevProps: PropTypes, container: HTMLElement, window: Window) {
+    if (prevProps.page && prevProps.page !== this.props.page) {
+      container.focus();
+    }
+    window.scrollTo(0, 0);
+  }
+
   public componentDidMount() {
     if (!this.container.current) {
       return;
@@ -72,12 +79,11 @@ export class PageComponent extends Component<PropTypes> {
   public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
     this.postProcess();
-
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       this.addGenericJs(this.container.current);
 
       if (!target) {
-        window.scrollTo(0, 0);
+        this.scrollToTop(prevProps, this.container.current, window);
       }
     }
 
