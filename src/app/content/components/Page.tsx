@@ -337,16 +337,20 @@ export class PageComponent extends Component<PropTypes> {
         params: reference.params,
         route: content,
         state: {
-          ...this.props.services.history.location.state,
           ...reference.state,
+          search: this.props.search,
         },
       }, {hash, search});
-    } else if (hash && !e.metaKey) {
+    } else if (pathname === this.props.currentPath && hash && !e.metaKey) {
       e.preventDefault();
       navigate({
         params: getBookPageUrlAndParams(book, page).params,
         route: content,
-        state: this.props.services.history.location.state,
+        state: {
+          ...getBookPageUrlAndParams(book, page).state,
+          search: this.props.search,
+
+        },
       }, {hash, search});
     }
   };
