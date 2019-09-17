@@ -26,7 +26,7 @@ import { highlightResults } from '../search/utils';
 import * as select from '../selectors';
 import { State } from '../types';
 import getCleanContent from '../utils/getCleanContent';
-import { toRelativeUrl } from '../utils/urlUtils';
+import { getBookPageUrlAndParams, toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
 
@@ -88,11 +88,13 @@ export class PageComponent extends Component<PropTypes> {
       this.addGenericJs(this.container.current);
       this.listenersOn();
 
-      if (target) {
-        allImagesLoaded(this.container.current).then(() => scrollTo(target));
-      } else {
+      if (!target) {
         this.scrollToTop(prevProps, this.container.current, window);
       }
+    }
+
+    if (this.container.current && typeof(window) !== 'undefined' && target) {
+      allImagesLoaded(this.container.current).then(() => scrollTo(target));
     }
 
     if (prevProps.searchResults !== this.props.searchResults) {
@@ -331,10 +333,10 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
-    const {references, navigate, book} = this.props;
+    const {references, navigate, book, page} = this.props;
     const href = anchor.getAttribute('href');
 
-    if (!href || !book) {
+    if (!href || !book || !page) {
       return;
     }
 
@@ -349,6 +351,17 @@ export class PageComponent extends Component<PropTypes> {
         state: {
           ...reference.state,
           search: this.props.search,
+        },
+      }, {hash, search});
+    } else if (pathname === this.props.currentPath && hash && !e.metaKey) {
+      e.preventDefault();
+      navigate({
+        params: getBookPageUrlAndParams(book, page).params,
+        route: content,
+        state: {
+          ...getBookPageUrlAndParams(book, page).state,
+          search: this.props.search,
+
         },
       }, {hash, search});
     }
