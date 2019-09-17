@@ -131,3 +131,14 @@ export const getAllRegexMatches = (regex: RegExp) => {
     return matches;
   };
 };
+
+export const resetTabIndex = () => {
+  if (typeof(document) === 'undefined') {
+    return;
+  }
+  const index = document.body.tabIndex;
+  document.body.tabIndex = 0;
+
+  document.body.focus();
+  document.body.tabIndex = index;
+};
