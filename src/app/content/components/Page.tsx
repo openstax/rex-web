@@ -63,7 +63,7 @@ export class PageComponent extends Component<PropTypes> {
 
   public scrollToTop(prevProps: PropTypes, window: Window) {
     if (prevProps.page && prevProps.page !== this.props.page) {
-      resetTabIndex();
+      resetTabIndex(window.document);
     }
     window.scrollTo(0, 0);
   }
