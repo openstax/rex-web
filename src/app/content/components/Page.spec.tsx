@@ -88,10 +88,12 @@ describe('Page', () => {
         <a href="/content/link">some link</a>
         some more text
         <a href="/rando/link">another link</a>
+        some more text
         text
         <button>asdf</button>
         text
         <a href="">link with empty href</a>
+        <a href="#hash">hash link</a>
       `,
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
@@ -470,6 +472,32 @@ describe('Page', () => {
       },
     }, {
       hash: '',
+      search: '',
+    }));
+  });
+
+  it('passes search when clicking hash links', () => {
+    store.dispatch(requestSearch('asdf'));
+    const {root} = renderDomWithReferences();
+    const hashLink = root.querySelector('#main-content a[href="#hash"]');
+
+    if (!hashLink || !document) {
+      expect(document).toBeTruthy();
+      return expect(hashLink).toBeTruthy();
+    }
+
+    const evt1 = makeEvent(document);
+
+    hashLink.dispatchEvent(evt1);
+
+    expect(dispatch).toHaveBeenCalledWith(push({
+      params: expect.anything(),
+      route: routes.content,
+      state: expect.objectContaining({
+        search: expect.objectContaining({query: 'asdf'}),
+      }),
+    }, {
+      hash: '#hash',
       search: '',
     }));
   });
