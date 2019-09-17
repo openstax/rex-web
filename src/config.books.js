@@ -8,7 +8,7 @@ const books = {
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': {defaultVersion: '17.22'},
   /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': {defaultVersion: '26.21'},
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '15.10'},
-  /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '7.2'},
+  /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '7.6'},
 };
 
 module.exports = books;
