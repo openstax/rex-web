@@ -18,7 +18,7 @@ import { RouteState } from '../../navigation/types';
 import theme from '../../theme';
 import { AppServices, AppState } from '../../types';
 import { Dispatch } from '../../types';
-import { assertDefined, assertWindow, scrollTo } from '../../utils';
+import { assertDefined, assertWindow, resetTabIndex, scrollTo } from '../../utils';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import { SelectedResult } from '../search/types';
@@ -61,9 +61,9 @@ export class PageComponent extends Component<PropTypes> {
         html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
   };
 
-  public scrollToTop(prevProps: PropTypes, container: HTMLElement, window: Window) {
+  public scrollToTop(prevProps: PropTypes, window: Window) {
     if (prevProps.page && prevProps.page !== this.props.page) {
-      container.focus();
+      resetTabIndex(window.document);
     }
     window.scrollTo(0, 0);
   }
@@ -89,7 +89,7 @@ export class PageComponent extends Component<PropTypes> {
       this.listenersOn();
 
       if (!target) {
-        this.scrollToTop(prevProps, this.container.current, window);
+        this.scrollToTop(prevProps, window);
       }
     }
 
