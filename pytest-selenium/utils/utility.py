@@ -7,6 +7,13 @@ class Library(object):
             "chemistry-2e",
             "chemistry-atoms-first-2e",
             "anatomy-and-physiology",
+            "college-physics",
+            "astronomy",
+            "biology-2e",
+            "biology-ap-courses",
+            "college-physics-ap-courses",
+            "concepts-biology",
+            "microbiology",
         ]
 
         self._user_email_list = [
