@@ -1,27 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { assertWindow } from '../../utils';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Node.children" */ 'mdn-polyfills/Node.prototype.children');
 }
-
-export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
-
-  const computedStyle = (el: HTMLElement) => assertWindow().getComputedStyle(el);
-  const scrollyOverflows: Array<string | null> = ['auto', 'scroll'];
-
-  if (
-    !element ||
-    (
-      element.scrollHeight > element.offsetHeight &&
-      scrollyOverflows.includes(computedStyle(element).overflow)
-    )
-  ) {
-    return element;
-  }
-
-  return findFirstScrollableParent(element.parentElement);
-};
 
 export const findFirstScrollableChild = (element: HTMLElement | null): HTMLElement | null => {
   if (!element || element.scrollHeight > element.offsetHeight) {
