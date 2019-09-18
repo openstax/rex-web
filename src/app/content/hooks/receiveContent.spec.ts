@@ -6,7 +6,6 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { setHead } from '../../head/actions';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
-import { Book } from '../types';
 import { formatBookData } from '../utils';
 
 const mockConfig = {BOOKS: {
@@ -38,15 +37,6 @@ describe('setHead hook', () => {
     hook = require('./receiveContent').default(helpers);
   });
 
-  it('dispatches setHead when receiveBook is dispatched', async() => {
-    store.dispatch(receiveBook(combinedBook));
-    store.dispatch(receivePage({...page, references: []}));
-
-    await hook(receiveBook(combinedBook));
-
-    expect(dispatch).toHaveBeenCalledWith(setHead(expect.anything()));
-  });
-
   it('dispatches setHead when receivePage is dispatched', async() => {
     store.dispatch(receiveBook(combinedBook));
     store.dispatch(receivePage({...page, references: []}));
@@ -61,7 +51,7 @@ describe('setHead hook', () => {
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(requestBook('asdf'));
 
-    await hook(receiveBook(combinedBook));
+    await hook(receivePage({...page, references: []}));
 
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
@@ -71,7 +61,7 @@ describe('setHead hook', () => {
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(requestPage('asdf'));
 
-    await hook(receiveBook({} as Book));
+    await hook(receivePage({...page, references: []}));
 
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
@@ -79,7 +69,7 @@ describe('setHead hook', () => {
   it('does nothing if page is not loaded', async() => {
     store.dispatch(receiveBook(combinedBook));
 
-    await hook(receiveBook(combinedBook));
+    await hook(receivePage({...page, references: []}));
 
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
@@ -87,7 +77,7 @@ describe('setHead hook', () => {
   it('does nothing if book is not loaded', async() => {
     store.dispatch(receivePage({...page, references: []}));
 
-    await hook(receiveBook(combinedBook));
+    await hook(receivePage({...page, references: []}));
 
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
@@ -173,7 +163,7 @@ describe('setHead hook', () => {
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({...page, references: []}));
 
-      await hook(receiveBook(combinedBook));
+      await hook(receivePage({...page, references: []}));
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.anything()));
     });

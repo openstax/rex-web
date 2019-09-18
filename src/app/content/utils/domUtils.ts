@@ -1,5 +1,9 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 
+if (typeof(document) !== 'undefined') {
+  import(/* webpackChunkName: "Node.children" */ 'mdn-polyfills/Node.prototype.children');
+}
+
 export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
   if (!element || element.scrollHeight > element.offsetHeight) {
     return element;

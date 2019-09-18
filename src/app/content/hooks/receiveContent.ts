@@ -1,8 +1,10 @@
+import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
 import { setHead } from '../../head/actions';
+import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { assertDefined } from '../../utils';
-import { receiveBook, receivePage } from '../actions';
+import { receivePage } from '../actions';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
@@ -15,7 +17,7 @@ const stripHtmlAndTrim = (str: string) => str
   .substring(0, 155)
   .trim();
 
-const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
+const hookBody: ActionHookBody<typeof receivePage> = ({
   getState,
   dispatch,
   archiveLoader,
@@ -26,6 +28,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
   const page = select.page(state);
   const loadingBook = select.loadingBook(state);
   const loadingPage = select.loadingPage(state);
+  const pathname = selectNavigation.pathname(state);
 
   if (!book || !page) {
     return;
@@ -61,6 +64,8 @@ const hookBody: ActionHookBody<typeof receivePage | typeof receiveBook> = ({
     ],
     title,
   }));
+
+  googleAnalyticsClient.trackPageView(pathname);
 };
 
 export default hookBody;

@@ -203,7 +203,7 @@ export const DropdownList = styled.ul`
   `)}
 
   ${/* suppress invalid stylelint errors */ css`
-    ${DropdownContainer}:not(:hover):not(.ally-focus-within) & {
+    ${DropdownContainer}:not(:hover):not(.focus-within) & {
       ${visuallyHidden}
     }
 
@@ -230,7 +230,7 @@ export const DropdownOverlay = styled.div`
     overflow: hidden;
 
     &:focus,
-    &.ally-focus-within,
+    &.focus-within,
     ${DropdownToggle}:focus ~ & {
       padding-top: 40%;
       background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
@@ -263,7 +263,7 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
   ${theme.breakpoints.mobile(css`
     ${DropdownToggle}:focus ~ &,
     ${DropdownOverlay}:focus ~ &,
-    ${DropdownOverlay}.ally-focus-within ~ & {
+    ${DropdownOverlay}.focus-within ~ & {
       display: block;
     }
   `)}
