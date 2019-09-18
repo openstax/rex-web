@@ -4,7 +4,7 @@ export const resetModules = () => {
   jest.resetModules();
   jest.doMock('rangy', () => mockRangy);
   jest.doMock('rangy/lib/rangy-textrange', () => ({}));
-  jest.doMock('ally.js/style/focus-within');
+  jest.doMock('focus-within-polyfill', () => ({}));
   jest.doMock('mdn-polyfills/Node.prototype.children', () => ({}));
   jest.doMock('mdn-polyfills/NodeList.prototype.forEach', () => ({}));
   jest.doMock('details-element-polyfill', () => jest.fn());

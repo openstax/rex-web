@@ -110,6 +110,15 @@ describe('osWebLoader', () => {
       expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&cnx_id=qwer`);
       expect(result).toEqual(book);
     });
+
+    it('memoizes', async() => {
+      await osWebLoader.getBookFromId('qwer');
+      await osWebLoader.getBookFromId('asdf');
+      await osWebLoader.getBookFromId('qwer');
+      await osWebLoader.getBookFromId('asdf');
+      await osWebLoader.getBookFromId('qwer');
+      expect(fetch).toHaveBeenCalledTimes(2);
+    });
   });
 });
 
