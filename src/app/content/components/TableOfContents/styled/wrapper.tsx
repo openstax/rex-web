@@ -58,6 +58,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
+    bottom: 0;
   `)}
 
   display: flex;
