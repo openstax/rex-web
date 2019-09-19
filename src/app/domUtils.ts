@@ -43,7 +43,7 @@ export const elementCanScrollUp = (element: HTMLElement) =>
   element.scrollTop > 0;
 
 export const elementCanScrollDown = (element: HTMLElement) =>
-  element.clientHeight + element.scrollTop < element.scrollHeight;
+  element.offsetHeight + element.scrollTop < element.scrollHeight;
 
 export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
 
