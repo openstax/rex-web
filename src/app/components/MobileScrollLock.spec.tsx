@@ -31,7 +31,7 @@ describe('MobileScrollLock', () => {
       let doc: Document;
       let win: Window;
 
-      const touchEvent = (target: Element, height: number, eventType: string = 'touchmove') => {
+      const touchEvent = (target: Element | null, height: number, eventType: string = 'touchmove') => {
         const event = doc.createEvent('TouchEvent');
         event.initEvent(eventType, true, true);
         const spy = jest.spyOn(event, 'preventDefault');
@@ -96,6 +96,43 @@ describe('MobileScrollLock', () => {
           touchEvent(scrollyElement, 10, 'touchstart');
           const {spy} = touchEvent(scrollyElement, 5);
           expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('does nothing if the element isnull', () => {
+          touchEvent(null, 10, 'touchstart');
+          const {spy} = touchEvent(null, 10);
+          expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('does nothing on touch without scroll', () => {
+          touchEvent(scrollyElement, 10, 'touchstart');
+          const {spy} = touchEvent(scrollyElement, 10);
+          expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('blocks touchmove events when the element is at its scroll limit', () => {
+          Object.defineProperty(scrollyElement, 'scrollTop', {
+            value: 4000,
+            writable: false,
+          });
+          touchEvent(scrollyElement, 10, 'touchstart');
+          const {spy} = touchEvent(scrollyElement, 5);
+          expect(spy).toHaveBeenCalled();
+        });
+
+        it('allows scrolling back after reaching the end', () => {
+          Object.defineProperty(scrollyElement, 'scrollTop', {
+            value: 4000,
+            writable: false,
+          });
+          touchEvent(scrollyElement, 10, 'touchstart');
+          const spy1 = touchEvent(scrollyElement, 5).spy;
+          expect(spy1).toHaveBeenCalled();
+          touchEvent(scrollyElement, 5, 'touchend');
+
+          touchEvent(scrollyElement, 5, 'touchstart');
+          const spy2 = touchEvent(scrollyElement, 10).spy;
+          expect(spy2).not.toHaveBeenCalled();
         });
       });
 
