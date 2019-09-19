@@ -112,11 +112,16 @@ describe('osWebLoader', () => {
     });
 
     it('memoizes', async() => {
-      await osWebLoader.getBookFromId('qwer');
-      await osWebLoader.getBookFromId('asdf');
-      await osWebLoader.getBookFromId('qwer');
-      await osWebLoader.getBookFromId('asdf');
-      await osWebLoader.getBookFromId('qwer');
+      book.cnx_id = 'cnx_id1';
+      book.meta = {slug: 'slug1'};
+      await osWebLoader.getBookFromId('cnx_id1');
+      await osWebLoader.getBookFromId('cnx_id1');
+      await osWebLoader.getBookFromId('cnx_id1');
+      book.cnx_id = 'cnx_id2';
+      book.meta = {slug: 'slug2'};
+      await osWebLoader.getBookFromId('cnx_id2');
+      await osWebLoader.getBookFromId('cnx_id2');
+      await osWebLoader.getBookFromId('cnx_id2');
       expect(fetch).toHaveBeenCalledTimes(2);
     });
   });
