@@ -21,9 +21,15 @@ export default {
     return IS_INITIALIZED && config.SENTRY_ENABLED;
   },
 
+  get shouldCollectErrors() {
+    return config.SENTRY_ENABLED;
+  },
+
   captureException(error: any) {
     if (this.isEnabled) {
       Sentry.captureException(error);
+    } else if (!this.shouldCollectErrors) {
+      throw error;
     }
   },
 
