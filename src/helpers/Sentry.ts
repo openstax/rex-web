@@ -24,6 +24,8 @@ export default {
   captureException(error: any) {
     if (this.isEnabled) {
       Sentry.captureException(error);
+    } else {
+      throw error;
     }
   },
 
