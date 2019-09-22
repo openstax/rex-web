@@ -63,30 +63,32 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
     rex = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     rex_nav = rex.navbar
 
-    # WHEN Login Rex with email & password
+    # WHEN: Login Rex with email & password
     rex_nav.click_login()
+
     accounts = Login(selenium)
     accounts.login(email, password)
 
-    # AND Open osweb url in a new tab
+    # AND: Open osweb url in a new tab
     rex.open_new_tab()
     rex.switch_to_window(1)
 
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
     sleep(1)
-    # THEN osweb is in logged-in state
+
+    # THEN: osweb is in logged-in state
     assert osweb.user_is_logged_in
     sleep(2)
 
-    #  WHEN click logout in osweb
+    #  WHEN: click logout in osweb
     osweb.click_logout()
 
     # THEN: REX tab will stay in logged-in state
     rex.switch_to_window(0)
     assert rex_nav.user_is_logged_in
 
-    # AND REX tab goes to logged-out state on a reload
+    # AND: REX tab goes to logged-out state on a reload
     selenium.refresh()
     assert rex_nav.user_is_not_logged_in
 
@@ -94,36 +96,40 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 @markers.test_case("C477328")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_login_state_when_redirected_from_osweb(
+def test_rex_login_state_when_redirected_from_osweb(
     selenium, base_url, book_slug, page_slug, email, password
 ):
-    # GIVEN Open osweb book details page
+    # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
+
+    # AND: Login as existing user
     accounts = Login(selenium)
     sleep(1)
-
     osweb.click_login()
     accounts.login(email, password)
+
     sleep(1)
+    # verify user is logged in and get the username
     assert osweb.user_is_logged_in
     osweb_username = osweb.osweb_username(osweb.user_nav)
 
     sleep(2)
 
+    # WHEN: Click the view online link in osweb
     osweb.click_view_online()
 
     osweb.switch_to_window(1)
     sleep(1)
-    rex = Content(selenium)
-    user_nav = rex.navbar
-    assert user_nav.user_is_logged_in
 
-    # THEN The book is opened in REX with the header showing <Hi {firstname}> with the same user as openstax.org
-    rex_username = rex.username(user_nav.user_is_logged_in)
+    # THEN: The book page is opened in REX with the header showing <Hi {firstname}> with the same user as openstax.org
+    rex = Content(selenium)
+    rex_nav = rex.navbar
+    assert rex_nav.user_is_logged_in
+    rex_username = rex.username(rex_nav.user_nav_toggle)
 
     assert rex_username == osweb_username
 
-    # AND The user stays logged-in while navigating to other pages in REX
+    # AND: The user stays logged-in while navigating to other pages in REX
     rex.click_next_link()
-    assert user_nav.user_is_logged_in
+    assert rex_nav.user_is_logged_in
