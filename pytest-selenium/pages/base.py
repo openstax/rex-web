@@ -44,7 +44,7 @@ class Page(pypom.Page):
     def wait_for_region_to_display(self, region):
         self.wait.until(lambda _: region.is_displayed)
         return self
-    
+
     def click_and_wait_for_load(self, element: WebElement):
         """Clicks an offscreen element and waits for title to load.
 
@@ -88,3 +88,12 @@ class Page(pypom.Page):
         # return self.page.offscreen_click(element or self.root)
         element.send_keys(Keys.ENTER)
         return element
+
+    def username(self, element):
+        return element.get_attribute("textContent")
+
+    def open_new_tab(self):
+        self.driver.execute_script("""window.open("","_blank");""")
+
+    def switch_to_window(self, n):
+        self.driver.switch_to_window(self.driver.window_handles[n])

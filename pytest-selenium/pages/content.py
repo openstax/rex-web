@@ -150,11 +150,11 @@ class Content(Page):
 
         @property
         def user_is_not_logged_in(self):
-            return bool(self.login)
+            return (self.login).is_displayed()
 
         @property
         def user_is_logged_in(self):
-            return bool(self.find_element(*self._user_nav_toggle_locator))
+            return (self.find_element(*self._user_nav_toggle_locator)).is_displayed()
 
         @property
         def account_profile(self):
