@@ -27,8 +27,6 @@ const letterCharacterWidth = 1.0375;
 const numberPeriodWidth = .390625;
 const dividerWidth = .8;
 
-const navOlPaddingBottom = 5;
-
 const activeState = css`
   color: ${theme.color.text.black};
   text-decoration: underline;
@@ -150,10 +148,6 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
       }
     `;
   }}
-
-  ${theme.breakpoints.mobile(css`
-    padding-bottom: ${navOlPaddingBottom}rem;
-  `)}
 `;
 
 interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }

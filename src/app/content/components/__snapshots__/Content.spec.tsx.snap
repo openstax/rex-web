@@ -1046,7 +1046,7 @@ Array [
 .c31 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
-  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
+  padding: 1.8rem 1.8rem 5rem 0.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -1791,24 +1791,6 @@ li[aria-label="Current Page"] .c40 {
 @media screen and (max-width:75em) {
   .c38 {
     margin-top: 1.7rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c36 {
-    padding-bottom: 5rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c52 {
-    padding-bottom: 5rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c53 {
-    padding-bottom: 5rem;
   }
 }
 
@@ -3980,7 +3962,7 @@ Array [
 .c23 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
-  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
+  padding: 1.8rem 1.8rem 5rem 0.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
