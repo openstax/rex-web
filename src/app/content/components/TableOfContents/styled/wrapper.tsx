@@ -68,7 +68,8 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   > ol {
     -webkit-overflow-scrolling: touch;
     position: relative;
-    padding: ${sidebarPadding}rem ${sidebarPadding}rem ${olBottomPadding}rem 0.2rem;
+    padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 0.2rem;
+    margin-bottom: ${olBottomPadding}rem;
     flex: 1;
 
     > li:first-child {
