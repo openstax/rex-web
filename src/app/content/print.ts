@@ -1,20 +1,11 @@
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import { assertWindow } from '../utils';
+import { Book } from './types';
 
-export const print = () => {
+export const print = (book: Book | undefined, currentPath: string) => {
   const window: Window = assertWindow();
   window.print();
 
-  const pathname: string = window.location.pathname;
-
-  if (pathname) {
-    let slug: string = 'unknown';
-    const slugMatches: string[] | null = pathname.match(/\/books\/(.*)\/pages*/);
-    if (slugMatches && slugMatches.length === 2) {
-      slug = slugMatches[1];
-    }
-    googleAnalyticsClient.trackEvent('REX print', slug, pathname);
-  } else {
-    googleAnalyticsClient.trackEvent('REX print', 'unknown');
-  }
+  (currentPath && book) ?  googleAnalyticsClient.trackEvent('REX print', book.slug, currentPath)
+    : googleAnalyticsClient.trackEvent('REX print', 'unknown');
 };
