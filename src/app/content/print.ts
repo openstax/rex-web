@@ -2,7 +2,7 @@ import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import { assertWindow } from '../utils';
 import { Book } from './types';
 
-export const print = (book: Book | undefined, currentPath: string) => {
+export const print = (book: Book | undefined, currentPath: string | undefined) => {
   const window: Window = assertWindow();
   window.print();
 
