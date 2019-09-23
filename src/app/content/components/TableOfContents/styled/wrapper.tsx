@@ -20,7 +20,6 @@ import { disablePrint } from '../../utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../utils/sidebar';
 
 const sidebarPadding = 1.8;
-const bottomPadding = 5;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
@@ -60,8 +59,6 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
-    /* bottom padding for scrolling on iphone */
-    padding-bottom: ${bottomPadding}rem;
   `)}
 
   display: flex;
