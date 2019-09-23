@@ -90,6 +90,7 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   margin-top: 0;
@@ -98,7 +99,7 @@ export const SearchResultsBar = styled.div`
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: ${theme.zIndex.sidebar};
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-left: -${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
@@ -164,8 +165,8 @@ export const Details = styled(BaseDetails)`
 // tslint:disable-next-line:variable-name
 export const SearchBarSummaryContainer = styled.div`
   display: flex;
-  align-items: center;
-  background: ${backgroundColor};
+  align-items: normal;
+  background: ${borderColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
   border-top: solid 0.1rem ${borderColor};
   ${theme.breakpoints.mobile(css`
@@ -218,7 +219,7 @@ export const SectionContentPreview = styled(
   }
 
   ${(props: {selectedResult: boolean}) => props.selectedResult && css`
-    background: ${theme.color.neutral.darker};
+    background: ${backgroundColor};
   `}
 
   > div {

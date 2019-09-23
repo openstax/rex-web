@@ -1,38 +1,43 @@
+import createTestServices from '../../../test/createTestServices';
+import createTestStore from '../../../test/createTestStore';
 import { locationChange } from '../../navigation/actions';
-import * as actions from '../actions';
-import { AnyNotification } from '../types';
+import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { acceptCookies, dismissNotification } from '../actions';
 import { hideAcceptCookiesOnNavigateHookBody } from './hideAcceptCookiesOnNavigate';
 
 describe('hideAcceptCookiesOnNavigate', () => {
-  const dispatchMock = jest.fn();
-  const mock = jest.spyOn(actions, 'dismissNotification');
-  const targetNotification: AnyNotification = { type: 'Notification/acceptCookies' };
-  const otherNotification: AnyNotification = { type: 'Notification/updateAvailable' };
-
   const location = { hash: '', pathname: '', search: '', state: {}, };
   const dummyLocationChange = locationChange({location, action: 'PUSH'});
 
-  const helpers: any = (notification: AnyNotification) => ({
-    dispatch: dispatchMock,
-    getState: () => ({
-      notifications: [
-        notification,
-      ],
-    }),
-  });
+  let store: Store;
+  let dispatch: jest.SpyInstance;
+  let helpers: MiddlewareAPI & AppServices;
+  let hook: ReturnType<typeof hideAcceptCookiesOnNavigateHookBody>;
 
   beforeEach(() => {
     jest.resetAllMocks();
+
+    store = createTestStore();
+
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
+
+    hook = hideAcceptCookiesOnNavigateHookBody(helpers);
   });
 
   it('when the accept cookies popup is up, finds and dismisses it', async() => {
-    await (hideAcceptCookiesOnNavigateHookBody(helpers(targetNotification)))(dummyLocationChange);
-    expect(dispatchMock).toHaveBeenCalled();
-    expect(mock).toHaveBeenCalledWith(targetNotification);
+    store.dispatch(acceptCookies());
+    await hook(dummyLocationChange);
+    expect(dispatch).toHaveBeenCalledWith(dismissNotification(acceptCookies()));
   });
 
   it('when the accept cookies popup is NOT up, does nothing', async() => {
-    await (hideAcceptCookiesOnNavigateHookBody(helpers(otherNotification)))(dummyLocationChange);
-    expect(dispatchMock).not.toHaveBeenCalled();
+    await hook(dummyLocationChange);
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

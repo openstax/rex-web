@@ -44,6 +44,7 @@ declare module 'rangy' {
 
   export interface RangyStatic<R extends RangyRange = RangyRange> {
     initialized: boolean;
+    init: () => void;
     supported: boolean;
     createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
     createRange(doc?: Document | Window | HTMLIFrameElement): R;
