@@ -1756,8 +1756,6 @@ li[aria-label="Current Page"] .c40 {
     top: 6rem;
     height: calc(100vh - 11.2rem);
     max-height: calc(100vh - 6rem);
-    bottom: 0;
-    overscroll-behavior: inherit;
     padding-bottom: 5rem;
   }
 }
@@ -4345,8 +4343,6 @@ Array [
     top: 6rem;
     height: calc(100vh - 11.2rem);
     max-height: calc(100vh - 6rem);
-    bottom: 0;
-    overscroll-behavior: inherit;
     padding-bottom: 5rem;
   }
 }

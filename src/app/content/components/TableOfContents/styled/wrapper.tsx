@@ -60,8 +60,6 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
-    bottom: 0;
-    overscroll-behavior: inherit;
     /* bottom padding for scrolling on iphone */
     padding-bottom: ${bottomPadding}rem;
   `)}
