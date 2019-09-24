@@ -10,8 +10,7 @@ import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertDefined } from '../../utils';
 import * as select from '../selectors';
-import { ArchiveTreeSection, Book, Page } from '../types';
-import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import { ArchiveTreeSection, Book } from '../types';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import {
   bookBannerDesktopBigHeight,
@@ -47,7 +46,7 @@ const LeftArrow = styled(ChevronLeft)`
 `;
 
 interface PropTypes {
-  page?: Page;
+  pageNode?: ArchiveTreeSection;
   book?: Book;
 }
 
@@ -193,20 +192,19 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   }
 
   public render() {
-    const {page, book} = this.props;
+    const {pageNode, book} = this.props;
 
-    if (!book || !page) {
+    if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const treeSection = findArchiveTreeNode(book.tree, page.id);
     const bookUrl = bookDetailsUrl(book);
 
-    if (!treeSection) {
+    if (!pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    return this.renderBars(book, bookUrl, treeSection);
+    return this.renderBars(book, bookUrl, pageNode);
   }
 
   private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
@@ -233,6 +231,6 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    page: select.page(state),
+    pageNode: select.pageNode(state),
   })
 )(BookBanner);

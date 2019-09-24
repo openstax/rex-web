@@ -75,6 +75,12 @@ export const findArchiveTreeNode = (
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
   flattenArchiveTree(tree).find(nodeMatcher(nodeId));
 
+export const findArchiveTreeNodeBySlug = (
+  tree: ArchiveTree,
+  nodeSlug: string
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
+  flattenArchiveTree(tree).find((node) => node.slug === nodeSlug);
+
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,
   nodeId: string

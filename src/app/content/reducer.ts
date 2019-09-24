@@ -60,7 +60,7 @@ function reduceContent(state: State, action: AnyAction) {
         return {...omit(['page'], state), params: action.payload.match.params};
       }
 
-      return state;
+      return {...state, params: action.payload.match.params};
     }
     default:
       return state;
