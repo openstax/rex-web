@@ -12,11 +12,15 @@ import MobileScrollLock from '../../components/MobileScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
+import { locationChange } from '../../navigation/actions';
 import { Store } from '../../types';
+import { assertWindow } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
+import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
 
@@ -35,6 +39,20 @@ describe('content', () => {
   });
 
   it('matches snapshot', () => {
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        state: {},
+      },
+      match: {
+        params: {
+          book: bookState.slug,
+          page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+        },
+        route: content,
+      },
+    }));
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({...shortPage, references: []}));
 
