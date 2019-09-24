@@ -400,6 +400,8 @@ const StyledPageComponent = styled(PageComponent)`
   @media screen { /* full page width in print */
     flex: 1;
     display: flex;
+    flex-direction: column;
+    width: 100%;
 
     [data-type="page"],
     [data-type="composite-page"] {
