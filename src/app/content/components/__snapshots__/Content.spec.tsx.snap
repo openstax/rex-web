@@ -1509,6 +1509,10 @@ li[aria-label="Current Page"] .c40 {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+  }
+
+  .c58 [data-type="page"],
+  .c58 [data-type="composite-page"] {
     margin-top: 3.2rem;
   }
 }
@@ -4301,6 +4305,10 @@ Array [
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+  }
+
+  .c32 [data-type="page"],
+  .c32 [data-type="composite-page"] {
     margin-top: 3.2rem;
   }
 }

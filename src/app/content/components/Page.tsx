@@ -400,10 +400,14 @@ const StyledPageComponent = styled(PageComponent)`
   @media screen { /* full page width in print */
     flex: 1;
     display: flex;
-    margin-top: ${theme.padding.page.desktop}rem;
-    ${theme.breakpoints.mobile(css`
-      margin-top: ${theme.padding.page.mobile}rem;
-    `)}
+
+    [data-type="page"],
+    [data-type="composite-page"] {
+      margin-top: ${theme.padding.page.desktop}rem;
+      ${theme.breakpoints.mobile(css`
+        margin-top: ${theme.padding.page.mobile}rem;
+      `)}
+    }
   }
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
