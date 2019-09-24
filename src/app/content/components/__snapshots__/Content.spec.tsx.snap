@@ -1046,7 +1046,7 @@ Array [
 .c31 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
-  padding: 1.8rem 1.8rem 5rem 0.2rem;
+  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -3962,7 +3962,7 @@ Array [
 .c23 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
-  padding: 1.8rem 1.8rem 5rem 0.2rem;
+  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;

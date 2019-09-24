@@ -70,14 +70,8 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
 export const setSidebarHeight = (sidebar: HTMLElement, window: Window) => {
   const scrollHandlerCallback = () => {
     const top = sidebar.getBoundingClientRect().top;
-    //sidebar.style.setProperty('height', `calc(100vh - ${top}px)`);
-
-    const vh = window.innerHeight * 0.01;
-    if (document && document.documentElement) {
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    console.log(vh);
-    sidebar.style.setProperty('height', `calc((var(--vh, 1vh) * 100) - ${top}px)`);
+    const height = window.innerHeight;
+    sidebar.style.setProperty('height', `${height - top}px`);
   };
 
   const animation = () => requestAnimationFrame(scrollHandlerCallback);
