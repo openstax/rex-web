@@ -53,5 +53,5 @@ export const prevNextPage = createSelector(
   page,
   (selectedBook, selectedPage) => selectedBook && selectedPage
     ? prevNextBookPage(selectedBook, selectedPage.id)
-    : {}
+    : null
 );

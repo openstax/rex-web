@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
+import Loader from '../../components/Loader';
 import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import withServices from '../../context/Services';
@@ -128,6 +129,10 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
+    if (!this.props.page) {
+      return this.renderLoading();
+    }
+
     const html = this.getCleanContent() || this.getPrerenderedContent();
 
     return <MainContent
@@ -136,6 +141,13 @@ export class PageComponent extends Component<PropTypes> {
       dangerouslySetInnerHTML={{ __html: html}}
     />;
   }
+
+  private renderLoading = () => <MainContent
+    className={this.props.className}
+    ref={this.container}
+  >
+    <Loader large delay={1500} />
+  </MainContent>;
 
   private scrollToSearch = (container: HTMLElement, highlighter: Highlighter, selected: SelectedResult) => {
     const elementHighlights = this.searchResultMap.find((map) => isEqual(map.result, selected.result));
@@ -386,6 +398,8 @@ const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
 
   @media screen { /* full page width in print */
+    flex: 1;
+    display: flex;
     margin-top: ${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
       margin-top: ${theme.padding.page.mobile}rem;

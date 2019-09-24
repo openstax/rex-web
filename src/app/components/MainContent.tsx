@@ -15,20 +15,22 @@ const HideOutline = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const MainContent = React.forwardRef<HTMLDivElement, Props>(({children, className, ...props}, ref) => <Consumer>
-  {({registerMainContent}) => <div
-    ref={mergeRefs(ref, registerMainContent)}
-    className={className}
-    tabIndex={0}
-  >
-    <HideOutline
-      id={MAIN_CONTENT_ID}
-      tabIndex={-1}
-      {...props}
+const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
+  ({children, className, ...props}, ref) => <Consumer>
+    {({registerMainContent}) => <div
+      ref={mergeRefs(ref, registerMainContent)}
+      className={className}
+      tabIndex={0}
     >
-      {children}
-    </HideOutline>
-  </div>}
-</Consumer>);
+      <HideOutline
+        id={MAIN_CONTENT_ID}
+        tabIndex={-1}
+        {...props}
+      >
+        {children}
+      </HideOutline>
+    </div>}
+  </Consumer>
+);
 
 export default MainContent;

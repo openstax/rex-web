@@ -114,6 +114,8 @@ const MainContentWrapper = isOpenConnector(styled.div`
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   @media screen {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     ${wrapperPadding}
     ${styleWhenSidebarClosed(css`
       ${wrapperPadding}
