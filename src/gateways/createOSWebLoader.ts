@@ -38,18 +38,17 @@ export default (prefix: string) => {
 
   const cache = new Map();
   const loader = (buildUrl: (param: string) => string) => (param: string) => {
-    const url = buildUrl(param);
-
-    if (cache.has(url)) {
-      return Promise.resolve(cache.get(url));
+    if (cache.has(param)) {
+      return Promise.resolve(cache.get(param));
     }
 
-    return fetch(url)
+    return fetch(buildUrl(param))
       .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
       .then(toJson)
       .then(firstRecord(param))
       .then((response) => {
-        cache.set(url, response);
+        cache.set(response.meta.slug, response);
+        cache.set(response.cnx_id, response);
         return response;
       })
     ;
