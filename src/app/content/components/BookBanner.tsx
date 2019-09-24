@@ -200,10 +200,6 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 
     const bookUrl = bookDetailsUrl(book);
 
-    if (!pageNode) {
-      return <BarWrapper colorSchema={undefined} up={false} />;
-    }
-
     return this.renderBars(book, bookUrl, pageNode);
   }
 
