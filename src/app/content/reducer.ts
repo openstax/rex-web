@@ -53,7 +53,7 @@ function reduceContent(state: State, action: AnyAction) {
       if (!matchForRoute(content, action.payload.match)) {
         return initialState;
       }
-      if (state.book && action.payload.match.params.book !== state.params.book) {
+      if (action.payload.match.params.book !== state.params.book) {
         return {...initialState, params: action.payload.match.params, loading: state.loading};
       }
       if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
