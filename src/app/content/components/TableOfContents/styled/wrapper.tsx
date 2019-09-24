@@ -20,7 +20,7 @@ import { disablePrint } from '../../utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../utils/sidebar';
 
 const sidebarPadding = 1.8;
-const olBottomPadding = 5;
+const olBottomPadding = 15;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
@@ -69,7 +69,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     -webkit-overflow-scrolling: touch;
     position: relative;
     padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 0.2rem;
-    margin-bottom: ${olBottomPadding}rem;
+    /*margin-bottom: ${olBottomPadding}rem;*/
     flex: 1;
 
     > li:first-child {
