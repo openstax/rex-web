@@ -2163,7 +2163,7 @@ li[aria-label="Current Page"] .c40 {
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
                     }
                   }
-                  href="books/book-slug-1/pages/test-page-1"
+                  href="test-page-1"
                   onClick={[Function]}
                 />
               </li>
@@ -2275,7 +2275,7 @@ li[aria-label="Current Page"] .c40 {
                                   "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
                                 }
                               }
-                              href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                              href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                               onClick={[Function]}
                             />
                           </li>
@@ -2292,7 +2292,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
                           }
                         }
-                        href="books/book-slug-1/pages/1-1-physics-an-introduction"
+                        href="1-1-physics-an-introduction"
                         onClick={[Function]}
                       />
                     </li>
@@ -2306,7 +2306,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
                           }
                         }
-                        href="books/book-slug-1/pages/23-12-rlc-series-ac-circuits"
+                        href="23-12-rlc-series-ac-circuits"
                         onClick={[Function]}
                       />
                     </li>
@@ -2372,7 +2372,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-text\\">Test Page 3</span>",
                           }
                         }
-                        href="books/book-slug-1/pages/2-test-page-3"
+                        href="2-test-page-3"
                         onClick={[Function]}
                       />
                     </li>
@@ -2440,7 +2440,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
                           }
                         }
-                        href="books/book-slug-1/pages/3-test-page-4"
+                        href="3-test-page-4"
                         onClick={[Function]}
                       />
                     </li>
@@ -2506,7 +2506,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-text\\">Test Page 5</span>",
                           }
                         }
-                        href="books/book-slug-1/pages/4-test-page-5"
+                        href="4-test-page-5"
                         onClick={[Function]}
                       />
                     </li>
@@ -2572,7 +2572,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-text\\">Test Page 6</span>",
                           }
                         }
-                        href="books/book-slug-1/pages/10-test-page-6"
+                        href="10-test-page-6"
                         onClick={[Function]}
                       />
                     </li>
@@ -2638,7 +2638,7 @@ li[aria-label="Current Page"] .c40 {
                             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                           }
                         }
-                        href="books/book-slug-1/pages/12-test-page-7"
+                        href="12-test-page-7"
                         onClick={[Function]}
                       />
                     </li>
@@ -2655,7 +2655,7 @@ li[aria-label="Current Page"] .c40 {
                       "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
                     }
                   }
-                  href="books/book-slug-1/pages/a-atomic-masses"
+                  href="a-atomic-masses"
                   onClick={[Function]}
                 />
               </li>
@@ -2669,7 +2669,7 @@ li[aria-label="Current Page"] .c40 {
                       "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
                     }
                   }
-                  href="books/book-slug-1/pages/d-glossary-of-key-symbols-and-notation"
+                  href="d-glossary-of-key-symbols-and-notation"
                   onClick={[Function]}
                 />
               </li>
@@ -2683,7 +2683,7 @@ li[aria-label="Current Page"] .c40 {
                       "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
                     }
                   }
-                  href="books/book-slug-1/pages/test-page-for-generic-styles"
+                  href="test-page-for-generic-styles"
                   onClick={[Function]}
                 />
               </li>
@@ -2722,7 +2722,7 @@ li[aria-label="Current Page"] .c40 {
                     <a
                       aria-label="Previous Page"
                       className="c61"
-                      href="books/book-slug-1/pages/2-test-page-3"
+                      href="2-test-page-3"
                       onClick={[Function]}
                     >
                       <svg
@@ -2741,7 +2741,7 @@ li[aria-label="Current Page"] .c40 {
                     <a
                       aria-label="Next Page"
                       className="c63"
-                      href="books/book-slug-1/pages/4-test-page-5"
+                      href="4-test-page-5"
                       onClick={[Function]}
                     >
                       Next
@@ -2849,7 +2849,7 @@ li[aria-label="Current Page"] .c40 {
         Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.org/\\">https://openstax.org/</a>
+        Section URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/doesnotmatter\\">https://openstax.org/books/book-slug-1/pages/doesnotmatter</a>
       </li>
     </ul>
   </li>

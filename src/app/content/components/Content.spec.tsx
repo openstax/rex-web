@@ -30,19 +30,12 @@ describe('content', () => {
   const bookState: Book = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
-    store = createTestStore({
-      navigation: new URL(
-        'https://localhost/books/book-slug-1/pages/doesnotmatter'
-      ),
-    });
-    services = createTestServices();
-  });
-
-  it('matches snapshot', () => {
+    store = createTestStore();
     store.dispatch(locationChange({
       action: 'PUSH',
       location: {
         ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
         state: {},
       },
       match: {
@@ -53,6 +46,10 @@ describe('content', () => {
         route: content,
       },
     }));
+    services = createTestServices();
+  });
+
+  it('matches snapshot', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({...shortPage, references: []}));
 
