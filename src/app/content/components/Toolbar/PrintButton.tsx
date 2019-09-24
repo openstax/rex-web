@@ -5,13 +5,12 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
 import { print } from '../../print';
 import * as select from '../../selectors';
-import { Book, Page } from '../../types';
+import { Book } from '../../types';
 import * as Styled from './styled';
 
 interface Props {
   currentPath: string;
   book: Book | undefined;
-  page: Page | undefined;
 }
 
 class PrintButton extends Component<Props> {
