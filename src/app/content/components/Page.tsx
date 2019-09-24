@@ -12,6 +12,7 @@ import { typesetMath } from '../../../helpers/mathjax';
 import Loader from '../../components/Loader';
 import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
+import { MAIN_CONTENT_ID } from '../../context/constants';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
@@ -403,8 +404,8 @@ const StyledPageComponent = styled(PageComponent)`
     flex-direction: column;
     width: 100%;
 
-    [data-type="page"],
-    [data-type="composite-page"] {
+    > #${MAIN_CONTENT_ID} > [data-type="page"],
+    > #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
       margin-top: ${theme.padding.page.desktop}rem;
       ${theme.breakpoints.mobile(css`
         margin-top: ${theme.padding.page.mobile}rem;

@@ -1,7 +1,8 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled from 'styled-components/macro';
-import { Consumer, MAIN_CONTENT_ID } from '../context/SkipToContent';
+import { MAIN_CONTENT_ID } from '../context/constants';
+import { Consumer } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
 
 interface Props {
