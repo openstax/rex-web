@@ -1771,6 +1771,7 @@ li[aria-label="Current Page"] .c40 {
     margin-top: -4rem;
     top: 6rem;
     height: calc(100vh - 11.2rem);
+    max-height: calc(100vh - 6rem);
   }
 }
 
@@ -4405,6 +4406,7 @@ Array [
     margin-top: -4rem;
     top: 6rem;
     height: calc(100vh - 11.2rem);
+    max-height: calc(100vh - 6rem);
   }
 }
 
