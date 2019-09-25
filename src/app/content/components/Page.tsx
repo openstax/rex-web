@@ -404,6 +404,12 @@ const StyledPageComponent = styled(PageComponent)`
     flex-direction: column;
     width: 100%;
 
+    /* trying to add margin to a page wrapper that
+     * will collapse with the margin of the top element in the
+     * page. can't add it to the page element because it is flexy,
+     * or the main_content because page makes it flexy. those
+     * need to be flexy to center the loading indicator
+     */
     > #${MAIN_CONTENT_ID} > [data-type="page"],
     > #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
       margin-top: ${theme.padding.page.desktop}rem;

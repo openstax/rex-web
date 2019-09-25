@@ -1509,10 +1509,14 @@ li[aria-label="Current Page"] .c40 {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
   }
 
-  .c58 [data-type="page"],
-  .c58 [data-type="composite-page"] {
+  .c58 > #main-content > [data-type="page"],
+  .c58 > #main-content > [data-type="composite-page"] {
     margin-top: 3.2rem;
   }
 }
@@ -4305,10 +4309,14 @@ Array [
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
   }
 
-  .c32 [data-type="page"],
-  .c32 [data-type="composite-page"] {
+  .c32 > #main-content > [data-type="page"],
+  .c32 > #main-content > [data-type="composite-page"] {
     margin-top: 3.2rem;
   }
 }
