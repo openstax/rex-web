@@ -100,14 +100,14 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
     # GIVEN: A page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     attribution = content.attribution
-    toc = content.sidebar.toc
 
     # WHEN: The attribution section is expanded
     attribution.click_attribution_link()
 
     # THEN: The book url in the the citation section should reference the default page of the book
+    default_page_slug = content.default_page(book_slug)
     attribution_book_url_expected = (
-        "https://openstax.org/books/" + book_slug + "/pages/" + toc.default_page_slug
+        "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
     )
 
     assert attribution_book_url_expected == attribution.book_url
@@ -122,42 +122,14 @@ def test_access_free_url_in_citation_text_shows_url_for_default_page(
     # GIVEN: A page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     attribution = content.attribution
-    toc = content.sidebar.toc
 
     # WHEN: The attribution section is expanded
     attribution.click_attribution_link()
 
     # THEN: The access for free at url in the the citation section should reference the default page of the book
+    default_page_slug = content.default_page(book_slug)
     attribution_access_free_url_expected = (
-        "https://openstax.org/books/" + book_slug + "/pages/" + toc.default_page_slug
+        "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
     )
 
     assert attribution_access_free_url_expected == attribution.access_free_url
-
-
-def test_dict():
-    import random
-
-    def __init__(self):
-        self._book_dict = {
-            "chemistry-2e": "1-introduction",
-            "college-physics": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
-            "chemistry-atoms-first-2e": "1-introduction",
-        }
-
-    @property
-    def books(self) -> [str]:
-        return self._book_dict
-
-    def random_book_slug(self):
-        random_book_slug = random.choice(list(self.books.keys()))
-        return random_book_slug
-
-    # x = random_book_slug()
-    #
-    # def default_page(self, y=x):
-    #     default_page = self.books[y]
-    #
-    # print(x())
-    #
-    # print(default_page())

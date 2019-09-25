@@ -1,12 +1,13 @@
 from tests.conftest import DESKTOP, MOBILE
 
-import pytest
 import pypom
 
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+
+from utils import utility
 
 
 class Page(pypom.Page):
@@ -76,3 +77,8 @@ class Page(pypom.Page):
                 "return window.getComputedStyle(arguments[0]).height;", element
             )
         ).strip("px")
+
+    def default_page(self, element):
+        book_list = utility.Library()
+        default_page = book_list.books[element]
+        return default_page
