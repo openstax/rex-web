@@ -401,8 +401,11 @@ const StyledPageComponent = styled(PageComponent)`
   @media screen { /* full page width in print */
     flex: 1;
     display: flex;
-    flex-direction: column;
     width: 100%;
+
+    > #${MAIN_CONTENT_ID} {
+      width: 100%;
+    }
 
     /* trying to add margin to a page wrapper that
      * will collapse with the margin of the top element in the

@@ -1509,9 +1509,10 @@ li[aria-label="Current Page"] .c40 {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
+    width: 100%;
+  }
+
+  .c58 > #main-content {
     width: 100%;
   }
 
@@ -4309,9 +4310,10 @@ Array [
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
+    width: 100%;
+  }
+
+  .c32 > #main-content {
     width: 100%;
   }
 
