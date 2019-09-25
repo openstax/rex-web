@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getFormattedSearchResults } from './utils';
+import { countTotalHighlights, getFormattedSearchResults, getSearchResultsForPage } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -22,18 +22,34 @@ export const query = createSelector(
   (state) => state.query
 );
 
+export const selectedResult = createSelector(
+  localState,
+  (state) => state.selectedResult
+);
+
 export const totalHits = createSelector(
   localState,
-  (state) => !!state.results ? state.results.hits.total : null
+  (state) => !!state.results ? countTotalHighlights(state.results.hits.hits) : null
+);
+
+export const getRawResults = createSelector(
+  localState,
+  (state) => state.results
 );
 
 export const results = createSelector(
-  localState,
+  getRawResults,
   parentSelectors.book,
-  (state, book) => !!state.results && !!book ? getFormattedSearchResults(book.tree, state.results) : null
+  (rawResults, book) => rawResults && book ? getFormattedSearchResults(book.tree, rawResults) : null
 );
 
 export const mobileToolbarOpen = createSelector(
   localState,
   (state) => state.mobileToolbarOpen
+);
+
+export const currentPageResults = createSelector(
+  getRawResults,
+  parentSelectors.page,
+  (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
 );

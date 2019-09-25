@@ -90,6 +90,7 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   margin-top: 0;
@@ -98,7 +99,7 @@ export const SearchResultsBar = styled.div`
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: ${theme.zIndex.sidebar};
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-left: -${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
@@ -164,8 +165,8 @@ export const Details = styled(BaseDetails)`
 // tslint:disable-next-line:variable-name
 export const SearchBarSummaryContainer = styled.div`
   display: flex;
-  align-items: center;
-  background: ${backgroundColor};
+  align-items: normal;
+  background: ${borderColor};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
   border-top: solid 0.1rem ${borderColor};
   ${theme.breakpoints.mobile(css`
@@ -194,33 +195,51 @@ export const SearchResultsLink = styled.div`
   line-height: 1.3;
 `;
 
+interface SectionContentPreviewProps extends React.ComponentProps<typeof ContentLinkComponent > {
+  selectedResult: boolean;
+}
+
 // tslint:disable-next-line:variable-name
-export const SectionContentPreview = styled(ContentLinkComponent)`
+export const SectionContentPreview = styled(
+  React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>(
+    ({selectedResult, ...props}, ref) => <ContentLinkComponent {...props} ref={ref} />
+  )
+)`
   ${labelStyle}
   cursor: pointer;
-  margin-left: 6.6rem;
   min-height: 3.7rem;
   align-items: center;
-  margin-right: ${theme.padding.page.mobile}rem;
-  padding: 1.2rem 0;
   display: block;
   text-decoration: none;
   line-height: 1.3;
+  padding: 0 0 0 6.6rem;
 
-  :not(:last-child) {
+  :not(:last-child) > div {
     border-bottom: solid 0.1rem ${backgroundColor};
+  }
+
+  ${(props: {selectedResult: boolean}) => props.selectedResult && css`
+    background: ${backgroundColor};
+  `}
+
+  > div {
+    padding: 1.2rem ${theme.padding.page.mobile}rem 1.2rem 0;
+
+    ::before{
+      content: '... '
+    }
+
+    ::after {
+      content: ' ...'
+    }
   }
 
   > * {
     outline: none;
   }
 
-  em {
-    font-weight: bold;
-  }
-
   ${theme.breakpoints.mobile(css`
-    margin-left: 5rem;
+    padding-left: 5rem;
   `)}
 `;
 

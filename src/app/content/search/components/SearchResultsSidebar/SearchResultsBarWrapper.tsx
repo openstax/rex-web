@@ -2,25 +2,24 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
-import { assertDefined } from '../../../../utils';
-import { Book, Page } from '../../../types';
+import { Book } from '../../../types';
 import {
   scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
-import { SearchResultContainer } from '../../types';
-import { SearchResultContainers } from './SearchResultContainers';
+import { SearchResultContainer, SelectedResult } from '../../types';
+import SearchResultContainers from './SearchResultContainers';
 import * as Styled from './styled';
 
 interface ResultsSidebarProps {
-  currentPage: Page | undefined;
   query: string | null;
   hasQuery: boolean;
   results: SearchResultContainer[] | null;
   onClose: () => void;
-  closeSearchResults: () => void;
   searchResultsOpen: boolean;
   book?: Book;
+  totalHits: number | null;
+  selectedResult: SelectedResult | null;
 }
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
@@ -40,23 +39,22 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </FormattedMessage>;
 
   public totalResults = () => <Styled.SearchQueryWrapper>
-    <FormattedMessage id='i18n:search-results:bar:query:results'>
-      {(msg: Element | string) => (
-        <Styled.SearchQuery>
-          <Styled.SearchIconInsideBar />
-          <Styled.HeaderQuery>
-            {this.props.results && this.props.results.length} {msg}{' '}
-            <strong> &lsquo;{this.props.query}&rsquo;</strong>
-          </Styled.HeaderQuery>
-          <Styled.CloseIconButton
-            onClick={this.props.onClose}
-            data-testid='close-search'
-          >
-            <Styled.CloseIcon />
-          </Styled.CloseIconButton>
-        </Styled.SearchQuery>
-      )}
-    </FormattedMessage>
+    <Styled.SearchQuery>
+      <Styled.SearchIconInsideBar />
+        <Styled.HeaderQuery>
+          {this.props.totalHits}{' '}
+          <FormattedMessage
+            id='i18n:search-results:bar:query:results'
+            values={{total: this.props.totalHits}}/>
+          <strong> &lsquo;{this.props.query}&rsquo;</strong>
+        </Styled.HeaderQuery>
+        <Styled.CloseIconButton
+          onClick={this.props.onClose}
+          data-testid='close-search'
+        >
+        <Styled.CloseIcon />
+      </Styled.CloseIconButton>
+    </Styled.SearchQuery>
   </Styled.SearchQueryWrapper>;
 
   public noResults = () => <div>
@@ -78,11 +76,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
     <SearchResultContainers
-      currentPage={this.props.currentPage}
       activeSectionRef={this.activeSection}
+      selectedResult={this.props.selectedResult}
       containers={results}
       book={book}
-      closeSearchResults={this.props.closeSearchResults}
     />
   </Styled.NavOl>;
 
@@ -124,15 +121,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
-
-    const activeSection = this.activeSection.current;
-    if (activeSection) {
-      const firstResult = assertDefined(activeSection.querySelector('a'),
-        'there should always be at least one result if there is an active section'
-      );
-      firstResult.focus();
-    }
-
   }
 
   public componentWillUnmount() {

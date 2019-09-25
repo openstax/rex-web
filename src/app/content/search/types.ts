@@ -7,7 +7,13 @@ export interface State {
   mobileToolbarOpen: boolean;
   query: null | string;
   results: SearchResult | null;
+  selectedResult: SelectedResult | null;
   sidebarOpen: boolean;
+}
+
+export interface SelectedResult {
+  result: SearchResultHit;
+  highlight: number;
 }
 
 export type SearchResultPage = ArchiveTreeSection & {

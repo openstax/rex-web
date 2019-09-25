@@ -27,6 +27,7 @@ const sidebarClosedStyle = css`
   box-shadow: none;
   background-color: transparent;
   pointer-events: none;
+  visibility: hidden;
 
   > * {
     opacity: 0;
@@ -40,12 +41,13 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
+  max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
   transition:
     transform ${sidebarTransitionTime}ms ease-in-out,
     box-shadow ${sidebarTransitionTime}ms ease-in-out,
     background-color ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
-  z-index: 3; /* stay above book content and overlay */
+  z-index: ${theme.zIndex.sidebar};
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + ${sidebarDesktopWidth}rem);
@@ -57,6 +59,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     margin-top: -${toolbarMobileHeight}rem;
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
+    max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
   `)}
 
   display: flex;

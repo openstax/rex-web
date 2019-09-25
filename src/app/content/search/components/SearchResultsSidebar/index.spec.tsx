@@ -14,6 +14,7 @@ import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import {
   makeEvent,
   makeFindByTestId,
+  makeFindOrNullByTestId,
   renderToDom
 } from '../../../../../test/reactutils';
 import {
@@ -29,7 +30,8 @@ import {
   clearSearch,
   closeSearchResultsMobile,
   receiveSearchResults,
-  requestSearch
+  requestSearch,
+  selectSearchResult
 } from '../../actions';
 
 describe('SearchResultsSidebar', () => {
@@ -62,8 +64,24 @@ describe('SearchResultsSidebar', () => {
     expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
-  it('is closed when there is no search', () => {
+  it('is initially null when there is no search', () => {
     const component = renderer.create(render());
+    const findById = makeFindOrNullByTestId(component.root);
+
+    expect(findById('search-results-sidebar')).toBe(null);
+  });
+
+  it('is hidden after search is cleared', () => {
+    const component = renderer.create(render());
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
+    renderer.act(() => {
+      store.dispatch(clearSearch());
+    });
+
     const findById = makeFindByTestId(component.root);
 
     expect(findById('search-results-sidebar').props.searchResultsOpen).toBe(false);
@@ -89,15 +107,17 @@ describe('SearchResultsSidebar', () => {
   it('matches snapshot with results', () => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('cool search'));
+    const selectedResult = makeSearchResultHit({ book: archiveBook, page });
     store.dispatch(
       receiveSearchResults(
         makeSearchResults([
-          makeSearchResultHit({ book: archiveBook, page }),
+          selectedResult,
           makeSearchResultHit({ book: archiveBook, page: pageInChapter }),
           makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
         ])
       )
     );
+    store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
 
     const tree = renderer.create(render()).toJSON();
     expect(tree).toMatchSnapshot();
@@ -114,29 +134,6 @@ describe('SearchResultsSidebar', () => {
     store.dispatch(receiveSearchResults(makeSearchResults([])));
 
     expect(assertDocument().activeElement).toBe(activeElement);
-  });
-
-  it('focuses first result when opened', () => {
-    store.dispatch(receivePage({ ...page, references: [] }));
-    store.dispatch(requestSearch('cool search'));
-    renderToDom(render());
-
-    store.dispatch(
-      receiveSearchResults(
-        makeSearchResults([makeSearchResultHit({ book: archiveBook, page })])
-      )
-    );
-
-    const activeElement = assertDocument().activeElement;
-
-    if (!activeElement) {
-      return expect(activeElement).toBeTruthy();
-    }
-
-    expect(activeElement.getAttribute('data-testid')).toEqual('search-result');
-    expect(activeElement.textContent).toMatchInlineSnapshot(
-      `"cool highlight bruh"`
-    );
   });
 
   it('closes search results when one is clicked', () => {

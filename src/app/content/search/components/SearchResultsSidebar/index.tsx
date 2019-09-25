@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
 import * as select from '../../../selectors';
-import { Book, Page } from '../../../types';
-import { clearSearch, closeSearchResultsMobile } from '../../actions';
+import { Book } from '../../../types';
+import { clearSearch } from '../../actions';
 import * as selectSearch from '../../selectors';
-import { SearchResultContainer } from '../../types';
+import { SearchResultContainer, SelectedResult } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 interface Props {
-  currentPage: Page | undefined;
   book?: Book;
   query: string | null;
   hasQuery: boolean;
@@ -17,19 +16,21 @@ interface Props {
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
-  closeSearchResults: () => void;
+  selectedResult: SelectedResult | null;
 }
 
 interface State {
   results: SearchResultContainer[] | null;
   query: string | null;
   totalHits: number | null;
+  selectedResult: SelectedResult | null;
 }
 
 export class SearchResultsSidebar extends Component<Props, State> {
   public state: State = {
     query: null,
     results: null,
+    selectedResult: null,
     totalHits: null,
   };
 
@@ -40,19 +41,20 @@ export class SearchResultsSidebar extends Component<Props, State> {
   }
 
   public componentWillReceiveProps(newProps: Props) {
-    if (newProps.results) {
+    if (newProps.results || (newProps.query !== this.state.query && !this.state.query)) {
       this.setState(this.getStateProps(newProps));
     }
   }
 
   public render() {
-    return <SearchResultsBarWrapper {...this.props} {...this.state} />;
+    return this.state.query ? <SearchResultsBarWrapper {...this.props} {...this.state} /> : null;
   }
 
   private getStateProps(props: Props) {
     return {
       query: props.query,
       results: props.results,
+      selectedResult: props.selectedResult,
       totalHits: props.totalHits,
     };
   }
@@ -61,17 +63,14 @@ export class SearchResultsSidebar extends Component<Props, State> {
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    currentPage: select.page(state),
     hasQuery: !!selectSearch.query(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
+    selectedResult: selectSearch.selectedResult(state),
     totalHits: selectSearch.totalHits(state),
   }),
   (dispatch: Dispatch) => ({
-    closeSearchResults: () => {
-      dispatch(closeSearchResultsMobile());
-    },
     onClose: () => {
       dispatch(clearSearch());
     },
