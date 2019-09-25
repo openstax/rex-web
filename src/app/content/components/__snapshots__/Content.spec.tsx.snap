@@ -1890,6 +1890,7 @@ li[aria-label="Current Page"] .c40 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
+    min-height: calc(100vh - 32.1rem);
     padding: 0 3.2rem;
   }
 }
@@ -4521,6 +4522,7 @@ Array [
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
+    min-height: calc(100vh - 32.1rem);
     padding: 0 3.2rem;
   }
 }
