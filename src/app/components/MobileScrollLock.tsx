@@ -2,10 +2,8 @@ import Color from 'color';
 import React from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
-import { findFirstScrollableParent } from '../content/utils/domUtils';
-import { isHtmlElement } from '../guards';
 import theme from '../theme';
-import OnScroll, { OnScrollCallback } from './OnScroll';
+import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 
 // tslint:disable-next-line:variable-name
 const MobileScrollLockBodyClass = createGlobalStyle`
@@ -51,7 +49,7 @@ interface Props {
 export default class MobileScrollLock extends React.Component<Props> {
 
   public render() {
-    return <OnScroll callback={this.blockScroll}>
+    return <OnScroll onTouchMove={this.blockScroll}>
       <MobileScrollLockBodyClass />
       {this.props.overlay !== false &&
         <Overlay onClick={this.props.onClick} />
@@ -59,12 +57,11 @@ export default class MobileScrollLock extends React.Component<Props> {
     </OnScroll>;
   }
 
-  private blockScroll: OnScrollCallback = (e) => {
+  private blockScroll: OnTouchMoveCallback = (element, e) => {
     if (
       typeof(window) !== 'undefined'
       && window.matchMedia(theme.breakpoints.mobileQuery).matches
-      && isHtmlElement(e.target)
-      && !findFirstScrollableParent(e.target)
+      && element === window
     ) {
       e.preventDefault();
     }

@@ -41,6 +41,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   margin-top: -${toolbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
+  max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
   transition:
     transform ${sidebarTransitionTime}ms ease-in-out,
     box-shadow ${sidebarTransitionTime}ms ease-in-out,
@@ -58,6 +59,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
     margin-top: -${toolbarMobileHeight}rem;
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
+    max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
   `)}
 
   display: flex;

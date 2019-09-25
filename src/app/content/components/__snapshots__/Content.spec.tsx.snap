@@ -1025,6 +1025,7 @@ Array [
   margin-top: -5rem;
   overflow-y: auto;
   height: calc(100vh - 13rem);
+  max-height: calc(100vh - 7rem);
   -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
@@ -1772,6 +1773,7 @@ li[aria-label="Current Page"] .c40 {
     margin-top: -4rem;
     top: 6rem;
     height: calc(100vh - 11.2rem);
+    max-height: calc(100vh - 6rem);
   }
 }
 
@@ -4003,6 +4005,7 @@ Array [
   margin-top: -5rem;
   overflow-y: auto;
   height: calc(100vh - 13rem);
+  max-height: calc(100vh - 7rem);
   -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
@@ -4407,6 +4410,7 @@ Array [
     margin-top: -4rem;
     top: 6rem;
     height: calc(100vh - 11.2rem);
+    max-height: calc(100vh - 6rem);
   }
 }
 
