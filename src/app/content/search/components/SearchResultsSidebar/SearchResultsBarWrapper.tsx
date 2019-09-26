@@ -26,6 +26,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   private searchSidebar = React.createRef<HTMLElement>();
   private activeSection = React.createRef<HTMLElement>();
+  private searchSidebarHeader = React.createRef<HTMLElement>();
 
   public loadindState = () => <FormattedMessage id='i18n:search-results:bar:loading-state'>
     {(msg: Element | string) => <Styled.LoadingWrapper aria-label={msg}>
@@ -38,7 +39,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </Styled.LoadingWrapper>}
   </FormattedMessage>;
 
-  public totalResults = () => <Styled.SearchQueryWrapper>
+  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
     <Styled.SearchQuery>
       <Styled.SearchIconInsideBar />
         <Styled.HeaderQuery>
@@ -119,8 +120,15 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     this.deregister = deregister;
   };
 
-  public componentDidUpdate() {
-    this.scrollToSelectedPage();
+  public componentDidUpdate(prevProps: any) {
+    if (prevProps.query && prevProps.query !== this.props.query) {
+      console.log("scroll top");
+      const header = this.searchSidebarHeader.current;
+      const searchSidebar = this.searchSidebar.current;
+      scrollSidebarSectionIntoView(searchSidebar, header);
+    } else {
+      this.scrollToSelectedPage();
+    }
   }
 
   public componentWillUnmount() {
