@@ -26,6 +26,7 @@ import { Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -174,5 +175,20 @@ describe('SearchResultsSidebar', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
+  });
+
+  it('search sidebar header is visible on every new search', () => {
+    store.dispatch(requestSearch('cool search'));
+
+    const scrollSidebarSectionIntoViewMock = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
+
+    expect(scrollSidebarSectionIntoViewMock).not.toHaveBeenCalled();
+
+    store.dispatch(clearSearch());
+
+    store.dispatch(requestSearch('second cool search'));
+
+    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalled();
+
   });
 });

@@ -583,6 +583,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 >
   <div
     className="c1"
+    data-testid="search-results-sidebar-header"
   >
     <div
       className="c2"

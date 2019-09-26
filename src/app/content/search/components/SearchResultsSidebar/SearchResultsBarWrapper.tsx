@@ -39,7 +39,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </Styled.LoadingWrapper>}
   </FormattedMessage>;
 
-  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
+  public totalResults = () => <Styled.SearchQueryWrapper
+    ref={this.searchSidebarHeader}
+    data-testid='search-results-sidebar-header'>
     <Styled.SearchQuery>
       <Styled.SearchIconInsideBar />
         <Styled.HeaderQuery>
@@ -122,7 +124,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public componentDidUpdate(prevProps: any) {
     if (prevProps.query && prevProps.query !== this.props.query) {
-      console.log("scroll top");
       const header = this.searchSidebarHeader.current;
       const searchSidebar = this.searchSidebar.current;
       scrollSidebarSectionIntoView(searchSidebar, header);
