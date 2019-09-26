@@ -24,9 +24,9 @@ interface ResultsSidebarProps {
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
-  private searchSidebar = React.createRef<HTMLElement>();
-  private activeSection = React.createRef<HTMLElement>();
-  private searchSidebarHeader = React.createRef<HTMLElement>();
+  public searchSidebar = React.createRef<HTMLElement>();
+  public activeSection = React.createRef<HTMLElement>();
+  public searchSidebarHeader = React.createRef<HTMLElement>();
 
   public loadindState = () => <FormattedMessage id='i18n:search-results:bar:loading-state'>
     {(msg: Element | string) => <Styled.LoadingWrapper aria-label={msg}>
