@@ -180,21 +180,28 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('search sidebar header is visible on every new search', () => {
-    const {tree} = renderToDom(render());
-    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
 
+    const {tree} = renderToDom(render());
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(
+      receiveSearchResults(
+        makeSearchResults([makeSearchResultHit({ book: archiveBook, page })])
+      )
+    );
+
+    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
     const searchSidebar = sidebar.searchSidebar.current;
     const header = sidebar.searchSidebarHeader.current;
-
     const scrollSidebarSectionIntoViewMock = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
 
-    store.dispatch(requestSearch('cool search'));
     expect(scrollSidebarSectionIntoViewMock).not.toHaveBeenCalled();
 
     store.dispatch(requestSearch('second cool search'));
-    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalled();
-    expect(scrollSidebarSectionIntoViewMock.mock.calls[0][0]).toBe(searchSidebar);
-    expect(scrollSidebarSectionIntoViewMock.mock.calls[0][1]).toBe(header);
-
+    store.dispatch(
+      receiveSearchResults(
+        makeSearchResults([makeSearchResultHit({ book: archiveBook, page })])
+      )
+    );
+    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalledWith(searchSidebar, header);
   });
 });
