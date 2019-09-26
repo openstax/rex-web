@@ -1,6 +1,6 @@
 // tslint:disable:max-line-length
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 // Create the keyframes
 const loadSvg = keyframes`
@@ -64,10 +64,15 @@ const moveBlue = keyframes`
   }
 `;
 
+interface Props {
+  large?: boolean;
+  delay?: number;
+}
+
 // tslint:disable-next-line:variable-name
 const LoadingIcon = styled.svg`
   enable-background: new 0 0 57.6 39.1;
-  animation: ${loadSvg} 0.3s forwards 0.3s;
+  animation: ${loadSvg} 0.3s forwards ${(props: Props) => props.delay || 300}ms;
   display: block;
   height: 100%;
   margin: 0 auto;
@@ -76,6 +81,9 @@ const LoadingIcon = styled.svg`
   transform: scale(0);
   transform-origin: center;
   width: 5rem;
+  ${(props: Props) => props.large && css`
+    width: 10rem;
+  `}
 
   * {
     animation: fadeIn 0.3s forwards;
@@ -125,7 +133,7 @@ const LoadingIcon = styled.svg`
   }
 `;
 
-export default () => (
+export default (props: Props) => (
   <LoadingIcon
     data-testid='loader'
     version='1.1'
@@ -133,6 +141,7 @@ export default () => (
     x='0px'
     y='0px'
     viewBox='0 0 57.6 39.1'
+    {...props}
   >
     <path
       id='os-blue'

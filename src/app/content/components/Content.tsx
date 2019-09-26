@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
+import { navDesktopHeight, navMobileHeight } from '../../components/NavBar/styled';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
@@ -11,9 +12,12 @@ import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
+import { desktopAttributionHeight, mobileAttributionHeight } from './Attribution';
 import BookBanner from './BookBanner';
 import {
+  bookBannerDesktopBigHeight,
   bookBannerDesktopMiniHeight,
+  bookBannerMobileBigHeight,
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   mainContentBackground,
@@ -45,10 +49,13 @@ const Background = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  z-index: 1; /* above content */
+  z-index: ${theme.zIndex.contentNotifications};
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+    top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
+        ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
+        : bookBannerMobileMiniHeight + toolbarMobileHeight
+    }rem;
   `)}
 `;
 
@@ -107,10 +114,22 @@ const MainContentWrapper = isOpenConnector(styled.div`
   }
 `);
 
+const minDesktopContentSize =
+  navDesktopHeight + bookBannerDesktopBigHeight + toolbarDesktopHeight + desktopAttributionHeight;
+
+const minMobileContentSize =
+  navMobileHeight + bookBannerMobileBigHeight + toolbarMobileHeight + mobileAttributionHeight;
+
 // tslint:disable-next-line:variable-name
 const HideOverflowAndRedoPadding = isOpenConnector(styled.div`
   @media screen {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - ${minDesktopContentSize}rem);
+    ${theme.breakpoints.mobile(css`
+      min-height: calc(100vh - ${minMobileContentSize}rem);
+    `)}
     ${wrapperPadding}
     ${styleWhenSidebarClosed(css`
       ${wrapperPadding}
@@ -185,7 +204,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
             <ContentPane>
               <UndoPadding>
                 <MainContentWrapper>
-                  <ContentNotifications />
+                  <ContentNotifications mobileExpanded={mobileExpanded} />
                   <HideOverflowAndRedoPadding>
                     <Page />
                     <PrevNextBar />

@@ -33,10 +33,10 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   if (!book || !page) {
     return;
   }
-  if (loadingBook && book.id !== loadingBook) {
+  if (loadingBook) {
     return;
   }
-  if (loadingPage && page.id !== loadingPage) {
+  if (loadingPage) {
     return;
   }
 
