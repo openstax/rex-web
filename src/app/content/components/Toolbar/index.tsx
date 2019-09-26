@@ -5,10 +5,11 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument, assertString, assertWindow } from '../../../utils';
+import { assertDocument, assertString } from '../../../utils';
 import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import { OpenSidebarControl } from '../SidebarControl';
+import PrintButton from './PrintButton';
 import * as Styled from './styled';
 
 interface Props {
@@ -103,19 +104,7 @@ class Toolbar extends React.Component<Props, State> {
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
           </Styled.SearchInputWrapper>
-          <FormattedMessage id='i18n:toolbar:print:text'>
-            {(msg: Element | string) => <FormattedMessage id='i18n:toolbar:print:aria-label'>
-              {(label: Element | string) =>
-                <Styled.PrintOptWrapper
-                  onClick={() => assertWindow().print()}
-                  aria-label={label}
-                  data-testid='print'
-                >
-                  <Styled.PrintIcon /><Styled.PrintOptions>{msg}</Styled.PrintOptions>
-                </Styled.PrintOptWrapper>
-              }</FormattedMessage>
-            }
-          </FormattedMessage>
+          <PrintButton/>
         </Styled.SearchPrintWrapper>
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
