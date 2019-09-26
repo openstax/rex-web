@@ -178,7 +178,6 @@ export const SearchInput = styled(({desktop, mobile, ...props}) =>
   </FormattedMessage>)`
     ${labelStyle}
     ${hideSearchChrome}
-    line-height: 2;
     margin: 0 1rem 0 1rem;
     height: ${toolbarSearchInputHeight}rem;
     border: none;
