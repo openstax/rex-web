@@ -12,11 +12,15 @@ import MobileScrollLock from '../../components/MobileScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
+import { locationChange } from '../../navigation/actions';
 import { Store } from '../../types';
+import { assertWindow } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
+import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
 
@@ -26,11 +30,22 @@ describe('content', () => {
   const bookState: Book = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
-    store = createTestStore({
-      navigation: new URL(
-        'https://localhost/books/book-slug-1/pages/doesnotmatter'
-      ),
-    });
+    store = createTestStore();
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
+      match: {
+        params: {
+          book: bookState.slug,
+          page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+        },
+        route: content,
+      },
+    }));
     services = createTestServices();
   });
 
