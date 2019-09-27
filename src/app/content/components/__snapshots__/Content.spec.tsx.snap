@@ -1525,6 +1525,7 @@ li[aria-label="Current Page"] .c40 {
 
 @media screen {
   .c58 .search-highlight {
+    font-weight: bold;
     background-color: #ffd17e;
   }
 
@@ -4329,6 +4330,7 @@ Array [
 
 @media screen {
   .c32 .search-highlight {
+    font-weight: bold;
     background-color: #ffd17e;
   }
 
