@@ -70,25 +70,28 @@ export class PageComponent extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  public async componentDidMount() {
+  public componentDidMount() {
     if (!this.container.current) {
       return;
     }
-    await this.postProcess(this.container.current);
+    this.postProcess(this.container.current);
+    this.addGenericJs(this.container.current);
     this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
   }
 
-  public async componentDidUpdate(prevProps: PropTypes) {
+  public componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
+      this.postProcess(this.container.current);
+      this.addGenericJs(this.container.current);
+
       if (!target) {
         this.scrollToTop(prevProps, window);
       }
-      await this.postProcess(this.container.current);
     }
 
     if (this.container.current && typeof(window) !== 'undefined' && target) {
@@ -377,12 +380,8 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private postProcess(container: HTMLElement) {
-    this.addGenericJs(container);
-
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
-
-    return promise;
   }
 }
 
