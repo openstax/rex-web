@@ -21,7 +21,6 @@ class Library(object):
         return self._book_dict
 
     def random_book_slug(self):
-        test-attribution-book_url
         random_book_slug = random.choice(list(self.books.keys()))
         return random_book_slug
 
