@@ -50,7 +50,7 @@ describe('SearchResultsSidebar', () => {
   const render = () => (
     <MessageProvider>
       <Provider store={store}>
-        <SearchResultsSidebar></SearchResultsSidebar>
+        <SearchResultsSidebar/>
       </Provider>
     </MessageProvider>
   );
@@ -183,25 +183,15 @@ describe('SearchResultsSidebar', () => {
 
     const {tree} = renderToDom(render());
     store.dispatch(requestSearch('cool search'));
-    store.dispatch(
-      receiveSearchResults(
-        makeSearchResults([makeSearchResultHit({ book: archiveBook, page })])
-      )
-    );
+    store.dispatch(receiveSearchResults(makeSearchResults()));
 
     const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
     const searchSidebar = sidebar.searchSidebar.current;
     const header = sidebar.searchSidebarHeader.current;
     const scrollSidebarSectionIntoViewMock = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
 
-    expect(scrollSidebarSectionIntoViewMock).not.toHaveBeenCalled();
-
     store.dispatch(requestSearch('second cool search'));
-    store.dispatch(
-      receiveSearchResults(
-        makeSearchResults([makeSearchResultHit({ book: archiveBook, page })])
-      )
-    );
+    store.dispatch(receiveSearchResults(makeSearchResults()));
     expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalledWith(searchSidebar, header);
   });
 });

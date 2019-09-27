@@ -39,9 +39,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </Styled.LoadingWrapper>}
   </FormattedMessage>;
 
-  public totalResults = () => <Styled.SearchQueryWrapper
-    ref={this.searchSidebarHeader}
-    data-testid='search-results-sidebar-header'>
+  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
     <Styled.SearchQuery>
       <Styled.SearchIconInsideBar />
         <Styled.HeaderQuery>
