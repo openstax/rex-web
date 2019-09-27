@@ -426,6 +426,7 @@ const StyledPageComponent = styled(PageComponent)`
 
   @media screen {
     .search-highlight {
+      font-weight: bold;
       background-color: #ffd17e;
 
       &.focus {
