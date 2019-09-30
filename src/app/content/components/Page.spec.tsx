@@ -129,7 +129,7 @@ describe('Page', () => {
   describe('Content tweaks for generic styles', () => {
     let pageElement: HTMLElement;
 
-    const htmlHelper = (html: string) => {
+    const htmlHelper = async(html: string) => {
       archiveLoader.mock.cachedPage.mockImplementation(() => ({
         ...page,
         content: html,
@@ -152,60 +152,63 @@ describe('Page', () => {
       }
       pageElement = query;
 
+      // page lifecycle hooks
+      await Promise.resolve();
+
       return pageElement.innerHTML;
     };
 
-    it('wraps note titles in a <header> and contents in a <section>', () => {
-      expect(htmlHelper('<div data-type="note"><div data-type="title">TT</div><p>BB</p></div>'))
+    it('wraps note titles in a <header> and contents in a <section>', async() => {
+      expect(await htmlHelper('<div data-type="note"><div data-type="title">TT</div><p>BB</p></div>'))
       .toEqual('<div data-type="note" class="ui-has-child-title">' +
       '<header><div data-type="title">TT</div></header><section><p>BB</p></section></div>');
     });
 
-    it('adds a label to the note when present', () => {
-      expect(htmlHelper('<div data-type="note" data-label="LL"><div data-type="title">notetitle</div></div>'))
+    it('adds a label to the note when present', async() => {
+      expect(await htmlHelper('<div data-type="note" data-label="LL"><div data-type="title">notetitle</div></div>'))
       .toEqual('<div data-type="note" data-label="LL" class="ui-has-child-title">' +
       '<header><div data-type="title" data-label-parent="LL">notetitle</div></header>' +
       '<section></section></div>');
     });
 
-    it('converts notes without titles', () => {
-      expect(htmlHelper('<div data-type="note">notewithouttitle</div>'))
+    it('converts notes without titles', async() => {
+      expect(await htmlHelper('<div data-type="note">notewithouttitle</div>'))
       .toEqual('<div data-type="note"><header></header><section>notewithouttitle</section></div>');
     });
 
-    it('moves figure captions to the bottom', () => {
-      expect(htmlHelper('<figure><figcaption>CC</figcaption>FF</figure>'))
+    it('moves figure captions to the bottom', async() => {
+      expect(await htmlHelper('<figure><figcaption>CC</figcaption>FF</figure>'))
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
-    it('adds (target="_blank" rel="noopener nofollow") to external links', () => {
-      expect(htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
+    it('adds (target="_blank" rel="noopener nofollow") to external links', async() => {
+      expect(await htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
       .toEqual('<a target="_blank" rel="noopener nofollow" href="https://openstax.org/external-url">external-link</a>');
     });
 
-    it('numbers lists that have a start attribute', () => {
-      expect(htmlHelper('<ol start="123"><li>item</li></ol>'))
+    it('numbers lists that have a start attribute', async() => {
+      expect(await htmlHelper('<ol start="123"><li>item</li></ol>'))
       .toEqual('<ol start="123" style="counter-reset: list-item 123"><li>item</li></ol>');
     });
 
-    it('adds prefix to list items', () => {
-      expect(htmlHelper('<ol data-mark-prefix="[mark-prefix]"><li>item</li></ol>'))
+    it('adds prefix to list items', async() => {
+      expect(await htmlHelper('<ol data-mark-prefix="[mark-prefix]"><li>item</li></ol>'))
       .toEqual('<ol data-mark-prefix="[mark-prefix]"><li data-mark-prefix="[mark-prefix]">item</li></ol>');
     });
 
-    it('adds a suffix to list items', () => {
-      expect(htmlHelper('<ol data-mark-suffix="[mark-suffix]"><li>item</li></ol>'))
+    it('adds a suffix to list items', async() => {
+      expect(await htmlHelper('<ol data-mark-suffix="[mark-suffix]"><li>item</li></ol>'))
       .toEqual('<ol data-mark-suffix="[mark-suffix]"><li data-mark-suffix="[mark-suffix]">item</li></ol>');
     });
 
-    it('updates content self closing tags', () => {
-      expect(htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
+    it('updates content self closing tags', async() => {
+      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
         '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
       );
     });
 
-    it('moves (first-child) figure and table ids up to the parent div', () => {
-      expect(htmlHelper(`
+    it('moves (first-child) figure and table ids up to the parent div', async() => {
+      expect(await htmlHelper(`
         <div class="os-figure">
           <figure id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
@@ -285,8 +288,8 @@ describe('Page', () => {
     });
 
     describe('solutions', () => {
-      it('are transformed', () => {
-        expect(htmlHelper(`
+      it('are transformed', async() => {
+        expect(await htmlHelper(`
           <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
             <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
             <div data-type="problem" id="problem1"><div class="os-problem-container">
@@ -323,8 +326,8 @@ describe('Page', () => {
         `);
       });
 
-      it('can be opened and closed', () => {
-        htmlHelper(`
+      it('can be opened and closed', async() => {
+        await htmlHelper(`
           <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
             <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
             <div data-type="problem" id="problem1"><div class="os-problem-container">
@@ -353,8 +356,8 @@ describe('Page', () => {
         expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
-      it('doesn\'t throw when badly formatted', () => {
-        htmlHelper(`
+      it('doesn\'t throw when badly formatted', async() => {
+        await htmlHelper(`
           <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
             <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
             <div data-type="problem" id="problem1"><div class="os-problem-container">
@@ -384,8 +387,12 @@ describe('Page', () => {
     });
   });
 
-  it('updates content link with new hrefs', () => {
+  it('updates content link with new hrefs', async() => {
     const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
     const [firstLink, secondLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     if (!firstLink || !secondLink) {
@@ -397,8 +404,12 @@ describe('Page', () => {
     expect(secondLink.getAttribute('href')).toEqual('/rando/link');
   });
 
-  it('interceptes clicking content links', () => {
+  it('interceptes clicking content links', async() => {
     const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
     dispatch.mockReset();
     const [firstLink, secondLink, thirdLink] = Array.from(root.querySelectorAll('#main-content a'));
     const button = root.querySelector('#main-content button');
@@ -445,9 +456,13 @@ describe('Page', () => {
     }));
   });
 
-  it('passes search when clicking content links to same book', () => {
+  it('passes search when clicking content links to same book', async() => {
     store.dispatch(requestSearch('asdf'));
     const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     if (!firstLink || !document) {
@@ -476,9 +491,13 @@ describe('Page', () => {
     }));
   });
 
-  it('passes search when clicking hash links', () => {
+  it('passes search when clicking hash links', async() => {
     store.dispatch(requestSearch('asdf'));
     const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
     const hashLink = root.querySelector('#main-content a[href="#hash"]');
 
     if (!hashLink || !document) {
@@ -542,13 +561,16 @@ describe('Page', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  it('removes listener when it unmounts', () => {
+  it('removes listener when it unmounts', async() => {
     const { root } = renderDomWithReferences();
     const links = Array.from(root.querySelectorAll('#main-content a'));
 
     for (const link of links) {
       link.removeEventListener = jest.fn();
     }
+
+    // lifecycle hook
+    await Promise.resolve();
 
     ReactDOM.unmountComponentAtNode(root);
 
@@ -590,6 +612,9 @@ describe('Page', () => {
   it('scrolls to search result when selected', async() => {
     renderDomWithReferences();
 
+    // page lifecycle hooks
+    await Promise.resolve();
+
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page});
 
@@ -611,6 +636,8 @@ describe('Page', () => {
     store.dispatch(receiveSearchResults(makeSearchResults([hit])));
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
+    // page lifecycle hooks
+    await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
 
@@ -620,6 +647,9 @@ describe('Page', () => {
 
   it('scrolls to search result when selected before page navigation', async() => {
     renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
 
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page: shortPage});
@@ -641,6 +671,8 @@ describe('Page', () => {
     store.dispatch(receiveSearchResults(makeSearchResults([hit])));
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
+    // page lifecycle hooks
+    await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
 
@@ -658,6 +690,8 @@ describe('Page', () => {
     ]);
     store.dispatch(receivePage({...shortPage, references: []}));
 
+    // page lifecycle hooks
+    await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
 
@@ -860,6 +894,9 @@ describe('Page', () => {
       references: [],
     }));
 
+    // page lifecycle hooks
+    await Promise.resolve();
+    // images loaded
     await Promise.resolve();
 
     const target = root.querySelector('[id="somehash"]');
