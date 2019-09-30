@@ -1,5 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
@@ -26,6 +27,7 @@ import { Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -33,6 +35,7 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
+import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
@@ -47,7 +50,7 @@ describe('SearchResultsSidebar', () => {
   const render = () => (
     <MessageProvider>
       <Provider store={store}>
-        <SearchResultsSidebar />
+        <SearchResultsSidebar/>
       </Provider>
     </MessageProvider>
   );
@@ -174,5 +177,21 @@ describe('SearchResultsSidebar', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
+  });
+
+  it('search sidebar header is visible on every new search', () => {
+
+    const {tree} = renderToDom(render());
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults()));
+
+    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
+    const searchSidebar = sidebar.searchSidebar.current;
+    const header = sidebar.searchSidebarHeader.current;
+    const scrollSidebarSectionIntoViewMock = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
+
+    store.dispatch(requestSearch('second cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults()));
+    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalledWith(searchSidebar, header);
   });
 });
