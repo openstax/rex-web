@@ -9,7 +9,7 @@ export interface Params {
 
 export interface State {
   tocOpen: boolean | null;
-  params?: Params;
+  params: Partial<Params>;
   loading: {
     book?: string;
     page?: string;
