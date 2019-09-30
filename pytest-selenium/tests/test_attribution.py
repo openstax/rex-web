@@ -101,13 +101,12 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
     # GIVEN: A page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     attribution = content.attribution
-    book = utility.Library()
 
     # WHEN: The attribution section is expanded
     attribution.click_attribution_link()
 
     # THEN: The book url in the the citation section should reference the default page of the book
-    default_page_slug = book.get_default_page(book_slug)
+    default_page_slug = utility.get_default_page(book_slug)
     attribution_book_url_expected = (
         "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
     )
@@ -121,16 +120,16 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
 def test_access_free_url_in_citation_text_shows_url_for_default_page(
     selenium, base_url, book_slug, page_slug
 ):
+
     # GIVEN: A page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     attribution = content.attribution
-    book = utility.Library()
 
     # WHEN: The attribution section is expanded
     attribution.click_attribution_link()
 
     # THEN: The access for free at url in the the citation section should reference the default page of the book
-    default_page_slug = book.get_default_page(book_slug)
+    default_page_slug = utility.get_default_page(book_slug)
     attribution_access_free_url_expected = (
         "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
     )
