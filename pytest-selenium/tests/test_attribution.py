@@ -1,6 +1,8 @@
 from pages.content import Content
 from tests import markers
 
+# from utils import Utility
+
 
 @markers.test_case("C476302")
 @markers.parametrize("page_slug", ["preface"])
@@ -128,6 +130,7 @@ def test_access_free_url_in_citation_text_shows_url_for_default_page(
 
     # THEN: The access for free at url in the the citation section should reference the default page of the book
     default_page_slug = content.default_page(book_slug)
+    print(default_page_slug)
     attribution_access_free_url_expected = (
         "https://openstax.org/books/" + book_slug + "/pages/" + default_page_slug
     )

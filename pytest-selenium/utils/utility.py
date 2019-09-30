@@ -4,16 +4,18 @@ import random
 class Library(object):
     def __init__(self):
         self._book_dict = {
-            "chemistry-2e": "1-introduction",
-            "chemistry-atoms-first-2e": "1-introduction",
-            "anatomy-and-physiology": "1-introduction",
-            "college-physics": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
-            "astronomy": "1-introduction",
-            "biology-2e": "1-introduction",
-            "biology-ap-courses": "1-introduction",
-            "college-physics-ap-courses": "1-connection-for-ap-r-courses",
-            "concepts-biology": "1-introduction",
-            "microbiology": "1-introduction",
+            "chemistry-2e": {"default_page": "1-introduction"},
+            "chemistry-atoms-first-2e": {"default_page": "1-introduction"},
+            "anatomy-and-physiology": {"default_page": "1-introduction"},
+            "college-physics": {
+                "default_page": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+            },
+            "astronomy": {"default_page": "1-introduction"},
+            "biology-2e": {"default_page": "1-introduction"},
+            "biology-ap-courses": {"default_page": "1-introduction"},
+            "college-physics-ap-courses": {"default_page": "1-connection-for-ap-r-courses"},
+            "concepts-biology": {"default_page": "1-introduction"},
+            "microbiology": {"default_page": "1-introduction"},
         }
 
     @property
@@ -23,6 +25,11 @@ class Library(object):
     def random_book_slug(self):
         random_book_slug = random.choice(list(self.books.keys()))
         return random_book_slug
+
+    # def default_page(self, element):
+    #     book_list = self.books
+    #     default_page = book_list[element]['default_page']
+    #     return default_page
 
 
 class FontProperties(object):

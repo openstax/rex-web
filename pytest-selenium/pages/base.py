@@ -79,5 +79,5 @@ class Page(pypom.Page):
 
     def default_page(self, element):
         book_list = utility.Library()
-        default_page = book_list.books[element]
+        default_page = book_list.books[element]["default_page"]
         return default_page
