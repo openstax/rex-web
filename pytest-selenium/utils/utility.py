@@ -3,7 +3,7 @@ import random
 
 class Library(object):
     def __init__(self):
-        self._book_dict = {
+        self._books = {
             "chemistry-2e": {"default_page": "1-introduction"},
             "chemistry-atoms-first-2e": {"default_page": "1-introduction"},
             "anatomy-and-physiology": {"default_page": "1-introduction"},
@@ -20,16 +20,16 @@ class Library(object):
 
     @property
     def books(self) -> [str]:
-        return self._book_dict
+        return self._books
 
     def random_book_slug(self):
         random_book_slug = random.choice(list(self.books.keys()))
         return random_book_slug
 
-    # def default_page(self, element):
-    #     book_list = self.books
-    #     default_page = book_list[element]['default_page']
-    #     return default_page
+    def get_default_page(self, element):
+        book_list = self.books
+        default_page = book_list[element]["default_page"]
+        return default_page
 
 
 class FontProperties(object):

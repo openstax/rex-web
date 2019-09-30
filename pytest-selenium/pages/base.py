@@ -7,8 +7,6 @@ from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-from utils import utility
-
 
 class Page(pypom.Page):
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
@@ -76,8 +74,3 @@ class Page(pypom.Page):
                 "return window.getComputedStyle(arguments[0]).height;", element
             )
         ).strip("px")
-
-    def default_page(self, element):
-        book_list = utility.Library()
-        default_page = book_list.books[element]["default_page"]
-        return default_page
