@@ -299,6 +299,8 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   private listenersOn() {
+    this.listenersOff();
+
     this.mapLinks((a) => {
       const handler = this.clickListener(a);
       this.clickListeners.set(a, handler);
