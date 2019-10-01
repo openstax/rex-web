@@ -70,28 +70,25 @@ export class PageComponent extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     if (!this.container.current) {
       return;
     }
-    this.postProcess(this.container.current);
-    this.addGenericJs(this.container.current);
+    await this.postProcess(this.container.current);
     this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
   }
 
-  public componentDidUpdate(prevProps: PropTypes) {
+  public async componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
-      this.postProcess(this.container.current);
-      this.addGenericJs(this.container.current);
-
       if (!target) {
         this.scrollToTop(prevProps, window);
       }
+      await this.postProcess(this.container.current);
     }
 
     if (this.container.current && typeof(window) !== 'undefined' && target) {
@@ -302,6 +299,8 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   private listenersOn() {
+    this.listenersOff();
+
     this.mapLinks((a) => {
       const handler = this.clickListener(a);
       this.clickListeners.set(a, handler);
@@ -380,8 +379,12 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private postProcess(container: HTMLElement) {
+    this.addGenericJs(container);
+
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
+
+    return promise;
   }
 }
 
@@ -426,6 +429,7 @@ const StyledPageComponent = styled(PageComponent)`
 
   @media screen {
     .search-highlight {
+      font-weight: bold;
       background-color: #ffd17e;
 
       &.focus {
