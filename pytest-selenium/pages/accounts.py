@@ -17,10 +17,17 @@ class Login(Page):
     def password_field(self):
         return self.find_element(*self._password_field_locator)
 
-    def enter_user_email(self, emails=utility.Library().random_user_email):
-        self.user_field.send_keys(emails)
+    # def enter_user_email(self, emails=utility.Library().random_user_email):
+    #     self.user_field.send_keys(emails)
 
-    def enter_password(self, password=utility.Library().password):
+    def enter_user_email(self, username):
+        self.user_field.send_keys(username)
+
+    # def enter_password(self, password=utility.Library().password):
+    #     self.password_field.send_keys(password)
+    #     return self
+
+    def enter_password(self, password):
         self.password_field.send_keys(password)
         return self
 
@@ -30,8 +37,11 @@ class Login(Page):
 
     click_login = click_next
 
-    def login(self, email, password):
-        self.enter_user_email()
+    def login(self, username, password):
+        self.enter_user_email(username)
         self.click_next()
-        self.enter_password()
+        self.enter_password(password)
         self.click_login()
+
+    # def login(self, user, password):
+    #     return self.login

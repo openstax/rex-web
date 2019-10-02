@@ -10,6 +10,11 @@ def student(request):
     return _data_return(request, STUDENT)
 
 
+@pytest.fixture(scope="module")
+def password(request):
+    return _data_return(request, STUDENT)
+
+
 def _data_return(request, target):
     config = request.config
 
