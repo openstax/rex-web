@@ -41,12 +41,9 @@ class Toolbar extends React.Component<Props, State> {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
       if (this.state.query) {
-        this.props.clearSearch();
-
         if (isHtmlElement(activeElement)) {
           activeElement.blur();
         }
-
         this.props.search(this.state.query);
         this.setState({ formSubmitted: true });
       }
