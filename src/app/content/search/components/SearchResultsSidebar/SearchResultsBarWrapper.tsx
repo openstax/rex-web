@@ -22,7 +22,17 @@ interface ResultsSidebarProps {
   selectedResult: SelectedResult | null;
 }
 
-export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
+interface State {
+  results: SearchResultContainer[] | null;
+  newSearch: boolean | null;
+}
+
+export class SearchResultsBarWrapper extends Component<ResultsSidebarProps, State> {
+
+  public state: State = {
+    results: null,
+    newSearch: null,
+  };
 
   private searchSidebar = React.createRef<HTMLElement>();
   private activeSection = React.createRef<HTMLElement>();
@@ -85,6 +95,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public render() {
     const { results, book, searchResultsOpen, hasQuery } = this.props;
+    console.log('render: ' + (this.state.results !== results));
 
     return (
       <FormattedMessage id='i18n:search-results:bar'>
@@ -96,7 +107,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
             ref={this.searchSidebar}
             data-testid='search-results-sidebar'
           >
-            {!results ? this.loadindState() : null}
+            {(!results || this.state.results !== results) ? this.loadindState() : null}
             {results && results.length > 0 ? this.totalResults() : null}
             {results && results.length === 0 ? this.noResults() : null}
             {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
@@ -104,6 +115,18 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         )}
       </FormattedMessage>
     );
+  }
+
+  public componentWillUpdate(newProps: {results: SearchResultContainer[] | null, query: string | null}) {
+    console.log('new props: ');
+    console.log(newProps.results);
+    console.log(this.state.results);
+    console.log(newProps.query);
+    console.log(this.props.query);
+
+    if (newProps.results && newProps.results !== this.props.results) {
+      this.setState({results: newProps.results, newSearch: true});
+    }
   }
 
   public componentDidMount = () => {
