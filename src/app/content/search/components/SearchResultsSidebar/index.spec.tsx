@@ -187,11 +187,10 @@ describe('SearchResultsSidebar', () => {
 
     const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
     const searchSidebar = sidebar.searchSidebar.current;
-    const header = sidebar.searchSidebarHeader.current;
     const scrollSidebarSectionIntoViewMock = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
 
     store.dispatch(requestSearch('second cool search'));
     store.dispatch(receiveSearchResults(makeSearchResults()));
-    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalledWith(searchSidebar, header);
+    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalledWith(searchSidebar, sidebar.searchSidebarHeader.current);
   });
 });

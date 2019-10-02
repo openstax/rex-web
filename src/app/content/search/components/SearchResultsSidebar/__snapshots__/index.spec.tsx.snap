@@ -261,6 +261,15 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   display: none;
 }
 
+.c27 > .c9 {
+  margin: 0;
+  padding: 0;
+}
+
+.c27 > .c9::before {
+  display: none;
+}
+
 .c2 {
   font-family: Neue Helvetica W01;
   color: #424242;
@@ -492,7 +501,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   width: 3.7rem;
 }
 
-.c27 .c6 {
+.c28 .c6 {
   margin: 0;
 }
 
