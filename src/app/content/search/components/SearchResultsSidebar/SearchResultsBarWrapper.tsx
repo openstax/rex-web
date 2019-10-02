@@ -22,17 +22,7 @@ interface ResultsSidebarProps {
   selectedResult: SelectedResult | null;
 }
 
-interface State {
-  results: SearchResultContainer[] | null;
-  newSearch: boolean | null;
-}
-
-export class SearchResultsBarWrapper extends Component<ResultsSidebarProps, State> {
-
-  public state: State = {
-    results: null,
-    newSearch: null,
-  };
+export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   private searchSidebar = React.createRef<HTMLElement>();
   private activeSection = React.createRef<HTMLElement>();
