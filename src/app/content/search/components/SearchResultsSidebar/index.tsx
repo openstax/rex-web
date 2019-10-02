@@ -47,7 +47,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
   }
 
   public render() {
-    return <SearchResultsBarWrapper {...this.props} {...this.state} />;
+    return this.state.query ? <SearchResultsBarWrapper {...this.props} {...this.state} /> : null;
   }
 
   private getStateProps(props: Props) {
