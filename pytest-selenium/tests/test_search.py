@@ -30,6 +30,8 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
     if content.is_mobile:
         mobile.search_for(search_term)
 
+    assert content.is_scrolled_to_top()
+
     # THEN: search sidebar displays the message "Sorry, no results found for ‘<search_term>'"
     assert search_sidebar.has_no_results
 
@@ -66,3 +68,12 @@ def test_search_results(selenium, base_url, book_slug, page_slug, search_term):
 
     # assert no search results message is not displayed
     assert not search_sidebar.has_no_results
+
+    print(search_sidebar.first_search_result.section_title)
+
+    # all chapters are expanded by default in search sidebar
+
+    # content page loads the first hit
+
+    print(content.current_url[-1])
+    # assert content.current_url == search_sidebar.first_search_result.section_title
