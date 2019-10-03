@@ -1,5 +1,4 @@
 const books = require('./config.books');
-const pick = require('lodash/fp/pick');
 
 module.exports = {
   RELEASE_ID: 'development',
@@ -14,7 +13,7 @@ module.exports = {
   FIXTURES: false,
   DEBUG: true,
 
-  BOOKS: pick([
+  BOOKS: [
     /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a',
     /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187',
     /* Calculus vol 1 */ '8b89d172-2927-466f-8661-01abc7ccdba4',
@@ -23,7 +22,10 @@ module.exports = {
     /* University Physics vol 1 */ 'd50f6e32-0fda-46ef-a362-9bd36ca7c97d',
     /* University Physics vol 2 */ '7a0f9770-1c44-4acd-9920-1cd9a99f2a1e',
     /* University Physics vol 3 */ 'af275420-6050-4707-995c-57b9cc13c358',
-  ], books),
+  ].reduce((devBooks, uuid) => {
+    devBooks[uuid] = books[uuid];
+    return devBooks;
+  }, {}),
 
   PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 8000,
 };
