@@ -101,7 +101,7 @@ export const SearchResultsBar = styled.div`
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   z-index: ${theme.zIndex.sidebar};
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
-  max-height: calc(100vh - ${navDesktopHeight + toolbarDesktopHeight}rem);
+  max-height: calc(100vh - ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-left: -${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
   ${styleWhenSearchClosed(css`
