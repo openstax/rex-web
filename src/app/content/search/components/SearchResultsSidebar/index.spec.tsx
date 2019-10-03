@@ -178,19 +178,4 @@ describe('SearchResultsSidebar', () => {
 
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
   });
-
-  it('search sidebar header is visible on every new search', () => {
-
-    const {tree} = renderToDom(render());
-    store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults()));
-
-    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
-    const searchSidebar = sidebar.searchSidebar.current;
-    const scrollSidebarSectionIntoViewMock = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
-
-    store.dispatch(requestSearch('second cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults()));
-    expect(scrollSidebarSectionIntoViewMock).toHaveBeenCalledWith(searchSidebar, sidebar.searchSidebarHeader.current);
-  });
 });
