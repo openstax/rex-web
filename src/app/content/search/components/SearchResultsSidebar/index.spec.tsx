@@ -1,6 +1,5 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
@@ -27,7 +26,6 @@ import { Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
-import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -35,7 +33,6 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
-import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
