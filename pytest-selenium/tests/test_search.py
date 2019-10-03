@@ -8,6 +8,8 @@ from regions import base
 
 from time import sleep
 
+import re
+
 
 @markers.test_case("C543235")
 @markers.parametrize("page_slug", ["preface"])
@@ -66,14 +68,10 @@ def test_search_results(selenium, base_url, book_slug, page_slug, search_term):
     # assert TOC is closed when search results are open
     assert not sidebar.header.is_displayed
 
-    # assert no search results message is not displayed
+    # assert 'no search results message' is not displayed
     assert not search_sidebar.has_no_results
-
-    print(search_sidebar.first_search_result.section_title)
 
     # all chapters are expanded by default in search sidebar
 
     # content page loads the first hit
-
-    print(content.current_url[-1])
-    # assert content.current_url == search_sidebar.first_search_result.section_title
+    assert search_sidebar.content_of_first_search_result_is_loaded()
