@@ -13,7 +13,7 @@ const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
 const MATH_ML_SELECTOR   = `math:not(.${MATH_RENDERED_CLASS})`;
 const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 const MATHJAX_CONFIG = {
-  extensions: ['[a11y]/explorer.js'],
+  extensions: [],
   showProcessingMessages: false,
   skipStartupTypeset: true,
   styles: {
