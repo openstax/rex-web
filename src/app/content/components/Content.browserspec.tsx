@@ -26,7 +26,7 @@ describe('Content', () => {
 
         await navigate(page, TEST_PAGE_URL);
         // Calling finishRender() without first waiting sometimes gives scrollTop == 0
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         await finishRender(page);
 
         // Loading page with anchor
