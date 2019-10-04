@@ -74,11 +74,11 @@ export class PageComponent extends Component<PropTypes> {
     if (!this.container.current) {
       return;
     }
-    await this.postProcess(this.container.current);
-    this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
+
+    await this.postProcess(this.container.current);
   }
 
   public async componentDidUpdate(prevProps: PropTypes) {
@@ -111,12 +111,12 @@ export class PageComponent extends Component<PropTypes> {
     ) {
       this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
     }
-
-    this.listenersOn();
   }
 
-  public getSnapshotBeforeUpdate() {
-    this.listenersOff();
+  public getSnapshotBeforeUpdate(prevProps: PropTypes) {
+    if (prevProps.page !== this.props.page) {
+      this.listenersOff();
+    }
     return null;
   }
 
@@ -380,6 +380,7 @@ export class PageComponent extends Component<PropTypes> {
 
   private postProcess(container: HTMLElement) {
     this.addGenericJs(container);
+    this.listenersOn();
 
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
