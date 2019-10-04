@@ -1,7 +1,7 @@
 import { receiveMessages, updateAvailable } from '../app/notifications/actions';
 import { Messages } from '../app/notifications/types';
 import { shouldLoadAppMessage } from '../app/notifications/utils';
-import { Store } from '../app/types';
+import { AnyAction, Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import { APP_ENV, RELEASE_ID } from '../config';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
@@ -30,6 +30,7 @@ export type Cancel = () => void;
 
 interface EnvironmentConfigs {
   google_analytics?: string[] | undefined;
+  feature_flags?: string[];
 }
 
 interface Environment {
@@ -43,6 +44,7 @@ const processEnvironment = (store: Store, environment: Environment) => {
 
   if (environment.configs) {
     processGoogleAnalyticsIds(environment.configs);
+    processFeatureFlags(store, environment.configs.feature_flags);
   }
   if (environment.messages) {
     processMessages(store, environment.messages.filter(shouldLoadAppMessage));
@@ -68,6 +70,9 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   if (ids && ids.length > 0) {
     googleAnalyticsClient.setTrackingIds(ids);
   }
+};
+const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {
+  featureFlags.forEach((flag) => store.dispatch({type: `FeatureFlag/${flag}`} as AnyAction));
 };
 const processMessages = (store: Store, messages: Messages) => {
   store.dispatch(receiveMessages(messages));
