@@ -72,6 +72,11 @@ def test_search_results(selenium, base_url, book_slug, page_slug, search_term):
     assert not search_sidebar.has_no_results
 
     # all chapters are expanded by default in search sidebar
+    assert search_sidebar.all_chapters_are_in_expanded_state
 
     # content page loads the first hit
     assert search_sidebar.content_of_first_search_result_is_loaded()
+
+    print(search_sidebar.number_chapters)
+
+    search_sidebar.SearchPanelChapter.is_chapter_title_expanded()

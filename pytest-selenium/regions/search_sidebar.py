@@ -9,7 +9,7 @@ class SearchSidebar(Region):
     _root_locator = (By.CSS_SELECTOR, '[data-testid="search-results-sidebar"]')
     _no_results_locator = (By.XPATH, "//*[contains(text(), 'Sorry, no results found for')]")
     _search_results_locator = (By.CSS_SELECTOR, "ol li a")
-    _chapter_div_locator = (By.CSS_SELECTOR, "ol li details")
+    _chapter_div_locator = (By.CSS_SELECTOR, "ol li summary")
 
     @property
     def has_no_results(self):
@@ -23,15 +23,22 @@ class SearchSidebar(Region):
     @property
     def search_results(self):
         return [
-            self.ContentPage(self.page, section)
+            self.SearchPanelSection(self.page, section)
             for section in self.find_elements(*self._search_results_locator)
+        ]
+
+    @property
+    def chapter_divider(self):
+        return [
+            self.SearchPanelChapter(self.page, chapter)
+            for chapter in self.find_elements(*self._chapter_div_locator)
         ]
 
     @property
     def first_search_result(self):
         return self.search_results[0]
 
-    class ContentPage(Region):
+    class SearchPanelSection(Region):
         _section_locator = (By.XPATH, "./../*[1]//span[@class='os-text']")
 
         def click(self):
@@ -40,6 +47,12 @@ class SearchSidebar(Region):
         @property
         def section_title(self):
             return self.find_element(*self._section_locator).get_attribute("textContent")
+
+    class SearchPanelChapter(Region):
+        _chapter_locator = (By.XPATH, "./../details")
+
+        def is_chapter_title_expanded(self):
+            return self.find_element(*self._chapter_locator)
 
     def content_of_first_search_result_is_loaded(self):
         section_names = [self.first_search_result.section_title]
