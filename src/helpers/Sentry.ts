@@ -35,7 +35,7 @@ export default {
     if (this.isEnabled) {
       Sentry.captureException(error);
     } else if (!this.shouldCollectErrors) {
-      throw error;
+      console.error(error); // tslint:disable-line:no-console
     }
   },
 

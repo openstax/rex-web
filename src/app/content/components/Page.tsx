@@ -9,8 +9,10 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../helpers/mathjax';
+import Loader from '../../components/Loader';
 import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
+import { MAIN_CONTENT_ID } from '../../context/constants';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
@@ -68,28 +70,25 @@ export class PageComponent extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     if (!this.container.current) {
       return;
     }
-    this.postProcess(this.container.current);
-    this.addGenericJs(this.container.current);
+    await this.postProcess(this.container.current);
     this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
   }
 
-  public componentDidUpdate(prevProps: PropTypes) {
+  public async componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
-      this.postProcess(this.container.current);
-      this.addGenericJs(this.container.current);
-
       if (!target) {
         this.scrollToTop(prevProps, window);
       }
+      await this.postProcess(this.container.current);
     }
 
     if (this.container.current && typeof(window) !== 'undefined' && target) {
@@ -128,6 +127,10 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public render() {
+    if (!this.props.page) {
+      return this.renderLoading();
+    }
+
     const html = this.getCleanContent() || this.getPrerenderedContent();
 
     return <MainContent
@@ -136,6 +139,13 @@ export class PageComponent extends Component<PropTypes> {
       dangerouslySetInnerHTML={{ __html: html}}
     />;
   }
+
+  private renderLoading = () => <MainContent
+    className={this.props.className}
+    ref={this.container}
+  >
+    <Loader large delay={1500} />
+  </MainContent>;
 
   private scrollToSearch = (container: HTMLElement, highlighter: Highlighter, selected: SelectedResult) => {
     const elementHighlights = this.searchResultMap.find((map) => isEqual(map.result, selected.result));
@@ -289,6 +299,8 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   private listenersOn() {
+    this.listenersOff();
+
     this.mapLinks((a) => {
       const handler = this.clickListener(a);
       this.clickListeners.set(a, handler);
@@ -367,8 +379,12 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private postProcess(container: HTMLElement) {
+    this.addGenericJs(container);
+
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
+
+    return promise;
   }
 }
 
@@ -386,16 +402,34 @@ const StyledPageComponent = styled(PageComponent)`
   ${contentTextStyle}
 
   @media screen { /* full page width in print */
-    margin-top: ${theme.padding.page.desktop}rem;
-    ${theme.breakpoints.mobile(css`
-      margin-top: ${theme.padding.page.mobile}rem;
-    `)}
+    flex: 1;
+    display: flex;
+    width: 100%;
+
+    > #${MAIN_CONTENT_ID} {
+      width: 100%;
+    }
+
+    /* trying to add margin to a page wrapper that
+     * will collapse with the margin of the top element in the
+     * page. can't add it to the page element because it is flexy,
+     * or the main_content because page makes it flexy. those
+     * need to be flexy to center the loading indicator
+     */
+    > #${MAIN_CONTENT_ID} > [data-type="page"],
+    > #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
+      margin-top: ${theme.padding.page.desktop}rem;
+      ${theme.breakpoints.mobile(css`
+        margin-top: ${theme.padding.page.mobile}rem;
+      `)}
+    }
   }
 
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   @media screen {
     .search-highlight {
+      font-weight: bold;
       background-color: #ffd17e;
 
       &.focus {

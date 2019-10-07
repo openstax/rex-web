@@ -179,7 +179,6 @@ export const SearchInput = styled(({desktop, mobile, ...props}) =>
     ${textStyle}
     ${hideSearchChrome}
     font-size: 1.6rem;
-    line-height: 2;
     margin: 0 1rem 0 1rem;
     height: ${toolbarSearchInputHeight}rem;
     border: none;
