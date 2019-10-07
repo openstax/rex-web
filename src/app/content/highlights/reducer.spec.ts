@@ -1,6 +1,6 @@
+import { receiveFeatureFlags } from '../../actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
-import { receiveFeatureFlags } from "../../actions";
 
 describe('highlight reducer', () => {
 
