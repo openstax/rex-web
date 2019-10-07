@@ -1,7 +1,8 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
+import { receiveFeatureFlags } from '../../actions';
 import { AnyAction } from '../../types';
-import * as actions from './actions';
+import { highlightingFeatureFlag } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
@@ -9,10 +10,9 @@ export const initialState: State = {
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
-
   switch (action.type) {
-    case getType(actions.enableHighlighting): {
-      return {...state, enabled: true};
+    case getType(receiveFeatureFlags): {
+      return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
     }
     default:
       return state;

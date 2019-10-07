@@ -1,7 +1,8 @@
+import { receiveFeatureFlags } from '../app/actions';
 import { receiveMessages, updateAvailable } from '../app/notifications/actions';
 import { Messages } from '../app/notifications/types';
 import { shouldLoadAppMessage } from '../app/notifications/utils';
-import { AnyAction, Store } from '../app/types';
+import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import { APP_ENV, RELEASE_ID } from '../config';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
@@ -72,7 +73,7 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   }
 };
 const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {
-  featureFlags.forEach((flag) => store.dispatch({type: `FeatureFlag/${flag}`} as AnyAction));
+  store.dispatch(receiveFeatureFlags(featureFlags));
 };
 const processMessages = (store: Store, messages: Messages) => {
   store.dispatch(receiveMessages(messages));
