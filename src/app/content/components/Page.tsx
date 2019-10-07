@@ -55,6 +55,7 @@ export class PageComponent extends Component<PropTypes> {
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlighter: Highlighter | undefined;
   private searchResultMap: ReturnType<typeof highlightResults> = [];
+  private processing: Promise<void> = Promise.resolve();
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
@@ -83,6 +84,12 @@ export class PageComponent extends Component<PropTypes> {
 
   public async componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
+
+    // if there is a previous processing job, wait for it to finish.
+    // this is mostly only relevant for initial load to ensure search results
+    // are not highlighted before math is done typesetting, but may also
+    // be relevant if there rapid page navigations.
+    await this.processing;
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       if (!target) {
@@ -384,6 +391,7 @@ export class PageComponent extends Component<PropTypes> {
 
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
+    this.processing = promise;
 
     return promise;
   }
