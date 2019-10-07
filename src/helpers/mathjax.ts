@@ -128,7 +128,12 @@ const typesetMath = (root: Element, windowImpl = window) => {
 // `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
 function startMathJax() {
   const window = assertWindow();
-  const configuredCallback = () => window.MathJax.Hub.Configured();
+  const configuredCallback = () => {
+    // there doesn't seem to be a config option for this
+    window.MathJax.HTML.Cookie.prefix = 'mathjax';
+    // proceed with mathjax initi
+    window.MathJax.Hub.Configured();
+  };
 
   if (window.MathJax && window.MathJax.Hub) {
     window.MathJax.Hub.Config(MATHJAX_CONFIG);
