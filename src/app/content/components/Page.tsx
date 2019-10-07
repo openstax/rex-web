@@ -88,7 +88,7 @@ export class PageComponent extends Component<PropTypes> {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
-    // be relevant if there rapid page navigations.
+    // be relevant if there are rapid page navigations.
     await this.processing;
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
