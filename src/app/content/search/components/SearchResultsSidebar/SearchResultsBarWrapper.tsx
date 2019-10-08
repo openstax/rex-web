@@ -120,14 +120,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     this.deregister = deregister;
   };
 
-  public componentDidUpdate(prevProps: any) {
-    if (prevProps.query && prevProps.query !== this.props.query) {
-      const header = this.searchSidebarHeader.current;
-      const searchSidebar = this.searchSidebar.current;
-      scrollSidebarSectionIntoView(searchSidebar, header);
-    } else {
-      this.scrollToSelectedPage();
-    }
+  public componentDidUpdate() {
+    this.scrollToSelectedPage();
   }
 
   public componentWillUnmount() {
