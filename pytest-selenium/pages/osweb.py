@@ -8,7 +8,7 @@ class WebBase(Page):
     URL_TEMPLATE = "/details/books/{book_slug}"
     _root_locator = (By.CSS_SELECTOR, "body.page-loaded")
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
-    _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-dropdown"]')
+    _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
     # _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header hide-until-loaded loaded active open"]')
