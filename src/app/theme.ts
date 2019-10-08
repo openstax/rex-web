@@ -102,6 +102,7 @@ export default {
     modal: 12,
     navbar: 5,
     overlay: 3,
+    searchSidebar: 1,
     sidebar: 4,
   },
 };

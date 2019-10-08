@@ -107,6 +107,11 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     );
   }
 
+  public fixSafariScrolling = (event: any) => {
+    event.target.style.overflowY = 'hidden';
+    setTimeout(() => { event.target.style.overflowY = 'auto'; });
+  };
+
   public componentDidMount = () => {
     this.scrollToSelectedPage();
     const searchSidebar = this.searchSidebar.current;
@@ -118,6 +123,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const {callback, deregister} = setSidebarHeight(searchSidebar, window);
     callback();
     this.deregister = deregister;
+
+    searchSidebar.addEventListener('webkitAnimationEnd', this.fixSafariScrolling);
   };
 
   public componentDidUpdate(prevProps: any) {
