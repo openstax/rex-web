@@ -13,7 +13,7 @@ const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
 const MATH_ML_SELECTOR   = `math:not(.${MATH_RENDERED_CLASS})`;
 const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 const MATHJAX_CONFIG = {
-  extensions: ['[a11y]/explorer.js'],
+  extensions: [],
   showProcessingMessages: false,
   skipStartupTypeset: true,
   styles: {
@@ -128,7 +128,12 @@ const typesetMath = (root: Element, windowImpl = window) => {
 // `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
 function startMathJax() {
   const window = assertWindow();
-  const configuredCallback = () => window.MathJax.Hub.Configured();
+  const configuredCallback = () => {
+    // there doesn't seem to be a config option for this
+    window.MathJax.HTML.Cookie.prefix = 'mathjax';
+    // proceed with mathjax initi
+    window.MathJax.Hub.Configured();
+  };
 
   if (window.MathJax && window.MathJax.Hub) {
     window.MathJax.Hub.Config(MATHJAX_CONFIG);
