@@ -2,26 +2,16 @@ from pages.content import Content
 from pages.accounts import Login
 from tests import markers
 
-import random
-
 
 @markers.test_case("C477326", "C477327")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_login_and_logout(selenium, base_url, book_slug, page_slug, store):
+def test_login_and_logout(selenium, base_url, book_slug, page_slug, username, password):
 
     # GIVEN: Page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     user_nav = content.navbar
     page_url_before_login = selenium.current_url
-
-    userinfo = store.get("_user_info")
-    x = random.choice(userinfo)
-    print(x)
-    username = x["email"]
-    print(username)
-    password = x["password"]
-    print(password)
 
     # WHEN: Click on the login link
     user_nav.click_login()

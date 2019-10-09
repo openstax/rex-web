@@ -6,6 +6,7 @@ import pytest
 
 from utils import utility
 
+import random
 
 pytest_plugins = "fixtures.users"
 
@@ -105,11 +106,13 @@ def book_slug():
     return book_list.random_book_slug()
 
 
-# @pytest.fixture
-# def email():
-#     return utility.Library().random_user_email
-#
-#
-# @pytest.fixture
-# def password():
-#     return utility.Library().password
+@pytest.fixture
+def username(store):
+    user_info = random.choice((store.get("_user_info")))
+    return user_info["email"]
+
+
+@pytest.fixture
+def password(store):
+    user_info = random.choice((store.get("_user_info")))
+    return user_info["password"]

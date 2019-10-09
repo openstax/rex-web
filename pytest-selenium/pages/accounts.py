@@ -1,7 +1,6 @@
 from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
-from utils import utility
 
 
 class Login(Page):
@@ -17,15 +16,8 @@ class Login(Page):
     def password_field(self):
         return self.find_element(*self._password_field_locator)
 
-    # def enter_user_email(self, emails=utility.Library().random_user_email):
-    #     self.user_field.send_keys(emails)
-
     def enter_user_email(self, username):
         self.user_field.send_keys(username)
-
-    # def enter_password(self, password=utility.Library().password):
-    #     self.password_field.send_keys(password)
-    #     return self
 
     def enter_password(self, password):
         self.password_field.send_keys(password)
@@ -42,6 +34,3 @@ class Login(Page):
         self.click_next()
         self.enter_password(password)
         self.click_login()
-
-    # def login(self, user, password):
-    #     return self.login
