@@ -6,10 +6,6 @@ import pytest
 
 from utils import utility
 
-# from dotenv import load_dotenv
-#
-# DOTENV_PATH == os.path.join(os.path.realpath(os.path.dirname(__file__)), '../.env')
-# load_dotenv(dotenv_path=DOTENV_PATH)
 
 pytest_plugins = "fixtures.users"
 
@@ -48,8 +44,6 @@ def pytest_addoption(parser):
     """
     group = parser.getgroup("selenium", "selenium")
 
-    user_options = parser.getgroup("users", "User accounts for testing")
-
     group.addoption(
         "--disable-dev-shm-usage",
         action="store_true",
@@ -67,14 +61,6 @@ def pytest_addoption(parser):
         action="store_true",
         default=os.getenv("NO_SANDBOX", False),
         help="disable chrome's sandbox.",
-    )
-
-    user_options.addoption(
-        "--student",
-        action="store",
-        nargs="+",
-        default=[os.getenv("STUDENT_USER"), os.getenv("STUDENT_PASSWORD")],
-        help="OpenStax test student account",
     )
 
 
