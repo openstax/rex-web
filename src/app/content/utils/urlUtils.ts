@@ -1,69 +1,30 @@
-import { AllHtmlEntities } from 'html-entities';
-import replaceAccentedCharacters from '../replaceAccentedCharacters';
+import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
-import { Book, LinkedArchiveTreeNode, Page } from '../types';
-import { findArchiveTreeNode, flattenArchiveTree, splitTitleParts } from './archiveTreeUtils';
+import { Book, Page } from '../types';
+import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: Book) {
   return `/details/books/${book.slug}`;
 }
 
-const getCleanSectionNumber = (section: LinkedArchiveTreeNode): string => {
-  let focusSection: LinkedArchiveTreeNode | undefined = section;
-
-  while (focusSection) {
-    const thisNumber = splitTitleParts(focusSection.title)[0];
-
-    if (thisNumber) {
-      return thisNumber
-        // use dash instead of '.'
-        .replace(/\./g, '-')
-        .toLowerCase();
-    }
-
-    focusSection = focusSection.parent;
-  }
-
-  return '';
-};
-
-const getCleanSectionTitle = (section: LinkedArchiveTreeNode): string => {
-  const decoder = new AllHtmlEntities();
-
-  return replaceAccentedCharacters(decoder.decode(splitTitleParts(section.title)[1] || ''))
-    // handle space delimiters
-    .replace(/[-_]+/g, ' ')
-    // remove special characters
-    .replace(/[^a-z0-9 ]/gi, '')
-    .toLowerCase();
-};
-
-const getUrlParamForPageTitle = (section: LinkedArchiveTreeNode): string => {
-  const cleanNumber = getCleanSectionNumber(section);
-  const cleanTitle = getCleanSectionTitle(section);
-
-  if (!cleanTitle) {
-    throw new Error(`BUG: could not URL encode page title: "${section.title}"`);
-  }
-
-  return `${cleanNumber ? `${cleanNumber} ` : ''}${cleanTitle}`
-    // spaces to dashes
-    .replace(/ +/g, '-')
-  ;
-};
-
 export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'shortId' | 'title'>) => {
   const params = {
     book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
   };
+  const state = {
+    bookUid: book.id,
+    bookVersion: book.version,
+    pageUid: stripIdVersion(page.id),
+  };
 
-  return {params, url: contentRoute.getUrl(params)};
+  return {params, state, url: contentRoute.getUrl(params)};
 };
 
 const getUrlParamForPageIdCache = new Map();
 export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): string => {
+
   const cacheKey = `${book.id}:${pageId}`;
 
   if (getUrlParamForPageIdCache.has(cacheKey)) {
@@ -74,7 +35,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
-  const result = getUrlParamForPageTitle(treeSection);
+  const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
   getUrlParamForPageIdCache.set(cacheKey, result);
 
   return result;
@@ -82,7 +43,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {
   for (const section of flattenArchiveTree(book.tree)) {
-    const sectionParam = getUrlParamForPageTitle(section);
+    const sectionParam = assertDefined(section.slug, `could not find page slug for "${section.id}" in ${book.title}`);
     if (sectionParam && sectionParam.toLowerCase() === pageParam.toLowerCase()) {
       return stripIdVersion(section.id);
     }

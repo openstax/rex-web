@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
-import { bodyCopyRegularStyle, textRegularLineHeight } from '../../components/Typography';
+import { decoratedLinkStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
@@ -35,13 +35,14 @@ interface HidingContentLinkProps {
   side: 'left' | 'right';
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLinkComponent: React.SFC<HidingContentLinkProps> = ({page, book, side, ...props}) =>
+const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) =>
   page !== undefined && book !== undefined
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name
 const HidingContentLink = styled(HidingContentLinkComponent)`
+  ${decoratedLinkStyle}
   ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
     margin-left: -0.8rem;
   `)}
@@ -53,8 +54,9 @@ const HidingContentLink = styled(HidingContentLinkComponent)`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${disablePrint}
-  ${bodyCopyRegularStyle}
+  ${textRegularStyle}
   overflow: visible;
+  width: 100%;
   max-width: ${contentTextWidth}rem;
   justify-content: space-between;
   height: 4rem;
@@ -77,14 +79,14 @@ const BarWrapper = styled.div`
 
 interface PropTypes {
   book?: Book;
-  prevNext: {
+  prevNext: null | {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
   };
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar: React.SFC<PropTypes> = ({book, prevNext}) => <BarWrapper>
+const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper>
   <FormattedMessage id='i18n:prevnext:prev:aria-label'>
     {(ariaLabel: Element | string) =>
     <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel}>

@@ -14,7 +14,7 @@ import * as Styled from './styled';
 export { maxNavWidth, navDesktopHeight, navMobileHeight } from './styled';
 
 if (typeof(window) !== 'undefined') {
-  import('ally.js/style/focus-within').then((module) => module.default());
+  import(/* webpackChunkName: "focus-within-polyfill" */ 'focus-within-polyfill');
 }
 
 export class Dropdown extends React.Component<{user: User, currentPath: string}> {
@@ -85,8 +85,13 @@ const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <Formatted
   </Styled.Link>}
 </FormattedMessage>;
 
+interface NavigationBarProps {
+  user?: User;
+  loggedOut: boolean;
+  currentPath: string;
+}
 // tslint:disable-next-line:variable-name
-const NavigationBar: SFC<{user?: User, loggedOut: boolean, currentPath: string}> = ({user, loggedOut, currentPath}) =>
+const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
   <Styled.BarWrapper>
     <Styled.TopBar data-testid='navbar'>
       <FormattedMessage id='i18n:nav:logo:alt'>

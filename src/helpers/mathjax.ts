@@ -13,7 +13,7 @@ const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
 const MATH_ML_SELECTOR   = `math:not(.${MATH_RENDERED_CLASS})`;
 const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 const MATHJAX_CONFIG = {
-  extensions: ['[a11y]/explorer.js'],
+  extensions: [],
   showProcessingMessages: false,
   skipStartupTypeset: true,
   styles: {
@@ -28,6 +28,12 @@ const MATHJAX_CONFIG = {
     displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
     inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
   },
+};
+
+const findProcessedMath = (root: Element): Element[] => Array.from(root.querySelectorAll('.MathJax math'));
+const findUnprocessedMath = (root: Element): Element[] => {
+  const processedMath = findProcessedMath(root);
+  return Array.from(root.querySelectorAll('math')).filter((node) => processedMath.indexOf(node) === -1);
 };
 
 const findLatexNodes = (root: Element): Element[] => {
@@ -58,7 +64,7 @@ const typesetLatexNodes = (latexNodes: Element[], windowImpl: Window) => () => {
 };
 
 const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
-  const mathMLNodes = Array.from(root.querySelectorAll(MATH_ML_SELECTOR));
+  const mathMLNodes = findUnprocessedMath(root);
 
   if (isEmpty(mathMLNodes)) {
     return;
@@ -122,7 +128,12 @@ const typesetMath = (root: Element, windowImpl = window) => {
 // `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
 function startMathJax() {
   const window = assertWindow();
-  const configuredCallback = () => window.MathJax.Hub.Configured();
+  const configuredCallback = () => {
+    // there doesn't seem to be a config option for this
+    window.MathJax.HTML.Cookie.prefix = 'mathjax';
+    // proceed with mathjax initi
+    window.MathJax.Hub.Configured();
+  };
 
   if (window.MathJax && window.MathJax.Hub) {
     window.MathJax.Hub.Config(MATHJAX_CONFIG);

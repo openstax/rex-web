@@ -1,6 +1,7 @@
+import { FrameRequestCallback } from '@openstax/types/lib.dom';
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
-import 'jest-styled-components';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
+import { resetModules } from './utils';
 
 declare global {
   namespace jest {
@@ -12,9 +13,6 @@ declare global {
 expect.extend({
   toMatchImageSnapshot,
 });
-
-jest.mock('ally.js/style/focus-within');
-jest.mock('details-element-polyfill', () => jest.fn());
 
 const ignoreConsoleMessages = [
   /*
@@ -46,3 +44,54 @@ if (process.env.CI) {
 } else {
   jest.setTimeout(120 * 1000);
 }
+
+let requestAnimationFrame: jest.SpyInstance;
+let matchMedia: jest.SpyInstance;
+let scrollTo: jest.SpyInstance;
+let scrollBy: jest.SpyInstance;
+let mockGa: any;
+
+resetModules();
+afterAll(async() => {
+  resetModules();
+});
+
+beforeEach(() => {
+  if (typeof(window) === 'undefined') {
+    return;
+  }
+
+  scrollTo = window.scrollTo = jest.fn();
+  scrollBy = window.scrollBy = jest.fn();
+
+  matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
+    return {
+      addListener: jest.fn(),
+      matches: false,
+      media: query,
+      onchange: null,
+      removeListener: jest.fn(),
+    };
+  });
+
+  requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(
+    (cb: FrameRequestCallback) => {
+      cb(0);
+      return 0;
+    }
+  );
+
+  mockGa = jest.fn();
+  window.ga = mockGa;
+});
+
+afterEach(() => {
+  if (typeof(window) === 'undefined') {
+    return;
+  }
+  (window as any).scCGSHMRCache = {};
+  matchMedia.mockReset();
+  scrollTo.mockReset();
+  scrollBy.mockReset();
+  requestAnimationFrame.mockRestore();
+});

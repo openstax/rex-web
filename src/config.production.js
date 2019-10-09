@@ -12,5 +12,7 @@ module.exports = {
   FIXTURES: false,
   DEBUG: false,
 
+  SENTRY_ENABLED: true,
+
   PORT: 8000,
 };

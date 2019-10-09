@@ -8,10 +8,9 @@ import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertDefined, assertDocument } from '../../utils';
+import { assertDefined } from '../../utils';
 import * as select from '../selectors';
-import { ArchiveTreeSection, Book, Page } from '../types';
-import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import { ArchiveTreeSection, Book } from '../types';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import {
   bookBannerDesktopBigHeight,
@@ -24,10 +23,10 @@ import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in Book['theme']]: string} = {
   'blue': '#004aa2',
-  'deep-green': '#9cd14a',
+  'deep-green': '#12A28C',
   'gray': '#97999b',
   'green': '#9cd14a',
-  'light-blue': '#004aa2',
+  'light-blue': '#1EE1F0',
   'orange': '#FAA461',
   'red': '#E34361',
   'yellow': '#faea36',
@@ -47,7 +46,7 @@ const LeftArrow = styled(ChevronLeft)`
 `;
 
 interface PropTypes {
-  page?: Page;
+  pageNode?: ArchiveTreeSection;
   book?: Book;
 }
 
@@ -72,6 +71,7 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
   (props: {variant: 'mini' | 'big'}) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
+const bookTitleMiniNavDestkopWidth = 27;
 // tslint:disable-next-line:variable-name
 const BookTitle = styled.a`
   ${h4Style}
@@ -90,7 +90,7 @@ const BookTitle = styled.a`
   `)}
 
   ${ifMiniNav(css`
-    width: 27rem;
+    width: ${bookTitleMiniNavDestkopWidth}rem;
 
     ${theme.breakpoints.mobile(css`
       display: none;
@@ -115,6 +115,13 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
 
     max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
+  `)}
+  ${ifMiniNav(css`
+    max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
+
+    ${theme.breakpoints.mobile(css`
+      max-width: none;
+    `)}
   `)}
 `;
 
@@ -177,26 +184,23 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   };
 
   public componentDidMount() {
-    const document = assertDocument();
+    if (typeof document === 'undefined') {
+      return;
+    }
     document.addEventListener('scroll', this.handleScroll);
     this.handleScroll();
   }
 
   public render() {
-    const {page, book} = this.props;
+    const {pageNode, book} = this.props;
 
-    if (!book || !page) {
+    if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const treeSection = findArchiveTreeNode(book.tree, page.id);
     const bookUrl = bookDetailsUrl(book);
 
-    if (!treeSection) {
-      return <BarWrapper colorSchema={undefined} up={false} />;
-    }
-
-    return this.renderBars(book, bookUrl, treeSection);
+    return this.renderBars(book, bookUrl, pageNode);
   }
 
   private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
@@ -223,6 +227,6 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    page: select.page(state),
+    pageNode: select.pageNode(state),
   })
 )(BookBanner);
