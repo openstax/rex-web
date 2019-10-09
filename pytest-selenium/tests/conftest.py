@@ -8,8 +8,6 @@ from utils import utility
 
 import random
 
-pytest_plugins = "fixtures.users"
-
 # Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1500, 1080)
 # this used to be 414x738, but it looks like chrome won't resize lower than 500
@@ -87,7 +85,7 @@ def chrome_options(chrome_options, pytestconfig, language):
     if pytestconfig.getoption("--disable-dev-shm-usage"):
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-    chrome_options.add_experimental_option('w3c', False)
+    chrome_options.add_experimental_option("w3c", False)
 
     # Set the browser language
     chrome_options.add_argument("--lang={lang}".format(lang=language))
@@ -109,7 +107,7 @@ def book_slug():
 
 
 @pytest.fixture
-def username(store):
+def email(store):
     user_info = random.choice((store.get("_user_info")))
     return user_info["email"]
 

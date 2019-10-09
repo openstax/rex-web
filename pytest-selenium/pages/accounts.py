@@ -1,6 +1,7 @@
 from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
+from utils import utility
 
 
 class Login(Page):
@@ -29,8 +30,8 @@ class Login(Page):
 
     click_login = click_next
 
-    def login(self, username, password):
-        self.enter_user_email(username)
+    def login(self, email, password):
+        self.enter_user_email(email)
         self.click_next()
         self.enter_password(password)
         self.click_login()
