@@ -8,6 +8,7 @@ import random
 
 from pages.base import Page
 from regions.base import Region
+from regions.toc import TableOfContents
 
 
 class Content(Page):
@@ -34,6 +35,20 @@ class Content(Page):
         return self.find_element(*self._next_locator)
 
     @property
+    def previous_link_is_displayed(self):
+        try:
+            return self.previous_link.is_displayed()
+        except NoSuchElementException:
+            return False
+
+    @property
+    def next_link_is_displayed(self):
+        try:
+            return self.next_link.is_displayed()
+        except NoSuchElementException:
+            return False
+
+    @property
     def navbar(self):
         return self.NavBar(self)
 
@@ -52,10 +67,6 @@ class Content(Page):
     @property
     def attribution(self):
         return self.Attribution(self)
-
-    @property
-    def section_url_within_attribution(self):
-        return self.find_element(*self._section_url_locator)
 
     @property
     def sidebar_width_offset(self):
@@ -203,6 +214,10 @@ class Content(Page):
         @property
         def header(self):
             return self.Header(self.page)
+
+        @property
+        def toc(self):
+            return TableOfContents(self.page)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
