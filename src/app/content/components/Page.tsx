@@ -1,4 +1,3 @@
-import { SearchResultHit } from '@openstax/open-search-client';
 import { HTMLAnchorElement, HTMLButtonElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
@@ -14,20 +13,18 @@ import { MAIN_CONTENT_ID } from '../../context/constants';
 import withServices from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { RouteState } from '../../navigation/types';
 import theme from '../../theme';
 import { AppServices, AppState } from '../../types';
 import { Dispatch } from '../../types';
 import { assertDefined, assertWindow, resetTabIndex, scrollTo } from '../../utils';
 import { content } from '../routes';
-import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { State } from '../types';
 import getCleanContent from '../utils/getCleanContent';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import allImagesLoaded from './utils/allImagesLoaded';
-import searchHighlightManager, { stubManager } from './utils/searchHighlightManager';
+import searchHighlightManager, { mapStateToSearchHighlightProp, stubManager } from './utils/searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -41,9 +38,9 @@ interface PropTypes {
   currentPath: string;
   navigate: typeof push;
   className?: string;
+  locationState: ReturnType<typeof selectNavigation.locationState>;
+  searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   references: State['references'];
-  searchResults: SearchResultHit[];
-  search: RouteState<typeof content>['search'];
   services: AppServices;
 }
 
@@ -88,10 +85,7 @@ export class PageComponent extends Component<PropTypes> {
       this.scrollToTarget();
     }
 
-    this.searchHighlightManager = this.searchHighlightManager(
-      this.props.searchResults,
-      this.props.search ? this.props.search.selectedResult : null
-    );
+    this.searchHighlightManager(prevProps.searchHighlights, this.props.searchHighlights);
   }
 
   public getSnapshotBeforeUpdate(prevProps: PropTypes) {
@@ -313,7 +307,7 @@ export class PageComponent extends Component<PropTypes> {
   };
 
   private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
-    const {references, navigate, book, page} = this.props;
+    const {references, navigate, book, page, locationState} = this.props;
     const href = anchor.getAttribute('href');
 
     if (!href || !book || !page) {
@@ -329,8 +323,8 @@ export class PageComponent extends Component<PropTypes> {
         params: reference.params,
         route: content,
         state: {
+          ...locationState,
           ...reference.state,
-          search: this.props.search,
         },
       }, {hash, search});
     } else if (pathname === this.props.currentPath && hash && !e.metaKey) {
@@ -339,8 +333,8 @@ export class PageComponent extends Component<PropTypes> {
         params: getBookPageUrlAndParams(book, page).params,
         route: content,
         state: {
+          ...locationState,
           ...getBookPageUrlAndParams(book, page).state,
-          search: this.props.search,
 
         },
       }, {hash, search});
@@ -434,16 +428,10 @@ const connector = connect(
     book: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hash: selectNavigation.hash(state),
+    locationState: selectNavigation.locationState(state),
     page: select.page(state),
     references: select.contentReferences(state),
-    search: selectSearch.query(state) || selectSearch.selectedResult(state)
-      ? {
-        query: selectSearch.query(state),
-        selectedResult: selectSearch.selectedResult(state),
-      }
-      : undefined
-    ,
-    searchResults: selectSearch.currentPageResults(state),
+    searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
