@@ -692,6 +692,8 @@ describe('Page', () => {
 
     // page lifecycle hooks
     await Promise.resolve();
+    // previous processing
+    await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
 
@@ -726,7 +728,7 @@ describe('Page', () => {
     typesetMath.mockRestore();
   });
 
-  it('scrolls to top on new content', () => {
+  it('scrolls to top on new content', async() => {
     if (!window) {
       return expect(window).toBeTruthy();
     }
@@ -756,6 +758,8 @@ describe('Page', () => {
       title: 'qerqwer',
       version: '0',
     }));
+
+    await Promise.resolve();
 
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
@@ -806,6 +810,7 @@ describe('Page', () => {
       references: [],
     }));
 
+    await Promise.resolve();
     await Promise.resolve();
 
     expect(scrollTo).not.toHaveBeenCalled();
@@ -895,6 +900,8 @@ describe('Page', () => {
     }));
 
     // page lifecycle hooks
+    await Promise.resolve();
+    // previous processing
     await Promise.resolve();
     // images loaded
     await Promise.resolve();
