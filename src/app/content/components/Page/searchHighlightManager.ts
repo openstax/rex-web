@@ -6,7 +6,7 @@ import { scrollTo } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { SelectedResult } from '../../search/types';
 import { highlightResults } from '../../search/utils';
-import allImagesLoaded from './allImagesLoaded';
+import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
   highlighter: Highlighter;
@@ -52,12 +52,12 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   scrollToSearch(services, current.selectedResult);
 };
 
-const searchHighlightManager = (services: Services) => (previous: HighlightProp, current: HighlightProp) => {
+const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp) => {
   updateResults(services, previous, current);
   selectResult(services, previous, current);
 };
 
-export default (container: HTMLElement) => {
+const searchHighlightManager = (container: HTMLElement) => {
   const services = {
     container,
     highlighter: new Highlighter(container, {
@@ -66,7 +66,15 @@ export default (container: HTMLElement) => {
     searchResultMap: [],
   };
 
-  return searchHighlightManager(services);
+  return {
+    unmount: () => services.highlighter.unmount(),
+    update: handleUpdate(services),
+  };
 };
 
-export const stubManager: ReturnType<typeof searchHighlightManager> = () => stubManager;
+export default searchHighlightManager;
+
+export const stubManager: ReturnType<typeof searchHighlightManager> = {
+  unmount: (): void => undefined,
+  update: (): void => undefined,
+};

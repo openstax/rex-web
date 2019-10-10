@@ -3,7 +3,7 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
 import { assertWindow, resetTabIndex, scrollTo } from '../../../utils';
 import * as select from '../../selectors';
-import allImagesLoaded from './allImagesLoaded';
+import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollTargetProp = (state: AppState) => ({
   hash: selectNavigation.hash(state),

@@ -1,48 +1,22 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
-import flow from 'lodash/fp/flow';
-import merge from 'lodash/fp/merge';
 import React, { Component } from 'react';
-import { injectIntl, IntlShape } from 'react-intl';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
 import WeakMap from 'weak-map';
-import { typesetMath } from '../../../helpers/mathjax';
-import Loader from '../../components/Loader';
-import MainContent from '../../components/MainContent';
-import { bodyCopyRegularStyle } from '../../components/Typography';
-import { MAIN_CONTENT_ID } from '../../context/constants';
-import withServices from '../../context/Services';
-import * as selectNavigation from '../../navigation/selectors';
-import theme from '../../theme';
-import { AppServices, AppState } from '../../types';
-import { assertWindow } from '../../utils';
-import * as select from '../selectors';
-import { State } from '../types';
-import getCleanContent from '../utils/getCleanContent';
-import { contentTextWidth } from './constants';
-import { mapSolutions, toggleSolution, transformContent } from './utils/contentDOMTransformations';
-import * as contentLinks from './utils/contentLinkHandler';
-import scrollTargetManager, { mapStateToScrollTargetProp, stubScrollTargetManager } from './utils/scrollTargetManager';
-import searchHighlightManager, { mapStateToSearchHighlightProp, stubManager } from './utils/searchHighlightManager';
+import { typesetMath } from '../../../../helpers/mathjax';
+import Loader from '../../../components/Loader';
+import MainContent from '../../../components/MainContent';
+import { assertWindow } from '../../../utils';
+import getCleanContent from '../../utils/getCleanContent';
+import { PagePropTypes } from './connector';
+import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
+import * as contentLinks from './contentLinkHandler';
+import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
+import searchHighlightManager, { stubManager } from './searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
 
-interface PropTypes {
-  intl: IntlShape;
-  page: State['page'];
-  book: State['book'];
-  currentPath: string;
-  className?: string;
-  contentLinks: contentLinks.ContentLinkProp;
-  locationState: ReturnType<typeof selectNavigation.locationState>;
-  scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
-  searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
-  services: AppServices;
-}
-
-export class PageComponent extends Component<PropTypes> {
+export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
@@ -63,7 +37,7 @@ export class PageComponent extends Component<PropTypes> {
     this.postProcess();
   }
 
-  public async componentDidUpdate(prevProps: PropTypes) {
+  public async componentDidUpdate(prevProps: PagePropTypes) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -76,10 +50,10 @@ export class PageComponent extends Component<PropTypes> {
       await this.postProcess();
     }
 
-    this.searchHighlightManager(prevProps.searchHighlights, this.props.searchHighlights);
+    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights);
   }
 
-  public getSnapshotBeforeUpdate(prevProps: PropTypes) {
+  public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
     if (prevProps.page !== this.props.page) {
       this.listenersOff();
     }
@@ -88,6 +62,7 @@ export class PageComponent extends Component<PropTypes> {
 
   public componentWillUnmount() {
     this.listenersOff();
+    this.searchHighlightManager.unmount();
   }
 
   public render() {
@@ -102,7 +77,7 @@ export class PageComponent extends Component<PropTypes> {
       ref={this.container}
       dangerouslySetInnerHTML={{ __html: html}}
     />;
-  }
+   }
 
   private renderLoading = () => <MainContent className={this.props.className} ref={this.container}>
     <Loader large delay={1500} />
@@ -173,88 +148,3 @@ export class PageComponent extends Component<PropTypes> {
     return promise;
   }
 }
-
-export const contentTextStyle = css`
-  ${bodyCopyRegularStyle}
-
-  @media screen { /* full page width in print */
-    max-width: ${contentTextWidth}rem;
-    margin: 0 auto;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const StyledPageComponent = styled(PageComponent)`
-  ${contentTextStyle}
-
-  @media screen { /* full page width in print */
-    flex: 1;
-    display: flex;
-    width: 100%;
-
-    > #${MAIN_CONTENT_ID} {
-      width: 100%;
-    }
-
-    /* trying to add margin to a page wrapper that
-     * will collapse with the margin of the top element in the
-     * page. can't add it to the page element because it is flexy,
-     * or the main_content because page makes it flexy. those
-     * need to be flexy to center the loading indicator
-     */
-    > #${MAIN_CONTENT_ID} > [data-type="page"],
-    > #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
-      margin-top: ${theme.padding.page.desktop}rem;
-      ${theme.breakpoints.mobile(css`
-        margin-top: ${theme.padding.page.mobile}rem;
-      `)}
-    }
-  }
-
-  overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
-
-  @media screen {
-    .search-highlight {
-      font-weight: bold;
-      background-color: #ffd17e;
-
-      &.focus {
-        background-color: #ff9e4b;
-
-        .search-highlight {
-          background-color: unset;
-        }
-      }
-    }
-  }
-
-  .os-figure,
-  .os-figure:last-child {
-    margin-bottom: 5px; /* fix double scrollbar bug */
-  }
-
-  * {
-    overflow: initial; /* rex styles default to overflow hidden, breaks content */
-  }
-`;
-
-const connector = connect(
-  (state: AppState) => ({
-    book: select.book(state),
-    contentLinks: contentLinks.mapStateToContentLinkProp(state),
-    currentPath: selectNavigation.pathname(state),
-    page: select.page(state),
-    scrollTarget: mapStateToScrollTargetProp(state),
-    searchHighlights: mapStateToSearchHighlightProp(state),
-  }),
-  (dispatch) => ({
-    contentLinks: contentLinks.mapDispatchToContentLinkProp(dispatch),
-  }),
-  merge
-);
-
-export default flow(
-  injectIntl,
-  withServices,
-  connector
-)(StyledPageComponent);
