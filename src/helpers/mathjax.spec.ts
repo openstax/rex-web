@@ -3,6 +3,9 @@ import { startMathJax, typesetMath } from './mathjax';
 const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
 
 const mockMathJax = () => ({
+  HTML: {
+    Cookie: {},
+  },
   Hub: {
     Config: jest.fn(),
     Configured: jest.fn(),
