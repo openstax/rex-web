@@ -43,6 +43,9 @@ export default css`
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   @media screen {
+    .highlight {
+      background-color: yellow;
+    }
     .search-highlight {
       font-weight: bold;
       background-color: #ffd17e;

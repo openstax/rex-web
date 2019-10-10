@@ -6,6 +6,7 @@ import { AppServices, AppState } from '../../../types';
 import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
+import { mapStateToHighlightProp } from './highlightManager';
 import { mapStateToScrollTargetProp } from './scrollTargetManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
 
@@ -19,6 +20,7 @@ export interface PagePropTypes {
   locationState: ReturnType<typeof selectNavigation.locationState>;
   scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
+  highlights: ReturnType<typeof mapStateToHighlightProp>;
   services: AppServices;
 }
 
@@ -27,6 +29,7 @@ export default connect(
     book: select.book(state),
     contentLinks: mapStateToContentLinkProp(state),
     currentPath: selectNavigation.pathname(state),
+    highlights: mapStateToHighlightProp(state),
     page: select.page(state),
     scrollTarget: mapStateToScrollTargetProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),

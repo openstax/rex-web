@@ -9,6 +9,7 @@ import getCleanContent from '../../utils/getCleanContent';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
+import highlightManager, { stubHighlightManager } from './highlightManager';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
 
@@ -20,6 +21,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
+  private highlightManager = stubHighlightManager;
   private scrollTargetManager = stubScrollTargetManager;
   private processing: Promise<void> = Promise.resolve();
 
@@ -33,6 +35,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
+    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
     this.scrollTargetManager = scrollTargetManager(this.container.current);
     this.postProcess();
   }
@@ -63,6 +66,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public componentWillUnmount() {
     this.listenersOff();
     this.searchHighlightManager.unmount();
+    this.highlightManager.unmount();
   }
 
   public render() {
