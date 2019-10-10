@@ -87,3 +87,9 @@ export const setSidebarHeight = (sidebar: HTMLElement, window: Window) => {
     },
   };
 };
+
+export const fixSafariScrolling = (event: any) => {
+  console.log('enters');
+  event.target.style.overflowY = 'hidden';
+  setTimeout(() => { event.target.style.overflowY = 'auto'; });
+};

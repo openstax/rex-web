@@ -1,3 +1,4 @@
+import { Document, CustomEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -37,11 +38,26 @@ import {
 describe('SearchResultsSidebar', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
+  let doc: Document;
+
+  const animationEvent = () => {
+    const event = new CustomEvent('webkitAnimationEnd');
+    event.initEvent('webkitAnimationEnd', true, true);
+    const spy = jest.spyOn(event, 'preventDefault');
+
+    doc.dispatchEvent(event);
+
+    return {event, spy};
+  };
 
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
     store.dispatch(receiveBook(formatBookData(archiveBook, mockCmsBook)));
+    if (!document || !window) {
+      throw new Error('jsdom...');
+    }
+    doc = document;
   });
 
   const render = () => (
@@ -174,5 +190,15 @@ describe('SearchResultsSidebar', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
+  });
+
+  it('fixes overscroll in safari', () => {
+    renderToDom(render());
+
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults()));
+
+    const {spy} = animationEvent();
+    expect(spy).toHaveBeenCalled();
   });
 });

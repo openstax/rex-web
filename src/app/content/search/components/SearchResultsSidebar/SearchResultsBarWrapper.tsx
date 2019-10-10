@@ -5,7 +5,8 @@ import Loader from '../../../../components/Loader';
 import { Book } from '../../../types';
 import {
   scrollSidebarSectionIntoView,
-  setSidebarHeight
+  setSidebarHeight,
+  fixSafariScrolling
 } from '../../../utils/domUtils';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import SearchResultContainers from './SearchResultContainers';
@@ -107,11 +108,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     );
   }
 
-  public fixSafariScrolling = (event: any) => {
-    event.target.style.overflowY = 'hidden';
-    setTimeout(() => { event.target.style.overflowY = 'auto'; });
-  };
-
   public componentDidMount = () => {
     this.scrollToSelectedPage();
     const searchSidebar = this.searchSidebar.current;
@@ -124,7 +120,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     callback();
     this.deregister = deregister;
 
-    searchSidebar.addEventListener('webkitAnimationEnd', this.fixSafariScrolling);
+    searchSidebar.addEventListener('webkitAnimationEnd', fixSafariScrolling);
   };
 
   public componentDidUpdate() {
