@@ -1,5 +1,6 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
+import merge from 'lodash/fp/merge';
 import React, { Component } from 'react';
 import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -11,19 +12,16 @@ import MainContent from '../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../context/constants';
 import withServices from '../../context/Services';
-import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppServices, AppState } from '../../types';
-import { Dispatch } from '../../types';
 import { assertWindow } from '../../utils';
-import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
 import getCleanContent from '../utils/getCleanContent';
-import { getBookPageUrlAndParams, toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
 import { mapSolutions, toggleSolution, transformContent } from './utils/contentDOMTransformations';
+import * as contentLinks from './utils/contentLinkHandler';
 import scrollTargetManager, { mapStateToScrollTargetProp, stubScrollTargetManager } from './utils/scrollTargetManager';
 import searchHighlightManager, { mapStateToSearchHighlightProp, stubManager } from './utils/searchHighlightManager';
 
@@ -36,12 +34,11 @@ interface PropTypes {
   page: State['page'];
   book: State['book'];
   currentPath: string;
-  navigate: typeof push;
   className?: string;
+  contentLinks: contentLinks.ContentLinkProp;
   locationState: ReturnType<typeof selectNavigation.locationState>;
   scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
-  references: State['references'];
   services: AppServices;
 }
 
@@ -53,10 +50,8 @@ export class PageComponent extends Component<PropTypes> {
   private processing: Promise<void> = Promise.resolve();
 
   public getCleanContent = () => {
-    const {book, page, services, currentPath} = this.props;
-    return getCleanContent(book, page, services.archiveLoader, (pageContent) =>
-      this.props.references.reduce((html, reference) =>
-        html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
+    const {book, page, services} = this.props;
+    return getCleanContent(book, page, services.archiveLoader, contentLinks.reduceReferences(this.props.contentLinks));
   };
 
   public componentDidMount() {
@@ -64,7 +59,6 @@ export class PageComponent extends Component<PropTypes> {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
-
     this.scrollTargetManager = scrollTargetManager(this.container.current);
     this.postProcess();
   }
@@ -138,7 +132,7 @@ export class PageComponent extends Component<PropTypes> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const handler = this.clickListener(a);
+      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
@@ -161,41 +155,6 @@ export class PageComponent extends Component<PropTypes> {
     this.mapLinks(removeIfExists);
     mapSolutions(this.container.current, removeIfExists);
   }
-
-  private clickListener = (anchor: HTMLAnchorElement) => (e: MouseEvent) => {
-    const {references, navigate, book, page, locationState} = this.props;
-    const href = anchor.getAttribute('href');
-
-    if (!href || !book || !page) {
-      return;
-    }
-
-    const {hash, search, pathname} = new URL(href, assertWindow().location.href);
-    const reference = references.find((ref) => content.getUrl(ref.params) === pathname);
-
-    if (reference && reference.params.book === book.slug && !e.metaKey) {
-      e.preventDefault();
-      navigate({
-        params: reference.params,
-        route: content,
-        state: {
-          ...locationState,
-          ...reference.state,
-        },
-      }, {hash, search});
-    } else if (pathname === this.props.currentPath && hash && !e.metaKey) {
-      e.preventDefault();
-      navigate({
-        params: getBookPageUrlAndParams(book, page).params,
-        route: content,
-        state: {
-          ...locationState,
-          ...getBookPageUrlAndParams(book, page).state,
-
-        },
-      }, {hash, search});
-    }
-  };
 
   private postProcess() {
     const container = this.container.current;
@@ -282,16 +241,16 @@ const StyledPageComponent = styled(PageComponent)`
 const connector = connect(
   (state: AppState) => ({
     book: select.book(state),
+    contentLinks: contentLinks.mapStateToContentLinkProp(state),
     currentPath: selectNavigation.pathname(state),
-    locationState: selectNavigation.locationState(state),
     page: select.page(state),
-    references: select.contentReferences(state),
     scrollTarget: mapStateToScrollTargetProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
-  (dispatch: Dispatch) => ({
-    navigate: flow(push, dispatch),
-  })
+  (dispatch) => ({
+    contentLinks: contentLinks.mapDispatchToContentLinkProp(dispatch),
+  }),
+  merge
 );
 
 export default flow(
