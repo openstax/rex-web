@@ -16,15 +16,15 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppServices, AppState } from '../../types';
 import { Dispatch } from '../../types';
-import { assertWindow, resetTabIndex, scrollTo } from '../../utils';
+import { assertWindow } from '../../utils';
 import { content } from '../routes';
 import * as select from '../selectors';
 import { State } from '../types';
 import getCleanContent from '../utils/getCleanContent';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../utils/urlUtils';
 import { contentTextWidth } from './constants';
-import allImagesLoaded from './utils/allImagesLoaded';
 import { mapSolutions, toggleSolution, transformContent } from './utils/contentDOMTransformations';
+import scrollTargetManager, { mapStateToScrollTargetProp, stubScrollTargetManager } from './utils/scrollTargetManager';
 import searchHighlightManager, { mapStateToSearchHighlightProp, stubManager } from './utils/searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
@@ -35,11 +35,11 @@ interface PropTypes {
   intl: IntlShape;
   page: State['page'];
   book: State['book'];
-  hash: string;
   currentPath: string;
   navigate: typeof push;
   className?: string;
   locationState: ReturnType<typeof selectNavigation.locationState>;
+  scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   references: State['references'];
   services: AppServices;
@@ -49,6 +49,7 @@ export class PageComponent extends Component<PropTypes> {
   public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
+  private scrollTargetManager = stubScrollTargetManager;
   private processing: Promise<void> = Promise.resolve();
 
   public getCleanContent = () => {
@@ -58,17 +59,13 @@ export class PageComponent extends Component<PropTypes> {
         html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))), pageContent));
   };
 
-  public scrollToTop() {
-    const window = assertWindow();
-    resetTabIndex(window.document);
-    window.scrollTo(0, 0);
-  }
-
   public componentDidMount() {
     if (!this.container.current) {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
+
+    this.scrollTargetManager = scrollTargetManager(this.container.current);
     this.postProcess();
   }
 
@@ -79,11 +76,10 @@ export class PageComponent extends Component<PropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
+    this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
+
     if (prevProps.page !== this.props.page) {
-      this.scrollToTargetOrTop();
       await this.postProcess();
-    } else if (prevProps.hash !== this.props.hash) {
-      this.scrollToTarget();
     }
 
     this.searchHighlightManager(prevProps.searchHighlights, this.props.searchHighlights);
@@ -114,28 +110,7 @@ export class PageComponent extends Component<PropTypes> {
     />;
   }
 
-  private scrollToTarget = () => {
-    const target = this.getScrollTarget();
-
-    if (target && this.container.current) {
-      allImagesLoaded(this.container.current).then(
-        () => scrollTo(target)
-      );
-    }
-  };
-
-  private scrollToTargetOrTop = () => {
-    if (this.getScrollTarget()) {
-      this.scrollToTarget();
-    } else {
-      this.scrollToTop();
-    }
-  };
-
-  private renderLoading = () => <MainContent
-    className={this.props.className}
-    ref={this.container}
-  >
+  private renderLoading = () => <MainContent className={this.props.className} ref={this.container}>
     <Loader large delay={1500} />
   </MainContent>;
 
@@ -151,12 +126,6 @@ export class PageComponent extends Component<PropTypes> {
       return this.props.services.prerenderedContent || '';
     }
     return '';
-  }
-
-  private getScrollTarget(): Element | null {
-    return this.container.current && typeof(window) !== 'undefined' && this.props.hash
-      ? this.container.current.querySelector(`[id="${this.props.hash.replace(/^#/, '')}"]`)
-      : null;
   }
 
   private mapLinks(cb: (a: HTMLAnchorElement) => void) {
@@ -314,10 +283,10 @@ const connector = connect(
   (state: AppState) => ({
     book: select.book(state),
     currentPath: selectNavigation.pathname(state),
-    hash: selectNavigation.hash(state),
     locationState: selectNavigation.locationState(state),
     page: select.page(state),
     references: select.contentReferences(state),
+    scrollTarget: mapStateToScrollTargetProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch: Dispatch) => ({
