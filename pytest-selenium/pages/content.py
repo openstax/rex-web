@@ -31,6 +31,7 @@ class Content(Page):
     def previous_link(self):
         return self.find_element(*self._previous_locator)
 
+    @property
     def next_link(self):
         return self.find_element(*self._next_locator)
 
