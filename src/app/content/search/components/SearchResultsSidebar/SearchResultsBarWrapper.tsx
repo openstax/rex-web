@@ -4,9 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
 import { Book } from '../../../types';
 import {
+  fixSafariScrolling,
   scrollSidebarSectionIntoView,
-  setSidebarHeight,
-  fixSafariScrolling
+  setSidebarHeight
 } from '../../../utils/domUtils';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import SearchResultContainers from './SearchResultContainers';
