@@ -153,7 +153,7 @@ export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, th
  * unlike lodash merge, this will not change object references for values that
  * exist only in one parameter.
  */
-export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 | T2 => ({
+export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 & T2 => ({
   ...thing1,
   ...thing2,
   ...getCommonProperties(thing1, thing2).reduce((result, property) => ({
