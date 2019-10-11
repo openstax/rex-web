@@ -14,10 +14,17 @@ interface Services {
   searchResultMap: ReturnType<typeof highlightResults>;
 }
 
-export const mapStateToSearchHighlightProp = (state: AppState) => ({
-  searchResults: selectSearch.currentPageResults(state),
-  selectedResult: selectSearch.selectedResult(state),
-});
+export const mapStateToSearchHighlightProp = (state: AppState) => {
+  const searchResults = selectSearch.currentPageResults(state);
+  const selectedResult = selectSearch.selectedResult(state);
+
+  return {
+    searchResults,
+    selectedResult: searchResults && selectedResult && searchResults.find(isEqual(selectedResult.result))
+      ? selectedResult
+      : null,
+  };
+};
 type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 
 const scrollToSearch = ({container, searchResultMap}: Services, selected: SelectedResult) => {
@@ -39,7 +46,6 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   }
 
   services.highlighter.eraseAll();
-
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
