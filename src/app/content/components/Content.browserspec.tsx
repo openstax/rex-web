@@ -32,6 +32,7 @@ describe('Content', () => {
         // Calling finishRender() without first waiting sometimes gives scrollTop == 0
         await new Promise((resolve) => setTimeout(resolve, 2000));
         await finishRender(page);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
         // Loading page with anchor
         const anchorScrollTop = await page.evaluate('document.documentElement.scrollTop');
