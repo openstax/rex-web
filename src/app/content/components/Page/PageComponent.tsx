@@ -31,13 +31,13 @@ export default class PageComponent extends Component<PagePropTypes> {
   };
 
   public componentDidMount() {
+    this.postProcess();
     if (!this.container.current) {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
     this.scrollTargetManager = scrollTargetManager(this.container.current);
-    this.postProcess();
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {

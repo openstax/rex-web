@@ -14,7 +14,8 @@ interface Services {
 
 export const mapStateToHighlightProp = (state: AppState) => ({
   enabled: selectHighlights.isEnabled(state),
-  page: select.page(state), });
+  page: select.page(state),
+});
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>;
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
