@@ -1,8 +1,8 @@
-import merge from 'lodash/fp/merge';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppServices, AppState } from '../../../types';
+import { merge } from '../../../utils';
 import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
