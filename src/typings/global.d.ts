@@ -26,6 +26,10 @@ declare global {
       prototype: dom.Element;
       new(): dom.Element;
     };
+    CustomEvent: {
+      prototype: CustomEvent;
+      new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
+    };
     MathJax: any;
     ga: UniversalAnalytics.ga;
   }

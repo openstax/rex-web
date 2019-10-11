@@ -1,6 +1,6 @@
-import { Document, CustomEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
@@ -24,9 +24,10 @@ import {
 } from '../../../../../test/searchResults';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
-import { assertDocument } from '../../../../utils';
+import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -34,30 +35,22 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
+import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let doc: Document;
 
   const animationEvent = () => {
-    const event = new CustomEvent('webkitAnimationEnd');
+    const event = new (assertWindow().CustomEvent)('webkitAnimationEnd');
     event.initEvent('webkitAnimationEnd', true, true);
-    const spy = jest.spyOn(event, 'preventDefault');
-
-    doc.dispatchEvent(event);
-
-    return {event, spy};
+    return event;
   };
 
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
     store.dispatch(receiveBook(formatBookData(archiveBook, mockCmsBook)));
-    if (!document || !window) {
-      throw new Error('jsdom...');
-    }
-    doc = document;
   });
 
   const render = () => (
@@ -193,12 +186,22 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('fixes overscroll in safari', () => {
-    renderToDom(render());
+    const {tree} = renderToDom(render());
+    const fixForSafariMock = jest.spyOn(domUtils, 'fixSafariScrolling');
 
     store.dispatch(requestSearch('cool search'));
     store.dispatch(receiveSearchResults(makeSearchResults()));
 
-    const {spy} = animationEvent();
-    expect(spy).toHaveBeenCalled();
+    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
+
+    jest.useFakeTimers();
+    setTimeout(() => {
+      if (sidebar.searchSidebar.current) {
+        sidebar.searchSidebar.current.dispatchEvent(animationEvent());
+      }
+    });
+    jest.runAllTimers();
+
+    expect(fixForSafariMock).toHaveBeenCalled();
   });
 });
