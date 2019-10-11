@@ -3,6 +3,7 @@ import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { AppState } from '../../../types';
 import { assertDocument } from '../../../utils';
+import * as selectHighlights from '../../highlights/selectors';
 import * as select from '../../selectors';
 
 interface Services {
@@ -12,8 +13,8 @@ interface Services {
 }
 
 export const mapStateToHighlightProp = (state: AppState) => ({
-  page: select.page(state),
-});
+  enabled: selectHighlights.isEnabled(state),
+  page: select.page(state), });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>;
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
@@ -36,6 +37,10 @@ const onSelectHighlight = (services: Services, highlights: Highlight[], highligh
 };
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
+  if (!getProp().enabled) {
+    return stubHighlightManager;
+  }
+
   const services: Services = {
     container,
     getProp,
