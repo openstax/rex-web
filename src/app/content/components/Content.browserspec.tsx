@@ -22,7 +22,7 @@ describe('Content', () => {
 
         // chrome does weird when changing the hash manually on the current page
         await navigate(page, '/book-slug-1/pages/test-page-1');
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       });
 
       it('scrolls correctly to all elements', async() => {
@@ -30,7 +30,7 @@ describe('Content', () => {
 
         await navigate(page, TEST_PAGE_URL);
         // Calling finishRender() without first waiting sometimes gives scrollTop == 0
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         await finishRender(page);
 
         // Loading page with anchor
