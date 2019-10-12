@@ -4,7 +4,7 @@ from regions.base import Region
 
 
 class SearchSidebar(Region):
-    _root_locator = (By.CSS_SELECTOR, '[data-testid="search-results-sidebar"]')
+    _root_locator = (By.CSS_SELECTOR, 'div [data-testid="search-results-sidebar"]')
     _no_results_locator = (By.XPATH, "//*[contains(text(), 'Sorry, no results found for')]")
 
     @property
