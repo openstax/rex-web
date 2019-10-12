@@ -107,6 +107,8 @@ class Content(Page):
         touchActions = TouchActions(self.driver)
         touchActions.scroll_from_element(self.print, x, y).perform()
 
+    scroll_through_page = scroll_over_content_overlay
+
     def click_content_overlay(self):
         """Click anywhere in the content overlay
 

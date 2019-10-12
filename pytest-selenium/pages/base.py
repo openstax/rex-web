@@ -54,12 +54,6 @@ class Page(pypom.Page):
         element.send_keys(Keys.ENTER)
         return self.wait.until(lambda _: title_before_click != (self.page_title))
 
-    def is_scrolled_to_top(self):
-        if self.driver.execute_script("return window.pageYOffset;") == 0:
-            return True
-        else:
-            print("content is not scrolled to top")
-
     def element_is_not_interactable(self, element):
         try:
             element.send_keys(Keys.ENTER)
@@ -81,3 +75,11 @@ class Page(pypom.Page):
                 "return window.getComputedStyle(arguments[0]).height;", element
             )
         ).strip("px")
+
+    @property
+    def scroll_position(self):
+        return self.driver.execute_script("return window.pageYOffset;")
+
+    @property
+    def page_not_scrolled(self):
+        return self.driver.execute_script("return window.pageYOffset;") == 0
