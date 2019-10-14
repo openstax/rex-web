@@ -516,7 +516,7 @@ Array [
   width: 100%;
   overflow: visible;
   display: block;
-  z-index: 2;
+  z-index: 3;
   background-color: #fff;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
@@ -3662,7 +3662,7 @@ Array [
   width: 100%;
   overflow: visible;
   display: block;
-  z-index: 2;
+  z-index: 3;
   background-color: #fff;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }

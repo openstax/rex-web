@@ -20,7 +20,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 1;
+  z-index: 2;
   height: calc(100vh - 18rem);
   max-height: calc(100vh - 12rem);
   margin-left: -44rem;
@@ -247,7 +247,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 1;
+  z-index: 2;
   height: calc(100vh - 18rem);
   max-height: calc(100vh - 12rem);
   margin-left: -44rem;
@@ -955,7 +955,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 1;
+  z-index: 2;
   height: calc(100vh - 18rem);
   max-height: calc(100vh - 12rem);
   margin-left: -44rem;
