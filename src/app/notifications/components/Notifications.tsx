@@ -15,12 +15,12 @@ import AppMessage from './AppMessage';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  notifications: AnyNotification[];
+  notifications: AnyNotification;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications = ({notifications, className}: Props) => notifications.length === 0
+const Notifications = ({notifications, className}: Props) => !notifications
   ? null
   : <div className={className}>
     {notifications.map((notification, index) => {

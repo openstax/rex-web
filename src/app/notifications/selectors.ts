@@ -22,7 +22,7 @@ const messagePriority = [
 export const notificationsForDisplay = createSelector(
   notifications,
   pathname,
-  (messages, url) => messages
+  (messages, url) => (messages
     .filter((message) => {
       if (isAppMessage(message) && message.payload.url_regex) {
         return url.match(message.payload.url_regex);
@@ -32,6 +32,5 @@ export const notificationsForDisplay = createSelector(
     })
     .sort((first, second) => {
       return messagePriority.indexOf(first.type) - messagePriority.indexOf(second.type);
-    })
-    .slice(0, 1)
+    }))[0]
 );
