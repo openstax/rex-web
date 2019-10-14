@@ -43,7 +43,6 @@ describe('SearchResultsSidebar', () => {
 
   const animationEvent = () => {
     const event = new (assertWindow().CustomEvent)('webkitAnimationEnd');
-    event.initEvent('webkitAnimationEnd', true, true);
     return event;
   };
 
