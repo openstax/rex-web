@@ -97,11 +97,11 @@ export default {
   color,
   padding,
   zIndex: {
-    contentNotifications: 3,
+    contentNotifications: 4,
     focusedHiddenLink: 20,
     modal: 12,
     navbar: 5,
-    overlay: 3,
+    overlay: 4,
     searchSidebar: 2,
     sidebar: 4,
     toolbar: 3,
