@@ -55,6 +55,7 @@ export class PageComponent extends Component<PropTypes> {
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlighter: Highlighter | undefined;
   private searchResultMap: ReturnType<typeof highlightResults> = [];
+  private processing: Promise<void> = Promise.resolve();
 
   public getCleanContent = () => {
     const {book, page, services, currentPath} = this.props;
@@ -74,15 +75,21 @@ export class PageComponent extends Component<PropTypes> {
     if (!this.container.current) {
       return;
     }
-    await this.postProcess(this.container.current);
-    this.listenersOn();
     this.searchHighlighter = new Highlighter(this.container.current, {
       className: 'search-highlight',
     });
+
+    await this.postProcess(this.container.current);
   }
 
   public async componentDidUpdate(prevProps: PropTypes) {
     const target = this.getScrollTarget();
+
+    // if there is a previous processing job, wait for it to finish.
+    // this is mostly only relevant for initial load to ensure search results
+    // are not highlighted before math is done typesetting, but may also
+    // be relevant if there are rapid page navigations.
+    await this.processing;
 
     if (this.container.current && typeof(window) !== 'undefined' && prevProps.page !== this.props.page) {
       if (!target) {
@@ -111,12 +118,12 @@ export class PageComponent extends Component<PropTypes> {
     ) {
       this.scrollToSearch(this.container.current, this.searchHighlighter, this.props.search.selectedResult);
     }
-
-    this.listenersOn();
   }
 
-  public getSnapshotBeforeUpdate() {
-    this.listenersOff();
+  public getSnapshotBeforeUpdate(prevProps: PropTypes) {
+    if (prevProps.page !== this.props.page) {
+      this.listenersOff();
+    }
     return null;
   }
 
@@ -380,9 +387,11 @@ export class PageComponent extends Component<PropTypes> {
 
   private postProcess(container: HTMLElement) {
     this.addGenericJs(container);
+    this.listenersOn();
 
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
+    this.processing = promise;
 
     return promise;
   }
