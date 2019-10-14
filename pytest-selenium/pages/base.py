@@ -1,6 +1,5 @@
 from tests.conftest import DESKTOP, MOBILE
 
-import pytest
 import pypom
 
 from selenium.webdriver.remote.webelement import WebElement
