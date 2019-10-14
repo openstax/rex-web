@@ -15,30 +15,32 @@ import AppMessage from './AppMessage';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-  notifications: AnyNotification;
+  notification: AnyNotification;
   className?: string;
 }
 
+const renderNotificacion = (notification: AnyNotification) => {
+  if (notification) {
+    switch (notification.type) {
+    case getType(actions.updateAvailable): {
+      return <UpdatesAvailable />;
+    }
+    case getType(actions.acceptCookies): {
+      return <AcceptCookies notification={notification} />;
+    }
+    case appMessageType: {
+      return <AppMessage notification={notification} />;
+    }
+    default:
+      return null;
+    }
+  }
+};
+
 // tslint:disable-next-line:variable-name
-const Notifications = ({notifications, className}: Props) => !notifications
+const Notifications = ({notification, className}: Props) => !notification
   ? null
-  : <div className={className}>
-    {notifications.map((notification, index) => {
-      switch (notification.type) {
-        case getType(actions.updateAvailable): {
-          return <UpdatesAvailable key={index} />;
-        }
-        case getType(actions.acceptCookies): {
-          return <AcceptCookies key={index} notification={notification} />;
-        }
-        case appMessageType: {
-          return <AppMessage key={index} notification={notification} />;
-        }
-        default:
-          return null;
-      }
-    })}
-  </div>;
+  : <div className={className}> { renderNotificacion(notification) } </div>;
 
 const connector = connect(
   (state: AppState) => ({
