@@ -6,7 +6,7 @@ import { merge } from '../../../utils';
 import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
-import { mapStateToHighlightProp } from './highlightManager';
+import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
 import { mapStateToScrollTargetProp } from './scrollTargetManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
 
@@ -20,7 +20,7 @@ export interface PagePropTypes {
   locationState: ReturnType<typeof selectNavigation.locationState>;
   scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
-  highlights: ReturnType<typeof mapStateToHighlightProp>;
+  highlights: HighlightProp;
   services: AppServices;
 }
 
@@ -36,6 +36,7 @@ export default connect(
   }),
   (dispatch) => ({
     contentLinks: mapDispatchToContentLinkProp(dispatch),
+    highlights: mapDispatchToHighlightProp(dispatch),
   }),
   merge
 );

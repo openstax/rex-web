@@ -24,7 +24,17 @@ describe('highlightManager', () => {
     window = assertWindow();
     getSelection = window.document.getSelection = jest.fn();
     element = window.document.createElement('div');
-    prop = {enabled: true, page};
+    prop = {
+      create: jest.fn(),
+      enabled: true,
+      page,
+      remove: jest.fn(),
+    };
+  });
+
+  const createMockHighlight = () => ({
+    id: Math.random().toString(36).substring(7),
+    serialize: () => ({data: 'data'}),
   });
 
   afterEach(() => {
@@ -72,7 +82,7 @@ describe('highlightManager', () => {
 
     it('highlights when there aren\'t any highlights in selection', () => {
       const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
-      const mockHighlight = {};
+      const mockHighlight = createMockHighlight();
 
       Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
       expect(highlight).toBeCalledWith(mockHighlight);
@@ -83,7 +93,7 @@ describe('highlightManager', () => {
 
       getSelection.mockReturnValue(mockSelection);
 
-      Highlighter.mock.calls[0][1].onSelect([], {});
+      Highlighter.mock.calls[0][1].onSelect([], createMockHighlight());
       expect(mockSelection.removeAllRanges).toBeCalled();
     });
   });
@@ -101,7 +111,7 @@ describe('highlightManager', () => {
 
     it('erases highlights on click', () => {
       const erase = Highlighter.mock.instances[0].erase = jest.fn();
-      const mockHighlight = {};
+      const mockHighlight = createMockHighlight();
       Highlighter.mock.calls[0][1].onClick(mockHighlight);
       expect(erase).toHaveBeenCalledWith(mockHighlight);
     });
