@@ -129,13 +129,13 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public componentWillUnmount() {
     const searchSidebar = this.searchSidebar.current;
+    this.deregister();
 
     if (!searchSidebar || typeof window === 'undefined') {
       return;
     }
     searchSidebar.removeEventListener('webkitAnimationEnd', fixSafariScrolling);
 
-    this.deregister();
   }
   private deregister: () => void = () => null;
 

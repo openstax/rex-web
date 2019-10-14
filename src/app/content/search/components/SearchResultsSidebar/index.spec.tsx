@@ -194,11 +194,9 @@ describe('SearchResultsSidebar', () => {
     const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
 
     jest.useFakeTimers();
-    setTimeout(() => {
-      if (sidebar.searchSidebar.current) {
-        sidebar.searchSidebar.current.dispatchEvent(animationEvent());
-      }
-    });
+    if (sidebar.searchSidebar.current) {
+      sidebar.searchSidebar.current.dispatchEvent(animationEvent());
+    }
     jest.runAllTimers();
 
     expect(fixForSafariMock).toHaveBeenCalled();
