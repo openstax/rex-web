@@ -211,14 +211,10 @@ class Content(Page):
         def search_textbox(self):
             return self.find_element(*self._search_textbox_mobile_locator)
 
-        def trigger_search(self):
-            self.offscreen_click(self.search_textbox)
-            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
-
         def search_for(self, element):
             self.page.toolbar.click_search_icon()
             self.search_textbox.send_keys(element)
-            self.trigger_search()
+            self.offscreen_click(self.search_textbox)
             return self.page.sidebar.search_sidebar.wait_for_region_to_display()
 
     class SideBar(Region):
