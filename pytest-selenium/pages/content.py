@@ -194,7 +194,7 @@ class Content(Page):
 
         def click_search(self):
             self.offscreen_click(self.search_button)
-            self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
 
         def click_search_icon(self):
             self.offscreen_click(self.search_button_mobile)
@@ -202,6 +202,7 @@ class Content(Page):
         def search_for(self, element):
             self.search_textbox.send_keys(element)
             self.click_search()
+            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
 
     class MobileSearch(Region):
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, '[data-testid="mobile-search-input"]')
@@ -212,12 +213,13 @@ class Content(Page):
 
         def trigger_search(self):
             self.offscreen_click(self.search_textbox)
-            self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
 
         def search_for(self, element):
             self.page.toolbar.click_search_icon()
             self.search_textbox.send_keys(element)
             self.trigger_search()
+            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
