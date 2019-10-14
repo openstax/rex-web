@@ -17,7 +17,7 @@ const books = {
   /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '7.6'},
   /* Principles of Accounting Vol 1 */ '9ab4ba6d-1e48-486d-a2de-38ae1617ca84': {defaultVersion: '4.66'},
   /* Principles of Accounting Vol 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '14.13'},
-  /* US History */ 'a7ba2fb8-8925-4987-b182-5f4429d48daa': {defaultVersion: '9.19'},
+  /* US History */ 'a7ba2fb8-8925-4987-b182-5f4429d48daa': {defaultVersion: '9.20'},
   /* University Physics vol 1 */ 'd50f6e32-0fda-46ef-a362-9bd36ca7c97d': {defaultVersion: '13.50'},
   /* University Physics vol 2 */ '7a0f9770-1c44-4acd-9920-1cd9a99f2a1e': {defaultVersion: '16.55'},
   /* University Physics vol 3 */ 'af275420-6050-4707-995c-57b9cc13c358': {defaultVersion: '12.22'},
