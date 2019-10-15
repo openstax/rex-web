@@ -137,7 +137,7 @@ export const BarWrapper = styled.div<{colorSchema: Book['theme'] | undefined , u
   height: ${ifMiniNav(bookBannerDesktopMiniHeight, bookBannerDesktopBigHeight)}rem;
   transition: transform 200ms;
   position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
-  z-index: ${ifMiniNav(theme.zIndex.overlay + 1, theme.zIndex.overlay + 2)};
+  z-index: ${ifMiniNav(theme.zIndex.navbar - 2, theme.zIndex.navbar - 1)};
   overflow: hidden;
   ${(props: {colorSchema: Book['theme'] | undefined }) => props.colorSchema && css`
     background: linear-gradient(to right,
