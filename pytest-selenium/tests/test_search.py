@@ -13,7 +13,6 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
     mobile = content.mobile_search_toolbar
-    # search_sidebar = content.sidebar.search_sidebar
     search_sidebar = content.search_sidebar
     page_url_before_search = content.current_url
 
@@ -39,7 +38,7 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
 
     # AND: Scroll position of the content is not changed during the search
 
-    # For mobile resolution, click on the search icon to close the search sidebar/navigate to the content
+    # For mobile resolution, click on the search icon to close the search sidebar/navigate back to content page
     if content.is_mobile:
         toolbar.click_search_icon()
 
@@ -69,7 +68,7 @@ def test_scroll_position_when_search_yields_no_results(selenium, base_url, book_
 
     if content.is_mobile:
         mobile.search_for(search_term)
-        # For mobile resolution, click on the search icon to close the search sidebar/navigate to the content
+        # For mobile resolution, click on the search icon to close the search sidebar/navigate back to content page
         toolbar.click_search_icon()
 
     scroll_position_after_search = content.scroll_position
