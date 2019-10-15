@@ -12,8 +12,9 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
     # GIVEN: Book page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
-    mobile = content.mobile
-    search_sidebar = content.sidebar.search_sidebar
+    mobile = content.mobile_search_toolbar
+    # search_sidebar = content.sidebar.search_sidebar
+    search_sidebar = content.search_sidebar
     page_url_before_search = content.current_url
 
     # Using regex to create a random search term
@@ -52,7 +53,7 @@ def test_scroll_position_when_search_yields_no_results(selenium, base_url, book_
     # GIVEN: Book page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
-    mobile = content.mobile
+    mobile = content.mobile_search_toolbar
 
     # Using regex to create a random search term
     search_term = "".join(choice(digits + ascii_letters) for i in range(25))

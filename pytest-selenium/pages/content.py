@@ -63,8 +63,15 @@ class Content(Page):
         return self.ToolBar(self)
 
     @property
-    def mobile(self):
-        return self.MobileSearch(self)
+    def mobile_search_toolbar(self):
+        return self.MobileSearchToolbar(self)
+
+    # class SearchSideBar(Region):
+    #     _root_locator = (By.CSS_SELECTOR, "[data-testid='search-results-sidebar']")
+
+    @property
+    def search_sidebar(self):
+        return SearchSidebar(self)
 
     @property
     def sidebar(self):
@@ -194,7 +201,8 @@ class Content(Page):
 
         def click_search(self):
             self.offscreen_click(self.search_button)
-            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            # return self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            return self.page.search_sidebar.wait_for_region_to_display()
 
         def click_search_icon(self):
             self.offscreen_click(self.search_button_mobile)
@@ -202,9 +210,10 @@ class Content(Page):
         def search_for(self, element):
             self.search_textbox.send_keys(element)
             self.click_search()
-            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            # return self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            return self.page.search_sidebar.wait_for_region_to_display()
 
-    class MobileSearch(Region):
+    class MobileSearchToolbar(Region):
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, '[data-testid="mobile-search-input"]')
 
         @property
@@ -215,7 +224,15 @@ class Content(Page):
             self.page.toolbar.click_search_icon()
             self.search_textbox.send_keys(element)
             self.offscreen_click(self.search_textbox)
-            return self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            # return self.page.sidebar.search_sidebar.wait_for_region_to_display()
+            return self.page.search_sidebar.wait_for_region_to_display()
+
+    # class SearchSideBar(Region):
+    #     _root_locator = (By.CSS_SELECTOR, "[data-testid='search-results-sidebar']")
+    #
+    #     @property
+    #     def search_sidebar(self):
+    #         return SearchSidebar(self.page)
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
@@ -227,10 +244,6 @@ class Content(Page):
         @property
         def toc(self):
             return TableOfContents(self.page)
-
-        @property
-        def search_sidebar(self):
-            return SearchSidebar(self.page)
 
         class Header(Region):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
