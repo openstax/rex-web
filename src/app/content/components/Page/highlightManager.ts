@@ -50,28 +50,41 @@ const onSelectHighlight = (services: Services, highlights: Highlight[], highligh
   }
 };
 
-export default (container: HTMLElement, getProp: () => HighlightProp) => {
-  if (!getProp().enabled) {
-    return stubHighlightManager;
-  }
+const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
+  const highlighter: Highlighter = new Highlighter(services.container, {
+    onClick: (...args) => onClickHighlight({...services, highlighter}, ...args),
+    onSelect: (...args) => onSelectHighlight({...services, highlighter}, ...args),
+    snapMathJax: true,
+    snapTableRows: true,
+    snapWords: true,
+  });
 
-  const services: Services = {
+  return highlighter;
+};
+
+export default (container: HTMLElement, getProp: () => HighlightProp) => {
+  let highlighter: Highlighter | undefined;
+
+  const services = {
     container,
     getProp,
-    highlighter: new Highlighter(container, {
-      onClick: (...args) => onClickHighlight(services, ...args),
-      onSelect: (...args) => onSelectHighlight(services, ...args),
-      snapMathJax: true,
-      snapTableRows: true,
-      snapWords: true,
-    }),
   };
 
+  if (getProp().enabled) {
+    highlighter = createHighlighter(services);
+  }
+
   return {
-    unmount: () => services.highlighter.unmount(),
+    unmount: (): void => highlighter && highlighter.unmount(),
+    update: () => {
+      if (!highlighter && getProp().enabled) {
+        highlighter = createHighlighter(services);
+      }
+    },
   };
 };
 
 export const stubHighlightManager = ({
   unmount: (): void => undefined,
+  update: (): void => undefined,
 });

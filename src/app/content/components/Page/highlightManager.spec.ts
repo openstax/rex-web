@@ -46,10 +46,19 @@ describe('highlightManager', () => {
     expect(Highlighter).toHaveBeenCalled();
   });
 
-  it('doesn\'t creates highlighter when not enabled', () => {
+  it('doesn\'t create highlighter when not enabled', () => {
     prop.enabled = false;
     highlightManager(element, () => prop);
     expect(Highlighter).not.toHaveBeenCalled();
+  });
+
+  it('creates highlighter when it becomes enabled', () => {
+    prop.enabled = false;
+    const {update} = highlightManager(element, () => prop);
+    expect(Highlighter).not.toHaveBeenCalled();
+    prop.enabled = true;
+    update();
+    expect(Highlighter).toHaveBeenCalled();
   });
 
   it('umounts', () => {
