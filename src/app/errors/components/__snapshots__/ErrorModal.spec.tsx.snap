@@ -175,7 +175,6 @@ exports[`ErrorModal matches snapshot 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  z-index: 2;
   position: fixed;
   background-color: rgba(0,0,0,0.3);
 }
@@ -202,7 +201,7 @@ exports[`ErrorModal matches snapshot 1`] = `
 }
 
 .c1 {
-  z-index: 50;
+  z-index: 1;
 }
 
 @media screen and (max-width:75em) {
