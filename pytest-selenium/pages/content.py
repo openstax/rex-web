@@ -185,6 +185,7 @@ class Content(Page):
             return self.find_element(*self._search_textbox_desktop_locator)
 
         @property
+        # search icon within search text box in desktop
         def search_button(self):
             return self.find_element(*self._search_button_desktop_locator)
 
@@ -196,16 +197,13 @@ class Content(Page):
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
 
-        def click_search(self):
-            self.offscreen_click(self.search_button)
-            return self.page.search_sidebar.wait_for_region_to_display()
-
         def click_search_icon(self):
+            # clicks search icon in mobile
             self.offscreen_click(self.search_button_mobile)
 
         def search_for(self, element):
             self.search_textbox.send_keys(element)
-            self.click_search()
+            self.offscreen_click(self.search_button)
             return self.page.search_sidebar.wait_for_region_to_display()
 
     class MobileSearchToolbar(Region):
