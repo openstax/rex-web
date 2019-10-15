@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
 import { Book } from '../../../types';
 import {
+  fixSafariScrolling,
   scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
@@ -118,6 +119,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const {callback, deregister} = setSidebarHeight(searchSidebar, window);
     callback();
     this.deregister = deregister;
+
+    searchSidebar.addEventListener('webkitAnimationEnd', fixSafariScrolling);
   };
 
   public componentDidUpdate() {
@@ -125,7 +128,14 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   }
 
   public componentWillUnmount() {
+    const searchSidebar = this.searchSidebar.current;
     this.deregister();
+
+    if (!searchSidebar || typeof window === 'undefined') {
+      return;
+    }
+    searchSidebar.removeEventListener('webkitAnimationEnd', fixSafariScrolling);
+
   }
   private deregister: () => void = () => null;
 

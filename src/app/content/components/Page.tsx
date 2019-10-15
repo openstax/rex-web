@@ -128,9 +128,7 @@ export class PageComponent extends Component<PropTypes> {
   }
 
   public componentWillUnmount() {
-    if (this.container.current) {
-      this.listenersOff();
-    }
+    this.listenersOff();
   }
 
   public render() {
