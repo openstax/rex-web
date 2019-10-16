@@ -1,0 +1,9 @@
+{
+  "release_id": "development",
+  "messages": [],
+  "configs": {
+    "feature_flags": [
+      "enableHighlighting"
+    ]
+  }
+}

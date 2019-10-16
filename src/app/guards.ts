@@ -9,3 +9,6 @@ export const isHtmlElement = (thing: any): thing is HTMLElement =>
   && thing.title !== undefined
   && typeof thing.nodeName === 'string'
 ;
+
+export const isPlainObject = (thing: any): thing is {} =>
+  thing instanceof Object && thing.__proto__.constructor === Object;
