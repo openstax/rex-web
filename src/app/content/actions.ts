@@ -1,8 +1,10 @@
 import { createStandardAction } from 'typesafe-actions';
+import * as highlightingActions from './highlights/actions';
 import * as searchActions from './search/actions';
 import { ArchivePage, Book, State } from './types';
 
 export const search = searchActions;
+export const highlighting = highlightingActions;
 
 export const openToc = createStandardAction('Content/openToc')<void>();
 export const closeToc = createStandardAction('Content/closeToc')<void>();

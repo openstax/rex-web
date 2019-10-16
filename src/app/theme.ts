@@ -96,11 +96,17 @@ export default {
   },
   color,
   padding,
-  zIndex: {
-    focusedHiddenLink: 20,
-    modal: 12,
-    navbar: 5,
-    overlay: 2,
-    sidebar: 3,
-  },
+  zIndex: [
+    'contentNotifications',
+    'searchSidebar',
+    'toolbar',
+    'overlay',
+    'sidebar',
+    'navbar',
+    'modal',
+    'focusedHiddenLink',
+  ].reduce((result, key, index) => {
+    result[key] = (index + 1) * 10;
+    return result;
+  }, {} as {[key: string]: number}),
 };

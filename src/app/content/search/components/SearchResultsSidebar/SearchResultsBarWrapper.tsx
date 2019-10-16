@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Loader from '../../../../components/Loader';
 import { Book } from '../../../types';
 import {
+  fixSafariScrolling,
   scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
@@ -24,8 +25,9 @@ interface ResultsSidebarProps {
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
-  private searchSidebar = React.createRef<HTMLElement>();
-  private activeSection = React.createRef<HTMLElement>();
+  public searchSidebar = React.createRef<HTMLElement>();
+  public activeSection = React.createRef<HTMLElement>();
+  public searchSidebarHeader = React.createRef<HTMLElement>();
 
   public loadindState = () => <FormattedMessage id='i18n:search-results:bar:loading-state'>
     {(msg: Element | string) => <Styled.LoadingWrapper aria-label={msg}>
@@ -38,7 +40,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </Styled.LoadingWrapper>}
   </FormattedMessage>;
 
-  public totalResults = () => <Styled.SearchQueryWrapper>
+  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
     <Styled.SearchQuery>
       <Styled.SearchIconInsideBar />
         <Styled.HeaderQuery>
@@ -117,6 +119,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const {callback, deregister} = setSidebarHeight(searchSidebar, window);
     callback();
     this.deregister = deregister;
+
+    searchSidebar.addEventListener('webkitAnimationEnd', fixSafariScrolling);
   };
 
   public componentDidUpdate() {
@@ -124,7 +128,14 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   }
 
   public componentWillUnmount() {
+    const searchSidebar = this.searchSidebar.current;
     this.deregister();
+
+    if (!searchSidebar || typeof window === 'undefined') {
+      return;
+    }
+    searchSidebar.removeEventListener('webkitAnimationEnd', fixSafariScrolling);
+
   }
   private deregister: () => void = () => null;
 

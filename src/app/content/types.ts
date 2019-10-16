@@ -1,4 +1,5 @@
 import { RouteParams, RouteState } from '../navigation/types';
+import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
@@ -9,12 +10,13 @@ export interface Params {
 
 export interface State {
   tocOpen: boolean | null;
-  params?: Params;
+  params: Partial<Params>;
   loading: {
     book?: string;
     page?: string;
   };
   search: SearchState;
+  highlights: HighlightState;
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];

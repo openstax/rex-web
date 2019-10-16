@@ -18,9 +18,17 @@ declare global {
       prototype: dom.HTMLAnchorElement;
       new(): dom.HTMLAnchorElement;
     };
+    HTMLDetailsElement: {
+      prototype: dom.HTMLDetailsElement;
+      new(): dom.HTMLDetailsElement;
+    };
     Element: {
       prototype: dom.Element;
       new(): dom.Element;
+    };
+    CustomEvent: {
+      prototype: CustomEvent;
+      new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
     };
     MathJax: any;
     ga: UniversalAnalytics.ga;

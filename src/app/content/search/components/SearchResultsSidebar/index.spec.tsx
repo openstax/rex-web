@@ -1,5 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
@@ -14,6 +15,7 @@ import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import {
   makeEvent,
   makeFindByTestId,
+  makeFindOrNullByTestId,
   renderToDom
 } from '../../../../../test/reactutils';
 import {
@@ -22,9 +24,10 @@ import {
 } from '../../../../../test/searchResults';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
-import { assertDocument } from '../../../../utils';
+import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -32,10 +35,16 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
+import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
+
+  const animationEvent = () => {
+    const event = new (assertWindow().CustomEvent)('webkitAnimationEnd');
+    return event;
+  };
 
   beforeEach(() => {
     store = createTestStore();
@@ -46,7 +55,7 @@ describe('SearchResultsSidebar', () => {
   const render = () => (
     <MessageProvider>
       <Provider store={store}>
-        <SearchResultsSidebar />
+        <SearchResultsSidebar/>
       </Provider>
     </MessageProvider>
   );
@@ -63,8 +72,24 @@ describe('SearchResultsSidebar', () => {
     expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
-  it('is closed when there is no search', () => {
+  it('is initially null when there is no search', () => {
     const component = renderer.create(render());
+    const findById = makeFindOrNullByTestId(component.root);
+
+    expect(findById('search-results-sidebar')).toBe(null);
+  });
+
+  it('is hidden after search is cleared', () => {
+    const component = renderer.create(render());
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
+    renderer.act(() => {
+      store.dispatch(clearSearch());
+    });
+
     const findById = makeFindByTestId(component.root);
 
     expect(findById('search-results-sidebar').props.searchResultsOpen).toBe(false);
@@ -157,5 +182,23 @@ describe('SearchResultsSidebar', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
+  });
+
+  it('fixes overscroll in safari', () => {
+    const {tree} = renderToDom(render());
+    const fixForSafariMock = jest.spyOn(domUtils, 'fixSafariScrolling');
+
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults()));
+
+    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
+
+    jest.useFakeTimers();
+    if (sidebar.searchSidebar.current) {
+      sidebar.searchSidebar.current.dispatchEvent(animationEvent());
+    }
+    jest.runAllTimers();
+
+    expect(fixForSafariMock).toHaveBeenCalled();
   });
 });

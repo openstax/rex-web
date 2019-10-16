@@ -12,11 +12,13 @@ import {
 import theme from '../../../../theme';
 import {
     bookBannerDesktopMiniHeight,
+    bookBannerMobileMiniHeight,
     searchResultsBarDesktopWidth,
     searchSidebarTopOffset,
     sidebarTransitionTime,
     toolbarDesktopHeight,
     toolbarIconColor,
+    toolbarMobileHeight,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/styled';
@@ -90,6 +92,7 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
+  -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   margin-top: 0;
@@ -98,8 +101,9 @@ export const SearchResultsBar = styled.div`
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: ${theme.zIndex.searchSidebar};
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
+  max-height: calc(100vh - ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
   margin-left: -${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
   ${styleWhenSearchClosed(css`
@@ -111,6 +115,7 @@ export const SearchResultsBar = styled.div`
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
     padding: 0;
+    max-height: calc(100vh - ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem);
   `)}
 
   > ${NavOl} {

@@ -6,6 +6,7 @@ import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
+import * as appAactions from './actions';
 import * as auth from './auth';
 import * as content from './content';
 import * as Services from './context/Services';
@@ -14,7 +15,6 @@ import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
 import MessageProvider from './MessageProvider';
-import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
@@ -24,6 +24,7 @@ import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
 
 export const actions = {
+  app: appAactions,
   auth: auth.actions,
   content: content.actions,
   errors: errors.actions,
@@ -40,6 +41,10 @@ export const routes = [
   ),
   ...Object.values(content.routes),
   ...Object.values(errors.routes),
+];
+
+const init = [
+  ...Object.values(auth.init),
 ];
 
 const hooks = [
@@ -93,11 +98,6 @@ export default (options: AppOptions) => {
     middleware.push(Sentry.initializeWithMiddleware());
   }
 
-  /* istanbul ignore next */
-  if (process.env.REACT_APP_ENV === 'development') {
-    middleware.unshift(stackTraceMiddleware);
-  }
-
   const store = createStore({
     initialState,
     middleware,
@@ -117,6 +117,16 @@ export default (options: AppOptions) => {
   );
 
   navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
+
+  for (const initializer of init) {
+    const promise = initializer({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      ...services,
+    });
+
+    services.promiseCollector.add(promise);
+  }
 
   return {
     container,
