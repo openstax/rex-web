@@ -312,16 +312,16 @@ describe('Page', () => {
               <p id="paragraph1">blah blah blah</p>
             </div></div>
             <div data-type="solution" id="fs-id2913818" data-print-placement="here">
-        <div class="ui-toggle-wrapper">
-          <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
-        </div>
-        <section class="ui-body" role="alert">
+      <div class="ui-toggle-wrapper">
+        <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
+      </div>
+      <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
-      </div>
+    </div>
           </section></div>
         `);
       });
@@ -457,7 +457,7 @@ describe('Page', () => {
   });
 
   it('passes search when clicking content links to same book', async() => {
-    store.dispatch(requestSearch('asdf'));
+    state.navigation.state = {search: {query: 'asdf'}};
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -492,7 +492,7 @@ describe('Page', () => {
   });
 
   it('passes search when clicking hash links', async() => {
-    store.dispatch(requestSearch('asdf'));
+    state.navigation.state = {search: {query: 'asdf'}};
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
