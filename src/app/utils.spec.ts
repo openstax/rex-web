@@ -237,3 +237,41 @@ describe('getAllRegexMatches', () => {
     expect(() => utils.getAllRegexMatches(/asdf/)).toThrow();
   });
 });
+
+describe('merge', () => {
+  it('merges things', () => {
+    expect(utils.merge({asdf: 'asdf'}, {qwer: 'qwer'})).toEqual({asdf: 'asdf', qwer: 'qwer'});
+  });
+
+  it('maintains object references when possible', () => {
+    const thing1 = {subobject: {}, asdf: 'asdf'};
+    const thing2 = {qwer: 'qwer'};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(thing1.subobject).toBe(merged.subobject);
+  });
+
+  it('doesn\'t modify refernces when merging', () => {
+    const thing1 = {subobject: {qwer: 'qwer'}, asdf: 'asdf'};
+    const thing2 = {subobject: {asdf: 'asdf'}};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(thing1.subobject).not.toBe(merged.subobject);
+    expect(merged).toEqual({
+      asdf: 'asdf',
+      subobject: {
+        asdf: 'asdf',
+        qwer: 'qwer',
+      },
+    });
+  });
+
+  it('last arg wins for non-plain objects', () => {
+    const thing1 = {array: ['one'], asdf: 'asdf'};
+    const thing2 = {array: ['two'], qwer: 'qwer'};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(merged.array).toBe(thing2.array);
+    expect(merged.array).toEqual(['two']);
+  });
+});

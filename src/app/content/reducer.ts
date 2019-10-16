@@ -67,7 +67,12 @@ function reduceContent(state: State, action: AnyAction) {
         return initialState;
       }
       if (action.payload.match.params.book !== state.params.book) {
-        return {...initialState, params: action.payload.match.params, loading: state.loading};
+        return {
+          ...initialState,
+          highlights: state.highlights,
+          loading: state.loading,
+          params: action.payload.match.params,
+        };
       }
       if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
         return {...omit(['page'], state), params: action.payload.match.params};
