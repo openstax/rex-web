@@ -223,7 +223,7 @@ export const BarWrapper = styled.div`
   width: 100%;
   overflow: visible;
   display: block;
-  z-index: 2; /* stay above book content */
+  z-index: ${theme.zIndex.toolbar}; /* stay above book content */
   background-color: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
