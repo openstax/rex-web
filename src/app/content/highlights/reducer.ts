@@ -18,7 +18,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
     }
     case getType(locationChange): {
-      return initialState;
+      return {...initialState, enabled: state.enabled};
     }
     case getType(actions.createHighlight): {
       return {...state, highlights: [...state.highlights, action.payload]};
