@@ -84,7 +84,7 @@ describe('create app', () => {
       expect(initializeWithMiddleware).not.toHaveBeenCalled();
     });
 
-    it('adds sentry middleware when it is enabled', () => {
+    it('doesn\'t add sentry middleware when it is enabled', () => {
       jest.doMock('../config', () => ({
         DEPLOYED_ENV: 'test',
         RELEASE_ID: '1234',
@@ -93,7 +93,7 @@ describe('create app', () => {
       const initializeWithMiddleware = jest.spyOn(require('../helpers/Sentry').default, 'initializeWithMiddleware');
       createApp = require('./index').default;
       createApp({services});
-      expect(initializeWithMiddleware).toHaveBeenCalled();
+      expect(initializeWithMiddleware).not.toHaveBeenCalled();
     });
   });
 
