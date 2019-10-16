@@ -12,12 +12,7 @@ export const transformContent = (rootEl: HTMLElement, intl: IntlShape) => {
   wrapSolutions(rootEl, intl);
 };
 
-export const toggleSolution = (button: HTMLElement, intl: IntlShape) => () => {
-  if (!button.parentElement || !button.parentElement.parentElement) {
-    return;
-  }
-  const solution = button.parentElement.parentElement;
-
+const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
     solution.removeAttribute('aria-expanded');
@@ -27,6 +22,13 @@ export const toggleSolution = (button: HTMLElement, intl: IntlShape) => () => {
     solution.setAttribute('aria-expanded', '');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
   }
+};
+
+export const toggleSolution = (button: HTMLElement, intl: IntlShape) => () => {
+  if (!button.parentElement || !button.parentElement.parentElement) {
+    return;
+  }
+  toggleSolutionAttributes(button.parentElement.parentElement, intl);
 };
 
 export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLButtonElement) => void) => {

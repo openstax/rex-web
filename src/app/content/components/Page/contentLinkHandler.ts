@@ -6,6 +6,7 @@ import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { content } from '../../routes';
 import * as select from '../../selectors';
+import { Book, PageReferenceMap } from '../../types';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 
 export const mapStateToContentLinkProp = (state: AppState) => ({
@@ -27,18 +28,22 @@ export const reduceReferences = ({references, currentPath}: ContentLinkProp) => 
     pageContent
   );
 
+const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap) =>
+  content.getUrl(ref.params) === pathname
+    && ref.params.book === book.slug;
+
 export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) => (e: MouseEvent) => {
   const {references, navigate, book, page, locationState, currentPath} = getProps();
   const href = anchor.getAttribute('href');
 
-  if (!href || !book || !page) {
+  if (!href || !book || !page || e.metaKey) {
     return;
   }
 
   const {hash, search, pathname} = new URL(href, assertWindow().location.href);
-  const reference = references.find((ref) => content.getUrl(ref.params) === pathname);
+  const reference = references.find(isPathRefernceForBook(pathname, book));
 
-  if (reference && reference.params.book === book.slug && !e.metaKey) {
+  if (reference) {
     e.preventDefault();
     navigate({
       params: reference.params,
@@ -48,7 +53,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
         ...reference.state,
       },
     }, {hash, search});
-  } else if (pathname === currentPath && hash && !e.metaKey) {
+  } else if (pathname === currentPath && hash) {
     e.preventDefault();
     navigate({
       params: getBookPageUrlAndParams(book, page).params,

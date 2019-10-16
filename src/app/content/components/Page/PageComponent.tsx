@@ -5,6 +5,7 @@ import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import MainContent from '../../../components/MainContent';
 import { assertWindow } from '../../../utils';
+import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
@@ -92,10 +93,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     if (
       typeof(window) !== 'undefined'
       && this.props.page
-      && window.__PRELOADED_STATE__
-      && window.__PRELOADED_STATE__.content
-      && window.__PRELOADED_STATE__.content.page
-      && window.__PRELOADED_STATE__.content.page.id === this.props.page.id
+      && preloadedPageIdIs(window, this.props.page.id)
     ) {
       return this.props.services.prerenderedContent || '';
     }
