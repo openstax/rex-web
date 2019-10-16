@@ -1,6 +1,5 @@
-import { Highlight, SerializedHighlight } from '@openstax/highlighter';
+import { SerializedHighlight } from '@openstax/highlighter';
 import { Book, Page } from '../app/content/types';
-import { isDefined } from '../app/guards';
 import { assertWindow } from '../app/utils';
 
 const HIGHLIGHT_KEY = 'highlights';
@@ -8,7 +7,7 @@ const HIGHLIGHT_KEY = 'highlights';
 interface Stub {
   [book: string]: undefined | {
     [page: string]: undefined | {
-      [highlightId: string]: undefined | SerializedHighlight['data']
+      [highlightId: string]: SerializedHighlight['data']
     }
   };
 }
@@ -27,32 +26,30 @@ const getPageHighlight = (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>) => {
 
 export default () => {
   return {
-    createHighlight: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>, highlight: Highlight) =>
+    createHighlight: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>, highlight: SerializedHighlight['data']) =>
       new Promise((resolve) => {
         const {pageHighlights, data} = getPageHighlight(book, page);
 
-        pageHighlights[highlight.id] = highlight.serialize().data;
+        pageHighlights[highlight.id] = highlight;
 
         saveStubData(data);
 
         resolve();
       }),
-    deleteHighlight: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>, highlight: Highlight) =>
+    deleteHighlight: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>, id: string) =>
       new Promise((resolve) => {
         const {pageHighlights, data} = getPageHighlight(book, page);
 
-        delete pageHighlights[highlight.id];
+        delete pageHighlights[id];
 
         saveStubData(data);
 
         resolve();
       }),
     getHighlightsByPage: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>) =>
-      new Promise<SerializedHighlight[]>((resolve) => {
+      new Promise<Array<SerializedHighlight['data']>>((resolve) => {
         resolve(
           Object.values(getPageHighlight(book, page).pageHighlights)
-            .filter(isDefined)
-            .map((data) => new SerializedHighlight(data))
         );
       }),
   };
