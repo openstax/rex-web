@@ -5,14 +5,14 @@ import Layout from '../../components/Layout';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar/styled';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
-import Notifications from '../../notifications/components/Notifications';
+import { NotificationsWrapper } from '../../notifications/components/NotificationsWrapper';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
-import Attribution from './Attribution';
 import { desktopAttributionHeight, mobileAttributionHeight } from './Attribution';
+import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import {
   bookBannerDesktopBigHeight,
@@ -45,18 +45,6 @@ const Background = styled.div`
     overflow: visible; /* so sidebar position: sticky works */
     background-color: ${theme.color.neutral.darker};
   }
-`;
-
-// tslint:disable-next-line:variable-name
-const ContentNotifications = styled(Notifications)`
-  z-index: ${theme.zIndex.contentNotifications};
-  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-  ${theme.breakpoints.mobile(css`
-    top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
-        ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
-        : bookBannerMobileMiniHeight + toolbarMobileHeight
-    }rem;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -204,7 +192,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
             <ContentPane>
               <UndoPadding>
                 <MainContentWrapper>
-                  <ContentNotifications mobileExpanded={mobileExpanded} />
+                  <NotificationsWrapper mobileExpanded={mobileExpanded} />
                   <HideOverflowAndRedoPadding>
                     <Page />
                     <PrevNextBar />
