@@ -7,7 +7,7 @@ const hookBody: RouteHookBody<typeof content> = ({dispatch, getState, highlightC
   const state = getState();
   const {book, page} = bookAndPage(state);
 
-  if (!book || !page) {
+  if (!book || !page || typeof(window) === 'undefined') {
     return;
   }
 
