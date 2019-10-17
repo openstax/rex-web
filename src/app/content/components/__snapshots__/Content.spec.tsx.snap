@@ -1523,6 +1523,10 @@ li[aria-label="Current Page"] .c40 {
 }
 
 @media screen {
+  .c58 .highlight {
+    background-color: yellow;
+  }
+
   .c58 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
@@ -4327,6 +4331,10 @@ Array [
 }
 
 @media screen {
+  .c32 .highlight {
+    background-color: yellow;
+  }
+
   .c32 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;

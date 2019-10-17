@@ -8,6 +8,7 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
+import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
 import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
@@ -30,6 +31,7 @@ export interface AppState {
 }
 
 export interface AppServices {
+  highlightClient: ReturnType<typeof createHighlightClient>;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   fontCollector: FontCollector;
   history: History;
