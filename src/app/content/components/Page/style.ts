@@ -47,6 +47,10 @@ export default css`
     ${highlightStyles.map((style) => css`
       .highlight.${style.label} {
         background-color: ${style.passive};
+
+        &.focus {
+          background-color: ${style.focused};
+        }
       }
     `)}
 
