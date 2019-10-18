@@ -4,6 +4,7 @@ import flow from 'lodash/fp/flow';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { createHighlight, deleteHighlight } from '../../highlights/actions';
+import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as select from '../../selectors';
 
@@ -27,9 +28,16 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
   if (highlight) {
-    const {remove} = services.getProp();
-    services.highlighter.erase(highlight);
-    remove(highlight.id);
+    const styleIndex = highlightStyles.findIndex((search) => search.label === highlight.getStyle());
+    const nextStyle = highlightStyles[styleIndex + 1];
+
+    if (nextStyle) {
+      highlight.setStyle(nextStyle.label);
+    } else {
+      const {remove} = services.getProp();
+      services.highlighter.erase(highlight);
+      remove(highlight.id);
+    }
   }
 };
 
@@ -39,6 +47,7 @@ const onSelectHighlight = (services: Services, highlights: Highlight[], highligh
   }
   const {create} = services.getProp();
 
+  highlight.setStyle(highlightStyles[0].label);
   services.highlighter.highlight(highlight);
 
   create(highlight.serialize().data);

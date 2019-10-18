@@ -148,7 +148,7 @@ export const highlightResults = (
 
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
       const highlights = getHighlightRanges(element, highlightText).map((range) => {
-        const highlight = new Highlight(range.nativeRange, range.toString());
+        const highlight = new Highlight(range.nativeRange, {content: range.toString()});
         highlighter.highlight(highlight);
         return highlight;
       });

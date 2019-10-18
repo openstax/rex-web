@@ -41,8 +41,10 @@ describe('highlightManager', () => {
   });
 
   const createMockHighlight = () => ({
+    getStyle: jest.fn(),
     id: Math.random().toString(36).substring(7),
     serialize: () => ({data: 'data'}),
+    setStyle: jest.fn(),
   }) as unknown as Highlight;
 
   afterEach(() => {

@@ -2,6 +2,7 @@ import { css } from 'styled-components/macro';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
+import { highlightStyles } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
@@ -43,9 +44,12 @@ export default css`
   overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   @media screen {
-    .highlight {
-      background-color: yellow;
-    }
+    ${highlightStyles.map((style) => css`
+      .highlight.${style.label} {
+        background-color: ${style.passive};
+      }
+    `)}
+
     .search-highlight {
       font-weight: bold;
       background-color: #ffd17e;
