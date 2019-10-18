@@ -3,7 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { createHighlight, deleteHighlight } from '../../highlights/actions';
+import { createHighlight, deleteHighlight, updateHighlight } from '../../highlights/actions';
 import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as select from '../../selectors';
@@ -22,19 +22,21 @@ export const mapStateToHighlightProp = (state: AppState) => ({
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   create: flow(createHighlight, dispatch),
   remove: flow(deleteHighlight, dispatch),
+  update: flow(updateHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
   if (highlight) {
+    const {update, remove} = services.getProp();
     const styleIndex = highlightStyles.findIndex((search) => search.label === highlight.getStyle());
     const nextStyle = highlightStyles[styleIndex + 1];
 
     if (nextStyle) {
       highlight.setStyle(nextStyle.label);
+      update(highlight.serialize().data);
     } else {
-      const {remove} = services.getProp();
       services.highlighter.erase(highlight);
       remove(highlight.id);
     }
