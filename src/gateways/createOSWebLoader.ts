@@ -37,6 +37,13 @@ export default (prefix: string) => {
   };
 
   const cache = new Map();
+
+  const cacheRecord = (record: OSWebBook) => {
+    cache.set(record.meta.slug, record);
+    cache.set(record.cnx_id, record);
+    return record;
+  };
+
   const loader = (buildUrl: (param: string) => string) => (param: string) => {
     if (cache.has(param)) {
       return Promise.resolve(cache.get(param));
@@ -46,11 +53,7 @@ export default (prefix: string) => {
       .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
       .then(toJson)
       .then(firstRecord(param))
-      .then((response) => {
-        cache.set(response.meta.slug, response);
-        cache.set(response.cnx_id, response);
-        return response;
-      })
+      .then(cacheRecord)
     ;
   };
 
@@ -62,5 +65,6 @@ export default (prefix: string) => {
     getBookFromSlug: (slug: string) => slugLoader(slug),
     getBookIdFromSlug: (slug: string) => slugLoader(slug).then(({cnx_id}) => cnx_id),
     getBookSlugFromId: (id: string) => idLoader(id).then(({meta: {slug}}) => slug),
+    preloadCache: cacheRecord, // exposed for testing books that don't exist in osweb
   };
 };
