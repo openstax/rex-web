@@ -1,0 +1,80 @@
+import createTestServices from '../../../../test/createTestServices';
+import createTestStore from '../../../../test/createTestStore';
+import { book } from '../../../../test/mocks/archiveLoader';
+import { resetModules } from '../../../../test/utils';
+import { Match } from '../../../navigation/types';
+import { MiddlewareAPI, Store } from '../../../types';
+import * as actions from '../../actions';
+import * as routes from '../../routes';
+
+const mockConfig = {BOOKS: {
+ [book.id]: {defaultVersion: book.version},
+} as {[key: string]: {defaultVersion: string}}};
+
+jest.doMock('../../../../config', () => mockConfig);
+
+describe('locationChange', () => {
+  let store: Store;
+  let dispatch: jest.SpyInstance;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let match: Match<typeof routes.content>;
+  let hook: typeof import ('./resolveContent').default;
+
+  beforeEach(() => {
+    resetModules();
+    store = createTestStore();
+
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
+
+    match = {
+      params: {
+        book: 'book-slug-1',
+        page: 'test-page-1',
+      },
+      route: routes.content,
+    };
+
+    hook = require('./resolveContent').default;
+  });
+
+  it('doesn\'t load book if its already loading', async() => {
+    helpers.archiveLoader.mock.loadBook.mockImplementation(
+      () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
+    );
+
+    await Promise.all([
+      hook(helpers, match),
+      hook(helpers, match),
+      hook(helpers, match),
+    ]);
+
+    expect(dispatch).toHaveBeenCalledTimes(4);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
+  });
+
+  it('doesn\'t load page if its already loading', async() => {
+    await Promise.all([
+      hook(helpers, match),
+      hook(helpers, match),
+      hook(helpers, match),
+      hook(helpers, match),
+    ]);
+
+    expect(dispatch).toHaveBeenCalledTimes(4);
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
+
+    expect(helpers.archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
+  });
+});

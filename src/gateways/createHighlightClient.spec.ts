@@ -5,16 +5,8 @@ import createHighlightClient from './createHighlightClient';
 
 const fakeHighlight = (id: string) => ({
   id,
-  serialize: () => ({data: id}),
+  serialize: () => ({data: {id}}),
 }) as unknown as highlighter.Highlight;
-
-class MockPlaceholder {
-  public arg: any;
-
-  constructor(arg: any) {
-    this.arg = arg;
-  }
-}
 
 describe('createHighlightClient', () => {
   let client: ReturnType<typeof createHighlightClient>;
@@ -22,7 +14,6 @@ describe('createHighlightClient', () => {
   let setItem: jest.SpyInstance;
   const window = assertWindow();
   const localStorage = window.localStorage;
-  const SerializedHighlight = highlighter.SerializedHighlight;
 
   beforeEach(() => {
     client = createHighlightClient();
@@ -34,8 +25,6 @@ describe('createHighlightClient', () => {
       value: {getItem, setItem},
       writable: true,
     });
-
-    (highlighter as any).SerializedHighlight = MockPlaceholder;
   });
 
   afterEach(() => {
@@ -43,19 +32,17 @@ describe('createHighlightClient', () => {
       value: localStorage,
       writable: true,
     });
-
-    (highlighter as any).SerializedHighlight = SerializedHighlight;
   });
 
   describe('createHighlight', () => {
     it('works without initial data', async() => {
       getItem.mockReturnValue(null);
-      await client.createHighlight(book, page, fakeHighlight('a'));
+      await client.createHighlight(book, page, fakeHighlight('a').serialize().data);
 
       expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
         [book.id]: {
           [page.id]: {
-            a:  'a',
+            a:  {id: 'a'},
           },
         },
       }));
@@ -65,17 +52,17 @@ describe('createHighlightClient', () => {
       getItem.mockReturnValue(JSON.stringify({
         [book.id]: {
           [page.id]: {
-            a:  'a',
+            a:  {id: 'a'},
           },
         },
       }));
-      await client.createHighlight(book, page, fakeHighlight('b'));
+      await client.createHighlight(book, page, fakeHighlight('b').serialize().data);
 
       expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
         [book.id]: {
           [page.id]: {
-            a:  'a',
-            b:  'b',
+            a:  {id: 'a'},
+            b:  {id: 'b'},
           },
         },
       }));
@@ -85,19 +72,19 @@ describe('createHighlightClient', () => {
       getItem.mockReturnValue(JSON.stringify({
         [book.id]: {
           [page.id]: {
-            a:  'a',
+            a:  {id: 'a'},
           },
         },
       }));
-      await client.createHighlight(book, shortPage, fakeHighlight('b'));
+      await client.createHighlight(book, shortPage, fakeHighlight('b').serialize().data);
 
       expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
         [book.id]: {
           [page.id]: {
-            a:  'a',
+            a:  {id: 'a'},
           },
           [shortPage.id]: {
-            b:  'b',
+            b:  {id: 'b'},
           },
         },
       }));
@@ -113,7 +100,7 @@ describe('createHighlightClient', () => {
           },
         },
       }));
-      await client.deleteHighlight(book, page, fakeHighlight('a'));
+      await client.deleteHighlight(book, page, 'a');
       expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
         [book.id]: {
           [page.id]: {
@@ -124,7 +111,7 @@ describe('createHighlightClient', () => {
 
     it('noops without data', async() => {
       getItem.mockReturnValue(null);
-      await client.deleteHighlight(book, page, fakeHighlight('a'));
+      await client.deleteHighlight(book, page, 'a');
       expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
         [book.id]: {
           [page.id]: {
@@ -140,7 +127,7 @@ describe('createHighlightClient', () => {
           },
         },
       }));
-      await client.deleteHighlight(book, page, fakeHighlight('a'));
+      await client.deleteHighlight(book, page, 'a');
       expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
         [book.id]: {
           [page.id]: {
@@ -170,7 +157,7 @@ describe('createHighlightClient', () => {
       }));
       const highlights = await client.getHighlightsByPage(book, page);
       expect(highlights.length).toBe(1);
-      expect((highlights[0] as any).arg).toEqual('a');
+      expect(highlights[0]).toEqual('a');
     });
   });
 });

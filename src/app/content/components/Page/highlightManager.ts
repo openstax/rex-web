@@ -1,5 +1,4 @@
-import Highlighter from '@openstax/highlighter';
-import { Highlight } from '@openstax/highlighter';
+import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import { AppState, Dispatch } from '../../../types';
@@ -16,6 +15,7 @@ interface Services {
 
 export const mapStateToHighlightProp = (state: AppState) => ({
   enabled: selectHighlights.isEnabled(state),
+  highlights: selectHighlights.highlights(state),
   page: select.page(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
@@ -62,6 +62,12 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
   return highlighter;
 };
 
+const isUnknownHighlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
+  !highlighter.getHighlight(data.id);
+
+const highlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
+  highlighter.highlight(new SerializedHighlight(data));
+
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter | undefined;
 
@@ -79,6 +85,15 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     update: () => {
       if (!highlighter && getProp().enabled) {
         highlighter = createHighlighter(services);
+      }
+      if (highlighter) {
+        getProp().highlights
+          .filter(isUnknownHighlightData(highlighter))
+          .forEach(highlightData(highlighter))
+        ;
+      }
+      if (highlighter && getProp().highlights.length === 0) {
+        highlighter.eraseAll();
       }
     },
   };

@@ -1,4 +1,7 @@
-import UntypedHighlighter from '@openstax/highlighter';
+import UntypedHighlighter, {
+  Highlight,
+  SerializedHighlight as UntypedSerializedHighlight
+} from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { page } from '../../../../test/mocks/archiveLoader';
 import { assertWindow } from '../../../utils';
@@ -7,8 +10,12 @@ import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
+UntypedHighlighter.prototype.eraseAll = jest.fn();
+
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
+// tslint:disable-next-line:variable-name
+const SerializedHighlight = UntypedSerializedHighlight as unknown as jest.SpyInstance;
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -27,6 +34,7 @@ describe('highlightManager', () => {
     prop = {
       create: jest.fn(),
       enabled: true,
+      highlights: [],
       page,
       remove: jest.fn(),
     };
@@ -35,7 +43,7 @@ describe('highlightManager', () => {
   const createMockHighlight = () => ({
     id: Math.random().toString(36).substring(7),
     serialize: () => ({data: 'data'}),
-  });
+  }) as unknown as Highlight;
 
   afterEach(() => {
     delete window.document.getSelection;
@@ -59,6 +67,24 @@ describe('highlightManager', () => {
     prop.enabled = true;
     update();
     expect(Highlighter).toHaveBeenCalled();
+  });
+
+  it('highlights highlights', () => {
+    const mockHighlightData = {id: 'asdf'} as unknown as UntypedSerializedHighlight['data'];
+    const {update} = highlightManager(element, () => prop);
+
+    prop.highlights = [
+      mockHighlightData,
+    ];
+
+    const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
+
+    update();
+
+    expect(SerializedHighlight).toHaveBeenCalledTimes(1);
+    expect(SerializedHighlight).toHaveBeenCalledWith(mockHighlightData);
+    expect(highlight).toHaveBeenCalled();
+    expect(highlight.mock.calls[0][0]).toBe(SerializedHighlight.mock.instances[0]);
   });
 
   it('umounts', () => {
