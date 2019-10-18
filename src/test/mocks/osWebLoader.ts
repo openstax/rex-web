@@ -15,4 +15,5 @@ export default () => ({
   getBookFromSlug: jest.fn(() => Promise.resolve(mockCmsBook)),
   getBookIdFromSlug: jest.fn(() => Promise.resolve('testbook1-uuid')),
   getBookSlugFromId: jest.fn(() => Promise.resolve('book-slug-1')),
+  preloadCache: jest.fn(),
 });
