@@ -1,5 +1,6 @@
 import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
+import createHighlightClient from '../gateways/createHighlightClient';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import mockArchiveLoader from './mocks/archiveLoader';
@@ -10,6 +11,7 @@ jest.mock('@openstax/open-search-client');
 const services = () => ({
   archiveLoader: mockArchiveLoader(),
   fontCollector: new FontCollector(),
+  highlightClient: createHighlightClient(),
   history: createMemoryHistory(),
   osWebLoader: mockOsWebLoader(),
   promiseCollector: new PromiseCollector(),
