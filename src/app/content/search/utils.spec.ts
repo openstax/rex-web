@@ -12,9 +12,9 @@ import { getFirstResult, getFormattedSearchResults, highlightResults } from './u
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
   default: class {
-    public content: string;
-    constructor(_range: any, string: string) {
-      this.content = string;
+    public data: string;
+    constructor(_range: any, data: any) {
+      this.data = data;
     }
   },
 }));
@@ -159,7 +159,7 @@ describe('highlightResults', () => {
 
     highlightResults(highlighter, results);
 
-    expect(highlight.mock.calls[0][0]!.content).toBe('qwer');
+    expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'qwer'});
   });
 
   it('works on sections with no matches', () => {
@@ -177,7 +177,7 @@ describe('highlightResults', () => {
 
     highlightResults(highlighter, results);
 
-    expect(highlight.mock.calls[0][0]!.content).toBe('asdf');
+    expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'asdf'});
   });
 
   it('falls back on whole element if text can\'t be found', () => {
@@ -198,7 +198,7 @@ describe('highlightResults', () => {
 
     highlightResults(highlighter, results);
 
-    expect(highlight.mock.calls[0][0]!.content).toBe(element.textContent);
+    expect(highlight.mock.calls[0][0]!.data).toEqual({content: element.textContent});
   });
 
   it('works if element is not found', () => {

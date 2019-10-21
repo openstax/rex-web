@@ -52,5 +52,15 @@ export default () => {
           Object.values(getPageHighlight(book, page).pageHighlights)
         );
       }),
+    updateHighlight: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>, highlight: SerializedHighlight['data']) =>
+      new Promise((resolve) => {
+        const {pageHighlights, data} = getPageHighlight(book, page);
+
+        pageHighlights[highlight.id] = highlight;
+
+        saveStubData(data);
+
+        resolve();
+      }),
   };
 };
