@@ -15,3 +15,8 @@ export const highlights = createSelector(
   localState,
   (state) => state.highlights
 );
+
+export const focused = createSelector(
+  localState,
+  (state) => state.focused
+);

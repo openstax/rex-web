@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -7,11 +8,13 @@ import { AppState } from '../../../types';
 import { remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
+import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { cardContentMargin, cardMinWindowMargin, cardWidth } from '../constants';
+import { cardContentMargin, cardFocusedContentMargin, cardMinWindowMargin, cardWidth } from '../constants';
 
 interface Props {
+  isFocused: boolean;
   highlight: Highlight;
   className: string;
 }
@@ -43,35 +46,55 @@ const Card = ({highlight, className}: Props) => {
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 
+const overlapDisplay = css`
+  ${(props: Props) => !!props.isFocused && css`
+    left: unset;
+    right: ${cardMinWindowMargin}rem;
+    top: calc(${
+      (props.highlight.elements[0] as HTMLElement).offsetTop + (props.highlight.elements[0] as HTMLElement).offsetHeight
+    }px + ${cardContentMargin}rem);
+  `}
+  ${(props: Props) => !props.isFocused && css`
+    display: none;
+  `}
+`;
+
+const rightSideDisplay = css`
+  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
+  right: unset;
+  top: ${(props: Props) => (props.highlight.elements[0] as HTMLElement).offsetTop}px;
+  ${(props: Props) => !!props.isFocused && css`
+    left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
+  `}
+  ${(props: Props) => !props.isFocused && css`
+    /* temporary simplification */
+    display: none;
+  `}
+`;
+
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
   position: absolute;
-  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
-  top: ${(props) => props.highlight.elements[0].offsetTop}px;
   height: 100px;
   width: 100px;
   background: green;
-
-  @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
-    /* the window is too small to show note cards next to content when the toc is open */
-    display: none;
-
-    ${styleWhenSidebarClosed(css`
-      display: unset;
-    `)}
-  }
+  ${rightSideDisplay}
 
   @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content when search is open */
+    ${rightSideDisplay}
+    ${(props: {hasQuery: boolean}) => !!props.hasQuery && overlapDisplay}
+  }
 
-    ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
-      display: none;
-    `}
+  @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
+    /* the window is too small to show note cards next to content when the toc is open */
+    ${overlapDisplay}
+    ${styleWhenSidebarClosed(rightSideDisplay)}
   }
 
   ${theme.breakpoints.mobile(css`
     /* reset desktop breaks */
-    display: unset;
+    ${rightSideDisplay}
 
     @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
       /* the window is too small to show note cards next to content even without sidebars */
@@ -82,8 +105,9 @@ const StyledCard = styled(Card)`
 `;
 
 export default connect(
-  (state: AppState) => ({
+  (state: AppState, ownProps: {highlight: Highlight}) => ({
     hasQuery: !!selectSearch.query(state),
+    isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isOpen: contentSelect.tocOpen(state),
   })
 )(StyledCard);

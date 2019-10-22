@@ -5,7 +5,7 @@ import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { createHighlight, deleteHighlight, updateHighlight } from '../../highlights/actions';
+import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight, updateHighlight } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -23,7 +23,9 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   page: select.page(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
+  clearFocus: flow(clearFocusedHighlight, dispatch),
   create: flow(createHighlight, dispatch),
+  focus: flow(focusHighlight, dispatch),
   remove: flow(deleteHighlight, dispatch),
   update: flow(updateHighlight, dispatch),
 });
@@ -32,17 +34,12 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
   if (highlight) {
-    const {update, remove} = services.getProp();
-    const styleIndex = highlightStyles.findIndex((search) => search.label === highlight.getStyle());
-    const nextStyle = highlightStyles[styleIndex + 1];
-
-    if (nextStyle) {
-      highlight.setStyle(nextStyle.label);
-      update(highlight.serialize().data);
-    } else {
-      services.highlighter.erase(highlight);
-      remove(highlight.id);
-    }
+    services.getProp().focus(highlight.id);
+    services.highlighter.clearFocus();
+    highlight.focus();
+  } else {
+    services.getProp().clearFocus();
+    services.highlighter.clearFocus();
   }
 };
 

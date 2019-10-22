@@ -1,6 +1,7 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../theme';
 import Card from './Card';
 
 interface Props {
@@ -19,4 +20,5 @@ const Wrapper = ({highlights, className}: Props) => <div className={className}>
 export default styled(Wrapper)`
   position: relative;
   overflow: visible;
+  z-index: ${theme.zIndex.toolbar};
 `;
