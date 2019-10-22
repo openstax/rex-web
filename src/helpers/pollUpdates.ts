@@ -1,3 +1,4 @@
+import { receiveFeatureFlags } from '../app/actions';
 import { receiveMessages, updateAvailable } from '../app/notifications/actions';
 import { Messages } from '../app/notifications/types';
 import { shouldLoadAppMessage } from '../app/notifications/utils';
@@ -30,6 +31,7 @@ export type Cancel = () => void;
 
 interface EnvironmentConfigs {
   google_analytics?: string[] | undefined;
+  feature_flags?: string[];
 }
 
 interface Environment {
@@ -43,6 +45,7 @@ const processEnvironment = (store: Store, environment: Environment) => {
 
   if (environment.configs) {
     processGoogleAnalyticsIds(environment.configs);
+    processFeatureFlags(store, environment.configs.feature_flags);
   }
   if (environment.messages) {
     processMessages(store, environment.messages.filter(shouldLoadAppMessage));
@@ -68,6 +71,9 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   if (ids && ids.length > 0) {
     googleAnalyticsClient.setTrackingIds(ids);
   }
+};
+const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {
+  store.dispatch(receiveFeatureFlags(featureFlags));
 };
 const processMessages = (store: Store, messages: Messages) => {
   store.dispatch(receiveMessages(messages));

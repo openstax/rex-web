@@ -1,5 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
@@ -23,9 +24,10 @@ import {
 } from '../../../../../test/searchResults';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
-import { assertDocument } from '../../../../utils';
+import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -33,10 +35,16 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
+import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
+
+  const animationEvent = () => {
+    const event = new (assertWindow().CustomEvent)('webkitAnimationEnd');
+    return event;
+  };
 
   beforeEach(() => {
     store = createTestStore();
@@ -174,5 +182,23 @@ describe('SearchResultsSidebar', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
+  });
+
+  it('fixes overscroll in safari', () => {
+    const {tree} = renderToDom(render());
+    const fixForSafariMock = jest.spyOn(domUtils, 'fixSafariScrolling');
+
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults()));
+
+    const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
+
+    jest.useFakeTimers();
+    if (sidebar.searchSidebar.current) {
+      sidebar.searchSidebar.current.dispatchEvent(animationEvent());
+    }
+    jest.runAllTimers();
+
+    expect(fixForSafariMock).toHaveBeenCalled();
   });
 });

@@ -68,7 +68,7 @@ const Button = styled.button<{variant?: Variant, size?: Size}>`
 export const ButtonGroup = styled.div`
   display: grid;
   overflow: visible;
-  ${(props: {expand: boolean}) => props.expand === false && css`
+  ${(props: {expand?: boolean}) => props.expand === false && css`
     grid-auto-columns: min-content;
   `}
   grid-auto-flow: column;
