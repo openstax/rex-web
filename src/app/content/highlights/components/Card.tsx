@@ -50,9 +50,12 @@ const overlapDisplay = css`
   ${(props: Props) => !!props.isFocused && css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
-    top: calc(${
-      (props.highlight.elements[0] as HTMLElement).offsetTop + (props.highlight.elements[0] as HTMLElement).offsetHeight
-    }px + ${cardContentMargin}rem);
+    top: ${() => {
+      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
+      const bottomOffset = lastElement.offsetTop + lastElement.offsetHeight;
+
+      return bottomOffset;
+    }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
     display: none;
