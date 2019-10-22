@@ -1,9 +1,12 @@
 import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
+import React from 'react';
+import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { createHighlight, deleteHighlight, updateHighlight } from '../../highlights/actions';
+import CardWrapper from '../../highlights/components/CardWrapper';
 import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as select from '../../selectors';
@@ -76,11 +79,20 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
 const isUnknownHighlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
   !highlighter.getHighlight(data.id);
 
-const highlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
-  highlighter.highlight(new SerializedHighlight(data));
+const highlightData = (services: Services) => (data: SerializedHighlight['data']) => {
+  const {highlighter} = services;
+
+  const serialized = new SerializedHighlight(data);
+
+  highlighter.highlight(serialized);
+
+  return highlighter.getHighlight(data.id);
+};
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter | undefined;
+  let setListHighlighter = (_highlighter: Highlighter): void => undefined;
+  let setListHighlights = (_highlights: Highlight[]): void => undefined;
 
   const services = {
     container,
@@ -89,28 +101,55 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
   if (getProp().enabled) {
     highlighter = createHighlighter(services);
+    setListHighlighter(highlighter);
   }
 
   return {
+    CardList: () => {
+      const [listHighlighter, setHighlighter] = React.useState<Highlighter | undefined>(highlighter);
+      const [listHighlights, setHighlights] = React.useState<Highlight[]>([]);
+
+      setListHighlighter = setHighlighter;
+      setListHighlights = setHighlights;
+
+      if (listHighlighter) {
+        return React.createElement(CardWrapper, {
+          highlighter: listHighlighter,
+          highlights: listHighlights,
+        });
+      }
+      return null;
+    },
     unmount: (): void => highlighter && highlighter.unmount(),
     update: () => {
       if (!highlighter && getProp().enabled) {
         highlighter = createHighlighter(services);
+        setListHighlighter(highlighter);
       }
-      if (highlighter) {
-        getProp().highlights
-          .filter(isUnknownHighlightData(highlighter))
-          .forEach(highlightData(highlighter))
-        ;
+      if (!highlighter) {
+        return;
       }
-      if (highlighter && getProp().highlights.length === 0) {
+
+      const newHighlights = getProp().highlights
+        .filter(isUnknownHighlightData(highlighter))
+        .map(highlightData({...services, highlighter}))
+        .filter(isDefined)
+      ;
+
+      if (newHighlights.length > 0) {
+        setListHighlights(newHighlights);
+      }
+
+      if (getProp().highlights.length === 0) {
         highlighter.eraseAll();
+        setListHighlights([]);
       }
     },
   };
 };
 
 export const stubHighlightManager = ({
+  CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
   update: (): void => undefined,
 });

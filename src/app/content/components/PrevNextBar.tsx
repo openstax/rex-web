@@ -11,6 +11,7 @@ import * as select from '../selectors';
 import { ArchiveTreeSection, Book } from '../types';
 import { contentTextWidth } from './constants';
 import ContentLink from './ContentLink';
+import HideOverflowAndRedoPadding from './HideOverflowAndRedoPadding';
 import { disablePrint } from './utils/disablePrint';
 
 const prevNextIconStyles = css`
@@ -86,29 +87,31 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper>
-  <FormattedMessage id='i18n:prevnext:prev:aria-label'>
-    {(ariaLabel: Element | string) =>
-    <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel}>
-      <LeftArrow />
-      <FormattedMessage id='i18n:prevnext:prev:text'>
-        {(msg: Element | string) => msg}
-      </FormattedMessage>
-    </HidingContentLink>
-    }
-  </FormattedMessage>
+const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <HideOverflowAndRedoPadding>
+  <BarWrapper>
+    <FormattedMessage id='i18n:prevnext:prev:aria-label'>
+      {(ariaLabel: Element | string) =>
+      <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel}>
+        <LeftArrow />
+        <FormattedMessage id='i18n:prevnext:prev:text'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+      </HidingContentLink>
+      }
+    </FormattedMessage>
 
-  <FormattedMessage id='i18n:prevnext:next:aria-label'>
-    {(ariaLabel: Element | string) =>
-    <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel}>
-      <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg: Element | string) => msg}
-      </FormattedMessage>
-      <RightArrow />
-    </HidingContentLink>
-    }
-  </FormattedMessage>
-</BarWrapper>;
+    <FormattedMessage id='i18n:prevnext:next:aria-label'>
+      {(ariaLabel: Element | string) =>
+      <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel}>
+        <FormattedMessage id='i18n:prevnext:next:text'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+        <RightArrow />
+      </HidingContentLink>
+      }
+    </FormattedMessage>
+  </BarWrapper>
+</HideOverflowAndRedoPadding>;
 
 export default connect(
   (state: AppState) => ({

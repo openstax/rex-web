@@ -13,6 +13,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const HideOutline = styled.div`
   outline: none;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name

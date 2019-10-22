@@ -3,14 +3,15 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import MainContent from '../../../components/MainContent';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
+import HideOverflowAndRedoPadding from '../HideOverflowAndRedoPadding';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
+import PageContent from './PageContent';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
 
@@ -72,22 +73,34 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    if (!this.props.page) {
-      return this.renderLoading();
-    }
+    return <div className={this.props.className}>
+      {this.props.page ? this.renderContent() : this.renderLoading()}
+    </div>;
+  }
 
+  private renderContent = () => {
     const html = this.getCleanContent() || this.getPrerenderedContent();
 
-    return <MainContent
-      className={this.props.className}
-      ref={this.container}
-      dangerouslySetInnerHTML={{ __html: html}}
-    />;
-   }
+    return <React.Fragment>
+      <this.highlightManager.CardList />
+      <HideOverflowAndRedoPadding key='overflow'>
+        <PageContent
+          key='main-content'
+          ref={this.container}
+          dangerouslySetInnerHTML={{ __html: html}}
+        />
+      </HideOverflowAndRedoPadding>
+    </React.Fragment>;
+  };
 
-  private renderLoading = () => <MainContent className={this.props.className} ref={this.container}>
-    <Loader large delay={1500} />
-  </MainContent>;
+  private renderLoading = () => <HideOverflowAndRedoPadding key='overflow'>
+    <PageContent
+      key='main-content'
+      ref={this.container}
+    >
+      <Loader large delay={1500} />
+    </PageContent>
+  </HideOverflowAndRedoPadding>;
 
   private getPrerenderedContent() {
     if (

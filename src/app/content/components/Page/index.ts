@@ -6,7 +6,7 @@ import connector from './connector';
 import PageComponent from './PageComponent';
 import stylePage from './style';
 
-export { contentTextStyle } from './style';
+export { contentTextStyle } from './PageContent';
 export { default as PageComponent } from './PageComponent';
 
 // tslint:disable-next-line:variable-name
