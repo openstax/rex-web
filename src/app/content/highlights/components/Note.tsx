@@ -12,6 +12,7 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const TextArea = styled.textarea`
+  display: block;
   min-height: 5.6rem;
   width: ${cardWidth - cardPadding * 2}rem;
   border: 1px solid ${theme.color.neutral.formBorder};
