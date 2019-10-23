@@ -13,7 +13,14 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { deleteHighlight, updateHighlight } from '../actions';
-import { cardContentMargin, cardFocusedContentMargin, cardMinWindowMargin, cardPadding, cardWidth } from '../constants';
+import {
+  cardContentMargin,
+  cardFocusedContentMargin,
+  cardMinWindowMargin,
+  cardPadding,
+  cardWidth,
+  highlightStyles
+} from '../constants';
 import ColorPicker from './ColorPicker';
 import Note from './Note';
 
@@ -103,6 +110,32 @@ const StyledCard = styled(Card)`
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
   ${rightSideDisplay}
 
+  ${(props: {data: SerializedHighlight['data']}) => {
+    const data = props.data;
+
+    if (!data || !data.style) {
+      return null;
+    }
+
+    const style = highlightStyles.find((search) => search.label === props.data.style);
+
+    if (!style) {
+      return null;
+    }
+
+    return css`
+      ::before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0
+        bottom: 0;
+        width: 0.4rem;
+        background-color: ${style.focused};
+      }
+    `;
+  }}
+
   @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content when search is open */
     ${rightSideDisplay}
@@ -129,8 +162,8 @@ const StyledCard = styled(Card)`
 
 export default connect(
   (state: AppState, ownProps: {highlight: Highlight}) => ({
-    hasQuery: !!selectSearch.query(state),
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
+    hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isOpen: contentSelect.tocOpen(state),
   }),
