@@ -1,16 +1,18 @@
-import { Highlight } from '@openstax/highlighter';
+import { Highlight, SerializedHighlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
-import { AppState } from '../../../types';
+import { AppState, Dispatch } from '../../../types';
 import { remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
+import { updateHighlight } from '../actions';
 import { cardContentMargin, cardFocusedContentMargin, cardMinWindowMargin, cardPadding, cardWidth } from '../constants';
 import ColorPicker from './ColorPicker';
 import Note from './Note';
@@ -18,15 +20,15 @@ import Note from './Note';
 interface Props {
   isFocused: boolean;
   highlight: Highlight;
+  save: typeof updateHighlight;
+  highlightData: SerializedHighlight['data'];
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = ({highlight, className}: Props) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  return <form className={className} ref={ref}>
-    <ColorPicker highlight={highlight} />
+const Card = ({highlight, className, highlightData, save}: Props) => {
+  return <form className={className}>
+    <ColorPicker highlight={highlight} data={highlightData} save={save} />
     <Note highlight={highlight} />
   </form>;
 };
@@ -114,7 +116,11 @@ const StyledCard = styled(Card)`
 export default connect(
   (state: AppState, ownProps: {highlight: Highlight}) => ({
     hasQuery: !!selectSearch.query(state),
+    highlightData: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isOpen: contentSelect.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    save: flow(updateHighlight, dispatch),
   })
 )(StyledCard);
