@@ -8,24 +8,24 @@ import * as select from '../selectors';
 import { AnyNotification } from '../types';
 import AcceptCookies from './AcceptCookies';
 import AppMessage from './AppMessage';
-import UpdatesAvailable from './UpdatesAvailable';
+import { UpdatesAvailable } from './UpdatesAvailable';
 
 interface Props {
   notifications: AnyNotification;
   className?: string;
 }
 
-const renderNotification = (notification: AnyNotification) => {
+const renderNotification = (notification: AnyNotification, className: string) => {
   if (notification) {
     switch (notification.type) {
       case getType(actions.updateAvailable): {
-        return <UpdatesAvailable />;
+        return <UpdatesAvailable className={className}/>;
       }
       case getType(actions.acceptCookies): {
-        return <AcceptCookies notification={notification} />;
+        return <AcceptCookies notification={notification}/>;
       }
       case appMessageType: {
-        return <AppMessage notification={notification} />;
+        return <AppMessage notification={notification}/>;
       }
       default:
         return null;
@@ -37,7 +37,7 @@ export class Notifications extends Component<Props> {
   public render() {
     const {notifications, className} = this.props;
     console.log(className);
-    return notifications ? renderNotification(notifications) : null;
+    return (notifications && className) ? renderNotification(notifications, className) : null;
   }
 }
 

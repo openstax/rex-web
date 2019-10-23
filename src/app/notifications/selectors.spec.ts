@@ -61,7 +61,7 @@ describe('notifications', () => {
     ]));
 
     expect(notificationsForDisplay(store.getState())).toEqual(
-      matchingMessages.map((payload) => ({payload, type: appMessageType})).slice(0, 1)
+      matchingMessages.map((payload) => ({payload, type: appMessageType}))[0]
     );
   });
 });
