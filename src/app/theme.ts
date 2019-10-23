@@ -27,6 +27,8 @@ const color = {
     darker: '#fafafa',
     darkest: '#e5e5e5',
     foreground: textColors.default,
+    formBackground: '#f5f5f5',
+    formBorder: '#d5d5d5',
   },
   primary: {
     'blue': {

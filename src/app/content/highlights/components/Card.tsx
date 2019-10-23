@@ -11,7 +11,9 @@ import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { cardContentMargin, cardFocusedContentMargin, cardMinWindowMargin, cardWidth } from '../constants';
+import { cardContentMargin, cardFocusedContentMargin, cardMinWindowMargin, cardPadding, cardWidth } from '../constants';
+import ColorPicker from './ColorPicker';
+import Note from './Note';
 
 interface Props {
   isFocused: boolean;
@@ -23,9 +25,10 @@ interface Props {
 const Card = ({highlight, className}: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
-  return <div className={className} ref={ref}>
-    hello {highlight.id}
-  </div>;
+  return <form className={className} ref={ref}>
+    <ColorPicker highlight={highlight} />
+    <Note highlight={highlight} />
+  </form>;
 };
 
 /*
@@ -78,9 +81,10 @@ const rightSideDisplay = css`
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
   position: absolute;
-  height: 100px;
-  width: 100px;
-  background: green;
+  padding: ${cardPadding}rem;
+  border-radius: 0.4rem;
+  background: ${theme.color.neutral.formBackground};
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
   ${rightSideDisplay}
 
   @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
