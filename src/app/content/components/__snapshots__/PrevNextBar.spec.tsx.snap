@@ -27,6 +27,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 }
 
 .c0 {
+  padding: 0 3.2rem;
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -69,6 +70,12 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 @media print {
   .c0 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
   }
 }
 
@@ -154,6 +161,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 }
 
 .c0 {
+  padding: 0 3.2rem;
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -202,6 +210,12 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 @media print {
   .c0 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
   }
 }
 
@@ -283,6 +297,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 }
 
 .c0 {
+  padding: 0 3.2rem;
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -325,6 +340,12 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 @media print {
   .c0 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
   }
 }
 
@@ -389,6 +410,7 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 }
 
 .c0 {
+  padding: 0 3.2rem;
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -431,6 +453,12 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 @media print {
   .c0 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
   }
 }
 

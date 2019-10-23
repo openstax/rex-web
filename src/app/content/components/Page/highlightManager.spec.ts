@@ -4,13 +4,13 @@ import UntypedHighlighter, {
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { page } from '../../../../test/mocks/archiveLoader';
 import { assertWindow } from '../../../utils';
-import { highlightStyles } from '../../highlights/constants';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();
+UntypedHighlighter.prototype.highlight = jest.fn();
 
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
@@ -19,6 +19,8 @@ const SerializedHighlight = UntypedSerializedHighlight as unknown as jest.SpyIns
 
 beforeEach(() => {
   jest.resetAllMocks();
+
+  UntypedHighlighter.prototype.getHighlights = jest.fn(() => []);
 });
 
 describe('highlightManager', () => {
@@ -32,8 +34,10 @@ describe('highlightManager', () => {
     getSelection = window.document.getSelection = jest.fn();
     element = window.document.createElement('div');
     prop = {
+      clearFocus: jest.fn(),
       create: jest.fn(),
       enabled: true,
+      focus: jest.fn(),
       highlights: [],
       page,
       remove: jest.fn(),
@@ -42,6 +46,7 @@ describe('highlightManager', () => {
   });
 
   const createMockHighlight = () => ({
+    focus: jest.fn(),
     getStyle: jest.fn(),
     id: Math.random().toString(36).substring(7),
     serialize: () => ({data: 'data'}),
@@ -80,7 +85,7 @@ describe('highlightManager', () => {
       mockHighlightData,
     ];
 
-    const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
+    const highlight = Highlighter.mock.instances[0].highlight;
 
     update();
 
@@ -119,11 +124,10 @@ describe('highlightManager', () => {
     });
 
     it('highlights when there aren\'t any highlights in selection', () => {
-      const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
       const mockHighlight = createMockHighlight();
 
       Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-      expect(highlight).toBeCalledWith(mockHighlight);
+      expect(prop.create).toHaveBeenCalledWith(mockHighlight.serialize().data);
     });
 
     it('removes browser selection if there is one', () => {
@@ -147,24 +151,11 @@ describe('highlightManager', () => {
       manager.unmount();
     });
 
-    it('changes color on click', () => {
-      const firstStyle = highlightStyles[0].label;
-      const secondStyle = highlightStyles[1].label;
+    it('focuses on click', () => {
       const mockHighlight = createMockHighlight();
 
-      mockHighlight.getStyle.mockReturnValue(firstStyle);
-
       Highlighter.mock.calls[0][1].onClick(mockHighlight);
-      expect(mockHighlight.setStyle).toHaveBeenCalledWith(secondStyle);
-    });
-
-    it('erases highlights after all colors', () => {
-      const lastStyle = highlightStyles[highlightStyles.length - 1].label;
-      const erase = Highlighter.mock.instances[0].erase = jest.fn();
-      const mockHighlight = createMockHighlight();
-      mockHighlight.getStyle.mockReturnValue(lastStyle);
-      Highlighter.mock.calls[0][1].onClick(mockHighlight);
-      expect(erase).toHaveBeenCalledWith(mockHighlight);
+      expect(mockHighlight.focus).toHaveBeenCalled();
     });
 
     it('noops when you click on not a highlight', () => {
