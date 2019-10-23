@@ -1,7 +1,8 @@
 import { css } from 'styled-components/macro';
+import { wrapperPadding } from '../../../components/Layout';
 
 export default css`
-  overflow: visible;
+  ${wrapperPadding}
   position: relative;
 
   @media screen { /* full page width in print */
@@ -9,5 +10,6 @@ export default css`
     flex-direction: column;
     display: flex;
     width: 100%;
+    justify-content: center;
   }
 `;

@@ -6,7 +6,6 @@ import Loader from '../../../components/Loader';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
-import HideOverflowAndRedoPadding from '../HideOverflowAndRedoPadding';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
@@ -83,24 +82,20 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     return <React.Fragment>
       <this.highlightManager.CardList />
-      <HideOverflowAndRedoPadding key='overflow'>
-        <PageContent
-          key='main-content'
-          ref={this.container}
-          dangerouslySetInnerHTML={{ __html: html}}
-        />
-      </HideOverflowAndRedoPadding>
+      <PageContent
+        key='main-content'
+        ref={this.container}
+        dangerouslySetInnerHTML={{ __html: html}}
+      />
     </React.Fragment>;
   };
 
-  private renderLoading = () => <HideOverflowAndRedoPadding key='overflow'>
-    <PageContent
-      key='main-content'
-      ref={this.container}
-    >
-      <Loader large delay={1500} />
-    </PageContent>
-  </HideOverflowAndRedoPadding>;
+  private renderLoading = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
+    <Loader large delay={1500} />
+  </PageContent>;
 
   private getPrerenderedContent() {
     if (
