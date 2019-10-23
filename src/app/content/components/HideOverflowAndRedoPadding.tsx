@@ -11,6 +11,11 @@ import {
 } from './constants';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
+/*
+ * you want to hide overflow and redo padding in the same place so that the
+ * scrollbar doesn't have padding on the sides
+ */
+
 const minDesktopContentSize =
   navDesktopHeight + bookBannerDesktopBigHeight + toolbarDesktopHeight + desktopAttributionHeight;
 
