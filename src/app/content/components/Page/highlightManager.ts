@@ -118,7 +118,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       if (listHighlighter) {
         return React.createElement(CardWrapper, {
-          highlighter: listHighlighter,
           highlights: listHighlights,
         });
       }

@@ -5,6 +5,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { page } from '../../../../test/mocks/archiveLoader';
+import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertWindow } from '../../../utils';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import highlightManager from './highlightManager';
@@ -49,17 +50,6 @@ describe('highlightManager', () => {
       update: jest.fn(),
     };
   });
-
-  const createMockHighlight = () => {
-    const id = Math.random().toString(36).substring(7);
-    return {
-      focus: jest.fn(),
-      getStyle: jest.fn(),
-      id,
-      serialize: () => ({data: {id} as UntypedSerializedHighlight['data']}),
-      setStyle: jest.fn(),
-    };
-  };
 
   afterEach(() => {
     delete window.document.getSelection;

@@ -1,4 +1,4 @@
-import Highlighter, { Highlight } from '@openstax/highlighter';
+import { Highlight } from '@openstax/highlighter';
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
@@ -6,7 +6,6 @@ import Card from './Card';
 
 interface Props {
   highlights: Highlight[];
-  highlighter: Highlighter;
   className?: string;
 }
 
