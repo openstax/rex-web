@@ -56,7 +56,6 @@ const onSelectHighlight = (services: Services, highlights: Highlight[], highligh
   const {create} = services.getProp();
 
   highlight.setStyle(highlightStyles[0].label);
-  services.highlighter.highlight(highlight);
 
   create(highlight.serialize().data);
 
