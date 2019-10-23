@@ -1,14 +1,12 @@
-import { Highlight, SerializedHighlight } from '@openstax/highlighter';
 import React from 'react';
 import styled from 'styled-components';
 import { Check } from 'styled-icons/fa-solid/Check';
-import { updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 
 interface Props {
-  data: SerializedHighlight['data'];
-  save: typeof updateHighlight;
-  highlight: Highlight;
+  color: string;
+  onRemove: () => void;
+  onChange: (color: string) => void;
   className?: string;
 }
 
@@ -58,17 +56,14 @@ const ColorButton = styled(({className, style, ...props}: ColorButtonProps) => <
 `;
 
 // tslint:disable-next-line:variable-name
-const ColorPicker = ({highlight, data, save, className}: Props) => {
+const ColorPicker = ({color, onChange, onRemove, className}: Props) => {
 
   return <div className={className}>
     {highlightStyles.map((style) => <ColorButton key={style.label}
       name={style.label}
-      checked={data.style === style.label}
+      checked={color === style.label}
       style={style}
-      onChange={() => {
-        save({...data, style: style.label});
-        highlight.setStyle(style.label);
-      }}
+      onChange={() => color === style.label ? onRemove() : onChange(style.label)}
     />)}
   </div>;
 };

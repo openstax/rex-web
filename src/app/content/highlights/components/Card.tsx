@@ -12,7 +12,7 @@ import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { updateHighlight } from '../actions';
+import { deleteHighlight, updateHighlight } from '../actions';
 import { cardContentMargin, cardFocusedContentMargin, cardMinWindowMargin, cardPadding, cardWidth } from '../constants';
 import ColorPicker from './ColorPicker';
 import Note from './Note';
@@ -21,14 +21,28 @@ interface Props {
   isFocused: boolean;
   highlight: Highlight;
   save: typeof updateHighlight;
-  highlightData: SerializedHighlight['data'];
+  remove: typeof deleteHighlight;
+  data: SerializedHighlight['data'];
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = ({highlight, className, highlightData, save}: Props) => {
+const Card = ({highlight, className, data, save, remove}: Props) => {
+  if (!data) {
+    return null;
+  }
+
+  const onColorChange = (style: string) => {
+    highlight.setStyle(style);
+    save({...data, style});
+  };
+
+  const onRemove = () => {
+    remove(data.id);
+  };
+
   return <form className={className}>
-    <ColorPicker highlight={highlight} data={highlightData} save={save} />
+    <ColorPicker color={data.style} onChange={onColorChange} onRemove={onRemove} />
     <Note highlight={highlight} />
   </form>;
 };
@@ -116,11 +130,12 @@ const StyledCard = styled(Card)`
 export default connect(
   (state: AppState, ownProps: {highlight: Highlight}) => ({
     hasQuery: !!selectSearch.query(state),
-    highlightData: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
+    data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isOpen: contentSelect.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
+    remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
   })
 )(StyledCard);

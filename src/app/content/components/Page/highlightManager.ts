@@ -5,7 +5,13 @@ import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight, updateHighlight } from '../../highlights/actions';
+import {
+  clearFocusedHighlight,
+  createHighlight,
+  deleteHighlight,
+  focusHighlight,
+  updateHighlight
+} from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -86,6 +92,8 @@ const highlightData = (services: Services) => (data: SerializedHighlight['data']
   return highlighter.getHighlight(data.id);
 };
 
+const erase = (highlighter: Highlighter) => (highlight: Highlight) => highlighter.erase(highlight);
+
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter | undefined;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
@@ -133,8 +141,13 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         .filter(isDefined)
       ;
 
-      if (newHighlights.length > 0) {
-        setListHighlights(newHighlights);
+      const removedHighlights = highlighter.getHighlights()
+        .filter((highlight) => !getProp().highlights.find((search) => search.id === highlight.id))
+        .map(erase(highlighter))
+      ;
+
+      if (newHighlights.length > 0 || removedHighlights.length > 0) {
+        setListHighlights(highlighter.getHighlights());
       }
 
       if (getProp().highlights.length === 0) {
