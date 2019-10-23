@@ -10,3 +10,8 @@ export const isEnabled = createSelector(
   localState,
   (state) => !!state.enabled
 );
+
+export const highlights = createSelector(
+  localState,
+  (state) => state.highlights
+);

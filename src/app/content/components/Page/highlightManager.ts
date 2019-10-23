@@ -1,10 +1,10 @@
-import Highlighter from '@openstax/highlighter';
-import { Highlight } from '@openstax/highlighter';
+import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { createHighlight, deleteHighlight } from '../../highlights/actions';
+import { createHighlight, deleteHighlight, updateHighlight } from '../../highlights/actions';
+import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as select from '../../selectors';
 
@@ -16,20 +16,30 @@ interface Services {
 
 export const mapStateToHighlightProp = (state: AppState) => ({
   enabled: selectHighlights.isEnabled(state),
+  highlights: selectHighlights.highlights(state),
   page: select.page(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   create: flow(createHighlight, dispatch),
   remove: flow(deleteHighlight, dispatch),
+  update: flow(updateHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
   if (highlight) {
-    const {remove} = services.getProp();
-    services.highlighter.erase(highlight);
-    remove(highlight.id);
+    const {update, remove} = services.getProp();
+    const styleIndex = highlightStyles.findIndex((search) => search.label === highlight.getStyle());
+    const nextStyle = highlightStyles[styleIndex + 1];
+
+    if (nextStyle) {
+      highlight.setStyle(nextStyle.label);
+      update(highlight.serialize().data);
+    } else {
+      services.highlighter.erase(highlight);
+      remove(highlight.id);
+    }
   }
 };
 
@@ -39,6 +49,7 @@ const onSelectHighlight = (services: Services, highlights: Highlight[], highligh
   }
   const {create} = services.getProp();
 
+  highlight.setStyle(highlightStyles[0].label);
   services.highlighter.highlight(highlight);
 
   create(highlight.serialize().data);
@@ -62,6 +73,12 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
   return highlighter;
 };
 
+const isUnknownHighlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
+  !highlighter.getHighlight(data.id);
+
+const highlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
+  highlighter.highlight(new SerializedHighlight(data));
+
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter | undefined;
 
@@ -79,6 +96,15 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     update: () => {
       if (!highlighter && getProp().enabled) {
         highlighter = createHighlighter(services);
+      }
+      if (highlighter) {
+        getProp().highlights
+          .filter(isUnknownHighlightData(highlighter))
+          .forEach(highlightData(highlighter))
+        ;
+      }
+      if (highlighter && getProp().highlights.length === 0) {
+        highlighter.eraseAll();
       }
     },
   };

@@ -1523,8 +1523,28 @@ li[aria-label="Current Page"] .c40 {
 }
 
 @media screen {
-  .c58 .highlight {
+  .c58 .highlight.yellow {
     background-color: yellow;
+  }
+
+  .c58 .highlight.yellow.focus {
+    background-color: yellow;
+  }
+
+  .c58 .highlight.blue {
+    background-color: blue;
+  }
+
+  .c58 .highlight.blue.focus {
+    background-color: blue;
+  }
+
+  .c58 .highlight.red {
+    background-color: red;
+  }
+
+  .c58 .highlight.red.focus {
+    background-color: red;
   }
 
   .c58 .search-highlight {
@@ -4331,8 +4351,28 @@ Array [
 }
 
 @media screen {
-  .c32 .highlight {
+  .c32 .highlight.yellow {
     background-color: yellow;
+  }
+
+  .c32 .highlight.yellow.focus {
+    background-color: yellow;
+  }
+
+  .c32 .highlight.blue {
+    background-color: blue;
+  }
+
+  .c32 .highlight.blue.focus {
+    background-color: blue;
+  }
+
+  .c32 .highlight.red {
+    background-color: red;
+  }
+
+  .c32 .highlight.red.focus {
+    background-color: red;
   }
 
   .c32 .search-highlight {

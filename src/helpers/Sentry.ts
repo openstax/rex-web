@@ -28,7 +28,7 @@ export default {
   },
 
   get shouldCollectErrors() {
-    return config.SENTRY_ENABLED;
+    return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
   captureException(error: any) {

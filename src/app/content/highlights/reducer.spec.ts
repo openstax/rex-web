@@ -46,4 +46,19 @@ describe('highlight reducer', () => {
     }, actions.deleteHighlight(mockHighlight.id));
     expect(state.highlights.length).toEqual(0);
   });
+
+  it('updates highlights', () => {
+    const mock1 = mockHighlight;
+    const mock2 = {...mockHighlight};
+    const mock3 = {...mockHighlight, id: 'qwer'};
+
+    const state = reducer({
+      ...initialState,
+      highlights: [mock1, mock3],
+    }, actions.updateHighlight(mock2));
+
+    expect(state.highlights[0]).not.toBe(mock1);
+    expect(state.highlights[0]).toBe(mock2);
+    expect(state.highlights[1]).toBe(mock3);
+  });
 });
