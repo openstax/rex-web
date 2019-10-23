@@ -12,7 +12,7 @@ import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { deleteHighlight, updateHighlight } from '../actions';
+import { createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -27,29 +27,28 @@ import Note from './Note';
 interface Props {
   isFocused: boolean;
   highlight: Highlight;
+  create: typeof createHighlight;
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
-  data: SerializedHighlight['data'];
+  data?: SerializedHighlight['data'];
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = ({highlight, className, data, save, remove}: Props) => {
-  if (!data) {
-    return null;
-  }
-
+const Card = ({highlight, className, data, create, save, remove}: Props) => {
   const onColorChange = (style: string) => {
     highlight.setStyle(style);
-    save({...data, style});
+    if (data) {
+      save({...data, style});
+    } else {
+      create(highlight.serialize().data);
+    }
   };
 
-  const onRemove = () => {
-    remove(data.id);
-  };
+  const onRemove = () => data && remove(data.id);
 
   return <form className={className}>
-    <ColorPicker color={data.style} onChange={onColorChange} onRemove={onRemove} />
+    <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={onRemove} />
     <Note highlight={highlight} />
   </form>;
 };
@@ -168,6 +167,7 @@ export default connect(
     isOpen: contentSelect.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
+    create: flow(createHighlight, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
   })

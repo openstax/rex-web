@@ -1,6 +1,150 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card matches snapshot 1`] = `
+exports[`Card matches snapshot when editing data 1`] = `
+.c0 {
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #f5f5f5;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 0px;
+  display: none;
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+    display: none;
+  }
+}
+
+@media (max-width:103.75em) {
+  .c0 {
+    display: none;
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+  }
+}
+
+<form
+  className="c0"
+>
+  <div
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    highlight={
+      Object {
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+      }
+    }
+    mock-note={true}
+  />
+</form>
+`;
+
+exports[`Card matches snapshot when focused 1`] = `
+.c0 {
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #f5f5f5;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 0px;
+  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+}
+
+.c0::before {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0.4rem;
+  background-color: #fed200;
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  }
+}
+
+@media (max-width:103.75em) {
+  .c0 {
+    left: unset;
+    right: 2rem;
+    top: 0px;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  }
+}
+
+<form
+  className="c0"
+>
+  <div
+    color="yellow"
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    highlight={
+      Object {
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+      }
+    }
+    mock-note={true}
+  />
+</form>
+`;
+
+exports[`Card matches snapshot without data 1`] = `
 .c0 {
   position: absolute;
   padding: 0.8rem;
@@ -42,8 +186,22 @@ exports[`Card matches snapshot 1`] = `
 >
   <div
     mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
   />
   <div
+    highlight={
+      Object {
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+      }
+    }
     mock-note={true}
   />
 </form>

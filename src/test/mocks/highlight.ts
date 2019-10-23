@@ -1,8 +1,7 @@
 import { SerializedHighlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 
-export default () => {
-  const id = Math.random().toString(36).substring(7);
+export default (id: string = Math.random().toString(36).substring(7)) => {
   return {
     elements: [] as HTMLElement[],
     focus: jest.fn(),
