@@ -146,12 +146,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       ;
 
       if (newHighlights.length > 0 || removedHighlights.length > 0) {
-        setListHighlights(highlighter.getHighlights());
-      }
-
-      if (getProp().highlights.length === 0) {
-        highlighter.eraseAll();
-        setListHighlights([]);
+        setListHighlights(highlighter.getOrderedHighlights());
       }
     },
   };
