@@ -72,9 +72,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    return <div className={this.props.className}>
-      {this.props.page ? this.renderContent() : this.renderLoading()}
-    </div>;
+    return this.props.page ? this.renderContent() : this.renderLoading();
   }
 
   private renderContent = () => {
