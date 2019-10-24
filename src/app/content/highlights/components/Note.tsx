@@ -7,7 +7,7 @@ import theme from '../../../theme';
 import { cardPadding, cardWidth } from '../constants';
 
 interface Props {
-  highlight: Highlight;
+  highlight?: Highlight;
 }
 
 // tslint:disable-next-line:variable-name
