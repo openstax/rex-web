@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import Button, { ButtonGroup } from '../../components/Button';
 import { Body, Group, Header, P } from './Card';
 
-export class UpdatesAvailable extends Component<{className: string}> {
+export default class UpdatesAvailable extends Component<{className?: string}> {
   public reload = () => {
     if (typeof(window) !== 'undefined') {
       window.location.reload(true);
@@ -11,7 +11,7 @@ export class UpdatesAvailable extends Component<{className: string}> {
   };
 
   // tslint:disable-next-line:variable-name
-  public render = () => <Body className={this.props.className}>
+  public render = () => <Body className={this.props.className ? this.props.className : {}}>
     <Group>
       <FormattedMessage id='i18n:notification:update:header'>
         {(txt) => (<Header>{txt}</Header>)}
@@ -27,4 +27,3 @@ export class UpdatesAvailable extends Component<{className: string}> {
     </ButtonGroup>
   </Body>;
 }
-

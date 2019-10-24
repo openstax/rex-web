@@ -8,14 +8,14 @@ import * as select from '../selectors';
 import { AnyNotification } from '../types';
 import AcceptCookies from './AcceptCookies';
 import AppMessage from './AppMessage';
-import { UpdatesAvailable } from './UpdatesAvailable';
+import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props {
-  notifications: AnyNotification;
+  notification: AnyNotification;
   className?: string;
 }
 
-const renderNotification = (notification: AnyNotification, className: string) => {
+const renderNotification = (notification: AnyNotification, className?: string) => {
   if (notification) {
     switch (notification.type) {
       case getType(actions.updateAvailable): {
@@ -35,14 +35,13 @@ const renderNotification = (notification: AnyNotification, className: string) =>
 
 export class Notifications extends Component<Props> {
   public render() {
-    const {notifications, className} = this.props;
-    console.log(className);
-    return (notifications && className) ? renderNotification(notifications, className) : null;
+    const {notification, className} = this.props;
+    return (notification && className) ? renderNotification(notification, className) : null;
   }
 }
 
 export default connect(
   (state: AppState) => ({
-    notifications: select.notificationsForDisplay(state),
+    notification: select.notificationsForDisplay(state),
   })
 )(Notifications);
