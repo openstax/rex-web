@@ -3,14 +3,17 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import MainContent from '../../../components/MainContent';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
+import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
+import MinPageHeight from './MinPageHeight';
+import PageContent from './PageContent';
+import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
 
@@ -72,22 +75,31 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    if (!this.props.page) {
-      return this.renderLoading();
-    }
+    return <MinPageHeight>
+      <this.highlightManager.CardList />
+      <RedoPadding>
+        {this.props.page ? this.renderContent() : this.renderLoading()}
+        <PrevNextBar />
+      </RedoPadding>
+    </MinPageHeight>;
+  }
 
+  private renderContent = () => {
     const html = this.getCleanContent() || this.getPrerenderedContent();
 
-    return <MainContent
-      className={this.props.className}
+    return <PageContent
+      key='main-content'
       ref={this.container}
       dangerouslySetInnerHTML={{ __html: html}}
     />;
-   }
+  };
 
-  private renderLoading = () => <MainContent className={this.props.className} ref={this.container}>
+  private renderLoading = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
     <Loader large delay={1500} />
-  </MainContent>;
+  </PageContent>;
 
   private getPrerenderedContent() {
     if (
