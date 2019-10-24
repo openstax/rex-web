@@ -585,21 +585,21 @@ Array [
   outline: none;
 }
 
-.c58 {
+.c58 #main-content {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c58 a {
+.c58 #main-content a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c58 a:hover {
+.c58 #main-content a:hover {
   color: #0064A0;
 }
 
@@ -1494,7 +1494,7 @@ li[aria-label="Current Page"] .c40 {
 }
 
 @media screen {
-  .c58 {
+  .c58 #main-content {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -3852,21 +3852,21 @@ Array [
   outline: none;
 }
 
-.c32 {
+.c32 #main-content {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c32 a {
+.c32 #main-content a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c32 a:hover {
+.c32 #main-content a:hover {
   color: #0064A0;
 }
 
@@ -4345,7 +4345,7 @@ Array [
 }
 
 @media screen {
-  .c32 {
+  .c32 #main-content {
     max-width: 82.5rem;
     margin: 0 auto;
   }

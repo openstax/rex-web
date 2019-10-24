@@ -17,7 +17,9 @@ export const contentTextStyle = css`
 `;
 
 export default styled(MainContent)`
-  ${contentTextStyle}
+  #${MAIN_CONTENT_ID} {
+    ${contentTextStyle}
+  }
 
   @media screen {
     ${wrapperPadding}
