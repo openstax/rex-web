@@ -21,11 +21,10 @@ describe('Card', () => {
   const highlight = createMockHighlight('asdf');
   const highlightData = highlight.serialize().data;
 
-  highlight.elements = [assertDocument().createElement('span')];
-
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
+    highlight.elements = [assertDocument().createElement('span')];
   });
 
   it('matches snapshot when focused', () => {
@@ -136,5 +135,32 @@ describe('Card', () => {
 
     expect(highlight.setStyle).toHaveBeenCalledWith('blue');
     expect(dispatch).toHaveBeenCalledWith(createHighlight(highlightData));
+  });
+
+  it('renders null if highlight doen\'t have elements', () => {
+    highlight.elements = [];
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    expect(() => component.root.findByType(Card)).toThrow();
+  });
+
+  it('renders null if highlight doen\'t have elements and its focused', () => {
+    highlight.elements = [];
+    store.dispatch(receiveHighlights([
+      {
+        style: highlightStyles[0].label,
+        ...highlightData,
+      },
+    ]));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    expect(() => component.root.findByType(Card)).toThrow();
   });
 });

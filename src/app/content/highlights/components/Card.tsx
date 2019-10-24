@@ -36,6 +36,10 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Card = ({highlight, className, data, create, save, remove}: Props) => {
+  if (!highlight.elements.length) {
+    return null;
+  }
+
   const onColorChange = (style: string) => {
     highlight.setStyle(style);
     if (data) {
@@ -76,8 +80,8 @@ const overlapDisplay = css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
-      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
-      const bottomOffset = lastElement.offsetTop + lastElement.offsetHeight;
+      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement | undefined;
+      const bottomOffset = lastElement ? lastElement.offsetTop + lastElement.offsetHeight : 0;
 
       return bottomOffset;
     }}px;
@@ -91,7 +95,10 @@ const containerWidth = contentTextWidth - theme.padding.page.desktop * 2;
 const rightSideDisplay = css`
   left: calc(100% - ((100% - ${containerWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
-  top: ${(props: Props) => (props.highlight.elements[0] as HTMLElement).offsetTop}px;
+  top: ${(props: Props) => {
+    const firstElement = props.highlight.elements[0] as HTMLElement | undefined;
+    return firstElement ? firstElement.offsetTop : 0;
+  }}px;
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${containerWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
   `}
