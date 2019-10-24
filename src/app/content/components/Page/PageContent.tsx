@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/macro';
+import { wrapperPadding } from '../../../components/Layout';
 import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
@@ -19,7 +20,7 @@ export default styled(MainContent)`
   ${contentTextStyle}
 
   @media screen {
-    overflow: visible;
+    ${wrapperPadding}
     flex: 1;
     display: flex;
     width: 100%;
@@ -43,8 +44,6 @@ export default styled(MainContent)`
       `)}
     }
   }
-
-  overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   @media screen {
     ${highlightStyles.map((style) => css`

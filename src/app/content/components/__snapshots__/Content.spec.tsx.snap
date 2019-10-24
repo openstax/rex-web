@@ -583,7 +583,6 @@ Array [
 
 .c60 {
   outline: none;
-  overflow: visible;
 }
 
 .c59 {
@@ -591,7 +590,6 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  overflow: visible;
 }
 
 .c59 a {
@@ -615,7 +613,7 @@ Array [
 }
 
 .c58 {
-  padding: 0 3.2rem;
+  overflow: visible;
   position: relative;
 }
 
@@ -1509,7 +1507,7 @@ li[aria-label="Current Page"] .c40 {
 
 @media screen {
   .c59 {
-    overflow: visible;
+    padding: 0 3.2rem;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1583,12 +1581,6 @@ li[aria-label="Current Page"] .c40 {
 
   .c59 .search-highlight.focus .search-highlight {
     background-color: unset;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c58 {
-    padding: 0 1.6rem;
   }
 }
 
@@ -1957,6 +1949,7 @@ li[aria-label="Current Page"] .c40 {
 
 @media screen {
   .c57 {
+    overflow: visible;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -3882,7 +3875,6 @@ Array [
 
 .c34 {
   outline: none;
-  overflow: visible;
 }
 
 .c33 {
@@ -3890,7 +3882,6 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  overflow: visible;
 }
 
 .c33 a {
@@ -3914,7 +3905,7 @@ Array [
 }
 
 .c32 {
-  padding: 0 3.2rem;
+  overflow: visible;
   position: relative;
 }
 
@@ -4392,7 +4383,7 @@ Array [
 
 @media screen {
   .c33 {
-    overflow: visible;
+    padding: 0 3.2rem;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -4466,12 +4457,6 @@ Array [
 
   .c33 .search-highlight.focus .search-highlight {
     background-color: unset;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c32 {
-    padding: 0 1.6rem;
   }
 }
 
@@ -4662,6 +4647,7 @@ Array [
 
 @media screen {
   .c31 {
+    overflow: visible;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;

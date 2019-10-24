@@ -122,6 +122,7 @@ const minMobileContentSize =
 // tslint:disable-next-line:variable-name
 const MinPageHeight = styled.div`
   @media screen {
+    overflow: visible;
     flex: 1;
     display: flex;
     flex-direction: column;

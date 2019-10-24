@@ -1,8 +1,7 @@
 import { css } from 'styled-components/macro';
-import { wrapperPadding } from '../../../components/Layout';
 
 export default css`
-  ${wrapperPadding}
+  overflow: visible;
   position: relative;
 
   @media screen { /* full page width in print */

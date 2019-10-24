@@ -87,12 +87,13 @@ const overlapDisplay = css`
   `}
 `;
 
+const containerWidth = contentTextWidth - theme.padding.page.desktop * 2;
 const rightSideDisplay = css`
-  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
+  left: calc(100% - ((100% - ${containerWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => (props.highlight.elements[0] as HTMLElement).offsetTop}px;
   ${(props: Props) => !!props.isFocused && css`
-    left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
+    left: calc(100% - ((100% - ${containerWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
   `}
   ${(props: Props) => !props.isFocused && css`
     /* temporary simplification */
@@ -147,16 +148,14 @@ const StyledCard = styled(Card)`
     ${styleWhenSidebarClosed(rightSideDisplay)}
   }
 
-  ${theme.breakpoints.mobile(css`
-    /* reset desktop breaks */
-    ${rightSideDisplay}
+  @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
+    /* the window is too small to show note cards next to content even without sidebars */
+    ${overlapDisplay}
+  }
 
-    @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
-      /* the window is too small to show note cards next to content even without sidebars */
-      display: none;
-    }
-  `)}
-
+ ${theme.breakpoints.mobile(css`
+    display: none;
+ `)}
 `;
 
 export default connect(
