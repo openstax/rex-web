@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components/macro';
-import { wrapperPadding } from '../../../components/Layout';
 import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
@@ -17,12 +16,9 @@ export const contentTextStyle = css`
 `;
 
 export default styled(MainContent)`
-  #${MAIN_CONTENT_ID} {
-    ${contentTextStyle}
-  }
+  ${contentTextStyle}
 
   @media screen {
-    ${wrapperPadding}
     flex: 1;
     display: flex;
     width: 100%;

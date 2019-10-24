@@ -91,16 +91,15 @@ const overlapDisplay = css`
   `}
 `;
 
-const containerWidth = contentTextWidth - theme.padding.page.desktop * 2;
 const rightSideDisplay = css`
-  left: calc(100% - ((100% - ${containerWidth}rem) / 2) + ${cardContentMargin}rem);
+  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => {
     const firstElement = props.highlight.elements[0] as HTMLElement | undefined;
     return firstElement ? firstElement.offsetTop : 0;
   }}px;
   ${(props: Props) => !!props.isFocused && css`
-    left: calc(100% - ((100% - ${containerWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
+    left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
   `}
   ${(props: Props) => !props.isFocused && css`
     /* temporary simplification */

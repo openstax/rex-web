@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
-import { wrapperPadding } from '../../components/Layout';
 import { decoratedLinkStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -55,7 +54,6 @@ const HidingContentLink = styled(HidingContentLinkComponent)`
 // tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${disablePrint}
-  ${wrapperPadding}
   ${textRegularStyle}
   overflow: visible;
   width: 100%;

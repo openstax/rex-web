@@ -6,11 +6,14 @@ import Loader from '../../../components/Loader';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
+import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
+import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
+import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
 
@@ -72,20 +75,23 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    return this.props.page ? this.renderContent() : this.renderLoading();
+    return <MinPageHeight>
+      <this.highlightManager.CardList />
+      <RedoPadding>
+        {this.props.page ? this.renderContent() : this.renderLoading()}
+        <PrevNextBar />
+      </RedoPadding>
+    </MinPageHeight>;
   }
 
   private renderContent = () => {
     const html = this.getCleanContent() || this.getPrerenderedContent();
 
-    return <React.Fragment>
-      <this.highlightManager.CardList />
-      <PageContent
-        key='main-content'
-        ref={this.container}
-        dangerouslySetInnerHTML={{ __html: html}}
-      />
-    </React.Fragment>;
+    return <PageContent
+      key='main-content'
+      ref={this.container}
+      dangerouslySetInnerHTML={{ __html: html}}
+    />;
   };
 
   private renderLoading = () => <PageContent
