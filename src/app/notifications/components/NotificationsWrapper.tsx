@@ -11,7 +11,6 @@ export const ChooseNotification = styled(Notifications)`
   width: ${notificationWidth}rem;
   margin-left: calc(100% - ${notificationWidth}rem);
   overflow: visible;
-  position: -webkit-sticky;
   position: fixed;
   padding-top: 1px;
   margin-top: -1px;
