@@ -1567,6 +1567,7 @@ li[aria-label="Current Page"] .c40 {
 
   .c59 .highlight.purple.focus {
     background-color: #545ec8;
+    color: #fff;
   }
 
   .c59 .highlight.red {
@@ -1575,6 +1576,7 @@ li[aria-label="Current Page"] .c40 {
 
   .c59 .highlight.red.focus {
     background-color: #de017e;
+    color: #fff;
   }
 
   .c59 .search-highlight {
@@ -4435,6 +4437,7 @@ Array [
 
   .c33 .highlight.purple.focus {
     background-color: #545ec8;
+    color: #fff;
   }
 
   .c33 .highlight.red {
@@ -4443,6 +4446,7 @@ Array [
 
   .c33 .highlight.red.focus {
     background-color: #de017e;
+    color: #fff;
   }
 
   .c33 .search-highlight {

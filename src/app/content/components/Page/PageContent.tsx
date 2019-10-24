@@ -1,3 +1,4 @@
+import Color from 'color';
 import styled, { css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
@@ -50,6 +51,10 @@ export default styled(MainContent)`
 
         &.focus {
           background-color: ${style.focused};
+
+          ${Color(style.focused).isDark() && css`
+            color: ${theme.color.text.white};
+          `}
         }
       }
     `)}
