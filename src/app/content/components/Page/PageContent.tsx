@@ -18,8 +18,11 @@ export const contentTextStyle = css`
 export default styled(MainContent)`
   ${contentTextStyle}
 
-  @media screen { /* full page width in print */
+  @media screen {
     overflow: visible;
+    flex: 1;
+    display: flex;
+    width: 100%;
 
     #${MAIN_CONTENT_ID} {
       overflow: visible;

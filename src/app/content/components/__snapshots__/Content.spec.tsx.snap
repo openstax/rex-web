@@ -1510,6 +1510,14 @@ li[aria-label="Current Page"] .c40 {
 @media screen {
   .c59 {
     overflow: visible;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
   }
 
   .c59 #main-content {
@@ -1597,10 +1605,6 @@ li[aria-label="Current Page"] .c40 {
     display: -ms-flexbox;
     display: flex;
     width: 100%;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
   }
 }
 
@@ -4389,6 +4393,14 @@ Array [
 @media screen {
   .c33 {
     overflow: visible;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
   }
 
   .c33 #main-content {
@@ -4476,10 +4488,6 @@ Array [
     display: -ms-flexbox;
     display: flex;
     width: 100%;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
   }
 }
 

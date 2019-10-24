@@ -10,6 +10,5 @@ export default css`
     flex-direction: column;
     display: flex;
     width: 100%;
-    justify-content: center;
   }
 `;
