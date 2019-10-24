@@ -4,7 +4,7 @@ import { Check } from 'styled-icons/fa-solid/Check';
 import { cardPadding, highlightStyles } from '../constants';
 
 interface Props {
-  color: string;
+  color?: string;
   onRemove: () => void;
   onChange: (color: string) => void;
   className?: string;
