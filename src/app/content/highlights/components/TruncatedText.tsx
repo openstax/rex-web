@@ -4,18 +4,17 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { linkStyle } from '../../../components/Typography';
 import { textStyle } from '../../../components/Typography/base';
+import theme from '../../../theme';
 import { cardPadding } from '../constants';
 
 interface Props {
   text: string;
   isFocused: boolean;
-  expanded: boolean;
-  onExpand: boolean;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Link = styled.button`
+const Link = styled.span`
   ${textStyle}
   ${linkStyle}
   text-align: left;
@@ -29,33 +28,40 @@ const Link = styled.button`
 `;
 
 // tslint:disable-next-line:variable-name
-const Label = ({text, isFocused, onExpand, expanded, className}: Props) => {
-  const labelRef = React.useRef<HTMLElement>(null);
+const NoteText = ({text, isFocused, className}: Props) => {
+  const noteTextRef = React.useRef<HTMLElement>(null);
   const [showLink, setShowLink] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (labelRef.current && labelRef.current.scrollHeight > labelRef.current.offsetHeight) {
+    if (noteTextRef.current && noteTextRef.current.scrollHeight > noteTextRef.current.offsetHeight) {
       setShowLink(true);
     } else {
       setShowLink(false);
     }
-  }, [expanded, isFocused]);
+  }, [isFocused]);
 
   return <React.Fragment>
-    <label ref={labelRef} className={className}>{text}</label>
+    <p ref={noteTextRef} className={className}>{text}</p>
     {showLink && <FormattedMessage id='show more'>
-      {(msg: Element | string) => <Link onClick={onExpand}>{msg}</Link>}
+      {(msg: Element | string) => <Link>{msg}</Link>}
     </FormattedMessage>}
   </React.Fragment>;
 };
 
 const lineHeight = 1.8;
-export default styled(Label)`
+export default styled(NoteText)`
   ${textStyle}
   font-size: 1.4rem;
   line-height: ${lineHeight}rem;
+  margin: 0;
+  padding: 0;
 
-  ${(props: Props) => !props.expanded && css`
+  ${(props: Props) => props.isFocused && css`
+    + ${Link} {
+      display: none;
+    }
+  `}
+  ${(props: Props) => !props.isFocused && css`
     text-overflow: ellipsis;
     overflow: hidden;
     max-height: ${lineHeight * 3}rem;
@@ -64,4 +70,10 @@ export default styled(Label)`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   `}
+
+  ${theme.breakpoints.mobile(css`
+    padding: ${cardPadding}rem ${cardPadding * 2}rem;
+    height: 15.2rem;
+    overflow: auto;
+  `)}
 `;

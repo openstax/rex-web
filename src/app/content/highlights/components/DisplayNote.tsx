@@ -2,8 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import Dropdown, { DropdownItem } from '../../../components/Dropdown';
+import Times from '../../../components/Times';
+import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
-import { cardWidth } from '../constants';
+import { cardPadding, cardWidth, highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import TruncatedText from './TruncatedText';
 
@@ -15,31 +17,44 @@ const MenuIcon = styled(EllipsisV)`
   color: ${theme.color.neutral.darkest};
 `;
 
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  color: ${theme.color.primary.gray.lighter};
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  ${theme.breakpoints.mobile(css`
+    display: block;
+ `)}
+`;
+
 interface Props {
   note: string;
+  style: typeof highlightStyles[number];
   isFocused: boolean;
   onEdit: () => void;
+  onBlur: () => void;
   onRemove: () => void;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const DisplayNote = ({note, isFocused, onEdit, onRemove, className}: Props) => {
+const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Props) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
-  const [textExpanded, setTextExpanded] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    if (!isFocused) {
-      setTextExpanded(false);
-    }
-  }, [isFocused]);
 
   return <div className={className}>
     <Dropdown toggle={<MenuIcon />}>
       <DropdownItem message='edit' onClick={onEdit} />
       <DropdownItem message='delete' onClick={() => setConfirmingDelete(true)} />
     </Dropdown>
-    <TruncatedText text={note} expanded={textExpanded} onExpand={() => setTextExpanded(true)} isFocused={isFocused} />
+    <CloseIcon onClick={onBlur} />
+    <label>Note:</label>
+    <TruncatedText text={note} isFocused={isFocused} />
     {confirmingDelete && <Confirmation
       message='Are you sure you want to delete this note and highlight?'
       onConfirm={onRemove}
@@ -56,6 +71,15 @@ export default styled(DisplayNote)`
     background: ${theme.color.white};
   `}
 
+  > label {
+    display: none;
+    ${textStyle}
+    color: ${(props: Props) => props.style.focused};
+    font-size: 1.4rem;
+    line-height: 2rem;
+    margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
+  }
+
   ${Dropdown} {
     position: absolute;
     top: 0.8rem;
@@ -69,4 +93,16 @@ export default styled(DisplayNote)`
       color: ${theme.color.primary.gray.lighter};
     }
   }
+
+  ${theme.breakpoints.mobile(css`
+    width: unset;
+
+    > label {
+      display: block;
+    }
+
+    ${Dropdown} {
+      display: none;
+    }
+ `)}
 `;

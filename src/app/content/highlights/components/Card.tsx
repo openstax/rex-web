@@ -53,12 +53,15 @@ const Card = (props: Props) => {
   }
 
   const onRemove = () => props.data && props.remove(props.data.id);
+  const style = highlightStyles.find((search) => props.data && search.label === props.data.style);
 
-  return !editing && note ? <DisplayNote
+  return !editing && style && note ? <DisplayNote
     isFocused={props.isFocused}
     className={props.className}
+    style={style}
     note={note}
     onEdit={() => setEditing(true)}
+    onBlur={props.blur}
     onRemove={onRemove}
   /> : <EditCard {...props} />;
 };
@@ -113,6 +116,20 @@ const rightSideDisplay = css`
   `}
 `;
 
+const mobileDisplay = css`
+  ${(props: Props) => !!props.isFocused && css`
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    position: fixed;
+    padding: 0;
+  `}
+  ${(props: Props) => !props.isFocused && css`
+    display: none;
+  `}
+`;
+
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
   position: absolute;
@@ -136,13 +153,23 @@ const StyledCard = styled(Card)`
     return css`
       ::before {
         content: ' ';
+        border-radius: 0.4rem 0 0 0.4rem;
         position: absolute;
         top: 0;
         left: 0
         bottom: 0;
-        width: 0.4rem;
+        width: ${cardPadding / 2}rem;
         background-color: ${style.focused};
       }
+      ${theme.breakpoints.mobile(css`
+        ::before {
+          border-radius: 0.4rem 0.4rem 0 0;
+          right: 0;
+          bottom: unset;
+          width: unset;
+          height: ${cardPadding / 2}rem;
+        }
+     `)}
     `;
   }}
 
@@ -163,8 +190,8 @@ const StyledCard = styled(Card)`
     ${overlapDisplay}
   }
 
- ${theme.breakpoints.mobile(css`
-    display: none;
+  ${theme.breakpoints.mobile(css`
+    ${mobileDisplay}
  `)}
 `;
 
