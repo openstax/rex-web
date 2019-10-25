@@ -2,10 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import Dropdown, { DropdownItem } from '../../../components/Dropdown';
-import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { cardWidth } from '../constants';
 import Confirmation from './Confirmation';
+import TruncatedText from './TruncatedText';
 
 // tslint:disable-next-line:variable-name
 const MenuIcon = styled(EllipsisV)`
@@ -24,15 +24,22 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const DisplayNote = ({note, onEdit, onRemove, className}: Props) => {
+const DisplayNote = ({note, isFocused, onEdit, onRemove, className}: Props) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
+  const [textExpanded, setTextExpanded] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (!isFocused) {
+      setTextExpanded(false);
+    }
+  }, [isFocused]);
 
   return <div className={className}>
     <Dropdown toggle={<MenuIcon />}>
       <DropdownItem message='edit' onClick={onEdit} />
       <DropdownItem message='delete' onClick={() => setConfirmingDelete(true)} />
     </Dropdown>
-    {note}
+    <TruncatedText text={note} expanded={textExpanded} onExpand={() => setTextExpanded(true)} isFocused={isFocused} />
     {confirmingDelete && <Confirmation
       message='Are you sure you want to delete this note and highlight?'
       onConfirm={onRemove}
@@ -48,9 +55,6 @@ export default styled(DisplayNote)`
   ${(props: Props) => props.isFocused && css`
     background: ${theme.color.white};
   `}
-  ${textStyle}
-  font-size: 1.4rem;
-  line-height: 1.8rem;
 
   ${Dropdown} {
     position: absolute;
