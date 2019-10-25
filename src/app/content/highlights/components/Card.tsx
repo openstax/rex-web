@@ -41,6 +41,12 @@ const Card = (props: Props) => {
   const note = props.data && props.data.note;
   const [editing, setEditing] = React.useState<boolean>(!note);
 
+  React.useEffect(() => {
+    if (!props.isFocused) {
+      setEditing(false);
+    }
+  }, [props.isFocused]);
+
   if (!props.highlight.elements.length) {
     return null;
   }
