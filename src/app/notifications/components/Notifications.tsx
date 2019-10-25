@@ -44,5 +44,5 @@ export class Notifications extends Component<Props> {
 }
 
 export default connect((state: AppState) => ({
-  notification: select.notificationsForDisplay(state),
+  notification: select.notificationForDisplay(state),
 }))(Notifications);

@@ -19,7 +19,7 @@ const messagePriority = [
   getType(acceptCookies),
 ];
 
-export const notificationsForDisplay = createSelector(
+export const notificationForDisplay = createSelector(
   notifications,
   pathname,
   (messages, url) =>  (messages
@@ -32,5 +32,5 @@ export const notificationsForDisplay = createSelector(
     })
     .sort((first, second) => {
       return messagePriority.indexOf(first.type) - messagePriority.indexOf(second.type);
-    }))[0]
+    })).length > 0 ? messages[0] : undefined
 );
