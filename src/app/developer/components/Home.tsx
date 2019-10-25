@@ -25,7 +25,7 @@ const Wrapper = styled(LayoutBody)`
 
 // tslint:disable-next-line:variable-name
 const Home: React.SFC = () => <Layout>
-  <DisplayNotifications/>
+  <DisplayNotifications />
   <Wrapper>
     <HomeStyle>
       <H1>REX Developer Homepage</H1>
