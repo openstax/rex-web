@@ -19,5 +19,6 @@ exports[`Note matches snapshot 1`] = `
   className="c0"
   onChange={[Function]}
   placeholder="Add a note..."
+  value=""
 />
 `;
