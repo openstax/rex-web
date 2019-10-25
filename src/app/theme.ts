@@ -22,6 +22,7 @@ const padding = {
 };
 
 const color = {
+  black: '#000',
   neutral: {
     base: '#fff',
     darker: '#fafafa',

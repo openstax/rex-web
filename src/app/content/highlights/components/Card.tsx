@@ -1,4 +1,4 @@
-import { Highlight, SerializedHighlight } from '@openstax/highlighter';
+import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
@@ -12,7 +12,7 @@ import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { createHighlight, deleteHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -21,8 +21,8 @@ import {
   cardWidth,
   highlightStyles
 } from '../constants';
-import ColorPicker from './ColorPicker';
-import Note from './Note';
+import { HighlightData } from '../types';
+import EditCard from './EditCard';
 
 interface Props {
   isFocused: boolean;
@@ -30,31 +30,18 @@ interface Props {
   create: typeof createHighlight;
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
-  data?: SerializedHighlight['data'];
+  blur: typeof clearFocusedHighlight;
+  data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = ({highlight, className, data, create, save, remove}: Props) => {
-  if (!highlight.elements.length) {
+const Card = (props: Props) => {
+  if (!props.highlight.elements.length) {
     return null;
   }
 
-  const onColorChange = (style: string) => {
-    highlight.setStyle(style);
-    if (data) {
-      save({...data, style});
-    } else {
-      create(highlight.serialize().data);
-    }
-  };
-
-  const onRemove = () => data && remove(data.id);
-
-  return <form className={className}>
-    <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={onRemove} />
-    <Note highlight={highlight} />
-  </form>;
+  return <EditCard {...props} />;
 };
 
 /*
@@ -116,7 +103,7 @@ const StyledCard = styled(Card)`
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
   ${rightSideDisplay}
 
-  ${(props: {data: SerializedHighlight['data']}) => {
+  ${(props: {data: HighlightData}) => {
     const data = props.data;
 
     if (!data || !data.style) {
@@ -172,6 +159,7 @@ export default connect(
     isOpen: contentSelect.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
+    blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
