@@ -5,14 +5,14 @@ import Layout from '../../components/Layout';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar/styled';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
-import { ChooseNotification } from '../../notifications/components/NotificationsWrapper';
+import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
-import { desktopAttributionHeight, mobileAttributionHeight } from './Attribution';
 import Attribution from './Attribution';
+import { desktopAttributionHeight, mobileAttributionHeight } from './Attribution';
 import BookBanner from './BookBanner';
 import {
   bookBannerDesktopBigHeight,
@@ -48,7 +48,7 @@ const Background = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ContentNotifications = styled(ChooseNotification)`
+export const ContentNotifications = styled(Notifications)`
   z-index: ${theme.zIndex.contentNotifications};
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`

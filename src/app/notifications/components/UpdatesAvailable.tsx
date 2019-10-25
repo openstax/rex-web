@@ -11,7 +11,7 @@ export default class UpdatesAvailable extends Component<{className?: string}> {
   };
 
   // tslint:disable-next-line:variable-name
-  public render = () => <Body className={this.props.className ? this.props.className : {}}>
+  public render = () => <Body className={this.props.className}>
     <Group>
       <FormattedMessage id='i18n:notification:update:header'>
         {(txt) => (<Header>{txt}</Header>)}
