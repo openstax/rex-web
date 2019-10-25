@@ -42,7 +42,7 @@ const NoteText = ({text, isFocused, className}: Props) => {
 
   return <React.Fragment>
     <p ref={noteTextRef} className={className}>{text}</p>
-    {showLink && <FormattedMessage id='show more'>
+    {showLink && <FormattedMessage id='i18n:highlighting:card:show-more'>
       {(msg: Element | string) => <Link>{msg}</Link>}
     </FormattedMessage>}
   </React.Fragment>;

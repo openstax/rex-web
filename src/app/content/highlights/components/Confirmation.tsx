@@ -34,13 +34,14 @@ export const Overlay = styled.div`
 
 interface Props {
   message: string;
+  confirmMessage: string;
   onConfirm: () => void;
   onCancel: () => void;
   always?: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Confirmation = ({message, always, onCancel, onConfirm}: Props) => {
+const Confirmation = ({message, confirmMessage, always, onCancel, onConfirm}: Props) => {
   const overlayElement = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
@@ -54,20 +55,24 @@ const Confirmation = ({message, always, onCancel, onConfirm}: Props) => {
       {(msg: Element | string) => <label>{msg}</label>}
     </FormattedMessage>
     <ButtonGroup>
-      <Button size='small' variant='primary' onClick={(e: React.FormEvent) => {
-        e.preventDefault();
-        onConfirm();
-        if (always) {
-          always();
-        }
-      }}>Save</Button>
-      <Button size='small' onClick={(e: React.FormEvent) => {
-        e.preventDefault();
-        onCancel();
-        if (always) {
-          always();
-        }
-      }}>Cancel</Button>
+      <FormattedMessage id={confirmMessage}>
+        {(msg: Element | string) => <Button size='small' variant='primary' onClick={(e: React.FormEvent) => {
+          e.preventDefault();
+          onConfirm();
+          if (always) {
+            always();
+          }
+        }}>{msg}</Button>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:highlighting:button:cancel'>
+        {(msg: Element | string) => <Button size='small' onClick={(e: React.FormEvent) => {
+          e.preventDefault();
+          onCancel();
+          if (always) {
+            always();
+          }
+        }}>{msg}</Button>}
+      </FormattedMessage>
     </ButtonGroup>
   </Overlay>;
 };

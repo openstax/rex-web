@@ -1,5 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
@@ -64,23 +65,28 @@ const EditCard = ({highlight, className, data, create, save, remove, blur}: Prop
       setEditing(true);
     }} />
     {editingNote && <ButtonGroup>
-      <Button size='small' variant='primary' onClick={(e: React.FormEvent) => {
-        e.preventDefault();
-        setEditing(false);
+      <FormattedMessage id='i18n:highlighting:button:save'>
+        {(msg: Element | string) => <Button size='small' variant='primary' onClick={(e: React.FormEvent) => {
+          e.preventDefault();
+          setEditing(false);
 
-        if (pendingNote === '' && data && data.note) {
-          setConfirmingDelete(true);
-        } else {
-          saveNote();
-        }
-      }}>Save</Button>
-      <Button size='small' onClick={(e: React.FormEvent) => {
-        e.preventDefault();
-        cancelEditing();
-      }}>Cancel</Button>
+          if (pendingNote === '' && data && data.note) {
+            setConfirmingDelete(true);
+          } else {
+            saveNote();
+          }
+        }}>{msg}</Button>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:highlighting:button:cancel'>
+        {(msg: Element | string) => <Button size='small' onClick={(e: React.FormEvent) => {
+          e.preventDefault();
+          cancelEditing();
+        }}>{msg}</Button>}
+      </FormattedMessage>
     </ButtonGroup>}
     {confirmingDelete && <Confirmation
-      message='Are you sure you want to delete this note?'
+      message='i18n:highlighting:confirmation:delete-note'
+      confirmMessage='i18n:highlighting:button:delete'
       onConfirm={saveNote}
       onCancel={() => {
         setEditing(true);

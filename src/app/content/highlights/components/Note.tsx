@@ -44,7 +44,7 @@ const Note = ({onChange, note}: Props) => {
 
   React.useEffect(setTextAreaHeight, [note]);
 
-  return <FormattedMessage id='Add a note...'>
+  return <FormattedMessage id='i18n:highlighting:card:placeholder'>
     {(msg: Element | string) => <TextArea
         ref={textArea}
         value={note}

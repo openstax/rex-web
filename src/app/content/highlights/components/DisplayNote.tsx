@@ -49,14 +49,15 @@ const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Pro
 
   return <div className={className}>
     <Dropdown toggle={<MenuIcon />}>
-      <DropdownItem message='edit' onClick={onEdit} />
-      <DropdownItem message='delete' onClick={() => setConfirmingDelete(true)} />
+      <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
+      <DropdownItem message='i18n:highlighting:dropdown:delete' onClick={() => setConfirmingDelete(true)} />
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
     <TruncatedText text={note} isFocused={isFocused} />
     {confirmingDelete && <Confirmation
-      message='Are you sure you want to delete this note and highlight?'
+      message='i18n:highlighting:confirmation:delete-both'
+      confirmMessage='i18n:highlighting:button:delete'
       onConfirm={onRemove}
       onCancel={() => setConfirmingDelete(false)}
     />}
