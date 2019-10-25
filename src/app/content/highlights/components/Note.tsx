@@ -1,5 +1,6 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -43,14 +44,17 @@ const Note = ({onChange, note}: Props) => {
 
   React.useEffect(setTextAreaHeight, [note]);
 
-  return <TextArea
-    ref={textArea}
-    value={note}
-    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      onChange(e.target.value);
-    }}
-    placeholder='Add a note...'
-  />;
+  return <FormattedMessage id='Add a note...'>
+    {(msg: Element | string) => <TextArea
+        ref={textArea}
+        value={note}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          onChange(e.target.value);
+        }}
+        placeholder={msg}
+      />
+    }
+  </FormattedMessage>;
 };
 
 export default Note;

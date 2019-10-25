@@ -1,5 +1,6 @@
 import Color from 'color';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
@@ -34,7 +35,9 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Confirmation = ({message, always, onCancel, onConfirm}: Props) => <Overlay>
-  <label>{message}</label>
+  <FormattedMessage id={message}>
+    {(msg: Element | string) => <label>{msg}</label>}
+  </FormattedMessage>
   <ButtonGroup>
     <Button size='small' variant='primary' onClick={(e: React.FormEvent) => {
       e.preventDefault();

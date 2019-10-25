@@ -61,7 +61,7 @@ const DropdownList = styled.ol`
   background: ${theme.color.neutral.formBackground};
   border: 1px solid ${theme.color.neutral.formBorder};
   top: calc(100% + 0.4rem);
-  right: 0;
+  left: -4rem;
 
   ${DropdownContainer}.focus-within & {
     ${visuallyShown}
