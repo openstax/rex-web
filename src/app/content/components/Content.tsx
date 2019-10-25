@@ -42,7 +42,7 @@ const Background = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ContentNotifications = styled(Notifications)`
+const ContentNotifications = styled(Notifications)`
   z-index: ${theme.zIndex.contentNotifications};
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`

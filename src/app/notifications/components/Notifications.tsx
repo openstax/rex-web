@@ -11,35 +11,38 @@ import AppMessage from './AppMessage';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props {
-  notification?: AnyNotification;
+  notification?: AnyNotification | undefined;
   className?: string;
 }
 
-const renderNotification = (notification: AnyNotification, className?: string) => {
-    switch (notification.type) {
-      case getType(actions.updateAvailable): {
-        return <UpdatesAvailable className={className}/>;
-      }
-      case getType(actions.acceptCookies): {
-        return <AcceptCookies notification={notification} className={className}/>;
-      }
-      case appMessageType: {
-        return <AppMessage notification={notification} className={className}/>;
-      }
-      default:
-        return null;
+const renderNotification = (
+  notification: AnyNotification,
+  className?: string
+) => {
+  switch (notification.type) {
+    case getType(actions.updateAvailable): {
+      return <UpdatesAvailable className={className} />;
     }
+    case getType(actions.acceptCookies): {
+      return (
+        <AcceptCookies notification={notification} className={className} />
+      );
+    }
+    case appMessageType: {
+      return <AppMessage notification={notification} className={className} />;
+    }
+    default:
+      return null;
+  }
 };
 
 export class Notifications extends Component<Props> {
   public render() {
-    const {notification, className} = this.props;
-    return notification  ? renderNotification(notification, className) : null;
+    const { notification, className } = this.props;
+    return notification ? renderNotification(notification, className) : null;
   }
 }
 
-export default connect(
-  (state: AppState) => ({
-    notification: select.notificationsForDisplay(state),
-  })
-)(Notifications);
+export default connect((state: AppState) => ({
+  notification: select.notificationsForDisplay(state),
+}))(Notifications);
