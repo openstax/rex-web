@@ -1,4 +1,6 @@
-import { css } from 'styled-components/macro';
+import Color from 'color';
+import styled, { css } from 'styled-components/macro';
+import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
@@ -14,15 +16,16 @@ export const contentTextStyle = css`
   }
 `;
 
-export default css`
+export default styled(MainContent)`
   ${contentTextStyle}
 
-  @media screen { /* full page width in print */
+  @media screen {
     flex: 1;
     display: flex;
     width: 100%;
 
-    > #${MAIN_CONTENT_ID} {
+    #${MAIN_CONTENT_ID} {
+      overflow: visible;
       width: 100%;
     }
 
@@ -32,16 +35,14 @@ export default css`
      * or the main_content because page makes it flexy. those
      * need to be flexy to center the loading indicator
      */
-    > #${MAIN_CONTENT_ID} > [data-type="page"],
-    > #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
+    #${MAIN_CONTENT_ID} > [data-type="page"],
+    #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
       margin-top: ${theme.padding.page.desktop}rem;
       ${theme.breakpoints.mobile(css`
         margin-top: ${theme.padding.page.mobile}rem;
       `)}
     }
   }
-
-  overflow: visible; /* allow some elements, like images, videos, to overflow and be larger than the text. */
 
   @media screen {
     ${highlightStyles.map((style) => css`
@@ -50,6 +51,10 @@ export default css`
 
         &.focus {
           background-color: ${style.focused};
+
+          ${Color(style.focused).isDark() && css`
+            color: ${theme.color.text.white};
+          `}
         }
       }
     `)}
@@ -73,7 +78,7 @@ export default css`
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
-  * {
+  #${MAIN_CONTENT_ID} * {
     overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }
 `;

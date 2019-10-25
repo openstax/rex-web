@@ -33,6 +33,16 @@ describe('highlight reducer', () => {
     expect(state.enabled).toEqual(false);
   });
 
+  it('focuses highlight', () => {
+    const state = reducer(undefined, actions.focusHighlight('asdf'));
+    expect(state.focused).toEqual('asdf');
+  });
+
+  it('clears focused highlight', () => {
+    const state = reducer({...initialState, focused: 'asdf'}, actions.clearFocusedHighlight());
+    expect(state.focused).toEqual(undefined);
+  });
+
   it('creates highlights', () => {
     const state = reducer(undefined, actions.createHighlight(mockHighlight));
     expect(state.highlights.length).toEqual(1);

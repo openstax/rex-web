@@ -12,7 +12,7 @@ import { assertString, scrollTo } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
-import { contentTextStyle } from './Page';
+import { contentTextStyle } from './Page/PageContent';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 

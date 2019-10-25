@@ -2,15 +2,20 @@ import UntypedHighlighter, {
   SerializedHighlight as UntypedSerializedHighlight
 } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import { page } from '../../../../test/mocks/archiveLoader';
+import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertWindow } from '../../../utils';
-import { highlightStyles } from '../../highlights/constants';
+import CardWrapper from '../../highlights/components/CardWrapper';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();
+UntypedHighlighter.prototype.erase = jest.fn();
+UntypedHighlighter.prototype.highlight = jest.fn();
 
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
@@ -19,6 +24,9 @@ const SerializedHighlight = UntypedSerializedHighlight as unknown as jest.SpyIns
 
 beforeEach(() => {
   jest.resetAllMocks();
+
+  UntypedHighlighter.prototype.getHighlights = jest.fn(() => []);
+  UntypedHighlighter.prototype.getOrderedHighlights = jest.fn(() => []);
 });
 
 describe('highlightManager', () => {
@@ -32,8 +40,10 @@ describe('highlightManager', () => {
     getSelection = window.document.getSelection = jest.fn();
     element = window.document.createElement('div');
     prop = {
+      clearFocus: jest.fn(),
       create: jest.fn(),
       enabled: true,
+      focus: jest.fn(),
       highlights: [],
       page,
       remove: jest.fn(),
@@ -41,15 +51,30 @@ describe('highlightManager', () => {
     };
   });
 
-  const createMockHighlight = () => ({
-    getStyle: jest.fn(),
-    id: Math.random().toString(36).substring(7),
-    serialize: () => ({data: 'data'}),
-    setStyle: jest.fn(),
-  });
-
   afterEach(() => {
     delete window.document.getSelection;
+  });
+
+  it('CardList is rendered initially', () => {
+    const {CardList} = highlightManager(element, () => prop);
+    const component = renderer.create(React.createElement(CardList));
+    expect(() => component.root.findByType(CardWrapper)).not.toThrow();
+  });
+
+  it('CardList is not rendered when disabled', () => {
+    prop.enabled = false;
+    const {CardList} = highlightManager(element, () => prop);
+    const component = renderer.create(React.createElement(CardList));
+    expect(() => component.root.findByType(CardWrapper)).toThrow();
+  });
+
+  it('CardList is rendered after update', () => {
+    prop.enabled = false;
+    const {CardList, update} = highlightManager(element, () => prop);
+    prop.enabled = true;
+    update();
+    const component = renderer.create(React.createElement(CardList));
+    expect(() => component.root.findByType(CardWrapper)).not.toThrow();
   });
 
   it('creates highlighter when enabled', () => {
@@ -73,14 +98,19 @@ describe('highlightManager', () => {
   });
 
   it('highlights highlights', () => {
-    const mockHighlightData = {id: 'asdf'} as unknown as UntypedSerializedHighlight['data'];
+    const mockHighlight = createMockHighlight();
+    const mockHighlightData = mockHighlight.serialize().data;
     const {update} = highlightManager(element, () => prop);
 
     prop.highlights = [
       mockHighlightData,
     ];
 
-    const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
+    const highlight = Highlighter.mock.instances[0].highlight;
+
+    Highlighter.mock.instances[0].getHighlight
+      .mockReturnValueOnce(undefined)
+      .mockReturnValue(mockHighlight);
 
     update();
 
@@ -88,6 +118,25 @@ describe('highlightManager', () => {
     expect(SerializedHighlight).toHaveBeenCalledWith(mockHighlightData);
     expect(highlight).toHaveBeenCalled();
     expect(highlight.mock.calls[0][0]).toBe(SerializedHighlight.mock.instances[0]);
+  });
+
+  it('erases highlights', () => {
+    const mockHighlight1 = createMockHighlight();
+    const mockHighlight2 = createMockHighlight();
+    const {update} = highlightManager(element, () => prop);
+
+    prop.highlights = [
+      mockHighlight1.serialize().data,
+    ];
+
+    const erase = Highlighter.mock.instances[0].erase;
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight1, mockHighlight2]);
+
+    update();
+
+    expect(erase).toHaveBeenCalledTimes(1);
+    expect(erase).toHaveBeenCalledWith(mockHighlight2);
   });
 
   it('umounts', () => {
@@ -119,11 +168,10 @@ describe('highlightManager', () => {
     });
 
     it('highlights when there aren\'t any highlights in selection', () => {
-      const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
       const mockHighlight = createMockHighlight();
 
       Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-      expect(highlight).toBeCalledWith(mockHighlight);
+      expect(prop.create).toHaveBeenCalledWith(mockHighlight.serialize().data);
     });
 
     it('removes browser selection if there is one', () => {
@@ -147,24 +195,11 @@ describe('highlightManager', () => {
       manager.unmount();
     });
 
-    it('changes color on click', () => {
-      const firstStyle = highlightStyles[0].label;
-      const secondStyle = highlightStyles[1].label;
+    it('focuses on click', () => {
       const mockHighlight = createMockHighlight();
 
-      mockHighlight.getStyle.mockReturnValue(firstStyle);
-
       Highlighter.mock.calls[0][1].onClick(mockHighlight);
-      expect(mockHighlight.setStyle).toHaveBeenCalledWith(secondStyle);
-    });
-
-    it('erases highlights after all colors', () => {
-      const lastStyle = highlightStyles[highlightStyles.length - 1].label;
-      const erase = Highlighter.mock.instances[0].erase = jest.fn();
-      const mockHighlight = createMockHighlight();
-      mockHighlight.getStyle.mockReturnValue(lastStyle);
-      Highlighter.mock.calls[0][1].onClick(mockHighlight);
-      expect(erase).toHaveBeenCalledWith(mockHighlight);
+      expect(mockHighlight.focus).toHaveBeenCalled();
     });
 
     it('noops when you click on not a highlight', () => {

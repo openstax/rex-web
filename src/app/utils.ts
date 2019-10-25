@@ -111,6 +111,8 @@ export const scrollTo = (elem: Element | string) => {
   return scrollToElement(elem, {offset});
 };
 
+export const remsToEms = (rems: number) => rems * 10 / 16;
+
 export const remsToPx = (rems: number) => {
   const bodyFontSize = typeof(window) === 'undefined'
     ? 10

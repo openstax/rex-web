@@ -1,3 +1,4 @@
+import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
@@ -36,6 +37,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveHighlights): {
       return {...state, highlights: [...state.highlights, ...action.payload]};
+    }
+    case getType(actions.focusHighlight): {
+      return {...state, focused: action.payload};
+    }
+    case getType(actions.clearFocusedHighlight): {
+      return omit('focused', state);
     }
     default:
       return state;

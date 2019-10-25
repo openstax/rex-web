@@ -30,6 +30,10 @@ declare global {
       prototype: CustomEvent;
       new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
     };
+    Event: {
+      prototype: Event;
+      new<T>(typeArg: string, eventInitDict?: EventInit<T>): Event<T>;
+    };
     MathJax: any;
     ga: UniversalAnalytics.ga;
   }
