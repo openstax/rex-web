@@ -24,6 +24,7 @@ import {
 import { HighlightData } from '../types';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import { cardBorder } from './style';
 
 interface Props {
   isFocused: boolean;
@@ -116,8 +117,7 @@ const rightSideDisplay = css`
 const StyledCard = styled(Card)`
   position: absolute;
   padding: ${cardPadding}rem;
-  border-radius: 0.4rem;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+  ${cardBorder}
   ${rightSideDisplay}
 
   ${(props: {data: HighlightData}) => {

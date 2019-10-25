@@ -5,6 +5,7 @@ import Dropdown, { DropdownItem } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { cardWidth } from '../constants';
+import Confirmation from './Confirmation';
 
 // tslint:disable-next-line:variable-name
 const MenuIcon = styled(EllipsisV)`
@@ -24,12 +25,19 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = ({note, onEdit, onRemove, className}: Props) => {
+  const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
+
   return <div className={className}>
     <Dropdown toggle={<MenuIcon />}>
       <DropdownItem message='edit' onClick={onEdit} />
-      <DropdownItem message='delete' onClick={onRemove} />
+      <DropdownItem message='delete' onClick={() => setConfirmingDelete(true)} />
     </Dropdown>
     {note}
+    {confirmingDelete && <Confirmation
+      message='Are you sure you want to delete this note and highlight?'
+      onConfirm={onRemove}
+      onCancel={() => setConfirmingDelete(false)}
+    />}
   </div>;
 };
 
