@@ -82,6 +82,7 @@ const color = {
     red: {base: '#c22032'},
   },
   text: textColors,
+  white: '#fff',
 };
 
 const mobileBreak = 75;

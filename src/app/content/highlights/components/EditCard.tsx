@@ -2,6 +2,7 @@ import { Highlight } from '@openstax/highlighter';
 import React from 'react';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
+import theme from '../../../theme';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
@@ -91,6 +92,8 @@ const EditCard = ({highlight, className, data, create, save, remove, blur}: Prop
 };
 
 export default styled(EditCard)`
+  background: ${theme.color.neutral.formBackground};
+
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
   }

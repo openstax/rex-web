@@ -22,6 +22,7 @@ import {
   highlightStyles
 } from '../constants';
 import { HighlightData } from '../types';
+import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 
 interface Props {
@@ -37,11 +38,22 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Card = (props: Props) => {
+  const note = props.data && props.data.note;
+  const [editing, setEditing] = React.useState<boolean>(!note);
+
   if (!props.highlight.elements.length) {
     return null;
   }
 
-  return <EditCard {...props} />;
+  const onRemove = () => props.data && props.remove(props.data.id);
+
+  return !editing && note ? <DisplayNote
+    isFocused={props.isFocused}
+    className={props.className}
+    note={note}
+    onEdit={() => setEditing(true)}
+    onRemove={onRemove}
+  /> : <EditCard {...props} />;
 };
 
 /*
@@ -99,7 +111,6 @@ const StyledCard = styled(Card)`
   position: absolute;
   padding: ${cardPadding}rem;
   border-radius: 0.4rem;
-  background: ${theme.color.neutral.formBackground};
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
   ${rightSideDisplay}
 
