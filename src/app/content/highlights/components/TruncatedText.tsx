@@ -55,7 +55,6 @@ export default styled(NoteText)`
   line-height: ${lineHeight}rem;
   margin: 0;
   padding: 0;
-
   ${(props: Props) => props.isFocused && css`
     + ${Link} {
       display: none;

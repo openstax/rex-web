@@ -62,14 +62,15 @@ const DropdownList = styled.ol`
   border: 1px solid ${theme.color.neutral.formBorder};
   top: calc(100% + 0.4rem);
   left: -4rem;
+  ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
+    ${DropdownContainer}.focus-within & {
+      ${visuallyShown}
+    }
 
-  ${DropdownContainer}.focus-within & {
-    ${visuallyShown}
-  }
-
-  ${DropdownContainer}:focus-within & {
-    ${visuallyShown}
-  }
+    ${DropdownContainer}:focus-within & {
+      ${visuallyShown}
+    }
+  `}
 
   li button,
   li a {

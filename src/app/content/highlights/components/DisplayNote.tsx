@@ -27,7 +27,6 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   position: absolute;
   top: 0;
   right: 0;
-
   ${theme.breakpoints.mobile(css`
     display: block;
  `)}
