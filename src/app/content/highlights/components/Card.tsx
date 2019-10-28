@@ -63,7 +63,7 @@ const Card = (props: Props) => {
     onEdit={() => setEditing(true)}
     onBlur={props.blur}
     onRemove={onRemove}
-  /> : <EditCard {...props} />;
+  /> : <EditCard {...props} onRemove={onRemove} />;
 };
 
 /*

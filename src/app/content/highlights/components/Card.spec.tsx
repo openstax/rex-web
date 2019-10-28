@@ -7,13 +7,14 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { requestSearch } from '../../search/actions';
-import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights, updateHighlight } from '../actions';
+import { deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
 import Card from './Card';
-import ColorPicker from './ColorPicker';
+import DisplayNote from './DisplayNote';
+import EditCard from './EditCard';
 
-jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
-jest.mock('./Note', () => (props: any) => <div mock-note {...props} />);
+jest.mock('./DisplayNote', () => (props: any) => <div mock-display-note {...props} />);
+jest.mock('./EditCard', () => (props: any) => <div mock-edit {...props} />);
 
 describe('Card', () => {
   let store: Store;
@@ -27,7 +28,7 @@ describe('Card', () => {
     highlight.elements = [assertDocument().createElement('span')];
   });
 
-  it('matches snapshot when focused', () => {
+  it('matches snapshot when focused without note', () => {
     store.dispatch(receiveHighlights([
       {
         style: highlightStyles[0].label,
@@ -43,7 +44,7 @@ describe('Card', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshot when editing data', () => {
+  it('matches snapshot when passed data without note', () => {
     store.dispatch(receiveHighlights([
       highlight.serialize().data,
     ]));
@@ -77,16 +78,41 @@ describe('Card', () => {
     </Provider>)).not.toThrow();
   });
 
-  it('removes when ColorPicker calls onRemove', () => {
+  it('switches to editing mode when onEdit is triggered', () => {
     store.dispatch(receiveHighlights([
-      highlight.serialize().data,
+      {
+        ...highlight.serialize().data,
+        note: 'adsf',
+        style: highlightStyles[0].label,
+      },
     ]));
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
 
-    const picker = component.root.findByType(ColorPicker);
+    const picker = component.root.findByType(DisplayNote);
+    renderer.act(() => {
+      picker.props.onEdit();
+    });
+
+    expect(() => component.root.findByType(EditCard)).not.toThrow();
+  });
+
+  it('removes when DisplayNote calls onRemove', () => {
+    store.dispatch(receiveHighlights([
+      {
+        ...highlight.serialize().data,
+        note: 'adsf',
+        style: highlightStyles[0].label,
+      },
+    ]));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    const picker = component.root.findByType(DisplayNote);
     renderer.act(() => {
       picker.props.onRemove();
     });
@@ -99,42 +125,10 @@ describe('Card', () => {
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
 
-    const picker = component.root.findByType(ColorPicker);
+    const picker = component.root.findByType(EditCard);
     picker.props.onRemove();
 
     expect(dispatch).not.toHaveBeenCalled();
-  });
-
-  it('handles color change when there is data', () => {
-    store.dispatch(receiveHighlights([
-      highlight.serialize().data,
-    ]));
-
-    const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
-    </Provider>);
-
-    const picker = component.root.findByType(ColorPicker);
-    renderer.act(() => {
-      picker.props.onChange('blue');
-    });
-
-    expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(dispatch).toHaveBeenCalledWith(updateHighlight({...highlightData, style: 'blue'}));
-  });
-
-  it('creates when changing color on a new highlight', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
-    </Provider>);
-
-    const picker = component.root.findByType(ColorPicker);
-    renderer.act(() => {
-      picker.props.onChange('blue');
-    });
-
-    expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlightData));
   });
 
   it('renders null if highlight doen\'t have elements', () => {
