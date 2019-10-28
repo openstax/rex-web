@@ -136,7 +136,7 @@ const overlapDisplay = css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
-      return getHighlightBottomOffset(props.highlight);
+      return getHighlightBottomOffset(props.highlight) || 0;
     }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
@@ -148,7 +148,7 @@ const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => {
-    return getHighlightTopOffset(props.highlight);
+    return getHighlightTopOffset(props.highlight) || 0;
   }}px;
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
