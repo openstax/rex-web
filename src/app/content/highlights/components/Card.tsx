@@ -4,9 +4,10 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { findElementSelfOrParent } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { remsToEms } from '../../../utils';
+import { assertWindow, remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
@@ -48,7 +49,7 @@ const Card = (props: Props) => {
     }
   }, [props.isFocused]);
 
-  if (!props.highlight.elements.length) {
+  if (!props.highlight.range) {
     return null;
   }
 
@@ -84,15 +85,58 @@ const Card = (props: Props) => {
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 
+const getHighlightOffset = (highlight: Highlight) => {
+  if (!highlight.range || !highlight.range.getBoundingClientRect) {
+    return;
+  }
+
+  const anchor = findElementSelfOrParent(highlight.range.commonAncestorContainer);
+
+  if (!anchor) {
+    return;
+  }
+
+  const {top, bottom} = highlight.range.getBoundingClientRect();
+
+  const removeParentOffset = (element: HTMLElement, offset: number): number => {
+    const offsetParent = element.offsetParent && findElementSelfOrParent(element.offsetParent);
+
+    if (offsetParent) {
+      return removeParentOffset(offsetParent, offset - offsetParent.offsetTop);
+    } else {
+      return offset;
+    }
+  };
+
+  const scrollOffset = assertWindow().scrollY;
+
+  return {
+    bottom: removeParentOffset(anchor, bottom + scrollOffset),
+    top: removeParentOffset(anchor, top + scrollOffset),
+  };
+};
+
+const getHighlightTopOffset = (highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(highlight);
+
+  if (offset) {
+    return offset.top + 20;
+  }
+};
+const getHighlightBottomOffset = (highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(highlight);
+
+  if (offset) {
+    return offset.bottom;
+  }
+};
+
 const overlapDisplay = css`
   ${(props: Props) => !!props.isFocused && css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
-      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement | undefined;
-      const bottomOffset = lastElement ? lastElement.offsetTop + lastElement.offsetHeight : 0;
-
-      return bottomOffset;
+      return getHighlightBottomOffset(props.highlight);
     }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
@@ -104,8 +148,7 @@ const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => {
-    const firstElement = props.highlight.elements[0] as HTMLElement | undefined;
-    return firstElement ? firstElement.offsetTop : 0;
+    return getHighlightTopOffset(props.highlight);
   }}px;
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);

@@ -1,4 +1,4 @@
-import { HTMLElement, TouchEvent } from '@openstax/types/lib.dom';
+import { HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import { isHtmlElement } from './guards';
 import { assertWindow } from './utils';
 
@@ -61,4 +61,12 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
   }
 
   return findFirstScrollableParent(element.parentElement);
+};
+
+export const findElementSelfOrParent = (node: Node) => {
+  if (isHtmlElement(node)) {
+    return node;
+  } else if (node.parentElement) {
+    return node.parentElement;
+  }
 };

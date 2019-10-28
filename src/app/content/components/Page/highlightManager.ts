@@ -4,7 +4,6 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument } from '../../../utils';
 import {
   clearFocusedHighlight,
   createHighlight,
@@ -13,12 +12,13 @@ import {
   updateHighlight
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
-import { highlightStyles } from '../../highlights/constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as select from '../../selectors';
 
 interface Services {
   getProp: () => HighlightProp;
+  setPendingHighlight: (highlight: Highlight) => void;
+  clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
 }
@@ -39,6 +39,8 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
+  services.clearPendingHighlight();
+
   if (highlight) {
     services.getProp().focus(highlight.id);
     services.highlighter.clearFocus();
@@ -53,17 +55,11 @@ const onSelectHighlight = (services: Services, highlights: Highlight[], highligh
   if (highlights.length > 0 || !highlight) {
     return;
   }
-  const {create} = services.getProp();
 
-  highlight.setStyle(highlightStyles[0].label);
-
-  create(highlight.serialize().data);
-
-  const selection = assertDocument().getSelection();
-
-  if (selection) {
-    selection.removeAllRanges();
-  }
+  services.getProp().focus(highlight.id);
+  services.highlighter.clearFocus();
+  highlight.focus();
+  services.setPendingHighlight(highlight);
 };
 
 const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
@@ -91,16 +87,37 @@ const highlightData = (services: Services) => (data: SerializedHighlight['data']
   return highlighter.getHighlight(data.id);
 };
 
-const erase = (highlighter: Highlighter) => (highlight: Highlight) => highlighter.erase(highlight);
+const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
+  highlighter.erase(highlight);
+  return highlight;
+};
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter | undefined;
+  let pendingHighlight: Highlight | undefined;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
   let setListHighlights = (_highlights: Highlight[]): void => undefined;
+  let setListPendingHighlight: ((highlight: Highlight | undefined) => void) | undefined;
+
+  const clearPendingHighlight = () => {
+    pendingHighlight = undefined;
+    if (setListPendingHighlight) {
+      setListPendingHighlight(undefined);
+    }
+  };
+
+  const setPendingHighlight = (highlight: Highlight) => {
+    pendingHighlight = highlight;
+    if (setListPendingHighlight) {
+      setListPendingHighlight(highlight);
+    }
+  };
 
   const services = {
+    clearPendingHighlight,
     container,
     getProp,
+    setPendingHighlight,
   };
 
   if (getProp().enabled) {
@@ -112,13 +129,20 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     CardList: () => {
       const [listHighlighter, setHighlighter] = React.useState<Highlighter | undefined>(highlighter);
       const [listHighlights, setHighlights] = React.useState<Highlight[]>([]);
+      const [listPendingHighlight, setInnerPendingHighlight] = React.useState<Highlight | undefined>(pendingHighlight);
 
       setListHighlighter = setHighlighter;
       setListHighlights = setHighlights;
+      setListPendingHighlight = setInnerPendingHighlight;
 
       if (listHighlighter) {
         return React.createElement(CardWrapper, {
-          highlights: listHighlights,
+          highlights: listPendingHighlight
+            ? [
+                ...listHighlights.filter((highlight) => !pendingHighlight || highlight.id !== pendingHighlight.id),
+                listPendingHighlight,
+              ]
+            : listHighlights,
         });
       }
       return null;
@@ -143,6 +167,10 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         .filter((highlight) => !getProp().highlights.find((search) => search.id === highlight.id))
         .map(erase(highlighter))
       ;
+
+      if (removedHighlights.find((highlight) => pendingHighlight && highlight.id === pendingHighlight.id)) {
+        clearPendingHighlight();
+      }
 
       if (newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
