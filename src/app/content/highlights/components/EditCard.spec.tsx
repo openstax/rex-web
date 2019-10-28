@@ -320,4 +320,24 @@ describe('EditCard', () => {
       });
     });
   });
+
+  it('doesn\'t reset style when clicking on form', async() => {
+    highlight.getStyle.mockReturnValue('red');
+
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <EditCard highlight={highlight as unknown as Highlight} />
+    </MessageProvider>);
+
+    const card = component.root.findByType('form');
+    renderer.act(() => {
+      card.props.onClick();
+    });
+
+    return new Promise((resolve) => {
+      defer(() => {
+        expect(highlight.setStyle).not.toHaveBeenCalledWith();
+        resolve();
+      });
+    });
+  });
 });

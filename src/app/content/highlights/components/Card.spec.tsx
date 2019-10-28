@@ -19,11 +19,13 @@ jest.mock('./EditCard', () => (props: any) => <div mock-edit {...props} />);
 describe('Card', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  const highlight = createMockHighlight('asdf');
-  const highlightData = highlight.serialize().data;
+  let highlight: ReturnType<typeof createMockHighlight>;
+  let highlightData: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
 
   beforeEach(() => {
     store = createTestStore();
+    highlight = createMockHighlight('asdf');
+    highlightData = highlight.serialize().data;
     dispatch = jest.spyOn(store, 'dispatch');
     highlight.elements = [assertDocument().createElement('span')];
   });
@@ -131,18 +133,18 @@ describe('Card', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  it('renders null if highlight doen\'t have elements', () => {
-    highlight.elements = [];
+  it('renders null if highlight doen\'t have range', () => {
+    (highlight as any).range = undefined;
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
 
-    expect(() => component.root.findByType(Card)).toThrow();
+    expect(() => component.root.findByType(EditCard)).toThrow();
   });
 
-  it('renders null if highlight doen\'t have elements and its focused', () => {
-    highlight.elements = [];
+  it('renders null if highlight doen\'t have range and its focused', () => {
+    (highlight as any).range = undefined;
     store.dispatch(receiveHighlights([
       {
         style: highlightStyles[0].label,
@@ -155,6 +157,6 @@ describe('Card', () => {
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
 
-    expect(() => component.root.findByType(Card)).toThrow();
+    expect(() => component.root.findByType(EditCard)).toThrow();
   });
 });

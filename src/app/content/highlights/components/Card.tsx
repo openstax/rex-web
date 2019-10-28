@@ -120,7 +120,7 @@ const getHighlightTopOffset = (highlight: Highlight): number | undefined => {
   const offset = getHighlightOffset(highlight);
 
   if (offset) {
-    return offset.top + 20;
+    return offset.top;
   }
 };
 const getHighlightBottomOffset = (highlight: Highlight): number | undefined => {
