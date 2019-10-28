@@ -22,6 +22,7 @@ const padding = {
 };
 
 const color = {
+  black: '#000',
   neutral: {
     base: '#fff',
     darker: '#fafafa',
@@ -81,6 +82,7 @@ const color = {
     red: {base: '#c22032'},
   },
   text: textColors,
+  white: '#fff',
 };
 
 const mobileBreak = 75;

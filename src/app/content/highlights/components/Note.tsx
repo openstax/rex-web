@@ -1,13 +1,14 @@
-import { Highlight } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { cardPadding, cardWidth } from '../constants';
 
 interface Props {
-  highlight?: Highlight;
+  note: string;
+  onChange: (note: string) => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -25,19 +26,35 @@ const TextArea = styled.textarea`
 `;
 
 // tslint:disable-next-line:variable-name
-const Note = (_props: Props) => {
-  const textArea = React.useRef<HTMLElement>(null);
+const Note = ({onChange, note}: Props) => {
+  const textArea = React.useRef<HTMLTextAreaElement>(null);
 
-  return <TextArea
-    ref={textArea}
-    onChange={() => {
-      const element = textArea.current;
-      if (element && element.scrollHeight > element.offsetHeight) {
-        element.style.height = `${element.scrollHeight + 5}px`;
-      }
-    }}
-    placeholder='Add a note...'
-  />;
+  const setTextAreaHeight = () => {
+    const element = textArea.current;
+    if (!element) {
+      return;
+    }
+
+    element.style.height = '';
+
+    if (element.scrollHeight > element.offsetHeight) {
+      element.style.height = `${element.scrollHeight + 5}px`;
+    }
+  };
+
+  React.useEffect(setTextAreaHeight, [note]);
+
+  return <FormattedMessage id='i18n:highlighting:card:placeholder'>
+    {(msg: Element | string) => <TextArea
+        ref={textArea}
+        value={note}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          onChange(e.target.value);
+        }}
+        placeholder={msg}
+      />
+    }
+  </FormattedMessage>;
 };
 
 export default Note;

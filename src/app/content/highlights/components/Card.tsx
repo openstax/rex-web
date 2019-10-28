@@ -1,4 +1,4 @@
-import { Highlight, SerializedHighlight } from '@openstax/highlighter';
+import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
@@ -12,7 +12,7 @@ import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { createHighlight, deleteHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -21,8 +21,10 @@ import {
   cardWidth,
   highlightStyles
 } from '../constants';
-import ColorPicker from './ColorPicker';
-import Note from './Note';
+import { HighlightData } from '../types';
+import DisplayNote from './DisplayNote';
+import EditCard from './EditCard';
+import { cardBorder } from './style';
 
 interface Props {
   isFocused: boolean;
@@ -30,31 +32,38 @@ interface Props {
   create: typeof createHighlight;
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
-  data?: SerializedHighlight['data'];
+  blur: typeof clearFocusedHighlight;
+  data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = ({highlight, className, data, create, save, remove}: Props) => {
-  if (!highlight.elements.length) {
+const Card = (props: Props) => {
+  const note = props.data && props.data.note;
+  const [editing, setEditing] = React.useState<boolean>(!note);
+
+  React.useEffect(() => {
+    if (!props.isFocused) {
+      setEditing(false);
+    }
+  }, [props.isFocused]);
+
+  if (!props.highlight.elements.length) {
     return null;
   }
 
-  const onColorChange = (style: string) => {
-    highlight.setStyle(style);
-    if (data) {
-      save({...data, style});
-    } else {
-      create(highlight.serialize().data);
-    }
-  };
+  const onRemove = () => props.data && props.remove(props.data.id);
+  const style = highlightStyles.find((search) => props.data && search.label === props.data.style);
 
-  const onRemove = () => data && remove(data.id);
-
-  return <form className={className}>
-    <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={onRemove} />
-    <Note highlight={highlight} />
-  </form>;
+  return !editing && style && note ? <DisplayNote
+    isFocused={props.isFocused}
+    className={props.className}
+    style={style}
+    note={note}
+    onEdit={() => setEditing(true)}
+    onBlur={props.blur}
+    onRemove={onRemove}
+  /> : <EditCard {...props} onRemove={onRemove} />;
 };
 
 /*
@@ -107,16 +116,28 @@ const rightSideDisplay = css`
   `}
 `;
 
+const mobileDisplay = css`
+  ${(props: Props) => !!props.isFocused && css`
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    position: fixed;
+    padding: 0;
+  `}
+  ${(props: Props) => !props.isFocused && css`
+    display: none;
+  `}
+`;
+
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
   position: absolute;
   padding: ${cardPadding}rem;
-  border-radius: 0.4rem;
-  background: ${theme.color.neutral.formBackground};
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+  ${cardBorder}
   ${rightSideDisplay}
 
-  ${(props: {data: SerializedHighlight['data']}) => {
+  ${(props: {data: HighlightData}) => {
     const data = props.data;
 
     if (!data || !data.style) {
@@ -132,13 +153,23 @@ const StyledCard = styled(Card)`
     return css`
       ::before {
         content: ' ';
+        border-radius: 0.4rem 0 0 0.4rem;
         position: absolute;
         top: 0;
         left: 0
         bottom: 0;
-        width: 0.4rem;
+        width: ${cardPadding / 2}rem;
         background-color: ${style.focused};
       }
+      ${theme.breakpoints.mobile(css`
+        ::before {
+          border-radius: 0.4rem 0.4rem 0 0;
+          right: 0;
+          bottom: unset;
+          width: unset;
+          height: ${cardPadding / 2}rem;
+        }
+     `)}
     `;
   }}
 
@@ -159,8 +190,8 @@ const StyledCard = styled(Card)`
     ${overlapDisplay}
   }
 
- ${theme.breakpoints.mobile(css`
-    display: none;
+  ${theme.breakpoints.mobile(css`
+    ${mobileDisplay}
  `)}
 `;
 
@@ -172,6 +203,7 @@ export default connect(
     isOpen: contentSelect.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
+    blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),

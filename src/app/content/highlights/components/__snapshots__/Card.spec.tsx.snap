@@ -1,82 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card matches snapshot when editing data 1`] = `
+exports[`Card matches snapshot when focused without note 1`] = `
 .c0 {
   position: absolute;
   padding: 0.8rem;
   border-radius: 0.4rem;
-  background: #f5f5f5;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-  right: unset;
-  top: 0px;
-  display: none;
-}
-
-@media (max-width:110.3125em) {
-  .c0 {
-    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-    right: unset;
-    top: 0px;
-    display: none;
-    display: none;
-  }
-}
-
-@media (max-width:103.75em) {
-  .c0 {
-    display: none;
-    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-    right: unset;
-    top: 0px;
-    display: none;
-  }
-}
-
-@media (max-width:82.8125em) {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    display: none;
-  }
-}
-
-<form
-  className="c0"
->
-  <div
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    highlight={
-      Object {
-        "elements": Array [
-          <span />,
-        ],
-        "focus": [MockFunction],
-        "getStyle": [MockFunction],
-        "id": "asdf",
-        "serialize": [Function],
-        "setStyle": [MockFunction],
-      }
-    }
-    mock-note={true}
-  />
-</form>
-`;
-
-exports[`Card matches snapshot when focused 1`] = `
-.c0 {
-  position: absolute;
-  padding: 0.8rem;
-  border-radius: 0.4rem;
-  background: #f5f5f5;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
   left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
   right: unset;
@@ -86,12 +14,23 @@ exports[`Card matches snapshot when focused 1`] = `
 
 .c0::before {
   content: ' ';
+  border-radius: 0.4rem 0 0 0.4rem;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   width: 0.4rem;
   background-color: #fed200;
+}
+
+@media screen and (max-width:75em) {
+  .c0::before {
+    border-radius: 0.4rem 0.4rem 0 0;
+    right: 0;
+    bottom: unset;
+    width: unset;
+    height: 0.4rem;
+  }
 }
 
 @media (max-width:110.3125em) {
@@ -121,35 +60,120 @@ exports[`Card matches snapshot when focused 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    position: fixed;
+    padding: 0;
+  }
+}
+
+<div
+  blur={[Function]}
+  className="c0"
+  create={[Function]}
+  data={
+    Object {
+      "id": "asdf",
+      "style": "yellow",
+    }
+  }
+  hasQuery={false}
+  highlight={
+    Object {
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "serialize": [Function],
+      "setStyle": [MockFunction],
+    }
+  }
+  isFocused={true}
+  isOpen={null}
+  mock-edit={true}
+  onRemove={[Function]}
+  remove={[Function]}
+  save={[Function]}
+/>
+`;
+
+exports[`Card matches snapshot when passed data without note 1`] = `
+.c0 {
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 0px;
+  display: none;
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
     display: none;
   }
 }
 
-<form
+@media (max-width:103.75em) {
+  .c0 {
+    display: none;
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  blur={[Function]}
   className="c0"
->
-  <div
-    color="yellow"
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    highlight={
-      Object {
-        "elements": Array [
-          <span />,
-        ],
-        "focus": [MockFunction],
-        "getStyle": [MockFunction],
-        "id": "asdf",
-        "serialize": [Function],
-        "setStyle": [MockFunction],
-      }
+  create={[Function]}
+  data={
+    Object {
+      "id": "asdf",
     }
-    mock-note={true}
-  />
-</form>
+  }
+  hasQuery={true}
+  highlight={
+    Object {
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "serialize": [Function],
+      "setStyle": [MockFunction],
+    }
+  }
+  isFocused={false}
+  isOpen={false}
+  mock-edit={true}
+  onRemove={[Function]}
+  remove={[Function]}
+  save={[Function]}
+/>
 `;
 
 exports[`Card matches snapshot without data 1`] = `
@@ -157,7 +181,6 @@ exports[`Card matches snapshot without data 1`] = `
   position: absolute;
   padding: 0.8rem;
   border-radius: 0.4rem;
-  background: #f5f5f5;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
   left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
   right: unset;
@@ -192,28 +215,28 @@ exports[`Card matches snapshot without data 1`] = `
   }
 }
 
-<form
+<div
+  blur={[Function]}
   className="c0"
->
-  <div
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    highlight={
-      Object {
-        "elements": Array [
-          <span />,
-        ],
-        "focus": [MockFunction],
-        "getStyle": [MockFunction],
-        "id": "asdf",
-        "serialize": [Function],
-        "setStyle": [MockFunction],
-      }
+  create={[Function]}
+  hasQuery={false}
+  highlight={
+    Object {
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "serialize": [Function],
+      "setStyle": [MockFunction],
     }
-    mock-note={true}
-  />
-</form>
+  }
+  isFocused={false}
+  isOpen={null}
+  mock-edit={true}
+  onRemove={[Function]}
+  remove={[Function]}
+  save={[Function]}
+/>
 `;
