@@ -14,6 +14,25 @@ describe('Note', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('calls onChange', () => {
+    const onChange = jest.fn();
+    const component = renderer.create(<MessageProvider>
+      <Note note='' onChange={onChange} />
+    </MessageProvider>);
+
+    const textarea = component.root.findByType('textarea');
+
+    renderer.act(() => {
+      textarea.props.onChange({
+        target: {
+          value: 'asdf',
+        },
+      });
+    });
+
+    expect(onChange).toHaveBeenCalledWith('asdf');
+  });
+
   it('resizes on update when necessary', () => {
     const {node, root} = renderToDom(<MessageProvider>
       <Note note='' onChange={() => null} />
