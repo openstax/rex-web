@@ -11,12 +11,11 @@ import Confirmation from './Confirmation';
 import EditCard from './EditCard';
 import Note from './Note';
 
-jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation {...props} />);
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./Note', () => (props: any) => <div mock-note {...props} />);
 jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation {...props} />);
 
-describe('Card', () => {
+describe('EditCard', () => {
   const highlight = createMockHighlight('asdf');
   const highlightData = highlight.serialize().data;
 

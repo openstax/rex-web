@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card matches snapshot when editing 1`] = `
+exports[`EditCard matches snapshot when editing 1`] = `
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -120,7 +120,7 @@ exports[`Card matches snapshot when editing 1`] = `
 </form>
 `;
 
-exports[`Card matches snapshot when focused 1`] = `
+exports[`EditCard matches snapshot when focused 1`] = `
 .c0 {
   background: #f5f5f5;
 }
@@ -146,7 +146,7 @@ exports[`Card matches snapshot when focused 1`] = `
 </form>
 `;
 
-exports[`Card matches snapshot with data 1`] = `
+exports[`EditCard matches snapshot with data 1`] = `
 .c0 {
   background: #f5f5f5;
 }
@@ -171,7 +171,7 @@ exports[`Card matches snapshot with data 1`] = `
 </form>
 `;
 
-exports[`Card matches snapshot without data 1`] = `
+exports[`EditCard matches snapshot without data 1`] = `
 .c0 {
   background: #f5f5f5;
 }

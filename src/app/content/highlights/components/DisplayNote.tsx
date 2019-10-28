@@ -50,7 +50,11 @@ const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Pro
   return <div className={className}>
     <Dropdown toggle={<MenuIcon />}>
       <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
-      <DropdownItem message='i18n:highlighting:dropdown:delete' onClick={() => setConfirmingDelete(true)} />
+      <DropdownItem
+        message='i18n:highlighting:dropdown:delete'
+        data-testid='delete'
+        onClick={() => setConfirmingDelete(true)}
+      />
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
