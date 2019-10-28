@@ -7,11 +7,14 @@ import renderer from 'react-test-renderer';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertWindow } from '../../../utils';
+import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
+
+jest.mock('../../highlights/components/Card', () => (props: any) => <div mock-card {...props} />);
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();
 UntypedHighlighter.prototype.erase = jest.fn();
@@ -32,12 +35,10 @@ beforeEach(() => {
 describe('highlightManager', () => {
   let window: Window;
   let element: HTMLElement;
-  let getSelection: jest.SpyInstance;
   let prop: HighlightProp;
 
   beforeEach(() => {
     window = assertWindow();
-    getSelection = window.document.getSelection = jest.fn();
     element = window.document.createElement('div');
     prop = {
       clearFocus: jest.fn(),
@@ -167,20 +168,19 @@ describe('highlightManager', () => {
       expect(highlight).not.toBeCalled();
     });
 
-    it('highlights when there aren\'t any highlights in selection', () => {
+    it('shows create card when there aren\'t any highlights in selection', () => {
       const mockHighlight = createMockHighlight();
+      prop.enabled = true;
+      manager.update();
+      const component = renderer.create(React.createElement(manager.CardList));
 
-      Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-      expect(prop.create).toHaveBeenCalledWith(mockHighlight.serialize().data);
-    });
+      expect(component.root.findAllByType(Card).length).toEqual(0);
 
-    it('removes browser selection if there is one', () => {
-      const mockSelection = {removeAllRanges: jest.fn()};
+      renderer.act(() => {
+        Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
+      });
 
-      getSelection.mockReturnValue(mockSelection);
-
-      Highlighter.mock.calls[0][1].onSelect([], createMockHighlight());
-      expect(mockSelection.removeAllRanges).toBeCalled();
+      expect(component.root.findAllByType(Card).length).toEqual(1);
     });
   });
 
