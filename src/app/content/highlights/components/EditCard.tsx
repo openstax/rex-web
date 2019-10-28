@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
-import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, createHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
@@ -17,13 +17,13 @@ interface Props {
   create: typeof createHighlight;
   blur: typeof clearFocusedHighlight;
   save: typeof updateHighlight;
-  remove: typeof deleteHighlight;
+  onRemove: () => void;
   data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const EditCard = ({highlight, className, data, create, save, remove, blur}: Props) => {
+const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Props) => {
   const defaultNote = () => data && data.note ? data.note : '';
   const [pendingNote, setPendingNote] = React.useState<string>(defaultNote());
   const [editingNote, setEditing] = React.useState<boolean>(false);
@@ -37,8 +37,6 @@ const EditCard = ({highlight, className, data, create, save, remove, blur}: Prop
       create(highlight.serialize().data);
     }
   };
-
-  const onRemove = () => data && remove(data.id);
 
   const saveNote = () => {
     save({...(data || highlight.serialize().data), note: pendingNote});
@@ -66,22 +64,31 @@ const EditCard = ({highlight, className, data, create, save, remove, blur}: Prop
     }} />
     {editingNote && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
-        {(msg: Element | string) => <Button size='small' variant='primary' onClick={(e: React.FormEvent) => {
-          e.preventDefault();
-          setEditing(false);
+        {(msg: Element | string) => <Button
+          data-testid='save'
+          size='small'
+          variant='primary'
+          onClick={(e: React.FormEvent) => {
+            e.preventDefault();
+            setEditing(false);
 
-          if (pendingNote === '' && data && data.note) {
-            setConfirmingDelete(true);
-          } else {
-            saveNote();
-          }
-        }}>{msg}</Button>}
+            if (pendingNote === '' && data && data.note) {
+              setConfirmingDelete(true);
+            } else {
+              saveNote();
+            }
+          }}
+        >{msg}</Button>}
       </FormattedMessage>
       <FormattedMessage id='i18n:highlighting:button:cancel'>
-        {(msg: Element | string) => <Button size='small' onClick={(e: React.FormEvent) => {
-          e.preventDefault();
-          cancelEditing();
-        }}>{msg}</Button>}
+        {(msg: Element | string) => <Button
+          size='small'
+          data-testid='cancel'
+          onClick={(e: React.FormEvent) => {
+            e.preventDefault();
+            cancelEditing();
+          }}
+        >{msg}</Button>}
       </FormattedMessage>
     </ButtonGroup>}
     {confirmingDelete && <Confirmation
