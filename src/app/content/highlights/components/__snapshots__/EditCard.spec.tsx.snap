@@ -86,6 +86,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
 
 <form
   className="c0"
+  onClick={[Function]}
 >
   <div
     mock-color-picker={true}
@@ -131,6 +132,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
 
 <form
   className="c0"
+  onClick={[Function]}
 >
   <div
     color="yellow"
@@ -157,6 +159,7 @@ exports[`EditCard matches snapshot with data 1`] = `
 
 <form
   className="c0"
+  onClick={[Function]}
 >
   <div
     mock-color-picker={true}
@@ -182,6 +185,7 @@ exports[`EditCard matches snapshot without data 1`] = `
 
 <form
   className="c0"
+  onClick={[Function]}
 >
   <div
     mock-color-picker={true}

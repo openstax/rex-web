@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import defer from 'lodash/fp/defer';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -20,6 +21,7 @@ describe('EditCard', () => {
   const highlightData = highlight.serialize().data;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     highlight.elements = [assertDocument().createElement('span')];
   });
 
@@ -299,18 +301,23 @@ describe('EditCard', () => {
     expect(create).toHaveBeenCalledWith(highlightData);
   });
 
-  it('sets color and creates when you start typing a note on new highlight', () => {
+  it('sets color and creates when you click in the card', async() => {
     const create = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard highlight={highlight as unknown as Highlight} create={create} />
     </MessageProvider>);
 
-    const note = component.root.findByType(Note);
+    const card = component.root.findByType('form');
     renderer.act(() => {
-      note.props.onChange('asdf');
+      card.props.onClick();
     });
 
-    expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(create).toHaveBeenCalledWith(highlightData);
+    return new Promise((resolve) => {
+      defer(() => {
+        expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
+        expect(create).toHaveBeenCalledWith(highlightData);
+        resolve();
+      });
+    });
   });
 });
