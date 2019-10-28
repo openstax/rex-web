@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notifications matches snapshot 1`] = `
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -28,31 +28,31 @@ exports[`Notifications matches snapshot 1`] = `
   border: none;
 }
 
-.c7:hover {
+.c6:hover {
   background-color: #e96128;
 }
 
-.c7:active {
+.c6:active {
   background-color: #df571e;
 }
 
-.c6 {
+.c5 {
   display: grid;
   overflow: visible;
   grid-auto-flow: column;
   grid-gap: 1rem;
 }
 
-.c2 {
+.c1 {
   width: 100%;
 }
 
-.c2 .c5 {
+.c1 .c4 {
   padding: 1rem;
   margin: 0;
 }
 
-.c4 {
+.c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -61,18 +61,31 @@ exports[`Notifications matches snapshot 1`] = `
   padding: 1rem;
 }
 
-.c4 a {
+.c3 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c4 a:hover {
+.c3 a:hover {
   color: #0064A0;
 }
 
-.c1 {
+.c0 {
+  width: 30rem;
+  margin-left: calc(100% - 30rem);
+  overflow: visible;
+  position: -webkit-sticky;
+  position: sticky;
+  padding-top: 1px;
+  margin-top: 4px;
+  z-index: 10;
+  top: 0;
+  height: 0;
+}
+
+.c0 > div {
   margin: 0.5rem;
   background-color: #fff;
   border-style: solid;
@@ -92,12 +105,12 @@ exports[`Notifications matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c1 > .c5 {
+.c0 > div > .c4 {
   padding: 1rem;
   margin: 0;
 }
 
-.c3 {
+.c2 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -108,63 +121,27 @@ exports[`Notifications matches snapshot 1`] = `
   line-height: 4rem;
 }
 
-.c3 a {
+.c2 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3 a:hover {
+.c2 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  width: 30rem;
-  height: 0;
-  margin-left: calc(100% - 30rem);
-  top: 0;
-  overflow: visible;
-  position: -webkit-sticky;
-  position: sticky;
-  padding-top: 1px;
-  margin-top: -1px;
-}
-
 @media (max-width:75em) {
-  .c2 > .c5 {
+  .c1 > .c4 {
     display: block;
     padding: 1.6rem 0 0 0;
   }
 }
 
 @media (max-width:75em) {
-  .c4 {
-    padding: 0;
-  }
-}
-
-@media (max-width:75em) {
-  .c1 {
-    margin: 1.6rem;
-    box-shadow: none;
-    border: none;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    background-color: initial;
-  }
-
-  .c1 > .c5 {
-    padding: 0;
-  }
-}
-
-@media (max-width:75em) {
   .c3 {
     padding: 0;
-    line-height: 2rem;
-    background-color: initial;
   }
 }
 
@@ -175,40 +152,57 @@ exports[`Notifications matches snapshot 1`] = `
     margin: 0;
     height: auto;
     width: 100%;
+    padding: 1rem;
   }
 }
 
-@media print {
-  .c0 {
-    display: none;
+@media (max-width:75em) {
+  .c0 > div {
+    margin: 1.6rem;
+    box-shadow: none;
+    border: none;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    background-color: initial;
+  }
+
+  .c0 > div > .c4 {
+    padding: 0;
+  }
+}
+
+@media (max-width:75em) {
+  .c2 {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
   }
 }
 
 <div
   className="c0"
 >
-  <div
-    className="c1"
-  >
+  <div>
     <div
-      className="c2"
+      className="c1"
     >
       <div
-        className="c3"
+        className="c2"
       >
         Updates Available
       </div>
       <p
-        className="c4"
+        className="c3"
       >
         This page needs to be reloaded.
       </p>
     </div>
     <div
-      className="c5 c6"
+      className="c4 c5"
     >
       <button
-        className="c7"
+        className="c6"
         onClick={[Function]}
       >
         Reload
@@ -219,7 +213,7 @@ exports[`Notifications matches snapshot 1`] = `
 `;
 
 exports[`Notifications matches snapshot 2`] = `
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -246,31 +240,31 @@ exports[`Notifications matches snapshot 2`] = `
   border: none;
 }
 
-.c7:hover {
+.c6:hover {
   background-color: #e96128;
 }
 
-.c7:active {
+.c6:active {
   background-color: #df571e;
 }
 
-.c6 {
+.c5 {
   display: grid;
   overflow: visible;
   grid-auto-flow: column;
   grid-gap: 1rem;
 }
 
-.c2 {
+.c1 {
   width: 100%;
 }
 
-.c2 .c5 {
+.c1 .c4 {
   padding: 1rem;
   margin: 0;
 }
 
-.c4 {
+.c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -279,18 +273,31 @@ exports[`Notifications matches snapshot 2`] = `
   padding: 1rem;
 }
 
-.c4 a {
+.c3 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c4 a:hover {
+.c3 a:hover {
   color: #0064A0;
 }
 
-.c1 {
+.c0 {
+  width: 30rem;
+  margin-left: calc(100% - 30rem);
+  overflow: visible;
+  position: -webkit-sticky;
+  position: sticky;
+  padding-top: 1px;
+  margin-top: 4px;
+  z-index: 10;
+  top: 0;
+  height: 0;
+}
+
+.c0 > div {
   margin: 0.5rem;
   background-color: #fff;
   border-style: solid;
@@ -310,12 +317,12 @@ exports[`Notifications matches snapshot 2`] = `
   overflow: visible;
 }
 
-.c1 > .c5 {
+.c0 > div > .c4 {
   padding: 1rem;
   margin: 0;
 }
 
-.c3 {
+.c2 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -326,63 +333,27 @@ exports[`Notifications matches snapshot 2`] = `
   line-height: 4rem;
 }
 
-.c3 a {
+.c2 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3 a:hover {
+.c2 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  width: 30rem;
-  height: 0;
-  margin-left: calc(100% - 30rem);
-  top: 0;
-  overflow: visible;
-  position: -webkit-sticky;
-  position: sticky;
-  padding-top: 1px;
-  margin-top: -1px;
-}
-
 @media (max-width:75em) {
-  .c2 > .c5 {
+  .c1 > .c4 {
     display: block;
     padding: 1.6rem 0 0 0;
   }
 }
 
 @media (max-width:75em) {
-  .c4 {
-    padding: 0;
-  }
-}
-
-@media (max-width:75em) {
-  .c1 {
-    margin: 1.6rem;
-    box-shadow: none;
-    border: none;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    background-color: initial;
-  }
-
-  .c1 > .c5 {
-    padding: 0;
-  }
-}
-
-@media (max-width:75em) {
   .c3 {
     padding: 0;
-    line-height: 2rem;
-    background-color: initial;
   }
 }
 
@@ -393,31 +364,48 @@ exports[`Notifications matches snapshot 2`] = `
     margin: 0;
     height: auto;
     width: 100%;
+    padding: 1rem;
   }
 }
 
-@media print {
-  .c0 {
-    display: none;
+@media (max-width:75em) {
+  .c0 > div {
+    margin: 1.6rem;
+    box-shadow: none;
+    border: none;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    background-color: initial;
+  }
+
+  .c0 > div > .c4 {
+    padding: 0;
+  }
+}
+
+@media (max-width:75em) {
+  .c2 {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
   }
 }
 
 <div
   className="c0"
 >
-  <div
-    className="c1"
-  >
+  <div>
     <div
-      className="c2"
+      className="c1"
     >
       <div
-        className="c3"
+        className="c2"
       >
         Privacy and cookies
       </div>
       <p
-        className="c4"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "This site uses cookies to optimize your experience on our platform. By continuing to use this site you agree to use our cookies. If you'd like more information or would like to opt out please see our <a href=\\"/privacy-policy\\" target=\\"blank\\">Privacy Policy</a>",
@@ -425,10 +413,10 @@ exports[`Notifications matches snapshot 2`] = `
         }
       />
       <div
-        className="c5 c6"
+        className="c4 c5"
       >
         <button
-          className="c7"
+          className="c6"
           onClick={[Function]}
         >
           Got it!
@@ -440,7 +428,7 @@ exports[`Notifications matches snapshot 2`] = `
 `;
 
 exports[`Notifications matches snapshot 3`] = `
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -467,31 +455,31 @@ exports[`Notifications matches snapshot 3`] = `
   border: none;
 }
 
-.c7:hover {
+.c6:hover {
   background-color: #e96128;
 }
 
-.c7:active {
+.c6:active {
   background-color: #df571e;
 }
 
-.c6 {
+.c5 {
   display: grid;
   overflow: visible;
   grid-auto-flow: column;
   grid-gap: 1rem;
 }
 
-.c2 {
+.c1 {
   width: 100%;
 }
 
-.c2 .c5 {
+.c1 .c4 {
   padding: 1rem;
   margin: 0;
 }
 
-.c4 {
+.c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -500,18 +488,31 @@ exports[`Notifications matches snapshot 3`] = `
   padding: 1rem;
 }
 
-.c4 a {
+.c3 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c4 a:hover {
+.c3 a:hover {
   color: #0064A0;
 }
 
-.c1 {
+.c0 {
+  width: 30rem;
+  margin-left: calc(100% - 30rem);
+  overflow: visible;
+  position: -webkit-sticky;
+  position: sticky;
+  padding-top: 1px;
+  margin-top: 4px;
+  z-index: 10;
+  top: 0;
+  height: 0;
+}
+
+.c0 > div {
   margin: 0.5rem;
   background-color: #fff;
   border-style: solid;
@@ -531,12 +532,12 @@ exports[`Notifications matches snapshot 3`] = `
   overflow: visible;
 }
 
-.c1 > .c5 {
+.c0 > div > .c4 {
   padding: 1rem;
   margin: 0;
 }
 
-.c3 {
+.c2 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -547,44 +548,43 @@ exports[`Notifications matches snapshot 3`] = `
   line-height: 4rem;
 }
 
-.c3 a {
+.c2 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3 a:hover {
+.c2 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  width: 30rem;
-  height: 0;
-  margin-left: calc(100% - 30rem);
-  top: 0;
-  overflow: visible;
-  position: -webkit-sticky;
-  position: sticky;
-  padding-top: 1px;
-  margin-top: -1px;
-}
-
 @media (max-width:75em) {
-  .c2 > .c5 {
+  .c1 > .c4 {
     display: block;
     padding: 1.6rem 0 0 0;
   }
 }
 
 @media (max-width:75em) {
-  .c4 {
+  .c3 {
     padding: 0;
   }
 }
 
 @media (max-width:75em) {
-  .c1 {
+  .c0 {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+    background-color: #fafafa;
+    margin: 0;
+    height: auto;
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width:75em) {
+  .c0 > div {
     margin: 1.6rem;
     box-shadow: none;
     border: none;
@@ -594,51 +594,33 @@ exports[`Notifications matches snapshot 3`] = `
     background-color: initial;
   }
 
-  .c1 > .c5 {
+  .c0 > div > .c4 {
     padding: 0;
   }
 }
 
 @media (max-width:75em) {
-  .c3 {
+  .c2 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
   }
 }
 
-@media (max-width:75em) {
-  .c0 {
-    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-    background-color: #fafafa;
-    margin: 0;
-    height: auto;
-    width: 100%;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
   className="c0"
 >
-  <div
-    className="c1"
-  >
+  <div>
     <div
-      className="c2"
+      className="c1"
     >
       <div
-        className="c3"
+        className="c2"
       >
         Notification
       </div>
       <p
-        className="c4"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "asdf",
@@ -647,10 +629,10 @@ exports[`Notifications matches snapshot 3`] = `
       />
     </div>
     <div
-      className="c5 c6"
+      className="c4 c5"
     >
       <button
-        className="c7"
+        className="c6"
         onClick={[Function]}
       >
         OK
@@ -660,36 +642,4 @@ exports[`Notifications matches snapshot 3`] = `
 </div>
 `;
 
-exports[`Notifications matches snapshot for unknown notification 1`] = `
-.c0 {
-  width: 30rem;
-  height: 0;
-  margin-left: calc(100% - 30rem);
-  top: 0;
-  overflow: visible;
-  position: -webkit-sticky;
-  position: sticky;
-  padding-top: 1px;
-  margin-top: -1px;
-}
-
-@media (max-width:75em) {
-  .c0 {
-    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-    background-color: #fafafa;
-    margin: 0;
-    height: auto;
-    width: 100%;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-<div
-  className="c0"
-/>
-`;
+exports[`Notifications matches snapshot for unknown notification 1`] = `null`;

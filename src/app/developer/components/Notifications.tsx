@@ -12,10 +12,11 @@ interface Props {
   updateAvailable: () => void;
   error: (error: Error) => void;
   sendMessages: () => void;
+  acceptCookies: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications = ({updateAvailable, error, sendMessages}: Props) => {
+const Notifications = ({updateAvailable, error, sendMessages, acceptCookies}: Props) => {
   const [showError, setError] = useState(false);
 
   if (showError) {
@@ -24,6 +25,9 @@ const Notifications = ({updateAvailable, error, sendMessages}: Props) => {
 
   return <Panel title='Notifications'>
     <ButtonGroup expand={false}>
+
+      <Button onClick={acceptCookies} >accept cookies</Button>
+
       <Button onClick={updateAvailable} data-testid='trigger-updates-available'>update available</Button>
       <Button onClick={sendMessages} data-testid='trigger-messages'>app messages</Button>
       <Button onClick={() => setError(true)} data-testid='trigger-inline-error'>inline error</Button>
@@ -37,6 +41,7 @@ const Notifications = ({updateAvailable, error, sendMessages}: Props) => {
 export default connect<{}, React.ComponentProps<typeof Notifications>>(
   () => ({}),
   (dispatch: Dispatch): Props => ({
+    acceptCookies: flow(notifications.acceptCookies, dispatch),
     error: flow(recordError, dispatch),
     sendMessages: () => dispatch(notifications.receiveMessages(demoAppMessages)),
     updateAvailable: flow(notifications.updateAvailable, dispatch),

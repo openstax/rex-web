@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button, { ButtonGroup } from '../../components/Button';
 import { Body, Group, Header, P } from './Card';
@@ -9,8 +9,8 @@ const reload = () => {
   }
 };
 
-// tslint:disable-next-line:variable-name
-const UpdatesAvailable: SFC = () => <Body>
+  // tslint:disable-next-line:variable-name
+const UpdatesAvailable = ({className}: {className?: string}) => <Body className={className}>
   <Group>
     <FormattedMessage id='i18n:notification:update:header'>
       {(txt) => (<Header>{txt}</Header>)}

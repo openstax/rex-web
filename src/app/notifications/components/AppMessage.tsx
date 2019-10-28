@@ -9,7 +9,8 @@ import { AppMessageNotification } from '../types';
 import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
-const AppMessage = ({dismiss, notification}: {dismiss: () => void, notification: AppMessageNotification}) => <Body>
+const AppMessage = ({dismiss, notification, className}:
+  {dismiss: () => void, notification: AppMessageNotification, className?: string}) => <Body className={className}>
   <Group>
     <FormattedMessage id='i18n:notification:appmessage:header'>
       {(txt) => <Header>{txt}</Header>}
