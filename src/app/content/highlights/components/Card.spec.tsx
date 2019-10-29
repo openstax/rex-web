@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -31,6 +32,21 @@ describe('Card', () => {
   });
 
   it('matches snapshot when focused without note', () => {
+    highlight.range.getBoundingClientRect.mockReturnValue({
+      bottom: 200,
+      top: 100,
+    });
+    highlight.range.commonAncestorContainer = {
+      nodeName: 'div',
+      nodeType: 1,
+      offsetParent: {
+        nodeName: 'div',
+        nodeType: 1,
+        offsetTop: 50,
+        title: '',
+      },
+      title: '',
+    } as unknown as HTMLElement;
     store.dispatch(receiveHighlights([
       {
         style: highlightStyles[0].label,

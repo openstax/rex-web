@@ -66,7 +66,7 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
 export const findElementSelfOrParent = (node: Node) => {
   if (isHtmlElement(node)) {
     return node;
-  } else if (node.parentElement) {
+  } else if (node && node.parentElement) {
     return node.parentElement;
   }
 };
