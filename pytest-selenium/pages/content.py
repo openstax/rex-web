@@ -4,6 +4,8 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
 
+from selenium.webdriver.common.keys import Keys
+
 import random
 
 from pages.base import Page
@@ -147,29 +149,41 @@ class Content(Page):
 
         @property
         def user_is_not_logged_in(self):
-            return bool(self.login)
+            return expected.visibility_of_element_located(self._login_locator)
+            # return bool(self.find_element(*self._login_locator))
 
         @property
         def user_is_logged_in(self):
             return bool(self.find_element(*self._user_nav_toggle_locator))
 
         @property
-        def account_profile(self):
-            return self.find_element(*self._account_profile_locator)
+        def account_profile_is_displayed(self):
+            return expected.visibility_of_element_located(self._account_profile_locator)
+
+        @property
+        def logout_is_displayed(self):
+            return expected.visibility_of_element_located(self._logout_locator)
 
         @property
         def logout(self):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
-            self.login.click()
+            self.wait.until(expected.visibility_of_element_located((self._login_locator)))
+
+            self.login.send_keys(Keys.ENTER)
+
+        def click_logout(self):
+            # self.wait.until(
+            #     expected.visibility_of_element_located((self._logout_locator)))
+            self.logout.send_keys(Keys.ENTER)
 
         def hover_over_user_name(self):
             actionChains = ActionChains(self.driver)
             actionChains.move_to_element(self.user_nav).perform()
 
         def click_user_name(self):
-            self.user_nav.click()
+            self.user_nav.send_keys(Keys.ENTER)
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
