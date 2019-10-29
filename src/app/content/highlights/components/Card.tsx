@@ -8,6 +8,7 @@ import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
+import { disablePrint } from '../../components/utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
@@ -136,6 +137,7 @@ const StyledCard = styled(Card)`
   padding: ${cardPadding}rem;
   ${cardBorder}
   ${rightSideDisplay}
+  ${disablePrint}
 
   ${(props: {data: HighlightData}) => {
     const data = props.data;
