@@ -90,12 +90,17 @@ exports[`Card matches snapshot when focused without note 1`] = `
       "id": "asdf",
       "range": Object {
         "commonAncestorContainer": Object {
-          "nodeName": "div",
-          "nodeType": 1,
-          "offsetParent": Object {
+          "nodeName": "text",
+          "nodeType": 3,
+          "parentElement": Object {
             "nodeName": "div",
             "nodeType": 1,
-            "offsetTop": 50,
+            "offsetParent": Object {
+              "nodeName": "div",
+              "nodeType": 1,
+              "offsetTop": 50,
+              "title": "",
+            },
             "title": "",
           },
           "title": "",

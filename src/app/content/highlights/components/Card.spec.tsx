@@ -37,12 +37,17 @@ describe('Card', () => {
       top: 100,
     });
     highlight.range.commonAncestorContainer = {
-      nodeName: 'div',
-      nodeType: 1,
-      offsetParent: {
+      nodeName: 'text',
+      nodeType: 3,
+      parentElement: {
         nodeName: 'div',
         nodeType: 1,
-        offsetTop: 50,
+        offsetParent: {
+          nodeName: 'div',
+          nodeType: 1,
+          offsetTop: 50,
+          title: '',
+        },
         title: '',
       },
       title: '',
