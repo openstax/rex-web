@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
@@ -38,6 +39,14 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
     }
   };
 
+  // this is deferred so that a click on a color button
+  // will have processed onColorChange before this handler
+  const onClick = () => defer(() => {
+    if (!highlight.getStyle()) {
+      onColorChange(highlightStyles[0].label);
+    }
+  });
+
   const saveNote = () => {
     save({...(data || highlight.serialize().data), note: pendingNote});
     blur();
@@ -49,16 +58,13 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
     blur();
   };
 
-  return <form className={className}>
+  return <form className={className} onClick={onClick}>
     <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={() => {
       if ((!data || !data.note) && !pendingNote) {
         onRemove();
       }
     }} />
     <Note note={pendingNote} onChange={(newValue) => {
-      if (!data) {
-        onColorChange(highlightStyles[0].label);
-      }
       setPendingNote(newValue);
       setEditing(true);
     }} />
