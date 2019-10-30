@@ -9,7 +9,10 @@ export function bookDetailsUrl(book: Book) {
   return `/details/books/${book.slug}`;
 }
 
-export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'shortId' | 'title'>) => {
+export const getBookPageUrlAndParams = (
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'slug' | 'version'>,
+  page: Pick<Page, 'id' | 'shortId' | 'title'>
+) => {
   const params: Params = {
     book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
