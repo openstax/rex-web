@@ -168,7 +168,11 @@ class Content(Page):
 
         @property
         def account_profile_is_displayed(self):
-            return expected.visibility_of_element_located(self._account_profile_locator)
+            try:
+                if self.find_element(*self._account_profile_locator).is_displayed():
+                    return True
+            except NoSuchElementException:
+                return False
 
         @property
         def logout_is_displayed(self):
@@ -184,10 +188,6 @@ class Content(Page):
 
         def click_logout(self):
             Utilities.click_option(self.driver, element=self.logout)
-
-        def hover_over_user_name(self):
-            actionChains = ActionChains(self.driver)
-            actionChains.move_to_element(self.user_nav).perform()
 
         def click_user_name(self):
             self.wait.until(expected.visibility_of_element_located((self._user_nav_locator)))
