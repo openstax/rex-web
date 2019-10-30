@@ -1,4 +1,4 @@
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
@@ -146,18 +146,25 @@ class Content(Page):
 
         @property
         def login(self):
-            self.wait.until(expected.visibility_of_element_located(self._login_locator))
             return self.find_element(*self._login_locator)
 
         @property
         def user_is_not_logged_in(self):
-            self.wait.until(expected.visibility_of_element_located(self._login_locator))
-            return bool(self.find_element(*self._login_locator))
+            try:
+                self.wait.until(expected.visibility_of_element_located(self._login_locator))
+                return bool(self.find_element(*self._login_locator))
+            except TimeoutException:
+                return bool([])
 
         @property
         def user_is_logged_in(self):
-            self.wait.until(expected.visibility_of_element_located(self._user_nav_toggle_locator))
-            return bool(self.find_element(*self._user_nav_toggle_locator))
+            try:
+                self.wait.until(
+                    expected.visibility_of_element_located(self._user_nav_toggle_locator)
+                )
+                return bool(self.find_element(*self._user_nav_toggle_locator))
+            except TimeoutException:
+                return bool([])
 
         @property
         def account_profile_is_displayed(self):
@@ -172,6 +179,7 @@ class Content(Page):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
+            self.wait.until(expected.visibility_of_element_located(self._login_locator))
             Utilities.click_option(self.driver, element=self.login)
 
         def click_logout(self):
