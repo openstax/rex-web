@@ -1,6 +1,7 @@
+import { BOOKS } from '../../../config';
 import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
-import { Book, Page } from '../types';
+import { Book, Page, Params } from '../types';
 import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
@@ -9,7 +10,7 @@ export function bookDetailsUrl(book: Book) {
 }
 
 export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'shortId' | 'title'>) => {
-  const params = {
+  const params: Params = {
     book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
   };
@@ -18,6 +19,10 @@ export const getBookPageUrlAndParams = (book: Book, page: Pick<Page, 'id' | 'sho
     bookVersion: book.version,
     pageUid: stripIdVersion(page.id),
   };
+
+  if (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion) {
+    params.version = book.version;
+  }
 
   return {params, state, url: contentRoute.getUrl(params)};
 };

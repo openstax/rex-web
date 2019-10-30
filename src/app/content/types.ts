@@ -6,6 +6,7 @@ import { State as SearchState } from './search/types';
 export interface Params {
   book: string;
   page: string;
+  version?: string;
 }
 
 export interface State {
