@@ -23,6 +23,12 @@ exports[`Card matches snapshot when focused without note 1`] = `
   background-color: #fed200;
 }
 
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 @media screen and (max-width:75em) {
   .c0::before {
     border-radius: 0.4rem 0.4rem 0 0;
@@ -177,6 +183,12 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   display: none;
 }
 
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 @media (max-width:110.3125em) {
   .c0 {
     left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
@@ -254,6 +266,12 @@ exports[`Card matches snapshot without data 1`] = `
   right: unset;
   top: 0px;
   display: none;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
 }
 
 @media (max-width:110.3125em) {
