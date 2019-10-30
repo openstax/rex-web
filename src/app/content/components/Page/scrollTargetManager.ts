@@ -36,7 +36,7 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const getScrollTarget = (container: HTMLElement | null, hash: string): Element | null => {
+const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {
   return container && typeof(window) !== 'undefined' && hash
     ? container.querySelector(`[id="${hash.replace(/^#/, '')}"]`)
     : null;

@@ -1,4 +1,4 @@
-import { HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Element, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { isHtmlElement } from './guards';
 import { assertDocument, assertWindow } from './utils';
@@ -78,7 +78,7 @@ const getScrollPadding = () => {
   return parseFloat(padding) || 0;
 };
 
-export const scrollTo = (elem: Element | string) => {
+export const scrollTo = (elem: HTMLElement | Element | string) => {
   return scrollToElement(elem, {offset: getScrollPadding()});
 };
 
@@ -93,4 +93,15 @@ export const scrollIntoView = (elem: HTMLElement) => {
   } else if (above) {
     scrollTo(elem);
   }
+};
+
+export const elementDescendantOf = (element: Element, ancestor: Element): boolean => {
+  if (element === ancestor) {
+    return true;
+  }
+  if (!element.parentNode || !(element.parentNode instanceof assertWindow().Element)) {
+    return false;
+  }
+
+  return elementDescendantOf(element.parentNode, ancestor);
 };

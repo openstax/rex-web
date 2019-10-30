@@ -35,7 +35,7 @@ const scrollToSearch = ({container, searchResultMap}: Services, selected: Select
   if (firstSelectedHighlight) {
     firstSelectedHighlight.focus();
     allImagesLoaded(container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0])
+      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
   }
 };
