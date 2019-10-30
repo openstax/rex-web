@@ -4,7 +4,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { findElementSelfOrParent } from '../../../domUtils';
+import { findElementSelfOrParent, scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, remsToEms } from '../../../utils';
@@ -41,9 +41,13 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const Card = (props: Props) => {
   const note = props.data && props.data.note;
+  const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!note);
 
   React.useEffect(() => {
+    if (element.current && props.isFocused) {
+      scrollIntoView(element.current);
+    }
     if (!props.isFocused) {
       setEditing(false);
     }
@@ -56,15 +60,26 @@ const Card = (props: Props) => {
   const onRemove = () => props.data && props.remove(props.data.id);
   const style = highlightStyles.find((search) => props.data && search.label === props.data.style);
 
+  const commonProps = {
+    className: props.className,
+    isFocused: props.isFocused,
+    onBlur: props.blur,
+    onRemove,
+    ref: element,
+  };
+
   return !editing && style && note ? <DisplayNote
-    isFocused={props.isFocused}
-    className={props.className}
+    {...commonProps}
     style={style}
     note={note}
     onEdit={() => setEditing(true)}
-    onBlur={props.blur}
-    onRemove={onRemove}
-  /> : <EditCard {...props} onRemove={onRemove} />;
+  /> : <EditCard
+    {...commonProps}
+    highlight={props.highlight}
+    onCreate={props.create}
+    onSave={props.save}
+    data={props.data}
+  />;
 };
 
 /*

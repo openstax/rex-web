@@ -43,10 +43,13 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Props) => {
+const DisplayNote = React.forwardRef<HTMLElement, Props>((
+  {note, isFocused, onBlur, onEdit, onRemove, className}: Props,
+  ref
+) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
 
-  return <div className={className}>
+  return <div className={className} ref={ref}>
     <Dropdown toggle={<MenuIcon />}>
       <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
       <DropdownItem
@@ -65,7 +68,7 @@ const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Pro
       onCancel={() => setConfirmingDelete(false)}
     />}
   </div>;
-};
+});
 
 export default styled(DisplayNote)`
   width: ${cardWidth}rem;

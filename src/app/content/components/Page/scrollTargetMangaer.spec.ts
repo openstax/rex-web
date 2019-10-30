@@ -1,13 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { page } from '../../../../test/mocks/archiveLoader';
+import { scrollTo } from '../../../domUtils';
 import { assertWindow } from '../../../utils';
-import { scrollTo } from '../../../utils';
 import scrollTargetManager from './scrollTargetManager';
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
-jest.mock('../../../utils', () => ({
+jest.mock('../../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
-  ...(jest as any).requireActual('../../../utils'),
+  ...(jest as any).requireActual('../../../domUtils'),
   scrollTo: jest.fn(),
 }));
 

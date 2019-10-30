@@ -15,16 +15,18 @@ import Note from './Note';
 interface Props {
   isFocused: boolean;
   highlight: Highlight;
-  create: typeof createHighlight;
-  blur: typeof clearFocusedHighlight;
-  save: typeof updateHighlight;
+  onCreate: typeof createHighlight;
+  onBlur: typeof clearFocusedHighlight;
+  onSave: typeof updateHighlight;
   onRemove: () => void;
   data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Props) => {
+const EditCard = React.forwardRef<HTMLElement, Props>((
+  {highlight, className, data, onCreate, onSave, onRemove, onBlur}: Props, ref
+) => {
   const defaultNote = () => data && data.note ? data.note : '';
   const [pendingNote, setPendingNote] = React.useState<string>(defaultNote());
   const [editingNote, setEditing] = React.useState<boolean>(false);
@@ -33,9 +35,9 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
   const onColorChange = (style: string) => {
     highlight.setStyle(style);
     if (data) {
-      save({...data, style});
+      onSave({...data, style});
     } else {
-      create(highlight.serialize().data);
+      onCreate(highlight.serialize().data);
     }
   };
 
@@ -48,17 +50,17 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
   });
 
   const saveNote = () => {
-    save({...(data || highlight.serialize().data), note: pendingNote});
-    blur();
+    onSave({...(data || highlight.serialize().data), note: pendingNote});
+    onBlur();
   };
 
   const cancelEditing = () => {
     setPendingNote(defaultNote());
     setEditing(false);
-    blur();
+    onBlur();
   };
 
-  return <form className={className} onClick={onClick}>
+  return <form className={className} onClick={onClick} ref={ref}>
     <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={() => {
       if ((!data || !data.note) && !pendingNote) {
         onRemove();
@@ -108,7 +110,7 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
       always={() => setConfirmingDelete(false)}
     />}
   </form>;
-};
+});
 
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};

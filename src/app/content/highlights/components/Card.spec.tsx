@@ -14,8 +14,12 @@ import Card from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 
-jest.mock('./DisplayNote', () => (props: any) => <div mock-display-note {...props} />);
-jest.mock('./EditCard', () => (props: any) => <div mock-edit {...props} />);
+jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
+  (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
+));
+jest.mock('./EditCard', () => (jest as any).requireActual('react').forwardRef(
+  (props: any, ref: any) => <div ref={ref} mock-edit {...props} />
+));
 
 describe('Card', () => {
   let store: Store;
