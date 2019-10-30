@@ -4,6 +4,12 @@ exports[`TruncatedText matches snapshot 1`] = `
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
   font-size: 1.4rem;
   line-height: 1.8rem;
   margin: 0;
@@ -36,6 +42,12 @@ exports[`TruncatedText matches snapshot when focused 1`] = `
 .c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
   font-size: 1.4rem;
   line-height: 1.8rem;
   margin: 0;
