@@ -88,8 +88,6 @@ export const scrollIntoView = (elem: HTMLElement) => {
   const below = bottom > window.innerHeight;
   const above = top < Math.abs(getScrollPadding());
 
-  console.log(above, top, getScrollPadding());
-
   if (below) {
     scrollToElement(elem, {align: 'middle'});
   } else if (above) {

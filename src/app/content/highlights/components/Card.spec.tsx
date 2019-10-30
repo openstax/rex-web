@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { requestSearch } from '../../search/actions';
@@ -91,6 +92,24 @@ describe('Card', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('scrolls to card when focused', () => {
+    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    scrollIntoView.mockImplementation(() => null);
+    const createNodeMock = () => ({});
+
+    store.dispatch(receiveHighlights([highlightData]));
+
+    renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>, {createNodeMock});
+
+    renderer.act(() => {
+      store.dispatch(focusHighlight(highlight.id));
+    });
+
+    expect(scrollIntoView).toHaveBeenCalled();
   });
 
   it('unknown style doesn\'t throw', () => {
