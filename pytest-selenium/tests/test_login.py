@@ -52,7 +52,7 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
     if content.is_desktop:
         # user_nav.hover_over_user_name()
         user_nav.click_user_name()
-        sleep(4)
+
         user_nav.click_logout()
 
     # THEN: The user is logged out

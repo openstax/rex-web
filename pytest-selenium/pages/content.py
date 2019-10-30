@@ -11,6 +11,7 @@ import random
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
+from utils.utility import Utilities
 
 
 class Content(Page):
@@ -169,21 +170,25 @@ class Content(Page):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
-            self.wait.until(expected.visibility_of_element_located((self._login_locator)))
-
-            self.login.send_keys(Keys.ENTER)
+            # # self.wait.until(expected.visibility_of_element_located((self._login_locator)))
+            #
+            # # self.login.send_keys(Keys.ENTER)
+            # self.driver.execute_script('arguments[0].click()', self.login)
+            Utilities.click_option(self.driver, element=self.login)
 
         def click_logout(self):
             # self.wait.until(
             #     expected.visibility_of_element_located((self._logout_locator)))
-            self.logout.send_keys(Keys.ENTER)
+            # self.logout.send_keys(Keys.ENTER)
+            Utilities.click_option(self.driver, element=self.logout)
 
         def hover_over_user_name(self):
             actionChains = ActionChains(self.driver)
             actionChains.move_to_element(self.user_nav).perform()
 
         def click_user_name(self):
-            self.user_nav.send_keys(Keys.ENTER)
+            self.wait.until(expected.visibility_of_element_located((self._user_nav_locator)))
+            Utilities.click_option(self.driver, element=self.user_nav)
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
