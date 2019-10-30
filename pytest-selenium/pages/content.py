@@ -130,9 +130,9 @@ class Content(Page):
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
-        _user_nav_locator = (By.CSS_SELECTOR, '[data-testid="user-nav"]')
+        _user_nav_locator = (By.CSS_SELECTOR, "[data-testid='user-nav']")
         _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
-        _user_nav_toggle_locator = (By.CSS_SELECTOR, '[data-testid="user-nav-toggle"]')
+        _user_nav_toggle_locator = (By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
         _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
         _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
 
@@ -146,6 +146,7 @@ class Content(Page):
 
         @property
         def login(self):
+            self.wait.until(expected.visibility_of_element_located(self._login_locator))
             return self.find_element(*self._login_locator)
 
         @property
