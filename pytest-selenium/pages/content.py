@@ -150,11 +150,12 @@ class Content(Page):
 
         @property
         def user_is_not_logged_in(self):
-            return expected.visibility_of_element_located(self._login_locator)
-            # return bool(self.find_element(*self._login_locator))
+            self.wait.until(expected.visibility_of_element_located(self._login_locator))
+            return bool(self.find_element(*self._login_locator))
 
         @property
         def user_is_logged_in(self):
+            self.wait.until(expected.visibility_of_element_located(self._user_nav_toggle_locator))
             return bool(self.find_element(*self._user_nav_toggle_locator))
 
         @property
@@ -170,16 +171,9 @@ class Content(Page):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
-            # # self.wait.until(expected.visibility_of_element_located((self._login_locator)))
-            #
-            # # self.login.send_keys(Keys.ENTER)
-            # self.driver.execute_script('arguments[0].click()', self.login)
             Utilities.click_option(self.driver, element=self.login)
 
         def click_logout(self):
-            # self.wait.until(
-            #     expected.visibility_of_element_located((self._logout_locator)))
-            # self.logout.send_keys(Keys.ENTER)
             Utilities.click_option(self.driver, element=self.logout)
 
         def hover_over_user_name(self):
