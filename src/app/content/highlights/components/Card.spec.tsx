@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -19,16 +20,38 @@ jest.mock('./EditCard', () => (props: any) => <div mock-edit {...props} />);
 describe('Card', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  const highlight = createMockHighlight('asdf');
-  const highlightData = highlight.serialize().data;
+  let highlight: ReturnType<typeof createMockHighlight>;
+  let highlightData: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
 
   beforeEach(() => {
     store = createTestStore();
+    highlight = createMockHighlight('asdf');
+    highlightData = highlight.serialize().data;
     dispatch = jest.spyOn(store, 'dispatch');
     highlight.elements = [assertDocument().createElement('span')];
   });
 
   it('matches snapshot when focused without note', () => {
+    highlight.range.getBoundingClientRect.mockReturnValue({
+      bottom: 200,
+      top: 100,
+    });
+    highlight.range.commonAncestorContainer = {
+      nodeName: 'text',
+      nodeType: 3,
+      parentElement: {
+        nodeName: 'div',
+        nodeType: 1,
+        offsetParent: {
+          nodeName: 'div',
+          nodeType: 1,
+          offsetTop: 50,
+          title: '',
+        },
+        title: '',
+      },
+      title: '',
+    } as unknown as HTMLElement;
     store.dispatch(receiveHighlights([
       {
         style: highlightStyles[0].label,
@@ -131,18 +154,18 @@ describe('Card', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  it('renders null if highlight doen\'t have elements', () => {
-    highlight.elements = [];
+  it('renders null if highlight doen\'t have range', () => {
+    (highlight as any).range = undefined;
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
 
-    expect(() => component.root.findByType(Card)).toThrow();
+    expect(() => component.root.findByType(EditCard)).toThrow();
   });
 
-  it('renders null if highlight doen\'t have elements and its focused', () => {
-    highlight.elements = [];
+  it('renders null if highlight doen\'t have range and its focused', () => {
+    (highlight as any).range = undefined;
     store.dispatch(receiveHighlights([
       {
         style: highlightStyles[0].label,
@@ -155,6 +178,6 @@ describe('Card', () => {
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
 
-    expect(() => component.root.findByType(Card)).toThrow();
+    expect(() => component.root.findByType(EditCard)).toThrow();
   });
 });
