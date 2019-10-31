@@ -11,6 +11,7 @@ import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import EditCard from './EditCard';
 import Note from './Note';
+import * as onClickOutsideModule from './utils/onClickOutside';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./Note', () => (props: any) => <div mock-note {...props} />);
@@ -339,5 +340,43 @@ describe('EditCard', () => {
         resolve();
       });
     });
+  });
+
+  it('blurs when clicking outside', () => {
+    const onBlur = jest.fn();
+
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur}/>
+    </MessageProvider>);
+
+    onClickOutside.mock.calls[0][2]();
+
+    expect(component).toBeTruthy();
+    expect(onClickOutside.mock.calls.length).toBe(1);
+    expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('doesn\'t blurs when clicking outside and editing', () => {
+    const onBlur = jest.fn();
+
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur} data={highlightData} />
+    </MessageProvider>);
+
+    const note = component.root.findByType(Note);
+    renderer.act(() => {
+      note.props.onChange('asdf');
+    });
+
+    onClickOutside.mock.calls[1][2]();
+
+    expect(onClickOutside.mock.calls.length).toBe(2);
+    expect(onBlur).not.toHaveBeenCalled();
   });
 });
