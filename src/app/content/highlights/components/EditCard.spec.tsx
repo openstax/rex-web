@@ -359,7 +359,7 @@ describe('EditCard', () => {
     expect(onBlur).toHaveBeenCalled();
   });
 
-  it('doesn\'t blurs when clicking outside and editing', () => {
+  it('doesn\'t blur when clicking outside and editing', () => {
     const onBlur = jest.fn();
 
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');

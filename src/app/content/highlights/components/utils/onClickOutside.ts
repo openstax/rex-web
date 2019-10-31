@@ -5,7 +5,7 @@ import { assertDocument, assertWindow } from '../../../../utils';
 
 const onClickOutside = (element: React.RefObject<HTMLElement>, isFocused: boolean, cb: () => void) => () => {
   if (typeof document === 'undefined') {
-    return;
+    return () => null;
   }
 
   const ifOutside = (e: MouseEvent) => {
