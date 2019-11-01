@@ -361,6 +361,7 @@ Array [
               Content
             </h3>
             path: 
+            /books/:book([^@/]+)@:version/pages/:page
             /books/:book/pages/:page
           </div>
           <div>

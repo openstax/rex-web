@@ -5,6 +5,7 @@ import { SelectedResult } from './search/types';
 import { Params } from './types';
 
 const CONTENT_PATH = '/books/:book/pages/:page';
+const VERSIONED_CONTENT_PATH = '/books/:book([^@/]+)@:version/pages/:page';
 
 interface State {
   bookUid: string;
@@ -19,7 +20,9 @@ export const content: Route<Params, State> = {
     loading: () => null,
     modules: ['Content'],
   }),
-  getUrl: (params: Params): string => pathToRegexp.compile(CONTENT_PATH)(params),
+  getUrl: (params: Params): string => params.version
+    ? pathToRegexp.compile(VERSIONED_CONTENT_PATH)(params)
+    : pathToRegexp.compile(CONTENT_PATH)(params),
   name: 'Content',
-  paths: [CONTENT_PATH],
+  paths: [VERSIONED_CONTENT_PATH, CONTENT_PATH],
 };

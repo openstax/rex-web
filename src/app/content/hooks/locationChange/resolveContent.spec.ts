@@ -1,6 +1,6 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { book } from '../../../../test/mocks/archiveLoader';
+import { book, page } from '../../../../test/mocks/archiveLoader';
 import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
@@ -76,5 +76,33 @@ describe('locationChange', () => {
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
 
     expect(helpers.archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses param version if there is one', async() => {
+    match.params.version = 'asdf';
+    helpers.archiveLoader.mockBook({
+      ...book,
+      version: 'asdf',
+    });
+    helpers.archiveLoader.mockPage({
+      ...book,
+      version: 'asdf',
+    }, page, 'test-page-1');
+    await hook(helpers, match);
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', 'asdf');
+  });
+
+  it('uses latest version if requested', async() => {
+    match.params.version = 'latest';
+    helpers.archiveLoader.mockBook({
+      ...book,
+      version: undefined as any as string,
+    });
+    helpers.archiveLoader.mockPage({
+      ...book,
+      version: undefined as any as string,
+    }, page, 'test-page-1');
+    await hook(helpers, match);
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', undefined);
   });
 });

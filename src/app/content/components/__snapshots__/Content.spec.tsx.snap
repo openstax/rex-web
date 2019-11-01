@@ -603,6 +603,26 @@ Array [
   color: #0064A0;
 }
 
+.c59 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c59 .highlight.green {
+  background-color: #def99f;
+}
+
+.c59 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c59 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c59 .highlight.red {
+  background-color: #ffc5e1;
+}
+
 .c59 .os-figure,
 .c59 .os-figure:last-child {
   margin-bottom: 5px;
@@ -1523,48 +1543,38 @@ li[aria-label="Current Page"] .c40 {
 }
 
 @media screen {
-  .c59 .highlight.yellow {
-    background-color: #ffff8a;
-  }
-
   .c59 .highlight.yellow.focus {
     background-color: #fed200;
   }
+}
 
-  .c59 .highlight.green {
-    background-color: #def99f;
-  }
-
+@media screen {
   .c59 .highlight.green.focus {
     background-color: #92d101;
   }
+}
 
-  .c59 .highlight.blue {
-    background-color: #c8f5ff;
-  }
-
+@media screen {
   .c59 .highlight.blue.focus {
     background-color: #00c3ed;
   }
+}
 
-  .c59 .highlight.purple {
-    background-color: #cbcfff;
-  }
-
+@media screen {
   .c59 .highlight.purple.focus {
     background-color: #545ec8;
     color: #fff;
   }
+}
 
-  .c59 .highlight.red {
-    background-color: #ffc5e1;
-  }
-
+@media screen {
   .c59 .highlight.red.focus {
     background-color: #de017e;
     color: #fff;
   }
+}
 
+@media screen {
   .c59 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
@@ -3884,6 +3894,26 @@ Array [
   color: #0064A0;
 }
 
+.c33 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c33 .highlight.green {
+  background-color: #def99f;
+}
+
+.c33 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c33 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c33 .highlight.red {
+  background-color: #ffc5e1;
+}
+
 .c33 .os-figure,
 .c33 .os-figure:last-child {
   margin-bottom: 5px;
@@ -4389,48 +4419,38 @@ Array [
 }
 
 @media screen {
-  .c33 .highlight.yellow {
-    background-color: #ffff8a;
-  }
-
   .c33 .highlight.yellow.focus {
     background-color: #fed200;
   }
+}
 
-  .c33 .highlight.green {
-    background-color: #def99f;
-  }
-
+@media screen {
   .c33 .highlight.green.focus {
     background-color: #92d101;
   }
+}
 
-  .c33 .highlight.blue {
-    background-color: #c8f5ff;
-  }
-
+@media screen {
   .c33 .highlight.blue.focus {
     background-color: #00c3ed;
   }
+}
 
-  .c33 .highlight.purple {
-    background-color: #cbcfff;
-  }
-
+@media screen {
   .c33 .highlight.purple.focus {
     background-color: #545ec8;
     color: #fff;
   }
+}
 
-  .c33 .highlight.red {
-    background-color: #ffc5e1;
-  }
-
+@media screen {
   .c33 .highlight.red.focus {
     background-color: #de017e;
     color: #fff;
   }
+}
 
+@media screen {
   .c33 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
