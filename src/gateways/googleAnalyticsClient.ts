@@ -1,11 +1,33 @@
 // tslint:disable:max-classes-per-file
-
 import { assertWindow } from '../app/utils';
 
-interface Command {
-  name: string;
-  params: any[];
+interface PageView {
+  hitType: 'pageview';
+  page: string;
 }
+
+interface Event {
+  hitType: 'event';
+  eventCategory: string;
+  eventAction: string;
+  eventLabel?: string;
+  eventValue?: number;
+  transport: 'beacon';
+}
+
+interface SendCommand {
+  name: 'send';
+  payload: PageView | Event;
+}
+
+interface SetCommand {
+  name: 'set';
+  payload: {
+    userId: string | undefined;
+  };
+}
+
+type Command = SetCommand | SendCommand;
 
 class PendingCommand {
   public command: Command;
@@ -25,9 +47,7 @@ class GoogleAnalyticsClient {
   private trackerNames: string[] = [];
   private pendingCommands: PendingCommand[] = [];
 
-  public gaProxy(commandName: string, ...params: any[]) {
-    const command: Command = {name: commandName, params};
-
+  public gaProxy(command: Command) {
     if (this.isReadyForCommands()) {
       this.commandEachTracker(command);
     } else {
@@ -36,31 +56,29 @@ class GoogleAnalyticsClient {
   }
 
   public setUserId(id: string) {
-    this.gaProxy('set', 'userId', id);
+    this.gaProxy({name: 'set', payload: {userId: id}});
   }
 
   public unsetUserId() {
-    this.gaProxy('set', 'userId', undefined);
+    this.gaProxy({name: 'set', payload: {userId: undefined}});
   }
 
   public trackPageView(path: string) {
-    this.gaProxy('send', 'pageview', path);
+    this.gaProxy({name: 'send', payload: {
+      hitType: 'pageview',
+      page: path,
+    }});
   }
 
-  public trackEvent(category: string, action: string, label?: string, value?: number) {
-    // This method takes optional arguments and wraps a call to `gaProxy`.  If we passed
-    // the optional arguments on to gaProxy, it'd get `undefined`s some of the time for
-    // those arguments.  We mock the ga method inside `gaProxy` and do things like expect
-    // it to be called with the arguments passed to `trackEvent`.  So that the "optionalness"
-    // of these arguments jives with the expectations we set on the `ga` mock, we make sure
-    // to only pass on to `gaProxy` the arguments that are provided to `trackEvent`.  If this
-    // doesn't make sense put all arguments in the `args` arrow below and watch the tests explode.
-
-    const args: any[] = [];
-    if (label) { args.push(label); }
-    if (value) { args.push(value); }
-
-    this.gaProxy('send', 'event', category, action, ...args);
+  public trackEvent(eventCategory: string, eventAction: string, eventLabel?: string, eventValue?: number) {
+    this.gaProxy({name: 'send', payload: {
+      eventAction,
+      eventCategory,
+      eventLabel,
+      eventValue,
+      hitType: 'event',
+      transport: 'beacon',
+    }});
   }
 
   public setTrackingIds(ids: string[]) {
@@ -92,7 +110,7 @@ class GoogleAnalyticsClient {
   private commandEachTracker(command: Command, queueTime: number = 0) {
     for (const trackerName of this.trackerNames) {
       this.ga(trackerName + '.set', 'queueTime', queueTime);
-      this.ga(trackerName + '.' + command.name, ...command.params);
+      this.ga(trackerName + '.' + command.name, command.payload);
     }
   }
 
