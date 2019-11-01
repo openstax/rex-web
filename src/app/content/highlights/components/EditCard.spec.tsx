@@ -11,6 +11,7 @@ import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import EditCard from './EditCard';
 import Note from './Note';
+import * as onClickOutsideModule from './utils/onClickOutside';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./Note', () => (props: any) => <div mock-note {...props} />);
@@ -137,7 +138,7 @@ describe('EditCard', () => {
       note: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} blur={blur} data={data} />
+      <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} onBlur={blur} data={data} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -163,7 +164,7 @@ describe('EditCard', () => {
     const blur = jest.fn();
     const save = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} save={save} blur={blur} create={jest.fn()} />
+      <EditCard highlight={highlight as unknown as Highlight} onSave={save} onBlur={blur} onCreate={jest.fn()} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -189,7 +190,7 @@ describe('EditCard', () => {
       note: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} save={save} data={data} />
+      <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -214,7 +215,7 @@ describe('EditCard', () => {
       note: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} save={save} data={data} blur={blur} />
+      <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} onBlur={blur} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -246,7 +247,7 @@ describe('EditCard', () => {
       note: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} save={save} data={data} />
+      <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -274,7 +275,7 @@ describe('EditCard', () => {
   it('handles color change when there is data', () => {
     const save = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} data={highlightData} save={save} />
+      <EditCard highlight={highlight as unknown as Highlight} data={highlightData} onSave={save} />
     </MessageProvider>);
 
     const picker = component.root.findByType(ColorPicker);
@@ -289,7 +290,7 @@ describe('EditCard', () => {
   it('creates when changing color on a new highlight', () => {
     const create = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} create={create} />
+      <EditCard highlight={highlight as unknown as Highlight} onCreate={create} />
     </MessageProvider>);
 
     const picker = component.root.findByType(ColorPicker);
@@ -304,7 +305,7 @@ describe('EditCard', () => {
   it('sets color and creates when you click in the card', async() => {
     const create = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} create={create} />
+      <EditCard highlight={highlight as unknown as Highlight} onCreate={create} />
     </MessageProvider>);
 
     const card = component.root.findByType('form');
@@ -339,5 +340,43 @@ describe('EditCard', () => {
         resolve();
       });
     });
+  });
+
+  it('blurs when clicking outside', () => {
+    const onBlur = jest.fn();
+
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur}/>
+    </MessageProvider>);
+
+    onClickOutside.mock.calls[0][2]();
+
+    expect(component).toBeTruthy();
+    expect(onClickOutside.mock.calls.length).toBe(1);
+    expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('doesn\'t blur when clicking outside and editing', () => {
+    const onBlur = jest.fn();
+
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur} data={highlightData} />
+    </MessageProvider>);
+
+    const note = component.root.findByType(Note);
+    renderer.act(() => {
+      note.props.onChange('asdf');
+    });
+
+    onClickOutside.mock.calls[1][2]();
+
+    expect(onClickOutside.mock.calls.length).toBe(2);
+    expect(onBlur).not.toHaveBeenCalled();
   });
 });

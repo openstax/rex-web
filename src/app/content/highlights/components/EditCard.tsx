@@ -1,41 +1,56 @@
 import { Highlight } from '@openstax/highlighter';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
+import { mergeRefs } from '../../../utils';
 import { clearFocusedHighlight, createHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import Note from './Note';
+import onClickOutside from './utils/onClickOutside';
 
 interface Props {
   isFocused: boolean;
   highlight: Highlight;
-  create: typeof createHighlight;
-  blur: typeof clearFocusedHighlight;
-  save: typeof updateHighlight;
+  onCreate: typeof createHighlight;
+  onBlur: typeof clearFocusedHighlight;
+  onSave: typeof updateHighlight;
   onRemove: () => void;
   data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Props) => {
+const EditCard = React.forwardRef<HTMLElement, Props>((
+  {highlight, isFocused, className, data, onCreate, onSave, onRemove, onBlur}: Props,
+  ref
+) => {
   const defaultNote = () => data && data.note ? data.note : '';
   const [pendingNote, setPendingNote] = React.useState<string>(defaultNote());
   const [editingNote, setEditing] = React.useState<boolean>(false);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
+  const element = React.useRef<HTMLElement>(null);
+
+  const blurIfNotEditing = () => {
+    if (!editingNote) {
+      onBlur();
+    }
+  };
+
+  React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingNote]);
 
   const onColorChange = (style: string) => {
     highlight.setStyle(style);
     if (data) {
-      save({...data, style});
+      onSave({...data, style});
     } else {
-      create(highlight.serialize().data);
+      onCreate(highlight.serialize().data);
     }
   };
 
@@ -48,17 +63,17 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
   });
 
   const saveNote = () => {
-    save({...(data || highlight.serialize().data), note: pendingNote});
-    blur();
+    onSave({...(data || highlight.serialize().data), note: pendingNote});
+    onBlur();
   };
 
   const cancelEditing = () => {
     setPendingNote(defaultNote());
     setEditing(false);
-    blur();
+    onBlur();
   };
 
-  return <form className={className} onClick={onClick}>
+  return <form className={className} onClick={onClick} ref={mergeRefs(ref, element)}>
     <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={() => {
       if ((!data || !data.note) && !pendingNote) {
         onRemove();
@@ -108,7 +123,7 @@ const EditCard = ({highlight, className, data, create, save, onRemove, blur}: Pr
       always={() => setConfirmingDelete(false)}
     />}
   </form>;
-};
+});
 
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};

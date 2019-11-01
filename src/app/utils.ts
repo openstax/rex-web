@@ -1,5 +1,4 @@
 import { Ref } from 'react';
-import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
@@ -102,13 +101,6 @@ export const assertDocumentElement = (message: string = 'BUG: Document Element i
   }
 
   return documentElement;
-};
-
-export const scrollTo = (elem: Element | string) => {
-  const body = assertDocument().body;
-  const padding = body.getAttribute('data-scroll-padding') || '0';
-  const offset = parseFloat(padding) || 0;
-  return scrollToElement(elem, {offset});
 };
 
 export const remsToEms = (rems: number) => rems * 10 / 16;

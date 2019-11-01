@@ -76,16 +76,13 @@ exports[`Card matches snapshot when focused without note 1`] = `
 }
 
 <div
-  blur={[Function]}
   className="c0"
-  create={[Function]}
   data={
     Object {
       "id": "asdf",
       "style": "yellow",
     }
   }
-  hasQuery={false}
   highlight={
     Object {
       "elements": Array [
@@ -163,11 +160,11 @@ exports[`Card matches snapshot when focused without note 1`] = `
     }
   }
   isFocused={true}
-  isOpen={null}
   mock-edit={true}
+  onBlur={[Function]}
+  onCreate={[Function]}
   onRemove={[Function]}
-  remove={[Function]}
-  save={[Function]}
+  onSave={[Function]}
 />
 `;
 
@@ -222,15 +219,12 @@ exports[`Card matches snapshot when passed data without note 1`] = `
 }
 
 <div
-  blur={[Function]}
   className="c0"
-  create={[Function]}
   data={
     Object {
       "id": "asdf",
     }
   }
-  hasQuery={true}
   highlight={
     Object {
       "elements": Array [
@@ -248,11 +242,11 @@ exports[`Card matches snapshot when passed data without note 1`] = `
     }
   }
   isFocused={false}
-  isOpen={false}
   mock-edit={true}
+  onBlur={[Function]}
+  onCreate={[Function]}
   onRemove={[Function]}
-  remove={[Function]}
-  save={[Function]}
+  onSave={[Function]}
 />
 `;
 
@@ -302,10 +296,7 @@ exports[`Card matches snapshot without data 1`] = `
 }
 
 <div
-  blur={[Function]}
   className="c0"
-  create={[Function]}
-  hasQuery={false}
   highlight={
     Object {
       "elements": Array [
@@ -323,10 +314,10 @@ exports[`Card matches snapshot without data 1`] = `
     }
   }
   isFocused={false}
-  isOpen={null}
   mock-edit={true}
+  onBlur={[Function]}
+  onCreate={[Function]}
   onRemove={[Function]}
-  remove={[Function]}
-  save={[Function]}
+  onSave={[Function]}
 />
 `;
