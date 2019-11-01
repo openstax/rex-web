@@ -1,5 +1,5 @@
 import scrollTo from 'scroll-to-element';
-import { scrollIntoView } from './domUtils';
+import { elementDescendantOf, scrollIntoView } from './domUtils';
 import { assertDocument, assertWindow } from './utils';
 
 jest.mock('scroll-to-element');
@@ -43,5 +43,31 @@ describe('scrollIntoView', () => {
     scrollIntoView(element);
 
     expect(scrollTo).not.toHaveBeenCalledWith(element, expect.anything());
+  });
+});
+
+describe('elementDescendantOf', () => {
+  const document = assertDocument();
+
+  it('finds ancestor', () => {
+    const child = document.createElement('div');
+    const parent = document.createElement('div');
+
+    parent.appendChild(child);
+
+    expect(elementDescendantOf(child, parent)).toBe(true);
+  });
+
+  it('defaults to false if it can\'t find the ancestor', () => {
+    const child = document.createElement('div');
+    const parent = document.createElement('div');
+
+    expect(elementDescendantOf(child, parent)).toBe(false);
+  });
+
+  it('defaults to true if the child is the ancestor', () => {
+    const child = document.createElement('div');
+
+    expect(elementDescendantOf(child, child)).toBe(true);
   });
 });
