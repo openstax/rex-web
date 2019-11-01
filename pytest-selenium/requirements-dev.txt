@@ -4,7 +4,7 @@ attrs==19.3.0
 certifi==2019.9.11
 cfgv==2.0.1
 chardet==3.0.4
-chromedriver-binary==77.0.3865.40.0
+chromedriver-binary==79.0.3945.16.0
 identify==1.4.7
 idna==2.8
 importlib-metadata==0.19
