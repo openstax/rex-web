@@ -74,7 +74,7 @@ class Toolbar extends React.Component<Props, State> {
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
-    return <Styled.BarWrapper>
+    return <Styled.BarWrapper data-analytics-region="toolbar">
       <Styled.TopBar data-testid='toolbar'>
         <OpenSidebarControl />
         <Styled.SearchPrintWrapper>

@@ -92,7 +92,7 @@ interface NavigationBarProps {
 }
 // tslint:disable-next-line:variable-name
 const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
-  <Styled.BarWrapper>
+  <Styled.BarWrapper data-analytics-region='openstax-navbar'>
     <Styled.TopBar data-testid='navbar'>
       <FormattedMessage id='i18n:nav:logo:alt'>
         {(msg: Element | string) => <a href='/'>
