@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 20;
+  z-index: 80;
 }
 
 <a
@@ -58,7 +58,7 @@ Array [
 
 .c0 {
   overflow: visible;
-  z-index: 5;
+  z-index: 60;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -301,6 +301,12 @@ Array [
           >
             <button
               className="c8"
+              onClick={[Function]}
+            >
+              accept cookies
+            </button>
+            <button
+              className="c8"
               data-testid="trigger-updates-available"
               onClick={[Function]}
             >
@@ -355,6 +361,7 @@ Array [
               Content
             </h3>
             path: 
+            /books/:book([^@/]+)@:version/pages/:page
             /books/:book/pages/:page
           </div>
           <div>

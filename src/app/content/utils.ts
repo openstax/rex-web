@@ -37,3 +37,8 @@ export const makeUnifiedBookLoader = (
 
   return formatBookData(archiveBook, osWebBook);
 };
+
+export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOADED_STATE__
+  && window.__PRELOADED_STATE__.content
+  && window.__PRELOADED_STATE__.content.page
+  && window.__PRELOADED_STATE__.content.page.id === id;

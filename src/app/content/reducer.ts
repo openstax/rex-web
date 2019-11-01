@@ -1,3 +1,4 @@
+import flow from 'lodash/fp/flow';
 import omit from 'lodash/fp/omit';
 import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
@@ -7,12 +8,14 @@ import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
+import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
 import { State } from './types';
 import { getPageSlug } from './utils/archiveTreeUtils';
 
 export const initialState = {
+  highlights: initialHighlightState,
   loading: {},
   params: {},
   references: [],
@@ -21,12 +24,22 @@ export const initialState = {
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
-  const contentState = reduceContent(state, action);
-  const search = searchReducer(contentState.search, action);
-  if (contentState.search !== search) {
-    return {...contentState, search};
-  }
-  return contentState;
+  return flow(
+    (contentState) => {
+      const search = searchReducer(contentState.search, action);
+      if (contentState.search !== search) {
+        return {...contentState, search};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const highlights = highlightReducer(contentState.highlights, action);
+      if (contentState.highlights !== highlights) {
+        return {...contentState, highlights};
+      }
+      return contentState;
+    }
+  )(reduceContent(state, action));
 };
 
 export default reducer;
@@ -54,7 +67,12 @@ function reduceContent(state: State, action: AnyAction) {
         return initialState;
       }
       if (action.payload.match.params.book !== state.params.book) {
-        return {...initialState, params: action.payload.match.params, loading: state.loading};
+        return {
+          ...initialState,
+          highlights: state.highlights,
+          loading: state.loading,
+          params: action.payload.match.params,
+        };
       }
       if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
         return {...omit(['page'], state), params: action.payload.match.params};
