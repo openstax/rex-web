@@ -70,15 +70,21 @@ class GoogleAnalyticsClient {
     }});
   }
 
-  public trackEvent(eventCategory: string, eventAction: string, eventLabel?: string, eventValue?: number) {
+  public trackEventPayload(payload: Omit<Event, 'hitType' | 'transport'>) {
     this.gaProxy({name: 'send', payload: {
+      ...payload,
+      hitType: 'event',
+      transport: 'beacon',
+    }});
+  }
+
+  public trackEvent(eventCategory: string, eventAction: string, eventLabel?: string, eventValue?: number) {
+    this.trackEventPayload({
       eventAction,
       eventCategory,
       eventLabel,
       eventValue,
-      hitType: 'event',
-      transport: 'beacon',
-    }});
+    });
   }
 
   public setTrackingIds(ids: string[]) {
