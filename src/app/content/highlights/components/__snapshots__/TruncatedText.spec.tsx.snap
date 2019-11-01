@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TruncatedText matches snapshot 1`] = `
+.c0 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 5.4rem;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0.8rem 1.6rem;
+    height: 15.2rem;
+    overflow: auto;
+  }
+}
+
+<p
+  className="c0"
+>
+  asdf
+</p>
+`;
+
+exports[`TruncatedText matches snapshot when focused 1`] = `
+.c0 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+.c0 + .c1 {
+  display: none;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0.8rem 1.6rem;
+    height: 15.2rem;
+    overflow: auto;
+  }
+}
+
+<p
+  className="c0"
+>
+  asdf
+</p>
+`;

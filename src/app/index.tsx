@@ -5,14 +5,15 @@ import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
+import * as appAactions from './actions';
 import * as auth from './auth';
 import * as content from './content';
 import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
+import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
 import MessageProvider from './MessageProvider';
-import stackTraceMiddleware from './middleware/stackTraceMiddleware';
 import * as navigation from './navigation';
 import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
@@ -22,6 +23,7 @@ import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
 
 export const actions = {
+  app: appAactions,
   auth: auth.actions,
   content: content.actions,
   errors: errors.actions,
@@ -47,6 +49,8 @@ const init = [
 const hooks = [
   ...content.hooks,
   ...Object.values(head.hooks),
+  ...Object.values(notifications.hooks),
+  ...Object.values(auth.hooks),
 ];
 
 const defaultServices = () => ({
@@ -89,13 +93,8 @@ export default (options: AppOptions) => {
     ...hooks.map((hook) => hook(services)),
   ];
 
-  if (Sentry.isEnabled) {
+  if (Sentry.shouldCollectErrors) {
     middleware.push(Sentry.initializeWithMiddleware());
-  }
-
-  /* istanbul ignore next */
-  if (process.env.REACT_APP_ENV === 'development') {
-    middleware.unshift(stackTraceMiddleware);
   }
 
   const store = createStore({
@@ -104,13 +103,17 @@ export default (options: AppOptions) => {
     reducer,
   });
 
-  const container = () => <Provider store={store}>
-    <MessageProvider>
-      <Services.Provider value={services} >
-        <navigation.components.NavigationProvider routes={routes} />
-      </Services.Provider>
-    </MessageProvider>
-  </Provider>;
+  const container = () => (
+    <Provider store={store}>
+      <ErrorBoundary>
+        <MessageProvider>
+          <Services.Provider value={services} >
+            <navigation.components.NavigationProvider routes={routes} />
+          </Services.Provider>
+        </MessageProvider>
+      </ErrorBoundary>
+    </Provider>
+  );
 
   navigation.utils.changeToLocation(routes, store.dispatch, history.location, 'POP');
 

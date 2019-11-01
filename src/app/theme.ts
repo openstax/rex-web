@@ -1,7 +1,6 @@
 import { FlattenSimpleInterpolation } from 'styled-components';
 import { css } from 'styled-components/macro';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
-
 export interface ColorSet {
   base: string;
   foreground: string;
@@ -23,11 +22,14 @@ const padding = {
 };
 
 const color = {
+  black: '#000',
   neutral: {
     base: '#fff',
     darker: '#fafafa',
     darkest: '#e5e5e5',
     foreground: textColors.default,
+    formBackground: '#f5f5f5',
+    formBorder: '#d5d5d5',
   },
   primary: {
     'blue': {
@@ -80,6 +82,7 @@ const color = {
     red: {base: '#c22032'},
   },
   text: textColors,
+  white: '#fff',
 };
 
 const mobileBreak = 75;
@@ -97,4 +100,17 @@ export default {
   },
   color,
   padding,
+  zIndex: [
+    'contentNotifications',
+    'searchSidebar',
+    'toolbar',
+    'overlay',
+    'sidebar',
+    'navbar',
+    'modal',
+    'focusedHiddenLink',
+  ].reduce((result, key, index) => {
+    result[key] = (index + 1) * 10;
+    return result;
+  }, {} as {[key: string]: number}),
 };

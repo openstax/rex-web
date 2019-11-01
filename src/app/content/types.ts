@@ -1,20 +1,23 @@
 import { RouteParams, RouteState } from '../navigation/types';
+import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
 export interface Params {
   book: string;
   page: string;
+  version?: string;
 }
 
 export interface State {
   tocOpen: boolean | null;
-  params?: Params;
+  params: Partial<Params>;
   loading: {
     book?: string;
     page?: string;
   };
   search: SearchState;
+  highlights: HighlightState;
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];
@@ -45,11 +48,13 @@ export interface Book {
   authors: Array<{
     value: {
       name: string;
+      senior_author: boolean;
     }
   }>;
 }
 
 export interface Page {
+  abstract: string;
   id: string;
   shortId: string;
   title: string;
@@ -92,6 +97,7 @@ export interface ArchiveBook {
 }
 
 export interface ArchivePage {
+  abstract: string;
   id: string;
   shortId: string;
   content: string;

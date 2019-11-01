@@ -1,8 +1,11 @@
 import PromiseCollector from '../helpers/PromiseCollector';
+import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
 import { assertDocument } from './utils';
+
+jest.mock('../helpers/Sentry');
 
 describe('checkActionType', () => {
   it('matches action matching creator', () => {
@@ -70,6 +73,19 @@ describe('actionHook', () => {
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
 
     expect(helpers.promiseCollector.promises.length).toBe(1);
+  });
+
+  it('catches and logs errors', () => {
+    const hookSpy = jest.fn(() => { throw new Error(`an error`); });
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
   });
 });
 
@@ -189,5 +205,73 @@ describe('remsToPx', () => {
     it('uses base rem size of 10', () => {
       expect(utils.remsToPx(1)).toEqual(10);
     });
+  });
+});
+
+describe('getAllRegexMatches', () => {
+  it('works with no matches', () => {
+    const matcher = utils.getAllRegexMatches(/asdf/g);
+    expect(matcher('qewr').length).toBe(0);
+  });
+
+  it('match with no groups', () => {
+    const matcher = utils.getAllRegexMatches(/asdf/g);
+    expect(matcher('asdf')[0][0]).toBe('asdf');
+  });
+
+  it('match with groups', () => {
+    const matcher = utils.getAllRegexMatches(/(as)df/g);
+    expect(matcher('asdf')[0][0]).toBe('asdf');
+    expect(matcher('asdf')[0][1]).toBe('as');
+  });
+
+  it('match with multiple matches and groups', () => {
+    const matcher = utils.getAllRegexMatches(/(as)df/g);
+    expect(matcher('asdf asdf')[0][0]).toBe('asdf');
+    expect(matcher('asdf asdf')[0][1]).toBe('as');
+    expect(matcher('asdf asdf')[1][0]).toBe('asdf');
+    expect(matcher('asdf asdf')[1][1]).toBe('as');
+  });
+
+  it('throws when global flag not passed' , () => {
+    expect(() => utils.getAllRegexMatches(/asdf/)).toThrow();
+  });
+});
+
+describe('merge', () => {
+  it('merges things', () => {
+    expect(utils.merge({asdf: 'asdf'}, {qwer: 'qwer'})).toEqual({asdf: 'asdf', qwer: 'qwer'});
+  });
+
+  it('maintains object references when possible', () => {
+    const thing1 = {subobject: {}, asdf: 'asdf'};
+    const thing2 = {qwer: 'qwer'};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(thing1.subobject).toBe(merged.subobject);
+  });
+
+  it('doesn\'t modify refernces when merging', () => {
+    const thing1 = {subobject: {qwer: 'qwer'}, asdf: 'asdf'};
+    const thing2 = {subobject: {asdf: 'asdf'}};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(thing1.subobject).not.toBe(merged.subobject);
+    expect(merged).toEqual({
+      asdf: 'asdf',
+      subobject: {
+        asdf: 'asdf',
+        qwer: 'qwer',
+      },
+    });
+  });
+
+  it('last arg wins for non-plain objects', () => {
+    const thing1 = {array: ['one'], asdf: 'asdf'};
+    const thing2 = {array: ['two'], qwer: 'qwer'};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(merged.array).toBe(thing2.array);
+    expect(merged.array).toEqual(['two']);
   });
 });

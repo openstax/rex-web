@@ -65,12 +65,12 @@ const resolveBook = async(
 const resolveBookReference = async(
   {osWebLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
-): Promise<[string, string, string]> => {
+): Promise<[string, string, string | undefined]> => {
   const state = getState();
   const bookSlug = match.params.book;
   const currentBook = select.book(state);
 
-  if (match.state) {
+  if (match.state && match.state.bookUid && match.state.bookVersion) {
     return [bookSlug, match.state.bookUid, match.state.bookVersion];
   }
 
@@ -78,8 +78,14 @@ const resolveBookReference = async(
     ? currentBook.id
     : await osWebLoader.getBookIdFromSlug(bookSlug);
 
-  const bookVersion = assertDefined(BOOKS[bookUid], `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
-  ).defaultVersion;
+  const bookVersion = match.params.version
+    ? match.params.version === 'latest'
+      ? undefined
+      : match.params.version
+    : assertDefined(
+        BOOKS[bookUid],
+        `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
+      ).defaultVersion;
 
   return [bookSlug, bookUid, bookVersion];
 };
@@ -106,7 +112,9 @@ const resolvePage = async(
 ) => {
   const {getState} = services;
   const state = getState();
-  const pageId = match.state ? match.state.pageUid : getPageIdFromUrlParam(book, match.params.page);
+  const pageId = match.state && match.state.pageUid
+    ? match.state.pageUid
+    : getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
     // TODO - 404 handling

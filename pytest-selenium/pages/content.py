@@ -1,14 +1,16 @@
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
+
 
 import random
 
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
+from utils.utility import Utilities
 
 
 class Content(Page):
@@ -70,10 +72,6 @@ class Content(Page):
         return self.Attribution(self)
 
     @property
-    def section_url_within_attribution(self):
-        return self.find_element(*self._section_url_locator)
-
-    @property
     def sidebar_width_offset(self):
         sidebar_width = self.width(self.sidebar.root)
         sidebar_width_left_offset = self.sidebar.root.get_attribute("offsetLeft")
@@ -131,9 +129,9 @@ class Content(Page):
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
-        _user_nav_locator = (By.CSS_SELECTOR, '[data-testid="user-nav"]')
+        _user_nav_locator = (By.CSS_SELECTOR, "[data-testid='user-nav']")
         _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
-        _user_nav_toggle_locator = (By.CSS_SELECTOR, '[data-testid="user-nav-toggle"]')
+        _user_nav_toggle_locator = (By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
         _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
         _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
 
@@ -151,35 +149,48 @@ class Content(Page):
 
         @property
         def user_is_not_logged_in(self):
-            if (self.login).is_displayed():
-                return True
-
-        @property
-        def user_nav_toggle(self):
-            return self.find_element(*self._user_nav_toggle_locator)
+            try:
+                self.wait.until(expected.visibility_of_element_located(self._login_locator))
+                return bool(self.find_element(*self._login_locator))
+            except TimeoutException:
+                return bool([])
 
         @property
         def user_is_logged_in(self):
-            if self.user_nav_toggle.is_displayed():
-                return True
+            try:
+                self.wait.until(
+                    expected.visibility_of_element_located(self._user_nav_toggle_locator)
+                )
+                return bool(self.find_element(*self._user_nav_toggle_locator))
+            except TimeoutException:
+                return bool([])
 
         @property
-        def account_profile(self):
-            return self.find_element(*self._account_profile_locator)
+        def account_profile_is_displayed(self):
+            try:
+                if self.find_element(*self._account_profile_locator).is_displayed():
+                    return True
+            except NoSuchElementException:
+                return False
+
+        @property
+        def logout_is_displayed(self):
+            return expected.visibility_of_element_located(self._logout_locator)
 
         @property
         def logout(self):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
-            self.login.click()
+            self.wait.until(expected.visibility_of_element_located(self._login_locator))
+            Utilities.click_option(self.driver, element=self.login)
 
-        def hover_over_user_name(self):
-            actionChains = ActionChains(self.driver)
-            actionChains.move_to_element(self.user_nav).perform()
+        def click_logout(self):
+            Utilities.click_option(self.driver, element=self.logout)
 
         def click_user_name(self):
-            self.user_nav.click()
+            self.wait.until(expected.visibility_of_element_located((self._user_nav_locator)))
+            Utilities.click_option(self.driver, element=self.user_nav)
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
@@ -254,6 +265,8 @@ class Content(Page):
             '[data-testid="attribution-details"] summary',
         )
         _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
+        _book_url_locator = (By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _access_free_locator = (By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
 
         @property
         def attribution_link(self):
@@ -270,6 +283,14 @@ class Content(Page):
         @property
         def section_url(self):
             return self.section_url_within_attribution.get_attribute("href")
+
+        @property
+        def book_url(self):
+            return self.find_element(*self._book_url_locator).get_attribute("href")
+
+        @property
+        def access_free_url(self):
+            return self.find_element(*self._access_free_locator).get_attribute("href")
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)

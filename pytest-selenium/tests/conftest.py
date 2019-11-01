@@ -6,6 +6,7 @@ import pytest
 
 from utils import utility
 
+import random
 
 # Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1500, 1080)
@@ -41,6 +42,7 @@ def pytest_addoption(parser):
 
     """
     group = parser.getgroup("selenium", "selenium")
+
     group.addoption(
         "--disable-dev-shm-usage",
         action="store_true",
@@ -105,10 +107,12 @@ def book_slug():
 
 
 @pytest.fixture
-def email():
-    return utility.Library().random_user_email
+def email(store):
+    user_info = random.choice((store.get("_user_info")))
+    return user_info["email"]
 
 
 @pytest.fixture
-def password():
-    return utility.Library().password
+def password(store):
+    user_info = random.choice((store.get("_user_info")))
+    return user_info["password"]

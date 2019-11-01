@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown matches snapshot 1`] = `
+.c2 {
+  cursor: pointer;
+  outline: none;
+}
+
+.c1 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  overflow: visible;
+  position: relative;
+}
+
+.c3 {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: -4rem;
+}
+
+.c0.focus-within .c3 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0:focus-within .c3 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 li button,
+.c3 li a {
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0 0.8rem;
+  margin: 0;
+  height: 3.2rem;
+  background: none;
+  min-width: 7.2rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c3 li button:hover,
+.c3 li a:hover,
+.c3 li button:focus,
+.c3 li a:focus {
+  background: #d5d5d5;
+}
+
+<div
+  className="c0 c1"
+>
+  <span
+    className="c2"
+    tabIndex="-1"
+  >
+    i18n:highlighting:card:show-more
+  </span>
+  <ol
+    className="c3"
+  >
+    <li>
+      <button
+        onClick={[Function]}
+      >
+        Delete
+      </button>
+    </li>
+    <li>
+      <a
+        href="/wooo"
+        onClick={[Function]}
+      >
+        Edit
+      </a>
+    </li>
+  </ol>
+</div>
+`;

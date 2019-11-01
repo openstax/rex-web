@@ -2,6 +2,10 @@ from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
 from utils import utility
+from selenium.webdriver.common.keys import Keys
+
+from selenium.webdriver.support import expected_conditions as expected
+from time import sleep
 
 
 class Login(Page):
@@ -17,14 +21,17 @@ class Login(Page):
     def password_field(self):
         return self.find_element(*self._password_field_locator)
 
-    def enter_user_email(self, email):
-        self.user_field.send_keys(email)
+    def enter_user_email(self, username):
+        self.wait.until(expected.visibility_of_element_located(self._user_field_locator))
+        self.user_field.send_keys(username)
 
     def enter_password(self, password):
+        self.wait.until(expected.visibility_of_element_located(self._password_field_locator))
         self.password_field.send_keys(password)
+        return self
 
     def click_next(self):
-        self.find_element(*self._login_submit_button_locator).click()
+        self.find_element(*self._login_submit_button_locator).send_keys(Keys.ENTER)
         return self
 
     click_login = click_next
@@ -33,4 +40,6 @@ class Login(Page):
         self.enter_user_email(email)
         self.click_next()
         self.enter_password(password)
+        self.wait.until(expected.visibility_of_element_located(self._login_submit_button_locator))
         self.click_login()
+        self.wait.until(expected.invisibility_of_element_located(self._login_submit_button_locator))

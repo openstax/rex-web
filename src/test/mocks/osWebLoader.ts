@@ -1,7 +1,7 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 
 export const mockCmsBook: OSWebBook = {
-  authors: [{value: {name: 'Bam Bammerson'}}],
+  authors: [{value: {name: 'Bam Bammerson', senior_author: true}}],
   cnx_id: '3',
   cover_color: 'blue',
   meta: {
@@ -15,4 +15,5 @@ export default () => ({
   getBookFromSlug: jest.fn(() => Promise.resolve(mockCmsBook)),
   getBookIdFromSlug: jest.fn(() => Promise.resolve('testbook1-uuid')),
   getBookSlugFromId: jest.fn(() => Promise.resolve('book-slug-1')),
+  preloadCache: jest.fn(),
 });

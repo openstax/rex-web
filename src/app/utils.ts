@@ -1,6 +1,10 @@
 import { Ref } from 'react';
-import scrollToElement from 'scroll-to-element';
 import { getType } from 'typesafe-actions';
+import Sentry from '../helpers/Sentry';
+import { recordError } from './errors/actions';
+
+import { Document } from '@openstax/types/lib.dom';
+import { isPlainObject } from './guards';
 import {
   ActionHookBody,
   AnyAction,
@@ -23,13 +27,19 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       const result = next(action);
 
       if (matches(action)) {
-        const promise = boundHook(action);
-
-        if (promise) {
-          services.promiseCollector.add(promise);
+        const catchError = (e: Error) => {
+          Sentry.captureException(e);
+          stateHelpers.dispatch(recordError(e));
+        };
+        try {
+          const promise = boundHook(action);
+          if (promise) {
+            services.promiseCollector.add(promise.catch(catchError));
+          }
+        } catch (e) {
+          catchError(e);
         }
       }
-
       return result;
     };
   };
@@ -93,12 +103,7 @@ export const assertDocumentElement = (message: string = 'BUG: Document Element i
   return documentElement;
 };
 
-export const scrollTo = (elem: Element | string) => {
-  const body = assertDocument().body;
-  const padding = body.getAttribute('data-scroll-padding') || '0';
-  const offset = parseFloat(padding) || 0;
-  return scrollToElement(elem, {offset});
-};
+export const remsToEms = (rems: number) => rems * 10 / 16;
 
 export const remsToPx = (rems: number) => {
   const bodyFontSize = typeof(window) === 'undefined'
@@ -107,3 +112,48 @@ export const remsToPx = (rems: number) => {
 
   return rems * bodyFontSize;
 };
+
+export const getAllRegexMatches = (regex: RegExp) => {
+  if (!regex.global) {
+    throw new Error('getAllRegexMatches must be used with the global flag');
+  }
+
+  return (string: string) => {
+    const matches: RegExpExecArray[] = [];
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(string)) ) { // tslint:disable-line:no-conditional-assignment
+      matches.push(match);
+    }
+    return matches;
+  };
+};
+
+export const resetTabIndex = (document: Document) => {
+  const index = document.body.tabIndex;
+  document.body.tabIndex = 0;
+
+  document.body.focus();
+  document.body.tabIndex = index;
+};
+
+export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>
+    Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
+
+/*
+ * recursive merge properties of two inputs. values are only merged if they are
+ * plain objects, if the same property exists in both objects and is not a plain
+ * object the value from the second argument will win.
+ *
+ * unlike lodash merge, this will not change object references for values that
+ * exist only in one parameter.
+ */
+export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 & T2 => ({
+  ...thing1,
+  ...thing2,
+  ...getCommonProperties(thing1, thing2).reduce((result, property) => ({
+    ...result,
+    ...(isPlainObject(thing1[property]) && isPlainObject(thing2[property])
+      ? {[property]: merge(thing1[property], thing2[property])}
+      : {}),
+  }), {}),
+});

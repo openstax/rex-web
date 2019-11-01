@@ -1,7 +1,11 @@
-import { updateAvailable } from '../app/notifications/actions';
+import { receiveFeatureFlags } from '../app/actions';
+import { receiveMessages, updateAvailable } from '../app/notifications/actions';
+import { Messages } from '../app/notifications/types';
+import { shouldLoadAppMessage } from '../app/notifications/utils';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import { APP_ENV, RELEASE_ID } from '../config';
+import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 
 /*
  * when a page is initially loaded, the built in release
@@ -24,11 +28,31 @@ const trustRelease = () => (new Date().getTime()) - pageLoaded > trustAfter;
 let previousObservedReleaseId: string | undefined;
 
 export type Cancel = () => void;
+
+interface EnvironmentConfigs {
+  google_analytics?: string[] | undefined;
+  feature_flags?: string[];
+}
+
 interface Environment {
   release_id: string;
+  configs: EnvironmentConfigs;
+  messages: Messages;
 }
 
 const processEnvironment = (store: Store, environment: Environment) => {
+  processReleaseId(store, environment);
+
+  if (environment.configs) {
+    processGoogleAnalyticsIds(environment.configs);
+    processFeatureFlags(store, environment.configs.feature_flags);
+  }
+  if (environment.messages) {
+    processMessages(store, environment.messages.filter(shouldLoadAppMessage));
+  }
+};
+
+const processReleaseId = (store: Store, environment: Environment) => {
   const releaseId = environment.release_id;
 
   if (
@@ -39,6 +63,20 @@ const processEnvironment = (store: Store, environment: Environment) => {
   }
 
   previousObservedReleaseId = releaseId;
+};
+
+const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
+  const ids = environmentConfigs.google_analytics;
+
+  if (ids && ids.length > 0) {
+    googleAnalyticsClient.setTrackingIds(ids);
+  }
+};
+const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {
+  store.dispatch(receiveFeatureFlags(featureFlags));
+};
+const processMessages = (store: Store, messages: Messages) => {
+  store.dispatch(receiveMessages(messages));
 };
 
 export const poll = (store: Store) => async() => {
@@ -53,7 +91,7 @@ export const poll = (store: Store) => async() => {
 };
 
 export default (store: Store): Cancel => {
-  if (APP_ENV !== 'production') {
+  if (APP_ENV === 'test') {
     return () => undefined;
   }
 
