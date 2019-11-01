@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card matches snapshot when focused without note 1`] = `
+.c0 {
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 50px;
+  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+}
+
+.c0::before {
+  content: ' ';
+  border-radius: 0.4rem 0 0 0.4rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0.4rem;
+  background-color: #fed200;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0::before {
+    border-radius: 0.4rem 0.4rem 0 0;
+    right: 0;
+    bottom: unset;
+    width: unset;
+    height: 0.4rem;
+  }
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 50px;
+    left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  }
+}
+
+@media (max-width:103.75em) {
+  .c0 {
+    left: unset;
+    right: 2rem;
+    top: 150px;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    left: unset;
+    right: 2rem;
+    top: 150px;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    position: fixed;
+    padding: 0;
+  }
+}
+
+<div
+  className="c0"
+  data={
+    Object {
+      "id": "asdf",
+      "style": "yellow",
+    }
+  }
+  highlight={
+    Object {
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "range": Object {
+        "commonAncestorContainer": Object {
+          "nodeName": "text",
+          "nodeType": 3,
+          "parentElement": Object {
+            "nodeName": "div",
+            "nodeType": 1,
+            "offsetParent": Object {
+              "nodeName": "div",
+              "nodeType": 1,
+              "offsetTop": 50,
+              "title": "",
+            },
+            "title": "",
+          },
+          "title": "",
+        },
+        "getBoundingClientRect": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+          ],
+        },
+      },
+      "serialize": [Function],
+      "setStyle": [MockFunction],
+    }
+  }
+  isFocused={true}
+  mock-edit={true}
+  onBlur={[Function]}
+  onCreate={[Function]}
+  onRemove={[Function]}
+  onSave={[Function]}
+/>
+`;
+
+exports[`Card matches snapshot when passed data without note 1`] = `
+.c0 {
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 0px;
+  display: none;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+    display: none;
+  }
+}
+
+@media (max-width:103.75em) {
+  .c0 {
+    display: none;
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+  data={
+    Object {
+      "id": "asdf",
+    }
+  }
+  highlight={
+    Object {
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "range": Object {
+        "commonAncestorContainer": null,
+        "getBoundingClientRect": [MockFunction],
+      },
+      "serialize": [Function],
+      "setStyle": [MockFunction],
+    }
+  }
+  isFocused={false}
+  mock-edit={true}
+  onBlur={[Function]}
+  onCreate={[Function]}
+  onRemove={[Function]}
+  onSave={[Function]}
+/>
+`;
+
+exports[`Card matches snapshot without data 1`] = `
+.c0 {
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 0px;
+  display: none;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
+    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+    right: unset;
+    top: 0px;
+    display: none;
+  }
+}
+
+@media (max-width:103.75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+  highlight={
+    Object {
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "range": Object {
+        "commonAncestorContainer": null,
+        "getBoundingClientRect": [MockFunction],
+      },
+      "serialize": [Function],
+      "setStyle": [MockFunction],
+    }
+  }
+  isFocused={false}
+  mock-edit={true}
+  onBlur={[Function]}
+  onCreate={[Function]}
+  onRemove={[Function]}
+  onSave={[Function]}
+/>
+`;

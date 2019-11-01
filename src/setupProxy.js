@@ -139,6 +139,19 @@ function osWebProxy(app) {
   }));
 }
 
+function stubEnvironment(app) {
+  app.use((req, res, next) => {
+    const  {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/environment.json') {
+      const envFile = path.join(__dirname, 'environment.development.json');
+      sendFile(res, envFile);
+    } else {
+      next();
+    }
+  });
+}
+
 function setupProxy(app) {
   if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
@@ -147,6 +160,7 @@ function setupProxy(app) {
   accountsProxy(app);
   searchProxy(app);
   osWebApiProxy(app);
+  stubEnvironment(app);
 
   if (!SKIP_OS_WEB_PROXY) {
     osWebProxy(app);

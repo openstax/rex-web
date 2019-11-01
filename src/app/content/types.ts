@@ -1,10 +1,12 @@
 import { RouteParams, RouteState } from '../navigation/types';
+import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
 export interface Params {
   book: string;
   page: string;
+  version?: string;
 }
 
 export interface State {
@@ -15,6 +17,7 @@ export interface State {
     page?: string;
   };
   search: SearchState;
+  highlights: HighlightState;
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];
