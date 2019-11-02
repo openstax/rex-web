@@ -1,7 +1,6 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
-import config from '../config';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -94,7 +93,7 @@ export default (options: AppOptions) => {
     ...hooks.map((hook) => hook(services)),
   ];
 
-  if (config.SENTRY_ENABLED) {
+  if (Sentry.shouldCollectErrors) {
     middleware.push(Sentry.initializeWithMiddleware());
   }
 

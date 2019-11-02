@@ -5,14 +5,15 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
+import { scrollTo } from '../../domUtils';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertString, scrollTo } from '../../utils';
+import { assertString } from '../../utils';
 import * as select from '../selectors';
 import { Book, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
-import { contentTextStyle } from './Page';
+import { contentTextStyle } from './Page/PageContent';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 

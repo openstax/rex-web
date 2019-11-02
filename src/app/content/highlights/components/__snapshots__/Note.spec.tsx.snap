@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Note matches snapshot 1`] = `
+.c0 {
+  display: block;
+  min-height: 5.6rem;
+  width: 18.4rem;
+  border: 1px solid #d5d5d5;
+  padding: 0.8rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  color: #6f6f6f;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: normal;
+}
+
+<textarea
+  className="c0"
+  onChange={[Function]}
+  placeholder="Add a note..."
+  value=""
+/>
+`;

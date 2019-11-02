@@ -10,6 +10,7 @@ import {
   RELEASE_ID
 } from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
@@ -42,8 +43,9 @@ async function render() {
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}`);
+  const highlightClient = createHighlightClient();
   const {server} = await startServer({port, onlyProxy: true});
-  const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient};
+  const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient, highlightClient};
 
   await renderPages(renderHelpers, await prepareErrorPages());
 
@@ -52,7 +54,7 @@ async function render() {
     const bookPages = await prepareBookPages(loader, book);
 
     renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
-    await renderPages({archiveLoader, osWebLoader, userLoader, searchClient}, bookPages);
+    await renderPages(renderHelpers, bookPages);
   }
 
   await renderSitemapIndex();
