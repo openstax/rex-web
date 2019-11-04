@@ -11,6 +11,7 @@ import { State } from './types';
 export const initialState: State = {
   enabled: false,
   highlights: [],
+  myHighlightsOpen: false,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {

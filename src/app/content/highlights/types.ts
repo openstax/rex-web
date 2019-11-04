@@ -5,6 +5,7 @@ export type HighlightData = SerializedHighlight['data'] & {
 };
 
 export interface State {
+  myHighlightsOpen: boolean;
   enabled: boolean;
   focused?: string;
   highlights: HighlightData[];

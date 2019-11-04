@@ -9,6 +9,7 @@ import { assertDocument, assertString } from '../../../utils';
 import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import { OpenSidebarControl } from '../SidebarControl';
+import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
 
@@ -105,6 +106,7 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
           <PrintButton/>
+          <HighlightButton/>
         </Styled.SearchPrintWrapper>
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>

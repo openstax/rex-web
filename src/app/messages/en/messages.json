@@ -66,5 +66,13 @@
   "i18n:toolbar:print:aria-label": "print",
   "i18n:toolbar:print:text": "Print",
   "i18n:toolbar:search:placeholder": "Search this book",
-  "i18n:toolbar:search:toggle": "Search this book"
+  "i18n:toolbar:search:toggle": "Search this book",
+  "i18n:toolbar:highlights:text": "My highlights",
+  "i18n:toolbar:highlights:popup:heading": "My Highlights and Notes",
+  "i18n:toolbar:highlights:popup:body:highlights-free": "Login to highlight. 100% FREE.",
+  "i18n:toolbar:highlights:popup:body:note:highlight": "Highlight",
+  "i18n:toolbar:highlights:popup:body:note:add-notes": "Add notes",
+  "i18n:toolbar:highlights:popup:body:note:study-guide": "Make your study guide",
+  "i18n:toolbar:highlights:popup:body:note:filter-chapters": "Filter by chapters & colors",
+  "i18n:toolbar:highlights:popup:body:tooltip:review": "Review all your highlights and notes of a book in one place organized by chapters."
 }

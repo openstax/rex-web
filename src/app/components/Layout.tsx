@@ -1,5 +1,6 @@
 import React, { SFC } from 'react';
 import styled, { css } from 'styled-components/macro';
+import HighlightsPopUp from '../content/components/Toolbar/HighlightsPopUp';
 import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
@@ -10,6 +11,7 @@ import SkipToContentWrapper from './SkipToContentWrapper';
 const Layout: SFC = ({ children }) => <SkipToContentWrapper>
   <NavBar />
   <ErrorModal />
+  <HighlightsPopUp />
   <ErrorBoundary>
     {children}
   </ErrorBoundary>
