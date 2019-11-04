@@ -27,6 +27,22 @@ interface State {
 }
 
 export class SearchResultsSidebar extends Component<Props, State> {
+
+  public static getDerivedStateFromProps(newProps: Props, state: State) {
+    if (newProps.results || (newProps.query !== state.query && newProps.query)) {
+      return SearchResultsSidebar.getStateProps(newProps);
+    }
+    return state;
+  }
+
+  private static getStateProps(props: Props) {
+    return {
+      query: props.query,
+      results: props.results,
+      selectedResult: props.selectedResult,
+      totalHits: props.totalHits,
+    };
+  }
   public state: State = {
     query: null,
     results: null,
@@ -37,13 +53,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
   public constructor(props: Props) {
     super(props);
 
-    this.state = this.getStateProps(props);
-  }
-
-  public componentWillReceiveProps(newProps: Props) {
-    if (newProps.results || (newProps.query !== this.state.query && newProps.query)) {
-      this.setState(this.getStateProps(newProps));
-    }
+    this.state = SearchResultsSidebar.getStateProps(props);
   }
 
   public render() {
@@ -52,15 +62,6 @@ export class SearchResultsSidebar extends Component<Props, State> {
       {...this.state}
       data-analytics-region='search-results'
     /> : null;
-  }
-
-  private getStateProps(props: Props) {
-    return {
-      query: props.query,
-      results: props.results,
-      selectedResult: props.selectedResult,
-      totalHits: props.totalHits,
-    };
   }
 }
 

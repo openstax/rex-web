@@ -91,6 +91,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -1981,6 +1982,7 @@ li[aria-label="Current Page"] .c40 {
   >
     <div
       className="c1"
+      data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
       <div
@@ -2015,6 +2017,7 @@ li[aria-label="Current Page"] .c40 {
     </div>
     <div
       className="c7"
+      data-analytics-region="book-banner-collapsed"
     >
       <div
         className="c2"
@@ -2048,6 +2051,7 @@ li[aria-label="Current Page"] .c40 {
     </div>
     <div
       className="c10"
+      data-analytics-region="toolbar"
     >
       <div
         className="c11"
@@ -2171,6 +2175,7 @@ li[aria-label="Current Page"] .c40 {
           <div
             aria-label="Table of Contents"
             className="c31"
+            data-analytics-region="toc"
             data-testid="toc"
           >
             <div
@@ -2801,10 +2806,12 @@ li[aria-label="Current Page"] .c40 {
                     </div>
                     <div
                       className="c61"
+                      data-analytics-region="prev-next"
                     >
                       <a
                         aria-label="Previous Page"
                         className="c62"
+                        data-analytics-href="prev"
                         href="2-test-page-3"
                         onClick={[Function]}
                       >
@@ -2824,6 +2831,7 @@ li[aria-label="Current Page"] .c40 {
                       <a
                         aria-label="Next Page"
                         className="c64"
+                        data-analytics-href="next"
                         href="4-test-page-5"
                         onClick={[Function]}
                       >
@@ -2845,6 +2853,7 @@ li[aria-label="Current Page"] .c40 {
                 </div>
                 <details
                   className="c66"
+                  data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
                   <summary
@@ -2952,6 +2961,7 @@ li[aria-label="Current Page"] .c40 {
                 </details>
                 <footer
                   className="c73"
+                  data-analytics-region="footer"
                 >
                   <div
                     className="c74"
@@ -3315,6 +3325,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -4688,6 +4699,7 @@ Array [
     />
     <div
       className="c2"
+      data-analytics-region="toolbar"
     >
       <div
         className="c3"
@@ -4811,6 +4823,7 @@ Array [
           <div
             aria-label="Table of Contents"
             className="c23"
+            data-analytics-region="toc"
             data-testid="toc"
           >
             <div
@@ -4971,6 +4984,7 @@ Array [
                 </div>
                 <details
                   className="c36"
+                  data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
                   <summary
@@ -5008,6 +5022,7 @@ Array [
                 </details>
                 <footer
                   className="c47"
+                  data-analytics-region="footer"
                 >
                   <div
                     className="c48"

@@ -1,8 +1,8 @@
 import Highlighter from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
+import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
-import { scrollTo } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { SelectedResult } from '../../search/types';
 import { highlightResults } from '../../search/utils';
@@ -35,7 +35,7 @@ const scrollToSearch = ({container, searchResultMap}: Services, selected: Select
   if (firstSelectedHighlight) {
     firstSelectedHighlight.focus();
     allImagesLoaded(container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0])
+      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
   }
 };

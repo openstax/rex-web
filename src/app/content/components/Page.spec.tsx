@@ -15,10 +15,10 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
+import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
-import { scrollTo } from '../../utils';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
@@ -33,9 +33,9 @@ import allImagesLoaded from './utils/allImagesLoaded';
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
-jest.mock('../../utils', () => ({
+jest.mock('../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
-  ...(jest as any).requireActual('../../utils'),
+  ...(jest as any).requireActual('../../domUtils'),
   scrollTo: jest.fn(),
 }));
 

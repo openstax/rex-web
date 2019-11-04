@@ -1,6 +1,7 @@
-import { HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Element, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import scrollToElement from 'scroll-to-element';
 import { isHtmlElement } from './guards';
-import { assertWindow } from './utils';
+import { assertDocument, assertWindow } from './utils';
 
 export const SCROLL_UP: 'scroll_up' = 'scroll_up';
 export const SCROLL_DOWN: 'scroll_down' = 'scroll_down';
@@ -81,4 +82,38 @@ export const findElementSelfOrParent = (node: Node) => {
   } else if (node && node.parentElement) {
     return node.parentElement;
   }
+};
+
+const getScrollPadding = () => {
+  const body = assertDocument().body;
+  const padding = body.getAttribute('data-scroll-padding') || '0';
+  return parseFloat(padding) || 0;
+};
+
+export const scrollTo = (elem: HTMLElement | Element | string) => {
+  return scrollToElement(elem, {offset: getScrollPadding()});
+};
+
+export const scrollIntoView = (elem: HTMLElement) => {
+  const window = assertWindow();
+  const {top, bottom} = elem.getBoundingClientRect();
+  const below = bottom > window.innerHeight;
+  const above = top < Math.abs(getScrollPadding());
+
+  if (below) {
+    scrollToElement(elem, {align: 'middle'});
+  } else if (above) {
+    scrollTo(elem);
+  }
+};
+
+export const elementDescendantOf = (element: Element, ancestor: Element): boolean => {
+  if (element === ancestor) {
+    return true;
+  }
+  if (!element.parentNode || !(element.parentNode instanceof assertWindow().Element)) {
+    return false;
+  }
+
+  return elementDescendantOf(element.parentNode, ancestor);
 };

@@ -19,5 +19,5 @@ const Wrapper = ({highlights, className}: Props) => <div className={className}>
 export default styled(Wrapper)`
   position: relative;
   overflow: visible;
-  z-index: ${theme.zIndex.toolbar};
+  z-index: ${theme.zIndex.toolbar - 1};
 `;
