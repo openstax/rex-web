@@ -231,14 +231,14 @@ class Content(Page):
                 return None
 
     class ToolBar(Region):
-        _root_locator = (By.CSS_SELECTOR, '[data-testid="toolbar"]')
+        _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
         _toc_toggle_button_locator = (
             By.CSS_SELECTOR,
             "[aria-label='Click to open the Table of Contents']",
         )
-        _search_textbox_desktop_locator = (By.CSS_SELECTOR, '[data-testid="desktop-search-input"]')
-        _search_button_desktop_locator = (By.CSS_SELECTOR, 'button:nth-of-type(2)[value="Search"]')
-        _search_button_mobile_locator = (By.CSS_SELECTOR, '[data-testid="mobile-toggle"]')
+        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
 
         @property
         def toc_toggle_button(self):
@@ -271,7 +271,7 @@ class Content(Page):
             return self.page.search_sidebar.wait_for_region_to_display()
 
     class MobileSearchToolbar(Region):
-        _search_textbox_mobile_locator = (By.CSS_SELECTOR, '[data-testid="mobile-search-input"]')
+        _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
 
         @property
         def search_textbox(self):
