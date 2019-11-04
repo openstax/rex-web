@@ -8,7 +8,6 @@ import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 
 const triggerEvent = <Args extends any[]>(event: (...args: Args) => (AnalyticsEvent | void)) => (...args: Args) => {
-
   const analyticsEvent = event(...args);
 
   if (analyticsEvent) {
