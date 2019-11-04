@@ -12,6 +12,7 @@ import theme from '../../../theme';
 import { AppState } from '../../../types';
 import * as selectors from '../../selectors';
 
+const desktopPopupWidth = 74.4;
 const popupPadding = 3.2;
 const popupBodyPadding = 2.4;
 
@@ -62,6 +63,7 @@ const Modal = styled.div`
 
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div`
+  overflow: visible;
   z-index: 1;
   width: 100%;
   background: ${theme.color.neutral.base};
@@ -84,7 +86,6 @@ const PopupBody = styled.div`
 // tslint:disable-next-line:variable-name
 const FirstImage = styled.img`
   ${imageStyles}
-  margin-right: ${popupBodyPadding}rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -95,6 +96,17 @@ const SecondImage = styled.img`
 
 // tslint:disable-next-line:variable-name
 const ImageWrapper = styled.div`
+  width: ${(desktopPopupWidth - popupBodyPadding) / 2}rem;
+`;
+
+const stickyNoteBullet = css`
+  content: " ";
+  position: absolute;
+  width: ${stickyNoteMeasures.bulletSize}rem;
+  height: ${stickyNoteMeasures.bulletSize}rem;
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0,0,0,30);
+  clip-path: polygon(-100% -100%, 100% 0, 0 100%);
+  z-index: 1;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -103,18 +115,9 @@ const StickyNote = styled.div`
   width: ${stickyNoteMeasures.width}rem;
   position: absolute;
   padding: ${stickyNoteMeasures.bulletSize}rem ${popupBodyPadding}rem;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0,0,0,30);
   opacity: ${stickyNoteMeasures.opacity};
-`;
-
-// tslint:disable-next-line:variable-name
-const StickyNoteBullet = styled.div`
-  position: absolute;
-  width: ${stickyNoteMeasures.bulletSize}rem;
-  height: ${stickyNoteMeasures.bulletSize}rem;
-  transform: rotate(45deg);
-  z-index: 1;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -122,14 +125,14 @@ const BlueStickyNote = styled(StickyNote)`
   background: ${stickyNoteMeasures.blue};
   top: ${stickyNoteMeasures.defaultOffset}rem;
   left: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
-`;
 
-// tslint:disable-next-line:variable-name
-const BlueStickyNoteBullet = styled(StickyNoteBullet)`
-  top: ${stickyNoteMeasures.defaultOffset * 2}rem;
-  left: ${stickyNoteMeasures.left}rem;
-  transform: rotate(45deg);
-  background: ${stickyNoteMeasures.blue};
+  ::before {
+    ${stickyNoteBullet}
+    transform: rotate(-45deg);
+    top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
+    left: -${stickyNoteMeasures.bulletSize / 2}rem;
+    background: ${stickyNoteMeasures.blue};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -137,45 +140,56 @@ const GreenStickyNote = styled(StickyNote)`
   background: ${stickyNoteMeasures.green};
   bottom: ${stickyNoteMeasures.defaultOffset}rem;
   right: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
-`;
 
-// tslint:disable-next-line:variable-name
-const GreenStickyNoteBullet = styled(StickyNoteBullet)`
-  bottom: ${stickyNoteMeasures.defaultOffset * 2}rem;
-  right: ${stickyNoteMeasures.left}rem;
-  transform: rotate(45deg);
-  background: ${stickyNoteMeasures.green};
+  ::before {
+    ${stickyNoteBullet}
+    transform: rotate(135deg);
+    top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
+    right: -${stickyNoteMeasures.bulletSize / 2}rem;
+    background: ${stickyNoteMeasures.green};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const StickyNoteUl = styled.ul`
   padding: 0;
+  overflow: visible;
   margin: 0;
 `;
 
 // tslint:disable-next-line:variable-name
 const StickyNoteLi = styled.li`
   ${h4Style}
+  overflow: visible;
   padding: 0;
   color: ${theme.color.neutral.base};
   list-style-position: inside;
 `;
 
 // tslint:disable-next-line:variable-name
+const InfoIconWrapper = styled.span`
+  position: relative;
+  overflow: visible;
+`;
+
+// tslint:disable-next-line:variable-name
 const InfoIcon = styled(InfoCircle)`
   height: 1rem;
   width: 1rem;
-  margin-left: 0.5rem;
+  margin: 0 0.5rem;
   vertical-align: baseline;
 `;
 
 // tslint:disable-next-line:variable-name
 const Tooltip = styled.div`
   position: absolute;
+  z-index: 2;
   width: ${stickyNoteMeasures.tooltip.width}rem;
   height: ${stickyNoteMeasures.tooltip.height}rem;
   background: ${theme.color.neutral.base};
   border: solid 0.1rem ${theme.color.neutral.formBorder};
+  top: calc(50% + ${stickyNoteMeasures.bulletSize}rem);
+  left: calc(-${stickyNoteMeasures.tooltip.width / 2}rem + 50%);
   overflow: visible;
   color: gray;
   font-size: 1.2rem;
@@ -197,13 +211,16 @@ const Tooltip = styled.div`
 // tslint:disable-next-line:variable-name
 const GridWrapper = styled.div`
   margin: 3.6rem auto 0;
-  width: 74.4rem;
+  overflow: visible;
+  width: ${desktopPopupWidth}rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const ImagesGrid = styled.div`
   display: flex;
   position: relative;
+  justify-content: space-between;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -226,7 +243,7 @@ interface Props {
 
 class HighlightsPopUp extends Component<Props> {
   public blueNote = () => {
-    return ([<BlueStickyNoteBullet/>,
+    return ([
     <BlueStickyNote>
       <StickyNoteUl>
         <StickyNoteLi>
@@ -244,19 +261,21 @@ class HighlightsPopUp extends Component<Props> {
   };
 
   public greenNote = () => {
-    return ([<GreenStickyNoteBullet/>,
+    return ([
       <GreenStickyNote>
         <StickyNoteUl>
           <StickyNoteLi>
             <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
               {(msg: Element | string) => msg}
             </FormattedMessage>
-            <InfoIcon/>
-            <Tooltip>
-              <FormattedMessage id='i18n:toolbar:highlights:popup:body:tooltip:review'>
-                {(msg: Element | string) => msg}
-              </FormattedMessage>
-            </Tooltip>
+            <InfoIconWrapper>
+              <InfoIcon/>
+              <Tooltip>
+                <FormattedMessage id='i18n:toolbar:highlights:popup:body:tooltip:review'>
+                  {(msg: Element | string) => msg}
+                </FormattedMessage>
+              </Tooltip>
+            </InfoIconWrapper>
           </StickyNoteLi>
           <StickyNoteLi>
             <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>
