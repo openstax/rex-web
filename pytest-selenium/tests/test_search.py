@@ -42,6 +42,10 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
     if content.is_mobile:
         toolbar.click_search_icon()
 
+    # For desktop, close search sidebar
+    if content.is_desktop:
+        search_sidebar.close_search_sidebar()
+
     assert content.page_not_scrolled
 
 
@@ -53,9 +57,7 @@ def test_scroll_position_when_search_yields_no_results(selenium, base_url, book_
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
     mobile = content.mobile_search_toolbar
-
-    # Using regex to create a random search term
-    search_term = "".join(choice(digits + ascii_letters) for i in range(25))
+    search_sidebar = content.search_sidebar
 
     # WHEN: Scroll the page down
     content.scroll_through_page()
@@ -63,6 +65,10 @@ def test_scroll_position_when_search_yields_no_results(selenium, base_url, book_
     scroll_position_before_search = content.scroll_position
 
     # AND: Search is triggered for a term which yields no results
+
+    # Using regex to create a random search term
+    search_term = "".join(choice(digits + ascii_letters) for i in range(25))
+
     if content.is_desktop:
         toolbar.search_for(search_term)
 
@@ -75,3 +81,12 @@ def test_scroll_position_when_search_yields_no_results(selenium, base_url, book_
 
     # THEN: Scroll position of content is not changed after search
     assert scroll_position_before_search == scroll_position_after_search
+
+    # WHEN: Close search sidebar for desktop
+    if content.is_desktop:
+        search_sidebar.close_search_sidebar()
+
+        scroll_position_after_closing_search = content.scroll_position
+
+        # THEN: Scroll position of content is not changed after closing search sidebar
+        assert scroll_position_before_search == scroll_position_after_closing_search

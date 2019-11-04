@@ -4,16 +4,12 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
 
-from selenium.webdriver.common.keys import Keys
-
 import random
 
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
-
 from regions.search_sidebar import SearchSidebar
-
 from utils.utility import Utilities
 
 
@@ -108,7 +104,7 @@ class Content(Page):
         x & y are random numbers computed from the sidebar/window width/height respectively.
         Using touchactions to scroll from the print element.
         Selenium is not throwing any exception while scrolling over the content overlay using scroll(x,y).
-        Hence using scroll_from_element(element, x, y) to capture & assert the exception.
+        Hence using scroll_from_element(element, x, y) to capture & assert the exception in the test.
         """
         x = random.randint(self.sidebar_width_offset, self.window_width)
         y = random.randint(self.sidebar_height_offset, self.window_height)
@@ -117,6 +113,7 @@ class Content(Page):
             touchActions = TouchActions(self.driver)
             touchActions.scroll_from_element(self.print, x, y).perform()
 
+        # Touch actions is not working for safari & firefox. Hence scrolling using javascript
         else:
             self.driver.execute_script("scrollBy(arguments[0], arguments[1]);", x, y)
 
