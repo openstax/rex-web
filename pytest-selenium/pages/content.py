@@ -113,8 +113,12 @@ class Content(Page):
         x = random.randint(self.sidebar_width_offset, self.window_width)
         y = random.randint(self.sidebar_height_offset, self.window_height)
 
-        touchActions = TouchActions(self.driver)
-        touchActions.scroll_from_element(self.print, x, y).perform()
+        if self.driver == "chrome":
+            touchActions = TouchActions(self.driver)
+            touchActions.scroll_from_element(self.print, x, y).perform()
+
+        else:
+            self.driver.execute_script("scrollBy(arguments[0], arguments[1]);", x, y)
 
     scroll_through_page = scroll_over_content_overlay
 
