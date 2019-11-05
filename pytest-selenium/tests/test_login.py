@@ -73,11 +73,9 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
-    sleep(1)
 
     # THEN: osweb is in logged-in state
     assert osweb.user_is_logged_in
-    sleep(2)
 
     #  WHEN: click logout in osweb
     osweb.click_logout()

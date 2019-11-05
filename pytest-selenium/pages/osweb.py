@@ -86,8 +86,8 @@ class WebBase(Page):
             sleep(1)
             self.logout.click()
         self.wait_for_load()
-        # wait for load line above has to be uncommented when the bug for not redirecting to osweb page after logout is fixec
-        sleep(2)
+
+        # sleep(2)
 
     def click_view_online(self):
         self.offscreen_click(self.view_online)
