@@ -1,14 +1,17 @@
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
+
+from selenium.webdriver.common.keys import Keys
 
 import random
 
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
+from utils.utility import Utilities
 
 
 class Content(Page):
@@ -127,10 +130,68 @@ class Content(Page):
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
         _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
+        _user_nav_locator = (By.CSS_SELECTOR, "[data-testid='user-nav']")
+        _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
+        _user_nav_toggle_locator = (By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
+        _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
+        _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
 
         @property
         def openstax_logo_link(self):
             return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+
+        @property
+        def user_nav(self):
+            return self.find_element(*self._user_nav_locator)
+
+        @property
+        def login(self):
+            return self.find_element(*self._login_locator)
+
+        @property
+        def user_is_not_logged_in(self):
+            try:
+                self.wait.until(expected.visibility_of_element_located(self._login_locator))
+                return bool(self.find_element(*self._login_locator))
+            except TimeoutException:
+                return bool([])
+
+        @property
+        def user_is_logged_in(self):
+            try:
+                self.wait.until(
+                    expected.visibility_of_element_located(self._user_nav_toggle_locator)
+                )
+                return bool(self.find_element(*self._user_nav_toggle_locator))
+            except TimeoutException:
+                return bool([])
+
+        @property
+        def account_profile_is_displayed(self):
+            try:
+                if self.find_element(*self._account_profile_locator).is_displayed():
+                    return True
+            except NoSuchElementException:
+                return False
+
+        @property
+        def logout_is_displayed(self):
+            return expected.visibility_of_element_located(self._logout_locator)
+
+        @property
+        def logout(self):
+            return self.find_element(*self._logout_locator)
+
+        def click_login(self):
+            self.wait.until(expected.visibility_of_element_located(self._login_locator))
+            Utilities.click_option(self.driver, element=self.login)
+
+        def click_logout(self):
+            Utilities.click_option(self.driver, element=self.logout)
+
+        def click_user_name(self):
+            self.wait.until(expected.visibility_of_element_located((self._user_nav_locator)))
+            Utilities.click_option(self.driver, element=self.user_nav)
 
     class BookBanner(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
