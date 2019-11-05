@@ -7,6 +7,7 @@ from time import sleep
 class WebBase(Page):
     URL_TEMPLATE = "/details/books/{book_slug}"
     _root_locator = (By.CSS_SELECTOR, "body.page-loaded")
+    _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
@@ -25,7 +26,9 @@ class WebBase(Page):
     @property
     def loaded(self):
         """Return True when the page-loaded class is added to the body tag."""
-        return (self.find_element(*self._root_locator)).is_displayed()
+        return (self.find_element(*self._root_locator)).is_displayed() and not self.find_elements(
+            *self._async_hide_locator
+        )
 
     @property
     def login(self):
@@ -82,7 +85,7 @@ class WebBase(Page):
             self.mobile_user_nav_loaded()
             sleep(1)
             self.logout.click()
-        # self.wait_for_load()
+        self.wait_for_load()
         # wait for load line above has to be uncommented when the bug for not redirecting to osweb page after logout is fixec
         sleep(2)
 

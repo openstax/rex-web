@@ -147,6 +147,10 @@ class Content(Page):
             return self.find_element(*self._login_locator)
 
         @property
+        def user_nav_toggle(self):
+            return self.find_element(*self._user_nav_toggle_locator)
+
+        @property
         def user_is_not_logged_in(self):
             try:
                 self.wait.until(expected.visibility_of_element_located(self._login_locator))

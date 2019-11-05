@@ -100,25 +100,21 @@ def test_rex_login_state_when_redirected_from_osweb(
     # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
+    osweb.click_login()
 
     # AND: Login as existing user
     accounts = Login(selenium)
-    sleep(1)
-    osweb.click_login()
     accounts.login(email, password)
+    osweb.wait_for_load()
 
-    sleep(1)
     # verify user is logged in and get the username
     assert osweb.user_is_logged_in
     osweb_username = osweb.osweb_username(osweb.user_nav)
-
-    sleep(2)
 
     # WHEN: Click the view online link in osweb
     osweb.click_view_online()
 
     osweb.switch_to_window(1)
-    sleep(1)
 
     # THEN: The book page is opened in REX with the same user as openstax.org
     rex = Content(selenium)
