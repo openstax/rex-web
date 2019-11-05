@@ -1,14 +1,16 @@
 from pages.content import Content
 from pages.accounts import Login
 from pages.osweb import WebBase
-from tests import markers
+
 from time import sleep
+from tests import markers
 
 
 @markers.test_case("C477326", "C477327")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, password):
+
     # GIVEN: Page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     user_nav = content.navbar

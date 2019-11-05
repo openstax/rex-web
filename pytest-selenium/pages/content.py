@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
 
-
 import random
 
 from pages.base import Page
