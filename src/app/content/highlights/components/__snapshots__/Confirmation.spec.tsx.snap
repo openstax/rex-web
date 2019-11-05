@@ -118,6 +118,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
 
 <div
   className="c0"
+  data-analytics-region="region"
   tabIndex={-1}
 >
   <label>
