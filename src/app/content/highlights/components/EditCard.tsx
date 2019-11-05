@@ -144,6 +144,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
+  overflow: visible;
 
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
