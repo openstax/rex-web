@@ -76,6 +76,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
 }
 
 <div
+  authenticated={false}
   className="c0"
   data={
     Object {
@@ -160,6 +161,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
     }
   }
   isFocused={true}
+  loginLink="/accounts/login?r=/"
   mock-edit={true}
   onBlur={[Function]}
   onCreate={[Function]}
@@ -219,6 +221,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
 }
 
 <div
+  authenticated={false}
   className="c0"
   data={
     Object {
@@ -242,6 +245,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
     }
   }
   isFocused={false}
+  loginLink="/accounts/login?r=/"
   mock-edit={true}
   onBlur={[Function]}
   onCreate={[Function]}
@@ -296,6 +300,7 @@ exports[`Card matches snapshot without data 1`] = `
 }
 
 <div
+  authenticated={false}
   className="c0"
   highlight={
     Object {
@@ -314,6 +319,7 @@ exports[`Card matches snapshot without data 1`] = `
     }
   }
   isFocused={false}
+  loginLink="/accounts/login?r=/"
   mock-edit={true}
   onBlur={[Function]}
   onCreate={[Function]}
