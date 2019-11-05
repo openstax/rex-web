@@ -129,7 +129,6 @@ exports[`EditCard matches snapshot when editing 1`] = `
     data-analytics-region="highlighting-login"
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
-    onCancel={[Function]}
   />
 </form>
 `;
@@ -165,7 +164,6 @@ exports[`EditCard matches snapshot when focused 1`] = `
     data-analytics-region="highlighting-login"
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
-    onCancel={[Function]}
   />
 </form>
 `;
@@ -200,7 +198,6 @@ exports[`EditCard matches snapshot with data 1`] = `
     data-analytics-region="highlighting-login"
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
-    onCancel={[Function]}
   />
 </form>
 `;
@@ -235,7 +232,6 @@ exports[`EditCard matches snapshot without data 1`] = `
     data-analytics-region="highlighting-login"
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
-    onCancel={[Function]}
   />
 </form>
 `;

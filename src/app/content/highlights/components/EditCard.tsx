@@ -138,7 +138,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
       confirmLink={loginLink}
-      onCancel={() => onBlur()}
+      onCancel={onBlur}
     />}
   </form>;
 });
