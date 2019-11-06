@@ -1,5 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -438,6 +439,8 @@ describe('Page', () => {
     expect(evt3.preventDefault).not.toHaveBeenCalled();
     expect(evt4.preventDefault).not.toHaveBeenCalled();
 
+    await new Promise((resolve) => defer(resolve));
+
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
@@ -472,6 +475,8 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
 
     firstLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
@@ -508,6 +513,8 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
 
     hashLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: expect.anything(),

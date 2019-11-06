@@ -23,8 +23,8 @@ describe('GoogleAnalyticsClient', () => {
         client.setUserId('jimbo');
         expect(mockGa).not.toHaveBeenCalled();
         client.setTrackingIds(['foo', 'bar']);
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'jimbo');
-        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userId', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'jimbo'});
+        expect(mockGa).toHaveBeenCalledWith('tbar.set', {userId: 'jimbo'});
       });
     });
 
@@ -32,7 +32,7 @@ describe('GoogleAnalyticsClient', () => {
       it('sets it after tracking ID set', async() => {
         client.setTrackingIds(['foo']);
         client.setUserId('jimbo');
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'jimbo');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'jimbo'});
       });
     });
 
@@ -43,8 +43,8 @@ describe('GoogleAnalyticsClient', () => {
     it('unsets it', async() => {
       client.setTrackingIds(['foo', 'bar']);
       client.unsetUserId();
-      expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', undefined);
-      expect(mockGa).toHaveBeenCalledWith('tbar.set', 'userId', undefined);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: undefined});
+      expect(mockGa).toHaveBeenCalledWith('tbar.set', {userId: undefined});
     });
 
   });
@@ -62,7 +62,7 @@ describe('GoogleAnalyticsClient', () => {
         client.setTrackingIds(['foo']);
         expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
         expect(mockGa.mock.calls[1][2]).toBeGreaterThanOrEqual(sleepMs);
-        expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'pageview', '/some/path');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
       });
     });
 
@@ -71,9 +71,9 @@ describe('GoogleAnalyticsClient', () => {
         client.setTrackingIds(['foo', 'bar']);
         client.trackPageView('/some/path');
         expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', 0);
-        expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'pageview', '/some/path');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
         expect(mockGa).toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
-        expect(mockGa).toHaveBeenCalledWith('tbar.send', 'pageview', '/some/path');
+        expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
       });
     });
 
@@ -117,17 +117,35 @@ describe('GoogleAnalyticsClient', () => {
 
     it('calls with category and action', async() => {
       client.trackEvent('category', 'action');
-      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
+        eventAction: 'action',
+        eventCategory: 'category',
+        hitType: 'event',
+        transport: 'beacon',
+      });
     });
 
     it('calls with category, action, and label', async() => {
       client.trackEvent('category', 'action', 'label');
-      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action', 'label');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
+        eventAction: 'action',
+        eventCategory: 'category',
+        eventLabel: 'label',
+        hitType: 'event',
+        transport: 'beacon',
+      });
     });
 
     it('calls with category, action, label, and value', async() => {
       client.trackEvent('category', 'action', 'label', 42);
-      expect(mockGa).toHaveBeenCalledWith('tfoo.send', 'event', 'category', 'action', 'label', 42);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
+        eventAction: 'action',
+        eventCategory: 'category',
+        eventLabel: 'label',
+        eventValue: 42,
+        hitType: 'event',
+        transport: 'beacon',
+      });
     });
   });
 
