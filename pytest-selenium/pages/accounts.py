@@ -1,11 +1,8 @@
 from pypom import Page
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as expect
+from selenium.webdriver.support import expected_conditions as expected
 from utils import utility
 from selenium.webdriver.common.keys import Keys
-
-from selenium.webdriver.support import expected_conditions as expected
-from time import sleep
 
 
 class Login(Page):
@@ -15,7 +12,7 @@ class Login(Page):
 
     @property
     def user_field(self):
-        return self.wait.until(expect.presence_of_element_located(self._user_field_locator))
+        return self.wait.until(expected.presence_of_element_located(self._user_field_locator))
 
     @property
     def password_field(self):

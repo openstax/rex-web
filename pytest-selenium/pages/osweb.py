@@ -1,6 +1,7 @@
 from pages.base import Page
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as expected
 from time import sleep
 
 
@@ -12,7 +13,7 @@ class WebBase(Page):
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
-    # _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header hide-until-loaded loaded active open"]')
+    _close_locator = (By.CSS_SELECTOR, '[class="close"]')
     _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[aria-expanded="true"]')
     _view_online_desktop_locator = (
         By.XPATH,
@@ -54,6 +55,9 @@ class WebBase(Page):
             self.mobile_user_nav.click()
             if self.is_element_present(*self._mobile_user_nav_locator):
                 self.mobile_user_nav.click()
+                self.wait.until(
+                    expected.invisibility_of_element_located(self._mobile_user_nav_locator)
+                )
                 return True
 
     @property
