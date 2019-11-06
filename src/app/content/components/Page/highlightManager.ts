@@ -155,8 +155,11 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         highlighter = createHighlighter(services);
         setListHighlighter(highlighter);
       }
+
+      let addedOrRemoved = false;
+
       if (!highlighter) {
-        return;
+        return addedOrRemoved;
       }
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
@@ -166,6 +169,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         && !highlighter.getHighlight(pendingHighlight.id)
         && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
       ) {
+        addedOrRemoved = true;
         highlighter.highlight(pendingHighlight);
       }
 
@@ -193,7 +197,10 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       if (newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
+        return true;
       }
+
+      return addedOrRemoved;
     },
   };
 };
@@ -201,5 +208,5 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (): void => undefined,
+  update: (): boolean => false,
 });
