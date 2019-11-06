@@ -12,11 +12,6 @@ export const tocOpen = createSelector(
   (state) => !state.search.query && state.tocOpen
 );
 
-export const myHighlightsOpen = createSelector(
-  localState,
-  (state) => state.myHighlightsOpen
-);
-
 export const book = createSelector(
   localState,
   (state) => state.book

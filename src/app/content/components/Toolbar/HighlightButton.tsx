@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import highlightIcon from '../../../../assets/highlightIcon.svg';
+import * as selectors from '../../../content/highlights/selectors';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { openMyHighlights } from '../../actions';
-import * as selectors from '../../selectors';
+import { openMyHighlights } from '../../highlights/actions';
 import { PlainButton, toolbarDefaultText, toolbarIconStyles } from './styled';
 
 interface Props {

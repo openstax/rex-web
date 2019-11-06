@@ -17,7 +17,7 @@ import { getPageSlug } from './utils/archiveTreeUtils';
 export const initialState = {
   highlights: initialHighlightState,
   loading: {},
-  myHighlightsOpen: false,
+  myHighlightsOpen: initialHighlightState.myHighlightsOpen,
   params: {},
   references: [],
   search: initialSearchState,
@@ -53,10 +53,6 @@ function reduceContent(state: State, action: AnyAction) {
       return {...state, tocOpen: false};
     case getType(actions.resetToc):
       return {...state, tocOpen: null};
-    case getType(actions.openMyHighlights):
-      return {...state, myHighlightsOpen: true};
-    case getType(actions.closeMyHighlights):
-      return {...initialState, myHighlightsOpen: state.myHighlightsOpen};
     case getType(actions.requestBook):
       return {...state, loading: {...state.loading, book: action.payload}};
     case getType(actions.receiveBook): {

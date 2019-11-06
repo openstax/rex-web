@@ -3,18 +3,27 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
+import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
+import * as authSelect from '../../../auth/selectors';
+import { User } from '../../../auth/types';
 import htmlMessage from '../../../components/htmlMessage';
+import Times from '../../../components/Times';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
+import * as selectors from '../../../content/highlights/selectors';
+import * as selectNavigation from '../../../navigation/selectors';
 import theme from '../../../theme';
-import { AppState } from '../../../types';
-import * as selectors from '../../selectors';
+import { AppState, Dispatch } from '../../../types';
+import { closeMyHighlights } from '../../highlights/actions';
+import { toolbarIconColor } from '../constants';
 
 const desktopPopupWidth = 74.4;
 const popupPadding = 3.2;
 const popupBodyPadding = 2.4;
+const myHighlightsImageWidth = 72.8;
+const myHighlightsImageHeight = 23.2;
 
 const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -63,7 +72,6 @@ const Modal = styled.div`
 
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div`
-  overflow: visible;
   z-index: 1;
   width: 100%;
   background: ${theme.color.neutral.base};
@@ -76,11 +84,19 @@ const Header = styled(H3)`
   background: #002569;
   color: ${theme.color.neutral.base};
   padding: ${popupPadding}rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 // tslint:disable-next-line:variable-name
 const PopupBody = styled.div`
   padding: ${popupBodyPadding}rem ${popupPadding}rem;
+  overflow: visible;
+  ${theme.breakpoints.mobile(css`
+    text-align: center;
+    padding: 8rem 3.2rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -155,6 +171,7 @@ const StickyNoteUl = styled.ul`
   padding: 0;
   overflow: visible;
   margin: 0;
+  list-style: none;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -163,13 +180,11 @@ const StickyNoteLi = styled.li`
   overflow: visible;
   padding: 0;
   color: ${theme.color.neutral.base};
-  list-style-position: inside;
-`;
 
-// tslint:disable-next-line:variable-name
-const InfoIconWrapper = styled.span`
-  position: relative;
-  overflow: visible;
+  ::before {
+    content: "\\2022";
+    padding-right: 0.5rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -185,26 +200,55 @@ const Tooltip = styled.div`
   position: absolute;
   z-index: 2;
   width: ${stickyNoteMeasures.tooltip.width}rem;
-  height: ${stickyNoteMeasures.tooltip.height}rem;
+  min-height: ${stickyNoteMeasures.tooltip.height}rem;
   background: ${theme.color.neutral.base};
   border: solid 0.1rem ${theme.color.neutral.formBorder};
   top: calc(50% + ${stickyNoteMeasures.bulletSize}rem);
   left: calc(-${stickyNoteMeasures.tooltip.width / 2}rem + 50%);
   overflow: visible;
-  color: gray;
-  font-size: 1.2rem;
+  color: ${theme.color.text.label};
+  font-size: 1.4rem;
+  line-height: 2rem;
   font-weight: 200;
   padding: 1rem;
+  visibility: hidden;
+  box-shadow: 0 0.4rem 1rem 0 rgba(0,0,0,20);
+  border-radius: 0.3rem;
+  margin-bottom: 3rem;
 
   ::before {
     content: " ";
     position: absolute;
-    bottom: 100%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent white transparent;
+    margin-left: -${stickyNoteMeasures.bulletSize / 4}rem;
+    width: ${stickyNoteMeasures.bulletSize / 2}rem;
+    height: ${stickyNoteMeasures.bulletSize / 2}rem;
+    transform: rotate(45deg);
+    top: -${(stickyNoteMeasures.bulletSize / 4) + 0.1}rem;
+    background: ${theme.color.neutral.base};
+    border-top: solid 0.1rem ${theme.color.neutral.formBorder};
+    border-left: solid 0.1rem ${theme.color.neutral.formBorder};
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const InfoIconWrapper = styled.span`
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+
+  &:hover ${Tooltip} {
+    visibility: visible;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  color: ${theme.color.neutral.base};
+  cursor: pointer;
+
+  :hover {
+    color: ${toolbarIconColor.base};
   }
 `;
 
@@ -213,6 +257,9 @@ const GridWrapper = styled.div`
   margin: 3.6rem auto 0;
   overflow: visible;
   width: ${desktopPopupWidth}rem;
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -224,24 +271,97 @@ const ImagesGrid = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const LoginFreeText = styled(H3)`
+const GeneralText = styled(H3)`
   width: 100%;
   padding: 0.8rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
-const LoginTextWrapper = styled.span`
+const GeneralTextWrapper = styled.span`
   ${bodyCopyRegularStyle}
 `;
 
 // tslint:disable-next-line:variable-name
-const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text', LoginTextWrapper);
+const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text', GeneralTextWrapper);
+
+// tslint:disable-next-line:variable-name
+const MyHighlightsWrapper = styled.div`
+  margin: 3.6rem auto 0;
+  width: ${desktopPopupWidth}rem;
+  text-align: center;
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const GeneralLeftText = styled(GeneralTextWrapper)`
+  text-align: left;
+  width: 100%;
+`;
+
+// tslint:disable-next-line:variable-name
+const MyHighlightsImage = styled.img`
+  width: ${myHighlightsImageWidth}rem;
+  height: ${myHighlightsImageHeight}rem;
+  margin-top: ${popupBodyPadding}rem;
+`;
 
 interface Props {
-  isMyHighlightsOpen: boolean;
+  myHighlightsOpen: boolean;
+  closeMyHighlights: () => void;
+  user?: User;
+  loggedOut: boolean;
+  currentPath: string;
 }
 
 class HighlightsPopUp extends Component<Props> {
+  public loginForHighlights = () => {
+    return <PopupBody>
+      <LoginText values={{loginLink: '/accounts/login?r=' + this.props.currentPath}} />
+      <GridWrapper>
+        <GeneralText>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+        </GeneralText>
+        <ImagesGrid>
+          <ImageWrapper>
+            <FirstImage src={notLoggedImage1}></FirstImage>
+            {this.blueNote()}
+          </ImageWrapper>
+          <ImageWrapper>
+            <SecondImage src={notLoggedImage2}></SecondImage>
+            {this.greenNote()}
+          </ImageWrapper>
+        </ImagesGrid>
+      </GridWrapper>
+    </PopupBody>;
+  };
+
+  public myHighlights = () => {
+    return <PopupBody>
+      <GeneralLeftText>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+      </GeneralLeftText>
+      <MyHighlightsWrapper>
+        <GeneralText>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+        </GeneralText>
+        <GeneralTextWrapper>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+        </GeneralTextWrapper>
+        <MyHighlightsImage src={myHighlightsEmptyImage}></MyHighlightsImage>
+      </MyHighlightsWrapper>
+    </PopupBody>;
+  };
+
   public blueNote = () => {
     return ([
     <BlueStickyNote>
@@ -283,41 +403,23 @@ class HighlightsPopUp extends Component<Props> {
             </FormattedMessage>
           </StickyNoteLi>
         </StickyNoteUl>
-      </GreenStickyNote>]);
+      </GreenStickyNote>,
+    ]);
   };
 
   public render() {
     return (
-      this.props.isMyHighlightsOpen ?
+      this.props.myHighlightsOpen ?
         <Modal>
           <Mask>
             <Wrapper>
               <Header>
                 <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-                  {(msg: Element | string) => msg
-                  }
+                  {(msg: Element | string) => msg}
                 </FormattedMessage>
+                <CloseIcon onClick={() => this.props.closeMyHighlights()}></CloseIcon>
               </Header>
-              <PopupBody>
-                <LoginText/>
-                <GridWrapper>
-                  <LoginFreeText>
-                    <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
-                      {(msg: Element | string) => msg}
-                    </FormattedMessage>
-                  </LoginFreeText>
-                  <ImagesGrid>
-                    <ImageWrapper>
-                      <FirstImage src={notLoggedImage1}></FirstImage>
-                      {this.blueNote()}
-                    </ImageWrapper>
-                    <ImageWrapper>
-                      <SecondImage src={notLoggedImage2}></SecondImage>
-                      {this.greenNote()}
-                    </ImageWrapper>
-                  </ImagesGrid>
-                </GridWrapper>
-              </PopupBody>
+              {this.props.user ? this.myHighlights() : this.loginForHighlights()}
             </Wrapper>
           </Mask>
         </Modal>
@@ -326,6 +428,14 @@ class HighlightsPopUp extends Component<Props> {
   }
 }
 
-export default connect((state: AppState) => ({
-  isMyHighlightsOpen: selectors.myHighlightsOpen(state),
-}))(HighlightsPopUp);
+export default connect(
+  (state: AppState) => ({
+    currentPath: selectNavigation.pathname(state),
+    loggedOut: authSelect.loggedOut(state),
+    myHighlightsOpen: selectors.myHighlightsOpen(state),
+    user: authSelect.user(state),
+  }),
+  (dispatch: Dispatch) => ({
+    closeMyHighlights: () => dispatch(closeMyHighlights()),
+  })
+)(HighlightsPopUp);
