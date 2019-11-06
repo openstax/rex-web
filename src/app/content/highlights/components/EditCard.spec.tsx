@@ -156,7 +156,7 @@ describe('EditCard', () => {
     });
 
     expect(note.props.note).toBe('qwer');
-    expect(blur).toHaveBeenCalled();
+    expect(blur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
   });
 
@@ -179,7 +179,7 @@ describe('EditCard', () => {
     });
 
     expect(save).toHaveBeenCalledWith({...highlightData, note: 'asdf'});
-    expect(blur).toHaveBeenCalled();
+    expect(blur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
   });
 
@@ -237,7 +237,7 @@ describe('EditCard', () => {
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
     expect(save).toHaveBeenCalledWith({...highlightData, note: ''});
-    expect(blur).toHaveBeenCalled();
+    expect(blur).not.toHaveBeenCalled();
   });
 
   it('confirmation can cancel', () => {

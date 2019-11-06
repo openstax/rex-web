@@ -64,13 +64,11 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const saveNote = () => {
     onSave({...(data || highlight.serialize().data), note: pendingNote});
-    onBlur();
   };
 
   const cancelEditing = () => {
     setPendingNote(defaultNote());
     setEditing(false);
-    onBlur();
   };
 
   return <form className={className} onClick={onClick} ref={mergeRefs(ref, element)}>
