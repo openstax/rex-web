@@ -150,7 +150,7 @@ const overlapDisplay = css`
     }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
-    display: none;
+    visibility: hidden;
   `}
 `;
 
@@ -165,7 +165,7 @@ const rightSideDisplay = css`
   `}
   ${(props: Props) => !props.isFocused && css`
     /* temporary simplification */
-    display: none;
+    visibility: hidden;
   `}
 `;
 
@@ -179,7 +179,7 @@ const mobileDisplay = css`
     padding: 0;
   `}
   ${(props: Props) => !props.isFocused && css`
-    display: none;
+    visibility: hidden;
   `}
 `;
 

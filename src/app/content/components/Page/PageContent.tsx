@@ -48,6 +48,18 @@ export default styled(MainContent)`
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
       background-color: ${style.passive};
+      position: relative;
+
+      &.note-indicator::before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: ${style.focused};
+        width: 1rem;
+        height: 1rem;
+        clip-path: polygon(0 0, 100% 0, 100% 100%);
+      }
 
       @media screen {
         &.focus {
