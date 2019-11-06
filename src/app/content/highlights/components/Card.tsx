@@ -233,17 +233,18 @@ const StyledCard = styled(Card)`
     `;
   }}
 
-  @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
-    /* the window is too small to show note cards next to content when search is open */
-    ${rightSideDisplay}
-    ${(props: {hasQuery: boolean}) => !!props.hasQuery && overlapDisplay}
-  }
-
   @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content when the toc is open */
     ${overlapDisplay}
     ${styleWhenSidebarClosed(rightSideDisplay)}
   }
+
+  ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
+    @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
+      /* the window is too small to show note cards next to content when search is open */
+      ${overlapDisplay}
+    }
+  `}
 
   @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content even without sidebars */
