@@ -139,6 +139,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       if (listHighlighter) {
         return React.createElement(CardWrapper, {
+          container,
           highlights: listPendingHighlight
             ? [
                 ...listHighlights.filter((highlight) => !pendingHighlight || highlight.id !== pendingHighlight.id),

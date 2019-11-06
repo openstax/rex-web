@@ -29,6 +29,7 @@ import EditCard from './EditCard';
 import { cardBorder } from './style';
 
 interface Props {
+  container: HTMLElement;
   isFocused: boolean;
   highlight: Highlight;
   create: typeof createHighlight;
@@ -101,7 +102,7 @@ const Card = (props: Props) => {
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 
-const getHighlightOffset = (highlight: Highlight) => {
+const getHighlightOffset = (container: HTMLElement, highlight: Highlight) => {
   if (!highlight.range || !highlight.range.getBoundingClientRect) {
     return;
   }
@@ -114,33 +115,25 @@ const getHighlightOffset = (highlight: Highlight) => {
 
   const {top, bottom} = highlight.range.getBoundingClientRect();
 
-  const removeParentOffset = (element: HTMLElement, offset: number): number => {
-    const offsetParent = element.offsetParent && findElementSelfOrParent(element.offsetParent);
-
-    if (offsetParent) {
-      return removeParentOffset(offsetParent, offset - offsetParent.offsetTop);
-    } else {
-      return offset;
-    }
-  };
-
+  const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
+  const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
   const scrollOffset = assertWindow().scrollY;
 
   return {
-    bottom: removeParentOffset(anchor, bottom + scrollOffset),
-    top: removeParentOffset(anchor, top + scrollOffset),
+    bottom: bottom - parentOffset + scrollOffset,
+    top: top - parentOffset + scrollOffset,
   };
 };
 
-const getHighlightTopOffset = (highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(highlight);
+const getHighlightTopOffset = (container: HTMLElement, highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.top;
   }
 };
-const getHighlightBottomOffset = (highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(highlight);
+const getHighlightBottomOffset = (container: HTMLElement, highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.bottom;
@@ -152,7 +145,7 @@ const overlapDisplay = css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
-      return getHighlightBottomOffset(props.highlight) || 0;
+      return getHighlightBottomOffset(props.container, props.highlight) || 0;
     }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
@@ -164,7 +157,7 @@ const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => {
-    return getHighlightTopOffset(props.highlight) || 0;
+    return getHighlightTopOffset(props.container, props.highlight) || 0;
   }}px;
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
