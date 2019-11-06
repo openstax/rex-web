@@ -21,6 +21,6 @@ describe('trackUser', () => {
 
     await (untrackUserHookBody(helpers))(receiveLoggedOut());
 
-    expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', undefined);
+    expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: undefined});
   });
 });

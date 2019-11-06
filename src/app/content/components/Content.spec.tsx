@@ -24,6 +24,13 @@ import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
 
+jest.mock('../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
+
 describe('content', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
