@@ -56,7 +56,7 @@ class WebBase(Page):
             if self.is_element_present(*self._mobile_user_nav_locator):
                 self.mobile_user_nav.click()
                 self.wait.until(
-                    expected.invisibility_of_element_located(self._mobile_user_nav_locator)
+                    expected.invisibility_of_element_located(self._mobile_user_nav_loaded_locator)
                 )
                 return True
 
@@ -86,12 +86,8 @@ class WebBase(Page):
         elif self.is_mobile:
             self.mobile_user_nav.click()
             self.user_nav.click()
-            self.mobile_user_nav_loaded()
-            sleep(1)
             self.logout.click()
         self.wait_for_load()
-
-        # sleep(2)
 
     def click_view_online(self):
         self.offscreen_click(self.view_online)
