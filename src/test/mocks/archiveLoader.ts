@@ -46,7 +46,10 @@ export default () => {
 
   const loadBook = jest.fn((bookId, bookVersion) => {
     const bookData = resolveBook(bookId, bookVersion);
-    return bookData ? Promise.resolve(bookData) : Promise.reject(new Error('failed to load book data'));
+    return bookData
+      ? Promise.resolve(bookData)
+      : Promise.reject(new Error(`failed to load book data ${bookId}@${bookVersion}`))
+    ;
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];

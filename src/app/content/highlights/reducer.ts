@@ -38,7 +38,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.deleteHighlight): {
-      return {...state, highlights: state.highlights.filter(({id}) => id !== action.payload)};
+      return {
+        ...state,
+        focused: state.focused === action.payload ? undefined : state.focused,
+        highlights: state.highlights.filter(({id}) => id !== action.payload),
+      };
     }
     case getType(actions.receiveHighlights): {
       return {...state, highlights: [...state.highlights, ...action.payload]};

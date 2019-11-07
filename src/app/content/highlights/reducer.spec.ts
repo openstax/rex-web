@@ -43,6 +43,15 @@ describe('highlight reducer', () => {
     expect(state.focused).toEqual(undefined);
   });
 
+  it('removing the focused highlight also clears focus', () => {
+    const state = reducer({
+      ...initialState,
+      focused: 'asdf',
+      highlights: [mockHighlight],
+    }, actions.deleteHighlight(mockHighlight.id));
+    expect(state.focused).toEqual(undefined);
+  });
+
   it('creates highlights', () => {
     const state = reducer(undefined, actions.createHighlight(mockHighlight));
     expect(state.highlights.length).toEqual(1);

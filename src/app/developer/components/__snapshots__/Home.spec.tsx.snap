@@ -91,6 +91,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -361,6 +362,7 @@ Array [
               Content
             </h3>
             path: 
+            /books/:book([^@/]+)@:version/pages/:page
             /books/:book/pages/:page
           </div>
           <div>
@@ -722,6 +724,7 @@ Array [
 
 <footer
     className="c0"
+    data-analytics-region="footer"
   >
     <div
       className="c1"

@@ -26,17 +26,20 @@ interface Props {
 
 interface State {
   query: string;
+  queryProp: string;
   formSubmitted: boolean;
 }
 
 class Toolbar extends React.Component<Props, State> {
-  public state = { query: '', formSubmitted: false };
 
-  public componentWillUpdate(newProps: Props) {
-    if (newProps.query && newProps.query !== this.props.query && newProps.query !== this.state.query) {
-      this.setState({query: newProps.query});
+  public static getDerivedStateFromProps(newProps: Props, state: State) {
+    if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
+      return {...state, query: newProps.query, queryProp: newProps.query};
     }
+    return {...state, queryProp: newProps.query};
   }
+
+  public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
     const onSubmit = (e: React.FormEvent) => {
@@ -75,7 +78,7 @@ class Toolbar extends React.Component<Props, State> {
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
-    return <Styled.BarWrapper>
+    return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
         <OpenSidebarControl />
         <Styled.SearchPrintWrapper>

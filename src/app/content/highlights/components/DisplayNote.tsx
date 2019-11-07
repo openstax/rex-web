@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
@@ -5,9 +6,11 @@ import Dropdown, { DropdownItem } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
+import { mergeRefs } from '../../../utils';
 import { cardPadding, cardWidth, highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import TruncatedText from './TruncatedText';
+import onClickOutside from './utils/onClickOutside';
 
 // tslint:disable-next-line:variable-name
 const MenuIcon = styled(EllipsisV)`
@@ -43,10 +46,16 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Props) => {
+const DisplayNote = React.forwardRef<HTMLElement, Props>((
+  {note, isFocused, onBlur, onEdit, onRemove, className}: Props,
+  ref
+) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
+  const element = React.useRef<HTMLElement>(null);
 
-  return <div className={className}>
+  React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
+
+  return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuIcon />}>
       <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
       <DropdownItem
@@ -65,7 +74,7 @@ const DisplayNote = ({note, isFocused, onBlur, onEdit, onRemove, className}: Pro
       onCancel={() => setConfirmingDelete(false)}
     />}
   </div>;
-};
+});
 
 export default styled(DisplayNote)`
   width: ${cardWidth}rem;

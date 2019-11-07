@@ -44,11 +44,11 @@ export default styled(MainContent)`
     }
   }
 
-  @media screen {
-    ${highlightStyles.map((style) => css`
-      .highlight.${style.label} {
-        background-color: ${style.passive};
+  ${highlightStyles.map((style) => css`
+    .highlight.${style.label} {
+      background-color: ${style.passive};
 
+      @media screen {
         &.focus {
           background-color: ${style.focused};
 
@@ -57,8 +57,10 @@ export default styled(MainContent)`
           `}
         }
       }
-    `)}
+    }
+  `)}
 
+  @media screen {
     .search-highlight {
       font-weight: bold;
       background-color: #ffd17e;

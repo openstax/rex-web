@@ -91,6 +91,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -601,6 +602,26 @@ Array [
 
 .c62 a:hover {
   color: #0064A0;
+}
+
+.c62 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c62 .highlight.green {
+  background-color: #def99f;
+}
+
+.c62 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c62 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c62 .highlight.red {
+  background-color: #ffc5e1;
 }
 
 .c62 .os-figure,
@@ -1570,48 +1591,38 @@ li[aria-label="Current Page"] .c43 {
 }
 
 @media screen {
-  .c62 .highlight.yellow {
-    background-color: #ffff8a;
-  }
-
   .c62 .highlight.yellow.focus {
     background-color: #fed200;
   }
+}
 
-  .c62 .highlight.green {
-    background-color: #def99f;
-  }
-
+@media screen {
   .c62 .highlight.green.focus {
     background-color: #92d101;
   }
+}
 
-  .c62 .highlight.blue {
-    background-color: #c8f5ff;
-  }
-
+@media screen {
   .c62 .highlight.blue.focus {
     background-color: #00c3ed;
   }
+}
 
-  .c62 .highlight.purple {
-    background-color: #cbcfff;
-  }
-
+@media screen {
   .c62 .highlight.purple.focus {
     background-color: #545ec8;
     color: #fff;
   }
+}
 
-  .c62 .highlight.red {
-    background-color: #ffc5e1;
-  }
-
+@media screen {
   .c62 .highlight.red.focus {
     background-color: #de017e;
     color: #fff;
   }
+}
 
+@media screen {
   .c62 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
@@ -2030,6 +2041,7 @@ li[aria-label="Current Page"] .c43 {
   >
     <div
       className="c1"
+      data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
       <div
@@ -2064,6 +2076,7 @@ li[aria-label="Current Page"] .c43 {
     </div>
     <div
       className="c7"
+      data-analytics-region="book-banner-collapsed"
     >
       <div
         className="c2"
@@ -2097,6 +2110,7 @@ li[aria-label="Current Page"] .c43 {
     </div>
     <div
       className="c10"
+      data-analytics-region="toolbar"
     >
       <div
         className="c11"
@@ -2235,6 +2249,7 @@ li[aria-label="Current Page"] .c43 {
           <div
             aria-label="Table of Contents"
             className="c34"
+            data-analytics-region="toc"
             data-testid="toc"
           >
             <div
@@ -2865,10 +2880,12 @@ li[aria-label="Current Page"] .c43 {
                     </div>
                     <div
                       className="c64"
+                      data-analytics-region="prev-next"
                     >
                       <a
                         aria-label="Previous Page"
                         className="c65"
+                        data-analytics-href="prev"
                         href="2-test-page-3"
                         onClick={[Function]}
                       >
@@ -2888,6 +2905,7 @@ li[aria-label="Current Page"] .c43 {
                       <a
                         aria-label="Next Page"
                         className="c67"
+                        data-analytics-href="next"
                         href="4-test-page-5"
                         onClick={[Function]}
                       >
@@ -2909,6 +2927,7 @@ li[aria-label="Current Page"] .c43 {
                 </div>
                 <details
                   className="c69"
+                  data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
                   <summary
@@ -3016,6 +3035,7 @@ li[aria-label="Current Page"] .c43 {
                 </details>
                 <footer
                   className="c76"
+                  data-analytics-region="footer"
                 >
                   <div
                     className="c77"
@@ -3379,6 +3399,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -3958,6 +3979,26 @@ Array [
   color: #0064A0;
 }
 
+.c36 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c36 .highlight.green {
+  background-color: #def99f;
+}
+
+.c36 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c36 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c36 .highlight.red {
+  background-color: #ffc5e1;
+}
+
 .c36 .os-figure,
 .c36 .os-figure:last-child {
   margin-bottom: 5px;
@@ -4510,48 +4551,38 @@ Array [
 }
 
 @media screen {
-  .c36 .highlight.yellow {
-    background-color: #ffff8a;
-  }
-
   .c36 .highlight.yellow.focus {
     background-color: #fed200;
   }
+}
 
-  .c36 .highlight.green {
-    background-color: #def99f;
-  }
-
+@media screen {
   .c36 .highlight.green.focus {
     background-color: #92d101;
   }
+}
 
-  .c36 .highlight.blue {
-    background-color: #c8f5ff;
-  }
-
+@media screen {
   .c36 .highlight.blue.focus {
     background-color: #00c3ed;
   }
+}
 
-  .c36 .highlight.purple {
-    background-color: #cbcfff;
-  }
-
+@media screen {
   .c36 .highlight.purple.focus {
     background-color: #545ec8;
     color: #fff;
   }
+}
 
-  .c36 .highlight.red {
-    background-color: #ffc5e1;
-  }
-
+@media screen {
   .c36 .highlight.red.focus {
     background-color: #de017e;
     color: #fff;
   }
+}
 
+@media screen {
   .c36 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
@@ -4801,6 +4832,7 @@ Array [
     />
     <div
       className="c2"
+      data-analytics-region="toolbar"
     >
       <div
         className="c3"
@@ -4939,6 +4971,7 @@ Array [
           <div
             aria-label="Table of Contents"
             className="c26"
+            data-analytics-region="toc"
             data-testid="toc"
           >
             <div
@@ -5099,6 +5132,7 @@ Array [
                 </div>
                 <details
                   className="c39"
+                  data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
                   <summary
@@ -5136,6 +5170,7 @@ Array [
                 </details>
                 <footer
                   className="c50"
+                  data-analytics-region="footer"
                 >
                   <div
                     className="c51"

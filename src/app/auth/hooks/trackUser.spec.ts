@@ -37,7 +37,7 @@ describe('trackUser', () => {
 
       it('tracks the user', async() => {
         await (trackUserHookBody(helpers))(receiveUser(user));
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'a_uuid'});
       });
 
       it('does not prompt to accept cookies', async() => {
@@ -53,7 +53,7 @@ describe('trackUser', () => {
 
       it('tracks the user', async() => {
         await (trackUserHookBody(helpers))(receiveUser(user));
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'userId', 'a_uuid');
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'a_uuid'});
       });
 
       it('prompts to accept cookies', async() => {
