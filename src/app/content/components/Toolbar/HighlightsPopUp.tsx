@@ -417,7 +417,7 @@ class HighlightsPopUp extends Component<Props> {
                 <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
                   {(msg: Element | string) => msg}
                 </FormattedMessage>
-                <CloseIcon onClick={() => this.props.closeMyHighlights()}></CloseIcon>
+                <CloseIcon data-testid='close-highlights-popup' onClick={() => this.props.closeMyHighlights()}/>
               </Header>
               {this.props.user ? this.myHighlights() : this.loginForHighlights()}
             </Wrapper>
