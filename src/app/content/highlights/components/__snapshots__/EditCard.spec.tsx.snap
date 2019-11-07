@@ -84,6 +84,12 @@ exports[`EditCard matches snapshot when editing 1`] = `
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
   onClick={[Function]}
@@ -130,6 +136,12 @@ exports[`EditCard matches snapshot when focused 1`] = `
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
   onClick={[Function]}
@@ -157,6 +169,12 @@ exports[`EditCard matches snapshot with data 1`] = `
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
   onClick={[Function]}
@@ -181,6 +199,12 @@ exports[`EditCard matches snapshot without data 1`] = `
 
 .c0 .c1 {
   margin-top: 0.8rem;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
 }
 
 <form

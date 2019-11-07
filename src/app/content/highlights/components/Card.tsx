@@ -29,7 +29,7 @@ import EditCard from './EditCard';
 import { cardBorder } from './style';
 
 interface Props {
-  container: HTMLElement;
+  container?: HTMLElement;
   isFocused: boolean;
   highlight: Highlight;
   create: typeof createHighlight;
@@ -102,14 +102,8 @@ const Card = (props: Props) => {
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 
-const getHighlightOffset = (container: HTMLElement, highlight: Highlight) => {
-  if (!highlight.range || !highlight.range.getBoundingClientRect) {
-    return;
-  }
-
-  const anchor = findElementSelfOrParent(highlight.range.commonAncestorContainer);
-
-  if (!anchor) {
+const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
+  if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
   }
 
@@ -125,14 +119,14 @@ const getHighlightOffset = (container: HTMLElement, highlight: Highlight) => {
   };
 };
 
-const getHighlightTopOffset = (container: HTMLElement, highlight: Highlight): number | undefined => {
+const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
   const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.top;
   }
 };
-const getHighlightBottomOffset = (container: HTMLElement, highlight: Highlight): number | undefined => {
+const getHighlightBottomOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
   const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
