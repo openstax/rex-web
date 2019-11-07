@@ -18,6 +18,10 @@ declare global {
       prototype: dom.HTMLAnchorElement;
       new(): dom.HTMLAnchorElement;
     };
+    HTMLButtonElement: {
+      prototype: dom.HTMLButtonElement;
+      new(): dom.HTMLButtonElement;
+    };
     HTMLDetailsElement: {
       prototype: dom.HTMLDetailsElement;
       new(): dom.HTMLDetailsElement;
@@ -25,6 +29,10 @@ declare global {
     Element: {
       prototype: dom.Element;
       new(): dom.Element;
+    };
+    Node: {
+      prototype: dom.Node;
+      new(): dom.Node;
     };
     CustomEvent: {
       prototype: CustomEvent;

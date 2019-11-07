@@ -161,6 +161,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
@@ -377,6 +378,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="book-banner-collapsed"
   >
     <div
       className="c1"

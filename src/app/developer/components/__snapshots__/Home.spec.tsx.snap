@@ -91,6 +91,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -725,6 +726,7 @@ Array [
 
 <footer
     className="c0"
+    data-analytics-region="footer"
   >
     <div
       className="c1"

@@ -43,14 +43,16 @@ const Background = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
-  z-index: ${theme.zIndex.contentNotifications};
-  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-  ${theme.breakpoints.mobile(css`
-    top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
-        ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
-        : bookBannerMobileMiniHeight + toolbarMobileHeight
-    }rem;
-  `)}
+  &&& {
+    z-index: ${theme.zIndex.contentNotifications};
+    top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    ${theme.breakpoints.mobile(css`
+      top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
+          ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
+          : bookBannerMobileMiniHeight + toolbarMobileHeight
+      }rem;
+    `)}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
