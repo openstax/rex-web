@@ -125,7 +125,11 @@ class Attribution extends Component<Props> {
   public render() {
     const {book} = this.props;
 
-    return <AttributionDetails ref={this.container} data-testid='attribution-details'>
+    return <AttributionDetails
+      ref={this.container}
+      data-testid='attribution-details'
+      data-analytics-region='attribution'
+    >
       <FormattedMessage id='i18n:attribution:toggle'>
         {(msg) => <AttributionSummary aria-label={msg}>
           <SummaryClosedIcon />

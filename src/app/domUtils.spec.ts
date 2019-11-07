@@ -1,5 +1,5 @@
 import scrollTo from 'scroll-to-element';
-import { elementDescendantOf, scrollIntoView } from './domUtils';
+import { elementDescendantOf, findFirstAncestorOrSelfOfType, scrollIntoView } from './domUtils';
 import { assertDocument, assertWindow } from './utils';
 
 jest.mock('scroll-to-element');
@@ -69,5 +69,37 @@ describe('elementDescendantOf', () => {
     const child = document.createElement('div');
 
     expect(elementDescendantOf(child, child)).toBe(true);
+  });
+});
+
+describe('findFirstAncestorOrSelfOfType', () => {
+  const document = assertDocument();
+  const window = assertWindow();
+
+  it('finds self', () => {
+    const child = document.createElement('a');
+    const parent = document.createElement('div');
+
+    parent.appendChild(child);
+
+    expect(findFirstAncestorOrSelfOfType(child, window.HTMLAnchorElement)).toBe(child);
+  });
+
+  it('finds parent', () => {
+    const child = document.createElement('span');
+    const parent = document.createElement('a');
+
+    parent.appendChild(child);
+
+    expect(findFirstAncestorOrSelfOfType(child, window.HTMLAnchorElement)).toBe(parent);
+  });
+
+  it('defaults to undefined', () => {
+    const child = document.createElement('div');
+    const parent = document.createElement('div');
+
+    parent.appendChild(child);
+
+    expect(findFirstAncestorOrSelfOfType(child, window.HTMLAnchorElement)).toBeUndefined();
   });
 });
