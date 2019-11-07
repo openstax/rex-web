@@ -20,7 +20,6 @@ const MyHighlightsWrapper = styled(PlainButton)`
   align-items: center;
   justify-content: center;
   margin-left: 2rem;
-
   ${theme.breakpoints.mobile(css`
     margin-left: 0;
   `)}

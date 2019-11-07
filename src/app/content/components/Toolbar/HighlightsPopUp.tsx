@@ -43,7 +43,7 @@ const stickyNoteMeasures = {
 const imageStyles = css`
   height: 25.6rem;
   width: 36rem;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0,0,0,20);
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 20);
 `;
 
 // tslint:disable-next-line:variable-name
@@ -120,7 +120,7 @@ const stickyNoteBullet = css`
   position: absolute;
   width: ${stickyNoteMeasures.bulletSize}rem;
   height: ${stickyNoteMeasures.bulletSize}rem;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0,0,0,30);
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
   clip-path: polygon(-100% -100%, 100% 0, 0 100%);
   z-index: 1;
 `;
@@ -132,7 +132,7 @@ const StickyNote = styled.div`
   position: absolute;
   padding: ${stickyNoteMeasures.bulletSize}rem ${popupBodyPadding}rem;
   overflow: visible;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0,0,0,30);
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
   opacity: ${stickyNoteMeasures.opacity};
 `;
 
@@ -212,7 +212,7 @@ const Tooltip = styled.div`
   font-weight: 200;
   padding: 1rem;
   visibility: hidden;
-  box-shadow: 0 0.4rem 1rem 0 rgba(0,0,0,20);
+  box-shadow: 0 0.4rem 1rem 0 rgba(0, 0, 0, 20);
   border-radius: 0.3rem;
   margin-bottom: 3rem;
 
