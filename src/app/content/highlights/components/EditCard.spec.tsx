@@ -1,5 +1,4 @@
 import { Highlight } from '@openstax/highlighter';
-import defer from 'lodash/fp/defer';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -48,6 +47,7 @@ describe('EditCard', () => {
   });
 
   it('matches snapshot when editing', () => {
+    highlight.getStyle.mockReturnValue('red');
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard highlight={highlight as unknown as Highlight} data={highlightData} />
     </MessageProvider>);
@@ -108,6 +108,7 @@ describe('EditCard', () => {
 
   it('doesn\'t chain ColorPicker onRemove if there is a pending note', () => {
     const onRemove = jest.fn();
+    highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
       note: '',
@@ -132,6 +133,7 @@ describe('EditCard', () => {
   it('cancelling resets the form state', () => {
     const blur = jest.fn();
     const onRemove = jest.fn();
+    highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
       note: 'qwer',
@@ -241,6 +243,7 @@ describe('EditCard', () => {
 
   it('confirmation can cancel', () => {
     const save = jest.fn();
+    highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
       note: 'qwer',
@@ -301,44 +304,23 @@ describe('EditCard', () => {
     expect(create).toHaveBeenCalledWith(highlightData);
   });
 
-  it('sets color and creates when you click in the card', async() => {
+  it('sets color and creates when you start typing', () => {
     const create = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onCreate={create} authenticated={true} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        onCreate={create}
+        authenticated={true}
+      />
     </MessageProvider>);
 
-    const card = component.root.findByType('form');
+    const note = component.root.findByType(Note);
     renderer.act(() => {
-      card.props.onClick();
+      note.props.onChange('asdf');
     });
 
-    return new Promise((resolve) => {
-      defer(() => {
-        expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
-        expect(create).toHaveBeenCalledWith(highlightData);
-        resolve();
-      });
-    });
-  });
-
-  it('doesn\'t reset style when clicking on form', async() => {
-    highlight.getStyle.mockReturnValue('red');
-
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} />
-    </MessageProvider>);
-
-    const card = component.root.findByType('form');
-    renderer.act(() => {
-      card.props.onClick();
-    });
-
-    return new Promise((resolve) => {
-      defer(() => {
-        expect(highlight.setStyle).not.toHaveBeenCalledWith();
-        resolve();
-      });
-    });
+    expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
+    expect(create).toHaveBeenCalledWith(highlightData);
   });
 
   it('blurs when clicking outside', () => {
@@ -360,12 +342,17 @@ describe('EditCard', () => {
 
   it('doesn\'t blur when clicking outside and editing', () => {
     const onBlur = jest.fn();
+    highlight.getStyle.mockReturnValue('red');
 
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);
 
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur} data={highlightData} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        onBlur={onBlur}
+        data={highlightData}
+      />
     </MessageProvider>);
 
     const note = component.root.findByType(Note);
