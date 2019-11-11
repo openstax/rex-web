@@ -8,7 +8,6 @@ import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../constants';
 import ColorPicker from './ColorPicker';
-import Confirmation from './Confirmation';
 import EditCard from './EditCard';
 import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
@@ -204,7 +203,7 @@ describe('EditCard', () => {
       saveButton.props.onClick({preventDefault: jest.fn()});
     });
 
-    expect(() => component.root.findByType(Confirmation)).not.toThrow();
+    expect(() => findByTestId('confirm-delete')).not.toThrow();
   });
 
   it('confirmation can save', () => {
@@ -229,13 +228,13 @@ describe('EditCard', () => {
       saveButton.props.onClick({preventDefault: jest.fn()});
     });
 
-    const confirmation = component.root.findByType(Confirmation);
+    const confirmation = findByTestId('confirm-delete');
     renderer.act(() => {
       confirmation.props.onConfirm();
       confirmation.props.always();
     });
 
-    expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(() => findByTestId('confirm-delete')).toThrow();
     expect(save).toHaveBeenCalledWith({...highlightData, note: ''});
     expect(blur).not.toHaveBeenCalled();
   });
@@ -261,13 +260,13 @@ describe('EditCard', () => {
       saveButton.props.onClick({preventDefault: jest.fn()});
     });
 
-    const confirmation = component.root.findByType(Confirmation);
+    const confirmation = findByTestId('confirm-delete');
     renderer.act(() => {
       confirmation.props.onCancel();
       confirmation.props.always();
     });
 
-    expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(() => findByTestId('confirm-delete')).toThrow();
     expect(save).not.toHaveBeenCalled();
     expect(note.props.note).toBe('qwer');
   });
@@ -305,7 +304,7 @@ describe('EditCard', () => {
   it('sets color and creates when you click in the card', async() => {
     const create = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onCreate={create} />
+      <EditCard highlight={highlight as unknown as Highlight} onCreate={create} authenticated={true} />
     </MessageProvider>);
 
     const card = component.root.findByType('form');
