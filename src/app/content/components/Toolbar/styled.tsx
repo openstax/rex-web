@@ -30,6 +30,8 @@ import {
 } from '../constants';
 import { disablePrint } from '../utils/disablePrint';
 
+export const buttonMinWidth = `45px`;
+
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;
   width: ${textRegularLineHeight}rem;
@@ -72,7 +74,7 @@ const PlainButton = styled.button`
   align-items: center;
   color: ${toolbarIconColor.base};
   height: 100%;
-  min-width: 45px;
+  min-width: ${buttonMinWidth};
 
   :hover,
   :focus {
@@ -156,7 +158,6 @@ export const SearchInputWrapper = styled.form`
     margin-right: 0;
     height: 100%;
     overflow: hidden;
-    width: 100%;
 
     ${(props: { active: boolean }) => props.active && css`
       background: ${theme.color.primary.gray.base};
@@ -205,9 +206,12 @@ export const SearchPrintWrapper = styled.div`
   overflow: visible;
   ${theme.breakpoints.mobile(css`
     height: 100%;
+    width: 100%;
+    justify-content: space-evenly;
     ${SearchInputWrapper} {
       border: none;
       border-radius: 0;
+      width: ${buttonMinWidth};
     }
   `)}
 `;
@@ -300,4 +304,22 @@ export const InnerText = styled.div`
   white-space: nowrap;
   margin-right: 1rem;
   text-align: left;
+`;
+
+// tslint:disable-next-line:variable-name
+export const BuyBookIcon = styled.img`
+  ${toolbarIconStyles}
+`;
+
+// tslint:disable-next-line:variable-name
+export const BuyBookWrapper = styled.div`
+  min-width: ${buttonMinWidth};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${toolbarIconColor.base};
+  margin-left: 2rem;
+  ${theme.breakpoints.mobile(css`
+    margin: 0;
+  `)}
 `;

@@ -3,6 +3,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import BuyBook from '../../../../assets/buy-book-icon.svg';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
@@ -76,7 +77,7 @@ class Toolbar extends React.Component<Props, State> {
 
     return <Styled.BarWrapper>
       <Styled.TopBar data-testid='toolbar'>
-        <OpenSidebarControl />
+        <OpenSidebarControl hideMobileText={false}/>
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -105,6 +106,12 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
           <PrintButton/>
+          <Styled.BuyBookWrapper>
+            <Styled.BuyBookIcon src={BuyBook}></Styled.BuyBookIcon>
+            <FormattedMessage id='i18n:toolbar:buy-book:text'>
+              {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}
+            </FormattedMessage>
+          </Styled.BuyBookWrapper>
         </Styled.SearchPrintWrapper>
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
