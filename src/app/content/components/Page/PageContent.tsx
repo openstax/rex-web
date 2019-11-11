@@ -18,6 +18,7 @@ export const contentTextStyle = css`
 
 export default styled(MainContent)`
   ${contentTextStyle}
+  overflow: visible;
 
   @media screen {
     flex: 1;

@@ -19,6 +19,7 @@ describe('Confirmation', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
         message='message'
+        data-analytics-region='region'
         confirmMessage='confirm'
         onConfirm={() => null}
         onCancel={() => null}
@@ -26,6 +27,61 @@ describe('Confirmation', () => {
     </MessageProvider>);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('prevents default when clicking confirm button', () => {
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+      />
+    </MessageProvider>);
+
+    const findByTestId = makeFindByTestId(component.root);
+    const button = findByTestId('confirm');
+
+    const preventDefault = jest.fn();
+    button.props.onClick({preventDefault});
+
+    expect(preventDefault).toHaveBeenCalled();
+  });
+
+  it('prevents default when clicking cancel button', () => {
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+      />
+    </MessageProvider>);
+
+    const findByTestId = makeFindByTestId(component.root);
+    const button = findByTestId('cancel');
+
+    const preventDefault = jest.fn();
+    button.props.onClick({preventDefault});
+
+    expect(preventDefault).toHaveBeenCalled();
+  });
+
+  it('doesn\'t prevent default when clicking confirm link', () => {
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <Confirmation
+        confirmLink='/asdf'
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+      />
+    </MessageProvider>);
+
+    const findByTestId = makeFindByTestId(component.root);
+    const button = findByTestId('confirm');
+
+    const preventDefault = jest.fn();
+    button.props.onClick({preventDefault});
+
+    expect(preventDefault).not.toHaveBeenCalled();
   });
 
   it('calls onConfirm', () => {
@@ -70,7 +126,6 @@ describe('Confirmation', () => {
       <Confirmation
         message='message'
         confirmMessage='confirm'
-        onConfirm={() => null}
         onCancel={() => null}
         always={always}
       />

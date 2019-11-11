@@ -41,18 +41,13 @@ describe('Card', () => {
       bottom: 200,
       top: 100,
     });
-    highlight.range.commonAncestorContainer = {
-      nodeName: 'text',
-      nodeType: 3,
-      parentElement: {
+    const container = {
+      nodeName: 'div',
+      nodeType: 1,
+      offsetParent: {
         nodeName: 'div',
         nodeType: 1,
-        offsetParent: {
-          nodeName: 'div',
-          nodeType: 1,
-          offsetTop: 50,
-          title: '',
-        },
+        offsetTop: 50,
         title: '',
       },
       title: '',
@@ -65,7 +60,7 @@ describe('Card', () => {
     ]));
     store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card highlight={highlight as unknown as Highlight} container={container} />
     </Provider>);
 
     const tree = component.toJSON();
@@ -86,8 +81,13 @@ describe('Card', () => {
   });
 
   it('matches snapshot without data', () => {
+    const container = assertDocument().createElement('div');
+    highlight.range.getBoundingClientRect.mockReturnValue({
+      bottom: 200,
+      top: 100,
+    });
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card highlight={highlight as unknown as Highlight} container={container} />
     </Provider>);
 
     const tree = component.toJSON();

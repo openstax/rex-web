@@ -57,8 +57,10 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
-    this.highlightManager.update();
-    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights);
+    const highlgihtsAddedOrRemoved = this.highlightManager.update();
+    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
+      forceRedraw: highlgihtsAddedOrRemoved,
+    });
   }
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
