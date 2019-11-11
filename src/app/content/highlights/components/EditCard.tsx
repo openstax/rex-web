@@ -148,6 +148,7 @@ export default styled(EditCard)`
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
   }
+
   ${theme.breakpoints.mobile(css`
     visibility: hidden;
   `)}
