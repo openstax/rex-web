@@ -30,6 +30,13 @@ const visuallyShown = css`
   clip: unset;
   overflow: visible;
 `;
+const visuallyHidden = css`
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+`;
 
 type Props = React.PropsWithChildren<{
   toggle: React.ReactNode;
@@ -37,24 +44,49 @@ type Props = React.PropsWithChildren<{
 }>;
 
 // tslint:disable-next-line:variable-name
+const DropdownFocusWrapper = styled.div`
+  overflow: visible;
+`;
+
+// tslint:disable-next-line:variable-name
 const DropdownContainer = styled(({toggle, children, className}: Props) => <div className={className}>
+  <DropdownFocusWrapper>
+    <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
+    <DropdownList>
+      {children}
+    </DropdownList>
+  </DropdownFocusWrapper>
   <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
-  <DropdownList>
-    {children}
-  </DropdownList>
 </div>)`
-  ${fadeInAnimation}
   overflow: visible;
   position: relative;
+
+  ${DropdownFocusWrapper} + ${DropdownToggle} {
+    ${visuallyHidden}
+  }
+  ${DropdownFocusWrapper}.focus-within + ${DropdownToggle} {
+    ${visuallyShown}
+  }
+  ${DropdownFocusWrapper}:focus-within + ${DropdownToggle} {
+    ${visuallyShown}
+  }
+
+  ${DropdownFocusWrapper} > ${DropdownToggle} {
+    ${visuallyShown}
+  }
+  ${DropdownFocusWrapper}.focus-within > ${DropdownToggle} {
+    ${visuallyHidden}
+  }
+  ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
+    ${visuallyHidden}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const DropdownList = styled.ol`
+  ${fadeInAnimation}
+  ${visuallyHidden}
   position: absolute;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
   box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
   margin: 0;
   padding: 0.6rem 0;
@@ -63,11 +95,11 @@ const DropdownList = styled.ol`
   top: calc(100% + 0.4rem);
   left: -4rem;
   ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
-    ${DropdownContainer}.focus-within & {
+    ${DropdownFocusWrapper}.focus-within & {
       ${visuallyShown}
     }
 
-    ${DropdownContainer}:focus-within & {
+    ${DropdownFocusWrapper}:focus-within & {
       ${visuallyShown}
     }
   `}
