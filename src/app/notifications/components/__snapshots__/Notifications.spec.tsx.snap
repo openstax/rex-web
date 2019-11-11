@@ -15,9 +15,11 @@ exports[`Notifications matches snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -227,9 +229,11 @@ exports[`Notifications matches snapshot 2`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -442,9 +446,11 @@ exports[`Notifications matches snapshot 3`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;

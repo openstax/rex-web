@@ -4,6 +4,8 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import * as selectAuth from '../../../auth/selectors';
+import { User } from '../../../auth/types';
 import { findElementSelfOrParent, scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
@@ -30,6 +32,8 @@ import { cardBorder } from './style';
 
 interface Props {
   isFocused: boolean;
+  user: User;
+  loginLink: string;
   highlight: Highlight;
   create: typeof createHighlight;
   save: typeof updateHighlight;
@@ -76,6 +80,8 @@ const Card = (props: Props) => {
     onEdit={() => setEditing(true)}
   /> : <EditCard
     {...commonProps}
+    authenticated={!!props.user}
+    loginLink={props.loginLink}
     highlight={props.highlight}
     onCreate={props.create}
     onSave={props.save}
@@ -261,6 +267,8 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isOpen: contentSelect.tocOpen(state),
+    loginLink: selectAuth.loginLink(state),
+    user: selectAuth.user(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),

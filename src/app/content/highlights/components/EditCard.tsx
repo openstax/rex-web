@@ -16,6 +16,8 @@ import Note from './Note';
 import onClickOutside from './utils/onClickOutside';
 
 interface Props {
+  authenticated: boolean;
+  loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
   onCreate: typeof createHighlight;
@@ -28,7 +30,7 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const EditCard = React.forwardRef<HTMLElement, Props>((
-  {highlight, isFocused, className, data, onCreate, onSave, onRemove, onBlur}: Props,
+  {authenticated, loginLink, highlight, isFocused, className, data, onCreate, onSave, onRemove, onBlur}: Props,
   ref
 ) => {
   const defaultNote = () => data && data.note ? data.note : '';
@@ -57,7 +59,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   // this is deferred so that a click on a color button
   // will have processed onColorChange before this handler
   const onClick = () => defer(() => {
-    if (!highlight.getStyle()) {
+    if (authenticated && !highlight.getStyle()) {
       onColorChange(highlightStyles[0].label);
     }
   });
@@ -73,7 +75,12 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     onBlur();
   };
 
-  return <form className={className} onClick={onClick} ref={mergeRefs(ref, element)}>
+  return <form
+    className={className}
+    onClick={onClick}
+    ref={mergeRefs(ref, element)}
+    data-analytics-region='edit-note'
+  >
     <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={() => {
       if ((!data || !data.note) && !pendingNote) {
         onRemove();
@@ -87,6 +94,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
           data-testid='save'
+          data-analytics-label='save'
           size='small'
           variant='primary'
           onClick={(e: React.FormEvent) => {
@@ -104,6 +112,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       <FormattedMessage id='i18n:highlighting:button:cancel'>
         {(msg: Element | string) => <Button
           size='small'
+          data-analytics-label='cancel'
           data-testid='cancel'
           onClick={(e: React.FormEvent) => {
             e.preventDefault();
@@ -113,6 +122,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       </FormattedMessage>
     </ButtonGroup>}
     {confirmingDelete && <Confirmation
+      data-testid='confirm-delete'
+      data-analytics-region='highlighting-delete-note'
       message='i18n:highlighting:confirmation:delete-note'
       confirmMessage='i18n:highlighting:button:delete'
       onConfirm={saveNote}
@@ -122,11 +133,19 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       }}
       always={() => setConfirmingDelete(false)}
     />}
+    {!authenticated && <Confirmation
+      data-analytics-region='highlighting-login'
+      message='i18n:highlighting:login:prompt'
+      confirmMessage='i18n:highlighting:login:link'
+      confirmLink={loginLink}
+      onCancel={onBlur}
+    />}
   </form>;
 });
 
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
+  overflow: visible;
 
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;

@@ -15,9 +15,11 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   font-size: 1.4rem;
   height: 3rem;
   padding: 0 2rem;
@@ -49,9 +51,11 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   font-size: 1.4rem;
   height: 3rem;
   padding: 0 2rem;
@@ -91,7 +95,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  padding: 0.8rem 1.6rem;
+  padding: 1.6rem;
   top: 0;
   right: 0;
   left: 0;
@@ -105,12 +109,16 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   color: #fff;
   margin-bottom: 0.8rem;
 }
 
 <div
   className="c0"
+  data-analytics-region="region"
   tabIndex={-1}
 >
   <label>
@@ -121,17 +129,17 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   >
     <button
       className="c2"
+      data-analytics-label="confirm"
       data-testid="confirm"
       onClick={[Function]}
-      size="small"
     >
       confirm
     </button>
     <button
       className="c3"
+      data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
-      size="small"
     >
       Cancel
     </button>
