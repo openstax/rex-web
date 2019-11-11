@@ -2,7 +2,7 @@ from pages.base import Page
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
-from time import sleep
+from utils.utility import Utilities
 
 
 class WebBase(Page):
@@ -78,15 +78,20 @@ class WebBase(Page):
             self.click_mobile_user_nav()
             self.login.click()
 
+    def _selection_helper(self, locator):
+        """Menu option helper for duplicated actions."""
+        target = self.find_element(*locator)
+        Utilities.click_option(self.driver, element=target)
+
     def click_logout(self):
         if self.is_desktop:
-            actionChains = ActionChains(self.driver)
-            actionChains.move_to_element(self.user_nav).click(self.logout).perform()
+            # open = Utilities.click_option(self.driver, element=self.user_nav)
+            return self.open()._selection_helper(self._logout_locator)
 
         elif self.is_mobile:
-            self.mobile_user_nav.click()
-            self.user_nav.click()
-            self.logout.click()
+            Utilities.click_option(self.driver, element=self.mobile_user_nav)
+            Utilities.click_option(self.driver, element=self.user_nav)
+            Utilities.click_option(self.driver, element=self.logout)
         self.wait_for_load()
 
     def click_view_online(self):
