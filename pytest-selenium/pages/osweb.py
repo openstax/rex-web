@@ -1,5 +1,4 @@
 from pages.base import Page
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from utils.utility import Utilities
@@ -78,6 +77,11 @@ class WebBase(Page):
             self.click_mobile_user_nav()
             self.login.click()
 
+    def open_toggle(self):
+        """Click the toggle to open the menu."""
+        toggle = self.find_element(*self._user_nav_locator)
+        Utilities.click_option(self.driver, element=toggle)
+
     def _selection_helper(self, locator):
         """Menu option helper for duplicated actions."""
         target = self.find_element(*locator)
@@ -85,7 +89,7 @@ class WebBase(Page):
 
     def click_logout(self):
         if self.is_desktop:
-            # open = Utilities.click_option(self.driver, element=self.user_nav)
+            self.open_toggle()
             return self.open()._selection_helper(self._logout_locator)
 
         elif self.is_mobile:
