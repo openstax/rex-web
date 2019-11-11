@@ -1,6 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -56,14 +55,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     }
   };
 
-  // this is deferred so that a click on a color button
-  // will have processed onColorChange before this handler
-  const onClick = () => defer(() => {
-    if (authenticated && !highlight.getStyle()) {
-      onColorChange(highlightStyles[0].label);
-    }
-  });
-
   const saveNote = () => {
     onSave({...(data || highlight.serialize().data), note: pendingNote});
   };
@@ -75,7 +66,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   return <form
     className={className}
-    onClick={onClick}
     ref={mergeRefs(ref, element)}
     data-analytics-region='edit-note'
   >
@@ -87,6 +77,10 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     <Note note={pendingNote} onChange={(newValue) => {
       setPendingNote(newValue);
       setEditing(true);
+
+      if (!highlight.getStyle()) {
+        onColorChange(highlightStyles[0].label);
+      }
     }} />
     {editingNote && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
