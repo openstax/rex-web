@@ -9,7 +9,6 @@ import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
 import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
-import { OpenSidebarControl } from '../SidebarControl';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
 
@@ -77,7 +76,7 @@ class Toolbar extends React.Component<Props, State> {
 
     return <Styled.BarWrapper>
       <Styled.TopBar data-testid='toolbar'>
-        <OpenSidebarControl hideMobileText={true} />
+        <Styled.SidebarControl hideMobileText={true} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -105,14 +104,14 @@ class Toolbar extends React.Component<Props, State> {
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
           </Styled.SearchInputWrapper>
-          <PrintButton/>
-          <Styled.BuyBookWrapper>
-            <Styled.BuyBookIcon src={BuyBook}></Styled.BuyBookIcon>
-            <FormattedMessage id='i18n:toolbar:buy-book:text'>
-              {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}
-            </FormattedMessage>
-          </Styled.BuyBookWrapper>
         </Styled.SearchPrintWrapper>
+        <PrintButton/>
+        <Styled.BuyBookWrapper>
+          <Styled.BuyBookIcon src={BuyBook}></Styled.BuyBookIcon>
+          <FormattedMessage id='i18n:toolbar:buy-book:text'>
+            {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}
+          </FormattedMessage>
+        </Styled.BuyBookWrapper>
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />

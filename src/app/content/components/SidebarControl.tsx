@@ -11,7 +11,7 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
 import { toolbarIconColor } from './constants';
-import { toolbarIconStyles } from './Toolbar/styled';
+import { toolbarIconStyles } from './Toolbar/iconStyles';
 
 interface InnerProps {
   message: string;

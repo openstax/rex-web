@@ -9,7 +9,6 @@ import { maxNavWidth } from '../../../components/NavBar/styled';
 import {
   contentFont,
   decoratedLinkStyle,
-  textRegularLineHeight,
   textRegularSize,
   textRegularStyle,
   textStyle
@@ -28,15 +27,11 @@ import {
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight
 } from '../constants';
+import { OpenSidebarControl } from '../SidebarControl';
 import { disablePrint } from '../utils/disablePrint';
+import { toolbarIconStyles } from './iconStyles';
 
 export const buttonMinWidth = `45px`;
-
-export const toolbarIconStyles = css`
-  height: ${textRegularLineHeight}rem;
-  width: ${textRegularLineHeight}rem;
-  padding: 0.4rem;
-`;
 
 const hideSearchChrome = css`
   appearance: textfield;
@@ -158,6 +153,7 @@ export const SearchInputWrapper = styled.form`
     margin-right: 0;
     height: 100%;
     overflow: hidden;
+    width: 100%;
 
     ${(props: { active: boolean }) => props.active && css`
       background: ${theme.color.primary.gray.base};
@@ -206,8 +202,6 @@ export const SearchPrintWrapper = styled.div`
   overflow: visible;
   ${theme.breakpoints.mobile(css`
     height: 100%;
-    width: 100%;
-    justify-content: space-evenly;
     ${SearchInputWrapper} {
       border: none;
       border-radius: 0;
@@ -251,12 +245,13 @@ export const Hr = styled.hr`
 // tslint:disable-next-line:variable-name
 export const TopBar = styled.div`
   display: flex;
-  justify-content: space-between;
   overflow: visible;
+  justify-content: flex-end;
   align-items: center;
   ${barPadding};
   height: ${toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
+    justify-content: space-between;
     height: ${toolbarMobileHeight}rem;
   `)}
 `;
@@ -309,6 +304,14 @@ export const InnerText = styled.div`
 // tslint:disable-next-line:variable-name
 export const BuyBookIcon = styled.img`
   ${toolbarIconStyles}
+`;
+
+// tslint:disable-next-line:variable-name
+export const SidebarControl = styled(OpenSidebarControl)`
+  margin-right: auto;
+  ${theme.breakpoints.mobile(css`
+    margin-right: unset;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name

@@ -21,7 +21,7 @@ import {
     toolbarMobileHeight,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
-import { toolbarIconStyles } from '../../../components/Toolbar/styled';
+import { toolbarIconStyles } from '../../../components/Toolbar/iconStyles';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
 const borderColor = '#d5d5d5';
