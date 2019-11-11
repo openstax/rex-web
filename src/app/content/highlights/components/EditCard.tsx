@@ -23,18 +23,30 @@ interface Props {
   onBlur: typeof clearFocusedHighlight;
   onSave: typeof updateHighlight;
   onRemove: () => void;
+  onCancel: () => void;
   data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const EditCard = React.forwardRef<HTMLElement, Props>((
-  {authenticated, loginLink, highlight, isFocused, className, data, onCreate, onSave, onRemove, onBlur}: Props,
+const EditCard = React.forwardRef<HTMLElement, Props>(({
+  authenticated,
+  className,
+  data,
+  highlight,
+  isFocused,
+  loginLink,
+  onBlur,
+  onCancel,
+  onCreate,
+  onRemove,
+  onSave,
+}: Props,
   ref
 ) => {
   const defaultNote = () => data && data.note ? data.note : '';
   const [pendingNote, setPendingNote] = React.useState<string>(defaultNote());
-  const [editingNote, setEditing] = React.useState<boolean>(false);
+  const [editingNote, setEditing] = React.useState<boolean>(!!data && !!data.note);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
@@ -62,6 +74,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const cancelEditing = () => {
     setPendingNote(defaultNote());
     setEditing(false);
+    onCancel();
   };
 
   return <form

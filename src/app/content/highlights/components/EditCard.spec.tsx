@@ -133,13 +133,20 @@ describe('EditCard', () => {
   it('cancelling resets the form state', () => {
     const blur = jest.fn();
     const onRemove = jest.fn();
+    const onCancel = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
       note: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} onBlur={blur} data={data} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        onRemove={onRemove}
+        onCancel={onCancel}
+        onBlur={blur}
+        data={data}
+      />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
