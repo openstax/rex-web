@@ -15,9 +15,11 @@ exports[`EditCard matches snapshot when editing 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   font-size: 1.4rem;
   height: 3rem;
   padding: 0 2rem;
@@ -49,9 +51,11 @@ exports[`EditCard matches snapshot when editing 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   font-size: 1.4rem;
   height: 3rem;
   padding: 0 2rem;
@@ -78,14 +82,22 @@ exports[`EditCard matches snapshot when editing 1`] = `
 
 .c0 {
   background: #f5f5f5;
+  overflow: visible;
 }
 
 .c0 .c1 {
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
+  data-analytics-region="edit-note"
   onClick={[Function]}
 >
   <div
@@ -103,35 +115,49 @@ exports[`EditCard matches snapshot when editing 1`] = `
   >
     <button
       className="c3"
+      data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
-      size="small"
     >
       Save
     </button>
     <button
       className="c4"
+      data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
-      size="small"
     >
       Cancel
     </button>
   </div>
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
+  />
 </form>
 `;
 
 exports[`EditCard matches snapshot when focused 1`] = `
 .c0 {
   background: #f5f5f5;
+  overflow: visible;
 }
 
 .c0 .c1 {
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
+  data-analytics-region="edit-note"
   onClick={[Function]}
 >
   <div
@@ -145,20 +171,34 @@ exports[`EditCard matches snapshot when focused 1`] = `
     note=""
     onChange={[Function]}
   />
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
+  />
 </form>
 `;
 
 exports[`EditCard matches snapshot with data 1`] = `
 .c0 {
   background: #f5f5f5;
+  overflow: visible;
 }
 
 .c0 .c1 {
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
+  data-analytics-region="edit-note"
   onClick={[Function]}
 >
   <div
@@ -170,6 +210,12 @@ exports[`EditCard matches snapshot with data 1`] = `
     mock-note={true}
     note=""
     onChange={[Function]}
+  />
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
   />
 </form>
 `;
@@ -177,14 +223,22 @@ exports[`EditCard matches snapshot with data 1`] = `
 exports[`EditCard matches snapshot without data 1`] = `
 .c0 {
   background: #f5f5f5;
+  overflow: visible;
 }
 
 .c0 .c1 {
   margin-top: 0.8rem;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
 <form
   className="c0"
+  data-analytics-region="edit-note"
   onClick={[Function]}
 >
   <div
@@ -196,6 +250,12 @@ exports[`EditCard matches snapshot without data 1`] = `
     mock-note={true}
     note=""
     onChange={[Function]}
+  />
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
   />
 </form>
 `;

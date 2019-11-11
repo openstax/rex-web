@@ -5,14 +5,15 @@ import theme from '../../../theme';
 import Card from './Card';
 
 interface Props {
+  container: HTMLElement;
   highlights: Highlight[];
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className}: Props) => <div className={className}>
+const Wrapper = ({highlights, className, container}: Props) => <div className={className}>
   {highlights
-    .map((highlight) => <Card highlight={highlight} key={highlight.id} />)
+    .map((highlight) => <Card highlight={highlight} key={highlight.id} container={container} />)
   }
 </div>;
 

@@ -64,11 +64,23 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
   return findFirstScrollableParent(element.parentElement);
 };
 
-export const findElementSelfOrParent = (node: Node) => {
+export const findFirstAncestorOrSelfOfType =
+  <T extends {prototype: HTMLElement; new(): HTMLElement}>(node: Node, elementType: T) =>
+    findFirstAncestorOrSelf(node, (el) => el instanceof elementType) as T['prototype'] | void;
+
+export const findFirstAncestorOrSelf = (node: Node, predicate: (e: HTMLElement) => boolean): HTMLElement | void => {
+  if (isHtmlElement(node) && predicate(node)) {
+    return node;
+  } else if (node.parentElement) {
+    return findFirstAncestorOrSelf(node.parentElement, predicate);
+  }
+};
+
+export const findElementSelfOrParent = (node: Node): HTMLElement | undefined => {
   if (isHtmlElement(node)) {
     return node;
   } else if (node && node.parentElement) {
-    return node.parentElement;
+    return findElementSelfOrParent(node.parentElement);
   }
 };
 

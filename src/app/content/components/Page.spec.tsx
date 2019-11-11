@@ -1,5 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -438,6 +439,8 @@ describe('Page', () => {
     expect(evt3.preventDefault).not.toHaveBeenCalled();
     expect(evt4.preventDefault).not.toHaveBeenCalled();
 
+    await new Promise((resolve) => defer(resolve));
+
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
@@ -472,6 +475,8 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
 
     firstLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
@@ -508,6 +513,8 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
 
     hashLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: expect.anything(),
@@ -643,6 +650,50 @@ describe('Page', () => {
 
     expect(mockHighlight.focus).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('doesn\'t scroll to search result when selected but unchanged', async() => {
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const focus = jest.fn();
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus,
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit1,
+      },
+      {
+        highlights: {},
+        result: hit2,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+    store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    focus.mockClear();
+    (scrollTo as any).mockClear();
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
   });
 
   it('scrolls to search result when selected before page navigation', async() => {

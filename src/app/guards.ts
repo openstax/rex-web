@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 
-export const isDefined = <X>(x: X | undefined): x is X => x !== undefined;
+export const isDefined = <X>(x: X): x is Exclude<X, undefined> => x !== undefined;
 
 export const isHtmlElement = (thing: any): thing is HTMLElement =>
   typeof thing === 'object'

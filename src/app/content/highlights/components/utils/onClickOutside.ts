@@ -19,10 +19,10 @@ const onClickOutside = (element: React.RefObject<HTMLElement>, isFocused: boolea
   };
 
   if (isFocused) {
-    document.addEventListener('mouseup', ifOutside);
+    document.addEventListener('mousedown', ifOutside);
   }
 
-  return () => assertDocument().removeEventListener('mouseup', ifOutside);
+  return () => assertDocument().removeEventListener('mousedown', ifOutside);
 };
 
 export default onClickOutside;

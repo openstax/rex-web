@@ -12,6 +12,7 @@ import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
 import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
+import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import { State as authState } from './auth/types';
@@ -31,6 +32,7 @@ export interface AppState {
 }
 
 export interface AppServices {
+  analytics: typeof analytics;
   highlightClient: ReturnType<typeof createHighlightClient>;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   fontCollector: FontCollector;
