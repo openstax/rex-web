@@ -4,8 +4,6 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
 
-from selenium.webdriver.common.keys import Keys
-
 import random
 
 from pages.base import Page
@@ -117,8 +115,7 @@ class Content(Page):
 
         # Touch actions is not working for safari & firefox. Hence scrolling using javascript
         else:
-            self.driver.execute_script("scrollBy(arguments[0], arguments[1]);", x, y)
-            # self.driver.execute_script(f"scrollBy({x}, {y});")
+            self.driver.execute_script(f"scrollBy({x}, {y});")
 
     scroll_through_page = scroll_over_content_overlay
 
@@ -274,7 +271,7 @@ class Content(Page):
             """Search for a term/query in desktop resolution.
 
             :element: type -> str: search_term defined in the test
-            :rtype: return search sidebar region with the search results
+            :return: search sidebar region with the search results
 
             Enter the search term in the search textbox and hit Enter/Return
             Search results display in the search sidebar.
@@ -295,7 +292,7 @@ class Content(Page):
             """Search for a term/query in mobile resolution.
 
             :element: type -> str: search_term defined in the test
-            :rtype: return search sidebar region with the search results
+            :return: search sidebar region with the search results
 
             Click the search icon in the toolbar
             Enter the search term in the search textbox and hit Enter/Return
