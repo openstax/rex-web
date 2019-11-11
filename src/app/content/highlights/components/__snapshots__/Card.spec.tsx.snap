@@ -39,15 +39,6 @@ exports[`Card matches snapshot when focused without note 1`] = `
   }
 }
 
-@media (max-width:110.3125em) {
-  .c0 {
-    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-    right: unset;
-    top: 50px;
-    left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
-  }
-}
-
 @media (max-width:103.75em) {
   .c0 {
     left: unset;
@@ -93,38 +84,15 @@ exports[`Card matches snapshot when focused without note 1`] = `
       "getStyle": [MockFunction],
       "id": "asdf",
       "range": Object {
-        "commonAncestorContainer": Object {
-          "nodeName": "text",
-          "nodeType": 3,
-          "parentElement": Object {
-            "nodeName": "div",
-            "nodeType": 1,
-            "offsetParent": Object {
-              "nodeName": "div",
-              "nodeType": 1,
-              "offsetTop": 50,
-              "title": "",
-            },
-            "title": "",
-          },
-          "title": "",
-        },
+        "commonAncestorContainer": null,
         "getBoundingClientRect": [MockFunction] {
           "calls": Array [
             Array [],
             Array [],
             Array [],
             Array [],
-            Array [],
           ],
           "results": Array [
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
-              },
-            },
             Object {
               "type": "return",
               "value": Object {
@@ -188,22 +156,18 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   }
 }
 
-@media (max-width:110.3125em) {
-  .c0 {
-    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-    right: unset;
-    top: 0px;
-    display: none;
-    display: none;
-  }
-}
-
 @media (max-width:103.75em) {
   .c0 {
     display: none;
     left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
     right: unset;
     top: 0px;
+    display: none;
+  }
+}
+
+@media (max-width:110.3125em) {
+  .c0 {
     display: none;
   }
 }
@@ -262,21 +226,12 @@ exports[`Card matches snapshot without data 1`] = `
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
   left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
   right: unset;
-  top: 0px;
+  top: 100px;
   display: none;
 }
 
 @media print {
   .c0 {
-    display: none;
-  }
-}
-
-@media (max-width:110.3125em) {
-  .c0 {
-    left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-    right: unset;
-    top: 0px;
     display: none;
   }
 }
@@ -312,7 +267,28 @@ exports[`Card matches snapshot without data 1`] = `
       "id": "asdf",
       "range": Object {
         "commonAncestorContainer": null,
-        "getBoundingClientRect": [MockFunction],
+        "getBoundingClientRect": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+          ],
+        },
       },
       "serialize": [Function],
       "setStyle": [MockFunction],

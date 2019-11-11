@@ -591,6 +591,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
 }
 
 .c59 a {
@@ -3892,6 +3893,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
 }
 
 .c33 a {

@@ -3,7 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
@@ -66,13 +66,11 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const saveNote = () => {
     onSave({...(data || highlight.serialize().data), note: pendingNote});
-    onBlur();
   };
 
   const cancelEditing = () => {
     setPendingNote(defaultNote());
     setEditing(false);
-    onBlur();
   };
 
   return <form
@@ -150,4 +148,8 @@ export default styled(EditCard)`
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
   }
+
+  ${theme.breakpoints.mobile(css`
+    visibility: hidden;
+  `)}
 `;

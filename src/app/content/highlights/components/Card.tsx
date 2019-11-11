@@ -31,6 +31,7 @@ import EditCard from './EditCard';
 import { cardBorder } from './style';
 
 interface Props {
+  container?: HTMLElement;
   isFocused: boolean;
   user: User;
   loginLink: string;
@@ -107,46 +108,32 @@ const Card = (props: Props) => {
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 
-const getHighlightOffset = (highlight: Highlight) => {
-  if (!highlight.range || !highlight.range.getBoundingClientRect) {
-    return;
-  }
-
-  const anchor = findElementSelfOrParent(highlight.range.commonAncestorContainer);
-
-  if (!anchor) {
+const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
+  if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
   }
 
   const {top, bottom} = highlight.range.getBoundingClientRect();
 
-  const removeParentOffset = (element: HTMLElement, offset: number): number => {
-    const offsetParent = element.offsetParent && findElementSelfOrParent(element.offsetParent);
-
-    if (offsetParent) {
-      return removeParentOffset(offsetParent, offset - offsetParent.offsetTop);
-    } else {
-      return offset;
-    }
-  };
-
+  const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
+  const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
   const scrollOffset = assertWindow().scrollY;
 
   return {
-    bottom: removeParentOffset(anchor, bottom + scrollOffset),
-    top: removeParentOffset(anchor, top + scrollOffset),
+    bottom: bottom - parentOffset + scrollOffset,
+    top: top - parentOffset + scrollOffset,
   };
 };
 
-const getHighlightTopOffset = (highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(highlight);
+const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.top;
   }
 };
-const getHighlightBottomOffset = (highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(highlight);
+const getHighlightBottomOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.bottom;
@@ -158,7 +145,7 @@ const overlapDisplay = css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
-      return getHighlightBottomOffset(props.highlight) || 0;
+      return getHighlightBottomOffset(props.container, props.highlight) || 0;
     }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
@@ -170,7 +157,7 @@ const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => {
-    return getHighlightTopOffset(props.highlight) || 0;
+    return getHighlightTopOffset(props.container, props.highlight) || 0;
   }}px;
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
@@ -239,17 +226,18 @@ const StyledCard = styled(Card)`
     `;
   }}
 
-  @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
-    /* the window is too small to show note cards next to content when search is open */
-    ${rightSideDisplay}
-    ${(props: {hasQuery: boolean}) => !!props.hasQuery && overlapDisplay}
-  }
-
   @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content when the toc is open */
     ${overlapDisplay}
     ${styleWhenSidebarClosed(rightSideDisplay)}
   }
+
+  ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
+    @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
+      /* the window is too small to show note cards next to content when search is open */
+      ${overlapDisplay}
+    }
+  `}
 
   @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content even without sidebars */

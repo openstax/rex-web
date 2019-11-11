@@ -11,11 +11,14 @@ interface Props {
   onChange: (note: string) => void;
 }
 
+const width = cardWidth - cardPadding * 2;
 // tslint:disable-next-line:variable-name
 const TextArea = styled.textarea`
   display: block;
   min-height: 5.6rem;
-  width: ${cardWidth - cardPadding * 2}rem;
+  width: ${width}rem;
+  max-width: ${width}rem;
+  min-width: ${width}rem;
   border: 1px solid ${theme.color.neutral.formBorder};
   padding: ${cardPadding}rem;
   ${textStyle}
