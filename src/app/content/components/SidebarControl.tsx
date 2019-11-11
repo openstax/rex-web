@@ -70,7 +70,7 @@ export const SidebarControl: React.SFC<InnerProps> = ({message, hideMobileText, 
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
       return <ToCButton aria-label={txt} {...props}>
-        <ListIcon/><ToCButtonText data-testid={hideMobileText} hideMobileText>Table of contents</ToCButtonText>
+        <ListIcon/><ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
         {children}
       </ToCButton>;
     }}
@@ -87,16 +87,15 @@ const connector = connect(
 );
 
 // tslint:disable-next-line:variable-name
-const lockControlState = (isOpen: boolean, hideMobileText: boolean, Control: React.ComponentType<InnerProps>) =>
+const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
   connector((props: MiddleProps) => <Control
     {...props}
     message={isOpen ? openMessage : closedMessage}
-    hideMobileText={hideMobileText}
     onClick={isOpen ? props.closeToc : props.openToc}
   />);
 
 // tslint:disable-next-line:variable-name
-export const OpenSidebarControl = lockControlState(false, false, SidebarControl);
+export const OpenSidebarControl = lockControlState(false, SidebarControl);
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebarControl = lockControlState(true, true, SidebarControl);
+export const CloseSidebarControl = lockControlState(true, SidebarControl);

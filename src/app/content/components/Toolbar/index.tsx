@@ -77,7 +77,7 @@ class Toolbar extends React.Component<Props, State> {
 
     return <Styled.BarWrapper>
       <Styled.TopBar data-testid='toolbar'>
-        <OpenSidebarControl hideMobileText={false}/>
+        <OpenSidebarControl hideMobileText={true} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
