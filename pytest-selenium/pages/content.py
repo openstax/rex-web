@@ -118,6 +118,7 @@ class Content(Page):
         # Touch actions is not working for safari & firefox. Hence scrolling using javascript
         else:
             self.driver.execute_script("scrollBy(arguments[0], arguments[1]);", x, y)
+            # self.driver.execute_script(f"scrollBy({x}, {y});")
 
     scroll_through_page = scroll_over_content_overlay
 
@@ -251,8 +252,9 @@ class Content(Page):
             return self.find_element(*self._search_textbox_desktop_locator)
 
         @property
-        # search icon within search text box in desktop
         def search_button(self):
+            """Return the desktop view search icon within the search text box."""
+
             return self.find_element(*self._search_button_desktop_locator)
 
         @property
@@ -264,13 +266,23 @@ class Content(Page):
             return self.page.sidebar.wait_for_region_to_display()
 
         def click_search_icon(self):
-            # clicks search icon in mobile
+            """Clicks the search icon in mobile view."""
+
             self.offscreen_click(self.search_button_mobile)
 
         def search_for(self, element):
+            """Search for a term/query in desktop resolution.
+
+            :element: type -> str: search_term defined in the test
+            :rtype: return search sidebar region with the search results
+
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
             self.search_textbox.send_keys(element)
             self.offscreen_click(self.search_button)
-            return self.page.search_sidebar.wait_for_region_to_display()
+            self.page.search_sidebar.wait_for_region_to_display()
 
     class MobileSearchToolbar(Region):
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
@@ -280,10 +292,20 @@ class Content(Page):
             return self.find_element(*self._search_textbox_mobile_locator)
 
         def search_for(self, element):
+            """Search for a term/query in mobile resolution.
+
+            :element: type -> str: search_term defined in the test
+            :rtype: return search sidebar region with the search results
+
+            Click the search icon in the toolbar
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
             self.page.toolbar.click_search_icon()
             self.search_textbox.send_keys(element)
             self.offscreen_click(self.search_textbox)
-            return self.page.search_sidebar.wait_for_region_to_display()
+            self.page.search_sidebar.wait_for_region_to_display()
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")

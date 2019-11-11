@@ -27,11 +27,7 @@ def test_message_when_search_yields_no_results(selenium, base_url, book_slug, pa
         mobile.search_for(search_term)
 
     # THEN: Search sidebar displays no results message
-    assert (
-        search_sidebar.no_results_message == "Sorry, no results found for   ‘"
-        "{}"
-        "’".format(search_term)
-    )
+    assert search_sidebar.no_results_message == f"Sorry, no results found for   ‘{search_term}’"
 
     # AND: User stays in the same page as before executing the search
     assert content.current_url == page_url_before_search
