@@ -4,7 +4,6 @@ import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import * as selectSearch from '../../search/selectors';
-import { SelectedResult } from '../../search/types';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
@@ -27,21 +26,12 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
 };
 type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 
-const scrollToSearch = ({container, searchResultMap}: Services, selected: SelectedResult) => {
-  const elementHighlights = searchResultMap.find((map) => isEqual(map.result, selected.result));
-  const selectedHighlights = elementHighlights && elementHighlights.highlights[selected.highlight];
-  const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
+interface Options {
+  forceRedraw: boolean;
+}
 
-  if (firstSelectedHighlight) {
-    firstSelectedHighlight.focus();
-    allImagesLoaded(container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
-    );
-  }
-};
-
-const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp) => {
-  if (previous.searchResults === current.searchResults) {
+const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+  if (!options.forceRedraw && previous.searchResults === current.searchResults) {
     return;
   }
 
@@ -49,18 +39,36 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp) => {
-  if (previous.selectedResult === current.selectedResult || !current.selectedResult) {
+const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+  if (!current.selectedResult) {
+    return;
+  }
+  if (!options.forceRedraw && previous.selectedResult === current.selectedResult) {
     return;
   }
 
+  const {selectedResult} = current;
+
   services.highlighter.clearFocus();
-  scrollToSearch(services, current.selectedResult);
+
+  const elementHighlights = services.searchResultMap.find((map) => isEqual(map.result, selectedResult.result));
+  const selectedHighlights = elementHighlights && elementHighlights.highlights[selectedResult.highlight];
+  const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
+
+  if (firstSelectedHighlight) {
+    firstSelectedHighlight.focus();
+  }
+
+  if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
+    allImagesLoaded(services.container).then(
+      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
+    );
+  }
 };
 
-const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp) => {
-  updateResults(services, previous, current);
-  selectResult(services, previous, current);
+const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
+  updateResults(services, previous, current, options);
+  selectResult(services, previous, current, options);
 };
 
 const searchHighlightManager = (container: HTMLElement) => {

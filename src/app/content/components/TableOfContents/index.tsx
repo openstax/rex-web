@@ -27,7 +27,13 @@ export class TableOfContents extends Component<SidebarProps> {
     const {isOpen, book} = this.props;
     return <FormattedMessage id='i18n:toc:title'>
       {(msg: Element | string) =>
-        <Styled.SidebarBody isOpen={isOpen} ref={this.sidebar} data-testid='toc' aria-label={msg}>
+        <Styled.SidebarBody
+          isOpen={isOpen}
+          ref={this.sidebar}
+          data-testid='toc'
+          aria-label={msg}
+          data-analytics-region='toc'
+        >
           {this.renderTocHeader()}
           {book && this.renderToc(book)}
         </Styled.SidebarBody>

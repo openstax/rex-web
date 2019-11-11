@@ -204,8 +204,14 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   }
 
   private renderBars = (book: Book, bookUrl: string, treeSection: ArchiveTreeSection) => ([
-    <BarWrapper colorSchema={book.theme} key='expanded-nav' up={this.state.scrollTransition} ref={this.bigBanner}
-                data-testid='bookbanner'>
+    <BarWrapper
+      colorSchema={book.theme}
+      key='expanded-nav'
+      up={this.state.scrollTransition}
+      ref={this.bigBanner}
+      data-testid='bookbanner'
+      data-analytics-region='book-banner-expanded'
+    >
       <TopBar>
         <BookTitle href={bookUrl} colorSchema={book.theme}>
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
@@ -213,7 +219,13 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
         <BookChapter colorSchema={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
       </TopBar>
     </BarWrapper>,
-    <BarWrapper colorSchema={book.theme} variant='mini' key='mini-nav' ref={this.miniBanner}>
+    <BarWrapper
+      colorSchema={book.theme}
+      variant='mini'
+      key='mini-nav'
+      ref={this.miniBanner}
+      data-analytics-region='book-banner-collapsed'
+    >
       <TopBar>
         <BookTitle href={bookUrl} variant='mini' colorSchema={book.theme}>
           <LeftArrow colorSchema={book.theme} />{book.tree.title}

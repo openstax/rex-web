@@ -416,6 +416,7 @@ Array [
 
 <footer
     className="c0"
+    data-analytics-region="footer"
   >
     <div
       className="c1"

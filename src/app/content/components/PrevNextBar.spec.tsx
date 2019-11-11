@@ -11,6 +11,13 @@ import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import PrevNextBar from './PrevNextBar';
 
+jest.mock('../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
+
 const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('PrevNextBar', () => {

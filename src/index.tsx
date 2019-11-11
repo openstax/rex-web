@@ -11,6 +11,7 @@ import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
+import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
@@ -76,6 +77,8 @@ function doneRendering() {
     actions.forEach((action: any) => app.store.dispatch(action));
   }
 }
+
+registerGlobalAnalytics(window, app.store);
 
 // start long running processes
 pollUpdates(app.store);
