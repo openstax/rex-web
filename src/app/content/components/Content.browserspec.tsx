@@ -19,6 +19,7 @@ describe('Content', () => {
       beforeEach(async() => {
         const setViewport = TEST_CASES[testCase];
         await setViewport(page);
+        await new Promise((resolve) => setTimeout(resolve, 3000));
 
         // chrome does weird when changing the hash manually on the current page
         await navigate(page, '/book-slug-1/pages/test-page-1');
@@ -28,6 +29,7 @@ describe('Content', () => {
       it('scrolls correctly to all elements', async() => {
         const expectedScrollTops = EXPECTED_SCROLL_TOPS[testCase];
 
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         await navigate(page, TEST_PAGE_URL);
         // Calling finishRender() without first waiting sometimes gives scrollTop == 0
         await new Promise((resolve) => setTimeout(resolve, 3000));
