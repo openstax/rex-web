@@ -90,6 +90,9 @@ afterEach(() => {
     return;
   }
   (window as any).scCGSHMRCache = {};
+  (window as any).getSelection = () => ({
+    removeAllRanges: () => null,
+  });
   matchMedia.mockReset();
   scrollTo.mockReset();
   scrollBy.mockReset();

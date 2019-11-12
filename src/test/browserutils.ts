@@ -50,13 +50,6 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   }
 });
 
-const setMaxViewport = async(target: puppeteer.Page) => {
-  const width = await target.evaluate(() => document && document.body.offsetWidth);
-  const height = await target.evaluate(() => document && document.body.offsetHeight);
-
-  await target.setViewport({width, height});
-};
-
 export const navigate = async(target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
   await calmHooks(target);
@@ -87,27 +80,30 @@ export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
 });
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
-  // TODO - this is no longer true, book banner has fixed height
-  // even when loading, test removing this.
-  //
-  // on pages with the book banner the size of the page gets
-  // a little messed up when it IS NOT prerendered
-  // (content defaults to min-height = rest of the page
-  // and then the banner comes in and pushes everything down)
-  await finishRender(target);
-  await scrollDown(target);
-  await finishRender(target);
-  await scrollUp(target);
   await finishRender(target);
 
-  const {width, height} = target.viewport();
+  const bodyHandle = await target.$('body');
 
-  await setMaxViewport(target);
-  await finishRender(target);
+  if (!bodyHandle) {
+    throw new Error('couldn\'t find page body');
+  }
 
-  const screen = await target.screenshot();
+  const box = await bodyHandle.boundingBox();
 
-  await target.setViewport({width, height});
+  if (!box) {
+    throw new Error('couldn\'t find bounding box for body');
+  }
+
+  const { width, height } = box;
+  const screen = await target.screenshot({
+    clip: {
+      height,
+      width,
+      x: 0,
+      y: 0,
+    },
+  });
+  await bodyHandle.dispose();
 
   return screen;
 };

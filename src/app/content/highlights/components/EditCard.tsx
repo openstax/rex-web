@@ -1,12 +1,11 @@
 import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
-import { mergeRefs } from '../../../utils';
+import { assertWindow, mergeRefs } from '../../../utils';
 import { clearFocusedHighlight, createHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
@@ -24,18 +23,31 @@ interface Props {
   onBlur: typeof clearFocusedHighlight;
   onSave: typeof updateHighlight;
   onRemove: () => void;
+  onCancel: () => void;
   data?: HighlightData;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
 const EditCard = React.forwardRef<HTMLElement, Props>((
-  {authenticated, loginLink, highlight, isFocused, className, data, onCreate, onSave, onRemove, onBlur}: Props,
+  {
+    authenticated,
+    className,
+    data,
+    highlight,
+    isFocused,
+    loginLink,
+    onBlur,
+    onCancel,
+    onCreate,
+    onRemove,
+    onSave,
+  }: Props,
   ref
 ) => {
   const defaultNote = () => data && data.note ? data.note : '';
   const [pendingNote, setPendingNote] = React.useState<string>(defaultNote());
-  const [editingNote, setEditing] = React.useState<boolean>(false);
+  const [editingNote, setEditing] = React.useState<boolean>(!!data && !!data.note);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
@@ -52,17 +64,10 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     if (data) {
       onSave({...data, style});
     } else {
+      assertWindow().getSelection().removeAllRanges();
       onCreate(highlight.serialize().data);
     }
   };
-
-  // this is deferred so that a click on a color button
-  // will have processed onColorChange before this handler
-  const onClick = () => defer(() => {
-    if (authenticated && !highlight.getStyle()) {
-      onColorChange(highlightStyles[0].label);
-    }
-  });
 
   const saveNote = () => {
     onSave({...(data || highlight.serialize().data), note: pendingNote});
@@ -71,11 +76,11 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const cancelEditing = () => {
     setPendingNote(defaultNote());
     setEditing(false);
+    onCancel();
   };
 
   return <form
     className={className}
-    onClick={onClick}
     ref={mergeRefs(ref, element)}
     data-analytics-region='edit-note'
   >
@@ -84,10 +89,18 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         onRemove();
       }
     }} />
-    <Note note={pendingNote} onChange={(newValue) => {
-      setPendingNote(newValue);
-      setEditing(true);
-    }} />
+    <Note
+      note={pendingNote}
+      onFocus={() => {
+        if (!highlight.getStyle()) {
+          onColorChange(highlightStyles[0].label);
+        }
+      }}
+      onChange={(newValue) => {
+        setPendingNote(newValue);
+        setEditing(true);
+      }}
+    />
     {editingNote && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
@@ -143,6 +156,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
+  user-select: none;
   overflow: visible;
 
   ${ButtonGroup} {

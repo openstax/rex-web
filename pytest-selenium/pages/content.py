@@ -4,13 +4,12 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
 
-from selenium.webdriver.common.keys import Keys
-
 import random
 
 from pages.base import Page
 from regions.base import Region
 from regions.toc import TableOfContents
+from regions.search_sidebar import SearchSidebar
 from utils.utility import Utilities
 
 
@@ -65,6 +64,14 @@ class Content(Page):
         return self.ToolBar(self)
 
     @property
+    def mobile_search_toolbar(self):
+        return self.MobileSearchToolbar(self)
+
+    @property
+    def search_sidebar(self):
+        return SearchSidebar(self)
+
+    @property
     def sidebar(self):
         return self.SideBar(self)
 
@@ -97,13 +104,20 @@ class Content(Page):
         x & y are random numbers computed from the sidebar/window width/height respectively.
         Using touchactions to scroll from the print element.
         Selenium is not throwing any exception while scrolling over the content overlay using scroll(x,y).
-        Hence using scroll_from_element(element, x, y) to capture & assert the exception.
+        Hence using scroll_from_element(element, x, y) to capture & assert the exception in the test.
         """
         x = random.randint(self.sidebar_width_offset, self.window_width)
         y = random.randint(self.sidebar_height_offset, self.window_height)
 
-        touchActions = TouchActions(self.driver)
-        touchActions.scroll_from_element(self.print, x, y).perform()
+        if self.driver == "chrome":
+            touchActions = TouchActions(self.driver)
+            touchActions.scroll_from_element(self.print, x, y).perform()
+
+        # Touch actions is not working for safari & firefox. Hence scrolling using javascript
+        else:
+            self.driver.execute_script(f"scrollBy({x}, {y});")
+
+    scroll_through_page = scroll_over_content_overlay
 
     def click_content_overlay(self):
         """Click anywhere in the content overlay
@@ -217,19 +231,78 @@ class Content(Page):
                 return None
 
     class ToolBar(Region):
-        _root_locator = (By.CSS_SELECTOR, '[data-testid="toolbar"]')
+        _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
         _toc_toggle_button_locator = (
             By.CSS_SELECTOR,
             "[aria-label='Click to open the Table of Contents']",
         )
+        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
 
         @property
         def toc_toggle_button(self):
             return self.find_element(*self._toc_toggle_button_locator)
 
+        @property
+        def search_textbox(self):
+            return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def search_button(self):
+            """Return the desktop view search icon within the search text box."""
+
+            return self.find_element(*self._search_button_desktop_locator)
+
+        @property
+        def search_button_mobile(self):
+            return self.find_element(*self._search_button_mobile_locator)
+
         def click_toc_toggle_button(self):
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
+
+        def click_search_icon(self):
+            """Clicks the search icon in mobile view."""
+
+            self.offscreen_click(self.search_button_mobile)
+
+        def search_for(self, element):
+            """Search for a term/query in desktop resolution.
+
+            :element: type -> str: search_term defined in the test
+            :return: search sidebar region with the search results
+
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
+            self.search_textbox.send_keys(element)
+            self.offscreen_click(self.search_button)
+            self.page.search_sidebar.wait_for_region_to_display()
+
+    class MobileSearchToolbar(Region):
+        _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+
+        @property
+        def search_textbox(self):
+            return self.find_element(*self._search_textbox_mobile_locator)
+
+        def search_for(self, element):
+            """Search for a term/query in mobile resolution.
+
+            :element: type -> str: search_term defined in the test
+            :return: search sidebar region with the search results
+
+            Click the search icon in the toolbar
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
+            self.page.toolbar.click_search_icon()
+            self.search_textbox.send_keys(element)
+            self.offscreen_click(self.search_textbox)
+            self.page.search_sidebar.wait_for_region_to_display()
 
     class SideBar(Region):
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")

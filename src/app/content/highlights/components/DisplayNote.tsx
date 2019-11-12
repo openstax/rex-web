@@ -17,7 +17,7 @@ const MenuIcon = styled(EllipsisV)`
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: ${theme.color.neutral.darkest};
+  color: ${theme.color.primary.gray.lighter};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -99,11 +99,11 @@ export default styled(DisplayNote)`
     right: -0.2rem;
 
     .focus-within ${MenuIcon} {
-      color: ${theme.color.primary.gray.lighter};
+      color: ${theme.color.primary.gray.base};
     }
 
     :focus-within ${MenuIcon} {
-      color: ${theme.color.primary.gray.lighter};
+      color: ${theme.color.primary.gray.base};
     }
   }
 
