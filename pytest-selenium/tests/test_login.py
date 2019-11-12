@@ -71,6 +71,8 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
     rex.open_new_tab()
     rex.switch_to_window(1)
 
+    sleep(1)
+
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
 
@@ -82,6 +84,7 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
     # THEN: REX tab will stay in logged-in state
     rex.switch_to_window(0)
+
     assert rex_nav.user_is_logged_in
 
     # AND: REX tab goes to logged-out state on a reload

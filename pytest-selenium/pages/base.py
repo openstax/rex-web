@@ -92,6 +92,8 @@ class Page(pypom.Page):
 
     def open_new_tab(self):
         self.driver.execute_script("""window.open("","_blank");""")
+        self.wait.until(lambda b: len(b.window_handles) != 1)
 
     def switch_to_window(self, n):
         self.driver.switch_to_window(self.driver.window_handles[n])
+        self.wait.until(lambda b: (b.current_window_handle == n))
