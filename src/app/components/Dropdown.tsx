@@ -60,26 +60,27 @@ const DropdownContainer = styled(({toggle, children, className}: Props) => <div 
 </div>)`
   overflow: visible;
   position: relative;
+  ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
+    ${DropdownFocusWrapper} + ${DropdownToggle} {
+      ${visuallyHidden}
+    }
+    ${DropdownFocusWrapper}.focus-within + ${DropdownToggle} {
+      ${visuallyShown}
+    }
+    ${DropdownFocusWrapper}:focus-within + ${DropdownToggle} {
+      ${visuallyShown}
+    }
 
-  ${DropdownFocusWrapper} + ${DropdownToggle} {
-    ${visuallyHidden}
-  }
-  ${DropdownFocusWrapper}.focus-within + ${DropdownToggle} {
-    ${visuallyShown}
-  }
-  ${DropdownFocusWrapper}:focus-within + ${DropdownToggle} {
-    ${visuallyShown}
-  }
-
-  ${DropdownFocusWrapper} > ${DropdownToggle} {
-    ${visuallyShown}
-  }
-  ${DropdownFocusWrapper}.focus-within > ${DropdownToggle} {
-    ${visuallyHidden}
-  }
-  ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
-    ${visuallyHidden}
-  }
+    ${DropdownFocusWrapper} > ${DropdownToggle} {
+      ${visuallyShown}
+    }
+    ${DropdownFocusWrapper}.focus-within > ${DropdownToggle} {
+      ${visuallyHidden}
+    }
+    ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
+      ${visuallyHidden}
+    }
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
