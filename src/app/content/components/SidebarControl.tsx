@@ -39,7 +39,6 @@ export const ToCButtonText = styled.span`
   ${textRegularSize};
   margin: 0;
   padding: 0;
-
   ${(props) => props.hideMobileText && theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -56,6 +55,7 @@ const ToCButton = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
+
   :hover {
     color: ${toolbarIconColor.darker};
   }
