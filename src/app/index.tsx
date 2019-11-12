@@ -1,6 +1,7 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
+import analytics from '../helpers/analytics';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -54,6 +55,7 @@ const hooks = [
 ];
 
 const defaultServices = () => ({
+  analytics,
   fontCollector: new FontCollector(),
   promiseCollector: new PromiseCollector(),
 });

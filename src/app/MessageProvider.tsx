@@ -8,7 +8,7 @@ if (!Intl.PluralRules) {
 }
 
 // tslint:disable-next-line:variable-name
-const MessageProvider: React.SFC = (props) =>
-  <IntlProvider locale='en' messages={enMessages}>{props.children}</IntlProvider>;
+const MessageProvider: React.SFC<{onError?: () => void}> = (props) =>
+  <IntlProvider onError={props.onError} locale='en' messages={enMessages}>{props.children}</IntlProvider>;
 
 export default MessageProvider;

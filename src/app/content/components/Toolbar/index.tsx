@@ -3,14 +3,16 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import BuyBook from '../../../../assets/buy-book-icon.svg';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
 import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
-import { OpenSidebarControl } from '../SidebarControl';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
+
+const buyBookLink = 'https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719';
 
 interface Props {
   search: typeof requestSearch;
@@ -25,17 +27,20 @@ interface Props {
 
 interface State {
   query: string;
+  queryProp: string;
   formSubmitted: boolean;
 }
 
 class Toolbar extends React.Component<Props, State> {
-  public state = { query: '', formSubmitted: false };
 
-  public componentWillUpdate(newProps: Props) {
-    if (newProps.query && newProps.query !== this.props.query && newProps.query !== this.state.query) {
-      this.setState({query: newProps.query});
+  public static getDerivedStateFromProps(newProps: Props, state: State) {
+    if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
+      return {...state, query: newProps.query, queryProp: newProps.query};
     }
+    return {...state, queryProp: newProps.query};
   }
+
+  public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
     const onSubmit = (e: React.FormEvent) => {
@@ -74,9 +79,9 @@ class Toolbar extends React.Component<Props, State> {
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
-    return <Styled.BarWrapper>
+    return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
-        <OpenSidebarControl />
+        <Styled.SidebarControl hideMobileText={true} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -104,8 +109,20 @@ class Toolbar extends React.Component<Props, State> {
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
           </Styled.SearchInputWrapper>
-          <PrintButton/>
         </Styled.SearchPrintWrapper>
+        <PrintButton />
+        <FormattedMessage id='i18n:toolbar:buy-book:text'>
+          {(msg) => <Styled.BuyBookWrapper
+            aria-label={msg}
+            target='_blank'
+            rel='noopener'
+            href={buyBookLink}
+            data-analytics-href='buy-book'
+          >
+            <Styled.BuyBookIcon aria-hidden src={BuyBook}></Styled.BuyBookIcon>
+              <Styled.PrintOptions>{msg}</Styled.PrintOptions>
+          </Styled.BuyBookWrapper>}
+        </FormattedMessage>
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />

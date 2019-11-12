@@ -8,7 +8,7 @@ import { ArchiveTree } from '../../../types';
 import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import ContentLinkComponent from '../../ContentLink';
 
-export {ExpandIcon, CollapseIcon} from '../../../../components/Details';
+export { ExpandIcon, CollapseIcon } from '../../../../components/Details';
 
 export * from './wrapper';
 

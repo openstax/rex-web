@@ -7,6 +7,10 @@ export default (id: string = Math.random().toString(36).substring(7)) => {
     focus: jest.fn(),
     getStyle: jest.fn(),
     id,
+    range: {
+      commonAncestorContainer: null as null | HTMLElement,
+      getBoundingClientRect: jest.fn(),
+    },
     serialize: () => ({data: {id} as SerializedHighlight['data']}),
     setStyle: jest.fn(),
   };

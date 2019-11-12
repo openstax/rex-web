@@ -1,4 +1,5 @@
 import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
@@ -45,17 +46,19 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
 
   if (reference) {
     e.preventDefault();
-    navigate({
+    // defer to allow other handlers to execute before nav happens
+    defer(() => navigate({
       params: reference.params,
       route: content,
       state: {
         ...locationState,
         ...reference.state,
       },
-    }, {hash, search});
+    }, {hash, search}));
   } else if (pathname === currentPath && hash) {
     e.preventDefault();
-    navigate({
+    // defer to allow other handlers to execute before nav happens
+    defer(() => navigate({
       params: getBookPageUrlAndParams(book, page).params,
       route: content,
       state: {
@@ -63,6 +66,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
         ...getBookPageUrlAndParams(book, page).state,
 
       },
-    }, {hash, search});
+    }, {hash, search}));
   }
 };

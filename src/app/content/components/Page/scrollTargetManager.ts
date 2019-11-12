@@ -1,7 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
-import { assertWindow, resetTabIndex, scrollTo } from '../../../utils';
+import { assertWindow, resetTabIndex } from '../../../utils';
 import * as select from '../../selectors';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
@@ -35,7 +36,7 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const getScrollTarget = (container: HTMLElement | null, hash: string): Element | null => {
+const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {
   return container && typeof(window) !== 'undefined' && hash
     ? container.querySelector(`[id="${hash.replace(/^#/, '')}"]`)
     : null;

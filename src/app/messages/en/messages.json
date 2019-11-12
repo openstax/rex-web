@@ -27,8 +27,19 @@
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:rice-logo:alt": "Rice University logo",
   "i18n:footer:social:tw:alt": "twitter",
+  "i18n:highlighting:login:prompt": "Log in to highlight and take notes. It’s 100% free.",
+  "i18n:highlighting:login:link": "Log in",
+  "i18n:highlighting:button:cancel": "Cancel",
+  "i18n:highlighting:button:delete": "Delete",
+  "i18n:highlighting:button:save": "Save",
+  "i18n:highlighting:card:placeholder": "Add a note...",
+  "i18n:highlighting:card:show-more": "show more",
+  "i18n:highlighting:confirmation:delete-both": "Are you sure you want to delete this note and highlight?",
+  "i18n:highlighting:confirmation:delete-note": "Are you sure you want to delete this note?",
+  "i18n:highlighting:dropdown:delete": "Delete",
+  "i18n:highlighting:dropdown:edit": "Edit",
   "i18n:nav:hello:text": "Hi {name}",
-  "i18n:nav:login:text": "Login",
+  "i18n:nav:login:text": "Log in",
   "i18n:nav:logo:alt": "OpenStax Logo",
   "i18n:nav:logout:text": "Log out",
   "i18n:nav:profile:text": "Account Profile",
@@ -57,5 +68,6 @@
   "i18n:toolbar:print:aria-label": "print",
   "i18n:toolbar:print:text": "Print",
   "i18n:toolbar:search:placeholder": "Search this book",
-  "i18n:toolbar:search:toggle": "Search this book"
+  "i18n:toolbar:search:toggle": "Search this book",
+  "i18n:toolbar:buy-book:text": "Buy book"
 }

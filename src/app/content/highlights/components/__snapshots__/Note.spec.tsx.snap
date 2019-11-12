@@ -5,6 +5,8 @@ exports[`Note matches snapshot 1`] = `
   display: block;
   min-height: 5.6rem;
   width: 18.4rem;
+  max-width: 18.4rem;
+  min-width: 18.4rem;
   border: 1px solid #d5d5d5;
   padding: 0.8rem;
   font-family: Neue Helvetica W01;
@@ -18,6 +20,8 @@ exports[`Note matches snapshot 1`] = `
 <textarea
   className="c0"
   onChange={[Function]}
+  onFocus={[Function]}
   placeholder="Add a note..."
+  value=""
 />
 `;
