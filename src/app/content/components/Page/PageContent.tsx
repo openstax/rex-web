@@ -45,6 +45,10 @@ export default styled(MainContent)`
     }
   }
 
+  .MathJax_Display .highlight {
+    display: inline-block;
+  }
+
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
       background-color: ${style.passive};

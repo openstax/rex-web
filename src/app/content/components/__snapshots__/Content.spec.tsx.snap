@@ -605,6 +605,10 @@ Array [
   color: #0064A0;
 }
 
+.c59 .MathJax_Display .highlight {
+  display: inline-block;
+}
+
 .c59 .highlight.yellow {
   background-color: #ffff8a;
 }
@@ -3905,6 +3909,10 @@ Array [
 
 .c33 a:hover {
   color: #0064A0;
+}
+
+.c33 .MathJax_Display .highlight {
+  display: inline-block;
 }
 
 .c33 .highlight.yellow {
