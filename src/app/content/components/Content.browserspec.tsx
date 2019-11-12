@@ -49,6 +49,8 @@ describe('Content', () => {
           const linkScrollTop = await page.evaluate('document.documentElement.scrollTop');
           expect(linkScrollTop).toEqual(expectedScrollTops[index + 1]);
         }
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       });
     });
   }
