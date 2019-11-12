@@ -1350,6 +1350,8 @@ li[aria-label="Current Page"] .c44 {
   justify-content: center;
   color: #5e6062;
   margin-left: 2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c33 {
@@ -2222,8 +2224,10 @@ li[aria-label="Current Page"] .c44 {
             Print
           </span>
         </button>
-        <div
+        <a
           className="c28"
+          href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+          target="_blank"
         >
           <img
             className="c29"
@@ -2234,7 +2238,7 @@ li[aria-label="Current Page"] .c44 {
           >
             Buy book
           </span>
-        </div>
+        </a>
       </div>
     </div>
     <div
@@ -4310,6 +4314,8 @@ Array [
   justify-content: center;
   color: #5e6062;
   margin-left: 2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c25 {
@@ -4944,8 +4950,10 @@ Array [
             Print
           </span>
         </button>
-        <div
+        <a
           className="c20"
+          href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+          target="_blank"
         >
           <img
             className="c21"
@@ -4956,7 +4964,7 @@ Array [
           >
             Buy book
           </span>
-        </div>
+        </a>
       </div>
     </div>
     <div

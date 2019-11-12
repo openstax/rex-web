@@ -12,6 +12,8 @@ import * as selectSearch from '../../search/selectors';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
 
+const buyBookLink = 'https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719';
+
 interface Props {
   search: typeof requestSearch;
   query: string | null;
@@ -109,7 +111,7 @@ class Toolbar extends React.Component<Props, State> {
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
         <PrintButton/>
-        <Styled.BuyBookWrapper>
+        <Styled.BuyBookWrapper target='_blank' href={buyBookLink}>
           <Styled.BuyBookIcon src={BuyBook}></Styled.BuyBookIcon>
           <FormattedMessage id='i18n:toolbar:buy-book:text'>
             {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}

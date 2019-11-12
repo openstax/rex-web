@@ -315,13 +315,14 @@ export const SidebarControl = styled(OpenSidebarControl)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BuyBookWrapper = styled.div`
+export const BuyBookWrapper = styled.a`
   min-width: ${buttonMinWidth};
   display: flex;
   align-items: center;
   justify-content: center;
   color: ${toolbarIconColor.base};
   margin-left: 2rem;
+  text-decoration: none;
   ${theme.breakpoints.mobile(css`
     margin: 0;
   `)}
