@@ -145,6 +145,62 @@ describe('Card', () => {
     expect(() => component.root.findByType(EditCard)).not.toThrow();
   });
 
+  it('switches to display mode when saving', () => {
+    const data = {
+      ...highlight.serialize().data,
+      note: 'adsf',
+      style: highlightStyles[0].label,
+    };
+    store.dispatch(receiveHighlights([
+      data,
+    ]));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    const picker = component.root.findByType(DisplayNote);
+    renderer.act(() => {
+      picker.props.onEdit();
+    });
+
+    const edit = component.root.findByType(EditCard);
+    renderer.act(() => {
+      edit.props.onSave(data);
+    });
+
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
+
+  it('switches to display mode when cancelling', () => {
+    const data = {
+      ...highlight.serialize().data,
+      note: 'adsf',
+      style: highlightStyles[0].label,
+    };
+    store.dispatch(receiveHighlights([
+      data,
+    ]));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    const picker = component.root.findByType(DisplayNote);
+    renderer.act(() => {
+      picker.props.onEdit();
+    });
+
+    const edit = component.root.findByType(EditCard);
+    renderer.act(() => {
+      edit.props.onCancel();
+    });
+
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
+
   it('removes when DisplayNote calls onRemove', () => {
     store.dispatch(receiveHighlights([
       {
