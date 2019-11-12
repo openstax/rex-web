@@ -75,6 +75,16 @@ class Page(pypom.Page):
             )
         ).strip("px")
 
+
+    @property
+    def scroll_position(self):
+        return self.driver.execute_script("return window.pageYOffset;")
+
+    @property
+    def page_not_scrolled(self):
+        return self.driver.execute_script("return window.pageYOffset;") == 0
+
+
     def offscreen_click(self, element=None):
         """Clicks an offscreen element (or the region's root).
 
