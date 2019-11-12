@@ -9,7 +9,6 @@ import { maxNavWidth } from '../../../components/NavBar/styled';
 import {
   contentFont,
   decoratedLinkStyle,
-  textRegularLineHeight,
   textRegularSize,
   textRegularStyle,
   textStyle
@@ -28,13 +27,11 @@ import {
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight
 } from '../constants';
+import { OpenSidebarControl } from '../SidebarControl';
 import { disablePrint } from '../utils/disablePrint';
+import { toolbarIconStyles } from './iconStyles';
 
-export const toolbarIconStyles = css`
-  height: ${textRegularLineHeight}rem;
-  width: ${textRegularLineHeight}rem;
-  padding: 0.4rem;
-`;
+export const buttonMinWidth = `45px`;
 
 export const toolbarDefaultText = css`
   font-weight: 600;
@@ -82,7 +79,7 @@ export const PlainButton = styled.button`
   align-items: center;
   color: ${toolbarIconColor.base};
   height: 100%;
-  min-width: 45px;
+  min-width: ${buttonMinWidth};
 
   :hover,
   :focus {
@@ -212,6 +209,7 @@ export const SearchPrintWrapper = styled.div`
     ${SearchInputWrapper} {
       border: none;
       border-radius: 0;
+      width: ${buttonMinWidth};
     }
   `)}
 `;
@@ -251,12 +249,13 @@ export const Hr = styled.hr`
 // tslint:disable-next-line:variable-name
 export const TopBar = styled.div`
   display: flex;
-  justify-content: space-between;
   overflow: visible;
+  justify-content: flex-end;
   align-items: center;
   ${barPadding};
   height: ${toolbarDesktopHeight}rem;
   ${theme.breakpoints.mobile(css`
+    justify-content: space-between;
     height: ${toolbarMobileHeight}rem;
   `)}
 `;
@@ -304,4 +303,31 @@ export const InnerText = styled.div`
   white-space: nowrap;
   margin-right: 1rem;
   text-align: left;
+`;
+
+// tslint:disable-next-line:variable-name
+export const BuyBookIcon = styled.img`
+  ${toolbarIconStyles}
+`;
+
+// tslint:disable-next-line:variable-name
+export const SidebarControl = styled(OpenSidebarControl)`
+  margin-right: auto;
+  ${theme.breakpoints.mobile(css`
+    margin-right: unset;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const BuyBookWrapper = styled.a`
+  min-width: ${buttonMinWidth};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${toolbarIconColor.base};
+  margin-left: 2rem;
+  text-decoration: none;
+  ${theme.breakpoints.mobile(css`
+    margin: 0;
+  `)}
 `;

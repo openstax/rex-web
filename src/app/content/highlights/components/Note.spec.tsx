@@ -7,7 +7,7 @@ import Note from './Note';
 describe('Note', () => {
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
-      <Note note='' onChange={() => null} />
+      <Note note='' onChange={() => null} onFocus={() => null} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -17,7 +17,7 @@ describe('Note', () => {
   it('calls onChange', () => {
     const onChange = jest.fn();
     const component = renderer.create(<MessageProvider>
-      <Note note='' onChange={onChange} />
+      <Note note='' onChange={onChange} onFocus={() => null} />
     </MessageProvider>);
 
     const textarea = component.root.findByType('textarea');
@@ -35,14 +35,14 @@ describe('Note', () => {
 
   it('resizes on update when necessary', () => {
     const {node, root} = renderToDom(<MessageProvider>
-      <Note note='' onChange={() => null} />
+      <Note note='' onChange={() => null} onFocus={() => null} />
     </MessageProvider>);
 
     Object.defineProperty(node, 'scrollHeight', { value: 100 });
     Object.defineProperty(node, 'offsetHeight', { value: 50 });
 
     renderToDom(<MessageProvider>
-      <Note note='asdf' onChange={() => null} />
+      <Note note='asdf' onChange={() => null} onFocus={() => null} />
     </MessageProvider>, root);
 
     expect(node.style.height).toEqual('105px');
@@ -50,14 +50,14 @@ describe('Note', () => {
 
   it('doesn\'t resize on update when unneccessary', () => {
     const {node, root} = renderToDom(<MessageProvider>
-      <Note note='' onChange={() => null} />
+      <Note note='' onChange={() => null} onFocus={() => null} />
     </MessageProvider>);
 
     Object.defineProperty(node, 'scrollHeight', { value: 50 });
     Object.defineProperty(node, 'offsetHeight', { value: 50 });
 
     renderToDom(<MessageProvider>
-      <Note note='asdf' onChange={() => null} />
+      <Note note='asdf' onChange={() => null} onFocus={() => null} />
     </MessageProvider>, root);
 
     expect(node.style.height).toEqual('');

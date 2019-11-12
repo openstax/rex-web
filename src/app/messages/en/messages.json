@@ -27,8 +27,8 @@
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:rice-logo:alt": "Rice University logo",
   "i18n:footer:social:tw:alt": "twitter",
-  "i18n:highlighting:login:prompt": "Login to save highlights or add a note",
-  "i18n:highlighting:login:link": "Login",
+  "i18n:highlighting:login:prompt": "Log in to highlight and take notes. It’s 100% free.",
+  "i18n:highlighting:login:link": "Log in",
   "i18n:highlighting:button:cancel": "Cancel",
   "i18n:highlighting:button:delete": "Delete",
   "i18n:highlighting:button:save": "Save",
@@ -39,7 +39,7 @@
   "i18n:highlighting:dropdown:delete": "Delete",
   "i18n:highlighting:dropdown:edit": "Edit",
   "i18n:nav:hello:text": "Hi {name}",
-  "i18n:nav:login:text": "Login",
+  "i18n:nav:login:text": "Log in",
   "i18n:nav:logo:alt": "OpenStax Logo",
   "i18n:nav:logout:text": "Log out",
   "i18n:nav:profile:text": "Account Profile",
@@ -79,5 +79,6 @@
   "i18n:toolbar:highlights:popup:body:tooltip:review": "Review all your highlights and notes of a book in one place organized by chapters.",
   "i18n:toolbar:highlights:popup:heading:no-highlights": "You have no highlights in this chapter.",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
-  "i18n:toolbar:highlights:popup:body:use-this-page": "Then use his page to create your own study guide"
+  "i18n:toolbar:highlights:popup:body:use-this-page": "Then use his page to create your own study guide",
+  "i18n:toolbar:buy-book:text": "Buy book"
 }
