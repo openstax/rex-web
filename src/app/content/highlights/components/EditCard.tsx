@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
-import { mergeRefs } from '../../../utils';
+import { assertWindow, mergeRefs } from '../../../utils';
 import { clearFocusedHighlight, createHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
@@ -29,19 +29,20 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const EditCard = React.forwardRef<HTMLElement, Props>(({
-  authenticated,
-  className,
-  data,
-  highlight,
-  isFocused,
-  loginLink,
-  onBlur,
-  onCancel,
-  onCreate,
-  onRemove,
-  onSave,
-}: Props,
+const EditCard = React.forwardRef<HTMLElement, Props>((
+  {
+    authenticated,
+    className,
+    data,
+    highlight,
+    isFocused,
+    loginLink,
+    onBlur,
+    onCancel,
+    onCreate,
+    onRemove,
+    onSave,
+  }: Props,
   ref
 ) => {
   const defaultNote = () => data && data.note ? data.note : '';
@@ -63,6 +64,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>(({
     if (data) {
       onSave({...data, style});
     } else {
+      assertWindow().getSelection().removeAllRanges();
       onCreate(highlight.serialize().data);
     }
   };
@@ -87,14 +89,18 @@ const EditCard = React.forwardRef<HTMLElement, Props>(({
         onRemove();
       }
     }} />
-    <Note note={pendingNote} onChange={(newValue) => {
-      setPendingNote(newValue);
-      setEditing(true);
-
-      if (!highlight.getStyle()) {
-        onColorChange(highlightStyles[0].label);
-      }
-    }} />
+    <Note
+      note={pendingNote}
+      onFocus={() => {
+        if (!highlight.getStyle()) {
+          onColorChange(highlightStyles[0].label);
+        }
+      }}
+      onChange={(newValue) => {
+        setPendingNote(newValue);
+        setEditing(true);
+      }}
+    />
     {editingNote && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
@@ -150,6 +156,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>(({
 
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
+  user-select: none;
   overflow: visible;
 
   ${ButtonGroup} {

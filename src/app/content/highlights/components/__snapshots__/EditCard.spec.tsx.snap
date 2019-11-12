@@ -82,6 +82,10 @@ exports[`EditCard matches snapshot when editing 1`] = `
 
 .c0 {
   background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   overflow: visible;
 }
 
@@ -108,6 +112,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
     mock-note={true}
     note="asdf"
     onChange={[Function]}
+    onFocus={[Function]}
   />
   <div
     className="c1 c2"
@@ -141,6 +146,10 @@ exports[`EditCard matches snapshot when editing 1`] = `
 exports[`EditCard matches snapshot when focused 1`] = `
 .c0 {
   background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   overflow: visible;
 }
 
@@ -168,6 +177,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
     mock-note={true}
     note=""
     onChange={[Function]}
+    onFocus={[Function]}
   />
   <div
     confirmMessage="i18n:highlighting:login:link"
@@ -181,6 +191,10 @@ exports[`EditCard matches snapshot when focused 1`] = `
 exports[`EditCard matches snapshot with data 1`] = `
 .c0 {
   background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   overflow: visible;
 }
 
@@ -207,6 +221,7 @@ exports[`EditCard matches snapshot with data 1`] = `
     mock-note={true}
     note=""
     onChange={[Function]}
+    onFocus={[Function]}
   />
   <div
     confirmMessage="i18n:highlighting:login:link"
@@ -220,6 +235,10 @@ exports[`EditCard matches snapshot with data 1`] = `
 exports[`EditCard matches snapshot without data 1`] = `
 .c0 {
   background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   overflow: visible;
 }
 
@@ -246,6 +265,7 @@ exports[`EditCard matches snapshot without data 1`] = `
     mock-note={true}
     note=""
     onChange={[Function]}
+    onFocus={[Function]}
   />
   <div
     confirmMessage="i18n:highlighting:login:link"

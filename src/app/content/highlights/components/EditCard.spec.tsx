@@ -311,7 +311,7 @@ describe('EditCard', () => {
     expect(create).toHaveBeenCalledWith(highlightData);
   });
 
-  it('sets color and creates when you start typing', () => {
+  it('sets color and creates when you focus', () => {
     const create = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
@@ -323,11 +323,31 @@ describe('EditCard', () => {
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
-      note.props.onChange('asdf');
+      note.props.onFocus();
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
     expect(create).toHaveBeenCalledWith(highlightData);
+  });
+
+  it('focusing an existing note does nothing', () => {
+    highlight.getStyle.mockReturnValue('red');
+    const create = jest.fn();
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        data={highlightData}
+        authenticated={true}
+      />
+    </MessageProvider>);
+
+    const note = component.root.findByType(Note);
+    renderer.act(() => {
+      note.props.onFocus();
+    });
+
+    expect(highlight.setStyle).not.toHaveBeenCalled();
+    expect(create).not.toHaveBeenCalled();
   });
 
   it('blurs when clicking outside', () => {
