@@ -16,6 +16,12 @@ describe('content route', () => {
     expect(url).toEqual('/books/book/pages/page');
   });
 
+  it('generates a versioned url', () => {
+    content = require('./routes').content;
+    const url = content.getUrl({book: 'book', page: 'page', version: 'asdf'});
+    expect(url).toEqual('/books/book@asdf/pages/page');
+  });
+
   describe('route renders', () => {
     const windowBackup = window;
     const documentBackup = document;

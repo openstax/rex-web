@@ -51,6 +51,9 @@ const NoteText = ({text, isFocused, className}: Props) => {
 const lineHeight = 1.8;
 export default styled(NoteText)`
   ${textStyle}
+  overflow: hidden;
+  white-space: pre-wrap;
+  hyphens: auto;
   font-size: 1.4rem;
   line-height: ${lineHeight}rem;
   margin: 0;

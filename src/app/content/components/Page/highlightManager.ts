@@ -1,5 +1,6 @@
 import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
@@ -13,6 +14,7 @@ import {
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import * as selectHighlights from '../../highlights/selectors';
+import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
 
 interface Services {
@@ -25,6 +27,7 @@ interface Services {
 
 export const mapStateToHighlightProp = (state: AppState) => ({
   enabled: selectHighlights.isEnabled(state),
+  focused: selectHighlights.focused(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
 });
@@ -38,29 +41,28 @@ export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
-const onClickHighlight = (services: Services, highlight: Highlight | undefined) => {
-  services.clearPendingHighlight();
-
-  if (highlight) {
-    services.getProp().focus(highlight.id);
-    services.highlighter.clearFocus();
-    highlight.focus();
-  } else {
-    services.getProp().clearFocus();
-    services.highlighter.clearFocus();
-  }
-};
-
-const onSelectHighlight = (services: Services, highlights: Highlight[], highlight: Highlight | undefined) => {
-  if (highlights.length > 0 || !highlight) {
+// deferred so any cards that are going to blur themselves will have done so before this is processed
+const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(() => {
+  if (!highlight || services.getProp().focused) {
     return;
   }
 
   services.getProp().focus(highlight.id);
-  services.highlighter.clearFocus();
-  highlight.focus();
+});
+
+// deferred so any cards that are going to blur themselves will have done so before this is processed
+const onSelectHighlight = (
+  services: Services,
+  highlights: Highlight[],
+  highlight: Highlight | undefined
+) => defer(() => {
+  if (highlights.length > 0 || !highlight || services.getProp().focused) {
+    return;
+  }
+
+  services.getProp().focus(highlight.id);
   services.setPendingHighlight(highlight);
-};
+});
 
 const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
   const highlighter: Highlighter = new Highlighter(services.container, {
@@ -137,6 +139,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       if (listHighlighter) {
         return React.createElement(CardWrapper, {
+          container,
           highlights: listPendingHighlight
             ? [
                 ...listHighlights.filter((highlight) => !pendingHighlight || highlight.id !== pendingHighlight.id),
@@ -153,8 +156,22 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         highlighter = createHighlighter(services);
         setListHighlighter(highlighter);
       }
+
+      let addedOrRemoved = false;
+
       if (!highlighter) {
-        return;
+        return addedOrRemoved;
+      }
+
+      const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
+
+      if (
+        pendingHighlight
+        && !highlighter.getHighlight(pendingHighlight.id)
+        && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
+      ) {
+        addedOrRemoved = true;
+        highlighter.highlight(pendingHighlight);
       }
 
       const newHighlights = getProp().highlights
@@ -164,17 +181,27 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       ;
 
       const removedHighlights = highlighter.getHighlights()
-        .filter((highlight) => !getProp().highlights.find((search) => search.id === highlight.id))
+        .filter((highlight) => !getProp().highlights.find(matchHighlightId(highlight.id)))
         .map(erase(highlighter))
       ;
 
-      if (removedHighlights.find((highlight) => pendingHighlight && highlight.id === pendingHighlight.id)) {
+      highlighter.clearFocus();
+      const focusedId = getProp().focused;
+      const focused = focusedId && highlighter.getHighlight(focusedId);
+      if (focused) {
+        focused.focus();
+      }
+
+      if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
         clearPendingHighlight();
       }
 
       if (newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
+        return true;
       }
+
+      return addedOrRemoved;
     },
   };
 };
@@ -182,5 +209,5 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (): void => undefined,
+  update: (): boolean => false,
 });

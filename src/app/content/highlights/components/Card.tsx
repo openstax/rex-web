@@ -4,11 +4,14 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { findElementSelfOrParent } from '../../../domUtils';
+import * as selectAuth from '../../../auth/selectors';
+import { User } from '../../../auth/types';
+import { findElementSelfOrParent, scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
+import { disablePrint } from '../../components/utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
@@ -28,7 +31,10 @@ import EditCard from './EditCard';
 import { cardBorder } from './style';
 
 interface Props {
+  container?: HTMLElement;
   isFocused: boolean;
+  user: User;
+  loginLink: string;
   highlight: Highlight;
   create: typeof createHighlight;
   save: typeof updateHighlight;
@@ -41,9 +47,13 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const Card = (props: Props) => {
   const note = props.data && props.data.note;
+  const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!note);
 
   React.useEffect(() => {
+    if (element.current && props.isFocused) {
+      scrollIntoView(element.current);
+    }
     if (!props.isFocused) {
       setEditing(false);
     }
@@ -56,15 +66,28 @@ const Card = (props: Props) => {
   const onRemove = () => props.data && props.remove(props.data.id);
   const style = highlightStyles.find((search) => props.data && search.label === props.data.style);
 
+  const commonProps = {
+    className: props.className,
+    isFocused: props.isFocused,
+    onBlur: props.blur,
+    onRemove,
+    ref: element,
+  };
+
   return !editing && style && note ? <DisplayNote
-    isFocused={props.isFocused}
-    className={props.className}
+    {...commonProps}
     style={style}
     note={note}
     onEdit={() => setEditing(true)}
-    onBlur={props.blur}
-    onRemove={onRemove}
-  /> : <EditCard {...props} onRemove={onRemove} />;
+  /> : <EditCard
+    {...commonProps}
+    authenticated={!!props.user}
+    loginLink={props.loginLink}
+    highlight={props.highlight}
+    onCreate={props.create}
+    onSave={props.save}
+    data={props.data}
+  />;
 };
 
 /*
@@ -85,46 +108,32 @@ const Card = (props: Props) => {
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 
-const getHighlightOffset = (highlight: Highlight) => {
-  if (!highlight.range || !highlight.range.getBoundingClientRect) {
-    return;
-  }
-
-  const anchor = findElementSelfOrParent(highlight.range.commonAncestorContainer);
-
-  if (!anchor) {
+const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
+  if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
   }
 
   const {top, bottom} = highlight.range.getBoundingClientRect();
 
-  const removeParentOffset = (element: HTMLElement, offset: number): number => {
-    const offsetParent = element.offsetParent && findElementSelfOrParent(element.offsetParent);
-
-    if (offsetParent) {
-      return removeParentOffset(offsetParent, offset - offsetParent.offsetTop);
-    } else {
-      return offset;
-    }
-  };
-
+  const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
+  const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
   const scrollOffset = assertWindow().scrollY;
 
   return {
-    bottom: removeParentOffset(anchor, bottom + scrollOffset),
-    top: removeParentOffset(anchor, top + scrollOffset),
+    bottom: bottom - parentOffset + scrollOffset,
+    top: top - parentOffset + scrollOffset,
   };
 };
 
-const getHighlightTopOffset = (highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(highlight);
+const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.top;
   }
 };
-const getHighlightBottomOffset = (highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(highlight);
+const getHighlightBottomOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
+  const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
     return offset.bottom;
@@ -136,7 +145,7 @@ const overlapDisplay = css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
-      return getHighlightBottomOffset(props.highlight) || 0;
+      return getHighlightBottomOffset(props.container, props.highlight) || 0;
     }}px;
   `}
   ${(props: Props) => !props.isFocused && css`
@@ -148,7 +157,7 @@ const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: Props) => {
-    return getHighlightTopOffset(props.highlight) || 0;
+    return getHighlightTopOffset(props.container, props.highlight) || 0;
   }}px;
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
@@ -179,6 +188,7 @@ const StyledCard = styled(Card)`
   padding: ${cardPadding}rem;
   ${cardBorder}
   ${rightSideDisplay}
+  ${disablePrint}
 
   ${(props: {data: HighlightData}) => {
     const data = props.data;
@@ -216,17 +226,18 @@ const StyledCard = styled(Card)`
     `;
   }}
 
-  @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
-    /* the window is too small to show note cards next to content when search is open */
-    ${rightSideDisplay}
-    ${(props: {hasQuery: boolean}) => !!props.hasQuery && overlapDisplay}
-  }
-
   @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content when the toc is open */
     ${overlapDisplay}
     ${styleWhenSidebarClosed(rightSideDisplay)}
   }
+
+  ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
+    @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
+      /* the window is too small to show note cards next to content when search is open */
+      ${overlapDisplay}
+    }
+  `}
 
   @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
     /* the window is too small to show note cards next to content even without sidebars */
@@ -244,6 +255,8 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isOpen: contentSelect.tocOpen(state),
+    loginLink: selectAuth.loginLink(state),
+    user: selectAuth.user(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),

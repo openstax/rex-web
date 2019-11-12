@@ -87,7 +87,7 @@ function getValues() {
 }
 
 // tslint:disable-next-line:variable-name
-const Footer: SFC = () => <Styled.FooterWrapper>
+const Footer: SFC = () => <Styled.FooterWrapper data-analytics-region='footer'>
   <Styled.InnerFooter>
     <Styled.FooterTop>
       <Styled.TopBoxed>

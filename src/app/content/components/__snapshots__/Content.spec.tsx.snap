@@ -91,6 +91,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -388,6 +389,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
 }
 
 .c63 a {
@@ -399,6 +401,26 @@ Array [
 
 .c63 a:hover {
   color: #0064A0;
+}
+
+.c63 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c63 .highlight.green {
+  background-color: #def99f;
+}
+
+.c63 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c63 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c63 .highlight.red {
+  background-color: #ffc5e1;
 }
 
 .c63 .os-figure,
@@ -1492,48 +1514,38 @@ li[aria-label="Current Page"] .c44 {
 }
 
 @media screen {
-  .c63 .highlight.yellow {
-    background-color: #ffff8a;
-  }
-
   .c63 .highlight.yellow.focus {
     background-color: #fed200;
   }
+}
 
-  .c63 .highlight.green {
-    background-color: #def99f;
-  }
-
+@media screen {
   .c63 .highlight.green.focus {
     background-color: #92d101;
   }
+}
 
-  .c63 .highlight.blue {
-    background-color: #c8f5ff;
-  }
-
+@media screen {
   .c63 .highlight.blue.focus {
     background-color: #00c3ed;
   }
+}
 
-  .c63 .highlight.purple {
-    background-color: #cbcfff;
-  }
-
+@media screen {
   .c63 .highlight.purple.focus {
     background-color: #545ec8;
     color: #fff;
   }
+}
 
-  .c63 .highlight.red {
-    background-color: #ffc5e1;
-  }
-
+@media screen {
   .c63 .highlight.red.focus {
     background-color: #de017e;
     color: #fff;
   }
+}
 
+@media screen {
   .c63 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
@@ -2031,6 +2043,7 @@ li[aria-label="Current Page"] .c44 {
   >
     <div
       className="c1"
+      data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
       <div
@@ -2065,6 +2078,7 @@ li[aria-label="Current Page"] .c44 {
     </div>
     <div
       className="c7"
+      data-analytics-region="book-banner-collapsed"
     >
       <div
         className="c2"
@@ -2098,6 +2112,7 @@ li[aria-label="Current Page"] .c44 {
     </div>
     <div
       className="c10"
+      data-analytics-region="toolbar"
     >
       <div
         className="c11"
@@ -2234,6 +2249,7 @@ li[aria-label="Current Page"] .c44 {
           <div
             aria-label="Table of Contents"
             className="c34"
+            data-analytics-region="toc"
             data-testid="toc"
           >
             <div
@@ -2864,10 +2880,12 @@ li[aria-label="Current Page"] .c44 {
                     </div>
                     <div
                       className="c65"
+                      data-analytics-region="prev-next"
                     >
                       <a
                         aria-label="Previous Page"
                         className="c66"
+                        data-analytics-href="prev"
                         href="2-test-page-3"
                         onClick={[Function]}
                       >
@@ -2887,6 +2905,7 @@ li[aria-label="Current Page"] .c44 {
                       <a
                         aria-label="Next Page"
                         className="c68"
+                        data-analytics-href="next"
                         href="4-test-page-5"
                         onClick={[Function]}
                       >
@@ -2908,6 +2927,7 @@ li[aria-label="Current Page"] .c44 {
                 </div>
                 <details
                   className="c70"
+                  data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
                   <summary
@@ -3015,6 +3035,7 @@ li[aria-label="Current Page"] .c44 {
                 </details>
                 <footer
                   className="c77"
+                  data-analytics-region="footer"
                 >
                   <div
                     className="c78"
@@ -3378,6 +3399,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -3742,6 +3764,7 @@ Array [
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  overflow: visible;
 }
 
 .c37 a {
@@ -3753,6 +3776,26 @@ Array [
 
 .c37 a:hover {
   color: #0064A0;
+}
+
+.c37 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c37 .highlight.green {
+  background-color: #def99f;
+}
+
+.c37 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c37 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c37 .highlight.red {
+  background-color: #ffc5e1;
 }
 
 .c37 .os-figure,
@@ -4431,48 +4474,38 @@ Array [
 }
 
 @media screen {
-  .c37 .highlight.yellow {
-    background-color: #ffff8a;
-  }
-
   .c37 .highlight.yellow.focus {
     background-color: #fed200;
   }
+}
 
-  .c37 .highlight.green {
-    background-color: #def99f;
-  }
-
+@media screen {
   .c37 .highlight.green.focus {
     background-color: #92d101;
   }
+}
 
-  .c37 .highlight.blue {
-    background-color: #c8f5ff;
-  }
-
+@media screen {
   .c37 .highlight.blue.focus {
     background-color: #00c3ed;
   }
+}
 
-  .c37 .highlight.purple {
-    background-color: #cbcfff;
-  }
-
+@media screen {
   .c37 .highlight.purple.focus {
     background-color: #545ec8;
     color: #fff;
   }
+}
 
-  .c37 .highlight.red {
-    background-color: #ffc5e1;
-  }
-
+@media screen {
   .c37 .highlight.red.focus {
     background-color: #de017e;
     color: #fff;
   }
+}
 
+@media screen {
   .c37 .search-highlight {
     font-weight: bold;
     background-color: #ffd17e;
@@ -4801,6 +4834,7 @@ Array [
     />
     <div
       className="c2"
+      data-analytics-region="toolbar"
     >
       <div
         className="c3"
@@ -4937,6 +4971,7 @@ Array [
           <div
             aria-label="Table of Contents"
             className="c26"
+            data-analytics-region="toc"
             data-testid="toc"
           >
             <div
@@ -5097,6 +5132,7 @@ Array [
                 </div>
                 <details
                   className="c40"
+                  data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
                   <summary
@@ -5134,6 +5170,7 @@ Array [
                 </details>
                 <footer
                   className="c51"
+                  data-analytics-region="footer"
                 >
                   <div
                     className="c52"
