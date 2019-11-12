@@ -85,7 +85,11 @@ const Card = (props: Props) => {
     loginLink={props.loginLink}
     highlight={props.highlight}
     onCreate={props.create}
-    onSave={props.save}
+    onCancel={() => setEditing(false)}
+    onSave={(data: HighlightData) => {
+      props.save(data);
+      setEditing(false);
+    }}
     data={props.data}
   />;
 };
