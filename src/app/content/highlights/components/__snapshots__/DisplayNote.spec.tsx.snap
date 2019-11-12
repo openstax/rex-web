@@ -1,31 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayNote matches snapshot 1`] = `
-.c6 {
+.c9 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c3 {
+.c6 {
   cursor: pointer;
   outline: none;
 }
 
+.c4 {
+  overflow: visible;
+}
+
 .c2 {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
   overflow: visible;
   position: relative;
 }
 
-.c7 {
-  position: absolute;
-  height: 1px;
-  width: 1px;
+.c2 .c3 + .c5 {
+  display: block;
+  height: 0;
+  width: 0;
   overflow: hidden;
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
+}
+
+.c2 .c3.focus-within + .c5 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c2 .c3:focus-within + .c5 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c2 .c3 > .c5 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c2 .c3.focus-within > .c5 {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c2 .c3:focus-within > .c5 {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c10 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
   box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
   margin: 0;
   padding: 0.6rem 0;
@@ -35,7 +91,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   left: -4rem;
 }
 
-.c1.focus-within .c7 {
+.c3.focus-within .c10 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -43,7 +99,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c1:focus-within .c7 {
+.c3:focus-within .c10 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -51,8 +107,8 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c7 li button,
-.c7 li a {
+.c10 li button,
+.c10 li a {
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -68,21 +124,21 @@ exports[`DisplayNote matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c7 li button:hover,
-.c7 li a:hover,
-.c7 li button:focus,
-.c7 li a:focus {
+.c10 li button:hover,
+.c10 li a:hover,
+.c10 li button:focus,
+.c10 li a:focus {
   background: #d5d5d5;
 }
 
-.c5 {
+.c8 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #e5e5e5;
+  color: #818181;
 }
 
-.c8 {
+.c11 {
   color: #818181;
   height: 4.2rem;
   width: 4.2rem;
@@ -115,16 +171,16 @@ exports[`DisplayNote matches snapshot 1`] = `
   right: -0.2rem;
 }
 
-.c0 .c1 .focus-within .c4 {
-  color: #818181;
+.c0 .c1 .focus-within .c7 {
+  color: #5e6062;
 }
 
-.c0 .c1:focus-within .c4 {
-  color: #818181;
+.c0 .c1:focus-within .c7 {
+  color: #5e6062;
 }
 
 @media screen and (max-width:75em) {
-  .c8 {
+  .c11 {
     display: block;
   }
 }
@@ -149,13 +205,50 @@ exports[`DisplayNote matches snapshot 1`] = `
   <div
     className="c1 c2"
   >
+    <div
+      className="c3 c4"
+    >
+      <span
+        className="c5 c6"
+        tabIndex="-1"
+      >
+        <svg
+          aria-hidden="true"
+          className="c7 c8 c9"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+      <ol
+        className="c10"
+      >
+        <li>
+          <button>
+            Edit
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={[Function]}
+          >
+            Delete
+          </button>
+        </li>
+      </ol>
+    </div>
     <span
-      className="c3"
+      className="c5 c6"
       tabIndex="-1"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
+        className="c7 c8 c9"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -166,26 +259,10 @@ exports[`DisplayNote matches snapshot 1`] = `
         />
       </svg>
     </span>
-    <ol
-      className="c7"
-    >
-      <li>
-        <button>
-          Edit
-        </button>
-      </li>
-      <li>
-        <button
-          onClick={[Function]}
-        >
-          Delete
-        </button>
-      </li>
-    </ol>
   </div>
   <svg
     aria-hidden="true"
-    className="c8"
+    className="c11"
     focusable="false"
     height="15px"
     version="1.1"
@@ -223,31 +300,87 @@ exports[`DisplayNote matches snapshot 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
-.c6 {
+.c9 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c3 {
+.c6 {
   cursor: pointer;
   outline: none;
 }
 
+.c4 {
+  overflow: visible;
+}
+
 .c2 {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
   overflow: visible;
   position: relative;
 }
 
-.c7 {
-  position: absolute;
-  height: 1px;
-  width: 1px;
+.c2 .c3 + .c5 {
+  display: block;
+  height: 0;
+  width: 0;
   overflow: hidden;
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
+}
+
+.c2 .c3.focus-within + .c5 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c2 .c3:focus-within + .c5 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c2 .c3 > .c5 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c2 .c3.focus-within > .c5 {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c2 .c3:focus-within > .c5 {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c10 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
   box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
   margin: 0;
   padding: 0.6rem 0;
@@ -257,7 +390,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   left: -4rem;
 }
 
-.c1.focus-within .c7 {
+.c3.focus-within .c10 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -265,7 +398,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   overflow: visible;
 }
 
-.c1:focus-within .c7 {
+.c3:focus-within .c10 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -273,8 +406,8 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   overflow: visible;
 }
 
-.c7 li button,
-.c7 li a {
+.c10 li button,
+.c10 li a {
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -290,21 +423,21 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   line-height: 2rem;
 }
 
-.c7 li button:hover,
-.c7 li a:hover,
-.c7 li button:focus,
-.c7 li a:focus {
+.c10 li button:hover,
+.c10 li a:hover,
+.c10 li button:focus,
+.c10 li a:focus {
   background: #d5d5d5;
 }
 
-.c5 {
+.c8 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #e5e5e5;
+  color: #818181;
 }
 
-.c8 {
+.c11 {
   color: #818181;
   height: 4.2rem;
   width: 4.2rem;
@@ -315,18 +448,18 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   right: 0;
 }
 
-.c9 .c1 {
+.c12 .c1 {
   position: absolute;
   top: 0.8rem;
   right: -0.2rem;
 }
 
-.c9 .c1 .focus-within .c4 {
-  color: #818181;
+.c12 .c1 .focus-within .c7 {
+  color: #5e6062;
 }
 
-.c9 .c1:focus-within .c4 {
-  color: #818181;
+.c12 .c1:focus-within .c7 {
+  color: #5e6062;
 }
 
 .c0 {
@@ -352,22 +485,22 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   right: -0.2rem;
 }
 
-.c0 .c1 .focus-within .c4 {
-  color: #818181;
+.c0 .c1 .focus-within .c7 {
+  color: #5e6062;
 }
 
-.c0 .c1:focus-within .c4 {
-  color: #818181;
+.c0 .c1:focus-within .c7 {
+  color: #5e6062;
 }
 
 @media screen and (max-width:75em) {
-  .c8 {
+  .c11 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c9 .c1 {
+  .c12 .c1 {
     display: none;
   }
 }
@@ -392,13 +525,50 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   <div
     className="c1 c2"
   >
+    <div
+      className="c3 c4"
+    >
+      <span
+        className="c5 c6"
+        tabIndex="-1"
+      >
+        <svg
+          aria-hidden="true"
+          className="c7 c8 c9"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+      <ol
+        className="c10"
+      >
+        <li>
+          <button>
+            Edit
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={[Function]}
+          >
+            Delete
+          </button>
+        </li>
+      </ol>
+    </div>
     <span
-      className="c3"
+      className="c5 c6"
       tabIndex="-1"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
+        className="c7 c8 c9"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -409,26 +579,10 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         />
       </svg>
     </span>
-    <ol
-      className="c7"
-    >
-      <li>
-        <button>
-          Edit
-        </button>
-      </li>
-      <li>
-        <button
-          onClick={[Function]}
-        >
-          Delete
-        </button>
-      </li>
-    </ol>
   </div>
   <svg
     aria-hidden="true"
-    className="c8"
+    className="c11"
     focusable="false"
     height="15px"
     version="1.1"
