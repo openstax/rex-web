@@ -110,13 +110,19 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
-        <PrintButton/>
-        <Styled.BuyBookWrapper target='_blank' href={buyBookLink}>
-          <Styled.BuyBookIcon src={BuyBook}></Styled.BuyBookIcon>
-          <FormattedMessage id='i18n:toolbar:buy-book:text'>
-            {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}
-          </FormattedMessage>
-        </Styled.BuyBookWrapper>
+        <PrintButton />
+        <FormattedMessage id='i18n:toolbar:buy-book:text'>
+          {(msg) => <Styled.BuyBookWrapper
+            aria-label={msg}
+            target='_blank'
+            rel='noopener'
+            href={buyBookLink}
+            data-analytics-href='buy-book'
+          >
+            <Styled.BuyBookIcon aria-hidden src={BuyBook}></Styled.BuyBookIcon>
+              <Styled.PrintOptions>{msg}</Styled.PrintOptions>
+          </Styled.BuyBookWrapper>}
+        </FormattedMessage>
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />

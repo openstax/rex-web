@@ -2225,11 +2225,15 @@ li[aria-label="Current Page"] .c44 {
           </span>
         </button>
         <a
+          aria-label="Buy book"
           className="c28"
+          data-analytics-href="buy-book"
           href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+          rel="noopener"
           target="_blank"
         >
           <img
+            aria-hidden={true}
             className="c29"
             src="buy-book-icon.svg"
           />
@@ -4951,11 +4955,15 @@ Array [
           </span>
         </button>
         <a
+          aria-label="Buy book"
           className="c20"
+          data-analytics-href="buy-book"
           href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+          rel="noopener"
           target="_blank"
         >
           <img
+            aria-hidden={true}
             className="c21"
             src="buy-book-icon.svg"
           />
