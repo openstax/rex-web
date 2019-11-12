@@ -76,11 +76,11 @@ export const findFirstAncestorOrSelf = (node: Node, predicate: (e: HTMLElement) 
   }
 };
 
-export const findElementSelfOrParent = (node: Node) => {
+export const findElementSelfOrParent = (node: Node): HTMLElement | undefined => {
   if (isHtmlElement(node)) {
     return node;
   } else if (node && node.parentElement) {
-    return node.parentElement;
+    return findElementSelfOrParent(node.parentElement);
   }
 };
 

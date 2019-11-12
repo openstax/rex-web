@@ -18,7 +18,7 @@ export const Overlay = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  padding: ${cardPadding}rem 1.6rem;
+  padding: 1.6rem;
   top: 0;
   right: 0;
   left: 0;
@@ -27,6 +27,7 @@ export const Overlay = styled.div`
 
   label {
     ${labelStyle}
+    flex: 1;
     color: ${theme.color.text.white};
     margin-bottom: ${cardPadding}rem;
   }
@@ -34,14 +35,16 @@ export const Overlay = styled.div`
 
 interface Props {
   message: string;
+  'data-analytics-region'?: string;
   confirmMessage: string;
-  onConfirm: () => void;
+  confirmLink?: string;
+  onConfirm?: () => void;
   onCancel: () => void;
   always?: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Confirmation = ({message, confirmMessage, always, onCancel, onConfirm}: Props) => {
+const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props) => {
   const overlayElement = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
@@ -50,7 +53,14 @@ const Confirmation = ({message, confirmMessage, always, onCancel, onConfirm}: Pr
     }
   }, []);
 
-  return <Overlay ref={overlayElement} tabIndex={-1}>
+  return <Overlay
+    ref={overlayElement}
+    tabIndex={-1}
+    {...props['data-analytics-region']
+      ? {'data-analytics-region': props['data-analytics-region']}
+      : {}
+    }
+  >
     <FormattedMessage id={message}>
       {(msg: Element | string) => <label>{msg}</label>}
     </FormattedMessage>
@@ -58,25 +68,40 @@ const Confirmation = ({message, confirmMessage, always, onCancel, onConfirm}: Pr
       <FormattedMessage id={confirmMessage}>
         {(msg: Element | string) => <Button
           size='small'
+          data-analytics-label='confirm'
           data-testid='confirm'
           variant='primary'
           onClick={(e: React.FormEvent) => {
+            if (!confirmLink) {
+              e.preventDefault();
+            }
+            if (onConfirm) {
+              onConfirm();
+            }
+            if (always) {
+              always();
+            }
+          }}
+          {...confirmLink
+            // eslint-disable-next-line
+            ? {component: <a href={confirmLink} />}
+            : {}
+          }
+        >{msg}</Button>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:highlighting:button:cancel'>
+        {(msg: Element | string) => <Button
+          size='small'
+          data-analytics-label='cancel'
+          data-testid='cancel'
+          onClick={(e: React.FormEvent) => {
             e.preventDefault();
-            onConfirm();
+            onCancel();
             if (always) {
               always();
             }
           }}
         >{msg}</Button>}
-      </FormattedMessage>
-      <FormattedMessage id='i18n:highlighting:button:cancel'>
-        {(msg: Element | string) => <Button size='small' data-testid='cancel' onClick={(e: React.FormEvent) => {
-          e.preventDefault();
-          onCancel();
-          if (always) {
-            always();
-          }
-        }}>{msg}</Button>}
       </FormattedMessage>
     </ButtonGroup>
   </Overlay>;

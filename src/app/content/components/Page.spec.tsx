@@ -652,6 +652,50 @@ describe('Page', () => {
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
+  it('doesn\'t scroll to search result when selected but unchanged', async() => {
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const focus = jest.fn();
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus,
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit1,
+      },
+      {
+        highlights: {},
+        result: hit2,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+    store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    focus.mockClear();
+    (scrollTo as any).mockClear();
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
   it('scrolls to search result when selected before page navigation', async() => {
     renderDomWithReferences();
 
