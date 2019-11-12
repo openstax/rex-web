@@ -9,7 +9,7 @@ import { assertDocument, assertString } from '../../../utils';
 import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import { OpenSidebarControl } from '../SidebarControl';
-import HighlightButton from './HighlightButton';
+import HighlightButton from './MyHighlights/HighlightButton';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
 

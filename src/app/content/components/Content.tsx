@@ -27,6 +27,7 @@ import ContentPane from './ContentPane';
 import Page from './Page';
 import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
+import HighlightsPopUp from './Toolbar/MyHighlights/HighlightsPopUp';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
@@ -167,6 +168,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   />
   <Background>
     <BookBanner />
+    <HighlightsPopUp />
     <ErrorBoundary>
       <Toolbar />
       <OuterWrapper>

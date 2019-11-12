@@ -1,16 +1,16 @@
 import ReactType from 'react';
 import { Provider } from 'react-redux';
 import rendererType, { act } from 'react-test-renderer';
-import createTestStore from '../../../../test/createTestStore';
-import { receiveUser } from '../../../auth/actions';
-import { User } from '../../../auth/types';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
-import { closeMyHighlights, openMyHighlights } from '../../highlights/actions';
+import createTestStore from '../../../../../test/createTestStore';
+import { receiveUser } from '../../../../auth/actions';
+import { User } from '../../../../auth/types';
+import MessageProvider from '../../../../MessageProvider';
+import { Store } from '../../../../types';
+import { closeMyHighlights, openMyHighlights } from '../../../highlights/actions';
 import HighlightButton from './HighlightButton';
 import HighlightsPopUp from './HighlightsPopUp';
 
-describe('MyHighlights', () => {
+describe('MyHighlights button and PopUp', () => {
   let renderer: typeof rendererType;
   let React: typeof ReactType; // tslint:disable-line:variable-name
   let dispatch: jest.SpyInstance;

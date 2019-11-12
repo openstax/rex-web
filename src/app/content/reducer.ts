@@ -17,7 +17,6 @@ import { getPageSlug } from './utils/archiveTreeUtils';
 export const initialState = {
   highlights: initialHighlightState,
   loading: {},
-  myHighlightsOpen: initialHighlightState.myHighlightsOpen,
   params: {},
   references: [],
   search: initialSearchState,

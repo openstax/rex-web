@@ -11,7 +11,6 @@ export interface Params {
 
 export interface State {
   tocOpen: boolean | null;
-  myHighlightsOpen: boolean;
   params: Partial<Params>;
   loading: {
     book?: string;
