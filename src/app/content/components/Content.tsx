@@ -7,6 +7,7 @@ import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
+import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
@@ -27,7 +28,6 @@ import ContentPane from './ContentPane';
 import Page from './Page';
 import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
-import HighlightsPopUp from './Toolbar/MyHighlights/HighlightsPopUp';
 import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
@@ -168,8 +168,8 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   />
   <Background>
     <BookBanner />
-    <HighlightsPopUp />
     <ErrorBoundary>
+      <HighlightsPopUp />
       <Toolbar />
       <OuterWrapper>
         <SearchResultsSidebar/>

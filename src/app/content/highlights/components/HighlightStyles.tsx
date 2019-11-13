@@ -1,12 +1,12 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
-import htmlMessage from '../../../../components/htmlMessage';
-import Times from '../../../../components/Times';
-import { bodyCopyRegularStyle } from '../../../../components/Typography';
-import { H3, h4Style } from '../../../../components/Typography/headings';
-import theme from '../../../../theme';
-import { toolbarIconColor } from '../../constants';
+import htmlMessage from '../../../components/htmlMessage';
+import Times from '../../../components/Times';
+import { bodyCopyRegularStyle } from '../../../components/Typography';
+import { H3, h4Style } from '../../../components/Typography/headings';
+import theme from '../../../theme';
+import { toolbarIconColor } from '../../components/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -26,7 +26,7 @@ export const stickyNoteMeasures = {
     height: 8.8,
     width: 18,
   },
-  width: 24.8 + 5, /* to allow text to fit in one line with tooltip */
+  width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
 export const imageStyles = css`

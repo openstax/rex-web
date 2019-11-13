@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import highlightIcon from '../../../../../assets/highlightIcon.svg';
-import theme from '../../../../theme';
-import { AppState, Dispatch } from '../../../../types';
-import { openMyHighlights } from '../../../highlights/actions';
-import * as selectors from '../../../highlights/selectors';
-import { PlainButton, toolbarDefaultText, toolbarIconStyles } from '../styled';
+import highlightIcon from '../../../../assets/highlightIcon.svg';
+import theme from '../../../theme';
+import { AppState, Dispatch } from '../../../types';
+import { openMyHighlights } from '../../highlights/actions';
+import * as selectors from '../../highlights/selectors';
+import { toolbarIconStyles } from './iconStyles';
+import { PlainButton, toolbarDefaultText } from './styled';
 
 interface Props {
   openMyHighlights: () => void;
@@ -19,9 +20,9 @@ const MyHighlightsWrapper = styled(PlainButton)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 2rem;
+  margin-right: 2rem;
   ${theme.breakpoints.mobile(css`
-    margin-left: 0;
+    margin-right: 0;
   `)}
 `;
 

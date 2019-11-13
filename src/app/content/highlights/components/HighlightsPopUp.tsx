@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import myHighlightsEmptyImage from '../../../../../assets/MHpage-empty-logged-in.png';
-import notLoggedImage1 from '../../../../../assets/My_Highlights_page_empty_1.png';
-import notLoggedImage2 from '../../../../../assets/My_Highlights_page_empty_2.png';
-import * as authSelect from '../../../../auth/selectors';
-import { User } from '../../../../auth/types';
-import * as selectNavigation from '../../../../navigation/selectors';
-import { AppState, Dispatch } from '../../../../types';
-import { closeMyHighlights } from '../../../highlights/actions';
-import * as selectors from '../../../highlights/selectors';
+import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
+import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
+import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
+import * as authSelect from '../../../auth/selectors';
+import { User } from '../../../auth/types';
+import { AppState, Dispatch } from '../../../types';
+import { closeMyHighlights } from '../actions';
+import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
 
 interface Props {
@@ -17,13 +16,13 @@ interface Props {
   closeMyHighlights: () => void;
   user?: User;
   loggedOut: boolean;
-  currentPath: string;
+  loginLink: string;
 }
 
 class HighlightsPopUp extends Component<Props> {
   public loginForHighlights = () => {
     return <Styled.PopupBody>
-      <Styled.LoginText values={{loginLink: '/accounts/login?r=' + this.props.currentPath}} />
+      <Styled.LoginText values={{loginLink: this.props.loginLink}} />
       <Styled.GridWrapper>
         <Styled.GeneralText>
           <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
@@ -135,8 +134,8 @@ class HighlightsPopUp extends Component<Props> {
 
 export default connect(
   (state: AppState) => ({
-    currentPath: selectNavigation.pathname(state),
     loggedOut: authSelect.loggedOut(state),
+    loginLink: authSelect.loginLink(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
     user: authSelect.user(state),
   }),

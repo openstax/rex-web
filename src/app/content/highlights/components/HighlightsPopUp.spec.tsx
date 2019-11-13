@@ -1,13 +1,13 @@
 import ReactType from 'react';
 import { Provider } from 'react-redux';
 import rendererType, { act } from 'react-test-renderer';
-import createTestStore from '../../../../../test/createTestStore';
-import { receiveUser } from '../../../../auth/actions';
-import { User } from '../../../../auth/types';
-import MessageProvider from '../../../../MessageProvider';
-import { Store } from '../../../../types';
-import { closeMyHighlights, openMyHighlights } from '../../../highlights/actions';
-import HighlightButton from './HighlightButton';
+import createTestStore from '../../../../test/createTestStore';
+import { receiveUser } from '../../../auth/actions';
+import { User } from '../../../auth/types';
+import MessageProvider from '../../../MessageProvider';
+import { Store } from '../../../types';
+import HighlightButton from '../../components/Toolbar/HighlightButton';
+import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
 
 describe('MyHighlights button and PopUp', () => {
