@@ -81,6 +81,7 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
     #  WHEN: click logout in osweb
     osweb.click_logout()
+    osweb.wait_for_load()
 
     # THEN: REX tab will stay in logged-in state
     rex.switch_to_window(0)
