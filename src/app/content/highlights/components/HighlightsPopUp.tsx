@@ -89,7 +89,7 @@ class HighlightsPopUp extends Component<Props> {
       <Styled.GreenStickyNote>
         <Styled.StickyNoteUl>
           <Styled.StickyNoteLi>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>
               {(msg: Element | string) => msg}
             </FormattedMessage>
             <Styled.InfoIconWrapper>
@@ -102,7 +102,7 @@ class HighlightsPopUp extends Component<Props> {
             </Styled.InfoIconWrapper>
           </Styled.StickyNoteLi>
           <Styled.StickyNoteLi>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
               {(msg: Element | string) => msg}
             </FormattedMessage>
           </Styled.StickyNoteLi>
