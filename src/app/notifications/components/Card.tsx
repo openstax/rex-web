@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { ButtonGroup } from '../../components/Button';
 import { bodyCopyRegularStyle } from '../../components/Typography';
+import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { inlineDisplayBreak } from '../theme';
 
@@ -86,6 +87,8 @@ export const Body = styled(({className, ...props}) =>
       }
     }
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
