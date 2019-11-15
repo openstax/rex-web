@@ -6,13 +6,11 @@ exports[`TruncatedText matches snapshot 1`] = `
   color: #424242;
   overflow: hidden;
   white-space: pre-wrap;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-size: 1.4rem;
   line-height: 1.8rem;
-  margin: 0;
+  margin: 0 0.4rem 0 0;
   padding: 0;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -44,13 +42,11 @@ exports[`TruncatedText matches snapshot when focused 1`] = `
   color: #424242;
   overflow: hidden;
   white-space: pre-wrap;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-size: 1.4rem;
   line-height: 1.8rem;
-  margin: 0;
+  margin: 0 0.4rem 0 0;
   padding: 0;
 }
 
