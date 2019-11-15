@@ -18,6 +18,7 @@ const TextArea = styled.textarea`
   display: block;
   min-height: 5.6rem;
   width: ${width}rem;
+  max-height: 30rem;
   max-width: ${width}rem;
   min-width: ${width}rem;
   border: 1px solid ${theme.color.neutral.formBorder};
