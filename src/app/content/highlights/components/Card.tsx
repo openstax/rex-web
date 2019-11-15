@@ -86,10 +86,7 @@ const Card = (props: Props) => {
     highlight={props.highlight}
     onCreate={props.create}
     onCancel={() => setEditing(false)}
-    onSave={(data: HighlightData) => {
-      props.save(data);
-      setEditing(false);
-    }}
+    onSave={props.save}
     data={props.data}
   />;
 };
