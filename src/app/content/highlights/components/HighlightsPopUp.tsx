@@ -10,6 +10,8 @@ import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
+import { isHtmlElement } from '../../../guards';
+import { assertDocument } from '../../../utils';
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -20,6 +22,8 @@ interface Props {
 }
 
 class HighlightsPopUp extends Component<Props> {
+  public popUp = React.createRef<HTMLElement>();
+
   public loginForHighlights = () => {
     return <Styled.PopupBody>
       <Styled.LoginText values={{loginLink: this.props.loginLink}} />
@@ -116,7 +120,7 @@ class HighlightsPopUp extends Component<Props> {
       this.props.myHighlightsOpen ?
         <Styled.Modal>
           <Styled.Mask>
-            <Styled.Wrapper>
+            <Styled.Wrapper ref={this.popUp}>
               <Styled.Header>
                 <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
                   {(msg: Element | string) => msg}
@@ -129,6 +133,22 @@ class HighlightsPopUp extends Component<Props> {
         </Styled.Modal>
       : null
     );
+  }
+
+  public componentDidUpdate() {
+    const popUp = this.popUp.current;
+
+    if (!popUp || typeof(window) === 'undefined') {
+      return;
+    }
+
+    if (isHtmlElement(popUp)) {
+      popUp.focus();
+    }
+
+    const activeElement = assertDocument().activeElement;
+    console.log(activeElement);
+
   }
 }
 
