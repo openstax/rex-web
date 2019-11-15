@@ -39,8 +39,6 @@ const Note = ({onChange, onFocus, note}: Props) => {
       return;
     }
 
-    element.style.height = '';
-
     if (element.scrollHeight > element.offsetHeight) {
       element.style.height = `${element.scrollHeight + 5}px`;
     }
