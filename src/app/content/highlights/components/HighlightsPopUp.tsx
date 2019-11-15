@@ -6,12 +6,11 @@ import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
+import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
-import { isHtmlElement } from '../../../guards';
-import { assertDocument } from '../../../utils';
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -120,7 +119,7 @@ class HighlightsPopUp extends Component<Props> {
       this.props.myHighlightsOpen ?
         <Styled.Modal>
           <Styled.Mask>
-            <Styled.Wrapper ref={this.popUp}>
+            <Styled.Wrapper ref={this.popUp} tabIndex='-1' data-testid='highlights-popup-wrapper'>
               <Styled.Header>
                 <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
                   {(msg: Element | string) => msg}
@@ -137,18 +136,9 @@ class HighlightsPopUp extends Component<Props> {
 
   public componentDidUpdate() {
     const popUp = this.popUp.current;
-
-    if (!popUp || typeof(window) === 'undefined') {
-      return;
-    }
-
     if (isHtmlElement(popUp)) {
       popUp.focus();
     }
-
-    const activeElement = assertDocument().activeElement;
-    console.log(activeElement);
-
   }
 }
 

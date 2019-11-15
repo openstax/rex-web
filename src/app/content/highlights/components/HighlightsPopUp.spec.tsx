@@ -6,6 +6,7 @@ import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
+import { assertDocument } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
@@ -75,5 +76,20 @@ describe('MyHighlights button and PopUp', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(openMyHighlights());
+  });
+
+  it('focus is on pop up content', async() => {
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    const active = assertDocument().activeElement;
+    const wrapper = component.root.findByProps({'data-testid': 'highlights-popup-wrapper'});
+
+    expect(active).toBe(wrapper);
   });
 });
