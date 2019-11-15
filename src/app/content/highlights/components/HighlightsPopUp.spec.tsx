@@ -1,26 +1,22 @@
-import ReactType from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import rendererType, { act } from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
+import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
-import { assertDocument } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
 
 describe('MyHighlights button and PopUp', () => {
-  let renderer: typeof rendererType;
-  let React: typeof ReactType; // tslint:disable-line:variable-name
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
 
   beforeEach(() => {
-    React = require('react');
-    renderer = require('react-test-renderer');
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
 
@@ -79,17 +75,21 @@ describe('MyHighlights button and PopUp', () => {
   });
 
   it('focus is on pop up content', async() => {
-    const component = renderer.create(<Provider store={store}>
+    const focus = jest.fn();
+    const createNodeMock = () => ({focus});
+
+    renderer.create(<Provider store={store}>
       <MessageProvider>
         <HighlightsPopUp />
       </MessageProvider>
-    </Provider>);
+    </Provider>, {createNodeMock});
+
+    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
+
+    isHtmlElement.mockReturnValueOnce(true);
 
     act(() => { store.dispatch(openMyHighlights()); });
 
-    const active = assertDocument().activeElement;
-    const wrapper = component.root.findByProps({'data-testid': 'highlights-popup-wrapper'});
-
-    expect(active).toBe(wrapper);
+    expect(focus).toHaveBeenCalled();
   });
 });
