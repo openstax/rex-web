@@ -18,6 +18,7 @@ const MenuIcon = styled(EllipsisV)`
   width: 2rem;
   padding: 0.2rem;
   color: ${theme.color.primary.gray.lighter};
+  user-select: none;
 `;
 
 // tslint:disable-next-line:variable-name
