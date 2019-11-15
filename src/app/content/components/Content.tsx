@@ -7,6 +7,7 @@ import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
+import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
@@ -168,6 +169,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <Background>
     <BookBanner />
     <ErrorBoundary>
+      <HighlightsPopUp />
       <Toolbar />
       <OuterWrapper>
         <SearchResultsSidebar/>
