@@ -77,7 +77,12 @@ describe('EditCard', () => {
       note: '',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        onRemove={onRemove}
+        onCancel={() => null}
+        data={data}
+      />
     </MessageProvider>);
 
     const picker = component.root.findByType(ColorPicker);
@@ -172,7 +177,13 @@ describe('EditCard', () => {
     const blur = jest.fn();
     const save = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onSave={save} onBlur={blur} onCreate={jest.fn()} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        onCancel={() => null}
+        onSave={save}
+        onBlur={blur}
+        onCreate={jest.fn()}
+      />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -223,7 +234,13 @@ describe('EditCard', () => {
       note: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} onBlur={blur} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        onSave={save}
+        onCancel={() => null}
+        data={data}
+        onBlur={blur}
+      />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
