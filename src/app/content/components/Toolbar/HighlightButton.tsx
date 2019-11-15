@@ -39,14 +39,14 @@ const MyHighlightsText = styled.span`
 class HighlightButton extends Component<Props> {
   public render() {
     return (
-      <MyHighlightsWrapper onClick={() => this.props.openMyHighlights()}>
-        <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
-        <FormattedMessage id='i18n:toolbar:highlights:text'>
-          {(msg: Element | string) =>
+      <FormattedMessage id='i18n:toolbar:highlights:text'>
+        {(msg: Element | string) =>
+          <MyHighlightsWrapper onClick={() => this.props.openMyHighlights()} aria-label={msg}>
+            <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
             <MyHighlightsText>{msg}</MyHighlightsText>
-          }
-        </FormattedMessage>
-      </MyHighlightsWrapper>
+          </MyHighlightsWrapper>
+        }
+      </FormattedMessage>
     );
   }
 }
