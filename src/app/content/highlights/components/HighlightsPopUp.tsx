@@ -24,71 +24,76 @@ class HighlightsPopUp extends Component<Props> {
   public popUp = React.createRef<HTMLElement>();
 
   public loginForHighlights = () => {
-    return <Styled.PopupBody>
-      <Styled.LoginText values={{loginLink: this.props.loginLink}} />
-      <Styled.GridWrapper>
-        <Styled.GeneralText>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </Styled.GeneralText>
-        <Styled.ImagesGrid>
-          <Styled.ImageWrapper>
-            <Styled.FirstImage src={notLoggedImage1}></Styled.FirstImage>
-            {this.blueNote()}
-          </Styled.ImageWrapper>
-          <Styled.ImageWrapper>
-            <Styled.SecondImage src={notLoggedImage2}></Styled.SecondImage>
-            {this.greenNote()}
-          </Styled.ImageWrapper>
-        </Styled.ImagesGrid>
-      </Styled.GridWrapper>
-    </Styled.PopupBody>;
+    return (
+      <Styled.PopupBody>
+        <Styled.LoginText values={{ loginLink: this.props.loginLink }} />
+        <Styled.GridWrapper>
+          <Styled.GeneralText>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+          </Styled.GeneralText>
+          <Styled.ImagesGrid>
+            <Styled.ImageWrapper>
+              <Styled.FirstImage src={notLoggedImage1} />
+              {this.blueNote()}
+            </Styled.ImageWrapper>
+            <Styled.ImageWrapper>
+              <Styled.SecondImage src={notLoggedImage2} />
+              {this.greenNote()}
+            </Styled.ImageWrapper>
+          </Styled.ImagesGrid>
+        </Styled.GridWrapper>
+      </Styled.PopupBody>
+    );
   };
 
   public myHighlights = () => {
-    return <Styled.PopupBody>
-      <Styled.GeneralLeftText>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
-          {(msg: Element | string) => msg}
-        </FormattedMessage>
-      </Styled.GeneralLeftText>
-      <Styled.MyHighlightsWrapper>
-        <Styled.GeneralText>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
+    return (
+      <Styled.PopupBody>
+        <Styled.GeneralLeftText>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
-        </Styled.GeneralText>
-        <Styled.GeneralTextWrapper>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </Styled.GeneralTextWrapper>
-        <Styled.MyHighlightsImage src={myHighlightsEmptyImage}></Styled.MyHighlightsImage>
-      </Styled.MyHighlightsWrapper>
-    </Styled.PopupBody>;
+        </Styled.GeneralLeftText>
+        <Styled.MyHighlightsWrapper>
+          <Styled.GeneralText>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+          </Styled.GeneralText>
+          <Styled.GeneralTextWrapper>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+          </Styled.GeneralTextWrapper>
+          <Styled.MyHighlightsImage src={myHighlightsEmptyImage} />
+        </Styled.MyHighlightsWrapper>
+      </Styled.PopupBody>
+    );
   };
 
   public blueNote = () => {
-    return ([
-    <Styled.BlueStickyNote>
-      <Styled.StickyNoteUl>
-        <Styled.StickyNoteLi>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </Styled.StickyNoteLi>
-        <Styled.StickyNoteLi>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </Styled.StickyNoteLi>
-      </Styled.StickyNoteUl>
-    </Styled.BlueStickyNote>]);
+    return (
+      <Styled.BlueStickyNote>
+        <Styled.StickyNoteUl>
+          <Styled.StickyNoteLi>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+          </Styled.StickyNoteLi>
+          <Styled.StickyNoteLi>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+          </Styled.StickyNoteLi>
+        </Styled.StickyNoteUl>
+      </Styled.BlueStickyNote>
+    );
   };
 
   public greenNote = () => {
-    return ([
+    return (
       <Styled.GreenStickyNote>
         <Styled.StickyNoteUl>
           <Styled.StickyNoteLi>
@@ -96,7 +101,7 @@ class HighlightsPopUp extends Component<Props> {
               {(msg: Element | string) => msg}
             </FormattedMessage>
             <Styled.InfoIconWrapper>
-              <Styled.InfoIcon/>
+              <Styled.InfoIcon />
               <Styled.Tooltip>
                 <FormattedMessage id='i18n:toolbar:highlights:popup:body:tooltip:review'>
                   {(msg: Element | string) => msg}
@@ -110,28 +115,33 @@ class HighlightsPopUp extends Component<Props> {
             </FormattedMessage>
           </Styled.StickyNoteLi>
         </Styled.StickyNoteUl>
-      </Styled.GreenStickyNote>,
-    ]);
+      </Styled.GreenStickyNote>
+    );
   };
 
   public render() {
-    return (
-      this.props.myHighlightsOpen ?
-        <Styled.Modal>
-          <Styled.Mask>
-            <Styled.Wrapper ref={this.popUp} tabIndex='-1' data-testid='highlights-popup-wrapper'>
-              <Styled.Header>
-                <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-                  {(msg: Element | string) => msg}
-                </FormattedMessage>
-                <Styled.CloseIcon data-testid='close-highlights-popup' onClick={() => this.props.closeMyHighlights()}/>
-              </Styled.Header>
-              {this.props.user ? this.myHighlights() : this.loginForHighlights()}
-            </Styled.Wrapper>
-          </Styled.Mask>
-        </Styled.Modal>
-      : null
-    );
+    return this.props.myHighlightsOpen ? (
+      <Styled.Modal>
+        <Styled.Mask>
+          <Styled.Wrapper
+            ref={this.popUp}
+            tabIndex='-1'
+            data-testid='highlights-popup-wrapper'
+          >
+            <Styled.Header>
+              <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+                {(msg: Element | string) => msg}
+              </FormattedMessage>
+              <Styled.CloseIcon
+                data-testid='close-highlights-popup'
+                onClick={() => this.props.closeMyHighlights()}
+              />
+            </Styled.Header>
+            {this.props.user ? this.myHighlights() : this.loginForHighlights()}
+          </Styled.Wrapper>
+        </Styled.Mask>
+      </Styled.Modal>
+    ) : null;
   }
 
   public componentDidUpdate() {
