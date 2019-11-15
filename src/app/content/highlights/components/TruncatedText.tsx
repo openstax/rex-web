@@ -53,10 +53,11 @@ export default styled(NoteText)`
   ${textStyle}
   overflow: hidden;
   white-space: pre-wrap;
-  hyphens: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-size: 1.4rem;
   line-height: ${lineHeight}rem;
-  margin: 0;
+  margin: 0 ${cardPadding / 2}rem 0 0;
   padding: 0;
   ${(props: Props) => props.isFocused && css`
     + ${Link} {
