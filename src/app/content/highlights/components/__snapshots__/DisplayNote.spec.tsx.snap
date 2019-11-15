@@ -136,6 +136,10 @@ exports[`DisplayNote matches snapshot 1`] = `
   width: 2rem;
   padding: 0.2rem;
   color: #818181;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c11 {
@@ -435,6 +439,10 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   width: 2rem;
   padding: 0.2rem;
   color: #818181;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c11 {

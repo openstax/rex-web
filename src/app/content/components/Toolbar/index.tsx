@@ -9,6 +9,7 @@ import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
 import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
+import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
 
@@ -110,6 +111,7 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
+        <HighlightButton/>
         <PrintButton />
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
           {(msg) => <Styled.BuyBookWrapper

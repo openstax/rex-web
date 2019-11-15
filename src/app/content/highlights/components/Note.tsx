@@ -18,6 +18,7 @@ const TextArea = styled.textarea`
   display: block;
   min-height: 5.6rem;
   width: ${width}rem;
+  max-height: 30rem;
   max-width: ${width}rem;
   min-width: ${width}rem;
   border: 1px solid ${theme.color.neutral.formBorder};
@@ -38,8 +39,6 @@ const Note = ({onChange, onFocus, note}: Props) => {
     if (!element) {
       return;
     }
-
-    element.style.height = '';
 
     if (element.scrollHeight > element.offsetHeight) {
       element.style.height = `${element.scrollHeight + 5}px`;

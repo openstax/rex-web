@@ -20,3 +20,8 @@ export const focused = createSelector(
   localState,
   (state) => state.focused
 );
+
+export const myHighlightsOpen = createSelector(
+  localState,
+  (state) => state.myHighlightsOpen
+);

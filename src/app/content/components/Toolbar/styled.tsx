@@ -33,6 +33,16 @@ import { toolbarIconStyles } from './iconStyles';
 
 export const buttonMinWidth = `45px`;
 
+export const toolbarDefaultText = css`
+  font-weight: 600;
+  font-family: ${contentFont};
+  ${textRegularSize};
+  margin: 0 0 0 0.5rem;
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
+`;
+
 const hideSearchChrome = css`
   appearance: textfield;
 
@@ -61,7 +71,7 @@ const barPadding = css`
 `;
 
 // tslint:disable-next-line:variable-name
-const PlainButton = styled.button`
+export const PlainButton = styled.button`
   cursor: pointer;
   border: none;
   padding: 0;
@@ -87,13 +97,7 @@ export const PrintOptWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 export const PrintOptions = styled.span`
-  font-weight: 600;
-  font-family: ${contentFont};
-  ${textRegularSize};
-  margin: 0 0 0 0.5rem;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
+  ${toolbarDefaultText}
 `;
 
 // tslint:disable-next-line:variable-name
