@@ -2260,6 +2260,7 @@ li[aria-label="Current Page"] .c47 {
           </form>
         </div>
         <button
+          aria-label="My highlights"
           className="c25"
           onClick={[Function]}
         >
@@ -5064,6 +5065,7 @@ Array [
           </form>
         </div>
         <button
+          aria-label="My highlights"
           className="c17"
           onClick={[Function]}
         >
