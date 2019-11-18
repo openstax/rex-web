@@ -48,7 +48,6 @@ export default styled(MainContent)`
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
       background-color: ${style.passive};
-      position: relative;
 
       &.has-note {
         border-bottom: 1px solid ${style.focused};
