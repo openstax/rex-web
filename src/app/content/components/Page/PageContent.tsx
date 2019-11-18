@@ -50,15 +50,8 @@ export default styled(MainContent)`
       background-color: ${style.passive};
       position: relative;
 
-      &.note-indicator::before {
-        content: ' ';
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: ${style.focused};
-        width: 1rem;
-        height: 1rem;
-        clip-path: polygon(0 0, 100% 0, 100% 100%);
+      &.has-note {
+        border-bottom: 1px solid ${style.focused};
       }
 
       @media screen {

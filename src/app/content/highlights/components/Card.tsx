@@ -59,6 +59,14 @@ const Card = (props: Props) => {
     }
   }, [props.isFocused]);
 
+  React.useEffect(() => {
+    if (note) {
+      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
+    } else {
+      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
+    }
+  }, [props.highlight, note]);
+
   if (!props.highlight.range) {
     return null;
   }
