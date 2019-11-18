@@ -43,8 +43,8 @@ export const Body = styled(({className, ...props}) =>
   margin-left: calc(100% - ${notificationWidth}rem);
   overflow: visible;
   position: sticky;
-  padding-top: 1px;
-  margin-top: 4px;
+  padding-top: 1px; /* clear child margin */
+  margin-top: -1px; /* clear child margin */
   z-index: ${theme.zIndex.contentNotifications};
   top: 0;
   height: 0;
