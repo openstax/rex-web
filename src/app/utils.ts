@@ -140,6 +140,23 @@ export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, th
     Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
 
 /*
+ * returns a function that inverts the result of the passed in function
+ */
+export const not = <A extends any[]>(wrapped: (...args: A) => any) => (...args: A) => !wrapped(...args);
+
+/*
+ * returns a function that evaluates its argument against the given predicate
+ */
+// tslint:disable-next-line:ban-types
+export const match = <A extends any>(predicate: ((arg: A) => boolean) | Exclude<any, Function>) => (arg: A) => {
+  if (typeof predicate === 'function') {
+    return predicate(arg);
+  }
+
+  return predicate === arg;
+};
+
+/*
  * recursive merge properties of two inputs. values are only merged if they are
  * plain objects, if the same property exists in both objects and is not a plain
  * object the value from the second argument will win.
