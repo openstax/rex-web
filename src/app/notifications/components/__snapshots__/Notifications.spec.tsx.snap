@@ -154,7 +154,7 @@ exports[`Notifications matches snapshot 1`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 }
 
@@ -374,7 +374,7 @@ exports[`Notifications matches snapshot 2`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 }
 
@@ -597,7 +597,7 @@ exports[`Notifications matches snapshot 3`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 }
 
