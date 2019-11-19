@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
+import { match, not } from '../../../../utils';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../ColorIndicator';
 
@@ -12,11 +13,22 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Filters = ({className}: Props) => {
-  // const [selectedColors, setSelectedColors] = React.useState<string[]>([]);
+  const allColors = highlightStyles.map((style) => style.label);
+  const [selectedColors, setSelectedColors] = React.useState<string[]>(allColors);
 
   return <div className={className}>
-    <AllOrNone />
-    {highlightStyles.map((style) => <Checkbox key={style.label}>
+    <AllOrNone
+      onNone={() => setSelectedColors([])}
+      onAll={() => setSelectedColors(allColors)}
+    />
+    {highlightStyles.map((style) => <Checkbox
+      key={style.label}
+      checked={selectedColors.includes(style.label)}
+      onChange={() => selectedColors.includes(style.label)
+        ? setSelectedColors(selectedColors.filter(not(match(style.label))))
+        : setSelectedColors([...selectedColors, style.label])
+      }
+    >
       <ColorIndicator style={style} size='small'/>
       {style.label}
     </Checkbox>)}

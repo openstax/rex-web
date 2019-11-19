@@ -108,6 +108,7 @@ export const PlainButton = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const ButtonLink = styled(PlainButton)`
+  outline: none;
   ${textStyle}
   ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
 `;
