@@ -4,10 +4,15 @@ import styled, { css, keyframes } from 'styled-components/macro';
 import theme from '../theme';
 import { textStyle } from './Typography/base';
 
+interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
+  className?: string;
+  component: T extends React.ComponentType
+    ? React.ReactComponentElement<T>:
+    never;
+}
 // tslint:disable-next-line:variable-name
-const DropdownToggle = styled.span`
+const DropdownToggle = styled(({component, ...props}: ToggleProps) => React.cloneElement(component, props))`
   cursor: pointer;
-  outline: none;
 `;
 
 const fadeIn = keyframes`
@@ -30,6 +35,7 @@ const visuallyShown = css`
   clip: unset;
   overflow: visible;
 `;
+
 const visuallyHidden = css`
   display: block;
   height: 0;
@@ -38,9 +44,23 @@ const visuallyHidden = css`
   clip: rect(1px, 1px, 1px, 1px);
 `;
 
+const shown = (props: Props) => props.transparentTab
+  ? visuallyShown
+  : css`
+    display: block;
+  `
+;
+const hidden = (props: Props) => props.transparentTab
+  ? visuallyHidden
+  : css`
+    display: none;
+  `
+;
+
 type Props = React.PropsWithChildren<{
   toggle: React.ReactNode;
   className?: string;
+  transparentTab?: boolean;
 }>;
 
 // tslint:disable-next-line:variable-name
@@ -49,12 +69,12 @@ const DropdownFocusWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const DropdownContainer = styled(({toggle, children, className}: Props) => <div className={className}>
+const DropdownContainer = styled(({transparentTab, toggle, children, className}: Props) => <div className={className}>
   <DropdownFocusWrapper>
-    <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
+    <DropdownToggle tabIndex={transparentTab === false ? 0 : -1} component={toggle} />
     {children}
   </DropdownFocusWrapper>
-  <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
+  <DropdownToggle tabIndex='-1' component={toggle} />
 </div>)`
   overflow: visible;
   position: relative;
@@ -82,7 +102,7 @@ const DropdownContainer = styled(({toggle, children, className}: Props) => <div 
 
   ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
     ${fadeInAnimation}
-    ${visuallyHidden}
+    ${hidden}
     position: absolute;
     box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
     border: 1px solid ${theme.color.neutral.formBorder};
@@ -90,10 +110,10 @@ const DropdownContainer = styled(({toggle, children, className}: Props) => <div 
     left: 0;
   }
   ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
-    ${visuallyShown}
+    ${shown}
   }
   ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
-    ${visuallyShown}
+    ${shown}
   }
 `;
 

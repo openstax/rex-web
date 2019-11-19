@@ -20,6 +20,18 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+// tslint:disable-next-line:variable-name
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+// tslint:disable-next-line:variable-name
 const ChapterTitle = styled.span`
   display: flex;
   flex-direction: row;
@@ -30,6 +42,16 @@ const ChapterTitle = styled.span`
     margin: 0 0.4rem;
   }
 `;
+
+const chunk = <T extends any>(sections: T[]) => {
+  if (sections.length < 20) {
+    return [sections];
+  }
+
+  const half = Math.ceil(sections.length / 2);
+
+  return [sections.slice(0, half), sections.slice(half)];
+};
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
@@ -51,26 +73,30 @@ const ChapterFilter = ({className}: Props) => {
       onNone={() => setSelectedChapters([])}
       onAll={() => setSelectedChapters(sectionIds)}
     />
-    {sections.map((chapter) => <Checkbox
-      key={chapter.id}
-      checked={selectedChapters.includes(chapter.id)}
-      onChange={() => selectedChapters.includes(chapter.id)
-        ? setSelectedChapters(selectedChapters.filter(not(match(chapter.id))))
-        : setSelectedChapters([...selectedChapters, chapter.id])
-      }
-    >
-      <ChapterTitle dangerouslySetInnerHTML={{__html: chapter.title}} />
-    </Checkbox>)}
+    <Row>
+      {chunk(sections).map((sectionChunk, index) => <Column key={index}>
+        {sectionChunk.map((section) => <Checkbox
+          key={section.id}
+          checked={selectedChapters.includes(section.id)}
+          onChange={() => selectedChapters.includes(section.id)
+            ? setSelectedChapters(selectedChapters.filter(not(match(section.id))))
+            : setSelectedChapters([...selectedChapters, section.id])
+          }
+        >
+          <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
+        </Checkbox>)}
+      </Column>)}
+    </Row>
   </div>;
 };
 
 export default styled(ChapterFilter)`
-  display: flex;
-  flex-direction: column;
   ${textStyle}
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
   outline: none;
+  max-height: 72rem;
+  overflow: auto;
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

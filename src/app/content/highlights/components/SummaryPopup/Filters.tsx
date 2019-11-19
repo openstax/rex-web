@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
+import { PlainButton } from '../../../../components/Button';
 import Dropdown from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
@@ -15,10 +16,10 @@ const DownIcon = styled(AngleDown)`
 `;
 
 // tslint:disable-next-line:variable-name
-const Toggle = styled(({label, className}) => <div className={className}>
+const Toggle = styled(({label, className}) => <PlainButton className={className}>
   {label}
   <DownIcon />
-</div>)`
+</PlainButton>)`
   ${textStyle}
   font-size: 1.6rem;
   color: ${theme.color.primary.gray.base};
@@ -34,10 +35,10 @@ interface Props {
 const Filters = ({className}: Props) => {
 
   return <div className={className}>
-    <Dropdown toggle={<Toggle label='Chapter' />}>
+    <Dropdown toggle={<Toggle label='Chapter' />} transparentTab={false}>
       <ChapterFilter />
     </Dropdown>
-    <Dropdown toggle={<Toggle label='Color' />}>
+    <Dropdown toggle={<Toggle label='Color' />} transparentTab={false}>
       <ColorFilter />
     </Dropdown>
   </div>;

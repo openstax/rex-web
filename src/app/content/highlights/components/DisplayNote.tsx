@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
+import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
@@ -19,6 +20,11 @@ const MenuIcon = styled(EllipsisV)`
   padding: 0.2rem;
   color: ${theme.color.primary.gray.lighter};
   user-select: none;
+`;
+
+// tslint:disable-next-line:variable-name
+const MenuToggle = styled(({className}) => <PlainButton className={className}><MenuIcon /></PlainButton>)`
+  border: none;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -57,7 +63,7 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
   React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
-    <Dropdown toggle={<MenuIcon />}>
+    <Dropdown toggle={<MenuToggle />}>
       <DropdownList>
         <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
         <DropdownItem
