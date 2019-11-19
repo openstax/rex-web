@@ -12,6 +12,7 @@ import ColorFilter from './ColorFilter';
 const DownIcon = styled(AngleDown)`
   color: ${theme.color.primary.gray.base};
   width: 1rem;
+  height: 2rem;
   margin-left: 0.8rem;
 `;
 
@@ -24,6 +25,7 @@ const Toggle = styled(({label, className}) => <PlainButton className={className}
   font-size: 1.6rem;
   color: ${theme.color.primary.gray.base};
   display: flex;
+  flex-direction: row;
   align-items: center;
 `;
 

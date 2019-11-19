@@ -25,6 +25,7 @@ const MenuIcon = styled(EllipsisV)`
 // tslint:disable-next-line:variable-name
 const MenuToggle = styled(({className}) => <PlainButton className={className}><MenuIcon /></PlainButton>)`
   border: none;
+  display: block;
 `;
 
 // tslint:disable-next-line:variable-name

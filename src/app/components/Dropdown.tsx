@@ -37,7 +37,6 @@ const visuallyShown = css`
 `;
 
 const visuallyHidden = css`
-  display: block;
   height: 0;
   width: 0;
   overflow: hidden;
