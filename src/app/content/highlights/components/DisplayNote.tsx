@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
-import Dropdown, { DropdownItem } from '../../../components/Dropdown';
+import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -58,12 +58,14 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
 
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuIcon />}>
-      <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
-      <DropdownItem
-        message='i18n:highlighting:dropdown:delete'
-        data-testid='delete'
-        onClick={() => setConfirmingDelete(true)}
-      />
+      <DropdownList>
+        <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
+        <DropdownItem
+          message='i18n:highlighting:dropdown:delete'
+          data-testid='delete'
+          onClick={() => setConfirmingDelete(true)}
+        />
+      </DropdownList>
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
@@ -92,6 +94,10 @@ export default styled(DisplayNote)`
     font-size: 1.4rem;
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
+  }
+
+  ${DropdownList}${DropdownList} {
+    left: -4rem;
   }
 
   ${Dropdown} {

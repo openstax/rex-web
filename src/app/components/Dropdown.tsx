@@ -52,9 +52,7 @@ const DropdownFocusWrapper = styled.div`
 const DropdownContainer = styled(({toggle, children, className}: Props) => <div className={className}>
   <DropdownFocusWrapper>
     <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
-    <DropdownList>
-      {children}
-    </DropdownList>
+    {children}
   </DropdownFocusWrapper>
   <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
 </div>)`
@@ -81,29 +79,29 @@ const DropdownContainer = styled(({toggle, children, className}: Props) => <div 
       ${visuallyHidden}
     }
   `}
+
+  ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+    ${fadeInAnimation}
+    ${visuallyHidden}
+    position: absolute;
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid ${theme.color.neutral.formBorder};
+    top: calc(100% + 0.4rem);
+    left: 0;
+  }
+  ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
+    ${visuallyShown}
+  }
+  ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
+    ${visuallyShown}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
-const DropdownList = styled.ol`
-  ${fadeInAnimation}
-  ${visuallyHidden}
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+export const DropdownList = styled.ol`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
-  border: 1px solid ${theme.color.neutral.formBorder};
-  top: calc(100% + 0.4rem);
-  left: -4rem;
-  ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
-    ${DropdownFocusWrapper}.focus-within & {
-      ${visuallyShown}
-    }
-
-    ${DropdownFocusWrapper}:focus-within & {
-      ${visuallyShown}
-    }
-  `}
 
   li button,
   li a {

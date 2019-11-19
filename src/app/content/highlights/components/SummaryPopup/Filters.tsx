@@ -1,11 +1,29 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import AllOrNone from '../../../../components/AllOrNone';
-import Checkbox from '../../../../components/Checkbox';
+import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
+import Dropdown from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
-import { match, not } from '../../../../utils';
-import { highlightStyles } from '../../constants';
-import ColorIndicator from '../ColorIndicator';
+import theme from '../../../../theme';
+import ColorFilter from './ColorFilter';
+
+// tslint:disable-next-line:variable-name
+const DownIcon = styled(AngleDown)`
+  color: ${theme.color.primary.gray.base};
+  width: 1rem;
+  margin-left: 0.8rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const Toggle = styled(({label, className}) => <div className={className}>
+  {label}
+  <DownIcon />
+</div>)`
+  ${textStyle}
+  font-size: 1.6rem;
+  color: ${theme.color.primary.gray.base};
+  display: flex;
+  align-items: center;
+`;
 
 interface Props {
   className?: string;
@@ -13,44 +31,19 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Filters = ({className}: Props) => {
-  const allColors = highlightStyles.map((style) => style.label);
-  const [selectedColors, setSelectedColors] = React.useState<string[]>(allColors);
 
   return <div className={className}>
-    <AllOrNone
-      onNone={() => setSelectedColors([])}
-      onAll={() => setSelectedColors(allColors)}
-    />
-    {highlightStyles.map((style) => <Checkbox
-      key={style.label}
-      checked={selectedColors.includes(style.label)}
-      onChange={() => selectedColors.includes(style.label)
-        ? setSelectedColors(selectedColors.filter(not(match(style.label))))
-        : setSelectedColors([...selectedColors, style.label])
-      }
-    >
-      <ColorIndicator style={style} size='small'/>
-      {style.label}
-    </Checkbox>)}
+    <Dropdown toggle={<Toggle label='Color' />}>
+      <ColorFilter />
+    </Dropdown>
   </div>;
 };
 
 export default styled(Filters)`
+  overflow: visible;
   display: flex;
-  flex-direction: column;
-  ${textStyle}
-  font-size: 1.4rem;
-  margin: 1.6rem;
-
-  ${AllOrNone} {
-    margin: 0 0 0.8rem 0.8rem;
-  }
-
-  ${Checkbox} {
-    padding: 0.8rem;
-  }
-
-  ${ColorIndicator} {
-    margin: 0 1.6rem 0 1.6rem;
-  }
+  flex-direction: row;
+  align-items: center;
+  padding: 0 3.2rem;
+  height: 5.6rem;
 `;
