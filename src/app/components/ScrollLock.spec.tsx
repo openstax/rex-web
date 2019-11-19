@@ -13,7 +13,7 @@ describe('MobileScrollLock', () => {
     beforeEach(() => {
       resetModules();
       ({React, renderToDom, ReactDOM} = reactAndFriends());
-      MobileScrollLock = require('./MobileScrollLock').default;
+      MobileScrollLock = require('./ScrollLock').default;
     });
 
     it('mounts and unmmounts with a dom', () => {
@@ -166,7 +166,7 @@ describe('MobileScrollLock', () => {
       // this is broken when unmounting without a dom
       styled.createGlobalStyle = () => () => null;
 
-      MobileScrollLock = require('./MobileScrollLock').default;
+      MobileScrollLock = require('./ScrollLock').default;
     });
 
     afterEach(() => {
