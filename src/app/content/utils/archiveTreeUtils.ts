@@ -36,6 +36,14 @@ export const linkArchiveTree = (tree: ArchiveTree): LinkedArchiveTree =>
 export const findTreePages = (tree: LinkedArchiveTree): LinkedArchiveTreeSection[] =>
   flattenArchiveTree(tree).filter(archiveTreeSectionIsPage);
 
+export const findTreeChapters = (tree: LinkedArchiveTree): LinkedArchiveTree[] =>
+  flattenArchiveTree(tree).filter(archiveTreeSectionIsChapter);
+
+export const findPagesOutsideChapters = (tree: LinkedArchiveTree): LinkedArchiveTreeSection[] =>
+  flattenArchiveTree(tree)
+    .filter((section) => section.parent && archiveTreeSectionIsBook(section.parent))
+    .filter(archiveTreeSectionIsPage);
+
 export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   const resolvePage = (target: ArchiveTree | ArchiveTreeSection): ArchiveTreeSection =>
     isArchiveTree(target) ? resolvePage(target.contents[0]) : target;

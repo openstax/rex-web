@@ -4,6 +4,7 @@ import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import Dropdown from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
+import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 
 // tslint:disable-next-line:variable-name
@@ -33,6 +34,9 @@ interface Props {
 const Filters = ({className}: Props) => {
 
   return <div className={className}>
+    <Dropdown toggle={<Toggle label='Chapter' />}>
+      <ChapterFilter />
+    </Dropdown>
     <Dropdown toggle={<Toggle label='Color' />}>
       <ColorFilter />
     </Dropdown>
@@ -46,4 +50,8 @@ export default styled(Filters)`
   align-items: center;
   padding: 0 3.2rem;
   height: 5.6rem;
+
+  ${Dropdown}:first-of-type {
+    margin-right: 8rem;
+  }
 `;
