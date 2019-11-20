@@ -17,7 +17,7 @@ const DownIcon = styled(AngleDown)`
 `;
 
 // tslint:disable-next-line:variable-name
-const Toggle = styled(({label, className}) => <PlainButton className={className}>
+const Toggle = styled(({label, ...props}) => <PlainButton {...props}>
   {label}
   <DownIcon />
 </PlainButton>)`
