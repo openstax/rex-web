@@ -2,27 +2,27 @@
 
 exports[`DisplayNote matches snapshot 1`] = `
 .c9 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.c12 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c6 {
+.c7 {
   cursor: pointer;
-  outline: none;
 }
 
-.c4 {
+.c5 {
   overflow: visible;
 }
 
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c2 .c3 + .c5 {
-  display: block;
+.c3 .c4 + .c6 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -30,7 +30,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c2 .c3.focus-within + .c5 {
+.c3 .c4.focus-within + .c6 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -38,7 +38,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c2 .c3:focus-within + .c5 {
+.c3 .c4:focus-within + .c6 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -46,7 +46,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c2 .c3 > .c5 {
+.c3 .c4 > .c6 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -54,8 +54,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c2 .c3.focus-within > .c5 {
-  display: block;
+.c3 .c4.focus-within > .c6 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -63,8 +62,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c2 .c3:focus-within > .c5 {
-  display: block;
+.c3 .c4:focus-within > .c6 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -72,43 +70,48 @@ exports[`DisplayNote matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c10 {
+.c3 .c4 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
-  display: block;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 .c4 > *:not(.c6) {
   height: 0;
   width: 0;
   overflow: hidden;
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+}
+
+.c3 .c4.focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4:focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c14 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: -4rem;
 }
 
-.c3.focus-within .c10 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3:focus-within .c10 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c10 li button,
-.c10 li a {
+.c14 li button,
+.c14 li a {
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -124,14 +127,19 @@ exports[`DisplayNote matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c10 li button:hover,
-.c10 li a:hover,
-.c10 li button:focus,
-.c10 li a:focus {
+.c14 li button:hover,
+.c14 li a:hover,
+.c14 li button:focus,
+.c14 li a:focus {
   background: #d5d5d5;
 }
 
-.c8 {
+.c2 {
+  overflow: visible;
+  position: relative;
+}
+
+.c11 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -142,7 +150,12 @@ exports[`DisplayNote matches snapshot 1`] = `
   user-select: none;
 }
 
-.c11 {
+.c8 {
+  border: none;
+  display: block;
+}
+
+.c15 {
   color: #818181;
   height: 4.2rem;
   width: 4.2rem;
@@ -169,22 +182,26 @@ exports[`DisplayNote matches snapshot 1`] = `
   margin: 1.2000000000000002rem 0 0 1.6rem;
 }
 
+.c0 .c13.c13 {
+  left: -4rem;
+}
+
 .c0 .c1 {
   position: absolute;
   top: 0.8rem;
   right: -0.2rem;
 }
 
-.c0 .c1 .focus-within .c7 {
+.c0 .c1 .focus-within .c10 {
   color: #5e6062;
 }
 
-.c0 .c1:focus-within .c7 {
+.c0 .c1:focus-within .c10 {
   color: #5e6062;
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c15 {
     display: block;
   }
 }
@@ -207,18 +224,17 @@ exports[`DisplayNote matches snapshot 1`] = `
   className="c0"
 >
   <div
-    className="c1 c2"
+    className="c1 c2 c3"
   >
     <div
-      className="c3 c4"
+      className="c4 c5"
     >
-      <span
-        className="c5 c6"
-        tabIndex="-1"
+      <button
+        className="c6 c7 c8 c9"
       >
         <svg
           aria-hidden="true"
-          className="c7 c8 c9"
+          className="c10 c11 c12"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -228,9 +244,9 @@ exports[`DisplayNote matches snapshot 1`] = `
             fill="currentColor"
           />
         </svg>
-      </span>
+      </button>
       <ol
-        className="c10"
+        className="c13 c14"
       >
         <li>
           <button>
@@ -246,13 +262,12 @@ exports[`DisplayNote matches snapshot 1`] = `
         </li>
       </ol>
     </div>
-    <span
-      className="c5 c6"
-      tabIndex="-1"
+    <button
+      className="c6 c7 c8 c9"
     >
       <svg
         aria-hidden="true"
-        className="c7 c8 c9"
+        className="c10 c11 c12"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -262,11 +277,11 @@ exports[`DisplayNote matches snapshot 1`] = `
           fill="currentColor"
         />
       </svg>
-    </span>
+    </button>
   </div>
   <svg
     aria-hidden="true"
-    className="c11"
+    className="c15"
     focusable="false"
     height="15px"
     version="1.1"
@@ -305,27 +320,27 @@ exports[`DisplayNote matches snapshot 1`] = `
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
 .c9 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.c12 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c6 {
+.c7 {
   cursor: pointer;
-  outline: none;
 }
 
-.c4 {
+.c5 {
   overflow: visible;
 }
 
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c2 .c3 + .c5 {
-  display: block;
+.c3 .c4 + .c6 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -333,7 +348,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c2 .c3.focus-within + .c5 {
+.c3 .c4.focus-within + .c6 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -341,7 +356,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   overflow: visible;
 }
 
-.c2 .c3:focus-within + .c5 {
+.c3 .c4:focus-within + .c6 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -349,7 +364,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   overflow: visible;
 }
 
-.c2 .c3 > .c5 {
+.c3 .c4 > .c6 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -357,8 +372,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   overflow: visible;
 }
 
-.c2 .c3.focus-within > .c5 {
-  display: block;
+.c3 .c4.focus-within > .c6 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -366,8 +380,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c2 .c3:focus-within > .c5 {
-  display: block;
+.c3 .c4:focus-within > .c6 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -375,43 +388,48 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c10 {
+.c3 .c4 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
-  display: block;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 .c4 > *:not(.c6) {
   height: 0;
   width: 0;
   overflow: hidden;
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+}
+
+.c3 .c4.focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4:focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c14 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: -4rem;
 }
 
-.c3.focus-within .c10 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3:focus-within .c10 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c10 li button,
-.c10 li a {
+.c14 li button,
+.c14 li a {
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -427,14 +445,19 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   line-height: 2rem;
 }
 
-.c10 li button:hover,
-.c10 li a:hover,
-.c10 li button:focus,
-.c10 li a:focus {
+.c14 li button:hover,
+.c14 li a:hover,
+.c14 li button:focus,
+.c14 li a:focus {
   background: #d5d5d5;
 }
 
-.c8 {
+.c2 {
+  overflow: visible;
+  position: relative;
+}
+
+.c11 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -445,7 +468,12 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   user-select: none;
 }
 
-.c11 {
+.c8 {
+  border: none;
+  display: block;
+}
+
+.c15 {
   color: #818181;
   height: 4.2rem;
   width: 4.2rem;
@@ -456,17 +484,21 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   right: 0;
 }
 
-.c12 .c1 {
+.c16 .c13.c13 {
+  left: -4rem;
+}
+
+.c16 .c1 {
   position: absolute;
   top: 0.8rem;
   right: -0.2rem;
 }
 
-.c12 .c1 .focus-within .c7 {
+.c16 .c1 .focus-within .c10 {
   color: #5e6062;
 }
 
-.c12 .c1:focus-within .c7 {
+.c16 .c1:focus-within .c10 {
   color: #5e6062;
 }
 
@@ -487,28 +519,32 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   margin: 1.2000000000000002rem 0 0 1.6rem;
 }
 
+.c0 .c13.c13 {
+  left: -4rem;
+}
+
 .c0 .c1 {
   position: absolute;
   top: 0.8rem;
   right: -0.2rem;
 }
 
-.c0 .c1 .focus-within .c7 {
+.c0 .c1 .focus-within .c10 {
   color: #5e6062;
 }
 
-.c0 .c1:focus-within .c7 {
+.c0 .c1:focus-within .c10 {
   color: #5e6062;
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c15 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 .c1 {
+  .c16 .c1 {
     display: none;
   }
 }
@@ -531,18 +567,17 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   className="c0"
 >
   <div
-    className="c1 c2"
+    className="c1 c2 c3"
   >
     <div
-      className="c3 c4"
+      className="c4 c5"
     >
-      <span
-        className="c5 c6"
-        tabIndex="-1"
+      <button
+        className="c6 c7 c8 c9"
       >
         <svg
           aria-hidden="true"
-          className="c7 c8 c9"
+          className="c10 c11 c12"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -552,9 +587,9 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
             fill="currentColor"
           />
         </svg>
-      </span>
+      </button>
       <ol
-        className="c10"
+        className="c13 c14"
       >
         <li>
           <button>
@@ -570,13 +605,12 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         </li>
       </ol>
     </div>
-    <span
-      className="c5 c6"
-      tabIndex="-1"
+    <button
+      className="c6 c7 c8 c9"
     >
       <svg
         aria-hidden="true"
-        className="c7 c8 c9"
+        className="c10 c11 c12"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -586,11 +620,11 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
           fill="currentColor"
         />
       </svg>
-    </span>
+    </button>
   </div>
   <svg
     aria-hidden="true"
-    className="c11"
+    className="c15"
     focusable="false"
     height="15px"
     version="1.1"

@@ -1,108 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches snapshot 1`] = `
-.c4 {
-  cursor: pointer;
-  outline: none;
-}
-
-.c2 {
-  overflow: visible;
-}
-
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
-.c0 .c1 + .c3 {
-  display: block;
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c0 .c1.focus-within + .c3 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c0 .c1:focus-within + .c3 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c0 .c1 > .c3 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c0 .c1.focus-within > .c3 {
-  display: block;
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c0 .c1:focus-within > .c3 {
-  display: block;
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
 .c5 {
+  cursor: pointer;
+}
+
+.c3 {
+  overflow: visible;
+}
+
+.c1 .c2 + .c4 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c1 .c2.focus-within + .c4 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 .c2:focus-within + .c4 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 .c2 > .c4 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 .c2.focus-within > .c4 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c1 .c2:focus-within > .c4 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c1 .c2 > *:not(.c4) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
-  display: block;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c1 .c2 > *:not(.c4) {
   height: 0;
   width: 0;
   overflow: hidden;
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+}
+
+.c1 .c2.focus-within > *:not(.c4) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 .c2:focus-within > *:not(.c4) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c6 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: -4rem;
 }
 
-.c1.focus-within .c5 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c1:focus-within .c5 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c5 li button,
-.c5 li a {
+.c6 li button,
+.c6 li a {
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -118,27 +114,32 @@ exports[`Dropdown matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c5 li button:hover,
-.c5 li a:hover,
-.c5 li button:focus,
-.c5 li a:focus {
+.c6 li button:hover,
+.c6 li a:hover,
+.c6 li button:focus,
+.c6 li a:focus {
   background: #d5d5d5;
 }
 
+.c0 {
+  overflow: visible;
+  position: relative;
+}
+
 <div
-  className="c0"
+  className="c0 c1"
 >
   <div
-    className="c1 c2"
+    className="c2 c3"
   >
-    <span
-      className="c3 c4"
-      tabIndex="-1"
+    <button
+      className="c4 c5"
+      tabIndex={-1}
     >
-      i18n:highlighting:card:show-more
-    </span>
+      show more
+    </button>
     <ol
-      className="c5"
+      className="c6"
     >
       <li>
         <button
@@ -157,11 +158,11 @@ exports[`Dropdown matches snapshot 1`] = `
       </li>
     </ol>
   </div>
-  <span
-    className="c3 c4"
-    tabIndex="-1"
+  <button
+    className="c4 c5"
+    tabIndex={-1}
   >
-    i18n:highlighting:card:show-more
-  </span>
+    show more
+  </button>
 </div>
 `;
