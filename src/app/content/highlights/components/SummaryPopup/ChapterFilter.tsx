@@ -12,7 +12,8 @@ import {
   archiveTreeContainsNode,
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
-  flattenArchiveTree
+  flattenArchiveTree,
+  nodeHasId
 } from '../../../utils/archiveTreeUtils';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
@@ -60,13 +61,8 @@ const ChapterTitle = styled.span`
 `;
 
 const chunk = <T extends any>(sections: T[]) => {
-  if (sections.length < 20) {
-    return [sections];
-  }
-
-  const half = Math.ceil(sections.length / 2);
-
-  return [sections.slice(0, half), sections.slice(half)];
+  const cutoff = Math.max(20, Math.ceil(sections.length / 2));
+  return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
 // tslint:disable-next-line:variable-name
@@ -80,7 +76,12 @@ const ChapterFilter = ({className}: Props) => {
   ) : [];
   const sectionIds = sections.map((chapter) => chapter.id);
   const currentChapter = sections.find((section) =>
-    page && isArchiveTree(section) && archiveTreeContainsNode(section, page.id)
+    page && (
+      nodeHasId(page.id, section) ||
+      (
+        isArchiveTree(section) && archiveTreeContainsNode(section, page.id)
+      )
+    )
   );
   const [selectedChapters, setSelectedChapters] = React.useState<string[]>(currentChapter ? [currentChapter.id] : []);
 

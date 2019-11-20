@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChapterFilter matches snapshot 1`] = `
+.c12 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
 .c4 {
   cursor: pointer;
   border: none;
@@ -45,20 +51,14 @@ exports[`ChapterFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c10 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c9 {
+.c11 {
   color: #fff;
   height: 1rem;
   width: 1rem;
   display: none;
 }
 
-.c7 {
+.c9 {
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -75,19 +75,19 @@ exports[`ChapterFilter matches snapshot 1`] = `
   align-items: center;
 }
 
-input:not(:checked) + .c7 {
+input:not(:checked) + .c9 {
   border: 1px solid #424242;
 }
 
-input:checked + .c7 {
+input:checked + .c9 {
   background-color: #df571e;
 }
 
-input:checked + .c7 .c8 {
+input:checked + .c9 .c10 {
   display: block;
 }
 
-.c6 {
+.c8 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -102,7 +102,7 @@ input:checked + .c7 .c8 {
   align-items: center;
 }
 
-.c6 input {
+.c8 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -110,161 +110,17 @@ input:checked + .c7 .c8 {
   width: 0;
 }
 
-.c14 {
-  display: none;
-}
-
-.c12 {
-  background-color: #ffff8a;
-  border: 1px solid #fed200;
-  height: 1.6rem;
-  width: 1.6rem;
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
-.c12 .c13 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c12 input:checked + .c13 {
-  color: #fed200;
-  display: block;
-}
-
-.c15 {
-  background-color: #def99f;
-  border: 1px solid #92d101;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c15 .c13 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c15 input:checked + .c13 {
-  color: #92d101;
-  display: block;
-}
-
-.c16 {
-  background-color: #c8f5ff;
-  border: 1px solid #00c3ed;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c16 .c13 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c16 input:checked + .c13 {
-  color: #00c3ed;
-  display: block;
-}
-
-.c17 {
-  background-color: #cbcfff;
-  border: 1px solid #545ec8;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c17 .c13 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c17 input:checked + .c13 {
-  color: #545ec8;
-  display: block;
-}
-
-.c18 {
-  background-color: #ffc5e1;
-  border: 1px solid #de017e;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c18 .c13 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c18 input:checked + .c13 {
-  color: #de017e;
-  display: block;
-}
-
-.c0 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -272,23 +128,71 @@ input:checked + .c7 .c8 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  white-space: nowrap;
+  margin-left: 0.8rem;
+}
+
+.c13 > * {
+  overflow: hidden;
+}
+
+.c13 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-overflow: ellipsis;
+}
+
+.c13 .os-divider {
+  margin: 0 0.4rem;
+}
+
+.c0 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
   outline: none;
+  max-height: 72rem;
+  overflow: auto;
 }
 
 .c0 .c1 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c0 .c5 {
+.c0 .c7 {
   padding: 0.8rem;
 }
 
-.c0 .c11 {
+.c0 .c14 {
   margin: 0 1.6rem 0 1.6rem;
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0.c0.c0 {
+    left: -1.6rem;
+    max-width: calc(100vw - 0.8rem * 2);
+  }
 }
 
 <div
@@ -314,215 +218,376 @@ input:checked + .c7 .c8 {
       None
     </button>
   </div>
-  <label
-    className="c5 c6"
+  <div
+    className="c5"
   >
-    <input
-      checked={true}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="c7"
-    >
-      <svg
-        aria-hidden="true"
-        className="c8 c9 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
     <div
-      className="c11 c12"
+      className="c6"
     >
-      <svg
-        aria-hidden="true"
-        className="c13 c14 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
+      <label
+        className="c7 c8"
       >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
+        <input
+          checked={true}
+          onChange={[Function]}
+          type="checkbox"
         />
-      </svg>
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
+            }
+          }
+        />
+      </label>
+      <label
+        className="c7 c8"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="c9"
+        >
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span
+          className="c13"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+            }
+          }
+        />
+      </label>
     </div>
-    yellow
-  </label>
-  <label
-    className="c5 c6"
-  >
-    <input
-      checked={true}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="c7"
-    >
-      <svg
-        aria-hidden="true"
-        className="c8 c9 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
-    <div
-      className="c11 c15"
-    >
-      <svg
-        aria-hidden="true"
-        className="c13 c14 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
-    green
-  </label>
-  <label
-    className="c5 c6"
-  >
-    <input
-      checked={true}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="c7"
-    >
-      <svg
-        aria-hidden="true"
-        className="c8 c9 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
-    <div
-      className="c11 c16"
-    >
-      <svg
-        aria-hidden="true"
-        className="c13 c14 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
-    blue
-  </label>
-  <label
-    className="c5 c6"
-  >
-    <input
-      checked={true}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="c7"
-    >
-      <svg
-        aria-hidden="true"
-        className="c8 c9 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
-    <div
-      className="c11 c17"
-    >
-      <svg
-        aria-hidden="true"
-        className="c13 c14 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
-    purple
-  </label>
-  <label
-    className="c5 c6"
-  >
-    <input
-      checked={true}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="c7"
-    >
-      <svg
-        aria-hidden="true"
-        className="c8 c9 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
-    <div
-      className="c11 c18"
-    >
-      <svg
-        aria-hidden="true"
-        className="c13 c14 c10"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
-    red
-  </label>
+  </div>
 </div>
 `;

@@ -1,0 +1,528 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorFilter matches snapshot 1`] = `
+.c4 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  outline: none;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c2 {
+  height: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2,
+.c2 .c3 {
+  font-size: 1.4rem;
+}
+
+.c2 span {
+  padding: 0 1rem;
+}
+
+.c10 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c9 {
+  color: #fff;
+  height: 1rem;
+  width: 1rem;
+  display: none;
+}
+
+.c7 {
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+input:not(:checked) + .c7 {
+  border: 1px solid #424242;
+}
+
+input:checked + .c7 {
+  background-color: #df571e;
+}
+
+input:checked + .c7 .c8 {
+  display: block;
+}
+
+.c6 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c6 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c14 {
+  display: none;
+}
+
+.c12 {
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c12 .c13 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c12 input:checked + .c13 {
+  color: #fed200;
+  display: block;
+}
+
+.c15 {
+  background-color: #def99f;
+  border: 1px solid #92d101;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c15 .c13 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c15 input:checked + .c13 {
+  color: #92d101;
+  display: block;
+}
+
+.c16 {
+  background-color: #c8f5ff;
+  border: 1px solid #00c3ed;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c16 .c13 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c16 input:checked + .c13 {
+  color: #00c3ed;
+  display: block;
+}
+
+.c17 {
+  background-color: #cbcfff;
+  border: 1px solid #545ec8;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c17 .c13 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c17 input:checked + .c13 {
+  color: #545ec8;
+  display: block;
+}
+
+.c18 {
+  background-color: #ffc5e1;
+  border: 1px solid #de017e;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c18 .c13 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c18 input:checked + .c13 {
+  color: #de017e;
+  display: block;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+}
+
+.c0 .c1 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c0 .c5 {
+  padding: 0.8rem;
+}
+
+.c0 .c11 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+<div
+  className="c0"
+  tabIndex={-1}
+>
+  <div
+    className="c1 c2"
+  >
+    <button
+      className="c3 c4"
+      onClick={[Function]}
+    >
+      All
+    </button>
+    <span>
+      |
+    </span>
+    <button
+      className="c3 c4"
+      onClick={[Function]}
+    >
+      None
+    </button>
+  </div>
+  <label
+    className="c5 c6"
+  >
+    <input
+      checked={true}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="c7"
+    >
+      <svg
+        aria-hidden="true"
+        className="c8 c9 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+    <div
+      className="c11 c12"
+    >
+      <svg
+        aria-hidden="true"
+        className="c13 c14 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    yellow
+  </label>
+  <label
+    className="c5 c6"
+  >
+    <input
+      checked={true}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="c7"
+    >
+      <svg
+        aria-hidden="true"
+        className="c8 c9 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+    <div
+      className="c11 c15"
+    >
+      <svg
+        aria-hidden="true"
+        className="c13 c14 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    green
+  </label>
+  <label
+    className="c5 c6"
+  >
+    <input
+      checked={true}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="c7"
+    >
+      <svg
+        aria-hidden="true"
+        className="c8 c9 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+    <div
+      className="c11 c16"
+    >
+      <svg
+        aria-hidden="true"
+        className="c13 c14 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    blue
+  </label>
+  <label
+    className="c5 c6"
+  >
+    <input
+      checked={true}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="c7"
+    >
+      <svg
+        aria-hidden="true"
+        className="c8 c9 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+    <div
+      className="c11 c17"
+    >
+      <svg
+        aria-hidden="true"
+        className="c13 c14 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    purple
+  </label>
+  <label
+    className="c5 c6"
+  >
+    <input
+      checked={true}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="c7"
+    >
+      <svg
+        aria-hidden="true"
+        className="c8 c9 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+    <div
+      className="c11 c18"
+    >
+      <svg
+        aria-hidden="true"
+        className="c13 c14 c10"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    red
+  </label>
+</div>
+`;
