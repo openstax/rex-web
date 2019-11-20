@@ -11,7 +11,6 @@ import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
-import Filters from './SummaryPopup/Filters';
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -138,7 +137,7 @@ class HighlightsPopUp extends Component<Props> {
                 onClick={() => this.props.closeMyHighlights()}
               />
             </Styled.Header>
-            <Filters />
+            {this.props.user ? this.myHighlights() : this.loginForHighlights()}
           </Styled.Wrapper>
         </Styled.Mask>
       </Styled.Modal>
