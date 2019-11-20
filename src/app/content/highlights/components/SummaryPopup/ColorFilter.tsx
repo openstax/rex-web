@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
-import { match, not } from '../../../../utils';
+import { match, not } from '../../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../ColorIndicator';
 

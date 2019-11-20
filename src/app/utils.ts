@@ -137,24 +137,7 @@ export const resetTabIndex = (document: Document) => {
 };
 
 export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>
-    Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
-
-/*
- * returns a function that inverts the result of the passed in function
- */
-export const not = <A extends any[]>(wrapped: (...args: A) => any) => (...args: A) => !wrapped(...args);
-
-/*
- * returns a function that evaluates its argument against the given predicate
- */
-// tslint:disable-next-line:ban-types
-export const match = <A extends any>(predicate: ((arg: A) => boolean) | Exclude<any, Function>) => (arg: A) => {
-  if (typeof predicate === 'function') {
-    return predicate(arg);
-  }
-
-  return predicate === arg;
-};
+  Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
 
 /*
  * recursive merge properties of two inputs. values are only merged if they are

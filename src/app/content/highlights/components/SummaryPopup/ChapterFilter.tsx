@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
+import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { match, not } from '../../../../utils';
 import { isArchiveTree } from '../../../guards';
 import * as selectContent from '../../../selectors';
 import {

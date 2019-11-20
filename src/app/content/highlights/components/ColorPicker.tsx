@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { match, not } from '../../../utils';
+import { match, not } from '../../../fpUtils';
 import { cardPadding, highlightStyles } from '../constants';
 import ColorIndicator from './ColorIndicator';
 
