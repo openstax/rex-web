@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
+import theme from '../../../../theme';
 import { match, not } from '../../../../utils';
 import { isArchiveTree } from '../../../guards';
 import * as selectContent from '../../../selectors';
@@ -14,6 +15,7 @@ import {
   flattenArchiveTree
 } from '../../../utils/archiveTreeUtils';
 import ColorIndicator from '../ColorIndicator';
+import { mobileMargin, mobilePadding } from './constants';
 
 interface Props {
   className?: string;
@@ -23,6 +25,11 @@ interface Props {
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+
+  ${theme.breakpoints.mobile(css`
+    flex-direction: column;
+    overflow: hidden;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -37,6 +44,15 @@ const ChapterTitle = styled.span`
   flex-direction: row;
   white-space: nowrap;
   margin-left: 0.8rem;
+
+  > * {
+    overflow: hidden;
+  }
+
+  .os-text {
+    flex: 1;
+    text-overflow: ellipsis;
+  }
 
   .os-divider {
     margin: 0 0.4rem;
@@ -97,6 +113,13 @@ export default styled(ChapterFilter)`
   outline: none;
   max-height: 72rem;
   overflow: auto;
+
+  ${theme.breakpoints.mobile(css`
+    &&& {
+      left: -${mobilePadding}rem;
+      max-width: calc(100vw - ${mobileMargin}rem * 2);
+    }
+  `)}
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

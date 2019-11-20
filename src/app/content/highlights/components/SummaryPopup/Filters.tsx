@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../../components/Button';
 import Dropdown from '../../../../components/Dropdown';
@@ -7,6 +7,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
+import { mobilePadding } from './constants';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
@@ -59,7 +60,15 @@ export default styled(Filters)`
   padding: 0 3.2rem;
   height: 5.6rem;
 
+  ${theme.breakpoints.mobile(css`
+    padding: 0 ${mobilePadding}rem;
+    height: 3.6rem;
+  `)}
+
   ${Dropdown}:first-of-type {
     margin-right: 8rem;
+    ${theme.breakpoints.mobile(css`
+      margin-right: 4.8rem;
+    `)}
   }
 `;
