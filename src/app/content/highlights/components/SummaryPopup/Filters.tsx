@@ -18,15 +18,20 @@ const DownIcon = styled(AngleDown)`
 
 // tslint:disable-next-line:variable-name
 const Toggle = styled(({label, ...props}) => <PlainButton {...props}>
-  {label}
-  <DownIcon />
+  <div tabIndex={-1}>
+    {label}
+    <DownIcon />
+  </div>
 </PlainButton>)`
-  ${textStyle}
-  font-size: 1.6rem;
-  color: ${theme.color.primary.gray.base};
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  > div {
+    outline: none;
+    ${textStyle}
+    font-size: 1.6rem;
+    color: ${theme.color.primary.gray.base};
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 
 interface Props {
