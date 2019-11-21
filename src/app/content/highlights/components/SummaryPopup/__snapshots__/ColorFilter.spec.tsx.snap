@@ -15,7 +15,8 @@ exports[`ColorFilter matches snapshot 1`] = `
   text-decoration: none;
 }
 
-.c4:hover {
+.c4:hover,
+.c4:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -45,20 +46,20 @@ exports[`ColorFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c10 {
+.c11 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c9 {
+.c10 {
   color: #fff;
   height: 1rem;
   width: 1rem;
   display: none;
 }
 
-.c7 {
+.c8 {
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -75,15 +76,15 @@ exports[`ColorFilter matches snapshot 1`] = `
   align-items: center;
 }
 
-input:not(:checked) + .c7 {
+input:not(:checked) + .c8 {
   border: 1px solid #424242;
 }
 
-input:checked + .c7 {
+input:checked + .c8 {
   background-color: #df571e;
 }
 
-input:checked + .c7 .c8 {
+input:checked + .c8 .c9 {
   display: block;
 }
 
@@ -110,11 +111,29 @@ input:checked + .c7 .c8 {
   width: 0;
 }
 
-.c14 {
+.c6:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c6:focus-within .c7 {
+  border: 1px solid #df571e;
+}
+
+.c6.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c6.focus-within .c7 {
+  border: 1px solid #df571e;
+}
+
+.c15 {
   display: none;
 }
 
-.c12 {
+.c13 {
   background-color: #ffff8a;
   border: 1px solid #fed200;
   height: 1.6rem;
@@ -134,17 +153,17 @@ input:checked + .c7 .c8 {
   border-radius: 2rem;
 }
 
-.c12 .c13 {
+.c13 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c12 input:checked + .c13 {
+.c13 input:checked + .c14 {
   color: #fed200;
   display: block;
 }
 
-.c15 {
+.c16 {
   background-color: #def99f;
   border: 1px solid #92d101;
   height: 1.6rem;
@@ -164,17 +183,17 @@ input:checked + .c7 .c8 {
   border-radius: 2rem;
 }
 
-.c15 .c13 {
+.c16 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c15 input:checked + .c13 {
+.c16 input:checked + .c14 {
   color: #92d101;
   display: block;
 }
 
-.c16 {
+.c17 {
   background-color: #c8f5ff;
   border: 1px solid #00c3ed;
   height: 1.6rem;
@@ -194,17 +213,17 @@ input:checked + .c7 .c8 {
   border-radius: 2rem;
 }
 
-.c16 .c13 {
+.c17 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c16 input:checked + .c13 {
+.c17 input:checked + .c14 {
   color: #00c3ed;
   display: block;
 }
 
-.c17 {
+.c18 {
   background-color: #cbcfff;
   border: 1px solid #545ec8;
   height: 1.6rem;
@@ -224,17 +243,17 @@ input:checked + .c7 .c8 {
   border-radius: 2rem;
 }
 
-.c17 .c13 {
+.c18 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c17 input:checked + .c13 {
+.c18 input:checked + .c14 {
   color: #545ec8;
   display: block;
 }
 
-.c18 {
+.c19 {
   background-color: #ffc5e1;
   border: 1px solid #de017e;
   height: 1.6rem;
@@ -254,12 +273,12 @@ input:checked + .c7 .c8 {
   border-radius: 2rem;
 }
 
-.c18 .c13 {
+.c19 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c18 input:checked + .c13 {
+.c19 input:checked + .c14 {
   color: #de017e;
   display: block;
 }
@@ -288,7 +307,7 @@ input:checked + .c7 .c8 {
   text-transform: capitalize;
 }
 
-.c0 .c11 {
+.c0 .c12 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -324,11 +343,11 @@ input:checked + .c7 .c8 {
       type="checkbox"
     />
     <span
-      className="c7"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="c8 c9 c10"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -340,11 +359,11 @@ input:checked + .c7 .c8 {
       </svg>
     </span>
     <div
-      className="c11 c12"
+      className="c12 c13"
     >
       <svg
         aria-hidden="true"
-        className="c13 c14 c10"
+        className="c14 c15 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -366,11 +385,11 @@ input:checked + .c7 .c8 {
       type="checkbox"
     />
     <span
-      className="c7"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="c8 c9 c10"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -382,11 +401,11 @@ input:checked + .c7 .c8 {
       </svg>
     </span>
     <div
-      className="c11 c15"
+      className="c12 c16"
     >
       <svg
         aria-hidden="true"
-        className="c13 c14 c10"
+        className="c14 c15 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -408,11 +427,11 @@ input:checked + .c7 .c8 {
       type="checkbox"
     />
     <span
-      className="c7"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="c8 c9 c10"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -424,11 +443,11 @@ input:checked + .c7 .c8 {
       </svg>
     </span>
     <div
-      className="c11 c16"
+      className="c12 c17"
     >
       <svg
         aria-hidden="true"
-        className="c13 c14 c10"
+        className="c14 c15 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -450,11 +469,11 @@ input:checked + .c7 .c8 {
       type="checkbox"
     />
     <span
-      className="c7"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="c8 c9 c10"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -466,11 +485,11 @@ input:checked + .c7 .c8 {
       </svg>
     </span>
     <div
-      className="c11 c17"
+      className="c12 c18"
     >
       <svg
         aria-hidden="true"
-        className="c13 c14 c10"
+        className="c14 c15 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -492,11 +511,11 @@ input:checked + .c7 .c8 {
       type="checkbox"
     />
     <span
-      className="c7"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="c8 c9 c10"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -508,11 +527,11 @@ input:checked + .c7 .c8 {
       </svg>
     </span>
     <div
-      className="c11 c18"
+      className="c12 c19"
     >
       <svg
         aria-hidden="true"
-        className="c13 c14 c10"
+        className="c14 c15 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"

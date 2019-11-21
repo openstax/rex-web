@@ -493,7 +493,9 @@ Array [
 }
 
 .c72:hover,
-.c72 span:hover {
+.c72 span:hover,
+.c72:focus,
+.c72 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -745,7 +747,8 @@ Array [
   text-decoration: none;
 }
 
-.c66:hover {
+.c66:hover,
+.c66:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -758,7 +761,8 @@ Array [
   text-decoration: none;
 }
 
-.c68:hover {
+.c68:hover,
+.c68:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -3876,7 +3880,9 @@ Array [
 }
 
 .c42:hover,
-.c42 span:hover {
+.c42 span:hover,
+.c42:focus,
+.c42 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;

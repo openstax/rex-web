@@ -57,4 +57,19 @@ export default styled(Checkbox)`
     height: 0;
     width: 0;
   }
+
+  &:focus-within {
+    border-radius: 0.4rem;
+    background-color: ${theme.color.neutral.pageBackground};
+    ${CustomCheckbox} {
+      border: 1px solid ${theme.color.primary.orange.darkest};
+    }
+  }
+  &.focus-within {
+    border-radius: 0.4rem;
+    background-color: ${theme.color.neutral.pageBackground};
+    ${CustomCheckbox} {
+      border: 1px solid ${theme.color.primary.orange.darkest};
+    }
+  }
 `;

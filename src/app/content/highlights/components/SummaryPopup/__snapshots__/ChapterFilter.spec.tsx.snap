@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChapterFilter matches snapshot 1`] = `
-.c12 {
+.c13 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -21,7 +21,8 @@ exports[`ChapterFilter matches snapshot 1`] = `
   text-decoration: none;
 }
 
-.c4:hover {
+.c4:hover,
+.c4:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -51,14 +52,14 @@ exports[`ChapterFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c11 {
+.c12 {
   color: #fff;
   height: 1rem;
   width: 1rem;
   display: none;
 }
 
-.c9 {
+.c10 {
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -75,15 +76,15 @@ exports[`ChapterFilter matches snapshot 1`] = `
   align-items: center;
 }
 
-input:not(:checked) + .c9 {
+input:not(:checked) + .c10 {
   border: 1px solid #424242;
 }
 
-input:checked + .c9 {
+input:checked + .c10 {
   background-color: #df571e;
 }
 
-input:checked + .c9 .c10 {
+input:checked + .c10 .c11 {
   display: block;
 }
 
@@ -110,6 +111,24 @@ input:checked + .c9 .c10 {
   width: 0;
 }
 
+.c8:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c8:focus-within .c9 {
+  border: 1px solid #df571e;
+}
+
+.c8.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c8.focus-within .c9 {
+  border: 1px solid #df571e;
+}
+
 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -130,7 +149,7 @@ input:checked + .c9 .c10 {
   flex-direction: column;
 }
 
-.c13 {
+.c14 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -142,18 +161,18 @@ input:checked + .c9 .c10 {
   margin-left: 0.8rem;
 }
 
-.c13 > * {
+.c14 > * {
   overflow: hidden;
 }
 
-.c13 .os-text {
+.c14 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c13 .os-divider {
+.c14 .os-divider {
   margin: 0 0.4rem;
 }
 
@@ -175,7 +194,7 @@ input:checked + .c9 .c10 {
   padding: 0.8rem;
 }
 
-.c0 .c14 {
+.c0 .c15 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -233,11 +252,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -249,7 +268,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -266,11 +285,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -282,7 +301,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -299,11 +318,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -315,7 +334,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -332,11 +351,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -348,7 +367,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -365,11 +384,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -381,7 +400,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -398,11 +417,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -414,7 +433,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -431,11 +450,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -447,7 +466,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -464,11 +483,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -480,7 +499,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -497,11 +516,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -513,7 +532,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
@@ -530,11 +549,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -546,7 +565,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
@@ -563,11 +582,11 @@ input:checked + .c9 .c10 {
           type="checkbox"
         />
         <span
-          className="c9"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -579,7 +598,7 @@ input:checked + .c9 .c10 {
           </svg>
         </span>
         <span
-          className="c13"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",

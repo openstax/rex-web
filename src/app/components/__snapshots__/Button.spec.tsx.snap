@@ -317,7 +317,8 @@ exports[`ButtonLink matches snapshot (decorated) 1`] = `
   text-decoration: none;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
