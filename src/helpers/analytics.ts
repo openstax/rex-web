@@ -6,6 +6,7 @@ import * as clickLink from './analyticsEvents/clickLink';
 import { AnalyticsEvent } from './analyticsEvents/event';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
+import * as unload from './analyticsEvents/unload';
 
 const triggerEvent = <Args extends any[]>(event: (...args: Args) => (AnalyticsEvent | void)) => (...args: Args) => {
   const analyticsEvent = event(...args);
@@ -27,10 +28,15 @@ const analytics = {
   clickLink: mapEventType(clickLink),
   print: mapEventType(print),
   search: mapEventType(search),
+  unload: mapEventType(unload),
 };
 
 export const registerGlobalAnalytics = (window: Window, store: Store) => {
   const document = window.document;
+
+  window.addEventListener('beforeunload', () => {
+    analytics.unload.track(analytics.unload.selector(store.getState()));
+  });
 
   document.addEventListener('click', (e) => {
     if (!e.target || !(e.target instanceof window.Node)) {
