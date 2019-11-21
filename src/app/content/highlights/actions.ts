@@ -7,3 +7,6 @@ export const createHighlight = createStandardAction('Content/Highlight/create')<
 export const deleteHighlight = createStandardAction('Content/Highlight/delete')<string>();
 export const updateHighlight = createStandardAction('Content/Highlight/update')<HighlightData>();
 export const receiveHighlights = createStandardAction('Content/Highlight/receive')<HighlightData[]>();
+
+export const openMyHighlights = createStandardAction('Content/openMyHighlights')<void>();
+export const closeMyHighlights = createStandardAction('Content/closeMyHighlights')<void>();

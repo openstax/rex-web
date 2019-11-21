@@ -71,6 +71,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const saveNote = () => {
     onSave({...(data || highlight.serialize().data), note: pendingNote});
+    onCancel();
   };
 
   const cancelEditing = () => {

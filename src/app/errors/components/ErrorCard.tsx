@@ -6,7 +6,7 @@ import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, h3Style, h4Style } from '../../components/Typography';
 import { toolbarIconColor } from '../../content/components/constants';
-import { toolbarIconStyles } from '../../content/components/Toolbar/styled';
+import { toolbarIconStyles } from '../../content/components/Toolbar/iconStyles';
 import theme from '../../theme';
 
 const margin = 3.0;

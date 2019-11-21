@@ -142,7 +142,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
           container,
           highlights: listPendingHighlight
             ? [
-                ...listHighlights.filter((highlight) => !pendingHighlight || highlight.id !== pendingHighlight.id),
+                ...listHighlights.filter(
+                  (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
+                ),
                 listPendingHighlight,
               ]
             : listHighlights,
@@ -196,7 +198,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         clearPendingHighlight();
       }
 
-      if (newHighlights.length > 0 || removedHighlights.length > 0) {
+      if (addedOrRemoved || newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
         return true;
       }

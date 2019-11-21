@@ -11,6 +11,7 @@ import { State } from './types';
 export const initialState: State = {
   enabled: false,
   highlights: [],
+  myHighlightsOpen: false,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -19,11 +20,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
     }
     case getType(locationChange): {
-      return {...initialState, enabled: state.enabled};
+      return {...initialState, enabled: state.enabled, myHighlightsOpen: false};
     }
     case getType(actions.createHighlight): {
       return {...state, highlights: [...state.highlights, action.payload]};
     }
+    case getType(actions.openMyHighlights):
+      return {...state, myHighlightsOpen: true};
+    case getType(actions.closeMyHighlights):
+      return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
       return {
         ...state,

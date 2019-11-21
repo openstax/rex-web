@@ -8,7 +8,7 @@ import {
   shortPage
 } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import MobileScrollLock from '../../components/MobileScrollLock';
+import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
@@ -208,7 +208,7 @@ describe('content', () => {
     );
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
-    const mobileScrollLock = component.root.findByType(MobileScrollLock);
+    const mobileScrollLock = component.root.findByType(ScrollLock);
 
     expect(tableOfContentsComponent.props.isOpen).toBe(true);
     renderer.act(() => {

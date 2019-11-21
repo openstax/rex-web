@@ -154,7 +154,7 @@ exports[`Notifications matches snapshot 1`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 }
 
@@ -171,6 +171,12 @@ exports[`Notifications matches snapshot 1`] = `
 
   .c0 > div > .c4 {
     padding: 0;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
   }
 }
 
@@ -368,7 +374,7 @@ exports[`Notifications matches snapshot 2`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 }
 
@@ -385,6 +391,12 @@ exports[`Notifications matches snapshot 2`] = `
 
   .c0 > div > .c4 {
     padding: 0;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
   }
 }
 
@@ -585,7 +597,7 @@ exports[`Notifications matches snapshot 3`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 }
 
@@ -602,6 +614,12 @@ exports[`Notifications matches snapshot 3`] = `
 
   .c0 > div > .c4 {
     padding: 0;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
   }
 }
 
