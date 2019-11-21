@@ -30,6 +30,7 @@ const color = {
     foreground: textColors.default,
     formBackground: '#f5f5f5',
     formBorder: '#d5d5d5',
+    pageBackground: '#f1f1f1',
   },
   primary: {
     'blue': {

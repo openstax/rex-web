@@ -53,6 +53,8 @@ const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
   stripIdVersion(node.shortId) === stripIdVersion(nodeId)
   || stripIdVersion(node.id) === stripIdVersion(nodeId);
 
+export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
+
 export const splitTitleParts = (str: string) => {
   const match = str
     .match(/(<span class="os-number">(.*?)<\/span>)?.*?<span class="os-text">(.*?)<\/span>/);
