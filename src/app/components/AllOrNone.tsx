@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import { ButtonLink } from './Button';
 
@@ -10,9 +11,13 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const AllOrNone = ({className, onAll, onNone}: Props) => <div className={className}>
-  <ButtonLink decorated onClick={onAll}>All</ButtonLink>
+  <FormattedMessage id='i18n:highlighting:filters:all'>
+    {(msg: Element | string) => <ButtonLink decorated onClick={onAll}>{msg}</ButtonLink>}
+  </FormattedMessage>
   <span>|</span>
-  <ButtonLink decorated onClick={onNone}>None</ButtonLink>
+  <FormattedMessage id='i18n:highlighting:filters:none'>
+    {(msg: Element | string) => <ButtonLink decorated onClick={onNone}>{msg}</ButtonLink>}
+  </FormattedMessage>
 </div>;
 
 export default styled(AllOrNone)`

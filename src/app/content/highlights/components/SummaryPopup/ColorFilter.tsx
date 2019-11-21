@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
@@ -30,7 +31,9 @@ const ColorFilter = ({className}: Props) => {
       }
     >
       <ColorIndicator style={style} size='small'/>
-      {style.label}
+      <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
     </Checkbox>)}
   </div>;
 };
@@ -49,6 +52,7 @@ export default styled(ColorFilter)`
 
   ${Checkbox} {
     padding: 0.8rem;
+    text-transform: capitalize;
   }
 
   ${ColorIndicator} {

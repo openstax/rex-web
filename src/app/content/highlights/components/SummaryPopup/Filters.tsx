@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../../components/Button';
@@ -40,17 +41,18 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) => {
-
-  return <div className={className}>
-    <Dropdown toggle={<Toggle label='Chapter' />} transparentTab={false}>
+const Filters = ({className}: Props) => <div className={className}>
+  <FormattedMessage id='i18n:highlighting:filters:chapters'>
+    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
       <ChapterFilter />
-    </Dropdown>
-    <Dropdown toggle={<Toggle label='Color' />} transparentTab={false}>
+    </Dropdown>}
+  </FormattedMessage>
+  <FormattedMessage id='i18n:highlighting:filters:colors'>
+    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
       <ColorFilter />
-    </Dropdown>
-  </div>;
-};
+    </Dropdown>}
+  </FormattedMessage>
+</div>;
 
 export default styled(Filters)`
   overflow: visible;

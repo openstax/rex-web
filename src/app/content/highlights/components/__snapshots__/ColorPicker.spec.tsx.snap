@@ -189,6 +189,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 >
   <label
     className="c1 c2"
+    title="yellow"
   >
     <input
       checked={false}
@@ -211,6 +212,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     className="c1 c6"
+    title="green"
   >
     <input
       checked={false}
@@ -233,6 +235,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     className="c1 c7"
+    title="blue"
   >
     <input
       checked={false}
@@ -255,6 +258,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     className="c1 c8"
+    title="purple"
   >
     <input
       checked={false}
@@ -277,6 +281,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     className="c1 c9"
+    title="red"
   >
     <input
       checked={false}

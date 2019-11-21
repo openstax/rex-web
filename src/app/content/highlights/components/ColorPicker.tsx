@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { cardPadding, highlightStyles } from '../constants';
@@ -32,14 +33,21 @@ interface ColorButtonProps {
 }
 
 // tslint:disable-next-line:variable-name
-const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) => <ColorIndicator
-  style={style}
-  size={size}
-  component={<label />}
-  className={className}
->
-  <input type='checkbox' {...props} />
-</ColorIndicator>)`
+const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) =>
+  <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
+    {(msg: Element | string) =>
+      <ColorIndicator
+        style={style}
+        size={size}
+        title={msg}
+        component={<label />}
+        className={className}
+      >
+        <input type='checkbox' {...props} />
+      </ColorIndicator>
+    }
+  </FormattedMessage>
+)`
   cursor: pointer;
   margin: 0 ${cardPadding}rem ${cardPadding}rem 0;
 

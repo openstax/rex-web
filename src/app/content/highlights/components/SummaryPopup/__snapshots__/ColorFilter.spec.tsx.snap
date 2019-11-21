@@ -285,6 +285,7 @@ input:checked + .c7 .c8 {
 
 .c0 .c5 {
   padding: 0.8rem;
+  text-transform: capitalize;
 }
 
 .c0 .c11 {
