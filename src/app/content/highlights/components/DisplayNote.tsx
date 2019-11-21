@@ -103,9 +103,11 @@ export default styled(DisplayNote)`
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
   }
 
-  ${DropdownList}${DropdownList} {
-    left: -4rem;
-  }
+  ${css`
+    ${DropdownList}${DropdownList} {
+      left: -4rem;
+    }
+  `}
 
   ${Dropdown} {
     position: absolute;

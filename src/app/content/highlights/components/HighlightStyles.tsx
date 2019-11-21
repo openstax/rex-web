@@ -67,7 +67,6 @@ export const Wrapper = styled.div`
   background: ${theme.color.neutral.base};
   margin: 3rem;
   border-radius: 0.5rem;
-
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}

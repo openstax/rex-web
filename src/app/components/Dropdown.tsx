@@ -62,14 +62,16 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
     {open && children}
   </div>;
 })`
-  & > *:not(${DropdownToggle}) {
-    ${fadeInAnimation}
-    position: absolute;
-    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
-    border: 1px solid ${theme.color.neutral.formBorder};
-    top: calc(100% + 0.4rem);
-    left: 0;
-  }
+  ${css`
+    & > *:not(${DropdownToggle}) {
+      ${fadeInAnimation}
+      position: absolute;
+      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid ${theme.color.neutral.formBorder};
+      top: calc(100% + 0.4rem);
+      left: 0;
+    }
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -105,26 +107,26 @@ const TabTransparentDropdown = styled(({toggle, children, className}: Props) => 
     ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
       ${visuallyHidden}
     }
+
+    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+      ${fadeInAnimation}
+      position: absolute;
+      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid ${theme.color.neutral.formBorder};
+      top: calc(100% + 0.4rem);
+      left: 0;
+    }
+
+    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+      ${visuallyHidden}
+    }
+    ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
+      ${visuallyShown}
+    }
+    ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
+      ${visuallyShown}
+    }
   `}
-
-  ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-    ${fadeInAnimation}
-    position: absolute;
-    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
-    border: 1px solid ${theme.color.neutral.formBorder};
-    top: calc(100% + 0.4rem);
-    left: 0;
-  }
-
-  ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-    ${visuallyHidden}
-  }
-  ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
-    ${visuallyShown}
-  }
-  ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
-    ${visuallyShown}
-  }
 `;
 
 // tslint:disable-next-line:variable-name

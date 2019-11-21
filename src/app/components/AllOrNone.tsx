@@ -21,9 +21,11 @@ const AllOrNone = ({className, onAll, onNone}: Props) => <div className={classNa
 </div>;
 
 export default styled(AllOrNone)`
-  &, ${ButtonLink} {
+  &,
+  ${ButtonLink} {
     font-size: 1.4rem;
   }
+
   height: 2rem;
   display: flex;
   flex-direction: row;

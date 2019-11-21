@@ -42,7 +42,6 @@ const ColorIndicator = styled(Hoc)`
   display: flex;
   justify-content: center;
   align-items: center;
-
   ${(props: Props) => (props.shape === 'circle' || props.shape === undefined) && css`
     border-radius: 2rem;
   `}

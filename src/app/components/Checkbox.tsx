@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
 import theme from '../theme';
 
@@ -29,9 +29,11 @@ const CustomCheckbox = styled(
   input:not(:checked) + & {
     border: 1px solid ${theme.color.primary.gray.darker};
   }
+
   input:checked + & {
     background-color: ${theme.color.primary.orange.darkest};
   }
+
   input:checked + & ${CheckIcon} {
     display: block;
   }
@@ -58,18 +60,22 @@ export default styled(Checkbox)`
     width: 0;
   }
 
-  &:focus-within {
-    border-radius: 0.4rem;
-    background-color: ${theme.color.neutral.pageBackground};
-    ${CustomCheckbox} {
-      border: 1px solid ${theme.color.primary.orange.darkest};
+  ${css`
+    &:focus-within {
+      border-radius: 0.4rem;
+      background-color: ${theme.color.neutral.pageBackground};
+
+      ${CustomCheckbox} {
+        border: 1px solid ${theme.color.primary.orange.darkest};
+      }
     }
-  }
-  &.focus-within {
-    border-radius: 0.4rem;
-    background-color: ${theme.color.neutral.pageBackground};
-    ${CustomCheckbox} {
-      border: 1px solid ${theme.color.primary.orange.darkest};
+    &.focus-within {
+      border-radius: 0.4rem;
+      background-color: ${theme.color.neutral.pageBackground};
+
+      ${CustomCheckbox} {
+        border: 1px solid ${theme.color.primary.orange.darkest};
+      }
     }
-  }
+  `}
 `;

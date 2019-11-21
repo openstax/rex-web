@@ -26,7 +26,6 @@ interface Props {
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-
   ${theme.breakpoints.mobile(css`
     flex-direction: column;
     overflow: hidden;
@@ -114,7 +113,6 @@ export default styled(ChapterFilter)`
   outline: none;
   max-height: 72rem;
   overflow: auto;
-
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePadding}rem;
