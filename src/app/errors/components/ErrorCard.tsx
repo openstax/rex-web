@@ -37,7 +37,7 @@ const Header = styled.header`
   align-items: center;
   margin-bottom: ${margin * 0.5}rem;
   padding: ${margin * 0.5}rem ${margin}rem;
-  background: #f1f1f1;
+  background: ${theme.color.neutral.pageBackground};
   border-bottom: solid 0.1rem ${theme.color.neutral.darker};
   justify-content: space-between;
 `;

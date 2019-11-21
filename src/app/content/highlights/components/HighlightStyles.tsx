@@ -7,6 +7,7 @@ import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { toolbarIconColor } from '../../components/constants';
+import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -66,6 +67,9 @@ export const Wrapper = styled.div`
   background: ${theme.color.neutral.base};
   margin: 3rem;
   border-radius: 0.5rem;
+  ${theme.breakpoints.mobile(css`
+    margin: 3rem ${mobileMargin}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
