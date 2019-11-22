@@ -4,6 +4,7 @@ import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
 import * as clickLink from './analyticsEvents/clickLink';
 import { AnalyticsEvent } from './analyticsEvents/event';
+import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 import * as unload from './analyticsEvents/unload';
@@ -26,6 +27,7 @@ const mapEventType = <E extends {track: EventConstructor}>(event: E): E => ({
 const analytics = {
   clickButton: mapEventType(clickButton),
   clickLink: mapEventType(clickLink),
+  pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
   unload: mapEventType(unload),
@@ -37,6 +39,12 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
   window.addEventListener('beforeunload', () => {
     analytics.unload.track(analytics.unload.selector(store.getState()));
   });
+
+  const onPageFocusChange = (focus: boolean) => () => {
+    analytics.pageFocus.track(analytics.pageFocus.selector(store.getState()), focus);
+  };
+  window.onblur = onPageFocusChange(false);
+  window.onfocus = onPageFocusChange(true);
 
   document.addEventListener('click', (e) => {
     if (!e.target || !(e.target instanceof window.Node)) {
