@@ -2,7 +2,8 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
-import Dropdown, { DropdownItem } from '../../../components/Dropdown';
+import { PlainButton } from '../../../components/Button';
+import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -19,6 +20,12 @@ const MenuIcon = styled(EllipsisV)`
   padding: 0.2rem;
   color: ${theme.color.primary.gray.lighter};
   user-select: none;
+`;
+
+// tslint:disable-next-line:variable-name
+const MenuToggle = styled(({className}) => <PlainButton className={className}><MenuIcon /></PlainButton>)`
+  border: none;
+  display: block;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -57,13 +64,15 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
   React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
-    <Dropdown toggle={<MenuIcon />}>
-      <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
-      <DropdownItem
-        message='i18n:highlighting:dropdown:delete'
-        data-testid='delete'
-        onClick={() => setConfirmingDelete(true)}
-      />
+    <Dropdown toggle={<MenuToggle />}>
+      <DropdownList>
+        <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
+        <DropdownItem
+          message='i18n:highlighting:dropdown:delete'
+          data-testid='delete'
+          onClick={() => setConfirmingDelete(true)}
+        />
+      </DropdownList>
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
@@ -93,6 +102,12 @@ export default styled(DisplayNote)`
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
   }
+
+  ${css`
+    ${DropdownList}${DropdownList} {
+      left: -4rem;
+    }
+  `}
 
   ${Dropdown} {
     position: absolute;

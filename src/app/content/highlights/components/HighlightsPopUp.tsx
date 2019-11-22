@@ -6,6 +6,7 @@ import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
+import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
@@ -134,26 +135,31 @@ class HighlightsPopUp extends Component<Props> {
 
   public render() {
     return this.props.myHighlightsOpen ? (
-      <Styled.Modal>
-        <Styled.Mask>
-          <Styled.Wrapper
-            ref={this.popUp}
-            tabIndex='-1'
-            data-testid='highlights-popup-wrapper'
-          >
-            <Styled.Header>
-              <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-                {(msg: Element | string) => msg}
-              </FormattedMessage>
-              <Styled.CloseIcon
-                data-testid='close-highlights-popup'
-                onClick={() => this.props.closeMyHighlights()}
-              />
-            </Styled.Header>
-            {this.props.user ? this.myHighlights() : this.loginForHighlights()}
-          </Styled.Wrapper>
-        </Styled.Mask>
-      </Styled.Modal>
+      <React.Fragment>
+        <ScrollLock overlay={false} mobileOnly={false} />
+        <Styled.Modal>
+          <Styled.Mask>
+            <Styled.Wrapper
+              ref={this.popUp}
+              tabIndex='-1'
+              data-testid='highlights-popup-wrapper'
+            >
+              <Styled.Header>
+                <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+                  {(msg: Element | string) => msg}
+                </FormattedMessage>
+                <Styled.CloseIcon
+                  data-testid='close-highlights-popup'
+                  onClick={() => this.props.closeMyHighlights()}
+                />
+              </Styled.Header>
+              {this.props.user
+                ? this.myHighlights()
+                : this.loginForHighlights()}
+            </Styled.Wrapper>
+          </Styled.Mask>
+        </Styled.Modal>
+      </React.Fragment>
     ) : null;
   }
 

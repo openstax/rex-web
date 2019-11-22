@@ -8,6 +8,7 @@ import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
 import { highlightStyles } from '../constants';
+import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -69,6 +70,9 @@ export const Wrapper = styled.div`
   border-radius: 0.5rem;
   width: 100%;
   outline: none;
+  ${theme.breakpoints.mobile(css`
+    margin: 3rem ${mobileMargin}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name

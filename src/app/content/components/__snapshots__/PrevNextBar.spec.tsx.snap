@@ -20,7 +20,8 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -136,7 +137,8 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -149,7 +151,8 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   text-decoration: none;
 }
 
-.c4:hover {
+.c4:hover,
+.c4:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -281,7 +284,8 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -389,7 +393,8 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;

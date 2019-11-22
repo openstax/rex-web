@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorIndicator matches snapshot (checked) 1`] = `
+.c3 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c2 {
+  display: none;
+}
+
+.c4 .c1 {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.c4 input:checked + .c1 {
+  color: #fed200;
+  display: block;
+}
+
+.c0 {
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 2.4rem;
+  width: 2.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c0 .c1 {
+  height: 1.6rem;
+  width: 1.6rem;
+  color: #fed200;
+  display: block;
+}
+
+.c0 input:checked + .c1 {
+  color: #fed200;
+  display: block;
+}
+
+<div
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1 c2 c3"
+    fill="currentColor"
+    focusable="false"
+    viewBox="0 0 512 512"
+  >
+    <path
+      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+      fill="currentColor"
+    />
+  </svg>
+</div>
+`;
+
+exports[`ColorIndicator matches snapshot 1`] = `
+.c3 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c2 {
+  display: none;
+}
+
+.c0 {
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 2.4rem;
+  width: 2.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c0 .c1 {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.c0 input:checked + .c1 {
+  color: #fed200;
+  display: block;
+}
+
+<div
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1 c2 c3"
+    fill="currentColor"
+    focusable="false"
+    viewBox="0 0 512 512"
+  >
+    <path
+      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+      fill="currentColor"
+    />
+  </svg>
+</div>
+`;

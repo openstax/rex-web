@@ -137,7 +137,7 @@ export const resetTabIndex = (document: Document) => {
 };
 
 export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>
-    Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
+  Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
 
 /*
  * recursive merge properties of two inputs. values are only merged if they are

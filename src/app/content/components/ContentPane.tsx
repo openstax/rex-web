@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import MobileScrollLock from '../../components/MobileScrollLock';
+import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
@@ -37,7 +37,7 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
-  {isOpen && <MobileScrollLock onClick={onClick} />}
+  {isOpen && <ScrollLock onClick={onClick} mobileOnly={true}/>}
   {children}
 </Wrapper>;
 
