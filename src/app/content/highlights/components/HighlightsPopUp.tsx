@@ -10,7 +10,9 @@ import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
+import { HighlightData } from '../types';
 import * as Styled from './HighlightStyles';
+import ShowMyHighlights from './ShowMyHighlights';
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -18,6 +20,7 @@ interface Props {
   user?: User;
   loggedOut: boolean;
   loginLink: string;
+  highlights: HighlightData[];
 }
 
 class HighlightsPopUp extends Component<Props> {
@@ -50,7 +53,17 @@ class HighlightsPopUp extends Component<Props> {
 
   public myHighlights = () => {
     return (
-      <Styled.PopupBody>
+      this.props.highlights.length > 0 ? (
+        <ShowMyHighlights />
+      ) : (
+        <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
+      )
+    );
+  };
+
+  public noHighlights() {
+    return (
+      <React.Fragment>
         <Styled.GeneralLeftText>
           <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
             {(msg: Element | string) => msg}
@@ -69,9 +82,9 @@ class HighlightsPopUp extends Component<Props> {
           </Styled.GeneralTextWrapper>
           <Styled.MyHighlightsImage src={myHighlightsEmptyImage} />
         </Styled.MyHighlightsWrapper>
-      </Styled.PopupBody>
+      </React.Fragment>
     );
-  };
+  }
 
   public blueNote = () => {
     return (
@@ -154,6 +167,7 @@ class HighlightsPopUp extends Component<Props> {
 
 export default connect(
   (state: AppState) => ({
+    highlights: selectors.highlights(state),
     loggedOut: authSelect.loggedOut(state),
     loginLink: authSelect.loginLink(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),

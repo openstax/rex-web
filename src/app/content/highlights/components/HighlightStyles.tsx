@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components/macro';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
 import htmlMessage from '../../../components/htmlMessage';
 import Times from '../../../components/Times';
-import { bodyCopyRegularStyle } from '../../../components/Typography';
+import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
-import { toolbarIconColor } from '../../components/constants';
+import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
+import { highlightStyles } from '../constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -62,10 +63,12 @@ export const Modal = styled.div`
 // tslint:disable-next-line:variable-name
 export const Wrapper = styled.div`
   z-index: 1;
-  width: 100%;
+  max-width: ${contentWrapperMaxWidth}rem;
   background: ${theme.color.neutral.base};
-  margin: 3rem;
+  margin: 7.2rem 2.4rem 2.4rem;
   border-radius: 0.5rem;
+  width: 100%;
+  outline: none;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -294,4 +297,81 @@ export const MyHighlightsImage = styled.img`
   width: ${myHighlightsImageWidth}rem;
   height: ${myHighlightsImageHeight}rem;
   margin-top: ${popupBodyPadding}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightsChapter = styled.div`
+  ${h4Style}
+  height: 5.6rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  background: ${theme.color.neutral.darker};
+  padding: 0 ${popupPadding}rem;
+  width: 100%;
+`;
+
+// tslint:disable-next-line:variable-name
+export const ShowMyHighlightsBody = styled(PopupBody)`
+  padding: 0;
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightWrapper = styled.div`
+  margin: 0 1.6rem ${popupPadding}rem;
+  border: solid 0.1rem ${theme.color.neutral.darkest};
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightSection = styled.div`
+  ${labelStyle}
+  padding: 0 ${popupBodyPadding}rem 0 ${popupPadding}rem;
+  background: ${theme.color.neutral.darkest};
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightOuterWrapper = styled.div`
+  :not(:last-child) {
+    border-bottom: solid 0.2rem ${theme.color.neutral.darker};
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightContentWrapper = styled.div`
+  padding: 1.2rem ${popupBodyPadding}rem;
+
+  ${highlightStyles.map((style) => css`
+    &.highlight.${style.label} {
+      border-left: solid 0.8rem ${style.focused};
+    }
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightContent = styled.span`
+  ${textRegularStyle}
+  line-height: unset;
+  ${highlightStyles.map((style) => css`
+    .highlight.${style.label} &{
+      background-color: ${style.passive};
+    }
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightNote = styled.div`
+  ${textRegularStyle}
+  padding-top: 1.2rem;
+  display: flex;
+  ${highlightStyles.map((style) => css`
+    .highlight.${style.label} & > p {
+      color: ${style.focused};
+      margin: 0 0.8rem 0 0;
+      overflow: visible;
+    }
+  `)}
 `;
