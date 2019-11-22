@@ -6,11 +6,17 @@ import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 
 // tslint:disable-next-line:variable-name
-const MobileScrollLockBodyClass = createGlobalStyle`
+const ScrollLockBodyClass = createGlobalStyle`
   body.body {
-    ${theme.breakpoints.mobile(css`
+    ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
+      ${theme.breakpoints.mobile(css`
+        overflow: hidden;
+      `)}
+    `}
+
+    ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
       overflow: hidden;
-    `)}
+    `}
   }
 `;
 
@@ -44,13 +50,14 @@ const Overlay = styled.div`
 interface Props {
   onClick?: () => void;
   overlay?: boolean;
+  mobileOnly?: boolean | undefined;
 }
 
-export default class MobileScrollLock extends React.Component<Props> {
+export default class ScrollLock extends React.Component<Props> {
 
   public render() {
     return <OnScroll onTouchMove={this.blockScroll}>
-      <MobileScrollLockBodyClass />
+      <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
       {this.props.overlay !== false &&
         <Overlay onClick={this.props.onClick} />
       }

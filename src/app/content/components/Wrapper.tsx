@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { LayoutBody } from '../../components/Layout';
-import MobileScrollLock from '../../components/MobileScrollLock';
+import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
@@ -20,7 +20,7 @@ interface WrapperProps {
 export const Wrapper = styled(
   ({hasQuery, searchResultsOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
     <LayoutBody {...props}>
-      {searchResultsOpen && <MobileScrollLock overlay={false} />}
+      {searchResultsOpen && <ScrollLock overlay={false} mobileOnly={true} />}
       {children}
     </LayoutBody>
 )`

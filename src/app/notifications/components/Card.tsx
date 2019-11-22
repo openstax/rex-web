@@ -55,7 +55,7 @@ export const Body = styled(({className, ...props}) =>
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 
   > div {

@@ -1,13 +1,20 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
+import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
 import theme from '../theme';
 import { textStyle } from './Typography/base';
 
+interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
+  className?: string;
+  component: T extends React.ComponentType
+    ? React.ReactComponentElement<T>:
+    never;
+}
 // tslint:disable-next-line:variable-name
-const DropdownToggle = styled.span`
+const DropdownToggle = styled(({component, ...props}: ToggleProps) => React.cloneElement(component, props))`
   cursor: pointer;
-  outline: none;
 `;
 
 const fadeIn = keyframes`
@@ -30,8 +37,8 @@ const visuallyShown = css`
   clip: unset;
   overflow: visible;
 `;
+
 const visuallyHidden = css`
-  display: block;
   height: 0;
   width: 0;
   overflow: hidden;
@@ -44,22 +51,42 @@ type Props = React.PropsWithChildren<{
 }>;
 
 // tslint:disable-next-line:variable-name
+const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const container = React.useRef<HTMLElement>(null);
+
+  useOnClickOutside(container, open, () => setOpen(false));
+
+  return <div className={className} ref={container}>
+    <DropdownToggle component={toggle} onClick={() => setOpen(!open)} />
+    {open && children}
+  </div>;
+})`
+  ${css`
+    & > *:not(${DropdownToggle}) {
+      ${fadeInAnimation}
+      position: absolute;
+      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid ${theme.color.neutral.formBorder};
+      top: calc(100% + 0.4rem);
+      left: 0;
+    }
+  `}
+`;
+
+// tslint:disable-next-line:variable-name
 const DropdownFocusWrapper = styled.div`
   overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name
-const DropdownContainer = styled(({toggle, children, className}: Props) => <div className={className}>
+const TabTransparentDropdown = styled(({toggle, children, className}: Props) => <div className={className}>
   <DropdownFocusWrapper>
-    <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
-    <DropdownList>
-      {children}
-    </DropdownList>
+    <DropdownToggle tabIndex={-1} component={toggle} />
+    {children}
   </DropdownFocusWrapper>
-  <DropdownToggle tabIndex='-1'>{toggle}</DropdownToggle>
+  <DropdownToggle tabIndex={-1} component={toggle} />
 </div>)`
-  overflow: visible;
-  position: relative;
   ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
     ${DropdownFocusWrapper} + ${DropdownToggle} {
       ${visuallyHidden}
@@ -80,30 +107,33 @@ const DropdownContainer = styled(({toggle, children, className}: Props) => <div 
     ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
       ${visuallyHidden}
     }
+
+    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+      ${fadeInAnimation}
+      position: absolute;
+      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid ${theme.color.neutral.formBorder};
+      top: calc(100% + 0.4rem);
+      left: 0;
+    }
+
+    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+      ${visuallyHidden}
+    }
+    ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
+      ${visuallyShown}
+    }
+    ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
+      ${visuallyShown}
+    }
   `}
 `;
 
 // tslint:disable-next-line:variable-name
-const DropdownList = styled.ol`
-  ${fadeInAnimation}
-  ${visuallyHidden}
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+export const DropdownList = styled.ol`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
-  border: 1px solid ${theme.color.neutral.formBorder};
-  top: calc(100% + 0.4rem);
-  left: -4rem;
-  ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
-    ${DropdownFocusWrapper}.focus-within & {
-      ${visuallyShown}
-    }
-
-    ${DropdownFocusWrapper}:focus-within & {
-      ${visuallyShown}
-    }
-  `}
 
   li button,
   li a {
@@ -137,4 +167,12 @@ export const DropdownItem = ({message, href, onClick}: {message: string, href?: 
   </FormattedMessage>
 </li>;
 
-export default DropdownContainer;
+// tslint:disable-next-line:variable-name
+const Dropdown = ({transparentTab, ...props}: {transparentTab?: boolean} & Props) => transparentTab !== false
+  ? <TabTransparentDropdown {...props} />
+  : <TabHiddenDropDown {...props} />;
+
+export default styled(Dropdown)`
+  overflow: visible;
+  position: relative;
+`;
