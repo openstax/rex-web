@@ -30,10 +30,6 @@ class ShowMyHighlights extends Component<Props> {
       </Styled.ShowMyHighlightsBody>
     );
   }
-
-  public componentDidMount() {
-    console.log(this.props.highlights);
-  }
 }
 
 export default connect(
