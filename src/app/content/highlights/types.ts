@@ -1,8 +1,6 @@
-import { SerializedHighlight } from '@openstax/highlighter';
+import { Highlight } from '@openstax/highlighter/dist/api';
 
-export type HighlightData = SerializedHighlight['data'] & {
-  note?: string;
-};
+export type HighlightData = Highlight;
 
 export interface State {
   myHighlightsOpen: boolean;

@@ -76,13 +76,13 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
   return highlighter;
 };
 
-const isUnknownHighlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
+const isUnknownHighlightData = (highlighter: Highlighter) => (data: HighlightData) =>
   !highlighter.getHighlight(data.id);
 
-const highlightData = (services: Services) => (data: SerializedHighlight['data']) => {
+const highlightData = (services: Services) => (data: HighlightData) => {
   const {highlighter} = services;
 
-  const serialized = new SerializedHighlight(data);
+  const serialized = SerializedHighlight.fromApiResponse(data);
 
   highlighter.highlight(serialized);
 
@@ -140,6 +140,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       if (listHighlighter) {
         return React.createElement(CardWrapper, {
           container,
+          highlighter: listHighlighter,
           highlights: listPendingHighlight
             ? [
                 ...listHighlights.filter(

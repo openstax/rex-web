@@ -12,9 +12,11 @@ const {
   ARCHIVE_URL,
   OS_WEB_URL,
   SEARCH_URL,
+  HIGHLIGHTS_URL,
   ACCOUNTS_URL,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
+  REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL
 } = require('./config');
 
@@ -125,6 +127,14 @@ function searchProxy(app) {
   }));
 }
 
+function highlightsProxy(app) {
+  app.use(proxy(REACT_APP_HIGHLIGHTS_URL, {
+    target: HIGHLIGHTS_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
+}
+
 function osWebApiProxy(app) {
   app.use(proxy(REACT_APP_OS_WEB_API_URL, {
     target: OS_WEB_URL,
@@ -159,6 +169,7 @@ function setupProxy(app) {
   archiveProxy(app);
   accountsProxy(app);
   searchProxy(app);
+  highlightsProxy(app);
   osWebApiProxy(app);
   stubEnvironment(app);
 

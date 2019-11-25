@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
 import { assertWindow, mergeRefs } from '../../../utils';
-import { clearFocusedHighlight, createHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
@@ -19,7 +19,7 @@ interface Props {
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
-  onCreate: typeof createHighlight;
+  onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
   onSave: typeof updateHighlight;
   onRemove: () => void;
@@ -45,37 +45,39 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   }: Props,
   ref
 ) => {
-  const defaultNote = () => data && data.note ? data.note : '';
-  const [pendingNote, setPendingNote] = React.useState<string>(defaultNote());
-  const [editingNote, setEditing] = React.useState<boolean>(!!data && !!data.note);
+  const defaultAnnotation = () => data && data.annotation ? data.annotation : '';
+  const [pendingAnnotation, setPendingAnnotation] = React.useState<string>(defaultAnnotation());
+  const [editingAnnotation, setEditing] = React.useState<boolean>(!!data && !!data.annotation);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
   const blurIfNotEditing = () => {
-    if (!editingNote) {
+    if (!editingAnnotation) {
       onBlur();
     }
   };
 
-  React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingNote]);
+  React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
-  const onColorChange = (style: string) => {
-    highlight.setStyle(style);
+  const onColorChange = (color: string) => {
+    highlight.setStyle(color);
     if (data) {
-      onSave({...data, style});
+      onSave({id: data.id, highlight: {color, annotation: data.annotation}});
     } else {
       assertWindow().getSelection().removeAllRanges();
-      onCreate(highlight.serialize().data);
+      onCreate();
     }
   };
 
-  const saveNote = () => {
-    onSave({...(data || highlight.serialize().data), note: pendingNote});
+  const saveAnnotation = () => {
+    if (data) {
+      onSave({id: data.id, highlight: {color: data.color, annotation: pendingAnnotation}});
+    }
     onCancel();
   };
 
   const cancelEditing = () => {
-    setPendingNote(defaultNote());
+    setPendingAnnotation(defaultAnnotation());
     setEditing(false);
     onCancel();
   };
@@ -85,24 +87,24 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     ref={mergeRefs(ref, element)}
     data-analytics-region='edit-note'
   >
-    <ColorPicker color={data ? data.style : undefined} onChange={onColorChange} onRemove={() => {
-      if ((!data || !data.note) && !pendingNote) {
+    <ColorPicker color={data ? data.color : undefined} onChange={onColorChange} onRemove={() => {
+      if ((!data || !data.annotation) && !pendingAnnotation) {
         onRemove();
       }
     }} />
     <Note
-      note={pendingNote}
+      note={pendingAnnotation}
       onFocus={() => {
         if (!highlight.getStyle()) {
           onColorChange(highlightStyles[0].label);
         }
       }}
       onChange={(newValue) => {
-        setPendingNote(newValue);
+        setPendingAnnotation(newValue);
         setEditing(true);
       }}
     />
-    {editingNote && <ButtonGroup>
+    {editingAnnotation && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
           data-testid='save'
@@ -113,10 +115,10 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
             e.preventDefault();
             setEditing(false);
 
-            if (pendingNote === '' && data && data.note) {
+            if (pendingAnnotation === '' && data && data.annotation) {
               setConfirmingDelete(true);
             } else {
-              saveNote();
+              saveAnnotation();
             }
           }}
         >{msg}</Button>}
@@ -138,10 +140,10 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       data-analytics-region='highlighting-delete-note'
       message='i18n:highlighting:confirmation:delete-note'
       confirmMessage='i18n:highlighting:button:delete'
-      onConfirm={saveNote}
+      onConfirm={saveAnnotation}
       onCancel={() => {
         setEditing(true);
-        setPendingNote(defaultNote());
+        setPendingAnnotation(defaultAnnotation());
       }}
       always={() => setConfirmingDelete(false)}
     />}

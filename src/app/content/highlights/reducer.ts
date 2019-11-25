@@ -33,7 +33,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         highlights: state.highlights.map((highlight) =>
-          highlight.id === action.payload.id ? action.payload : highlight
+          highlight.id === action.payload.id ? {...highlight, ...action.payload.highlight} : highlight
         ),
       };
     }
