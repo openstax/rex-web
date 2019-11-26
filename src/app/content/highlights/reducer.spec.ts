@@ -1,12 +1,12 @@
-import { SerializedHighlight } from '@openstax/highlighter';
 import { receiveFeatureFlags } from '../../actions';
 import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
+import { HighlightData } from './types';
 
 const mockHighlight = {
   id: 'asdf',
-} as SerializedHighlight['data'];
+} as HighlightData;
 
 describe('highlight reducer', () => {
 
@@ -53,7 +53,7 @@ describe('highlight reducer', () => {
   });
 
   it('creates highlights', () => {
-    const state = reducer(undefined, actions.createHighlight(mockHighlight));
+    const state = reducer(undefined, actions.createHighlight(mockHighlight as any));
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
   });
@@ -74,7 +74,7 @@ describe('highlight reducer', () => {
     const state = reducer({
       ...initialState,
       highlights: [mock1, mock3],
-    }, actions.updateHighlight(mock2));
+    }, actions.updateHighlight({id: mock2.id, highlight: mock2}));
 
     expect(state.highlights[0]).not.toBe(mock1);
     expect(state.highlights[0]).toBe(mock2);

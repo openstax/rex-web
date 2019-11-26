@@ -1,4 +1,3 @@
-import { SerializedHighlight } from '@openstax/highlighter';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
@@ -17,9 +16,14 @@ const mockConfig = {BOOKS: {
 
 jest.doMock('../../../../config', () => mockConfig);
 
-const updateMockHighlight = () => ({
-    id: Math.random().toString(36).substring(7),
-  }) as unknown as SerializedHighlight['data'];
+const updateMockHighlight = () => {
+  const id = Math.random().toString(36).substring(7);
+
+  return {
+    highlight: {color: 'red', note: 'asdf'},
+    id,
+  };
+};
 
 describe('locationChange', () => {
   let store: Store;
