@@ -12,6 +12,12 @@ export const initialState: State = {
   enabled: false,
   highlights: [],
   myHighlightsOpen: false,
+  summary: {
+    chapterCounts: {},
+    filters: {colors: [], chapters: []},
+    highlights: {},
+    loading: false,
+  },
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -20,7 +26,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
     }
     case getType(locationChange): {
-      return {...initialState, enabled: state.enabled, myHighlightsOpen: false};
+      return {...initialState, enabled: state.enabled, myHighlightsOpen: false,
+        summary: {...state.summary, loading: true},
+      };
     }
     case getType(actions.createHighlight): {
       return {...state, highlights: [...state.highlights, action.payload]};
@@ -45,7 +53,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlights): {
-      return {...state, highlights: [...state.highlights, ...action.payload]};
+      return {...state, highlights: [...state.highlights, ...action.payload],
+        summary: {...state.summary, loading: false},
+      };
     }
     case getType(actions.focusHighlight): {
       return {...state, focused: action.payload};
