@@ -116,6 +116,10 @@ function accountsProxy(app) {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,
+    cookieDomainRewrite: "",
+    onProxyReq: (preq, req, res) => {
+      preq.setHeader('host', req.headers.host);
+    }
   }));
 }
 
