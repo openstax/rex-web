@@ -54,7 +54,7 @@ describe('Card', () => {
     } as unknown as HTMLElement;
     store.dispatch(receiveHighlights([
       {
-        style: highlightStyles[0].label,
+        color: highlightStyles[0].label,
         ...highlightData,
       },
     ]));
@@ -128,8 +128,8 @@ describe('Card', () => {
     store.dispatch(receiveHighlights([
       {
         ...highlight.serialize().data,
-        note: 'adsf',
-        style: highlightStyles[0].label,
+        annotation: 'adsf',
+        color: highlightStyles[0].label,
       },
     ]));
 
@@ -148,8 +148,8 @@ describe('Card', () => {
   it('switches to display mode when cancelling', () => {
     const data = {
       ...highlight.serialize().data,
-      note: 'adsf',
-      style: highlightStyles[0].label,
+      annotation: 'adsf',
+      color: highlightStyles[0].label,
     };
     store.dispatch(receiveHighlights([
       data,
@@ -177,8 +177,8 @@ describe('Card', () => {
     store.dispatch(receiveHighlights([
       {
         ...highlight.serialize().data,
-        note: 'adsf',
-        style: highlightStyles[0].label,
+        annotation: 'adsf',
+        color: highlightStyles[0].label,
       },
     ]));
 

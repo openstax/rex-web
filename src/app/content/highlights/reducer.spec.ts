@@ -68,7 +68,7 @@ describe('highlight reducer', () => {
 
   it('updates highlights', () => {
     const mock1 = mockHighlight;
-    const mock2 = {...mockHighlight};
+    const mock2 = {...mockHighlight, annotation: 'asdf'};
     const mock3 = {...mockHighlight, id: 'qwer'};
 
     const state = reducer({
@@ -76,8 +76,8 @@ describe('highlight reducer', () => {
       highlights: [mock1, mock3],
     }, actions.updateHighlight({id: mock2.id, highlight: mock2}));
 
-    expect(state.highlights[0]).not.toBe(mock1);
-    expect(state.highlights[0]).toBe(mock2);
-    expect(state.highlights[1]).toBe(mock3);
+    expect(state.highlights[0]).not.toEqual(mock1);
+    expect(state.highlights[0]).toEqual(mock2);
+    expect(state.highlights[1]).toEqual(mock3);
   });
 });

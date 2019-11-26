@@ -51,21 +51,21 @@ describe('locationChange', () => {
 
   it('noops with no book', () => {
     store.dispatch(receivePage({...page, references: []}));
-    const getHighlightsByPage = jest.spyOn(helpers.highlightClient, 'getHighlightsByPage');
+    const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     hook(payload);
 
-    expect(getHighlightsByPage).not.toHaveBeenCalled();
+    expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('noops with no page', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    const getHighlightsByPage = jest.spyOn(helpers.highlightClient, 'getHighlightsByPage');
+    const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     hook(payload);
 
-    expect(getHighlightsByPage).not.toHaveBeenCalled();
+    expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
   });
 });

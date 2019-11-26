@@ -1,4 +1,3 @@
-import { SerializedHighlight } from '@openstax/highlighter';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
@@ -8,6 +7,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { createHighlight } from '../actions';
+import { HighlightData } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -19,7 +19,7 @@ jest.doMock('../../../../config', () => mockConfig);
 
 const createMockHighlight = () => ({
     id: Math.random().toString(36).substring(7),
-  }) as unknown as SerializedHighlight['data'];
+  }) as Required<HighlightData> ;
 
 describe('locationChange', () => {
   let store: Store;
@@ -44,7 +44,7 @@ describe('locationChange', () => {
 
   it('noops with no book', async() => {
     store.dispatch(receivePage(page));
-    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'createHighlight');
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
 
     await hook(createHighlight(createMockHighlight()));
 
@@ -54,7 +54,7 @@ describe('locationChange', () => {
 
   it('noops with no page', async() => {
     store.dispatch(receiveBook(book));
-    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'createHighlight');
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
 
     await hook(createHighlight(createMockHighlight()));
 
@@ -65,7 +65,7 @@ describe('locationChange', () => {
   it('creates highlight', async() => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
-    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'createHighlight');
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
     const mock = createMockHighlight();
 
     await hook(createHighlight(mock));
