@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
+import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
 import htmlMessage from '../../../components/htmlMessage';
 import Times from '../../../components/Times';
@@ -15,6 +16,7 @@ export const popupPadding = 3.2;
 export const popupBodyPadding = 2.4;
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
+export const headerHeight = 7.2;
 
 export const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -83,6 +85,8 @@ export const Header = styled(H3)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: ${headerHeight}rem;
+  overflow: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -318,11 +322,13 @@ export const HighlightsChapter = styled.div`
 // tslint:disable-next-line:variable-name
 export const ShowMyHighlightsBody = styled(PopupBody)`
   padding: 0;
+  height: calc(100% - ${headerHeight}rem);
+  overflow: scroll;
 `;
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: 0 1.6rem ${popupPadding}rem;
+  margin: 0 ${popupPadding}rem 1.6rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
 `;
 
@@ -372,10 +378,41 @@ export const HighlightNote = styled.div`
   padding-top: 1.2rem;
   display: flex;
   ${highlightStyles.map((style) => css`
-    .highlight.${style.label} & > p {
+    .highlight.${style.label} & > span {
       color: ${style.focused};
       margin: 0 0.8rem 0 0;
       overflow: visible;
     }
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const GoToTopWrapper = styled.div`
+  width: 4.8rem;
+  height: 4.8rem;
+  position: absolute;
+  z-index: 1;
+  bottom: calc(4.8rem + ${popupBodyPadding}rem);
+  right: calc(4.8rem + ${popupBodyPadding}rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+// tslint:disable-next-line:variable-name
+export const GoToTop = styled.div`
+  width: 2.4rem;
+  height: 2.4rem;
+  background: #959595;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+`;
+
+// tslint:disable-next-line:variable-name
+export const GoToTopIcon = styled(AngleUp)`
+  width: 1.6rem;
+  height: 1.6rem;
 `;
