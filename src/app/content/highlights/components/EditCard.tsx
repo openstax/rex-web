@@ -69,10 +69,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     }
   };
 
-  const saveAnnotation = () => {
-    if (data) {
-      onSave({id: data.id, highlight: {color: data.color, annotation: pendingAnnotation}});
-    }
+  const saveAnnotation = (toSave: HighlightData) => {
+    onSave({id: toSave.id, highlight: {color: toSave.color, annotation: pendingAnnotation}});
     onCancel();
   };
 
@@ -104,7 +102,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         setEditing(true);
       }}
     />
-    {editingAnnotation && <ButtonGroup>
+    {editingAnnotation && data && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
           data-testid='save'
@@ -115,10 +113,10 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
             e.preventDefault();
             setEditing(false);
 
-            if (pendingAnnotation === '' && data && data.annotation) {
+            if (pendingAnnotation === '' && data.annotation) {
               setConfirmingDelete(true);
             } else {
-              saveAnnotation();
+              saveAnnotation(data);
             }
           }}
         >{msg}</Button>}
@@ -135,12 +133,12 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         >{msg}</Button>}
       </FormattedMessage>
     </ButtonGroup>}
-    {confirmingDelete && <Confirmation
+    {confirmingDelete && data && <Confirmation
       data-testid='confirm-delete'
       data-analytics-region='highlighting-delete-note'
       message='i18n:highlighting:confirmation:delete-note'
       confirmMessage='i18n:highlighting:button:delete'
-      onConfirm={saveAnnotation}
+      onConfirm={() => saveAnnotation(data)}
       onCancel={() => {
         setEditing(true);
         setPendingAnnotation(defaultAnnotation());

@@ -2,12 +2,17 @@ import { Location } from 'history';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
+import mockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import { resetModules } from '../../../../test/utils';
+import { receiveUser } from '../../../auth/actions';
+import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
+import { receiveHighlights } from '../actions';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -66,6 +71,33 @@ describe('locationChange', () => {
     hook(payload);
 
     expect(getHighlights).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('receives highlights', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+    const highlights = [mockHighlight()];
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({data: highlights}));
+
+    await hook(payload);
+
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
+  });
+
+  it('noops on invalid response', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({}));
+
+    await hook(payload);
+
     expect(dispatch).not.toHaveBeenCalled();
   });
 });

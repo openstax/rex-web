@@ -9,7 +9,7 @@ import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { requestSearch } from '../../search/actions';
-import { deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
+import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
 import Card from './Card';
 import DisplayNote from './DisplayNote';
@@ -115,7 +115,7 @@ describe('Card', () => {
   it('unknown style doesn\'t throw', () => {
     store.dispatch(receiveHighlights([
       {
-        style: 'asdfasdfadsf',
+        color: 'asdfasdfadsf',
         ...highlight.serialize().data,
       },
     ]));
@@ -203,6 +203,27 @@ describe('Card', () => {
     picker.props.onRemove();
 
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('creates when DisplayNote calls onCreate', () => {
+    store.dispatch(receiveHighlights([
+      {
+        ...highlight.serialize().data,
+        annotation: '',
+        color: highlightStyles[0].label,
+      },
+    ]));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    const editcard = component.root.findByType(EditCard);
+    renderer.act(() => {
+      editcard.props.onCreate();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight.serialize().getApiPayload()));
   });
 
   it('renders null if highlight doen\'t have range', () => {
