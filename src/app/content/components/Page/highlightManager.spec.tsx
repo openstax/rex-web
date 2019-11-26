@@ -25,6 +25,7 @@ UntypedHighlighter.prototype.highlight = jest.fn();
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
 // tslint:disable-next-line:variable-name
 const SerializedHighlight = UntypedSerializedHighlight as unknown as jest.SpyInstance;
+const fromApiResponse = UntypedSerializedHighlight.fromApiResponse = jest.fn();
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -152,8 +153,8 @@ describe('highlightManager', () => {
 
     update();
 
-    expect(SerializedHighlight).toHaveBeenCalledTimes(1);
-    expect(SerializedHighlight).toHaveBeenCalledWith(mockHighlightData);
+    expect(fromApiResponse).toHaveBeenCalledTimes(1);
+    expect(fromApiResponse).toHaveBeenCalledWith(mockHighlightData);
     expect(highlight).toHaveBeenCalled();
     expect(highlight.mock.calls[0][0]).toBe(SerializedHighlight.mock.instances[0]);
   });

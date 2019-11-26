@@ -70,10 +70,11 @@ describe('locationChange', () => {
 
     await hook(createHighlight(mock));
 
-    expect(createHighlightClient).toHaveBeenCalledWith(
-      expect.objectContaining({id: book.id}),
-      expect.objectContaining({id: page.id}),
-      mock
-    );
+    expect(createHighlightClient).toHaveBeenCalledWith({highlight: {
+      ...mock,
+      scopeId: book.id,
+      sourceId: page.id,
+      sourceType: 'openstax_page',
+    }});
   });
 });
