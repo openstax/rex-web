@@ -6,6 +6,7 @@ import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
+import Loader from '../../../components/Loader';
 import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
@@ -22,6 +23,7 @@ interface Props {
   loggedOut: boolean;
   loginLink: string;
   highlights: HighlightData[];
+  summaryIsLoading: boolean;
 }
 
 class HighlightsPopUp extends Component<Props> {
@@ -153,9 +155,8 @@ class HighlightsPopUp extends Component<Props> {
                   onClick={() => this.props.closeMyHighlights()}
                 />
               </Styled.Header>
-              {this.props.user
-                ? this.myHighlights()
-                : this.loginForHighlights()}
+              {this.props.summaryIsLoading ? <Loader/> : null }
+              {this.props.user ? this.myHighlights() : this.loginForHighlights()}
             </Styled.Wrapper>
           </Styled.Mask>
         </Styled.Modal>
@@ -177,6 +178,7 @@ export default connect(
     loggedOut: authSelect.loggedOut(state),
     loginLink: authSelect.loginLink(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
+    summaryIsLoading: selectors.summaryIsLoading(state),
     user: authSelect.user(state),
   }),
   (dispatch: Dispatch) => ({

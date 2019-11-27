@@ -1,14 +1,12 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
 import htmlMessage from '../../../components/htmlMessage';
 import Times from '../../../components/Times';
-import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
+import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
-import { highlightStyles } from '../constants';
 import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
@@ -92,7 +90,8 @@ export const Header = styled(H3)`
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
   padding: ${popupBodyPadding}rem ${popupPadding}rem;
-  overflow: visible;
+  height: calc(100% - ${headerHeight}rem);
+  overflow-y: scroll;
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
@@ -305,114 +304,4 @@ export const MyHighlightsImage = styled.img`
   width: ${myHighlightsImageWidth}rem;
   height: ${myHighlightsImageHeight}rem;
   margin-top: ${popupBodyPadding}rem;
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightsChapter = styled.div`
-  ${h4Style}
-  height: 5.6rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  background: ${theme.color.neutral.darker};
-  padding: 0 ${popupPadding}rem;
-  width: 100%;
-`;
-
-// tslint:disable-next-line:variable-name
-export const ShowMyHighlightsBody = styled(PopupBody)`
-  padding: 0;
-  height: calc(100% - ${headerHeight}rem);
-  overflow: scroll;
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightWrapper = styled.div`
-  margin: 0 ${popupPadding}rem 1.6rem;
-  border: solid 0.1rem ${theme.color.neutral.darkest};
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightSection = styled.div`
-  ${labelStyle}
-  padding: 0 ${popupBodyPadding}rem 0 ${popupPadding}rem;
-  background: ${theme.color.neutral.darkest};
-  height: 3.2rem;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightOuterWrapper = styled.div`
-  :not(:last-child) {
-    border-bottom: solid 0.2rem ${theme.color.neutral.darker};
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightContentWrapper = styled.div`
-  padding: 1.2rem ${popupBodyPadding}rem;
-
-  ${highlightStyles.map((style) => css`
-    &.highlight.${style.label} {
-      border-left: solid 0.8rem ${style.focused};
-    }
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightContent = styled.span`
-  ${textRegularStyle}
-  line-height: unset;
-  ${highlightStyles.map((style) => css`
-    .highlight.${style.label} &{
-      background-color: ${style.passive};
-    }
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightNote = styled.div`
-  ${textRegularStyle}
-  padding-top: 1.2rem;
-  display: flex;
-  ${highlightStyles.map((style) => css`
-    .highlight.${style.label} & > span {
-      color: ${style.focused};
-      margin: 0 0.8rem 0 0;
-      overflow: visible;
-    }
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const GoToTopWrapper = styled.div`
-  width: 4.8rem;
-  height: 4.8rem;
-  position: absolute;
-  z-index: 1;
-  bottom: calc(4.8rem + ${popupBodyPadding}rem);
-  right: calc(4.8rem + ${popupBodyPadding}rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-// tslint:disable-next-line:variable-name
-export const GoToTop = styled.div`
-  width: 2.4rem;
-  height: 2.4rem;
-  background: #959595;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-`;
-
-// tslint:disable-next-line:variable-name
-export const GoToTopIcon = styled(AngleUp)`
-  width: 1.6rem;
-  height: 1.6rem;
 `;

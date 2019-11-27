@@ -48,9 +48,10 @@ export default () => {
       }),
     getHighlightsByPage: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>) =>
       new Promise<Array<SerializedHighlight['data']>>((resolve) => {
-        resolve(
-          Object.values(getPageHighlight(book, page).pageHighlights)
-        );
+        console.log('timer');
+        setTimeout(
+          resolve( Object.values(getPageHighlight(book, page).pageHighlights))
+        , 15000);
       }),
     updateHighlight: (book: Pick<Book, 'id'>, page: Pick<Page, 'id'>, highlight: SerializedHighlight['data']) =>
       new Promise((resolve) => {
