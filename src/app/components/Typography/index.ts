@@ -20,7 +20,8 @@ export const decoratedLinkStyle = css`
   cursor: pointer;
   text-decoration: none;
 
-  :hover {
+  :hover,
+  :focus {
     text-decoration: underline;
     color: ${linkHover};
   }

@@ -2,7 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
-import { contentFont } from './Typography';
+import { contentFont, decoratedLinkStyle, linkStyle } from './Typography';
+import { textStyle } from './Typography/base';
 
 const applyColor = (color: ColorSet) => `
 
@@ -95,6 +96,21 @@ export const ButtonGroup = styled.div`
   `}
   grid-auto-flow: column;
   grid-gap: 1rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const PlainButton = styled.button`
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+`;
+
+// tslint:disable-next-line:variable-name
+export const ButtonLink = styled(PlainButton)`
+  outline: none;
+  ${textStyle}
+  ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
 `;
 
 export default Button;
