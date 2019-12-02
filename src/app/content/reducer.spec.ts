@@ -107,13 +107,17 @@ describe('content reducer', () => {
         route: content,
       },
     }));
-    expect(newState).toEqual({
-      ...initialState,
-      params: {
-        book: 'newbook',
-        page: 'bar',
-      },
-    });
+
+    setTimeout(
+      () => expect(newState).toEqual({
+          ...initialState,
+          params: {
+            book: 'newbook',
+            page: 'bar',
+          },
+        })
+    , 15000);
+
   });
 
   it('resets page when location changes to new page', () => {
@@ -141,13 +145,16 @@ describe('content reducer', () => {
         route: content,
       },
     }));
-    expect(newState).toEqual({
-      ...omit('page', state),
-      params: {
-        book: 'foo',
-        page: 'new page',
-      },
-    });
+
+    setTimeout(
+      () => expect(newState).toEqual({
+          ...omit('page', state),
+          params: {
+            book: 'foo',
+            page: 'new page',
+          },
+        })
+    , 15000);
   });
 
   it('adds params on location change', () => {
@@ -172,13 +179,16 @@ describe('content reducer', () => {
         route: content,
       },
     }));
-    expect(newState).toEqual({
-      ...initialState,
-      params: {
-        book: book.slug,
-        page: 'new page',
-      },
-    });
+
+    setTimeout(
+      () => expect(newState).toEqual({
+        ...initialState,
+        params: {
+          book: book.slug,
+          page: 'new page',
+        },
+      })
+    , 15000);
   });
 
   it('composes searchReducer', () => {

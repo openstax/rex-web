@@ -1,6 +1,7 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import OnScroll, { OnScrollCallback } from '../../../components/OnScroll';
+import OnScroll from '../../../components/OnScroll';
 import { isHtmlElement } from '../../../guards';
 import { AppState } from '../../../types';
 import * as selectors from '../selectors';
@@ -14,35 +15,49 @@ interface Props {
 class ShowMyHighlights extends Component<Props, {scrollTransition: boolean}> {
   public myHighlightsBodyRef = React.createRef<HTMLElement>();
 
-  public state = { scrollTransition: false};
+  public state = { scrollTransition: false };
+
+  private scrollHandler: (() => void) | undefined;
 
   public scrollTop = () => {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
-    if (!window || !highlightsBodyRef) {
+    if (!highlightsBodyRef) {
       return;
     }
 
-    if (isHtmlElement(highlightsBodyRef)) {
-      highlightsBodyRef.scroll({top: 0, left: 0, behavior: 'smooth' });
+    highlightsBodyRef.scrollTop = 0;
+
+  };
+
+  public showGoToTop = (bodyElement: HTMLElement) => () => {
+    if ( bodyElement.scrollTop > 0) {
+      this.setState({scrollTransition: true});
+    } else {
+      this.setState({scrollTransition: false});
     }
   };
 
-  public showGoToTop: OnScrollCallback = () => {
-    console.log('works');
+  public componentDidMount() {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
-    if (!window || !highlightsBodyRef) {
-      return;
+    if (isHtmlElement(highlightsBodyRef)) {
+      this.scrollHandler = this.showGoToTop(highlightsBodyRef);
+      highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
     }
+  }
 
-    this.setState({scrollTransition: true});
-    console.log(this.state.scrollTransition);
-  };
+  public componentWillUnmount() {
+    const highlightsBodyRef = this.myHighlightsBodyRef.current;
+
+    if (this.scrollHandler && isHtmlElement(highlightsBodyRef)) {
+      highlightsBodyRef.removeEventListener('scroll', this.scrollHandler);
+    }
+  }
 
   public render() {
-    return (<OnScroll callback={this.showGoToTop}>
-      <Styled.ShowMyHighlightsBody ref={this.myHighlightsBodyRef}>
+    return (<Styled.ShowMyHighlightsBody ref={this.myHighlightsBodyRef} data-testid='show-myhighlights-body'>
+      <OnScroll callback={this.scrollHandler}/>
         <Styled.HighlightsChapter>2. Kinematics</Styled.HighlightsChapter>
         <Styled.HighlightWrapper>
           <Styled.HighlightSection>2.1 Displacement</Styled.HighlightSection>
@@ -57,11 +72,12 @@ class ShowMyHighlights extends Component<Props, {scrollTransition: boolean}> {
             </Styled.HighlightOuterWrapper>; })
           }
         </Styled.HighlightWrapper>
-        <Styled.GoToTopWrapper onClick={this.scrollTop}>
+          { this.state.scrollTransition &&
+            <Styled.GoToTopWrapper onClick={this.scrollTop} data-testid='back-to-top-highlights'>
           <Styled.GoToTop><Styled.GoToTopIcon/></Styled.GoToTop>
-        </Styled.GoToTopWrapper>
+        </Styled.GoToTopWrapper> }
       </Styled.ShowMyHighlightsBody>
-    </OnScroll>);
+    );
   }
 }
 

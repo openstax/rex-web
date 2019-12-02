@@ -1,7 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
+import createMockHighlight from '../../../../test/mocks/highlight';
+import { renderToDom } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
@@ -9,14 +13,19 @@ import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
-import { closeMyHighlights, openMyHighlights } from '../actions';
-import { highlightingFeatureFlag } from '../constants';
+import { closeMyHighlights, openMyHighlights, receiveHighlights } from '../actions';
+import { highlightingFeatureFlag, highlightStyles } from '../constants';
+import { highlights } from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
+  let highlight1: ReturnType<typeof createMockHighlight>;
+  let highlight2: ReturnType<typeof createMockHighlight>;
+  let highlightData1: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
+  let highlightData2: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
 
   beforeEach(() => {
     store = createTestStore();
@@ -25,6 +34,10 @@ describe('MyHighlights button and PopUp', () => {
     store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
+    highlight1 = createMockHighlight('asdf');
+    highlight2 = createMockHighlight('lkjh');
+    highlightData1 = highlight1.serialize().data;
+    highlightData2 = highlight2.serialize().data;
   });
 
   it('opens highlights pop up in "not logged in" state', () => {
@@ -96,4 +109,150 @@ describe('MyHighlights button and PopUp', () => {
 
     expect(focus).toHaveBeenCalled();
   });
+
+  it('opens highlights pop up with user Highlights', async() => {
+    act(() => {
+      store.dispatch(receiveUser(user));
+      store.dispatch(receiveHighlights([
+        {
+          ...highlight1.serialize().data,
+          note: 'adsf',
+          style: highlightStyles[0].label,
+        },
+        {
+          ...highlight2.serialize().data,
+        },
+      ]));
+    });
+
+    expect(highlights(store.getState()).length).toBeGreaterThan(0);
+
+    renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp></HighlightsPopUp>
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+  });
+
+  it('shows back to top button on scroll and works on click', async() => {
+    let backToTop: HTMLElement | null;
+
+    act(() => {
+      store.dispatch(receiveUser(user));
+      store.dispatch(receiveHighlights([
+        {
+          ...highlight1.serialize().data,
+          note: 'adsf',
+          style: highlightStyles[0].label,
+        },
+        {
+          ...highlight2.serialize().data,
+        },
+      ]));
+    });
+
+    const {root} = renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp></HighlightsPopUp>
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    const target = root.querySelector('[data-testid="show-myhighlights-body"]');
+
+    expect(target).toBeTruthy();
+
+    Object.defineProperty(target, 'height', { value: 1000 });
+    Object.defineProperty(target, 'scrollTop', { value: 10, writable: true });
+
+    if (!window || !target) {
+      return;
+    }
+
+    const scrollEvent = window.document.createEvent('UIEvents');
+    scrollEvent.initEvent('scroll', true, false);
+    renderer.act(() => {
+      target.dispatchEvent(scrollEvent);
+    });
+
+    backToTop = root.querySelector('[data-testid="back-to-top-highlights"]');
+    expect(backToTop).toBeTruthy();
+
+    if (!backToTop) {
+      return;
+    }
+
+    ReactTestUtils.Simulate.click(backToTop);
+    renderer.act(() => {
+      target.dispatchEvent(scrollEvent);
+    });
+
+    backToTop = root.querySelector('[data-testid="back-to-top-highlights"]');
+    expect(backToTop).not.toBeTruthy();
+  });
+
+  it('removes scroll listener on unmount', () => {
+    let backToTop: HTMLElement | null;
+
+    act(() => {
+      store.dispatch(receiveUser(user));
+      store.dispatch(receiveHighlights([
+        {
+          ...highlight1.serialize().data,
+          note: 'adsf',
+          style: highlightStyles[0].label,
+        },
+        {
+          ...highlight2.serialize().data,
+        },
+      ]));
+    });
+
+    const {root} = renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp></HighlightsPopUp>
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    const target = root.querySelector('[data-testid="show-myhighlights-body"]');
+
+    expect(target).toBeTruthy();
+
+    Object.defineProperty(target, 'height', { value: 1000 });
+    Object.defineProperty(target, 'scrollTop', { value: 10, writable: true });
+
+    if (!window || !target) {
+      return;
+    }
+
+    const scrollEvent = window.document.createEvent('UIEvents');
+    scrollEvent.initEvent('scroll', true, false);
+    renderer.act(() => {
+      target.dispatchEvent(scrollEvent);
+    });
+
+    backToTop = root.querySelector('[data-testid="back-to-top-highlights"]');
+    expect(backToTop).toBeTruthy();
+
+    if (!backToTop) {
+      return;
+    }
+
+    ReactDOM.unmountComponentAtNode(root);
+    ReactTestUtils.Simulate.click(backToTop);
+    renderer.act(() => {
+      target.dispatchEvent(scrollEvent);
+    });
+
+    backToTop = root.querySelector('[data-testid="back-to-top-highlights"]');
+    expect(backToTop).not.toBeTruthy();
+
+  });
+
 });

@@ -155,8 +155,10 @@ class HighlightsPopUp extends Component<Props> {
                   onClick={() => this.props.closeMyHighlights()}
                 />
               </Styled.Header>
-              {this.props.summaryIsLoading ? <Loader/> : null }
-              {this.props.user ? this.myHighlights() : this.loginForHighlights()}
+              { this.props.summaryIsLoading ?
+                <Loader/>
+                : (this.props.user ? this.myHighlights() : this.loginForHighlights())
+              }
             </Styled.Wrapper>
           </Styled.Mask>
         </Styled.Modal>
