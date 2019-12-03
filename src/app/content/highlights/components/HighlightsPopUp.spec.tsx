@@ -11,11 +11,14 @@ import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
+import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
+import { assertWindow } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
+import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights, receiveHighlights } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
-import { highlights } from '../selectors';
+import { highlights, summaryIsLoading } from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
 
 describe('MyHighlights button and PopUp', () => {
@@ -24,8 +27,6 @@ describe('MyHighlights button and PopUp', () => {
   let user: User;
   let highlight1: ReturnType<typeof createMockHighlight>;
   let highlight2: ReturnType<typeof createMockHighlight>;
-  let highlightData1: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
-  let highlightData2: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
 
   beforeEach(() => {
     store = createTestStore();
@@ -36,8 +37,6 @@ describe('MyHighlights button and PopUp', () => {
     dispatch = jest.spyOn(store, 'dispatch');
     highlight1 = createMockHighlight('asdf');
     highlight2 = createMockHighlight('lkjh');
-    highlightData1 = highlight1.serialize().data;
-    highlightData2 = highlight2.serialize().data;
   });
 
   it('opens highlights pop up in "not logged in" state', () => {
@@ -252,7 +251,62 @@ describe('MyHighlights button and PopUp', () => {
 
     backToTop = root.querySelector('[data-testid="back-to-top-highlights"]');
     expect(backToTop).not.toBeTruthy();
+  });
 
+  it('unmounts without refs', async() => {
+    act(() => {
+      store.dispatch(receiveUser(user));
+      store.dispatch(receiveHighlights([
+        {
+          ...highlight1.serialize().data,
+          note: 'adsf',
+          style: highlightStyles[0].label,
+        },
+        {
+          ...highlight2.serialize().data,
+        },
+      ]));
+    });
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(() => component.unmount()).not.toThrow();
+  });
+
+  it('renders loader', async() => {
+    act(() => {
+      store.dispatch(receiveUser(user));
+    });
+
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        state: {},
+      },
+      match: {
+        params: {
+          book: 'newbook',
+          page: 'bar',
+        },
+        route: content,
+      },
+    }));
+
+    renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+    expect(summaryIsLoading(store.getState())).toBe(true);
   });
 
 });
