@@ -5,3 +5,4 @@ parametrize = mark.parametrize
 nondestructive = mark.nondestructive
 test_case = pytestrail.case
 mobile_only = mark.mobile_only
+desktop_only = mark.desktop_only

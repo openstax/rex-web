@@ -30,9 +30,12 @@ def selenium(selenium, request):
     Desktop size: 1920x1080
     Mobile size: 738x414 (iPhone 7+)
     """
-    marker = request.node.get_closest_marker("mobile_only")
-    if marker and request.param == DESKTOP:
+    desktop_only = request.node.get_closest_marker("desktop_only")
+    mobile_only = request.node.get_closest_marker("mobile_only")
+    if mobile_only and request.param == DESKTOP:
         pytest.skip("Skipping desktop test")
+    elif desktop_only and request.param == MOBILE:
+        pytest.skip("Skipping mobile test")
     selenium.set_window_size(*request.param)
     return selenium
 
