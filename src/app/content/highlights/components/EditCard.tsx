@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -59,7 +60,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
-  const onColorChange = (color: string) => {
+  const onColorChange = (color: HighlightUpdateColorEnum) => {
     highlight.setStyle(color);
     if (data) {
       onSave({id: data.id, highlight: {color, annotation: data.annotation}});
@@ -70,7 +71,13 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   };
 
   const saveAnnotation = (toSave: HighlightData) => {
-    onSave({id: toSave.id, highlight: {color: toSave.color, annotation: pendingAnnotation}});
+    onSave({
+      highlight: {
+        annotation: pendingAnnotation,
+        color: toSave.color as string as HighlightUpdateColorEnum,
+      },
+      id: toSave.id,
+    });
     onCancel();
   };
 
@@ -94,7 +101,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       note={pendingAnnotation}
       onFocus={() => {
         if (!highlight.getStyle()) {
-          onColorChange(highlightStyles[0].label);
+          onColorChange(highlightStyles[0].label as HighlightUpdateColorEnum);
         }
       }}
       onChange={(newValue) => {

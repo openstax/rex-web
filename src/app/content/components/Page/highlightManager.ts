@@ -7,10 +7,7 @@ import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import {
   clearFocusedHighlight,
-  createHighlight,
-  deleteHighlight,
   focusHighlight,
-  updateHighlight
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import * as selectHighlights from '../../highlights/selectors';
@@ -33,10 +30,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
-  create: flow(createHighlight, dispatch),
   focus: flow(focusHighlight, dispatch),
-  remove: flow(deleteHighlight, dispatch),
-  update: flow(updateHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;

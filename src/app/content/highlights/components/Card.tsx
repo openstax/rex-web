@@ -76,7 +76,7 @@ const Card = (props: Props) => {
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = () => {
-    props.create(props.highlight.serialize().getApiPayload(props.highlighter));
+    props.create(props.highlight.serialize().getApiPayload(props.highlighter, props.highlight));
   };
 
   const commonProps = {

@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -33,7 +34,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         highlights: state.highlights.map((highlight) =>
-          highlight.id === action.payload.id ? {...highlight, ...action.payload.highlight} : highlight
+          highlight.id === action.payload.id ? {
+            ...highlight,
+            ...action.payload.highlight,
+            color: action.payload.highlight.color as string as HighlightColorEnum,
+          } : highlight
         ),
       };
     }
