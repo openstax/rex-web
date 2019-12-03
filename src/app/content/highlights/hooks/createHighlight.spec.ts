@@ -3,11 +3,10 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
-import { MiddlewareAPI, Store } from '../../../types';
+import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { createHighlight } from '../actions';
-import { HighlightData } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -19,7 +18,7 @@ jest.doMock('../../../../config', () => mockConfig);
 
 const createMockHighlight = () => ({
     id: Math.random().toString(36).substring(7),
-  }) as Required<HighlightData> ;
+  }) as FirstArgumentType<typeof createHighlight>;
 
 describe('locationChange', () => {
   let store: Store;

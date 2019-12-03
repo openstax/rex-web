@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -54,7 +55,7 @@ describe('Card', () => {
     } as unknown as HTMLElement;
     store.dispatch(receiveHighlights([
       {
-        color: highlightStyles[0].label,
+        color: highlightStyles[0].label as HighlightColorEnum,
         ...highlightData,
       },
     ]));
@@ -115,7 +116,7 @@ describe('Card', () => {
   it('unknown style doesn\'t throw', () => {
     store.dispatch(receiveHighlights([
       {
-        color: 'asdfasdfadsf',
+        color: 'asdfasdfadsf' as HighlightColorEnum,
         ...highlight.serialize().data,
       },
     ]));
@@ -129,7 +130,7 @@ describe('Card', () => {
       {
         ...highlight.serialize().data,
         annotation: 'adsf',
-        color: highlightStyles[0].label,
+        color: highlightStyles[0].label as HighlightColorEnum,
       },
     ]));
 
@@ -149,7 +150,7 @@ describe('Card', () => {
     const data = {
       ...highlight.serialize().data,
       annotation: 'adsf',
-      color: highlightStyles[0].label,
+      color: highlightStyles[0].label as HighlightColorEnum,
     };
     store.dispatch(receiveHighlights([
       data,
@@ -178,7 +179,7 @@ describe('Card', () => {
       {
         ...highlight.serialize().data,
         annotation: 'adsf',
-        color: highlightStyles[0].label,
+        color: highlightStyles[0].label as HighlightColorEnum,
       },
     ]));
 
@@ -210,7 +211,7 @@ describe('Card', () => {
       {
         ...highlight.serialize().data,
         annotation: '',
-        color: highlightStyles[0].label,
+        color: highlightStyles[0].label as HighlightColorEnum,
       },
     ]));
 

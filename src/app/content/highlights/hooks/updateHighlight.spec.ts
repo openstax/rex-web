@@ -1,3 +1,4 @@
+import { UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
@@ -10,7 +11,7 @@ const updateMockHighlight = () => {
   return {
     highlight: {color: 'red', annotation: 'asdf'},
     id,
-  };
+  } as UpdateHighlightRequest;
 };
 
 describe('locationChange', () => {

@@ -44,14 +44,11 @@ describe('highlightManager', () => {
     element = window.document.createElement('div');
     prop = {
       clearFocus: jest.fn(),
-      create: jest.fn(),
       enabled: true,
       focus: jest.fn(),
       focused: undefined,
       highlights: [],
       page,
-      remove: jest.fn(),
-      update: jest.fn(),
     };
   });
 
