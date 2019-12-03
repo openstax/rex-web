@@ -1646,10 +1646,10 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
-"@openstax/highlighter@1.4.1-fix4":
-  version "1.4.1-fix4"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.4.1-fix4.tgz#abdaba5549678f4d328e30dab85e387dfe422a88"
-  integrity sha512-tMaVKI2rONChgaqAqQE8ydR9id9LIJ88zVpKXBDWnVebfWrsmJtTZUqcSPdaCWjaXzUtH+UzRRXM35SECd8XSA==
+"@openstax/highlighter@1.4.1-fix9":
+  version "1.4.1-fix9"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.4.1-fix9.tgz#ccc67a286301c2256baf0bd541555ac79cd32e04"
+  integrity sha512-wszjIeH57MLt9mAQLOZXhOEvfcMLbx27fRm8JJ8j+JQlbFg+XVtMJjyel41nP5gTMW/h5rt6YX1k5ZHG2Ih6sA==
   dependencies:
     change-case "^4.0.0"
     serialize-selection "^1.1.1"
