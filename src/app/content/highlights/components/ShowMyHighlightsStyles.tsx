@@ -65,6 +65,7 @@ export const HighlightNote = styled.div`
   ${textRegularStyle}
   padding-top: 1.2rem;
   display: flex;
+
   span {
     margin: 0 0.8rem 0 0;
     overflow: visible;
