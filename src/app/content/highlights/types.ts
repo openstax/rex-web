@@ -6,5 +6,5 @@ export interface State {
   myHighlightsOpen: boolean;
   enabled: boolean;
   focused?: string;
-  highlights: HighlightData[];
+  highlights: null | HighlightData[];
 }

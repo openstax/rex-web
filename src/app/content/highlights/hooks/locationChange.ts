@@ -1,16 +1,17 @@
 import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { user } from '../../../auth/selectors';
-import { RouteHookBody } from '../../../navigation/types';
-import { content } from '../../routes';
+import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
+import * as select from '../selectors';
 
-const hookBody: RouteHookBody<typeof content> = ({dispatch, getState, highlightClient}) => async() => {
+const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServices) => async() => {
   const state = getState();
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
+  const loaded = select.highlightsLoaded(state);
 
-  if (!authenticated || !book || !page || typeof(window) === 'undefined') {
+  if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
     return;
   }
 

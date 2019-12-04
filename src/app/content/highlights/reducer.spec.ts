@@ -54,6 +54,10 @@ describe('highlight reducer', () => {
 
   it('creates highlights', () => {
     const state = reducer(undefined, actions.createHighlight(mockHighlight as any));
+
+    if (!(state.highlights instanceof Array)) {
+      return expect(state.highlights).toBe(expect.any(Array));
+    }
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
   });
@@ -63,6 +67,11 @@ describe('highlight reducer', () => {
       ...initialState,
       highlights: [mockHighlight],
     }, actions.deleteHighlight(mockHighlight.id));
+
+    if (!(state.highlights instanceof Array)) {
+      return expect(state.highlights).toBe(expect.any(Array));
+    }
+
     expect(state.highlights.length).toEqual(0);
   });
 
@@ -74,6 +83,10 @@ describe('highlight reducer', () => {
       ...initialState,
       highlights: [mock1, mock3],
     }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}));
+
+    if (!(state.highlights instanceof Array)) {
+      return expect(state.highlights).toBe(expect.any(Array));
+    }
 
     expect(state.highlights[0].annotation).toEqual('asdf');
     expect(state.highlights[1]).toEqual(mock3);

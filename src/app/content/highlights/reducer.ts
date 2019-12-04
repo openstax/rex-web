@@ -11,7 +11,7 @@ import { State } from './types';
 
 export const initialState: State = {
   enabled: false,
-  highlights: [],
+  highlights: null,
   myHighlightsOpen: false,
 };
 
@@ -24,13 +24,17 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...initialState, enabled: state.enabled, myHighlightsOpen: false};
     }
     case getType(actions.createHighlight): {
-      return {...state, highlights: [...state.highlights, action.payload]};
+      return {...state, highlights: [...state.highlights || [], action.payload]};
     }
     case getType(actions.openMyHighlights):
       return {...state, myHighlightsOpen: true};
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
+      if (!state.highlights) {
+        return state;
+      }
+
       return {
         ...state,
         highlights: state.highlights.map((highlight) =>
@@ -43,6 +47,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.deleteHighlight): {
+      if (!state.highlights) {
+        return state;
+      }
+
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
@@ -50,7 +58,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlights): {
-      return {...state, highlights: [...state.highlights, ...action.payload]};
+      return {...state, highlights: [...state.highlights || [], ...action.payload]};
     }
     case getType(actions.focusHighlight): {
       return {...state, focused: action.payload};

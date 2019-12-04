@@ -1,4 +1,3 @@
-import { Location } from 'history';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -10,7 +9,6 @@ import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
 import { receiveHighlights } from '../actions';
 
@@ -25,7 +23,6 @@ describe('locationChange', () => {
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./locationChange').default>;
-  let payload: Parameters<typeof hook>[0];
 
   beforeEach(() => {
     resetModules();
@@ -39,18 +36,6 @@ describe('locationChange', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    payload = {
-      action: 'PUSH',
-      location: {} as Location,
-      match: {
-        params: {
-          book: 'book-slug-1',
-          page: 'test-page-1',
-        },
-        route: routes.content,
-      },
-    };
-
     hook = (require('./locationChange').default)(helpers);
   });
 
@@ -58,7 +43,7 @@ describe('locationChange', () => {
     store.dispatch(receivePage({...page, references: []}));
     const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-    hook(payload);
+    hook();
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -68,7 +53,7 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-    hook(payload);
+    hook();
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -83,7 +68,7 @@ describe('locationChange', () => {
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({data: highlights}));
 
-    await hook(payload);
+    await hook();
 
     expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
   });
@@ -96,7 +81,7 @@ describe('locationChange', () => {
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
 
-    await hook(payload);
+    await hook();
 
     expect(dispatch).not.toHaveBeenCalled();
   });

@@ -7,7 +7,7 @@ import resolveContent from './resolveContent';
 const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
   await resolveContent(services, action.match);
   const search = syncSearch(services)(action);
-  const highlights = loadHighlights(services)(action);
+  const highlights = loadHighlights(services)();
 
   await Promise.all([search, highlights]);
 };
