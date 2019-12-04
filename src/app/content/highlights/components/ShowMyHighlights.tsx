@@ -1,7 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import OnScroll from '../../../components/OnScroll';
 import { isHtmlElement } from '../../../guards';
 import { AppState } from '../../../types';
 import * as selectors from '../selectors';
@@ -12,14 +11,14 @@ interface Props {
   highlights: HighlightData[];
 }
 
-class ShowMyHighlights extends Component<Props, {scrollTransition: boolean}> {
+class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
   public myHighlightsBodyRef = React.createRef<HTMLElement>();
 
-  public state = { scrollTransition: false };
+  public state = { showGoToTop: false };
 
   private scrollHandler: (() => void) | undefined;
 
-  public scrollTop = () => {
+  public scrollToTop = () => {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
     if (!highlightsBodyRef) {
@@ -27,14 +26,13 @@ class ShowMyHighlights extends Component<Props, {scrollTransition: boolean}> {
     }
 
     highlightsBodyRef.scrollTop = 0;
-
   };
 
-  public showGoToTop = (bodyElement: HTMLElement) => () => {
-    if ( bodyElement.scrollTop > 0) {
-      this.setState({scrollTransition: true});
+  public updateGoToTop = (bodyElement: HTMLElement) => () => {
+    if (bodyElement.scrollTop > 0) {
+      this.setState({ showGoToTop: true });
     } else {
-      this.setState({scrollTransition: false});
+      this.setState({ showGoToTop: false });
     }
   };
 
@@ -42,7 +40,7 @@ class ShowMyHighlights extends Component<Props, {scrollTransition: boolean}> {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
     if (isHtmlElement(highlightsBodyRef)) {
-      this.scrollHandler = this.showGoToTop(highlightsBodyRef);
+      this.scrollHandler = this.updateGoToTop(highlightsBodyRef);
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
     }
   }
@@ -56,33 +54,46 @@ class ShowMyHighlights extends Component<Props, {scrollTransition: boolean}> {
   }
 
   public render() {
-    return (<Styled.ShowMyHighlightsBody ref={this.myHighlightsBodyRef} data-testid='show-myhighlights-body'>
-      <OnScroll callback={this.scrollHandler}/>
+    return (
+      <Styled.ShowMyHighlightsBody
+        ref={this.myHighlightsBodyRef}
+        data-testid='show-myhighlights-body'
+      >
         <Styled.HighlightsChapter>2. Kinematics</Styled.HighlightsChapter>
         <Styled.HighlightWrapper>
           <Styled.HighlightSection>2.1 Displacement</Styled.HighlightSection>
-          { this.props.highlights.map((item) => {
-            return <Styled.HighlightOuterWrapper key={item.id}>
-              <Styled.HighlightContentWrapper color={item.style}>
-                <Styled.HighlightContent
-                  dangerouslySetInnerHTML={{__html: item.content}}
-                />
-                { item.note ? <Styled.HighlightNote><span>Note:</span> {item.note}</Styled.HighlightNote> : null }
-              </Styled.HighlightContentWrapper>
-            </Styled.HighlightOuterWrapper>; })
-          }
+          {this.props.highlights.map((item) => {
+            return (
+              <Styled.HighlightOuterWrapper key={item.id}>
+                <Styled.HighlightContentWrapper color={item.style}>
+                  <Styled.HighlightContent
+                    dangerouslySetInnerHTML={{ __html: item.content }}
+                  />
+                  {item.note ? (
+                    <Styled.HighlightNote>
+                      <span>Note:</span> {item.note}
+                    </Styled.HighlightNote>
+                  ) : null}
+                </Styled.HighlightContentWrapper>
+              </Styled.HighlightOuterWrapper>
+            );
+          })}
         </Styled.HighlightWrapper>
-          { this.state.scrollTransition &&
-            <Styled.GoToTopWrapper onClick={this.scrollTop} data-testid='back-to-top-highlights'>
-          <Styled.GoToTop><Styled.GoToTopIcon/></Styled.GoToTop>
-        </Styled.GoToTopWrapper> }
+        {this.state.showGoToTop && (
+          <Styled.GoToTopWrapper
+            onClick={this.scrollToTop}
+            data-testid='back-to-top-highlights'
+          >
+            <Styled.GoToTop>
+              <Styled.GoToTopIcon />
+            </Styled.GoToTop>
+          </Styled.GoToTopWrapper>
+        )}
       </Styled.ShowMyHighlightsBody>
     );
   }
 }
 
-export default connect(
-  (state: AppState) => ({
-    highlights: selectors.highlights(state),
-  })
-)(ShowMyHighlights);
+export default connect((state: AppState) => ({
+  highlights: selectors.highlights(state),
+}))(ShowMyHighlights);

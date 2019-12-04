@@ -11,6 +11,7 @@ import searchReducer from './search/reducer';
 import { formatBookData } from './utils';
 
 jest.mock('./search/reducer', () => jest.fn((state: any) => state));
+jest.mock('./highlights/reducer', () => jest.fn((state: any) => state));
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -108,15 +109,13 @@ describe('content reducer', () => {
       },
     }));
 
-    setTimeout(
-      () => expect(newState).toEqual({
-          ...initialState,
-          params: {
-            book: 'newbook',
-            page: 'bar',
-          },
-        })
-    , 15000);
+    expect(newState).toEqual({
+      ...initialState,
+      params: {
+        book: 'newbook',
+        page: 'bar',
+      },
+    });
 
   });
 
@@ -146,15 +145,13 @@ describe('content reducer', () => {
       },
     }));
 
-    setTimeout(
-      () => expect(newState).toEqual({
-          ...omit('page', state),
-          params: {
-            book: 'foo',
-            page: 'new page',
-          },
-        })
-    , 15000);
+    expect(newState).toEqual({
+      ...omit('page', state),
+      params: {
+        book: 'foo',
+        page: 'new page',
+      },
+    });
   });
 
   it('adds params on location change', () => {
@@ -180,15 +177,13 @@ describe('content reducer', () => {
       },
     }));
 
-    setTimeout(
-      () => expect(newState).toEqual({
-        ...initialState,
-        params: {
-          book: book.slug,
-          page: 'new page',
-        },
-      })
-    , 15000);
+    expect(newState).toEqual({
+      ...initialState,
+      params: {
+        book: book.slug,
+        page: 'new page',
+      },
+    });
   });
 
   it('composes searchReducer', () => {
