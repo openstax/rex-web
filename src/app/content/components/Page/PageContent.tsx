@@ -45,7 +45,8 @@ export default styled(MainContent)`
     }
   }
 
-  .MathJax_Display .highlight {
+  .MathJax_Display .highlight,
+  .MathJax_Preview + .highlight {
     display: inline-block;
   }
 
