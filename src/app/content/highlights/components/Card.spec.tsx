@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -9,7 +10,7 @@ import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { requestSearch } from '../../search/actions';
-import { deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
+import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
 import Card from './Card';
 import DisplayNote from './DisplayNote';
@@ -54,7 +55,7 @@ describe('Card', () => {
     } as unknown as HTMLElement;
     store.dispatch(receiveHighlights([
       {
-        style: highlightStyles[0].label,
+        color: highlightStyles[0].label,
         ...highlightData,
       },
     ]));
@@ -115,7 +116,7 @@ describe('Card', () => {
   it('unknown style doesn\'t throw', () => {
     store.dispatch(receiveHighlights([
       {
-        style: 'asdfasdfadsf',
+        color: 'asdfasdfadsf' as HighlightColorEnum,
         ...highlight.serialize().data,
       },
     ]));
@@ -128,8 +129,8 @@ describe('Card', () => {
     store.dispatch(receiveHighlights([
       {
         ...highlight.serialize().data,
-        note: 'adsf',
-        style: highlightStyles[0].label,
+        annotation: 'adsf',
+        color: highlightStyles[0].label,
       },
     ]));
 
@@ -148,8 +149,8 @@ describe('Card', () => {
   it('switches to display mode when cancelling', () => {
     const data = {
       ...highlight.serialize().data,
-      note: 'adsf',
-      style: highlightStyles[0].label,
+      annotation: 'adsf',
+      color: highlightStyles[0].label,
     };
     store.dispatch(receiveHighlights([
       data,
@@ -177,8 +178,8 @@ describe('Card', () => {
     store.dispatch(receiveHighlights([
       {
         ...highlight.serialize().data,
-        note: 'adsf',
-        style: highlightStyles[0].label,
+        annotation: 'adsf',
+        color: highlightStyles[0].label,
       },
     ]));
 
@@ -203,6 +204,27 @@ describe('Card', () => {
     picker.props.onRemove();
 
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('creates when DisplayNote calls onCreate', () => {
+    store.dispatch(receiveHighlights([
+      {
+        ...highlight.serialize().data,
+        annotation: '',
+        color: highlightStyles[0].label,
+      },
+    ]));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    const editcard = component.root.findByType(EditCard);
+    renderer.act(() => {
+      editcard.props.onCreate();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight.serialize().getApiPayload()));
   });
 
   it('renders null if highlight doen\'t have range', () => {

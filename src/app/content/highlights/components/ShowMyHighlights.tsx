@@ -65,13 +65,13 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
           {this.props.highlights.map((item) => {
             return (
               <Styled.HighlightOuterWrapper key={item.id}>
-                <Styled.HighlightContentWrapper color={item.style}>
+                <Styled.HighlightContentWrapper color={item.color}>
                   <Styled.HighlightContent
-                    dangerouslySetInnerHTML={{ __html: item.content }}
+                    dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
                   />
-                  {item.note ? (
+                  {item.annotation ? (
                     <Styled.HighlightNote>
-                      <span>Note:</span> {item.note}
+                      <span>Note:</span> {item.annotation}
                     </Styled.HighlightNote>
                   ) : null}
                 </Styled.HighlightContentWrapper>
