@@ -1,5 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -60,10 +61,16 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
-  const onColorChange = (color: HighlightUpdateColorEnum) => {
+  const onColorChange = (color: HighlightColorEnum) => {
     highlight.setStyle(color);
     if (data) {
-      onSave({id: data.id, highlight: {color, annotation: data.annotation}});
+      onSave({
+        highlight: {
+          annotation: data.annotation,
+          color: color as string as HighlightUpdateColorEnum,
+        },
+        id: data.id,
+      });
     } else {
       assertWindow().getSelection().removeAllRanges();
       onCreate();
@@ -101,7 +108,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       note={pendingAnnotation}
       onFocus={() => {
         if (!highlight.getStyle()) {
-          onColorChange(highlightStyles[0].label as HighlightUpdateColorEnum);
+          onColorChange(highlightStyles[0].label);
         }
       }}
       onChange={(newValue) => {

@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
@@ -15,7 +16,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
   const allColors = highlightStyles.map((style) => style.label);
-  const [selectedColors, setSelectedColors] = React.useState<string[]>(allColors);
+  const [selectedColors, setSelectedColors] = React.useState<HighlightColorEnum[]>(allColors);
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone

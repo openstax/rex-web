@@ -55,7 +55,7 @@ describe('Card', () => {
     } as unknown as HTMLElement;
     store.dispatch(receiveHighlights([
       {
-        color: highlightStyles[0].label as HighlightColorEnum,
+        color: highlightStyles[0].label,
         ...highlightData,
       },
     ]));
@@ -130,7 +130,7 @@ describe('Card', () => {
       {
         ...highlight.serialize().data,
         annotation: 'adsf',
-        color: highlightStyles[0].label as HighlightColorEnum,
+        color: highlightStyles[0].label,
       },
     ]));
 
@@ -150,7 +150,7 @@ describe('Card', () => {
     const data = {
       ...highlight.serialize().data,
       annotation: 'adsf',
-      color: highlightStyles[0].label as HighlightColorEnum,
+      color: highlightStyles[0].label,
     };
     store.dispatch(receiveHighlights([
       data,
@@ -179,7 +179,7 @@ describe('Card', () => {
       {
         ...highlight.serialize().data,
         annotation: 'adsf',
-        color: highlightStyles[0].label as HighlightColorEnum,
+        color: highlightStyles[0].label,
       },
     ]));
 
@@ -211,7 +211,7 @@ describe('Card', () => {
       {
         ...highlight.serialize().data,
         annotation: '',
-        color: highlightStyles[0].label as HighlightColorEnum,
+        color: highlightStyles[0].label,
       },
     ]));
 
