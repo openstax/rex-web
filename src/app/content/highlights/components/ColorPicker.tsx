@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
@@ -13,7 +14,7 @@ interface SingleSelectProps {
 }
 
 interface MultipleSelectProps {
-  selected: string[];
+  selected: HighlightColorEnum[];
   onChange: (selected: string[]) => void;
   multiple: true;
 }

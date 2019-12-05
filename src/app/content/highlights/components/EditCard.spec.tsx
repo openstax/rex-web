@@ -26,7 +26,7 @@ describe('EditCard', () => {
 
   it('matches snapshot when focused', () => {
     const data = {
-      style: highlightStyles[0].label,
+      color: highlightStyles[0].label,
       ...highlightData,
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
@@ -74,7 +74,7 @@ describe('EditCard', () => {
     const onRemove = jest.fn();
     const data = {
       ...highlightData,
-      note: '',
+      annotation: '',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
@@ -97,7 +97,7 @@ describe('EditCard', () => {
     const onRemove = jest.fn();
     const data = {
       ...highlightData,
-      note: 'asdf',
+      annotation: 'asdf',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
@@ -116,7 +116,7 @@ describe('EditCard', () => {
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
-      note: '',
+      annotation: '',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
@@ -142,7 +142,7 @@ describe('EditCard', () => {
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
-      note: 'qwer',
+      annotation: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
@@ -179,6 +179,7 @@ describe('EditCard', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
         highlight={highlight as unknown as Highlight}
+        data={highlightData}
         onCancel={() => null}
         onSave={save}
         onBlur={blur}
@@ -197,7 +198,10 @@ describe('EditCard', () => {
       saveButton.props.onClick({preventDefault: jest.fn()});
     });
 
-    expect(save).toHaveBeenCalledWith({...highlightData, note: 'asdf'});
+    expect(save).toHaveBeenCalledWith({
+      highlight: {color: highlightData.style, annotation: 'asdf'},
+      id: highlightData.id,
+    });
     expect(blur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
   });
@@ -206,7 +210,7 @@ describe('EditCard', () => {
     const save = jest.fn();
     const data = {
       ...highlightData,
-      note: 'qwer',
+      annotation: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
@@ -231,7 +235,7 @@ describe('EditCard', () => {
     const blur = jest.fn();
     const data = {
       ...highlightData,
-      note: 'qwer',
+      annotation: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
@@ -261,7 +265,10 @@ describe('EditCard', () => {
     });
 
     expect(() => findByTestId('confirm-delete')).toThrow();
-    expect(save).toHaveBeenCalledWith({...highlightData, note: ''});
+    expect(save).toHaveBeenCalledWith({
+      highlight: {color: highlightData.style, annotation: ''},
+      id: highlightData.id,
+    });
     expect(blur).not.toHaveBeenCalled();
   });
 
@@ -270,7 +277,7 @@ describe('EditCard', () => {
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
-      note: 'qwer',
+      annotation: 'qwer',
     };
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
@@ -310,7 +317,10 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(save).toHaveBeenCalledWith({...highlightData, style: 'blue'});
+    expect(save).toHaveBeenCalledWith({
+      highlight: {annotation: highlightData.annotation, color: 'blue'},
+      id: highlightData.id,
+    });
   });
 
   it('creates when changing color on a new highlight', () => {
@@ -325,7 +335,7 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(create).toHaveBeenCalledWith(highlightData);
+    expect(create).toHaveBeenCalled();
   });
 
   it('sets color and creates when you focus', () => {
@@ -344,7 +354,7 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
-    expect(create).toHaveBeenCalledWith(highlightData);
+    expect(create).toHaveBeenCalled();
   });
 
   it('focusing an existing note does nothing', () => {
