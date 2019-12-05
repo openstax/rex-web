@@ -45,8 +45,8 @@ describe('MyHighlights button and PopUp', () => {
       store.dispatch(receiveHighlights([
         {
           ...highlight1.serialize().data,
-          note: 'adsf',
-          style: highlightStyles[0].label,
+          annotation: 'adsf',
+          color: highlightStyles[0].label,
         },
         {
           ...highlight2.serialize().data,
@@ -92,8 +92,8 @@ describe('MyHighlights button and PopUp', () => {
       store.dispatch(receiveHighlights([
         {
           ...highlight1.serialize().data,
-          note: 'adsf',
-          style: highlightStyles[0].label,
+          annotation: 'adsf',
+          color: highlightStyles[0].label,
         },
         {
           ...highlight2.serialize().data,
@@ -149,8 +149,8 @@ describe('MyHighlights button and PopUp', () => {
       store.dispatch(receiveHighlights([
         {
           ...highlight1.serialize().data,
-          note: 'adsf',
-          style: highlightStyles[0].label,
+          annotation: 'adsf',
+          color: highlightStyles[0].label,
         },
         {
           ...highlight2.serialize().data,
@@ -205,8 +205,8 @@ describe('MyHighlights button and PopUp', () => {
       store.dispatch(receiveHighlights([
         {
           ...highlight1.serialize().data,
-          note: 'adsf',
-          style: highlightStyles[0].label,
+          annotation: 'adsf',
+          color: highlightStyles[0].label,
         },
         {
           ...highlight2.serialize().data,
