@@ -62,33 +62,55 @@ describe('highlight reducer', () => {
     expect(state.highlights[0].id).toEqual('asdf');
   });
 
-  it('removes highlights', () => {
-    const state = reducer({
-      ...initialState,
-      highlights: [mockHighlight],
-    }, actions.deleteHighlight(mockHighlight.id));
+  describe('deleteHighlight', () => {
 
-    if (!(state.highlights instanceof Array)) {
-      return expect(state.highlights).toBe(expect.any(Array));
-    }
+    it('noops with no highlights', () => {
+      const state = reducer({
+        ...initialState,
+      }, actions.deleteHighlight('asdf'));
 
-    expect(state.highlights.length).toEqual(0);
+      expect(state.highlights).toBe(null);
+    });
+
+    it('deletes', () => {
+      const state = reducer({
+        ...initialState,
+        highlights: [mockHighlight],
+      }, actions.deleteHighlight(mockHighlight.id));
+
+      if (!(state.highlights instanceof Array)) {
+        return expect(state.highlights).toBe(expect.any(Array));
+      }
+
+      expect(state.highlights.length).toEqual(0);
+    });
   });
 
-  it('updates highlights', () => {
-    const mock1 = mockHighlight;
-    const mock3 = {...mockHighlight, id: 'qwer'};
+  describe('updateHighlight', () => {
 
-    const state = reducer({
-      ...initialState,
-      highlights: [mock1, mock3],
-    }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}));
+    it('noops if there are no highlgihts', () => {
+      const state = reducer({
+        ...initialState,
+      }, actions.updateHighlight({id: 'asdf', highlight: {annotation: 'asdf'}}));
 
-    if (!(state.highlights instanceof Array)) {
-      return expect(state.highlights).toBe(expect.any(Array));
-    }
+      expect(state.highlights).toBe(null);
+    });
 
-    expect(state.highlights[0].annotation).toEqual('asdf');
-    expect(state.highlights[1]).toEqual(mock3);
+    it('updates', () => {
+      const mock1 = mockHighlight;
+      const mock3 = {...mockHighlight, id: 'qwer'};
+
+      const state = reducer({
+        ...initialState,
+        highlights: [mock1, mock3],
+      }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}));
+
+      if (!(state.highlights instanceof Array)) {
+        return expect(state.highlights).toBe(expect.any(Array));
+      }
+
+      expect(state.highlights[0].annotation).toEqual('asdf');
+      expect(state.highlights[1]).toEqual(mock3);
+    });
   });
 });
