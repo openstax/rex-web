@@ -1,3 +1,4 @@
+import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { bookAndPage } from '../../selectors';
@@ -11,7 +12,12 @@ export const hookBody: ActionHookBody<typeof createHighlight> = ({getState, high
     return;
   }
 
-  highlightClient.createHighlight(book, page, payload);
+  highlightClient.addHighlight({highlight: {
+    ...payload,
+    scopeId: book.id,
+    sourceId: page.id,
+    sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+  }});
 };
 
 export default actionHook(createHighlight, hookBody);

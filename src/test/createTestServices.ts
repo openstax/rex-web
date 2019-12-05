@@ -13,7 +13,7 @@ const services = () => ({
   analytics,
   archiveLoader: mockArchiveLoader(),
   fontCollector: new FontCollector(),
-  highlightClient: createHighlightClient(),
+  highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
   osWebLoader: mockOsWebLoader(),
   promiseCollector: new PromiseCollector(),

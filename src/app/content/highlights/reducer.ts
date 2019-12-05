@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -10,7 +11,7 @@ import { State } from './types';
 
 export const initialState: State = {
   enabled: false,
-  highlights: [],
+  highlights: null,
   myHighlightsOpen: false,
 };
 
@@ -23,21 +24,33 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...initialState, enabled: state.enabled, myHighlightsOpen: false};
     }
     case getType(actions.createHighlight): {
-      return {...state, highlights: [...state.highlights, action.payload]};
+      return {...state, highlights: [...state.highlights || [], action.payload]};
     }
     case getType(actions.openMyHighlights):
       return {...state, myHighlightsOpen: true};
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
+      if (!state.highlights) {
+        return state;
+      }
+
       return {
         ...state,
         highlights: state.highlights.map((highlight) =>
-          highlight.id === action.payload.id ? action.payload : highlight
+          highlight.id === action.payload.id ? {
+            ...highlight,
+            ...action.payload.highlight,
+            color: action.payload.highlight.color as string as HighlightColorEnum,
+          } : highlight
         ),
       };
     }
     case getType(actions.deleteHighlight): {
+      if (!state.highlights) {
+        return state;
+      }
+
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
@@ -45,7 +58,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlights): {
-      return {...state, highlights: [...state.highlights, ...action.payload]};
+      return {...state, highlights: [...state.highlights || [], ...action.payload]};
     }
     case getType(actions.focusHighlight): {
       return {...state, focused: action.payload};
