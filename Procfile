@@ -1,1 +1,1 @@
-web: yarn server
+web: yarn server --fallback404
