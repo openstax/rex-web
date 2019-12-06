@@ -44,6 +44,7 @@ export const Mask = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.8);
 `;
@@ -91,7 +92,6 @@ export const Header = styled(H3)`
 export const PopupBody = styled.div`
   padding: ${popupBodyPadding}rem ${popupPadding}rem;
   height: calc(100% - ${headerHeight}rem);
-  overflow-y: scroll;
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;

@@ -14,14 +14,14 @@ import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { content } from '../../routes';
-import { openMyHighlights, receiveHighlights } from '../actions';
+import { receiveHighlights } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
 import { summaryIsLoading } from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
-import { PopupBody } from './HighlightStyles';
+import ShowMyHighlights from './ShowMyHighlights';
 import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
 
-describe('MyHighlights button and PopUp', () => {
+describe('Show my highlights', () => {
   let store: Store;
   let user: User;
   let highlight1: ReturnType<typeof createMockHighlight>;
@@ -56,11 +56,9 @@ describe('MyHighlights button and PopUp', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPopUp></HighlightsPopUp>
+        <HighlightsPopUp/>
       </MessageProvider>
     </Provider>);
-
-    act(() => { store.dispatch(openMyHighlights()); });
 
     expect(component.root.findByType(ShowMyHighlightsBody)).toBeTruthy();
 
@@ -72,16 +70,15 @@ describe('MyHighlights button and PopUp', () => {
       store.dispatch(receiveHighlights([]));
     });
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsPopUp></HighlightsPopUp>
-      </MessageProvider>
-    </Provider>);
+    const render = () => {
+      renderer.create(<Provider store={store}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Provider>);
+    };
 
-    act(() => { store.dispatch(openMyHighlights()); });
-
-    expect(component.root.findByType(PopupBody)).toBeTruthy();
-
+    expect(() => render()).not.toThrow();
   });
 
   it('shows back to top button on scroll and works on click', async() => {
@@ -103,11 +100,9 @@ describe('MyHighlights button and PopUp', () => {
 
     const {root} = renderToDom(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPopUp></HighlightsPopUp>
+        <ShowMyHighlights/>
       </MessageProvider>
     </Provider>);
-
-    act(() => { store.dispatch(openMyHighlights()); });
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
 
@@ -160,11 +155,9 @@ describe('MyHighlights button and PopUp', () => {
 
     const {root} = renderToDom(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPopUp></HighlightsPopUp>
+        <ShowMyHighlights/>
       </MessageProvider>
     </Provider>);
-
-    act(() => { store.dispatch(openMyHighlights()); });
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
 
@@ -216,11 +209,9 @@ describe('MyHighlights button and PopUp', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPopUp />
+        <ShowMyHighlights/>
       </MessageProvider>
     </Provider>);
-
-    act(() => { store.dispatch(openMyHighlights()); });
 
     expect(() => component.unmount()).not.toThrow();
   });
@@ -247,11 +238,10 @@ describe('MyHighlights button and PopUp', () => {
 
     renderToDom(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPopUp />
+        <ShowMyHighlights/>
       </MessageProvider>
     </Provider>);
 
-    act(() => { store.dispatch(openMyHighlights()); });
     expect(summaryIsLoading(store.getState())).toBe(true);
   });
 
