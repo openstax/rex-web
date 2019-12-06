@@ -1,10 +1,11 @@
 import random
+from typing import Tuple
 
 from selenium.common.exceptions import (
     ElementClickInterceptedException,
     NoSuchElementException,
     StaleElementReferenceException,
-    TimeoutException,
+    # TimeoutException,
     WebDriverException,
 )  # NOQA
 
@@ -14,18 +15,37 @@ from time import sleep
 class Library(object):
 
     books = {
-        "chemistry-2e": {"default_page": "1-introduction"},
-        "chemistry-atoms-first-2e": {"default_page": "1-introduction"},
-        "anatomy-and-physiology": {"default_page": "1-introduction"},
+        "anatomy-and-physiology": {
+            "default_page":
+                "1-introduction"},
+        "astronomy": {
+            "default_page":
+                "1-introduction"},
+        "biology-2e": {
+            "default_page":
+                "1-introduction"},
+        "biology-ap-courses": {
+            "default_page":
+                "1-introduction"},
+        "chemistry-2e": {
+            "default_page":
+                "1-introduction"},
+        "chemistry-atoms-first-2e": {
+            "default_page":
+                "1-introduction"},
         "college-physics": {
-            "default_page": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-        },
-        "astronomy": {"default_page": "1-introduction"},
-        "biology-2e": {"default_page": "1-introduction"},
-        "biology-ap-courses": {"default_page": "1-introduction"},
-        "college-physics-ap-courses": {"default_page": "1-connection-for-ap-r-courses"},
-        "concepts-biology": {"default_page": "1-introduction"},
-        "microbiology": {"default_page": "1-introduction"},
+            "default_page":
+                "1-introduction-to-science-and-the-realm-of-"
+                "physics-physical-quantities-and-units"},
+        "college-physics-ap-courses": {
+            "default_page":
+                "1-connection-for-ap-r-courses"},
+        "concepts-biology": {
+            "default_page":
+                "1-introduction"},
+        "microbiology": {
+            "default_page":
+                "1-introduction"},
     }
 
     def random_book_slug(self):
@@ -68,3 +88,21 @@ class Utilities(object):
                 except StaleElementReferenceException:  # Chrome and Firefox
                     if locator:
                         element = driver.find_element(*locator)
+
+    @classmethod
+    def scroll_top(cls, driver):
+        """Scroll to the top of the browser screen.
+
+        :param driver: the selenium webdriver object
+        :returns: None
+        """
+        driver.execute_script('window.scrollTo(0, 0);')
+        sleep(0.75)
+
+
+class Highlight:
+    """Supplimental resources for book highlighting."""
+
+    Offset = Tuple[int, int]
+
+    RANDOM, ENTIRE, YELLOW, GREEN, BLUE, PURPLE, PINK = range(0, 7)
