@@ -7,7 +7,9 @@ import PromiseCollector from '../helpers/PromiseCollector';
 import mockArchiveLoader from './mocks/archiveLoader';
 import mockOsWebLoader from './mocks/osWebLoader';
 import mockUserLoader from './mocks/userLoader';
+
 jest.mock('@openstax/open-search-client');
+jest.mock('@openstax/highlighter/dist/api');
 
 const services = () => ({
   analytics,
