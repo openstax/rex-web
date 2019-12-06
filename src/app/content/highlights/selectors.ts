@@ -30,3 +30,8 @@ export const myHighlightsOpen = createSelector(
   localState,
   (state) => state.myHighlightsOpen
 );
+
+export const summaryIsLoading = createSelector(
+  localState,
+  (state) => state.summary.loading
+);

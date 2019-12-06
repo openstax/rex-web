@@ -7,4 +7,15 @@ export interface State {
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
+  summary: {
+    filters: {
+      colors: string[];
+      chapters: string[];
+    },
+    loading: boolean;
+    chapterCounts: {[key: string]: number};
+    highlights: {
+      [chapterId: string]: {[pageId: string]: HighlightData[]}
+    };
+  };
 }

@@ -6,6 +6,7 @@ import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
+import theme from '../../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../ColorIndicator';
 
@@ -40,6 +41,7 @@ const ColorFilter = ({className}: Props) => {
 };
 
 export default styled(ColorFilter)`
+  background: ${theme.color.white};
   display: flex;
   flex-direction: column;
   ${textStyle}
