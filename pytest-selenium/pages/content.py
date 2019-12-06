@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
-import math
-import random
-from time import sleep
+from math import ceil as round_up
+from random import randint
 from typing import List, Union
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.touch_actions import TouchActions
-from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as expected
 
 from pages.base import Page
 from regions.base import Region
@@ -125,8 +124,8 @@ class Content(Page):
         Selenium is not throwing any exception while scrolling over the content overlay using scroll(x,y).
         Hence using scroll_from_element(element, x, y) to capture & assert the exception in the test.
         """
-        x = random.randint(self.sidebar_width_offset, self.window_width)
-        y = random.randint(self.sidebar_height_offset, self.window_height)
+        x = randint(self.sidebar_width_offset, self.window_width)
+        y = randint(self.sidebar_height_offset, self.window_height)
 
         if self.driver == "chrome":
             touchActions = TouchActions(self.driver)
@@ -144,8 +143,8 @@ class Content(Page):
         x & y are random numbers computed from the sidebar/window width/height
         respectively. Using actionchains to click on this position.
         """
-        x = random.randint(self.sidebar_width_offset, self.window_width)
-        y = random.randint(self.sidebar_height_offset, self.window_height)
+        x = randint(self.sidebar_width_offset, self.window_width)
+        y = randint(self.sidebar_height_offset, self.window_height)
 
         (ActionChains(self.driver)
             .move_to_element_with_offset(
@@ -657,8 +656,8 @@ class Content(Page):
             boundry = self.driver.execute_script(BOUNDING_RECTANGLE, target)
 
             # And round up the computed height and width values
-            width = math.ceil(boundry.get("width"))
-            height = math.ceil(boundry.get("height"))
+            width = round_up(boundry.get("width"))
+            height = round_up(boundry.get("height"))
 
             # Determine where to start and stop the hightlight
             # Normally begin at the top left except for tables, which should
@@ -669,8 +668,8 @@ class Content(Page):
                 end = (width - 1,
                        height - 1)
             elif offset == Highlight.RANDOM:
-                end = (random.randint(10, max(10, width)),
-                       random.randint(20, max(20, height)))
+                end = (randint(10, max(10, width)),
+                       randint(20, max(20, height)))
             elif isinstance(offset, tuple) and len(offset) == 2:
                 end = offset
             else:
