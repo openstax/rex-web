@@ -12,7 +12,7 @@ export const hookBody: ActionHookBody<typeof createHighlight> = ({getState, high
     return;
   }
 
-  highlightClient.addHighlight({highlight: {
+  await highlightClient.addHighlight({highlight: {
     ...payload,
     scopeId: book.id,
     sourceId: page.id,
