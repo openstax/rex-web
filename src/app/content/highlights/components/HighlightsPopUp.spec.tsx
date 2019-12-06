@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
+import { renderToDom } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
@@ -9,14 +10,13 @@ import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
 import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
+import { assertWindow } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import { highlightingFeatureFlag } from '../constants';
 import { summaryIsLoading } from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
-import { assertWindow } from '../../../utils';
-import { renderToDom } from '../../../../test/reactutils';
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
