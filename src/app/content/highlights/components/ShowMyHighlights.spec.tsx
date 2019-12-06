@@ -10,13 +10,10 @@ import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import MessageProvider from '../../../MessageProvider';
-import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { content } from '../../routes';
-import { receiveHighlights } from '../actions';
+import { openMyHighlights, receiveHighlights } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
-import { summaryIsLoading } from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
 import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
@@ -39,7 +36,7 @@ describe('Show my highlights', () => {
     window = assertWindow();
   });
 
-  it('opens highlights pop up with user Highlights', async() => {
+  it('renders through pop up with user Highlights', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
       store.dispatch(receiveHighlights([
@@ -59,6 +56,8 @@ describe('Show my highlights', () => {
         <HighlightsPopUp/>
       </MessageProvider>
     </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
 
     expect(component.root.findByType(ShowMyHighlightsBody)).toBeTruthy();
 
@@ -215,34 +214,4 @@ describe('Show my highlights', () => {
 
     expect(() => component.unmount()).not.toThrow();
   });
-
-  it('renders loader', async() => {
-    act(() => {
-      store.dispatch(receiveUser(user));
-    });
-
-    store.dispatch(locationChange({
-      action: 'PUSH',
-      location: {
-        ...assertWindow().location,
-        state: {},
-      },
-      match: {
-        params: {
-          book: 'newbook',
-          page: 'bar',
-        },
-        route: content,
-      },
-    }));
-
-    renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
-    </Provider>);
-
-    expect(summaryIsLoading(store.getState())).toBe(true);
-  });
-
 });

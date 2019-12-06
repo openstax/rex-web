@@ -7,11 +7,16 @@ import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
+import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
+import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import { highlightingFeatureFlag } from '../constants';
+import { summaryIsLoading } from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
+import { assertWindow } from '../../../utils';
+import { renderToDom } from '../../../../test/reactutils';
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
@@ -95,6 +100,37 @@ describe('MyHighlights button and PopUp', () => {
     act(() => { store.dispatch(openMyHighlights()); });
 
     expect(focus).toHaveBeenCalled();
+  });
+
+  it('renders loader', async() => {
+    act(() => {
+      store.dispatch(receiveUser(user));
+    });
+
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        state: {},
+      },
+      match: {
+        params: {
+          book: 'newbook',
+          page: 'bar',
+        },
+        route: content,
+      },
+    }));
+
+    renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp/>
+      </MessageProvider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(summaryIsLoading(store.getState())).toBe(true);
   });
 
 });
