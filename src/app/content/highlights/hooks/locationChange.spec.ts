@@ -11,6 +11,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { receiveHighlights } from '../actions';
+import { HighlightData } from '../types';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -64,7 +65,9 @@ describe('locationChange', () => {
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
 
-    const highlights = [mockHighlight()];
+    const mock = mockHighlight();
+    const highlights = [{id: mock.id} as HighlightData];
+
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({data: highlights}));
 

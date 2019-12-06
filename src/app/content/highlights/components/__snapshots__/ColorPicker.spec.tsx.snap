@@ -281,11 +281,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     className="c1 c9"
-    title="red"
+    title="pink"
   >
     <input
       checked={false}
-      name="red"
+      name="pink"
       onChange={[Function]}
       type="checkbox"
     />
