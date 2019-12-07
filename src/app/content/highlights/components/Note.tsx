@@ -12,6 +12,8 @@ interface Props {
   onFocus: () => void;
 }
 
+const noteMaxLength = 1000
+
 const width = cardWidth - cardPadding * 2;
 // tslint:disable-next-line:variable-name
 const TextArea = styled.textarea`
@@ -52,6 +54,7 @@ const Note = ({onChange, onFocus, note}: Props) => {
         ref={textArea}
         value={note}
         onFocus={onFocus}
+        maxLength={noteMaxLength}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
           onChange(e.target.value);
         }}
