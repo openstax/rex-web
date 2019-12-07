@@ -12,7 +12,7 @@ interface Props {
   onFocus: () => void;
 }
 
-const noteMaxLength = 1000
+const noteMaxLength = 1000;
 
 const width = cardWidth - cardPadding * 2;
 // tslint:disable-next-line:variable-name
