@@ -1,4 +1,4 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -32,7 +32,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.createHighlight): {
-      return {...state, highlights: [...state.highlights || [], action.payload]};
+      return {...state, highlights: [...state.highlights || [], {
+        ...action.payload,
+        color: action.payload.color as string as HighlightColorEnum,
+        sourceType: action.payload.sourceType as string as HighlightSourceTypeEnum,
+      }]};
     }
     case getType(actions.openMyHighlights):
       return {...state, myHighlightsOpen: true};

@@ -403,6 +403,11 @@ Array [
   color: #0064A0;
 }
 
+.c63 .MathJax_Display .highlight,
+.c63 .MathJax_Preview + .highlight {
+  display: inline-block;
+}
+
 .c63 .highlight.yellow {
   background-color: #ffff8a;
 }
@@ -435,11 +440,11 @@ Array [
   border-bottom: 1px solid #545ec8;
 }
 
-.c63 .highlight.red {
+.c63 .highlight.pink {
   background-color: #ffc5e1;
 }
 
-.c63 .highlight.red.has-note {
+.c63 .highlight.pink.has-note {
   border-bottom: 1px solid #de017e;
 }
 
@@ -1565,7 +1570,7 @@ li[aria-label="Current Page"] .c44 {
 }
 
 @media screen {
-  .c63 .highlight.red.focus {
+  .c63 .highlight.pink.focus {
     background-color: #de017e;
     color: #fff;
   }
@@ -3810,6 +3815,11 @@ Array [
   color: #0064A0;
 }
 
+.c37 .MathJax_Display .highlight,
+.c37 .MathJax_Preview + .highlight {
+  display: inline-block;
+}
+
 .c37 .highlight.yellow {
   background-color: #ffff8a;
 }
@@ -3842,11 +3852,11 @@ Array [
   border-bottom: 1px solid #545ec8;
 }
 
-.c37 .highlight.red {
+.c37 .highlight.pink {
   background-color: #ffc5e1;
 }
 
-.c37 .highlight.red.has-note {
+.c37 .highlight.pink.has-note {
   border-bottom: 1px solid #de017e;
 }
 
@@ -4555,7 +4565,7 @@ Array [
 }
 
 @media screen {
-  .c37 .highlight.red.focus {
+  .c37 .highlight.pink.focus {
     background-color: #de017e;
     color: #fff;
   }

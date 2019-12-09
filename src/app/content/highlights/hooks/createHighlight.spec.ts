@@ -22,7 +22,6 @@ const createMockHighlight = () => ({
 
 describe('locationChange', () => {
   let store: Store;
-  let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./createHighlight').hookBody>;
 
@@ -36,29 +35,7 @@ describe('locationChange', () => {
       getState: store.getState,
     };
 
-    dispatch = jest.spyOn(helpers, 'dispatch');
-
     hook = (require('./createHighlight').hookBody)(helpers);
-  });
-
-  it('noops with no book', async() => {
-    store.dispatch(receivePage(page));
-    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
-
-    await hook(createHighlight(createMockHighlight()));
-
-    expect(createHighlightClient).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalled();
-  });
-
-  it('noops with no page', async() => {
-    store.dispatch(receiveBook(book));
-    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
-
-    await hook(createHighlight(createMockHighlight()));
-
-    expect(createHighlightClient).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('creates highlight', async() => {
@@ -69,11 +46,6 @@ describe('locationChange', () => {
 
     await hook(createHighlight(mock));
 
-    expect(createHighlightClient).toHaveBeenCalledWith({highlight: {
-      ...mock,
-      scopeId: book.id,
-      sourceId: page.id,
-      sourceType: 'openstax_page',
-    }});
+    expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
   });
 });
