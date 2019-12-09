@@ -55,12 +55,10 @@ class HighlightsPopUp extends Component<Props> {
   };
 
   public myHighlights = () => {
-    return (
-      this.props.highlights.length > 0 ? (
-        <ShowMyHighlights />
-      ) : (
-        <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
-      )
+    return this.props.highlights.length > 0 ? (
+      <ShowMyHighlights />
+    ) : (
+      <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
     );
   };
 
@@ -138,30 +136,34 @@ class HighlightsPopUp extends Component<Props> {
   public render() {
     return this.props.myHighlightsOpen ? (
       <React.Fragment>
-        <ScrollLock overlay={false} mobileOnly={false} />
-        <Styled.Modal>
-          <Styled.Mask>
-            <Styled.Wrapper
-              ref={this.popUp}
-              tabIndex='-1'
-              data-testid='highlights-popup-wrapper'
-            >
-              <Styled.Header>
-                <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-                  {(msg: Element | string) => msg}
-                </FormattedMessage>
-                <Styled.CloseIcon
-                  data-testid='close-highlights-popup'
-                  onClick={() => this.props.closeMyHighlights()}
-                />
-              </Styled.Header>
-              { this.props.summaryIsLoading ?
-                <Loader/>
-                : (this.props.user ? this.myHighlights() : this.loginForHighlights())
-              }
-            </Styled.Wrapper>
-          </Styled.Mask>
-        </Styled.Modal>
+        <ScrollLock
+          overlay={true}
+          mobileOnly={false}
+          isModal={true}
+          onClick={this.props.closeMyHighlights}
+        />
+        <Styled.Wrapper
+          ref={this.popUp}
+          tabIndex='-1'
+          data-testid='highlights-popup-wrapper'
+        >
+          <Styled.Header>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+            <Styled.CloseIcon
+              data-testid='close-highlights-popup'
+              onClick={() => this.props.closeMyHighlights()}
+            />
+          </Styled.Header>
+          {this.props.summaryIsLoading ? (
+            <Styled.PopupBody><Loader /></Styled.PopupBody>
+          ) : this.props.user ? (
+            this.myHighlights()
+          ) : (
+            this.loginForHighlights()
+          )}
+        </Styled.Wrapper>
       </React.Fragment>
     ) : null;
   }

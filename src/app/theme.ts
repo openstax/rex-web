@@ -108,6 +108,7 @@ export default {
     'overlay',
     'sidebar',
     'navbar',
+    'highlights',
     'modal',
     'focusedHiddenLink',
   ].reduce((result, key, index) => {

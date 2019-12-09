@@ -31,26 +31,31 @@ const fadeIn = keyframes`
 `;
 
 // tslint:disable-next-line:variable-name
-const Overlay = styled.div`
+export const Overlay = styled.div`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
-  z-index: ${theme.zIndex.overlay}; /* stay above book content */
+  z-index: ${(props: {isModal?: boolean}) => props.isModal ? theme.zIndex.highlights : theme.zIndex.overlay};
   position: absolute;
   content: "";
   top: -${toolbarDesktopHeight}rem;
   bottom: 0;
   left: 0;
   right: 0;
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
+
+  ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
+    display: none;
+
+    ${theme.breakpoints.mobile(css`
+      display: block;
+    `)}
+  `}
 `;
 
 interface Props {
   onClick?: () => void;
   overlay?: boolean;
   mobileOnly?: boolean | undefined;
+  isModal?: boolean | undefined;
 }
 
 export default class ScrollLock extends React.Component<Props> {
@@ -59,7 +64,7 @@ export default class ScrollLock extends React.Component<Props> {
     return <OnScroll onTouchMove={this.blockScroll}>
       <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
       {this.props.overlay !== false &&
-        <Overlay onClick={this.props.onClick} />
+        <Overlay onClick={this.props.onClick} mobileOnly={this.props.mobileOnly} isModal={this.props.isModal}/>
       }
     </OnScroll>;
   }

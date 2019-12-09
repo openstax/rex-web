@@ -15,6 +15,7 @@ export const popupBodyPadding = 2.4;
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
 export const headerHeight = 7.2;
+const topBottomMargin = headerHeight + popupBodyPadding;
 
 export const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -38,39 +39,19 @@ export const imageStyles = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Mask = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
-`;
-
-// tslint:disable-next-line:variable-name
-export const Modal = styled.div`
-  top: 0;
-  z-index: ${theme.zIndex.modal};
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: fixed;
-  justify-content: center;
-  align-items: center;
-`;
-
-// tslint:disable-next-line:variable-name
 export const Wrapper = styled.div`
-  z-index: 1;
+  top: 0;
+  z-index: ${theme.zIndex.highlights};
+  position: fixed;
   max-width: ${contentWrapperMaxWidth}rem;
   background: ${theme.color.neutral.base};
-  margin: 7.2rem 2.4rem 2.4rem;
+  margin: ${headerHeight}rem ${popupBodyPadding}rem ${popupBodyPadding}rem;
   border-radius: 0.5rem;
-  width: 100%;
+  width: calc(100% - (${popupBodyPadding}rem * 2));
+  height: calc(100% - ${topBottomMargin}rem);
   outline: none;
+  overflow: hidden;
+
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}
@@ -90,8 +71,8 @@ export const Header = styled(H3)`
 
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
-  padding: ${popupBodyPadding}rem ${popupPadding}rem;
   height: calc(100% - ${headerHeight}rem);
+  padding: ${popupBodyPadding}rem ${popupPadding}rem;
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
