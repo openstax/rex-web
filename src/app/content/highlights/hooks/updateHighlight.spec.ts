@@ -9,7 +9,7 @@ const updateMockHighlight = () => {
   const id = Math.random().toString(36).substring(7);
 
   return {
-    highlight: {color: 'red', annotation: 'asdf'},
+    highlight: {color: 'red' as string, annotation: 'asdf'},
     id,
   } as UpdateHighlightRequest;
 };
