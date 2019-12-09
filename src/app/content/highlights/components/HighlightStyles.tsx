@@ -51,7 +51,6 @@ export const Wrapper = styled.div`
   height: calc(100% - ${topBottomMargin}rem);
   outline: none;
   overflow: hidden;
-
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}

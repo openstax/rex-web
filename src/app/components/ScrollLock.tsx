@@ -41,7 +41,6 @@ export const Overlay = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-
   ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
     display: none;
 
