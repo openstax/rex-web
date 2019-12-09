@@ -106,3 +106,14 @@ class Highlight:
     Offset = Tuple[int, int]
 
     RANDOM, ENTIRE, YELLOW, GREEN, BLUE, PURPLE, PINK = range(0, 7)
+    COLORS = [YELLOW, GREEN, BLUE, PURPLE, PINK]
+
+    @classmethod
+    def random_color(cls) -> int:
+        """Return a random color.
+
+        :return: a random highlight color
+        :rtype: int
+
+        """
+        return cls.COLORS[random.randint(0, len(cls.COLORS) - 1)]

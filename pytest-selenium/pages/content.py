@@ -486,8 +486,9 @@ class Content(Page):
         _table_locator = (
             By.CSS_SELECTOR, "table")
         _text_content_locator = (
-            By.CSS_SELECTOR, "p[id^='fs-']:not([data-depth])"
-                             ":not([data-bullet-style]):not([type])")
+            By.CSS_SELECTOR, "p[id^='fs-']:not([data-depth])"  # Intro Stats
+                             ":not([data-bullet-style]):not([type]), "
+                             "p[id^='eip'], p[id^='import-auto']")  # Phys
 
         @property
         def figures(self) -> List[WebElement]:
@@ -621,7 +622,8 @@ class Content(Page):
                       target: WebElement,
                       offset: Union[Highlight.Offset, int] = Highlight.RANDOM,
                       color: int = Highlight.YELLOW,
-                      note: str = ""):
+                      note: str = "",
+                      close_box: bool = True):
             """Highlight a page element.
 
             .. note::
@@ -636,10 +638,13 @@ class Content(Page):
                 default: yellow
             :param note: (optional) the annotation text for the highlight
                 default: no note
+            :param close_box: (optional) close the edit highlight pop up box
+                default: ``True``
             :type target: WebElement
             :type offset: tuple(int, int), int
             :type color: int
             :type note: str
+            :type: close_box: bool
             :return: None
             :raises ValueError: when the offset value is not a tuple, or a
                 registered value like Highlight.RANDOM or Highlight.ENTIRE
@@ -708,11 +713,12 @@ class Content(Page):
                 # return <Note Display Box>
                 pass
 
-            # Click outside of the box and highlight to close the box
-            ActionChains(self.driver) \
-                .move_to_element_with_offset(self.root, 5, 0) \
-                .click() \
-                .perform()
+            if close_box:
+                # Click outside of the box and highlight to close the box
+                (ActionChains(self.driver)
+                    .move_to_element_with_offset(self.root, 5, 0)
+                    .click()
+                    .perform())
 
         def show_solutions(self):
             """Open each closed solution then return to the top of the page.
