@@ -2,6 +2,9 @@
 
 import random
 
+import pytest
+from selenium.common.exceptions import NoSuchElementException
+
 from pages.accounts import Login
 from pages.content import Content
 from tests import markers
@@ -147,6 +150,10 @@ def test_delete_a_highlight(
     assert(current_highlights == initial_highlight_count), (
         "Highlight counts do not match: "
         f"found {current_highlights}, expected {initial_highlight_count}")
+
+    with pytest.raises(NoSuchElementException) as ex:
+        book.content.highlight_box
+    assert("No open highlight boxes found" in str(ex.value))
 
     # WHEN: the page is refreshed
     book = book.reload()
