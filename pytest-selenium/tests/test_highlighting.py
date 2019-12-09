@@ -163,3 +163,53 @@ def test_delete_a_highlight(
     assert(current_highlights == initial_highlight_count), (
         "Highlight counts do not match after refresh: "
         f"found {current_highlights}, expected {initial_highlight_count}")
+
+
+@markers.test_case("C591513")
+@markers.parametrize("page_slug", [("preface")])
+@markers.desktop_only
+def test_highlight_stays_on_navigation(
+        selenium, base_url, book_slug, page_slug, email, password):
+    """Highlights remain while navigating between pages."""
+    # GIVEN: a book preface page is displayed
+    # AND: a user is logged in
+    # AND: all content is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    Login(selenium).login(email, password)
+
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    initial_highlight_count = book.content.highlight_count
+    initial_highlight_ids = book.content.highlight_ids
+
+    # WHEN: any text content is selected with the mouse
+    # AND: a highlight color button is clicked
+    options = book.content.paragraphs
+    paragraph = options[random.randint(0, len(options) - 1)]
+    book.content.highlight(paragraph, Highlight.RANDOM)
+    new_highlight_count = book.content.highlight_count
+
+    # THEN: the text is highlighted
+    assert(new_highlight_count > initial_highlight_count), \
+        "No new highlight(s) found (text)"
+    new_highlight_id = list(
+            set(book.content.highlight_ids) - set(initial_highlight_ids))[0]
+
+    # WHEN: they click the "Next" page link
+    # AND: click on the initial page's table of contents link
+    book.click_next_link()
+
+    book.sidebar.toc.preface.click()
+    reloaded_highlight_count = book.content.highlight_count
+
+    # THEN: the highlight should still exist
+    assert(reloaded_highlight_count == new_highlight_count), (
+        "Highlight counts do not match after refresh: "
+        f"found {reloaded_highlight_count}, expected {new_highlight_count}")
+    assert(new_highlight_id in book.content.highlight_ids), \
+        f"Highlight ID ({new_highlight_id}) not found on page"

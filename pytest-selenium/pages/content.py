@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from math import ceil as round_up
 from random import randint
-from typing import List, Union
+from typing import List, Tuple, Union
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -36,7 +36,8 @@ class Content(Page):
 
     @property
     def loaded(self):
-        return self.find_element(*self._body_locator).get_attribute("data-rex-loaded")
+        return (self.find_element(*self._body_locator)
+                .get_attribute("data-rex-loaded"))
 
     @property
     def print(self):
@@ -117,12 +118,15 @@ class Content(Page):
         return window_height
 
     def scroll_over_content_overlay(self):
-        """Touch and scroll starting at on_element, moving by xoffset and yoffset.
+        """Touch and scroll starting at on_element, moving by an offset.
 
-        x & y are random numbers computed from the sidebar/window width/height respectively.
-        Using touchactions to scroll from the print element.
-        Selenium is not throwing any exception while scrolling over the content overlay using scroll(x,y).
-        Hence using scroll_from_element(element, x, y) to capture & assert the exception in the test.
+        x & y are random numbers computed from the sidebar/window width/height
+        respectively. Using touchactions to scroll from the print element.
+        Selenium is not throwing any exception while scrolling over the content
+        overlay using scroll(x,y). Hence using
+        ``scroll_from_element(element, x, y)`` to capture and assert the
+        exception in the test.
+
         """
         x = randint(self.sidebar_width_offset, self.window_width)
         y = randint(self.sidebar_height_offset, self.window_height)
@@ -131,7 +135,8 @@ class Content(Page):
             touchActions = TouchActions(self.driver)
             touchActions.scroll_from_element(self.print, x, y).perform()
 
-        # Touch actions is not working for safari & firefox. Hence scrolling using javascript
+        # Touch actions are not working for Safari and Firefox. Scroll using
+        # javascript instead.
         else:
             self.driver.execute_script(f"scrollBy({x}, {y});")
 
@@ -517,6 +522,16 @@ class Content(Page):
                     in self.find_elements(*self._figure_container_locator)]
 
         @property
+        def highlights(self) -> List[WebElement]:
+            """Return the list of highlight elements in the section.
+
+            :return: the list of highlighted elements
+            :rtype: list(WebElement)
+
+            """
+            return self.find_elements(*self._highlight_box_locator)
+
+        @property
         def highlight_box(self) -> Content.Content.HighlightBox:
             """Access the highlight and annotation pop up box.
 
@@ -526,8 +541,7 @@ class Content(Page):
             :rtype: Content.Content.HighlightBox
 
             """
-            highlights = self.find_elements(*self._highlight_box_locator)
-            for box in highlights:
+            for box in self.highlights:
                 display = self.driver.execute_script(
                     COMPUTED_STYLES.format(field=".display"), box)
                 if display != "none":
@@ -546,7 +560,19 @@ class Content(Page):
             :rtype: int
 
             """
-            return len(self.find_elements(*self._highlighted_element_locator))
+            return len(self.highlights)
+
+        @property
+        def highlight_ids(self) -> List[str]:
+            """Return the list of highlight ID numbers.
+
+            :return: the list of highlight ``data-id``s for the current page
+            :rtype: list(str)
+
+            """
+            return list(set([highlight.get_attribute("data-id")
+                             for highlight
+                             in self.highlights]))
 
         @property
         def lists(self) -> List[WebElement]:
@@ -618,6 +644,44 @@ class Content(Page):
                     for table
                     in self.find_elements(*self._table_locator)]
 
+        def close_edit_note_box(self):
+            """Click outside of the elements to close the edit note box.
+
+            :return: None
+
+            """
+            (ActionChains(self.driver)
+                .move_to_element_with_offset(self.root, 5, 0)
+                .click()
+                .perform())
+
+        def get_highlight(self,
+                          by_id: Union[int, str] = None,
+                          by_timestamp: Union[int, str] = None) \
+                -> List[WebElement]:
+            """Return the list of highlights for a given data ID or time stamp.
+
+            .. note::
+               a single highlight may be broken into several segments with
+               matching ``data-timestamp``s and ``data-id``s
+
+            :param _id: (optional) the data identification number for a given
+                set of highlights
+            :param by_timestamp: (optional) the data time stamp for a given set
+                of highlights
+            :type by_id: int or str
+            :type by_timestamp: int or str
+            :return: the list of highlights for a given number
+            :rtype: list(WebElement)
+
+            """
+            data, attribute = (str(by_id), "data-id") if by_id \
+                else (str(by_timestamp), "data-timestamp")
+            return [segment
+                    for segment
+                    in self.highlights
+                    if data == segment.get_attribute(attribute)]
+
         def highlight(self,
                       target: WebElement,
                       offset: Union[Highlight.Offset, int] = Highlight.RANDOM,
@@ -646,8 +710,6 @@ class Content(Page):
             :type note: str
             :type: close_box: bool
             :return: None
-            :raises ValueError: when the offset value is not a tuple, or a
-                registered value like Highlight.RANDOM or Highlight.ENTIRE
 
             """
             # Scroll the page to bring the element into view then shift due to
@@ -657,50 +719,14 @@ class Content(Page):
             self.driver.execute_script(
                 "window.scrollBy(0, -130);")
 
-            # Retrieve the element area information
-            boundry = self.driver.execute_script(BOUNDING_RECTANGLE, target)
+            # Compute the start and end offsets for the mouse movement
+            start, end = self._compute_offsets(target, offset)
 
-            # And round up the computed height and width values
-            width = round_up(boundry.get("width"))
-            height = round_up(boundry.get("height"))
-
-            # Determine where to start and stop the hightlight
-            # Normally begin at the top left except for tables, which should
-            # begin within the first cell (ignore the table/cell borders)
-            start = (0, 0) if "table" not in target.tag_name else (3, 3)
-            retag = tuple(sum(x) for x in zip(start, (1, 1)))
-            if offset == Highlight.ENTIRE:
-                end = (width - 1,
-                       height - 1)
-            elif offset == Highlight.RANDOM:
-                end = (randint(10, max(10, width)),
-                       randint(20, max(20, height)))
-            elif isinstance(offset, tuple) and len(offset) == 2:
-                end = offset
-            else:
-                raise ValueError(f"{offset} not a valid offset or option")
-
-            # If not a math highlight, highlight the section starting from the
-            # top left (0 x 0) to the chosen end point to the right and down
-            # (10 <= x < width, 19 <= y < height)
-            # then click near the top left of the element because the
-            # ActionChain click and hold isn't always registered as a "click"
-            # by the highlighting listener
+            # Highlight the normal element or the rendered math equation
             if "math" not in target.get_attribute("class"):
-                (ActionChains(self.driver)
-                    .move_to_element_with_offset(target, *start)
-                    .click_and_hold()
-                    .move_by_offset(*end)
-                    .release()
-                    .move_to_element_with_offset(target, *retag)
-                    .click()
-                    .perform())
-            # If highlighting math, double click in the middle of the math
+                self._highlight_section(target, start, end)
             else:
-                (ActionChains(self.driver)
-                    .move_to_element(target)
-                    .double_click(target)
-                    .perform())
+                self._highlight_math(target)
 
             # Select the highlight color
             self.highlight_box.toggle(color)
@@ -715,10 +741,7 @@ class Content(Page):
 
             if close_box:
                 # Click outside of the box and highlight to close the box
-                (ActionChains(self.driver)
-                    .move_to_element_with_offset(self.root, 5, 0)
-                    .click()
-                    .perform())
+                self.close_edit_note_box()
 
         def show_solutions(self):
             """Open each closed solution then return to the top of the page.
@@ -733,6 +756,97 @@ class Content(Page):
                     "window.scrollBy(0, -130);")
                 Utilities.click_option(self.driver, element=toggle)
             Utilities.scroll_top(self.driver)
+
+        def _compute_offsets(self,
+                             target: WebElement,
+                             offset: Highlight.Offset) \
+                -> Tuple[Highlight.Offset, Highlight.Offset]:
+            """Compute the start and stop offsets.
+
+            :param WebElement target: the element to be highlighted
+            :param offset: (optional) what or how much of the element to
+                highlight; may be an X/Y offset, a randomized quantity, or the
+                entire element
+                default: randomized
+            :type offset: tuple(int, int), int
+            :return: the start and stop offsets as (x, y) pairs
+            :rtype: tuple((int, int), (int, int))
+            :raises ValueError: when the offset value is not a tuple, or a
+                registered value like Highlight.RANDOM or Highlight.ENTIRE
+
+            """
+            # Retrieve the element area information
+            boundry = self.driver.execute_script(BOUNDING_RECTANGLE, target)
+
+            # And round up the computed height and width values
+            width = round_up(boundry.get("width"))
+            height = round_up(boundry.get("height"))
+
+            # Determine where to start and stop the hightlight
+            # Normally begin at the top left except for tables, which should
+            # begin within the first cell (ignore the table/cell borders)
+            start = (0, 0) if "table" not in target.tag_name else (3, 3)
+            if offset == Highlight.ENTIRE:
+                end = (width - 1,
+                       height - 1)
+            elif offset == Highlight.RANDOM:
+                end = (randint(10, max(10, width)),
+                       randint(20, max(20, height)))
+            elif isinstance(offset, tuple) and len(offset) == 2:
+                end = offset
+            else:
+                raise ValueError(f"{offset} not a valid offset or option")
+
+            return (start, end)
+
+        def _highlight_math(self, target: WebElement):
+            """Highlight a rendered math element using a double click.
+
+            When highlighting math, double click in the middle of the equation
+            to avoid oddly formed renders failing a move by offset command.
+
+            :param WebElement target: the math equation to highlight
+            :return: None
+
+            """
+            (ActionChains(self.driver)
+                .move_to_element(target)
+                .double_click(target)
+                .perform())
+
+        def _highlight_section(self,
+                               target: WebElement,
+                               start: Highlight.Offset,
+                               stop: Highlight.Offset):
+            """Highlight an element using the mouse.
+
+            If not a math highlight, highlight the section starting from the
+            top left (0 x 0) to the chosen end point to the right and down
+            (``10 <= x < width``, ``19 <= y < height``).
+
+            Then click near the top left of the element because the ActionChain
+            click and hold isn't always registered as a "click" by the
+            highlighting listener (``retag``).
+
+            :param target: the book content parent element to highlight
+            :param start: the beginning of the click and drag (top left)
+            :param stop: the end of the click and drag (bottom right)
+            :type target: WebElement
+            :type start: tuple(int, int)
+            :type stop: tuple(int, int)
+            :return: None
+
+            """
+            retag = tuple(sum(x) for x in zip(start, (1, 1)))
+
+            (ActionChains(self.driver)
+                .move_to_element_with_offset(target, *start)
+                .click_and_hold()
+                .move_by_offset(*stop)
+                .release()
+                .move_to_element_with_offset(target, *retag)
+                .click()
+                .perform())
 
         class HighlightBox(Region):
             """The highlight color and annotation box."""
