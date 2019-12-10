@@ -39,18 +39,24 @@ export const imageStyles = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Wrapper = styled.div`
+export const PopupWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+// tslint:disable-next-line:variable-name
+export const Modal = styled.div`
   top: 0;
   z-index: ${theme.zIndex.highlights};
   position: fixed;
-  max-width: ${contentWrapperMaxWidth}rem;
   background: ${theme.color.neutral.base};
-  margin: ${headerHeight}rem ${popupBodyPadding}rem ${popupBodyPadding}rem;
   border-radius: 0.5rem;
-  width: calc(100% - (${popupBodyPadding}rem * 2));
   height: calc(100% - ${topBottomMargin}rem);
   outline: none;
   overflow: hidden;
+  margin: ${headerHeight}rem auto ${popupBodyPadding}rem;
+  max-width: ${contentWrapperMaxWidth}rem;
+  width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}
@@ -72,6 +78,7 @@ export const Header = styled(H3)`
 export const PopupBody = styled.div`
   height: calc(100% - ${headerHeight}rem);
   padding: ${popupBodyPadding}rem ${popupPadding}rem;
+  background: ${theme.color.neutral.darker};
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;

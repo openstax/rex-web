@@ -134,15 +134,15 @@ class HighlightsPopUp extends Component<Props> {
   };
 
   public render() {
-    return this.props.myHighlightsOpen ? (
-      <React.Fragment>
+    return this.props.myHighlightsOpen ?
+      <Styled.PopupWrapper>
         <ScrollLock
           overlay={true}
           mobileOnly={false}
           isModal={true}
           onClick={this.props.closeMyHighlights}
         />
-        <Styled.Wrapper
+        <Styled.Modal
           ref={this.popUp}
           tabIndex='-1'
           data-testid='highlights-popup-wrapper'
@@ -156,16 +156,16 @@ class HighlightsPopUp extends Component<Props> {
               onClick={() => this.props.closeMyHighlights()}
             />
           </Styled.Header>
-          {this.props.summaryIsLoading ? (
+          {this.props.user && this.props.summaryIsLoading ? (
             <Styled.PopupBody><Loader /></Styled.PopupBody>
           ) : this.props.user ? (
             this.myHighlights()
           ) : (
             this.loginForHighlights()
           )}
-        </Styled.Wrapper>
-      </React.Fragment>
-    ) : null;
+        </Styled.Modal>
+      </Styled.PopupWrapper>
+    : null;
   }
 
   public componentDidUpdate() {
