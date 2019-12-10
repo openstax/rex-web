@@ -11,10 +11,17 @@ import { textStyle } from '../../../../components/Typography'
 import { book as bookSelector } from '../../../selectors'
 import { flattenArchiveTree, archiveTreeSectionIsBook, archiveTreeSectionIsChapter } from '../../../utils/archiveTreeUtils'
 import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../../../types'
+import Times from '../../../../components/Times'
+import { filtersChange } from '../../actions'
 
 const RemoveIcon = styled.span`
   padding: 0.5rem;
   cursor: pointer;
+
+  svg {
+    height: 1rem;
+    width: 1rem;
+  }
 `
 
 const ItemLabel = styled.span`
@@ -59,7 +66,7 @@ const FiltersListItem = (props: FiltersListItemProps) => {
   }
 
   return <li>
-    <RemoveIcon onClick={handleClick}>X</RemoveIcon>
+    <RemoveIcon onClick={handleClick}><Times /></RemoveIcon>
     <ItemLabel>{body}</ItemLabel>
   </li>
 }
@@ -104,6 +111,10 @@ const FiltersList = ({className}: FiltersListProps) => {
       setSections(sections)
     }
   }, [book])
+
+  React.useEffect(() => {
+    dispatch(filtersChange())
+  }, [selectedColors, selectedChapters])
 
   return <ul className={className}>
     {selectedChapters.map(chapterId => sections.has(chapterId) && <FiltersListItem

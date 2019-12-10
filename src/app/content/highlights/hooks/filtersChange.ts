@@ -8,7 +8,6 @@ const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getState, hig
   const state = getState();
   const selectedChapters = chaptersFilter(state)
   const selectedColors = colorsFilter(state)
-  console.log('hookBody', 'selectedChapters', selectedChapters, 'selectedColors', selectedColors)
 
   const highlights = await highlightClient.getHighlights({
     perPage: 100,
