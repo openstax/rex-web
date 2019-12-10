@@ -8,6 +8,9 @@ echo "remove this when offical solution is merged https://github.com/facebook/cr
 
 worker="${BASH_SOURCE%/*}/../build/service-worker.js"
 
+echo "$worker"
+ls
+
 sed -Ei '' \
   -e '1h;2,$H;$!d;g' \
   -e "s/\"\/index\.html.*}\);//" \
