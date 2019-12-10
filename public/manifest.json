@@ -8,8 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "scope": "/books",
-  "start_url": "/books/list/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
