@@ -1,17 +1,23 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/highlights-client/dist/models/NewHighlight';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
+import { book, page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
+import { receiveBook, receivePage } from '../../actions';
 import { requestSearch } from '../../search/actions';
+import { formatBookData } from '../../utils';
 import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
+import { HighlightData } from '../types';
 import Card from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
@@ -53,12 +59,14 @@ describe('Card', () => {
       },
       title: '',
     } as unknown as HTMLElement;
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
       {
         color: highlightStyles[0].label,
-        ...highlightData,
+        id: highlightData.id,
       },
-    ]));
+    ] as HighlightData[]));
     store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} container={container} />
@@ -69,9 +77,13 @@ describe('Card', () => {
   });
 
   it('matches snapshot when passed data without note', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
-      highlight.serialize().data,
-    ]));
+      {
+        id: highlightData.id,
+      },
+    ] as HighlightData[]));
     store.dispatch(requestSearch('asdf'));
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -82,6 +94,8 @@ describe('Card', () => {
   });
 
   it('matches snapshot without data', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     const container = assertDocument().createElement('div');
     highlight.range.getBoundingClientRect.mockReturnValue({
       bottom: 200,
@@ -100,7 +114,13 @@ describe('Card', () => {
     scrollIntoView.mockImplementation(() => null);
     const createNodeMock = () => ({});
 
-    store.dispatch(receiveHighlights([highlightData]));
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights([
+      {
+        id: highlightData.id,
+      },
+    ] as HighlightData[]));
 
     renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -117,22 +137,24 @@ describe('Card', () => {
     store.dispatch(receiveHighlights([
       {
         color: 'asdfasdfadsf' as HighlightColorEnum,
-        ...highlight.serialize().data,
+        id: highlightData.id,
       },
-    ]));
+    ] as HighlightData[]));
     expect(() => renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>)).not.toThrow();
   });
 
   it('switches to editing mode when onEdit is triggered', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
       {
-        ...highlight.serialize().data,
         annotation: 'adsf',
         color: highlightStyles[0].label,
+        id: highlightData.id,
       },
-    ]));
+    ] as HighlightData[]));
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -148,14 +170,16 @@ describe('Card', () => {
 
   it('switches to display mode when cancelling', () => {
     const data = {
-      ...highlight.serialize().data,
       annotation: 'adsf',
       color: highlightStyles[0].label,
-    };
+      id: highlightData.id,
+    } as HighlightData;
     store.dispatch(receiveHighlights([
       data,
     ]));
     store.dispatch(focusHighlight(highlight.id));
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -175,13 +199,15 @@ describe('Card', () => {
   });
 
   it('removes when DisplayNote calls onRemove', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
       {
-        ...highlight.serialize().data,
         annotation: 'adsf',
         color: highlightStyles[0].label,
+        id: highlightData.id,
       },
-    ]));
+    ] as HighlightData[]));
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -196,9 +222,13 @@ describe('Card', () => {
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
+
+    dispatch.mockClear();
 
     const picker = component.root.findByType(EditCard);
     picker.props.onRemove();
@@ -207,13 +237,17 @@ describe('Card', () => {
   });
 
   it('creates when DisplayNote calls onCreate', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
       {
-        ...highlight.serialize().data,
         annotation: '',
         color: highlightStyles[0].label,
+        id: highlight.id,
       },
-    ]));
+    ] as HighlightData[]));
+
+    dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -224,7 +258,12 @@ describe('Card', () => {
       editcard.props.onCreate();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight.serialize().getApiPayload()));
+    expect(dispatch).toHaveBeenCalledWith(createHighlight({
+      ...highlight.serialize().getApiPayload(),
+      scopeId: 'testbook1-uuid',
+      sourceId: 'testbook1-testpage1-uuid',
+      sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    }));
   });
 
   it('renders null if highlight doen\'t have range', () => {
@@ -241,10 +280,10 @@ describe('Card', () => {
     (highlight as any).range = undefined;
     store.dispatch(receiveHighlights([
       {
-        style: highlightStyles[0].label,
-        ...highlightData,
+        color: highlightStyles[0].label,
+        id: highlightData.id,
       },
-    ]));
+    ] as HighlightData[]));
     store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<Provider store={store}>

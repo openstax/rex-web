@@ -14,6 +14,7 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { openMyHighlights, receiveHighlights } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
+import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
 import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
@@ -41,14 +42,14 @@ describe('Show my highlights', () => {
       store.dispatch(receiveUser(user));
       store.dispatch(receiveHighlights([
         {
-          ...highlight1.serialize().data,
-          annotation: 'adsf',
+          annotation: 'asdf',
           color: highlightStyles[0].label,
+          id: highlight1.id,
         },
         {
-          ...highlight2.serialize().data,
+          id: highlight2.id,
         },
-      ]));
+      ] as HighlightData[]));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -87,14 +88,14 @@ describe('Show my highlights', () => {
       store.dispatch(receiveUser(user));
       store.dispatch(receiveHighlights([
         {
-          ...highlight1.serialize().data,
-          annotation: 'adsf',
+          annotation: 'asdf',
           color: highlightStyles[0].label,
+          id: highlight1.id,
         },
         {
-          ...highlight2.serialize().data,
+          id: highlight2.id,
         },
-      ]));
+      ] as HighlightData[]));
     });
 
     const {root} = renderToDom(<Provider store={store}>
@@ -142,14 +143,14 @@ describe('Show my highlights', () => {
       store.dispatch(receiveUser(user));
       store.dispatch(receiveHighlights([
         {
-          ...highlight1.serialize().data,
-          annotation: 'adsf',
+          annotation: 'asdf',
           color: highlightStyles[0].label,
+          id: highlight1.id,
         },
         {
-          ...highlight2.serialize().data,
+          id: highlight2.id,
         },
-      ]));
+      ] as HighlightData[]));
     });
 
     const {root} = renderToDom(<Provider store={store}>
@@ -196,14 +197,14 @@ describe('Show my highlights', () => {
       store.dispatch(receiveUser(user));
       store.dispatch(receiveHighlights([
         {
-          ...highlight1.serialize().data,
-          annotation: 'adsf',
+          annotation: 'asdf',
           color: highlightStyles[0].label,
+          id: highlight1.id,
         },
         {
-          ...highlight2.serialize().data,
+          id: highlight2.id,
         },
-      ]));
+      ] as HighlightData[]));
     });
 
     const component = renderer.create(<Provider store={store}>
