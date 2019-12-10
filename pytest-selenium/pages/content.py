@@ -34,15 +34,22 @@ class Content(Page):
 
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
 
-    _body_locator = (By.TAG_NAME, "body")
-    _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
-    _error_modal_locator = (By.CSS_SELECTOR, ".error-modal")
-    _main_content_locator = (By.CSS_SELECTOR, "h1")
-    _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
+    _body_locator = (
+        By.CSS_SELECTOR, "body")
+    _book_section_content_locator = (
+        By.CSS_SELECTOR, "[class*=MinPageHeight]")
+    _error_modal_locator = (
+        By.CSS_SELECTOR, ".error-modal")
+    _main_content_locator = (
+        By.CSS_SELECTOR, "h1")
+    _next_locator = (
+        By.CSS_SELECTOR, "[aria-label='Next Page']")
     _notification_pop_up_locator = (
         By.CSS_SELECTOR, "[class*=ContentNotifications]")
-    _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
-    _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
+    _previous_locator = (
+        By.CSS_SELECTOR, "[aria-label='Previous Page']")
+    _print_locator = (
+        By.CSS_SELECTOR, "[data-testid=print]")
 
     @property
     def loaded(self):
@@ -155,21 +162,20 @@ class Content(Page):
     @property
     def sidebar_width_offset(self):
         sidebar_width = self.width(self.sidebar.root)
-        sidebar_width_left_offset = self.sidebar.root.get_attribute("offsetLeft")
-        sidebar_width_offset = int(sidebar_width) + int(sidebar_width_left_offset)
-        return sidebar_width_offset
+        sidebar_width_left_offset = (
+            self.sidebar.root.get_attribute("offsetLeft"))
+        return (int(sidebar_width) +
+                int(sidebar_width_left_offset))
 
     @property
     def sidebar_height_offset(self):
         navbar_height = self.height(self.navbar.root)
         bookbanner_height = self.height(self.bookbanner.root)
-        sidebar_height_offset = int(navbar_height) + int(bookbanner_height)
-        return sidebar_height_offset
+        return int(navbar_height) + int(bookbanner_height)
 
     @property
     def window_height(self):
-        window_height = int(self.height(self.sidebar.root)) + self.sidebar_height_offset
-        return window_height
+        return int(self.height(self.sidebar.root)) + self.sidebar_height_offset
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.
@@ -309,17 +315,26 @@ class Content(Page):
             return self.page
 
     class NavBar(Region):
+
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
-        _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
-        _user_nav_locator = (By.CSS_SELECTOR, "[data-testid='user-nav']")
-        _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
-        _user_nav_toggle_locator = (By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
-        _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
-        _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
+
+        _account_profile_locator = (
+            By.XPATH, "//a[contains(text(), 'Account Profile')]")
+        _login_locator = (
+            By.CSS_SELECTOR, "[data-testid='nav-login']")
+        _logout_locator = (
+            By.XPATH, "//a[contains(text(), 'Log out')]")
+        _openstax_logo_link_locator = (
+            By.CSS_SELECTOR, "div > a")
+        _user_nav_locator = (
+            By.CSS_SELECTOR, "[data-testid='user-nav']")
+        _user_nav_toggle_locator = (
+            By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
 
         @property
         def openstax_logo_link(self):
-            return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
+            return (self.find_element(*self._openstax_logo_link_locator)
+                    .get_attribute("href"))
 
         @property
         def user_nav(self):
@@ -332,26 +347,28 @@ class Content(Page):
         @property
         def user_is_not_logged_in(self):
             try:
-                self.wait.until(expected.visibility_of_element_located(self._login_locator))
-                return bool(self.find_element(*self._login_locator))
+                self.wait.until(
+                    expected.visibility_of_element_located(
+                        self._login_locator))
+                return True
             except TimeoutException:
-                return bool([])
+                return False
 
         @property
         def user_is_logged_in(self):
             try:
                 self.wait.until(
-                    expected.visibility_of_element_located(self._user_nav_toggle_locator)
-                )
-                return bool(self.find_element(*self._user_nav_toggle_locator))
+                    expected.visibility_of_element_located(
+                        self._user_nav_toggle_locator))
+                return True
             except TimeoutException:
-                return bool([])
+                return False
 
         @property
         def account_profile_is_displayed(self):
             try:
-                if self.find_element(*self._account_profile_locator).is_displayed():
-                    return True
+                return (self.find_element(*self._account_profile_locator)
+                        .is_displayed())
             except NoSuchElementException:
                 return False
 
@@ -364,21 +381,30 @@ class Content(Page):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
-            self.wait.until(expected.visibility_of_element_located(self._login_locator))
+            self.wait.until(
+                expected.visibility_of_element_located(
+                    self._login_locator))
             Utilities.click_option(self.driver, element=self.login)
 
         def click_logout(self):
             Utilities.click_option(self.driver, element=self.logout)
 
         def click_user_name(self):
-            self.wait.until(expected.visibility_of_element_located((self._user_nav_locator)))
+            self.wait.until(
+                expected.visibility_of_element_located(
+                    self._user_nav_locator))
             Utilities.click_option(self.driver, element=self.user_nav)
 
     class BookBanner(Region):
+
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
-        _book_title_locator = (By.CSS_SELECTOR, "div > a")
-        _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
-        _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
+
+        _book_title_locator = (
+            By.CSS_SELECTOR, "div > a")
+        _chapter_section_locator = (
+            By.CSS_SELECTOR, "div > h1 > span.os-number")
+        _chapter_title_locator = (
+            By.CSS_SELECTOR, "div > h1 > span.os-text")
 
         @property
         def book_title(self):
@@ -398,14 +424,17 @@ class Content(Page):
                 return None
 
     class ToolBar(Region):
+
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
+
+        _search_button_desktop_locator = (
+            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (
+            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (
+            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _toc_toggle_button_locator = (
-            By.CSS_SELECTOR,
-            "[aria-label='Click to open the Table of Contents']",
-        )
-        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
         @property
         def toc_toggle_button(self):
@@ -417,8 +446,7 @@ class Content(Page):
 
         @property
         def search_button(self):
-            """Return the desktop view search icon within the search text box."""
-
+            """Return the desktop view search icon within the search box."""
             return self.find_element(*self._search_button_desktop_locator)
 
         @property
@@ -434,32 +462,37 @@ class Content(Page):
 
             self.offscreen_click(self.search_button_mobile)
 
-        def search_for(self, element):
+        def search_for(self, search_term: str):
             """Search for a term/query in desktop resolution.
 
-            :element: type -> str: search_term defined in the test
+            :param str search_term: search_term defined in the test
             :return: search sidebar region with the search results
+            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
 
             Enter the search term in the search textbox and hit Enter/Return
             Search results display in the search sidebar.
 
             """
-            self.search_textbox.send_keys(element)
+            self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_button)
             self.page.search_sidebar.wait_for_region_to_display()
+            return self.page.search_sidebar
 
     class MobileSearchToolbar(Region):
-        _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+
+        _search_textbox_mobile_locator = (
+            By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
 
         @property
         def search_textbox(self):
             return self.find_element(*self._search_textbox_mobile_locator)
 
-        def search_for(self, element):
+        def search_for(self, search_term: str):
             """Search for a term/query in mobile resolution.
 
-            :element: type -> str: search_term defined in the test
+            :param str search_term: search_term defined in the test
             :return: search sidebar region with the search results
+            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
 
             Click the search icon in the toolbar
             Enter the search term in the search textbox and hit Enter/Return
@@ -467,11 +500,13 @@ class Content(Page):
 
             """
             self.page.toolbar.click_search_icon()
-            self.search_textbox.send_keys(element)
+            self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_textbox)
             self.page.search_sidebar.wait_for_region_to_display()
+            return self.page.search_sidebar
 
     class SideBar(Region):
+
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
 
         @property
@@ -483,11 +518,11 @@ class Content(Page):
             return TableOfContents(self.page)
 
         class Header(Region):
+
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
+
             _toc_toggle_button_locator = (
-                By.CSS_SELECTOR,
-                "[aria-label='Click to close the Table of Contents']",
-            )
+                By.CSS_SELECTOR, "[aria-label*='close the Table of Contents']")
 
             @property
             def toc_toggle_button(self):
@@ -496,18 +531,21 @@ class Content(Page):
             def click_toc_toggle_button(self):
                 self.offscreen_click(self.toc_toggle_button)
                 return self.wait.until(
-                    expected.invisibility_of_element_located(self.toc_toggle_button)
-                )
+                    expected.invisibility_of_element_located(
+                        self.toc_toggle_button))
 
     class Attribution(Region):
-        _root_locator = (By.CSS_SELECTOR, '[data-testid="attribution-details"]')
+
+        _root_locator = (By.CSS_SELECTOR, "[data-testid='attribution-details']")
+
+        _access_free_locator = (
+            By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
         _attribution_toggle_locator = (
-            By.CSS_SELECTOR,
-            '[data-testid="attribution-details"] summary',
-        )
-        _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
-        _book_url_locator = (By.XPATH, "//*[contains(text(), 'Book URL')]/a")
-        _access_free_locator = (By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
+            By.CSS_SELECTOR, '[data-testid="attribution-details"] summary')
+        _book_url_locator = (
+            By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _section_url_locator = (
+            By.XPATH, "//*[contains(text(), 'Section URL')]/a")
 
         @property
         def attribution_link(self):
@@ -527,11 +565,13 @@ class Content(Page):
 
         @property
         def book_url(self):
-            return self.find_element(*self._book_url_locator).get_attribute("href")
+            return (self.find_element(*self._book_url_locator)
+                    .get_attribute("href"))
 
         @property
         def access_free_url(self):
-            return self.find_element(*self._access_free_locator).get_attribute("href")
+            return (self.find_element(*self._access_free_locator)
+                    .get_attribute("href"))
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)
@@ -540,9 +580,12 @@ class Content(Page):
     class Notification(Region):
         """A pop up notification box."""
 
-        _acknowledge_button_locator = (By.CSS_SELECTOR, "button")
-        _content_text_locator = (By.CSS_SELECTOR, "p")
-        _notification_title_locator = (By.CSS_SELECTOR, "[class*=Header]")
+        _acknowledge_button_locator = (
+            By.CSS_SELECTOR, "button")
+        _content_text_locator = (
+            By.CSS_SELECTOR, "p")
+        _notification_title_locator = (
+            By.CSS_SELECTOR, "[class*=Header]")
 
         @property
         def button(self) -> WebElement:
