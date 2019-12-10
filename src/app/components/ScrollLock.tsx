@@ -34,7 +34,9 @@ const fadeIn = keyframes`
 export const Overlay = styled.div`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
-  z-index: ${(props: {isModal?: boolean}) => props.isModal ? theme.zIndex.highlights : theme.zIndex.overlay};
+  ${(props: {zIndex?: number}) => props.zIndex && css`
+    z-index: ${props.zIndex};
+  `}
   position: absolute;
   content: "";
   top: -${toolbarDesktopHeight}rem;
@@ -54,7 +56,7 @@ interface Props {
   onClick?: () => void;
   overlay?: boolean;
   mobileOnly?: boolean | undefined;
-  isModal?: boolean | undefined;
+  zIndex?: number | undefined;
 }
 
 export default class ScrollLock extends React.Component<Props> {
@@ -63,7 +65,7 @@ export default class ScrollLock extends React.Component<Props> {
     return <OnScroll onTouchMove={this.blockScroll}>
       <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
       {this.props.overlay !== false &&
-        <Overlay onClick={this.props.onClick} mobileOnly={this.props.mobileOnly} isModal={this.props.isModal}/>
+        <Overlay onClick={this.props.onClick} mobileOnly={this.props.mobileOnly} zIndex={this.props.zIndex}/>
       }
     </OnScroll>;
   }

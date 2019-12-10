@@ -47,7 +47,7 @@ export const PopupWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const Modal = styled.div`
   top: 0;
-  z-index: ${theme.zIndex.highlights};
+  z-index: ${theme.zIndex.highlightSummaryPopup};
   position: fixed;
   background: ${theme.color.neutral.base};
   border-radius: 0.5rem;

@@ -108,8 +108,8 @@ export default {
     'overlay',
     'sidebar',
     'navbar',
-    'highlights',
-    'modal',
+    'highlightSummaryPopup',
+    'errorPopup',
     'focusedHiddenLink',
   ].reduce((result, key, index) => {
     result[key] = (index + 1) * 10;

@@ -9,6 +9,7 @@ import { User } from '../../../auth/types';
 import Loader from '../../../components/Loader';
 import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
+import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
@@ -139,7 +140,7 @@ class HighlightsPopUp extends Component<Props> {
         <ScrollLock
           overlay={true}
           mobileOnly={false}
-          isModal={true}
+          zIndex={theme.zIndex.highlightSummaryPopup}
           onClick={this.props.closeMyHighlights}
         />
         <Styled.Modal
