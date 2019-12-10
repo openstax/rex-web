@@ -12,20 +12,5 @@ function abs_path {
 
 worker=$(abs_path "${BASH_SOURCE%/*}/../build")/service-worker.js
 
-echo "$worker"
-
-echo "ls"
-ls
-
-
-echo "build"
-ls build
-
-sed -Ei '' \
-  -e '1h;2,$H;$!d;g' \
-  -e "s/\"\/index\.html.*}\);//" \
-  "$worker"
-
-echo -n "\"/index.html\"), {
-  blacklist: [/^\/accounts/,/^\/_/,/\/[^\/]+\.[^\/]+$/],
-});" >> "$worker"
+sed -i.bak 's/\/^/\/^\\\/accounts\/,\/^/' "$worker"
+rm "$worker.bak"
