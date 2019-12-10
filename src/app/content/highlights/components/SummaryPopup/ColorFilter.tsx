@@ -9,15 +9,32 @@ import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../ColorIndicator';
+import { useSelector, useDispatch } from 'react-redux';
+import { colorsFilter } from '../../selectors'
+import { setColorsFilter } from '../../actions';
 
 interface Props {
   className?: string;
 }
 
+const allColors = highlightStyles.map((style) => style.label);
+
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
-  const allColors = highlightStyles.map((style) => style.label);
-  const [selectedColors, setSelectedColors] = React.useState<HighlightColorEnum[]>(allColors);
+  const selectedColors = useSelector(colorsFilter);
+  const dispatch = useDispatch();
+
+  const setSelectedColors = (colors: HighlightColorEnum[]) => {
+    dispatch(setColorsFilter(colors))
+  }
+
+  const handleChange = (label: HighlightColorEnum) => {
+    if (selectedColors.includes(label)) {
+      setSelectedColors(selectedColors.filter(not(match(label))))
+    } else {
+      setSelectedColors([...selectedColors, label])
+    }
+  }
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
@@ -27,10 +44,7 @@ const ColorFilter = ({className}: Props) => {
     {highlightStyles.map((style) => <Checkbox
       key={style.label}
       checked={selectedColors.includes(style.label)}
-      onChange={() => selectedColors.includes(style.label)
-        ? setSelectedColors(selectedColors.filter(not(match(style.label))))
-        : setSelectedColors([...selectedColors, style.label])
-      }
+      onChange={() => handleChange(style.label)}
     >
       <ColorIndicator style={style} size='small'/>
       <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>

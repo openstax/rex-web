@@ -15,6 +15,7 @@ interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
 // tslint:disable-next-line:variable-name
 const DropdownToggle = styled(({component, ...props}: ToggleProps) => React.cloneElement(component, props))`
   cursor: pointer;
+  font-weight: bold;
 `;
 
 const fadeIn = keyframes`

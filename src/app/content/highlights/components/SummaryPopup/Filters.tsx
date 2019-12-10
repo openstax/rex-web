@@ -9,6 +9,7 @@ import theme from '../../../../theme';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
+import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
@@ -52,6 +53,7 @@ const Filters = ({className}: Props) => <div className={className}>
       <ColorFilter />
     </Dropdown>}
   </FormattedMessage>
+  <FiltersList />
 </div>;
 
 export default styled(Filters)`
@@ -59,8 +61,8 @@ export default styled(Filters)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 3.2rem;
-  height: 5.6rem;
+  flex-wrap: wrap;
+  padding: 2rem 3.2rem 0 3.2rem;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${mobilePadding}rem;
     height: 3.6rem;

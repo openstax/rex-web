@@ -1,4 +1,4 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export type HighlightData = Highlight;
 
@@ -9,7 +9,7 @@ export interface State {
   highlights: null | HighlightData[];
   summary: {
     filters: {
-      colors: string[];
+      colors: HighlightColorEnum[];
       chapters: string[];
     },
     loading: boolean;

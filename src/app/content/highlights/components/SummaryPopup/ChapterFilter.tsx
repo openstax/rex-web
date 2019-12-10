@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
@@ -17,6 +17,8 @@ import {
 } from '../../../utils/archiveTreeUtils';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
+import { chaptersFilter } from '../../selectors';
+import { setChaptersFilter } from '../../actions';
 
 interface Props {
   className?: string;
@@ -82,7 +84,27 @@ const ChapterFilter = ({className}: Props) => {
       )
     )
   );
-  const [selectedChapters, setSelectedChapters] = React.useState<string[]>(currentChapter ? [currentChapter.id] : []);
+
+  const selectedChapters = useSelector(chaptersFilter)
+  const dispatch = useDispatch();
+
+  const setSelectedChapters = (chapterIds: string[]) => {
+    dispatch(setChaptersFilter(chapterIds));
+  }
+
+  const handleChange = (chapterId: string) => {
+    if (selectedChapters.includes(chapterId)) {
+      setSelectedChapters(selectedChapters.filter(not(match(chapterId))))
+    } else {
+      setSelectedChapters([...selectedChapters, chapterId])
+    }
+  }
+
+  React.useEffect(() => {
+    if (currentChapter && selectedChapters.length === 0) {
+      setSelectedChapters([currentChapter.id])
+    }
+  }, [])
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
@@ -94,10 +116,7 @@ const ChapterFilter = ({className}: Props) => {
         {sectionChunk.map((section) => <Checkbox
           key={section.id}
           checked={selectedChapters.includes(section.id)}
-          onChange={() => selectedChapters.includes(section.id)
-            ? setSelectedChapters(selectedChapters.filter(not(match(section.id))))
-            : setSelectedChapters([...selectedChapters, section.id])
-          }
+          onChange={() => handleChange(section.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
         </Checkbox>)}

@@ -76,6 +76,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.setColorsFilter): {
+      const newState = {...state};
+      newState.summary.filters.colors = action.payload;
+      return newState
+    }
+    case getType(actions.setChaptersFilter): {
+      const newState = {...state};
+      newState.summary.filters.chapters = action.payload;
+      return newState
+    }
     default:
       return state;
   }

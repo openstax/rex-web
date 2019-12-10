@@ -1,4 +1,4 @@
-import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { NewHighlight, UpdateHighlightRequest, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
 import { HighlightData } from './types';
 
@@ -13,3 +13,7 @@ export const receiveHighlights = createStandardAction('Content/Highlight/receive
 
 export const openMyHighlights = createStandardAction('Content/openMyHighlights')<void>();
 export const closeMyHighlights = createStandardAction('Content/closeMyHighlights')<void>();
+
+export const setColorsFilter = createStandardAction('Content/setColorsFilter')<HighlightColorEnum[]>();
+export const setChaptersFilter = createStandardAction('Content/setChaptersFilter')<string[]>();
+export const filtersChange = createStandardAction('Content/filtersChange')<void>();
