@@ -67,7 +67,8 @@ class Content(Page):
         .. note::
            We make two checks for the error modal because when it occurs it may
            be missed as the rest of the page is ready before the error
-           displays.
+           displays. The error overlay then intercepts other actions on the
+           page causing ``TimeoutExpeption``s.
 
         :return: ``True`` when the error modal exists within the content page
         :rtype: bool
