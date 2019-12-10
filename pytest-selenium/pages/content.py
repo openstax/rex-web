@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from math import ceil as round_up
 from random import randint
+from time import sleep
 from typing import List, Tuple, Union
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -24,20 +25,62 @@ BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
 COMPUTED_STYLES = "return window.getComputedStyle(arguments[0]){field};"
 
 
+class ContentError(Exception):
+
+    pass
+
+
 class Content(Page):
+
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
+
     _body_locator = (By.TAG_NAME, "body")
+    _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
+    _error_modal_locator = (By.CSS_SELECTOR, ".error-modal")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
     _notification_pop_up_locator = (
         By.CSS_SELECTOR, "[class*=ContentNotifications]")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
-    _print_locator = (By.CSS_SELECTOR, '[data-testid="print"]')
+    _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
 
     @property
     def loaded(self):
         return (self.find_element(*self._body_locator)
                 .get_attribute("data-rex-loaded"))
+
+    @property
+    def error(self) -> Content.Error:
+        """Access the error modal.
+
+        :return: the error modal
+        :rtype: Content.Error
+
+        """
+        error_modal = self.find_element(*self._error_modal_locator)
+        return self.Error(self, error_modal)
+
+    @property
+    def error_shown(self) -> bool:
+        """Return True when the error modal is present.
+
+        .. note::
+           We make two checks for the error modal because when it occurs it may
+           be missed as the rest of the page is ready before the error
+           displays.
+
+        :return: ``True`` when the error modal exists within the content page
+        :rtype: bool
+
+        """
+        try:
+            return bool(self.error)
+        except NoSuchElementException:
+            sleep(0.25)
+            try:
+                return bool(self.error)
+            except NoSuchElementException:
+                return False
 
     @property
     def print(self):
@@ -95,8 +138,18 @@ class Content(Page):
 
     @property
     def content(self):
-        """Access the main book content region."""
-        return self.Content(self)
+        """Access the main book content region.
+
+        :return: the book section content
+        :rtype: Content.Content
+        :raises ContentError: if an error modal is present
+
+        """
+        if not self.error_shown:
+            content_root = self.find_element(
+                *self._book_section_content_locator)
+            return self.Content(self, content_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}\n")
 
     @property
     def sidebar_width_offset(self):
@@ -171,8 +224,10 @@ class Content(Page):
     @property
     def notification(self) -> Content.Notification:
         """Access a content notification box."""
-        box_root = self.find_element(*self._notification_pop_up_locator)
-        return self.Notification(self, box_root)
+        if not self.error_shown:
+            box_root = self.find_element(*self._notification_pop_up_locator)
+            return self.Notification(self, box_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}\n")
 
     @property
     def notification_present(self) -> bool:
@@ -184,6 +239,73 @@ class Content(Page):
 
         """
         return bool(self.find_elements(*self._notification_pop_up_locator))
+
+    class Error(Region):
+        """An error pop up modal."""
+
+        _clear_error_button_locator = (
+            By.CSS_SELECTOR, "[class*=Footer] button")
+        _content_text_locator = (
+            By.CSS_SELECTOR, "[class*=BodyError]")
+        _heading_text_locator = (
+            By.CSS_SELECTOR, "[class*=BodyHeading]")
+        _help_link_locator = (
+            By.CSS_SELECTOR, "a")
+        _title_text_locator = (
+            By.CSS_SELECTOR, "[class*='_Heading']")
+
+        @property
+        def content(self) -> str:
+            """Return the error content text.
+
+            :return: the error modal body text
+            :rtype: str
+
+            """
+            return (self.find_element(*self._content_text_locator)
+                    .get_attribute("textContent").strip())
+
+        @property
+        def heading(self) -> str:
+            """Return the error heading text.
+
+            :return: the error modal header
+            :rtype: str
+
+            """
+            return self.find_element(*self._heading_text_locator).text
+
+        @property
+        def help_link(self) -> WebElement:
+            """Return the Support Center link.
+
+            :return: the support center help link
+            :rtype: WebElement
+
+            """
+            return self.find_element(*self._help_link_locator)
+
+        @property
+        def title(self) -> str:
+            """Return the modal title.
+
+            :return: the modal title
+            :rtype: str
+
+            """
+            return self.find_element(*self._title_text_locator).text
+
+        def ok(self) -> Content:
+            """Click the OK button to close the error modal.
+
+            :return: the parent content page
+            :rtype: Content
+
+            """
+            button = self.find_element(*self._clear_error_button_locator)
+            Utilities.click_option(self.driver, element=button)
+            self.wait.until(expected.staleness_of(self.root))
+            return self.page
 
     class NavBar(Region):
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
@@ -470,8 +592,6 @@ class Content(Page):
 
     class Content(Region):
         """The main content for the book section."""
-
-        _root_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
 
         _figure_container_locator = (
             By.CSS_SELECTOR, ".os-figure")
