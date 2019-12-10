@@ -9,7 +9,12 @@ echo "remove this when offical solution is merged https://github.com/facebook/cr
 worker="${BASH_SOURCE%/*}/../build/service-worker.js"
 
 echo "$worker"
+
+echo "ls"
 ls
+
+
+echo "build"
 ls build
 
 sed -Ei '' \
