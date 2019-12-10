@@ -10,6 +10,7 @@ worker="${BASH_SOURCE%/*}/../build/service-worker.js"
 
 echo "$worker"
 ls
+ls build
 
 sed -Ei '' \
   -e '1h;2,$H;$!d;g' \
