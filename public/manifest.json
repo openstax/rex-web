@@ -9,7 +9,7 @@
     }
   ],
   "scope": "/books/",
-  "start_url": ".",
+  "start_url": "/books/list/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
