@@ -147,7 +147,7 @@ function osWebApiProxy(app) {
 }
 
 function osWebProxy(app) {
-  app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|\/$/) , {
+  app.use(proxy((path) => !path.match(/^\/((books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|manifest.json|service-worker.js|precache-manifest.*|index.html|\/)?$/) , {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
