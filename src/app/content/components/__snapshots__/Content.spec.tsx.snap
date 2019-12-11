@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 90;
 }
 
 <a
@@ -3366,7 +3366,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 90;
 }
 
 <a

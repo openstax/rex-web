@@ -24,7 +24,7 @@ const Mask = styled.div`
 // tslint:disable-next-line:variable-name
 const Modal = styled.div`
   top: 0;
-  z-index: ${theme.zIndex.modal};
+  z-index: ${theme.zIndex.errorPopup};
   left: 0;
   width: 100%;
   height: 100%;
