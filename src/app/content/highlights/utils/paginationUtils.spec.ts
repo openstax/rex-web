@@ -1,5 +1,5 @@
 import { treeWithUnits } from '../../../../test/trees';
-import { getNextPageSources } from './paginationUtils';
+import { filterCountsPerSourceByChapters, getNextPageSources } from './paginationUtils';
 
 describe('getNextPageSources', () => {
   it('gets one page id if it has enough records left to fill a response', () => {
@@ -21,5 +21,27 @@ describe('getNextPageSources', () => {
       page1: 0,
       page2: 10,
     }, treeWithUnits, 10)).toEqual(['page2']);
+  });
+});
+
+describe('filterCountsPerSourceByChapters', () => {
+  it('filters by chapters', () => {
+    expect(filterCountsPerSourceByChapters(
+      ['chapter1'],
+      treeWithUnits,
+      {page1: 2, preface: 3}
+    )).toEqual(
+      {page1: 2}
+    );
+  });
+
+  it('filters by pages outside chapter', () => {
+    expect(filterCountsPerSourceByChapters(
+      ['chapter1', 'preface'],
+      treeWithUnits,
+      {page1: 2, preface: 3}
+    )).toEqual(
+      {page1: 2, preface: 3}
+    );
   });
 });
