@@ -1,163 +1,45 @@
-import * as highlighter from '@openstax/highlighter';
-import { assertWindow } from '../app/utils';
-import { book, page, shortPage } from '../test/mocks/archiveLoader';
+import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { resetModules } from '../test/utils';
 import createHighlightClient from './createHighlightClient';
 
-const fakeHighlight = (id: string) => ({
-  id,
-  serialize: () => ({data: {id}}),
-}) as unknown as highlighter.Highlight;
-
 describe('createHighlightClient', () => {
-  let client: ReturnType<typeof createHighlightClient>;
-  let getItem: jest.SpyInstance;
-  let setItem: jest.SpyInstance;
-  const window = assertWindow();
-  const localStorage = window.localStorage;
+  const fetchBackup = fetch;
+  let fetchSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    client = createHighlightClient();
-
-    getItem = jest.fn();
-    setItem = jest.fn();
-
-    Object.defineProperty(window, 'localStorage', {
-      value: {getItem, setItem},
-      writable: true,
-    });
+    resetModules();
+    fetchSpy = (global as any).fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => ({
+          data: [],
+          meta: {
+            count: 0,
+            page: 1,
+            per_page: 100,
+            total_count: 0,
+          },
+        }),
+        status: 200,
+      })
+    );
   });
 
   afterEach(() => {
-    Object.defineProperty(window, 'localStorage', {
-      value: localStorage,
-      writable: true,
-    });
+    (global as any).fetch = fetchBackup;
   });
 
-  describe('createHighlight', () => {
-    it('works without initial data', async() => {
-      getItem.mockReturnValue(null);
-      await client.createHighlight(book, page, fakeHighlight('a').serialize().data);
+  it('calls fetch with the baseurl', async() => {
+    const client = createHighlightClient('asdf');
 
-      expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a:  {id: 'a'},
-          },
-        },
-      }));
+    await client.getHighlights({
+      perPage: 100,
+      scopeId: 'scope',
+      sourceIds: ['source'],
+      sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     });
 
-    it('adds additional highlights to a page', async() => {
-      getItem.mockReturnValue(JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a:  {id: 'a'},
-          },
-        },
-      }));
-      await client.createHighlight(book, page, fakeHighlight('b').serialize().data);
-
-      expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a:  {id: 'a'},
-            b:  {id: 'b'},
-          },
-        },
-      }));
-    });
-
-    it('adds additional highlights to another page', async() => {
-      getItem.mockReturnValue(JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a:  {id: 'a'},
-          },
-        },
-      }));
-      await client.createHighlight(book, shortPage, fakeHighlight('b').serialize().data);
-
-      expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a:  {id: 'a'},
-          },
-          [shortPage.id]: {
-            b:  {id: 'b'},
-          },
-        },
-      }));
-    });
-  });
-
-  describe('deleteHighlight', () => {
-    it('deletes highlight', async() => {
-      getItem.mockReturnValue(JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a: 'a',
-          },
-        },
-      }));
-      await client.deleteHighlight(book, page, 'a');
-      expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-          },
-        },
-      }));
-    });
-
-    it('noops without data', async() => {
-      getItem.mockReturnValue(null);
-      await client.deleteHighlight(book, page, 'a');
-      expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-          },
-        },
-      }));
-    });
-
-    it('noops with  data', async() => {
-      getItem.mockReturnValue(JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-          },
-        },
-      }));
-      await client.deleteHighlight(book, page, 'a');
-      expect(setItem).toHaveBeenCalledWith(expect.any(String), JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-          },
-        },
-      }));
-    });
-  });
-
-  describe('getHighlightsByPage', () => {
-    it('gets empty list wihtout data', async() => {
-      getItem.mockReturnValue(null);
-      const highlights = await client.getHighlightsByPage(book, page);
-      expect(highlights).toEqual([]);
-    });
-
-    it('gets highlights for page', async() => {
-      getItem.mockReturnValue(JSON.stringify({
-        [book.id]: {
-          [page.id]: {
-            a:  'a',
-          },
-          [shortPage.id]: {
-            b:  'b',
-          },
-        },
-      }));
-      const highlights = await client.getHighlightsByPage(book, page);
-      expect(highlights.length).toBe(1);
-      expect(highlights[0]).toEqual('a');
-    });
+    expect(fetchSpy.mock.calls[0][0]).toMatchInlineSnapshot(
+      `"asdf/highlights?source_type=openstax_page&scope_id=scope&source_ids=source&per_page=100"`
+    );
   });
 });

@@ -1,45 +1,56 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import styled from 'styled-components';
-import { Check } from 'styled-icons/fa-solid/Check';
+import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components/macro';
+import { match, not } from '../../../fpUtils';
 import { cardPadding, highlightStyles } from '../constants';
+import ColorIndicator from './ColorIndicator';
 
-interface Props {
+interface SingleSelectProps {
   color?: string;
   onRemove: () => void;
   onChange: (color: string) => void;
-  className?: string;
+  multiple: false | undefined;
 }
+
+interface MultipleSelectProps {
+  selected: HighlightColorEnum[];
+  onChange: (selected: string[]) => void;
+  multiple: true;
+}
+
+type Props = (SingleSelectProps | MultipleSelectProps) & {
+  className?: string;
+  size?: 'small';
+};
 
 interface ColorButtonProps {
   name: string;
   checked: boolean;
+  size: Props['size'];
   style: typeof highlightStyles[number];
   onClick: () => void;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const CheckIcon = styled(Check)`
-  display: none;
-  height: 1.6rem;
-  width: 1.6rem;
-`;
-
-// tslint:disable-next-line:variable-name
-const ColorButton = styled(({className, style, ...props}: ColorButtonProps) => <label className={className}>
-  <input type='checkbox' {...props} />
-  <CheckIcon />
-</label>)`
+const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) =>
+  <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
+    {(msg: Element | string) =>
+      <ColorIndicator
+        style={style}
+        size={size}
+        title={msg}
+        component={<label />}
+        className={className}
+      >
+        <input type='checkbox' {...props} />
+      </ColorIndicator>
+    }
+  </FormattedMessage>
+)`
   cursor: pointer;
-  height: 2.4rem;
-  width: 2.4rem;
   margin: 0 ${cardPadding}rem ${cardPadding}rem 0;
-  background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
-  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focused};
-  border-radius: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   input {
     position: absolute;
@@ -48,22 +59,23 @@ const ColorButton = styled(({className, style, ...props}: ColorButtonProps) => <
     height: 0;
     width: 0;
   }
-
-  input:checked + ${CheckIcon} {
-    color: ${(props: {style: typeof highlightStyles[number]}) => props.style.focused};
-    display: block;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
-const ColorPicker = ({color, onChange, onRemove, className}: Props) => {
+const ColorPicker = ({className, ...props}: Props) => {
 
   return <div className={className}>
     {highlightStyles.map((style) => <ColorButton key={style.label}
       name={style.label}
-      checked={color === style.label}
+      checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
       style={style}
-      onChange={() => color === style.label ? onRemove() : onChange(style.label)}
+      onChange={() => props.multiple
+        ? props.selected.includes(style.label)
+          ? props.onChange(props.selected.filter(not(match(style.label))))
+          : props.onChange([...props.selected, style.label])
+        : props.color === style.label
+          ? props.onRemove()
+          : props.onChange(style.label)}
     />)}
   </div>;
 };

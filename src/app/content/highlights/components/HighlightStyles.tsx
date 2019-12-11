@@ -6,13 +6,15 @@ import Times from '../../../components/Times';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
-import { toolbarIconColor } from '../../components/constants';
+import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
+import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
 export const popupBodyPadding = 2.4;
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
+export const headerHeight = 7.2;
 
 export const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -42,6 +44,7 @@ export const Mask = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.8);
 `;
@@ -62,10 +65,15 @@ export const Modal = styled.div`
 // tslint:disable-next-line:variable-name
 export const Wrapper = styled.div`
   z-index: 1;
-  width: 100%;
+  max-width: ${contentWrapperMaxWidth}rem;
   background: ${theme.color.neutral.base};
-  margin: 3rem;
+  margin: 7.2rem 2.4rem 2.4rem;
   border-radius: 0.5rem;
+  width: 100%;
+  outline: none;
+  ${theme.breakpoints.mobile(css`
+    margin: 3rem ${mobileMargin}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -76,12 +84,14 @@ export const Header = styled(H3)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: ${headerHeight}rem;
+  overflow: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
   padding: ${popupBodyPadding}rem ${popupPadding}rem;
-  overflow: visible;
+  height: calc(100% - ${headerHeight}rem);
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;

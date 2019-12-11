@@ -11,9 +11,14 @@ export const isEnabled = createSelector(
   (state) => !!state.enabled
 );
 
+export const highlightsLoaded = createSelector(
+  localState,
+  (state) => state.highlights !== null
+);
+
 export const highlights = createSelector(
   localState,
-  (state) => state.highlights
+  (state) => state.highlights || []
 );
 
 export const focused = createSelector(
@@ -24,4 +29,9 @@ export const focused = createSelector(
 export const myHighlightsOpen = createSelector(
   localState,
   (state) => state.myHighlightsOpen
+);
+
+export const summaryIsLoading = createSelector(
+  localState,
+  (state) => state.summary.loading
 );
