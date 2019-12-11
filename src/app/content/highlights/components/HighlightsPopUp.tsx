@@ -9,6 +9,7 @@ import { User } from '../../../auth/types';
 import Loader from '../../../components/Loader';
 import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
+import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
@@ -55,12 +56,10 @@ class HighlightsPopUp extends Component<Props> {
   };
 
   public myHighlights = () => {
-    return (
-      this.props.highlights.length > 0 ? (
-        <ShowMyHighlights />
-      ) : (
-        <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
-      )
+    return this.props.highlights.length > 0 ? (
+      <ShowMyHighlights />
+    ) : (
+      <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
     );
   };
 
@@ -136,34 +135,38 @@ class HighlightsPopUp extends Component<Props> {
   };
 
   public render() {
-    return this.props.myHighlightsOpen ? (
-      <React.Fragment>
-        <ScrollLock overlay={false} mobileOnly={false} />
-        <Styled.Modal>
-          <Styled.Mask>
-            <Styled.Wrapper
-              ref={this.popUp}
-              tabIndex='-1'
-              data-testid='highlights-popup-wrapper'
-            >
-              <Styled.Header>
-                <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-                  {(msg: Element | string) => msg}
-                </FormattedMessage>
-                <Styled.CloseIcon
-                  data-testid='close-highlights-popup'
-                  onClick={() => this.props.closeMyHighlights()}
-                />
-              </Styled.Header>
-              { this.props.summaryIsLoading ?
-                <Loader/>
-                : (this.props.user ? this.myHighlights() : this.loginForHighlights())
-              }
-            </Styled.Wrapper>
-          </Styled.Mask>
+    return this.props.myHighlightsOpen ?
+      <Styled.PopupWrapper>
+        <ScrollLock
+          overlay={true}
+          mobileOnly={false}
+          zIndex={theme.zIndex.highlightSummaryPopup}
+          onClick={this.props.closeMyHighlights}
+        />
+        <Styled.Modal
+          ref={this.popUp}
+          tabIndex='-1'
+          data-testid='highlights-popup-wrapper'
+        >
+          <Styled.Header>
+            <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+            <Styled.CloseIcon
+              data-testid='close-highlights-popup'
+              onClick={() => this.props.closeMyHighlights()}
+            />
+          </Styled.Header>
+          {this.props.user && this.props.summaryIsLoading ? (
+            <Styled.PopupBody><Loader /></Styled.PopupBody>
+          ) : this.props.user ? (
+            this.myHighlights()
+          ) : (
+            this.loginForHighlights()
+          )}
         </Styled.Modal>
-      </React.Fragment>
-    ) : null;
+      </Styled.PopupWrapper>
+    : null;
   }
 
   public componentDidUpdate() {

@@ -13,7 +13,6 @@ export const HighlightsChapter = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  background: ${theme.color.neutral.darker};
   padding: 0 ${popupPadding}rem;
   width: 100%;
   ${theme.breakpoints.mobile(css`
