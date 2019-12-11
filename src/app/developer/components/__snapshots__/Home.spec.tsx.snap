@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 90;
+  z-index: 100;
 }
 
 <a
@@ -58,7 +58,7 @@ Array [
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
