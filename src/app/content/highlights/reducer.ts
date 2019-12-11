@@ -18,6 +18,7 @@ export const initialState: State = {
     filters: {colors: [], chapters: []},
     highlights: {},
     loading: false,
+    pagination: null,
     totalCounts: {},
   },
 };
