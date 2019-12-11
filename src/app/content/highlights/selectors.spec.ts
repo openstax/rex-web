@@ -10,6 +10,19 @@ describe('focused', () => {
   });
 });
 
+describe('totalCountsPerPageInSummary', () => {
+  it('returns remaining', () => {
+    expect(select.totalCountsPerPageInSummary({
+      summary: {
+        totalCounts: {
+          one: 3,
+          two: 1,
+        },
+      },
+    } as any)).toEqual({one: 3, two: 1});
+  });
+});
+
 describe('remainingSourceCounts', () => {
   it('returns remaining', () => {
     expect(select.remainingSourceCounts({
