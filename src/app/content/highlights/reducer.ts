@@ -14,10 +14,11 @@ export const initialState: State = {
   highlights: null,
   myHighlightsOpen: false,
   summary: {
-    chapterCounts: {},
+    filteredTotalCounts: {},
     filters: {colors: [], chapters: []},
     highlights: {},
     loading: false,
+    totalCounts: {},
   },
 };
 

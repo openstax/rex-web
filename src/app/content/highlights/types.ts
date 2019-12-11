@@ -1,6 +1,8 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightsSummary } from '@openstax/highlighter/dist/api';
 
 export type HighlightData = Highlight;
+
+export type CountsPerSource = Exclude<HighlightsSummary['countsPerSource'], undefined>;
 
 export interface State {
   myHighlightsOpen: boolean;
@@ -13,7 +15,13 @@ export interface State {
       chapters: string[];
     },
     loading: boolean;
-    chapterCounts: {[key: string]: number};
+    // totalCounts should reflect the UNFILTERED state of user's data, used in representing
+    // available filter options. this should be updated on create/delete and after auth change
+    totalCounts: {[key: string]: number};
+    // filteredTotalCounts should reflect the FILTERED state of user's data, used in calculating
+    // pagination requests. this should be updated after filter change before requesting
+    // filtered highlights (because you need this to query them)
+    filteredTotalCounts: {[key: string]: number};
     highlights: {
       [chapterId: string]: {[pageId: string]: HighlightData[]}
     };
