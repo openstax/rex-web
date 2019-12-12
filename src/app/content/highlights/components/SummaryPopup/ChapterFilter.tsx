@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
@@ -15,10 +15,10 @@ import {
   flattenArchiveTree,
   nodeHasId
 } from '../../../utils/archiveTreeUtils';
+import { filtersChange, setChaptersFilter } from '../../actions';
+import { chaptersFilter } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
-import { chaptersFilter } from '../../selectors';
-import { setChaptersFilter, filtersChange } from '../../actions';
 
 interface Props {
   className?: string;
@@ -85,28 +85,28 @@ const ChapterFilter = ({className}: Props) => {
     )
   );
 
-  const selectedChapters = useSelector(chaptersFilter)
+  const selectedChapters = useSelector(chaptersFilter);
   const dispatch = useDispatch();
 
   const setSelectedChapters = (chapterIds: string[]) => {
     dispatch(setChaptersFilter(chapterIds));
     dispatch(filtersChange());
-  }
+  };
 
   const handleChange = (chapterId: string) => {
     if (selectedChapters.includes(chapterId)) {
-      setSelectedChapters(selectedChapters.filter(not(match(chapterId))))
+      setSelectedChapters(selectedChapters.filter(not(match(chapterId))));
     } else {
-      setSelectedChapters([...selectedChapters, chapterId])
+      setSelectedChapters([...selectedChapters, chapterId]);
     }
-  }
+  };
 
   // TODO: Do this when opening summary highlight
   React.useEffect(() => {
     if (currentChapter && selectedChapters.length === 0) {
-      setSelectedChapters([currentChapter.id])
+      setSelectedChapters([currentChapter.id]);
     }
-  }, [])
+  }, []);
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone

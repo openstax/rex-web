@@ -1,9 +1,9 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { isHtmlElement } from '../../../guards';
+import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
-import Highlights from './Highlights';
 
 class ShowMyHighlights extends Component<{}, { showGoToTop: boolean }> {
   public myHighlightsBodyRef = React.createRef<HTMLElement>();

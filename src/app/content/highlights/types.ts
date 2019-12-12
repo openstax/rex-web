@@ -1,7 +1,9 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export type HighlightData = Highlight;
-export type SummaryHighlights = {[chapterId: string]: {[pageId: string]: HighlightData[]}};
+export interface SummaryHighlights {
+  [chapterId: string]: {[pageId: string]: HighlightData[]};
+}
 
 export interface State {
   myHighlightsOpen: boolean;

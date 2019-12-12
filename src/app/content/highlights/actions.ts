@@ -1,4 +1,4 @@
-import { NewHighlight, UpdateHighlightRequest, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
 import { HighlightData, SummaryHighlights } from './types';
 

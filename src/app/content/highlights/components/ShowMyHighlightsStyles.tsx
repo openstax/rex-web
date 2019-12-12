@@ -10,16 +10,18 @@ interface HighlightsProps {
   isLoading: boolean;
 }
 
+// tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
   position: relative;
   opacity: ${(p: HighlightsProps) => p.isLoading ? '0.5' : '1'};
-`
+`;
 
+// tslint:disable-next-line: variable-name
 export const LoaderWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 150px;
-`
+`;
 
 // tslint:disable-next-line:variable-name
 export const HighlightsChapter = styled.div`

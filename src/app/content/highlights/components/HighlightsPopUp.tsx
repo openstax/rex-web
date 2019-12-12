@@ -52,7 +52,6 @@ class HighlightsPopUp extends Component<Props> {
     );
   };
 
-
   public blueNote = () => {
     return (
       <Styled.BlueStickyNote>

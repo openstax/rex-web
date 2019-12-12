@@ -1,8 +1,8 @@
 import { receiveUser } from '../../../auth/actions';
 import { actionHook } from '../../../utils';
 import createHighlight from './createHighlight';
-import loadHighlights from './locationChange';
 import filtersChange from './filtersChange';
+import loadHighlights from './locationChange';
 import removeHighlight from './removeHighlight';
 import updateHighlight from './updateHighlight';
 

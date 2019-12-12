@@ -1,17 +1,17 @@
 import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
+import { filtersChange, setColorsFilter } from '../../actions';
 import { highlightStyles } from '../../constants';
+import { colorsFilter } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
-import { useSelector, useDispatch } from 'react-redux';
-import { colorsFilter } from '../../selectors'
-import { setColorsFilter, filtersChange } from '../../actions';
 
 interface Props {
   className?: string;
@@ -27,15 +27,15 @@ const ColorFilter = ({className}: Props) => {
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
     dispatch(setColorsFilter(colors));
     dispatch(filtersChange());
-  }
+  };
 
   const handleChange = (label: HighlightColorEnum) => {
     if (selectedColors.includes(label)) {
-      setSelectedColors(selectedColors.filter(not(match(label))))
+      setSelectedColors(selectedColors.filter(not(match(label))));
     } else {
-      setSelectedColors([...selectedColors, label])
+      setSelectedColors([...selectedColors, label]);
     }
-  }
+  };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone

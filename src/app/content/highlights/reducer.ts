@@ -83,12 +83,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.setColorsFilter): {
       const newState = {...state};
       newState.summary.filters.colors = action.payload;
-      return newState
+      return newState;
     }
     case getType(actions.setChaptersFilter): {
       const newState = {...state};
       newState.summary.filters.chapters = action.payload;
-      return newState
+      return newState;
     }
     case getType(actions.setIsLoadingSummary): {
       const newState = {...state};
