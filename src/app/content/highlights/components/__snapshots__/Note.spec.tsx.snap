@@ -20,6 +20,7 @@ exports[`Note matches snapshot 1`] = `
 
 <textarea
   className="c0"
+  maxLength={1000}
   onChange={[Function]}
   onFocus={[Function]}
   placeholder="Add a note..."
