@@ -59,14 +59,15 @@ const onSelectHighlight = (
 });
 
 const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
+
   const highlighter: Highlighter = new Highlighter(services.container, {
-    onClick: (...args) => onClickHighlight({...services, highlighter}, ...args),
-    onSelect: (...args) => onSelectHighlight({...services, highlighter}, ...args),
+    onClick: (...args) => onClickHighlight({ ...services, highlighter }, ...args),
+    onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
+    skipIDsBy: [new RegExp(/^\d+$/), new RegExp(/^term/)],
     snapMathJax: true,
     snapTableRows: true,
     snapWords: true,
   });
-
   return highlighter;
 };
 
@@ -74,7 +75,7 @@ const isUnknownHighlightData = (highlighter: Highlighter) => (data: HighlightDat
   !highlighter.getHighlight(data.id);
 
 const highlightData = (services: Services) => (data: HighlightData) => {
-  const {highlighter} = services;
+  const { highlighter } = services;
 
   const serialized = SerializedHighlight.fromApiResponse(data);
 
@@ -137,11 +138,11 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
           highlighter: listHighlighter,
           highlights: listPendingHighlight
             ? [
-                ...listHighlights.filter(
-                  (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
-                ),
-                listPendingHighlight,
-              ]
+              ...listHighlights.filter(
+                (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
+              ),
+              listPendingHighlight,
+            ]
             : listHighlights,
         });
       }
@@ -173,14 +174,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))
-        .map(highlightData({...services, highlighter}))
+        .map(highlightData({ ...services, highlighter }))
         .filter(isDefined)
-      ;
+        ;
 
       const removedHighlights = highlighter.getHighlights()
         .filter((highlight) => !getProp().highlights.find(matchHighlightId(highlight.id)))
         .map(erase(highlighter))
-      ;
+        ;
 
       highlighter.clearFocus();
       const focusedId = getProp().focused;
