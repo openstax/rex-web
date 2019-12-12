@@ -1,4 +1,5 @@
 import add from 'lodash/fp/add';
+import omit from 'lodash/fp/omit';
 import pickBy from 'lodash/fp/pickBy';
 import { reduceUntil } from '../../../fpUtils';
 import { isDefined } from '../../../guards';
@@ -14,16 +15,11 @@ import { CountsPerSource } from '../types';
 
 const totalOfCountsPerSource = (perSource: CountsPerSource) => Object.values(perSource).reduce(add, 0);
 
-const diffSourceCounts = (base: CountsPerSource, diff: CountsPerSource) => Object.keys(base).reduce(
-  (counts: CountsPerSource, key: string) => ({...counts, [key]: base[key] - (diff[key] || 0)}),
-  {} as CountsPerSource
-);
-
-export const getRemainingSourceCounts = (
+export const filterCountsToUnvisitiedPages = (
   loadedCounts: CountsPerSource,
   totalCounts: CountsPerSource
 ): CountsPerSource => {
-  return diffSourceCounts(totalCounts, loadedCounts);
+  return omit(Object.keys(loadedCounts), totalCounts);
 };
 
 /*

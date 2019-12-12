@@ -28,8 +28,8 @@ describe('remainingSourceCounts', () => {
     expect(select.remainingSourceCounts({
       summary: {
         filteredTotalCounts: {
-          one: 3,
-          three: 0,
+          one: 2,
+          three: 3,
           two: 1,
         },
         highlights: {
@@ -41,6 +41,6 @@ describe('remainingSourceCounts', () => {
           },
         },
       },
-    } as any)).toEqual({one: 1, two: 0, three: 0});
+    } as any)).toEqual({three: 3});
   });
 });

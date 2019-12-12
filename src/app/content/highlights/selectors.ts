@@ -8,7 +8,7 @@ import toPairs from 'lodash/fp/toPairs';
 import values from 'lodash/fp/values';
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getRemainingSourceCounts } from './utils/paginationUtils';
+import { filterCountsToUnvisitiedPages } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -74,5 +74,5 @@ export const totalCountsPerPageInSummary = createSelector(
 export const remainingSourceCounts = createSelector(
   loadedCountsPerPageInSummary,
   filteredTotalCountsPerPageInSummary,
-  (loadedCounts, totalCounts) => getRemainingSourceCounts(loadedCounts, totalCounts)
+  (loadedCounts, totalCounts) => filterCountsToUnvisitiedPages(loadedCounts, totalCounts)
 );
