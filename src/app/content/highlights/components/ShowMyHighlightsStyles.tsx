@@ -51,6 +51,7 @@ export const HighlightOuterWrapper = styled.div`
   :not(:last-child) {
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
+  background: ${theme.color.neutral.base};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -101,8 +102,8 @@ export const GoToTopWrapper = styled.div`
   height: 4.8rem;
   position: absolute;
   z-index: 1;
-  bottom: calc(4.8rem + ${popupBodyPadding}rem);
-  right: calc(4.8rem + ${popupBodyPadding}rem);
+  bottom: 4.8rem;
+  right: 4.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
