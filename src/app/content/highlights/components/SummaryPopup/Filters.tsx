@@ -63,6 +63,7 @@ export default styled(Filters)`
   align-items: center;
   flex-wrap: wrap;
   padding: 2rem 3.2rem 0 3.2rem;
+  background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     padding: 0 ${mobilePadding}rem;
     height: 3.6rem;

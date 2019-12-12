@@ -1,4 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
+import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
@@ -15,6 +16,7 @@ import { disablePrint } from '../../components/utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
+import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
@@ -31,6 +33,8 @@ import EditCard from './EditCard';
 import { cardBorder } from './style';
 
 interface Props {
+  page: ReturnType<typeof selectContent['bookAndPage']>['page'];
+  book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isFocused: boolean;
   user: User;
@@ -68,7 +72,9 @@ const Card = (props: Props) => {
     }
   }, [props.highlight, annotation]);
 
-  if (!props.highlight.range) {
+  const {page, book} = props;
+
+  if (!props.highlight.range || !page || !book) {
     return null;
   }
 
@@ -76,7 +82,12 @@ const Card = (props: Props) => {
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = () => {
-    props.create(props.highlight.serialize().getApiPayload(props.highlighter, props.highlight));
+    props.create({
+      ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
+      scopeId: book.id,
+      sourceId: page.id,
+      sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    });
   };
 
   const commonProps = {
@@ -265,6 +276,7 @@ const StyledCard = styled(Card)`
 
 export default connect(
   (state: AppState, ownProps: {highlight: Highlight}) => ({
+    ...selectContent.bookAndPage(state),
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,

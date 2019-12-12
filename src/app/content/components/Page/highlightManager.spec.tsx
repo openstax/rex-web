@@ -10,6 +10,7 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
+import { HighlightData } from '../../highlights/types';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
@@ -80,7 +81,7 @@ describe('highlightManager', () => {
 
   it('CardList doesn\'t double render the pending highlight', async() => {
     const mockHighlight = createMockHighlight();
-    const mockHighlightData = mockHighlight.serialize().data;
+    const mockHighlightData = {id: mockHighlight.id} as HighlightData;
     prop.enabled = true;
     const {CardList, update} = highlightManager(element, () => prop);
     const component = renderer.create(React.createElement(CardList));
@@ -135,7 +136,7 @@ describe('highlightManager', () => {
 
   it('highlights highlights', () => {
     const mockHighlight = createMockHighlight();
-    const mockHighlightData = mockHighlight.serialize().data;
+    const mockHighlightData = {id: mockHighlight.id} as HighlightData;
     const {update} = highlightManager(element, () => prop);
 
     prop.highlights = [
@@ -162,7 +163,7 @@ describe('highlightManager', () => {
     const {update} = highlightManager(element, () => prop);
 
     prop.highlights = [
-      mockHighlight1.serialize().data,
+      {id: mockHighlight1.id} as HighlightData,
     ];
 
     const erase = Highlighter.mock.instances[0].erase;
@@ -223,7 +224,7 @@ describe('highlightManager', () => {
       const mockHighlight = createMockHighlight();
       const existingHighlight = createMockHighlight();
       prop.enabled = true;
-      prop.highlights = [existingHighlight.serialize().data];
+      prop.highlights = [{id: existingHighlight.id} as HighlightData];
 
       const component = renderer.create(React.createElement(manager.CardList));
 

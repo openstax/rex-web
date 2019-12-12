@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 90;
 }
 
 <a
@@ -440,11 +440,11 @@ Array [
   border-bottom: 1px solid #545ec8;
 }
 
-.c63 .highlight.red {
+.c63 .highlight.pink {
   background-color: #ffc5e1;
 }
 
-.c63 .highlight.red.has-note {
+.c63 .highlight.pink.has-note {
   border-bottom: 1px solid #de017e;
 }
 
@@ -1570,7 +1570,7 @@ li[aria-label="Current Page"] .c44 {
 }
 
 @media screen {
-  .c63 .highlight.red.focus {
+  .c63 .highlight.pink.focus {
     background-color: #de017e;
     color: #fff;
   }
@@ -3366,7 +3366,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 90;
 }
 
 <a
@@ -3852,11 +3852,11 @@ Array [
   border-bottom: 1px solid #545ec8;
 }
 
-.c37 .highlight.red {
+.c37 .highlight.pink {
   background-color: #ffc5e1;
 }
 
-.c37 .highlight.red.has-note {
+.c37 .highlight.pink.has-note {
   border-bottom: 1px solid #de017e;
 }
 
@@ -4565,7 +4565,7 @@ Array [
 }
 
 @media screen {
-  .c37 .highlight.red.focus {
+  .c37 .highlight.pink.focus {
     background-color: #de017e;
     color: #fff;
   }

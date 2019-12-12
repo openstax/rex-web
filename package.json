@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@formatjs/intl-pluralrules": "^1.1.2",
-    "@openstax/highlighter": "1.4.1-fix9",
+    "@openstax/highlighter": "1.4.2",
     "@openstax/open-search-client": "./open-search-client/",
     "@sentry/browser": "^5.6.1",
     "@sentry/integrations": "^5.6.1",
@@ -53,7 +53,7 @@
     "start": "HTTPS=${HTTPS:-true} react-scripts start",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender && npm run-script server",
     "clean": "rm -rf ./build",
-    "build": "npm run-script build:css && npm run-script build:js",
+    "build": "npm run-script build:css && npm run-script build:js && ./script/doctor-workbox.bash",
     "build:css": "lessc --source-map --source-map-include-source ./generic-styles/index.less ./src/content.css",
     "build:js": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} react-scripts build",
     "build:clean": "npm run-script clean && npm run-script build",
