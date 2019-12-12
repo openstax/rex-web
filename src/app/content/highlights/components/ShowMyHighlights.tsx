@@ -1,8 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { typesetMath } from '../../../../helpers/mathjax';
 import { isHtmlElement } from '../../../guards';
 import { AppState } from '../../../types';
+import { assertWindow } from '../../../utils';
 import * as selectors from '../selectors';
 import { HighlightData } from '../types';
 import * as Styled from './ShowMyHighlightsStyles';
@@ -43,6 +45,7 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
     if (isHtmlElement(highlightsBodyRef)) {
       this.scrollHandler = this.updateGoToTop(highlightsBodyRef);
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
+      typesetMath(highlightsBodyRef, assertWindow());
     }
   }
 
