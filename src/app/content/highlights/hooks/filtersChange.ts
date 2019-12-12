@@ -1,8 +1,9 @@
 import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
+import { isArchiveTree } from '../../guards';
 import { book as bookSelector } from '../../selectors';
-import { findTreePages } from '../../utils/archiveTreeUtils';
+import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { filtersChange, receiveSummaryHighlights, setIsLoadingSummary } from '../actions';
 import { chaptersFilter, colorsFilter, summaryIsLoading } from '../selectors';
 import { SummaryHighlights } from '../types';
@@ -18,16 +19,30 @@ const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getState, hig
 
   dispatch(setIsLoadingSummary(true));
 
+  const flatBook = archiveTreeUtils.flattenArchiveTree(book.tree);
+  let sourceIds: string[] = [];
+
+  for (const filterId of selectedChapters) {
+    const pageOrChapter = flatBook.find(archiveTreeUtils.nodeMatcher(filterId));
+    if (!pageOrChapter) { continue; }
+
+    const pageIds = isArchiveTree(pageOrChapter)
+      ? archiveTreeUtils.findTreePages(pageOrChapter).map((p) => p.id)
+      : [filterId];
+
+    sourceIds = [...sourceIds, ...pageIds];
+  }
+
   const highlights = await highlightClient.getHighlights({
     colors: selectedColors as unknown as GetHighlightsColorsEnum[],
     perPage: 30,
     scopeId: book.id,
-    sourceIds: selectedChapters,
+    sourceIds,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
   if (highlights.data && book) {
-    const pages = findTreePages(book.tree);
+    const pages = archiveTreeUtils.findTreePages(book.tree);
     const summaryHighlights: SummaryHighlights = {};
 
     for (const h of highlights.data) {
