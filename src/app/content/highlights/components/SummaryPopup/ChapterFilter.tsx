@@ -18,7 +18,7 @@ import {
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 import { chaptersFilter } from '../../selectors';
-import { setChaptersFilter } from '../../actions';
+import { setChaptersFilter, filtersChange } from '../../actions';
 
 interface Props {
   className?: string;
@@ -90,6 +90,7 @@ const ChapterFilter = ({className}: Props) => {
 
   const setSelectedChapters = (chapterIds: string[]) => {
     dispatch(setChaptersFilter(chapterIds));
+    dispatch(filtersChange());
   }
 
   const handleChange = (chapterId: string) => {
@@ -100,6 +101,7 @@ const ChapterFilter = ({className}: Props) => {
     }
   }
 
+  // TODO: Do this when opening summary highlight
   React.useEffect(() => {
     if (currentChapter && selectedChapters.length === 0) {
       setSelectedChapters([currentChapter.id])
@@ -133,6 +135,7 @@ export default styled(ChapterFilter)`
   outline: none;
   max-height: 72rem;
   overflow: auto;
+  z-index: 2;
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePadding}rem;

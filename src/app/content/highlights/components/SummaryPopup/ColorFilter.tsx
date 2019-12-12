@@ -11,7 +11,7 @@ import { highlightStyles } from '../../constants';
 import ColorIndicator from '../ColorIndicator';
 import { useSelector, useDispatch } from 'react-redux';
 import { colorsFilter } from '../../selectors'
-import { setColorsFilter } from '../../actions';
+import { setColorsFilter, filtersChange } from '../../actions';
 
 interface Props {
   className?: string;
@@ -25,7 +25,8 @@ const ColorFilter = ({className}: Props) => {
   const dispatch = useDispatch();
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    dispatch(setColorsFilter(colors))
+    dispatch(setColorsFilter(colors));
+    dispatch(filtersChange());
   }
 
   const handleChange = (label: HighlightColorEnum) => {
@@ -62,6 +63,7 @@ export default styled(ColorFilter)`
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
   outline: none;
+  z-index: 2;
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

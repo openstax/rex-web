@@ -90,6 +90,17 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       newState.summary.filters.chapters = action.payload;
       return newState
     }
+    case getType(actions.setIsLoadingSummary): {
+      const newState = {...state};
+      newState.summary.loading = action.payload;
+      return newState;
+    }
+    case getType(actions.receiveSummaryHighlights): {
+      const newState = {...state};
+      newState.summary.highlights = action.payload;
+      newState.summary.loading = false;
+      return newState;
+    }
     default:
       return state;
   }

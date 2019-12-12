@@ -88,9 +88,11 @@ const FiltersList = ({className}: FiltersListProps) => {
 
   const setSelectedChapters = (chapterIds: string[]) => {
     dispatch(setChaptersFilter(chapterIds));
+    dispatch(filtersChange());
   }
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    dispatch(setColorsFilter(colors))
+    dispatch(setColorsFilter(colors));
+    dispatch(filtersChange());
   }
 
   const onRemoveItem = (type: 'colors' | 'chapters', label: HighlightColorEnum | string) => {
@@ -111,10 +113,6 @@ const FiltersList = ({className}: FiltersListProps) => {
       setSections(sections)
     }
   }, [book])
-
-  React.useEffect(() => {
-    dispatch(filtersChange())
-  }, [selectedColors, selectedChapters])
 
   return <ul className={className}>
     {selectedChapters.map(chapterId => sections.has(chapterId) && <FiltersListItem

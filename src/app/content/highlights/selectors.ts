@@ -45,3 +45,8 @@ export const chaptersFilter = createSelector(
   localState,
   (state) => state.summary.filters.chapters
 );
+
+export const summaryHighlights = createSelector(
+  localState,
+  (state) => state.summary.highlights
+);

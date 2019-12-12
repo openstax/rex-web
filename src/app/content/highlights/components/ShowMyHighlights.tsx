@@ -1,18 +1,11 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
-import { AppState } from '../../../types';
-import * as selectors from '../selectors';
-import { HighlightData } from '../types';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
+import Highlights from './Highlights';
 
-interface Props {
-  highlights: HighlightData[];
-}
-
-class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
+class ShowMyHighlights extends Component<{}, { showGoToTop: boolean }> {
   public myHighlightsBodyRef = React.createRef<HTMLElement>();
 
   public state = { showGoToTop: false };
@@ -61,26 +54,7 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
         data-testid='show-myhighlights-body'
       >
         <Filters />
-        <Styled.HighlightsChapter>2. Kinematics</Styled.HighlightsChapter>
-        <Styled.HighlightWrapper>
-          <Styled.HighlightSection>2.1 Displacement</Styled.HighlightSection>
-          {this.props.highlights.map((item) => {
-            return (
-              <Styled.HighlightOuterWrapper key={item.id}>
-                <Styled.HighlightContentWrapper color={item.color}>
-                  <Styled.HighlightContent
-                    dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
-                  />
-                  {item.annotation ? (
-                    <Styled.HighlightNote>
-                      <span>Note:</span> {item.annotation}
-                    </Styled.HighlightNote>
-                  ) : null}
-                </Styled.HighlightContentWrapper>
-              </Styled.HighlightOuterWrapper>
-            );
-          })}
-        </Styled.HighlightWrapper>
+        <Highlights />
         {this.state.showGoToTop && (
           <Styled.GoToTopWrapper
             onClick={this.scrollToTop}
@@ -96,6 +70,4 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
   }
 }
 
-export default connect((state: AppState) => ({
-  highlights: selectors.highlights(state),
-}))(ShowMyHighlights);
+export default ShowMyHighlights;
