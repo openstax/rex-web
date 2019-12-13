@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { labelStyle, textRegularStyle } from '../../../components/Typography';
+import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
@@ -57,8 +57,11 @@ export const HighlightOuterWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const HighlightContent = styled.div`
-  ${textRegularStyle}
-  line-height: unset;
+  ${bodyCopyRegularStyle}
+
+  * {
+    overflow: initial;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
