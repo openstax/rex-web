@@ -1,4 +1,3 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -45,16 +44,8 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props) => {
-  const overlayElement = React.useRef<HTMLElement>(null);
-
-  React.useEffect(() => {
-    if (overlayElement.current) {
-      overlayElement.current.focus();
-    }
-  }, []);
 
   return <Overlay
-    ref={overlayElement}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
