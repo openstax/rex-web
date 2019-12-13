@@ -10,7 +10,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as expect
 from selenium.webdriver.support.ui import Select
 
-from utils.utility import RestMail, Utilities
+from utils.restmail import RestMail
+from utils.utility import Utilities
 
 Name = Tuple[str, str]
 
