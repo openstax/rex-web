@@ -9,13 +9,20 @@ import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import { State } from './types';
 
+const defaultColors = [
+  HighlightColorEnum.Blue,
+  HighlightColorEnum.Green,
+  HighlightColorEnum.Pink,
+  HighlightColorEnum.Purple,
+  HighlightColorEnum.Yellow,
+];
 export const initialState: State = {
   enabled: false,
   highlights: null,
   myHighlightsOpen: false,
   summary: {
     chapterCounts: {},
-    filters: {colors: [], chapters: []},
+    filters: {colors: defaultColors, chapters: []},
     highlights: {},
     loading: false,
   },
@@ -97,7 +104,14 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveSummaryHighlights): {
       const newState = {...state};
-      newState.summary.highlights = action.payload;
+      const { chapters, colors } = newState.summary.filters;
+      if (chapters.length === 0 || colors.length === 0) {
+        // When we make api call without filters it is returning all highlights
+        // so we manually set it to empty object.
+        newState.summary.highlights = {};
+      } else {
+        newState.summary.highlights = action.payload;
+      }
       newState.summary.loading = false;
       return newState;
     }

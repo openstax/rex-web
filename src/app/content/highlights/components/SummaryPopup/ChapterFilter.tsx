@@ -6,14 +6,11 @@ import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { isArchiveTree } from '../../../guards';
 import * as selectContent from '../../../selectors';
 import {
-  archiveTreeContainsNode,
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
   flattenArchiveTree,
-  nodeHasId
 } from '../../../utils/archiveTreeUtils';
 import { filtersChange, setChaptersFilter } from '../../actions';
 import { chaptersFilter } from '../../selectors';
@@ -69,21 +66,12 @@ const chunk = <T extends any>(sections: T[]) => {
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
   const book = useSelector(selectContent.book);
-  const page = useSelector(selectContent.page);
 
   const sections = book ? flattenArchiveTree(book.tree).filter((section) =>
     (section.parent && archiveTreeSectionIsBook(section.parent))
     || archiveTreeSectionIsChapter(section)
   ) : [];
   const sectionIds = sections.map((chapter) => chapter.id);
-  const currentChapter = sections.find((section) =>
-    page && (
-      nodeHasId(page.id, section) ||
-      (
-        isArchiveTree(section) && archiveTreeContainsNode(section, page.id)
-      )
-    )
-  );
 
   const selectedChapters = useSelector(chaptersFilter);
   const dispatch = useDispatch();
@@ -100,13 +88,6 @@ const ChapterFilter = ({className}: Props) => {
       setSelectedChapters([...selectedChapters, chapterId]);
     }
   };
-
-  // TODO: Do this when opening summary highlight
-  React.useEffect(() => {
-    if (currentChapter && selectedChapters.length === 0) {
-      setSelectedChapters([currentChapter.id]);
-    }
-  }, []);
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
