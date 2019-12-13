@@ -6,7 +6,7 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { addCurrentPageToSummaryFilters, filtersChange, setChaptersFilter } from '../actions';
 import * as select from '../selectors';
 
-const hookBody: ActionHookBody<typeof addCurrentPageToSummaryFilters> = ({
+export const hookBody: ActionHookBody<typeof addCurrentPageToSummaryFilters> = ({
   dispatch, getState,
 }: MiddlewareAPI & AppServices) => async() => {
   const state = getState();

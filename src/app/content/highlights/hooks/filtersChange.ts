@@ -7,8 +7,9 @@ import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { filtersChange, receiveSummaryHighlights, setIsLoadingSummary } from '../actions';
 import { chaptersFilter, colorsFilter, summaryIsLoading } from '../selectors';
 import { SummaryHighlights } from '../types';
+import { stripIdVersion } from '../../utils/idUtils';
 
-const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getState, highlightClient}) => async() => {
+export const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getState, highlightClient}) => async() => {
   const state = getState();
   const book = bookSelector(state);
   const selectedChapters = chaptersFilter(state);
@@ -46,10 +47,10 @@ const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getState, hig
     const summaryHighlights: SummaryHighlights = {};
 
     for (const h of highlights.data) {
-      const pageId = h.sourceId!;
+      const pageId = stripIdVersion(h.sourceId);
 
       const page = pages.find((p) => p.id === pageId);
-      const chapterId = page && page.parent.id;
+      const chapterId = page && stripIdVersion(page.parent.id);
       if (!chapterId) { continue; }
 
       if (summaryHighlights[chapterId]) {

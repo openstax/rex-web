@@ -2,7 +2,8 @@ import { receiveFeatureFlags } from '../../actions';
 import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
-import { HighlightData } from './types';
+import { HighlightData, SummaryHighlights } from './types';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 const mockHighlight = {
   id: 'asdf',
@@ -111,6 +112,94 @@ describe('highlight reducer', () => {
 
       expect(state.highlights[0].annotation).toEqual('asdf');
       expect(state.highlights[1]).toEqual(mock3);
+    });
+  });
+
+  describe('update summary', () => {
+    it('set summary is loading', () => {
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          loading: false,
+        },
+      }, actions.setIsLoadingSummary(true));
+
+      expect(state.summary.loading).toEqual(true);
+    });
+
+    it('set color filters', () => {
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            chapters: [],
+            colors: [],
+          },
+        },
+      }, actions.setColorsFilter([HighlightColorEnum.Green]));
+
+      expect(state.summary.filters.colors[0]).toEqual(HighlightColorEnum.Green);
+      expect(state.summary.filters.colors.length).toEqual(1);
+    });
+
+    it('set chapter filters', () => {
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            chapters: [],
+            colors: [],
+          },
+        },
+      }, actions.setChaptersFilter(['id']));
+
+      expect(state.summary.filters.chapters[0]).toEqual('id');
+      expect(state.summary.filters.chapters.length).toEqual(1);
+    });
+
+    it('do not pass summary highlights if on of filters is empty', () => {
+      const highlights: SummaryHighlights = {
+        chapter_id: {
+          page_id: [
+            {id: 'highlight'} as HighlightData,
+          ],
+        },
+      };
+
+      const state = reducer(initialState,
+        actions.receiveSummaryHighlights(highlights)
+      );
+
+      expect(state.summary.filters.chapters.length).toEqual(0);
+      expect(state.summary.highlights).toMatchObject({});
+    });
+
+    it('receive summary highlights', () => {
+      const highlights: SummaryHighlights = {
+        chapter_id: {
+          page_id: [
+            {id: 'highlight'} as HighlightData,
+          ],
+        },
+      };
+
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            chapters: ['id'],
+            colors: [HighlightColorEnum.Green],
+          },
+        },
+      },
+        actions.receiveSummaryHighlights(highlights)
+      );
+
+      expect(state.summary.highlights).toMatchObject({});
     });
   });
 });
