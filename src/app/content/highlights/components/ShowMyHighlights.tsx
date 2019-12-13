@@ -47,6 +47,7 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
       typesetMath(highlightsBodyRef, assertWindow());
     }
+
   }
 
   public componentWillUnmount() {
@@ -71,7 +72,7 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
             return (
               <Styled.HighlightOuterWrapper key={item.id}>
                 <Styled.HighlightContentWrapper color={item.color}>
-                  <Styled.HighlightContent
+                  <Styled.HighlightContent className='summary-highlight-content'
                     dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
                   />
                   {item.annotation ? (
