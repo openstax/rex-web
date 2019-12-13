@@ -102,6 +102,7 @@ export default {
   color,
   padding,
   zIndex: [
+    'highlightInlineCard',
     'contentNotifications',
     'searchSidebar',
     'toolbar',
