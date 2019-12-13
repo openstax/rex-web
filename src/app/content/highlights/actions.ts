@@ -17,3 +17,4 @@ export const setChaptersFilter = createStandardAction('Content/setChaptersFilter
 export const filtersChange = createStandardAction('Content/filtersChange')<void>();
 export const setIsLoadingSummary = createStandardAction('Content/setIsLoadingSummary')<boolean>();
 export const receiveSummaryHighlights = createStandardAction('Content/receiveSummaryHighlights')<SummaryHighlights>();
+export const addCurrentPageToSummaryFilters = createStandardAction('Content/addCurrentPageToSummaryFilters')<void>();
