@@ -51,11 +51,12 @@ export const HighlightOuterWrapper = styled.div`
   :not(:last-child) {
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
+
   background: ${theme.color.neutral.base};
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightContent = styled.span`
+export const HighlightContent = styled.div`
   ${textRegularStyle}
   line-height: unset;
 `;
