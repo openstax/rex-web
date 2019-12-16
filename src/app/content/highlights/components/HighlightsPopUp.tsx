@@ -16,6 +16,7 @@ import * as selectors from '../selectors';
 import { HighlightData } from '../types';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
+import Filters from './SummaryPopup/Filters';
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -59,7 +60,7 @@ class HighlightsPopUp extends Component<Props> {
     return this.props.highlights.length > 0 ? (
       <ShowMyHighlights />
     ) : (
-      <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
+      <Styled.PopupBody><Filters />{this.noHighlights()}</Styled.PopupBody>
     );
   };
 
