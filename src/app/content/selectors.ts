@@ -1,6 +1,13 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { findArchiveTreeNodeBySlug, prevNextBookPage } from './utils/archiveTreeUtils';
+import { LinkedArchiveTreeNode } from './types';
+import {
+  archiveTreeSectionIsBook,
+  archiveTreeSectionIsChapter,
+  findArchiveTreeNodeBySlug,
+  flattenArchiveTree,
+  prevNextBookPage,
+} from './utils/archiveTreeUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -15,6 +22,16 @@ export const tocOpen = createSelector(
 export const book = createSelector(
   localState,
   (state) => state.book
+);
+
+export const bookSections = createSelector(
+  localState,
+  (state) => state.book
+    ? new Map(flattenArchiveTree(state.book.tree).filter((section) =>
+      (section.parent && archiveTreeSectionIsBook(section.parent))
+      || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s])
+    )
+    : new Map() as Map<string, LinkedArchiveTreeNode>
 );
 
 export const contentReferences = createSelector(

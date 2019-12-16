@@ -7,13 +7,7 @@ import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { book as bookSelector } from '../../../selectors';
-import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../../../types';
-import {
-  archiveTreeSectionIsBook,
-  archiveTreeSectionIsChapter,
-  flattenArchiveTree,
-} from '../../../utils/archiveTreeUtils';
+import { bookSections } from '../../../selectors';
 import { setSummaryFilters } from '../../actions';
 import { summaryFilters } from '../../selectors';
 
@@ -80,13 +74,9 @@ interface FiltersListProps {
   className?: string;
 }
 
-type SectionsMap = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;
-
 // tslint:disable-next-line: variable-name
 const FiltersList = ({className}: FiltersListProps) => {
-  const [sections, setSections] = React.useState<SectionsMap>(new Map());
-
-  const book = useSelector(bookSelector);
+  const sections = useSelector(bookSections);
   const filters = useSelector(summaryFilters);
 
   const dispatch = useDispatch();
@@ -104,17 +94,6 @@ const FiltersList = ({className}: FiltersListProps) => {
       colors: filters.colors.filter(not(match(color))),
     }));
   };
-
-  React.useEffect(() => {
-    if (book) {
-      const newSections = new Map(
-        flattenArchiveTree(book.tree).filter((section) =>
-          (section.parent && archiveTreeSectionIsBook(section.parent))
-          || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s])
-        );
-      setSections(newSections);
-    }
-  }, [book]);
 
   return <ul className={className}>
     {filters.chapters.map((chapterId) => sections.has(chapterId) && <FiltersListChapter
