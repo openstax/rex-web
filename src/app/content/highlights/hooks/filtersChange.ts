@@ -6,7 +6,7 @@ import { book as bookSelector, bookSections } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import addToSummaryHighlights from '../components/utils/addToSummaryHighlights';
+import updateSummaryHighlights from '../components/utils/updateSummaryHighlights';
 import { summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 
@@ -63,10 +63,11 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 
     // SectionId can be the same as pageId for ex. for Preface
     if (sections.has(pageId)) {
-      addToSummaryHighlights(summaryHighlights, {
+      updateSummaryHighlights(summaryHighlights, {
         chapterId: pageId,
         highlight: h,
         pageId,
+        type: 'add',
       });
       continue;
     }
@@ -75,10 +76,11 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     const chapterId = page && stripIdVersion(page.parent.id);
     if (!chapterId) { continue; }
 
-    addToSummaryHighlights(summaryHighlights, {
+    updateSummaryHighlights(summaryHighlights, {
       chapterId,
       highlight: h,
       pageId,
+      type: 'add',
     });
   }
 

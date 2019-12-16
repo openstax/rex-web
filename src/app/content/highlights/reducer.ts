@@ -6,7 +6,7 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import * as actions from './actions';
-import addToSummaryHighlights from './components/utils/addToSummaryHighlights';
+import updateSummaryHighlights from './components/utils/updateSummaryHighlights';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 
@@ -44,10 +44,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       newState.highlights = [...state.highlights || [], highlight];
 
       const { chapterId, pageId } = action.meta;
-      addToSummaryHighlights(newState.summary.highlights, {
+      updateSummaryHighlights(newState.summary.highlights, {
         chapterId,
         highlight,
         pageId,
+        type: 'add',
       });
       return newState;
     }
@@ -72,13 +73,21 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         } : h);
 
       const { chapterId, pageId } = action.meta;
-      const { summary: { highlights } } = newState;
-      if (highlights[chapterId] && highlights[chapterId][pageId]) {
-        highlights[chapterId][pageId] = highlights[chapterId][pageId].map((h) =>
-          h.id === action.payload.id ? {
-            ...h,
-            ...dataToUpdate,
-          } : h);
+      if (newState.summary.filters.colors.includes(dataToUpdate.color)) {
+        updateSummaryHighlights(newState.summary.highlights, {
+          chapterId,
+          highlight: action.payload.highlight,
+          id: action.payload.id,
+          pageId,
+          type: 'update',
+        });
+      } else {
+        updateSummaryHighlights(newState.summary.highlights, {
+          chapterId,
+          id: action.payload.id,
+          pageId,
+          type: 'remove',
+        });
       }
       return newState;
     }
@@ -93,17 +102,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       newState.highlights = newState.highlights!.filter(({id}) => id !== action.payload);
 
       const { chapterId, pageId } = action.meta;
-      const { summary: { highlights } } = newState;
-      if (highlights[chapterId] && highlights[chapterId][pageId]) {
-        highlights[chapterId][pageId] = highlights[chapterId][pageId]
-          .filter((h) => h.id !== action.payload);
-        if (highlights[chapterId][pageId].length === 0) {
-          delete highlights[chapterId][pageId];
-        }
-        if (Object.keys(highlights[chapterId]).length === 0) {
-          delete highlights[chapterId];
-        }
-      }
+      updateSummaryHighlights(newState.summary.highlights, {
+        chapterId,
+        id: action.payload,
+        pageId,
+        type: 'remove',
+      });
       return newState;
     }
     case getType(actions.receiveHighlights): {
