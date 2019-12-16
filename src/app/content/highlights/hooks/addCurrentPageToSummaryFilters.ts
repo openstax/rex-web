@@ -3,7 +3,7 @@ import { actionHook } from '../../../utils';
 import { bookAndPage } from '../../selectors';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { addCurrentPageToSummaryFilters, filtersChange, setChaptersFilter } from '../actions';
+import { addCurrentPageToSummaryFilters, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
 
 export const hookBody: ActionHookBody<typeof addCurrentPageToSummaryFilters> = ({
@@ -11,7 +11,7 @@ export const hookBody: ActionHookBody<typeof addCurrentPageToSummaryFilters> = (
 }: MiddlewareAPI & AppServices) => async() => {
   const state = getState();
   const {book, page} = bookAndPage(state);
-  const selectedChapters = select.chaptersFilter(state);
+  const filters = select.summaryFilters(state);
   if (!book || !page || typeof(window) === 'undefined') {
     return;
   }
@@ -26,9 +26,11 @@ export const hookBody: ActionHookBody<typeof addCurrentPageToSummaryFilters> = (
     // use current page id
     idToAdd = stripIdVersion(treeNode.id);
   }
-  if (!selectedChapters.includes(idToAdd)) {
-    dispatch(setChaptersFilter([...selectedChapters, idToAdd]));
-    dispatch(filtersChange());
+  if (!filters.chapters.includes(idToAdd)) {
+    dispatch(setSummaryFilters({
+      ...filters,
+      chapters: [...filters.chapters, idToAdd],
+    }));
   }
 };
 

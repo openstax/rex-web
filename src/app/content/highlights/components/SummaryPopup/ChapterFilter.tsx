@@ -12,8 +12,8 @@ import {
   archiveTreeSectionIsChapter,
   flattenArchiveTree,
 } from '../../../utils/archiveTreeUtils';
-import { filtersChange, setChaptersFilter } from '../../actions';
-import { chaptersFilter } from '../../selectors';
+import { setSummaryFilters } from '../../actions';
+import { summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -73,19 +73,18 @@ const ChapterFilter = ({className}: Props) => {
   ) : [];
   const sectionIds = sections.map((chapter) => chapter.id);
 
-  const selectedChapters = useSelector(chaptersFilter);
+  const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
 
   const setSelectedChapters = (chapterIds: string[]) => {
-    dispatch(setChaptersFilter(chapterIds));
-    dispatch(filtersChange());
+    dispatch(setSummaryFilters({...filters, chapters: chapterIds}));
   };
 
   const handleChange = (chapterId: string) => {
-    if (selectedChapters.includes(chapterId)) {
-      setSelectedChapters(selectedChapters.filter(not(match(chapterId))));
+    if (filters.chapters.includes(chapterId)) {
+      setSelectedChapters(filters.chapters.filter(not(match(chapterId))));
     } else {
-      setSelectedChapters([...selectedChapters, chapterId]);
+      setSelectedChapters([...filters.chapters, chapterId]);
     }
   };
 
@@ -98,7 +97,7 @@ const ChapterFilter = ({className}: Props) => {
       {chunk(sections).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((section) => <Checkbox
           key={section.id}
-          checked={selectedChapters.includes(section.id)}
+          checked={filters.chapters.includes(section.id)}
           onChange={() => handleChange(section.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />

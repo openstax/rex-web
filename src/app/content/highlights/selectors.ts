@@ -36,14 +36,9 @@ export const summaryIsLoading = createSelector(
   (state) => state.summary.loading
 );
 
-export const colorsFilter = createSelector(
+export const summaryFilters = createSelector(
   localState,
-  (state) => state.summary.filters.colors
-);
-
-export const chaptersFilter = createSelector(
-  localState,
-  (state) => state.summary.filters.chapters
+  (state) => state.summary.filters
 );
 
 export const summaryHighlights = createSelector(

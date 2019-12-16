@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import Loader from '../../../components/Loader';
-import { stripHtmlAndTrim } from '../../hooks/receiveContent';
 import { book as bookSelector } from '../../selectors';
 import { ArchiveTree, ArchiveTreeSection } from '../../types';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -68,18 +67,14 @@ interface SectionHighlightsProps {
 
 // tslint:disable-next-line: variable-name
 const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => (
-  <>
-    <Styled.HighlightsChapter>
-      {stripHtmlAndTrim(section.title)}
-    </Styled.HighlightsChapter>
+  <React.Fragment>
+    <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: section.title }} />
     <Styled.HighlightWrapper>
     {(section as ArchiveTree).contents.map((page) => {
       const pageId = stripIdVersion(page.id);
       if (!highlights[section.id][pageId]) { return null; }
       return <div key={page.id}>
-        <Styled.HighlightSection>
-          {stripHtmlAndTrim(page.title)}
-        </Styled.HighlightSection>
+        <Styled.HighlightSection dangerouslySetInnerHTML={{ __html: page.title }} />
         {highlights[section.id][pageId].map((item) => {
           return (
             <Styled.HighlightOuterWrapper key={item.id}>
@@ -99,5 +94,5 @@ const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => (
       </div>;
     })}
     </Styled.HighlightWrapper>
-  </>
+  </React.Fragment>
 );

@@ -8,9 +8,9 @@ import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { filtersChange, setColorsFilter } from '../../actions';
+import { setSummaryFilters } from '../../actions';
 import { highlightStyles } from '../../constants';
-import { colorsFilter } from '../../selectors';
+import { summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 
 interface Props {
@@ -21,19 +21,21 @@ const allColors = highlightStyles.map((style) => style.label);
 
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
-  const selectedColors = useSelector(colorsFilter);
+  const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    dispatch(setColorsFilter(colors));
-    dispatch(filtersChange());
+    dispatch(setSummaryFilters({
+      ...filters,
+      colors,
+    }));
   };
 
   const handleChange = (label: HighlightColorEnum) => {
-    if (selectedColors.includes(label)) {
-      setSelectedColors(selectedColors.filter(not(match(label))));
+    if (filters.colors.includes(label)) {
+      setSelectedColors(filters.colors.filter(not(match(label))));
     } else {
-      setSelectedColors([...selectedColors, label]);
+      setSelectedColors([...filters.colors, label]);
     }
   };
 
@@ -44,7 +46,7 @@ const ColorFilter = ({className}: Props) => {
     />
     {highlightStyles.map((style) => <Checkbox
       key={style.label}
-      checked={selectedColors.includes(style.label)}
+      checked={filters.colors.includes(style.label)}
       onChange={() => handleChange(style.label)}
     >
       <ColorIndicator style={style} size='small'/>

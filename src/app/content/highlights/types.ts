@@ -4,6 +4,10 @@ export type HighlightData = Highlight;
 export interface SummaryHighlights {
   [chapterId: string]: {[pageId: string]: HighlightData[]};
 }
+export interface SummaryFilters {
+  chapters: string[];
+  colors: HighlightColorEnum[];
+}
 
 export interface State {
   myHighlightsOpen: boolean;
@@ -11,10 +15,7 @@ export interface State {
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
-    filters: {
-      colors: HighlightColorEnum[];
-      chapters: string[];
-    },
+    filters: SummaryFilters,
     loading: boolean;
     chapterCounts: {[key: string]: number};
     highlights: SummaryHighlights;

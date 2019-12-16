@@ -4,26 +4,31 @@ import { actionHook } from '../../../utils';
 import { isArchiveTree } from '../../guards';
 import { book as bookSelector } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
-import { filtersChange, receiveSummaryHighlights, setIsLoadingSummary } from '../actions';
-import { chaptersFilter, colorsFilter, summaryIsLoading } from '../selectors';
-import { SummaryHighlights } from '../types';
 import { stripIdVersion } from '../../utils/idUtils';
+import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import { summaryFilters } from '../selectors';
+import { SummaryHighlights } from '../types';
 
-export const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getState, highlightClient}) => async() => {
+export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
+  dispatch, getState, highlightClient,
+}) => async() => {
   const state = getState();
   const book = bookSelector(state);
-  const selectedChapters = chaptersFilter(state);
-  const selectedColors = colorsFilter(state);
-  const isLoading = summaryIsLoading(state);
+  const {chapters, colors} = summaryFilters(state);
 
-  if (!book || isLoading) { return; }
+  if (!book) { return; }
 
-  dispatch(setIsLoadingSummary(true));
+  // When we make api call without filters it is returning all highlights
+  // so we manually set it to empty object.
+  if (chapters.length === 0 || colors.length === 0) {
+    dispatch(receiveSummaryHighlights({}));
+    return;
+  }
 
   const flatBook = archiveTreeUtils.flattenArchiveTree(book.tree);
   let sourceIds: string[] = [];
 
-  for (const filterId of selectedChapters) {
+  for (const filterId of chapters) {
     const pageOrChapter = flatBook.find(archiveTreeUtils.nodeMatcher(filterId));
     if (!pageOrChapter) { continue; }
 
@@ -35,43 +40,44 @@ export const hookBody: ActionHookBody<typeof filtersChange> = ({dispatch, getSta
   }
 
   const highlights = await highlightClient.getHighlights({
-    colors: selectedColors as unknown as GetHighlightsColorsEnum[],
+    colors: colors as unknown as GetHighlightsColorsEnum[],
     perPage: 30,
     scopeId: book.id,
     sourceIds,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
-  if (highlights.data && book) {
-    const pages = archiveTreeUtils.findTreePages(book.tree);
-    const summaryHighlights: SummaryHighlights = {};
+  if (!highlights.data) {
+    dispatch(receiveSummaryHighlights({}));
+    return;
+  }
 
-    for (const h of highlights.data) {
-      const pageId = stripIdVersion(h.sourceId);
+  const pages = archiveTreeUtils.findTreePages(book.tree);
+  const summaryHighlights: SummaryHighlights = {};
 
-      const page = pages.find((p) => p.id === pageId);
-      const chapterId = page && stripIdVersion(page.parent.id);
-      if (!chapterId) { continue; }
+  for (const h of highlights.data) {
+    const pageId = stripIdVersion(h.sourceId);
 
-      if (summaryHighlights[chapterId]) {
-        if (summaryHighlights[chapterId][pageId]) {
-          summaryHighlights[chapterId][pageId].push(h);
-        } else {
-          summaryHighlights[chapterId] = {
-            [pageId]: [h],
-          };
-        }
+    const page = pages.find((p) => p.id === pageId);
+    const chapterId = page && stripIdVersion(page.parent.id);
+    if (!chapterId) { continue; }
+
+    if (summaryHighlights[chapterId]) {
+      if (summaryHighlights[chapterId][pageId]) {
+        summaryHighlights[chapterId][pageId].push(h);
       } else {
         summaryHighlights[chapterId] = {
           [pageId]: [h],
         };
       }
+    } else {
+      summaryHighlights[chapterId] = {
+        [pageId]: [h],
+      };
     }
-
-    dispatch(receiveSummaryHighlights(summaryHighlights));
-  } else {
-    dispatch(setIsLoadingSummary(false));
   }
+
+  dispatch(receiveSummaryHighlights(summaryHighlights));
 };
 
-export default actionHook(filtersChange, hookBody);
+export default actionHook(setSummaryFilters, hookBody);

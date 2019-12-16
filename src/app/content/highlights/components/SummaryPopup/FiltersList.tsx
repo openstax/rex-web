@@ -14,9 +14,8 @@ import {
   archiveTreeSectionIsChapter,
   flattenArchiveTree,
 } from '../../../utils/archiveTreeUtils';
-import { setChaptersFilter, setColorsFilter } from '../../actions';
-import { filtersChange } from '../../actions';
-import { chaptersFilter, colorsFilter } from '../../selectors';
+import { setSummaryFilters } from '../../actions';
+import { summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 const RemoveIcon = styled.span`
@@ -38,43 +37,42 @@ const ItemLabel = styled.span`
   text-transform: capitalize;
 `;
 
-interface FiltersListColorItemProps {
-  type: 'colors';
+interface FiltersListColorProps {
   color: HighlightColorEnum;
-  onRemoveItem: (type: 'colors', color: HighlightColorEnum) => void;
+  onRemove: (color: HighlightColorEnum) => void;
 }
-
-interface FiltersListChapterItemProps {
-  type: 'chapters';
-  title: string;
-  chapterId: string;
-  onRemoveItem: (type: 'chapters', chapterId: string) => void;
-}
-
-type FiltersListItemProps = FiltersListColorItemProps | FiltersListChapterItemProps;
 
 // tslint:disable-next-line: variable-name
-const FiltersListItem = (props: FiltersListItemProps) => {
+const FiltersListColor = (props: FiltersListColorProps) => {
   const handleClick = () => {
-    if (props.type === 'colors') {
-      props.onRemoveItem(props.type, props.color);
-    } else {
-      props.onRemoveItem(props.type, props.chapterId);
-    }
+    props.onRemove(props.color);
   };
-
-  let body: JSX.Element | string;
-  if (props.type === 'colors') {
-    body = <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
-      {(msg: Element | string) => msg}
-    </FormattedMessage>;
-  } else {
-    body = <span dangerouslySetInnerHTML={{ __html: props.title }}/>;
-  }
 
   return <li>
     <RemoveIcon onClick={handleClick}><Times /></RemoveIcon>
-    <ItemLabel>{body}</ItemLabel>
+    <ItemLabel>
+      <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
+    </ItemLabel>
+  </li>;
+};
+
+interface FiltersListChapterProps {
+  title: string;
+  chapterId: string;
+  onRemove: (chapterId: string) => void;
+}
+
+// tslint:disable-next-line: variable-name
+const FiltersListChapter = (props: FiltersListChapterProps) => {
+  const handleClick = () => {
+    props.onRemove(props.chapterId);
+  };
+
+  return <li>
+    <RemoveIcon onClick={handleClick}><Times /></RemoveIcon>
+    <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </li>;
 };
 
@@ -89,26 +87,22 @@ const FiltersList = ({className}: FiltersListProps) => {
   const [sections, setSections] = React.useState<SectionsMap>(new Map());
 
   const book = useSelector(bookSelector);
-  const selectedChapters = useSelector(chaptersFilter);
-  const selectedColors = useSelector(colorsFilter);
+  const filters = useSelector(summaryFilters);
 
   const dispatch = useDispatch();
 
-  const setSelectedChapters = (chapterIds: string[]) => {
-    dispatch(setChaptersFilter(chapterIds));
-    dispatch(filtersChange());
-  };
-  const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    dispatch(setColorsFilter(colors));
-    dispatch(filtersChange());
+  const onRemoveChapter = (chapterId: string) => {
+    dispatch(setSummaryFilters({
+      ...filters,
+      chapters: filters.chapters.filter(not(match(chapterId))),
+    }));
   };
 
-  const onRemoveItem = (type: 'colors' | 'chapters', label: HighlightColorEnum | string) => {
-    if (type === 'colors') {
-      setSelectedColors(selectedColors.filter(not(match(label))));
-    } else if (type === 'chapters') {
-      setSelectedChapters(selectedChapters.filter(not(match(label))));
-    }
+  const onRemoveColor = (color: HighlightColorEnum) => {
+    dispatch(setSummaryFilters({
+      ...filters,
+      colors: filters.colors.filter(not(match(color))),
+    }));
   };
 
   React.useEffect(() => {
@@ -123,18 +117,16 @@ const FiltersList = ({className}: FiltersListProps) => {
   }, [book]);
 
   return <ul className={className}>
-    {selectedChapters.map((chapterId) => sections.has(chapterId) && <FiltersListItem
+    {filters.chapters.map((chapterId) => sections.has(chapterId) && <FiltersListChapter
       key={chapterId}
-      type='chapters'
       title={sections.get(chapterId)!.title}
       chapterId={chapterId}
-      onRemoveItem={onRemoveItem}
+      onRemove={onRemoveChapter}
     />)}
-    {selectedColors.map((color) => <FiltersListItem
+    {filters.colors.map((color) => <FiltersListColor
       key={color}
-      type='colors'
       color={color}
-      onRemoveItem={onRemoveItem}
+      onRemove={onRemoveColor}
     />)}
   </ul>;
 };

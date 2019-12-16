@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../../components/Button';
-import Dropdown from '../../../../components/Dropdown';
+import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import ChapterFilter from './ChapterFilter';
@@ -70,6 +70,10 @@ export default styled(Filters)`
   `)}
 
   ${css`
+    ${DropdownToggle} {
+      font-weight: bold;
+    }
+
     ${Dropdown}:first-of-type {
       margin-right: 8rem;
       ${theme.breakpoints.mobile(css`

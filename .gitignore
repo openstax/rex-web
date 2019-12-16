@@ -79,5 +79,3 @@ open-search-client
 
 # development environment.json
 public/rex/environment.json
-
-.vscode
