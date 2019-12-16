@@ -65,6 +65,7 @@ export const HighlightOuterWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
+  overflow: visible;
 
   * {
     overflow: initial;
