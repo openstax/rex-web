@@ -40,7 +40,6 @@ def test_highlighting_different_content(
     if book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
-    Highlight.delete_highlights_on_page(selenium)
 
     initial_highlight_count = book.content.highlight_count
     total_highlight_count = initial_highlight_count
@@ -247,7 +246,7 @@ def test_search_term_colored_within_a_highlight(
         book.notification.got_it()
     book.content.show_solutions()
 
-    # make a highlight, requires a non-mobile window width
+    # making a highlight requires a non-mobile window width temporarily
     width, height = book.get_window_size()
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)

@@ -143,6 +143,7 @@ class Page(pypom.Page):
 
         :param int width: the desired browser width in pixels
         :param int height: the desired browser height in pixels
+        :return: None
 
         """
         self.driver.set_window_size(width=width, height=height)

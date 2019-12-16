@@ -1,6 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.support import expected_conditions as expected
 
 from regions.base import Region
 from utils.utility import Utilities
@@ -10,15 +9,11 @@ VISIBILITY = "window.getComputedStyle(arguments[0]).visibility == 'visible';"
 
 class SearchSidebar(Region):
 
-    _root_locator = (
-        By.CSS_SELECTOR, "div [data-testid='search-results-sidebar']")
+    _root_locator = (By.CSS_SELECTOR, "[data-testid='search-results-sidebar']")
 
-    _close_sidebar_locator = (
-        By.CSS_SELECTOR, "button[class*=CloseIconButton]")
-    _no_results_locator = (
-        By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
-    _search_result_locator = (
-        By.CSS_SELECTOR, "a[data-testid$=result]")
+    _close_sidebar_locator = (By.CSS_SELECTOR, "[class*=CloseIconButton]")
+    _no_results_locator = (By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
+    _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
 
     @property
     def no_results_message(self):
