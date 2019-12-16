@@ -6,6 +6,7 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import * as actions from './actions';
+import addToSummaryHighlights from './components/utils/addToSummaryHighlights';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 
@@ -43,18 +44,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       newState.highlights = [...state.highlights || [], highlight];
 
       const { chapterId, pageId } = action.meta;
-      const { summary: { highlights } } = newState;
-      if (highlights[chapterId]) {
-        if (highlights[chapterId][pageId]) {
-          highlights[chapterId][pageId].push(highlight);
-        } else {
-          highlights[chapterId][pageId] = [highlight];
-        }
-      } else {
-        highlights[chapterId] = {
-          [pageId]: [highlight],
-        };
-      }
+      addToSummaryHighlights(newState.summary.highlights, {
+        chapterId,
+        highlight,
+        pageId,
+      });
       return newState;
     }
     case getType(actions.openMyHighlights):

@@ -6,6 +6,7 @@ import { book as bookSelector, bookSections } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import addToSummaryHighlights from '../components/utils/addToSummaryHighlights';
 import { summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 
@@ -62,9 +63,11 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 
     // SectionId can be the same as pageId for ex. for Preface
     if (sections.has(pageId)) {
-      summaryHighlights[pageId] = {
-        [pageId]: [h],
-      };
+      addToSummaryHighlights(summaryHighlights, {
+        chapterId: pageId,
+        highlight: h,
+        pageId,
+      });
       continue;
     }
 
@@ -72,17 +75,11 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     const chapterId = page && stripIdVersion(page.parent.id);
     if (!chapterId) { continue; }
 
-    if (summaryHighlights[chapterId]) {
-      if (summaryHighlights[chapterId][pageId]) {
-        summaryHighlights[chapterId][pageId].push(h);
-      } else {
-        summaryHighlights[chapterId][pageId] = [h];
-      }
-    } else {
-      summaryHighlights[chapterId] = {
-        [pageId]: [h],
-      };
-    }
+    addToSummaryHighlights(summaryHighlights, {
+      chapterId,
+      highlight: h,
+      pageId,
+    });
   }
 
   dispatch(receiveSummaryHighlights(summaryHighlights));
