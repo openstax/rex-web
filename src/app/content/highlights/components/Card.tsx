@@ -3,7 +3,7 @@ import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
@@ -18,6 +18,8 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
+import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { stripIdVersion } from '../../utils/idUtils';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
   cardContentMargin,
@@ -54,6 +56,7 @@ const Card = (props: Props) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
+  const sections = useSelector(selectContent.bookSections);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
@@ -78,7 +81,18 @@ const Card = (props: Props) => {
     return null;
   }
 
-  const onRemove = () => props.data && props.remove(props.data.id);
+  const chapter = (props.page && sections.get(props.page.id))
+    || (props.book && findArchiveTreeNode(props.book.tree, props.page!.id)!.parent!);
+  const chapterId = stripIdVersion(chapter!.id);
+
+  const onRemove = () => {
+    if (props.data) {
+      props.remove(props.data.id, {
+        chapterId,
+        pageId: page.id,
+      });
+    }
+  };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = () => {
@@ -87,6 +101,9 @@ const Card = (props: Props) => {
       scopeId: book.id,
       sourceId: page.id,
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    }, {
+      chapterId,
+      pageId: page.id,
     });
   };
 
@@ -108,6 +125,8 @@ const Card = (props: Props) => {
     authenticated={!!props.user}
     loginLink={props.loginLink}
     highlight={props.highlight}
+    chapterId={chapterId}
+    pageId={page.id}
     onCreate={onCreate}
     onCancel={() => setEditing(false)}
     onSave={props.save}

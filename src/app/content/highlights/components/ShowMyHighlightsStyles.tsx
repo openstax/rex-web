@@ -14,6 +14,10 @@ interface HighlightsProps {
 export const Highlights = styled.div`
   position: relative;
   opacity: ${(p: HighlightsProps) => p.isLoading ? '0.5' : '1'};
+
+  .os-divider {
+    width: 0.8rem;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
@@ -61,6 +65,10 @@ export const HighlightSection = styled.div`
   display: flex;
   align-items: center;
   font-weight: bold;
+
+  > span {
+    overflow: hidden;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

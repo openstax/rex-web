@@ -2,7 +2,7 @@ import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum } from '@openstax/
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { isArchiveTree } from '../../guards';
-import { book as bookSelector } from '../../selectors';
+import { book as bookSelector, bookSections } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
@@ -14,14 +14,17 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 }) => async() => {
   const state = getState();
   const book = bookSelector(state);
+  const sections = bookSections(state);
   const {chapters, colors} = summaryFilters(state);
 
   if (!book) { return; }
 
+  const summaryHighlights: SummaryHighlights = {};
+
   // When we make api call without filters it is returning all highlights
   // so we manually set it to empty object.
   if (chapters.length === 0 || colors.length === 0) {
-    dispatch(receiveSummaryHighlights({}));
+    dispatch(receiveSummaryHighlights(summaryHighlights));
     return;
   }
 
@@ -48,15 +51,22 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   });
 
   if (!highlights.data) {
-    dispatch(receiveSummaryHighlights({}));
+    dispatch(receiveSummaryHighlights(summaryHighlights));
     return;
   }
 
   const pages = archiveTreeUtils.findTreePages(book.tree);
-  const summaryHighlights: SummaryHighlights = {};
 
   for (const h of highlights.data) {
     const pageId = stripIdVersion(h.sourceId);
+
+    // SectionId can be the same as pageId for ex. for Preface
+    if (sections.has(pageId)) {
+      summaryHighlights[pageId] = {
+        [pageId]: [h],
+      };
+      continue;
+    }
 
     const page = pages.find((p) => p.id === pageId);
     const chapterId = page && stripIdVersion(page.parent.id);
@@ -66,9 +76,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
       if (summaryHighlights[chapterId][pageId]) {
         summaryHighlights[chapterId][pageId].push(h);
       } else {
-        summaryHighlights[chapterId] = {
-          [pageId]: [h],
-        };
+        summaryHighlights[chapterId][pageId] = [h];
       }
     } else {
       summaryHighlights[chapterId] = {

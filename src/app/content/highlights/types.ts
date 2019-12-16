@@ -2,7 +2,7 @@ import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export type HighlightData = Highlight;
 export interface SummaryHighlights {
-  [chapterId: string]: {[pageId: string]: HighlightData[]};
+  [sectionId: string]: {[pageId: string]: HighlightData[]};
 }
 export interface SummaryFilters {
   chapters: string[];

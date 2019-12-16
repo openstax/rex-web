@@ -85,6 +85,7 @@
   "i18n:toolbar:highlights:popup:body:note:add-notes": "Add notes",
   "i18n:toolbar:highlights:popup:body:note:study-guide": "Make your study guide",
   "i18n:toolbar:highlights:popup:body:note:filter-chapters": "Filter by chapters & colors",
+  "i18n:toolbar:highlights:popup:body:note:text": "Note:",
   "i18n:toolbar:highlights:popup:body:tooltip:review": "Review all your highlights and notes in one convenient place.",
   "i18n:toolbar:highlights:popup:heading:no-highlights": "You have no highlights in this chapter.",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",

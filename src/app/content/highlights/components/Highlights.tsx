@@ -3,8 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import Loader from '../../../components/Loader';
-import { book as bookSelector } from '../../selectors';
-import { ArchiveTree, ArchiveTreeSection } from '../../types';
+import { bookSections } from '../../selectors';
+import { LinkedArchiveTreeNode } from '../../types';
+import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { summaryHighlights, summaryIsLoading } from '../selectors';
 import { SummaryHighlights } from '../types';
@@ -13,26 +14,21 @@ import * as Styled from './ShowMyHighlightsStyles';
 
 // tslint:disable-next-line: variable-name
 const Highlights = () => {
-  const book = useSelector(bookSelector);
+  const sections = useSelector(bookSections);
   const highlights = useSelector(summaryHighlights);
   const isLoading = useSelector(summaryIsLoading);
 
-  if (book && Object.keys(highlights).length > 0) {
+  if (sections.size > 0 && Object.keys(highlights).length > 0) {
     return <Styled.Highlights isLoading={isLoading}>
       {isLoading ? <Styled.LoaderWrapper><Loader/></Styled.LoaderWrapper> : null}
-      {highlights[book.tree.id]
-        && <SectionHighlights
-          section={book.tree}
+      {Array.from(sections).map(([id, section]) => {
+        if (!highlights[id]) { return null; }
+        return <SectionHighlights
+          key={id}
+          section={section}
           highlights={highlights}
-        />}
-      {book.tree.contents.map((chapter) => (
-        highlights[chapter.id]
-          && <SectionHighlights
-            key={chapter.id}
-            section={chapter}
-            highlights={highlights}
-          />
-      ))}
+        />;
+      })}
     </Styled.Highlights>;
   }
 
@@ -61,7 +57,7 @@ const Highlights = () => {
 export default Highlights;
 
 interface SectionHighlightsProps {
-  section: ArchiveTreeSection;
+  section: LinkedArchiveTreeNode;
   highlights: SummaryHighlights;
 }
 
@@ -70,12 +66,14 @@ const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => (
   <React.Fragment>
     <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: section.title }} />
     <Styled.HighlightWrapper>
-    {(section as ArchiveTree).contents.map((page) => {
-      const pageId = stripIdVersion(page.id);
-      if (!highlights[section.id][pageId]) { return null; }
-      return <div key={page.id}>
+    {Object.entries(highlights[section.id]).map(([pageId, pageHighlights]) => {
+      pageId = stripIdVersion(pageId);
+      const page = archiveTreeSectionIsChapter(section)
+        ? findArchiveTreeNode(section, pageId)!
+        : section;
+      return <div key={pageId}>
         <Styled.HighlightSection dangerouslySetInnerHTML={{ __html: page.title }} />
-        {highlights[section.id][pageId].map((item) => {
+        {pageHighlights.map((item) => {
           return (
             <Styled.HighlightOuterWrapper key={item.id}>
               <Styled.HighlightContentWrapper color={item.color}>
@@ -84,7 +82,12 @@ const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => (
                 />
                 {item.annotation ? (
                   <Styled.HighlightNote>
-                    <span>Note:</span> {item.annotation}
+                    <span>
+                      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
+                        {(msg: Element | string) => msg}
+                      </FormattedMessage>
+                    </span>
+                    {item.annotation}
                   </Styled.HighlightNote>
                 ) : null}
               </Styled.HighlightContentWrapper>
