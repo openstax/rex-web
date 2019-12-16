@@ -14,7 +14,6 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 
-
 # Constant usage values for javascript and regular expression commands
 ASYNC_DELETE = r"""
 (async function delete_page_highlights() {

@@ -52,9 +52,32 @@ class Content(Page):
         By.CSS_SELECTOR, "[data-testid=print]")
 
     @property
-    def loaded(self):
-        return (self.find_element(*self._body_locator)
-                .get_attribute("data-rex-loaded"))
+    def loaded(self) -> bool:
+        return bool(self.find_element(*self._body_locator)
+                    .get_attribute("data-rex-loaded"))
+
+    @property
+    def attribution(self) -> Content.Attribution:
+        return self.Attribution(self)
+
+    @property
+    def bookbanner(self) -> Content.BookBanner:
+        return self.BookBanner(self)
+
+    @property
+    def content(self) -> Content.Content:
+        """Access the main book content region.
+
+        :return: the book section content
+        :rtype: Content.Content
+        :raises ContentError: if an error modal is present
+
+        """
+        if not self.error_shown():
+            content_root = self.find_element(
+                *self._book_section_content_locator)
+            return self.Content(self, content_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}")
 
     @property
     def error(self) -> Content.Error:
@@ -67,16 +90,20 @@ class Content(Page):
         error_modal = self.find_element(*self._error_modal_locator)
         return self.Error(self, error_modal)
 
-    @property
-    def error_shown(self) -> bool:
+    def error_shown(self, repeat: int = 1) -> bool:
         """Return True when the error modal is present.
 
         .. note::
-           We make two checks for the error modal because when it occurs it may
-           be missed as the rest of the page is ready before the error
-           displays. The error overlay then intercepts other actions on the
-           page causing ``TimeoutExpeption``s.
+           We make multiple checks for the error modal because when an error
+           state occurs it may be missed by the first check as the rest of the
+           page is ready before the error modal displays. After the first
+           check, the error overlay would appear and intercept subsequent
+           actions on the page raising a ``TimeoutException`` instead of an
+           error report.
 
+        :param int repeat: (optional) an internal recursive counter managing
+            the number of error modal check retries
+            default: 1 - check for the modal twice over 0.25 seconds
         :return: ``True`` when the error modal exists within the content page
         :rtype: bool
 
@@ -84,98 +111,125 @@ class Content(Page):
         try:
             return bool(self.error)
         except NoSuchElementException:
-            sleep(0.25)
-            try:
-                return bool(self.error)
-            except NoSuchElementException:
+            if repeat <= 0:
                 return False
+            sleep(0.25)
+            return self.error_shown(repeat - 1)
 
     @property
-    def print(self):
-        return self.find_element(*self._print_locator)
+    def mobile_search_toolbar(self) -> Content.MobileSearchToolbar:
+        return self.MobileSearchToolbar(self)
 
     @property
-    def previous_link(self):
-        return self.find_element(*self._previous_locator)
+    def navbar(self) -> Content.NavBar:
+        return self.NavBar(self)
 
     @property
-    def next_link(self):
+    def next_link(self) -> WebElement:
         return self.find_element(*self._next_locator)
 
     @property
-    def previous_link_is_displayed(self):
-        try:
-            return self.previous_link.is_displayed()
-        except NoSuchElementException:
-            return False
-
-    @property
-    def next_link_is_displayed(self):
+    def next_link_is_displayed(self) -> bool:
         try:
             return self.next_link.is_displayed()
         except NoSuchElementException:
             return False
 
     @property
-    def navbar(self):
-        return self.NavBar(self)
+    def notification(self) -> Content.Notification:
+        """Access a content notification box."""
+        if not self.error_shown():
+            box_root = self.find_element(*self._notification_pop_up_locator)
+            return self.Notification(self, box_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}")
 
     @property
-    def bookbanner(self):
-        return self.BookBanner(self)
+    def notification_present(self) -> bool:
+        """Return True if a pop up content notification is found.
+
+        :return: ``True`` when a pop up notification is found ("Privacy
+            and cookies")
+        :rtype: bool
+
+        """
+        sleep(0.25)
+        return bool(self.find_elements(*self._notification_pop_up_locator))
 
     @property
-    def toolbar(self):
-        return self.ToolBar(self)
+    def previous_link(self) -> WebElement:
+        return self.find_element(*self._previous_locator)
 
     @property
-    def mobile_search_toolbar(self):
-        return self.MobileSearchToolbar(self)
+    def previous_link_is_displayed(self) -> bool:
+        try:
+            return self.previous_link.is_displayed()
+        except NoSuchElementException:
+            return False
 
     @property
-    def search_sidebar(self):
+    def print(self) -> WebElement:
+        return self.find_element(*self._print_locator)
+
+    @property
+    def search_sidebar(self) -> SearchSidebar:
         return SearchSidebar(self)
 
     @property
-    def sidebar(self):
+    def sidebar(self) -> Content.SideBar:
         return self.SideBar(self)
 
     @property
-    def attribution(self):
-        return self.Attribution(self)
-
-    @property
-    def content(self):
-        """Access the main book content region.
-
-        :return: the book section content
-        :rtype: Content.Content
-        :raises ContentError: if an error modal is present
-
-        """
-        if not self.error_shown:
-            content_root = self.find_element(
-                *self._book_section_content_locator)
-            return self.Content(self, content_root)
-        raise ContentError(f"Error modal displayed: {self.error.heading}\n")
-
-    @property
-    def sidebar_width_offset(self):
-        sidebar_width = self.width(self.sidebar.root)
-        sidebar_width_left_offset = (
-            self.sidebar.root.get_attribute("offsetLeft"))
-        return (int(sidebar_width) +
-                int(sidebar_width_left_offset))
-
-    @property
-    def sidebar_height_offset(self):
+    def sidebar_height_offset(self) -> int:
         navbar_height = self.height(self.navbar.root)
         bookbanner_height = self.height(self.bookbanner.root)
         return int(navbar_height) + int(bookbanner_height)
 
     @property
-    def window_height(self):
+    def sidebar_width_offset(self) -> int:
+        sidebar_width = self.width(self.sidebar.root)
+        sidebar_width_left_offset = (
+            self.sidebar.root.get_attribute("offsetLeft"))
+        return int(sidebar_width) + int(sidebar_width_left_offset)
+
+    @property
+    def toolbar(self) -> Content.ToolBar:
+        return self.ToolBar(self)
+
+    @property
+    def window_height(self) -> int:
         return int(self.height(self.sidebar.root)) + self.sidebar_height_offset
+
+    def click_content_overlay(self) -> WebElement:
+        """Click anywhere in the content overlay
+
+        x & y are random numbers computed from the sidebar/window width/height
+        respectively. Using actionchains to click on this position.
+
+        :return: the table of contents toggle button
+        :rtype: WebElement
+        :raises TimeoutException: if the toggle button is still visible after
+            the ``wait`` period
+
+        """
+        x = randint(self.sidebar_width_offset, self.window_width)
+        y = randint(self.sidebar_height_offset, self.window_height)
+
+        (ActionChains(self.driver)
+            .move_to_element_with_offset(
+                self.driver.find_element(*self._body_locator), 0, 0)
+            .move_by_offset(x, y)
+            .click()
+            .perform())
+        return self.wait.until(
+            expected.invisibility_of_element_located(
+                self.sidebar.header.toc_toggle_button)
+        )
+
+    def click_next_link(self):
+        self.click_and_wait_for_load(self.next_link)
+
+    def click_previous_link(self):
+        self.click_and_wait_for_load(self.previous_link)
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.
@@ -202,198 +256,49 @@ class Content(Page):
 
     scroll_through_page = scroll_over_content_overlay
 
-    def click_content_overlay(self):
-        """Click anywhere in the content overlay
+    class Attribution(Region):
 
-        x & y are random numbers computed from the sidebar/window width/height
-        respectively. Using actionchains to click on this position.
-        """
-        x = randint(self.sidebar_width_offset, self.window_width)
-        y = randint(self.sidebar_height_offset, self.window_height)
+        _root_locator = (
+            By.CSS_SELECTOR, "[data-testid='attribution-details']")
 
-        (ActionChains(self.driver)
-            .move_to_element_with_offset(
-                self.driver.find_element_by_tag_name("body"), 0, 0)
-            .move_by_offset(x, y)
-            .click()
-            .perform())
-        return self.wait.until(
-            expected.invisibility_of_element_located(
-                self.sidebar.header.toc_toggle_button)
-        )
-
-    def click_next_link(self):
-        self.click_and_wait_for_load(self.next_link)
-
-    def click_previous_link(self):
-        self.click_and_wait_for_load(self.previous_link)
-
-    @property
-    def notification(self) -> Content.Notification:
-        """Access a content notification box."""
-        if not self.error_shown:
-            box_root = self.find_element(*self._notification_pop_up_locator)
-            return self.Notification(self, box_root)
-        raise ContentError(f"Error modal displayed: {self.error.heading}\n")
-
-    @property
-    def notification_present(self) -> bool:
-        """Return True if a pop up content notification is found.
-
-        :return: ``True`` when a pop up notification is found ("Privacy
-            and cookies")
-        :rtype: bool
-
-        """
-        return bool(self.find_elements(*self._notification_pop_up_locator))
-
-    class Error(Region):
-        """An error pop up modal."""
-
-        _clear_error_button_locator = (
-            By.CSS_SELECTOR, "[class*=Footer] button")
-        _content_text_locator = (
-            By.CSS_SELECTOR, "[class*=BodyError]")
-        _heading_text_locator = (
-            By.CSS_SELECTOR, "[class*=BodyHeading]")
-        _help_link_locator = (
-            By.CSS_SELECTOR, "a")
-        _title_text_locator = (
-            By.CSS_SELECTOR, "[class*='_Heading']")
+        _access_free_locator = (
+            By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
+        _attribution_toggle_locator = (
+            By.CSS_SELECTOR, '[data-testid="attribution-details"] summary')
+        _book_url_locator = (
+            By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _section_url_locator = (
+            By.XPATH, "//*[contains(text(), 'Section URL')]/a")
 
         @property
-        def content(self) -> str:
-            """Return the error content text.
-
-            :return: the error modal body text
-            :rtype: str
-
-            """
-            return (self.find_element(*self._content_text_locator)
-                    .get_attribute("textContent").strip())
+        def attribution_link(self) -> WebElement:
+            return self.find_element(*self._attribution_toggle_locator)
 
         @property
-        def heading(self) -> str:
-            """Return the error heading text.
-
-            :return: the error modal header
-            :rtype: str
-
-            """
-            return self.find_element(*self._heading_text_locator).text
+        def is_open(self) -> bool:
+            return bool(self.root.get_attribute("open"))
 
         @property
-        def help_link(self) -> WebElement:
-            """Return the Support Center link.
-
-            :return: the support center help link
-            :rtype: WebElement
-
-            """
-            return self.find_element(*self._help_link_locator)
+        def section_url_within_attribution(self) -> WebElement:
+            return self.find_element(*self._section_url_locator)
 
         @property
-        def title(self) -> str:
-            """Return the modal title.
-
-            :return: the modal title
-            :rtype: str
-
-            """
-            return self.find_element(*self._title_text_locator).text
-
-        def ok(self) -> Content:
-            """Click the OK button to close the error modal.
-
-            :return: the parent content page
-            :rtype: Content
-
-            """
-            button = self.find_element(*self._clear_error_button_locator)
-            Utilities.click_option(self.driver, element=button)
-            self.wait.until(expected.staleness_of(self.root))
-            return self.page
-
-    class NavBar(Region):
-
-        _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
-
-        _account_profile_locator = (
-            By.XPATH, "//a[contains(text(), 'Account Profile')]")
-        _login_locator = (
-            By.CSS_SELECTOR, "[data-testid='nav-login']")
-        _logout_locator = (
-            By.XPATH, "//a[contains(text(), 'Log out')]")
-        _openstax_logo_link_locator = (
-            By.CSS_SELECTOR, "div > a")
-        _user_nav_locator = (
-            By.CSS_SELECTOR, "[data-testid='user-nav']")
-        _user_nav_toggle_locator = (
-            By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
+        def section_url(self) -> str:
+            return self.section_url_within_attribution.get_attribute("href")
 
         @property
-        def openstax_logo_link(self):
-            return (self.find_element(*self._openstax_logo_link_locator)
+        def book_url(self) -> str:
+            return (self.find_element(*self._book_url_locator)
                     .get_attribute("href"))
 
         @property
-        def user_nav(self):
-            return self.find_element(*self._user_nav_locator)
+        def access_free_url(self) -> str:
+            return (self.find_element(*self._access_free_locator)
+                    .get_attribute("href"))
 
-        @property
-        def login(self):
-            return self.find_element(*self._login_locator)
-
-        @property
-        def user_is_not_logged_in(self):
-            try:
-                self.wait.until(
-                    expected.visibility_of_element_located(
-                        self._login_locator))
-                return True
-            except TimeoutException:
-                return False
-
-        @property
-        def user_is_logged_in(self):
-            try:
-                self.wait.until(
-                    expected.visibility_of_element_located(
-                        self._user_nav_toggle_locator))
-                return True
-            except TimeoutException:
-                return False
-
-        @property
-        def account_profile_is_displayed(self):
-            try:
-                return (self.find_element(*self._account_profile_locator)
-                        .is_displayed())
-            except NoSuchElementException:
-                return False
-
-        @property
-        def logout_is_displayed(self):
-            return expected.visibility_of_element_located(self._logout_locator)
-
-        @property
-        def logout(self):
-            return self.find_element(*self._logout_locator)
-
-        def click_login(self):
-            self.wait.until(
-                expected.visibility_of_element_located(
-                    self._login_locator))
-            Utilities.click_option(self.driver, element=self.login)
-
-        def click_logout(self):
-            Utilities.click_option(self.driver, element=self.logout)
-
-        def click_user_name(self):
-            self.wait.until(
-                expected.visibility_of_element_located(
-                    self._user_nav_locator))
-            Utilities.click_option(self.driver, element=self.user_nav)
+        def click_attribution_link(self):
+            self.offscreen_click(self.attribution_link)
+            self.page.attribution.wait_for_region_to_display()
 
     class BookBanner(Region):
 
@@ -407,232 +312,20 @@ class Content(Page):
             By.CSS_SELECTOR, "div > h1 > span.os-text")
 
         @property
-        def book_title(self):
+        def book_title(self) -> WebElement:
             return self.find_element(*self._book_title_locator)
 
         @property
-        def chapter_title(self):
+        def chapter_title(self) -> str:
             return self.find_element(*self._chapter_title_locator).text
 
         @property
-        def chapter_section(self):
+        def chapter_section(self) -> Union[str, None]:
             # The section isn't always included on the page so we return None
             try:
-                element = self.find_element(*self._chapter_section_locator)
-                return element.text
+                return self.find_element(*self._chapter_section_locator).text
             except NoSuchElementException:
                 return None
-
-    class ToolBar(Region):
-
-        _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
-
-        _search_button_desktop_locator = (
-            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (
-            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
-        _search_textbox_desktop_locator = (
-            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _toc_toggle_button_locator = (
-            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
-
-        @property
-        def toc_toggle_button(self):
-            return self.find_element(*self._toc_toggle_button_locator)
-
-        @property
-        def search_textbox(self):
-            return self.find_element(*self._search_textbox_desktop_locator)
-
-        @property
-        def search_button(self):
-            """Return the desktop view search icon within the search box."""
-            return self.find_element(*self._search_button_desktop_locator)
-
-        @property
-        def search_button_mobile(self):
-            return self.find_element(*self._search_button_mobile_locator)
-
-        def click_toc_toggle_button(self):
-            self.offscreen_click(self.toc_toggle_button)
-            return self.page.sidebar.wait_for_region_to_display()
-
-        def click_search_icon(self):
-            """Clicks the search icon in mobile view."""
-
-            self.offscreen_click(self.search_button_mobile)
-
-        def search_for(self, search_term: str):
-            """Search for a term/query in desktop resolution.
-
-            :param str search_term: search_term defined in the test
-            :return: search sidebar region with the search results
-            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
-
-            Enter the search term in the search textbox and hit Enter/Return
-            Search results display in the search sidebar.
-
-            """
-            self.search_textbox.send_keys(search_term)
-            self.offscreen_click(self.search_button)
-            self.page.search_sidebar.wait_for_region_to_display()
-            return self.page.search_sidebar
-
-    class MobileSearchToolbar(Region):
-
-        _search_textbox_mobile_locator = (
-            By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
-
-        @property
-        def search_textbox(self):
-            return self.find_element(*self._search_textbox_mobile_locator)
-
-        def search_for(self, search_term: str):
-            """Search for a term/query in mobile resolution.
-
-            :param str search_term: search_term defined in the test
-            :return: search sidebar region with the search results
-            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
-
-            Click the search icon in the toolbar
-            Enter the search term in the search textbox and hit Enter/Return
-            Search results display in the search sidebar.
-
-            """
-            self.page.toolbar.click_search_icon()
-            self.search_textbox.send_keys(search_term)
-            self.offscreen_click(self.search_textbox)
-            self.page.search_sidebar.wait_for_region_to_display()
-            return self.page.search_sidebar
-
-    class SideBar(Region):
-
-        _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
-
-        @property
-        def header(self):
-            return self.Header(self.page)
-
-        @property
-        def toc(self):
-            return TableOfContents(self.page)
-
-        class Header(Region):
-
-            _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
-
-            _toc_toggle_button_locator = (
-                By.CSS_SELECTOR, "[aria-label*='close the Table of Contents']")
-
-            @property
-            def toc_toggle_button(self):
-                return self.find_element(*self._toc_toggle_button_locator)
-
-            def click_toc_toggle_button(self):
-                self.offscreen_click(self.toc_toggle_button)
-                return self.wait.until(
-                    expected.invisibility_of_element_located(
-                        self.toc_toggle_button))
-
-    class Attribution(Region):
-
-        _root_locator = (By.CSS_SELECTOR, "[data-testid='attribution-details']")
-
-        _access_free_locator = (
-            By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
-        _attribution_toggle_locator = (
-            By.CSS_SELECTOR, '[data-testid="attribution-details"] summary')
-        _book_url_locator = (
-            By.XPATH, "//*[contains(text(), 'Book URL')]/a")
-        _section_url_locator = (
-            By.XPATH, "//*[contains(text(), 'Section URL')]/a")
-
-        @property
-        def attribution_link(self):
-            return self.find_element(*self._attribution_toggle_locator)
-
-        @property
-        def is_open(self):
-            return bool(self.root.get_attribute("open"))
-
-        @property
-        def section_url_within_attribution(self):
-            return self.find_element(*self._section_url_locator)
-
-        @property
-        def section_url(self):
-            return self.section_url_within_attribution.get_attribute("href")
-
-        @property
-        def book_url(self):
-            return (self.find_element(*self._book_url_locator)
-                    .get_attribute("href"))
-
-        @property
-        def access_free_url(self):
-            return (self.find_element(*self._access_free_locator)
-                    .get_attribute("href"))
-
-        def click_attribution_link(self):
-            self.offscreen_click(self.attribution_link)
-            self.page.attribution.wait_for_region_to_display()
-
-    class Notification(Region):
-        """A pop up notification box."""
-
-        _acknowledge_button_locator = (
-            By.CSS_SELECTOR, "button")
-        _content_text_locator = (
-            By.CSS_SELECTOR, "p")
-        _notification_title_locator = (
-            By.CSS_SELECTOR, "[class*=Header]")
-
-        @property
-        def button(self) -> WebElement:
-            """Return the pop up notification box button.
-
-            :return: the notification confirmation button
-            :rtype: WebElement
-
-            """
-            return self.find_element(*self._acknowledge_button_locator)
-
-        @property
-        def content(self) -> str:
-            """Return the pop up box body text content.
-
-            :return: the pop up notification body content text
-            :rtype: str
-
-            """
-            return " ".join(
-                [body.text
-                 for body
-                 in self.find_elements(*self._content_text_locator)])
-
-        @property
-        def title(self) -> str:
-            """Return the pop up box heading.
-
-            :return: the pop up notification heading/title
-            :rtype: str
-
-            """
-            return (self.find_element(*self._notification_title_locator)
-                    .text)
-
-        def click(self) -> Page:
-            """Click on the pop up notification box button.
-
-            :return: the parent page
-            :rtype: Page
-
-            """
-            Utilities.click_option(self.driver, element=self.button)
-            self.wait.until(expected.staleness_of(self.root))
-            return self.page
-
-        got_it = click
 
     class Content(Region):
         """The main content for the book section."""
@@ -730,7 +423,8 @@ class Content(Page):
         def highlight_ids(self) -> List[str]:
             """Return the list of highlight ID numbers.
 
-            :return: the list of highlight ``data-id``s for the current page
+            :return: the unique list of highlight ``data-id``s for the current
+                page
             :rtype: list(str)
 
             """
@@ -908,11 +602,7 @@ class Content(Page):
                 self.close_edit_note_box()
 
         def show_solutions(self):
-            """Open each closed solution then return to the top of the page.
-
-            :return: None
-
-            """
+            """Open each closed solution then return to the top of the page."""
             for toggle in self.solution_toggles:
                 self.driver.execute_script(
                     "arguments[0].scrollIntoView();", toggle)
@@ -1127,7 +817,6 @@ class Content(Page):
                 """Set the annotation text for the highlight.
 
                 :param str note: the annotation text for the selected highlight
-                :return: None
 
                 """
                 if note:
@@ -1197,3 +886,320 @@ class Content(Page):
                           Highlight.YELLOW: self.yellow, }
                 Utilities.click_option(self.driver, element=colors[color])
                 return self
+
+    class Error(Region):
+        """An error pop up modal."""
+
+        _clear_error_button_locator = (
+            By.CSS_SELECTOR, "[class*=Footer] button")
+        _content_text_locator = (
+            By.CSS_SELECTOR, "[class*=BodyError]")
+        _heading_text_locator = (
+            By.CSS_SELECTOR, "[class*=BodyHeading]")
+        _help_link_locator = (
+            By.CSS_SELECTOR, "a")
+        _title_text_locator = (
+            By.CSS_SELECTOR, "[class*='_Heading']")
+
+        @property
+        def content(self) -> str:
+            """Return the error content text.
+
+            :return: the error modal body text
+            :rtype: str
+
+            """
+            return (self.find_element(*self._content_text_locator)
+                    .get_attribute("textContent").strip())
+
+        @property
+        def heading(self) -> str:
+            """Return the error heading text.
+
+            :return: the error modal header
+            :rtype: str
+
+            """
+            return self.find_element(*self._heading_text_locator).text
+
+        @property
+        def help_link(self) -> WebElement:
+            """Return the Support Center link.
+
+            :return: the support center help link
+            :rtype: WebElement
+
+            """
+            return self.find_element(*self._help_link_locator)
+
+        @property
+        def title(self) -> str:
+            """Return the modal title.
+
+            :return: the modal title
+            :rtype: str
+
+            """
+            return self.find_element(*self._title_text_locator).text
+
+        def ok(self) -> Content:
+            """Click the OK button to close the error modal.
+
+            :return: the parent content page
+            :rtype: Content
+
+            """
+            button = self.find_element(*self._clear_error_button_locator)
+            Utilities.click_option(self.driver, element=button)
+            self.wait.until(expected.staleness_of(self.root))
+            return self.page
+
+    class MobileSearchToolbar(Region):
+
+        _search_textbox_mobile_locator = (
+            By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+
+        @property
+        def search_textbox(self) -> WebElement:
+            return self.find_element(*self._search_textbox_mobile_locator)
+
+        def search_for(self, search_term: str) -> SearchSidebar:
+            """Search for a term/query in mobile resolution.
+
+            :param str search_term: search_term defined in the test
+            :return: search sidebar region with the search results
+            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
+
+            Click the search icon in the toolbar
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
+            self.page.toolbar.click_search_icon()
+            self.search_textbox.send_keys(search_term)
+            self.offscreen_click(self.search_textbox)
+            self.page.search_sidebar.wait_for_region_to_display()
+            sleep(0.25)
+            return self.page.search_sidebar
+
+    class NavBar(Region):
+
+        _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
+
+        _account_profile_locator = (
+            By.XPATH, "//a[contains(text(), 'Account Profile')]")
+        _login_locator = (
+            By.CSS_SELECTOR, "[data-testid='nav-login']")
+        _logout_locator = (
+            By.XPATH, "//a[contains(text(), 'Log out')]")
+        _openstax_logo_link_locator = (
+            By.CSS_SELECTOR, "div > a")
+        _user_nav_locator = (
+            By.CSS_SELECTOR, "[data-testid='user-nav']")
+        _user_nav_toggle_locator = (
+            By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
+
+        @property
+        def openstax_logo_link(self) -> str:
+            return (self.find_element(*self._openstax_logo_link_locator)
+                    .get_attribute("href"))
+
+        @property
+        def user_nav(self) -> WebElement:
+            return self.find_element(*self._user_nav_locator)
+
+        @property
+        def login(self) -> WebElement:
+            return self.find_element(*self._login_locator)
+
+        @property
+        def user_is_not_logged_in(self) -> bool:
+            try:
+                self.wait.until(
+                    expected.visibility_of_element_located(
+                        self._login_locator))
+                return True
+            except TimeoutException:
+                return False
+
+        @property
+        def user_is_logged_in(self) -> bool:
+            try:
+                self.wait.until(
+                    expected.visibility_of_element_located(
+                        self._user_nav_toggle_locator))
+                return True
+            except TimeoutException:
+                return False
+
+        @property
+        def account_profile_is_displayed(self) -> bool:
+            try:
+                return (self.find_element(*self._account_profile_locator)
+                        .is_displayed())
+            except NoSuchElementException:
+                return False
+
+        @property
+        def logout_is_displayed(self) -> bool:
+            return expected.visibility_of_element_located(self._logout_locator)
+
+        @property
+        def logout(self) -> WebElement:
+            return self.find_element(*self._logout_locator)
+
+        def click_login(self):
+            self.wait.until(
+                expected.visibility_of_element_located(
+                    self._login_locator))
+            Utilities.click_option(self.driver, element=self.login)
+
+        def click_logout(self):
+            Utilities.click_option(self.driver, element=self.logout)
+
+        def click_user_name(self):
+            self.wait.until(
+                expected.visibility_of_element_located(
+                    self._user_nav_locator))
+            Utilities.click_option(self.driver, element=self.user_nav)
+
+    class Notification(Region):
+        """A pop up notification box."""
+
+        _acknowledge_button_locator = (
+            By.CSS_SELECTOR, "button")
+        _content_text_locator = (
+            By.CSS_SELECTOR, "p")
+        _notification_title_locator = (
+            By.CSS_SELECTOR, "[class*=Header]")
+
+        @property
+        def button(self) -> WebElement:
+            """Return the pop up notification box button.
+
+            :return: the notification confirmation button
+            :rtype: WebElement
+
+            """
+            return self.find_element(*self._acknowledge_button_locator)
+
+        @property
+        def content(self) -> str:
+            """Return the pop up box body text content.
+
+            :return: the pop up notification body content text
+            :rtype: str
+
+            """
+            return " ".join(
+                [body.text
+                 for body
+                 in self.find_elements(*self._content_text_locator)])
+
+        @property
+        def title(self) -> str:
+            """Return the pop up box heading.
+
+            :return: the pop up notification heading/title
+            :rtype: str
+
+            """
+            return (self.find_element(*self._notification_title_locator)
+                    .text)
+
+        def click(self) -> Page:
+            """Click on the pop up notification box button.
+
+            :return: the parent page
+            :rtype: Page
+
+            """
+            Utilities.click_option(self.driver, element=self.button)
+            self.wait.until(expected.staleness_of(self.root))
+            return self.page
+
+        got_it = click
+
+    class SideBar(Region):
+
+        _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
+
+        @property
+        def header(self) -> Content.SideBar.Header:
+            return self.Header(self.page)
+
+        @property
+        def toc(self) -> TableOfContents:
+            return TableOfContents(self.page)
+
+        class Header(Region):
+
+            _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
+
+            _toc_toggle_button_locator = (
+                By.CSS_SELECTOR, "[aria-label*='close the Table of Contents']")
+
+            @property
+            def toc_toggle_button(self) -> WebElement:
+                return self.find_element(*self._toc_toggle_button_locator)
+
+            def click_toc_toggle_button(self) -> WebElement:
+                self.offscreen_click(self.toc_toggle_button)
+                return self.wait.until(
+                    expected.invisibility_of_element_located(
+                        self.toc_toggle_button))
+
+    class ToolBar(Region):
+
+        _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
+
+        _search_button_desktop_locator = (
+            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (
+            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (
+            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _toc_toggle_button_locator = (
+            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
+
+        @property
+        def toc_toggle_button(self) -> WebElement:
+            return self.find_element(*self._toc_toggle_button_locator)
+
+        @property
+        def search_textbox(self) -> WebElement:
+            return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def search_button(self) -> WebElement:
+            """Return the desktop view search icon within the search box."""
+            return self.find_element(*self._search_button_desktop_locator)
+
+        @property
+        def search_button_mobile(self) -> WebElement:
+            return self.find_element(*self._search_button_mobile_locator)
+
+        def click_toc_toggle_button(self) -> Content.SideBar:
+            self.offscreen_click(self.toc_toggle_button)
+            return self.page.sidebar.wait_for_region_to_display()
+
+        def click_search_icon(self) -> WebElement:
+            """Clicks the search icon in mobile view."""
+            self.offscreen_click(self.search_button_mobile)
+
+        def search_for(self, search_term: str) -> Content.SideBar:
+            """Search for a term/query in desktop resolution.
+
+            :param str search_term: search_term defined in the test
+            :return: search sidebar region with the search results
+            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
+
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
+            self.search_textbox.send_keys(search_term)
+            self.offscreen_click(self.search_button)
+            self.page.search_sidebar.wait_for_region_to_display()
+            sleep(0.25)
+            return self.page.search_sidebar

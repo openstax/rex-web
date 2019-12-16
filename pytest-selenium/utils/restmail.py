@@ -9,11 +9,6 @@ from time import sleep
 from typing import List, Union
 
 PIN_MATCHER = re.compile(r"(PIN\:? \d{6})")
-RESET_MATCHER = re.compile(
-    r"(https:\/\/accounts([-\w]*)?\.openstax\.org"
-    r"\/password\/reset\?token=\w{1,64})")
-URL_MATCHER = re.compile(
-    r"(https:\/\/accounts([-\w]*)?\.openstax\.org\/confirm\?code=\w{1,64})")
 
 
 class EmailVerificationError(Exception):

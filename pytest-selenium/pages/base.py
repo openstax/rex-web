@@ -1,10 +1,14 @@
 
 from __future__ import annotations
 
+from typing import Tuple
+
 import pypom
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import (ElementNotInteractableException,  # NOQA
-                                        StaleElementReferenceException)  # NOQA
+from selenium.common.exceptions import (
+    ElementNotInteractableException,
+    StaleElementReferenceException,
+)
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -57,8 +61,7 @@ class Page(pypom.Page):
         """
         title_before_click = self.page_title
         element.send_keys(Keys.ENTER)
-        return self.wait.until(
-            lambda _: title_before_click != (self.page_title))
+        self.wait.until(lambda _: title_before_click != (self.page_title))
 
     def element_is_not_interactable(self, element):
         try:
@@ -122,3 +125,24 @@ class Page(pypom.Page):
         except StaleElementReferenceException:
             pass
         return self
+
+    def get_window_size(self) -> Tuple[int, int]:
+        """Return the width and height of the browser window.
+
+        :return: the width and height of the current browser window
+        :rtype: (int, int)
+
+        """
+        size = self.driver.get_window_size()
+        return (size.get("width"), size.get("height"))
+
+    def set_window_size(self,
+                        width: int = DESKTOP[0],
+                        height: int = DESKTOP[1]):
+        """Resize the browser window.
+
+        :param int width: the desired browser width in pixels
+        :param int height: the desired browser height in pixels
+
+        """
+        self.driver.set_window_size(width=width, height=height)
