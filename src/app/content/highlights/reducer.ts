@@ -1,4 +1,4 @@
-import { HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -61,34 +61,84 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return state;
       }
 
+      const { color, annotation } = action.payload.highlight;
+
       const newState = {...state};
       const dataToUpdate = {
         ...action.payload.highlight,
         color: action.payload.highlight.color as string as HighlightColorEnum,
       };
-      newState.highlights = newState.highlights!.map((h) =>
-        h.id === action.payload.id ? {
-          ...h,
-          ...dataToUpdate,
-        } : h);
+      let newHighlight: Highlight | undefined;
+
+      newState.highlights = newState.highlights!.map((h) => {
+        if (h.id === action.payload.id) {
+          newHighlight = {
+            ...h,
+            ...dataToUpdate,
+          };
+          return newHighlight!;
+        }
+        return h;
+      });
 
       const { chapterId, pageId } = action.meta;
-      if (newState.summary.filters.colors.includes(dataToUpdate.color)) {
-        updateSummaryHighlights(newState.summary.highlights, {
+      const { filters: { chapters, colors }, highlights } = newState.summary;
+
+      // If highlight's chapter is not in summary filters stop here...
+      if (!chapters.includes(chapterId)) { return newState; }
+
+      // If only annotation was changed just update summary highlights...
+      if (!color && annotation) {
+        updateSummaryHighlights(highlights, {
           chapterId,
           highlight: action.payload.highlight,
           id: action.payload.id,
           pageId,
           type: 'update',
         });
-      } else {
-        updateSummaryHighlights(newState.summary.highlights, {
+        return newState;
+      }
+
+      // If highlight's color has changed and it's no longer in filters
+      // remove this highlight from summary highlights...
+      if (color && !colors.includes(dataToUpdate.color)) {
+        updateSummaryHighlights(highlights, {
           chapterId,
           id: action.payload.id,
           pageId,
           type: 'remove',
         });
+        return newState;
       }
+
+      // If color has changed and it is still in filters or
+      // If color has changed and now it is in filter.
+      if (color && colors.includes(dataToUpdate.color)) {
+        // If highlight was already in summary highlights then just update it.
+        if (
+          highlights[chapterId]
+          && highlights[chapterId][pageId]
+          && highlights[chapterId][pageId].find((h) => h.id === action.payload.id)
+        ) {
+          updateSummaryHighlights(highlights, {
+            chapterId,
+            highlight: action.payload.highlight,
+            id: action.payload.id,
+            pageId,
+            type: 'update',
+          });
+          return newState;
+        } else if (newHighlight) {
+          // If it wasn't then add it to summary highlights.
+          updateSummaryHighlights(highlights, {
+            chapterId,
+            highlight: newHighlight,
+            pageId,
+            type: 'add',
+          });
+        }
+      }
+
       return newState;
     }
     case getType(actions.deleteHighlight): {
