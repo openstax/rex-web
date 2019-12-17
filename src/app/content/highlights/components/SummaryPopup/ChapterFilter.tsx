@@ -7,11 +7,6 @@ import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import * as selectContent from '../../../selectors';
-import {
-  archiveTreeSectionIsBook,
-  archiveTreeSectionIsChapter,
-  flattenArchiveTree,
-} from '../../../utils/archiveTreeUtils';
 import { setSummaryFilters } from '../../actions';
 import { summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
@@ -65,13 +60,8 @@ const chunk = <T extends any>(sections: T[]) => {
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
-  const book = useSelector(selectContent.book);
-
-  const sections = book ? flattenArchiveTree(book.tree).filter((section) =>
-    (section.parent && archiveTreeSectionIsBook(section.parent))
-    || archiveTreeSectionIsChapter(section)
-  ) : [];
-  const sectionIds = sections.map((chapter) => chapter.id);
+  const sections = useSelector(selectContent.bookSections);
+  const sectionIds = Array.from(sections.keys());
 
   const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
@@ -94,7 +84,7 @@ const ChapterFilter = ({className}: Props) => {
       onAll={() => setSelectedChapters(sectionIds)}
     />
     <Row>
-      {chunk(sections).map((sectionChunk, index) => <Column key={index}>
+      {chunk(Array.from(sections.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((section) => <Checkbox
           key={section.id}
           checked={filters.chapters.includes(section.id)}
