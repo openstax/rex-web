@@ -263,7 +263,7 @@ export const GeneralText = styled(H3)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const GeneralTextWrapper = styled.span`
+export const GeneralTextWrapper = styled.div`
   ${bodyCopyRegularStyle}
 `;
 
@@ -284,6 +284,7 @@ export const MyHighlightsWrapper = styled.div`
 export const GeneralLeftText = styled(GeneralTextWrapper)`
   text-align: left;
   width: 100%;
+  padding: 2rem 3.2rem;
 `;
 
 // tslint:disable-next-line:variable-name
