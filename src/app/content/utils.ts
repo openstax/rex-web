@@ -1,7 +1,12 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { ArchiveBook, Book, BookSections, Page } from './types';
-import { archiveTreeSectionIsChapter, findArchiveTreeNode } from './utils/archiveTreeUtils';
+import {
+  archiveTreeSectionIsBook,
+  archiveTreeSectionIsChapter,
+  findArchiveTreeNode,
+  flattenArchiveTree,
+} from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -43,6 +48,12 @@ export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOA
   && window.__PRELOADED_STATE__.content
   && window.__PRELOADED_STATE__.content.page
   && window.__PRELOADED_STATE__.content.page.id === id;
+
+export const mapBookSections = (book: Book) => {
+  return new Map(flattenArchiveTree(book.tree).filter((section) =>
+    (section.parent && archiveTreeSectionIsBook(section.parent))
+    || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s]));
+};
 
 export const getCurrentChapter = (sections: BookSections, page: Page) => {
   let chapter = sections.get(page.id);

@@ -1,11 +1,9 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { BookSections } from './types';
+import { mapBookSections } from './utils';
 import {
-  archiveTreeSectionIsBook,
-  archiveTreeSectionIsChapter,
   findArchiveTreeNodeBySlug,
-  flattenArchiveTree,
   prevNextBookPage,
 } from './utils/archiveTreeUtils';
 
@@ -27,10 +25,7 @@ export const book = createSelector(
 export const bookSections = createSelector(
   localState,
   (state) => state.book
-    ? new Map(flattenArchiveTree(state.book.tree).filter((section) =>
-      (section.parent && archiveTreeSectionIsBook(section.parent))
-      || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s])
-    )
+    ? mapBookSections(state.book)
     : new Map() as BookSections
 );
 
