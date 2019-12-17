@@ -1,6 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
+import { typesetMath } from '../../../../helpers/mathjax';
 import { isHtmlElement } from '../../../guards';
+import { assertWindow } from '../../../utils';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
@@ -36,7 +38,9 @@ class ShowMyHighlights extends Component<{}, { showGoToTop: boolean }> {
     if (isHtmlElement(highlightsBodyRef)) {
       this.scrollHandler = this.updateGoToTop(highlightsBodyRef);
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
+      typesetMath(highlightsBodyRef, assertWindow());
     }
+
   }
 
   public componentWillUnmount() {

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { labelStyle, textRegularStyle } from '../../../components/Typography';
+import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
@@ -76,12 +76,17 @@ export const HighlightOuterWrapper = styled.div`
   :not(:last-child) {
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
+
+  background: ${theme.color.neutral.base};
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightContent = styled.span`
-  ${textRegularStyle}
-  line-height: unset;
+export const HighlightContent = styled.div`
+  ${bodyCopyRegularStyle}
+
+  * {
+    overflow: initial;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -126,8 +131,8 @@ export const GoToTopWrapper = styled.div`
   height: 4.8rem;
   position: absolute;
   z-index: 1;
-  bottom: calc(4.8rem + ${popupBodyPadding}rem);
-  right: calc(4.8rem + ${popupBodyPadding}rem);
+  bottom: 4.8rem;
+  right: 4.8rem;
   display: flex;
   align-items: center;
   justify-content: center;

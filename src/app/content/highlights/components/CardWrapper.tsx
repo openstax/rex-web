@@ -24,5 +24,5 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => <div
 export default styled(Wrapper)`
   position: relative;
   overflow: visible;
-  z-index: ${theme.zIndex.toolbar - 1};
+  z-index: ${theme.zIndex.highlightInlineCard};
 `;

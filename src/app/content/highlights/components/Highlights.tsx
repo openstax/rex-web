@@ -78,6 +78,7 @@ const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => (
             <Styled.HighlightOuterWrapper key={item.id}>
               <Styled.HighlightContentWrapper color={item.color}>
                 <Styled.HighlightContent
+                  className='summary-highlight-content'
                   dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
                 />
                 {item.annotation ? (

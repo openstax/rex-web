@@ -91,7 +91,7 @@ Array [
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 59;
+  z-index: 69;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
 }
@@ -286,7 +286,7 @@ Array [
   transition: transform 200ms;
   position: -webkit-sticky;
   position: sticky;
-  z-index: 58;
+  z-index: 68;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
   margin-top: -7rem;
@@ -431,7 +431,7 @@ exports[`BookBanner renders empty state with no page or book 1`] = `
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 59;
+  z-index: 69;
   overflow: hidden;
 }
 
@@ -471,7 +471,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 59;
+  z-index: 69;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
   -webkit-transform: translateY(-7rem);
