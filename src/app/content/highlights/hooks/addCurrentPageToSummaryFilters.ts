@@ -1,7 +1,7 @@
 import { ActionHookBody, AppServices, MiddlewareAPI,  } from '../../../types';
 import { actionHook } from '../../../utils';
-import { bookAndPage } from '../../selectors';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { bookAndPage, bookSections } from '../../selectors';
+import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { addCurrentPageToSummaryFilters, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
@@ -11,22 +11,24 @@ export const hookBody: ActionHookBody<typeof addCurrentPageToSummaryFilters> = (
 }: MiddlewareAPI & AppServices) => async() => {
   const state = getState();
   const {book, page} = bookAndPage(state);
+  const sections = bookSections(state);
   const filters = select.summaryFilters(state);
   if (!book || !page || typeof(window) === 'undefined') {
     return;
   }
 
-  // Add current page or their parent to the chaptersFilter
-  const treeNode = findArchiveTreeNode(book.tree, page.id);
-  if (!treeNode) { return; }
-  const nodeParent = treeNode.parent!;
-  let idToAdd = stripIdVersion(nodeParent.id);
-  if (!nodeParent.parent) {
-    // nodeParent is a whole book
-    // use current page id
-    idToAdd = stripIdVersion(treeNode.id);
+  let idToAdd = sections.has(page.id) ? stripIdVersion(sections.get(page.id)!.id) : null;
+
+  if (!idToAdd) {
+    for (const section of sections.values()) {
+      if (archiveTreeSectionIsChapter(section) && findArchiveTreeNode(section, page.id)) {
+        idToAdd = stripIdVersion(section.id);
+        break;
+      }
+    }
   }
-  if (!filters.chapters.includes(idToAdd)) {
+
+  if (idToAdd && !filters.chapters.includes(idToAdd)) {
     dispatch(setSummaryFilters({
       ...filters,
       chapters: [...filters.chapters, idToAdd],
