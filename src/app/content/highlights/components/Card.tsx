@@ -18,7 +18,7 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { getCurrentChapter } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
@@ -81,8 +81,7 @@ const Card = (props: Props) => {
     return null;
   }
 
-  const chapter = (props.page && sections.get(props.page.id))
-    || (props.book && findArchiveTreeNode(props.book.tree, props.page!.id)!.parent!);
+  const chapter = getCurrentChapter(sections, page);
   const chapterId = stripIdVersion(chapter!.id);
 
   const onRemove = () => {

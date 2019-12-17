@@ -107,3 +107,5 @@ export interface ArchivePage {
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;
+
+export type BookSections = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

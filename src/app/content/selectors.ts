@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { LinkedArchiveTreeNode } from './types';
+import { BookSections } from './types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -31,7 +31,7 @@ export const bookSections = createSelector(
       (section.parent && archiveTreeSectionIsBook(section.parent))
       || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s])
     )
-    : new Map() as Map<string, LinkedArchiveTreeNode>
+    : new Map() as BookSections
 );
 
 export const contentReferences = createSelector(
