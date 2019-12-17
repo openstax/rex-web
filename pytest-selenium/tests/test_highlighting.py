@@ -5,12 +5,16 @@ import re
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from pages.accounts import Signup
 from pages.content import Content
 from tests import markers
 from tests.conftest import DESKTOP
 from utils.utility import Highlight, Utilities
+
+XPATH_SEARCH = (
+    "//span[contains(text(),'{term}') and contains(@class,'highlight')]")
 
 
 @markers.test_case("C591511")
@@ -273,10 +277,8 @@ def test_search_term_colored_within_a_highlight(
         raise ValueError("No search results found")
 
     Utilities.click_option(selenium, element=search_results[0])
-    XPATH_SEARCH = (
-        "//span[contains(text(),'{term}') and contains(@class,'highlight')]")
     phrase_searched = book.content.find_elements(
-        "xpath", XPATH_SEARCH.format(term=phrase))
+        By.XPATH, XPATH_SEARCH.format(term=phrase))
 
     # THEN: the search highlighting is in place for the search term in the
     #       content
@@ -289,3 +291,63 @@ def test_search_term_colored_within_a_highlight(
         "search phrase does not have the search focus highlight"
     assert(highlight_id in book.content.highlight_ids), \
         "the original highlight ID not found on the page"
+
+
+@markers.test_case("C591515")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("astronomy",
+         "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_user_highlight_over_search_term_highlight(
+        selenium, base_url, book_slug, page_slug):
+    """Search highlights should be over user highlights."""
+    # GIVEN: a book section is displayed
+    # AND: a user is logged in
+    # AND: all content is visible
+    # AND: a search is performed
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    options = book.content.paragraphs
+    paragraph = options[random.randint(0, len(options) - 1)]
+    phrase = re.search(r"\w{10,}", paragraph.text)
+    if phrase is None:
+        raise ValueError("No (10+) search phrase found in the paragraph")
+    phrase = phrase.group(0)
+    book.toolbar.search_for(phrase)
+    search_results = book.search_sidebar.search_results(phrase)
+    if not search_results:
+        raise ValueError("No search results found")
+    Utilities.click_option(selenium, element=search_results[0])
+    initial_highlight_count = book.content.highlight_count
+    initial_highlight_ids = book.content.highlight_ids
+
+    # WHEN: they highlight content over the search highlight
+    book.content.highlight(paragraph, Highlight.ENTIRE, Highlight.BLUE)
+    new_highlight_id = list(
+        set(book.content.highlight_ids) - set(initial_highlight_ids))[0]
+    phrase_searched = book.content.find_elements(
+        By.XPATH, XPATH_SEARCH.format(term=phrase))
+
+    # THEN: the search highlighting is in place for the search term in the
+    #       content
+    # AND: the search highlight color is different from the user-highlighted
+    #      color
+    assert(book.content.highlight_count > initial_highlight_count), \
+        "No new highlight(s) found (text)"
+    assert(phrase_searched), \
+        f"the highlight phrase ('{phrase}') was not found on the page"
+
+    assert("focus" in phrase_searched[0].get_attribute("class")), \
+        "search phrase does not have the search focus highlight"
+    assert(new_highlight_id in book.content.highlight_ids), \
+        "the new highlight ID not found on the page"
