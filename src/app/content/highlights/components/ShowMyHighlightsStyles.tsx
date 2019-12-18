@@ -5,7 +5,6 @@ import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
-import Filters from './SummaryPopup/Filters';
 
 // tslint:disable-next-line:variable-name
 export const HighlightsChapter = styled.div`
@@ -23,13 +22,7 @@ export const HighlightsChapter = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const ShowMyHighlightsBody = styled(PopupBody)`
-  padding: 0;
   background: ${theme.color.neutral.darker};
-
-  ${Filters} {
-    padding: 0 3.2rem;
-  }
-
   ${theme.breakpoints.mobile(css`
     text-align: left;
     padding: 0;
