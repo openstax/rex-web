@@ -6,7 +6,7 @@ import { book as bookSelector, bookSections } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import updateSummaryHighlights from '../components/utils/updateSummaryHighlights';
+import { addSummaryHighlight } from '../components/utils/summaryHighlightsUtils';
 import { summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 
@@ -20,7 +20,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 
   if (!book) { return; }
 
-  const summaryHighlights: SummaryHighlights = {};
+  let summaryHighlights: SummaryHighlights = {};
 
   // When we make api call without filters it is returning all highlights
   // so we manually set it to empty object.
@@ -63,11 +63,9 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 
     // SectionId can be the same as pageId for ex. for Preface
     if (sections.has(pageId)) {
-      updateSummaryHighlights(summaryHighlights, {
-        chapterId: pageId,
+      summaryHighlights = addSummaryHighlight(summaryHighlights, {
         highlight: h,
         pageId,
-        type: 'add',
       });
       continue;
     }
@@ -76,11 +74,10 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     const chapterId = page && stripIdVersion(page.parent.id);
     if (!chapterId) { continue; }
 
-    updateSummaryHighlights(summaryHighlights, {
+    summaryHighlights = addSummaryHighlight(summaryHighlights, {
       chapterId,
       highlight: h,
       pageId,
-      type: 'add',
     });
   }
 

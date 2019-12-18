@@ -6,6 +6,7 @@ import reducer, { initialState } from './reducer';
 import { HighlightData, SummaryHighlights } from './types';
 
 const mockHighlight = {
+  color: HighlightColorEnum.Blue,
   id: 'asdf',
 } as HighlightData;
 
@@ -57,7 +58,16 @@ describe('highlight reducer', () => {
   });
 
   it('creates highlights', () => {
-    const state = reducer(undefined, actions.createHighlight(mockHighlight as any, {
+    const state = reducer({
+      ...initialState,
+      summary: {
+        ...initialState.summary,
+        filters: {
+          ...initialState.summary.filters,
+          chapters: ['highlightChapter'],
+        },
+      },
+    }, actions.createHighlight(mockHighlight as any, {
       chapterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));

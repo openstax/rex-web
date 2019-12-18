@@ -6,7 +6,11 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import * as actions from './actions';
-import updateSummaryHighlights from './components/utils/updateSummaryHighlights';
+import {
+  addSummaryHighlight,
+  removeSummaryHighlight,
+  updateSummaryHighlightsDependOnFilters,
+} from './components/utils/summaryHighlightsUtils';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 
@@ -43,13 +47,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
       newState.highlights = [...state.highlights || [], highlight];
 
-      const { chapterId, pageId } = action.meta;
-      updateSummaryHighlights(newState.summary.highlights, {
-        chapterId,
-        highlight,
-        pageId,
-        type: 'add',
-      });
+      if (newState.summary.filters.colors.includes(highlight.color)) {
+        newState.summary.highlights = addSummaryHighlight(newState.summary.highlights, {
+          ...action.meta,
+          highlight,
+        });
+      }
       return newState;
     }
     case getType(actions.openMyHighlights):
@@ -57,87 +60,24 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
-      if (!state.highlights) {
-        return state;
-      }
-
-      const { color, annotation } = action.payload.highlight;
-
       const newState = {...state};
-      const dataToUpdate = {
+      if (!newState.highlights) { return newState; }
+
+      const oldHiglightIndex = newState.highlights.findIndex(
+        (highlight) => highlight.id === action.payload.id);
+      if (oldHiglightIndex < 0) { return newState; }
+
+      const newHighlight = {
+        ...newState.highlights[oldHiglightIndex],
         ...action.payload.highlight,
-        color: action.payload.highlight.color as string as HighlightColorEnum,
-      };
-      let newHighlight: Highlight | undefined;
+      } as Highlight;
 
-      newState.highlights = newState.highlights!.map((h) => {
-        if (h.id === action.payload.id) {
-          newHighlight = {
-            ...h,
-            ...dataToUpdate,
-          };
-          return newHighlight!;
-        }
-        return h;
-      });
+      newState.highlights[oldHiglightIndex] = newHighlight;
 
-      const { chapterId, pageId } = action.meta;
-      const { filters: { chapters, colors }, highlights } = newState.summary;
-
-      // If highlight's chapter is not in summary filters stop here...
-      if (!chapters.includes(chapterId)) { return newState; }
-
-      // If only annotation was changed just update summary highlights...
-      if (!color && annotation) {
-        updateSummaryHighlights(highlights, {
-          chapterId,
-          highlight: action.payload.highlight,
-          id: action.payload.id,
-          pageId,
-          type: 'update',
-        });
-        return newState;
-      }
-
-      // If highlight's color has changed and it's no longer in filters
-      // remove this highlight from summary highlights...
-      if (color && !colors.includes(dataToUpdate.color)) {
-        updateSummaryHighlights(highlights, {
-          chapterId,
-          id: action.payload.id,
-          pageId,
-          type: 'remove',
-        });
-        return newState;
-      }
-
-      // If color has changed and it is still in filters or
-      // If color has changed and now it is in filter.
-      if (color && colors.includes(dataToUpdate.color)) {
-        // If highlight was already in summary highlights then just update it.
-        if (
-          highlights[chapterId]
-          && highlights[chapterId][pageId]
-          && highlights[chapterId][pageId].find((h) => h.id === action.payload.id)
-        ) {
-          updateSummaryHighlights(highlights, {
-            chapterId,
-            highlight: action.payload.highlight,
-            id: action.payload.id,
-            pageId,
-            type: 'update',
-          });
-          return newState;
-        } else if (newHighlight) {
-          // If it wasn't then add it to summary highlights.
-          updateSummaryHighlights(highlights, {
-            chapterId,
-            highlight: newHighlight,
-            pageId,
-            type: 'add',
-          });
-        }
-      }
+      newState.summary.highlights = updateSummaryHighlightsDependOnFilters(
+        newState.summary.highlights,
+        newState.summary.filters,
+        {...action.meta, highlight: newHighlight});
 
       return newState;
     }
@@ -150,13 +90,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       newState.focused  = newState.focused === action.payload ? undefined : state.focused;
       newState.highlights = newState.highlights!.filter(({id}) => id !== action.payload);
-
-      const { chapterId, pageId } = action.meta;
-      updateSummaryHighlights(newState.summary.highlights, {
-        chapterId,
+      newState.summary.highlights = removeSummaryHighlight(newState.summary.highlights, {
+        ...action.meta,
         id: action.payload,
-        pageId,
-        type: 'remove',
       });
       return newState;
     }

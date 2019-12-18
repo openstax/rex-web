@@ -13,7 +13,7 @@ interface HighlightsProps {
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
   position: relative;
-  opacity: ${(p: HighlightsProps) => p.isLoading ? '0.5' : '1'};
+  opacity: ${(props: HighlightsProps) => props.isLoading ? '0.5' : '1'};
 
   .os-divider {
     width: 0.8rem;
