@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { HighlightLocations } from './types';
+import { getHighlightLocationsFromBook } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -19,6 +21,13 @@ export const highlightsLoaded = createSelector(
 export const highlights = createSelector(
   localState,
   (state) => state.highlights || []
+);
+
+export const highlightLocations = createSelector(
+  parentSelectors.book,
+ (state) => state
+  ? getHighlightLocationsFromBook(state)
+  : new Map() as HighlightLocations
 );
 
 export const focused = createSelector(

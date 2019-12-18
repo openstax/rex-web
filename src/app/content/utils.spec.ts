@@ -1,17 +1,9 @@
 import cloneDeep from 'lodash/cloneDeep';
-import createTestStore from '../../test/createTestStore';
-import { book as archiveBook, page } from '../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { resetModules } from '../../test/utils';
-import { Store } from '../types';
-import { receiveBook, receivePage } from './actions';
 import { Book } from './types';
 import {
-  formatBookData,
   getContentPageReferences,
-  getCurrentChapter,
   getPageIdFromUrlParam,
-  mapBookSections,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
@@ -210,31 +202,5 @@ describe('toRelativeUrl', () => {
   it('ignores trailing slashes on the source', () => {
     const url = toRelativeUrl(PAGE_URL + '/', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"page1"`);
-  });
-});
-
-describe('getCurrentChapter', () => {
-  const book = formatBookData(archiveBook, mockCmsBook);
-  let store: Store;
-
-  beforeEach(() => {
-    store = createTestStore();
-
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage({...page, references: []}));
-  });
-
-  it('undefined when book sections are empty', () => {
-    const pageNode = store.getState().content.page!;
-    const chapter = getCurrentChapter(new Map(), pageNode!);
-    expect(chapter).toBeUndefined();
-  });
-
-  it('find chapter for given page', () => {
-    const localState = store.getState().content;
-    const sections = mapBookSections(localState.book!);
-    const pageNode = store.getState().content.page!;
-    const chapter = getCurrentChapter(sections, pageNode!);
-    expect(chapter).toBeDefined();
   });
 });

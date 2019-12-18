@@ -3,29 +3,28 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import Loader from '../../../components/Loader';
-import { bookSections } from '../../selectors';
 import { LinkedArchiveTreeNode } from '../../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { summaryHighlights, summaryIsLoading } from '../selectors';
+import { highlightLocations, summaryHighlights, summaryIsLoading } from '../selectors';
 import { SummaryHighlights } from '../types';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
 
 // tslint:disable-next-line: variable-name
 const Highlights = () => {
-  const sections = useSelector(bookSections);
+  const locations = useSelector(highlightLocations);
   const highlights = useSelector(summaryHighlights);
   const isLoading = useSelector(summaryIsLoading);
 
-  if (sections.size > 0 && Object.keys(highlights).length > 0) {
+  if (locations.size > 0 && Object.keys(highlights).length > 0) {
     return <Styled.Highlights isLoading={isLoading}>
       {isLoading ? <Styled.LoaderWrapper><Loader/></Styled.LoaderWrapper> : null}
-      {Array.from(sections).map(([id, section]) => {
+      {Array.from(locations).map(([id, location]) => {
         if (!highlights[id]) { return null; }
         return <SectionHighlights
           key={id}
-          section={section}
+          location={location}
           highlights={highlights}
         />;
       })}
@@ -57,23 +56,23 @@ const Highlights = () => {
 export default Highlights;
 
 interface SectionHighlightsProps {
-  section: LinkedArchiveTreeNode;
+  location: LinkedArchiveTreeNode;
   highlights: SummaryHighlights;
 }
 
 // tslint:disable-next-line: variable-name
-const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => {
-  const pageIdIsSameAsSectionId = highlights[section.id][section.id];
+const SectionHighlights = ({ location, highlights }: SectionHighlightsProps) => {
+  const pageIdIsSameAsSectionId = highlights[location.id][location.id];
   return (
     <React.Fragment>
       {!pageIdIsSameAsSectionId && <Styled.HighlightsChapter
-        dangerouslySetInnerHTML={{ __html: section.title }}
+        dangerouslySetInnerHTML={{ __html: location.title }}
       />}
-      {Object.entries(highlights[section.id]).map(([pageId, pageHighlights]) => {
+      {Object.entries(highlights[location.id]).map(([pageId, pageHighlights]) => {
         pageId = stripIdVersion(pageId);
-        const page = archiveTreeSectionIsChapter(section)
-          ? findArchiveTreeNode(section, pageId)!
-          : section;
+        const page = archiveTreeSectionIsChapter(location)
+          ? findArchiveTreeNode(location, pageId)!
+          : location;
         return <Styled.HighlightWrapper key={pageId}>
           <Styled.HighlightSection dangerouslySetInnerHTML={{ __html: page.title }} />
           {pageHighlights.map((item) => {

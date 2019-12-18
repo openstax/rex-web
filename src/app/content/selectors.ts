@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { BookSections } from './types';
-import { mapBookSections } from './utils';
 import {
   findArchiveTreeNodeBySlug,
   prevNextBookPage,
@@ -20,13 +18,6 @@ export const tocOpen = createSelector(
 export const book = createSelector(
   localState,
   (state) => state.book
-);
-
-export const bookSections = createSelector(
-  localState,
-  (state) => state.book
-    ? mapBookSections(state.book)
-    : new Map() as BookSections
 );
 
 export const contentReferences = createSelector(

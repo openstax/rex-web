@@ -33,10 +33,10 @@ describe('addCurrentPageToSummaryFilters', () => {
 
     const {content: {highlights: {summary}}} = store.getState();
 
-    expect(summary.filters.chapters.length).toEqual(0);
+    expect(summary.filters.locationIds.length).toEqual(0);
 
     addCurrentPageToSummaryFilters(helpers);
 
-    expect(summary.filters.chapters.length).toEqual(1);
+    expect(summary.filters.locationIds.length).toEqual(1);
   });
 });

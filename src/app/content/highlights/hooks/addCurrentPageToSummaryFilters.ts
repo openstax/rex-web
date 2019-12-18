@@ -1,28 +1,28 @@
 import { AppServices, MiddlewareAPI,  } from '../../../types';
-import { bookSections, page as pageSelector } from '../../selectors';
-import { getCurrentChapter } from '../../utils';
+import { page as pageSelector } from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
 import { setSummaryFilters } from '../actions';
 import * as select from '../selectors';
+import { getHighlightLocationForPage } from '../utils';
 
 export const addCurrentPageToSummaryFilters = ({
   dispatch, getState,
 }: MiddlewareAPI & AppServices) => {
   const state = getState();
   const page = pageSelector(state);
-  const sections = bookSections(state);
+  const locations = select.highlightLocations(state);
   const filters = select.summaryFilters(state);
-  if (!sections.size || !page || typeof(window) === 'undefined') {
+  if (!locations.size || !page || typeof(window) === 'undefined') {
     return;
   }
 
-  const chapterToAdd = getCurrentChapter(sections, page);
+  const chapterToAdd = getHighlightLocationForPage(locations, page);
   const idToAdd = chapterToAdd ? stripIdVersion(chapterToAdd.id) : null;
 
-  if (idToAdd && !filters.chapters.includes(idToAdd)) {
+  if (idToAdd && !filters.locationIds.includes(idToAdd)) {
     dispatch(setSummaryFilters({
       ...filters,
-      chapters: [...filters.chapters, idToAdd],
+      locationIds: [...filters.locationIds, idToAdd],
     }));
   }
 };

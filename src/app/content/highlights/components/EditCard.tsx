@@ -21,7 +21,7 @@ interface Props {
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
-  chapterId: string,
+  locationId?: string,
   pageId: string,
   onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
@@ -39,7 +39,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     className,
     data,
     highlight,
-    chapterId,
+    locationId,
     pageId,
     isFocused,
     loginLink,
@@ -75,7 +75,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         },
         id: data.id,
       }, {
-        chapterId,
+        locationId,
         pageId,
       });
     } else {
@@ -92,7 +92,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       },
       id: toSave.id,
     }, {
-      chapterId,
+      locationId,
       pageId,
     });
     onCancel();

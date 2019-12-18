@@ -2,12 +2,12 @@ import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum } from '@openstax/
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { isArchiveTree } from '../../guards';
-import { book as bookSelector, bookSections } from '../../selectors';
+import { book as bookSelector } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { addSummaryHighlight } from '../components/utils/summaryHighlightsUtils';
-import { summaryFilters } from '../selectors';
+import { highlightLocations, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
@@ -15,8 +15,8 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 }) => async() => {
   const state = getState();
   const book = bookSelector(state);
-  const sections = bookSections(state);
-  const {chapters, colors} = summaryFilters(state);
+  const locations = highlightLocations(state);
+  const {locationIds, colors} = summaryFilters(state);
 
   if (!book) { return; }
 
@@ -24,7 +24,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 
   // When we make api call without filters it is returning all highlights
   // so we manually set it to empty object.
-  if (chapters.length === 0 || colors.length === 0) {
+  if (locationIds.length === 0 || colors.length === 0) {
     dispatch(receiveSummaryHighlights(summaryHighlights));
     return;
   }
@@ -32,7 +32,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   const flatBook = archiveTreeUtils.flattenArchiveTree(book.tree);
   let sourceIds: string[] = [];
 
-  for (const filterId of chapters) {
+  for (const filterId of locationIds) {
     const pageOrChapter = flatBook.find(archiveTreeUtils.nodeMatcher(filterId));
     if (!pageOrChapter) { continue; }
 
@@ -61,8 +61,8 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   for (const h of highlights.data) {
     const pageId = stripIdVersion(h.sourceId);
 
-    // SectionId can be the same as pageId for ex. for Preface
-    if (sections.has(pageId)) {
+    // LocationId can be the same as pageId for ex. for Preface
+    if (locations.has(pageId)) {
       summaryHighlights = addSummaryHighlight(summaryHighlights, {
         highlight: h,
         pageId,
@@ -71,12 +71,12 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     }
 
     const page = pages.find((p) => p.id === pageId);
-    const chapterId = page && stripIdVersion(page.parent.id);
-    if (!chapterId) { continue; }
+    const locationId = page && stripIdVersion(page.parent.id);
+    if (!locationId) { continue; }
 
     summaryHighlights = addSummaryHighlight(summaryHighlights, {
-      chapterId,
       highlight: h,
+      locationId,
       pageId,
     });
   }

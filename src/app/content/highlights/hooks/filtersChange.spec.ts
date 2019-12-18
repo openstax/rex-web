@@ -1,4 +1,3 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
@@ -6,11 +5,10 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { ArchiveTree } from '../../types';
 import { formatBookData } from '../../utils';
-import { filtersChange, receiveSummaryHighlights, setChaptersFilter, setColorsFilter, setIsLoadingSummary } from '../actions';
-import { HighlightData, SummaryHighlights } from '../types';
 import { stripIdVersion } from '../../utils/idUtils';
+import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -41,11 +39,14 @@ describe('filtersChange', () => {
     store.dispatch(receivePage(page));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
-    expect(filters.chapters.length).toEqual(0);
+    expect(filters.locationIds.length).toEqual(0);
     expect(filters.colors.length).toEqual(5);
 
-    const chapters = [book.tree.contents[0].id, book.tree.contents[1].id];
-    store.dispatch(setChaptersFilter(chapters));
+    const locationIds = [book.tree.contents[0].id, book.tree.contents[1].id];
+    store.dispatch(setSummaryFilters({
+      ...filters,
+      locationIds,
+    }));
 
     const highlights = [{
       id: 'highlight1',
@@ -54,8 +55,6 @@ describe('filtersChange', () => {
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({data: highlights as HighlightData[]}));
-
-    await hook(filtersChange());
 
     const response: SummaryHighlights = {
       [stripIdVersion(book.tree.id)]: {

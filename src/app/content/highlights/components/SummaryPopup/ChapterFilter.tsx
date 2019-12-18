@@ -6,9 +6,8 @@ import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import * as selectContent from '../../../selectors';
 import { setSummaryFilters } from '../../actions';
-import { summaryFilters } from '../../selectors';
+import { highlightLocations, summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -60,37 +59,37 @@ const chunk = <T extends any>(sections: T[]) => {
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
-  const sections = useSelector(selectContent.bookSections);
-  const sectionIds = Array.from(sections.keys());
+  const locations = useSelector(highlightLocations);
+  const locationIds = Array.from(locations.keys());
 
   const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
 
-  const setSelectedChapters = (chapterIds: string[]) => {
-    dispatch(setSummaryFilters({...filters, chapters: chapterIds}));
+  const setSelectedChapters = (ids: string[]) => {
+    dispatch(setSummaryFilters({...filters, locationIds: ids}));
   };
 
-  const handleChange = (chapterId: string) => {
-    if (filters.chapters.includes(chapterId)) {
-      setSelectedChapters(filters.chapters.filter(not(match(chapterId))));
+  const handleChange = (id: string) => {
+    if (filters.locationIds.includes(id)) {
+      setSelectedChapters(filters.locationIds.filter(not(match(id))));
     } else {
-      setSelectedChapters([...filters.chapters, chapterId]);
+      setSelectedChapters([...filters.locationIds, id]);
     }
   };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(sectionIds)}
+      onAll={() => setSelectedChapters(locationIds)}
     />
     <Row>
-      {chunk(Array.from(sections.values())).map((sectionChunk, index) => <Column key={index}>
-        {sectionChunk.map((section) => <Checkbox
-          key={section.id}
-          checked={filters.chapters.includes(section.id)}
-          onChange={() => handleChange(section.id)}
+      {chunk(Array.from(locations.values())).map((sectionChunk, index) => <Column key={index}>
+        {sectionChunk.map((location) => <Checkbox
+          key={location.id}
+          checked={filters.locationIds.includes(location.id)}
+          onChange={() => handleChange(location.id)}
         >
-          <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
+          <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />
         </Checkbox>)}
       </Column>)}
     </Row>

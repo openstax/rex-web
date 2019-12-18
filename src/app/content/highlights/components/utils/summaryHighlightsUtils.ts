@@ -7,7 +7,7 @@ import {
 import { SummaryFilters, SummaryHighlights } from '../../types';
 
 interface BaseData {
-  chapterId?: string;
+  locationId?: string;
   pageId: string;
 }
 
@@ -17,8 +17,8 @@ interface DataAdd extends BaseData {
 
 export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataAdd) => {
   const newHighlights = {...summaryHighlights};
-  const { chapterId, pageId, highlight } = data;
-  const chId = chapterId || pageId;
+  const { locationId, pageId, highlight } = data;
+  const chId = locationId || pageId;
 
   if (newHighlights[chId]) {
     if (newHighlights[chId][pageId]) {
@@ -40,8 +40,8 @@ interface DataRemove extends BaseData {
 
 export const removeSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataRemove) => {
   const newHighlights = {...summaryHighlights};
-  const { chapterId, pageId, id } = data;
-  const chId = chapterId || pageId;
+  const { locationId, pageId, id } = data;
+  const chId = locationId || pageId;
 
   if (newHighlights[chId] && newHighlights[chId][pageId]) {
     newHighlights[chId][pageId] = newHighlights[chId][pageId]
@@ -61,8 +61,8 @@ interface DataUpdate extends BaseData, UpdateHighlightRequest {}
 
 export const updateSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataUpdate) => {
   const newHighlights = {...summaryHighlights};
-  const { chapterId, pageId, id, highlight } = data;
-  const chId = chapterId || pageId;
+  const { locationId, pageId, id, highlight } = data;
+  const chId = locationId || pageId;
 
   if (newHighlights[chId] && newHighlights[chId][pageId]) {
     newHighlights[chId][pageId] = newHighlights[chId][pageId].map((currHighlight) =>
@@ -94,19 +94,19 @@ export const updateSummaryHighlightsDependOnFilters = (
   summaryHighlights: SummaryHighlights, filters: SummaryFilters, data: Data
 ) => {
   let newHighlights = {...summaryHighlights};
-  const { chapterId, pageId, highlight: updatedHighlight, highlight: { color, annotation } } = data;
-  const chId = chapterId || pageId;
-  const { colors, chapters } = filters;
+  const { locationId, pageId, highlight: updatedHighlight, highlight: { color, annotation } } = data;
+  const chId = locationId || pageId;
+  const { colors, locationIds } = filters;
 
   // If highlight's chapter is not in summary filters stop here...
-  if (!chapters.includes(chId)) { return newHighlights; }
+  if (!locationIds.includes(chId)) { return newHighlights; }
 
   // If highlight's color has changed and it's no longer in filters
   // remove this highlight from summary highlights...
   if (!colors.includes(color)) {
     newHighlights = removeSummaryHighlight(newHighlights, {
-      chapterId,
       id: updatedHighlight.id,
+      locationId,
       pageId,
     });
     return newHighlights;
@@ -115,9 +115,9 @@ export const updateSummaryHighlightsDependOnFilters = (
   // If only annotation was changed just update summary highlights...
   if (!color && annotation) {
     newHighlights = updateSummaryHighlight(newHighlights, {
-      chapterId,
       highlight: { color, annotation },
       id: updatedHighlight.id,
+      locationId,
       pageId,
     });
     return newHighlights;
@@ -133,9 +133,9 @@ export const updateSummaryHighlightsDependOnFilters = (
       && newHighlights[chId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
     ) {
       newHighlights = updateSummaryHighlight(newHighlights, {
-        chapterId,
         highlight: { color: color as string as HighlightUpdateColorEnum, annotation },
         id: updatedHighlight.id,
+        locationId,
         pageId,
       });
       return newHighlights;
@@ -143,8 +143,8 @@ export const updateSummaryHighlightsDependOnFilters = (
 
     // If it wasn't then add it to summary highlights.
     newHighlights = addSummaryHighlight(newHighlights, {
-      chapterId,
       highlight: updatedHighlight,
+      locationId,
       pageId,
     });
   }

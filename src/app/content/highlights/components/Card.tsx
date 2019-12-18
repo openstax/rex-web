@@ -18,7 +18,6 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
-import { getCurrentChapter } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
@@ -30,6 +29,7 @@ import {
   highlightStyles
 } from '../constants';
 import { HighlightData } from '../types';
+import { getHighlightLocationForPage } from '../utils';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import { cardBorder } from './style';
@@ -56,7 +56,7 @@ const Card = (props: Props) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
-  const sections = useSelector(selectContent.bookSections);
+  const locations = useSelector(selectHighlights.highlightLocations);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
@@ -81,13 +81,13 @@ const Card = (props: Props) => {
     return null;
   }
 
-  const chapter = getCurrentChapter(sections, page);
-  const chapterId = stripIdVersion(chapter!.id);
+  const location = getHighlightLocationForPage(locations, page);
+  const locationId = location && stripIdVersion(location.id);
 
   const onRemove = () => {
     if (props.data) {
       props.remove(props.data.id, {
-        chapterId,
+        locationId,
         pageId: page.id,
       });
     }
@@ -101,7 +101,7 @@ const Card = (props: Props) => {
       sourceId: page.id,
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
-      chapterId,
+      locationId,
       pageId: page.id,
     });
   };
@@ -124,7 +124,7 @@ const Card = (props: Props) => {
     authenticated={!!props.user}
     loginLink={props.loginLink}
     highlight={props.highlight}
-    chapterId={chapterId}
+    locationId={locationId}
     pageId={page.id}
     onCreate={onCreate}
     onCancel={() => setEditing(false)}

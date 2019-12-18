@@ -7,9 +7,8 @@ import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { bookSections } from '../../../selectors';
 import { setSummaryFilters } from '../../actions';
-import { summaryFilters } from '../../selectors';
+import { highlightLocations, summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 const RemoveIcon = styled.span`
@@ -76,15 +75,15 @@ interface FiltersListProps {
 
 // tslint:disable-next-line: variable-name
 const FiltersList = ({className}: FiltersListProps) => {
-  const sections = useSelector(bookSections);
+  const locations = useSelector(highlightLocations);
   const filters = useSelector(summaryFilters);
 
   const dispatch = useDispatch();
 
-  const onRemoveChapter = (chapterId: string) => {
+  const onRemoveChapter = (locationId: string) => {
     dispatch(setSummaryFilters({
       ...filters,
-      chapters: filters.chapters.filter(not(match(chapterId))),
+      locationIds: filters.locationIds.filter(not(match(locationId))),
     }));
   };
 
@@ -96,10 +95,10 @@ const FiltersList = ({className}: FiltersListProps) => {
   };
 
   return <ul className={className}>
-    {filters.chapters.map((chapterId) => sections.has(chapterId) && <FiltersListChapter
-      key={chapterId}
-      title={sections.get(chapterId)!.title}
-      chapterId={chapterId}
+    {filters.locationIds.map((locationId) => locations.has(locationId) && <FiltersListChapter
+      key={locationId}
+      title={locations.get(locationId)!.title}
+      chapterId={locationId}
       onRemove={onRemoveChapter}
     />)}
     {filters.colors.map((color) => <FiltersListColor

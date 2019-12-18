@@ -21,7 +21,7 @@ export const initialState: State = {
   myHighlightsOpen: false,
   summary: {
     chapterCounts: {},
-    filters: {colors: defaultColors, chapters: []},
+    filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
   },
