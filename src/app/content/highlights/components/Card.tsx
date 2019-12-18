@@ -81,8 +81,8 @@ const Card = (props: Props) => {
     return null;
   }
 
-  const location = getHighlightLocationForPage(locations, page);
-  const locationId = location && stripIdVersion(location.id);
+  const location = getHighlightLocationForPage(locations, page) || page;
+  const locationId = stripIdVersion(location.id);
 
   const onRemove = () => {
     if (props.data) {

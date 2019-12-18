@@ -5,15 +5,15 @@ import { HighlightData, SummaryFilters, SummaryHighlights } from './types';
 export const focusHighlight = createStandardAction('Content/Highlight/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlight/clear')();
 export const createHighlight = createStandardAction('Content/Highlight/create')<NewHighlight & {id: string}, {
-  locationId?: string,
+  locationId: string,
   pageId: string,
 }>();
 export const deleteHighlight = createStandardAction('Content/Highlight/delete')<string, {
-  locationId?: string,
+  locationId: string,
   pageId: string,
 }>();
 export const updateHighlight = createStandardAction('Content/Highlight/update')<UpdateHighlightRequest, {
-  locationId?: string,
+  locationId: string,
   pageId: string,
 }>();
 export const receiveHighlights = createStandardAction('Content/Highlight/receive')<HighlightData[]>();

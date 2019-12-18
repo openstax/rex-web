@@ -21,7 +21,7 @@ interface Props {
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
-  locationId?: string,
+  locationId: string,
   pageId: string,
   onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
