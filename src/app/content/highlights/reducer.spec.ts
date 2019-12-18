@@ -51,7 +51,7 @@ describe('highlight reducer', () => {
       focused: 'asdf',
       highlights: [mockHighlight],
     }, actions.deleteHighlight(mockHighlight.id, {
-      chapterId: 'highlightChapter',
+      locationId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
     expect(state.focused).toEqual(undefined);
@@ -64,11 +64,11 @@ describe('highlight reducer', () => {
         ...initialState.summary,
         filters: {
           ...initialState.summary.filters,
-          chapters: ['highlightChapter'],
+          locationIds: ['highlightChapter'],
         },
       },
     }, actions.createHighlight(mockHighlight as any, {
-      chapterId: 'highlightChapter',
+      locationId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
 
@@ -88,7 +88,7 @@ describe('highlight reducer', () => {
       const state = reducer({
         ...initialState,
       }, actions.deleteHighlight('asdf', {
-        chapterId: 'highlightChapter',
+        locationId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -109,7 +109,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.deleteHighlight(mockHighlight.id, {
-        chapterId: 'highlightChapter',
+        locationId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -130,7 +130,7 @@ describe('highlight reducer', () => {
       const state = reducer({
         ...initialState,
       }, actions.updateHighlight({id: 'asdf', highlight: {annotation: 'asdf'}}, {
-        chapterId: 'highlightChapter',
+        locationId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -148,7 +148,7 @@ describe('highlight reducer', () => {
           ...initialState.summary,
           filters: {
             ...initialState.summary.filters,
-            chapters: ['highlightChapter'],
+            locationIds: ['highlightChapter'],
           },
           highlights: {
             highlightChapter: {
@@ -157,7 +157,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}, {
-        chapterId: 'highlightChapter',
+        locationId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -182,8 +182,8 @@ describe('highlight reducer', () => {
         summary: {
           ...initialState.summary,
           filters: {
-            chapters: ['highlightChapter'],
             colors: [HighlightColorEnum.Blue],
+            locationIds: ['highlightChapter'],
           },
           highlights: {
             highlightChapter: {
@@ -192,7 +192,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
-        chapterId: 'highlightChapter',
+        locationId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -217,8 +217,8 @@ describe('highlight reducer', () => {
         summary: {
           ...initialState.summary,
           filters: {
-            chapters: ['highlightChapter'],
             colors: [HighlightColorEnum.Blue],
+            locationIds: ['highlightChapter'],
           },
           highlights: {
             highlightChapter: {
@@ -227,7 +227,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Blue}}, {
-        chapterId: 'highlightChapter',
+        locationId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -250,17 +250,17 @@ describe('highlight reducer', () => {
         summary: {
           ...initialState.summary,
           filters: {
-            chapters: [],
             colors: [],
+            locationIds: [],
           },
         },
       }, actions.setSummaryFilters({
-        chapters: ['id'],
         colors: [HighlightColorEnum.Green],
+        locationIds: ['id'],
       }));
 
-      expect(state.summary.filters.chapters[0]).toEqual('id');
-      expect(state.summary.filters.chapters.length).toEqual(1);
+      expect(state.summary.filters.locationIds[0]).toEqual('id');
+      expect(state.summary.filters.locationIds.length).toEqual(1);
       expect(state.summary.filters.colors[0]).toEqual(HighlightColorEnum.Green);
       expect(state.summary.filters.colors.length).toEqual(1);
       expect(state.summary.loading).toEqual(true);
@@ -280,8 +280,8 @@ describe('highlight reducer', () => {
         summary: {
           ...initialState.summary,
           filters: {
-            chapters: ['id'],
             colors: [HighlightColorEnum.Green],
+            locationIds: ['id'],
           },
           loading: true,
         },

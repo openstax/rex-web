@@ -1,4 +1,4 @@
-import { Book, Page } from '../types';
+import { Book, LinkedArchiveTreeNode, Page } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -13,7 +13,7 @@ export const getHighlightLocationsFromBook = (book: Book) => {
     || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s]));
 };
 
-export const getHighlightLocationForPage = (locations: HighlightLocations, page: Page) => {
+export const getHighlightLocationForPage = (locations: HighlightLocations, page: Page | LinkedArchiveTreeNode) => {
   let location = locations.get(page.id);
 
   if (!location) {

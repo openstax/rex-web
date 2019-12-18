@@ -9,6 +9,7 @@ import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { addSummaryHighlight } from '../components/utils/summaryHighlightsUtils';
 import { highlightLocations, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
+import { getHighlightLocationForPage } from '../utils';
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   dispatch, getState, highlightClient,
@@ -71,7 +72,9 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     }
 
     const page = pages.find((p) => p.id === pageId);
-    const locationId = page && stripIdVersion(page.parent.id);
+    const location = page && getHighlightLocationForPage(locations, page);
+    const locationId = location && stripIdVersion(location.id);
+    // This should probably throw some kind of error?
     if (!locationId) { continue; }
 
     summaryHighlights = addSummaryHighlight(summaryHighlights, {
