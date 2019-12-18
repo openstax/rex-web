@@ -6,10 +6,10 @@ import { PlainButton } from '../../../../components/Button';
 import Dropdown from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
+import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
-import { popupPadding } from '../HighlightStyles';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
