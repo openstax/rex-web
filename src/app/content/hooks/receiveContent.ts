@@ -10,7 +10,7 @@ import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import getCleanContent from '../utils/getCleanContent';
 
-export const stripHtmlAndTrim = (str: string) => str
+const stripHtmlAndTrim = (str: string) => str
   .replace(/<[^>]*>/g, ' ')
   .replace(/ +/g, ' ')
   .trim()

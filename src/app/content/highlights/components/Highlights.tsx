@@ -69,13 +69,12 @@ const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => {
       {!pageIdIsSameAsSectionId && <Styled.HighlightsChapter
         dangerouslySetInnerHTML={{ __html: section.title }}
       />}
-      <Styled.HighlightWrapper>
       {Object.entries(highlights[section.id]).map(([pageId, pageHighlights]) => {
         pageId = stripIdVersion(pageId);
         const page = archiveTreeSectionIsChapter(section)
           ? findArchiveTreeNode(section, pageId)!
           : section;
-        return <div key={pageId}>
+        return <Styled.HighlightWrapper key={pageId}>
           <Styled.HighlightSection dangerouslySetInnerHTML={{ __html: page.title }} />
           {pageHighlights.map((item) => {
             return (
@@ -99,9 +98,8 @@ const SectionHighlights = ({ section, highlights }: SectionHighlightsProps) => {
               </Styled.HighlightOuterWrapper>
             );
           })}
-        </div>;
+        </Styled.HighlightWrapper>;
       })}
-      </Styled.HighlightWrapper>
     </React.Fragment>
-  )
+  );
 };
