@@ -156,8 +156,7 @@ class Signup(Page):
         :rtype: (str, str, str, :py:class:`~utils.utility.RestMail`)
 
         """
-        letters = (
-            string.ascii_lowercase + string.ascii_uppercase + string.digits)
+        letters = string.ascii_letters + string.digits
         name = Utilities.random_name()
         password = "".join(
             [letters[randint(0, len(letters) - 1)] for _ in range(20)])

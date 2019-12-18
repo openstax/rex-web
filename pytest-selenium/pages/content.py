@@ -335,7 +335,7 @@ class Content(Page):
         _figure_locator = (
             By.CSS_SELECTOR, "figure")
         _highlight_box_locator = (
-            By.CSS_SELECTOR, "form[class*=StyledCard]")
+            By.CSS_SELECTOR, "form[class*=StyledCard], div[class*=StyledCard]")
         _highlighted_element_locator = (
             By.CSS_SELECTOR, ".highlight")
         _list_locator = (
@@ -380,13 +380,13 @@ class Content(Page):
 
         @property
         def highlights(self) -> List[WebElement]:
-            """Return the list of highlight elements in the section.
+            """Return the list of highlighted elements in the section.
 
             :return: the list of highlighted elements
             :rtype: list(WebElement)
 
             """
-            return self.find_elements(*self._highlight_box_locator)
+            return self.find_elements(*self._highlighted_element_locator)
 
         @property
         def highlight_box(self) -> Content.Content.HighlightBox:
@@ -398,12 +398,22 @@ class Content(Page):
             :rtype: Content.Content.HighlightBox
 
             """
-            for box in self.highlights:
+            for box in self.highlight_boxes:
                 display = self.driver.execute_script(
                     COMPUTED_STYLES.format(field=".display"), box)
                 if display != "none":
                     return self.HighlightBox(self, box)
             raise NoSuchElementException("No open highlight boxes found")
+
+        @property
+        def highlight_boxes(self) -> List[WebElement]:
+            """Return the list of highlight elements in the section.
+
+            :return: the list of highlighted elements
+            :rtype: list(WebElement)
+
+            """
+            return self.find_elements(*self._highlight_box_locator)
 
         @property
         def highlight_count(self) -> int:
@@ -587,15 +597,12 @@ class Content(Page):
                 self._highlight_math(target)
 
             # Select the highlight color
-            self.highlight_box.toggle(color)
+            self.highlight_box.toggle_color(color)
 
             # Enter the annotation text, if present
             if note:
-                # TODO: save the note and return the note display box
-                # self.highlight_box.note = note
-                # self.highlight_box.save()
-                # return <Note Display Box>
-                pass
+                self.highlight_box.note = note
+                self.highlight_box.save()
 
             if close_box:
                 # Click outside of the box and highlight to close the box
@@ -705,10 +712,22 @@ class Content(Page):
         class HighlightBox(Region):
             """The highlight color and annotation box."""
 
+            _alter_menu_toggle_locator = (
+                By.CSS_SELECTOR, "[class*=Focus] [class*=MenuToggle]")
             _annotation_textbox_locator = (
                 By.CSS_SELECTOR, "textarea")
             _cancel_annotation_button_locator = (
                 By.CSS_SELECTOR, "[data-testid=cancel]")
+            _confirm_delete_note_button_locator = (
+                By.CSS_SELECTOR, "[data-testid=confirm]")
+            _delete_confirmation_locator = (
+                By.CSS_SELECTOR, "[class*=Confirmation]")
+            _delete_confirmation_message_locator = (
+                By.CSS_SELECTOR, "[class*=Confirmation] label")
+            _delete_note_button_locator = (
+                By.CSS_SELECTOR, "[class*=DropdownList] li:last-child button")
+            _edit_note_button_locator = (
+                By.CSS_SELECTOR, "[class*=DropdownList] li:first-child button")
             _highlight_blue_locator = (
                 By.CSS_SELECTOR, "[name=blue]")
             _highlight_green_locator = (
@@ -719,6 +738,8 @@ class Content(Page):
                 By.CSS_SELECTOR, "[name=purple]")
             _highlight_yellow_locator = (
                 By.CSS_SELECTOR, "[name=yellow]")
+            _note_text_locator = (
+                By.CSS_SELECTOR, "[class*=TruncatedText]")
             _save_annotation_button_locator = (
                 By.CSS_SELECTOR, "[data-testid=save]")
 
@@ -744,6 +765,58 @@ class Content(Page):
                     *self._cancel_annotation_button_locator)
 
             @property
+            def confirm_delete_button(self) -> WebElement:
+                """Return the confirm delete button.
+
+                :return: the "Delete" confirmation button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._delete_confirmation_locator)
+
+            @property
+            def delete_button(self) -> WebElement:
+                """Return the delete note button.
+
+                :return: the "Delete" button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._delete_note_button_locator)
+
+            @property
+            def delete_confirmation_visible(self) -> bool:
+                """Return True if the delete confirmation overlay is visible.
+
+                :return: ``True`` if the delete note confirmation overlay and
+                    buttons are visible
+                :rtype: bool
+
+                """
+                return bool(
+                    self.find_elements(*self._delete_confirmation_locator))
+
+            @property
+            def display_note(self) -> WebElement:
+                """Return the highlight note text box.
+
+                :return: the highlight annotation text box
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._note_text_locator)
+
+            @property
+            def edit_button(self) -> WebElement:
+                """Return the edit note button.
+
+                :return: the "Edit" button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._edit_note_button_locator)
+
+            @property
             def green(self) -> WebElement:
                 """Return the green highlight toggle input.
 
@@ -754,7 +827,33 @@ class Content(Page):
                 return self.find_element(*self._highlight_green_locator)
 
             @property
-            def note(self) -> WebElement:
+            def is_open(self) -> bool:
+                """Return True if the highlight box is currently open.
+
+                :return: ``True`` if this highlight box is currently open and
+                    visible to the user
+                :rtype: bool
+
+                """
+                display = self.driver.execute_script(
+                    COMPUTED_STYLES.format(field=".display"), self.root)
+                return display == "block"
+
+            @property
+            def note(self) -> str:
+                """Return the highlight note.
+
+                :return: the current highlight note text
+                :rtype: str
+
+                """
+                try:
+                    return self.display_note.text
+                except NoSuchElementException:
+                    return self.note_box.text
+
+            @property
+            def note_box(self) -> WebElement:
                 """Return the highlight note text box.
 
                 :return: the highlight annotation text box
@@ -812,6 +911,43 @@ class Content(Page):
                 Utilities.click_option(self.driver, element=self.cancel_button)
                 return self
 
+            def delete(self) -> Content.Content:
+                """Delete the highlight and note.
+
+                :return: the page content
+                :rtype: :py:class:`~Content.Content`
+
+                """
+                self.delete_note()
+                Utilities.click_option(self.driver,
+                                       element=self.confirm_delete_button)
+                self.wait.until(
+                    expected.staleness_of(
+                        self.root))
+                return self.page
+
+            def delete_note(self) -> Content.Content.HighlightBox:
+                """Toggle the annotation delete menu option.
+
+                :return: the delete highlight confirmation
+                :rtype: :py:class:`~Content.Content.HighlightBox`
+
+                """
+                self.toggle_menu()
+                Utilities.click_option(self.driver, element=self.delete_button)
+                return self
+
+            def edit_note(self) -> Content.Content.HighlightBox:
+                """Toggle the annotation edit menu option.
+
+                :return: the note edit box
+                :rtype: :py:class:`~Content.Content.HighlightBox`
+
+                """
+                self.toggle_menu()
+                Utilities.click_option(self.driver, element=self.edit_button)
+                return self
+
             @note.setter
             def note(self, note: str):
                 """Set the annotation text for the highlight.
@@ -820,7 +956,7 @@ class Content(Page):
 
                 """
                 if note:
-                    self.note.send_keys(note)
+                    self.note_box.send_keys(note)
 
             def resize(self, height: int) -> int:
                 """Resize the annotation text box.
@@ -865,18 +1001,18 @@ class Content(Page):
                 """Click the save note button.
 
                 :return: the highlight display note box
-                :rtype: Content.Content.HighlightBox
+                :rtype: :py:class:`~Content.Content.HighlightBox`
 
                 """
                 Utilities.click_option(self.driver, element=self.save_button)
-                # TODO: return the display note box
+                return self
 
-            def toggle(self, color: int) -> Content.Content.HighlightBox:
+            def toggle_color(self, color: int) -> Content.Content.HighlightBox:
                 """Toggle a highlight color.
 
                 :param int color: the color to toggle on or off
                 :return: the highlight box
-                :rtype: HighlightBox
+                :rtype: :py:class:`~Content.Content.HighlightBox`
 
                 """
                 colors = {Highlight.BLUE: self.blue,
@@ -885,6 +1021,19 @@ class Content(Page):
                           Highlight.PURPLE: self.purple,
                           Highlight.YELLOW: self.yellow, }
                 Utilities.click_option(self.driver, element=colors[color])
+                return self
+
+            def toggle_menu(self) -> Content.Content.HighlightBox:
+                """Toggle the edit/delete note menu open or close.
+
+                :return: the highlight box
+                :rtype: :py:class:`~Content.Content.HighlightBox`
+
+                """
+                toggle = self.find_elements(*self._alter_menu_toggle_locator)
+                if not toggle:
+                    raise ContentError("Edit/Delete menu toggle not found")
+                Utilities.click_option(self.driver, element=toggle[0])
                 return self
 
     class Error(Region):

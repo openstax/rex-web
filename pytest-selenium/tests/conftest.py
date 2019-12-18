@@ -1,12 +1,10 @@
-import sys
-
 import os
+import random
+import sys
 
 import pytest
 
 from utils import utility
-
-import random
 
 # Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1500, 1080)
