@@ -50,9 +50,11 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   return <a
     ref={myForwardedRef}
     onClick={(e) => {
-      if (e.metaKey) {
+      const shouldUseCtrl = navigator && /windows|linux/i.test(navigator.userAgent);
+      if (e.metaKey || (shouldUseCtrl && e.ctrlKey)) {
         return;
       }
+
       e.preventDefault();
       if (onClick) {
         onClick();
