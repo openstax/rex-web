@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorFilter matches snapshot 1`] = `
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
 .c4 {
   cursor: pointer;
   border: none;
@@ -44,12 +50,6 @@ exports[`ColorFilter matches snapshot 1`] = `
 
 .c2 span {
   padding: 0 1rem;
-}
-
-.c11 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
 }
 
 .c10 {

@@ -6,7 +6,7 @@ import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { addCurrentPageToSummaryFilters } from '../actions';
+import addCurrentPageToSummaryFilters from './addCurrentPageToSummaryFilters';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -14,7 +14,6 @@ const page = {...archivePage, references: []};
 describe('addCurrentPageToSummaryFilters', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('./addCurrentPageToSummaryFilters').hookBody>;
 
   beforeEach(() => {
     resetModules();
@@ -26,7 +25,6 @@ describe('addCurrentPageToSummaryFilters', () => {
       getState: store.getState,
     };
 
-    hook = (require('./addCurrentPageToSummaryFilters').hookBody)(helpers);
   });
 
   it('update summary filters with current page', () => {
@@ -37,7 +35,7 @@ describe('addCurrentPageToSummaryFilters', () => {
 
     expect(summary.filters.chapters.length).toEqual(0);
 
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
 
     expect(summary.filters.chapters.length).toEqual(1);
   });

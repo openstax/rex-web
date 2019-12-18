@@ -2,10 +2,12 @@ import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { user } from '../../../auth/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
-import { addCurrentPageToSummaryFilters, receiveHighlights } from '../actions';
+import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
+import addCurrentPageToSummaryFilters from './addCurrentPageToSummaryFilters';
 
-const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServices) => async() => {
+const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const {dispatch, getState, highlightClient} = services;
   const state = getState();
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
@@ -26,7 +28,7 @@ const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServ
     dispatch(receiveHighlights(highlights.data));
   }
 
-  dispatch(addCurrentPageToSummaryFilters());
+  addCurrentPageToSummaryFilters(services);
 };
 
 export default hookBody;

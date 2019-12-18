@@ -11,14 +11,13 @@ import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
-import { addCurrentPageToSummaryFilters } from '../../actions';
+import addCurrentPageToSummaryFilters from '../../hooks/addCurrentPageToSummaryFilters';
 import ChapterFilter from './ChapterFilter';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('../../hooks/addCurrentPageToSummaryFilters').hookBody>;
 
   beforeEach(() => {
     store = createTestStore();
@@ -28,8 +27,6 @@ describe('ChapterFilter', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-
-    hook = (require('../../hooks/addCurrentPageToSummaryFilters').hookBody)(helpers);
 
     store.dispatch(receivePage({...page, references: []}));
   });
@@ -59,8 +56,7 @@ describe('ChapterFilter', () => {
 
   it('initially has the selected page checked', () => {
     store.dispatch(receiveBook(book));
-
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -76,8 +72,7 @@ describe('ChapterFilter', () => {
   it('initially has the selected chapter checked', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...shortPage, references: []}));
-
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -92,7 +87,8 @@ describe('ChapterFilter', () => {
 
   it('unchecks chapters', () => {
     store.dispatch(receiveBook(book));
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -114,7 +110,8 @@ describe('ChapterFilter', () => {
 
   it('checks chapters', () => {
     store.dispatch(receiveBook(book));
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -136,7 +133,8 @@ describe('ChapterFilter', () => {
 
   it('selects none', () => {
     store.dispatch(receiveBook(book));
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -159,7 +157,8 @@ describe('ChapterFilter', () => {
 
   it('selects all', () => {
     store.dispatch(receiveBook(book));
-    hook(addCurrentPageToSummaryFilters());
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />

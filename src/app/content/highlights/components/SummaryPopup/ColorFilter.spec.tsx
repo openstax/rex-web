@@ -1,12 +1,12 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestStore from '../../../../../test/createTestStore';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import MessageProvider from '../../../../MessageProvider';
-import ColorFilter from './ColorFilter';
 import { Store } from '../../../../types';
-import createTestStore from '../../../../../test/createTestStore';
-import { Provider } from 'react-redux';
+import ColorFilter from './ColorFilter';
 
 describe('ColorFilter', () => {
   let store: Store;
