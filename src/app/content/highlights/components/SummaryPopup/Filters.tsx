@@ -9,6 +9,7 @@ import theme from '../../../../theme';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
+import { popupPadding } from '../HighlightStyles';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
@@ -59,7 +60,7 @@ export default styled(Filters)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 3.2rem;
+  padding: 0 ${popupPadding}rem;
   height: 5.6rem;
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
