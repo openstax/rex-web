@@ -21,6 +21,6 @@ export const receiveHighlights = createStandardAction('Content/Highlight/receive
 export const openMyHighlights = createStandardAction('Content/openMyHighlights')<void>();
 export const closeMyHighlights = createStandardAction('Content/closeMyHighlights')<void>();
 
-export const setSummaryFilters = createStandardAction('Content/setColorsFilter')<SummaryFilters>();
+export const setSummaryFilters = createStandardAction('Content/setSummaryFilters')<SummaryFilters>();
 export const receiveSummaryHighlights = createStandardAction('Content/receiveSummaryHighlights')<SummaryHighlights>();
 export const addCurrentPageToSummaryFilters = createStandardAction('Content/addCurrentPageToSummaryFilters')<void>();

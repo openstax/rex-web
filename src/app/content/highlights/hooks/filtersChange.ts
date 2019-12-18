@@ -61,20 +61,13 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
 
   for (const h of highlights.data) {
     const pageId = stripIdVersion(h.sourceId);
+    const page = pages.find((search) => search.id === pageId);
+    if (!page) { continue; }
 
-    // LocationId can be the same as pageId for ex. for Preface
-    if (locations.has(pageId)) {
-      summaryHighlights = addSummaryHighlight(summaryHighlights, {
-        highlight: h,
-        pageId,
-      });
-      continue;
-    }
-
-    const page = pages.find((p) => p.id === pageId);
-    const location = page && getHighlightLocationForPage(locations, page);
+    const location = locations.get(page.id)
+      ? page
+      : getHighlightLocationForPage(locations, page);
     const locationId = location && stripIdVersion(location.id);
-    // This should probably throw some kind of error?
     if (!locationId) { continue; }
 
     summaryHighlights = addSummaryHighlight(summaryHighlights, {

@@ -42,12 +42,6 @@ describe('filtersChange', () => {
     expect(filters.locationIds.length).toEqual(0);
     expect(filters.colors.length).toEqual(5);
 
-    const locationIds = [book.tree.contents[0].id, book.tree.contents[1].id];
-    store.dispatch(setSummaryFilters({
-      ...filters,
-      locationIds,
-    }));
-
     const highlights = [{
       id: 'highlight1',
       sourceId: book.tree.contents[0].id,
@@ -56,8 +50,14 @@ describe('filtersChange', () => {
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({data: highlights as HighlightData[]}));
 
+    const locationIds = [book.tree.contents[0].id, book.tree.contents[1].id];
+    await hook(store.dispatch(setSummaryFilters({
+      ...filters,
+      locationIds,
+    })));
+
     const response: SummaryHighlights = {
-      [stripIdVersion(book.tree.id)]: {
+      [stripIdVersion(book.tree.contents[0].id)]: {
         [stripIdVersion(book.tree.contents[0].id)]: [{
           id: 'highlight1',
           sourceId: book.tree.contents[0].id,
