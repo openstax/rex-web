@@ -36,7 +36,7 @@ interface FiltersListColorProps {
 }
 
 // tslint:disable-next-line: variable-name
-const FiltersListColor = (props: FiltersListColorProps) => {
+export const FiltersListColor = (props: FiltersListColorProps) => {
   const handleClick = () => {
     props.onRemove(props.color);
   };
@@ -58,7 +58,7 @@ interface FiltersListChapterProps {
 }
 
 // tslint:disable-next-line: variable-name
-const FiltersListChapter = (props: FiltersListChapterProps) => {
+export const FiltersListChapter = (props: FiltersListChapterProps) => {
   const handleClick = () => {
     props.onRemove(props.chapterId);
   };
