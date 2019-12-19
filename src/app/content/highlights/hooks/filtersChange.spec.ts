@@ -152,4 +152,34 @@ describe('filtersChange', () => {
 
     expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}));
   });
+
+  it('omit highlights for which location was not found', async() => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    await hook(store.dispatch(setSummaryFilters({
+      colors: [HighlightColorEnum.Blue],
+      locationIds: [pageId, 'id-not-from-book'],
+    })));
+
+    const highlights = [{
+      id: 'hl1',
+      sourceId: pageId,
+    }, {
+      id: 'hl2',
+      sourceId: 'id-not-from-book',
+    }] as HighlightData[];
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({data: highlights}));
+
+    const response: SummaryHighlights = {
+      [pageId]: {
+        [pageId]: [highlights[0]],
+      },
+    };
+
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights(response));
+  });
 });

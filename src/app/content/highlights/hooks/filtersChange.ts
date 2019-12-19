@@ -57,19 +57,11 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     return;
   }
 
-  const pages = archiveTreeUtils.findTreePages(book.tree);
-
   for (const h of highlights.data) {
     const pageId = stripIdVersion(h.sourceId);
-    const page = pages.find((search) => search.id === pageId);
-    if (!page) { continue; }
-
-    const location = locations.get(page.id)
-      ? page
-      : getHighlightLocationForPage(locations, page);
+    const location = getHighlightLocationForPage(locations, pageId);
     const locationId = location && stripIdVersion(location.id);
     if (!locationId) { continue; }
-
     summaryHighlights = addSummaryHighlight(summaryHighlights, {
       highlight: h,
       locationId,

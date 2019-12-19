@@ -114,30 +114,28 @@ export const updateSummaryHighlightsDependOnFilters = (
     return newHighlights;
   }
 
-  // If color it is in filters...
-  if (colors.includes(color)) {
-    // If highlight was already in summary highlights then just update it...
-    if (
-      newHighlights[chId]
-      && newHighlights[chId][pageId]
-      && newHighlights[chId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
-    ) {
-      newHighlights = updateSummaryHighlight(newHighlights, {
-        highlight: { color: color as string as HighlightUpdateColorEnum, annotation },
-        id: updatedHighlight.id,
-        locationId,
-        pageId,
-      });
-      return newHighlights;
-    }
-
-    // If it wasn't then add it to summary highlights.
-    newHighlights = addSummaryHighlight(newHighlights, {
-      highlight: updatedHighlight,
+  // If color it is in filters and highlight was already in summary highlights
+  // then just update it.
+  if (
+    newHighlights[chId]
+    && newHighlights[chId][pageId]
+    && newHighlights[chId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
+  ) {
+    newHighlights = updateSummaryHighlight(newHighlights, {
+      highlight: { color: color as string as HighlightUpdateColorEnum, annotation },
+      id: updatedHighlight.id,
       locationId,
       pageId,
     });
+    return newHighlights;
   }
+
+  // If it wasn't then add it to summary highlights.
+  newHighlights = addSummaryHighlight(newHighlights, {
+    highlight: updatedHighlight,
+    locationId,
+    pageId,
+  });
 
   return newHighlights;
 };

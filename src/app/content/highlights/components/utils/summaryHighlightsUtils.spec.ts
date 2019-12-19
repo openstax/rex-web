@@ -328,27 +328,26 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
 
   it('update highlight if only annotation has changed', () => {
     const summaryHighlights = {
-      location: {
+      page: {
         page: [highlight],
       },
     };
 
     const filters = {
       colors: [highlight.color],
-      locationIds: ['location'],
+      locationIds: ['page'],
     };
 
     const newHighlight = {...highlight, annotation: 'asdf123'};
 
     const expectedResult = {
-      location: {
+      page: {
         page: [newHighlight],
       },
     };
 
     expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
       highlight: newHighlight,
-      locationId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
