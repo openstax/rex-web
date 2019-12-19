@@ -22,6 +22,12 @@ const MyHighlightsWrapper = styled(PlainButton)`
   align-items: center;
   justify-content: center;
   margin-right: 2rem;
+  height: auto;
+
+  :focus {
+    outline: auto -webkit-focus-ring-color;
+  }
+
   ${theme.breakpoints.mobile(css`
     margin-right: 0;
   `)}
