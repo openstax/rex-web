@@ -129,6 +129,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
     }
   }
   isFocused={true}
+  locationId="testbook1-testpage1-uuid"
   loginLink="/accounts/login?r=/"
   mock-edit={true}
   onBlur={[Function]}
@@ -136,6 +137,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
   onCreate={[Function]}
   onRemove={[Function]}
   onSave={[Function]}
+  pageId="testbook1-testpage1-uuid"
 />
 `;
 
@@ -210,6 +212,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
     }
   }
   isFocused={false}
+  locationId="testbook1-testpage1-uuid"
   loginLink="/accounts/login?r=/"
   mock-edit={true}
   onBlur={[Function]}
@@ -217,6 +220,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   onCreate={[Function]}
   onRemove={[Function]}
   onSave={[Function]}
+  pageId="testbook1-testpage1-uuid"
 />
 `;
 
@@ -297,6 +301,7 @@ exports[`Card matches snapshot without data 1`] = `
     }
   }
   isFocused={false}
+  locationId="testbook1-testpage1-uuid"
   loginLink="/accounts/login?r=/"
   mock-edit={true}
   onBlur={[Function]}
@@ -304,5 +309,6 @@ exports[`Card matches snapshot without data 1`] = `
   onCreate={[Function]}
   onRemove={[Function]}
   onSave={[Function]}
+  pageId="testbook1-testpage1-uuid"
 />
 `;
