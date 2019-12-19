@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import Loader from '../../../components/Loader';
 import { LinkedArchiveTreeNode } from '../../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
@@ -44,19 +43,6 @@ const Highlights = () => {
         />
       </span>
     </HStyled.GeneralLeftText>
-    <HStyled.MyHighlightsWrapper>
-      <HStyled.GeneralText>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
-          {(msg: Element | string) => msg}
-        </FormattedMessage>
-      </HStyled.GeneralText>
-      <HStyled.GeneralTextWrapper>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
-          {(msg: Element | string) => msg}
-        </FormattedMessage>
-      </HStyled.GeneralTextWrapper>
-      <HStyled.MyHighlightsImage src={myHighlightsEmptyImage} />
-    </HStyled.MyHighlightsWrapper>
   </Styled.Highlights>;
 };
 
