@@ -6,10 +6,9 @@ import { book as bookSelector } from '../../selectors';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import { addSummaryHighlight } from '../components/utils/summaryHighlightsUtils';
 import { highlightLocations, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
-import { getHighlightLocationForPage } from '../utils';
+import { addSummaryHighlight, getHighlightLocationForPage } from '../utils';
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   dispatch, getState, highlightClient,

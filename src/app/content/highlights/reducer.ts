@@ -6,13 +6,13 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import * as actions from './actions';
+import { highlightingFeatureFlag, highlightStyles } from './constants';
+import { State } from './types';
 import {
   addSummaryHighlight,
   removeSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
-} from './components/utils/summaryHighlightsUtils';
-import { highlightingFeatureFlag, highlightStyles } from './constants';
-import { State } from './types';
+} from './utils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {

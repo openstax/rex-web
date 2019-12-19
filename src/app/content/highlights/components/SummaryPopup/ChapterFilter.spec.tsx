@@ -11,7 +11,7 @@ import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
-import addCurrentPageToSummaryFilters from '../../hooks/addCurrentPageToSummaryFilters';
+import { addCurrentPageToSummaryFilters } from '../../utils';
 import ChapterFilter from './ChapterFilter';
 
 describe('ChapterFilter', () => {

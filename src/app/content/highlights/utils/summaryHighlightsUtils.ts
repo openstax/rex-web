@@ -4,7 +4,7 @@ import {
   HighlightUpdateColorEnum,
   UpdateHighlightRequest,
 } from '@openstax/highlighter/dist/api';
-import { SummaryFilters, SummaryHighlights } from '../../types';
+import { SummaryFilters, SummaryHighlights } from '../types';
 
 interface BaseData {
   locationId?: string;

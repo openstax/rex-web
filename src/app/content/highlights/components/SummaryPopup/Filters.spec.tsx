@@ -13,8 +13,8 @@ import { formatBookData } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { setSummaryFilters } from '../../actions';
 import { highlightStyles } from '../../constants';
-import addCurrentPageToSummaryFilters from '../../hooks/addCurrentPageToSummaryFilters';
 import { summaryFilters } from '../../selectors';
+import { addCurrentPageToSummaryFilters } from '../../utils';
 import Filters from './Filters';
 import { FiltersListChapter, FiltersListColor, RemoveIcon } from './FiltersList';
 

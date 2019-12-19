@@ -5,7 +5,7 @@ import { setSummaryFilters } from '../actions';
 import * as select from '../selectors';
 import { getHighlightLocationForPage } from '../utils';
 
-export const addCurrentPageToSummaryFilters = ({
+const addCurrentPageToSummaryFilters = ({
   dispatch, getState,
 }: MiddlewareAPI & AppServices) => {
   const state = getState();
