@@ -283,6 +283,13 @@ export const MyHighlightsWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const GeneralLeftText = styled(GeneralTextWrapper)`
   display: flex;
+  flex-direction: column;
+  padding: 2rem 3.2rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const GeneralCenterText = styled(GeneralTextWrapper)`
+  display: flex;
   align-items: center;
   flex-direction: column;
   padding: 5rem 3.2rem;

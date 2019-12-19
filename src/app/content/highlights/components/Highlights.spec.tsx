@@ -11,7 +11,7 @@ import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import { highlightLocations } from '../selectors';
+import { highlightLocations, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationForPage } from '../utils';
 import Highlights, { SectionHighlights } from './Highlights';
@@ -35,10 +35,17 @@ describe('Highlights', () => {
   });
 
   it('properly display summary highlights', () => {
+    const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const locations = highlightLocations(store.getState());
+    const filters = summaryFilters(state);
+    const locations = highlightLocations(state);
     const chapter = getHighlightLocationForPage(locations, pageInChapter);
     expect(chapter).toBeDefined();
+
+    store.dispatch(setSummaryFilters({
+      ...filters,
+      locationIds: [chapter!.id, pageId],
+    }));
 
     const summaryHighlights = {
       [pageId]: {
@@ -81,9 +88,11 @@ describe('Highlights', () => {
     expect(secondSectionHighlights[1].props.color).toEqual(pageInChapterHighlights[1].color);
   });
 
-  it('show loading state when on filters change', () => {
+  it('show loading state on filters change', () => {
+    const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const locations = highlightLocations(store.getState());
+    const filters = summaryFilters(state);
+    const locations = highlightLocations(state);
     const chapter = getHighlightLocationForPage(locations, pageInChapter);
     expect(chapter).toBeDefined();
 
@@ -96,7 +105,13 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    renderer.act(() => {
+      store.dispatch(setSummaryFilters({
+        ...filters,
+        locationIds: [chapter!.id, pageId],
+      }));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    });
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -111,12 +126,48 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({
-        colors: [],
-        locationIds: [],
+        ...filters,
+        locationIds: [chapter!.id, pageId],
       }));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
     expect(isLoading).toBeDefined();
+  });
+
+  it('show no highlights tip when locationIds filter is empty', () => {
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:heading:no-highlights-tip' }))
+      .toBeDefined();
+  });
+
+  it('show add highlight message when there is no highlights on specific page', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const filters = summaryFilters(state);
+
+    const summaryHighlights = {} as SummaryHighlights;
+
+    renderer.act(() => {
+      store.dispatch(setSummaryFilters({
+        ...filters,
+        locationIds: [pageId],
+      }));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    });
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:body:add-highlight' }))
+      .toBeDefined();
   });
 });
