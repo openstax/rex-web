@@ -282,8 +282,8 @@ export const MyHighlightsWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const GeneralLeftText = styled(GeneralTextWrapper)`
-  text-align: left;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   padding: 2rem 3.2rem;
 `;
 

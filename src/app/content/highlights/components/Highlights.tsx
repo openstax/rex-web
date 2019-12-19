@@ -36,6 +36,13 @@ const Highlights = () => {
       <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
+      <span>
+        <FormattedMessage
+          id='i18n:toolbar:highlights:popup:heading:no-highlights-tip'
+          defaultMessage='Try selecting different chapter or color filters to see different results.'
+          values={{strong: (str: string) => <strong>{str}</strong>}}
+        />
+      </span>
     </HStyled.GeneralLeftText>
     <HStyled.MyHighlightsWrapper>
       <HStyled.GeneralText>
