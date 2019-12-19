@@ -18,7 +18,7 @@ from pages.base import Page
 from regions.base import Region
 from regions.search_sidebar import SearchSidebar
 from regions.toc import TableOfContents
-from utils.utility import Highlight, Utilities
+from utils.utility import Color, Highlight, Utilities
 
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
@@ -338,6 +338,8 @@ class Content(Page):
             By.CSS_SELECTOR, "form[class*=StyledCard], div[class*=StyledCard]")
         _highlighted_element_locator = (
             By.CSS_SELECTOR, ".highlight")
+        _highlight_note_locator = (
+            By.CSS_SELECTOR, "div[class*=StyledCard]")
         _list_locator = (
             By.CSS_SELECTOR, "ol, ul")
         _math_equation_locator = (
@@ -468,6 +470,16 @@ class Content(Page):
                     in self.find_elements(*self._math_equation_locator)]
 
         @property
+        def notes(self) -> int:
+            """Return the number of notes found on the page.
+
+            :return: the number of highlights with notes found on the page
+            :rtype: int
+
+            """
+            return len(self.find_elements(*self._highlight_note_locator))
+
+        @property
         def paragraphs(self) -> List[WebElement]:
             """Return the standard text sections.
 
@@ -552,8 +564,8 @@ class Content(Page):
 
         def highlight(self,
                       target: WebElement,
-                      offset: Union[Highlight.Offset, int] = Highlight.RANDOM,
-                      color: int = Highlight.YELLOW,
+                      offset: Union[Highlight.Offset, str] = Highlight.RANDOM,
+                      color: Color = Color.YELLOW,
                       note: str = "",
                       close_box: bool = True):
             """Highlight a page element.
@@ -629,7 +641,7 @@ class Content(Page):
                 highlight; may be an X/Y offset, a randomized quantity, or the
                 entire element
                 default: randomized
-            :type offset: tuple(int, int), int
+            :type offset: tuple(int, int), str
             :return: the start and stop offsets as (x, y) pairs
             :rtype: tuple((int, int), (int, int))
             :raises ValueError: when the offset value is not a tuple, or a
@@ -839,6 +851,26 @@ class Content(Page):
                 return self.find_element(*self._highlight_green_locator)
 
             @property
+            def is_display_box(self) -> bool:
+                """Return True if the note box is a note display card.
+
+                :return: ``True`` if the note box is a DisplayNote
+                :rtype: bool
+
+                """
+                return "DisplayNote" in self.root.get_attribute("class")
+
+            @property
+            def is_edit_box(self) -> bool:
+                """Return True if the note box is an edit card.
+
+                :return: ``True`` if the note box is an EditCard
+                :rtype: bool
+
+                """
+                return "EditCard" in self.root.get_attribute("class")
+
+            @property
             def is_open(self) -> bool:
                 """Return True if the highlight box is currently open.
 
@@ -972,8 +1004,7 @@ class Content(Page):
                 :param str note: the annotation text for the selected highlight
 
                 """
-                if note:
-                    self.note_box.send_keys(note)
+                self.note_box.send_keys(note)
 
             def resize(self, height: int) -> int:
                 """Resize the annotation text box.
@@ -1024,19 +1055,21 @@ class Content(Page):
                 Utilities.click_option(self.driver, element=self.save_button)
                 return self
 
-            def toggle_color(self, color: int) -> Content.Content.HighlightBox:
+            def toggle_color(self, color: Color) \
+                    -> Content.Content.HighlightBox:
                 """Toggle a highlight color.
 
-                :param int color: the color to toggle on or off
+                :param color: the color to toggle on or off
+                :type color: :py:class:`~utils.utility.Color`
                 :return: the highlight box
                 :rtype: :py:class:`~Content.Content.HighlightBox`
 
                 """
-                colors = {Highlight.BLUE: self.blue,
-                          Highlight.GREEN: self.green,
-                          Highlight.PINK: self.pink,
-                          Highlight.PURPLE: self.purple,
-                          Highlight.YELLOW: self.yellow, }
+                colors = {Color.BLUE: self.blue,
+                          Color.GREEN: self.green,
+                          Color.PINK: self.pink,
+                          Color.PURPLE: self.purple,
+                          Color.YELLOW: self.yellow, }
                 Utilities.click_option(self.driver, element=colors[color])
                 return self
 

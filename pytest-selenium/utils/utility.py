@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from faker import Faker
+from enum import Enum
 from random import choice, randint
 from time import sleep
 from typing import Tuple
 
+from faker import Faker
 from selenium.common.exceptions import (
     ElementClickInterceptedException,
     NoSuchElementException,
@@ -24,6 +25,16 @@ HIGHLIGHTS = "return document.querySelectorAll('.highlight').length;"
 RELOAD = "location.reload();"
 
 
+class Color(Enum):
+    """Highlight color options."""
+
+    BLUE = "blue"
+    GREEN = "green"
+    PINK = "pink"
+    PURPLE = "purple"
+    YELLOW = "yellow"
+
+
 class FontProperties:
     def is_bold(self, element):
         return element.value_of_css_property("font-weight") == "400"
@@ -34,8 +45,9 @@ class Highlight:
 
     Offset = Tuple[int, int]
 
-    RANDOM, ENTIRE, YELLOW, GREEN, BLUE, PURPLE, PINK = range(0, 7)
-    COLORS = [YELLOW, GREEN, BLUE, PURPLE, PINK]
+    COLORS = list(Color)
+    RANDOM = "randomize"
+    ENTIRE = "highlight all"
 
     @classmethod
     def delete_highlights_on_page(cls, driver):
