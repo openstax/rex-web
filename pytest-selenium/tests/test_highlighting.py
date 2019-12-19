@@ -361,7 +361,7 @@ def test_user_highlight_over_search_term_highlight(
 @markers.desktop_only
 def test_expanded_focussed_note_card_is_displayed_when_highlight_clicked(
         selenium, base_url, book_slug, page_slug):
-    """Search highlights should be over user highlights."""
+    """Display the focussed note card after clicking a highlight."""
     # GIVEN: a book section is displayed
     # AND:   a user is logged in
     # AND:   all content is visible
@@ -405,7 +405,7 @@ def test_expanded_focussed_note_card_is_displayed_when_highlight_clicked(
 @markers.desktop_only
 def test_focussed_note_card_is_displayed_when_highlight_clicked(
         selenium, base_url, book_slug, page_slug):
-    """Search highlights should be over user highlights."""
+    """Show the focussed note card when the user clicks a highlight."""
     # GIVEN: a book section is displayed
     # AND:   a user is logged in
     # AND:   all content is visible
@@ -455,3 +455,62 @@ def test_focussed_note_card_is_displayed_when_highlight_clicked(
         book.content.highlight_box.delete_button
     except NoSuchElementException:
         pytest.fail("Context delete button not found")
+
+
+@markers.test_case("C591688")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_delete_a_highlight_and_note_using_the_context_menu(
+        selenium, base_url, book_slug, page_slug):
+    """Delete a highlight and associated note using the context menu."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.GREEN,
+                           note=note,
+                           close_box=False)
+
+    # WHEN: they use the context menu to delete the highlight
+    book.content.highlight_box.delete_note()
+
+    # THEN: delete confirmation message is displayed
+    assert(book.content.highlight_box.delete_confirmation_visible), \
+        "the confirmation box overlay is not visible"
+    confirmation_text = book.content.highlight_box.delete_confirmation_text
+    expected_text = "Are you sure you want to delete this note and highlight?"
+    assert(confirmation_text == expected_text), \
+        "the confirmation text does not match the expected content"
+
+    # WHEN: they confirm the deletion
+    book.content.highlight_box.confirm_deletion()
+
+    # THEN: the highlight and note are deleted
+    assert(len(book.content.highlights) == 0), \
+        f"the highlight was not removed ({len(book.content.highlights)} found)"
+
+    # WHEN: the page is refreshed
+    book = book.reload()
+
+    # THEN: the highlight and note do not reappear
+    assert(len(book.content.highlights) == 0), \
+        f"the highlight(s) reappeared ({len(book.content.highlights)} found)"

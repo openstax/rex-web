@@ -772,7 +772,8 @@ class Content(Page):
                 :rtype: WebElement
 
                 """
-                return self.find_element(*self._delete_confirmation_locator)
+                return self.find_element(
+                    *self._confirm_delete_note_button_locator)
 
             @property
             def delete_button(self) -> WebElement:
@@ -783,6 +784,17 @@ class Content(Page):
 
                 """
                 return self.find_element(*self._delete_note_button_locator)
+
+            @property
+            def delete_confirmation_text(self) -> str:
+                """Return the delete confirmation overlay text.
+
+                :return: the delete confirmation overlay text content
+                :rtype: str
+
+                """
+                return (self.find_element(
+                    *self._delete_confirmation_message_locator).text)
 
             @property
             def delete_confirmation_visible(self) -> bool:
@@ -911,6 +923,12 @@ class Content(Page):
                 Utilities.click_option(self.driver, element=self.cancel_button)
                 return self
 
+            def confirm_deletion(self):
+                """Click the delete confirmation button."""
+                sleep(0.25)
+                Utilities.click_option(
+                    self.driver, element=self.confirm_delete_button)
+
             def delete(self) -> Content.Content:
                 """Delete the highlight and note.
 
@@ -919,8 +937,7 @@ class Content(Page):
 
                 """
                 self.delete_note()
-                Utilities.click_option(self.driver,
-                                       element=self.confirm_delete_button)
+                self.confirm_deletion()
                 self.wait.until(
                     expected.staleness_of(
                         self.root))
