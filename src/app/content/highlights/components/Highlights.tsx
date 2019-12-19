@@ -68,7 +68,7 @@ interface SectionHighlightsProps {
 }
 
 // tslint:disable-next-line: variable-name
-const SectionHighlights = ({ location, highlights }: SectionHighlightsProps) => {
+export const SectionHighlights = ({ location, highlights }: SectionHighlightsProps) => {
   const pageIdIsSameAsSectionId = highlights[location.id][location.id];
   return (
     <React.Fragment>
