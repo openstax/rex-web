@@ -153,7 +153,7 @@ class HighlightsPopUp extends Component<Props> {
               {(msg: Element | string) => msg}
             </FormattedMessage>
             <Styled.CloseIconWrapper
-              data-testid='close-highlights-popup' 
+              data-testid='close-highlights-popup'
               onClick={() => this.props.closeMyHighlights()}
             >
               <Styled.CloseIcon />
