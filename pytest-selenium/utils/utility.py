@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from enum import Enum
+from platform import system
 from random import choice, randint
 from time import sleep
 from typing import List, Tuple
@@ -14,6 +15,8 @@ from selenium.common.exceptions import (
     StaleElementReferenceException,
     WebDriverException,
 )
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 # Constant usage values for javascript and regular expression commands
 ASYNC_DELETE = r"""
@@ -132,6 +135,33 @@ def get_default_page(element):
 
 class Utilities(object):
     """Helper functions for various Pages actions."""
+
+    @classmethod
+    def clear_field(cls, driver, field):
+        """Clear the contents of text-type fields.
+
+        :param driver: a selenium webdriver
+        :param field: an input field to interact with
+        :type driver: Webdriver
+        :type field: WebElement
+        :returns: None
+        """
+        sleep(0.1)
+        if driver.name == 'firefox':
+            special = Keys.COMMAND if system() == 'Darwin' else Keys.CONTROL
+            ActionChains(driver) \
+                .click(field) \
+                .key_down(special) \
+                .send_keys('a') \
+                .key_up(special) \
+                .send_keys(Keys.DELETE) \
+                .perform()
+            return
+        clear = []
+        for _ in range(len(field.get_attribute('value'))):
+            clear.append(Keys.DELETE)
+            clear.append(Keys.BACKSPACE)
+        field.send_keys(clear)
 
     @classmethod
     def click_option(cls, driver, locator=None, element=None):

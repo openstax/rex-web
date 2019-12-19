@@ -1004,6 +1004,8 @@ class Content(Page):
                 :param str note: the annotation text for the selected highlight
 
                 """
+                if not note or self.note:
+                    Utilities.clear_field(self.driver, self.note_box)
                 self.note_box.send_keys(note)
 
             def resize(self, height: int) -> int:

@@ -12,7 +12,7 @@ from pages.accounts import Signup
 from pages.content import Content
 from tests import markers
 from tests.conftest import DESKTOP
-from utils.utility import Highlight, Utilities
+from utils.utility import Color, Highlight, Utilities
 
 XPATH_SEARCH = (
     "//span[contains(text(),'{term}') and contains(@class,'highlight')]")
@@ -256,7 +256,7 @@ def test_search_term_colored_within_a_highlight(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
     paragraph = random.choice(book.content.paragraphs)
-    book.content.highlight(paragraph, Highlight.ENTIRE, Highlight.GREEN)
+    book.content.highlight(paragraph, Highlight.ENTIRE, Color.YELLOW)
     highlight_id = book.content.highlight_ids[0]
     if width != DESKTOP[0]:
         # reset the window width for a mobile test
@@ -331,7 +331,7 @@ def test_user_highlight_over_search_term_highlight(
     initial_highlight_ids = book.content.highlight_ids
 
     # WHEN: they highlight content over the search highlight
-    book.content.highlight(paragraph, Highlight.ENTIRE, Highlight.BLUE)
+    book.content.highlight(paragraph, Highlight.ENTIRE, Color.BLUE)
     new_highlight_id = list(
         set(book.content.highlight_ids) - set(initial_highlight_ids))[0]
     phrase_searched = book.content.find_elements(
@@ -381,7 +381,7 @@ def test_expanded_focussed_note_card_is_displayed_when_highlight_clicked(
     note = random_string(length=400)
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
-                           color=Highlight.GREEN,
+                           color=Color.GREEN,
                            note=note)
 
     # WHEN: they click on the highlighted text
@@ -425,7 +425,7 @@ def test_focussed_note_card_is_displayed_when_highlight_clicked(
     note = random_string(length=100)
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
-                           color=Highlight.GREEN,
+                           color=Color.BLUE,
                            note=note)
 
     # WHEN: they click on the highlighted text
@@ -486,7 +486,7 @@ def test_delete_a_highlight_and_note_using_the_context_menu(
     note = random_string(length=100)
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
-                           color=Highlight.GREEN,
+                           color=Color.PINK,
                            note=note,
                            close_box=False)
 
@@ -514,3 +514,87 @@ def test_delete_a_highlight_and_note_using_the_context_menu(
     # THEN: the highlight and note do not reappear
     assert(len(book.content.highlights) == 0), \
         f"the highlight(s) reappeared ({len(book.content.highlights)} found)"
+
+
+@markers.test_case("C591689")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_delete_a_note_using_the_context_menu(
+        selenium, base_url, book_slug, page_slug):
+    """Delete a note from a highlight using the context menu."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=Color.PINK,
+                           note=note,
+                           close_box=False)
+    original_highlight_ids = book.content.highlight_ids
+    original_notes_total = book.content.notes
+
+    # WHEN: they use the context menu to edit the highlight
+    # AND:  remove all of the note text in the text box
+    # AND:  click the "Save" button
+    book.content.highlight_box.edit_note()
+
+    book.content.highlight_box.note = ""
+
+    book.content.highlight_box.save()
+
+    # THEN: the delete confirmation message is shown
+    assert(book.content.highlight_box.delete_confirmation_visible), \
+        "the confirmation box overlay is not visible"
+    confirmation_text = book.content.highlight_box.delete_confirmation_text
+    expected_text = "Are you sure you want to delete this note?"
+    assert(confirmation_text == expected_text), \
+        "the confirmation text does not match the expected content"
+
+    # WHEN: they click the "Delete" button
+    book.content.highlight_box.confirm_deletion()
+
+    # THEN: the attached note is deleted
+    # AND:  the highlight remains
+    # AND:  the edit note box is displayed
+    # AND:  the same highlight color is still selected
+    assert(book.content.notes == original_notes_total - 1), (
+        "highlight note not deleted "
+        f"(found {book.content.notes}, expected {original_notes_total - 1})")
+
+    assert(book.content.highlight_ids == original_highlight_ids), \
+        "highlight ID lists do not match"
+
+    try:
+        assert(book.content.highlight_box.is_edit_box), \
+            "highlight box is not an edit card"
+    except NoSuchElementException:
+        pytest.fail("edit note box is not displayed")
+
+    # WHEN: they click outside of the edit note box
+    book.content.close_edit_note_box()
+
+    # THEN: the edit note box is hidden
+    # AND:  the old note does not show on the page
+    # AND:  the original content highlight is still colored
+    with pytest.raises(NoSuchElementException) as e:
+        book.content.highlight_box
+    assert("No open highlight boxes found" in str(e.value)), \
+        "the edit note box is still visible"
