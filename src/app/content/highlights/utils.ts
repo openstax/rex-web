@@ -1,4 +1,4 @@
-import { Book, LinkedArchiveTreeNode, Page } from '../types';
+import { ArchiveBook, Book, LinkedArchiveTreeNode, Page } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -7,7 +7,7 @@ import {
 } from '../utils/archiveTreeUtils';
 import { HighlightLocations } from './types';
 
-export const getHighlightLocationsFromBook = (book: Book) => {
+export const getHighlightLocationsFromBook = (book: Book | ArchiveBook) => {
   return new Map(flattenArchiveTree(book.tree).filter((section) =>
     (section.parent && archiveTreeSectionIsBook(section.parent))
     || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s]));
