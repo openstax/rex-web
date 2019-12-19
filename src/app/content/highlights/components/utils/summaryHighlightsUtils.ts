@@ -22,9 +22,9 @@ export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: 
 
   if (newHighlights[chId]) {
     if (newHighlights[chId][pageId]) {
-    newHighlights[chId][pageId].push(highlight);
+      newHighlights[chId][pageId].push(highlight);
     } else {
-    newHighlights[chId][pageId] = [highlight];
+      newHighlights[chId][pageId] = [highlight];
     }
   } else {
     newHighlights[chId] = {
@@ -81,13 +81,15 @@ interface Data extends BaseData {
 }
 
 /**
- * When user is updating highlight on the page there are 4 cases which we have to handle
+ * When user is updating highlight on the page there are 3 cases which we have to handle
  * to update summary highlights.
+ *
+ * We are accepting Highlight rather than HighlightUpdate because it may not exists in
+ * current summaryHighlights object and we may need to add it.
  *
  * First - current chapter is not in filters - we can do nothing with new highlight.
  * Second - color of new highlight is not in filters - we'll remove this highlight from summary.
- * Third - only annotation has changed - we'll update highlight if it exsists in summary.
- * Forth - current chapter and color exists in filters - we'll update highlight in summary if it was
+ * Third - current chapter and color exists in filters - we'll update highlight in summary if it was
  * already there or add it to summary if it wasn't before.
  */
 export const updateSummaryHighlightsDependOnFilters = (
@@ -112,19 +114,7 @@ export const updateSummaryHighlightsDependOnFilters = (
     return newHighlights;
   }
 
-  // If only annotation was changed just update summary highlights...
-  if (!color && annotation) {
-    newHighlights = updateSummaryHighlight(newHighlights, {
-      highlight: { color, annotation },
-      id: updatedHighlight.id,
-      locationId,
-      pageId,
-    });
-    return newHighlights;
-  }
-
-  // If color has changed and it is still in filters or
-  // If color has changed and now it is in filter.
+  // If color it is in filters...
   if (colors.includes(color)) {
     // If highlight was already in summary highlights then just update it...
     if (

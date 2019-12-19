@@ -15,7 +15,7 @@ const highlight = { id: 'highlight', color: HighlightColorEnum.Green, annotation
 const highlight2 = { id: 'highlight2' } as Highlight;
 
 describe('addSummaryHighlight', () => {
-  it('add highlight', () => {
+  it('add highlight to empty object', () => {
     const expectedResult = {
       location: {
         page: [highlight],
@@ -26,6 +26,47 @@ describe('addSummaryHighlight', () => {
       highlight,
       locationId: 'location',
       pageId: 'page',
+    })).toMatchObject(expectedResult);
+  });
+
+  it('add highlight to existing page', () => {
+    const summaryHighlights = {
+      location: {
+        page: [highlight],
+      },
+    };
+
+    const expectedResult = {
+      location: {
+        page: [highlight, highlight2],
+      },
+    };
+
+    expect(addSummaryHighlight(summaryHighlights, {
+      highlight: highlight2,
+      locationId: 'location',
+      pageId: 'page',
+    })).toMatchObject(expectedResult);
+  });
+
+  it('add highlight to existing location but without exisitng page', () => {
+    const summaryHighlights = {
+      location: {
+        page: [highlight],
+      },
+    };
+
+    const expectedResult = {
+      location: {
+        page: [highlight],
+        page2: [highlight2],
+      },
+    };
+
+    expect(addSummaryHighlight(summaryHighlights, {
+      highlight: highlight2,
+      locationId: 'location',
+      pageId: 'page2',
     })).toMatchObject(expectedResult);
   });
 
@@ -60,6 +101,25 @@ describe('removeSummaryHighlight', () => {
     expect(removeSummaryHighlight(summaryHighlights, {
       id: highlight.id,
       locationId: 'location',
+      pageId: 'page',
+    })).toMatchObject(expectedResult);
+  });
+
+  it('remove highlight without locationId', () => {
+    const summaryHighlights = {
+      page: {
+        page: [highlight, highlight2],
+      },
+    };
+
+    const expectedResult = {
+      page: {
+        page: [highlight2],
+      },
+    };
+
+    expect(removeSummaryHighlight(summaryHighlights, {
+      id: highlight.id,
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -136,6 +196,30 @@ describe('updateSummaryHighlight', () => {
     })).toMatchObject(expectedResult);
   });
 
+  it('update color without locationId', () => {
+    const summaryHighlights = {
+      page: {
+        page: [highlight],
+      },
+    };
+
+    const dataToUpdate = {
+      color: HighlightUpdateColorEnum.Pink,
+    } as HighlightUpdate;
+
+    const expectedResult = {
+      page: {
+        page: [{...highlight, ...dataToUpdate}],
+      },
+    };
+
+    expect(updateSummaryHighlight(summaryHighlights, {
+      highlight: dataToUpdate,
+      id: highlight.id,
+      pageId: 'page',
+    })).toMatchObject(expectedResult);
+  });
+
   it('update color and annotation', () => {
     const summaryHighlights = {
       location: {
@@ -173,6 +257,27 @@ describe('updateSummaryHighlight', () => {
 });
 
 describe('updateSummaryHighlightsDependOnFilters', () => {
+  it('noops if locationId is not in filters', () => {
+    const summaryHighlights = {
+      location: {
+        page: [highlight],
+      },
+    };
+
+    const filters = {
+      colors: [HighlightColorEnum.Yellow],
+      locationIds: ['location'],
+    };
+
+    const newHighlight = {...highlight, color: HighlightColorEnum.Blue};
+
+    expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
+      highlight: newHighlight,
+      locationId: 'not-in-filters',
+      pageId: 'page',
+    })).toMatchObject(summaryHighlights);
+  });
+
   it('remove highlight if it does not match current color filters', () => {
     const summaryHighlights = {
       location: {
@@ -207,6 +312,33 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
     };
 
     const newHighlight = {...highlight, color: HighlightColorEnum.Yellow};
+
+    const expectedResult = {
+      location: {
+        page: [newHighlight],
+      },
+    };
+
+    expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
+      highlight: newHighlight,
+      locationId: 'location',
+      pageId: 'page',
+    })).toMatchObject(expectedResult);
+  });
+
+  it('update highlight if only annotation has changed', () => {
+    const summaryHighlights = {
+      location: {
+        page: [highlight],
+      },
+    };
+
+    const filters = {
+      colors: [highlight.color],
+      locationIds: ['location'],
+    };
+
+    const newHighlight = {...highlight, annotation: 'asdf123'};
 
     const expectedResult = {
       location: {

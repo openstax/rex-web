@@ -14,6 +14,7 @@ const page = {...archivePage, references: []};
 describe('addCurrentPageToSummaryFilters', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     resetModules();
@@ -25,6 +26,7 @@ describe('addCurrentPageToSummaryFilters', () => {
       getState: store.getState,
     };
 
+    dispatch = jest.spyOn(helpers, 'dispatch');
   });
 
   it('update summary filters with current page', () => {
@@ -38,5 +40,22 @@ describe('addCurrentPageToSummaryFilters', () => {
     addCurrentPageToSummaryFilters(helpers);
 
     expect(summary.filters.locationIds.length).toEqual(1);
+  });
+
+  it('noops if there is no page', () => {
+    store.dispatch(receiveBook(book));
+
+    addCurrentPageToSummaryFilters(helpers);
+
+    expect(dispatch).not.toBeCalled();
+  });
+
+  it('noops if page id is not in book', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({...page, id: 'not-in-book'}));
+
+    addCurrentPageToSummaryFilters(helpers);
+
+    expect(dispatch).not.toBeCalled();
   });
 });

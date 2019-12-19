@@ -52,7 +52,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
-  if (!highlights.data) {
+  if (!highlights || !highlights.data) {
     dispatch(receiveSummaryHighlights(summaryHighlights));
     return;
   }

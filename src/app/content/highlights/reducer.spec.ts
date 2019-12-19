@@ -241,6 +241,21 @@ describe('highlight reducer', () => {
       expect(highlights.length).toEqual(1);
       expect(highlights[0].color).toEqual(HighlightUpdateColorEnum.Blue);
     });
+
+    it('return state if new highlight was not found in it', () => {
+      const mock1 = mockHighlight;
+      const mock3 = {...mockHighlight, id: 'qwer'};
+
+      const state = reducer({
+        ...initialState,
+        highlights: [mock1, mock3],
+      }, actions.updateHighlight({id: 'id-not-exists', highlight: {color: HighlightUpdateColorEnum.Blue}}, {
+        locationId: 'highlightChapter',
+        pageId: 'highlightSource',
+      }));
+
+      expect(state).toMatchObject(state);
+    });
   });
 
   describe('update summary', () => {

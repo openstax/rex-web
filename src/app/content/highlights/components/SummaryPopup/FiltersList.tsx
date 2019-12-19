@@ -11,7 +11,7 @@ import { setSummaryFilters } from '../../actions';
 import { highlightLocations, summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
-const RemoveIcon = styled.span`
+export const RemoveIcon = styled.span`
   padding: 0.5rem;
   cursor: pointer;
 
