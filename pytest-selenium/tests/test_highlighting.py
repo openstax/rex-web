@@ -543,9 +543,10 @@ def test_delete_a_note_using_the_context_menu(
 
     paragraph = random.choice(book.content.paragraphs)
     note = random_string(length=100)
+    highlight_color = Color.PINK
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
-                           color=Color.PINK,
+                           color=highlight_color,
                            note=note,
                            close_box=False)
     original_highlight_ids = book.content.highlight_ids
@@ -598,6 +599,15 @@ def test_delete_a_note_using_the_context_menu(
         book.content.highlight_box
     assert("No open highlight boxes found" in str(e.value)), \
         "the edit note box is still visible"
+
+    # No notes show when the highlight isn't selected so ignoring test 2
+
+    current_highlight_classes = (
+        book
+        .content.get_highlight(by_id=original_highlight_ids[0])
+        [0].get_attribute("class"))
+    assert(str(highlight_color) in current_highlight_classes), \
+        f"wrong highlight color found (expected {str(highlight_color)})"
 
 
 @markers.test_case("C591690")

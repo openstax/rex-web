@@ -435,12 +435,12 @@ class Content(Page):
         def highlight_ids(self) -> List[str]:
             """Return the list of highlight ID numbers.
 
-            :return: the unique list of highlight ``data-id``s for the current
-                page
+            :return: the unique list of highlight ``data-highlight-id``s for
+                the current page
             :rtype: list(str)
 
             """
-            return list(set([highlight.get_attribute("data-id")
+            return list(set([highlight.get_attribute("data-highlight-id")
                              for highlight
                              in self.highlights]))
 
@@ -543,7 +543,7 @@ class Content(Page):
 
             .. note::
                a single highlight may be broken into several segments with
-               matching ``data-timestamp``s and ``data-id``s
+               matching ``data-timestamp``s and ``data-highlight-id``s
 
             :param _id: (optional) the data identification number for a given
                 set of highlights
@@ -555,7 +555,7 @@ class Content(Page):
             :rtype: list(WebElement)
 
             """
-            data, attribute = (str(by_id), "data-id") if by_id \
+            data, attribute = (str(by_id), "data-highlight-id") if by_id \
                 else (str(by_timestamp), "data-timestamp")
             return [segment
                     for segment
