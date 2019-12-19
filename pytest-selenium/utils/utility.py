@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import Enum
 from random import choice, randint
 from time import sleep
-from typing import Tuple
+from typing import List, Tuple
 
 from faker import Faker
 from selenium.common.exceptions import (
@@ -34,6 +34,13 @@ class Color(Enum):
     PURPLE = "purple"
     YELLOW = "yellow"
 
+    def __str__(self):
+        return self.value
+
+    @classmethod
+    def options(cls) -> List[Color]:
+        return [color for _, color in cls.__members__.items()]
+
 
 class FontProperties:
     def is_bold(self, element):
@@ -45,9 +52,9 @@ class Highlight:
 
     Offset = Tuple[int, int]
 
-    COLORS = list(Color)
+    COLORS = Color.options()
     RANDOM = "randomize"
-    ENTIRE = "highlight all"
+    ENTIRE = "all"
 
     @classmethod
     def delete_highlights_on_page(cls, driver):
@@ -73,7 +80,7 @@ class Highlight:
         :rtype: int
 
         """
-        return cls.COLORS[randint(0, len(cls.COLORS) - 1)]
+        return choice(cls.COLORS)
 
 
 class Library(object):
