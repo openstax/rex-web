@@ -678,3 +678,82 @@ def test_cancel_deleting_a_highlight_using_the_context_menu(
     assert(book.content.notes == original_notes_total), (
         "highlight deleted "
         f"(found {book.content.notes}, expected {original_notes_total})")
+
+
+@markers.test_case("C591691")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_cancel_deleting_a_note_using_the_context_menu(
+        selenium, base_url, book_slug, page_slug):
+    """Cancel deleting a highlight using the context menu."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=Color.GREEN,
+                           note=note,
+                           close_box=False)
+    original_highlight_ids = book.content.highlight_ids
+    original_notes_total = book.content.highlight_boxes
+
+    # WHEN: they use the context menu to edit the note
+    # AND:  remove all of the note text in the text box
+    # AND:  click the "Save" button
+    book.content.highlight_box.edit_note()
+
+    book.content.highlight_box.note = ""
+
+    book.content.highlight_box.save()
+
+    # THEN: the delete confirmation message is shown
+    assert(book.content.highlight_box.delete_confirmation_visible), \
+        "the confirmation box overlay is not visible"
+    confirmation_text = book.content.highlight_box.delete_confirmation_text
+    expected_text = "Are you sure you want to delete this note?"
+    assert(confirmation_text == expected_text), \
+        "the confirmation text does not match the expected content"
+
+    # THEN: delete confirmation message is displayed
+    assert(book.content.highlight_box.delete_confirmation_visible), \
+        "the confirmation box overlay is not visible"
+    confirmation_text = book.content.highlight_box.delete_confirmation_text
+    expected_text = "Are you sure you want to delete this note?"
+    assert(confirmation_text == expected_text), \
+        "the confirmation text does not match the expected content"
+
+    # WHEN: they cancel the edit
+    book.content.highlight_box.cancel()
+
+    # THEN: the highlight and note remain
+    assert(len(book.content.highlight_boxes) == len(original_notes_total)), (
+        "highlight deleted "
+        f"(found {book.content.highlight_boxes}, "
+        f"expected {original_notes_total})")
+    assert(book.content.highlight_ids == original_highlight_ids), \
+        "highlight ID lists do not match"
+    try:
+        assert(book.content.highlight_box.is_edit_box), \
+            "highlight box is not a note edit box"
+    except NoSuchElementException:
+        pytest.fail("edit note box is not visible")
+    assert(book.content.highlight_box.note == note), \
+        "the current note text does not match the original"
