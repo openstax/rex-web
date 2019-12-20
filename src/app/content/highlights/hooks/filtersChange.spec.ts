@@ -156,12 +156,7 @@ describe('filtersChange', () => {
   it('omit highlights for which location was not found', async() => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
-
     const pageId = stripIdVersion(book.tree.contents[0].id);
-    await hook(store.dispatch(setSummaryFilters({
-      colors: [HighlightColorEnum.Blue],
-      locationIds: [pageId, 'id-not-from-book'],
-    })));
 
     const highlights = [{
       id: 'hl1',
@@ -173,6 +168,11 @@ describe('filtersChange', () => {
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({data: highlights}));
+
+    await hook(store.dispatch(setSummaryFilters({
+      colors: [HighlightColorEnum.Blue],
+      locationIds: [pageId, 'id-not-from-book'],
+    })));
 
     const response: SummaryHighlights = {
       [pageId]: {
