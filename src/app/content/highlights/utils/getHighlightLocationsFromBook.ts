@@ -2,13 +2,19 @@ import { ArchiveBook, Book } from '../../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
+  archiveTreeSectionIsPage,
+  archiveTreeSectionIsUnit,
   flattenArchiveTree,
 } from '../../utils/archiveTreeUtils';
 
 const getHighlightLocationsFromBook = (book: Book | ArchiveBook) => {
-  return new Map(flattenArchiveTree(book.tree).filter((section) =>
-    (section.parent && archiveTreeSectionIsBook(section.parent))
-    || archiveTreeSectionIsChapter(section)).map((s) => [s.id, s]));
+  return new Map(
+    flattenArchiveTree(book.tree)
+      .filter((section) =>
+        (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
+        || (archiveTreeSectionIsChapter(section)) && !archiveTreeSectionIsUnit(section))
+      .map((section) => [section.id, section])
+  );
 };
 
 export default getHighlightLocationsFromBook;
