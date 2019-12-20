@@ -724,14 +724,6 @@ def test_cancel_deleting_a_note_using_the_context_menu(
 
     book.content.highlight_box.save()
 
-    # THEN: the delete confirmation message is shown
-    assert(book.content.highlight_box.delete_confirmation_visible), \
-        "the confirmation box overlay is not visible"
-    confirmation_text = book.content.highlight_box.delete_confirmation_text
-    expected_text = "Are you sure you want to delete this note?"
-    assert(confirmation_text == expected_text), \
-        "the confirmation text does not match the expected content"
-
     # THEN: delete confirmation message is displayed
     assert(book.content.highlight_box.delete_confirmation_visible), \
         "the confirmation box overlay is not visible"
@@ -816,7 +808,7 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C591693")
 @markers.skip_test(reason="test mechanics covered by C591691")
-def test_cancel_after_editing_a_note(selenium, base_url):
+def test_cancel_after_editing_a_note():
     """Cancel a note edit after changing the text but before saving it."""
 
 
@@ -946,3 +938,126 @@ def test_clicking_a_new_note_highlight_color_changes_the_highlight(
     current_color = Color.from_html_class(highlight_classes)
     assert(current_color == new_highlight_color), \
         "the reloaded highlight color does not match the new color"
+
+
+@markers.test_case("C591696")
+@markers.skip_test(reason="requires testing a temp pdf document")
+def test_print_preview_shows_highlights():
+    """Highlights remain under a print preview PDF."""
+
+
+@markers.test_case("C591697")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
+        selenium, base_url, book_slug, page_slug):
+    """Clicking outside of the highlight box doesn't close it when unsaved."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    highlight_color = Color.BLUE
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=highlight_color,
+                           note="",
+                           close_box=False)
+
+    # WHEN: they add a note to the highlight without saving it
+    # AND:  click outside the edit box
+    note = random_string(length=100)
+    book.content.highlight_box.note = note
+
+    book.content.close_edit_note_box()
+
+    # THEN: the edit box remains open
+    assert(book.content.highlight_box.is_edit_box), \
+        "the edit note box did not remain open"
+
+
+@markers.test_case("C591698")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
+def test_read_only_display_card_is_shown_when_highlight_clicked_in_mobile(
+        selenium, base_url, book_slug, page_slug):
+    """Clicking outside of the highlight box doesn't close it when unsaved."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    initial_highlight_color = Color.GREEN
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=initial_highlight_color,
+                           note=note)
+    highlight_id = book.content.highlight_ids[0]
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    # WHEN: they click the highlight
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    Utilities.click_option(selenium, element=highlight, scroll_to=-105)
+
+    # THEN: the display card is shown at the bottom of the screen
+    # AND:  the highlight is focused
+    # AND:  the context menu is not available (read-only mode)
+    assert(book.content.highlight_box.is_open), "Highlight box not open"
+
+    assert("Display" in
+           book.content.highlight_box.root.get_attribute("class")), \
+        "highlight box is not a DisplayNote"
+    assert("focus" in book.content.highlights[0].get_attribute("class")), \
+        "highlight is not currently focused"
+
+    assert(not book.content.highlight_box.content_menu_available), \
+        "context menu is displayed"
+
+    # WHEN: they click the close 'x' in the display card
+    book.content.highlight_box.close()
+
+    # THEN: the display card closes
+    # AND:  the highlight is no longer in focus
+    with pytest.raises(NoSuchElementException) as ex:
+        book.content.highlight_box
+    assert("No open highlight boxes found" in str(ex.value)), \
+        "Display note still open"
+
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    assert("focus" not in highlight.get_attribute("class")), \
+        "highlight is still in focus"

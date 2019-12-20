@@ -730,8 +730,12 @@ class Content(Page):
                 By.CSS_SELECTOR, "textarea")
             _cancel_annotation_button_locator = (
                 By.CSS_SELECTOR, "[data-testid=cancel]")
+            _close_x_button_locator = (
+                By.CSS_SELECTOR, "[class*=CloseIcon]")
             _confirm_delete_note_button_locator = (
                 By.CSS_SELECTOR, "[data-testid=confirm]")
+            _context_menu_dropdown_locator = (
+                By.CSS_SELECTOR, "[class*=Dropdown__Tab]")
             _delete_confirmation_locator = (
                 By.CSS_SELECTOR, "[class*=Confirmation]")
             _delete_confirmation_message_locator = (
@@ -790,6 +794,18 @@ class Content(Page):
                 """
                 return self.find_element(
                     *self._confirm_delete_note_button_locator)
+
+            @property
+            def content_menu_available(self) -> bool:
+                """Return True if the context menu is displayed.
+
+                :return: ``True`` if the context dropdown menu is displayed
+                :rtype: bool
+
+                """
+                menu = self.find_element(*self._context_menu_dropdown_locator)
+                return self.driver.execute_script(
+                    COMPUTED_STYLES.format(field=".display != 'none';"), menu)
 
             @property
             def delete_button(self) -> WebElement:
@@ -962,6 +978,20 @@ class Content(Page):
                 """
                 Utilities.click_option(self.driver, element=self.cancel_button)
                 return self
+
+            def close(self) -> Content.Content:
+                """Click the close 'x' button to close the display note.
+
+                :return: the page content
+                :rtype: :py:class:`~Content.Content`
+                :raises ContentError: if the close 'x' is not found
+
+                """
+                button = self.find_elements(*self._close_x_button_locator)
+                if not button:
+                    raise ContentError("x close button not found")
+                Utilities.click_option(self.driver, element=button[0])
+                return self.page
 
             def confirm_deletion(self):
                 """Click the delete confirmation button."""

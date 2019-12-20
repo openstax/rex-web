@@ -26,6 +26,8 @@ ASYNC_DELETE = r"""
 })()"""  # NOQA
 HIGHLIGHTS = "return document.querySelectorAll('.highlight').length;"
 RELOAD = "location.reload();"
+SCROLL_INTO_VIEW = 'arguments[0].scrollIntoView();'
+SHIFT_VIEW_BY = 'window.scrollBy(0, arguments[0])'
 
 
 class Color(Enum):
@@ -193,9 +195,12 @@ class Utilities(object):
         field.send_keys(clear)
 
     @classmethod
-    def click_option(cls, driver, locator=None, element=None):
+    def click_option(cls, driver, locator=None, element=None, scroll_to=False):
         """Click on elements which cause Safari 500 errors."""
         element = element if element else driver.find_element(*locator)
+        if scroll_to or type(scroll_to) in (int, float):
+            shift = int(scroll_to) if int(scroll_to) != 1 else 0
+            Utilities.scroll_to(driver=driver, element=element, shift=shift)
         try:
             if driver.capabilities.get("browserName").lower() == "safari":
                 raise WebDriverException("Bypassing the driver-defined click")
@@ -206,7 +211,7 @@ class Utilities(object):
                     driver.execute_script("arguments[0].click()", element)
                     break
                 except ElementClickInterceptedException:  # Firefox issues
-                    sleep(1)
+                    sleep(1.0)
                 except NoSuchElementException:  # Safari issues
                     if locator:
                         element = driver.find_element(*locator)
@@ -227,6 +232,23 @@ class Utilities(object):
         return (fake.first_name_male() if use_male_functions else
                 fake.first_name_female(),
                 fake.last_name())
+
+    @classmethod
+    def scroll_to(
+            cls, driver, element_locator=None, element=None, shift=0):
+        """Scroll the screen to the element.
+
+        :param driver: the selenium webdriver browser object
+        :param element_locator: a By selector and locator tuple (str, str)
+        :param element: a specific webelement
+        :param shift: adjust the page vertically by a set number of pixels
+                > 0 scrolls down, < 0 scrolls up
+        :returns: None
+        """
+        target = element if element else driver.find_element(*element_locator)
+        driver.execute_script(SCROLL_INTO_VIEW, target)
+        if shift != 0:
+            driver.execute_script(SHIFT_VIEW_BY, shift)
 
     @classmethod
     def scroll_top(cls, driver):
