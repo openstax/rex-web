@@ -12,7 +12,6 @@ import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { setSummaryFilters } from '../../actions';
-import { highlightStyles } from '../../constants';
 import { summaryFilters } from '../../selectors';
 import { addCurrentPageToSummaryFilters } from '../../utils';
 import Filters from './Filters';
@@ -26,6 +25,7 @@ describe('Filters', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
+  let storeDispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
@@ -37,6 +37,7 @@ describe('Filters', () => {
     };
 
     dispatch = jest.spyOn(helpers, 'dispatch');
+    storeDispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('matches snapshot', () => {
@@ -91,6 +92,14 @@ describe('Filters', () => {
     addCurrentPageToSummaryFilters(helpers);
     const filters = summaryFilters(store.getState());
 
+    expect(dispatch).toBeCalledWith(setSummaryFilters({
+      colors: filters.colors,
+      locationIds: ['testbook1-testchapter5-uuid'],
+    }));
+
+    dispatch.mockClear();
+    storeDispatch.mockClear();
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <Filters />
@@ -105,25 +114,21 @@ describe('Filters', () => {
 
     renderer.act(() => {
       chapterFilters[0].findByType(StyledPlainButton).props.onClick();
+    });
+
+    expect(storeDispatch).toBeCalledWith(setSummaryFilters({
+      colors: filters.colors,
+      locationIds: [],
+    }));
+
+    renderer.act(() => {
       colorFilters[0].findByType(StyledPlainButton).props.onClick();
     });
 
-    const colors = highlightStyles.map(({label}) => label);
-    expect(dispatch).toBeCalledTimes(3);
-    expect(dispatch).toBeCalledWith(
-      setSummaryFilters({
-        colors,
-        locationIds: ['testbook1-testchapter5-uuid'],
-      }),
-      setSummaryFilters({
-        colors,
-        locationIds: [],
-      }),
-      setSummaryFilters({
-        colors: colors.slice(1, filters.colors.length),
-        locationIds: [],
-      })
-    );
+    expect(storeDispatch).toBeCalledWith(setSummaryFilters({
+      colors: filters.colors.slice(1, filters.colors.length),
+      locationIds: [],
+    }));
 
     chapterFilters = component.root.findAllByType(FiltersListChapter);
     colorFilters = component.root.findAllByType(FiltersListColor);
