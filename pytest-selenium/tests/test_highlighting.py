@@ -21,7 +21,7 @@ XPATH_SEARCH = (
 def random_string(length: int = 20):
     """Return a random string of a specified length for use in notes."""
     characters = ascii_letters + digits + "      \n\n"
-    return "".join(random.choices(population=characters, k=length))
+    return "".join(random.choices(population=characters, k=length)).strip()
 
 
 @markers.test_case("C591511")
@@ -828,7 +828,7 @@ def test_cancel_after_editing_a_note(selenium, base_url):
 @markers.desktop_only
 def test_clicking_a_note_highlight_color_doesnt_change_the_highlight(
         selenium, base_url, book_slug, page_slug):
-    """Save an edited note."""
+    """No change is made when reselecting a highlight color for a note."""
     # GIVEN: a book section is displayed
     # AND:   a user is logged in
     # AND:   all content is visible
@@ -876,3 +876,73 @@ def test_clicking_a_note_highlight_color_doesnt_change_the_highlight(
     current_color = Color.from_html_class(highlight_classes)
     assert(current_color == highlight_color), \
         "the current highlight color does not match the original color"
+
+
+@markers.test_case("C591695")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_clicking_a_new_note_highlight_color_changes_the_highlight(
+        selenium, base_url, book_slug, page_slug):
+    """Change a highlight with note color without saving it."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    initial_highlight_color = Color.GREEN
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=initial_highlight_color,
+                           note=note,
+                           close_box=False)
+    highlight_id = book.content.highlight_ids[0]
+
+    # WHEN: they use the context menu to edit the note
+    # AND:  click a new color button as the highlight
+    book.content.highlight_box.edit_note()
+
+    new_highlight_color = Color.PINK
+    book.content.highlight_box.toggle_color(new_highlight_color)
+
+    # THEN: the edit note remains open
+    # AND:  the note text is unchanged
+    # AND:  the highlighted text now shows the new color
+    assert(book.content.highlight_box.is_edit_box), \
+        "the edit note box did not remain open"
+
+    assert(book.content.highlight_box.note == note), \
+        "the note text changed"
+
+    highlight_classes = (book.content
+                         .get_highlight(by_id=highlight_id)[0]
+                         .get_attribute("class"))
+    current_color = Color.from_html_class(highlight_classes)
+    assert(current_color == new_highlight_color), \
+        "the current highlight color does not match the new color"
+
+    # WHEN: the page is refreshed
+    book = book.reload()
+
+    # THEN: the new color is retained
+    highlight_classes = (book.content
+                         .get_highlight(by_id=highlight_id)[0]
+                         .get_attribute("class"))
+    current_color = Color.from_html_class(highlight_classes)
+    assert(current_color == new_highlight_color), \
+        "the reloaded highlight color does not match the new color"
