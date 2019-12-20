@@ -757,3 +757,58 @@ def test_cancel_deleting_a_note_using_the_context_menu(
         pytest.fail("edit note box is not visible")
     assert(book.content.highlight_box.note == note), \
         "the current note text does not match the original"
+
+
+@markers.test_case("C591692")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
+    """Save an edited note."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=Color.GREEN,
+                           note=note,
+                           close_box=False)
+
+    # WHEN: they use the context menu to edit the note
+    # AND:  remove all of the note text in the text box
+    # AND:  click the "Save" button
+    book.content.highlight_box.edit_note()
+
+    new_note = random_string(75)
+    book.content.highlight_box.note = new_note
+
+    book.content.highlight_box.save()
+
+    # THEN: the edit note is closed
+    # AND:  the display note is displayed
+    # AND:  the new note text is displayed
+    assert(not book.content.highlight_box.is_edit_box), \
+        "the edit note box is still open"
+
+    assert(book.content.highlight_box.is_display_box), \
+        "the display box is not shown"
+
+    assert(book.content.highlight_box.note == new_note), \
+        "the current note does not match the new note content"
