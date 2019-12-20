@@ -1,4 +1,4 @@
-import { HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -6,16 +6,22 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import * as actions from './actions';
-import { highlightingFeatureFlag } from './constants';
+import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
+import {
+  addSummaryHighlight,
+  removeSummaryHighlight,
+  updateSummaryHighlightsDependOnFilters,
+} from './utils';
 
+const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
   enabled: false,
   highlights: null,
   myHighlightsOpen: false,
   summary: {
     chapterCounts: {},
-    filters: {colors: [], chapters: []},
+    filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
   },
@@ -32,42 +38,63 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.createHighlight): {
-      return {...state, highlights: [...state.highlights || [], {
+      const newState = {...state};
+
+      const highlight = {
         ...action.payload,
         color: action.payload.color as string as HighlightColorEnum,
         sourceType: action.payload.sourceType as string as HighlightSourceTypeEnum,
-      }]};
+      };
+      newState.highlights = [...state.highlights || [], highlight];
+
+      if (newState.summary.filters.colors.includes(highlight.color)) {
+        newState.summary.highlights = addSummaryHighlight(newState.summary.highlights, {
+          ...action.meta,
+          highlight,
+        });
+      }
+      return newState;
     }
     case getType(actions.openMyHighlights):
       return {...state, myHighlightsOpen: true};
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
-      if (!state.highlights) {
-        return state;
-      }
+      const newState = {...state};
+      if (!newState.highlights) { return newState; }
 
-      return {
-        ...state,
-        highlights: state.highlights.map((highlight) =>
-          highlight.id === action.payload.id ? {
-            ...highlight,
-            ...action.payload.highlight,
-            color: action.payload.highlight.color as string as HighlightColorEnum,
-          } : highlight
-        ),
-      };
+      const oldHiglightIndex = newState.highlights.findIndex(
+        (highlight) => highlight.id === action.payload.id);
+      if (oldHiglightIndex < 0) { return newState; }
+
+      const newHighlight = {
+        ...newState.highlights[oldHiglightIndex],
+        ...action.payload.highlight,
+      } as Highlight;
+
+      newState.highlights[oldHiglightIndex] = newHighlight;
+
+      newState.summary.highlights = updateSummaryHighlightsDependOnFilters(
+        newState.summary.highlights,
+        newState.summary.filters,
+        {...action.meta, highlight: newHighlight});
+
+      return newState;
     }
     case getType(actions.deleteHighlight): {
       if (!state.highlights) {
         return state;
       }
 
-      return {
-        ...state,
-        focused: state.focused === action.payload ? undefined : state.focused,
-        highlights: state.highlights.filter(({id}) => id !== action.payload),
-      };
+      const newState = {...state};
+
+      newState.focused  = newState.focused === action.payload ? undefined : state.focused;
+      newState.highlights = newState.highlights!.filter(({id}) => id !== action.payload);
+      newState.summary.highlights = removeSummaryHighlight(newState.summary.highlights, {
+        ...action.meta,
+        id: action.payload,
+      });
+      return newState;
     }
     case getType(actions.receiveHighlights): {
       return {...state, highlights: [...state.highlights || [], ...action.payload],
@@ -79,6 +106,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
+    }
+    case getType(actions.setSummaryFilters): {
+      const newState = {...state};
+      newState.summary.loading = true;
+      newState.summary.filters = action.payload;
+      return newState;
+    }
+    case getType(actions.receiveSummaryHighlights): {
+      const newState = {...state};
+      newState.summary.highlights = action.payload;
+      newState.summary.loading = false;
+      return newState;
     }
     default:
       return state;

@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import Loader from '../../../components/Loader';
 import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
-import { HighlightData } from '../types';
+import { SummaryHighlights } from '../types';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
 
@@ -23,8 +21,7 @@ interface Props {
   user?: User;
   loggedOut: boolean;
   loginLink: string;
-  highlights: HighlightData[];
-  summaryIsLoading: boolean;
+  highlights: SummaryHighlights;
 }
 
 class HighlightsPopUp extends Component<Props> {
@@ -54,39 +51,6 @@ class HighlightsPopUp extends Component<Props> {
       </Styled.PopupBody>
     );
   };
-
-  public myHighlights = () => {
-    return this.props.highlights.length > 0 ? (
-      <ShowMyHighlights />
-    ) : (
-      <Styled.PopupBody>{this.noHighlights()}</Styled.PopupBody>
-    );
-  };
-
-  public noHighlights() {
-    return (
-      <React.Fragment>
-        <Styled.GeneralLeftText>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </Styled.GeneralLeftText>
-        <Styled.MyHighlightsWrapper>
-          <Styled.GeneralText>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.GeneralText>
-          <Styled.GeneralTextWrapper>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.GeneralTextWrapper>
-          <Styled.MyHighlightsImage src={myHighlightsEmptyImage} />
-        </Styled.MyHighlightsWrapper>
-      </React.Fragment>
-    );
-  }
 
   public blueNote = () => {
     return (
@@ -157,13 +121,7 @@ class HighlightsPopUp extends Component<Props> {
               onClick={() => this.props.closeMyHighlights()}
             />
           </Styled.Header>
-          {this.props.user && this.props.summaryIsLoading ? (
-            <Styled.PopupBody><Loader /></Styled.PopupBody>
-          ) : this.props.user ? (
-            this.myHighlights()
-          ) : (
-            this.loginForHighlights()
-          )}
+          {this.props.user ? <ShowMyHighlights /> : this.loginForHighlights()}
         </Styled.Modal>
       </Styled.PopupWrapper>
     : null;
@@ -179,11 +137,10 @@ class HighlightsPopUp extends Component<Props> {
 
 export default connect(
   (state: AppState) => ({
-    highlights: selectors.highlights(state),
+    highlights: selectors.summaryHighlights(state),
     loggedOut: authSelect.loggedOut(state),
     loginLink: authSelect.loginLink(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
-    summaryIsLoading: selectors.summaryIsLoading(state),
     user: authSelect.user(state),
   }),
   (dispatch: Dispatch) => ({

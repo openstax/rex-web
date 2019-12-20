@@ -17,7 +17,9 @@ import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
+import { highlightLocations } from '../selectors';
 import { HighlightData } from '../types';
+import { getHighlightLocationForPage } from '../utils';
 import Card from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
@@ -209,6 +211,9 @@ describe('Card', () => {
       },
     ] as HighlightData[]));
 
+    const locations = highlightLocations(store.getState());
+    const location = getHighlightLocationForPage(locations, page);
+
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
@@ -218,7 +223,10 @@ describe('Card', () => {
       picker.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id));
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id, {
+      locationId: location!.id,
+      pageId: page.id,
+    }));
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
@@ -249,6 +257,9 @@ describe('Card', () => {
 
     dispatch.mockClear();
 
+    const locations = highlightLocations(store.getState());
+    const location = getHighlightLocationForPage(locations, page);
+
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
@@ -263,6 +274,9 @@ describe('Card', () => {
       scopeId: 'testbook1-uuid',
       sourceId: 'testbook1-testpage1-uuid',
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    }, {
+      locationId: location!.id,
+      pageId: page.id,
     }));
   });
 

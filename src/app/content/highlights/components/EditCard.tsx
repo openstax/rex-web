@@ -21,6 +21,8 @@ interface Props {
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
+  locationId: string;
+  pageId: string;
   onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
   onSave: typeof updateHighlight;
@@ -37,6 +39,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     className,
     data,
     highlight,
+    locationId,
+    pageId,
     isFocused,
     loginLink,
     onBlur,
@@ -70,6 +74,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
           color: color as string as HighlightUpdateColorEnum,
         },
         id: data.id,
+      }, {
+        locationId,
+        pageId,
       });
     } else {
       assertWindow().getSelection().removeAllRanges();
@@ -84,6 +91,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         color: toSave.color as string as HighlightUpdateColorEnum,
       },
       id: toSave.id,
+    }, {
+      locationId,
+      pageId,
     });
     onCancel();
   };

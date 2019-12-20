@@ -13,7 +13,7 @@ interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
     never;
 }
 // tslint:disable-next-line:variable-name
-const DropdownToggle = styled(({component, ...props}: ToggleProps) => React.cloneElement(component, props))`
+export const DropdownToggle = styled(({component, ...props}: ToggleProps) => React.cloneElement(component, props))`
   cursor: pointer;
 `;
 

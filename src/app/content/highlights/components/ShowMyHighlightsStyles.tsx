@@ -6,6 +6,27 @@ import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
 
+interface HighlightsProps {
+  isLoading: boolean;
+}
+
+// tslint:disable-next-line: variable-name
+export const Highlights = styled.div`
+  position: relative;
+  opacity: ${(props: HighlightsProps) => props.isLoading ? '0.5' : '1'};
+
+  .os-divider {
+    width: 0.8rem;
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 150px;
+`;
+
 // tslint:disable-next-line:variable-name
 export const HighlightsChapter = styled.div`
   ${h4Style}
@@ -44,6 +65,10 @@ export const HighlightSection = styled.div`
   display: flex;
   align-items: center;
   font-weight: bold;
+
+  > span {
+    overflow: hidden;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

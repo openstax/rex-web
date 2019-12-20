@@ -180,6 +180,8 @@ describe('EditCard', () => {
       <EditCard
         highlight={highlight as unknown as Highlight}
         data={highlightData}
+        locationId={'locationId'}
+        pageId={'pageId'}
         onCancel={() => null}
         onSave={save}
         onBlur={blur}
@@ -201,6 +203,9 @@ describe('EditCard', () => {
     expect(save).toHaveBeenCalledWith({
       highlight: {color: highlightData.style, annotation: 'asdf'},
       id: highlightData.id,
+    }, {
+      locationId: 'locationId',
+      pageId: 'pageId',
     });
     expect(blur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
@@ -240,6 +245,8 @@ describe('EditCard', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
         highlight={highlight as unknown as Highlight}
+        locationId={'locationId'}
+        pageId={'pageId'}
         onSave={save}
         onCancel={() => null}
         data={data}
@@ -268,6 +275,9 @@ describe('EditCard', () => {
     expect(save).toHaveBeenCalledWith({
       highlight: {color: highlightData.style, annotation: ''},
       id: highlightData.id,
+    }, {
+      locationId: 'locationId',
+      pageId: 'pageId',
     });
     expect(blur).not.toHaveBeenCalled();
   });
@@ -308,7 +318,13 @@ describe('EditCard', () => {
   it('handles color change when there is data', () => {
     const save = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} data={highlightData} onSave={save} />
+      <EditCard
+        highlight={highlight as unknown as Highlight}
+        data={highlightData}
+        locationId={'locationId'}
+        pageId={'pageId'}
+        onSave={save}
+      />
     </MessageProvider>);
 
     const picker = component.root.findByType(ColorPicker);
@@ -320,6 +336,9 @@ describe('EditCard', () => {
     expect(save).toHaveBeenCalledWith({
       highlight: {annotation: highlightData.annotation, color: 'blue'},
       id: highlightData.id,
+    }, {
+      locationId: 'locationId',
+      pageId: 'pageId',
     });
   });
 

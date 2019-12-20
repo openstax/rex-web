@@ -1,23 +1,43 @@
 import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
+import { setSummaryFilters } from '../../actions';
 import { highlightStyles } from '../../constants';
+import { summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 
 interface Props {
   className?: string;
 }
 
+const allColors = highlightStyles.map((style) => style.label);
+
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
-  const allColors = highlightStyles.map((style) => style.label);
-  const [selectedColors, setSelectedColors] = React.useState<HighlightColorEnum[]>(allColors);
+  const filters = useSelector(summaryFilters);
+  const dispatch = useDispatch();
+
+  const setSelectedColors = (colors: HighlightColorEnum[]) => {
+    dispatch(setSummaryFilters({
+      ...filters,
+      colors,
+    }));
+  };
+
+  const handleChange = (label: HighlightColorEnum) => {
+    if (filters.colors.includes(label)) {
+      setSelectedColors(filters.colors.filter(not(match(label))));
+    } else {
+      setSelectedColors([...filters.colors, label]);
+    }
+  };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
@@ -26,11 +46,8 @@ const ColorFilter = ({className}: Props) => {
     />
     {highlightStyles.map((style) => <Checkbox
       key={style.label}
-      checked={selectedColors.includes(style.label)}
-      onChange={() => selectedColors.includes(style.label)
-        ? setSelectedColors(selectedColors.filter(not(match(style.label))))
-        : setSelectedColors([...selectedColors, style.label])
-      }
+      checked={filters.colors.includes(style.label)}
+      onChange={() => handleChange(style.label)}
     >
       <ColorIndicator style={style} size='small'/>
       <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
@@ -48,6 +65,7 @@ export default styled(ColorFilter)`
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
   outline: none;
+  z-index: 2;
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

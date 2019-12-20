@@ -1,4 +1,4 @@
-import { book, page } from '../../../test/mocks/archiveLoader';
+import { book, page, pageInChapter } from '../../../test/mocks/archiveLoader';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { ArchiveTree, ArchiveTreeSection, Page } from '../types';
 import {
@@ -9,7 +9,8 @@ import {
   findArchiveTreeNode,
   findDefaultBookPage,
   getPageSlug,
-  splitTitleParts
+  nodeHasId,
+  splitTitleParts,
 } from './archiveTreeUtils';
 
 const makeArchiveSection = (title: string): ArchiveTreeSection => ({
@@ -136,5 +137,16 @@ describe('getPageSlug', () => {
       // tslint:disable-next-line:max-line-length
       `"trying to find slug of page, found node that was not a page, pageid: testbook1-testchapter1-uuid, bookid: testbook1-uuid"`
     );
+  });
+});
+
+describe('nodeHasId', () => {
+  const node = book.tree.contents[0];
+  it('return true if node has id', () => {
+    expect(nodeHasId(node.id, node)).toEqual(true);
+  });
+
+  it('return false if node does not have id', () => {
+    expect(nodeHasId('some-id', node)).toEqual(false);
   });
 });
