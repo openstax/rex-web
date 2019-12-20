@@ -180,8 +180,8 @@ describe('EditCard', () => {
       <EditCard
         highlight={highlight as unknown as Highlight}
         data={highlightData}
-        locationId={'locationId'}
-        pageId={'pageId'}
+        locationFilterId='locationId'
+        pageId='pageId'
         onCancel={() => null}
         onSave={save}
         onBlur={blur}
@@ -204,7 +204,7 @@ describe('EditCard', () => {
       highlight: {color: highlightData.style, annotation: 'asdf'},
       id: highlightData.id,
     }, {
-      locationId: 'locationId',
+      locationFilterId: 'locationId',
       pageId: 'pageId',
     });
     expect(blur).not.toHaveBeenCalled();
@@ -245,8 +245,8 @@ describe('EditCard', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <EditCard
         highlight={highlight as unknown as Highlight}
-        locationId={'locationId'}
-        pageId={'pageId'}
+        locationFilterId='locationId'
+        pageId='pageId'
         onSave={save}
         onCancel={() => null}
         data={data}
@@ -276,7 +276,7 @@ describe('EditCard', () => {
       highlight: {color: highlightData.style, annotation: ''},
       id: highlightData.id,
     }, {
-      locationId: 'locationId',
+      locationFilterId: 'locationId',
       pageId: 'pageId',
     });
     expect(blur).not.toHaveBeenCalled();
@@ -321,8 +321,8 @@ describe('EditCard', () => {
       <EditCard
         highlight={highlight as unknown as Highlight}
         data={highlightData}
-        locationId={'locationId'}
-        pageId={'pageId'}
+        locationFilterId='locationId'
+        pageId='pageId'
         onSave={save}
       />
     </MessageProvider>);
@@ -337,7 +337,7 @@ describe('EditCard', () => {
       highlight: {annotation: highlightData.annotation, color: 'blue'},
       id: highlightData.id,
     }, {
-      locationId: 'locationId',
+      locationFilterId: 'locationId',
       pageId: 'pageId',
     });
   });

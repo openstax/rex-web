@@ -14,7 +14,7 @@ import * as Styled from './ShowMyHighlightsStyles';
 // tslint:disable-next-line: variable-name
 const Highlights = () => {
   const filters = useSelector(summaryFilters);
-  const locations = useSelector(highlightLocations);
+  const locationFilters = useSelector(highlightLocations);
   const highlights = useSelector(summaryHighlights);
   const isLoading = useSelector(summaryIsLoading);
 
@@ -40,11 +40,11 @@ const Highlights = () => {
 
   if (
     isLoading ||
-    (locations.size > 0 && Object.keys(highlights).length > 0)
+    (locationFilters.size > 0 && Object.keys(highlights).length > 0)
   ) {
     return <Styled.Highlights isLoading={isLoading}>
       {isLoading ? <Styled.LoaderWrapper><Loader/></Styled.LoaderWrapper> : null}
-      {Array.from(locations).map(([id, location]) => {
+      {Array.from(locationFilters).map(([id, location]) => {
         if (!highlights[id]) { return null; }
         return <SectionHighlights
           key={id}
@@ -89,16 +89,18 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
   const pageIdIsSameAsSectionId = highlights[location.id][location.id];
   return (
     <React.Fragment>
-      {!pageIdIsSameAsSectionId && <Styled.HighlightsChapter
+      <Styled.HighlightsChapter
         dangerouslySetInnerHTML={{ __html: location.title }}
-      />}
+      />
       {Object.entries(highlights[location.id]).map(([pageId, pageHighlights]) => {
-        pageId = stripIdVersion(pageId);
         const page = archiveTreeSectionIsChapter(location)
-          ? findArchiveTreeNode(location, pageId)!
+          ? findArchiveTreeNode(location, stripIdVersion(pageId))
           : location;
+        if (!page) { return null; }
         return <Styled.HighlightWrapper key={pageId}>
-          <Styled.HighlightSection dangerouslySetInnerHTML={{ __html: page.title }} />
+          {!pageIdIsSameAsSectionId && <Styled.HighlightSection
+            dangerouslySetInnerHTML={{ __html: page.title }}
+          />}
           {pageHighlights.map((item) => {
             return (
               <Styled.HighlightOuterWrapper key={item.id}>

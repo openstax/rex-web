@@ -19,7 +19,7 @@ import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } f
 import { highlightStyles } from '../constants';
 import { highlightLocations } from '../selectors';
 import { HighlightData } from '../types';
-import { getHighlightLocationForPage } from '../utils';
+import { getHighlightLocationFilterForPage } from '../utils';
 import Card from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
@@ -211,8 +211,9 @@ describe('Card', () => {
       },
     ] as HighlightData[]));
 
-    const locations = highlightLocations(store.getState());
-    const location = getHighlightLocationForPage(locations, page);
+    const locationFilters = highlightLocations(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -224,7 +225,7 @@ describe('Card', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id, {
-      locationId: location!.id,
+      locationFilterId: location!.id,
       pageId: page.id,
     }));
   });
@@ -257,8 +258,9 @@ describe('Card', () => {
 
     dispatch.mockClear();
 
-    const locations = highlightLocations(store.getState());
-    const location = getHighlightLocationForPage(locations, page);
+    const locationFilters = highlightLocations(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -275,7 +277,7 @@ describe('Card', () => {
       sourceId: 'testbook1-testpage1-uuid',
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
-      locationId: location!.id,
+      locationFilterId: location!.id,
       pageId: page.id,
     }));
   });

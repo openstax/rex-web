@@ -3,16 +3,16 @@ import {
   archiveTreeSectionIsChapter,
   findArchiveTreeNode,
 } from '../../utils/archiveTreeUtils';
-import { HighlightLocations } from '../types';
+import { HighlightLocationFilters } from '../types';
 
-const getHighlightLocationForPage = (
-  locations: HighlightLocations, page: Page | LinkedArchiveTreeNode | string
+const getHighlightLocationFilterForPage = (
+  locationFilters: HighlightLocationFilters, page: Page | LinkedArchiveTreeNode | string
 ) => {
   const pageId = typeof page === 'string' ? page : page.id;
-  let location = locations.get(pageId);
+  let location = locationFilters.get(pageId);
 
   if (!location) {
-    for (const section of locations.values()) {
+    for (const section of locationFilters.values()) {
       if (archiveTreeSectionIsChapter(section) && findArchiveTreeNode(section, pageId)) {
         location = section;
         break;
@@ -23,4 +23,4 @@ const getHighlightLocationForPage = (
   return location;
 };
 
-export default getHighlightLocationForPage;
+export default getHighlightLocationFilterForPage;

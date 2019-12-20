@@ -16,7 +16,7 @@ import { highlightStyles } from '../../constants';
 import { summaryFilters } from '../../selectors';
 import { addCurrentPageToSummaryFilters } from '../../utils';
 import Filters from './Filters';
-import { FiltersListChapter, FiltersListColor, RemoveIcon } from './FiltersList';
+import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
 jest.mock('./ColorFilter', () => (props: any) => <div mock-color-filter {...props} />);
 jest.mock('./ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
@@ -78,8 +78,8 @@ describe('Filters', () => {
     colorFilters = component.root.findAllByType(FiltersListColor);
 
     expect(chapterFilters.length).toEqual(2);
-    expect(chapterFilters[0].props.chapterId).toEqual(pageId);
-    expect(chapterFilters[1].props.chapterId).toEqual(chapterId);
+    expect(chapterFilters[0].props.locationId).toEqual(pageId);
+    expect(chapterFilters[1].props.locationId).toEqual(chapterId);
     expect(colorFilters.length).toEqual(2);
     expect(colorFilters[0].props.color).toEqual(HighlightColorEnum.Blue);
     expect(colorFilters[1].props.color).toEqual(HighlightColorEnum.Yellow);
@@ -104,8 +104,8 @@ describe('Filters', () => {
     expect(colorFilters.length).toEqual(5);
 
     renderer.act(() => {
-      chapterFilters[0].findByType(RemoveIcon).props.onClick();
-      colorFilters[0].findByType(RemoveIcon).props.onClick();
+      chapterFilters[0].findByType(StyledPlainButton).props.onClick();
+      colorFilters[0].findByType(StyledPlainButton).props.onClick();
     });
 
     const colors = highlightStyles.map(({label}) => label);

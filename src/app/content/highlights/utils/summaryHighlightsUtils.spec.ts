@@ -24,7 +24,7 @@ describe('addSummaryHighlight', () => {
 
     expect(addSummaryHighlight({}, {
       highlight,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -44,7 +44,7 @@ describe('addSummaryHighlight', () => {
 
     expect(addSummaryHighlight(summaryHighlights, {
       highlight: highlight2,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -65,21 +65,8 @@ describe('addSummaryHighlight', () => {
 
     expect(addSummaryHighlight(summaryHighlights, {
       highlight: highlight2,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page2',
-    })).toMatchObject(expectedResult);
-  });
-
-  it('add highlight without locationId', () => {
-    const expectedResult = {
-      page: {
-        page: [highlight],
-      },
-    };
-
-    expect(addSummaryHighlight({}, {
-      highlight,
-      pageId: 'page',
     })).toMatchObject(expectedResult);
   });
 });
@@ -100,26 +87,7 @@ describe('removeSummaryHighlight', () => {
 
     expect(removeSummaryHighlight(summaryHighlights, {
       id: highlight.id,
-      locationId: 'location',
-      pageId: 'page',
-    })).toMatchObject(expectedResult);
-  });
-
-  it('remove highlight without locationId', () => {
-    const summaryHighlights = {
-      page: {
-        page: [highlight, highlight2],
-      },
-    };
-
-    const expectedResult = {
-      page: {
-        page: [highlight2],
-      },
-    };
-
-    expect(removeSummaryHighlight(summaryHighlights, {
-      id: highlight.id,
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -140,7 +108,7 @@ describe('removeSummaryHighlight', () => {
 
     expect(removeSummaryHighlight(summaryHighlights, {
       id: highlight.id,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -156,7 +124,7 @@ describe('removeSummaryHighlight', () => {
 
     expect(removeSummaryHighlight(summaryHighlights, {
       id: highlight.id,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -164,7 +132,7 @@ describe('removeSummaryHighlight', () => {
   it('noops if highlight was not in object', () => {
     expect(removeSummaryHighlight({}, {
       id: 'highlight',
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject({});
   });
@@ -191,31 +159,7 @@ describe('updateSummaryHighlight', () => {
     expect(updateSummaryHighlight(summaryHighlights, {
       highlight: dataToUpdate,
       id: highlight.id,
-      locationId: 'location',
-      pageId: 'page',
-    })).toMatchObject(expectedResult);
-  });
-
-  it('update color without locationId', () => {
-    const summaryHighlights = {
-      page: {
-        page: [highlight],
-      },
-    };
-
-    const dataToUpdate = {
-      color: HighlightUpdateColorEnum.Pink,
-    } as HighlightUpdate;
-
-    const expectedResult = {
-      page: {
-        page: [{...highlight, ...dataToUpdate}],
-      },
-    };
-
-    expect(updateSummaryHighlight(summaryHighlights, {
-      highlight: dataToUpdate,
-      id: highlight.id,
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -241,7 +185,7 @@ describe('updateSummaryHighlight', () => {
     expect(updateSummaryHighlight(summaryHighlights, {
       highlight: dataToUpdate,
       id: highlight.id,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -250,14 +194,14 @@ describe('updateSummaryHighlight', () => {
     expect(updateSummaryHighlight({}, {
       highlight: {id: 'id'} as unknown as HighlightUpdate,
       id: 'highlight',
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject({});
   });
 });
 
 describe('updateSummaryHighlightsDependOnFilters', () => {
-  it('noops if locationId is not in filters', () => {
+  it('noops if locationFilterId is not in filters', () => {
     const summaryHighlights = {
       location: {
         page: [highlight],
@@ -273,7 +217,7 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
 
     expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
       highlight: newHighlight,
-      locationId: 'not-in-filters',
+      locationFilterId: 'not-in-filters',
       pageId: 'page',
     })).toMatchObject(summaryHighlights);
   });
@@ -294,7 +238,7 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
 
     expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
       highlight: newHighlight,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject({});
   });
@@ -321,7 +265,7 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
 
     expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
       highlight: newHighlight,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -348,6 +292,7 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
 
     expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
       highlight: newHighlight,
+      locationFilterId: 'page',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });
@@ -370,7 +315,7 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
 
     expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
       highlight: newHighlight,
-      locationId: 'location',
+      locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
   });

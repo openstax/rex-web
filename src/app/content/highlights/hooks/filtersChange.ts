@@ -8,14 +8,14 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { highlightLocations, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
-import { addSummaryHighlight, getHighlightLocationForPage } from '../utils';
+import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   dispatch, getState, highlightClient,
 }) => async() => {
   const state = getState();
   const book = bookSelector(state);
-  const locations = highlightLocations(state);
+  const locationFilters = highlightLocations(state);
   const {locationIds, colors} = summaryFilters(state);
 
   if (!book) { return; }
@@ -30,7 +30,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
   }
 
   const flatBook = archiveTreeUtils.flattenArchiveTree(book.tree);
-  let sourceIds: string[] = [];
+  const sourceIds: string[] = [];
 
   for (const filterId of locationIds) {
     const pageOrChapter = flatBook.find(archiveTreeUtils.nodeMatcher(filterId));
@@ -40,7 +40,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
       ? archiveTreeUtils.findTreePages(pageOrChapter).map((p) => p.id)
       : [filterId];
 
-    sourceIds = [...sourceIds, ...pageIds];
+    sourceIds.push(...pageIds);
   }
 
   const highlights = await highlightClient.getHighlights({
@@ -56,14 +56,14 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters> = ({
     return;
   }
 
-  for (const h of highlights.data) {
-    const pageId = stripIdVersion(h.sourceId);
-    const location = getHighlightLocationForPage(locations, pageId);
-    const locationId = location && stripIdVersion(location.id);
-    if (!locationId) { continue; }
+  for (const highlight of highlights.data) {
+    const pageId = stripIdVersion(highlight.sourceId);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageId);
+    const locationFilterId = location && stripIdVersion(location.id);
+    if (!locationFilterId) { continue; }
     summaryHighlights = addSummaryHighlight(summaryHighlights, {
-      highlight: h,
-      locationId,
+      highlight,
+      locationFilterId,
       pageId,
     });
   }

@@ -29,7 +29,7 @@ import {
   highlightStyles
 } from '../constants';
 import { HighlightData } from '../types';
-import { getHighlightLocationForPage } from '../utils';
+import { getHighlightLocationFilterForPage } from '../utils';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import { cardBorder } from './style';
@@ -56,7 +56,7 @@ const Card = (props: Props) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
-  const locations = useSelector(selectHighlights.highlightLocations);
+  const locationFilters = useSelector(selectHighlights.highlightLocations);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
@@ -81,13 +81,15 @@ const Card = (props: Props) => {
     return null;
   }
 
-  const location = getHighlightLocationForPage(locations, page) || page;
-  const locationId = stripIdVersion(location.id);
+  const location = getHighlightLocationFilterForPage(locationFilters, page);
+  if (!location) { return null; }
+
+  const locationFilterId = stripIdVersion(location.id);
 
   const onRemove = () => {
     if (props.data) {
       props.remove(props.data.id, {
-        locationId,
+        locationFilterId,
         pageId: page.id,
       });
     }
@@ -101,7 +103,7 @@ const Card = (props: Props) => {
       sourceId: page.id,
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
-      locationId,
+      locationFilterId,
       pageId: page.id,
     });
   };
@@ -124,7 +126,7 @@ const Card = (props: Props) => {
     authenticated={!!props.user}
     loginLink={props.loginLink}
     highlight={props.highlight}
-    locationId={locationId}
+    locationFilterId={locationFilterId}
     pageId={page.id}
     onCreate={onCreate}
     onCancel={() => setEditing(false)}

@@ -59,8 +59,8 @@ const chunk = <T extends any>(sections: T[]) => {
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
-  const locations = useSelector(highlightLocations);
-  const locationIds = Array.from(locations.keys());
+  const locationFilters = useSelector(highlightLocations);
+  const locationFiltersIds = Array.from(locationFilters.keys());
 
   const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
@@ -80,10 +80,10 @@ const ChapterFilter = ({className}: Props) => {
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(locationIds)}
+      onAll={() => setSelectedChapters(locationFiltersIds)}
     />
     <Row>
-      {chunk(Array.from(locations.values())).map((sectionChunk, index) => <Column key={index}>
+      {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
           checked={filters.locationIds.includes(location.id)}

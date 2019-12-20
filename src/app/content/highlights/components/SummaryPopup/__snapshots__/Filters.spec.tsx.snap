@@ -34,8 +34,11 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 .c11 {
-  padding: 0.5rem;
   cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  padding: 0.5rem;
 }
 
 .c11 svg {
@@ -212,7 +215,7 @@ exports[`Filters matches snapshot 1`] = `
     className="c10"
   >
     <li>
-      <span
+      <button
         className="c11"
         onClick={[Function]}
       >
@@ -242,7 +245,7 @@ exports[`Filters matches snapshot 1`] = `
             </g>
           </g>
         </svg>
-      </span>
+      </button>
       <span
         className="c12"
       >
@@ -250,7 +253,7 @@ exports[`Filters matches snapshot 1`] = `
       </span>
     </li>
     <li>
-      <span
+      <button
         className="c11"
         onClick={[Function]}
       >
@@ -280,7 +283,7 @@ exports[`Filters matches snapshot 1`] = `
             </g>
           </g>
         </svg>
-      </span>
+      </button>
       <span
         className="c12"
       >
@@ -288,7 +291,7 @@ exports[`Filters matches snapshot 1`] = `
       </span>
     </li>
     <li>
-      <span
+      <button
         className="c11"
         onClick={[Function]}
       >
@@ -318,7 +321,7 @@ exports[`Filters matches snapshot 1`] = `
             </g>
           </g>
         </svg>
-      </span>
+      </button>
       <span
         className="c12"
       >
@@ -326,7 +329,7 @@ exports[`Filters matches snapshot 1`] = `
       </span>
     </li>
     <li>
-      <span
+      <button
         className="c11"
         onClick={[Function]}
       >
@@ -356,7 +359,7 @@ exports[`Filters matches snapshot 1`] = `
             </g>
           </g>
         </svg>
-      </span>
+      </button>
       <span
         className="c12"
       >
@@ -364,7 +367,7 @@ exports[`Filters matches snapshot 1`] = `
       </span>
     </li>
     <li>
-      <span
+      <button
         className="c11"
         onClick={[Function]}
       >
@@ -394,7 +397,7 @@ exports[`Filters matches snapshot 1`] = `
             </g>
           </g>
         </svg>
-      </span>
+      </button>
       <span
         className="c12"
       >

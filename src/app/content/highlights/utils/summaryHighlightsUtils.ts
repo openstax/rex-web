@@ -7,7 +7,7 @@ import {
 import { SummaryFilters, SummaryHighlights } from '../types';
 
 interface BaseData {
-  locationId?: string;
+  locationFilterId: string;
   pageId: string;
 }
 
@@ -16,21 +16,17 @@ interface DataAdd extends BaseData {
 }
 
 export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataAdd) => {
-  const newHighlights = {...summaryHighlights};
-  const { locationId, pageId, highlight } = data;
-  const chId = locationId || pageId;
+  const { locationFilterId, pageId, highlight } = data;
+  const newHighlights: SummaryHighlights = {
+    ...summaryHighlights,
+    [locationFilterId]: {
+      ...summaryHighlights[locationFilterId],
+      [pageId]: [...(summaryHighlights[locationFilterId] || {})[pageId] || []],
+    },
+  };
 
-  if (newHighlights[chId]) {
-    if (newHighlights[chId][pageId]) {
-      newHighlights[chId][pageId].push(highlight);
-    } else {
-      newHighlights[chId][pageId] = [highlight];
-    }
-  } else {
-    newHighlights[chId] = {
-      [pageId]: [highlight],
-    };
-  }
+  newHighlights[locationFilterId][pageId].push(highlight);
+
   return newHighlights;
 };
 
@@ -39,19 +35,25 @@ interface DataRemove extends BaseData {
 }
 
 export const removeSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataRemove) => {
-  const newHighlights = {...summaryHighlights};
-  const { locationId, pageId, id } = data;
-  const chId = locationId || pageId;
+  const { locationFilterId, pageId, id } = data;
 
-  if (newHighlights[chId] && newHighlights[chId][pageId]) {
-    newHighlights[chId][pageId] = newHighlights[chId][pageId]
-      .filter((h) => h.id !== id);
-    if (newHighlights[chId][pageId].length === 0) {
-      delete newHighlights[chId][pageId];
-    }
-    if (Object.keys(newHighlights[chId]).length === 0) {
-      delete newHighlights[chId];
-    }
+  const filteredHighlights = summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId]
+    ? summaryHighlights[locationFilterId][pageId].filter((highlight) => highlight.id !== id)
+    : [];
+
+  const newHighlights: SummaryHighlights = {
+    ...summaryHighlights,
+    [locationFilterId]: {
+      ...summaryHighlights[locationFilterId],
+      [pageId]: filteredHighlights,
+    },
+  };
+
+  if (newHighlights[locationFilterId][pageId].length === 0) {
+    delete newHighlights[locationFilterId][pageId];
+  }
+  if (Object.keys(newHighlights[locationFilterId]).length === 0) {
+    delete newHighlights[locationFilterId];
   }
 
   return newHighlights;
@@ -60,18 +62,24 @@ export const removeSummaryHighlight = (summaryHighlights: SummaryHighlights, dat
 interface DataUpdate extends BaseData, UpdateHighlightRequest {}
 
 export const updateSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataUpdate) => {
-  const newHighlights = {...summaryHighlights};
-  const { locationId, pageId, id, highlight } = data;
-  const chId = locationId || pageId;
+  const { locationFilterId, pageId, id, highlight } = data;
 
-  if (newHighlights[chId] && newHighlights[chId][pageId]) {
-    newHighlights[chId][pageId] = newHighlights[chId][pageId].map((currHighlight) =>
+  const updatedHighlights = summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId]
+    ? summaryHighlights[locationFilterId][pageId].map((currHighlight) =>
       currHighlight.id === id ? {
         ...currHighlight,
         ...highlight,
         color: highlight.color as string as HighlightColorEnum,
-      } : currHighlight);
-  }
+      } : currHighlight)
+    : [];
+
+  const newHighlights: SummaryHighlights = {
+    ...summaryHighlights,
+    [locationFilterId]: {
+      ...summaryHighlights[locationFilterId],
+      [pageId]: updatedHighlights,
+    },
+  };
 
   return newHighlights;
 };
@@ -95,20 +103,25 @@ interface Data extends BaseData {
 export const updateSummaryHighlightsDependOnFilters = (
   summaryHighlights: SummaryHighlights, filters: SummaryFilters, data: Data
 ) => {
-  let newHighlights = {...summaryHighlights};
-  const { locationId, pageId, highlight: updatedHighlight, highlight: { color, annotation } } = data;
-  const chId = locationId || pageId;
+  const { locationFilterId, pageId, highlight: updatedHighlight, highlight: { color, annotation } } = data;
   const { colors, locationIds } = filters;
+  let newHighlights: SummaryHighlights = {
+    ...summaryHighlights,
+    [locationFilterId]: {
+      ...summaryHighlights[locationFilterId],
+      [pageId]: [...(summaryHighlights[locationFilterId] || {})[pageId] || []],
+    },
+  };
 
   // If highlight's chapter is not in summary filters stop here...
-  if (!locationIds.includes(chId)) { return newHighlights; }
+  if (!locationIds.includes(locationFilterId)) { return summaryHighlights; }
 
   // If highlight's color has changed and it's no longer in filters
   // remove this highlight from summary highlights...
   if (!colors.includes(color)) {
     newHighlights = removeSummaryHighlight(newHighlights, {
       id: updatedHighlight.id,
-      locationId,
+      locationFilterId,
       pageId,
     });
     return newHighlights;
@@ -117,14 +130,14 @@ export const updateSummaryHighlightsDependOnFilters = (
   // If color it is in filters and highlight was already in summary highlights
   // then just update it.
   if (
-    newHighlights[chId]
-    && newHighlights[chId][pageId]
-    && newHighlights[chId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
+    newHighlights[locationFilterId]
+    && newHighlights[locationFilterId][pageId]
+    && newHighlights[locationFilterId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
   ) {
     newHighlights = updateSummaryHighlight(newHighlights, {
       highlight: { color: color as string as HighlightUpdateColorEnum, annotation },
       id: updatedHighlight.id,
-      locationId,
+      locationFilterId,
       pageId,
     });
     return newHighlights;
@@ -133,7 +146,7 @@ export const updateSummaryHighlightsDependOnFilters = (
   // If it wasn't then add it to summary highlights.
   newHighlights = addSummaryHighlight(newHighlights, {
     highlight: updatedHighlight,
-    locationId,
+    locationFilterId,
     pageId,
   });
 

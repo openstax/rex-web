@@ -38,63 +38,82 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.createHighlight): {
-      const newState = {...state};
-
       const highlight = {
         ...action.payload,
         color: action.payload.color as string as HighlightColorEnum,
         sourceType: action.payload.sourceType as string as HighlightSourceTypeEnum,
       };
-      newState.highlights = [...state.highlights || [], highlight];
 
-      if (newState.summary.filters.colors.includes(highlight.color)) {
-        newState.summary.highlights = addSummaryHighlight(newState.summary.highlights, {
+      let newSummaryHighlights = {};
+
+      if (state.summary.filters.colors.includes(highlight.color)) {
+        newSummaryHighlights = addSummaryHighlight(state.summary.highlights, {
           ...action.meta,
           highlight,
         });
       }
-      return newState;
+
+      return {
+        ...state,
+        highlights: [...state.highlights || [], highlight],
+        summary: {
+          ...state.summary,
+          highlights: Object.keys(newSummaryHighlights).length ? newSummaryHighlights : state.summary.highlights,
+        },
+      };
     }
     case getType(actions.openMyHighlights):
       return {...state, myHighlightsOpen: true};
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
-      const newState = {...state};
-      if (!newState.highlights) { return newState; }
+      if (!state.highlights) { return state; }
 
-      const oldHiglightIndex = newState.highlights.findIndex(
+      const oldHiglightIndex = state.highlights.findIndex(
         (highlight) => highlight.id === action.payload.id);
-      if (oldHiglightIndex < 0) { return newState; }
+      if (oldHiglightIndex < 0) { return state; }
 
       const newHighlight = {
-        ...newState.highlights[oldHiglightIndex],
+        ...state.highlights[oldHiglightIndex],
         ...action.payload.highlight,
       } as Highlight;
 
-      newState.highlights[oldHiglightIndex] = newHighlight;
+      const newHighlights = [...state.highlights];
+      newHighlights[oldHiglightIndex] = newHighlight;
 
-      newState.summary.highlights = updateSummaryHighlightsDependOnFilters(
-        newState.summary.highlights,
-        newState.summary.filters,
+      const newSummaryHighlights = updateSummaryHighlightsDependOnFilters(
+        state.summary.highlights,
+        state.summary.filters,
         {...action.meta, highlight: newHighlight});
 
-      return newState;
+      return {
+        ...state,
+        highlights: newHighlights,
+        summary: {
+          ...state.summary,
+          highlights: newSummaryHighlights,
+        },
+      };
     }
     case getType(actions.deleteHighlight): {
       if (!state.highlights) {
         return state;
       }
 
-      const newState = {...state};
-
-      newState.focused  = newState.focused === action.payload ? undefined : state.focused;
-      newState.highlights = newState.highlights!.filter(({id}) => id !== action.payload);
-      newState.summary.highlights = removeSummaryHighlight(newState.summary.highlights, {
+      const newSummaryHighlights = removeSummaryHighlight(state.summary.highlights, {
         ...action.meta,
         id: action.payload,
       });
-      return newState;
+
+      return {
+        ...state,
+        focused: state.focused === action.payload ? undefined : state.focused,
+        highlights: state.highlights.filter(({id}) => id !== action.payload),
+        summary: {
+          ...state.summary,
+          highlights: newSummaryHighlights,
+        },
+      };
     }
     case getType(actions.receiveHighlights): {
       return {...state, highlights: [...state.highlights || [], ...action.payload],

@@ -1,6 +1,6 @@
 export { default as addCurrentPageToSummaryFilters } from './addCurrentPageToSummaryFilters';
-export { default as getHighlightLocationForPage } from './getHighlightLocationForPage';
-export { default as getHighlightLocationsFromBook } from './getHighlightLocationsFromBook';
+export { default as getHighlightLocationFilterForPage } from './getHighlightLocationFilterForPage';
+export { default as getHighlightLocationFilters } from './getHighlightLocationFilters';
 export {
   addSummaryHighlight,
   removeSummaryHighlight,

@@ -23,4 +23,4 @@ export interface State {
   };
 }
 
-export type HighlightLocations = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;
+export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

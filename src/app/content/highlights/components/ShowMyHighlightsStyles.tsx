@@ -66,7 +66,9 @@ export const HighlightSection = styled.div`
   align-items: center;
   font-weight: bold;
 
-  > span {
+  > .os-number,
+  > .os-divider,
+  > .os-text {
     overflow: hidden;
   }
 `;

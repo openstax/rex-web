@@ -11,7 +11,6 @@ import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
-import { SummaryHighlights } from '../types';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
 
@@ -21,7 +20,6 @@ interface Props {
   user?: User;
   loggedOut: boolean;
   loginLink: string;
-  highlights: SummaryHighlights;
 }
 
 class HighlightsPopUp extends Component<Props> {
@@ -137,7 +135,6 @@ class HighlightsPopUp extends Component<Props> {
 
 export default connect(
   (state: AppState) => ({
-    highlights: selectors.summaryHighlights(state),
     loggedOut: authSelect.loggedOut(state),
     loginLink: authSelect.loginLink(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),

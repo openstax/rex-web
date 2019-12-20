@@ -14,7 +14,7 @@ import { receiveHighlights, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import { highlightLocations } from '../selectors';
 import { HighlightData } from '../types';
-import { getHighlightLocationForPage } from '../utils';
+import { getHighlightLocationFilterForPage } from '../utils';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -96,8 +96,9 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const locations = highlightLocations(store.getState());
-    const location = getHighlightLocationForPage(locations, page);
+    const locationFilters = highlightLocations(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
@@ -115,8 +116,9 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const locations = highlightLocations(store.getState());
-    const location = getHighlightLocationForPage(locations, page);
+    const locationFilters = highlightLocations(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
 
     const mock = mockHighlight();
     const highlights = [{id: mock.id} as HighlightData];

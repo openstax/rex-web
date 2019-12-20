@@ -13,9 +13,9 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { highlightLocations, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
-import { getHighlightLocationForPage } from '../utils';
+import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights, { SectionHighlights } from './Highlights';
-import { HighlightContentWrapper, HighlightsChapter, LoaderWrapper } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper, HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -38,20 +38,20 @@ describe('Highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
     const filters = summaryFilters(state);
-    const locations = highlightLocations(state);
-    const chapter = getHighlightLocationForPage(locations, pageInChapter);
-    expect(chapter).toBeDefined();
+    const locationFilters = highlightLocations(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({
       ...filters,
-      locationIds: [chapter!.id, pageId],
+      locationIds: [location!.id, pageId],
     }));
 
     const summaryHighlights = {
       [pageId]: {
         [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
       },
-      [chapter!.id]: {
+      [location!.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
     } as SummaryHighlights;
@@ -71,10 +71,8 @@ describe('Highlights', () => {
     expect(firstSectionHighlights.length).toEqual(5);
     expect(secondSectionHighlights.length).toEqual(2);
 
-    // If locationId is same as pageId chapter title is not duplicated.
-    expect(sections[0].findAllByType(HighlightsChapter).length).toEqual(0);
-    expect(sections[1].findByType(HighlightsChapter).props.dangerouslySetInnerHTML.__html)
-      .toEqual(chapter!.title);
+    // If locationId is same as pageId section title is not duplicated.
+    expect(sections[0].findAllByType(HighlightSection).length).toEqual(0);
 
     const pageHighlights = summaryHighlights[pageId][pageId];
     expect(firstSectionHighlights[0].props.color).toEqual(pageHighlights[0].color);
@@ -83,7 +81,7 @@ describe('Highlights', () => {
     expect(firstSectionHighlights[3].props.color).toEqual(pageHighlights[3].color);
     expect(firstSectionHighlights[4].props.color).toEqual(pageHighlights[4].color);
 
-    const pageInChapterHighlights = summaryHighlights[chapter!.id][pageInChapter.id];
+    const pageInChapterHighlights = summaryHighlights[location!.id][pageInChapter.id];
     expect(secondSectionHighlights[0].props.color).toEqual(pageInChapterHighlights[0].color);
     expect(secondSectionHighlights[1].props.color).toEqual(pageInChapterHighlights[1].color);
   });
@@ -92,15 +90,15 @@ describe('Highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
     const filters = summaryFilters(state);
-    const locations = highlightLocations(state);
-    const chapter = getHighlightLocationForPage(locations, pageInChapter);
-    expect(chapter).toBeDefined();
+    const locationFilters = highlightLocations(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
 
     const summaryHighlights = {
       [pageId]: {
         [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
       },
-      [chapter!.id]: {
+      [location!.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
     } as SummaryHighlights;
@@ -108,7 +106,7 @@ describe('Highlights', () => {
     renderer.act(() => {
       store.dispatch(setSummaryFilters({
         ...filters,
-        locationIds: [chapter!.id, pageId],
+        locationIds: [location!.id, pageId],
       }));
       store.dispatch(receiveSummaryHighlights(summaryHighlights));
     });
@@ -127,7 +125,7 @@ describe('Highlights', () => {
     renderer.act(() => {
       store.dispatch(setSummaryFilters({
         ...filters,
-        locationIds: [chapter!.id, pageId],
+        locationIds: [location!.id, pageId],
       }));
     });
 

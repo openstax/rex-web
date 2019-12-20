@@ -51,7 +51,7 @@ describe('highlight reducer', () => {
       focused: 'asdf',
       highlights: [mockHighlight],
     }, actions.deleteHighlight(mockHighlight.id, {
-      locationId: 'highlightChapter',
+      locationFilterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
     expect(state.focused).toEqual(undefined);
@@ -68,7 +68,7 @@ describe('highlight reducer', () => {
         },
       },
     }, actions.createHighlight(mockHighlight as any, {
-      locationId: 'highlightChapter',
+      locationFilterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
 
@@ -77,6 +77,7 @@ describe('highlight reducer', () => {
     }
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
+    console.log('state', state)
     const highlights = state.summary.highlights.highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
     expect(highlights.find((h) => h.id === mockHighlight.id)).toBeTruthy();
@@ -88,7 +89,7 @@ describe('highlight reducer', () => {
       const state = reducer({
         ...initialState,
       }, actions.deleteHighlight('asdf', {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -109,7 +110,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.deleteHighlight(mockHighlight.id, {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -130,7 +131,7 @@ describe('highlight reducer', () => {
       const state = reducer({
         ...initialState,
       }, actions.updateHighlight({id: 'asdf', highlight: {annotation: 'asdf'}}, {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -157,7 +158,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}, {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -192,7 +193,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -227,7 +228,7 @@ describe('highlight reducer', () => {
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Blue}}, {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
@@ -250,7 +251,7 @@ describe('highlight reducer', () => {
         ...initialState,
         highlights: [mock1, mock3],
       }, actions.updateHighlight({id: 'id-not-exists', highlight: {color: HighlightUpdateColorEnum.Blue}}, {
-        locationId: 'highlightChapter',
+        locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 

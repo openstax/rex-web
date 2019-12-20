@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { PlainButton } from '../../../../components/Button';
 import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
@@ -11,9 +12,8 @@ import { setSummaryFilters } from '../../actions';
 import { highlightLocations, summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
-export const RemoveIcon = styled.span`
+export const StyledPlainButton = styled(PlainButton)`
   padding: 0.5rem;
-  cursor: pointer;
 
   svg {
     height: 1rem;
@@ -42,7 +42,7 @@ export const FiltersListColor = (props: FiltersListColorProps) => {
   };
 
   return <li>
-    <RemoveIcon onClick={handleClick}><Times /></RemoveIcon>
+    <StyledPlainButton onClick={handleClick}><Times /></StyledPlainButton>
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
         {(msg: Element | string) => msg}
@@ -53,18 +53,18 @@ export const FiltersListColor = (props: FiltersListColorProps) => {
 
 interface FiltersListChapterProps {
   title: string;
-  chapterId: string;
+  locationId: string;
   onRemove: (chapterId: string) => void;
 }
 
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => {
   const handleClick = () => {
-    props.onRemove(props.chapterId);
+    props.onRemove(props.locationId);
   };
 
   return <li>
-    <RemoveIcon onClick={handleClick}><Times /></RemoveIcon>
+    <StyledPlainButton onClick={handleClick}><Times /></StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </li>;
 };
@@ -75,7 +75,7 @@ interface FiltersListProps {
 
 // tslint:disable-next-line: variable-name
 const FiltersList = ({className}: FiltersListProps) => {
-  const locations = useSelector(highlightLocations);
+  const locationFilters = useSelector(highlightLocations);
   const filters = useSelector(summaryFilters);
 
   const dispatch = useDispatch();
@@ -95,10 +95,10 @@ const FiltersList = ({className}: FiltersListProps) => {
   };
 
   return <ul className={className}>
-    {filters.locationIds.map((locationId) => locations.has(locationId) && <FiltersListChapter
+    {filters.locationIds.map((locationId) => locationFilters.has(locationId) && <FiltersListChapter
       key={locationId}
-      title={locations.get(locationId)!.title}
-      chapterId={locationId}
+      title={locationFilters.get(locationId)!.title}
+      locationId={locationId}
       onRemove={onRemoveChapter}
     />)}
     {filters.colors.map((color) => <FiltersListColor

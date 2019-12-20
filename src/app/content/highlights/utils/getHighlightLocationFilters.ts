@@ -7,7 +7,7 @@ import {
   flattenArchiveTree,
 } from '../../utils/archiveTreeUtils';
 
-const getHighlightLocationsFromBook = (book: Book | ArchiveBook) => {
+const getHighlightLocationFilters = (book: Book | ArchiveBook) => {
   return new Map(
     flattenArchiveTree(book.tree)
       .filter((section) =>
@@ -17,4 +17,4 @@ const getHighlightLocationsFromBook = (book: Book | ArchiveBook) => {
   );
 };
 
-export default getHighlightLocationsFromBook;
+export default getHighlightLocationFilters;
