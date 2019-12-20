@@ -41,6 +41,35 @@ class Color(Enum):
         return self.value
 
     @classmethod
+    def from_html_class(cls, classes: str) -> Color:
+        """Get the Color enum from the HTML class string.
+
+        :param str classes: the HTML element class attribute string
+        :return: the enum identity for the color found in the string
+        :rtype: Color
+        :raises ValueError: if a color is not found in the HTML attribute
+
+        """
+        class_list = set(classes.split())
+        color_list = set([color.value for color in cls.options()])
+        return cls.from_color_string(list(class_list & color_list)[0])
+
+    @classmethod
+    def from_color_string(cls, color: str) -> Color:
+        """Get the Color enum from the color value string.
+
+        :param str color: the Color value
+        :return: the enum identity for that color string
+        :rtype: Color
+        :raises ValueError: if the color is not a valid Color
+
+        """
+        for option in cls.options():
+            if option.value == color:
+                return option
+        raise ValueError(f"{color} not an available Color")
+
+    @classmethod
     def options(cls) -> List[Color]:
         return [color for _, color in cls.__members__.items()]
 

@@ -792,7 +792,7 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
                            close_box=False)
 
     # WHEN: they use the context menu to edit the note
-    # AND:  remove all of the note text in the text box
+    # AND:  change the note text in the text box
     # AND:  click the "Save" button
     book.content.highlight_box.edit_note()
 
@@ -812,3 +812,67 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
 
     assert(book.content.highlight_box.note == new_note), \
         "the current note does not match the new note content"
+
+
+@markers.test_case("C591693")
+@markers.skip_test(reason="test mechanics covered by C591691")
+def test_cancel_after_editing_a_note(selenium, base_url):
+    """Cancel a note edit after changing the text but before saving it."""
+
+
+@markers.test_case("C591694")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_clicking_a_note_highlight_color_doesnt_change_the_highlight(
+        selenium, base_url, book_slug, page_slug):
+    """Save an edited note."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    highlight_color = Color.GREEN
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=highlight_color,
+                           note=note,
+                           close_box=False)
+    highlight_id = book.content.highlight_ids[0]
+
+    # WHEN: they use the context menu to edit the note
+    # AND:  click the same color button as the highlight
+    book.content.highlight_box.edit_note()
+
+    book.content.highlight_box.toggle_color(highlight_color)
+
+    # THEN: the edit note remains open
+    # AND:  the note text is unchanged
+    # AND:  the highlighted text remains the original color
+    assert(book.content.highlight_box.is_edit_box), \
+        "the edit note box did not remain open"
+
+    assert(book.content.highlight_box.note == note), \
+        "the note text changed"
+
+    highlight_classes = (book.content
+                         .get_highlight(by_id=highlight_id)[0]
+                         .get_attribute("class"))
+    current_color = Color.from_html_class(highlight_classes)
+    assert(current_color == highlight_color), \
+        "the current highlight color does not match the original color"

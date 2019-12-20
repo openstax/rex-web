@@ -755,6 +755,10 @@ class Content(Page):
             _save_annotation_button_locator = (
                 By.CSS_SELECTOR, "[data-testid=save]")
 
+            # --------------------------------------------------------------- #
+            # Properties
+            # --------------------------------------------------------------- #
+
             @property
             def blue(self) -> WebElement:
                 """Return the blue highlight toggle input.
@@ -945,6 +949,10 @@ class Content(Page):
 
                 """
                 return self.find_element(*self._highlight_yellow_locator)
+
+            # --------------------------------------------------------------- #
+            # Functions
+            # --------------------------------------------------------------- #
 
             def cancel(self) -> Content.Content.HighlightBox:
                 """Click the cancel note button.
