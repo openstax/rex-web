@@ -15,7 +15,7 @@ import { highlightLocationFilters, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights, { SectionHighlights } from './Highlights';
-import { HighlightContentWrapper, HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper, HighlightSection, HighlightWrapper, LoaderWrapper } from './ShowMyHighlightsStyles';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -167,5 +167,35 @@ describe('Highlights', () => {
 
     expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:body:add-highlight' }))
       .toBeDefined();
+  });
+
+  it('renders null if page from summary highlights wasn\'t found in book', () => {
+    store.dispatch(receivePage({...pageInChapter, references: []}));
+    const pageId = stripIdVersion(pageInChapter.id);
+    const locations = highlightLocationFilters(store.getState());
+    const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
+    const filters = summaryFilters(store.getState());
+
+    const summaryHighlights = {
+      [location!.id]: {
+        'page-not-in-given-section': [hlBlue],
+      },
+    } as unknown as SummaryHighlights;
+
+    renderer.act(() => {
+      store.dispatch(setSummaryFilters({
+        ...filters,
+        locationIds: [pageId],
+      }));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    });
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    expect(() => component.root.findByType(HighlightWrapper)).toThrow();
   });
 });

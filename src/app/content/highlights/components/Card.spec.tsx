@@ -308,4 +308,15 @@ describe('Card', () => {
 
     expect(() => component.root.findByType(EditCard)).toThrow();
   });
+
+  it('renders null if locationFilter wasn\'t found', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, id: 'not-in-book', references: []}));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
 });
