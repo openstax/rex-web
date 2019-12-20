@@ -42,6 +42,12 @@ export const imageStyles = css`
 export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
+
+  @media print{
+    & ~ div {
+        display:none;
+    }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -60,6 +66,11 @@ export const Modal = styled.div`
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}
+
+  @media print{
+    position:relative;
+    overflow:auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -83,6 +94,10 @@ export const PopupBody = styled.div`
     text-align: center;
     padding: 8rem 3.2rem;
   `)}
+  @media print {
+    height:max-content;
+    overflow:auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

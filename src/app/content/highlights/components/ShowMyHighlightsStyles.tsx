@@ -53,6 +53,12 @@ export const HighlightOuterWrapper = styled.div`
   }
 
   background: ${theme.color.neutral.base};
+
+  @media print{
+      position:relative;
+      break-inside:avoid-page;
+      page-break-inside:avoid;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

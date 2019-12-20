@@ -64,6 +64,7 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
         ref={this.myHighlightsBodyRef}
         data-testid='show-myhighlights-body'
       >
+        <button onClick={()=> window && window.print()}>print me</button>
         <Filters />
         <Styled.HighlightsChapter>2. Kinematics</Styled.HighlightsChapter>
         <Styled.HighlightWrapper>
