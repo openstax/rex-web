@@ -23,7 +23,7 @@ export const highlights = createSelector(
   (state) => state.highlights || []
 );
 
-export const highlightLocations = createSelector(
+export const highlightLocationFilters = createSelector(
   parentSelectors.book,
  (book) => book
   ? getHighlightLocationFilters(book)

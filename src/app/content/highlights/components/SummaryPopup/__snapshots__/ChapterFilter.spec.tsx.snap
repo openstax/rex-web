@@ -249,7 +249,7 @@ input:checked + .c10 .c11 {
         className="c7 c8"
       >
         <input
-          checked={false}
+          checked={true}
           onChange={[Function]}
           type="checkbox"
         />

@@ -297,6 +297,9 @@ export const GeneralCenterText = styled(GeneralTextWrapper)`
 `;
 
 // tslint:disable-next-line:variable-name
+export const GeneralCenterTextWrapper = styled.span``;
+
+// tslint:disable-next-line:variable-name
 export const MyHighlightsImage = styled.img`
   width: ${myHighlightsImageWidth}rem;
   height: ${myHighlightsImageHeight}rem;

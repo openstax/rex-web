@@ -10,11 +10,8 @@ import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { receiveHighlights, setSummaryFilters } from '../actions';
-import { highlightStyles } from '../constants';
-import { highlightLocations } from '../selectors';
+import { receiveHighlights } from '../actions';
 import { HighlightData } from '../types';
-import { getHighlightLocationFilterForPage } from '../utils';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -79,7 +76,7 @@ describe('locationChange', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
   });
 
-  it('do not call receiveHighlights on invalid response', async() => {
+  it('noops on invalid response', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
@@ -89,50 +86,6 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(dispatch).not.toHaveBeenCalledWith(receiveHighlights([]));
-  });
-
-  it('call only setSummaryFilters on invalid response', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const locationFilters = highlightLocations(store.getState());
-    const location = getHighlightLocationFilterForPage(locationFilters, page);
-    expect(location).toBeDefined();
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({}));
-
-    await hook();
-
-    expect(dispatch).toHaveBeenCalledWith(setSummaryFilters({
-      colors: highlightStyles.map(({label}) => label),
-      locationIds: [location!.id],
-    }));
-    expect(dispatch).toHaveBeenCalledTimes(1);
-  });
-
-  it('call setSummaryFilter and receiveHighlights on valid response', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const locationFilters = highlightLocations(store.getState());
-    const location = getHighlightLocationFilterForPage(locationFilters, page);
-    expect(location).toBeDefined();
-
-    const mock = mockHighlight();
-    const highlights = [{id: mock.id} as HighlightData];
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({data: highlights}));
-
-    await hook();
-
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
-    expect(dispatch).toHaveBeenLastCalledWith(setSummaryFilters({
-      colors: highlightStyles.map(({label}) => label),
-      locationIds: [location!.id],
-    }));
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

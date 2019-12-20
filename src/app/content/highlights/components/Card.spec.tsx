@@ -17,7 +17,7 @@ import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
-import { highlightLocations } from '../selectors';
+import { highlightLocationFilters } from '../selectors';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Card from './Card';
@@ -211,7 +211,7 @@ describe('Card', () => {
       },
     ] as HighlightData[]));
 
-    const locationFilters = highlightLocations(store.getState());
+    const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
     expect(location).toBeDefined();
 
@@ -258,7 +258,7 @@ describe('Card', () => {
 
     dispatch.mockClear();
 
-    const locationFilters = highlightLocations(store.getState());
+    const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
     expect(location).toBeDefined();
 

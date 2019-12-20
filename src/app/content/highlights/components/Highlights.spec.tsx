@@ -11,7 +11,7 @@ import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import { highlightLocations, summaryFilters } from '../selectors';
+import { highlightLocationFilters, summaryFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights, { SectionHighlights } from './Highlights';
@@ -38,7 +38,7 @@ describe('Highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
     const filters = summaryFilters(state);
-    const locationFilters = highlightLocations(state);
+    const locationFilters = highlightLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
@@ -90,7 +90,7 @@ describe('Highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
     const filters = summaryFilters(state);
-    const locationFilters = highlightLocations(state);
+    const locationFilters = highlightLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 

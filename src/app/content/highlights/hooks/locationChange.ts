@@ -4,7 +4,6 @@ import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
-import { addCurrentPageToSummaryFilters } from '../utils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const {dispatch, getState, highlightClient} = services;
@@ -27,8 +26,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   if (highlights.data) {
     dispatch(receiveHighlights(highlights.data));
   }
-
-  addCurrentPageToSummaryFilters(services);
 };
 
 export default hookBody;

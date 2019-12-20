@@ -33,6 +33,8 @@ describe('ChapterFilter', () => {
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />

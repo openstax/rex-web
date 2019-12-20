@@ -9,7 +9,7 @@ import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocations, summaryFilters } from '../../selectors';
+import { highlightLocationFilters, summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
@@ -75,7 +75,7 @@ interface FiltersListProps {
 
 // tslint:disable-next-line: variable-name
 const FiltersList = ({className}: FiltersListProps) => {
-  const locationFilters = useSelector(highlightLocations);
+  const locationFilters = useSelector(highlightLocationFilters);
   const filters = useSelector(summaryFilters);
 
   const dispatch = useDispatch();

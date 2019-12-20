@@ -10,7 +10,7 @@ const addCurrentPageToSummaryFilters = ({
 }: MiddlewareAPI & AppServices) => {
   const state = getState();
   const page = pageSelector(state);
-  const locationFilters = select.highlightLocations(state);
+  const locationFilters = select.highlightLocationFilters(state);
   const filters = select.summaryFilters(state);
   if (!locationFilters.size || !page || typeof(window) === 'undefined') {
     return;

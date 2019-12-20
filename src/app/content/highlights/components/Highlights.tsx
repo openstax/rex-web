@@ -2,19 +2,26 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
+import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { LinkedArchiveTreeNode } from '../../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { highlightLocations, summaryFilters, summaryHighlights, summaryIsLoading } from '../selectors';
+import { highlightLocationFilters, summaryFilters, summaryHighlights, summaryIsLoading } from '../selectors';
 import { SummaryHighlights } from '../types';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
 
 // tslint:disable-next-line: variable-name
+const NoHighlightsTip = htmlMessage(
+  'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
+  HStyled.GeneralCenterTextWrapper
+);
+
+// tslint:disable-next-line: variable-name
 const Highlights = () => {
   const filters = useSelector(summaryFilters);
-  const locationFilters = useSelector(highlightLocations);
+  const locationFilters = useSelector(highlightLocationFilters);
   const highlights = useSelector(summaryHighlights);
   const isLoading = useSelector(summaryIsLoading);
 
@@ -27,13 +34,7 @@ const Highlights = () => {
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
           {(msg: Element | string) => msg}
         </FormattedMessage>
-        <span>
-          <FormattedMessage
-            id='i18n:toolbar:highlights:popup:heading:no-highlights-tip'
-            defaultMessage='Try selecting different chapter or color filters to see different results.'
-            values={{strong: (str: string) => <strong>{str}</strong>}}
-          />
-        </span>
+        <NoHighlightsTip/>
       </HStyled.GeneralCenterText>
     </Styled.Highlights>;
   }

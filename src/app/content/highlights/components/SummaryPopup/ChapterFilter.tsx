@@ -7,7 +7,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocations, summaryFilters } from '../../selectors';
+import { highlightLocationFilters, summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -59,7 +59,7 @@ const chunk = <T extends any>(sections: T[]) => {
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
-  const locationFilters = useSelector(highlightLocations);
+  const locationFilters = useSelector(highlightLocationFilters);
   const locationFiltersIds = Array.from(locationFilters.keys());
 
   const filters = useSelector(summaryFilters);

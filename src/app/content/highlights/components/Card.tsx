@@ -56,7 +56,7 @@ const Card = (props: Props) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
-  const locationFilters = useSelector(selectHighlights.highlightLocations);
+  const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
