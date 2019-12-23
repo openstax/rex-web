@@ -46,7 +46,12 @@ export const PopupWrapper = styled.div`
   @media print{
     & ~ div {
         display:none;
-    }
+    };
+  };
+
+  @page{
+    margin:15mm 10mm 0;
+    padding:0 0 10mm;
   }
 `;
 
@@ -69,7 +74,12 @@ export const Modal = styled.div`
 
   @media print{
     position:relative;
-    overflow:auto;
+    overflow:visible;
+    height:max-content;
+    max-width:auto;
+    width:100%;
+    margin:0;
+    border-radius:0;
   }
 `;
 

@@ -24,6 +24,7 @@ export const RemoveIcon = styled.span`
 // tslint:disable-next-line: variable-name
 const ItemLabel = styled.span`
   max-width: 80px;
+  color:${theme.color.text.label};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -111,12 +112,12 @@ const FiltersList = ({className}: FiltersListProps) => {
 
 export default styled(FiltersList)`
   ${textStyle}
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 2rem 0;
+  padding: 2.5rem 0 1rem;
   list-style: none;
 
   ${theme.breakpoints.mobile(css`

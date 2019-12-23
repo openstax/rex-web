@@ -9,29 +9,32 @@ import { Book } from '../../types';
 import * as Styled from './styled';
 
 interface Props {
-  currentPath: string;
-  book: Book | undefined;
+  currentPath?: string;
+  book?: Book | undefined;
+  className?: string;
 }
 
 class PrintButton extends Component<Props> {
   public render() {
     return (
-      <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) => (
-          <FormattedMessage id='i18n:toolbar:print:aria-label'>
-            {(label: Element | string) => (
-              <Styled.PrintOptWrapper
-                onClick={() => assertWindow().print()}
-                aria-label={label}
-                data-testid='print'
-              >
-                <Styled.PrintIcon />
-                <Styled.PrintOptions>{msg}</Styled.PrintOptions>
-              </Styled.PrintOptWrapper>
-            )}
-          </FormattedMessage>
-        )}
-      </FormattedMessage>
+      <div className={this.props.className}>
+        <FormattedMessage id='i18n:toolbar:print:text'>
+          {(msg: Element | string) => (
+            <FormattedMessage id='i18n:toolbar:print:aria-label'>
+              {(label: Element | string) => (
+                <Styled.PrintOptWrapper
+                  onClick={() => assertWindow().print()}
+                  aria-label={label}
+                  data-testid='print'
+                >
+                  <Styled.PrintIcon />
+                  <Styled.PrintOptions>{msg}</Styled.PrintOptions>
+                </Styled.PrintOptWrapper>
+              )}
+            </FormattedMessage>
+          )}
+        </FormattedMessage>
+      </div>
     );
   }
 }

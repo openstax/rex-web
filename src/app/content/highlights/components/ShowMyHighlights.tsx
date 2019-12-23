@@ -57,8 +57,10 @@ class ShowMyHighlights extends Component<{}, { showGoToTop: boolean }> {
         ref={this.myHighlightsBodyRef}
         data-testid='show-myhighlights-body'
       >
-        <button onClick={()=> window && window.print()}>print me</button>
-        <Filters />
+        <Styled.HiglightsToolbar>
+          <Filters />
+          <Styled.HiglightsPrintButton />
+        </Styled.HiglightsToolbar>
         <Highlights />
         {this.state.showGoToTop && (
           <Styled.GoToTopWrapper

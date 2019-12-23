@@ -3,8 +3,11 @@ import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
+import PrintButton from '../../components/Toolbar/PrintButton';
+import { disablePrint } from '../../components/utils/disablePrint';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
+import { mobilePadding } from './SummaryPopup/constants';
 
 interface HighlightsProps {
   isLoading: boolean;
@@ -39,6 +42,10 @@ export const HighlightsChapter = styled.div`
   ${theme.breakpoints.mobile(css`
     padding: 0 ${popupPadding}rem;
   `)}
+
+  @media print{
+    padding:0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -51,9 +58,39 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 `;
 
 // tslint:disable-next-line:variable-name
+export const HiglightsToolbar = styled.div`
+overflow:visible;
+  display:grid;
+  grid-template-columns:auto max-content;
+  padding: 2.1rem 3.2rem 0 3.2rem;
+  border-bottom:1px solid ${theme.color.neutral.formBorder};
+  ${theme.breakpoints.mobile(css`
+    align-items:center;
+    padding: 0 ${mobilePadding}rem;
+    height: 3.6rem;
+  `)}
+
+  ${disablePrint}
+`;
+
+// tslint:disable-next-line:variable-name
+export const HiglightsPrintButton = styled(PrintButton)`
+  height:max-content;
+  >button{
+    min-width:auto;
+    height:auto;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
   margin: 0 ${popupPadding}rem 1.6rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
+
+  @media print{
+    border-width:0;
+    margin:0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -69,6 +106,10 @@ export const HighlightSection = styled.div`
   > span {
     overflow: hidden;
   }
+
+  @media print{
+    page-break-after:avoid;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -80,6 +121,7 @@ export const HighlightOuterWrapper = styled.div`
   background: ${theme.color.neutral.base};
 
   @media print{
+      border-width:0;
       position:relative;
       break-inside:avoid-page;
       page-break-inside:avoid;
@@ -110,7 +152,7 @@ export const HighlightNote = styled.div`
 // tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding: 1.2rem ${popupBodyPadding}rem;
-  ${(props: {color: string}) => {
+  ${(props: { color: string }) => {
     const style = highlightStyles.find((search) => search.label === props.color);
 
     if (!style) {

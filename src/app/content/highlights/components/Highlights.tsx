@@ -18,7 +18,7 @@ const Highlights = () => {
 
   if (locations.size > 0 && Object.keys(highlights).length > 0) {
     return <Styled.Highlights isLoading={isLoading}>
-      {isLoading ? <Styled.LoaderWrapper><Loader/></Styled.LoaderWrapper> : null}
+      {isLoading ? <Styled.LoaderWrapper><Loader /></Styled.LoaderWrapper> : null}
       {Array.from(locations).map(([id, location]) => {
         if (!highlights[id]) { return null; }
         return <SectionHighlights
@@ -39,7 +39,7 @@ const Highlights = () => {
         <FormattedMessage
           id='i18n:toolbar:highlights:popup:heading:no-highlights-tip'
           defaultMessage='Try selecting different chapter or color filters to see different results.'
-          values={{strong: (str: string) => <strong>{str}</strong>}}
+          values={{ strong: (str: string) => <strong>{str}</strong> }}
         />
       </span>
     </HStyled.GeneralLeftText>

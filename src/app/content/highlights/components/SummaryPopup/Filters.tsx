@@ -8,7 +8,6 @@ import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
-import { mobilePadding } from './constants';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
@@ -62,13 +61,7 @@ export default styled(Filters)`
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  padding: 2rem 3.2rem 0 3.2rem;
   background: ${theme.color.neutral.base};
-  ${theme.breakpoints.mobile(css`
-    padding: 0 ${mobilePadding}rem;
-    height: 3.6rem;
-  `)}
-
   ${css`
     ${DropdownToggle} {
       font-weight: bold;
