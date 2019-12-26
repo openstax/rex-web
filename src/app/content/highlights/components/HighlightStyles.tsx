@@ -47,6 +47,7 @@ export const PopupWrapper = styled.div`
     & ~ div {
         display:none;
     };
+    display:block;
   };
 
   @page{
