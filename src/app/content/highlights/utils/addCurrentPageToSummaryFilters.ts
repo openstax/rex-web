@@ -21,7 +21,6 @@ const addCurrentPageToSummaryFilters = ({
 
   if (idToAdd && !filters.locationIds.includes(idToAdd)) {
     dispatch(setSummaryFilters({
-      ...filters,
       locationIds: [...filters.locationIds, idToAdd],
     }));
   }

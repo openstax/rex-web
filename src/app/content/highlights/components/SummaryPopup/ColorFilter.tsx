@@ -25,10 +25,7 @@ const ColorFilter = ({className}: Props) => {
   const dispatch = useDispatch();
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    dispatch(setSummaryFilters({
-      ...filters,
-      colors,
-    }));
+    dispatch(setSummaryFilters({colors}));
   };
 
   const handleChange = (label: HighlightColorEnum) => {

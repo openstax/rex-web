@@ -37,15 +37,11 @@ describe('Highlights', () => {
   it('properly display summary highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const filters = summaryFilters(state);
     const locationFilters = highlightLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
-    store.dispatch(setSummaryFilters({
-      ...filters,
-      locationIds: [location!.id, pageId],
-    }));
+    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
 
     const summaryHighlights = {
       [pageId]: {
@@ -89,7 +85,6 @@ describe('Highlights', () => {
   it('show loading state on filters change', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const filters = summaryFilters(state);
     const locationFilters = highlightLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
@@ -104,10 +99,7 @@ describe('Highlights', () => {
     } as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({
-        ...filters,
-        locationIds: [location!.id, pageId],
-      }));
+      store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
       store.dispatch(receiveSummaryHighlights(summaryHighlights));
     });
 
@@ -123,10 +115,7 @@ describe('Highlights', () => {
     expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({
-        ...filters,
-        locationIds: [location!.id, pageId],
-      }));
+      store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
@@ -145,17 +134,12 @@ describe('Highlights', () => {
   });
 
   it('show add highlight message when there is no highlights on specific page', () => {
-    const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const filters = summaryFilters(state);
 
     const summaryHighlights = {} as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({
-        ...filters,
-        locationIds: [pageId],
-      }));
+      store.dispatch(setSummaryFilters({locationIds: [pageId]}));
       store.dispatch(receiveSummaryHighlights(summaryHighlights));
     });
 
@@ -174,7 +158,6 @@ describe('Highlights', () => {
     const pageId = stripIdVersion(pageInChapter.id);
     const locations = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
-    const filters = summaryFilters(store.getState());
 
     const summaryHighlights = {
       [location!.id]: {
@@ -183,10 +166,7 @@ describe('Highlights', () => {
     } as unknown as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({
-        ...filters,
-        locationIds: [pageId],
-      }));
+      store.dispatch(setSummaryFilters({locationIds: [pageId]}));
       store.dispatch(receiveSummaryHighlights(summaryHighlights));
     });
 

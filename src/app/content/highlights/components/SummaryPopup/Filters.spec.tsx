@@ -86,14 +86,13 @@ describe('Filters', () => {
     expect(colorFilters[1].props.color).toEqual(HighlightColorEnum.Yellow);
   });
 
-  it('removes colors and chapter on click from filter', () => {
+  it('removes colors and chapters from filters on click', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
     addCurrentPageToSummaryFilters(helpers);
     const filters = summaryFilters(store.getState());
 
     expect(dispatch).toBeCalledWith(setSummaryFilters({
-      colors: filters.colors,
       locationIds: ['testbook1-testchapter5-uuid'],
     }));
 
@@ -117,7 +116,6 @@ describe('Filters', () => {
     });
 
     expect(storeDispatch).toBeCalledWith(setSummaryFilters({
-      colors: filters.colors,
       locationIds: [],
     }));
 
@@ -127,7 +125,6 @@ describe('Filters', () => {
 
     expect(storeDispatch).toBeCalledWith(setSummaryFilters({
       colors: filters.colors.slice(1, filters.colors.length),
-      locationIds: [],
     }));
 
     chapterFilters = component.root.findAllByType(FiltersListChapter);

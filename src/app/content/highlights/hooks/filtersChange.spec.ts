@@ -52,10 +52,7 @@ describe('filtersChange', () => {
       .mockReturnValue(Promise.resolve({data: highlights as HighlightData[]}));
 
     const locationIds = [book.tree.contents[0].id, book.tree.contents[1].id];
-    await hook(store.dispatch(setSummaryFilters({
-      ...filters,
-      locationIds,
-    })));
+    await hook(store.dispatch(setSummaryFilters({locationIds})));
 
     const response: SummaryHighlights = {
       [stripIdVersion(book.tree.contents[0].id)]: {
@@ -96,10 +93,7 @@ describe('filtersChange', () => {
       .mockReturnValue(Promise.resolve({data: highlights as HighlightData[]}));
 
     const locationIds = [chapterIdForPageInChapter];
-    await hook(store.dispatch(setSummaryFilters({
-      ...filters,
-      locationIds,
-    })));
+    await hook(store.dispatch(setSummaryFilters({locationIds})));
 
     const response: SummaryHighlights = {
       [chapterIdForPageInChapter]: {

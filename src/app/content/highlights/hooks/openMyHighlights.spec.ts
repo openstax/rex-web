@@ -8,8 +8,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { openMyHighlights, setSummaryFilters } from '../actions';
-import { highlightStyles } from '../constants';
-import { highlightLocationFilters, summaryFilters } from '../selectors';
+import { highlightLocationFilters } from '../selectors';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 
@@ -50,7 +49,6 @@ describe('openMyHighlights', () => {
     hook(openMyHighlights());
 
     expect(dispatch).toHaveBeenCalledWith(setSummaryFilters({
-      colors: highlightStyles.map(({label}) => label),
       locationIds: [location!.id],
     }));
   });
@@ -58,13 +56,11 @@ describe('openMyHighlights', () => {
   it('do not call setSummaryFilter on openMyHighlights if location filter is already present', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    const filters = summaryFilters(store.getState());
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
     expect(location).toBeDefined();
 
     const newFitlers = {
-      ...filters,
       locationIds: [location!.id],
     };
 

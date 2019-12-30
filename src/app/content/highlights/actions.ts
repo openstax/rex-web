@@ -21,5 +21,5 @@ export const receiveHighlights = createStandardAction('Content/Highlight/receive
 export const openMyHighlights = createStandardAction('Content/openMyHighlights')<void>();
 export const closeMyHighlights = createStandardAction('Content/closeMyHighlights')<void>();
 
-export const setSummaryFilters = createStandardAction('Content/setSummaryFilters')<SummaryFilters>();
+export const setSummaryFilters = createStandardAction('Content/setSummaryFilters')<Partial<SummaryFilters>>();
 export const receiveSummaryHighlights = createStandardAction('Content/receiveSummaryHighlights')<SummaryHighlights>();

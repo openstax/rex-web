@@ -33,11 +33,13 @@ describe('addCurrentPageToSummaryFilters', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
 
-    const {content: {highlights: {summary}}} = store.getState();
+    let summary = store.getState().content.highlights.summary;
 
     expect(summary.filters.locationIds.length).toEqual(0);
 
     addCurrentPageToSummaryFilters(helpers);
+
+    summary = store.getState().content.highlights.summary;
 
     expect(summary.filters.locationIds.length).toEqual(1);
   });

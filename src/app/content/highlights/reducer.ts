@@ -127,16 +127,27 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return omit('focused', state);
     }
     case getType(actions.setSummaryFilters): {
-      const newState = {...state};
-      newState.summary.loading = true;
-      newState.summary.filters = action.payload;
-      return newState;
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          filters: {
+            ...state.summary.filters,
+            ...action.payload,
+          },
+          loading: true,
+        },
+      };
     }
     case getType(actions.receiveSummaryHighlights): {
-      const newState = {...state};
-      newState.summary.highlights = action.payload;
-      newState.summary.loading = false;
-      return newState;
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          highlights: action.payload,
+          loading: false,
+        },
+      };
     }
     default:
       return state;

@@ -36,20 +36,16 @@ interface FiltersListColorProps {
 }
 
 // tslint:disable-next-line: variable-name
-export const FiltersListColor = (props: FiltersListColorProps) => {
-  const handleClick = () => {
-    props.onRemove(props.color);
-  };
-
-  return <li>
-    <StyledPlainButton onClick={handleClick}><Times /></StyledPlainButton>
+export const FiltersListColor = (props: FiltersListColorProps) => (
+  <li>
+    <StyledPlainButton onClick={() => props.onRemove(props.color)}><Times /></StyledPlainButton>
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
         {(msg: Element | string) => msg}
       </FormattedMessage>
     </ItemLabel>
-  </li>;
-};
+  </li>
+);
 
 interface FiltersListChapterProps {
   title: string;
@@ -58,16 +54,12 @@ interface FiltersListChapterProps {
 }
 
 // tslint:disable-next-line: variable-name
-export const FiltersListChapter = (props: FiltersListChapterProps) => {
-  const handleClick = () => {
-    props.onRemove(props.locationId);
-  };
-
-  return <li>
-    <StyledPlainButton onClick={handleClick}><Times /></StyledPlainButton>
+export const FiltersListChapter = (props: FiltersListChapterProps) => (
+  <li>
+    <StyledPlainButton onClick={() => props.onRemove(props.locationId)}><Times /></StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
-  </li>;
-};
+  </li>
+);
 
 interface FiltersListProps {
   className?: string;
@@ -82,14 +74,12 @@ const FiltersList = ({className}: FiltersListProps) => {
 
   const onRemoveChapter = (locationId: string) => {
     dispatch(setSummaryFilters({
-      ...filters,
       locationIds: filters.locationIds.filter(not(match(locationId))),
     }));
   };
 
   const onRemoveColor = (color: HighlightColorEnum) => {
     dispatch(setSummaryFilters({
-      ...filters,
       colors: filters.colors.filter(not(match(color))),
     }));
   };

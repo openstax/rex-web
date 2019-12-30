@@ -66,7 +66,7 @@ const ChapterFilter = ({className}: Props) => {
   const dispatch = useDispatch();
 
   const setSelectedChapters = (ids: string[]) => {
-    dispatch(setSummaryFilters({...filters, locationIds: ids}));
+    dispatch(setSummaryFilters({locationIds: ids}));
   };
 
   const handleChange = (id: string) => {
