@@ -1120,3 +1120,62 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
     highlight = book.content.get_highlight(by_id=highlight_id)[0]
     assert("focus" not in highlight.get_attribute("class")), \
         "highlight is still in focus"
+
+
+@markers.test_case("C591700")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
+def test_mobile_display_card_scrolls_for_long_notes(
+        selenium, base_url, book_slug, page_slug):
+    """A display card with a long note can be scrolled."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a long note
+    # AND:   the highlight note card is displayed
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=1000)
+    initial_highlight_color = Color.YELLOW
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=initial_highlight_color,
+                           note=note)
+    highlight_id = book.content.highlight_ids[0]
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    Utilities.click_option(selenium, element=highlight, scroll_to=-105)
+
+    # WHEN:
+
+    # THEN: the note card is scrollable
+    assert(Utilities.has_scroll_bar(
+        selenium, book.content.highlight_box.display_note)), \
+        "scroll bar not present within the note card display"
+
+    # WHEN: the main content is scrolled
+    Utilities.scroll_to(selenium, element=book.attribution.root)
+
+    # THEN: the note card is still visible
+    assert(book.content.highlight_box.is_open), \
+        "note card not open"

@@ -24,10 +24,18 @@ ASYNC_DELETE = r"""
   const ids = __APP_STORE.getState().content.highlights.highlights.map(({id}) => id);
   for(id of ids) await __APP_SERVICES.highlightClient.deleteHighlight({id});
 })()"""  # NOQA
+HAS_SCROLL_BAR = r"""
+const hasScrollBar = (element) => {
+  const {scrollTop} = element;
+  if(scrollTop > 0) { return true; }
+  element.scrollTop += 10;
+  if(scrollTop === element.scrollTop) { return false; }
+  element.scrollTop = scrollTop; return true; };
+return hasScrollBar(arguments[0]);"""
 HIGHLIGHTS = "return document.querySelectorAll('.highlight').length;"
 RELOAD = "location.reload();"
 SCROLL_INTO_VIEW = 'arguments[0].scrollIntoView();'
-SHIFT_VIEW_BY = 'window.scrollBy(0, arguments[0])'
+SHIFT_VIEW_BY = 'window.scrollBy(0, arguments[0]);'
 
 
 class Color(Enum):
@@ -218,6 +226,20 @@ class Utilities(object):
                 except StaleElementReferenceException:  # Chrome and Firefox
                     if locator:
                         element = driver.find_element(*locator)
+
+    @classmethod
+    def has_scroll_bar(cls, driver, element) -> bool:
+        """Return True if the element currently has a vertical scroll bar.
+
+        :param driver: a selenium webdriver
+        :param element: the page element
+        :type driver: Webdriver
+        :type element: WebElement
+        :return: ``True`` if the element has a vertical scroll bar
+        :rtype: bool
+
+        """
+        return driver.execute_script(HAS_SCROLL_BAR, element)
 
     @classmethod
     def random_name(cls) -> Tuple(str, str):
