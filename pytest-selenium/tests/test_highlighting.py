@@ -998,7 +998,7 @@ def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
 @markers.mobile_only
 def test_read_only_display_card_is_shown_when_highlight_clicked_in_mobile(
         selenium, base_url, book_slug, page_slug):
-    """Clicking outside of the highlight box doesn't close it when unsaved."""
+    """Read-only display card is shown when the mobile highlight is clicked."""
     # GIVEN: a book section is displayed
     # AND:   a user is logged in
     # AND:   all content is visible
@@ -1050,6 +1050,65 @@ def test_read_only_display_card_is_shown_when_highlight_clicked_in_mobile(
 
     # WHEN: they click the close 'x' in the display card
     book.content.highlight_box.close()
+
+    # THEN: the display card closes
+    # AND:  the highlight is no longer in focus
+    with pytest.raises(NoSuchElementException) as ex:
+        book.content.highlight_box
+    assert("No open highlight boxes found" in str(ex.value)), \
+        "Display note still open"
+
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    assert("focus" not in highlight.get_attribute("class")), \
+        "highlight is still in focus"
+
+
+@markers.test_case("C591699")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
+def test_read_only_display_card_closes_when_clicking_content_in_mobile(
+        selenium, base_url, book_slug, page_slug):
+    """Clicking outside the display card closes the card on mobile."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+    # AND:   the highlight note card is displayed
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    initial_highlight_color = Color.YELLOW
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=initial_highlight_color,
+                           note=note)
+    highlight_id = book.content.highlight_ids[0]
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    Utilities.click_option(selenium, element=highlight, scroll_to=-105)
+
+    # WHEN: they click outside of the display card
+    book.content.close_edit_note_box()
 
     # THEN: the display card closes
     # AND:  the highlight is no longer in focus

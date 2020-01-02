@@ -18,7 +18,7 @@ from selenium.common.exceptions import (
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-# Constant usage values for javascript and regular expression commands
+# Constant usage values for javascript commands
 ASYNC_DELETE = r"""
 (async function delete_page_highlights() {
   const ids = __APP_STORE.getState().content.highlights.highlights.map(({id}) => id);
