@@ -1179,3 +1179,95 @@ def test_mobile_display_card_scrolls_for_long_notes(
     # THEN: the note card is still visible
     assert(book.content.highlight_box.is_open), \
         "note card not open"
+
+
+@markers.test_case("C591701")
+@markers.skip_test(reason="focused search term does not open the note")
+@markers.mobile_only
+def test_open_note_card_after_searching_for_term_in_highlight():
+    """Clicking the searched text within a highlight opens the note."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted with a note
+
+    # WHEN: a search for a term within the highlight is performed
+    # AND:  the section with the highlight is selected from the search results
+
+    # THEN: the search results are focused over the user highlight
+
+    # WHEN: the focused highlight is clicked
+
+    # THEN: the note display card is opened
+    # AND:  the search results are still highlighted
+
+
+@markers.test_case("C591702")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
+def test_open_a_second_note_when_the_first_is_already_displayed(
+        selenium, base_url, book_slug, page_slug):
+    """Click a second highlighted note when one is already open on mobile."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   two sections of content are highlighted with a note each
+    # AND:   the first highlight note card is displayed
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+    paragraphs = random.sample(book.content.paragraphs, 2)
+    note_one = random_string(length=100)
+    first_highlight_color = Color.YELLOW
+    book.content.highlight(target=paragraphs[0],
+                           offset=Highlight.ENTIRE,
+                           color=first_highlight_color,
+                           note=note_one)
+    highlight_id_one = book.content.highlight_ids[0]
+    note_two = random_string(length=100)
+    second_highlight_color = Color.BLUE
+    book.content.highlight(target=paragraphs[1],
+                           offset=Highlight.ENTIRE,
+                           color=second_highlight_color,
+                           note=note_two)
+    highlight_ids = book.content.highlight_ids
+    highlight_id_two = highlight_ids[1] \
+        if highlight_id_one == highlight_ids[0] \
+        else highlight_ids[0]
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    highlight_one = book.content.get_highlight(by_id=highlight_id_one)[0]
+    Utilities.click_option(selenium, element=highlight_one, scroll_to=-105)
+
+    # WHEN: they click the second highlight
+    highlight_two = book.content.get_highlight(by_id=highlight_id_two)[0]
+    Utilities.click_option(selenium, element=highlight_two, scroll_to=-105)
+
+    # THEN: the second highlight is focused
+    # AND:  the second note is displayed
+    # AND:  the first highlight is not focused
+    assert("focus" in highlight_two.get_attribute("class")), \
+        "second highlight not focused"
+
+    assert(book.content.highlight_box.note == note_two), \
+        "displayed note content does not match the second note text"
+
+    assert("focus" not in highlight_one.get_attribute("class")), \
+        "first highlight still focused"
