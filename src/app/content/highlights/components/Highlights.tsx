@@ -43,17 +43,19 @@ const Highlights = () => {
     isLoading ||
     (locationFilters.size > 0 && Object.keys(highlights).length > 0)
   ) {
-    return <Styled.Highlights isLoading={isLoading}>
-      {isLoading ? <Styled.LoaderWrapper><Loader/></Styled.LoaderWrapper> : null}
-      {Array.from(locationFilters).map(([id, location]) => {
-        if (!highlights[id]) { return null; }
-        return <SectionHighlights
-          key={id}
-          location={location}
-          highlights={highlights}
-        />;
-      })}
-    </Styled.Highlights>;
+    return <React.Fragment>
+      {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
+      <Styled.Highlights>
+        {Array.from(locationFilters).map(([id, location]) => {
+          if (!highlights[id]) { return null; }
+          return <SectionHighlights
+            key={id}
+            location={location}
+            highlights={highlights}
+          />;
+        })}
+      </Styled.Highlights>
+    </React.Fragment>;
   }
 
   return <Styled.Highlights>

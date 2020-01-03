@@ -6,15 +6,8 @@ import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
 
-interface HighlightsProps {
-  isLoading: boolean;
-}
-
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
-  position: relative;
-  opacity: ${(props: HighlightsProps) => props.isLoading ? '0.5' : '1'};
-
   .os-divider {
     width: 0.8rem;
   }
@@ -24,7 +17,12 @@ export const Highlights = styled.div`
 export const LoaderWrapper = styled.div`
   position: absolute;
   width: 100%;
-  height: 150px;
+  height: inherit;
+  background-color: rgba(241, 241, 241, 0.8);
+
+  svg {
+    margin-top: -5rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
