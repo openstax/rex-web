@@ -64,7 +64,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
 // tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
 
-  return <div className={className}>
+  return <div className={className} data-analytics-region='highlight-color-picker'>
     {highlightStyles.map((style) => <ColorButton key={style.label}
       name={style.label}
       checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
