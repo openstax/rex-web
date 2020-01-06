@@ -1182,24 +1182,84 @@ def test_mobile_display_card_scrolls_for_long_notes(
 
 
 @markers.test_case("C591701")
-@markers.skip_test(reason="focused search term does not open the note")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
 @markers.mobile_only
-def test_open_note_card_after_searching_for_term_in_highlight():
+def test_open_note_card_after_searching_for_term_in_highlight(
+        selenium, base_url, book_slug, page_slug):
     """Clicking the searched text within a highlight opens the note."""
     # GIVEN: a book section is displayed
     # AND:   a user is logged in
     # AND:   all content is visible
     # AND:   some content is highlighted with a note
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+    paragraph = random.choice(book.content.paragraphs)
+    note = random_string(length=100)
+    initial_highlight_color = Color.YELLOW
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=initial_highlight_color,
+                           note=note)
+    highlight_id = book.content.highlight_ids[0]
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
 
     # WHEN: a search for a term within the highlight is performed
     # AND:  the section with the highlight is selected from the search results
+    phrase = re.search(r"\w{10,}", paragraph.text)
+    if phrase is None:
+        raise ValueError("No (10+) search phrase found in the paragraph")
+    phrase = phrase.group(0)
+    if book.is_desktop:
+        book.toolbar.search_for(phrase)
+    else:
+        book.mobile_search_toolbar.search_for(phrase)
+    search_results = book.search_sidebar.search_results(phrase)
+    if not search_results:
+        raise ValueError("No search results found")
+
+    Utilities.click_option(selenium, element=search_results[0])
+    phrase_searched = book.content.find_elements(
+        By.XPATH, XPATH_SEARCH.format(term=phrase))
 
     # THEN: the search results are focused over the user highlight
+    assert(phrase_searched), \
+        f"the highlight phrase ('{phrase}') was not found on the page"
+    assert("focus" in phrase_searched[0].get_attribute("class")), \
+        "search phrase does not have the search focus highlight"
+    assert(highlight_id in book.content.highlight_ids), \
+        "the original highlight ID not found on the page"
 
-    # WHEN: the focused highlight is clicked
+    # WHEN: they click the highlight
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    Utilities.click_option(selenium, element=highlight, scroll_to=-180)
 
     # THEN: the note display card is opened
     # AND:  the search results are still highlighted
+    assert(phrase_searched), \
+        f"the highlight phrase ('{phrase}') was not found on the page"
+
+    assert("focus" in phrase_searched[0].get_attribute("class")), \
+        "search phrase does not have the search focus highlight"
+    assert(highlight_id in book.content.highlight_ids), \
+        "the original highlight ID not found on the page"
 
 
 @markers.test_case("C591702")
@@ -1271,3 +1331,9 @@ def test_open_a_second_note_when_the_first_is_already_displayed(
 
     assert("focus" not in highlight_one.get_attribute("class")), \
         "first highlight still focused"
+
+
+@markers.test_case("C591703")
+@markers.skip_test(reason="requires testing a temp pdf document")
+def test_print_preview_while_note_card_is_displayed():
+    """Highlight note card not displayed in print preview PDF."""
