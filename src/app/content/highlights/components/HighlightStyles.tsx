@@ -7,6 +7,7 @@ import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
+import { disablePrint } from '../../components/utils/disablePrint';
 import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
@@ -32,6 +33,32 @@ export const stickyNoteMeasures = {
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
+const printStyles = {
+  modal: css`
+    position:relative;
+    overflow:visible;
+    height:max-content;
+    max-width:auto;
+    width:100%;
+    margin:0;
+    border-radius:0;
+  `,
+  page: css`
+    margin:10mm 10mm;
+    padding:0 0 10mm;
+  `,
+  popupBody: css`
+    height:max-content;
+    overflow:auto;
+  `,
+  popupWrapper: css`
+    display:block;
+    & ~ div {
+      display:none;
+    };
+  `,
+};
+
 export const imageStyles = css`
   height: 25.6rem;
   width: 36rem;
@@ -44,16 +71,12 @@ export const PopupWrapper = styled.div`
   justify-content: center;
 
   @media print{
-    & ~ div {
-        display:none;
-    };
-    display:block;
-  };
+    ${printStyles.popupWrapper}
 
-  @page{
-    margin:15mm 10mm 0;
-    padding:0 0 10mm;
-  }
+    @page {
+      ${printStyles.page}
+    };
+  };
 `;
 
 // tslint:disable-next-line:variable-name
@@ -74,13 +97,7 @@ export const Modal = styled.div`
   `)}
 
   @media print{
-    position:relative;
-    overflow:visible;
-    height:max-content;
-    max-width:auto;
-    width:100%;
-    margin:0;
-    border-radius:0;
+    ${printStyles.modal}
   }
 `;
 
@@ -106,8 +123,7 @@ export const PopupBody = styled.div`
     padding: 8rem 3.2rem;
   `)}
   @media print {
-    height:max-content;
-    overflow:auto;
+    ${printStyles.popupBody}
   }
 `;
 
@@ -262,6 +278,8 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   :hover {
     color: ${toolbarIconColor.base};
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

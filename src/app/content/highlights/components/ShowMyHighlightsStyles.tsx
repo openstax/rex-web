@@ -13,6 +13,25 @@ interface HighlightsProps {
   isLoading: boolean;
 }
 
+const printStyles = {
+  highlightOuterWrapper: css`
+    border-width:0;
+    position:relative;
+    break-inside:avoid-page;
+    page-break-inside:avoid;
+  `,
+  highlightSection: css`
+    page-break-after:avoid;
+  `,
+  highlightsChapter: css`
+    padding:0;
+  `,
+  highlightsWrapper: css`
+    border-width:0;
+    margin:0;
+  `,
+};
+
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
   position: relative;
@@ -44,7 +63,7 @@ export const HighlightsChapter = styled.div`
   `)}
 
   @media print{
-    padding:0;
+    ${printStyles.highlightsChapter}
   }
 `;
 
@@ -59,7 +78,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HiglightsToolbar = styled.div`
-overflow:visible;
+  overflow:visible;
   display:grid;
   grid-template-columns:auto max-content;
   padding: 2.1rem 3.2rem 0 3.2rem;
@@ -88,8 +107,7 @@ export const HighlightWrapper = styled.div`
   border: solid 0.1rem ${theme.color.neutral.darkest};
 
   @media print{
-    border-width:0;
-    margin:0;
+    ${printStyles.highlightsWrapper}
   }
 `;
 
@@ -108,7 +126,7 @@ export const HighlightSection = styled.div`
   }
 
   @media print{
-    page-break-after:avoid;
+    ${printStyles.highlightSection}
   }
 `;
 
@@ -121,10 +139,7 @@ export const HighlightOuterWrapper = styled.div`
   background: ${theme.color.neutral.base};
 
   @media print{
-      border-width:0;
-      position:relative;
-      break-inside:avoid-page;
-      page-break-inside:avoid;
+    ${printStyles.highlightOuterWrapper}
   }
 `;
 

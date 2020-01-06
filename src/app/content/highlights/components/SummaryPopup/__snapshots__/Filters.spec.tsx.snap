@@ -45,6 +45,7 @@ exports[`Filters matches snapshot 1`] = `
 
 .c12 {
   max-width: 80px;
+  color: #6f6f6f;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -54,7 +55,7 @@ exports[`Filters matches snapshot 1`] = `
 .c10 {
   font-family: Neue Helvetica W01;
   color: #424242;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -64,7 +65,7 @@ exports[`Filters matches snapshot 1`] = `
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 2rem 0;
+  padding: 2.5rem 0 1rem;
   list-style: none;
 }
 
@@ -122,8 +123,6 @@ exports[`Filters matches snapshot 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 2rem 3.2rem 0 3.2rem;
-  background: #fff;
 }
 
 .c0 .c4 {
@@ -137,13 +136,6 @@ exports[`Filters matches snapshot 1`] = `
 @media screen and (max-width:75em) {
   .c10 {
     display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-    height: 3.6rem;
   }
 }
 
