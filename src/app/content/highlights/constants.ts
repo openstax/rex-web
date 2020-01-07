@@ -14,3 +14,7 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
   {label: HighlightColorEnum.Purple, passive: '#cbcfff', focused: '#545ec8'},
   {label: HighlightColorEnum.Pink, passive: '#ffc5e1', focused: '#de017e'},
 ];
+
+export const enabledForBooks = [
+  /* Calculus vol 1 */ '8b89d172-2927-466f-8661-01abc7ccdba4',
+];
