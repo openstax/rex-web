@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -exv
 
 cd rex-web-pull-request
 
