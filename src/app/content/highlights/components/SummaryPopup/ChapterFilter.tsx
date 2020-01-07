@@ -104,7 +104,7 @@ export default styled(ChapterFilter)`
   outline: none;
   max-height: 72rem;
   overflow: auto;
-  z-index: 2;
+  z-index: 1;
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePadding}rem;
