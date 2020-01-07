@@ -1,19 +1,30 @@
-import { RouteHookBody } from '../../../navigation/types';
-import { content } from '../../routes';
+import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { user } from '../../../auth/selectors';
+import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
+import * as select from '../selectors';
 
-const hookBody: RouteHookBody<typeof content> = ({dispatch, getState, highlightClient}) => async() => {
+const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServices) => async() => {
   const state = getState();
   const {book, page} = bookAndPage(state);
+  const authenticated = user(state);
+  const loaded = select.highlightsLoaded(state);
 
-  if (!book || !page || typeof(window) === 'undefined') {
+  if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
     return;
   }
 
-  const highlights = await highlightClient.getHighlightsByPage(book, page);
+  const highlights = await highlightClient.getHighlights({
+    perPage: 100,
+    scopeId: book.id,
+    sourceIds: [page.id],
+    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+  });
 
-  dispatch(receiveHighlights(highlights));
+  if (highlights.data) {
+    dispatch(receiveHighlights(highlights.data));
+  }
 };
 
 export default hookBody;

@@ -7,10 +7,7 @@ import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import {
   clearFocusedHighlight,
-  createHighlight,
-  deleteHighlight,
   focusHighlight,
-  updateHighlight
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import * as selectHighlights from '../../highlights/selectors';
@@ -33,10 +30,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
-  create: flow(createHighlight, dispatch),
   focus: flow(focusHighlight, dispatch),
-  remove: flow(deleteHighlight, dispatch),
-  update: flow(updateHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
@@ -65,24 +59,25 @@ const onSelectHighlight = (
 });
 
 const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
+
   const highlighter: Highlighter = new Highlighter(services.container, {
-    onClick: (...args) => onClickHighlight({...services, highlighter}, ...args),
-    onSelect: (...args) => onSelectHighlight({...services, highlighter}, ...args),
+    onClick: (...args) => onClickHighlight({ ...services, highlighter }, ...args),
+    onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
+    skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
     snapTableRows: true,
     snapWords: true,
   });
-
   return highlighter;
 };
 
-const isUnknownHighlightData = (highlighter: Highlighter) => (data: SerializedHighlight['data']) =>
+const isUnknownHighlightData = (highlighter: Highlighter) => (data: HighlightData) =>
   !highlighter.getHighlight(data.id);
 
-const highlightData = (services: Services) => (data: SerializedHighlight['data']) => {
-  const {highlighter} = services;
+const highlightData = (services: Services) => (data: HighlightData) => {
+  const { highlighter } = services;
 
-  const serialized = new SerializedHighlight(data);
+  const serialized = SerializedHighlight.fromApiResponse(data);
 
   highlighter.highlight(serialized);
 
@@ -140,13 +135,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       if (listHighlighter) {
         return React.createElement(CardWrapper, {
           container,
+          highlighter: listHighlighter,
           highlights: listPendingHighlight
             ? [
-                ...listHighlights.filter(
-                  (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
-                ),
-                listPendingHighlight,
-              ]
+              ...listHighlights.filter(
+                (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
+              ),
+              listPendingHighlight,
+            ]
             : listHighlights,
         });
       }
@@ -178,14 +174,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))
-        .map(highlightData({...services, highlighter}))
+        .map(highlightData({ ...services, highlighter }))
         .filter(isDefined)
-      ;
+        ;
 
       const removedHighlights = highlighter.getHighlights()
         .filter((highlight) => !getProp().highlights.find(matchHighlightId(highlight.id)))
         .map(erase(highlighter))
-      ;
+        ;
 
       highlighter.clearFocus();
       const focusedId = getProp().focused;

@@ -74,6 +74,7 @@ exports[`Filters matches snapshot 1`] = `
   align-items: center;
   padding: 0 3.2rem;
   height: 5.6rem;
+  background: #fff;
 }
 
 .c0 .c1:first-of-type {

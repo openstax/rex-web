@@ -11,6 +11,7 @@ import searchReducer from './search/reducer';
 import { formatBookData } from './utils';
 
 jest.mock('./search/reducer', () => jest.fn((state: any) => state));
+jest.mock('./highlights/reducer', () => jest.fn((state: any) => state));
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -107,6 +108,7 @@ describe('content reducer', () => {
         route: content,
       },
     }));
+
     expect(newState).toEqual({
       ...initialState,
       params: {
@@ -114,6 +116,7 @@ describe('content reducer', () => {
         page: 'bar',
       },
     });
+
   });
 
   it('resets page when location changes to new page', () => {
@@ -141,6 +144,7 @@ describe('content reducer', () => {
         route: content,
       },
     }));
+
     expect(newState).toEqual({
       ...omit('page', state),
       params: {
@@ -172,6 +176,7 @@ describe('content reducer', () => {
         route: content,
       },
     }));
+
     expect(newState).toEqual({
       ...initialState,
       params: {

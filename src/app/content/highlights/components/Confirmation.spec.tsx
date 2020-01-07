@@ -1,8 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { makeFindByTestId, renderToDom } from '../../../../test/reactutils';
+import { makeFindByTestId } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
-import { assertDocument } from '../../../utils';
 import Confirmation from './Confirmation';
 
 // this is a hack because useEffect is currently not called
@@ -136,18 +135,5 @@ describe('Confirmation', () => {
     findByTestId('cancel').props.onClick({preventDefault: jest.fn()});
 
     expect(always).toHaveBeenCalledTimes(2);
-  });
-
-  it('focuses on mount', () => {
-    const {node} = renderToDom(<MessageProvider onError={() => null}>
-      <Confirmation
-        message='message'
-        confirmMessage='confirm'
-        onConfirm={() => null}
-        onCancel={() => null}
-      />
-    </MessageProvider>);
-
-    expect(assertDocument().activeElement).toBe(node);
   });
 });

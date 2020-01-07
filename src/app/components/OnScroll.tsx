@@ -43,7 +43,7 @@ export default class OnScroll extends React.Component<Props> {
   }
 
   public render() {
-    return this.props.children;
+    return this.props.children || null;
   }
 
   private onTouchMove = (e: TouchEvent) => {

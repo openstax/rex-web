@@ -131,7 +131,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -140,7 +140,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -149,7 +149,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -158,7 +158,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -338,7 +338,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -589,7 +589,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -598,7 +598,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -814,11 +814,16 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         className="c10 c11"
         tabIndex="-1"
       >
-        <img
+        <a
           aria-hidden="true"
-          className="c12"
-          src="logo.svg"
-        />
+          href="/"
+        >
+          <img
+            alt="OpenStax Logo"
+            className="c12"
+            src="logo.svg"
+          />
+        </a>
         <div>
           <h4
             className="c13"
