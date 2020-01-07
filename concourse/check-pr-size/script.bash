@@ -4,21 +4,24 @@ set -exv
 
 cd rex-web-pull-request
 
-sha=$(<.git/resource/head_sha)
+base_sha=$(<.git/resource/base_sha)
+head_sha=$(<.git/resource/head_sha)
 
-echo "$sha"
+echo "$head_sha"
 
-git checkout "$sha"
+git rev-parse HEAD
+
+git checkout "$head_sha"
 
 ls
 
 git status
 
-git --no-pager diff origin/master
+git --no-pager diff "$base_sha"
 
-git --no-pager diff origin/master --numstat ':(exclude)*.snap' ':(exclude)yarn.lock' | cut -f1,2 | awk '{s+=$1+$2}END{print s}'
+git --no-pager diff "$base_sha" --numstat ':(exclude)*.snap' ':(exclude)yarn.lock' | cut -f1,2 | awk '{s+=$1+$2}END{print s}'
 
-diffcount=$(git --no-pager diff origin/master --numstat ':(exclude)*.snap' ':(exclude)yarn.lock' | cut -f1,2 | awk '{s+=$1+$2}END{print s}')
+diffcount=$(git --no-pager diff "$base_sha" --numstat ':(exclude)*.snap' ':(exclude)yarn.lock' | cut -f1,2 | awk '{s+=$1+$2}END{print s}')
 
 echo "$diffcount"
 
