@@ -86,7 +86,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
-  if (services.history.location.state.search) {
+  if (services.history.location.state && services.history.location.state.search) {
     services.history.replace({
       state: {
         ...services.history.location.state,
