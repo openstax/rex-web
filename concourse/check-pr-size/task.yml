@@ -12,7 +12,7 @@ inputs:
 run:
   path: /bin/sh
   args:
-    - -c
+    - -xce
     - |
       apk add bash git
       ./rex-web-pull-request/concourse/check-pr-size/script.bash
