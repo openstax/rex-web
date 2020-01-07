@@ -31,7 +31,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: 0 ${popupPadding}rem 1.6rem;
+  margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
 `;
 

@@ -8,7 +8,6 @@ import { assertWindow } from '../../../utils';
 import * as selectors from '../selectors';
 import { HighlightData } from '../types';
 import * as Styled from './ShowMyHighlightsStyles';
-import Filters from './SummaryPopup/Filters';
 
 interface Props {
   highlights: HighlightData[];
@@ -64,10 +63,7 @@ class ShowMyHighlights extends Component<Props, { showGoToTop: boolean }> {
         ref={this.myHighlightsBodyRef}
         data-testid='show-myhighlights-body'
       >
-        <Filters />
-        <Styled.HighlightsChapter>2. Kinematics</Styled.HighlightsChapter>
         <Styled.HighlightWrapper>
-          <Styled.HighlightSection>2.1 Displacement</Styled.HighlightSection>
           {this.props.highlights.map((item) => {
             return (
               <Styled.HighlightOuterWrapper key={item.id}>
