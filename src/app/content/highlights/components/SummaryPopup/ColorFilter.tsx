@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
@@ -5,6 +6,7 @@ import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
+import theme from '../../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../ColorIndicator';
 
@@ -15,7 +17,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
   const allColors = highlightStyles.map((style) => style.label);
-  const [selectedColors, setSelectedColors] = React.useState<string[]>(allColors);
+  const [selectedColors, setSelectedColors] = React.useState<HighlightColorEnum[]>(allColors);
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
@@ -39,6 +41,7 @@ const ColorFilter = ({className}: Props) => {
 };
 
 export default styled(ColorFilter)`
+  background: ${theme.color.white};
   display: flex;
   flex-direction: column;
   ${textStyle}

@@ -43,7 +43,7 @@
   "i18n:highlighting:filters:colors": "Color",
   "i18n:highlighting:filters:chapters": "Chapter",
   "i18n:highlighting:colors:yellow": "yellow",
-  "i18n:highlighting:colors:red": "red",
+  "i18n:highlighting:colors:pink": "pink",
   "i18n:highlighting:colors:green": "green",
   "i18n:highlighting:colors:blue": "blue",
   "i18n:highlighting:colors:purple": "purple",
@@ -84,10 +84,10 @@
   "i18n:toolbar:highlights:popup:body:note:highlight": "Highlight",
   "i18n:toolbar:highlights:popup:body:note:add-notes": "Add notes",
   "i18n:toolbar:highlights:popup:body:note:study-guide": "Make your study guide",
-  "i18n:toolbar:highlights:popup:body:note:filter-chapters": "Filter by chapters & colors",
+  "i18n:toolbar:highlights:popup:body:note:filter-chapters": "Filters (coming soon)",
   "i18n:toolbar:highlights:popup:body:tooltip:review": "Review all your highlights and notes in one convenient place.",
   "i18n:toolbar:highlights:popup:heading:no-highlights": "You have no highlights in this chapter.",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
-  "i18n:toolbar:highlights:popup:body:use-this-page": "Then use his page to create your own study guide",
+  "i18n:toolbar:highlights:popup:body:use-this-page": "Then use this page to create your own study guide",
   "i18n:toolbar:buy-book:text": "Buy book"
 }

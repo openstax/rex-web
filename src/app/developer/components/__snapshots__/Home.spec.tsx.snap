@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 100;
 }
 
 <a
@@ -58,7 +58,7 @@ Array [
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -875,7 +875,7 @@ Array [
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
-  <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.

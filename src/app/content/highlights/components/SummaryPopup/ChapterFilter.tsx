@@ -108,11 +108,13 @@ const ChapterFilter = ({className}: Props) => {
 
 export default styled(ChapterFilter)`
   ${textStyle}
+  background: ${theme.color.white};
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
   outline: none;
   max-height: 72rem;
   overflow: auto;
+  z-index: 1;
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePadding}rem;

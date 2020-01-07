@@ -71,8 +71,8 @@ exports[`Card matches snapshot when focused without note 1`] = `
   className="c0"
   data={
     Object {
+      "color": "yellow",
       "id": "asdf",
-      "style": "yellow",
     }
   }
   highlight={

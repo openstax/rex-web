@@ -1,4 +1,5 @@
-import { Highlight } from '@openstax/highlighter';
+import Highlighter, { Highlight } from '@openstax/highlighter';
+import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
@@ -15,6 +16,7 @@ import { disablePrint } from '../../components/utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
+import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
 import {
@@ -31,10 +33,13 @@ import EditCard from './EditCard';
 import { cardBorder } from './style';
 
 interface Props {
+  page: ReturnType<typeof selectContent['bookAndPage']>['page'];
+  book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isFocused: boolean;
   user: User;
   loginLink: string;
+  highlighter: Highlighter;
   highlight: Highlight;
   create: typeof createHighlight;
   save: typeof updateHighlight;
@@ -46,9 +51,9 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Card = (props: Props) => {
-  const note = props.data && props.data.note;
+  const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
-  const [editing, setEditing] = React.useState<boolean>(!note);
+  const [editing, setEditing] = React.useState<boolean>(!annotation);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
@@ -60,19 +65,30 @@ const Card = (props: Props) => {
   }, [props.isFocused]);
 
   React.useEffect(() => {
-    if (note) {
+    if (annotation) {
       props.highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
     } else {
       props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
     }
-  }, [props.highlight, note]);
+  }, [props.highlight, annotation]);
 
-  if (!props.highlight.range) {
+  const {page, book} = props;
+
+  if (!props.highlight.range || !page || !book) {
     return null;
   }
 
   const onRemove = () => props.data && props.remove(props.data.id);
-  const style = highlightStyles.find((search) => props.data && search.label === props.data.style);
+  const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
+
+  const onCreate = () => {
+    props.create({
+      ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
+      scopeId: book.id,
+      sourceId: page.id,
+      sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    });
+  };
 
   const commonProps = {
     className: props.className,
@@ -82,17 +98,17 @@ const Card = (props: Props) => {
     ref: element,
   };
 
-  return !editing && style && note ? <DisplayNote
+  return !editing && style && annotation ? <DisplayNote
     {...commonProps}
     style={style}
-    note={note}
+    note={annotation}
     onEdit={() => setEditing(true)}
   /> : <EditCard
     {...commonProps}
     authenticated={!!props.user}
     loginLink={props.loginLink}
     highlight={props.highlight}
-    onCreate={props.create}
+    onCreate={onCreate}
     onCancel={() => setEditing(false)}
     onSave={props.save}
     data={props.data}
@@ -202,11 +218,11 @@ const StyledCard = styled(Card)`
   ${(props: {data: HighlightData}) => {
     const data = props.data;
 
-    if (!data || !data.style) {
+    if (!data || !data.color) {
       return null;
     }
 
-    const style = highlightStyles.find((search) => search.label === props.data.style);
+    const style = highlightStyles.find((search) => search.label === props.data.color);
 
     if (!style) {
       return null;
@@ -260,6 +276,7 @@ const StyledCard = styled(Card)`
 
 export default connect(
   (state: AppState, ownProps: {highlight: Highlight}) => ({
+    ...selectContent.bookAndPage(state),
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
