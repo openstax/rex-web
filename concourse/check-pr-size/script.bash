@@ -4,6 +4,12 @@ set -exv
 
 cd rex-web-pull-request
 
+ls
+
+git status
+
+git --no-pager diff master
+
 git --no-pager diff master --numstat ':(exclude)*.snap' ':(exclude)yarn.lock' | cut -f1,2 | awk '{s+=$1+$2}END{print s}'
 
 diffcount=$(git --no-pager diff master --numstat ':(exclude)*.snap' ':(exclude)yarn.lock' | cut -f1,2 | awk '{s+=$1+$2}END{print s}')
