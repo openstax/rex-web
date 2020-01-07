@@ -166,7 +166,7 @@ export const HighlightNote = styled.div`
 // tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding: 1.2rem ${popupBodyPadding}rem;
-  ${(props: { color: string }) => {
+  ${(props: {color: string}) => {
     const style = highlightStyles.find((search) => search.label === props.color);
 
     if (!style) {

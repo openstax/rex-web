@@ -8,13 +8,13 @@ import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 // tslint:disable-next-line:variable-name
 const ScrollLockBodyClass = createGlobalStyle`
   body.body {
-    ${(props: { mobileOnly?: boolean }) => props.mobileOnly && css`
+    ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
       ${theme.breakpoints.mobile(css`
         overflow: hidden;
       `)}
     `}
 
-    ${(props: { mobileOnly?: boolean }) => props.mobileOnly === false && css`
+    ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
       overflow: hidden;
     `}
   }
@@ -40,7 +40,7 @@ const fadeIn = keyframes`
 export const Overlay = styled.div`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
-  ${(props: { zIndex?: number }) => props.zIndex && css`
+  ${(props: {zIndex?: number}) => props.zIndex && css`
     z-index: ${props.zIndex};
   `}
   position: absolute;
@@ -49,7 +49,7 @@ export const Overlay = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  ${(props: { mobileOnly?: boolean }) => props.mobileOnly && css`
+  ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
     display: none;
 
     ${theme.breakpoints.mobile(css`
@@ -69,16 +69,16 @@ export default class ScrollLock extends React.Component<Props> {
 
   public render() {
     return <OnScroll onTouchMove={this.blockScroll}>
-      <ScrollLockBodyClass mobileOnly={this.props.mobileOnly} />
+      <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
       {this.props.overlay !== false &&
-        <Overlay onClick={this.props.onClick} mobileOnly={this.props.mobileOnly} zIndex={this.props.zIndex} />
+        <Overlay onClick={this.props.onClick} mobileOnly={this.props.mobileOnly} zIndex={this.props.zIndex}/>
       }
     </OnScroll>;
   }
 
   private blockScroll: OnTouchMoveCallback = (element, e) => {
     if (
-      typeof (window) !== 'undefined'
+      typeof(window) !== 'undefined'
       && window.matchMedia(theme.breakpoints.mobileQuery).matches
       && element === window
     ) {
