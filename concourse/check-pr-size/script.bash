@@ -4,6 +4,12 @@ set -exv
 
 cd rex-web-pull-request
 
+sha=$(<.git/resource/head_sha)
+
+echo "$sha"
+
+git checkout "$sha"
+
 ls
 
 git status
