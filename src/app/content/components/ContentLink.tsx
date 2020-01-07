@@ -50,8 +50,9 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   return <a
     ref={myForwardedRef}
     onClick={(e) => {
-      const shouldUseCtrl = navigator && /windows|linux/i.test(navigator.userAgent);
-      if (e.metaKey || (shouldUseCtrl && e.ctrlKey)) {
+      const { metaKey, altKey, ctrlKey, shiftKey } = e;
+
+      if (metaKey || altKey || ctrlKey || shiftKey) {
         return;
       }
 
