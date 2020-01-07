@@ -32,13 +32,13 @@ const ItemLabel = styled.span`
 
 interface FiltersListColorProps {
   color: HighlightColorEnum;
-  onRemove: (color: HighlightColorEnum) => void;
+  onRemove: () => void;
 }
 
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <li>
-    <StyledPlainButton onClick={() => props.onRemove(props.color)}><Times /></StyledPlainButton>
+    <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
         {(msg: Element | string) => msg}
@@ -50,13 +50,13 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
 interface FiltersListChapterProps {
   title: string;
   locationId: string;
-  onRemove: (chapterId: string) => void;
+  onRemove: () => void;
 }
 
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <li>
-    <StyledPlainButton onClick={() => props.onRemove(props.locationId)}><Times /></StyledPlainButton>
+    <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </li>
 );
@@ -89,12 +89,12 @@ const FiltersList = ({className}: FiltersListProps) => {
       key={locationId}
       title={locationFilters.get(locationId)!.title}
       locationId={locationId}
-      onRemove={onRemoveChapter}
+      onRemove={() => onRemoveChapter(locationId)}
     />)}
     {filters.colors.map((color) => <FiltersListColor
       key={color}
       color={color}
-      onRemove={onRemoveColor}
+      onRemove={() => onRemoveColor(color)}
     />)}
   </ul>;
 };

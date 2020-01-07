@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
+import { assertDefined } from '../../../utils';
 import { LinkedArchiveTreeNode } from '../../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -15,7 +16,7 @@ import * as Styled from './ShowMyHighlightsStyles';
 // tslint:disable-next-line: variable-name
 const NoHighlightsTip = htmlMessage(
   'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
-  HStyled.GeneralCenterTextWrapper
+  () => <span/>
 );
 
 // tslint:disable-next-line: variable-name
@@ -96,10 +97,12 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
         dangerouslySetInnerHTML={{ __html: location.title }}
       />
       {Object.entries(highlights[location.id]).map(([pageId, pageHighlights]) => {
-        const page = archiveTreeSectionIsChapter(location)
-          ? findArchiveTreeNode(location, stripIdVersion(pageId))
-          : location;
-        if (!page) { return null; }
+        const page = assertDefined(
+          archiveTreeSectionIsChapter(location)
+            ? findArchiveTreeNode(location, stripIdVersion(pageId))
+            : location,
+          `Page is undefined in SectionHighlights`
+        );
         return <Styled.HighlightWrapper key={pageId}>
           {!pageIdIsSameAsSectionId && <Styled.HighlightSection
             dangerouslySetInnerHTML={{ __html: page.title }}

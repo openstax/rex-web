@@ -11,11 +11,11 @@ import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import { highlightLocationFilters, summaryFilters } from '../selectors';
+import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights, { SectionHighlights } from './Highlights';
-import { HighlightContentWrapper, HighlightSection, HighlightWrapper, LoaderWrapper } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper, HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -153,7 +153,7 @@ describe('Highlights', () => {
       .toBeDefined();
   });
 
-  it('renders null if page from summary highlights wasn\'t found in book', () => {
+  it('throws an error if page from summary highlights wasn\'t found in book', () => {
     store.dispatch(receivePage({...pageInChapter, references: []}));
     const pageId = stripIdVersion(pageInChapter.id);
     const locations = highlightLocationFilters(store.getState());
@@ -170,12 +170,11 @@ describe('Highlights', () => {
       store.dispatch(receiveSummaryHighlights(summaryHighlights));
     });
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
-    </Provider>);
-
-    expect(() => component.root.findByType(HighlightWrapper)).toThrow();
+    expect(() => renderer.create(<Provider store={store}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Provider>)
+    ).toThrow();
   });
 });

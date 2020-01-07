@@ -44,8 +44,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         sourceType: action.payload.sourceType as string as HighlightSourceTypeEnum,
       };
 
-      let newSummaryHighlights = {};
-
+      let newSummaryHighlights;
       if (state.summary.filters.colors.includes(highlight.color)) {
         newSummaryHighlights = addSummaryHighlight(state.summary.highlights, {
           ...action.meta,
@@ -58,7 +57,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         highlights: [...state.highlights || [], highlight],
         summary: {
           ...state.summary,
-          highlights: Object.keys(newSummaryHighlights).length ? newSummaryHighlights : state.summary.highlights,
+          highlights: newSummaryHighlights || state.summary.highlights,
         },
       };
     }
