@@ -15,4 +15,4 @@ run:
     - -c
     - |
       apk add bash git
-      ./script.bash
+      ./rex-web-pull-request/concourse/check-pr-size/script.bash
