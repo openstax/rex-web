@@ -398,6 +398,8 @@ class Content(Page):
 
             :return: the highlight control
             :rtype: Content.Content.HighlightBox
+            :raises NoSuchElementException: when an open highlight box is not
+                found
 
             """
             for box in self.highlight_boxes:

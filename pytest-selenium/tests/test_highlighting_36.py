@@ -21,8 +21,14 @@ XPATH_SEARCH = (
 
 
 def random_string(length: int = 20):
-    """Return a random string of a specified length for use in notes."""
-    characters = ascii_letters + digits + "      \n\n"
+    """Return a random string of a specified length for use in notes.
+
+    .. note::
+       beginning and ending white space are stripped from the final string so
+       the return length may not equal ``length``
+
+    """
+    characters = ascii_letters + digits + " " * 6 + "\n" * 2
     return "".join(random.choices(population=characters, k=length)).strip()
 
 
