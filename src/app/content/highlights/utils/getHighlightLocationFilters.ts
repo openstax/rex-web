@@ -12,7 +12,7 @@ const getHighlightLocationFilters = (book: Book | ArchiveBook) => {
     flattenArchiveTree(book.tree)
       .filter((section) =>
         (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
-        || (archiveTreeSectionIsChapter(section)) && !archiveTreeSectionIsUnit(section))
+        || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section)))
       .map((section) => [section.id, section])
   );
 };
