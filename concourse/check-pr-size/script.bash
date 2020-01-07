@@ -10,7 +10,7 @@ diffcount=$(git --no-pager diff "$base_sha" --numstat ':(exclude)*.snap' ':(excl
 
 echo "$diffcount"
 
-if [ "$diffcount" -gt "20" ]
+if [ "$diffcount" -gt "200" ]
 then
   exit 1
 fi
