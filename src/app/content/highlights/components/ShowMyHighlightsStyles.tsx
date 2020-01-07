@@ -17,7 +17,6 @@ const printStyles = {
   highlightOuterWrapper: css`
     border-width:0;
     position:relative;
-    break-inside:avoid-page;
     page-break-inside:avoid;
   `,
   highlightSection: css`

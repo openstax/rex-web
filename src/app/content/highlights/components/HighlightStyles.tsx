@@ -44,12 +44,13 @@ const printStyles = {
     border-radius:0;
   `,
   page: css`
-    margin:10mm 10mm;
-    padding:0 0 10mm;
+    margin:15mm 10mm;
+    padding:0;
   `,
   popupBody: css`
     height:max-content;
     overflow:auto;
+    background:white;
   `,
   popupWrapper: css`
     display:block;
