@@ -2,6 +2,8 @@
 
 import random
 import re
+from functools import reduce
+from math import isclose
 from string import digits, ascii_letters
 
 import pytest
@@ -352,49 +354,10 @@ def test_user_highlight_over_search_term_highlight(
         "the new highlight ID not found on the page"
 
 
-@markers.skip_test(reason="Expected result does not match current behavior")
 @markers.test_case("C591686")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("microbiology",
-         "1-introduction")])
-@markers.desktop_only
-def test_expanded_focussed_note_card_is_displayed_when_highlight_clicked(
-        selenium, base_url, book_slug, page_slug):
+@markers.skip_test(reason="test mechanics covered by C591687")
+def test_expanded_focussed_note_card_is_displayed_when_highlight_clicked():
     """Display the focussed note card after clicking a highlight."""
-    # GIVEN: a book section is displayed
-    # AND:   a user is logged in
-    # AND:   all content is visible
-    # AND:   some content is highlighted with a long note
-    book = Content(selenium, base_url,
-                   book_slug=book_slug, page_slug=page_slug).open()
-
-    book.navbar.click_login()
-    name, email = Signup(selenium).register()
-
-    book.wait_for_page_to_load()
-    if book.notification_present:
-        book.notification.got_it()
-    book.content.show_solutions()
-
-    paragraph = random.choice(book.content.paragraphs)
-    note = random_string(length=400)
-    book.content.highlight(target=paragraph,
-                           offset=Highlight.ENTIRE,
-                           color=Color.GREEN,
-                           note=note)
-
-    # WHEN: they click on the highlighted text
-    Utilities.click_option(selenium, element=book.content.highlights[0])
-
-    # THEN: the note edit card appears in the expanded state to show all of the
-    #       note
-    # AND:  the highlighted text is in the focussed state
-    # AND:  the entire note is visible and not hidden by the highlighted text
-    #       or content unless the note exceeds the content height and a scroll
-    #       bar is needed
-    # AND:  the page scrolls appropriately to show the note if the highlight is
-    #       present towards the bottom of the screen
 
 
 @markers.test_case("C591687")
@@ -1337,3 +1300,171 @@ def test_open_a_second_note_when_the_first_is_already_displayed(
 @markers.skip_test(reason="requires testing a temp pdf document")
 def test_print_preview_while_note_card_is_displayed():
     """Highlight note card not displayed in print preview PDF."""
+
+
+@markers.test_case("C591704")
+@markers.skip_test(reason="test mechanics covered by C591697")
+def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved_2():
+    """Cancel a note edit after changing the text but before saving it."""
+
+
+@markers.test_case("C591705")
+@markers.skip_test(reason="not prioritized")
+def test_content_highlight_and_note_are_copyable():
+    """Copy content, highlighted content, and highlight notes."""
+
+
+@markers.test_case("C592002")
+@markers.parametrize("page_slug", [("preface")])
+@markers.desktop_only
+def test_top_of_create_note_box_is_even_with_top_of_content_highlight(
+        selenium, base_url, book_slug, page_slug):
+    """The top of the create box is even with the top of the highlight.
+
+    .. note::
+       Table of Contents is closed
+
+    """
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   the table of contents is closed
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    if book.sidebar.header.is_displayed:
+        book.sidebar.header.click_toc_toggle_button()
+
+    # WHEN: they select some content
+    paragraph = random.choice(book.content.paragraphs)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=Color.YELLOW,
+                           note=random_string(length=100),
+                           close_box=False)
+    highlight_id = book.content.highlight_ids[0]
+
+    bounds = []
+    for highlight in book.content.get_highlight(by_id=highlight_id):
+        bounds.append(Highlight.get_position(selenium, highlight))
+    highlight_top = reduce(lambda x, y: min(x, y),
+                           map(lambda x: x.get("top"), bounds))
+    highlight_box_top = Highlight.get_position(
+        selenium, book.content.highlight_box.root
+        ).get("top")
+    within = highlight_top * 0.01
+
+    # THEN: the top of the create note card is shown in line with the top of
+    #       the highlighted content
+    assert(isclose(highlight_top, highlight_box_top, rel_tol=within)), (
+        r"top of the highlight box not within 1% of the "
+        "top of the highlight ({low} <= {target} <= {high})".format(
+            low=highlight_top - within,
+            high=highlight_top + within,
+            target=highlight_box_top))
+
+
+@markers.test_case("C592003")
+@markers.skip_test(reason="not prioritized")
+def test_top_of_edit_note_box_is_even_with_top_of_content_highlight():
+    """The top of the edit box is even with the top of the highlight.
+
+    .. note::
+       Table of Contents is closed
+
+    """
+
+
+@markers.test_case("C592004")
+@markers.parametrize("page_slug", [("preface")])
+@markers.desktop_only
+def test_top_of_create_note_box_is_even_with_bottom_of_content_highlight(
+        selenium, base_url, book_slug, page_slug):
+    """The top of the create box is even with the bottom of the highlight.
+
+    .. note::
+       Table of Contents is open
+
+    """
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   the table of contents is open
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    if not book.sidebar.header.is_displayed:
+        book.sidebar.header.click_toc_toggle_button()
+
+    # WHEN: they select some content
+    paragraph = random.choice(book.content.paragraphs)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=Color.GREEN,
+                           note=random_string(length=100),
+                           close_box=False)
+    highlight_id = book.content.highlight_ids[0]
+
+    bounds = []
+    for highlight in book.content.get_highlight(by_id=highlight_id):
+        bounds.append(Highlight.get_position(selenium, highlight))
+    highlight_bottom = reduce(lambda x, y: min(x, y),
+                              map(lambda x: x.get("bottom"), bounds))
+    highlight_box_top = Highlight.get_position(
+        selenium, book.content.highlight_box.root
+        ).get("top")
+    within = highlight_bottom * 0.01
+
+    # THEN: the top of the create note card is shown in line with the bottom
+    #       of the highlighted content
+    assert(isclose(highlight_bottom, highlight_box_top, rel_tol=within)), (
+        r"top of the highlight box not within 1% of the "
+        "bottom of the highlight ({low} <= {target} <= {high})".format(
+            low=highlight_bottom - within,
+            high=highlight_bottom + within,
+            target=highlight_box_top))
+
+
+@markers.test_case("C592005")
+@markers.skip_test(reason="not prioritized")
+def test_top_of_edit_note_box_is_even_with_bottom_of_content_highlight():
+    """The top of the edit box is even with the bottom of the highlight.
+
+    .. note::
+       Table of Contents is open
+
+    """
+
+
+@markers.test_case("C592006")
+@markers.skip_test(reason="not prioritized")
+def test_clicking_outside_create_note_box_closes_the_create_box():
+    """Clicking outside an empty create note box closes the box."""
+
+
+@markers.test_case("C592007")
+@markers.skip_test(reason="test mechanics covered by C591695")
+def test_change_color_of_highlighted_text():
+    """Change the color of a content highlight."""
+
+
+@markers.test_case("C592008")
+@markers.skip_test(reason="not prioritized")
+def test_create_note_box_position_and_size_for_long_notes():
+    """Verify the create note box position for long notes."""

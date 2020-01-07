@@ -6,7 +6,7 @@ from enum import Enum
 from platform import system
 from random import choice, randint
 from time import sleep
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 from faker import Faker
 from selenium.common.exceptions import (
@@ -17,6 +17,7 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.remote.webelement import WebElement
 
 # Constant usage values for javascript commands
 ASYNC_DELETE = r"""
@@ -113,6 +114,24 @@ class Highlight:
         driver.execute_script(ASYNC_DELETE)
         sleep(total_page_highlights * 0.05)
         driver.execute_script(RELOAD)
+
+    @classmethod
+    def get_position(cls, driver, element: WebElement) -> Dict[str, float]:
+        """Return the position details for a specific page highlight or box.
+
+        :param driver: a webdriver instance
+        :param WebElement element: the requested element or object root
+        :return: the ``top``, ``right`` side, ``bottom``, and ``left`` side
+            pixel positions within the current web page
+        :rtype: dict(str, float)
+
+        """
+        position = driver.execute_script(
+            "return arguments[0].getBoundingClientRect();", element)
+        return {"top": position.get("top"),
+                "right": position.get("right"),
+                "bottom": position.get("bottom"),
+                "left": position.get("left"), }
 
     @classmethod
     def random_color(cls) -> int:
