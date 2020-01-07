@@ -23,7 +23,8 @@ const MenuIcon = styled(EllipsisV)`
 `;
 
 // tslint:disable-next-line:variable-name
-const MenuToggle = styled(({className}) => <PlainButton className={className}><MenuIcon /></PlainButton>)`
+export const MenuToggle = styled(
+  ({className, ...props}) => <PlainButton className={className} {...props}><MenuIcon /></PlainButton>)`
   border: none;
   display: block;
 `;

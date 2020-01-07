@@ -1,5 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
@@ -157,12 +157,19 @@ export const DropdownList = styled.ol`
   }
 `;
 
+interface DropdownItemProps {
+  message: string;
+  href?: string;
+  prefix?: ReactNode;
+  onClick?: () => void;
+}
+
 // tslint:disable-next-line:variable-name
-export const DropdownItem = ({message, href, onClick}: {message: string, href?: string, onClick?: () => void}) => <li>
+export const DropdownItem = ({message, href, prefix, onClick}: DropdownItemProps) => <li>
   <FormattedMessage id={message}>
     {(msg: Element | string) => href
-      ? <a href={href} onClick={onClick}>{msg}</a>
-      : <button onClick={onClick}>{msg}</button>
+      ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
+      : <button onClick={onClick}>{prefix}{msg}</button>
     }
   </FormattedMessage>
 </li>;

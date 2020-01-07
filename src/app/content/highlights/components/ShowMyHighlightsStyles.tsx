@@ -1,9 +1,12 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
+import { bodyCopyRegularStyle, labelStyle, textRegularStyle, textStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
+import { DropdownList } from '../../../components/Dropdown';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
+import ColorPicker from './ColorPicker';
+import { MenuToggle } from './DisplayNote';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
 
 // tslint:disable-next-line:variable-name
@@ -33,6 +36,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 export const HighlightWrapper = styled.div`
   margin: 0 ${popupPadding}rem 1.6rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
+  overflow: unset;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -48,6 +52,9 @@ export const HighlightSection = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const HighlightOuterWrapper = styled.div`
+  position: relative;
+  overflow: unset;
+
   :not(:last-child) {
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
@@ -75,6 +82,15 @@ export const HighlightNote = styled.div`
     margin: 0 0.8rem 0 0;
     overflow: visible;
   }
+
+  textarea {
+    ${textRegularStyle}
+    flex: 1;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: #6F6F6F;
+    padding: 8px;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -99,6 +115,86 @@ export const HighlightContentWrapper = styled.div`
       }
     `;
   }}
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightToggleEdit = styled.span`
+  display: contents;
+
+  ${MenuToggle} {
+    position: absolute;
+    top: 12px;
+    right: 0;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightToggleEditContent = styled.div`
+  position: absolute;
+  right: 0;
+  top: 34px;
+  z-index: 1;
+  border: 1px solid ${theme.color.neutral.formBorder};
+  background-color: ${theme.color.neutral.formBackground};
+
+  ${ColorPicker} label {
+    margin: 0.6rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  ${DropdownList} {
+    padding: 0;
+
+    li {
+      display: flex;
+
+      button {
+        width: 100%;
+
+        svg {
+          width: 15px;
+          height: 15px;
+          margin-right: 10px;
+          color: ${theme.color.text.default};
+        }
+      }
+    }
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightDeleteWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+
+  span {
+    ${textStyle}
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: -0.2;
+    color: #fff;
+    margin-right: 8px;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightEditButtons = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+
+  button:first-child {
+    margin-right: 8px;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
