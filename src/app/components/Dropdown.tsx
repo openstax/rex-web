@@ -81,7 +81,7 @@ const DropdownFocusWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const TabTransparentDropdown = styled(({toggle, children, className}: Props) => <div className={className}>
-  <DropdownFocusWrapper tabIndex={-1}>
+  <DropdownFocusWrapper tabIndex={0}>
     <DropdownToggle tabIndex={-1} component={toggle}/>
     {children}
   </DropdownFocusWrapper>
@@ -121,24 +121,18 @@ const TabTransparentDropdown = styled(({toggle, children, className}: Props) => 
       ${visuallyHidden}
     }
 
-    ${DropdownFocusWrapper}.focus > *:not(${DropdownToggle}),
     ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
 
-
-    ${DropdownFocusWrapper}:focus > *:not(${DropdownToggle}),
     ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
 
-    &.focus > ${DropdownFocusWrapper} > *:not(${DropdownToggle}),
     &.focus-within > ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
 
-
-    &:focus > ${DropdownFocusWrapper} > *:not(${DropdownToggle}),
     &:focus-within > ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
