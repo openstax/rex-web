@@ -91,10 +91,30 @@ exports[`Dropdown matches snapshot 1`] = `
   overflow: visible;
 }
 
+.c1.focus-within > .c2 > *:not(.c4) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1:focus-within > .c2 > *:not(.c4) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
 .c6 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
+}
+
+.c6 li {
+  display: inline-block;
 }
 
 .c6 li button,
@@ -134,7 +154,7 @@ exports[`Dropdown matches snapshot 1`] = `
   >
     <button
       className="c4 c5"
-      tabIndex={-1}
+      tabIndex={0}
     >
       show more
     </button>
@@ -160,7 +180,7 @@ exports[`Dropdown matches snapshot 1`] = `
   </div>
   <button
     className="c4 c5"
-    tabIndex={-1}
+    tabIndex={0}
   >
     show more
   </button>
@@ -257,6 +277,22 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 }
 
 .c4 .c5:focus-within > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4.focus-within > .c5 > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4:focus-within > .c5 > *:not(.c2) {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -378,10 +414,30 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
   overflow: visible;
 }
 
+.c5.focus-within > .c6 > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c5:focus-within > .c6 > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
 .c4 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
+}
+
+.c4 li {
+  display: inline-block;
 }
 
 .c4 li button,
