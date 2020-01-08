@@ -589,7 +589,7 @@ class Content(Page):
                 default: ``True``
             :type target: WebElement
             :type offset: tuple(int, int), int
-            :type color: :py:class:`~utils.Color` or None
+            :type color: :py:class:`~utils.utility.Color` or None
             :type note: str
             :type: close_box: bool
             :return: None
@@ -611,8 +611,8 @@ class Content(Page):
             else:
                 self._highlight_math(target)
 
-            # Select the highlight color or interupt the highlight if not color
-            # is provided
+            # Select the highlight color or interupt the highlight if a color
+            # is not provided
             if not color:
                 return
             self.highlight_box.toggle_color(color)
