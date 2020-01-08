@@ -1040,6 +1040,23 @@ class Content(Page):
                 Utilities.click_option(self.driver, element=self.edit_button)
                 return self
 
+            def is_checked(self, color: Color) -> bool:
+                """Return True if the selected color is currently marked.
+
+                :param color: the color option to test
+                :type color: :py:class:`~utils.utility.Color`
+                :return: ``True`` if the color is currently marked and active
+                :rtype: bool
+
+                """
+                colors = {Color.BLUE: self.blue,
+                          Color.GREEN: self.green,
+                          Color.PINK: self.pink,
+                          Color.PURPLE: self.purple,
+                          Color.YELLOW: self.yellow, }
+                return self.driver.execute_script(
+                    "return arguments[0].checked;", colors[color])
+
             @note.setter
             def note(self, note: str):
                 """Set the annotation text for the highlight.
