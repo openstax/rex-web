@@ -21,7 +21,11 @@ const MenuIcon = styled(EllipsisV)`
   user-select: none;
 `;
 
-/*this should be a button but Safari and firefox don't support focusing buttons*/
+/*
+  this should be a button but Safari and firefox don't support focusing buttons
+  https://bugs.webkit.org/show_bug.cgi?id=22261
+  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
+*/
 // tslint:disable-next-line:variable-name
 const MenuToggle = styled(({className}) => <div tabIndex={0} className={className}><MenuIcon /></div>)`
   border: none;

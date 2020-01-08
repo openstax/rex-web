@@ -97,22 +97,6 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c3.focus-within > .c4 > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3:focus-within > .c4 > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
 .c13 {
   margin: 0;
   padding: 0.6rem 0;
@@ -423,22 +407,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 }
 
 .c3 .c4:focus-within > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3.focus-within > .c4 > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3:focus-within > .c4 > *:not(.c6) {
   height: unset;
   width: unset;
   -webkit-clip: unset;

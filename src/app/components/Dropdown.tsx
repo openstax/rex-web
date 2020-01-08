@@ -128,14 +128,6 @@ const TabTransparentDropdown = styled(({toggle, children, className}: Props) => 
     ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
-
-    &.focus-within > ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-      ${visuallyShown}
-    }
-
-    &:focus-within > ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-      ${visuallyShown}
-    }
   `}
 `;
 
