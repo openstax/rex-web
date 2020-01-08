@@ -3,7 +3,10 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import mockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import { resetModules } from '../../../../test/utils';
+import { receiveUser } from '../../../auth/actions';
+import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -36,6 +39,7 @@ describe('openMyHighlights', () => {
   it('call setSummaryFilter on openMyHighlights', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
     expect(location).toBeDefined();
@@ -56,6 +60,7 @@ describe('openMyHighlights', () => {
   it('do not call setSummaryFilter on openMyHighlights if location filter is already present', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
     expect(location).toBeDefined();
@@ -78,5 +83,11 @@ describe('openMyHighlights', () => {
     hook(openMyHighlights());
 
     expect(dispatch).toBeCalledTimes(1);
+  });
+
+  it('does not call setSummary if user is not authenticated', () => {
+    hook(openMyHighlights());
+
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });
