@@ -567,7 +567,7 @@ class Content(Page):
         def highlight(self,
                       target: WebElement,
                       offset: Union[Highlight.Offset, str] = Highlight.RANDOM,
-                      color: Color = Color.YELLOW,
+                      color: Union[Color, None] = Color.YELLOW,
                       note: str = "",
                       close_box: bool = True):
             """Highlight a page element.
@@ -588,7 +588,7 @@ class Content(Page):
                 default: ``True``
             :type target: WebElement
             :type offset: tuple(int, int), int
-            :type color: int
+            :type color: :py:class:`~utils.Color` or None
             :type note: str
             :type: close_box: bool
             :return: None
@@ -610,7 +610,10 @@ class Content(Page):
             else:
                 self._highlight_math(target)
 
-            # Select the highlight color
+            # Select the highlight color or interupt the highlight if not color
+            # is provided
+            if not color:
+                return
             self.highlight_box.toggle_color(color)
 
             # Enter the annotation text, if present
