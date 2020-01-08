@@ -19,6 +19,7 @@ import ColorPicker from './ColorPicker';
 import { MenuToggle } from './DisplayNote';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
+import { useOnClickOutside } from './utils/onClickOutside';
 
 interface Props {
   highlights: HighlightData[];
@@ -210,9 +211,12 @@ interface HighlightToggleEditProps {
 
 // tslint:disable-next-line:variable-name
 const HighlightToggleEdit = ({ color, onColorChange, onEdit, onDelete }: HighlightToggleEditProps) => {
+  const editMenuRef = React.useRef<HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
 
-  return <Styled.HighlightToggleEdit>
+  useOnClickOutside(editMenuRef, true, () => setOpen(false));
+
+  return <Styled.HighlightToggleEdit ref={editMenuRef}>
     <MenuToggle onClick={() => setOpen(!open)}/>
     {open && <Styled.HighlightToggleEditContent>
         <ColorPicker

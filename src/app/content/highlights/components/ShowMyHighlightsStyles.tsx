@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
+import { DropdownList } from '../../../components/Dropdown';
 import { bodyCopyRegularStyle, labelStyle, textRegularStyle, textStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
-import { DropdownList } from '../../../components/Dropdown';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import ColorPicker from './ColorPicker';
@@ -88,7 +88,7 @@ export const HighlightNote = styled.div`
     flex: 1;
     letter-spacing: 0;
     line-height: 20px;
-    color: #6F6F6F;
+    color: ${theme.color.text.label};
     padding: 8px;
   }
 `;
@@ -129,18 +129,31 @@ export const HighlightToggleEdit = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
+export const HighlightEditButtons = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+
+  button:first-child {
+    margin-right: 8px;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
 export const HighlightToggleEditContent = styled.div`
   position: absolute;
   right: 0;
   top: 34px;
-  z-index: 1;
+  z-index: 2;
   border: 1px solid ${theme.color.neutral.formBorder};
   background-color: ${theme.color.neutral.formBackground};
 
-  ${ColorPicker} label {
-    margin: 0.6rem;
-    width: 1.8rem;
-    height: 1.8rem;
+  ${ColorPicker} {
+    label {
+      margin: 0.6rem;
+      width: 1.8rem;
+      height: 1.8rem;
+    }
   }
 
   ${DropdownList} {
@@ -182,17 +195,6 @@ export const HighlightDeleteWrapper = styled.div`
     line-height: 25px;
     letter-spacing: -0.2;
     color: #fff;
-    margin-right: 8px;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightEditButtons = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-
-  button:first-child {
     margin-right: 8px;
   }
 `;
