@@ -143,6 +143,9 @@ export const DropdownList = styled.ol`
 
   li button,
   li a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
     text-align: left;
     cursor: pointer;
     outline: none;
@@ -168,7 +171,19 @@ export const DropdownItem = ({message, href, onClick}: {message: string, href?: 
   <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} onClick={onClick}>{msg}</a>
-      : <button onClick={onClick}>{msg}</button>
+      /*
+        this should be a button but Safari and firefox don't support focusing buttons
+        which breaks the tab transparent dropdown
+        https://bugs.webkit.org/show_bug.cgi?id=22261
+        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
+      */
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      : <a tabIndex={0} href='' onClick={(e) => {
+        e.preventDefault();
+        if (onClick) {
+          onClick();
+        }
+      }}>{msg}</a>
     }
   </FormattedMessage>
 </li>;
