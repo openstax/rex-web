@@ -82,10 +82,10 @@ const DropdownFocusWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const TabTransparentDropdown = styled(({toggle, children, className}: Props) => <div className={className}>
   <DropdownFocusWrapper>
-    <DropdownToggle tabIndex={-1} component={toggle} />
+    <DropdownToggle tabIndex={0} component={toggle} />
     {children}
   </DropdownFocusWrapper>
-  <DropdownToggle tabIndex={-1} component={toggle} />
+  <DropdownToggle tabIndex={0} component={toggle} />
 </div>)`
   ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
     ${DropdownFocusWrapper} + ${DropdownToggle} {
@@ -120,9 +120,11 @@ const TabTransparentDropdown = styled(({toggle, children, className}: Props) => 
     ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
       ${visuallyHidden}
     }
+
     ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
+
     ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
@@ -134,6 +136,10 @@ export const DropdownList = styled.ol`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
+
+  li {
+    display: inline-block;
+  }
 
   li button,
   li a {
