@@ -230,9 +230,7 @@ export const InfoIconWrapper = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIconWrapper = styled(PlainButton)`
-  cursor: pointer;
-`;
+export const CloseIconWrapper = PlainButton;
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`

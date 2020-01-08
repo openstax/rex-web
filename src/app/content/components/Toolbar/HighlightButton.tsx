@@ -24,10 +24,6 @@ const MyHighlightsWrapper = styled(PlainButton)`
   margin-right: 2rem;
   height: auto;
 
-  :focus {
-    outline: auto -webkit-focus-ring-color;
-  }
-
   ${theme.breakpoints.mobile(css`
     margin-right: 0;
   `)}
