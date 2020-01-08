@@ -78,8 +78,7 @@ export const Header = styled(H3)`
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
   height: calc(100% - ${headerHeight}rem);
-  padding: ${popupBodyPadding}rem ${popupPadding}rem;
-  background: ${theme.color.neutral.darker};
+  background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
@@ -267,8 +266,9 @@ export const GeneralText = styled(H3)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const GeneralTextWrapper = styled.span`
+export const GeneralTextWrapper = styled.div`
   ${bodyCopyRegularStyle}
+  padding: ${popupBodyPadding}rem ${popupPadding}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name

@@ -22,7 +22,7 @@ export const HighlightsChapter = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const ShowMyHighlightsBody = styled(PopupBody)`
-  padding: 0;
+  background: ${theme.color.neutral.darker};
   ${theme.breakpoints.mobile(css`
     text-align: left;
     padding: 0;
@@ -31,7 +31,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: 0 ${popupPadding}rem 1.6rem;
+  margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
 `;
 
@@ -58,6 +58,7 @@ export const HighlightOuterWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
+  overflow: visible;
 
   * {
     overflow: initial;
