@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { enabledForBooks } from './constants';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -8,7 +9,8 @@ export const localState = createSelector(
 
 export const isEnabled = createSelector(
   localState,
-  (state) => !!state.enabled
+  parentSelectors.book,
+  (state, book) => !!state.enabled && !!book && enabledForBooks.includes(book.id)
 );
 
 export const highlightsLoaded = createSelector(
