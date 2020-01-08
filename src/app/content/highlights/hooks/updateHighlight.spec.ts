@@ -36,7 +36,7 @@ describe('locationChange', () => {
     const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight');
     const mock = updateMockHighlight();
 
-    await hook(updateHighlight(mock));
+    await hook(updateHighlight(mock, {locationFilterId: 'id', pageId: 'id'}));
 
     expect(updateHighlightClient).toHaveBeenCalledWith(mock);
   });

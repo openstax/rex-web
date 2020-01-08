@@ -1,4 +1,4 @@
-import { book, page, pageInChapter } from '../../../test/mocks/archiveLoader';
+import { book, page } from '../../../test/mocks/archiveLoader';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { ArchiveTree, ArchiveTreeSection, Page } from '../types';
 import {
