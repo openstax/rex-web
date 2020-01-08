@@ -2,7 +2,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
-import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
@@ -23,7 +22,7 @@ const MenuIcon = styled(EllipsisV)`
 `;
 
 // tslint:disable-next-line:variable-name
-const MenuToggle = styled(({className}) => <PlainButton className={className}><MenuIcon /></PlainButton>)`
+const MenuToggle = styled(({className}) => <div tabIndex={0} className={className}><MenuIcon /></div>)`
   border: none;
   display: block;
 `;
