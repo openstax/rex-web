@@ -2,7 +2,7 @@
 
 import string
 from random import randint
-from typing import Tuple
+from typing import Tuple, Union
 
 from pypom import Page
 from selenium.webdriver.common.by import By
@@ -14,6 +14,7 @@ from utils.restmail import RestMail
 from utils.utility import Utilities
 
 Name = Tuple[str, str]
+Password = str
 
 
 class Login(Page):
@@ -132,11 +133,14 @@ class Signup(Page):
             *self._create_account_button_locator)
         Utilities.click_option(self.driver, element=create_account_button)
 
-    def register(self) -> Tuple[Name, RestMail]:
-        """Register a new student and return the email and password.
+    def register(self, return_password: bool = False) \
+            -> Union[Tuple[Name, RestMail], Tuple[Name, RestMail, Password]]:
+        """Register a new student and return the name, email and/or password.
 
+        :param bool return_password: (optional) include the generated password
+            in the returned tuple
         :return: the new RestMail address
-        :rtype: ((str, str), RestMail)
+        :rtype: ((str, str), RestMail) or ((str, str), RestMail, str)
 
         """
         name, password, school, email = self.registration_setup()
@@ -147,6 +151,8 @@ class Signup(Page):
         self.select_password(password)
         self.enter_user_info(*name, school)
 
+        if return_password:
+            return (name, email, password)
         return (name, email)
 
     def registration_setup(self) -> Tuple[str, str, str, RestMail]:

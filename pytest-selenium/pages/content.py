@@ -14,6 +14,7 @@ from selenium.webdriver.common.touch_actions import TouchActions
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as expected
 
+from pages.accounts import Login
 from pages.base import Page
 from regions.base import Region
 from regions.search_sidebar import SearchSidebar
@@ -567,7 +568,7 @@ class Content(Page):
         def highlight(self,
                       target: WebElement,
                       offset: Union[Highlight.Offset, str] = Highlight.RANDOM,
-                      color: Color = Color.YELLOW,
+                      color: Union[Color, None] = Color.YELLOW,
                       note: str = "",
                       close_box: bool = True):
             """Highlight a page element.
@@ -588,7 +589,7 @@ class Content(Page):
                 default: ``True``
             :type target: WebElement
             :type offset: tuple(int, int), int
-            :type color: int
+            :type color: :py:class:`~utils.utility.Color` or None
             :type note: str
             :type: close_box: bool
             :return: None
@@ -610,7 +611,10 @@ class Content(Page):
             else:
                 self._highlight_math(target)
 
-            # Select the highlight color
+            # Select the highlight color or interupt the highlight if a color
+            # is not provided
+            if not color:
+                return
             self.highlight_box.toggle_color(color)
 
             # Enter the annotation text, if present
@@ -750,12 +754,16 @@ class Content(Page):
                 By.CSS_SELECTOR, "[name=blue]")
             _highlight_green_locator = (
                 By.CSS_SELECTOR, "[name=green]")
+            _highlight_login_overlay_locator = (
+                By.CSS_SELECTOR, "[data-analytics-region=highlighting-login]")
             _highlight_pink_locator = (
                 By.CSS_SELECTOR, "[name=red], [name=pink]")
             _highlight_purple_locator = (
                 By.CSS_SELECTOR, "[name=purple]")
             _highlight_yellow_locator = (
                 By.CSS_SELECTOR, "[name=yellow]")
+            _log_in_button_locator = (
+                By.CSS_SELECTOR, "[href*=login]")
             _note_text_locator = (
                 By.CSS_SELECTOR, "[class*=TruncatedText]")
             _save_annotation_button_locator = (
@@ -906,6 +914,17 @@ class Content(Page):
                 return display == "block"
 
             @property
+            def login_overlay_present(self) -> bool:
+                """Return True if the log in nudge is present.
+
+                :return: ``True`` if the log in overlay and nudge are present
+                :rtype: bool
+
+                """
+                return bool(
+                    self.find_elements(*self._highlight_login_overlay_locator))
+
+            @property
             def note(self) -> str:
                 """Return the highlight note.
 
@@ -1036,6 +1055,38 @@ class Content(Page):
                 self.toggle_menu()
                 Utilities.click_option(self.driver, element=self.edit_button)
                 return self
+
+            def is_checked(self, color: Color) -> bool:
+                """Return True if the selected color is currently marked.
+
+                :param color: the color option to test
+                :type color: :py:class:`~utils.utility.Color`
+                :return: ``True`` if the color is currently marked and active
+                :rtype: bool
+
+                """
+                colors = {Color.BLUE: self.blue,
+                          Color.GREEN: self.green,
+                          Color.PINK: self.pink,
+                          Color.PURPLE: self.purple,
+                          Color.YELLOW: self.yellow, }
+                return self.driver.execute_script(
+                    "return arguments[0].checked;", colors[color])
+
+            def log_in(self) -> Union[None, Login]:
+                """Click the 'Log in' overlay nudge button.
+
+                :return: no return if the overlay is not presnt, the Accounts
+                    log in page if the overlay is present
+                :rtype: NoneType or :py:class:`~pages.accounts.Login`
+
+                """
+                if self.login_overlay_present:
+                    button = self.find_element(*self._log_in_button_locator)
+                    Utilities.click_option(self.driver, element=button)
+                    destination = Login(self.driver)
+                    destination.wait_for_page_to_load()
+                    return destination
 
             @note.setter
             def note(self, note: str):
