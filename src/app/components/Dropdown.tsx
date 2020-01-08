@@ -1,9 +1,11 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
 import theme from '../theme';
+import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
 interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
@@ -178,12 +180,7 @@ export const DropdownItem = ({message, href, onClick}: {message: string, href?: 
         https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
       */
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      : <a tabIndex={0} href='' onClick={(e) => {
-        e.preventDefault();
-        if (onClick) {
-          onClick();
-        }
-      }}>{msg}</a>
+      : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{msg}</a>
     }
   </FormattedMessage>
 </li>;
