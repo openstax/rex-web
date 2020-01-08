@@ -6,9 +6,10 @@ from string import digits, ascii_letters
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 
-from pages.accounts import Signup
+from pages.accounts import Login, Signup
 from pages.content import Content
 from tests import markers
+from tests.conftest import DESKTOP
 from utils.utility import Color, Highlight
 
 
@@ -185,3 +186,76 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
         pytest.fail("the create note box is not open")
     assert(not book.content.highlight_box.login_overlay_present), \
         "log in nudge overlay found"
+
+
+@markers.test_case("C592626")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+def test_display_highlights_for_returning_users(
+        selenium, base_url, book_slug, page_slug):
+    """Existing highlights are displayed for returning users."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted
+    # AND:   some content is highlighted with a note
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    book.navbar.click_login()
+    name, email, password = Signup(selenium).register(True)
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+    paragraphs = random.sample(book.content.paragraphs, 2)
+    first_highlight_color = Color.YELLOW
+    book.content.highlight(target=paragraphs[0],
+                           offset=Highlight.ENTIRE,
+                           color=first_highlight_color)
+    highlight_id_one = book.content.highlight_ids[0]
+
+    second_highlight_color = Color.BLUE
+    book.content.highlight(target=paragraphs[1],
+                           offset=Highlight.ENTIRE,
+                           color=second_highlight_color,
+                           note=random_string())
+    highlight_ids = book.content.highlight_ids
+    highlight_id_two = highlight_ids[1] \
+        if highlight_id_one == highlight_ids[0] \
+        else highlight_ids[0]
+
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    # WHEN: they log out
+    book.navbar.click_user_name()
+    book.navbar.click_logout()
+
+    # THEN: the highlights and notes are no longer displayed
+    assert(not book.content.highlight_count), \
+        "highlights found without a logged in user"
+
+    # WHEN: they log in
+    book.navbar.click_login()
+    Login(selenium).login(email.address, password)
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    highlight_ids = book.content.highlight_ids
+
+    # THEN: the highlights and notes are displayed
+    assert(highlight_ids), "no highlights found after log in"
+    assert(highlight_id_one in highlight_ids), "highlight not found"
+    assert(highlight_id_two in highlight_ids), "highlight with note not found"
