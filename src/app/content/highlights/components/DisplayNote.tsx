@@ -21,6 +21,7 @@ const MenuIcon = styled(EllipsisV)`
   user-select: none;
 `;
 
+/*this should be a button but Safari and firefox don't support focusing buttons*/
 // tslint:disable-next-line:variable-name
 const MenuToggle = styled(({className}) => <div tabIndex={0} className={className}><MenuIcon /></div>)`
   border: none;
