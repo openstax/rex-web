@@ -124,3 +124,64 @@ def test_color_auto_selected_if_a_note_is_added(
 
     assert(book.content.highlight_box.is_checked(expected_color)), \
         "highlight color yellow is not currently selected"
+
+
+@markers.test_case("C592625")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("astronomy",
+         "1-introduction")])
+@markers.desktop_only
+def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
+        selenium, base_url, book_slug, page_slug):
+    """Signup as a new user using the highlight nudge overlay."""
+    # GIVEN: the Astronomy book section 1.0 introduction is displayed
+    # AND:   some content is selected
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    if book.notification_present:
+        book.notification.got_it()
+
+    paragraph = random.choice(book.content.paragraphs)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.RANDOM,
+                           color=None)
+
+    initial_page_url = selenium.current_url
+
+    # WHEN: they click the "Log in" button on the highlight nudge
+    book.content.highlight_box.log_in()
+
+    # THEN: the Accounts screen is displayed
+    assert("accounts" in selenium.current_url), "not viewing the Accounts page"
+    assert("Log in to your OpenStax account" in selenium.page_source), \
+        "Accounts header not found"
+
+    # WHEN: they sign up for an account
+    Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    if book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # THEN: the same book page as the log in nudge is displayed
+    # AND:  the user is logged in
+    assert(selenium.current_url == initial_page_url), \
+        "not returned to the correct book section page after account sign up"
+
+    assert(book.navbar.user_is_logged_in), "user not logged in"
+
+    # WHEN: they select some content
+    paragraph = random.choice(book.content.paragraphs)
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.RANDOM,
+                           color=None)
+
+    # THEN: the create note box is displayed
+    try:
+        book.content.highlight_box
+    except NoSuchElementException:
+        pytest.fail("the create note box is not open")
+    assert(not book.content.highlight_box.login_overlay_present), \
+        "log in nudge overlay found"
