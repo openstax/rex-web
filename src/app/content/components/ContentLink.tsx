@@ -50,9 +50,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   return <a
     ref={myForwardedRef}
     onClick={(e) => {
-      if (e.metaKey) {
+      const { metaKey, altKey, ctrlKey, shiftKey } = e;
+
+      if (metaKey || altKey || ctrlKey || shiftKey) {
         return;
       }
+
       e.preventDefault();
       if (onClick) {
         onClick();
