@@ -60,9 +60,8 @@ const Filters = ({className}: Props) => <div className={className}>
 export default styled(Filters)`
   overflow: visible;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: center;
-  flex-wrap: wrap;
   padding: 2rem ${popupPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`

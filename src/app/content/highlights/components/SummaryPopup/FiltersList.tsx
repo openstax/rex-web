@@ -108,7 +108,6 @@ export default styled(FiltersList)`
   margin: 0;
   padding: 2rem 0;
   list-style: none;
-
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
