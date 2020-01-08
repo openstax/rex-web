@@ -1,9 +1,10 @@
 import React from 'react';
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
+import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
-import { assertDefined, assertString } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import { LinkedArchiveTreeNode } from '../../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -11,6 +12,12 @@ import { highlightLocationFilters, summaryFilters, summaryHighlights, summaryIsL
 import { SummaryHighlights } from '../types';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
+
+// tslint:disable-next-line: variable-name
+const NoHighlightsTip = htmlMessage(
+  'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
+  (props) => <span {...props} />
+);
 
 // tslint:disable-next-line: variable-name
 const Highlights = () => {
@@ -28,14 +35,7 @@ const Highlights = () => {
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
           {(msg: Element | string) => msg}
         </FormattedMessage>
-        <FormattedHTMLMessage id='i18n:toolbar:highlights:popup:heading:no-highlights-tip'>
-          {(html) => <span
-            dangerouslySetInnerHTML={{
-              __html: assertString(
-                  html, 'i18n:toolbar:highlights:popup:heading:no-highlights-tip must return a string'),
-            }}
-          ></span>}
-        </FormattedHTMLMessage>
+        <NoHighlightsTip />
       </HStyled.GeneralCenterText>
     </Styled.Highlights>;
   }
