@@ -217,7 +217,7 @@ export const DropdownList = styled.ul`
 `;
 
 const overlayShown = css`
-  padding-top: 40%;
+  padding-top: calc(20vh + 5vw);
   background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
   height: auto;
   width: auto;
