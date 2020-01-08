@@ -186,6 +186,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 <div
   className="c0"
+  data-analytics-region="highlight-color-picker"
 >
   <label
     className="c1 c2"
