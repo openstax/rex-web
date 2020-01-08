@@ -270,6 +270,7 @@ const HighlightAnnotation = (
         {(msg: string) => <textarea
           value={anno}
           placeholder={msg}
+          autoFocus
           onKeyDown={onKeyDown}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setAnno((e.target as { value: string }).value);
