@@ -1,8 +1,34 @@
+import { treeWithUnits } from '../../../test/trees';
+import { book } from '../selectors';
 import * as select from './selectors';
 
 jest.mock('../selectors', () => ({
+  book: jest.fn(),
   localState: (state: any) => ({highlights: state}),
 }));
+
+jest.mock('./constants', () => ({
+  enabledForBooks: ['enabledbook'],
+}));
+
+const mockBook = book as any as jest.SpyInstance;
+
+describe('isEnabled', () => {
+  it('when enabled and book is whitelisted', () => {
+    mockBook.mockReturnValue({id: 'enabledbook'});
+    expect(select.isEnabled({enabled: true} as any)).toEqual(true);
+  });
+
+  it('when enabled and book not is whitelisted', () => {
+    mockBook.mockReturnValue({id: 'book'});
+    expect(select.isEnabled({enabled: true} as any)).toEqual(false);
+  });
+
+  it('when not enabled', () => {
+    mockBook.mockReturnValue({id: 'enabledbook'});
+    expect(select.isEnabled({enabled: false} as any)).toEqual(false);
+  });
+});
 
 describe('focused', () => {
   it('gets focused highlight id', () => {
@@ -10,14 +36,12 @@ describe('focused', () => {
   });
 });
 
-describe('totalCountsPerPageInSummary', () => {
+describe('totalCountsPerPage', () => {
   it('returns remaining', () => {
-    expect(select.totalCountsPerPageInSummary({
-      summary: {
-        totalCounts: {
-          one: 3,
-          two: 1,
-        },
+    expect(select.totalCountsPerPage({
+      totalCountsPerPage: {
+        one: 3,
+        two: 1,
       },
     } as any)).toEqual({one: 3, two: 1});
   });
@@ -25,22 +49,26 @@ describe('totalCountsPerPageInSummary', () => {
 
 describe('remainingSourceCounts', () => {
   it('returns remaining', () => {
+    mockBook.mockReturnValue({tree: treeWithUnits});
     expect(select.remainingSourceCounts({
       summary: {
-        filteredTotalCounts: {
-          one: 2,
-          three: 3,
-          two: 1,
+        filters: {
+          locationIds: ['preface', 'chapter1'],
         },
         highlights: {
           chapter1: {
-            one: [{}, {}],
+            page1: [{}],
           },
-          chapter2: {
-            two: [{}],
+          preface: {
+            preface: [{}, {}],
           },
         },
       },
-    } as any)).toEqual({three: 3});
+      totalCountsPerPage: {
+        page1: 1,
+        page2: 3,
+        preface: 2,
+      },
+    } as any)).toEqual({page2: 3});
   });
 });

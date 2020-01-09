@@ -3,12 +3,14 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../../components/Button';
-import Dropdown from '../../../../components/Dropdown';
+import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
+import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
+import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
@@ -52,15 +54,15 @@ const Filters = ({className}: Props) => <div className={className}>
       <ColorFilter />
     </Dropdown>}
   </FormattedMessage>
+  <FiltersList />
 </div>;
 
 export default styled(Filters)`
   overflow: visible;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: center;
-  padding: 0 3.2rem;
-  height: 5.6rem;
+  padding: 2rem ${popupPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     padding: 0 ${mobilePadding}rem;
@@ -68,6 +70,10 @@ export default styled(Filters)`
   `)}
 
   ${css`
+    ${DropdownToggle} {
+      font-weight: bold;
+    }
+
     ${Dropdown}:first-of-type {
       margin-right: 8rem;
       ${theme.breakpoints.mobile(css`

@@ -8,7 +8,10 @@ import toPairs from 'lodash/fp/toPairs';
 import values from 'lodash/fp/values';
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { filterCountsToUnvisitiedPages } from './utils/paginationUtils';
+import { enabledForBooks } from './constants';
+import { HighlightLocationFilters } from './types';
+import { getHighlightLocationFilters } from './utils';
+import { filterCountsPerSourceByChapters, filterCountsToUnvisitiedPages } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -17,7 +20,8 @@ export const localState = createSelector(
 
 export const isEnabled = createSelector(
   localState,
-  (state) => !!state.enabled
+  parentSelectors.book,
+  (state, book) => !!state.enabled && !!book && enabledForBooks.includes(book.id)
 );
 
 export const highlightsLoaded = createSelector(
@@ -30,9 +34,16 @@ export const highlights = createSelector(
   (state) => state.highlights || []
 );
 
-export const summaryHighlights = createSelector(
+export const highlightLocationFilters = createSelector(
+  parentSelectors.book,
+ (book) => book
+  ? getHighlightLocationFilters(book)
+  : new Map() as HighlightLocationFilters
+);
+
+export const totalCountsPerPage = createSelector(
   localState,
-  (state) => state.summary.highlights
+  (state) => state.totalCountsPerPage
 );
 
 export const focused = createSelector(
@@ -50,7 +61,17 @@ export const summaryIsLoading = createSelector(
   (state) => state.summary.loading
 );
 
-const loadedCountsPerPageInSummary = createSelector(
+export const summaryFilters = createSelector(
+  localState,
+  (state) => state.summary.filters
+);
+
+export const summaryHighlights = createSelector(
+  localState,
+  (state) => state.summary.highlights
+);
+
+const loadedCountsPerSource = createSelector(
   summaryHighlights,
   flow(
     values,
@@ -61,18 +82,14 @@ const loadedCountsPerPageInSummary = createSelector(
   )
 );
 
-const filteredTotalCountsPerPageInSummary = createSelector(
-  localState,
-  (state) => state.summary.filteredTotalCounts
-);
-
-export const totalCountsPerPageInSummary = createSelector(
-  localState,
-  (state) => state.summary.totalCounts
+const filteredTotalCountsPerSource = createSelector(
+  highlightLocationFilters,
+  totalCountsPerPage,
+  (filters, counts) => filterCountsPerSourceByChapters(filters, counts)
 );
 
 export const remainingSourceCounts = createSelector(
-  loadedCountsPerPageInSummary,
-  filteredTotalCountsPerPageInSummary,
+  loadedCountsPerSource,
+  filteredTotalCountsPerSource,
   (loadedCounts, totalCounts) => filterCountsToUnvisitiedPages(loadedCounts, totalCounts)
 );

@@ -6,6 +6,25 @@ import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
 
+// tslint:disable-next-line: variable-name
+export const Highlights = styled.div`
+  .os-divider {
+    width: 0.8rem;
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  background-color: rgba(241, 241, 241, 0.8);
+
+  svg {
+    margin-top: -5rem;
+  }
+`;
+
 // tslint:disable-next-line:variable-name
 export const HighlightsChapter = styled.div`
   ${h4Style}
@@ -22,7 +41,7 @@ export const HighlightsChapter = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const ShowMyHighlightsBody = styled(PopupBody)`
-  padding: 0;
+  background: ${theme.color.neutral.darker};
   ${theme.breakpoints.mobile(css`
     text-align: left;
     padding: 0;
@@ -31,7 +50,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: 0 ${popupPadding}rem 1.6rem;
+  margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
 `;
 
@@ -44,6 +63,12 @@ export const HighlightSection = styled.div`
   display: flex;
   align-items: center;
   font-weight: bold;
+
+  > .os-number,
+  > .os-divider,
+  > .os-text {
+    overflow: hidden;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -58,6 +83,7 @@ export const HighlightOuterWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
+  overflow: visible;
 
   * {
     overflow: initial;

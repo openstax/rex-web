@@ -1,4 +1,5 @@
 import { treeWithUnits } from '../../../../test/trees';
+import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { filterCountsPerSourceByChapters, getNextPageSources } from './paginationUtils';
 
 describe('getNextPageSources', () => {
@@ -27,8 +28,7 @@ describe('getNextPageSources', () => {
 describe('filterCountsPerSourceByChapters', () => {
   it('filters by chapters', () => {
     expect(filterCountsPerSourceByChapters(
-      ['chapter1'],
-      treeWithUnits,
+      new Map([['chapter1', findArchiveTreeNode(treeWithUnits, 'chapter1')!]]),
       {page1: 2, preface: 3}
     )).toEqual(
       {page1: 2}
@@ -37,8 +37,10 @@ describe('filterCountsPerSourceByChapters', () => {
 
   it('filters by pages outside chapter', () => {
     expect(filterCountsPerSourceByChapters(
-      ['chapter1', 'preface'],
-      treeWithUnits,
+      new Map([
+        ['chapter1', findArchiveTreeNode(treeWithUnits, 'chapter1')!],
+        ['preface', findArchiveTreeNode(treeWithUnits, 'preface')!]]
+      ),
       {page1: 2, preface: 3}
     )).toEqual(
       {page1: 2, preface: 3}

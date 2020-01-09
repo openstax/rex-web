@@ -1,6 +1,14 @@
-import { Highlight, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
+export interface SummaryHighlights {
+  [locationId: string]: {[pageId: string]: HighlightData[]};
+}
+export interface SummaryFilters {
+  locationIds: string[];
+  colors: HighlightColorEnum[];
+}
 
 export type CountsPerSource = Exclude<HighlightsSummary['countsPerSource'], undefined>;
 
@@ -9,11 +17,10 @@ export interface State {
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
+  // totalCountsPerPage reflects the UNFILTERED state of user's data, used in representing
+  // available filter options. this should be updated on create/delete highlight
+  totalCountsPerPage: CountsPerSource;
   summary: {
-    filters: {
-      colors: string[];
-      chapters: string[];
-    },
     pagination: {
       // even though we're manually splitting our requests out into smaller batches of sources,
       // if a source has more than [numPage] highlights the api will still paginate. in order to
@@ -25,16 +32,10 @@ export interface State {
       sources: string[];
       page: number;
     } | null,
+    filters: SummaryFilters;
     loading: boolean;
-    // totalCounts should reflect the UNFILTERED state of user's data, used in representing
-    // available filter options. this should be updated on create/delete and after auth change
-    totalCounts: {[key: string]: number};
-    // filteredTotalCounts should reflect the FILTERED state of user's data, used in calculating
-    // pagination requests. this should be updated after filter change before requesting
-    // filtered highlights (because you need this to query them)
-    filteredTotalCounts: {[key: string]: number};
-    highlights: {
-      [chapterId: string]: {[pageId: string]: HighlightData[]}
-    };
+    highlights: SummaryHighlights;
   };
 }
+
+export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

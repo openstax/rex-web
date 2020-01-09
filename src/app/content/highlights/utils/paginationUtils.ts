@@ -2,16 +2,14 @@ import add from 'lodash/fp/add';
 import omit from 'lodash/fp/omit';
 import pickBy from 'lodash/fp/pickBy';
 import { reduceUntil } from '../../../fpUtils';
-import { isDefined } from '../../../guards';
+import { isArchiveTree } from '../../guards';
 import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
 import {
   archiveTreeContainsNode,
-  archiveTreeSectionIsChapter,
-  findArchiveTreeNode,
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { CountsPerSource } from '../types';
+import { CountsPerSource, HighlightLocationFilters } from '../types';
 
 const totalOfCountsPerSource = (perSource: CountsPerSource) => Object.values(perSource).reduce(add, 0);
 
@@ -32,6 +30,8 @@ export const getNextPageSources = (
   tree: ArchiveTree,
   nextPageSize: number
 ): string[] => {
+  // remainingCounts is not ordered, so starting with this to make sure
+  // we load pages sequentially
   const pages = findTreePages(tree);
 
   const reduceUntilPageSize = reduceUntil(
@@ -61,23 +61,17 @@ export const getNextPageSources = (
  * its page ids by the filter chapters
  */
 export const filterCountsPerSourceByChapters = (
-  chapterFilters: string[],
-  tree: ArchiveTree,
+  chapterFilters: HighlightLocationFilters,
   counts: CountsPerSource
 ) => {
-  const chapterFilterNodes = chapterFilters
-    .map((id) => findArchiveTreeNode(tree, id))
-    .filter(isDefined)
-    .filter(archiveTreeSectionIsChapter)
-  ;
-
-  const someChapterContainsNode = (sourceId: string) =>
-    !!chapterFilterNodes.find((chapterNode) => archiveTreeContainsNode(chapterNode, sourceId));
+  const someChapterContainsNode = (sourceId: string) => !!Array.from(chapterFilters.values()).find(
+    (location) => isArchiveTree(location) && archiveTreeContainsNode(location, sourceId)
+  );
 
   const matchesChapterFilter = (_count: number, sourceId: string) => {
     // chapterFilters isn't actually just chapters, it also contains pages
     // that have no chapter
-    return chapterFilters.includes(sourceId)
+    return chapterFilters.has(sourceId)
       || someChapterContainsNode(sourceId);
   };
 

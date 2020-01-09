@@ -1,20 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { isArchiveTree } from '../../../guards';
-import * as selectContent from '../../../selectors';
-import {
-  archiveTreeContainsNode,
-  archiveTreeSectionIsBook,
-  archiveTreeSectionIsChapter,
-  flattenArchiveTree,
-  nodeHasId
-} from '../../../utils/archiveTreeUtils';
+import { setSummaryFilters } from '../../actions';
+import { highlightLocationFilters, summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -66,40 +59,37 @@ const chunk = <T extends any>(sections: T[]) => {
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
-  const book = useSelector(selectContent.book);
-  const page = useSelector(selectContent.page);
+  const locationFilters = useSelector(highlightLocationFilters);
+  const locationFiltersIds = Array.from(locationFilters.keys());
 
-  const sections = book ? flattenArchiveTree(book.tree).filter((section) =>
-    (section.parent && archiveTreeSectionIsBook(section.parent))
-    || archiveTreeSectionIsChapter(section)
-  ) : [];
-  const sectionIds = sections.map((chapter) => chapter.id);
-  const currentChapter = sections.find((section) =>
-    page && (
-      nodeHasId(page.id, section) ||
-      (
-        isArchiveTree(section) && archiveTreeContainsNode(section, page.id)
-      )
-    )
-  );
-  const [selectedChapters, setSelectedChapters] = React.useState<string[]>(currentChapter ? [currentChapter.id] : []);
+  const filters = useSelector(summaryFilters);
+  const dispatch = useDispatch();
+
+  const setSelectedChapters = (ids: string[]) => {
+    dispatch(setSummaryFilters({locationIds: ids}));
+  };
+
+  const handleChange = (id: string) => {
+    if (filters.locationIds.includes(id)) {
+      setSelectedChapters(filters.locationIds.filter(not(match(id))));
+    } else {
+      setSelectedChapters([...filters.locationIds, id]);
+    }
+  };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(sectionIds)}
+      onAll={() => setSelectedChapters(locationFiltersIds)}
     />
     <Row>
-      {chunk(sections).map((sectionChunk, index) => <Column key={index}>
-        {sectionChunk.map((section) => <Checkbox
-          key={section.id}
-          checked={selectedChapters.includes(section.id)}
-          onChange={() => selectedChapters.includes(section.id)
-            ? setSelectedChapters(selectedChapters.filter(not(match(section.id))))
-            : setSelectedChapters([...selectedChapters, section.id])
-          }
+      {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
+        {sectionChunk.map((location) => <Checkbox
+          key={location.id}
+          checked={filters.locationIds.includes(location.id)}
+          onChange={() => handleChange(location.id)}
         >
-          <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
+          <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />
         </Checkbox>)}
       </Column>)}
     </Row>
@@ -114,6 +104,7 @@ export default styled(ChapterFilter)`
   outline: none;
   max-height: 72rem;
   overflow: auto;
+  z-index: 1;
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePadding}rem;
