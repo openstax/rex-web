@@ -7,7 +7,7 @@ import getHighlightLocationFilters from './getHighlightLocationFilters';
 const mergeHighlightsTotalCounts = (book: Book, totalCounts: HighlightsTotalCountsPerPage) => {
   const locationFilters = getHighlightLocationFilters(book);
   const totalCountsPerLocation: HighlightsTotalCountsPerLocation = {};
-console.log('totalCounts', totalCounts)
+
   for (const [pageId, counts] of Object.entries(totalCounts)) {
     const location = assertDefined(
       getHighlightLocationFilterForPage(locationFilters, pageId),
@@ -18,7 +18,6 @@ console.log('totalCounts', totalCounts)
       totalCountsPerLocation[location.id] = counts;
     }
   }
-  console.log('totalCountsPerLocation', totalCountsPerLocation)
 
   return totalCountsPerLocation;
 };

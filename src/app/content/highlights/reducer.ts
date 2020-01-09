@@ -54,13 +54,31 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
+      const { locationFilterId, pageId } = action.meta;
+
+      const totalCountsPerPage = {...state.totalCountsPerPage};
+      if (totalCountsPerPage[pageId]) {
+        totalCountsPerPage[pageId] += 1;
+      } else {
+        totalCountsPerPage[pageId] = 1;
+      }
+
+      const totalCountsPerLocation = {...state.summary.totalCountsPerLocation};
+      if (totalCountsPerLocation[locationFilterId]) {
+        totalCountsPerLocation[locationFilterId] += 1;
+      } else {
+        totalCountsPerLocation[locationFilterId] = 1;
+      }
+
       return {
         ...state,
         highlights: [...state.highlights || [], highlight],
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
+          totalCountsPerLocation,
         },
+        totalCountsPerPage,
       };
     }
     case getType(actions.openMyHighlights):
@@ -106,6 +124,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         id: action.payload,
       });
 
+      const { locationFilterId, pageId } = action.meta;
+
+      const totalCountsPerPage = {...state.totalCountsPerPage};
+      if (totalCountsPerPage[pageId]) {
+        totalCountsPerPage[pageId] -= 1;
+      }
+
+      const totalCountsPerLocation = {...state.summary.totalCountsPerLocation};
+      if (totalCountsPerLocation[locationFilterId]) {
+        totalCountsPerLocation[locationFilterId] -= 1;
+      }
+
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
@@ -113,7 +143,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
+          totalCountsPerLocation,
         },
+        totalCountsPerPage,
       };
     }
     case getType(actions.receiveHighlights): {
