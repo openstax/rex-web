@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { findArchiveTreeNodeBySlug, prevNextBookPage } from './utils/archiveTreeUtils';
+import {
+  findArchiveTreeNodeBySlug,
+  prevNextBookPage,
+} from './utils/archiveTreeUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,

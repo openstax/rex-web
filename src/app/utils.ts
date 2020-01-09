@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
@@ -134,6 +134,11 @@ export const resetTabIndex = (document: Document) => {
 
   document.body.focus();
   document.body.tabIndex = index;
+};
+
+export const preventDefault = (event: React.MouseEvent) => {
+  event.preventDefault();
+  return event;
 };
 
 export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>

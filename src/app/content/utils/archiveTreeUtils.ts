@@ -49,7 +49,7 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   }
 };
 
-const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
+export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
   stripIdVersion(node.shortId) === stripIdVersion(nodeId)
   || stripIdVersion(node.id) === stripIdVersion(nodeId);
 
