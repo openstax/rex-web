@@ -89,7 +89,7 @@
   "i18n:toolbar:highlights:popup:body:tooltip:review": "Review all your highlights and notes in one convenient place.",
   "i18n:toolbar:highlights:popup:heading:no-highlights": "No results.",
   "i18n:toolbar:highlights:popup:heading:no-highlights-tip": "Try selecting different <strong>chapter or color filters</strong> to see different results.",
-  "i18n:toolbar:highlights:popup:body:no-highlights-in-chapter": "You have no highlights in this chapter",
+  "i18n:toolbar:highlights:popup:body:no-highlights-in-chapter": "You have no highlights in this section",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
   "i18n:toolbar:highlights:popup:body:use-this-page": "Then use this page to create your own study guide",
   "i18n:toolbar:buy-book:text": "Buy book"
