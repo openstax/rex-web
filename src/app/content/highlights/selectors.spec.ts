@@ -2,16 +2,16 @@ import { treeWithUnits } from '../../../test/trees';
 import { book } from '../selectors';
 import * as select from './selectors';
 
-jest.mock('../selectors', () => ({
-  book: jest.fn(),
-  localState: (state: any) => ({highlights: state}),
-}));
-
 jest.mock('./constants', () => ({
   enabledForBooks: ['enabledbook'],
 }));
 
 const mockBook = book as any as jest.SpyInstance;
+
+jest.mock('../selectors', () => ({
+  book: jest.fn(),
+  localState: (state: any) => ({highlights: state}),
+}));
 
 describe('isEnabled', () => {
   it('when enabled and book is whitelisted', () => {
