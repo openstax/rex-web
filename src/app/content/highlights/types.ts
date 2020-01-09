@@ -21,13 +21,13 @@ export interface State {
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
-  totalCountsPerPage: HighlightsTotalCountsPerPage;
   summary: {
     totalCountsPerLocation: HighlightsTotalCountsPerLocation,
     filters: SummaryFilters,
     loading: boolean;
     highlights: SummaryHighlights;
   };
+  totalCountsPerPage: HighlightsTotalCountsPerPage | null;
 }
 
 export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

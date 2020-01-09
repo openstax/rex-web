@@ -109,6 +109,16 @@ exports[`DisplayNote matches snapshot 1`] = `
 
 .c13 li button,
 .c13 li a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -247,16 +257,22 @@ exports[`DisplayNote matches snapshot 1`] = `
         className="c12 c13"
       >
         <li>
-          <button>
+          <a
+            href=""
+            onClick={[Function]}
+            tabIndex={0}
+          >
             Edit
-          </button>
+          </a>
         </li>
         <li>
-          <button
+          <a
+            href=""
             onClick={[Function]}
+            tabIndex={0}
           >
             Delete
-          </button>
+          </a>
         </li>
       </ol>
     </div>
@@ -426,6 +442,16 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 
 .c13 li button,
 .c13 li a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -589,16 +615,22 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         className="c12 c13"
       >
         <li>
-          <button>
+          <a
+            href=""
+            onClick={[Function]}
+            tabIndex={0}
+          >
             Edit
-          </button>
+          </a>
         </li>
         <li>
-          <button
+          <a
+            href=""
             onClick={[Function]}
+            tabIndex={0}
           >
             Delete
-          </button>
+          </a>
         </li>
       </ol>
     </div>
