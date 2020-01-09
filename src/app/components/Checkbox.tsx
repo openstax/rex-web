@@ -53,10 +53,8 @@ export default styled(Checkbox)`
   flex-direction: row;
   align-items: center;
   ${(props) => props.disabled ? `
-    label {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+    opacity: 0.4;
+    cursor: not-allowed;
   ` : null}
 
   input {
