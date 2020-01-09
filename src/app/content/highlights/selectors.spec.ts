@@ -36,39 +36,18 @@ describe('focused', () => {
   });
 });
 
-describe('totalCountsPerPage', () => {
-  it('returns remaining', () => {
-    expect(select.totalCountsPerPage({
-      totalCountsPerPage: {
-        one: 3,
-        two: 1,
-      },
-    } as any)).toEqual({one: 3, two: 1});
-  });
-});
-
 describe('remainingSourceCounts', () => {
   it('returns remaining', () => {
     mockBook.mockReturnValue({tree: treeWithUnits});
     expect(select.remainingSourceCounts({
       summary: {
-        filters: {
-          locationIds: ['preface', 'chapter1'],
-        },
+        filters: {locationIds: ['preface', 'chapter1']},
         highlights: {
-          chapter1: {
-            page1: [{}],
-          },
-          preface: {
-            preface: [{}, {}],
-          },
+          chapter1: {page1: [{}]},
+          preface: {preface: [{}, {}]},
         },
       },
-      totalCountsPerPage: {
-        page1: 1,
-        page2: 3,
-        preface: 2,
-      },
+      totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
     } as any)).toEqual({page2: 3});
   });
 });

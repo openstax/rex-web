@@ -30,8 +30,7 @@ export const getNextPageSources = (
   tree: ArchiveTree,
   nextPageSize: number
 ): string[] => {
-  // remainingCounts is not ordered, so starting with this to make sure
-  // we load pages sequentially
+  // remainingCounts is not ordered, so starting with this to make sure we load pages sequentially
   const pages = findTreePages(tree);
 
   const reduceUntilPageSize = reduceUntil(
