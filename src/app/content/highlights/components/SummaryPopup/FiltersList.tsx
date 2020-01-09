@@ -13,21 +13,24 @@ import { highlightLocationFilters, summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
-  padding: 0.5rem;
+  height: 1.7rem;
+  margin-right: 0.4rem;
 
   svg {
-    height: 1rem;
-    width: 1rem;
+    height: 0.8rem;
+    width: 0.8rem;
   }
 `;
 
 // tslint:disable-next-line: variable-name
 const ItemLabel = styled.span`
+  ${textStyle}
   max-width: 80px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+  line-height: 1.5rem;
 `;
 
 interface FiltersListColorProps {
@@ -113,7 +116,7 @@ export default styled(FiltersList)`
   `)}
 
   li {
-    margin-right: 2rem;
+    margin-right: 3.2rem;
     display: flex;
     align-items: center;
   }
