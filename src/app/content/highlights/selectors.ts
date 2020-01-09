@@ -78,7 +78,17 @@ const loadedCountsPerSource = createSelector(
   )
 );
 
-const filteredTotalCountsPerSource = createSelector(
+/*
+ * this is wrong, it shouldn't be loading from totalCountsPerPage,
+ * it should be loading from a different summary that was fetched
+ * from the api after filters are changed and is filtered based
+ * on the selected colors.
+ *
+ * its probably better to do this location filtering on write
+ * after loading the color filtered data from the api, then store
+ * that in the state
+ */
+const filteredCountsPerSource = createSelector(
   highlightLocationFilters,
   totalCountsPerPage,
   (filters, counts) => filterCountsPerSourceByChapters(filters, counts)
@@ -86,6 +96,6 @@ const filteredTotalCountsPerSource = createSelector(
 
 export const remainingSourceCounts = createSelector(
   loadedCountsPerSource,
-  filteredTotalCountsPerSource,
+  filteredCountsPerSource,
   (loadedCounts, totalCounts) => filterCountsToUnvisitiedPages(loadedCounts, totalCounts)
 );
