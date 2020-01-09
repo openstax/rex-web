@@ -25,13 +25,19 @@ const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow };
 
 describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
+  let consoleError: jest.SpyInstance;
   let store: Store;
 
   beforeEach(() => {
+    consoleError = jest.spyOn(console, 'error');
     store = createTestStore();
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
+  });
+
+  afterEach(() => {
+    consoleError.mockRestore();
   });
 
   it('properly display summary highlights', () => {
@@ -169,6 +175,8 @@ describe('Highlights', () => {
       store.dispatch(setSummaryFilters({locationIds: [pageId]}));
       store.dispatch(receiveSummaryHighlights(summaryHighlights));
     });
+
+    consoleError.mockReturnValueOnce(null);
 
     expect(() => renderer.create(<Provider store={store}>
         <MessageProvider>
