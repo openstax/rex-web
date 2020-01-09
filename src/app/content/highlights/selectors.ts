@@ -32,6 +32,11 @@ export const highlightLocationFilters = createSelector(
   : new Map() as HighlightLocationFilters
 );
 
+export const totalCountsPerLocation = createSelector(
+  localState,
+  (state) => state.summary.totalCountsPerLocation
+);
+
 export const focused = createSelector(
   localState,
   (state) => state.focused

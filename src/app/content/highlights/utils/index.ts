@@ -7,3 +7,4 @@ export {
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
+export { default as mergeHighlightsTotalCounts } from './mergeHighlightsTotalCounts';

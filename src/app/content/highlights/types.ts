@@ -9,13 +9,21 @@ export interface SummaryFilters {
   locationIds: string[];
   colors: HighlightColorEnum[];
 }
+export interface HighlightsTotalCountsPerPage {
+  [pageId: string]: number;
+}
+export interface HighlightsTotalCountsPerLocation {
+  [locationId: string]: number;
+}
 
 export interface State {
   myHighlightsOpen: boolean;
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
+  totalCountsPerPage: HighlightsTotalCountsPerPage;
   summary: {
+    totalCountsPerLocation: HighlightsTotalCountsPerLocation,
     filters: SummaryFilters,
     loading: boolean;
     chapterCounts: {[key: string]: number};

@@ -24,7 +24,9 @@ export const initialState: State = {
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
+    totalCountsPerLocation: {},
   },
+  totalCountsPerPage: {},
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -145,6 +147,21 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           highlights: action.payload,
           loading: false,
+        },
+      };
+    }
+    case getType(actions.receiveHighlightsTotalCounts): {
+      return {
+        ...state,
+        totalCountsPerPage: action.payload,
+      };
+    }
+    case getType(actions.setHighlightsTotalCountsPerLocation): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          totalCountsPerLocation: action.payload,
         },
       };
     }

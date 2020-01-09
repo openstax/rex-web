@@ -1,6 +1,6 @@
 import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
-import { HighlightData, SummaryFilters, SummaryHighlights } from './types';
+import { HighlightData, HighlightsTotalCountsPerPage, SummaryFilters, SummaryHighlights, HighlightsTotalCountsPerLocation } from './types';
 
 export const focusHighlight = createStandardAction('Content/Highlight/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlight/clear')();
@@ -23,3 +23,7 @@ export const closeMyHighlights = createStandardAction('Content/closeMyHighlights
 
 export const setSummaryFilters = createStandardAction('Content/setSummaryFilters')<Partial<SummaryFilters>>();
 export const receiveSummaryHighlights = createStandardAction('Content/receiveSummaryHighlights')<SummaryHighlights>();
+export const receiveHighlightsTotalCounts = createStandardAction(
+  'Content/receiveHighlightsTotalCounts')<HighlightsTotalCountsPerPage>();
+export const setHighlightsTotalCountsPerLocation = createStandardAction(
+  'Content/setHighlightsTotalCountsPerLocation')<HighlightsTotalCountsPerLocation>();
