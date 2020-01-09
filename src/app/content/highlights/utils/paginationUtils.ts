@@ -55,11 +55,6 @@ export const getNextPageSources = (
   return Object.keys(reduceUntilPageSize(pages, addPageCount, {} as CountsPerSource));
 };
 
-/*
- * CountsPerSource returned by api does not filter by source id, only color,
- * so in order for our filteredTotalCounts to reflect reality we need to filter
- * its page ids by the filter chapters
- */
 export const filterCountsPerSourceByChapters = (
   chapterFilters: HighlightLocationFilters,
   counts: CountsPerSource
