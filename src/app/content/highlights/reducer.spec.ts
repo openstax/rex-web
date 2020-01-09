@@ -3,7 +3,12 @@ import { receiveFeatureFlags } from '../../actions';
 import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
-import { HighlightData, SummaryHighlights } from './types';
+import {
+  HighlightData,
+  HighlightsTotalCountsPerLocation,
+  HighlightsTotalCountsPerPage,
+  SummaryHighlights,
+} from './types';
 
 const mockHighlight = {
   color: HighlightColorEnum.Blue,
@@ -57,6 +62,19 @@ describe('highlight reducer', () => {
     expect(state.focused).toEqual(undefined);
   });
 
+  it('receive total counts', () => {
+    const totalCountsPerPage: HighlightsTotalCountsPerPage = {
+      page1: 1,
+      page2: 2,
+    };
+
+    const state = reducer({
+      ...initialState,
+    }, actions.receiveHighlightsTotalCounts(totalCountsPerPage));
+
+    expect(state.totalCountsPerPage).toMatchObject(totalCountsPerPage);
+  });
+
   it('creates highlights', () => {
     const state = reducer({
       ...initialState,
@@ -77,6 +95,8 @@ describe('highlight reducer', () => {
     }
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
+    expect(state.totalCountsPerPage).toEqual({ highlightSource: 1 });
+    expect(state.summary.totalCountsPerLocation).toEqual({ highlightChapter: 1 });
     const highlights = state.summary.highlights.highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
     expect(highlights.find((h) => h.id === mockHighlight.id)).toBeTruthy();
@@ -107,6 +127,12 @@ describe('highlight reducer', () => {
               otherHighlightSource: [mockHighlight],
             },
           },
+          totalCountsPerLocation: {
+            highlightChapter: 5,
+          },
+        },
+        totalCountsPerPage: {
+          highlightSource: 2,
         },
       }, actions.deleteHighlight(mockHighlight.id, {
         locationFilterId: 'highlightChapter',
@@ -118,6 +144,8 @@ describe('highlight reducer', () => {
       }
 
       expect(state.highlights.length).toEqual(0);
+      expect(state.totalCountsPerPage).toEqual({ highlightSource: 1 });
+      expect(state.summary.totalCountsPerLocation).toEqual({ highlightChapter: 4 });
       const chapterHighlights = state.summary.highlights.highlightChapter;
       expect(Object.keys(chapterHighlights).length).toEqual(1);
       expect(chapterHighlights.highlightSource).toBeUndefined();
@@ -304,6 +332,19 @@ describe('highlight reducer', () => {
 
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);
+    });
+
+    it('receive total counts per location', () => {
+      const totalCountsPerLocation: HighlightsTotalCountsPerLocation = {
+        location1: 1,
+        location2: 2,
+      };
+
+      const state = reducer({
+        ...initialState,
+      }, actions.setHighlightsTotalCountsPerLocation(totalCountsPerLocation));
+
+      expect(state.summary.totalCountsPerLocation).toMatchObject(totalCountsPerLocation);
     });
   });
 });

@@ -1,10 +1,10 @@
 import { assertDefined } from '../../../utils';
-import { Book } from '../../types';
+import { ArchiveBook, Book } from '../../types';
 import { HighlightsTotalCountsPerLocation, HighlightsTotalCountsPerPage } from '../types';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 import getHighlightLocationFilters from './getHighlightLocationFilters';
 
-const mergeHighlightsTotalCounts = (book: Book, totalCounts: HighlightsTotalCountsPerPage) => {
+const mergeHighlightsTotalCounts = (book: ArchiveBook | Book, totalCounts: HighlightsTotalCountsPerPage) => {
   const locationFilters = getHighlightLocationFilters(book);
   const totalCountsPerLocation: HighlightsTotalCountsPerLocation = {};
 
