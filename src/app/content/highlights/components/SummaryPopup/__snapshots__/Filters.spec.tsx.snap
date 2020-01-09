@@ -122,8 +122,6 @@ exports[`Filters matches snapshot 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 2rem 3.2rem 0 3.2rem;
-  background: #fff;
 }
 
 .c0 .c4 {
