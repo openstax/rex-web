@@ -29,7 +29,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     dispatch(receiveHighlights(highlights.data));
   }
 
-  if (Object.keys(totalCountsInState).length > 0) { return; }
+  if (totalCountsInState) { return; }
 
   const totalCounts = await highlightClient.getHighlightsSummary({
     scopeId: book.id,

@@ -27,7 +27,7 @@ export const initialState: State = {
     loading: false,
     totalCountsPerLocation: {},
   },
-  totalCountsPerPage: {},
+  totalCountsPerPage: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -57,7 +57,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const { locationFilterId, pageId } = action.meta;
 
-      const totalCountsPerPage = addOneToTotalCounts(state.totalCountsPerPage, pageId);
+      const totalCountsPerPage = addOneToTotalCounts(state.totalCountsPerPage || {}, pageId);
       const totalCountsPerLocation = addOneToTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
@@ -116,7 +116,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const { locationFilterId, pageId } = action.meta;
 
-      const totalCountsPerPage = removeOneFromTotalCounts(state.totalCountsPerPage, pageId);
+      const totalCountsPerPage = removeOneFromTotalCounts(state.totalCountsPerPage || {}, pageId);
       const totalCountsPerLocation = removeOneFromTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
