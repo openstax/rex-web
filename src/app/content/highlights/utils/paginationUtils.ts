@@ -56,18 +56,17 @@ export const getNextPageSources = (
 };
 
 export const filterCountsPerSourceByChapters = (
-  chapterFilters: HighlightLocationFilters,
+  locationFilters: HighlightLocationFilters,
   counts: CountsPerSource
 ) => {
-  const someChapterContainsNode = (sourceId: string) => !!Array.from(chapterFilters.values()).find(
-    (location) => isArchiveTree(location) && archiveTreeContainsNode(location, sourceId)
+  const chapterFilters = Array.from(locationFilters.values()).filter(isArchiveTree);
+
+  const someChapterContainsNode = (sourceId: string) => chapterFilters.find(
+    (location) => archiveTreeContainsNode(location, sourceId)
   );
 
   const matchesChapterFilter = (_count: number, sourceId: string) => {
-    // chapterFilters isn't actually just chapters, it also contains pages
-    // that have no chapter
-    return chapterFilters.has(sourceId)
-      || someChapterContainsNode(sourceId);
+    return locationFilters.has(sourceId) || someChapterContainsNode(sourceId);
   };
 
   return pickBy(matchesChapterFilter, counts);
