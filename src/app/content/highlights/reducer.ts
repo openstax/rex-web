@@ -9,7 +9,9 @@ import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
+  addOneToTotalCounts,
   addSummaryHighlight,
+  removeOneFromTotalCounts,
   removeSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './utils';
@@ -56,19 +58,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const { locationFilterId, pageId } = action.meta;
 
-      const totalCountsPerPage = {...state.totalCountsPerPage};
-      if (totalCountsPerPage[pageId]) {
-        totalCountsPerPage[pageId] += 1;
-      } else {
-        totalCountsPerPage[pageId] = 1;
-      }
-
-      const totalCountsPerLocation = {...state.summary.totalCountsPerLocation};
-      if (totalCountsPerLocation[locationFilterId]) {
-        totalCountsPerLocation[locationFilterId] += 1;
-      } else {
-        totalCountsPerLocation[locationFilterId] = 1;
-      }
+      const totalCountsPerPage = addOneToTotalCounts(state.totalCountsPerPage, pageId);
+      const totalCountsPerLocation = addOneToTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
         ...state,
@@ -126,15 +117,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const { locationFilterId, pageId } = action.meta;
 
-      const totalCountsPerPage = {...state.totalCountsPerPage};
-      if (totalCountsPerPage[pageId]) {
-        totalCountsPerPage[pageId] -= 1;
-      }
-
-      const totalCountsPerLocation = {...state.summary.totalCountsPerLocation};
-      if (totalCountsPerLocation[locationFilterId]) {
-        totalCountsPerLocation[locationFilterId] -= 1;
-      }
+      const totalCountsPerPage = removeOneFromTotalCounts(state.totalCountsPerPage, pageId);
+      const totalCountsPerLocation = removeOneFromTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
         ...state,

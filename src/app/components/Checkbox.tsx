@@ -41,28 +41,23 @@ const CustomCheckbox = styled(
 `;
 
 // tslint:disable-next-line:variable-name
-const Label = styled.label`
-  ${(props) => props.disabled ? `
-    opacity: 0.4;
-    cursor: not-allowed;
-  ` : null}
-`;
-
-// tslint:disable-next-line:variable-name
-const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props>) => <Label
-  className={className}
-  disabled={props.disabled}
->
+const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props>) => <label className={className}>
   <input type='checkbox' {...props} />
   <CustomCheckbox />
   {children}
-</Label>;
+</label>;
 
 export default styled(Checkbox)`
   cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
+  ${(props) => props.disabled ? `
+    label {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  ` : null}
 
   input {
     position: absolute;

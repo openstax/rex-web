@@ -1,4 +1,5 @@
 import { GetHighlightsSourceTypeEnum, GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
+import isEqual from 'lodash/fp/isEqual';
 import { user } from '../../../auth/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
@@ -12,6 +13,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
+  const totalCountsInState = select.totalCountsPerPage(state);
 
   if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
     return;
@@ -34,7 +36,10 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     dispatch(receiveHighlights(highlights.data));
   }
 
-  if (totalCounts.countsPerSource) {
+  if (
+    totalCounts.countsPerSource
+    && !isEqual(totalCounts.countsPerSource, totalCountsInState)
+  ) {
     dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource));
     const mergedTotalCounts = mergeHighlightsTotalCounts(book, totalCounts.countsPerSource);
     dispatch(setHighlightsTotalCountsPerLocation(mergedTotalCounts));

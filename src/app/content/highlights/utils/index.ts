@@ -2,7 +2,9 @@ export { default as addCurrentPageToSummaryFilters } from './addCurrentPageToSum
 export { default as getHighlightLocationFilterForPage } from './getHighlightLocationFilterForPage';
 export { default as getHighlightLocationFilters } from './getHighlightLocationFilters';
 export {
+  addOneToTotalCounts,
   addSummaryHighlight,
+  removeOneFromTotalCounts,
   removeSummaryHighlight,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
