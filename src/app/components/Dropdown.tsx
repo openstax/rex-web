@@ -1,9 +1,11 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
 import theme from '../theme';
+import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
 interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
@@ -82,10 +84,10 @@ const DropdownFocusWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const TabTransparentDropdown = styled(({toggle, children, className}: Props) => <div className={className}>
   <DropdownFocusWrapper>
-    <DropdownToggle tabIndex={-1} component={toggle} />
+    <DropdownToggle tabIndex={0} component={toggle} />
     {children}
   </DropdownFocusWrapper>
-  <DropdownToggle tabIndex={-1} component={toggle} />
+  <DropdownToggle tabIndex={0} component={toggle} />
 </div>)`
   ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
     ${DropdownFocusWrapper} + ${DropdownToggle} {
@@ -120,9 +122,11 @@ const TabTransparentDropdown = styled(({toggle, children, className}: Props) => 
     ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
       ${visuallyHidden}
     }
+
     ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
+
     ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
       ${visuallyShown}
     }
@@ -135,8 +139,15 @@ export const DropdownList = styled.ol`
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
 
+  li {
+    display: inline-block;
+  }
+
   li button,
   li a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
     text-align: left;
     cursor: pointer;
     outline: none;
@@ -162,7 +173,14 @@ export const DropdownItem = ({message, href, onClick}: {message: string, href?: 
   <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} onClick={onClick}>{msg}</a>
-      : <button onClick={onClick}>{msg}</button>
+      /*
+        this should be a button but Safari and firefox don't support focusing buttons
+        which breaks the tab transparent dropdown
+        https://bugs.webkit.org/show_bug.cgi?id=22261
+        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
+      */
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{msg}</a>
     }
   </FormattedMessage>
 </li>;
