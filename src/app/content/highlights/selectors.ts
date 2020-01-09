@@ -9,7 +9,7 @@ import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
 import { getHighlightLocationFilters } from './utils';
-import { filterCountsPerSourceByChapters, filterCountsToUnvisitiedPages } from './utils/paginationUtils';
+import { filterCountsToUnvisitiedPages } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -37,11 +37,6 @@ export const highlightLocationFilters = createSelector(
  (book) => book
   ? getHighlightLocationFilters(book)
   : new Map() as HighlightLocationFilters
-);
-
-export const totalCountsPerPage = createSelector(
-  localState,
-  (state) => state.totalCountsPerPage
 );
 
 export const focused = createSelector(
@@ -78,24 +73,13 @@ const loadedCountsPerSource = createSelector(
   )
 );
 
-/*
- * this is wrong, it shouldn't be loading from totalCountsPerPage,
- * it should be loading from a different summary that was fetched
- * from the api after filters are changed and is filtered based
- * on the selected colors.
- *
- * its probably better to do this location filtering on write
- * after loading the color filtered data from the api, then store
- * that in the state
- */
-const filteredCountsPerSource = createSelector(
-  highlightLocationFilters,
-  totalCountsPerPage,
-  (filters, counts) => filterCountsPerSourceByChapters(filters, counts)
+const filteredCountsPerPage = createSelector(
+  localState,
+  (state) => state.summary.filteredCountsPerPage
 );
 
 export const remainingSourceCounts = createSelector(
   loadedCountsPerSource,
-  filteredCountsPerSource,
+  filteredCountsPerPage,
   (loadedCounts, totalCounts) => filterCountsToUnvisitiedPages(loadedCounts, totalCounts)
 );

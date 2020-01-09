@@ -54,6 +54,10 @@ export const getNextPageSources = (
   return Object.keys(reduceUntilPageSize(pages, addPageCount, {} as CountsPerSource));
 };
 
+/*
+ * after filters are changed, load color filtered summary from api, then use this to
+ * filter by chapter filters, and store the result in the state at filteredCountsPerPage
+ */
 export const filterCountsPerSourceByChapters = (
   locationFilters: HighlightLocationFilters,
   counts: CountsPerSource

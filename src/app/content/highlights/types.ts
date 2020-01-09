@@ -33,6 +33,9 @@ export interface State {
       page: number;
     } | null,
     filters: SummaryFilters;
+    // filteredCountsPerPage reflects the FILTERED total counts, used to know which sources have
+    // more content for pagination
+    filteredCountsPerPage: CountsPerSource;
     loading: boolean;
     highlights: SummaryHighlights;
   };

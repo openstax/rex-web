@@ -1,4 +1,3 @@
-import { treeWithUnits } from '../../../test/trees';
 import { book } from '../selectors';
 import * as select from './selectors';
 
@@ -38,16 +37,14 @@ describe('focused', () => {
 
 describe('remainingSourceCounts', () => {
   it('returns remaining', () => {
-    mockBook.mockReturnValue({tree: treeWithUnits});
     expect(select.remainingSourceCounts({
       summary: {
-        filters: {locationIds: ['preface', 'chapter1']},
+        filteredCountsPerPage: {page1: 1, page2: 3, preface: 2},
         highlights: {
           chapter1: {page1: [{}]},
           preface: {preface: [{}, {}]},
         },
       },
-      totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
     } as any)).toEqual({page2: 3});
   });
 });

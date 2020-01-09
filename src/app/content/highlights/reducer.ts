@@ -20,6 +20,7 @@ export const initialState: State = {
   highlights: null,
   myHighlightsOpen: false,
   summary: {
+    filteredCountsPerPage: {},
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
