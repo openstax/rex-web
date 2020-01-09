@@ -7,6 +7,7 @@ import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
+import { disablePrint } from '../../components/utils/disablePrint';
 import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
@@ -32,6 +33,33 @@ export const stickyNoteMeasures = {
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
+const printStyles = {
+  modal: css`
+    position: relative;
+    overflow: visible;
+    height: max-content;
+    max-width: auto;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  `,
+  page: css`
+    margin: 15mm 10mm;
+    padding: 0;
+  `,
+  popupBody: css`
+    height: max-content;
+    overflow: auto;
+  `,
+  popupWrapper: css`
+    display: block;
+
+    & ~ div {
+      display: none;
+    }
+  `,
+};
+
 export const imageStyles = css`
   height: 25.6rem;
   width: 36rem;
@@ -42,6 +70,14 @@ export const imageStyles = css`
 export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
+
+  @media print {
+    ${printStyles.popupWrapper}
+
+    @page {
+      ${printStyles.page}
+    }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -60,6 +96,10 @@ export const Modal = styled.div`
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}
+
+  @media print {
+    ${printStyles.modal}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -82,6 +122,10 @@ export const PopupBody = styled.div`
     text-align: center;
     padding: 8rem 3.2rem;
   `)}
+
+  @media print {
+    ${printStyles.popupBody}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -133,6 +177,16 @@ export const BlueStickyNote = styled(StickyNote)`
     top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
     left: -${stickyNoteMeasures.bulletSize / 2}rem;
     background: ${stickyNoteMeasures.blue};
+  }
+
+  @media print {
+    position: relative;
+    overflow: visible;
+    height: max-content;
+    max-width: auto;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
   }
 `;
 
@@ -235,6 +289,8 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   :hover {
     color: ${toolbarIconColor.base};
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -265,6 +321,11 @@ export const GeneralText = styled(H3)`
 export const GeneralTextWrapper = styled.div`
   ${bodyCopyRegularStyle}
   padding: ${popupBodyPadding}rem ${popupPadding}rem 0;
+
+  @media print {
+    height: max-content;
+    overflow: auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

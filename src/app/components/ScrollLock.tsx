@@ -18,6 +18,12 @@ const ScrollLockBodyClass = createGlobalStyle`
       overflow: hidden;
     `}
   }
+
+  @media print {
+    body.body {
+      overflow: visible;
+    }
+  }
 `;
 
 const fadeIn = keyframes`
