@@ -93,6 +93,24 @@ describe('locationChange', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
+  it('noops if totalCountsInState are not empty', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+    const totalCountsInState = { somePage: 1 };
+    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState));
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({}));
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: 1 }}));
+
+    await hook();
+
+    expect(dispatch).not.toHaveBeenCalled();
+    expect(store.getState().content.highlights.totalCountsPerPage).toEqual(totalCountsInState);
+  });
+
   it('receive total counts and set total counts per location', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));

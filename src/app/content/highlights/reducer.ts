@@ -22,7 +22,6 @@ export const initialState: State = {
   highlights: null,
   myHighlightsOpen: false,
   summary: {
-    chapterCounts: {},
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,

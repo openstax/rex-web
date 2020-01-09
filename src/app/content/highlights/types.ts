@@ -26,7 +26,6 @@ export interface State {
     totalCountsPerLocation: HighlightsTotalCountsPerLocation,
     filters: SummaryFilters,
     loading: boolean;
-    chapterCounts: {[key: string]: number};
     highlights: SummaryHighlights;
   };
 }

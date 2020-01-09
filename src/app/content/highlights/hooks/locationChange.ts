@@ -1,5 +1,4 @@
 import { GetHighlightsSourceTypeEnum, GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
-import isEqual from 'lodash/fp/isEqual';
 import { user } from '../../../auth/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
@@ -19,27 +18,25 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     return;
   }
 
-  const [highlights, totalCounts] = await Promise.all([
-    await highlightClient.getHighlights({
-      perPage: 100,
-      scopeId: book.id,
-      sourceIds: [page.id],
-      sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
-    }),
-    await highlightClient.getHighlightsSummary({
-      scopeId: book.id,
-      sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-    }),
-  ]);
+  const highlights = await highlightClient.getHighlights({
+    perPage: 100,
+    scopeId: book.id,
+    sourceIds: [page.id],
+    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+  });
 
   if (highlights.data) {
     dispatch(receiveHighlights(highlights.data));
   }
 
-  if (
-    totalCounts.countsPerSource
-    && !isEqual(totalCounts.countsPerSource, totalCountsInState)
-  ) {
+  if (Object.keys(totalCountsInState).length > 0) { return; }
+
+  const totalCounts = await highlightClient.getHighlightsSummary({
+    scopeId: book.id,
+    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+  });
+
+  if (totalCounts.countsPerSource) {
     dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource));
     const mergedTotalCounts = mergeHighlightsTotalCounts(book, totalCounts.countsPerSource);
     dispatch(setHighlightsTotalCountsPerLocation(mergedTotalCounts));
