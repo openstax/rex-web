@@ -1,10 +1,8 @@
-import flatten from 'lodash/fp/flatten';
 import flow from 'lodash/fp/flow';
-import fromPairs from 'lodash/fp/fromPairs';
-import map from 'lodash/fp/map';
 import mapValues from 'lodash/fp/mapValues';
+import merge from 'lodash/fp/merge';
+import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
-import toPairs from 'lodash/fp/toPairs';
 import values from 'lodash/fp/values';
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
@@ -75,9 +73,7 @@ const loadedCountsPerSource = createSelector(
   summaryHighlights,
   flow(
     values,
-    map(toPairs),
-    flatten,
-    fromPairs,
+    reduce(merge, {}),
     mapValues(size)
   )
 );
