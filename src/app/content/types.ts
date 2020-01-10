@@ -4,7 +4,8 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 
 export interface Params {
-  book: string;
+  book?: string;
+  uuid?: string;
   page: string;
   version?: string;
 }
