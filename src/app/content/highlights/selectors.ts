@@ -38,9 +38,9 @@ export const totalCountsPerPage = createSelector(
 );
 
 export const totalCountsPerLocation = createSelector(
-  localState,
+  totalCountsPerPage,
   parentSelectors.book,
-  (state, book) => book ? mergeHighlightsTotalCounts(book, state.summary.totalCountsPerPage || {}) : {}
+  (totalCounts, book) => book ? mergeHighlightsTotalCounts(book, totalCounts || {}) : {}
 );
 
 export const focused = createSelector(
