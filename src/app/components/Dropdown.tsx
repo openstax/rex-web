@@ -77,7 +77,7 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
 `;
 
 // tslint:disable-next-line:variable-name
-const DropdownFocusWrapper = styled.div`
+export const DropdownFocusWrapper = styled.div`
   overflow: visible;
 `;
 

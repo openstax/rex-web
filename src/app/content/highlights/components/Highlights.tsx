@@ -1,5 +1,4 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +6,7 @@ import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import Button from '../../../components/Button';
-import { DropdownItem, DropdownList } from '../../../components/Dropdown';
+import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { assertDefined } from '../../../utils';
@@ -21,7 +20,6 @@ import ColorPicker from './ColorPicker';
 import { MenuToggle } from './DisplayNote';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
-import { useOnClickOutside } from './utils/onClickOutside';
 
 // tslint:disable-next-line: variable-name
 const NoHighlightsTip = htmlMessage(
@@ -217,36 +215,37 @@ interface HighlightToggleEditProps {
 }
 
 // tslint:disable-next-line:variable-name
-const HighlightToggleEdit = ({ color, onColorChange, onEdit, onDelete }: HighlightToggleEditProps) => {
-  const editMenuRef = React.useRef<HTMLElement>(null);
-  const [open, setOpen] = React.useState(false);
-
-  useOnClickOutside(editMenuRef, true, () => setOpen(false));
-
-  return <Styled.HighlightToggleEdit ref={editMenuRef}>
-    <MenuToggle onClick={() => setOpen(!open)}/>
-    {open && <Styled.HighlightToggleEditContent>
-        <ColorPicker
-          color={color}
-          onChange={onColorChange}
-          onRemove={() => { setOpen(false); onDelete(); }}
+const HighlightToggleEdit = ({
+  color,
+  onColorChange,
+  onEdit,
+  onDelete,
+}: HighlightToggleEditProps) => <Styled.HighlightToggleEdit>
+  <Dropdown
+    toggle={<MenuToggle/>}
+    className='highlight-toggle-edit'
+  >
+    <Styled.HighlightToggleEditContent>
+      <ColorPicker
+        color={color}
+        onChange={onColorChange}
+        onRemove={() => onDelete()}
+      />
+      <DropdownList>
+        <DropdownItem
+          message='i18n:highlighting:dropdown:edit'
+          prefix={<EditIcon/>}
+          onClick={() => onEdit()}
         />
-        <DropdownList>
-          <DropdownItem
-            message='i18n:highlighting:dropdown:edit'
-            prefix={<EditIcon/>}
-            onClick={() => { setOpen(false); onEdit(); }}
-          />
-          <DropdownItem
-            message='i18n:highlighting:dropdown:delete'
-            prefix={<TrashAltIcon/>}
-            onClick={() => { setOpen(false); onDelete(); }}
-          />
-        </DropdownList>
-      </Styled.HighlightToggleEditContent>
-    }
-  </Styled.HighlightToggleEdit>;
-};
+        <DropdownItem
+          message='i18n:highlighting:dropdown:delete'
+          prefix={<TrashAltIcon/>}
+          onClick={() => onDelete()}
+        />
+      </DropdownList>
+    </Styled.HighlightToggleEditContent>
+  </Dropdown>
+</Styled.HighlightToggleEdit>;
 
 interface HighlightAnnotationProps {
   annotation: string;
@@ -336,6 +335,7 @@ const HighlightDeleteWrapper = ({
         size='medium'
         variant='primary'
         onClick={onDelete}
+        focused
       >{msg}</Button>}
     </FormattedMessage>
     <FormattedMessage id='i18n:highlighting:button:cancel'>

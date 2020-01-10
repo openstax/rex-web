@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { DropdownList } from '../../../components/Dropdown';
+import { DropdownList, DropdownFocusWrapper } from '../../../components/Dropdown';
 import { bodyCopyRegularStyle, labelStyle, textRegularStyle, textStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
@@ -143,13 +143,29 @@ export const HighlightContentWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightToggleEdit = styled.span`
-  display: contents;
+export const HighlightToggleEdit = styled.div`
+  .highlight-toggle-edit {
+    position: absolute;
+    width: 150px;
+    top: 1.2rem;
+    right: 0;
+  }
+
+  ${DropdownFocusWrapper} {
+    svg {
+      color: ${theme.color.neutral.darkest};
+    }
+  }
 
   ${MenuToggle} {
-    position: absolute;
-    top: 12px;
-    right: 0;
+    float: right;
+    margin-right: 0.2rem;
+
+    &:hover {
+      svg {
+        color: ${theme.color.secondary.lightGray.darkest};
+      }
+    }
   }
 `;
 
@@ -166,9 +182,6 @@ export const HighlightEditButtons = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const HighlightToggleEditContent = styled.div`
-  position: absolute;
-  right: 0;
-  top: 34px;
   z-index: 2;
   border: 1px solid ${theme.color.neutral.formBorder};
   background-color: ${theme.color.neutral.formBackground};
@@ -176,8 +189,13 @@ export const HighlightToggleEditContent = styled.div`
   ${ColorPicker} {
     label {
       margin: 0.6rem;
-      width: 1.8rem;
-      height: 1.8rem;
+      width: 1.6rem;
+      height: 1.6rem;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
     }
   }
 
@@ -187,7 +205,7 @@ export const HighlightToggleEditContent = styled.div`
     li {
       display: flex;
 
-      button {
+      a {
         width: 100%;
 
         svg {
