@@ -26,8 +26,8 @@ export const initialState: State = {
     highlights: {},
     loading: false,
     totalCountsPerLocation: {},
+    totalCountsPerPage: null,
   },
-  totalCountsPerPage: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -57,7 +57,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const { locationFilterId, pageId } = action.meta;
 
-      const totalCountsPerPage = addOneToTotalCounts(state.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
       const totalCountsPerLocation = addOneToTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
@@ -67,8 +67,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
           totalCountsPerLocation,
+          totalCountsPerPage,
         },
-        totalCountsPerPage,
       };
     }
     case getType(actions.openMyHighlights):
@@ -116,7 +116,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const { locationFilterId, pageId } = action.meta;
 
-      const totalCountsPerPage = removeOneFromTotalCounts(state.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
       const totalCountsPerLocation = removeOneFromTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
@@ -127,8 +127,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           highlights: newSummaryHighlights,
           totalCountsPerLocation,
+          totalCountsPerPage,
         },
-        totalCountsPerPage,
       };
     }
     case getType(actions.receiveHighlights): {
@@ -168,7 +168,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.receiveHighlightsTotalCounts): {
       return {
         ...state,
-        totalCountsPerPage: action.payload,
+        summary: {
+          ...state.summary,
+          totalCountsPerPage: action.payload,
+        },
       };
     }
     case getType(actions.setHighlightsTotalCountsPerLocation): {

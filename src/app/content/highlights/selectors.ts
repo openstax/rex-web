@@ -34,7 +34,7 @@ export const highlightLocationFilters = createSelector(
 
 export const totalCountsPerPage = createSelector(
   localState,
-  (state) => state.totalCountsPerPage
+  (state) => state.summary.totalCountsPerPage
 );
 
 export const totalCountsPerLocation = createSelector(
