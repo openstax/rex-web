@@ -33,33 +33,6 @@ export const stickyNoteMeasures = {
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
-const printStyles = {
-  modal: css`
-    position: relative;
-    overflow: visible;
-    height: max-content;
-    max-width: auto;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-  `,
-  page: css`
-    margin: 15mm 10mm;
-    padding: 0;
-  `,
-  popupBody: css`
-    height: max-content;
-    overflow: auto;
-  `,
-  popupWrapper: css`
-    display: block;
-
-    & ~ div {
-      display: none;
-    }
-  `,
-};
-
 export const imageStyles = css`
   height: 25.6rem;
   width: 36rem;
@@ -72,10 +45,10 @@ export const PopupWrapper = styled.div`
   justify-content: center;
 
   @media print {
-    ${printStyles.popupWrapper}
+    display: block;
 
-    @page {
-      ${printStyles.page}
+    & ~ div {
+      display: none;
     }
   }
 `;
@@ -98,7 +71,10 @@ export const Modal = styled.div`
   `)}
 
   @media print {
-    ${printStyles.modal}
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
   }
 `;
 
@@ -124,7 +100,8 @@ export const PopupBody = styled.div`
   `)}
 
   @media print {
-    ${printStyles.popupBody}
+    height: max-content;
+    overflow: auto;
   }
 `;
 
@@ -177,16 +154,6 @@ export const BlueStickyNote = styled(StickyNote)`
     top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
     left: -${stickyNoteMeasures.bulletSize / 2}rem;
     background: ${stickyNoteMeasures.blue};
-  }
-
-  @media print {
-    position: relative;
-    overflow: visible;
-    height: max-content;
-    max-width: auto;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
   }
 `;
 

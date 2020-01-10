@@ -3,29 +3,8 @@ import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
-import PrintButton from '../../components/Toolbar/PrintButton';
-import { disablePrint } from '../../components/utils/disablePrint';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
-import { mobilePadding } from './SummaryPopup/constants';
-
-const printStyles = {
-  highlightOuterWrapper: css`
-    border-width: 0;
-    position: relative;
-    page-break-inside: avoid;
-  `,
-  highlightSection: css`
-    page-break-after: avoid;
-  `,
-  highlightsChapter: css`
-    padding: 0;
-  `,
-  highlightsWrapper: css`
-    border-width: 0;
-    margin: 0;
-  `,
-};
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
@@ -60,7 +39,7 @@ export const HighlightsChapter = styled.div`
   `)}
 
   @media print {
-    ${printStyles.highlightsChapter}
+    padding: 0;
   }
 `;
 
@@ -79,32 +58,8 @@ export const HighlightWrapper = styled.div`
   border: solid 0.1rem ${theme.color.neutral.darkest};
 
   @media print {
-    ${printStyles.highlightsWrapper}
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightsToolbar = styled.div`
-  overflow: visible;
-  display: grid;
-  grid-template-columns: auto max-content;
-  padding: 2.1rem 3.2rem 0 3.2rem;
-  border-bottom: 1px solid ${theme.color.neutral.formBorder};
-  background: ${theme.color.neutral.base};
-  ${theme.breakpoints.mobile(css`
-    align-items: center;
-    padding: 0 ${mobilePadding}rem;
-    height: 3.6rem;
-  `)}
-
-  ${disablePrint}
-`;
-
-// tslint:disable-next-line:variable-name
-export const HiglightsPrintButton = styled(PrintButton)`
-  > button {
-    min-width: auto;
-    height: auto;
+    border-width: 0;
+    margin: 0;
   }
 `;
 
@@ -125,7 +80,7 @@ export const HighlightSection = styled.div`
   }
 
   @media print {
-    ${printStyles.highlightSection}
+    page-break-after: avoid;
   }
 `;
 
@@ -138,7 +93,9 @@ export const HighlightOuterWrapper = styled.div`
   background: ${theme.color.neutral.base};
 
   @media print {
-    ${printStyles.highlightOuterWrapper}
+    border-width: 0;
+    position: relative;
+    page-break-inside: avoid;
   }
 `;
 

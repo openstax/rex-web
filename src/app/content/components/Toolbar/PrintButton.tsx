@@ -17,24 +17,23 @@ interface Props {
 class PrintButton extends Component<Props> {
   public render() {
     return (
-      <div className={this.props.className}>
-        <FormattedMessage id='i18n:toolbar:print:text'>
-          {(msg: Element | string) => (
-            <FormattedMessage id='i18n:toolbar:print:aria-label'>
-              {(label: Element | string) => (
-                <Styled.PrintOptWrapper
-                  onClick={() => assertWindow().print()}
-                  aria-label={label}
-                  data-testid='print'
-                >
-                  <Styled.PrintIcon />
-                  <Styled.PrintOptions>{msg}</Styled.PrintOptions>
-                </Styled.PrintOptWrapper>
-              )}
-            </FormattedMessage>
-          )}
-        </FormattedMessage>
-      </div>
+      <FormattedMessage id='i18n:toolbar:print:text'>
+        {(msg: Element | string) => (
+          <FormattedMessage id='i18n:toolbar:print:aria-label'>
+            {(label: Element | string) => (
+              <Styled.PrintOptWrapper
+                onClick={() => assertWindow().print()}
+                aria-label={label}
+                data-testid='print'
+                className={this.props.className}
+              >
+                <Styled.PrintIcon />
+                <Styled.PrintOptions>{msg}</Styled.PrintOptions>
+              </Styled.PrintOptWrapper>
+            )}
+          </FormattedMessage>
+        )}
+      </FormattedMessage>
     );
   }
 }

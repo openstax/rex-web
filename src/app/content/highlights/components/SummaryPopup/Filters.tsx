@@ -6,6 +6,8 @@ import { PlainButton } from '../../../../components/Button';
 import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
+import PrintButton from '../../../components/Toolbar/PrintButton';
+import { disablePrint } from '../../../components/utils/disablePrint';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
@@ -17,6 +19,13 @@ const DownIcon = styled(AngleDown)`
   width: 1rem;
   height: 2rem;
   margin-left: 0.8rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const HighlightsPrintButton = styled(PrintButton)`
+  min-width: auto;
+  height: max-content;
+  margin-left: auto;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -53,6 +62,7 @@ const Filters = ({className}: Props) => <div className={className}>
       <ColorFilter />
     </Dropdown>}
   </FormattedMessage>
+  <HighlightsPrintButton />
   <FiltersList />
 </div>;
 
@@ -61,6 +71,8 @@ export default styled(Filters)`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  padding: 2.1rem 3.2rem 0 3.2rem;
+  background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     padding: 0 ${mobilePadding}rem;
     height: 3.6rem;
@@ -78,4 +90,6 @@ export default styled(Filters)`
       `)}
     }
   `}
+
+  ${disablePrint}
 `;
