@@ -72,7 +72,7 @@ describe('highlight reducer', () => {
       ...initialState,
     }, actions.receiveHighlightsTotalCounts(totalCountsPerPage));
 
-    expect(state.totalCountsPerPage).toMatchObject(totalCountsPerPage);
+    expect(state.summary.totalCountsPerPage).toMatchObject(totalCountsPerPage);
   });
 
   it('creates highlights', () => {
@@ -95,7 +95,7 @@ describe('highlight reducer', () => {
     }
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
-    expect(state.totalCountsPerPage).toEqual({ highlightSource: 1 });
+    expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: 1 });
     expect(state.summary.totalCountsPerLocation).toEqual({ highlightChapter: 1 });
     const highlights = state.summary.highlights.highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
@@ -130,9 +130,9 @@ describe('highlight reducer', () => {
           totalCountsPerLocation: {
             highlightChapter: 5,
           },
-        },
-        totalCountsPerPage: {
-          highlightSource: 2,
+          totalCountsPerPage: {
+            highlightSource: 2,
+          },
         },
       }, actions.deleteHighlight(mockHighlight.id, {
         locationFilterId: 'highlightChapter',
@@ -144,7 +144,7 @@ describe('highlight reducer', () => {
       }
 
       expect(state.highlights.length).toEqual(0);
-      expect(state.totalCountsPerPage).toEqual({ highlightSource: 1 });
+      expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: 1 });
       expect(state.summary.totalCountsPerLocation).toEqual({ highlightChapter: 4 });
       const chapterHighlights = state.summary.highlights.highlightChapter;
       expect(Object.keys(chapterHighlights).length).toEqual(1);

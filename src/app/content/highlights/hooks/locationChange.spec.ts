@@ -108,7 +108,7 @@ describe('locationChange', () => {
     await hook();
 
     expect(dispatch).not.toHaveBeenCalled();
-    expect(store.getState().content.highlights.totalCountsPerPage).toEqual(totalCountsInState);
+    expect(store.getState().content.highlights.summary.totalCountsPerPage).toEqual(totalCountsInState);
   });
 
   it('receive total counts and set total counts per location', async() => {
