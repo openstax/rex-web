@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters } from './utils';
+import { getHighlightLocationFilters, mergeHighlightsTotalCounts } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -39,7 +39,8 @@ export const totalCountsPerPage = createSelector(
 
 export const totalCountsPerLocation = createSelector(
   localState,
-  (state) => state.summary.totalCountsPerLocation
+  parentSelectors.book,
+  (state, book) => book ? mergeHighlightsTotalCounts(book, state.summary.totalCountsPerPage || {}) : {}
 );
 
 export const focused = createSelector(

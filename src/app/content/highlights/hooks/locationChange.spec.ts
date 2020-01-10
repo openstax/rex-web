@@ -10,7 +10,7 @@ import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { receiveHighlights, receiveHighlightsTotalCounts, setHighlightsTotalCountsPerLocation } from '../actions';
+import { receiveHighlights, receiveHighlightsTotalCounts } from '../actions';
 import { HighlightData } from '../types';
 
 const mockConfig = {BOOKS: {
@@ -124,13 +124,6 @@ describe('locationChange', () => {
       'testbook1-testpage4-uuid': 5,
     };
 
-    const totalCountsPerLocation = {
-      'testbook1-testpage1-uuid': 1,
-      // tslint:disable-next-line: object-literal-sort-keys
-      'testbook1-testchapter1-uuid': 3,
-      'testbook1-testchapter3-uuid': 5,
-    };
-
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
@@ -139,6 +132,5 @@ describe('locationChange', () => {
     await hook();
 
     expect(dispatch).toHaveBeenCalledWith(receiveHighlightsTotalCounts(totalCountsPerPage));
-    expect(dispatch).toHaveBeenCalledWith(setHighlightsTotalCountsPerLocation(totalCountsPerLocation));
   });
 });

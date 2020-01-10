@@ -11,7 +11,7 @@ import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
-import { setHighlightsTotalCountsPerLocation } from '../../actions';
+import { receiveHighlightsTotalCounts } from '../../actions';
 import { addCurrentPageToSummaryFilters } from '../../utils';
 import ChapterFilter from './ChapterFilter';
 
@@ -34,7 +34,7 @@ describe('ChapterFilter', () => {
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
-    store.dispatch(setHighlightsTotalCountsPerLocation({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': 1,
     }));
     addCurrentPageToSummaryFilters(helpers);
@@ -163,7 +163,7 @@ describe('ChapterFilter', () => {
 
   it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
-    store.dispatch(setHighlightsTotalCountsPerLocation({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': 1,
     }));
     addCurrentPageToSummaryFilters(helpers);
@@ -194,7 +194,7 @@ describe('ChapterFilter', () => {
 
   it('chapters without highlights are disabled', () => {
     store.dispatch(receiveBook(book));
-    store.dispatch(setHighlightsTotalCountsPerLocation({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': 1,
     }));
     addCurrentPageToSummaryFilters(helpers);

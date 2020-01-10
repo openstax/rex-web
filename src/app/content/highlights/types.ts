@@ -22,7 +22,6 @@ export interface State {
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
-    totalCountsPerLocation: HighlightsTotalCountsPerLocation,
     totalCountsPerPage: HighlightsTotalCountsPerPage | null;
     filters: SummaryFilters,
     loading: boolean;

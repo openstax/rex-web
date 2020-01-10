@@ -25,7 +25,6 @@ export const initialState: State = {
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
-    totalCountsPerLocation: {},
     totalCountsPerPage: null,
   },
 };
@@ -55,10 +54,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
-      const { locationFilterId, pageId } = action.meta;
-
+      const { pageId } = action.meta;
       const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
-      const totalCountsPerLocation = addOneToTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
         ...state,
@@ -66,7 +63,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
-          totalCountsPerLocation,
           totalCountsPerPage,
         },
       };
@@ -114,10 +110,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         id: action.payload,
       });
 
-      const { locationFilterId, pageId } = action.meta;
-
+      const { pageId } = action.meta;
       const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
-      const totalCountsPerLocation = removeOneFromTotalCounts(state.summary.totalCountsPerLocation, locationFilterId);
 
       return {
         ...state,
@@ -126,7 +120,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
-          totalCountsPerLocation,
           totalCountsPerPage,
         },
       };
@@ -171,15 +164,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           totalCountsPerPage: action.payload,
-        },
-      };
-    }
-    case getType(actions.setHighlightsTotalCountsPerLocation): {
-      return {
-        ...state,
-        summary: {
-          ...state.summary,
-          totalCountsPerLocation: action.payload,
         },
       };
     }

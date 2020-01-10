@@ -2,9 +2,8 @@ import { GetHighlightsSourceTypeEnum, GetHighlightsSummarySourceTypeEnum } from 
 import { user } from '../../../auth/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
-import { receiveHighlights, receiveHighlightsTotalCounts, setHighlightsTotalCountsPerLocation } from '../actions';
+import { receiveHighlights, receiveHighlightsTotalCounts } from '../actions';
 import * as select from '../selectors';
-import { mergeHighlightsTotalCounts } from '../utils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const {dispatch, getState, highlightClient} = services;
@@ -38,8 +37,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (totalCounts.countsPerSource) {
     dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource));
-    const mergedTotalCounts = mergeHighlightsTotalCounts(book, totalCounts.countsPerSource);
-    dispatch(setHighlightsTotalCountsPerLocation(mergedTotalCounts));
   }
 };
 
