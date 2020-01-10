@@ -10,9 +10,7 @@ import Filters from './SummaryPopup/Filters';
 class ShowMyHighlights extends Component<{}, { showGoToTop: boolean }> {
   public myHighlightsBodyRef = React.createRef<HTMLElement>();
 
-  public state = {
-    showGoToTop: false,
-  };
+  public state = { showGoToTop: false };
 
   private scrollHandler: (() => void) | undefined;
 
