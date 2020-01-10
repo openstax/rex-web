@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.touch_actions import TouchActions
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as expected
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.accounts import Login
 from pages.base import Page
@@ -20,7 +21,6 @@ from regions.base import Region
 from regions.search_sidebar import SearchSidebar
 from regions.toc import TableOfContents
 from utils.utility import Color, Highlight, Utilities
-
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
 COMPUTED_STYLES = "return window.getComputedStyle(arguments[0]){field};"
@@ -344,7 +344,7 @@ class Content(Page):
         _list_locator = (
             By.CSS_SELECTOR, "ol, ul")
         _math_equation_locator = (
-            By.CSS_SELECTOR, "[data-type=equation] .math, p .math")
+            By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
         _show_solution_toggle_locator = (
             By.CSS_SELECTOR, "[aria-label='show solution'] button, "
                              "[data-type=solution]:not([aria-label]) button")
@@ -362,11 +362,15 @@ class Content(Page):
             :return: the list of parent elements for each page figure, which
                 excludes their respective captions
             :rtype: list(WebElement)
+            :raises ContentError: if no figures are found in the content
 
             """
-            return [figure
+            figs = [figure
                     for figure
                     in self.find_elements(*self._figure_locator)]
+            if not figs:
+                raise ContentError("no figures found")
+            return figs
 
         @property
         def figures_and_captions(self) -> List[WebElement]:
@@ -375,11 +379,15 @@ class Content(Page):
             :return: the list of os-figure parent elements for each page
                 figure, which includes their respective captions
             :rtype: list(WebElement)
+            :raises ContentError: if no figures are found in the content
 
             """
-            return [figure_and_caption
+            figs = [figure_and_caption
                     for figure_and_caption
                     in self.find_elements(*self._figure_container_locator)]
+            if not figs:
+                raise ContentError("no list groups found")
+            return figs
 
         @property
         def highlights(self) -> List[WebElement]:
@@ -454,23 +462,50 @@ class Content(Page):
             :return: the list of parent elements for each ordered and unordered
                 list
             :rtype: list(WebElement)
+            :raises ContentError: if no list is found in the content
 
             """
-            return [list_group
-                    for list_group
-                    in self.find_elements(*self._list_locator)]
+            lists = [list_group
+                     for list_group
+                     in self.find_elements(*self._list_locator)]
+            if not lists:
+                raise ContentError("no list groups found")
+            return lists
 
         @property
         def math(self) -> List[WebElement]:
             """Return the list of rendered MathML equations or text.
 
+            .. note::
+               If MathJax doesn't render the math equations on the page, we
+               reque the render request.
+
             :return: the list of available MathML rendered equations
             :rtype: list(WebElement)list(WebElement)
+            :raises UserWarning: if no Math is found on the page and we request
+                MathJax to rerun the page search and render
+            :raises ContentError: if no Math is found in the content
 
             """
-            return [equation
+            wait = WebDriverWait(self.driver, 3)
+            try:
+                wait.until(
+                    lambda _: self.find_elements(*self._math_equation_locator))
+            except TimeoutException:
+                from warnings import warn
+                warn("Content request - "
+                     "no math found or MathJax failed to load; "
+                     "rerunning math search")
+                self.driver.execute_script(
+                    "MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
+                wait.until(
+                    lambda _: self.find_elements(*self._math_equation_locator))
+            math = [equation
                     for equation
                     in self.find_elements(*self._math_equation_locator)]
+            if not math:
+                raise ContentError("no rendered math found")
+            return math
 
         @property
         def notes(self) -> int:
@@ -492,11 +527,16 @@ class Content(Page):
 
             :return: the list of text content paragraphs
             :rtype: list(WebElement)
+            :raises ContentError: if no non-structured content paragraphs are
+                found in the content
 
             """
-            return [text
-                    for text
-                    in self.find_elements(*self._text_content_locator)]
+            paragraphs = [text
+                          for text
+                          in self.find_elements(*self._text_content_locator)]
+            if not paragraphs:
+                raise ContentError("no standard paragraph content found")
+            return paragraphs
 
         @property
         def solution_toggles(self) -> List[WebElement]:
@@ -521,11 +561,15 @@ class Content(Page):
 
             :return: the list of tables found within the main content
             :rtype: list(WebElement)list(WebElement)
+            :raises ContentError: if no tables are found in the content
 
             """
-            return [table
-                    for table
-                    in self.find_elements(*self._table_locator)]
+            tables = [table
+                      for table
+                      in self.find_elements(*self._table_locator)]
+            if not tables:
+                raise ContentError("no tables found")
+            return tables
 
         def close_edit_note_box(self):
             """Click outside of the elements to close the edit note box.
@@ -689,7 +733,7 @@ class Content(Page):
 
             """
             (ActionChains(self.driver)
-                .move_to_element(target)
+                .move_to_element_with_offset(target, 10, 10)
                 .double_click(target)
                 .perform())
 
@@ -747,9 +791,9 @@ class Content(Page):
             _delete_confirmation_message_locator = (
                 By.CSS_SELECTOR, "[class*=Confirmation] label")
             _delete_note_button_locator = (
-                By.CSS_SELECTOR, "[class*=DropdownList] li:last-child button")
+                By.CSS_SELECTOR, "[class*=DropdownList] li:last-child a")
             _edit_note_button_locator = (
-                By.CSS_SELECTOR, "[class*=DropdownList] li:first-child button")
+                By.CSS_SELECTOR, "[class*=DropdownList] li:first-child a")
             _highlight_blue_locator = (
                 By.CSS_SELECTOR, "[name=blue]")
             _highlight_green_locator = (

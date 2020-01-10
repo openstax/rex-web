@@ -1,6 +1,7 @@
 
 from __future__ import annotations
 
+from time import sleep
 from typing import Tuple
 
 import pypom
@@ -8,18 +9,27 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import (
     ElementNotInteractableException,
     StaleElementReferenceException,
+    TimeoutException,
 )
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from tests.conftest import DESKTOP, MOBILE
 
 
 class Page(pypom.Page):
+
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
         super().__init__(driver, base_url, timeout, **url_kwargs)
 
+    _math_equation_locator = (
+        By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
+
+    @property
+    def loaded(self) -> bool:
+        return super().loaded and (sleep(1.0) or True)
 
     @property
     def page_title(self):
@@ -108,13 +118,15 @@ class Page(pypom.Page):
         element.send_keys(Keys.ENTER)
         return element
 
-    def reload(self) -> Page:
+    def reload(self, math_check: bool = False) -> Page:
         """Reload the current page.
 
         Ignore stale element issues because we're reloading the page;
         everything is going to be stale if accessed too quickly
         (multi-process Firefox issue).
 
+        :param bool math_check: (optional) look for rendered math and, if not
+            found, rerun MathJax's search
         :return: the current page
         :rtype:
 
@@ -124,6 +136,25 @@ class Page(pypom.Page):
             self.wait_for_page_to_load()
         except StaleElementReferenceException:
             pass
+        if math_check:
+            wait = WebDriverWait(self.driver, 3)
+            try:
+                wait.until(
+                    lambda _: self.find_elements(*self._math_equation_locator))
+            except TimeoutException:
+                from warnings import warn
+                warn("On page reload - "
+                     "no math found or MathJax failed to load; "
+                     "rerunning math search")
+                self.driver.execute_script(
+                    "MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
+                try:
+                    wait.until(
+                        lambda _:
+                        self.find_elements(*self._math_equation_locator))
+                except TimeoutException:
+                    pass
+                sleep(1.0)
         return self
 
     def get_window_size(self) -> Tuple[int, int]:

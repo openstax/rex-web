@@ -1,5 +1,6 @@
 """Reading Experience highlighting."""
 
+import logging
 import random
 import re
 from functools import reduce
@@ -70,6 +71,8 @@ def test_highlighting_different_content(
     new_highlight_count = book.content.highlight_count
 
     # THEN: the text is highlighted
+    logging.info(f"C591511 - text:   {book.content.highlight_ids[0]}")
+    used = book.content.highlight_ids
     assert(new_highlight_count > total_highlight_count), \
         "No new highlight(s) found (text)"
     total_highlight_count = new_highlight_count
@@ -82,6 +85,9 @@ def test_highlighting_different_content(
     new_highlight_count = book.content.highlight_count
 
     # THEN: the figure or the figure and caption is/are highlighted
+    logging.info("C591511 - figure: "
+                 f"{list(set(book.content.highlight_ids) - set(used))[0]}")
+    used = book.content.highlight_ids
     assert(new_highlight_count > total_highlight_count), \
         "No new highlight(s) found (figure)"
     total_highlight_count = new_highlight_count
@@ -93,6 +99,9 @@ def test_highlighting_different_content(
     new_highlight_count = book.content.highlight_count
 
     # THEN: the table is highlighted
+    logging.info("C591511 - table:  "
+                 f"{list(set(book.content.highlight_ids) - set(used))[0]}")
+    used = book.content.highlight_ids
     assert(new_highlight_count > total_highlight_count), \
         "No new highlight(s) found (table)"
     total_highlight_count = new_highlight_count
@@ -104,6 +113,9 @@ def test_highlighting_different_content(
     new_highlight_count = book.content.highlight_count
 
     # THEN: the list is highlighted
+    logging.info("C591511 - list:   "
+                 f"{list(set(book.content.highlight_ids) - set(used))[0]}")
+    used = book.content.highlight_ids
     assert(new_highlight_count > total_highlight_count), \
         "No new highlight(s) found (list)"
     total_highlight_count = new_highlight_count
@@ -115,18 +127,21 @@ def test_highlighting_different_content(
     new_highlight_count = book.content.highlight_count
 
     # THEN: the math content is highlighted
+    logging.info("C591511 - math:   "
+                 f"{list(set(book.content.highlight_ids) - set(used))[0]}")
     assert(new_highlight_count > total_highlight_count), \
         "No new highlight(s) found (math)"
-    total_highlight_count = new_highlight_count
+    total_highlight_count = book.content.highlight_ids
 
     # WHEN: the page is refreshed
-    book = book.reload()
+    book = book.reload(True)
 
     # THEN: all of the preceding highlights should still be highlighted
-    current_highlights = book.content.highlight_count
-    assert(current_highlights == total_highlight_count), (
+    current_highlights = book.content.highlight_ids
+    assert(set(current_highlights) == set(total_highlight_count)), (
         "Highlight counts do not match: "
-        f"found {current_highlights}, expected {total_highlight_count}")
+        f"found {len(current_highlights)}, "
+        f"expected {len(total_highlight_count)}")
 
 
 @markers.test_case("C591512")
