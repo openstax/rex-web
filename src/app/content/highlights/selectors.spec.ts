@@ -1,17 +1,36 @@
-import createTestStore from '../../../test/createTestStore';
-import { Store } from '../../types';
-import { focusHighlight } from './actions';
+import { book } from '../selectors';
 import * as select from './selectors';
 
-let store: Store;
+jest.mock('./constants', () => ({
+  enabledForBooks: ['enabledbook'],
+}));
 
-beforeEach(() => {
-  store = createTestStore();
+const mockBook = book as any as jest.SpyInstance;
+
+jest.mock('../selectors', () => ({
+  book: jest.fn(),
+  localState: (state: any) => ({highlights: state}),
+}));
+
+describe('isEnabled', () => {
+  it('when enabled and book is whitelisted', () => {
+    mockBook.mockReturnValue({id: 'enabledbook'});
+    expect(select.isEnabled({enabled: true} as any)).toEqual(true);
+  });
+
+  it('when enabled and book not is whitelisted', () => {
+    mockBook.mockReturnValue({id: 'book'});
+    expect(select.isEnabled({enabled: true} as any)).toEqual(false);
+  });
+
+  it('when not enabled', () => {
+    mockBook.mockReturnValue({id: 'enabledbook'});
+    expect(select.isEnabled({enabled: false} as any)).toEqual(false);
+  });
 });
 
 describe('focused', () => {
   it('gets focused highlight id', () => {
-    store.dispatch(focusHighlight('asdf'));
-    expect(select.focused(store.getState())).toEqual('asdf');
+    expect(select.focused({focused: 'asdf'} as any)).toEqual('asdf');
   });
 });

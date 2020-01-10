@@ -275,3 +275,11 @@ describe('merge', () => {
     expect(merged.array).toEqual(['two']);
   });
 });
+
+describe('preventDefault', () => {
+  it('does it', () => {
+    const event = {preventDefault: jest.fn()} as any;
+    utils.preventDefault(event);
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+});

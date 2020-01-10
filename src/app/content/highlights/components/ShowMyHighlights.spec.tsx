@@ -17,7 +17,7 @@ import { highlightingFeatureFlag, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
-import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper, ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
 
 describe('Show my highlights', () => {
   let store: Store;
@@ -62,6 +62,12 @@ describe('Show my highlights', () => {
 
     expect(component.root.findByType(ShowMyHighlightsBody)).toBeTruthy();
 
+  });
+
+  it('doesn\'t throw when rendering with bad color', async() => {
+    expect(() => renderer.create(
+      <HighlightContentWrapper color='asdfasdfasdf' />
+    )).not.toThrow();
   });
 
   it('does not render show my highlights without highlights', async() => {

@@ -5,7 +5,7 @@ import {
   getContentPageReferences,
   getPageIdFromUrlParam,
   stripIdVersion,
-  toRelativeUrl
+  toRelativeUrl,
 } from './utils';
 
 describe('stripIdVersion', () => {

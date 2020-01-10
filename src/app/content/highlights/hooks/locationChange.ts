@@ -5,7 +5,8 @@ import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
 
-const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServices) => async() => {
+const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const {dispatch, getState, highlightClient} = services;
   const state = getState();
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
