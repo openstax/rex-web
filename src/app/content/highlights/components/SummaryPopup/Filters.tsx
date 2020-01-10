@@ -18,6 +18,7 @@ const DownIcon = styled(AngleDown)`
   width: 1rem;
   height: 2rem;
   margin-left: 0.8rem;
+  padding-top: 0.2rem;
 `;
 
 // tslint:disable-next-line:variable-name
