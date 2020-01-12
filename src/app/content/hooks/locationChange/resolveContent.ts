@@ -82,7 +82,6 @@ const resolveBookReference = async(
   if (match.state && match.state.bookUid && match.state.bookVersion) {
     return [bookSlug, match.state.bookUid, match.state.bookVersion];
   }
-
   const bookUid = match.params.uuid
     ? match.params.uuid
     : currentBook && currentBook.slug === bookSlug

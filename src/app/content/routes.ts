@@ -13,7 +13,7 @@ const UUID_CONTENT_PATH =
   '[\\da-z]{4}-' +
   '[\\da-z]{12})' +
   '@:version/pages/:page';
-const VERSIONED_CONTENT_PATH = '/books/:book([^@/]+)@:version/pages/:page';
+const VERSIONED_CONTENT_PATH = '/books/:book@:version/pages/:page';
 
 interface State {
   bookUid: string;
