@@ -53,11 +53,13 @@ def test_highlighting_different_content(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -156,11 +158,13 @@ def test_delete_a_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -213,11 +217,13 @@ def test_highlight_stays_on_navigation(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -266,11 +272,13 @@ def test_search_term_colored_within_a_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -332,11 +340,13 @@ def test_user_highlight_over_search_term_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -397,11 +407,13 @@ def test_focussed_note_card_is_displayed_when_highlight_clicked(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -458,11 +470,13 @@ def test_delete_a_highlight_and_note_using_the_context_menu(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -517,11 +531,13 @@ def test_delete_a_note_using_the_context_menu(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -611,11 +627,13 @@ def test_cancel_deleting_a_highlight_using_the_context_menu(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -681,11 +699,13 @@ def test_cancel_deleting_a_note_using_the_context_menu(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -751,11 +771,13 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -813,11 +835,13 @@ def test_clicking_a_note_highlight_color_doesnt_change_the_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -871,11 +895,13 @@ def test_clicking_a_new_note_highlight_color_changes_the_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -946,11 +972,13 @@ def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -990,11 +1018,13 @@ def test_read_only_display_card_is_shown_when_highlight_clicked_in_mobile(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -1064,11 +1094,13 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -1123,11 +1155,13 @@ def test_mobile_display_card_scrolls_for_long_notes(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -1181,11 +1215,13 @@ def test_open_note_card_after_searching_for_term_in_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -1263,11 +1299,13 @@ def test_open_a_second_note_when_the_first_is_already_displayed(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -1353,11 +1391,13 @@ def test_top_of_create_note_box_is_even_with_top_of_content_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -1422,11 +1462,13 @@ def test_top_of_create_note_box_is_even_with_bottom_of_content_highlight(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email = Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 

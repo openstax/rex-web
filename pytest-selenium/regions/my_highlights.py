@@ -5,11 +5,11 @@ from __future__ import annotations
 from time import sleep
 from typing import List
 
+from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
 
 from pages.accounts import Login
-from pages.base import Page
 from regions.base import Region
 from utils.utility import Color, Utilities
 
@@ -52,6 +52,16 @@ class MyHighlights(Region):
         return self.find_element(*self._content_header_locator).text
 
     @property
+    def log_in_available(self) -> bool:
+        """Return True if the log in link is available.
+
+        :return: ``True`` if the log in link is found
+        :rtype: bool
+
+        """
+        return bool(self.find_elements(*self._log_in_link_locator))
+
+    @property
     def title(self) -> str:
         """Return the modal title text.
 
@@ -78,7 +88,7 @@ class MyHighlights(Region):
         """Click the close 'x' button.
 
         :return: the modal's parent page
-        :rtype: :py:class:`~pages.base.Page`
+        :rtype: :py:class:`~pypom.Page`
 
         """
         button = self.find_element(*self._close_x_button_locator)

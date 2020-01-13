@@ -45,6 +45,8 @@ class Content(Page):
         By.CSS_SELECTOR, ".error-modal")
     _main_content_locator = (
         By.CSS_SELECTOR, "h1")
+    _modal_root_locator = (
+        By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (
         By.CSS_SELECTOR, "[aria-label='Next Page']")
     _notification_pop_up_locator = (
@@ -93,35 +95,32 @@ class Content(Page):
         error_modal = self.find_element(*self._error_modal_locator)
         return self.Error(self, error_modal)
 
-    def error_shown(self, repeat: int = 1) -> bool:
-        """Return True when the error modal is present.
-
-        .. note::
-           We make multiple checks for the error modal because when an error
-           state occurs it may be missed by the first check as the rest of the
-           page is ready before the error modal displays. After the first
-           check, the error overlay would appear and intercept subsequent
-           actions on the page raising a ``TimeoutException`` instead of an
-           error report.
-
-        :param int repeat: (optional) an internal recursive counter managing
-            the number of error modal check retries
-            default: 1 - check for the modal twice over 0.25 seconds
-        :return: ``True`` when the error modal exists within the content page
-        :rtype: bool
-
-        """
-        try:
-            return bool(self.error)
-        except NoSuchElementException:
-            if repeat <= 0:
-                return False
-            sleep(0.25)
-            return self.error_shown(repeat - 1)
-
     @property
     def mobile_search_toolbar(self) -> Content.MobileSearchToolbar:
         return self.MobileSearchToolbar(self)
+
+    @property
+    def my_highlights(self) -> Union[MyHighlights, None]:
+        """Access the My Highlights and Notes modal.
+
+        :return: the My Highlights and Notes modal or ``None`` if the modal is
+            not available
+        :rtype: :py:class:`~regions.my_highlights.MyHighlights`
+
+        """
+        if self.my_highlights_open:
+            my_highlights_root = self.find_element(*self._modal_root_locator)
+            return MyHighlights(self, my_highlights_root)
+
+    @property
+    def my_highlights_open(self) -> bool:
+        """Return True if the My Highlights modal is open.
+
+        :return: ``True`` if the My Highlights and Note modal is currently open
+        :rtype: bool
+
+        """
+        return bool(self.find_elements(*self._modal_root_locator))
 
     @property
     def navbar(self) -> Content.NavBar:
@@ -233,6 +232,32 @@ class Content(Page):
 
     def click_previous_link(self):
         self.click_and_wait_for_load(self.previous_link)
+
+    def error_shown(self, repeat: int = 1) -> bool:
+        """Return True when the error modal is present.
+
+        .. note::
+           We make multiple checks for the error modal because when an error
+           state occurs it may be missed by the first check as the rest of the
+           page is ready before the error modal displays. After the first
+           check, the error overlay would appear and intercept subsequent
+           actions on the page raising a ``TimeoutException`` instead of an
+           error report.
+
+        :param int repeat: (optional) an internal recursive counter managing
+            the number of error modal check retries
+            default: 1 - check for the modal twice over 0.25 seconds
+        :return: ``True`` when the error modal exists within the content page
+        :rtype: bool
+
+        """
+        try:
+            return bool(self.error)
+        except NoSuchElementException:
+            if repeat <= 0:
+                return False
+            sleep(0.25)
+            return self.error_shown(repeat - 1)
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.
