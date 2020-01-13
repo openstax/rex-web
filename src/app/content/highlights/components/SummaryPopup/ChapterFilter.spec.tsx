@@ -11,6 +11,7 @@ import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import { receiveHighlightsTotalCounts } from '../../actions';
 import { addCurrentPageToSummaryFilters } from '../../utils';
 import ChapterFilter from './ChapterFilter';
 
@@ -33,6 +34,9 @@ describe('ChapterFilter', () => {
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 1,
+    }));
     addCurrentPageToSummaryFilters(helpers);
 
     const component = renderer.create(<Provider store={store}>
@@ -157,8 +161,11 @@ describe('ChapterFilter', () => {
     expect(box2.props.checked).toBe(false);
   });
 
-  it('selects all', () => {
+  it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 1,
+    }));
     addCurrentPageToSummaryFilters(helpers);
 
     const component = renderer.create(<Provider store={store}>
@@ -182,6 +189,25 @@ describe('ChapterFilter', () => {
     });
 
     expect(box1.props.checked).toBe(true);
-    expect(box2.props.checked).toBe(true);
+    expect(box2.props.checked).toBe(false);
+  });
+
+  it('chapters without highlights are disabled', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 1,
+    }));
+    addCurrentPageToSummaryFilters(helpers);
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ChapterFilter />
+      </MessageProvider>
+    </Provider>);
+
+    const [box1, box2] = component.root.findAllByType(Checkbox);
+
+    expect(box1.props.disabled).toBe(false);
+    expect(box2.props.disabled).toBe(true);
   });
 });
