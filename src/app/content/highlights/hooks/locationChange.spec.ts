@@ -10,7 +10,7 @@ import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { receiveHighlights } from '../actions';
+import { receiveHighlights, receiveHighlightsTotalCounts } from '../actions';
 import { HighlightData } from '../types';
 
 const mockConfig = {BOOKS: {
@@ -70,6 +70,8 @@ describe('locationChange', () => {
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({data: highlights}));
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockReturnValue(Promise.resolve({}));
 
     await hook();
 
@@ -83,9 +85,52 @@ describe('locationChange', () => {
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockReturnValue(Promise.resolve({}));
 
     await hook();
 
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops if totalCountsInState are not empty', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+    const totalCountsInState = { somePage: 1 };
+    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState));
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({}));
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: 1 }}));
+
+    await hook();
+
+    expect(dispatch).not.toHaveBeenCalled();
+    expect(store.getState().content.highlights.summary.totalCountsPerPage).toEqual(totalCountsInState);
+  });
+
+  it('receive total counts and set total counts per location', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+    const totalCountsPerPage = {
+      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage2-uuid': 2,
+      // tslint:disable-next-line: object-literal-sort-keys
+      'testbook1-testpage11-uuid': 1,
+      'testbook1-testpage4-uuid': 5,
+    };
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({}));
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage }));
+
+    await hook();
+
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlightsTotalCounts(totalCountsPerPage));
   });
 });
