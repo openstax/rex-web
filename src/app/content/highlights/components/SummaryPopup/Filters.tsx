@@ -64,6 +64,7 @@ export default styled(Filters)`
   align-items: center;
   padding: 2rem ${popupPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.base};
+  border-bottom: 1px solid ${theme.color.neutral.formBorder};
   ${theme.breakpoints.mobile(css`
     padding: 0 ${mobilePadding}rem;
     height: 3.6rem;
