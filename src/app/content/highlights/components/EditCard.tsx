@@ -159,7 +159,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     </ButtonGroup>}
     {confirmingDelete && data && <Confirmation
       data-testid='confirm-delete'
-      data-analytics-label='delete-note'
       data-analytics-region='highlighting-delete-note'
       message='i18n:highlighting:confirmation:delete-note'
       confirmMessage='i18n:highlighting:button:delete'

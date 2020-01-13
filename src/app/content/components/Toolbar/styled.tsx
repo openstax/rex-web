@@ -94,10 +94,6 @@ export const PrintOptWrapper = styled(PlainButton)`
   justify-content: center;
   align-items: center;
   height: auto;
-
-  :focus {
-    outline: auto -webkit-focus-ring-color;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
