@@ -21,6 +21,7 @@ export const LoaderWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: inherit;
+  z-index: 1;
   background-color: rgba(241, 241, 241, 0.8);
 
   svg {
@@ -157,35 +158,6 @@ export const HighlightToggleEdit = styled.div`
     }
   }
 
-  ${MenuToggle} {
-    float: right;
-    margin-right: 0.2rem;
-
-    &:hover {
-      svg {
-        color: ${theme.color.secondary.lightGray.darkest};
-      }
-    }
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightEditButtons = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-
-  button:first-child {
-    margin-right: 8px;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const HighlightToggleEditContent = styled.div`
-  z-index: 2;
-  border: 1px solid ${theme.color.neutral.formBorder};
-  background-color: ${theme.color.neutral.formBackground};
-
   ${ColorPicker} {
     label {
       margin: 0.6rem;
@@ -217,6 +189,35 @@ export const HighlightToggleEditContent = styled.div`
       }
     }
   }
+
+  ${MenuToggle} {
+    float: right;
+    margin-right: 0.2rem;
+
+    &:hover {
+      svg {
+        color: ${theme.color.secondary.lightGray.darkest};
+      }
+    }
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightEditButtons = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+
+  button:first-child {
+    margin-right: 8px;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightToggleEditContent = styled.div`
+  z-index: 2;
+  border: 1px solid ${theme.color.neutral.formBorder};
+  background-color: ${theme.color.neutral.formBackground};
 `;
 
 // tslint:disable-next-line:variable-name

@@ -33,7 +33,7 @@ export const MenuToggle = styled(({className}) => <div tabIndex={0} className={c
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   color: ${theme.color.primary.gray.lighter};
   height: 4.2rem;
   width: 4.2rem;
