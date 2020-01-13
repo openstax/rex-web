@@ -193,6 +193,7 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
 
 
 @markers.test_case("C592626")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",

@@ -31,7 +31,7 @@ def random_string(length: int = 20):
 
 
 @markers.test_case("C592627")
-# @markers.skip_test(reason="close x and ESC not working from tab navigation")
+@pytest.mark.xfail
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -183,6 +183,7 @@ def test_open_my_highlights_for_non_logged_in_users_on_mobile(
 
 
 @markers.test_case("C592633")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("introductory-statistics",

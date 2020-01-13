@@ -147,6 +147,7 @@ def test_highlighting_different_content(
 
 
 @markers.test_case("C591512")
+@markers.smoke_test
 @markers.parametrize("page_slug", [("preface")])
 @markers.desktop_only
 def test_delete_a_highlight(
@@ -258,6 +259,7 @@ def test_highlight_stays_on_navigation(
 
 
 @markers.test_case("C591514")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -325,6 +327,7 @@ def test_search_term_colored_within_a_highlight(
 
 
 @markers.test_case("C591515")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -454,6 +457,7 @@ def test_focussed_note_card_is_displayed_when_highlight_clicked(
 
 
 @markers.test_case("C591688")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -756,6 +760,7 @@ def test_cancel_deleting_a_note_using_the_context_menu(
 
 
 @markers.test_case("C591692")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1139,6 +1144,7 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
 
 
 @markers.test_case("C591700")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1283,6 +1289,7 @@ def test_open_note_card_after_searching_for_term_in_highlight(
 
 
 @markers.test_case("C591702")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1522,9 +1529,76 @@ def test_clicking_outside_create_note_box_closes_the_create_box():
 
 
 @markers.test_case("C592007")
-@markers.skip_test(reason="test mechanics covered by C591695")
-def test_change_color_of_highlighted_text():
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
+def test_change_color_of_highlighted_text(
+        selenium, base_url, book_slug, page_slug):
     """Change the color of a content highlight."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   some content is highlighted without a note
+    # AND:   the highlight note is visible
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    paragraph = random.choice(book.content.paragraphs)
+    initial_highlight_color = Color.YELLOW
+    book.content.highlight(target=paragraph,
+                           offset=Highlight.ENTIRE,
+                           color=initial_highlight_color,
+                           close_box=False)
+    highlight_id = book.content.highlight_ids[0]
+
+    for color in list(set(Color.options()) - set([initial_highlight_color])):
+        # WHEN: they click a new color button
+        book.content.highlight_box.toggle_color(color)
+
+        # THEN: the edit note remains open
+        # AND:  the highlighted text now shows the new color
+        assert(book.content.highlight_box.is_edit_box), \
+            "the edit note box did not remain open"
+
+        highlight_classes = (book.content
+                             .get_highlight(by_id=highlight_id)[0]
+                             .get_attribute("class"))
+        current_color = Color.from_html_class(highlight_classes)
+        assert(current_color == color), \
+            "the current highlight color does not match the new color"
+
+    # WHEN: they click the initial color button
+    # AND:  click outside of the create note box
+    book.content.highlight_box.toggle_color(initial_highlight_color)
+
+    book.content.close_edit_note_box()
+
+    # THEN: the create note box is closed
+    # AND:  the highlight color is the same as the initial color
+    try:
+        book.content.highlight_box
+        pytest.fail("the edit note box is still open")
+    except NoSuchElementException:
+        pass
+
+    highlight_classes = (book.content
+                         .get_highlight(by_id=highlight_id)[0]
+                         .get_attribute("class"))
+    current_color = Color.from_html_class(highlight_classes)
+    assert(current_color == initial_highlight_color), \
+        "the current highlight color does not match the initial color"
 
 
 @markers.test_case("C592008")
