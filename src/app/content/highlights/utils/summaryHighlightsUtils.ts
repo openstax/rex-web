@@ -4,7 +4,12 @@ import {
   HighlightUpdateColorEnum,
   UpdateHighlightRequest,
 } from '@openstax/highlighter/dist/api';
-import { SummaryFilters, SummaryHighlights } from '../types';
+import {
+  HighlightsTotalCountsPerLocation,
+  HighlightsTotalCountsPerPage,
+  SummaryFilters,
+  SummaryHighlights,
+} from '../types';
 
 interface BaseData {
   locationFilterId: string;
@@ -151,4 +156,30 @@ export const updateSummaryHighlightsDependOnFilters = (
   });
 
   return newHighlights;
+};
+
+export const removeOneFromTotalCounts = (
+  totalCounts: HighlightsTotalCountsPerLocation | HighlightsTotalCountsPerPage, id: string
+) => {
+  const newTotalCounts = {...totalCounts};
+
+  if (newTotalCounts[id]) {
+    newTotalCounts[id] -= 1;
+  }
+
+  return newTotalCounts;
+};
+
+export const addOneToTotalCounts = (
+  totalCounts: HighlightsTotalCountsPerLocation | HighlightsTotalCountsPerPage, id: string
+) => {
+  const newTotalCounts = {...totalCounts};
+
+  if (newTotalCounts[id]) {
+    newTotalCounts[id] += 1;
+  } else {
+    newTotalCounts[id] = 1;
+  }
+
+  return newTotalCounts;
 };
