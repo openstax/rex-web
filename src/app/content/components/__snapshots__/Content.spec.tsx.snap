@@ -1204,10 +1204,6 @@ li[aria-label="Current Page"] .c44 {
   color: #424242;
 }
 
-.c25:focus {
-  outline: auto -webkit-focus-ring-color;
-}
-
 .c27 {
   font-weight: 600;
   font-family: Neue Helvetica W01;
@@ -4202,10 +4198,6 @@ Array [
 .c17:focus {
   outline: none;
   color: #424242;
-}
-
-.c17:focus {
-  outline: auto -webkit-focus-ring-color;
 }
 
 .c19 {
