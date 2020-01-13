@@ -1,4 +1,4 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -10,11 +10,14 @@ import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import { deleteHighlight, receiveSummaryHighlights, setSummaryFilters, updateHighlight } from '../actions';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
+import HighlightAnnotation from './HighlightAnnotation';
+import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import Highlights, { SectionHighlights } from './Highlights';
+import HighlightToggleEdit from './HighlightToggleEdit';
 import { HighlightContentWrapper, HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
@@ -27,10 +30,12 @@ describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let consoleError: jest.SpyInstance;
   let store: Store;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     consoleError = jest.spyOn(console, 'error');
     store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
@@ -184,5 +189,175 @@ describe('Highlights', () => {
         </MessageProvider>
       </Provider>)
     ).toThrow();
+  });
+
+  it('display highlight editing menus', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const locationFilters = highlightLocationFilters(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
+
+    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+
+    const summaryHighlights = {
+      [pageId]: {
+        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple],
+      },
+      [location!.id]: {
+        [pageInChapter.id]: [hlBlue, hlGreen],
+      },
+    } as SummaryHighlights;
+
+    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    const editingMenus = component.root.findAllByType(HighlightToggleEdit);
+    expect(editingMenus.length).toEqual(6);
+  });
+
+  it('edit highlight annotation', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const locationFilters = highlightLocationFilters(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
+
+    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+
+    const summaryHighlights = {
+      [pageId]: {
+        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple],
+      },
+      [location!.id]: {
+        [pageInChapter.id]: [hlBlue, hlGreen],
+      },
+    } as SummaryHighlights;
+
+    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    dispatch.mockClear();
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
+    expect(firstAnnotation.props.isEditable).toEqual(false);
+
+    renderer.act(() => {
+      const [firstEditMenu] = component.root.findAllByType(HighlightToggleEdit);
+      firstEditMenu.props.onEdit();
+    });
+
+    [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
+    expect(firstAnnotation.props.isEditable).toEqual(true);
+
+    renderer.act(() => {
+      firstAnnotation.props.onSave('text');
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(updateHighlight({
+      highlight: {
+        annotation: 'text',
+        color: hlBlue.color as string as HighlightUpdateColorEnum,
+      },
+      id: hlBlue.id,
+    }, {
+      locationFilterId: pageId,
+      pageId,
+    }));
+  });
+
+  it('edit highlight color', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const locationFilters = highlightLocationFilters(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
+
+    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+
+    const summaryHighlights = {
+      [pageId]: {
+        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple],
+      },
+      [location!.id]: {
+        [pageInChapter.id]: [hlBlue, hlGreen],
+      },
+    } as SummaryHighlights;
+
+    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    dispatch.mockClear();
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    renderer.act(() => {
+      const [firstEditMenu] = component.root.findAllByType(HighlightToggleEdit);
+      firstEditMenu.props.onColorChange('yellow');
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(updateHighlight({
+      highlight: {
+        color: 'yellow' as string as HighlightUpdateColorEnum,
+      },
+      id: hlBlue.id,
+    }, {
+      locationFilterId: pageId,
+      pageId,
+    }));
+  });
+
+  it('delete highlight with confirmation', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const locationFilters = highlightLocationFilters(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
+
+    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+
+    const summaryHighlights = {
+      [pageId]: {
+        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple],
+      },
+      [location!.id]: {
+        [pageInChapter.id]: [hlBlue, hlGreen],
+      },
+    } as SummaryHighlights;
+
+    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    dispatch.mockClear();
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Highlights/>
+      </MessageProvider>
+    </Provider>);
+
+    renderer.act(() => {
+      const [firstEditMenu] = component.root.findAllByType(HighlightToggleEdit);
+      firstEditMenu.props.onDelete();
+    });
+
+    renderer.act(() => {
+      const [firstDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
+      firstDeleteWrapper.props.onDelete();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue.id, {
+      locationFilterId: pageId,
+      pageId,
+    }));
   });
 });
