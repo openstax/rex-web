@@ -16,6 +16,7 @@ export const getBookPageUrlAndParams = (
   const params: Params = {
     book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
+    version: 'latest',
   };
   const state = {
     bookUid: book.id,
