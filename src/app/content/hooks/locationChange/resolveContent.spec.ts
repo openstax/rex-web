@@ -6,6 +6,7 @@ import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
+import { VersionedSlugParams } from '../../types';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -79,7 +80,14 @@ describe('locationChange', () => {
   });
 
   it('uses param version if there is one', async() => {
-    match.params.version = 'asdf';
+    const versionedSlugParams = {
+      ...match.params,
+      version: 'asdf',
+
+    } as VersionedSlugParams;
+
+    match.params = versionedSlugParams;
+
     helpers.archiveLoader.mockBook({
       ...book,
       version: 'asdf',
@@ -93,7 +101,12 @@ describe('locationChange', () => {
   });
 
   it('uses latest version if requested', async() => {
-    match.params.version = 'latest';
+    const versionedSlugParams = {
+      ...match.params,
+      version: 'latest',
+    } as VersionedSlugParams;
+
+    match.params = versionedSlugParams;
     helpers.archiveLoader.mockBook({
       ...book,
       version: undefined as any as string,
