@@ -1195,6 +1195,7 @@ li[aria-label="Current Page"] .c44 {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  height: auto;
 }
 
 .c25:hover,
@@ -4190,6 +4191,7 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  height: auto;
 }
 
 .c17:hover,

@@ -15,8 +15,11 @@ import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import { highlightingFeatureFlag } from '../constants';
-import { summaryIsLoading } from '../selectors';
+import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
+
+jest.spyOn(highlightSelectors, 'isEnabled')
+  .mockReturnValue(true);
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
@@ -130,7 +133,7 @@ describe('MyHighlights button and PopUp', () => {
 
     act(() => { store.dispatch(openMyHighlights()); });
 
-    expect(summaryIsLoading(store.getState())).toBe(true);
+    expect(highlightSelectors.summaryIsLoading(store.getState())).toBe(true);
   });
 
 });

@@ -17,7 +17,9 @@ import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
+import { highlightLocationFilters } from '../selectors';
 import { HighlightData } from '../types';
+import { getHighlightLocationFilterForPage } from '../utils';
 import Card from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
@@ -209,6 +211,10 @@ describe('Card', () => {
       },
     ] as HighlightData[]));
 
+    const locationFilters = highlightLocationFilters(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
+
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
@@ -218,7 +224,10 @@ describe('Card', () => {
       picker.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id));
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id, {
+      locationFilterId: location!.id,
+      pageId: page.id,
+    }));
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
@@ -249,6 +258,10 @@ describe('Card', () => {
 
     dispatch.mockClear();
 
+    const locationFilters = highlightLocationFilters(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
+
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>);
@@ -263,6 +276,9 @@ describe('Card', () => {
       scopeId: 'testbook1-uuid',
       sourceId: 'testbook1-testpage1-uuid',
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    }, {
+      locationFilterId: location!.id,
+      pageId: page.id,
     }));
   });
 
@@ -285,6 +301,17 @@ describe('Card', () => {
       },
     ] as HighlightData[]));
     store.dispatch(focusHighlight(highlight.id));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card highlight={highlight as unknown as Highlight} />
+    </Provider>);
+
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
+
+  it('renders null if locationFilter wasn\'t found', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, id: 'not-in-book', references: []}));
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />

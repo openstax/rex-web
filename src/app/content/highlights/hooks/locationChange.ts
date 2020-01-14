@@ -1,15 +1,17 @@
-import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { GetHighlightsSourceTypeEnum, GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { user } from '../../../auth/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
-import { receiveHighlights } from '../actions';
+import { receiveHighlights, receiveHighlightsTotalCounts } from '../actions';
 import * as select from '../selectors';
 
-const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServices) => async() => {
+const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const {dispatch, getState, highlightClient} = services;
   const state = getState();
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
+  const totalCountsInState = select.totalCountsPerPage(state);
 
   if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
     return;
@@ -24,6 +26,17 @@ const hookBody = ({dispatch, getState, highlightClient}: MiddlewareAPI & AppServ
 
   if (highlights.data) {
     dispatch(receiveHighlights(highlights.data));
+  }
+
+  if (totalCountsInState) { return; }
+
+  const totalCounts = await highlightClient.getHighlightsSummary({
+    scopeId: book.id,
+    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+  });
+
+  if (totalCounts.countsPerSource) {
+    dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource));
   }
 };
 

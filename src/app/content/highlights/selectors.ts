@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { enabledForBooks } from './constants';
+import { HighlightLocationFilters } from './types';
+import { getHighlightLocationFilters, mergeHighlightsTotalCounts } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -8,7 +11,8 @@ export const localState = createSelector(
 
 export const isEnabled = createSelector(
   localState,
-  (state) => !!state.enabled
+  parentSelectors.book,
+  (state, book) => !!state.enabled && !!book && enabledForBooks.includes(book.id)
 );
 
 export const highlightsLoaded = createSelector(
@@ -19,6 +23,24 @@ export const highlightsLoaded = createSelector(
 export const highlights = createSelector(
   localState,
   (state) => state.highlights || []
+);
+
+export const highlightLocationFilters = createSelector(
+  parentSelectors.book,
+ (book) => book
+  ? getHighlightLocationFilters(book)
+  : new Map() as HighlightLocationFilters
+);
+
+export const totalCountsPerPage = createSelector(
+  localState,
+  (state) => state.summary.totalCountsPerPage
+);
+
+export const totalCountsPerLocation = createSelector(
+  totalCountsPerPage,
+  parentSelectors.book,
+  (totalCounts, book) => book ? mergeHighlightsTotalCounts(book, totalCounts || {}) : {}
 );
 
 export const focused = createSelector(
@@ -34,4 +56,14 @@ export const myHighlightsOpen = createSelector(
 export const summaryIsLoading = createSelector(
   localState,
   (state) => state.summary.loading
+);
+
+export const summaryFilters = createSelector(
+  localState,
+  (state) => state.summary.filters
+);
+
+export const summaryHighlights = createSelector(
+  localState,
+  (state) => state.summary.highlights
 );

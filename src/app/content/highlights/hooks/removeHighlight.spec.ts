@@ -24,7 +24,7 @@ describe('locationChange', () => {
 
   it('deletes highlight', async() => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
-    await hook(deleteHighlight('1'));
+    await hook(deleteHighlight('1', {locationFilterId: 'id', pageId: 'id'}));
     expect(deleteHighlightClient).toHaveBeenCalledWith({id: '1'});
   });
 });
