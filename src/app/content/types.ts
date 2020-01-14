@@ -3,14 +3,14 @@ import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
-interface SlugParams {
+export interface SlugParams {
   book: string;
   page: string;
 }
-interface VersionedSlugParams extends SlugParams {
+export interface VersionedSlugParams extends SlugParams {
   version: string;
 }
-interface UuidParams {
+export interface UuidParams {
   uuid: string;
   version: string;
   page: string;

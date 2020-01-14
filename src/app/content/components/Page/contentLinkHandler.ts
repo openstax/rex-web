@@ -5,6 +5,7 @@ import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { paramsAreSlugParams, paramsAreUuidParams } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
 import { Book, PageReferenceMap } from '../../types';
@@ -31,7 +32,10 @@ export const reduceReferences = ({references, currentPath}: ContentLinkProp) => 
 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap) =>
   content.getUrl(ref.params) === pathname
-    && ref.params.book === book.slug;
+    && (
+      (paramsAreSlugParams(ref.params) && ref.params.book === book.slug)
+      || (paramsAreUuidParams(ref.params) && ref.params.uuid === book.id)
+    );
 
 export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) => (e: MouseEvent) => {
   const {references, navigate, book, page, locationState, currentPath} = getProps();
