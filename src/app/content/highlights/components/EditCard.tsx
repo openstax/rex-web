@@ -6,7 +6,9 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
+import withServices from '../../../context/Services';
 import theme from '../../../theme';
+import { AppServices } from '../../../types';
 import { assertWindow, mergeRefs } from '../../../utils';
 import { clearFocusedHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
@@ -28,6 +30,7 @@ interface Props {
   onCancel: () => void;
   data?: HighlightData;
   className: string;
+  services: AppServices;
 }
 
 // tslint:disable-next-line:variable-name
@@ -169,7 +172,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   </form>;
 });
 
-export default styled(EditCard)`
+export default withServices(styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;
@@ -181,4 +184,4 @@ export default styled(EditCard)`
   ${theme.breakpoints.mobile(css`
     visibility: hidden;
   `)}
-`;
+`);

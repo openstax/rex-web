@@ -4,6 +4,7 @@ import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
 import * as clickLink from './analyticsEvents/clickLink';
 import { AnalyticsEvent } from './analyticsEvents/event';
+import * as createNote from './analyticsEvents/highlighting/CreateNote';
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
@@ -27,6 +28,7 @@ const mapEventType = <E extends {track: EventConstructor}>(event: E): E => ({
 const analytics = {
   clickButton: mapEventType(clickButton),
   clickLink: mapEventType(clickLink),
+  createNote: mapEventType(createNote),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
