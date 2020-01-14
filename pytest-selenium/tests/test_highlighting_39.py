@@ -1,7 +1,6 @@
 """Reading Experience highlighting."""
 
 import random
-from string import digits, ascii_letters
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
@@ -16,18 +15,6 @@ from utils.utility import Color, Highlight, Utilities
 
 HAS_INDICATOR = (
     "return window.getComputedStyle(arguments[0]).borderBottomWidth != '0px';")
-
-
-def random_string(length: int = 20):
-    """Return a random string of a specified length for use in notes.
-
-    .. note::
-       beginning and ending white space are stripped from the final string so
-       the return length may not equal ``length``
-
-    """
-    characters = ascii_letters + digits + " " * 6 + "\n" * 2
-    return "".join(random.choices(population=characters, k=length)).strip()
 
 
 @markers.test_case("C592627")
@@ -214,11 +201,16 @@ def test_clicking_on_the_note_indicator_opens_the_note_card(
         selenium.set_window_size(width=DESKTOP[0], height=height)
 
     highlight_options = [
-        (random.choice(book.content.figures_and_captions), random_string()),
-        (random.choice(book.content.lists), random_string()),
-        (random.choice(book.content.math), random_string()),
-        (random.choice(book.content.paragraphs), random_string()),
-        (random.choice(book.content.tables), random_string())
+        (random.choice(book.content.figures_and_captions),
+         Utilities.random_string()),
+        (random.choice(book.content.lists),
+         Utilities.random_string()),
+        (random.choice(book.content.math),
+         Utilities.random_string()),
+        (random.choice(book.content.paragraphs),
+         Utilities.random_string()),
+        (random.choice(book.content.tables),
+         Utilities.random_string())
     ]
     highlight_list = {}
     for content, note in highlight_options:
@@ -295,7 +287,7 @@ def test_note_indicator_not_present_for_highlights_without_notes(
     book.content.highlight(target=paragraphs[1],
                            offset=Highlight.ENTIRE,
                            color=Highlight.random_color(),
-                           note=random_string())
+                           note=Utilities.random_string())
     _ids = book.content.highlight_ids
     with_note = _ids[0] if _ids[0] != no_note else _ids[1]
 
@@ -355,7 +347,7 @@ def test_note_indicator_added_when_highlight_without_a_note_has_a_note_added(
     # AND:  add a note
     # AND:  click the 'Save' button
     Utilities.click_option(selenium, element=highlight, scroll_to=-130)
-    book.content.highlight_box.note = random_string()
+    book.content.highlight_box.note = Utilities.random_string()
     book.content.highlight_box.save()
 
     # THEN: the note indicator is present on the highlight
