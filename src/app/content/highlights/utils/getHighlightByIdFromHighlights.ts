@@ -7,9 +7,9 @@ const getHighlightByIdFromHighlights = (highlights: HighlightData[], id: string)
   const oldHiglightIndex = highlights.findIndex(
     (highlight) => highlight.id === id);
 
-  if (oldHiglightIndex < 0) { return foundHighlight; }
-
-  foundHighlight = {...highlights[oldHiglightIndex]};
+  if (oldHiglightIndex !== -1) {
+    foundHighlight = {...highlights[oldHiglightIndex]};
+  }
 
   return foundHighlight;
 };

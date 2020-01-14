@@ -83,34 +83,4 @@ describe('HighlightDeleteWrapper', () => {
     expect(savedText).toEqual('newAnno');
     expect(cancelClicked).toEqual(true);
   });
-
-  it('properly handle Escape and Enter', () => {
-    let escClicked = false;
-    let enterClicked = false;
-    const annotation = 'TEST';
-
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightAnnotation
-          annotation={annotation}
-          isEditable={true}
-          onCancel={() => { escClicked = true; }}
-          onSave={() => { enterClicked = true; }}
-        />
-      </MessageProvider>
-    </Provider>);
-
-    renderer.act(() => {
-      const textarea = component.root.findByProps({ value: annotation });
-      textarea.props.onKeyDown({
-        key: 'Enter',
-      });
-      textarea.props.onKeyDown({
-        key: 'Escape',
-      });
-    });
-
-    expect(escClicked).toEqual(true);
-    expect(enterClicked).toEqual(true);
-  });
 });

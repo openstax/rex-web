@@ -139,7 +139,6 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
       className="c2"
       data-analytics-label="delete"
       data-testid="delete"
-      focused={true}
       onClick={[Function]}
     >
       Delete
