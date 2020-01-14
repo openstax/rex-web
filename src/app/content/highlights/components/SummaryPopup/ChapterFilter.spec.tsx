@@ -1,29 +1,44 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
-import {book as archiveBook, page, shortPage } from '../../../../../test/mocks/archiveLoader';
+import { book as archiveBook, page, shortPage } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import MessageProvider from '../../../../MessageProvider';
-import { Store } from '../../../../types';
+import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import { receiveHighlightsTotalCounts } from '../../actions';
+import { addCurrentPageToSummaryFilters } from '../../utils';
 import ChapterFilter from './ChapterFilter';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
+
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
 
     store.dispatch(receivePage({...page, references: []}));
   });
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 1,
+    }));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -47,6 +62,8 @@ describe('ChapterFilter', () => {
 
   it('initially has the selected page checked', () => {
     store.dispatch(receiveBook(book));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -61,6 +78,7 @@ describe('ChapterFilter', () => {
   it('initially has the selected chapter checked', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...shortPage, references: []}));
+    addCurrentPageToSummaryFilters(helpers);
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -75,6 +93,8 @@ describe('ChapterFilter', () => {
 
   it('unchecks chapters', () => {
     store.dispatch(receiveBook(book));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -96,6 +116,8 @@ describe('ChapterFilter', () => {
 
   it('checks chapters', () => {
     store.dispatch(receiveBook(book));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -117,6 +139,8 @@ describe('ChapterFilter', () => {
 
   it('selects none', () => {
     store.dispatch(receiveBook(book));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -137,8 +161,13 @@ describe('ChapterFilter', () => {
     expect(box2.props.checked).toBe(false);
   });
 
-  it('selects all', () => {
+  it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 1,
+    }));
+    addCurrentPageToSummaryFilters(helpers);
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter />
@@ -160,6 +189,25 @@ describe('ChapterFilter', () => {
     });
 
     expect(box1.props.checked).toBe(true);
-    expect(box2.props.checked).toBe(true);
+    expect(box2.props.checked).toBe(false);
+  });
+
+  it('chapters without highlights are disabled', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 1,
+    }));
+    addCurrentPageToSummaryFilters(helpers);
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ChapterFilter />
+      </MessageProvider>
+    </Provider>);
+
+    const [box1, box2] = component.root.findAllByType(Checkbox);
+
+    expect(box1.props.disabled).toBe(false);
+    expect(box2.props.disabled).toBe(true);
   });
 });

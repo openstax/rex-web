@@ -16,7 +16,7 @@ def test_book_title_links_to_books_detail_page(selenium, base_url, book_slug, pa
     book_banner.book_title.click()
 
     osweb = WebBase(selenium)
-    osweb.wait_for_load()
+    osweb.wait_for_page_to_load()
 
     # THEN: The page navigates to {base_url}/details/books/college-physics
     expected_page_url = base_url + "/details/books/" + book_slug

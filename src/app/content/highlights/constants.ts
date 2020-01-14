@@ -26,7 +26,7 @@ export const enabledForBooks = [
   /* Calculus vol 2 */ '1d39a348-071f-4537-85b6-c98912458c3c',
   /* Calculus vol 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa',
   /* Chemistry 2e */ '7fccc9cf-9b71-44f6-800b-f9457fd64335',
-  /* Chemistry,
+  /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f',
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a',
   /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187',
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd',
