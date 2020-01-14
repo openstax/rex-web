@@ -4,6 +4,7 @@ import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { paramsAreSlugParams } from '../content/guards';
 import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
@@ -66,7 +67,11 @@ function reduceContent(state: State, action: AnyAction) {
       if (!matchForRoute(content, action.payload.match)) {
         return initialState;
       }
-      if (action.payload.match.params.book !== state.params.book) {
+
+      if ( paramsAreSlugParams(action.payload.match.params)
+        && 'book' in state.params
+        && action.payload.match.params.book !== state.params.book ) {
+
         return {
           ...initialState,
           highlights: state.highlights,

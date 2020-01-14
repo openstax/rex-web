@@ -19,6 +19,6 @@ export const isLinkedArchiveTreeSection =
     (section as LinkedArchiveTree).contents === undefined && section.parent !== undefined;
 
 export const paramsAreSlugParams = (params: Params): params is SlugParams | VersionedSlugParams =>
-  'book' in Object.keys(params);
+  'book' in params;
 export const paramsAreUuidParams = (params: Params): params is UuidParams =>
-  'uuid' in Object.keys(params);
+  'uuid' in params;
