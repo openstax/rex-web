@@ -75,6 +75,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 
 
 @markers.test_case("C476818")
+@pytest.mark.xfail
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @markers.mobile_only
