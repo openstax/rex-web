@@ -9,7 +9,9 @@ import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
+  addOneToTotalCounts,
   addSummaryHighlight,
+  removeOneFromTotalCounts,
   removeSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './utils';
@@ -20,10 +22,10 @@ export const initialState: State = {
   highlights: null,
   myHighlightsOpen: false,
   summary: {
-    chapterCounts: {},
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
+    totalCountsPerPage: null,
   },
 };
 
@@ -52,12 +54,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
+      const { pageId } = action.meta;
+      const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+
       return {
         ...state,
         highlights: [...state.highlights || [], highlight],
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -104,6 +110,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         id: action.payload,
       });
 
+      const { pageId } = action.meta;
+      const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
@@ -111,6 +120,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -145,6 +155,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           highlights: action.payload,
           loading: false,
+        },
+      };
+    }
+    case getType(actions.receiveHighlightsTotalCounts): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          totalCountsPerPage: action.payload,
         },
       };
     }

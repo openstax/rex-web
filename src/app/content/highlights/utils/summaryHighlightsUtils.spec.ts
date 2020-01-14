@@ -5,10 +5,12 @@ import {
   HighlightUpdateColorEnum,
 } from '@openstax/highlighter/dist/api';
 import {
- addSummaryHighlight,
- removeSummaryHighlight,
- updateSummaryHighlight,
- updateSummaryHighlightsDependOnFilters,
+  addOneToTotalCounts,
+  addSummaryHighlight,
+  removeOneFromTotalCounts,
+  removeSummaryHighlight,
+  updateSummaryHighlight,
+  updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
 
 const highlight = { id: 'highlight', color: HighlightColorEnum.Green, annotation: 'asd' } as Highlight;
@@ -318,5 +320,66 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
       locationFilterId: 'location',
       pageId: 'page',
     })).toMatchObject(expectedResult);
+  });
+});
+
+describe('removeOneFromTotalCounts', () => {
+  it('remove one from total counts from given id', () => {
+    const totalCounts = {
+      page1: 1,
+      page2: 3,
+    };
+
+    const expectedResult = {
+      page1: 0,
+      page2: 3,
+    };
+
+    expect(removeOneFromTotalCounts(totalCounts, 'page1')).toEqual(expectedResult);
+  });
+
+  it('do nothing if if given id doesn\'t not exists', () => {
+    const totalCounts = {
+      page1: 1,
+      page2: 3,
+    };
+
+    const expectedResult = {
+      page1: 1,
+      page2: 3,
+    };
+
+    expect(removeOneFromTotalCounts(totalCounts, 'wrong-id')).toEqual(expectedResult);
+  });
+});
+
+describe('addOneToTotalCounts', () => {
+  it('add one to total counts for given id', () => {
+    const totalCounts = {
+      page1: 1,
+      page2: 3,
+    };
+
+    const expectedResult = {
+      page1: 2,
+      page2: 3,
+    };
+
+    expect(addOneToTotalCounts(totalCounts, 'page1')).toEqual(expectedResult);
+  });
+
+  it('create new prop if there is no result for given id', () => {
+    const totalCounts = {
+      page1: 1,
+      page2: 3,
+    };
+
+    const expectedResult = {
+      newPage: 1,
+      page1: 1,
+      page2: 3,
+    };
+
+    expect(addOneToTotalCounts(totalCounts, 'newPage')).toEqual(expectedResult);
   });
 });
