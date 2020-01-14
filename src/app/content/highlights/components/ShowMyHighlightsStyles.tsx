@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { DropdownList, DropdownFocusWrapper } from '../../../components/Dropdown';
+import { DropdownFocusWrapper, DropdownList } from '../../../components/Dropdown';
 import { bodyCopyRegularStyle, labelStyle, textRegularStyle, textStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';

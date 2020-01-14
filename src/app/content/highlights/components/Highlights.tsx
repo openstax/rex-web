@@ -1,12 +1,8 @@
-import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
-import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
-import Button from '../../../components/Button';
-import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { assertDefined } from '../../../utils';
@@ -16,9 +12,10 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { deleteHighlight, updateHighlight } from '../actions';
 import { highlightLocationFilters, summaryFilters, summaryHighlights, summaryIsLoading } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
-import ColorPicker from './ColorPicker';
-import { MenuToggle } from './DisplayNote';
+import HighlightAnnotation from './HighlightAnnotation';
+import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import * as HStyled from './HighlightStyles';
+import HighlightToggleEdit from './HighlightToggleEdit';
 import * as Styled from './ShowMyHighlightsStyles';
 
 // tslint:disable-next-line: variable-name
@@ -141,12 +138,11 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
   };
 
   const confimDelete = (locationFilterId: string, pageId: string) => {
-    if (highlightIdToDelete) {
-      dispatch(deleteHighlight(highlightIdToDelete, {
-        locationFilterId,
-        pageId,
-      }));
-    }
+    const id = assertDefined(highlightIdToDelete, 'highlightIdToDelete was undefined');
+    dispatch(deleteHighlight(id, {
+      locationFilterId,
+      pageId,
+    }));
     cancelDelete();
   };
 
@@ -206,145 +202,3 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
     </React.Fragment>
   );
 };
-
-interface HighlightToggleEditProps {
-  color: HighlightColorEnum;
-  onDelete: () => void;
-  onEdit: () => void;
-  onColorChange: (color: string) => void;
-}
-
-// tslint:disable-next-line:variable-name
-const HighlightToggleEdit = ({
-  color,
-  onColorChange,
-  onEdit,
-  onDelete,
-}: HighlightToggleEditProps) => <Styled.HighlightToggleEdit>
-  <Dropdown
-    toggle={<MenuToggle/>}
-    className='highlight-toggle-edit'
-  >
-    <Styled.HighlightToggleEditContent>
-      <ColorPicker
-        color={color}
-        onChange={onColorChange}
-        onRemove={() => onDelete()}
-      />
-      <DropdownList>
-        <DropdownItem
-          message='i18n:highlighting:dropdown:edit'
-          prefix={<EditIcon/>}
-          onClick={() => onEdit()}
-        />
-        <DropdownItem
-          message='i18n:highlighting:dropdown:delete'
-          prefix={<TrashAltIcon/>}
-          onClick={() => onDelete()}
-        />
-      </DropdownList>
-    </Styled.HighlightToggleEditContent>
-  </Dropdown>
-</Styled.HighlightToggleEdit>;
-
-interface HighlightAnnotationProps {
-  annotation: string;
-  isEditable: boolean;
-  onSave: (annotation: string) => void;
-  onCancel: () => void;
-}
-
-// tslint:disable-next-line:variable-name
-const HighlightAnnotation = (
-  { annotation, isEditable, onSave, onCancel }: HighlightAnnotationProps
-) => {
-  const [anno, setAnno] = React.useState(annotation);
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onCancel();
-      return;
-    } else if (e.key === 'Enter' && !e.shiftKey) {
-      onSave(anno);
-      return;
-    }
-  };
-
-  return <Styled.HighlightNote>
-    {isEditable
-      ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
-        {(msg: string) => <textarea
-          value={anno}
-          placeholder={msg}
-          autoFocus
-          onKeyDown={onKeyDown}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            setAnno((e.target as { value: string }).value);
-          }}
-        />}
-      </FormattedMessage>
-      : <Styled.HighlightNote>
-        <span>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </span>
-        {annotation}
-      </Styled.HighlightNote>
-      }
-    {isEditable && <Styled.HighlightEditButtons>
-      <FormattedMessage id='i18n:highlighting:button:save'>
-        {(msg: Element | string) => <Button
-          data-testid='save'
-          data-analytics-label='save'
-          size='medium'
-          variant='primary'
-          onClick={() => onSave(anno)}
-        >{msg}</Button>}
-      </FormattedMessage>
-      <FormattedMessage id='i18n:highlighting:button:cancel'>
-        {(msg: Element | string) => <Button
-          size='medium'
-          data-analytics-label='cancel'
-          data-testid='cancel'
-          onClick={onCancel}
-        >{msg}</Button>}
-      </FormattedMessage>
-    </Styled.HighlightEditButtons>}
-  </Styled.HighlightNote>;
-};
-
-interface HighlightDeleteWrapperProps {
-  onCancel: () => void;
-  onDelete: () => void;
-}
-
-// tslint:disable-next-line:variable-name
-const HighlightDeleteWrapper = ({
-  onDelete,
-  onCancel,
-}: HighlightDeleteWrapperProps) => <Styled.HighlightDeleteWrapper>
-  <FormattedMessage id='i18n:highlighting:confirmation:delete-both'>
-    {(msg: string) => <span>{msg}</span>}
-  </FormattedMessage>
-  <Styled.HighlightEditButtons>
-    <FormattedMessage id='i18n:highlighting:button:delete'>
-      {(msg: Element | string) => <Button
-        data-testid='delete'
-        data-analytics-label='delete'
-        size='medium'
-        variant='primary'
-        onClick={onDelete}
-        focused
-      >{msg}</Button>}
-    </FormattedMessage>
-    <FormattedMessage id='i18n:highlighting:button:cancel'>
-      {(msg: Element | string) => <Button
-        size='medium'
-        data-analytics-label='cancel'
-        data-testid='cancel'
-        onClick={onCancel}
-      >{msg}</Button>}
-    </FormattedMessage>
-  </Styled.HighlightEditButtons>
-</Styled.HighlightDeleteWrapper>;
