@@ -13,21 +13,27 @@ import { highlightLocationFilters, summaryFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
-  padding: 0.5rem;
+  height: 1.7rem;
+  margin-right: 0.4rem;
 
   svg {
-    height: 1rem;
-    width: 1rem;
+    height: 0.8rem;
+    width: 0.8rem;
+    color: ${theme.color.primary.gray.base};
   }
 `;
 
 // tslint:disable-next-line: variable-name
 const ItemLabel = styled.span`
+  ${textStyle}
+  font-weight: 300;
+  color: ${theme.color.primary.gray.base};
   max-width: 80px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+  line-height: 1.5rem;
 `;
 
 interface FiltersListColorProps {
@@ -91,7 +97,7 @@ const FiltersList = ({className}: FiltersListProps) => {
       locationId={locationId}
       onRemove={() => onRemoveChapter(locationId)}
     />)}
-    {filters.colors.map((color) => <FiltersListColor
+    {filters.colors.sort().map((color) => <FiltersListColor
       key={color}
       color={color}
       onRemove={() => onRemoveColor(color)}
@@ -113,7 +119,7 @@ export default styled(FiltersList)`
   `)}
 
   li {
-    margin-right: 2rem;
+    margin-right: 3.2rem;
     display: flex;
     align-items: center;
   }

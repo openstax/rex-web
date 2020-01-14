@@ -14,6 +14,7 @@ const CheckIcon = styled(Check)`
 interface Props {
   className?: string;
   checked?: boolean;
+  disabled?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -51,6 +52,10 @@ export default styled(Checkbox)`
   display: flex;
   flex-direction: row;
   align-items: center;
+  ${(props) => props.disabled ? `
+    opacity: 0.4;
+    cursor: not-allowed;
+  ` : null}
 
   input {
     position: absolute;

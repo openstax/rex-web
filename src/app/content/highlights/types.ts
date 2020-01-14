@@ -17,9 +17,6 @@ export interface State {
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
-  // totalCountsPerPage reflects the UNFILTERED state of user's data, used in representing
-  // available filter options. this should be updated on create/delete highlight
-  totalCountsPerPage: CountsPerSource;
   summary: {
     pagination: {
       // even though we're manually splitting our requests out into smaller batches of sources,
@@ -32,10 +29,8 @@ export interface State {
       sources: string[];
       page: number;
     } | null,
-    filters: SummaryFilters;
-    // filteredCountsPerPage reflects the FILTERED total counts, used to know which sources have
-    // more content for pagination
-    filteredCountsPerPage: CountsPerSource;
+    totalCountsPerPage: CountsPerSource | null;
+    filters: SummaryFilters,
     loading: boolean;
     highlights: SummaryHighlights;
   };
