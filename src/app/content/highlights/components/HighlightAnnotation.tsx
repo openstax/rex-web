@@ -17,24 +17,13 @@ const HighlightAnnotation = (
 ) => {
   const [anno, setAnno] = React.useState(annotation);
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onCancel();
-      return;
-    } else if (e.key === 'Enter' && !e.shiftKey) {
-      onSave(anno);
-      return;
-    }
-  };
-
   return <Styled.HighlightNote>
     {isEditable
       ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
         {(msg: string) => <textarea
           value={anno}
           placeholder={msg}
-          autoFocus
-          onKeyDown={onKeyDown}
+          autoFocus={true}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setAnno(e.target.value);
           }}

@@ -7,7 +7,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, summaryFilters } from '../../selectors';
+import { highlightLocationFilters, summaryFilters, totalCountsPerLocation } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -61,7 +61,7 @@ const chunk = <T extends any>(sections: T[]) => {
 const ChapterFilter = ({className}: Props) => {
   const locationFilters = useSelector(highlightLocationFilters);
   const locationFiltersIds = Array.from(locationFilters.keys());
-
+  const totalCounts = useSelector(totalCountsPerLocation);
   const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
 
@@ -80,13 +80,14 @@ const ChapterFilter = ({className}: Props) => {
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(locationFiltersIds)}
+      onAll={() => setSelectedChapters(locationFiltersIds.filter((location) => totalCounts[location]))}
     />
     <Row>
       {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
           checked={filters.locationIds.includes(location.id)}
+          disabled={Boolean(!totalCounts[location.id])}
           onChange={() => handleChange(location.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />
