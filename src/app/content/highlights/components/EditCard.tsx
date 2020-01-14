@@ -172,7 +172,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   </form>;
 });
 
-export default withServices(styled(EditCard)`
+export default styled(withServices(EditCard))`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;
@@ -184,4 +184,4 @@ export default withServices(styled(EditCard)`
   ${theme.breakpoints.mobile(css`
     visibility: hidden;
   `)}
-`);
+`;
