@@ -3,6 +3,7 @@ import { ArchiveBook, Book } from '../../types';
 import { HighlightsTotalCountsPerLocation, HighlightsTotalCountsPerPage } from '../types';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 import getHighlightLocationFilters from './getHighlightLocationFilters';
+import reduceColorCounts from './reduceColorCounts';
 
 const mergeHighlightsTotalCounts = (book: ArchiveBook | Book, totalCounts: HighlightsTotalCountsPerPage) => {
   const locationFilters = getHighlightLocationFilters(book);
@@ -13,7 +14,7 @@ const mergeHighlightsTotalCounts = (book: ArchiveBook | Book, totalCounts: Highl
       getHighlightLocationFilterForPage(locationFilters, pageId),
       `Couldn't find locationId for ${pageId} in book ${book.title}`);
     if (typeof totalCountsPerLocation[location.id] === 'number') {
-      totalCountsPerLocation[location.id] += counts;
+      totalCountsPerLocation[location.id] = reduceColorCounts(counts, totalCountsPerLocation[location.id]);
     } else {
       totalCountsPerLocation[location.id] = counts;
     }

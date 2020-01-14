@@ -9,11 +9,18 @@ export interface SummaryFilters {
   locationIds: string[];
   colors: HighlightColorEnum[];
 }
+export interface ColorCounts {
+  [HighlightColorEnum.Blue]: number;
+  [HighlightColorEnum.Green]: number;
+  [HighlightColorEnum.Pink]: number;
+  [HighlightColorEnum.Purple]: number;
+  [HighlightColorEnum.Yellow]: number;
+}
 export interface HighlightsTotalCountsPerPage {
-  [pageId: string]: number;
+  [pageId: string]: ColorCounts;
 }
 export interface HighlightsTotalCountsPerLocation {
-  [locationId: string]: number;
+  [locationId: string]: ColorCounts;
 }
 
 export interface State {

@@ -2,7 +2,11 @@ import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters, mergeHighlightsTotalCounts } from './utils';
+import {
+  getHighlightLocationFilters,
+  getMergedColorCountsForLocations,
+  mergeHighlightsTotalCounts,
+} from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -66,4 +70,10 @@ export const summaryFilters = createSelector(
 export const summaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
+);
+
+export const colorCountsPerFilteredLocations = createSelector(
+  totalCountsPerLocation,
+  summaryFilters,
+  (totalCounts, filters) => getMergedColorCountsForLocations(totalCounts, filters.locationIds)
 );
