@@ -4,13 +4,22 @@ from regions.base import Region
 
 
 class TableOfContents(Region):
+
     _root_locator = (By.CSS_SELECTOR, "ol")
+
+    _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     @property
     def active_section(self):
         return self.find_element(*self._active_section_locator)
+
+    @property
+    def preface(self):
+        """Return the book preface section."""
+        preface_link = self.find_element(*self._preface_section_link_locator)
+        return self.ContentPage(self.page, preface_link)
 
     @property
     def sections(self):
@@ -39,7 +48,8 @@ class TableOfContents(Region):
 
         @property
         def is_active(self):
-            html = self.find_element(*self._is_active_locator).get_attribute("outerHTML")
+            html = (self.find_element(*self._is_active_locator)
+                    .get_attribute("outerHTML"))
             try:
                 assert "Current Page" in html
             except AssertionError:
