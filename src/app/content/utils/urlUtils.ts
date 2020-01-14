@@ -16,7 +16,6 @@ export const getBookPageUrlAndParams = (
   const params: Params = {
     book: book.slug,
     page: getUrlParamForPageId(book, page.shortId),
-    version: 'latest',
   };
   const state = {
     bookUid: book.id,
@@ -25,7 +24,8 @@ export const getBookPageUrlAndParams = (
   };
 
   if (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion) {
-    params.version = book.version;
+    const paramsWithVersion = { ...params, version: book.version };
+    return { params: paramsWithVersion, state, url: contentRoute.getUrl(params) };
   }
 
   return {params, state, url: contentRoute.getUrl(params)};
