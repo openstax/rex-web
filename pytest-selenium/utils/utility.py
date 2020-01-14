@@ -34,6 +34,7 @@ const hasScrollBar = (element) => {
   element.scrollTop = scrollTop; return true; };
 return hasScrollBar(arguments[0]);"""
 HIGHLIGHTS = "return document.querySelectorAll('.highlight').length;"
+PAGE_HIGHLIGHTS = "return __APP_STORE.getState().content.highlights.highlights;"  # NOQA
 RELOAD = "location.reload();"
 SCROLL_INTO_VIEW = 'arguments[0].scrollIntoView();'
 SHIFT_VIEW_BY = 'window.scrollBy(0, arguments[0]);'
@@ -142,6 +143,19 @@ class Highlight:
 
         """
         return choice(cls.COLORS)
+
+    @classmethod
+    def page_highlights(cls, driver) -> int:
+        """Return the number of page highlights found in the database.
+
+        :param driver: a webdriver instance
+        :return: the number of highlights on the page as indicated by the
+            database (may be different from the number of visual highlights if
+            one or more highlight elements are not written to the HTML)
+        :rtype: int
+
+        """
+        return len(driver.execute_script(PAGE_HIGHLIGHTS))
 
 
 class Library(object):

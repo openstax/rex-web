@@ -40,11 +40,13 @@ def test_highlight_is_not_created_until_a_color_is_selected(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -94,11 +96,13 @@ def test_color_auto_selected_if_a_note_is_added(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -140,7 +144,7 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
     # AND:   some content is selected
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
 
     paragraph = random.choice(book.content.paragraphs)
@@ -162,7 +166,7 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
     Signup(selenium).register()
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -189,6 +193,7 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
 
 
 @markers.test_case("C592626")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -204,11 +209,13 @@ def test_display_highlights_for_returning_users(
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
 
+    while book.notification_present:
+        book.notification.got_it()
     book.navbar.click_login()
     name, email, password = Signup(selenium).register(True)
 
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 
@@ -249,7 +256,7 @@ def test_display_highlights_for_returning_users(
     book.navbar.click_login()
     Login(selenium).login(email.address, password)
     book.wait_for_page_to_load()
-    if book.notification_present:
+    while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
 

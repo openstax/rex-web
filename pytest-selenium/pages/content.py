@@ -18,12 +18,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from pages.accounts import Login
 from pages.base import Page
 from regions.base import Region
+from regions.my_highlights import MyHighlights
 from regions.search_sidebar import SearchSidebar
 from regions.toc import TableOfContents
 from utils.utility import Color, Highlight, Utilities
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
 COMPUTED_STYLES = "return window.getComputedStyle(arguments[0]){field};"
+ELEMENT_SELECT = "return document.querySelector('{selector}');"
 
 
 class ContentError(Exception):
@@ -43,6 +45,8 @@ class Content(Page):
         By.CSS_SELECTOR, ".error-modal")
     _main_content_locator = (
         By.CSS_SELECTOR, "h1")
+    _modal_root_locator = (
+        By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (
         By.CSS_SELECTOR, "[aria-label='Next Page']")
     _notification_pop_up_locator = (
@@ -91,35 +95,32 @@ class Content(Page):
         error_modal = self.find_element(*self._error_modal_locator)
         return self.Error(self, error_modal)
 
-    def error_shown(self, repeat: int = 1) -> bool:
-        """Return True when the error modal is present.
-
-        .. note::
-           We make multiple checks for the error modal because when an error
-           state occurs it may be missed by the first check as the rest of the
-           page is ready before the error modal displays. After the first
-           check, the error overlay would appear and intercept subsequent
-           actions on the page raising a ``TimeoutException`` instead of an
-           error report.
-
-        :param int repeat: (optional) an internal recursive counter managing
-            the number of error modal check retries
-            default: 1 - check for the modal twice over 0.25 seconds
-        :return: ``True`` when the error modal exists within the content page
-        :rtype: bool
-
-        """
-        try:
-            return bool(self.error)
-        except NoSuchElementException:
-            if repeat <= 0:
-                return False
-            sleep(0.25)
-            return self.error_shown(repeat - 1)
-
     @property
     def mobile_search_toolbar(self) -> Content.MobileSearchToolbar:
         return self.MobileSearchToolbar(self)
+
+    @property
+    def my_highlights(self) -> Union[MyHighlights, None]:
+        """Access the My Highlights and Notes modal.
+
+        :return: the My Highlights and Notes modal or ``None`` if the modal is
+            not available
+        :rtype: :py:class:`~regions.my_highlights.MyHighlights`
+
+        """
+        if self.my_highlights_open:
+            my_highlights_root = self.find_element(*self._modal_root_locator)
+            return MyHighlights(self, my_highlights_root)
+
+    @property
+    def my_highlights_open(self) -> bool:
+        """Return True if the My Highlights modal is open.
+
+        :return: ``True`` if the My Highlights and Note modal is currently open
+        :rtype: bool
+
+        """
+        return bool(self.find_elements(*self._modal_root_locator))
 
     @property
     def navbar(self) -> Content.NavBar:
@@ -231,6 +232,32 @@ class Content(Page):
 
     def click_previous_link(self):
         self.click_and_wait_for_load(self.previous_link)
+
+    def error_shown(self, repeat: int = 1) -> bool:
+        """Return True when the error modal is present.
+
+        .. note::
+           We make multiple checks for the error modal because when an error
+           state occurs it may be missed by the first check as the rest of the
+           page is ready before the error modal displays. After the first
+           check, the error overlay would appear and intercept subsequent
+           actions on the page raising a ``TimeoutException`` instead of an
+           error report.
+
+        :param int repeat: (optional) an internal recursive counter managing
+            the number of error modal check retries
+            default: 1 - check for the modal twice over 0.25 seconds
+        :return: ``True`` when the error modal exists within the content page
+        :rtype: bool
+
+        """
+        try:
+            return bool(self.error)
+        except NoSuchElementException:
+            if repeat <= 0:
+                return False
+            sleep(0.25)
+            return self.error_shown(repeat - 1)
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.
@@ -1190,6 +1217,7 @@ class Content(Page):
 
                 """
                 Utilities.click_option(self.driver, element=self.save_button)
+                sleep(0.1)
                 return self
 
             def toggle_color(self, color: Color) \
@@ -1489,6 +1517,8 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
 
+        _my_highlights_button_locator = (
+            By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
         _search_button_desktop_locator = (
             By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
         _search_button_mobile_locator = (
@@ -1498,13 +1528,11 @@ class Content(Page):
         _toc_toggle_button_locator = (
             By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
-        @property
-        def toc_toggle_button(self) -> WebElement:
-            return self.find_element(*self._toc_toggle_button_locator)
+        _my_highlights_selector = "[class*=HighlightStyles__PopupWrapper]"
 
         @property
-        def search_textbox(self) -> WebElement:
-            return self.find_element(*self._search_textbox_desktop_locator)
+        def my_highlights_button(self) -> WebElement:
+            return self.find_element(*self._my_highlights_button_locator)
 
         @property
         def search_button(self) -> WebElement:
@@ -1515,13 +1543,35 @@ class Content(Page):
         def search_button_mobile(self) -> WebElement:
             return self.find_element(*self._search_button_mobile_locator)
 
-        def click_toc_toggle_button(self) -> Content.SideBar:
-            self.offscreen_click(self.toc_toggle_button)
-            return self.page.sidebar.wait_for_region_to_display()
+        @property
+        def search_textbox(self) -> WebElement:
+            return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def toc_toggle_button(self) -> WebElement:
+            return self.find_element(*self._toc_toggle_button_locator)
 
         def click_search_icon(self) -> WebElement:
             """Clicks the search icon in mobile view."""
             self.offscreen_click(self.search_button_mobile)
+
+        def click_toc_toggle_button(self) -> Content.SideBar:
+            self.offscreen_click(self.toc_toggle_button)
+            return self.page.sidebar.wait_for_region_to_display()
+
+        def my_highlights(self) -> MyHighlights:
+            """Click the My highlights toolbar button.
+
+            :return: the My Highlights and Notes modal
+            :rtype: :py:class:`~regions.my_highlights.MyHighlights`
+
+            """
+            Utilities.click_option(
+                self.driver, element=self.my_highlights_button)
+            sleep(0.1)
+            my_highlights_root = self.driver.execute_script(
+                ELEMENT_SELECT.format(selector=self._my_highlights_selector))
+            return MyHighlights(self.page, my_highlights_root)
 
         def search_for(self, search_term: str) -> Content.SideBar:
             """Search for a term/query in desktop resolution.

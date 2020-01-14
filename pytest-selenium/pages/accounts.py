@@ -23,6 +23,26 @@ class Login(Page):
     _login_submit_button_locator = (By.CSS_SELECTOR, "[type=submit]")
 
     @property
+    def current_url(self) -> str:
+        """Return the current page URL.
+
+        :return: the current page URL
+        :rtype: str
+
+        """
+        return self.driver.current_url
+
+    @property
+    def source(self) -> str:
+        """Return the current page source.
+
+        :return: the current page source
+        :rtype: str
+
+        """
+        return self.driver.page_source
+
+    @property
     def user_field(self):
         return self.wait.until(
             expect.presence_of_element_located(
