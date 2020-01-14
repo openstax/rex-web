@@ -93,6 +93,7 @@ export const PrintOptWrapper = styled(PlainButton)`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: auto;
 `;
 
 // tslint:disable-next-line:variable-name
