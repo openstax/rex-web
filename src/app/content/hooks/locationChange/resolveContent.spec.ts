@@ -6,7 +6,7 @@ import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
-import { VersionedSlugParams } from '../../types';
+import { UuidParams, VersionedSlugParams } from '../../types';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -83,7 +83,6 @@ describe('locationChange', () => {
     const versionedSlugParams = {
       ...match.params,
       version: 'asdf',
-
     } as VersionedSlugParams;
 
     match.params = versionedSlugParams;
@@ -118,4 +117,25 @@ describe('locationChange', () => {
     await hook(helpers, match);
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', undefined);
   });
+
+  it('uses uuid if present', async() => {
+    const versionedSlugParams = {
+      page: match.params.page,
+      uuid: 'longidin-vali-dfor-mat1-111111111111',
+      version: '1.0',
+    } as UuidParams;
+
+    match.params = versionedSlugParams;
+    helpers.archiveLoader.mockBook({
+      ...book,
+      version: undefined as any as string,
+    });
+    helpers.archiveLoader.mockPage({
+      ...book,
+      version: undefined as any as string,
+    }, page, 'test-page-1');
+    await hook(helpers, match);
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('longidin-vali-dfor-mat1-111111111111', '1.0');
+  });
+
 });

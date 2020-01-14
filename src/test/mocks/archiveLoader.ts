@@ -7,6 +7,10 @@ export const book = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid'), 'utf8')
 ) as ArchiveBook;
 
+export const validUUIDBook = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-longid'), 'utf8')
+) as ArchiveBook;
+
 export const page = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage1-shortid'), 'utf8')
 ) as ArchivePage;
@@ -29,10 +33,15 @@ export const lastPage = JSON.parse(
 
 const books: {[key: string]: ArchiveBook} = {
   [`${book.id}@${book.version}`]: book,
+  [`${validUUIDBook.id}@${book.version}`]: book,
 };
 
 const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
   [`${book.id}@${book.version}`]: {
+    [page.id]: page,
+    [shortPage.id]: shortPage,
+  },
+  [`${validUUIDBook.id}@${validUUIDBook.version}`]: {
     [page.id]: page,
     [shortPage.id]: shortPage,
   },
