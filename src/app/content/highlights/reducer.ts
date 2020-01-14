@@ -11,8 +11,11 @@ import { State } from './types';
 import {
   addOneToTotalCounts,
   addSummaryHighlight,
+  getHighlightByIdFromHighlights,
+  getHighlightByIdFromSummaryHighlights,
   removeOneFromTotalCounts,
   removeSummaryHighlight,
+  updateHighlights,
   updateSummaryHighlightsDependOnFilters,
 } from './utils';
 
@@ -74,26 +77,22 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.updateHighlight): {
       if (!state.highlights) { return state; }
 
-      const oldHiglightIndex = state.highlights.findIndex(
-        (highlight) => highlight.id === action.payload.id);
-      if (oldHiglightIndex < 0) { return state; }
+      const currentHighlight = getHighlightByIdFromHighlights(state.highlights, action.payload.id)
+        || getHighlightByIdFromSummaryHighlights(state.summary.highlights, action.payload.id);
+      if (!currentHighlight) { return state; }
 
-      const newHighlight = {
-        ...state.highlights[oldHiglightIndex],
-        ...action.payload.highlight,
-      } as Highlight;
-
-      const newHighlights = [...state.highlights];
-      newHighlights[oldHiglightIndex] = newHighlight;
+      const highlights = updateHighlights(state.highlights, action.payload);
 
       const newSummaryHighlights = updateSummaryHighlightsDependOnFilters(
         state.summary.highlights,
         state.summary.filters,
-        {...action.meta, highlight: newHighlight});
+        {...action.meta,
+          highlight: {...currentHighlight, ...action.payload.highlight} as Highlight,
+        });
 
       return {
         ...state,
-        highlights: newHighlights,
+        highlights,
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,

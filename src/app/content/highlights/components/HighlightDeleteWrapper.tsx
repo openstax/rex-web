@@ -24,7 +24,6 @@ const HighlightDeleteWrapper = ({
         size='medium'
         variant='primary'
         onClick={onDelete}
-        focused
       >{msg}</Button>}
     </FormattedMessage>
     <FormattedMessage id='i18n:highlighting:button:cancel'>
