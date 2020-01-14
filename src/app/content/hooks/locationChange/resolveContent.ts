@@ -69,26 +69,23 @@ const resolveBookReference = async(
   const state = getState();
   const currentBook = select.book(state);
 
-  if (!match.params.uuid && !match.params.book) {
-    throw new Error('Nor a book nor a uuid found');
-  }
-
-  const bookSlug = match.params.book
+  const bookSlug = 'book' in match.params
     ? match.params.book
     : currentBook && currentBook.id === match.params.uuid
-      ? currentBook.id
-      : match.params.uuid && await osWebLoader.getBookSlugFromId(match.params.uuid);
+      ? currentBook.slug
+      : await osWebLoader.getBookSlugFromId(match.params.uuid);
 
   if (match.state && match.state.bookUid && match.state.bookVersion) {
     return [bookSlug, match.state.bookUid, match.state.bookVersion];
   }
-  const bookUid = match.params.uuid
+
+  const bookUid  = 'uuid' in match.params
     ? match.params.uuid
     : currentBook && currentBook.slug === bookSlug
       ? currentBook.id
       : await osWebLoader.getBookIdFromSlug(bookSlug);
 
-  const bookVersion = match.params.version
+  const bookVersion = 'version' in match.params
     ? match.params.version === 'latest'
       ? undefined
       : match.params.version

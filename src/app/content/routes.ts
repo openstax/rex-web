@@ -4,15 +4,10 @@ import { Route } from '../navigation/types';
 import { SelectedResult } from './search/types';
 import { Params } from './types';
 
+const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
+
 const CONTENT_PATH = '/books/:book/pages/:page';
-const UUID_CONTENT_PATH =
-  '/books/:uuid' +
-  '([\\da-z]{8}-' +
-  '[\\da-z]{4}-' +
-  '[\\da-z]{4}-' +
-  '[\\da-z]{4}-' +
-  '[\\da-z]{12})' +
-  '@:version/pages/:page';
+const UUID_CONTENT_PATH = `/books/:uuid(${MATCH_UUID})@:version/pages/:page`;
 const VERSIONED_CONTENT_PATH = '/books/:book@:version/pages/:page';
 
 interface State {
@@ -29,11 +24,10 @@ export const content: Route<Params, State> = {
     modules: ['Content'],
   }),
   getUrl: (params: Params): string => {
-    const { uuid, version } = params;
-    if (uuid && version) {
+    if ('uuid' in params) {
       return pathToRegexp.compile(UUID_CONTENT_PATH)(params);
     }
-    if (version) {
+    if ('version' in params) {
       return pathToRegexp.compile(VERSIONED_CONTENT_PATH)(params);
     }
     return pathToRegexp.compile(CONTENT_PATH)(params);

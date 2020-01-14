@@ -3,12 +3,20 @@ import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
-export interface Params {
-  book?: string;
-  uuid?: string;
+interface SlugParams {
+  book: string;
   page: string;
-  version?: string;
 }
+interface VersionedSlugParams extends SlugParams {
+  version: string;
+}
+interface UuidParams {
+  uuid: string;
+  version: string;
+  page: string;
+}
+
+export type Params = SlugParams | VersionedSlugParams | UuidParams;
 
 export interface State {
   tocOpen: boolean | null;
