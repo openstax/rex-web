@@ -19,21 +19,17 @@ const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataPro
   const [isDeleting, setIsDeleting] = React.useState(false);
   const dispatch = useDispatch();
 
-  const cancelEdit = () => {
-    setIsEditing(false);
-  };
-
   const updateAnnotation = (
     annotation: string
   ) => {
     dispatch(updateHighlight({
-      highlight: {annotation, color: highlight.color as string as HighlightUpdateColorEnum},
+      highlight: {annotation},
       id: highlight.id,
     }, {
       locationFilterId,
       pageId,
     }));
-    cancelEdit();
+    setIsEditing(false);
   };
 
   const updateColor = (color: string) => {
@@ -44,11 +40,6 @@ const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataPro
       locationFilterId,
       pageId,
     }));
-    cancelEdit();
-  };
-
-  const cancelDelete = () => {
-    setIsDeleting(false);
   };
 
   const confirmDelete = () => {
@@ -56,7 +47,6 @@ const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataPro
       locationFilterId,
       pageId,
     }));
-    cancelDelete();
   };
 
   return <Styled.HighlightOuterWrapper>
@@ -74,14 +64,14 @@ const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataPro
       {highlight.annotation ? (
         <HighlightAnnotation
           annotation={highlight.annotation}
-          isEditable={isEditing}
+          isEditing={isEditing}
           onSave={updateAnnotation}
-          onCancel={cancelEdit}
+          onCancel={() => setIsEditing(false)}
         />
       ) : null}
     </Styled.HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
-      onCancel={cancelDelete}
+      onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}
   </Styled.HighlightOuterWrapper>;

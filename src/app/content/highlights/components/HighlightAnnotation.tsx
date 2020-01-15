@@ -6,19 +6,19 @@ import * as Styled from './ShowMyHighlightsStyles';
 
 interface HighlightAnnotationProps {
   annotation: string;
-  isEditable: boolean;
+  isEditing: boolean;
   onSave: (annotation: string) => void;
   onCancel: () => void;
 }
 
 // tslint:disable-next-line:variable-name
 const HighlightAnnotation = (
-  { annotation, isEditable, onSave, onCancel }: HighlightAnnotationProps
+  { annotation, isEditing, onSave, onCancel }: HighlightAnnotationProps
 ) => {
   const [anno, setAnno] = React.useState(annotation);
 
   return <Styled.HighlightNote>
-    {isEditable
+    {isEditing
       ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
         {(msg: string) => <textarea
           value={anno}
@@ -38,7 +38,7 @@ const HighlightAnnotation = (
         {annotation}
       </Styled.HighlightNote>
       }
-    {isEditable && <Styled.HighlightEditButtons>
+    {isEditing && <Styled.HighlightEditButtons>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
           data-testid='save'
