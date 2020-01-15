@@ -10,6 +10,7 @@ import withServices from '../../../context/Services';
 import theme from '../../../theme';
 import { AppServices } from '../../../types';
 import { assertWindow, mergeRefs } from '../../../utils';
+import * as selectContent from '../../selectors';
 import { clearFocusedHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
@@ -20,6 +21,7 @@ import onClickOutside from './utils/onClickOutside';
 
 interface Props {
   authenticated: boolean;
+  book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
@@ -37,6 +39,7 @@ interface Props {
 const EditCard = React.forwardRef<HTMLElement, Props>((
   {
     authenticated,
+    book,
     className,
     data,
     highlight,
@@ -47,6 +50,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     onCreate,
     onRemove,
     onSave,
+    services,
   }: Props,
   ref
 ) => {
@@ -64,7 +68,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
-  const onColorChange = (color: HighlightColorEnum) => {
+  const onColorChange = (color: HighlightColorEnum, flag?: boolean) => {
+    services.analytics.createNote.track(book, flag ? 'default' : color);
     highlight.setStyle(color);
     if (data) {
       onSave({
@@ -111,7 +116,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       note={pendingAnnotation}
       onFocus={() => {
         if (!highlight.getStyle()) {
-          onColorChange(highlightStyles[0].label);
+          onColorChange(highlightStyles[0].label, true);
         }
       }}
       onChange={(newValue) => {

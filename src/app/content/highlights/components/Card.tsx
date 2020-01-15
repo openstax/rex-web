@@ -106,6 +106,7 @@ const Card = (props: Props) => {
   /> : <EditCard
     {...commonProps}
     authenticated={!!props.user}
+    book={props.book}
     loginLink={props.loginLink}
     highlight={props.highlight}
     onCreate={onCreate}

@@ -68,7 +68,7 @@ const ColorPicker = styled(({className, ...props}: Props) => {
       name={style.label}
       checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
       style={style}
-      onChange={() => { console.log(props); props.multiple
+      onChange={() => { props.multiple
         ? props.selected.includes(style.label)
           ? props.onChange(props.selected.filter(not(match(style.label))))
           : props.onChange([...props.selected, style.label])
