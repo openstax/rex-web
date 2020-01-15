@@ -7,9 +7,9 @@ export default (locationFilters: HighlightLocationFilters, totalCounts: Highligh
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
 
     if (location && !result.has(location.id)) {
-      result.set(location.id, location);
+      result.add(location.id);
     }
 
     return result;
-  }, new Map() as HighlightLocationFilters);
+  }, new Set<string>());
 };

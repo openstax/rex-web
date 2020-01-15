@@ -12,10 +12,10 @@ describe('getHighlightLocationFiltersWithContent', () => {
     };
     const filterLocations = getHighlightLocationFilters(book);
 
-    const expectedResult = new Map([
-      ['testbook1-testpage1-uuid', filterLocations.get('testbook1-testpage1-uuid')],
-      ['testbook1-testchapter1-uuid', filterLocations.get('testbook1-testchapter1-uuid')],
-      ['testbook1-testchapter3-uuid', filterLocations.get('testbook1-testchapter3-uuid')],
+    const expectedResult = new Set([
+      'testbook1-testpage1-uuid',
+      'testbook1-testchapter1-uuid',
+      'testbook1-testchapter3-uuid',
     ]);
 
     expect(getHighlightLocationFiltersWithContent(filterLocations, totalCountsPerPage)).toEqual(expectedResult);
