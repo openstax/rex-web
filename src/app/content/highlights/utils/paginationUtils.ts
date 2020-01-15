@@ -46,7 +46,7 @@ export const getNextPageSources = (
   return Object.keys(reduceUntilPageSize(pages, addPageCount, {} as CountsPerSource));
 };
 
-export const filterCountsPerSourceByChapters = (
+export const filterCountsPerSourceByLocationFilter = (
   locationFilters: HighlightLocationFilters,
   counts: CountsPerSource
 ) => {
@@ -56,9 +56,9 @@ export const filterCountsPerSourceByChapters = (
     (location) => archiveTreeContainsNode(location, sourceId)
   );
 
-  const matchesChapterFilter = (_count: number, sourceId: string) => {
+  const matchesLocationFilter = (_count: number, sourceId: string) => {
     return locationFilters.has(sourceId) || someChapterContainsNode(sourceId);
   };
 
-  return pickBy(matchesChapterFilter, counts);
+  return pickBy(matchesLocationFilter, counts);
 };

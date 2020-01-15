@@ -11,7 +11,7 @@ import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
 import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
-import { filterCountsPerSourceByChapters } from './utils/paginationUtils';
+import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -103,7 +103,7 @@ const selectedHighlightLocationFilters = createSelector(
 const filteredCountsPerPage = createSelector(
   totalCountsPerPage,
   selectedHighlightLocationFilters,
-  (totalCounts, locationFilters) => filterCountsPerSourceByChapters(locationFilters, totalCounts || {})
+  (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts || {})
 );
 
 export const remainingSourceCounts = createSelector(
