@@ -1,9 +1,4 @@
-import {
-  ArchiveTree,
-  ArchiveTreeSection,
-  LinkedArchiveTree,
-  LinkedArchiveTreeSection,
-} from './types';
+import { ArchiveTree, ArchiveTreeSection, LinkedArchiveTree, LinkedArchiveTreeSection } from './types';
 
 export const isArchiveTree = (section: ArchiveTree | ArchiveTreeSection): section is ArchiveTree =>
   (section as ArchiveTree).contents !== undefined;
