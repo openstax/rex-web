@@ -6,7 +6,7 @@ import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
 import ColorPicker from '../ColorPicker';
-import MenuToggle from '../MenuToggle';
+import MenuToggle, { MenuIcon } from '../MenuToggle';
 
 // tslint:disable-next-line:variable-name
 export const StyledContextMenu = styled.div`
@@ -15,6 +15,14 @@ export const StyledContextMenu = styled.div`
     width: 150px;
     top: 1.2rem;
     right: 0;
+
+    .focus-within ${MenuIcon} {
+      color: ${theme.color.secondary.lightGray.darkest};
+    }
+
+    :focus-within ${MenuIcon} {
+      color: ${theme.color.secondary.lightGray.darkest};
+    }
   }
 
   ${ColorPicker} {

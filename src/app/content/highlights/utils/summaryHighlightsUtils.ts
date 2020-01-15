@@ -187,18 +187,13 @@ export const addOneToTotalCounts = (
 export const getHighlightByIdFromSummaryHighlights = (
   summaryHighlights: SummaryHighlights, id: string
 ): Highlight | undefined => {
-  let foundHighlight: Highlight | undefined;
 
   for (const data of Object.values(summaryHighlights)) {
     for (const highlights of Object.values(data)) {
-      const index = highlights.findIndex((highlight) => highlight.id === id);
-      if (index !== -1) {
-        foundHighlight = highlights[index];
-        break;
-      }
+      const highlight = highlights.find((search) => search.id === id);
+      if (highlight) { return highlight; }
     }
-    if (foundHighlight) { break; }
   }
 
-  return foundHighlight;
+  return;
 };
