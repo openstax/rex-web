@@ -1,20 +1,70 @@
 import { Highlight, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteHighlight, updateHighlight } from '../actions';
+import styled, { css } from 'styled-components';
+import { bodyCopyRegularStyle } from '../../../../components/Typography';
+import theme from '../../../../theme';
+import { deleteHighlight, updateHighlight } from '../../actions';
+import { highlightStyles } from '../../constants';
+import { popupBodyPadding } from '../HighlightStyles';
+import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
-import HighlightToggleEdit from './HighlightToggleEdit';
-import * as Styled from './ShowMyHighlightsStyles';
 
-interface HighlightDataProps {
+// tslint:disable-next-line:variable-name
+const HighlightOuterWrapper = styled.div`
+  position: relative;
+  overflow: unset;
+
+  :not(:last-child) {
+    border-bottom: solid 0.2rem ${theme.color.neutral.darker};
+  }
+
+  background: ${theme.color.neutral.base};
+`;
+
+// tslint:disable-next-line:variable-name
+const HighlightContent = styled.div`
+  ${bodyCopyRegularStyle}
+  overflow: visible;
+
+  * {
+    overflow: initial;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const HighlightContentWrapper = styled.div`
+  padding: 1.2rem ${popupBodyPadding}rem;
+  ${(props: {color: string}) => {
+    const style = highlightStyles.find((search) => search.label === props.color);
+
+    if (!style) {
+      return null;
+    }
+
+    return css`
+      border-left: solid 0.8rem ${style.focused};
+
+      ${HighlightContent} {
+        background-color: ${style.passive};
+      }
+
+      .highlight-note-text > span {
+        color: ${style.focused};
+      }
+    `;
+  }}
+`;
+
+interface HighlightListElementProps {
   highlight: Highlight;
   locationFilterId: string;
   pageId: string;
 }
 
 // tslint:disable-next-line:variable-name
-const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataProps) => {
+const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const dispatch = useDispatch();
@@ -49,15 +99,15 @@ const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataPro
     }));
   };
 
-  return <Styled.HighlightOuterWrapper>
-    <HighlightToggleEdit
+  return <HighlightOuterWrapper>
+    <ContextMenu
       color={highlight.color}
       onDelete={() => setIsDeleting(true)}
       onEdit={() => setIsEditing(true)}
       onColorChange={updateColor}
     />
-    <Styled.HighlightContentWrapper color={highlight.color}>
-      <Styled.HighlightContent
+    <HighlightContentWrapper color={highlight.color}>
+      <HighlightContent
         className='summary-highlight-content'
         dangerouslySetInnerHTML={{ __html: highlight.highlightedContent }}
       />
@@ -69,12 +119,12 @@ const HighlightData = ({ highlight, locationFilterId, pageId }: HighlightDataPro
           onCancel={() => setIsEditing(false)}
         />
       ) : null}
-    </Styled.HighlightContentWrapper>
+    </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
       onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}
-  </Styled.HighlightOuterWrapper>;
+  </HighlightOuterWrapper>;
 };
 
-export default HighlightData;
+export default HighlightListElement;

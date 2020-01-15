@@ -1,7 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
@@ -9,28 +8,9 @@ import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { cardPadding, cardWidth, highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
+import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
 import onClickOutside from './utils/onClickOutside';
-
-// tslint:disable-next-line:variable-name
-const MenuIcon = styled(EllipsisV)`
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: ${theme.color.primary.gray.lighter};
-  user-select: none;
-`;
-
-/*
-  this should be a button but Safari and firefox don't support focusing buttons
-  https://bugs.webkit.org/show_bug.cgi?id=22261
-  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-*/
-// tslint:disable-next-line:variable-name
-export const MenuToggle = styled(({className}) => <div tabIndex={0} className={className}><MenuIcon /></div>)`
-  border: none;
-  display: block;
-`;
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`

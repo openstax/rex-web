@@ -10,9 +10,9 @@ import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/ar
 import { stripIdVersion } from '../../utils/idUtils';
 import { highlightLocationFilters, summaryFilters, summaryHighlights, summaryIsLoading } from '../selectors';
 import { SummaryHighlights } from '../types';
-import HighlightDataComp from './HighlightData';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
+import HighlightListElement from './SummaryPopup/HighlightListElement';
 
 // tslint:disable-next-line: variable-name
 const NoHighlightsTip = htmlMessage(
@@ -108,7 +108,7 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
           {!pageIdIsSameAsSectionId && <Styled.HighlightSection
             dangerouslySetInnerHTML={{ __html: page.title }}
           />}
-          {pageHighlights.map((item) => <HighlightDataComp
+          {pageHighlights.map((item) => <HighlightListElement
             key={item.id}
             highlight={item}
             locationFilterId={location.id}

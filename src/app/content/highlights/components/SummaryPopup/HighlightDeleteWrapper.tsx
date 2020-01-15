@@ -1,7 +1,32 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '../../../components/Button';
-import * as Styled from './ShowMyHighlightsStyles';
+import styled from 'styled-components';
+import Button from '../../../../components/Button';
+import { textStyle } from '../../../../components/Typography';
+import { HighlightEditButtons } from './styles';
+
+// tslint:disable-next-line:variable-name
+const StyledHighlightDeleteWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+
+  span {
+    ${textStyle}
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: -0.2;
+    color: #fff;
+    margin-right: 8px;
+  }
+`;
 
 interface HighlightDeleteWrapperProps {
   onCancel: () => void;
@@ -12,11 +37,11 @@ interface HighlightDeleteWrapperProps {
 const HighlightDeleteWrapper = ({
   onDelete,
   onCancel,
-}: HighlightDeleteWrapperProps) => <Styled.HighlightDeleteWrapper>
+}: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper>
   <FormattedMessage id='i18n:highlighting:confirmation:delete-both'>
     {(msg: string) => <span>{msg}</span>}
   </FormattedMessage>
-  <Styled.HighlightEditButtons>
+  <HighlightEditButtons>
     <FormattedMessage id='i18n:highlighting:button:delete'>
       {(msg: Element | string) => <Button
         data-testid='delete'
@@ -34,7 +59,7 @@ const HighlightDeleteWrapper = ({
         onClick={onCancel}
       >{msg}</Button>}
     </FormattedMessage>
-  </Styled.HighlightEditButtons>
-</Styled.HighlightDeleteWrapper>;
+  </HighlightEditButtons>
+</StyledHighlightDeleteWrapper>;
 
 export default HighlightDeleteWrapper;
