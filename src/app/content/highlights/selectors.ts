@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import mapValues from 'lodash/fp/mapValues';
 import merge from 'lodash/fp/merge';
+import omit from 'lodash/fp/omit';
 import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
@@ -9,7 +10,7 @@ import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
 import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
-import { filterCountsToUnvisitiedPages } from './utils/paginationUtils';
+import { filterCountsPerSourceByChapters } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -84,14 +85,15 @@ const loadedCountsPerSource = createSelector(
   )
 );
 
-// TODO - filter this
+// TODO - filter this by color when available from api
 const filteredCountsPerPage = createSelector(
   totalCountsPerPage,
-  (totalCounts) => totalCounts || {}
+  highlightLocationFilters,
+  (totalCounts, locationFilters) => filterCountsPerSourceByChapters(locationFilters, totalCounts || {})
 );
 
 export const remainingSourceCounts = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
-  (loadedCounts, totalCounts) => filterCountsToUnvisitiedPages(loadedCounts, totalCounts)
+  (loadedCounts, totalCounts) => omit(Object.keys(loadedCounts), totalCounts)
 );

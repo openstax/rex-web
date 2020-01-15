@@ -1,5 +1,4 @@
 import add from 'lodash/fp/add';
-import omit from 'lodash/fp/omit';
 import pickBy from 'lodash/fp/pickBy';
 import { reduceUntil } from '../../../fpUtils';
 import { isArchiveTree } from '../../guards';
@@ -12,13 +11,6 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { CountsPerSource, HighlightLocationFilters } from '../types';
 
 const totalOfCountsPerSource = (perSource: CountsPerSource) => Object.values(perSource).reduce(add, 0);
-
-export const filterCountsToUnvisitiedPages = (
-  loadedCounts: CountsPerSource,
-  totalCounts: CountsPerSource
-): CountsPerSource => {
-  return omit(Object.keys(loadedCounts), totalCounts);
-};
 
 /*
  * in order to avoid passing all page ids for all selected chapters in
@@ -54,10 +46,6 @@ export const getNextPageSources = (
   return Object.keys(reduceUntilPageSize(pages, addPageCount, {} as CountsPerSource));
 };
 
-/*
- * after filters are changed, load color filtered summary from api, then use this to
- * filter by chapter filters, and store the result in the state at filteredCountsPerPage
- */
 export const filterCountsPerSourceByChapters = (
   locationFilters: HighlightLocationFilters,
   counts: CountsPerSource
