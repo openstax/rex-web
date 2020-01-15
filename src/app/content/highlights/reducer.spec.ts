@@ -4,8 +4,8 @@ import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
 import {
+  CountsPerSource,
   HighlightData,
-  HighlightsTotalCountsPerPage,
   SummaryHighlights,
 } from './types';
 
@@ -62,7 +62,7 @@ describe('highlight reducer', () => {
   });
 
   it('receive total counts', () => {
-    const totalCountsPerPage: HighlightsTotalCountsPerPage = {
+    const totalCountsPerPage: CountsPerSource = {
       page1: 1,
       page2: 2,
     };
