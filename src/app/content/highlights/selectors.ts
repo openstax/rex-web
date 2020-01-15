@@ -8,7 +8,7 @@ import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters, mergeHighlightsTotalCounts } from './utils';
+import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
 import { filterCountsToUnvisitiedPages } from './utils/paginationUtils';
 
 export const localState = createSelector(
@@ -44,10 +44,10 @@ export const totalCountsPerPage = createSelector(
   (state) => state.summary.totalCountsPerPage
 );
 
-export const totalCountsPerLocation = createSelector(
+export const highlightLocationFiltersWithContent = createSelector(
+  highlightLocationFilters,
   totalCountsPerPage,
-  parentSelectors.book,
-  (totalCounts, book) => book ? mergeHighlightsTotalCounts(book, totalCounts || {}) : {}
+  (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts || {})
 );
 
 export const focused = createSelector(

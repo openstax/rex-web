@@ -1,6 +1,7 @@
 export { default as addCurrentPageToSummaryFilters } from './addCurrentPageToSummaryFilters';
 export { default as getHighlightLocationFilterForPage } from './getHighlightLocationFilterForPage';
 export { default as getHighlightLocationFilters } from './getHighlightLocationFilters';
+export { default as getHighlightLocationFiltersWithContent } from './getHighlightLocationFiltersWithContent';
 export {
   addOneToTotalCounts,
   addSummaryHighlight,
@@ -9,4 +10,3 @@ export {
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
-export { default as mergeHighlightsTotalCounts } from './mergeHighlightsTotalCounts';
