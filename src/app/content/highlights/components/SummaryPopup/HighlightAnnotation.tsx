@@ -17,15 +17,16 @@ const HighlightNote = styled.div`
     margin: 0 0.8rem 0 0;
     overflow: visible;
   }
+`;
 
-  textarea {
-    ${textRegularStyle}
-    flex: 1;
-    letter-spacing: 0;
-    line-height: 20px;
-    color: ${theme.color.text.label};
-    padding: 8px;
-  }
+// tslint:disable-next-line:variable-name
+const Textarea = styled.textarea`
+  ${textRegularStyle}
+  flex: 1;
+  letter-spacing: 0;
+  line-height: 20px;
+  color: ${theme.color.text.label};
+  padding: 8px;
 `;
 
 interface HighlightAnnotationProps {
@@ -44,7 +45,7 @@ const HighlightAnnotation = (
   return <HighlightNote>
     {isEditing
       ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
-        {(msg: string) => <textarea
+        {(msg: string) => <Textarea
           value={anno}
           placeholder={msg}
           autoFocus={true}
@@ -53,14 +54,14 @@ const HighlightAnnotation = (
           }}
         />}
       </FormattedMessage>
-      : <HighlightNote>
+      : <React.Fragment>
         <span className='highlight-note-text'>
           <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
         </span>
         {annotation}
-      </HighlightNote>
+      </React.Fragment>
       }
     {isEditing && <HighlightEditButtons>
       <FormattedMessage id='i18n:highlighting:button:save'>

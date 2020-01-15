@@ -8,7 +8,7 @@ import ColorIndicator from './ColorIndicator';
 
 interface SingleSelectProps {
   color?: string;
-  onRemove: () => void;
+  onRemove?: () => void;
   onChange: (color: string) => void;
   multiple: false | undefined;
 }
@@ -69,12 +69,13 @@ const ColorPicker = ({className, ...props}: Props) => {
       name={style.label}
       checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
       style={style}
+      size={props.size}
       onChange={() => props.multiple
         ? props.selected.includes(style.label)
           ? props.onChange(props.selected.filter(not(match(style.label))))
           : props.onChange([...props.selected, style.label])
         : props.color === style.label
-          ? props.onRemove()
+          ? props.onRemove ? props.onRemove() : null
           : props.onChange(style.label)}
     />)}
   </div>;

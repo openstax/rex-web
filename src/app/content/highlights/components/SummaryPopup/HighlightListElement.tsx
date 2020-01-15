@@ -50,7 +50,7 @@ const HighlightContentWrapper = styled.div`
         background-color: ${style.passive};
       }
 
-      .highlight-note-text > span {
+      .highlight-note-text {
         color: ${style.focused};
       }
     `;

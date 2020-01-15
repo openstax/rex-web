@@ -8,8 +8,12 @@ export const MenuIcon = styled(EllipsisV)`
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: ${theme.color.primary.gray.lighter};
+  color: ${theme.color.neutral.darkest};
   user-select: none;
+
+  &:hover {
+    color: ${theme.color.secondary.lightGray.darkest};
+  }
 `;
 
 /*
