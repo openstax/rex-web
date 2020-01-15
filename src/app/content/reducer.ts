@@ -68,7 +68,10 @@ function reduceContent(state: State, action: AnyAction) {
         return initialState;
       }
 
-      if (!equals(action.payload.match.params, state.params)) {
+      const omitPage = omit(['page']);
+
+      // book is different
+      if (!equals(omitPage(action.payload.match.params), omitPage(state.params))) {
         return {
           ...initialState,
           highlights: state.highlights,
@@ -77,10 +80,12 @@ function reduceContent(state: State, action: AnyAction) {
         };
       }
 
+      // book is the same, page is different
       if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
-        return {...omit(['page'], state), params: action.payload.match.params};
+        return {...omitPage(state), params: action.payload.match.params};
       }
 
+      // book and page are the same, probably on page navigation like hash changing
       return {...state, params: action.payload.match.params};
     }
     default:
