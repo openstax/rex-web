@@ -40,6 +40,7 @@ export const HighlightsChapter = styled.div`
 
   @media print {
     padding: 0;
+    background: white;
   }
 `;
 
@@ -50,6 +51,10 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
     text-align: left;
     padding: 0;
   `)}
+
+  @media print {
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -81,6 +86,7 @@ export const HighlightSection = styled.div`
 
   @media print {
     page-break-after: avoid;
+    background: white;
   }
 `;
 
@@ -96,6 +102,7 @@ export const HighlightOuterWrapper = styled.div`
     border-width: 0;
     position: relative;
     page-break-inside: avoid;
+    background: white;
   }
 `;
 
@@ -143,6 +150,12 @@ export const HighlightContentWrapper = styled.div`
       }
     `;
   }}
+
+  @media print {
+    ${HighlightContent} {
+      background-color: white;
+    }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
