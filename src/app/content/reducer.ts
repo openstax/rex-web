@@ -1,10 +1,10 @@
+import equals from 'lodash/fp/equals';
 import flow from 'lodash/fp/flow';
 import omit from 'lodash/fp/omit';
 import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
-import { paramsAreSlugParams } from '../content/guards';
 import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
@@ -18,7 +18,7 @@ import { getPageSlug } from './utils/archiveTreeUtils';
 export const initialState = {
   highlights: initialHighlightState,
   loading: {},
-  params: {},
+  params: null,
   references: [],
   search: initialSearchState,
   tocOpen: null,
@@ -68,10 +68,7 @@ function reduceContent(state: State, action: AnyAction) {
         return initialState;
       }
 
-      if ( paramsAreSlugParams(action.payload.match.params)
-        && 'book' in state.params
-        && action.payload.match.params.book !== state.params.book ) {
-
+      if (!equals(action.payload.match.params, state.params)) {
         return {
           ...initialState,
           highlights: state.highlights,
@@ -79,6 +76,7 @@ function reduceContent(state: State, action: AnyAction) {
           params: action.payload.match.params,
         };
       }
+
       if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
         return {...omit(['page'], state), params: action.payload.match.params};
       }

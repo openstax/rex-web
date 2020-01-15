@@ -6,7 +6,7 @@ import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
-import { UuidParams, VersionedSlugParams } from '../../types';
+import { Params } from '../../types';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -83,7 +83,7 @@ describe('locationChange', () => {
     const versionedSlugParams = {
       ...match.params,
       version: 'asdf',
-    } as VersionedSlugParams;
+    } as Params;
 
     match.params = versionedSlugParams;
 
@@ -103,7 +103,7 @@ describe('locationChange', () => {
     const versionedSlugParams = {
       ...match.params,
       version: 'latest',
-    } as VersionedSlugParams;
+    } as Params;
 
     match.params = versionedSlugParams;
     helpers.archiveLoader.mockBook({
@@ -123,7 +123,7 @@ describe('locationChange', () => {
       page: match.params.page,
       uuid: 'longidin-vali-dfor-mat1-111111111111',
       version: '1.0',
-    } as UuidParams;
+    } as Params;
 
     match.params = versionedSlugParams;
     helpers.archiveLoader.mockBook({
