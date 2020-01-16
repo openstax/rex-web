@@ -128,11 +128,13 @@ describe('locationChange', () => {
     match.params = versionedSlugParams;
     helpers.archiveLoader.mockBook({
       ...book,
-      version: undefined as any as string,
+      id: 'longidin-vali-dfor-mat1-111111111111',
+      version: '1.0',
     });
     helpers.archiveLoader.mockPage({
       ...book,
-      version: undefined as any as string,
+      id: 'longidin-vali-dfor-mat1-111111111111',
+      version: '1.0',
     }, page, 'test-page-1');
     await hook(helpers, match);
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('longidin-vali-dfor-mat1-111111111111', '1.0');
