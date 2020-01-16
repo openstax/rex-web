@@ -2,6 +2,7 @@ import { receiveUser } from '../../../auth/actions';
 import { actionHook } from '../../../utils';
 import createHighlight from './createHighlight';
 import filtersChange from './filtersChange';
+import { loadMoreHook } from './filtersChange';
 import loadHighlights from './locationChange';
 import openMyHighlights from './openMyHighlights';
 import removeHighlight from './removeHighlight';
@@ -14,6 +15,7 @@ export default [
   removeHighlight,
   updateHighlight,
   filtersChange,
+  loadMoreHook,
   openMyHighlights,
   actionHook(receiveUser, loadHighlights),
 ];
