@@ -9,7 +9,7 @@ import { createSelector } from 'reselect';
 import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
-import { HighlightLocationFilters } from './types';
+import { CountsPerSource, HighlightLocationFilters } from './types';
 import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
 import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
@@ -114,5 +114,5 @@ const filteredCountsPerPage = createSelector(
 export const remainingSourceCounts = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
-  (loadedCounts, totalCounts) => omit(Object.keys(loadedCounts), totalCounts)
+  (loadedCounts, totalCounts) => omit(Object.keys(loadedCounts), totalCounts) as CountsPerSource
 );

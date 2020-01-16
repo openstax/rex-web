@@ -8,7 +8,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import { receiveHighlightsTotalCounts, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -18,7 +18,7 @@ describe('filtersChange', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
-  let hook: ReturnType<typeof import ('./filtersChange').hookBody>;
+  let hook: ReturnType<typeof import ('./loadMore').hookBody>;
 
   beforeEach(() => {
     resetModules();
@@ -32,12 +32,17 @@ describe('filtersChange', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    hook = (require('./filtersChange').hookBody)(helpers);
+    hook = (require('./loadMore').hookBody)(helpers);
   });
 
   it('receive summary data for selected page', async() => {
+    const pageId = 'testbook1-testpage9-uuid';
+
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: 1,
+    }));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
     expect(filters.locationIds.length).toEqual(0);
@@ -45,40 +50,42 @@ describe('filtersChange', () => {
 
     const highlights = [{
       id: 'highlight1',
-      sourceId: book.tree.contents[0].id,
+      sourceId: pageId,
     }];
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({data: highlights as HighlightData[]}));
+      .mockReturnValueOnce(Promise.resolve({
+        data: highlights as HighlightData[],
+        meta: {
+          perPage: 1,
+          totalCount: 1,
+        },
+      }))
+    ;
 
-    const locationIds = [book.tree.contents[0].id, book.tree.contents[1].id];
+    const locationIds = [pageId];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
 
     const response: SummaryHighlights = {
-      [stripIdVersion(book.tree.contents[0].id)]: {
-        [stripIdVersion(book.tree.contents[0].id)]: [{
+      [stripIdVersion(pageId)]: {
+        [stripIdVersion(pageId)]: [{
           id: 'highlight1',
-          sourceId: book.tree.contents[0].id,
+          sourceId: pageId,
         } as HighlightData],
       },
     };
 
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response));
-  });
-
-  it('noops without book', async() => {
-    await hook(store.dispatch(setSummaryFilters({
-      colors: [],
-      locationIds: [],
-    })));
-
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, null));
   });
 
   it('receive summary data for selected page in chapter', async() => {
+    const chapterIdForPageInChapter = 'testbook1-testchapter5-uuid';
+
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
-    const chapterIdForPageInChapter = 'testbook1-testchapter5-uuid';
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageInChapter.id]: 1,
+    }));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
     expect(filters.locationIds.length).toEqual(0);
@@ -90,7 +97,14 @@ describe('filtersChange', () => {
     }];
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({data: highlights as HighlightData[]}));
+      .mockReturnValueOnce(Promise.resolve({
+        data: highlights as HighlightData[],
+        meta: {
+          perPage: 1,
+          totalCount: 1,
+        },
+      }))
+    ;
 
     const locationIds = [chapterIdForPageInChapter];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
@@ -104,7 +118,7 @@ describe('filtersChange', () => {
       },
     };
 
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, null));
   });
 
   it('noops without book', async() => {
@@ -113,7 +127,8 @@ describe('filtersChange', () => {
       locationIds: [],
     })));
 
-    expect(dispatch).not.toBeCalled();
+    expect(helpers.highlightClient.getHighlights).not.toBeCalled();
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, null));
   });
 
   it('return before api call when there are no filters', async() => {
@@ -129,7 +144,7 @@ describe('filtersChange', () => {
       .mockReturnValue(Promise.resolve({}));
 
     expect(helpers.highlightClient.getHighlights).not.toBeCalled();
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, null));
   });
 
   it('handle case for no highlights.data', async() => {
@@ -138,42 +153,12 @@ describe('filtersChange', () => {
 
     await hook(store.dispatch(setSummaryFilters({
       colors: [HighlightColorEnum.Blue],
-      locationIds: ['chapter'],
+      locationIds: ['testbook1-testchapter1-uuid'],
     })));
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
 
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}));
-  });
-
-  it('omit highlights for which location was not found', async() => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage(page));
-    const pageId = stripIdVersion(book.tree.contents[0].id);
-
-    const highlights = [{
-      id: 'hl1',
-      sourceId: pageId,
-    }, {
-      id: 'hl2',
-      sourceId: 'id-not-from-book',
-    }] as HighlightData[];
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({data: highlights}));
-
-    await hook(store.dispatch(setSummaryFilters({
-      colors: [HighlightColorEnum.Blue],
-      locationIds: [pageId, 'id-not-from-book'],
-    })));
-
-    const response: SummaryHighlights = {
-      [pageId]: {
-        [pageId]: [highlights[0]],
-      },
-    };
-
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights(response));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, null));
   });
 });

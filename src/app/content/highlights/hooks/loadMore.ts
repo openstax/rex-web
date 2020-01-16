@@ -1,4 +1,5 @@
 import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum, Highlight } from '@openstax/highlighter/dist/api';
+import omit from 'lodash/fp/omit';
 import { ActionHookBody, AppServices, AppState, Store } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
@@ -13,9 +14,9 @@ import { getNextPageSources } from '../utils/paginationUtils';
 const incrementPage = (pagination: Exclude<SummaryHighlightsPagination, null>) =>
   ({...pagination, page: pagination.page + 1});
 
-const getNewSources = (state: AppState) => {
+const getNewSources = (state: AppState, omitSources: string[] = []) => {
   const book = bookSelector(state);
-  const remainingCounts = remainingSourceCounts(state);
+  const remainingCounts = omit(omitSources, remainingSourceCounts(state));
   return book ? getNextPageSources(remainingCounts, book.tree, summaryPageSize) : [];
 };
 
@@ -27,13 +28,14 @@ const loadUntilPageSize = async({
   getState: Store['getState'],
   highlightClient: AppServices['highlightClient'],
   highlights?: Highlight[]
+  sourcesFetched?: string[]
 }): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
   const state = args.getState();
   const book = bookSelector(state);
   const {colors} = summaryFilters(state);
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getNewSources(state), page: 1};
+    : {sourceIds: getNewSources(state, args.sourcesFetched), page: 1};
 
   if (!book || sourceIds.length === 0) {
     return {pagination: null, highlights: args.highlights || []};
@@ -71,6 +73,7 @@ const loadUntilPageSize = async({
       ...args,
       highlights,
       previousPagination: pagination,
+      sourcesFetched: args.sourcesFetched ? [...args.sourcesFetched, ...sourceIds] : sourceIds,
     });
   }
 
@@ -105,4 +108,4 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
 };
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
-export default actionHook(setSummaryFilters, hookBody);
+export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);
