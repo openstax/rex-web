@@ -1,5 +1,5 @@
-import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
-import { ActionHookBody } from '../../../types';
+import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum, Highlight } from '@openstax/highlighter/dist/api';
+import { ActionHookBody, AppServices, AppState, Store } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -13,30 +13,33 @@ import { getNextPageSources } from '../utils/paginationUtils';
 const incrementPage = (pagination: Exclude<SummaryHighlightsPagination, null>) =>
   ({...pagination, page: pagination.page + 1});
 
-export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> = ({
-  dispatch, getState, highlightClient,
-}) => async() => {
-  const state = getState();
+const getNewSources = (state: AppState) => {
   const book = bookSelector(state);
-  const locationFilters = highlightLocationFilters(state);
-  const previousPagination = summaryPagination(state);
+  const remainingCounts = remainingSourceCounts(state);
+  return book ? getNextPageSources(remainingCounts, book.tree, summaryPageSize) : [];
+};
+
+const loadUntilPageSize = async({
+  previousPagination,
+  ...args
+}: {
+  previousPagination: SummaryHighlightsPagination,
+  getState: Store['getState'],
+  highlightClient: AppServices['highlightClient'],
+  highlights?: Highlight[]
+}): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
+  const state = args.getState();
+  const book = bookSelector(state);
   const {colors} = summaryFilters(state);
-
-  const getNewSources = () => {
-    const remainingCounts = remainingSourceCounts(state);
-    return book ? getNextPageSources(remainingCounts, book.tree, summaryPageSize) : [];
-  };
-
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getNewSources(), page: 1};
+    : {sourceIds: getNewSources(state), page: 1};
 
   if (!book || sourceIds.length === 0) {
-    dispatch(receiveSummaryHighlights({}, null));
-    return;
+    return {pagination: null, highlights: args.highlights || []};
   }
 
-  const highlights = await highlightClient.getHighlights({
+  const highlightsResponse = await args.highlightClient.getHighlights({
     colors: colors as unknown as GetHighlightsColorsEnum[],
     page,
     perPage: summaryPageSize,
@@ -45,11 +48,45 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
-  if (!highlights || !highlights.data) {
+  if (!highlightsResponse || !highlightsResponse.data) {
     throw new Error('response from highlights api is invalid');
   }
 
-  const formattedHighlights = highlights.data.reduce((result, highlight) => {
+  const meta = assertDefined(highlightsResponse.meta, 'response from highlights api is invalid');
+  const perPage = assertDefined(meta.perPage, 'response from highlights api is invalid');
+  const totalCount = assertDefined(meta.totalCount, 'response from highlights api is invalid');
+  const loadedResults = (page - 1) * perPage + highlightsResponse.data.length;
+
+  const pagination = loadedResults < totalCount
+    ? {sourceIds, page}
+    : null;
+
+  const highlights = args.highlights
+    ? [...args.highlights, ...highlightsResponse.data]
+    : highlightsResponse.data
+  ;
+
+  if (highlights.length < summaryPageSize) {
+    return loadUntilPageSize({
+      ...args,
+      highlights,
+      previousPagination: pagination,
+    });
+  }
+
+  return {pagination, highlights};
+};
+
+export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> = ({
+  dispatch, getState, highlightClient,
+}) => async() => {
+  const state = getState();
+  const locationFilters = highlightLocationFilters(state);
+  const previousPagination = summaryPagination(state);
+
+  const {pagination, highlights} = await loadUntilPageSize({previousPagination, getState, highlightClient});
+
+  const formattedHighlights = highlights.reduce((result, highlight) => {
     const pageId = stripIdVersion(highlight.sourceId);
     const location = assertDefined(
       getHighlightLocationFilterForPage(locationFilters, pageId),
@@ -63,15 +100,6 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
       pageId,
     });
   }, {} as ReturnType<typeof addSummaryHighlight>);
-
-  const meta = assertDefined(highlights.meta, 'response from highlights api is invalid');
-  const perPage = assertDefined(meta.perPage, 'response from highlights api is invalid');
-  const totalCount = assertDefined(meta.totalCount, 'response from highlights api is invalid');
-  const loadedResults = (page - 1) * perPage + highlights.data.length;
-
-  const pagination = loadedResults < totalCount
-    ? {sourceIds, page}
-    : null;
 
   dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
 };
