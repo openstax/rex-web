@@ -39,6 +39,11 @@ export const totalCountsPerPage = createSelector(
   (state) => state.summary.totalCountsPerPage
 );
 
+const totalCountsPerPageOrEmpty = createSelector(
+  totalCountsPerPage,
+  (totalCounts) => totalCounts || {}
+);
+
 export const focused = createSelector(
   localState,
   (state) => state.focused
@@ -83,8 +88,8 @@ export const highlightLocationFilters = createSelector(
 
 export const highlightLocationFiltersWithContent = createSelector(
   highlightLocationFilters,
-  totalCountsPerPage,
-  (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts || {})
+  totalCountsPerPageOrEmpty,
+  (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
 
 const loadedCountsPerSource = createSelector(
@@ -106,9 +111,9 @@ const selectedHighlightLocationFilters = createSelector(
 
 // TODO - filter this by color when available from api
 const filteredCountsPerPage = createSelector(
-  totalCountsPerPage,
+  totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
-  (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts || {})
+  (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts)
 );
 
 export const remainingSourceCounts = createSelector(
