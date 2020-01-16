@@ -10,7 +10,7 @@ import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
 import { highlightStyles } from '../../constants';
-import { summaryFilters, totalCountsPerLocation } from '../../selectors';
+import { highlightColorFiltersWithContent, summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 
 interface Props {
@@ -22,7 +22,7 @@ const allColors = highlightStyles.map((style) => style.label);
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
   const filters = useSelector(summaryFilters);
-  const totalCounts = useSelector(totalCountsPerLocation);
+  const colorFiltersWithContent = useSelector(highlightColorFiltersWithContent);
   const dispatch = useDispatch();
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
@@ -45,7 +45,7 @@ const ColorFilter = ({className}: Props) => {
     {highlightStyles.map((style) => <Checkbox
       key={style.label}
       checked={filters.colors.includes(style.label)}
-      disabled={!Boolean(totalCounts[style.label])}
+      disabled={!colorFiltersWithContent.has(style.label)}
       onChange={() => handleChange(style.label)}
     >
       <ColorIndicator style={style} size='small'/>

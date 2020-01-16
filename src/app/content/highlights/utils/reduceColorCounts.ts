@@ -1,12 +1,12 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { ColorCounts } from '../types';
+import { HighlightColorCounts } from '../types';
 
-const reduceColorCounts = (counts: ColorCounts, currentCounts: ColorCounts) => {
-  const newCounts: ColorCounts = {...currentCounts};
+const reduceColorCounts = (currentCounts: HighlightColorCounts, counts: HighlightColorCounts) => {
+  const newCounts: HighlightColorCounts = {...currentCounts};
 
   for (const [color, value] of Object.entries(counts)) {
     if (typeof newCounts[color as HighlightColorEnum] === 'number') {
-      newCounts[color as HighlightColorEnum] += value;
+      newCounts[color as HighlightColorEnum]! += value!;
     } else {
       newCounts[color as HighlightColorEnum] = value;
     }

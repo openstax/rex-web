@@ -9,18 +9,18 @@ export interface SummaryFilters {
   locationIds: string[];
   colors: HighlightColorEnum[];
 }
-export interface ColorCounts {
+export type HighlightColorCounts = Partial<{
   [HighlightColorEnum.Blue]: number;
   [HighlightColorEnum.Green]: number;
   [HighlightColorEnum.Pink]: number;
   [HighlightColorEnum.Purple]: number;
   [HighlightColorEnum.Yellow]: number;
-}
+}>;
 export interface HighlightsTotalCountsPerPage {
-  [pageId: string]: ColorCounts;
+  [pageId: string]: HighlightColorCounts;
 }
 export interface HighlightsTotalCountsPerLocation {
-  [locationId: string]: ColorCounts;
+  [locationId: string]: HighlightColorCounts;
 }
 
 export interface State {
