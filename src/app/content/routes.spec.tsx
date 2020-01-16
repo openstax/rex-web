@@ -22,6 +22,12 @@ describe('content route', () => {
     expect(url).toEqual('/books/book@asdf/pages/page');
   });
 
+  it('generates a url with uuid', () => {
+    content = require('./routes').content;
+    const url = content.getUrl({uuid: 'longidin-vali-dfor-mat1-111111111111', page: 'page', version: '1.0'});
+    expect(url).toEqual('/books/longidin-vali-dfor-mat1-111111111111@1.0/pages/page');
+  });
+
   describe('route renders', () => {
     const windowBackup = window;
     const documentBackup = document;
