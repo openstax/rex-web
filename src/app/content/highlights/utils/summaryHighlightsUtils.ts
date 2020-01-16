@@ -5,8 +5,7 @@ import {
   UpdateHighlightRequest,
 } from '@openstax/highlighter/dist/api';
 import {
-  HighlightsTotalCountsPerLocation,
-  HighlightsTotalCountsPerPage,
+  CountsPerSource,
   SummaryFilters,
   SummaryHighlights,
 } from '../types';
@@ -159,7 +158,7 @@ export const updateSummaryHighlightsDependOnFilters = (
 };
 
 export const removeOneFromTotalCounts = (
-  totalCounts: HighlightsTotalCountsPerLocation | HighlightsTotalCountsPerPage, id: string
+  totalCounts: CountsPerSource, id: string
 ) => {
   const newTotalCounts = {...totalCounts};
 
@@ -171,7 +170,7 @@ export const removeOneFromTotalCounts = (
 };
 
 export const addOneToTotalCounts = (
-  totalCounts: HighlightsTotalCountsPerLocation | HighlightsTotalCountsPerPage, id: string
+  totalCounts: CountsPerSource, id: string
 ) => {
   const newTotalCounts = {...totalCounts};
 

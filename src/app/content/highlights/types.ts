@@ -1,4 +1,4 @@
-import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
@@ -9,12 +9,8 @@ export interface SummaryFilters {
   locationIds: string[];
   colors: HighlightColorEnum[];
 }
-export interface HighlightsTotalCountsPerPage {
-  [pageId: string]: number;
-}
-export interface HighlightsTotalCountsPerLocation {
-  [locationId: string]: number;
-}
+
+export type CountsPerSource = Exclude<HighlightsSummary['countsPerSource'], undefined>;
 
 export interface State {
   myHighlightsOpen: boolean;
@@ -22,7 +18,18 @@ export interface State {
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
-    totalCountsPerPage: HighlightsTotalCountsPerPage | null;
+    pagination: {
+      // even though we're manually splitting our requests out into smaller batches of sources,
+      // if a source has more than [numPage] highlights the api will still paginate. in order to
+      // access the subsequent pages, we need to store the original sources here, and continue to
+      // use them until we run out of pages, then grab the next batch of sources. on the LAST
+      // page the response size may be smaller than expected, in this case the next batch of
+      // sources should be immediately queried to fill the remaining [numPage]. use
+      // paginationUtils.getNextPageSources to get the next batch of sources
+      sources: string[];
+      page: number;
+    } | null,
+    totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
     loading: boolean;
     highlights: SummaryHighlights;
