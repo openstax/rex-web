@@ -1,3 +1,4 @@
+import { treeWithoutUnits } from '../../../test/trees';
 import { book } from '../selectors';
 import * as select from './selectors';
 
@@ -32,5 +33,41 @@ describe('isEnabled', () => {
 describe('focused', () => {
   it('gets focused highlight id', () => {
     expect(select.focused({focused: 'asdf'} as any)).toEqual('asdf');
+  });
+});
+
+describe('highlightLocationFiltersWithContent', () => {
+  it('filters', () => {
+    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    expect(select.highlightLocationFiltersWithContent({
+      summary: {
+        totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
+      },
+    } as any)).toEqual(new Set(['chapter1', 'preface']));
+  });
+
+  it('works with null counts', () => {
+    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    expect(select.highlightLocationFiltersWithContent({
+      summary: {
+        totalCountsPerPage: null,
+      },
+    } as any)).toEqual(new Set());
+  });
+});
+
+describe('remainingSourceCounts', () => {
+  it('returns remaining', () => {
+    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    expect(select.remainingSourceCounts({
+      summary: {
+        filters: {locationIds: ['chapter1', 'preface']},
+        highlights: {
+          chapter1: {page1: [{}]},
+          preface: {preface: [{}, {}]},
+        },
+        totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
+      },
+    } as any)).toEqual({page2: 3});
   });
 });

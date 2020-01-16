@@ -25,6 +25,7 @@ export const initialState: State = {
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
+    pagination: null,
     totalCountsPerPage: null,
   },
 };
