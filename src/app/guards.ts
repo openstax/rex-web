@@ -12,3 +12,6 @@ export const isHtmlElement = (thing: any): thing is HTMLElement =>
 
 export const isPlainObject = (thing: any): thing is {} =>
   thing instanceof Object && thing.__proto__.constructor === Object;
+
+export const isArray = (thing: any): thing is [] =>
+  thing instanceof Array;

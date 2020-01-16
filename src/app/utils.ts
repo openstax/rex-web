@@ -4,7 +4,7 @@ import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
 
 import { Document } from '@openstax/types/lib.dom';
-import { isPlainObject } from './guards';
+import { isArray, isPlainObject } from './guards';
 import {
   ActionHookBody,
   AnyAction,
@@ -159,6 +159,9 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ...result,
     ...(isPlainObject(thing1[property]) && isPlainObject(thing2[property])
       ? {[property]: merge(thing1[property], thing2[property])}
-      : {}),
+      : (isArray(thing1[property]) && isArray(thing2[property]))
+        ? {[property]: [...thing1[property] as unknown as [], ...thing2[property] as unknown as []]}
+        : {}
+    ),
   }), {}),
 });
