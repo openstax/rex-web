@@ -1,8 +1,8 @@
 import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
 import {
+  CountsPerSource,
   HighlightData,
-  HighlightsTotalCountsPerPage,
   SummaryFilters,
   SummaryHighlights,
 } from './types';
@@ -29,4 +29,5 @@ export const closeMyHighlights = createStandardAction('Content/closeMyHighlights
 export const setSummaryFilters = createStandardAction('Content/setSummaryFilters')<Partial<SummaryFilters>>();
 export const receiveSummaryHighlights = createStandardAction('Content/receiveSummaryHighlights')<SummaryHighlights>();
 export const receiveHighlightsTotalCounts = createStandardAction(
-  'Content/receiveHighlightsTotalCounts')<HighlightsTotalCountsPerPage>();
+  'Content/receiveHighlightsTotalCounts'
+)<CountsPerSource>();
