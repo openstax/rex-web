@@ -2,6 +2,7 @@ export { default as addCurrentPageToSummaryFilters } from './addCurrentPageToSum
 export { default as getHighlightLocationFilterForPage } from './getHighlightLocationFilterForPage';
 export { default as getHighlightLocationFilters } from './getHighlightLocationFilters';
 export { default as getMergedColorCountsForLocations } from './getMergedColorCountsForLocations';
+export { default as getHighlightLocationFiltersWithContent } from './getHighlightLocationFiltersWithContent';
 export {
   addOneToTotalCounts,
   addSummaryHighlight,
@@ -10,5 +11,4 @@ export {
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
-export { default as mergeHighlightsTotalCounts } from './mergeHighlightsTotalCounts';
 export { default as reduceColorCounts } from './reduceColorCounts';

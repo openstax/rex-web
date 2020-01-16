@@ -1,22 +1,40 @@
-from tests.conftest import DESKTOP, MOBILE
+
+from __future__ import annotations
+
+from time import sleep
+from typing import Tuple
 
 import pypom
-
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import (
+    ElementNotInteractableException,
+    StaleElementReferenceException,
+    TimeoutException,
+)
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+
+from tests.conftest import DESKTOP, MOBILE
 
 
 class Page(pypom.Page):
+
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
         super().__init__(driver, base_url, timeout, **url_kwargs)
 
+    _math_equation_locator = (
+        By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
 
     @property
+    def loaded(self) -> bool:
+        return super().loaded and (sleep(1.0) or True)
+
+    @property
     def page_title(self):
-        return self.find_element(*self._title_locator).get_attribute("innerHTML")
+        return (self.find_element(*self._title_locator)
+                .get_attribute("innerHTML"))
 
     @property
     def window_width(self):
@@ -45,13 +63,15 @@ class Page(pypom.Page):
         return self
 
     def click_and_wait_for_load(self, element: WebElement):
-        """Clicks an offscreen element and waits for title to load.
-        Clicks the given element, even if it is offscreen, by sending the ENTER key.
-        Returns after loading the last element (title) of the page).
+        """Click an offscreen element and wait for title to load.
+
+        Clicks the given element, even if it is offscreen, by sending the ENTER
+        key. Returns after loading the last element (title) of the page).
+
         """
         title_before_click = self.page_title
         element.send_keys(Keys.ENTER)
-        return self.wait.until(lambda _: title_before_click != (self.page_title))
+        self.wait.until(lambda _: title_before_click != (self.page_title))
 
     def element_is_not_interactable(self, element):
         try:
@@ -75,7 +95,6 @@ class Page(pypom.Page):
             )
         ).strip("px")
 
-
     @property
     def scroll_position(self):
         return self.driver.execute_script("return window.pageYOffset;")
@@ -84,15 +103,78 @@ class Page(pypom.Page):
     def page_not_scrolled(self):
         return self.driver.execute_script("return window.pageYOffset;") == 0
 
-
     def offscreen_click(self, element=None):
         """Clicks an offscreen element (or the region's root).
 
-        Clicks the given element, even if it is offscreen, by sending the ENTER key.
-        Returns the element.
+        Clicks the given element, even if it is offscreen, by sending the ENTER
+        key. Returns the element.
+
+        .. note::
+           We actually navigate using the ENTER key because scrolling the page
+           can be flaky; see https://stackoverflow.com/a/39918249
+
         """
-        # We actually navigate using the ENTER key because scrolling the page can be flaky
-        # https://stackoverflow.com/a/39918249
         # return self.page.offscreen_click(element or self.root)
         element.send_keys(Keys.ENTER)
         return element
+
+    def reload(self, math_check: bool = False) -> Page:
+        """Reload the current page.
+
+        Ignore stale element issues because we're reloading the page;
+        everything is going to be stale if accessed too quickly
+        (multi-process Firefox issue).
+
+        :param bool math_check: (optional) look for rendered math and, if not
+            found, rerun MathJax's search
+        :return: the current page
+        :rtype:
+
+        """
+        try:
+            self.driver.execute_script('location.reload();')
+            self.wait_for_page_to_load()
+        except StaleElementReferenceException:
+            pass
+        if math_check:
+            wait = WebDriverWait(self.driver, 3)
+            try:
+                wait.until(
+                    lambda _: self.find_elements(*self._math_equation_locator))
+            except TimeoutException:
+                from warnings import warn
+                warn("On page reload - "
+                     "no math found or MathJax failed to load; "
+                     "rerunning math search")
+                self.driver.execute_script(
+                    "MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
+                try:
+                    wait.until(
+                        lambda _:
+                        self.find_elements(*self._math_equation_locator))
+                except TimeoutException:
+                    pass
+                sleep(1.0)
+        return self
+
+    def get_window_size(self) -> Tuple[int, int]:
+        """Return the width and height of the browser window.
+
+        :return: the width and height of the current browser window
+        :rtype: (int, int)
+
+        """
+        size = self.driver.get_window_size()
+        return (size.get("width"), size.get("height"))
+
+    def set_window_size(self,
+                        width: int = DESKTOP[0],
+                        height: int = DESKTOP[1]):
+        """Resize the browser window.
+
+        :param int width: the desired browser width in pixels
+        :param int height: the desired browser height in pixels
+        :return: None
+
+        """
+        self.driver.set_window_size(width=width, height=height)
