@@ -358,18 +358,28 @@ class Content(Page):
     class Content(Region):
         """The main content for the book section."""
 
+        _caption_locator = (
+            By.CSS_SELECTOR, ".os-caption-container")
         _figure_container_locator = (
             By.CSS_SELECTOR, ".os-figure")
         _figure_locator = (
             By.CSS_SELECTOR, "figure")
+        _footnote_locator = (
+            By.CSS_SELECTOR, "[data-type=footnote-ref]")
         _highlight_box_locator = (
             By.CSS_SELECTOR, "form[class*=StyledCard], div[class*=StyledCard]")
         _highlighted_element_locator = (
             By.CSS_SELECTOR, ".highlight")
         _highlight_note_locator = (
             By.CSS_SELECTOR, "div[class*=StyledCard]")
+        _image_locator = (
+            By.CSS_SELECTOR, "img")
+        _link_locator = (
+            By.CSS_SELECTOR, ":not([class*=PrevNextBar])"
+                             ":not(sup):not([id*=footnote]) > a")
         _list_locator = (
-            By.CSS_SELECTOR, "ol, ul")
+            By.CSS_SELECTOR, ":not([data-type*=footnote]) > ol, "
+                             ":not([data-type*=footnote]) > ul")
         _math_equation_locator = (
             By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
         _show_solution_toggle_locator = (
@@ -383,6 +393,29 @@ class Content(Page):
                              "p[id^='eip'], p[id^='import-auto']")  # Phys
 
         @property
+        def captions(self) -> List[WebElement]:
+            """Return the list of figure and table captions.
+
+            .. note::
+               We exclude any captions that contain a highlight to avoid
+               collisions.
+
+            :return: the list of parent elements for each page caption
+            :rtype: list(WebElement)
+            :raises ContentError: if no captions are found in the content
+
+            """
+            captions = [
+                caption
+                for caption
+                in self.find_elements(*self._caption_locator)
+                if not caption.find_elements(
+                    *self._highlighted_element_locator)]
+            if not captions:
+                raise ContentError("no clean captions found")
+            return captions
+
+        @property
         def figures(self) -> List[WebElement]:
             """Return the list of figures in the current book section.
 
@@ -392,12 +425,33 @@ class Content(Page):
             :raises ContentError: if no figures are found in the content
 
             """
-            figs = [figure
-                    for figure
-                    in self.find_elements(*self._figure_locator)]
-            if not figs:
+            figures = [figure
+                       for figure
+                       in self.find_elements(*self._figure_locator)
+                       if not figure.find_elements(
+                           *self._highlighted_element_locator)]
+            if not figures:
                 raise ContentError("no figures found")
-            return figs
+            return figures
+
+        @property
+        def footnotes(self) -> List[WebElement]:
+            """Return the list of section footnotes.
+
+            :return: the list of parent elements for each page footnote
+            :rtype: list(WebElement)
+            :raises ContentError: if no footnotes are found for the book
+                section
+
+            """
+            notes = [footnote
+                     for footnote
+                     in self.find_elements(*self._footnote_locator)
+                     if not footnote.find_elements(
+                         *self._highlighted_element_locator)]
+            if not notes:
+                raise ContentError("no footnotes found")
+            return notes
 
         @property
         def figures_and_captions(self) -> List[WebElement]:
@@ -411,9 +465,11 @@ class Content(Page):
             """
             figs = [figure_and_caption
                     for figure_and_caption
-                    in self.find_elements(*self._figure_container_locator)]
+                    in self.find_elements(*self._figure_container_locator)
+                    if not figure_and_caption.find_elements(
+                        *self._highlighted_element_locator)]
             if not figs:
-                raise ContentError("no list groups found")
+                raise ContentError("no figure groups found")
             return figs
 
         @property
@@ -443,6 +499,7 @@ class Content(Page):
                     COMPUTED_STYLES.format(field=".display"), box)
                 if display != "none":
                     return self.HighlightBox(self, box)
+            sleep(5)
             raise NoSuchElementException("No open highlight boxes found")
 
         @property
@@ -483,6 +540,48 @@ class Content(Page):
                              in self.highlights]))
 
         @property
+        def images(self) -> List[WebElement]:
+            """Return the content images.
+
+            :return: the list of images within the section
+            :rtype: list(WebElement)
+            :raises ContentError: if no image is found in the content
+
+            """
+            images = [image
+                      for image
+                      in self.find_elements(*self._image_locator)
+                      if not image.find_elements(
+                          *self._highlighted_element_locator)]
+            if not images:
+                raise ContentError("no images found")
+            return images
+
+        @property
+        def links(self) -> List[WebElement]:
+            """Return the list of internal and external links in the content.
+
+            .. note::
+               We exclude any links that contain a highlight to avoid
+               collisions.
+
+            :return: the list of both internal and external links within the
+                current page content
+            :rtype: list(WebElement)
+            :raises ContentError: if no links are found in the content
+
+            """
+            links = [
+                link
+                for link
+                in self.find_elements(*self._link_locator)
+                if not link.find_elements(
+                    *self._highlighted_element_locator)]
+            if not links:
+                raise ContentError("no clean links found")
+            return links
+
+        @property
         def lists(self) -> List[WebElement]:
             """Return the root elements for ordered and unordered lists.
 
@@ -494,7 +593,9 @@ class Content(Page):
             """
             lists = [list_group
                      for list_group
-                     in self.find_elements(*self._list_locator)]
+                     in self.find_elements(*self._list_locator)
+                     if not list_group.find_elements(
+                         *self._highlighted_element_locator)]
             if not lists:
                 raise ContentError("no list groups found")
             return lists
@@ -514,7 +615,7 @@ class Content(Page):
             :raises ContentError: if no Math is found in the content
 
             """
-            wait = WebDriverWait(self.driver, 3)
+            wait = WebDriverWait(self.driver, 1)
             try:
                 wait.until(
                     lambda _: self.find_elements(*self._math_equation_locator))
@@ -529,7 +630,9 @@ class Content(Page):
                     lambda _: self.find_elements(*self._math_equation_locator))
             math = [equation
                     for equation
-                    in self.find_elements(*self._math_equation_locator)]
+                    in self.find_elements(*self._math_equation_locator)
+                    if not equation.find_elements(
+                        *self._highlighted_element_locator)]
             if not math:
                 raise ContentError("no rendered math found")
             return math
@@ -560,7 +663,9 @@ class Content(Page):
             """
             paragraphs = [text
                           for text
-                          in self.find_elements(*self._text_content_locator)]
+                          in self.find_elements(*self._text_content_locator)
+                          if not text.find_elements(
+                              *self._highlighted_element_locator)]
             if not paragraphs:
                 raise ContentError("no standard paragraph content found")
             return paragraphs
@@ -593,7 +698,9 @@ class Content(Page):
             """
             tables = [table
                       for table
-                      in self.find_elements(*self._table_locator)]
+                      in self.find_elements(*self._table_locator)
+                      if not table.find_elements(
+                          *self._highlighted_element_locator)]
             if not tables:
                 raise ContentError("no tables found")
             return tables
@@ -733,10 +840,21 @@ class Content(Page):
             height = round_up(boundry.get("height"))
 
             # Determine where to start and stop the hightlight
-            # Normally begin at the top left except for tables, which should
-            # begin within the first cell (ignore the table/cell borders)
-            start = (0, 0) if "table" not in target.tag_name else (3, 3)
-            if offset == Highlight.ENTIRE:
+            # Normally begin at the top left except for images, which should
+            # begin to the left of the picture, or tables, which should begin
+            # within the first cell to ignore the table/cell borders.
+            if target.tag_name == "img" or target.tag_name == "figure":
+                start = (-10, 0)
+            elif target.tag_name == "table":
+                start = (3, 3)
+            elif target.tag_name == "a":
+                start = (-1, 1)
+            else:
+                start = (0, 0)
+
+            if target.tag_name == "img" or target.tag_name == "figure":
+                end = (width * 0.75, 3)
+            elif offset == Highlight.ENTIRE:
                 end = (width - 1,
                        height - 1)
             elif offset == Highlight.RANDOM:
@@ -789,14 +907,29 @@ class Content(Page):
             """
             retag = tuple(sum(x) for x in zip(start, (1, 1)))
 
-            (ActionChains(self.driver)
-                .move_to_element_with_offset(target, *start)
-                .click_and_hold()
-                .move_by_offset(*stop)
-                .release()
-                .move_to_element_with_offset(target, *retag)
-                .click()
-                .perform())
+            actions = ActionChains(self.driver)
+
+            if target.tag_name == "table":
+                (actions.move_to_element_with_offset(target, *start)
+                    .click_and_hold()
+                    .move_by_offset(*stop)
+                    .release()
+                    .move_to_element_with_offset(target, *retag)
+                    .click()
+                    .perform())
+                return
+            (actions.move_to_element_with_offset(target, *start)
+                    .click_and_hold()
+                    .move_by_offset(*stop)
+                    .release()
+                    .perform())
+            try:
+                self.highlight_box
+            except NoSuchElementException:
+                sleep(0.1)
+                (actions.move_to_element_with_offset(target, *retag)
+                    .click()
+                    .perform())
 
         class HighlightBox(Region):
             """The highlight color and annotation box."""

@@ -52,6 +52,18 @@ class MyHighlights(Region):
         return self.find_element(*self._content_header_locator).text
 
     @property
+    def highlights(self) -> List[MyHighlights.Highlight]:
+        """Access the page highlights.
+
+        :return: the list of available highlights
+        :rtype: list(:py:class:`~regions.my_highlights.MyHighlights.Highlight`)
+
+        """
+        return [self.Highlight(self, highlight)
+                for highlight
+                in self.find_elements(*self._highlight_locator)]
+
+    @property
     def log_in_available(self) -> bool:
         """Return True if the log in link is available.
 
@@ -95,17 +107,6 @@ class MyHighlights(Region):
         Utilities.click_option(self.driver, element=button)
         self.wait.until(expect.staleness_of(self.root))
         return self.page
-
-    def highlights(self) -> List[MyHighlights.Highlight]:
-        """Access the page highlights.
-
-        :return: the list of available highlights
-        :rtype: list(:py:class:`~regions.my_highlights.MyHighlights.Highlight`)
-
-        """
-        return [self.Highlight(self, highlight)
-                for highlight
-                in self.find_elements(*self._highlight_locator)]
 
     def log_in(self) -> Login:
         """Click the 'Log in' link.

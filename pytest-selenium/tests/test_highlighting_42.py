@@ -1,5 +1,6 @@
 """Reading Experience highlighting."""
 
+import logging
 import random
 
 import pytest
@@ -113,10 +114,10 @@ def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
 
     # TODO: placeholder section assertions
 
-    assert(len(my_highlights.highlights) == len(highlight_ids)), (
+    current_summary_highlights = len(my_highlights.highlights)
+    assert(current_summary_highlights == len(highlight_ids)), (
         "unexpected number of highlights found on the summary page ("
-        f"found {len(my_highlights.highlights)}, "
-        f"expected {len(highlight_ids)})")
+        f"found {current_summary_highlights}, expected {len(highlight_ids)})")
 
     for index, highlight in enumerate(my_highlights.highlights):
         assert(highlight_colors[index] == highlight.color), \
@@ -127,3 +128,102 @@ def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
 
         assert(highlight_notes[index] == highlight.note), \
             f"highlight note {index + 1} does not match content note"
+
+
+@markers.test_case("C592637")
+@markers.smoke_test
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("chemistry-2e",
+         "1-4-measurements")])
+def test_my_highlights_summary_shows_all_types_of_content(
+        selenium, base_url, book_slug, page_slug):
+    """My Highlights and Notes summary shows all types of page content."""
+    # GIVEN: the Chemistry 2e book section 1.4 is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   a long text paragraph, an image, a figure description, a bulleted
+    #        or numbered list, a table, a footnote, a link, and a rendered math
+    #        equation are highlighted
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email, password = Signup(selenium).register(True)
+    logging.info(f'"{email.address}":"{password}"')
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+
+    book.content.highlight(target=random.choice(book.content.paragraphs),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = book.content.highlight_ids
+    book.content.highlight(target=random.choice(book.content.images),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.figures),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.captions),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.lists),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.tables),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.footnotes),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.links),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+    book.content.highlight(target=random.choice(book.content.math),
+                           offset=Highlight.ENTIRE,
+                           color=Highlight.random_color())
+    highlight_ids = highlight_ids + \
+        list(set(book.content.highlight_ids) - set(highlight_ids))
+
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    # WHEN: they click on the My highlights button
+    my_highlights = book.toolbar.my_highlights()
+
+    # THEN: the My Highlights and Notes modal is displayed
+    # AND:  all of the highlighted content is displayed in the summary page
+    assert(book.my_highlights_open), \
+        "My Highlights modal not open"
+    assert(my_highlights.root.is_displayed()), \
+        "My Highlights modal not displayed"
+
+    summary_highlights = len(my_highlights.highlights)
+    assert(summary_highlights == len(highlight_ids)), (
+        "number of summary highlights different from page highlights "
+        f"(found {summary_highlights}, expected {len(highlight_ids)})")
