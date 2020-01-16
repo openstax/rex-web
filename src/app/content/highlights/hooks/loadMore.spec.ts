@@ -8,7 +8,12 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveHighlightsTotalCounts, receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import {
+  loadMoreSummaryHighlights,
+  receiveHighlightsTotalCounts,
+  receiveSummaryHighlights,
+  setSummaryFilters
+} from '../actions';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -33,6 +38,100 @@ describe('filtersChange', () => {
     dispatch = jest.spyOn(helpers, 'dispatch');
 
     hook = (require('./loadMore').hookBody)(helpers);
+  });
+
+  it('fetches multiple pages across multiple sources', async() => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': 15,
+      'testbook1-testpage11-uuid': 5,
+      'testbook1-testpage2-uuid': 15,
+    }));
+
+    const page1 = Array.from(new Array(15).keys()).map((index) => ({
+      id: 'highlight' + index,
+      sourceId: 'testbook1-testpage1-uuid',
+    })) as HighlightData[];
+
+    const page2 = Array.from(new Array(5).keys()).map((index) => ({
+      id: 'highlight' + (15 + index),
+      sourceId: 'testbook1-testpage2-uuid',
+    })) as HighlightData[];
+
+    const highlights = [
+      ...page1,
+      ...page2,
+    ];
+
+    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValueOnce(Promise.resolve({
+        data: highlights,
+        meta: {
+          perPage: 20,
+          totalCount: 30,
+        },
+      }))
+    ;
+
+    const locationIds = ['testbook1-testpage1-uuid', 'testbook1-testchapter1-uuid'];
+    await hook(store.dispatch(setSummaryFilters({locationIds})));
+
+    const response: SummaryHighlights = {
+      'testbook1-testchapter1-uuid': {
+        'testbook1-testpage2-uuid': page2,
+      },
+      'testbook1-testpage1-uuid': {
+        'testbook1-testpage1-uuid': page1,
+      },
+    };
+
+    expect(highlightClient).lastCalledWith(expect.objectContaining({
+      page: 1,
+    }));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {
+      page: 1,
+      sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+    }));
+
+    const page3 = Array.from(new Array(10).keys()).map((_, index) => ({
+      id: 'highlight' + (20 + index),
+      sourceId: 'testbook1-testpage2-uuid',
+    })) as HighlightData[];
+
+    const page4 = Array.from(new Array(5).keys()).map((_, index) => ({
+      id: 'highlight' + (30 + index),
+      sourceId: 'testbook1-testpage11-uuid',
+    })) as HighlightData[];
+
+    highlightClient
+      .mockReturnValueOnce(Promise.resolve({
+        data: page3,
+        meta: {
+          perPage: 20,
+          totalCount: 30,
+        },
+      }))
+      .mockReturnValueOnce(Promise.resolve({
+        data: page4,
+        meta: {
+          perPage: 20,
+          totalCount: 5,
+        },
+      }))
+    ;
+
+    await hook(store.dispatch(loadMoreSummaryHighlights()));
+
+    const response2: SummaryHighlights = {
+      'testbook1-testchapter1-uuid': {
+        'testbook1-testpage11-uuid': page4,
+        'testbook1-testpage2-uuid': page3,
+      },
+    };
+
+    expect(highlightClient).toHaveBeenCalledTimes(3);
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response2, null));
   });
 
   it('receive summary data for selected page', async() => {

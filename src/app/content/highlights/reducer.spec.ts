@@ -74,6 +74,14 @@ describe('highlight reducer', () => {
     expect(state.summary.totalCountsPerPage).toMatchObject(totalCountsPerPage);
   });
 
+  it('request more summary highlights', () => {
+    const state = reducer({
+      ...initialState,
+    }, actions.loadMoreSummaryHighlights());
+
+    expect(state.summary.loading).toBe(true);
+  });
+
   it('creates highlights', () => {
     const state = reducer({
       ...initialState,
@@ -322,7 +330,7 @@ describe('highlight reducer', () => {
           },
           loading: true,
         },
-      }, actions.receiveSummaryHighlights(highlights));
+      }, actions.receiveSummaryHighlights(highlights, null));
 
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);

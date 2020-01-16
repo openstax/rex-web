@@ -50,22 +50,20 @@ const loadUntilPageSize = async({
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
-  if (!highlightsResponse || !highlightsResponse.data) {
-    throw new Error('response from highlights api is invalid');
-  }
+  const data = assertDefined(highlightsResponse.data, 'response from highlights api is invalid');
 
   const meta = assertDefined(highlightsResponse.meta, 'response from highlights api is invalid');
   const perPage = assertDefined(meta.perPage, 'response from highlights api is invalid');
   const totalCount = assertDefined(meta.totalCount, 'response from highlights api is invalid');
-  const loadedResults = (page - 1) * perPage + highlightsResponse.data.length;
+  const loadedResults = (page - 1) * perPage + data.length;
 
   const pagination = loadedResults < totalCount
     ? {sourceIds, page}
     : null;
 
   const highlights = args.highlights
-    ? [...args.highlights, ...highlightsResponse.data]
-    : highlightsResponse.data
+    ? [...args.highlights, ...data]
+    : data
   ;
 
   if (highlights.length < summaryPageSize) {
