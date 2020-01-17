@@ -3,9 +3,9 @@ export { default as getHighlightLocationFilterForPage } from './getHighlightLoca
 export { default as getHighlightLocationFilters } from './getHighlightLocationFilters';
 export { default as getHighlightLocationFiltersWithContent } from './getHighlightLocationFiltersWithContent';
 export {
-  addOneToTotalCounts,
+  addToTotalCounts,
   addSummaryHighlight,
-  removeOneFromTotalCounts,
+  removeFromTotalCounts,
   removeSummaryHighlight,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,

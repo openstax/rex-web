@@ -4,6 +4,7 @@ import {
   HighlightUpdateColorEnum,
   UpdateHighlightRequest,
 } from '@openstax/highlighter/dist/api';
+import flow from 'lodash/fp/flow';
 import {
   CountsPerSource,
   SummaryFilters,
@@ -38,12 +39,23 @@ interface DataRemove extends BaseData {
   id: string;
 }
 
-export const removeSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataRemove) => {
+export const removeSummaryHighlight = (
+  summaryHighlights: SummaryHighlights,
+  data: DataRemove
+): [SummaryHighlights, Highlight | null] => {
   const { locationFilterId, pageId, id } = data;
 
   const filteredHighlights = summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId]
     ? summaryHighlights[locationFilterId][pageId].filter((highlight) => highlight.id !== id)
-    : [];
+    : null;
+
+  const removedHighlight = summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId]
+    ? summaryHighlights[locationFilterId][pageId].find((highlight) => highlight.id === id)
+    : null;
+
+  if (!filteredHighlights || !removedHighlight) {
+    return [summaryHighlights, null];
+  }
 
   const newHighlights: SummaryHighlights = {
     ...summaryHighlights,
@@ -60,7 +72,7 @@ export const removeSummaryHighlight = (summaryHighlights: SummaryHighlights, dat
     delete newHighlights[locationFilterId];
   }
 
-  return newHighlights;
+  return [newHighlights, removedHighlight];
 };
 
 interface DataUpdate extends BaseData, UpdateHighlightRequest {}
@@ -123,7 +135,7 @@ export const updateSummaryHighlightsDependOnFilters = (
   // If highlight's color has changed and it's no longer in filters
   // remove this highlight from summary highlights...
   if (!colors.includes(color)) {
-    newHighlights = removeSummaryHighlight(newHighlights, {
+    [newHighlights] = removeSummaryHighlight(newHighlights, {
       id: updatedHighlight.id,
       locationFilterId,
       pageId,
@@ -157,28 +169,60 @@ export const updateSummaryHighlightsDependOnFilters = (
   return newHighlights;
 };
 
-export const removeOneFromTotalCounts = (
-  totalCounts: CountsPerSource, id: string
+export const removeFromTotalCounts = (
+  totalCounts: CountsPerSource,
+  highlight: Highlight
 ) => {
-  const newTotalCounts = {...totalCounts};
+  if (totalCounts[highlight.sourceId] && totalCounts[highlight.sourceId][highlight.color]) {
+    const newTotal = {
+      ...totalCounts,
+      [highlight.sourceId]: {
+        ...totalCounts[highlight.sourceId],
+        [highlight.color]: totalCounts[highlight.sourceId][highlight.color]! - 1,
+      },
+    };
 
-  if (newTotalCounts[id]) {
-    newTotalCounts[id] -= 1;
+    if (newTotal[highlight.sourceId][highlight.color] === 0) {
+      delete newTotal[highlight.sourceId][highlight.color];
+    }
+
+    if (Object.keys(newTotal[highlight.sourceId]).length === 0) {
+      delete newTotal[highlight.sourceId];
+    }
+
+    return newTotal;
   }
 
-  return newTotalCounts;
+  return totalCounts;
 };
 
-export const addOneToTotalCounts = (
-  totalCounts: CountsPerSource, id: string
+export const addToTotalCounts = (
+  totalCounts: CountsPerSource,
+  highlight: Highlight
 ) => {
-  const newTotalCounts = {...totalCounts};
+  return {
+    ...totalCounts,
+    [highlight.sourceId]: {
+      ...totalCounts[highlight.sourceId] || {},
+      [highlight.color]: ((totalCounts[highlight.sourceId] || {})[highlight.color] || 0) + 1,
+    },
+  };
+};
 
-  if (newTotalCounts[id]) {
-    newTotalCounts[id] += 1;
-  } else {
-    newTotalCounts[id] = 1;
+export const updateInTotalCounts = (
+  totalCounts: CountsPerSource,
+  oldHighlight: Highlight,
+  newHighlight: Highlight
+) => {
+  if (
+    totalCounts[oldHighlight.sourceId] === totalCounts[newHighlight.sourceId]
+    && totalCounts[oldHighlight.color] === totalCounts[newHighlight.color]
+  ) {
+    return totalCounts;
   }
 
-  return newTotalCounts;
+  return flow(
+    (counts) => removeFromTotalCounts(counts, oldHighlight),
+    (counts) => addToTotalCounts(counts, newHighlight)
+  )(totalCounts);
 };

@@ -63,8 +63,8 @@ describe('highlight reducer', () => {
 
   it('receive total counts', () => {
     const totalCountsPerPage: CountsPerSource = {
-      page1: 1,
-      page2: 2,
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
     const state = reducer({
@@ -92,7 +92,7 @@ describe('highlight reducer', () => {
           locationIds: ['highlightChapter'],
         },
       },
-    }, actions.createHighlight(mockHighlight as any, {
+    }, actions.createHighlight({...mockHighlight, sourceId: 'highlightSource'} as any, {
       locationFilterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
@@ -102,7 +102,7 @@ describe('highlight reducer', () => {
     }
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
-    expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: 1 });
+    expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: {blue: 1} });
     const highlights = state.summary.highlights.highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
     expect(highlights.find((h) => h.id === mockHighlight.id)).toBeTruthy();
@@ -129,12 +129,12 @@ describe('highlight reducer', () => {
           ...initialState.summary,
           highlights: {
             highlightChapter: {
-              highlightSource: [mockHighlight],
+              highlightSource: [{...mockHighlight, sourceId: 'highlightSource'}],
               otherHighlightSource: [mockHighlight],
             },
           },
           totalCountsPerPage: {
-            highlightSource: 2,
+            highlightSource: {[HighlightColorEnum.Green]: 1},
           },
         },
       }, actions.deleteHighlight(mockHighlight.id, {
@@ -147,7 +147,7 @@ describe('highlight reducer', () => {
       }
 
       expect(state.highlights.length).toEqual(0);
-      expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: 1 });
+      expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: {green: 1} });
       const chapterHighlights = state.summary.highlights.highlightChapter;
       expect(Object.keys(chapterHighlights).length).toEqual(1);
       expect(chapterHighlights.highlightSource).toBeUndefined();

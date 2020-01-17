@@ -1,5 +1,9 @@
 import add from 'lodash/fp/add';
+import flow from 'lodash/fp/flow';
+import map from 'lodash/fp/map';
 import pickBy from 'lodash/fp/pickBy';
+import reduce from 'lodash/fp/reduce';
+import values from 'lodash/fp/values';
 import { reduceUntil } from '../../../fpUtils';
 import { isArchiveTree } from '../../guards';
 import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
@@ -10,7 +14,15 @@ import {
 import { stripIdVersion } from '../../utils/idUtils';
 import { CountsPerSource, HighlightLocationFilters } from '../types';
 
-const totalOfCountsPerSource = (perSource: CountsPerSource) => Object.values(perSource).reduce(add, 0);
+const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
+  values,
+  reduce(add, 0)
+);
+const totalOfCountsPerSource: (counts: CountsPerSource) => number = flow(
+  values,
+  map(totalOfCountsForSource),
+  reduce(add, 0)
+);
 
 /*
  * in order to avoid passing all page ids for all selected chapters in
@@ -33,7 +45,7 @@ export const getNextPageSources = (
     const pageId = stripIdVersion(page.id);
     const pageCount = remainingCounts[pageId];
 
-    if (!pageCount) {
+    if (!totalOfCountsForSource(pageCount)) {
       return counts;
     }
 
@@ -56,7 +68,7 @@ export const filterCountsPerSourceByLocationFilter = (
     (location) => archiveTreeContainsNode(location, sourceId)
   );
 
-  const matchesLocationFilter = (_count: number, sourceId: string) => {
+  const matchesLocationFilter = (_counts: CountsPerSource[string], sourceId: string) => {
     return locationFilters.has(sourceId) || someChapterContainsNode(sourceId);
   };
 
