@@ -11,7 +11,7 @@ import { SummaryHighlightsPagination } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 import { getNextPageSources } from '../utils/paginationUtils';
 
-const incrementPage = (pagination: Exclude<SummaryHighlightsPagination, null>) =>
+const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
   ({...pagination, page: pagination.page + 1});
 
 const getNewSources = (state: AppState, omitSources: string[]) => {
