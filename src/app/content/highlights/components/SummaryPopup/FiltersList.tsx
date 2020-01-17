@@ -8,6 +8,7 @@ import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
+import { disablePrint } from '../../../components/utils/disablePrint';
 import { setSummaryFilters } from '../../actions';
 import { highlightLocationFilters, summaryFilters } from '../../selectors';
 
@@ -19,6 +20,8 @@ export const StyledPlainButton = styled(PlainButton)`
     height: 1rem;
     width: 1rem;
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -28,6 +31,10 @@ const ItemLabel = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+
+  @media print {
+    max-width: max-content;
+  }
 `;
 
 interface FiltersListColorProps {
@@ -116,5 +123,9 @@ export default styled(FiltersList)`
     margin-right: 2rem;
     display: flex;
     align-items: center;
+  }
+
+  @media print {
+    margin: 0;
   }
 `;

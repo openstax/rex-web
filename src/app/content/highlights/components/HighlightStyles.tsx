@@ -88,12 +88,7 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
-
-  @media print {
-    background: white;
-    color: ${theme.color.text.default};
-    padding-left: 0;
-  }
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

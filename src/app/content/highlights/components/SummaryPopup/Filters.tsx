@@ -91,5 +91,13 @@ export default styled(Filters)`
     }
   `}
 
-  ${disablePrint}
+  @media print {
+    padding-left: 0;
+  }
+
+  ${css`
+    > *:not(${FiltersList}) {
+      ${disablePrint}
+    }
+  `}
 `;
