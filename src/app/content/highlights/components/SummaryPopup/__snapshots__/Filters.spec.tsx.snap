@@ -57,6 +57,7 @@ exports[`Filters matches snapshot 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  height: auto;
 }
 
 .c11:hover,
@@ -79,31 +80,22 @@ exports[`Filters matches snapshot 1`] = `
   padding: 0.4rem;
 }
 
-.c15 {
+.c16 {
   cursor: pointer;
   border: none;
   padding: 0;
   background: none;
-  padding: 0.5rem;
-}
-
-.c15 svg {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c16 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c11 svg {
+.c16 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c12 {
+.c17 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-weight: 300;
@@ -116,7 +108,7 @@ exports[`Filters matches snapshot 1`] = `
   line-height: 1.5rem;
 }
 
-.c14 {
+.c15 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
@@ -133,8 +125,7 @@ exports[`Filters matches snapshot 1`] = `
   list-style: none;
 }
 
-
-.c10 li {
+.c15 li {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -213,9 +204,29 @@ exports[`Filters matches snapshot 1`] = `
   }
 }
 
-@media screen and (max-width:75em) {
-  .c14 {
+@media print {
+  .c16 {
     display: none;
+  }
+}
+
+@media print {
+  .c17 {
+    max-width: -webkit-max-content;
+    max-width: -moz-max-content;
+    max-width: max-content;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c15 {
+    display: none;
+  }
+}
+
+@media print {
+  .c15 {
+    margin: 0;
   }
 }
 
@@ -234,6 +245,12 @@ exports[`Filters matches snapshot 1`] = `
 
 @media print {
   .c0 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c0 > *:not(.c14) {
     display: none;
   }
 }
@@ -318,11 +335,11 @@ exports[`Filters matches snapshot 1`] = `
     </span>
   </button>
   <ul
-    className="c14"
+    className="c14 c15"
   >
     <li>
       <button
-        className="c15"
+        className="c16"
         onClick={[Function]}
       >
         <svg
@@ -353,14 +370,14 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c16"
+        className="c17"
       >
         blue
       </span>
     </li>
     <li>
       <button
-        className="c15"
+        className="c16"
         onClick={[Function]}
       >
         <svg
@@ -391,14 +408,14 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c16"
+        className="c17"
       >
         green
       </span>
     </li>
     <li>
       <button
-        className="c15"
+        className="c16"
         onClick={[Function]}
       >
         <svg
@@ -429,14 +446,14 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c16"
+        className="c17"
       >
         pink
       </span>
     </li>
     <li>
       <button
-        className="c15"
+        className="c16"
         onClick={[Function]}
       >
         <svg
@@ -467,14 +484,14 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c16"
+        className="c17"
       >
         purple
       </span>
     </li>
     <li>
       <button
-        className="c15"
+        className="c16"
         onClick={[Function]}
       >
         <svg
@@ -505,7 +522,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c16"
+        className="c17"
       >
         yellow
       </span>
