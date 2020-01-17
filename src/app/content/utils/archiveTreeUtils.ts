@@ -1,4 +1,3 @@
-import { DOMParser } from '@openstax/types/lib.dom';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -57,11 +56,12 @@ export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
 export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
 
 export const splitTitleParts = (str: string) => {
+
   const domNode = new DOMParser().parseFromString(str, 'text/html');
   const titleNode = domNode.querySelector('.os-text');
   const numNode = domNode.querySelector('.os-number');
 
-  const title = titleNode ? titleNode.textContent : null;
+  const title = titleNode ? titleNode.textContent : str;
   const num = numNode ? numNode.textContent : null;
 
   return [num, title];
@@ -125,10 +125,10 @@ export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
   && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
-  && getArchiveTreeSectionNumber(section) === undefined
+  && getArchiveTreeSectionNumber(section) === null
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
-  && getArchiveTreeSectionNumber(section) !== undefined
+  && getArchiveTreeSectionNumber(section) !== null
 ;
