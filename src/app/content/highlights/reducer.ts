@@ -5,6 +5,7 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
+import { merge } from '../../utils';
 import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
@@ -136,6 +137,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.loadMoreSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: true,
+        },
+      };
+    }
     case getType(actions.setSummaryFilters): {
       return {
         ...state,
@@ -145,7 +155,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
           loading: true,
+          pagination: null,
         },
       };
     }
@@ -154,8 +166,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          highlights: action.payload,
+          highlights: merge(state.summary.highlights, action.payload),
           loading: false,
+          pagination: action.meta,
         },
       };
     }

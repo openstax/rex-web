@@ -1,7 +1,6 @@
 import flow from 'lodash/fp/flow';
 import mapValues from 'lodash/fp/mapValues';
 import merge from 'lodash/fp/merge';
-import omit from 'lodash/fp/omit';
 import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
@@ -74,6 +73,11 @@ export const summaryHighlights = createSelector(
   (state) => state.summary.highlights
 );
 
+export const summaryPagination = createSelector(
+  localState,
+  (state) => state.summary.pagination
+);
+
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
  (book) => book
@@ -87,7 +91,7 @@ export const highlightLocationFiltersWithContent = createSelector(
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
 
-const loadedCountsPerSource = createSelector(
+export const loadedCountsPerSource = createSelector(
   summaryHighlights,
   flow(
     values,
@@ -105,14 +109,8 @@ const selectedHighlightLocationFilters = createSelector(
 );
 
 // TODO - filter this by color when available from api
-const filteredCountsPerPage = createSelector(
+export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
   (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts)
-);
-
-export const remainingSourceCounts = createSelector(
-  loadedCountsPerSource,
-  filteredCountsPerPage,
-  (loadedCounts, totalCounts) => omit(Object.keys(loadedCounts), totalCounts)
 );
