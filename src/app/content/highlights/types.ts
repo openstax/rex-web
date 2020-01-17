@@ -12,23 +12,18 @@ export interface SummaryFilters {
 
 export type CountsPerSource = Exclude<HighlightsSummary['countsPerSource'], undefined>;
 
+export type SummaryHighlightsPagination = null | {
+  sourceIds: string[];
+  page: number;
+};
+
 export interface State {
   myHighlightsOpen: boolean;
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
-    pagination: {
-      // even though we're manually splitting our requests out into smaller batches of sources,
-      // if a source has more than [numPage] highlights the api will still paginate. in order to
-      // access the subsequent pages, we need to store the original sources here, and continue to
-      // use them until we run out of pages, then grab the next batch of sources. on the LAST
-      // page the response size may be smaller than expected, in this case the next batch of
-      // sources should be immediately queried to fill the remaining [numPage]. use
-      // paginationUtils.getNextPageSources to get the next batch of sources
-      sources: string[];
-      page: number;
-    } | null,
+    pagination: SummaryHighlightsPagination,
     totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
     loading: boolean;

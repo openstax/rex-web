@@ -24,7 +24,7 @@ export const match = <T extends any>(predicate: T) => (arg: T extends Function ?
  */
 export const reduceUntil = <R>(predicate: (result: R) => boolean) =>
   <T>(array: T[], reducer: (result: R, item: T) => R, result: R): R => {
-    if (predicate(result)) {
+    if (predicate(result) || array.length === 0) {
       return result;
     }
 

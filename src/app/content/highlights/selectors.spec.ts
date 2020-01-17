@@ -55,19 +55,3 @@ describe('highlightLocationFiltersWithContent', () => {
     } as any)).toEqual(new Set());
   });
 });
-
-describe('remainingSourceCounts', () => {
-  it('returns remaining', () => {
-    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
-    expect(select.remainingSourceCounts({
-      summary: {
-        filters: {locationIds: ['chapter1', 'preface']},
-        highlights: {
-          chapter1: {page1: [{}]},
-          preface: {preface: [{}, {}]},
-        },
-        totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
-      },
-    } as any)).toEqual({page2: 3});
-  });
-});

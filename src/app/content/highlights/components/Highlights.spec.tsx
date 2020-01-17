@@ -62,7 +62,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -115,7 +115,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -143,7 +143,7 @@ describe('Highlights', () => {
       pageId2: 2,
     }));
     store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
-    store.dispatch(receiveSummaryHighlights({}));
+    store.dispatch(receiveSummaryHighlights({}, null));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -181,7 +181,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     });
 
     consoleError.mockReturnValueOnce(null);
