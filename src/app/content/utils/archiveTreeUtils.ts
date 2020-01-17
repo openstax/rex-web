@@ -1,3 +1,4 @@
+import { DOMParser } from '@openstax/types/lib.dom';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -56,17 +57,14 @@ export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
 export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
 
 export const splitTitleParts = (str: string) => {
-  const match = str
-    .match(/(<span class="os-number">(.*?)<\/span>)?.*?<span class="os-text">(.*?)<\/span>/);
+  const domNode = new DOMParser().parseFromString(str, 'text/html');
+  const titleNode = domNode.querySelector('.os-title');
+  const numNode = domNode.querySelector('.os-number');
 
-  if (match && match[3]) {
-    // ignore the first two matches which are the whole title
-    return match.slice(2);
-  } else {
-    /* title did not match the expected HTML format, assume it is
-    unbaked (there is no number and the entire thing is the title)*/
-    return [null, str];
-  }
+  const title = titleNode ? titleNode.textContent : null;
+  const num = numNode ? numNode.textContent : null;
+
+  return [num, title];
 };
 
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
