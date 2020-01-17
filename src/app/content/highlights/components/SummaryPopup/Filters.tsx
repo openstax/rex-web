@@ -8,7 +8,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
-import { popupPadding } from '../HighlightStyles'
+import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
