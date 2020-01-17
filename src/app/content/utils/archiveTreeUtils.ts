@@ -58,7 +58,7 @@ export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(
 
 export const splitTitleParts = (str: string) => {
   const domNode = new DOMParser().parseFromString(str, 'text/html');
-  const titleNode = domNode.querySelector('.os-title');
+  const titleNode = domNode.querySelector('.os-text');
   const numNode = domNode.querySelector('.os-number');
 
   const title = titleNode ? titleNode.textContent : null;
