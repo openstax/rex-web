@@ -155,7 +155,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
           loading: true,
+          pagination: null,
         },
       };
     }
