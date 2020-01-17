@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
+import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import Times from '../../../components/Times';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
@@ -250,7 +251,10 @@ export const InfoIconWrapper = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+export const CloseIconWrapper = PlainButton;
+
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
   color: ${theme.color.neutral.base};
   cursor: pointer;
 

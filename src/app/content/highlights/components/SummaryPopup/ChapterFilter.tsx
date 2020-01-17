@@ -7,7 +7,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, summaryFilters } from '../../selectors';
+import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -60,8 +60,7 @@ const chunk = <T extends any>(sections: T[]) => {
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
   const locationFilters = useSelector(highlightLocationFilters);
-  const locationFiltersIds = Array.from(locationFilters.keys());
-
+  const locationFiltersWithContent = useSelector(highlightLocationFiltersWithContent);
   const filters = useSelector(summaryFilters);
   const dispatch = useDispatch();
 
@@ -80,13 +79,14 @@ const ChapterFilter = ({className}: Props) => {
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(locationFiltersIds)}
+      onAll={() => setSelectedChapters(Array.from(locationFiltersWithContent.keys()))}
     />
     <Row>
       {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
           checked={filters.locationIds.includes(location.id)}
+          disabled={!locationFiltersWithContent.has(location.id)}
           onChange={() => handleChange(location.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />

@@ -93,11 +93,27 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 .c16 {
+  height: 1.7rem;
+  margin-right: 0.4rem;
+}
+
+.c11 svg {
+  height: 0.8rem;
+  width: 0.8rem;
+  color: #5e6062;
+}
+
+.c12 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-weight: 300;
+  color: #5e6062;
   max-width: 80px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+  line-height: 1.5rem;
 }
 
 .c14 {
@@ -117,8 +133,9 @@ exports[`Filters matches snapshot 1`] = `
   list-style: none;
 }
 
-.c14 li {
-  margin-right: 2rem;
+
+.c10 li {
+  margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -134,6 +151,7 @@ exports[`Filters matches snapshot 1`] = `
   width: 1rem;
   height: 2rem;
   margin-left: 0.8rem;
+  padding-top: 0.2rem;
 }
 
 .c10 {
@@ -178,6 +196,7 @@ exports[`Filters matches snapshot 1`] = `
   align-items: center;
   padding: 2.1rem 3.2rem 0 3.2rem;
   background: #fff;
+  border-bottom: 1px solid #d5d5d5;
 }
 
 .c0 .c4 {
@@ -336,7 +355,7 @@ exports[`Filters matches snapshot 1`] = `
       <span
         className="c16"
       >
-        yellow
+        blue
       </span>
     </li>
     <li>
@@ -412,7 +431,7 @@ exports[`Filters matches snapshot 1`] = `
       <span
         className="c16"
       >
-        blue
+        pink
       </span>
     </li>
     <li>
@@ -488,7 +507,7 @@ exports[`Filters matches snapshot 1`] = `
       <span
         className="c16"
       >
-        pink
+        yellow
       </span>
     </li>
   </ul>

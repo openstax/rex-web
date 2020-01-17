@@ -47,7 +47,7 @@ export const loadingPage = createSelector(
 
 export const pageParam = createSelector(
   localState,
-  (state) => state.params.page
+  (state) => state.params ? state.params.page : null
 );
 
 export const pageNode = createSelector(

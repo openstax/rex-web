@@ -3,7 +3,11 @@ import { receiveFeatureFlags } from '../../actions';
 import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
-import { HighlightData, SummaryHighlights } from './types';
+import {
+  CountsPerSource,
+  HighlightData,
+  SummaryHighlights,
+} from './types';
 
 const mockHighlight = {
   color: HighlightColorEnum.Blue,
@@ -57,6 +61,27 @@ describe('highlight reducer', () => {
     expect(state.focused).toEqual(undefined);
   });
 
+  it('receive total counts', () => {
+    const totalCountsPerPage: CountsPerSource = {
+      page1: 1,
+      page2: 2,
+    };
+
+    const state = reducer({
+      ...initialState,
+    }, actions.receiveHighlightsTotalCounts(totalCountsPerPage));
+
+    expect(state.summary.totalCountsPerPage).toMatchObject(totalCountsPerPage);
+  });
+
+  it('request more summary highlights', () => {
+    const state = reducer({
+      ...initialState,
+    }, actions.loadMoreSummaryHighlights());
+
+    expect(state.summary.loading).toBe(true);
+  });
+
   it('creates highlights', () => {
     const state = reducer({
       ...initialState,
@@ -77,6 +102,7 @@ describe('highlight reducer', () => {
     }
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
+    expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: 1 });
     const highlights = state.summary.highlights.highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
     expect(highlights.find((h) => h.id === mockHighlight.id)).toBeTruthy();
@@ -107,6 +133,9 @@ describe('highlight reducer', () => {
               otherHighlightSource: [mockHighlight],
             },
           },
+          totalCountsPerPage: {
+            highlightSource: 2,
+          },
         },
       }, actions.deleteHighlight(mockHighlight.id, {
         locationFilterId: 'highlightChapter',
@@ -118,6 +147,7 @@ describe('highlight reducer', () => {
       }
 
       expect(state.highlights.length).toEqual(0);
+      expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: 1 });
       const chapterHighlights = state.summary.highlights.highlightChapter;
       expect(Object.keys(chapterHighlights).length).toEqual(1);
       expect(chapterHighlights.highlightSource).toBeUndefined();
@@ -300,7 +330,7 @@ describe('highlight reducer', () => {
           },
           loading: true,
         },
-      }, actions.receiveSummaryHighlights(highlights));
+      }, actions.receiveSummaryHighlights(highlights, null));
 
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);
