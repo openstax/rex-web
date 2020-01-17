@@ -203,8 +203,8 @@ describe('highlight reducer', () => {
     });
 
     it('remove highlight from summary highlights if color filters does not match', () => {
-      const mock1 = mockHighlight;
-      const mock3 = {...mockHighlight, id: 'qwer'};
+      const mock1 = {...mockHighlight, sourceId: 'highlightSource'};
+      const mock3 = {...mockHighlight, id: 'qwer', sourceId: 'highlightSource'};
 
       const state = reducer({
         ...initialState,
@@ -219,6 +219,9 @@ describe('highlight reducer', () => {
             highlightChapter: {
               highlightSource: [mock1, mock3],
             },
+          },
+          totalCountsPerPage: {
+            highlightSource: {[HighlightColorEnum.Blue]: 2},
           },
         },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
@@ -235,6 +238,8 @@ describe('highlight reducer', () => {
       const highlights = state.summary.highlights.highlightChapter.highlightSource;
       expect(highlights.length).toEqual(1);
       expect(highlights[0]).toEqual(mock3);
+      expect(state.summary.totalCountsPerPage!.highlightSource.blue).toEqual(1);
+      expect(state.summary.totalCountsPerPage!.highlightSource.green).toEqual(1);
     });
 
     it('add highlight to summary highlights if new color match current filters', () => {

@@ -215,8 +215,8 @@ export const updateInTotalCounts = (
   newHighlight: Highlight
 ) => {
   if (
-    totalCounts[oldHighlight.sourceId] === totalCounts[newHighlight.sourceId]
-    && totalCounts[oldHighlight.color] === totalCounts[newHighlight.color]
+    oldHighlight.sourceId === newHighlight.sourceId
+    && oldHighlight.color === newHighlight.color
   ) {
     return totalCounts;
   }

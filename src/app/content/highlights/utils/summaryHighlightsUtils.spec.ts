@@ -10,6 +10,7 @@ import {
   addToTotalCounts,
   removeFromTotalCounts,
   removeSummaryHighlight,
+  updateInTotalCounts,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
@@ -384,5 +385,32 @@ describe('addOneToTotalCounts', () => {
     };
 
     expect(addToTotalCounts(totalCounts, highlight)).toEqual(expectedResult);
+  });
+});
+
+describe('updateInTotalCounts', () => {
+  it('updates', () => {
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
+    };
+
+    const expectedResult: CountsPerSource = {
+      page1: {[HighlightColorEnum.Pink]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
+    };
+
+    expect(updateInTotalCounts(totalCounts, highlight, {...highlight, color: HighlightColorEnum.Pink}))
+      .toEqual(expectedResult);
+  });
+
+  it('noops if there is nothing to change', () => {
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
+    };
+
+    expect(updateInTotalCounts(totalCounts, highlight, highlight))
+      .toBe(totalCounts);
   });
 });
