@@ -6,7 +6,7 @@ import { book as bookSelector } from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { summaryPageSize } from '../constants';
-import { highlightLocationFilters, remainingSourceCounts, summaryFilters, summaryPagination } from '../selectors';
+import * as select from '../selectors';
 import { SummaryHighlightsPagination } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 import { getNextPageSources } from '../utils/paginationUtils';
@@ -14,9 +14,9 @@ import { getNextPageSources } from '../utils/paginationUtils';
 const incrementPage = (pagination: Exclude<SummaryHighlightsPagination, null>) =>
   ({...pagination, page: pagination.page + 1});
 
-const getNewSources = (state: AppState, omitSources: string[] = []) => {
+const getNewSources = (state: AppState, omitSources: string[]) => {
   const book = bookSelector(state);
-  const remainingCounts = omit(omitSources, remainingSourceCounts(state));
+  const remainingCounts = omit(omitSources, select.filteredCountsPerPage(state));
   return book ? getNextPageSources(remainingCounts, book.tree, summaryPageSize) : [];
 };
 
@@ -28,11 +28,11 @@ const loadUntilPageSize = async({
   getState: Store['getState'],
   highlightClient: AppServices['highlightClient'],
   highlights?: Highlight[]
-  sourcesFetched?: string[]
+  sourcesFetched: string[]
 }): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
   const state = args.getState();
   const book = bookSelector(state);
-  const {colors} = summaryFilters(state);
+  const {colors} = select.summaryFilters(state);
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
     : {sourceIds: getNewSources(state, args.sourcesFetched), page: 1};
@@ -50,13 +50,13 @@ const loadUntilPageSize = async({
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
+  // TODO - change swagger so none of this is nullable
   const data = assertDefined(highlightsResponse.data, 'response from highlights api is invalid');
-
   const meta = assertDefined(highlightsResponse.meta, 'response from highlights api is invalid');
   const perPage = assertDefined(meta.perPage, 'response from highlights api is invalid');
   const totalCount = assertDefined(meta.totalCount, 'response from highlights api is invalid');
-  const loadedResults = (page - 1) * perPage + data.length;
 
+  const loadedResults = (page - 1) * perPage + data.length;
   const pagination = loadedResults < totalCount
     ? {sourceIds, page}
     : null;
@@ -71,7 +71,7 @@ const loadUntilPageSize = async({
       ...args,
       highlights,
       previousPagination: pagination,
-      sourcesFetched: args.sourcesFetched ? [...args.sourcesFetched, ...sourceIds] : sourceIds,
+      sourcesFetched: [...args.sourcesFetched, ...sourceIds],
     });
   }
 
@@ -82,10 +82,16 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
   dispatch, getState, highlightClient,
 }) => async() => {
   const state = getState();
-  const locationFilters = highlightLocationFilters(state);
-  const previousPagination = summaryPagination(state);
+  const locationFilters = select.highlightLocationFilters(state);
+  const previousPagination = select.summaryPagination(state);
+  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
 
-  const {pagination, highlights} = await loadUntilPageSize({previousPagination, getState, highlightClient});
+  const {pagination, highlights} = await loadUntilPageSize({
+    getState,
+    highlightClient,
+    previousPagination,
+    sourcesFetched,
+  });
 
   const formattedHighlights = highlights.reduce((result, highlight) => {
     const pageId = stripIdVersion(highlight.sourceId);
