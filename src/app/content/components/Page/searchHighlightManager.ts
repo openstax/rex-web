@@ -1,11 +1,9 @@
 import Highlighter from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
-import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
-import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
   highlighter: Highlighter;
@@ -57,12 +55,6 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 
   if (firstSelectedHighlight) {
     firstSelectedHighlight.focus();
-  }
-
-  if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
-    allImagesLoaded(services.container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
-    );
   }
 };
 

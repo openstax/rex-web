@@ -21,4 +21,9 @@ export const hash = createSelector(
   (state) => state.hash
 );
 
+export const searchQuery = createSelector(
+  localState,
+  (state) => decodeURI(state.search.replace('?search=', ''))
+);
+
 export const location = localState;

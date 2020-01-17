@@ -22,6 +22,11 @@ export const query = createSelector(
   (state) => state.query
 );
 
+export const loading = createSelector(
+  localState,
+  (state) => state.loading
+);
+
 export const selectedResult = createSelector(
   localState,
   (state) => state.selectedResult

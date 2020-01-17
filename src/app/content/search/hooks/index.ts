@@ -1,5 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
 import { push, replace } from '../../../navigation/actions';
+import { searchQuery } from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
@@ -79,10 +80,14 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       search: {query, selectedResult},
     },
   };
+  const options = {
+    hash: selectedResult.result.source.elementId,
+    search: `search=${query}`,
+  };
 
   const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
 
-  services.dispatch(action(navigation));
+  services.dispatch(action(navigation, options));
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
@@ -98,9 +103,12 @@ export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc
 
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch: RouteHookBody<typeof content> = (services) => async(locationChange) => {
-  const query = select.query(services.getState());
-  const selectedResult = select.selectedResult(services.getState());
+  const state = services.getState();
+  const query = select.query(state);
+  const selectedResult = select.selectedResult(state);
   const savedSearch = getSearchFromLocation(locationChange.location);
+  const urlSearchQuery = searchQuery(state);
+  const isLoading = select.loading(state);
 
   if (savedSearch && savedSearch.query && savedSearch.query !== query) {
     services.dispatch(
@@ -116,6 +124,8 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async(loc
     services.dispatch(selectSearchResult(savedSearch.selectedResult));
   } else if ((!savedSearch || !savedSearch.query) && query) {
     services.dispatch(clearSearch());
+  } else if (urlSearchQuery && !isLoading && (!savedSearch || !savedSearch.query)) {
+    services.dispatch(requestSearch(urlSearchQuery));
   }
 };
 

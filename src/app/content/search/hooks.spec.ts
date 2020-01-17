@@ -297,6 +297,9 @@ describe('hooks', () => {
             pageUid: page.id,
             search: expect.objectContaining({query: 'asdf'}),
           },
+        }, {
+          hash: hit.source.elementId,
+          search: 'search=asdf',
         })
       );
     });
@@ -316,6 +319,9 @@ describe('hooks', () => {
             pageUid: page.id,
             search: expect.objectContaining({query: 'asdf'}),
           },
+        }, {
+          hash: hit.source.elementId,
+          search: 'search=asdf',
         })
       );
     });
@@ -336,6 +342,9 @@ describe('hooks', () => {
             pageUid: page.id,
             search: expect.objectContaining({selectedResult}),
           },
+        }, {
+          hash: selectedResult.result.source.elementId,
+          search: 'search=asdf',
         })
       );
     });
