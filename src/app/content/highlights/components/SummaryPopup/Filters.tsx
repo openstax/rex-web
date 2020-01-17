@@ -8,6 +8,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { popupPadding } from '../HighlightStyles'
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
@@ -71,7 +72,7 @@ export default styled(Filters)`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  padding: 2.1rem 3.2rem 0 3.2rem;
+  padding: 2.1rem ${popupPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     padding: 0 ${mobilePadding}rem;

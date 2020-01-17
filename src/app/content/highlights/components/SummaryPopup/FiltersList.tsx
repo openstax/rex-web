@@ -31,6 +31,7 @@ const ItemLabel = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+  line-height: 1.5rem;
 
   @media print {
     max-width: max-content;
