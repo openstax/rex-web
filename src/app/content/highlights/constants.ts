@@ -2,6 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 export const highlightingFeatureFlag = 'enableHighlighting';
 
 export const summaryPageSize = 20;
+export const loadMoreDistanceFromBottom = 50;
 
 export const cardWidth = 20;
 export const cardPadding = 0.8;
