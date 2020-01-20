@@ -16,3 +16,20 @@ export const match = <T extends any>(predicate: T) => (arg: T extends Function ?
 
   return predicate === arg;
 };
+
+/*
+ * reduces from the left until result matches the predicate and then stops,
+ * more efficient than conditionally nooping in your reducer for all remaining
+ * records
+ */
+export const reduceUntil = <R>(predicate: (result: R) => boolean) =>
+  <T>(array: T[], reducer: (result: R, item: T) => R, result: R): R => {
+    if (predicate(result) || array.length === 0) {
+      return result;
+    }
+
+    const [item, ...remainder] = array;
+
+    const reduceUntilPredicate = reduceUntil(predicate);
+    return reduceUntilPredicate(remainder, reducer, reducer(result, item));
+  };

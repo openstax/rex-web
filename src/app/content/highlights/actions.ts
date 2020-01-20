@@ -1,25 +1,40 @@
 import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
-import { HighlightData, SummaryFilters, SummaryHighlights } from './types';
+import {
+  CountsPerSource,
+  HighlightData,
+  SummaryFilters,
+  SummaryHighlights,
+  SummaryHighlightsPagination,
+} from './types';
 
-export const focusHighlight = createStandardAction('Content/Highlight/focus')<string>();
-export const clearFocusedHighlight = createStandardAction('Content/Highlight/clear')();
-export const createHighlight = createStandardAction('Content/Highlight/create')<NewHighlight & {id: string}, {
+export const focusHighlight = createStandardAction('Content/Highlights/focus')<string>();
+export const clearFocusedHighlight = createStandardAction('Content/Highlights/clear')();
+export const createHighlight = createStandardAction('Content/Highlights/create')<NewHighlight & {id: string}, {
   locationFilterId: string,
   pageId: string,
 }>();
-export const deleteHighlight = createStandardAction('Content/Highlight/delete')<string, {
+export const deleteHighlight = createStandardAction('Content/Highlights/delete')<string, {
   locationFilterId: string,
   pageId: string,
 }>();
-export const updateHighlight = createStandardAction('Content/Highlight/update')<UpdateHighlightRequest, {
+export const updateHighlight = createStandardAction('Content/Highlights/update')<UpdateHighlightRequest, {
   locationFilterId: string,
   pageId: string,
 }>();
-export const receiveHighlights = createStandardAction('Content/Highlight/receive')<HighlightData[]>();
+export const receiveHighlights = createStandardAction('Content/Highlights/receive')<HighlightData[]>();
 
-export const openMyHighlights = createStandardAction('Content/openMyHighlights')<void>();
-export const closeMyHighlights = createStandardAction('Content/closeMyHighlights')<void>();
+export const openMyHighlights = createStandardAction('Content/Highlights/Summary/open')<void>();
+export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();
 
-export const setSummaryFilters = createStandardAction('Content/setSummaryFilters')<Partial<SummaryFilters>>();
-export const receiveSummaryHighlights = createStandardAction('Content/receiveSummaryHighlights')<SummaryHighlights>();
+export const loadMoreSummaryHighlights = createStandardAction('Content/Highlights/Summary/loadMore')();
+export const setSummaryFilters = createStandardAction('Content/Highlights/Summary/setFilters')<
+  Partial<SummaryFilters>
+>();
+export const receiveSummaryHighlights = createStandardAction('Content/Highlights/Summary/receiveHighlights')<
+  SummaryHighlights,
+  SummaryHighlightsPagination
+>();
+export const receiveHighlightsTotalCounts = createStandardAction(
+  'Content/receiveHighlightsTotalCounts'
+)<CountsPerSource>();

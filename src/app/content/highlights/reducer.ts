@@ -5,11 +5,14 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
+import { merge } from '../../utils';
 import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
+  addOneToTotalCounts,
   addSummaryHighlight,
+  removeOneFromTotalCounts,
   removeSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './utils';
@@ -20,10 +23,11 @@ export const initialState: State = {
   highlights: null,
   myHighlightsOpen: false,
   summary: {
-    chapterCounts: {},
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
+    pagination: null,
+    totalCountsPerPage: null,
   },
 };
 
@@ -52,12 +56,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
+      const { pageId } = action.meta;
+      const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+
       return {
         ...state,
         highlights: [...state.highlights || [], highlight],
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -104,6 +112,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         id: action.payload,
       });
 
+      const { pageId } = action.meta;
+      const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
@@ -111,6 +122,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -125,6 +137,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.loadMoreSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: true,
+        },
+      };
+    }
     case getType(actions.setSummaryFilters): {
       return {
         ...state,
@@ -134,7 +155,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
           loading: true,
+          pagination: null,
         },
       };
     }
@@ -143,8 +166,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          highlights: action.payload,
+          highlights: merge(state.summary.highlights, action.payload),
           loading: false,
+          pagination: action.meta,
+        },
+      };
+    }
+    case getType(actions.receiveHighlightsTotalCounts): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          totalCountsPerPage: action.payload,
         },
       };
     }

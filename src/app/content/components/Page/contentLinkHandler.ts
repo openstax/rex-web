@@ -31,7 +31,10 @@ export const reduceReferences = ({references, currentPath}: ContentLinkProp) => 
 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap) =>
   content.getUrl(ref.params) === pathname
-    && ref.params.book === book.slug;
+    && (
+      ('book' in ref.params && ref.params.book === book.slug)
+      || ('uuid' in ref.params && ref.params.uuid === book.id)
+    );
 
 export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) => (e: MouseEvent) => {
   const {references, navigate, book, page, locationState, currentPath} = getProps();

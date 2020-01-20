@@ -1,4 +1,4 @@
-import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
@@ -10,15 +10,23 @@ export interface SummaryFilters {
   colors: HighlightColorEnum[];
 }
 
+export type CountsPerSource = Exclude<HighlightsSummary['countsPerSource'], undefined>;
+
+export type SummaryHighlightsPagination = null | {
+  sourceIds: string[];
+  page: number;
+};
+
 export interface State {
   myHighlightsOpen: boolean;
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
+    pagination: SummaryHighlightsPagination,
+    totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
     loading: boolean;
-    chapterCounts: {[key: string]: number};
     highlights: SummaryHighlights;
   };
 }

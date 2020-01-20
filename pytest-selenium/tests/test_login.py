@@ -17,8 +17,8 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
     user_nav.click_login()
 
     # THEN: The page navigates to accounts/login
-    expected_page_url = base_url + "/accounts/login?r=/books/" + book_slug + "/pages/" + page_slug
-    assert expected_page_url == selenium.current_url
+    expected_page_url = f"{base_url}/accounts/login?r=/books/{book_slug}/pages/{page_slug}"
+    assert expected_page_url in selenium.current_url
 
     # Login as an existing user
     accounts = Login(selenium)

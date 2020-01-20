@@ -20,7 +20,7 @@ jest.mock('../../../config', () => {
 describe('getBookPageUrlAndParams', () => {
   it('generates params without version', () => {
     const result = getBookPageUrlAndParams(formatBookData(mockArchiveBook, mockCmsBook), page);
-    expect(result.params.version).toBeUndefined();
+    expect((result.params as any).version).toBeUndefined();
   });
 
   it('generates params with version', () => {
@@ -28,7 +28,7 @@ describe('getBookPageUrlAndParams', () => {
       {...formatBookData(mockArchiveBook, mockCmsBook), version: 'asdf'},
       page
     );
-    expect(result.params.version).toBe('asdf');
+    expect((result.params as any).version).toBe('asdf');
   });
 });
 
