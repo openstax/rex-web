@@ -11,9 +11,9 @@ import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
-import { setSummaryFilters } from '../../actions';
+import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../actions';
+import { hookBody } from '../../hooks/receiveHighlightsTotalCounts';
 import { summaryFilters } from '../../selectors';
-import { addCurrentPageToSummaryFilters } from '../../utils';
 import Filters from './Filters';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
@@ -24,6 +24,7 @@ describe('Filters', () => {
   let store: Store;
   const book = formatBookData(archiveBook, mockCmsBook);
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let hook: ReturnType<typeof hookBody>;
   let dispatch: jest.SpyInstance;
   let storeDispatch: jest.SpyInstance;
 
@@ -35,6 +36,8 @@ describe('Filters', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
+
+    hook = (hookBody)(helpers);
 
     dispatch = jest.spyOn(helpers, 'dispatch');
     storeDispatch = jest.spyOn(store, 'dispatch');
@@ -89,12 +92,10 @@ describe('Filters', () => {
   it('removes colors and chapters from filters on click', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
-    addCurrentPageToSummaryFilters(helpers);
+    hook(store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testchapter5-uuid': 1,
+    })));
     const filters = summaryFilters(store.getState());
-
-    expect(dispatch).toBeCalledWith(setSummaryFilters({
-      locationIds: ['testbook1-testchapter5-uuid'],
-    }));
 
     dispatch.mockClear();
     storeDispatch.mockClear();

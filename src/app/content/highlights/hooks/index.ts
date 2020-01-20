@@ -3,6 +3,7 @@ import { actionHook } from '../../../utils';
 import createHighlight from './createHighlight';
 import { loadMoreHook, setSummaryFiltersHook } from './loadMore';
 import loadHighlights from './locationChange';
+import selectLocationsWithChapters from './receiveHighlightsTotalCounts';
 import removeHighlight from './removeHighlight';
 import updateHighlight from './updateHighlight';
 
@@ -14,5 +15,6 @@ export default [
   updateHighlight,
   setSummaryFiltersHook,
   loadMoreHook,
+  selectLocationsWithChapters,
   actionHook(receiveUser, loadHighlights),
 ];
