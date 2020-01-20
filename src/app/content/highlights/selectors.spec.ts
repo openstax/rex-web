@@ -41,14 +41,37 @@ describe('highlightLocationFiltersWithContent', () => {
     mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
     expect(select.highlightLocationFiltersWithContent({
       summary: {
-        totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
+        totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
       },
-    } as any)).toEqual(new Set(['chapter1', 'preface']));
+    } as any)).toEqual(new Map([
+      ['chapter1', { blue: 1, pink: 3 }],
+      ['preface', { yellow: 2 }],
+    ]));
   });
 
   it('works with null counts', () => {
     mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
     expect(select.highlightLocationFiltersWithContent({
+      summary: {
+        totalCountsPerPage: null,
+      },
+    } as any)).toEqual(new Map());
+  });
+});
+
+describe('highlightColorFiltersWithContent', () => {
+  it('filters', () => {
+    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    expect(select.highlightColorFiltersWithContent({
+      summary: {
+        totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
+      },
+    } as any)).toEqual(new Set(['blue', 'pink', 'yellow']));
+  });
+
+  it('works with null counts', () => {
+    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    expect(select.highlightColorFiltersWithContent({
       summary: {
         totalCountsPerPage: null,
       },
