@@ -2,7 +2,7 @@ import { book } from '../../../../test/mocks/archiveLoader';
 import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from '../utils';
 
 describe('getHighlightLocationFiltersWithContent', () => {
-  it('should merge total counts per page to their locationFilterId', () => {
+  it('should return a set of locationFilterIds with content', () => {
     const totalCountsPerPage = {
       'testbook1-testpage1-uuid': {},
       'testbook1-testpage2-uuid': {},

@@ -11,10 +11,12 @@ import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
   addSummaryHighlight,
+  addToTotalCounts,
+  removeFromTotalCounts,
   removeSummaryHighlight,
-  updateSummaryHighlightsDependOnFilters,
+  updateInTotalCounts,
+  updateSummaryHighlightsDependOnFilters
 } from './utils';
-import { addToTotalCounts, removeFromTotalCounts, updateInTotalCounts } from './utils/summaryHighlightsUtils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {

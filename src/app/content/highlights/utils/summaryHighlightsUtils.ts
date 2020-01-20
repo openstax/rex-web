@@ -5,6 +5,7 @@ import {
   UpdateHighlightRequest,
 } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
+import partition from 'lodash/fp/partition';
 import {
   CountsPerSource,
   SummaryFilters,
@@ -45,13 +46,13 @@ export const removeSummaryHighlight = (
 ): [SummaryHighlights, Highlight | null] => {
   const { locationFilterId, pageId, id } = data;
 
-  const filteredHighlights = summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId]
-    ? summaryHighlights[locationFilterId][pageId].filter((highlight) => highlight.id !== id)
-    : null;
-
-  const removedHighlight = summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId]
-    ? summaryHighlights[locationFilterId][pageId].find((highlight) => highlight.id === id)
-    : null;
+  const pageHighlights: Highlight[] | undefined =
+    summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId];
+  const [filteredHighlights, removedHighlights] = pageHighlights
+    ? partition((highlight) => highlight.id !== id, pageHighlights)
+    : [null, []]
+  ;
+  const removedHighlight = removedHighlights[0];
 
   if (!filteredHighlights || !removedHighlight) {
     return [summaryHighlights, null];

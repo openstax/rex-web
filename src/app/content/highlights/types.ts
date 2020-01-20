@@ -11,8 +11,8 @@ export interface SummaryFilters {
 }
 
 export interface CountsPerSource {
-  [key: string]: Partial<{
-    [key in HighlightColorEnum]: number
+  [sourceId: string]: Partial<{
+    [color in HighlightColorEnum]: number
   }>;
 }
 
