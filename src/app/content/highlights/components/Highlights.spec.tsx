@@ -49,8 +49,8 @@ describe('Highlights', () => {
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: 5,
-      [location!.id]: 2,
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
     }));
 
     const summaryHighlights = {
@@ -100,8 +100,8 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: 5,
-      [location!.id]: 2,
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
     }));
 
     const summaryHighlights = {
@@ -139,8 +139,8 @@ describe('Highlights', () => {
 
   it('show no highlights tip when there are no highlights for selected filters', () => {
     store.dispatch(receiveHighlightsTotalCounts({
-      pageId: 5,
-      pageId2: 2,
+      pageId: {[HighlightColorEnum.Green]: 5},
+      pageId2: {[HighlightColorEnum.Green]: 2},
     }));
     store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
     store.dispatch(receiveSummaryHighlights({}, null));
@@ -171,7 +171,7 @@ describe('Highlights', () => {
     const pageId = stripIdVersion(pageInChapter.id);
     const locations = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
-    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: 5 }));
+    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: {[HighlightColorEnum.Green]: 5} }));
 
     const summaryHighlights = {
       [location!.id]: {

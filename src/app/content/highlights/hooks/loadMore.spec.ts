@@ -44,9 +44,9 @@ describe('filtersChange', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 15,
-      'testbook1-testpage11-uuid': 5,
-      'testbook1-testpage2-uuid': 15,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 15},
+      'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 15},
     }));
 
     const page1 = Array.from(new Array(15).keys()).map((index) => ({
@@ -140,7 +140,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: 1,
+      [pageId]: {[HighlightColorEnum.Green]: 1},
     }));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
@@ -183,7 +183,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageInChapter.id]: 1,
+      [pageInChapter.id]: {[HighlightColorEnum.Green]: 1},
     }));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();

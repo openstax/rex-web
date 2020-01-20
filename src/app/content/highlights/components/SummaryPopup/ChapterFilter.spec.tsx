@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -38,7 +39,7 @@ describe('ChapterFilter', () => {
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     })));
 
     const component = renderer.create(<Provider store={store}>
@@ -65,8 +66,8 @@ describe('ChapterFilter', () => {
   it('initially has selected chapters with highlights', () => {
     store.dispatch(receiveBook(book));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testchapter3-uuid': 3,
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Pink]: 1},
     })));
 
     const component = renderer.create(<Provider store={store}>
@@ -87,7 +88,7 @@ describe('ChapterFilter', () => {
   it('checks and unchecks chapters', () => {
     store.dispatch(receiveBook(book));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     })));
 
     const component = renderer.create(<Provider store={store}>
@@ -116,7 +117,7 @@ describe('ChapterFilter', () => {
   it('selects none', () => {
     store.dispatch(receiveBook(book));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     })));
 
     const component = renderer.create(<Provider store={store}>
@@ -142,8 +143,8 @@ describe('ChapterFilter', () => {
   it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testchapter3-uuid': 3,
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     })));
 
     const component = renderer.create(<Provider store={store}>
@@ -175,7 +176,7 @@ describe('ChapterFilter', () => {
   it('chapters without highlights are disabled', () => {
     store.dispatch(receiveBook(book));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     })));
 
     const component = renderer.create(<Provider store={store}>
