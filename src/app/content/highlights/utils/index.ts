@@ -4,9 +4,10 @@ export { default as getHighlightLocationFilters } from './getHighlightLocationFi
 export { default as getHighlightLocationFiltersWithContent } from './getHighlightLocationFiltersWithContent';
 export { default as getHighlightColorFiltersWithContent } from './getHighlightColorFiltersWithContent';
 export {
-  addOneToTotalCounts,
+  addToTotalCounts,
+  updateInTotalCounts,
+  removeFromTotalCounts,
   addSummaryHighlight,
-  removeOneFromTotalCounts,
   removeSummaryHighlight,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,

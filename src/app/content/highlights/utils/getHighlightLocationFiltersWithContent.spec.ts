@@ -1,10 +1,10 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { book } from '../../../../test/mocks/archiveLoader';
-import { HighlightsTotalCountsPerPage } from '../types';
+import { CountsPerSource } from '../types';
 import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from '../utils';
 
 describe('getHighlightLocationFiltersWithContent', () => {
-  it('should merge total counts per page to their locationFilterId', () => {
+  it('should return a set of locationFilterIds with content', () => {
     const totalCountsPerPage = {
       'testbook1-testpage1-uuid': {
         [HighlightColorEnum.Green]: 1,
@@ -23,7 +23,7 @@ describe('getHighlightLocationFiltersWithContent', () => {
         [HighlightColorEnum.Green]: 2,
         [HighlightColorEnum.Pink]: 1,
       },
-    } as unknown as HighlightsTotalCountsPerPage;
+    } as CountsPerSource;
     const filterLocations = getHighlightLocationFilters(book);
 
     const expectedResult = new Map([

@@ -1,8 +1,8 @@
-import { HighlightColorCounts, HighlightLocationFilters, HighlightsTotalCountsPerPage } from '../types';
+import { CountsPerSource, HighlightColorCounts, HighlightLocationFilters } from '../types';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 import reduceColorCounts from './reduceColorCounts';
 
-export default (locationFilters: HighlightLocationFilters, totalCounts: HighlightsTotalCountsPerPage) => {
+export default (locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource) => {
 
   return Object.entries(totalCounts).reduce((result, [pageId, colorCounts]) => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
