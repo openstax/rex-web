@@ -1,5 +1,5 @@
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
-import { assertDefined } from '../../utils';
+import { assertDocument, assertNotNull } from '../../utils';
 import { setHead } from '../actions';
 
 describe('setHead hook', () => {
@@ -13,14 +13,14 @@ describe('setHead hook', () => {
 
   beforeEach(() => {
     hookBody = require('./setHead').hookBody;
-    assertDefined(assertDefined(document, 'document must be defined').head, 'document must have a head').innerHTML = '';
+    assertNotNull(assertDocument().head, 'document must have a head').innerHTML = '';
   });
 
   it('adds link', () => {
     if (typeof(document) === 'undefined') {
       return expect(document).toBeTruthy();
     }
-    const head = assertDefined(document.head, 'document must have a head');
+    const head = assertNotNull(document.head, 'document must have a head');
 
     expect(head.querySelectorAll('link[data-rex-page]').length).toEqual(0);
     hookBody(helpers)(action);
@@ -31,7 +31,7 @@ describe('setHead hook', () => {
     if (typeof(document) === 'undefined') {
       return expect(document).toBeTruthy();
     }
-    const head = assertDefined(document.head, 'document must have a head');
+    const head = assertNotNull(document.head, 'document must have a head');
 
     expect(head.querySelectorAll('meta[data-rex-page]').length).toEqual(0);
     hookBody(helpers)(action);
