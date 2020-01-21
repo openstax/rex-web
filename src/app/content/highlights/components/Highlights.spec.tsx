@@ -240,7 +240,7 @@ describe('Highlights', () => {
     expect(editingMenus.length).toEqual(6);
   });
 
-  it('edit highlight annotation', () => {
+  it('edit and cancel editing highlight annotation', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
     const locationFilters = highlightLocationFilters(state);
@@ -295,6 +295,21 @@ describe('Highlights', () => {
       locationFilterId: pageId,
       pageId,
     }));
+
+    renderer.act(() => {
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onEdit();
+    });
+
+    [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
+    expect(firstAnnotation.props.isEditing).toEqual(true);
+
+    renderer.act(() => {
+      firstAnnotation.props.onCancel();
+    });
+
+    [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
+    expect(firstAnnotation.props.isEditing).toEqual(false);
   });
 
   it('edit highlight color', () => {
@@ -344,7 +359,7 @@ describe('Highlights', () => {
     }));
   });
 
-  it('delete highlight with confirmation', () => {
+  it('delete and cancel deleting highlight with confirmation', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
     const locationFilters = highlightLocationFilters(state);
@@ -376,18 +391,24 @@ describe('Highlights', () => {
     </Provider>);
 
     renderer.act(() => {
-      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      const [firstContextMenu, secondContextMenu] = component.root.findAllByType(ContextMenu);
       firstContextMenu.props.onDelete();
+      secondContextMenu.props.onDelete();
     });
 
+    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(2);
+
     renderer.act(() => {
-      const [firstDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
+      const [firstDeleteWrapper, secondDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
       firstDeleteWrapper.props.onDelete();
+      secondDeleteWrapper.props.onCancel();
     });
 
     expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue.id, {
       locationFilterId: pageId,
       pageId,
     }));
+
+    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(1);
   });
 });
