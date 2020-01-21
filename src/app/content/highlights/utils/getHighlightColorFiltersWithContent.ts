@@ -1,11 +1,11 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { highlightStyles } from '../constants';
-import { HighlightColorCounts } from '../types';
+import { CountsPerSource } from '../types';
 
-export default (locationsWithContent: Map<string, HighlightColorCounts>) => {
+export default (locationsWithContent: CountsPerSource) => {
   const colorFiltersWithContent: Set<HighlightColorEnum> = new Set();
 
-  for (const colorCounts of locationsWithContent.values()) {
+  for (const colorCounts of Object.values(locationsWithContent)) {
     for (const color of Object.keys(colorCounts)) {
       colorFiltersWithContent.add(color as HighlightColorEnum);
     }

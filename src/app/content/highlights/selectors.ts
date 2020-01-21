@@ -96,8 +96,8 @@ export const highlightLocationFiltersWithContent = createSelector(
 );
 
 export const highlightColorFiltersWithContent = createSelector(
-  highlightLocationFiltersWithContent,
-  (locationsWithContent) => getHighlightColorFiltersWithContent(locationsWithContent)
+  totalCountsPerPageOrEmpty,
+  (totalCounts) => getHighlightColorFiltersWithContent(totalCounts)
 );
 
 export const loadedCountsPerSource = createSelector(

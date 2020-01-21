@@ -43,10 +43,7 @@ describe('highlightLocationFiltersWithContent', () => {
       summary: {
         totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
       },
-    } as any)).toEqual(new Map([
-      ['chapter1', { blue: 1, pink: 3 }],
-      ['preface', { yellow: 2 }],
-    ]));
+    } as any)).toEqual(new Set(['chapter1', 'preface']));
   });
 
   it('works with null counts', () => {
@@ -55,7 +52,7 @@ describe('highlightLocationFiltersWithContent', () => {
       summary: {
         totalCountsPerPage: null,
       },
-    } as any)).toEqual(new Map());
+    } as any)).toEqual(new Set());
   });
 });
 

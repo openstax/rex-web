@@ -1,16 +1,14 @@
-import { CountsPerSource, HighlightColorCounts, HighlightLocationFilters } from '../types';
+import { CountsPerSource, HighlightLocationFilters } from '../types';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
-import reduceColorCounts from './reduceColorCounts';
 
 export default (locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource) => {
-
-  return Object.entries(totalCounts).reduce((result, [pageId, colorCounts]) => {
+  return Object.entries(totalCounts).reduce((result, [pageId]) => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
 
-    if (location) {
-      result.set(location.id, reduceColorCounts(result.get(location.id) || {}, colorCounts));
+    if (location && !result.has(location.id)) {
+      result.add(location.id);
     }
 
     return result;
-  }, new Map<string, HighlightColorCounts>());
+  }, new Set<string>());
 };

@@ -26,20 +26,10 @@ describe('getHighlightLocationFiltersWithContent', () => {
     } as CountsPerSource;
     const filterLocations = getHighlightLocationFilters(book);
 
-    const expectedResult = new Map([
-      ['testbook1-testpage1-uuid', {
-        [HighlightColorEnum.Green]: 1,
-      }],
-      ['testbook1-testchapter1-uuid', {
-        [HighlightColorEnum.Blue]: 1,
-        [HighlightColorEnum.Green]: 2,
-        [HighlightColorEnum.Yellow]: 1,
-      }],
-      ['testbook1-testchapter3-uuid', {
-        [HighlightColorEnum.Blue]: 2,
-        [HighlightColorEnum.Green]: 2,
-        [HighlightColorEnum.Pink]: 1,
-      }],
+    const expectedResult = new Set([
+      'testbook1-testpage1-uuid',
+      'testbook1-testchapter1-uuid',
+      'testbook1-testchapter3-uuid',
     ]);
 
     expect(getHighlightLocationFiltersWithContent(filterLocations, totalCountsPerPage)).toEqual(expectedResult);
