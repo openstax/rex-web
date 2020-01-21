@@ -1,5 +1,4 @@
-import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { HighlightsSummary } from '../../../../../highlighter/highlights-client/dist/models/HighlightsSummary';
+import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
