@@ -1,3 +1,4 @@
+import equals from 'lodash/fp/equals';
 import flow from 'lodash/fp/flow';
 import omit from 'lodash/fp/omit';
 import pick from 'lodash/fp/pick';
@@ -17,7 +18,7 @@ import { getPageSlug } from './utils/archiveTreeUtils';
 export const initialState = {
   highlights: initialHighlightState,
   loading: {},
-  params: {},
+  params: null,
   references: [],
   search: initialSearchState,
   tocOpen: null,
@@ -66,7 +67,11 @@ function reduceContent(state: State, action: AnyAction) {
       if (!matchForRoute(content, action.payload.match)) {
         return initialState;
       }
-      if (action.payload.match.params.book !== state.params.book) {
+
+      const omitPage = omit(['page']);
+
+      // book is different
+      if (!equals(omitPage(action.payload.match.params), omitPage(state.params))) {
         return {
           ...initialState,
           highlights: state.highlights,
@@ -74,10 +79,13 @@ function reduceContent(state: State, action: AnyAction) {
           params: action.payload.match.params,
         };
       }
+
+      // book is the same, page is different
       if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
-        return {...omit(['page'], state), params: action.payload.match.params};
+        return {...omitPage(state), params: action.payload.match.params};
       }
 
+      // book and page are the same, probably on page navigation like hash changing
       return {...state, params: action.payload.match.params};
     }
     default:

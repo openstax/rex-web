@@ -5,18 +5,17 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
+import { merge } from '../../utils';
 import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
-  addOneToTotalCounts,
   addSummaryHighlight,
-  getHighlightByIdFromHighlights,
-  getHighlightByIdFromSummaryHighlights,
-  removeOneFromTotalCounts,
+  addToTotalCounts,
+  removeFromTotalCounts,
   removeSummaryHighlight,
-  updateHighlights,
-  updateSummaryHighlightsDependOnFilters,
+  updateInTotalCounts,
+  updateSummaryHighlightsDependOnFilters
 } from './utils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
@@ -28,6 +27,7 @@ export const initialState: State = {
     filters: {colors: defaultColors, locationIds: []},
     highlights: {},
     loading: false,
+    pagination: null,
     totalCountsPerPage: null,
   },
 };
@@ -57,8 +57,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
-      const { pageId } = action.meta;
-      const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = addToTotalCounts(state.summary.totalCountsPerPage || {}, highlight);
 
       return {
         ...state,
@@ -77,25 +76,37 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.updateHighlight): {
       if (!state.highlights) { return state; }
 
-      const currentHighlight = getHighlightByIdFromHighlights(state.highlights, action.payload.id)
-        || getHighlightByIdFromSummaryHighlights(state.summary.highlights, action.payload.id);
-      if (!currentHighlight) { return state; }
+      const oldHiglightIndex = state.highlights.findIndex(
+        (highlight) => highlight.id === action.payload.id);
+      if (oldHiglightIndex < 0) { return state; }
 
-      const highlights = updateHighlights(state.highlights, action.payload);
+      const oldHighlight = state.highlights[oldHiglightIndex];
+
+      const newHighlight = {
+        ...oldHighlight,
+        ...action.payload.highlight,
+      } as Highlight;
+
+      const newHighlights = [...state.highlights];
+      newHighlights[oldHiglightIndex] = newHighlight;
 
       const newSummaryHighlights = updateSummaryHighlightsDependOnFilters(
         state.summary.highlights,
         state.summary.filters,
-        {...action.meta,
-          highlight: {...currentHighlight, ...action.payload.highlight} as Highlight,
-        });
+        {...action.meta, highlight: newHighlight});
+
+      const totalCountsPerPage = state.summary.totalCountsPerPage
+        ? updateInTotalCounts(state.summary.totalCountsPerPage, oldHighlight, newHighlight)
+        : state.summary.totalCountsPerPage
+      ;
 
       return {
         ...state,
-        highlights,
+        highlights: newHighlights,
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -104,13 +115,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return state;
       }
 
-      const newSummaryHighlights = removeSummaryHighlight(state.summary.highlights, {
+      const [newSummaryHighlights, removedHighlight] = removeSummaryHighlight(state.summary.highlights, {
         ...action.meta,
         id: action.payload,
       });
 
-      const { pageId } = action.meta;
-      const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = state.summary.totalCountsPerPage && removedHighlight
+        ? removeFromTotalCounts(state.summary.totalCountsPerPage, removedHighlight)
+        : state.summary.totalCountsPerPage
+      ;
 
       return {
         ...state,
@@ -134,6 +147,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.loadMoreSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: true,
+        },
+      };
+    }
     case getType(actions.setSummaryFilters): {
       return {
         ...state,
@@ -143,7 +165,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
           loading: true,
+          pagination: null,
         },
       };
     }
@@ -152,8 +176,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          highlights: action.payload,
+          highlights: merge(state.summary.highlights, action.payload),
           loading: false,
+          pagination: action.meta,
         },
       };
     }

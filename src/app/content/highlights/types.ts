@@ -9,12 +9,17 @@ export interface SummaryFilters {
   locationIds: string[];
   colors: HighlightColorEnum[];
 }
-export interface HighlightsTotalCountsPerPage {
-  [pageId: string]: number;
+
+export interface CountsPerSource {
+  [sourceId: string]: Partial<{
+    [color in HighlightColorEnum]: number
+  }>;
 }
-export interface HighlightsTotalCountsPerLocation {
-  [locationId: string]: number;
-}
+
+export type SummaryHighlightsPagination = null | {
+  sourceIds: string[];
+  page: number;
+};
 
 export interface State {
   myHighlightsOpen: boolean;
@@ -22,7 +27,8 @@ export interface State {
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
-    totalCountsPerPage: HighlightsTotalCountsPerPage | null;
+    pagination: SummaryHighlightsPagination,
+    totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
     loading: boolean;
     highlights: SummaryHighlights;
