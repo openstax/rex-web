@@ -2,6 +2,7 @@ import { CountsPerSource, HighlightLocationFilters } from '../types';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
 export default (locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource) => {
+
   return Object.entries(totalCounts).reduce((result, [pageId]) => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
 
