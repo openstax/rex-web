@@ -114,6 +114,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   flex: 1;
   color: #fff;
   margin-bottom: 0.8rem;
+  overflow: visible;
 }
 
 <div
