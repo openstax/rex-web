@@ -4,7 +4,6 @@ import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights, receiveHighlightsTotalCounts } from '../actions';
 import * as select from '../selectors';
-import { CountsPerSource } from '../types';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const {dispatch, getState, highlightClient} = services;
@@ -38,8 +37,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   });
 
   if (totalCounts.countsPerSource) {
-    // TODO remove cast when swagger is updated
-    dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource as unknown as CountsPerSource, locationFilters));
+    dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource, locationFilters));
   }
 };
 

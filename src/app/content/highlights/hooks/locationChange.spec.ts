@@ -104,8 +104,7 @@ describe('locationChange', () => {
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      // TODO remove cast when swagger updated
-      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }} as any));
+      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }}));
 
     await hook();
 
@@ -129,8 +128,7 @@ describe('locationChange', () => {
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      // TODO remove cast when swagger updated
-      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage } as any));
+      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage }));
 
     await hook();
 
