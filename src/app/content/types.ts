@@ -24,10 +24,11 @@ export interface State {
   loading: {
     book?: string;
     page?: string;
+    uuid?: string;
   };
   search: SearchState;
   highlights: HighlightState;
-  book?: Book;
+  book?: Book | BookWithOSWebData;
   page?: Page;
   references: PageReferenceMap[];
 }
@@ -41,18 +42,31 @@ export interface PageReference {
   params: RouteParams<typeof content>;
 }
 
+interface RequestBookByUuid {
+  uuid: string;
+}
+
+interface RequestBookBySlug {
+  book: string;
+}
+
+export type RequestBook = RequestBookByUuid | RequestBookBySlug;
+
 export interface Book {
   id: string;
   shortId: string;
   title: string;
-  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   tree: ArchiveTree;
   version: string;
-  slug: string;
   license: {
     name: string;
     version: string;
   };
+}
+
+export interface BookWithOSWebData extends Book {
+  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
+  slug: string;
   publish_date: string;
   authors: Array<{
     value: {

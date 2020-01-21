@@ -4,6 +4,7 @@ import path from 'path';
 import { basename } from 'path';
 import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
+import { hasOSWebData } from '../src/app/content/guards';
 import { Book } from '../src/app/content/types';
 import { flattenArchiveTree, getBookPageUrlAndParams, makeUnifiedBookLoader } from '../src/app/content/utils';
 import config from '../src/config';
@@ -92,7 +93,7 @@ async function findBooks() {
   const books = await Promise.all(Object.entries(bookConfig).map(([bookId, {defaultVersion}]) =>
     bookLoader(bookId, defaultVersion)
   ));
-  return books.filter((book) => onlyOneBook ? book.slug === onlyOneBook : true);
+  return books.filter((book) => onlyOneBook && hasOSWebData(book) ? book.slug === onlyOneBook : true);
 }
 
 function findBookPages(book: Book) {
