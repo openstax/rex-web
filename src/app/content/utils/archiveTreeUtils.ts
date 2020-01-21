@@ -49,24 +49,22 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
   }
 };
 
-const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
+export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
   stripIdVersion(node.shortId) === stripIdVersion(nodeId)
   || stripIdVersion(node.id) === stripIdVersion(nodeId);
 
 export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
 
 export const splitTitleParts = (str: string) => {
-  const match = str
-    .match(/(<span class="os-number">(.*?)<\/span>)?.*?<span class="os-text">(.*?)<\/span>/);
 
-  if (match && match[3]) {
-    // ignore the first two matches which are the whole title
-    return match.slice(2);
-  } else {
-    /* title did not match the expected HTML format, assume it is
-    unbaked (there is no number and the entire thing is the title)*/
-    return [null, str];
-  }
+  const domNode = new DOMParser().parseFromString(str, 'text/html');
+  const titleNode = domNode.querySelector('.os-text');
+  const numNode = domNode.querySelector('.os-number');
+
+  const title = titleNode ? titleNode.textContent : str;
+  const num = numNode ? numNode.textContent : null;
+
+  return [num, title];
 };
 
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
@@ -127,10 +125,10 @@ export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
   && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
-  && getArchiveTreeSectionNumber(section) === undefined
+  && getArchiveTreeSectionNumber(section) === null
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
-  && getArchiveTreeSectionNumber(section) !== undefined
+  && getArchiveTreeSectionNumber(section) !== null
 ;

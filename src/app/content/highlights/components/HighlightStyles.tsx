@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
+import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import Times from '../../../components/Times';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
@@ -15,6 +16,7 @@ export const popupBodyPadding = 2.4;
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
 export const headerHeight = 7.2;
+const topBottomMargin = headerHeight + popupBodyPadding;
 
 export const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -38,39 +40,24 @@ export const imageStyles = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Mask = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
 `;
 
 // tslint:disable-next-line:variable-name
 export const Modal = styled.div`
   top: 0;
-  z-index: ${theme.zIndex.modal};
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
+  z-index: ${theme.zIndex.highlightSummaryPopup};
   position: fixed;
-  justify-content: center;
-  align-items: center;
-`;
-
-// tslint:disable-next-line:variable-name
-export const Wrapper = styled.div`
-  z-index: 1;
-  max-width: ${contentWrapperMaxWidth}rem;
   background: ${theme.color.neutral.base};
-  margin: 7.2rem 2.4rem 2.4rem;
   border-radius: 0.5rem;
-  width: 100%;
+  height: calc(100% - ${topBottomMargin}rem);
   outline: none;
+  overflow: hidden;
+  margin: ${headerHeight}rem auto ${popupBodyPadding}rem;
+  max-width: ${contentWrapperMaxWidth}rem;
+  width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}
@@ -90,8 +77,8 @@ export const Header = styled(H3)`
 
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
-  padding: ${popupBodyPadding}rem ${popupPadding}rem;
   height: calc(100% - ${headerHeight}rem);
+  background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
@@ -242,7 +229,10 @@ export const InfoIconWrapper = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+export const CloseIconWrapper = PlainButton;
+
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
   color: ${theme.color.neutral.base};
   cursor: pointer;
 
@@ -276,8 +266,9 @@ export const GeneralText = styled(H3)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const GeneralTextWrapper = styled.span`
+export const GeneralTextWrapper = styled.div`
   ${bodyCopyRegularStyle}
+  padding: ${popupBodyPadding}rem ${popupPadding}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -295,8 +286,18 @@ export const MyHighlightsWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const GeneralLeftText = styled(GeneralTextWrapper)`
-  text-align: left;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 3.2rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const GeneralCenterText = styled(GeneralTextWrapper)`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem 3.2rem;
+  text-align: center;
 `;
 
 // tslint:disable-next-line:variable-name

@@ -26,6 +26,8 @@ interface Props {
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
+  locationFilterId: string;
+  pageId: string;
   onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
   onSave: typeof updateHighlight;
@@ -43,6 +45,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     className,
     data,
     highlight,
+    locationFilterId,
+    pageId,
     isFocused,
     loginLink,
     onBlur,
@@ -83,6 +87,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
           color: color as string as HighlightUpdateColorEnum,
         },
         id: data.id,
+      }, {
+        locationFilterId,
+        pageId,
       });
       services.analytics.editNoteColor.track(editNoteEventData.color, color);
     } else {
@@ -102,6 +109,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         color: toSave.color as string as HighlightUpdateColorEnum,
       },
       id: toSave.id,
+    }, {
+      locationFilterId,
+      pageId,
     });
     services.analytics.editAnnotation.track(editNoteEventData.note, addedNote, action);
     onCancel();

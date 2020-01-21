@@ -1,6 +1,25 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
+export interface SummaryHighlights {
+  [locationId: string]: {[pageId: string]: HighlightData[]};
+}
+export interface SummaryFilters {
+  locationIds: string[];
+  colors: HighlightColorEnum[];
+}
+
+export interface CountsPerSource {
+  [sourceId: string]: Partial<{
+    [color in HighlightColorEnum]: number
+  }>;
+}
+
+export type SummaryHighlightsPagination = null | {
+  sourceIds: string[];
+  page: number;
+};
 
 export interface State {
   myHighlightsOpen: boolean;
@@ -8,14 +27,12 @@ export interface State {
   focused?: string;
   highlights: null | HighlightData[];
   summary: {
-    filters: {
-      colors: string[];
-      chapters: string[];
-    },
+    pagination: SummaryHighlightsPagination,
+    totalCountsPerPage: CountsPerSource | null;
+    filters: SummaryFilters,
     loading: boolean;
-    chapterCounts: {[key: string]: number};
-    highlights: {
-      [chapterId: string]: {[pageId: string]: HighlightData[]}
-    };
+    highlights: SummaryHighlights;
   };
 }
+
+export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

@@ -243,6 +243,10 @@ describe('merge', () => {
     expect(utils.merge({asdf: 'asdf'}, {qwer: 'qwer'})).toEqual({asdf: 'asdf', qwer: 'qwer'});
   });
 
+  it('merges arrays', () => {
+    expect(utils.merge({asdf: [1]}, {asdf: [2]})).toEqual({asdf: [1, 2]});
+  });
+
   it('maintains object references when possible', () => {
     const thing1 = {subobject: {}, asdf: 'asdf'};
     const thing2 = {qwer: 'qwer'};
@@ -267,11 +271,19 @@ describe('merge', () => {
   });
 
   it('last arg wins for non-plain objects', () => {
-    const thing1 = {array: ['one'], asdf: 'asdf'};
-    const thing2 = {array: ['two'], qwer: 'qwer'};
+    const thing1 = {asdf: 'asdf'};
+    const thing2 = {asdf: 'qwer'};
     const merged = utils.merge(thing1, thing2);
 
-    expect(merged.array).toBe(thing2.array);
-    expect(merged.array).toEqual(['two']);
+    expect(merged.asdf).toBe(thing2.asdf);
+    expect(merged.asdf).toEqual('qwer');
+  });
+});
+
+describe('preventDefault', () => {
+  it('does it', () => {
+    const event = {preventDefault: jest.fn()} as any;
+    utils.preventDefault(event);
+    expect(event.preventDefault).toHaveBeenCalled();
   });
 });

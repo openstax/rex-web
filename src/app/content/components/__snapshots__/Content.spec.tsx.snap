@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 100;
 }
 
 <a
@@ -58,7 +58,7 @@ Array [
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -725,7 +725,7 @@ Array [
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 59;
+  z-index: 69;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
 }
@@ -748,7 +748,7 @@ Array [
   transition: transform 200ms;
   position: -webkit-sticky;
   position: sticky;
-  z-index: 58;
+  z-index: 68;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
   margin-top: -7rem;
@@ -886,7 +886,7 @@ Array [
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
-  z-index: 50;
+  z-index: 60;
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + 33.5rem);
@@ -1195,6 +1195,7 @@ li[aria-label="Current Page"] .c44 {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  height: auto;
 }
 
 .c25:hover,
@@ -1328,7 +1329,7 @@ li[aria-label="Current Page"] .c44 {
   width: 100%;
   overflow: visible;
   display: block;
-  z-index: 30;
+  z-index: 40;
   background-color: #fff;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
@@ -3221,7 +3222,7 @@ li[aria-label="Current Page"] .c44 {
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
-  <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
@@ -3366,7 +3367,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 80;
+  z-index: 100;
 }
 
 <a
@@ -3403,7 +3404,7 @@ Array [
 
 .c0 {
   overflow: visible;
-  z-index: 60;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -3995,7 +3996,7 @@ Array [
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 59;
+  z-index: 69;
   overflow: hidden;
 }
 
@@ -4058,7 +4059,7 @@ Array [
   -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
   background-color: #fafafa;
-  z-index: 50;
+  z-index: 60;
   margin-left: -50vw;
   padding-left: 50vw;
   width: calc(50vw + 33.5rem);
@@ -4190,6 +4191,7 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  height: auto;
 }
 
 .c17:hover,
@@ -4323,7 +4325,7 @@ Array [
   width: 100%;
   overflow: visible;
   display: block;
-  z-index: 30;
+  z-index: 40;
   background-color: #fff;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
@@ -5391,7 +5393,7 @@ Array [
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
-  <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.

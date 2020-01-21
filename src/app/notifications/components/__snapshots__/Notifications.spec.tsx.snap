@@ -82,7 +82,7 @@ exports[`Notifications matches snapshot 1`] = `
   position: sticky;
   padding-top: 1px;
   margin-top: -1px;
-  z-index: 10;
+  z-index: 20;
   top: 0;
   height: 0;
 }
@@ -302,7 +302,7 @@ exports[`Notifications matches snapshot 2`] = `
   position: sticky;
   padding-top: 1px;
   margin-top: -1px;
-  z-index: 10;
+  z-index: 20;
   top: 0;
   height: 0;
 }
@@ -525,7 +525,7 @@ exports[`Notifications matches snapshot 3`] = `
   position: sticky;
   padding-top: 1px;
   margin-top: -1px;
-  z-index: 10;
+  z-index: 20;
   top: 0;
   height: 0;
 }

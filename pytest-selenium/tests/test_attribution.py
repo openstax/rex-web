@@ -21,11 +21,11 @@ def test_section_url_in_citation_text_shows_url_for_current_page(
     attribution = content.attribution
     attribution.click_attribution_link()
     attribution_section_url_expected = (
-        "https://openstax.org/books/" + book_slug + "/pages/" + page_slug
+        f"https://openstax.org/books/{book_slug}/pages/{page_slug}"
     )
 
     # Validate section url within attribution refers to current page
-    assert attribution_section_url_expected == attribution.section_url
+    assert attribution_section_url_expected in attribution.section_url
 
 
 @markers.test_case("C476303")

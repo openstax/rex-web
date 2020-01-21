@@ -129,6 +129,49 @@ input:checked + .c10 .c11 {
   border: 1px solid #df571e;
 }
 
+.c15 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.c15 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c15:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c15:focus-within .c9 {
+  border: 1px solid #df571e;
+}
+
+.c15.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c15.focus-within .c9 {
+  border: 1px solid #df571e;
+}
+
 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -185,6 +228,7 @@ input:checked + .c10 .c11 {
   outline: none;
   max-height: 72rem;
   overflow: auto;
+  z-index: 1;
 }
 
 .c0 .c1 {
@@ -195,7 +239,7 @@ input:checked + .c10 .c11 {
   padding: 0.8rem;
 }
 
-.c0 .c15 {
+.c0 .c16 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -249,6 +293,7 @@ input:checked + .c10 .c11 {
       >
         <input
           checked={true}
+          disabled={false}
           onChange={[Function]}
           type="checkbox"
         />
@@ -278,10 +323,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -311,10 +357,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -344,10 +391,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -377,10 +425,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -410,10 +459,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -443,10 +493,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -476,10 +527,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -509,10 +561,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -542,10 +595,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />
@@ -575,10 +629,11 @@ input:checked + .c10 .c11 {
         />
       </label>
       <label
-        className="c7 c8"
+        className="c7 c15"
       >
         <input
           checked={false}
+          disabled={true}
           onChange={[Function]}
           type="checkbox"
         />

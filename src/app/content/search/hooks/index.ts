@@ -3,6 +3,7 @@ import { push, replace } from '../../../navigation/actions';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
+import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
@@ -84,13 +85,15 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   services.dispatch(action(navigation));
 };
 
-export const clearSearchHook: ActionHookBody<typeof clearSearch> = (services) => () => {
-  services.history.replace({
-    state: {
-      ...services.history.location.state,
-      search: null,
-    },
-  });
+export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
+  if (services.history.location.state && services.history.location.state.search) {
+    services.history.replace({
+      state: {
+        ...services.history.location.state,
+        search: null,
+      },
+    });
+  }
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
@@ -119,6 +122,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async(loc
 export default [
   trackSearch,
   actionHook(clearSearch, clearSearchHook),
+  actionHook(openToc, clearSearchHook),
   actionHook(requestSearch, requestSearchHook),
   actionHook(receiveSearchResults, receiveSearchHook),
 ];

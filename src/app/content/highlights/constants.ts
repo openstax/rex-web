@@ -1,5 +1,9 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import books from '../../../config.books';
 export const highlightingFeatureFlag = 'enableHighlighting';
+
+export const summaryPageSize = 20;
+export const loadMoreDistanceFromBottom = 50;
 
 export const cardWidth = 20;
 export const cardPadding = 0.8;
@@ -14,3 +18,5 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
   {label: HighlightColorEnum.Purple, passive: '#cbcfff', focused: '#545ec8'},
   {label: HighlightColorEnum.Pink, passive: '#ffc5e1', focused: '#de017e'},
 ];
+
+export const enabledForBooks = Object.keys(books);

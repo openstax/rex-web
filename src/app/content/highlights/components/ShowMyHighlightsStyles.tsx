@@ -1,10 +1,29 @@
 import styled, { css } from 'styled-components';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { labelStyle, textRegularStyle } from '../../../components/Typography';
+import { bodyCopyRegularStyle, labelStyle, textRegularStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
+
+// tslint:disable-next-line: variable-name
+export const Highlights = styled.div`
+  .os-divider {
+    width: 0.8rem;
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  background-color: rgba(241, 241, 241, 0.8);
+
+  svg {
+    margin-top: -5rem;
+  }
+`;
 
 // tslint:disable-next-line:variable-name
 export const HighlightsChapter = styled.div`
@@ -13,7 +32,6 @@ export const HighlightsChapter = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  background: ${theme.color.neutral.darker};
   padding: 0 ${popupPadding}rem;
   width: 100%;
   ${theme.breakpoints.mobile(css`
@@ -23,7 +41,7 @@ export const HighlightsChapter = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const ShowMyHighlightsBody = styled(PopupBody)`
-  padding: 0;
+  background: ${theme.color.neutral.darker};
   ${theme.breakpoints.mobile(css`
     text-align: left;
     padding: 0;
@@ -32,7 +50,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: 0 ${popupPadding}rem 1.6rem;
+  margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
 `;
 
@@ -45,6 +63,12 @@ export const HighlightSection = styled.div`
   display: flex;
   align-items: center;
   font-weight: bold;
+
+  > .os-number,
+  > .os-divider,
+  > .os-text {
+    overflow: hidden;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -52,12 +76,18 @@ export const HighlightOuterWrapper = styled.div`
   :not(:last-child) {
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
+
+  background: ${theme.color.neutral.base};
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightContent = styled.span`
-  ${textRegularStyle}
-  line-height: unset;
+export const HighlightContent = styled.div`
+  ${bodyCopyRegularStyle}
+  overflow: visible;
+
+  * {
+    overflow: initial;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -102,8 +132,8 @@ export const GoToTopWrapper = styled.div`
   height: 4.8rem;
   position: absolute;
   z-index: 1;
-  bottom: calc(4.8rem + ${popupBodyPadding}rem);
-  right: calc(4.8rem + ${popupBodyPadding}rem);
+  bottom: 4.8rem;
+  right: 4.8rem;
   display: flex;
   align-items: center;
   justify-content: center;

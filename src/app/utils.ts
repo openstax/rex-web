@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
@@ -136,13 +136,18 @@ export const resetTabIndex = (document: Document) => {
   document.body.tabIndex = index;
 };
 
+export const preventDefault = (event: React.MouseEvent) => {
+  event.preventDefault();
+  return event;
+};
+
 export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>
   Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
 
 /*
- * recursive merge properties of two inputs. values are only merged if they are
- * plain objects, if the same property exists in both objects and is not a plain
- * object the value from the second argument will win.
+ * recursive merge properties of two inputs. values are merged if they are
+ * plain objects or arrays, otherwise if the same property exists in both
+ * objects the value from the second argument will win.
  *
  * unlike lodash merge, this will not change object references for values that
  * exist only in one parameter.
@@ -154,6 +159,9 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ...result,
     ...(isPlainObject(thing1[property]) && isPlainObject(thing2[property])
       ? {[property]: merge(thing1[property], thing2[property])}
-      : {}),
+      : (Array.isArray(thing1[property]) && Array.isArray(thing2[property]))
+        ? {[property]: [...thing1[property] as unknown as [], ...thing2[property] as unknown as []]}
+        : {}
+    ),
   }), {}),
 });

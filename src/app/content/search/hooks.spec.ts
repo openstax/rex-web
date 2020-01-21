@@ -80,6 +80,14 @@ describe('hooks', () => {
 
       expect(helpers.history.location.state.search).toBe(null);
     });
+
+    it('clears search state', () => {
+      const spy = jest.spyOn(helpers.history, 'replace');
+
+      hook(clearSearch());
+
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 
   describe('syncSearch', () => {
