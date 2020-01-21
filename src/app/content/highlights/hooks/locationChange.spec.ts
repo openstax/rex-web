@@ -99,7 +99,7 @@ describe('locationChange', () => {
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
     const totalCountsInState = { somePage: {[HighlightColorEnum.Green]: 1} };
-    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState));
+    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState, new Map()));
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
@@ -132,6 +132,6 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlightsTotalCounts(totalCountsPerPage));
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlightsTotalCounts(totalCountsPerPage, expect.anything()));
   });
 });

@@ -27,7 +27,7 @@ export interface State {
     totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
     loading: boolean;
-    highlights: SummaryHighlights;
+    highlights: SummaryHighlights | null;
   };
 }
 
