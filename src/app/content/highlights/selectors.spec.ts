@@ -4,6 +4,7 @@ import * as select from './selectors';
 
 jest.mock('./constants', () => ({
   enabledForBooks: ['enabledbook'],
+  highlightStyles: (jest as any).requireActual('./constants').highlightStyles,
 }));
 
 const mockBook = book as any as jest.SpyInstance;
