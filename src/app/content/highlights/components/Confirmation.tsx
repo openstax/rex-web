@@ -36,6 +36,7 @@ export const Overlay = styled.div`
 interface Props {
   message: string;
   'data-analytics-region'?: string;
+  'data-analytics-label'?: string;
   confirmMessage: string;
   confirmLink?: string;
   onConfirm?: () => void;
@@ -60,6 +61,10 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       ? {'data-analytics-region': props['data-analytics-region']}
       : {}
     }
+    {...props['data-analytics-label']
+      ? {'data-analytics-label': props['data-analytics-label']}
+      : {}
+    }
   >
     <FormattedMessage id={message}>
       {(msg: Element | string) => <label>{msg}</label>}
@@ -68,7 +73,7 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       <FormattedMessage id={confirmMessage}>
         {(msg: Element | string) => <Button
           size='small'
-          data-analytics-label='confirm'
+          data-analytics-label= {props['data-analytics-label'] ? props['data-analytics-label'] : 'confirm' }
           data-testid='confirm'
           variant='primary'
           onClick={(e: React.FormEvent) => {

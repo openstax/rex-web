@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
-const createNote = 'REX highlighting - create note with chosen color';
+const editNote = 'REX highlighting - edit highlight note';
+const addNote = 'REX highlighting - note added';
 
 export const selector = createSelector(
   selectNavigation.pathname,
@@ -11,12 +12,13 @@ export const selector = createSelector(
 
 export const track = (
   {pathname}: ReturnType<typeof selector>,
-  color: string
+  addedNote: boolean,
+  note: string
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
-      eventAction: color,
-      eventCategory: createNote,
+      eventAction: note,
+      eventCategory: addedNote ? addNote : editNote,
       eventLabel: pathname,
     }),
   };

@@ -4,7 +4,9 @@ import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
 import * as clickLink from './analyticsEvents/clickLink';
 import { AnalyticsEvent } from './analyticsEvents/event';
-import * as createNote from './analyticsEvents/highlighting/CreateNote';
+import * as highlightingCreateNote from './analyticsEvents/highlighting/createNote';
+import * as highlightingEditColor from './analyticsEvents/highlighting/editColor';
+import * as highlightingEditAnnotation from './analyticsEvents/highlighting/editNote';
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
@@ -14,6 +16,7 @@ const triggerEvent = <Args extends any[]>(event: (...args: Args) => (AnalyticsEv
   const analyticsEvent = event(...args);
 
   if (analyticsEvent) {
+    console.log(analyticsEvent.getGoogleAnalyticsPayload());
     googleAnalyticsClient.trackEventPayload(analyticsEvent.getGoogleAnalyticsPayload());
   }
 };
@@ -28,7 +31,9 @@ const mapEventType = <E extends {track: EventConstructor}>(event: E): E => ({
 const analytics = {
   clickButton: mapEventType(clickButton),
   clickLink: mapEventType(clickLink),
-  createNote: mapEventType(createNote),
+  createNote: mapEventType(highlightingCreateNote),
+  editAnnotation: mapEventType(highlightingEditAnnotation),
+  editNoteColor: mapEventType(highlightingEditColor),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),

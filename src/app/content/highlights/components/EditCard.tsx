@@ -4,6 +4,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import withServices from '../../../context/Services';
@@ -39,7 +40,6 @@ interface Props {
 const EditCard = React.forwardRef<HTMLElement, Props>((
   {
     authenticated,
-    book,
     className,
     data,
     highlight,
@@ -60,6 +60,12 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
+  const createNoteEventData = useSelector(services.analytics.createNote.selector);
+  const editNoteEventData = {
+    color: useSelector(services.analytics.editNoteColor.selector),
+    note: useSelector(services.analytics.editAnnotation.selector),
+  };
+
   const blurIfNotEditing = () => {
     if (!editingAnnotation) {
       onBlur();
@@ -68,8 +74,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
-  const onColorChange = (color: HighlightColorEnum, flag?: boolean) => {
-    services.analytics.createNote.track(book, flag ? 'default' : color);
+  const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     highlight.setStyle(color);
     if (data) {
       onSave({
@@ -79,13 +84,18 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         },
         id: data.id,
       });
+      services.analytics.editNoteColor.track(editNoteEventData.color, color);
     } else {
       assertWindow().getSelection().removeAllRanges();
       onCreate();
+      services.analytics.createNote.track(createNoteEventData, isDefault ? 'default' : color);
     }
   };
 
   const saveAnnotation = (toSave: HighlightData) => {
+    const addedNote = (data && data.annotation === undefined) ? true : false;
+    const action = addedNote ? 'created note' : 'edited note';
+
     onSave({
       highlight: {
         annotation: pendingAnnotation,
@@ -93,6 +103,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       },
       id: toSave.id,
     });
+    services.analytics.editAnnotation.track(editNoteEventData.note, addedNote, action);
     onCancel();
   };
 
