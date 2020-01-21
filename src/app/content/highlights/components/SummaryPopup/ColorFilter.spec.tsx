@@ -26,7 +26,7 @@ describe('ColorFilter', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': { pink: 2, green: 3 },
       'testbook1-testpage3-uuid': { yellow: 2 },
-    }));
+    }, new Map()));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
