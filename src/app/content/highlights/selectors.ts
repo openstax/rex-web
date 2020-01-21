@@ -14,7 +14,7 @@ import {
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
 } from './utils';
-import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
+import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -72,6 +72,11 @@ export const summaryLocationFilters = createSelector(
   (filters) => filters.locationIds
 );
 
+export const summaryColorFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.colors
+);
+
 export const summaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
@@ -117,9 +122,12 @@ const selectedHighlightLocationFilters = createSelector(
  , new Map() as HighlightLocationFilters)
 );
 
-// TODO - filter this by color when available from api
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
-  (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts)
+  summaryColorFilters,
+  (totalCounts, locationFilters, colorFilters) => flow(
+    (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
+    (counts) => filterCountsPerSourceByColorFilter(colorFilters, counts)
+  )(totalCounts)
 );
