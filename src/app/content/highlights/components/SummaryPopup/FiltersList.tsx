@@ -41,7 +41,6 @@ const ItemLabel = styled.span`
   @media print {
     max-width: max-content;
   }
-
 `;
 
 interface FiltersListColorProps {
