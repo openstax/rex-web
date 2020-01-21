@@ -10,11 +10,12 @@ import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
-  addOneToTotalCounts,
   addSummaryHighlight,
-  removeOneFromTotalCounts,
+  addToTotalCounts,
+  removeFromTotalCounts,
   removeSummaryHighlight,
-  updateSummaryHighlightsDependOnFilters,
+  updateInTotalCounts,
+  updateSummaryHighlightsDependOnFilters
 } from './utils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
@@ -56,8 +57,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
-      const { pageId } = action.meta;
-      const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = addToTotalCounts(state.summary.totalCountsPerPage || {}, highlight);
 
       return {
         ...state,
@@ -80,8 +80,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         (highlight) => highlight.id === action.payload.id);
       if (oldHiglightIndex < 0) { return state; }
 
+      const oldHighlight = state.highlights[oldHiglightIndex];
+
       const newHighlight = {
-        ...state.highlights[oldHiglightIndex],
+        ...oldHighlight,
         ...action.payload.highlight,
       } as Highlight;
 
@@ -93,12 +95,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         state.summary.filters,
         {...action.meta, highlight: newHighlight});
 
+      const totalCountsPerPage = state.summary.totalCountsPerPage
+        ? updateInTotalCounts(state.summary.totalCountsPerPage, oldHighlight, newHighlight)
+        : state.summary.totalCountsPerPage
+      ;
+
       return {
         ...state,
         highlights: newHighlights,
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -107,13 +115,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return state;
       }
 
-      const newSummaryHighlights = removeSummaryHighlight(state.summary.highlights, {
+      const [newSummaryHighlights, removedHighlight] = removeSummaryHighlight(state.summary.highlights, {
         ...action.meta,
         id: action.payload,
       });
 
-      const { pageId } = action.meta;
-      const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = state.summary.totalCountsPerPage && removedHighlight
+        ? removeFromTotalCounts(state.summary.totalCountsPerPage, removedHighlight)
+        : state.summary.totalCountsPerPage
+      ;
 
       return {
         ...state,
