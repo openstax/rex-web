@@ -111,14 +111,12 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
         className='summary-highlight-content'
         dangerouslySetInnerHTML={{ __html: highlight.highlightedContent }}
       />
-      {highlight.annotation ? (
-        <HighlightAnnotation
-          annotation={highlight.annotation}
-          isEditing={isEditing}
-          onSave={updateAnnotation}
-          onCancel={() => setIsEditing(false)}
-        />
-      ) : null}
+      <HighlightAnnotation
+        annotation={highlight.annotation || ''}
+        isEditing={isEditing}
+        onSave={updateAnnotation}
+        onCancel={() => setIsEditing(false)}
+      />
     </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
       onCancel={() => setIsDeleting(false)}

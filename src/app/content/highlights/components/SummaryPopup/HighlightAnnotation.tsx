@@ -42,6 +42,8 @@ const HighlightAnnotation = (
 ) => {
   const [anno, setAnno] = React.useState(annotation);
 
+  if (anno.length === 0 && !isEditing) { return null; }
+
   return <HighlightNote>
     {isEditing
       ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
