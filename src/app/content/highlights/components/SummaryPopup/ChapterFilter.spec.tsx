@@ -2,45 +2,38 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import MessageProvider from '../../../../MessageProvider';
-import { MiddlewareAPI, Store } from '../../../../types';
+import { Store } from '../../../../types';
+import { assertDefined } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
 import { receiveHighlightsTotalCounts } from '../../actions';
-import { hookBody } from '../../hooks/receiveHighlightsTotalCounts';
 import ChapterFilter from './ChapterFilter';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
-  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof hookBody>;
 
   beforeEach(() => {
     store = createTestStore();
-
-    helpers = {
-      ...createTestServices(),
-      dispatch: store.dispatch,
-      getState: store.getState,
-    };
-
-    hook = (hookBody)(helpers);
 
     store.dispatch(receivePage({...page, references: []}));
   });
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    })));
+    }, new Map([[
+      'testbook1-testpage1-uuid',
+      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+    ]])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -65,10 +58,19 @@ describe('ChapterFilter', () => {
 
   it('initially has selected chapters with highlights', () => {
     store.dispatch(receiveBook(book));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Pink]: 1},
-    })));
+    }, new Map([
+      [
+        'testbook1-testpage1-uuid',
+        assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      ],
+      [
+        'testbook1-testchapter3-uuid',
+        assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter3-uuid'), ''),
+      ],
+    ])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -87,9 +89,12 @@ describe('ChapterFilter', () => {
 
   it('checks and unchecks chapters', () => {
     store.dispatch(receiveBook(book));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    })));
+    }, new Map([[
+      'testbook1-testpage1-uuid',
+      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+    ]])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -116,9 +121,12 @@ describe('ChapterFilter', () => {
 
   it('selects none', () => {
     store.dispatch(receiveBook(book));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    })));
+    }, new Map([[
+      'testbook1-testpage1-uuid',
+      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+    ]])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -142,10 +150,10 @@ describe('ChapterFilter', () => {
 
   it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    })));
+    }, new Map()));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -175,9 +183,9 @@ describe('ChapterFilter', () => {
 
   it('chapters without highlights are disabled', () => {
     store.dispatch(receiveBook(book));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    })));
+    }, new Map()));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>

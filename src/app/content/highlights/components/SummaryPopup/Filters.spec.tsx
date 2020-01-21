@@ -8,11 +8,12 @@ import { book as archiveBook, pageInChapter } from '../../../../../test/mocks/ar
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
+import { assertDefined } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../actions';
-import { hookBody } from '../../hooks/receiveHighlightsTotalCounts';
 import { summaryFilters } from '../../selectors';
 import Filters from './Filters';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
@@ -24,7 +25,6 @@ describe('Filters', () => {
   let store: Store;
   const book = formatBookData(archiveBook, mockCmsBook);
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof hookBody>;
   let dispatch: jest.SpyInstance;
   let storeDispatch: jest.SpyInstance;
 
@@ -36,8 +36,6 @@ describe('Filters', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-
-    hook = (hookBody)(helpers);
 
     dispatch = jest.spyOn(helpers, 'dispatch');
     storeDispatch = jest.spyOn(store, 'dispatch');
@@ -92,9 +90,12 @@ describe('Filters', () => {
   it('removes colors and chapters from filters on click', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
-    hook(store.dispatch(receiveHighlightsTotalCounts({
+    store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testchapter5-uuid': {[HighlightColorEnum.Green]: 1},
-    })));
+    }, new Map([[
+      'testbook1-testchapter5-uuid',
+      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter5-uuid'), ''),
+    ]])));
     const filters = summaryFilters(store.getState());
 
     dispatch.mockClear();
