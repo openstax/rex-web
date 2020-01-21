@@ -93,7 +93,7 @@ describe('Filters', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
     hook(store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testchapter5-uuid': 1,
+      'testbook1-testchapter5-uuid': {[HighlightColorEnum.Green]: 1},
     })));
     const filters = summaryFilters(store.getState());
 

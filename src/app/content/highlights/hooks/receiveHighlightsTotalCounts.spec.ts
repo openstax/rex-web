@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
@@ -42,11 +43,11 @@ describe('receiveHighlightsTotalCounts', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
 
     const totalCountsPerPage = {
-      'testbook1-testpage1-uuid': 1,
-      'testbook1-testpage2-uuid': 2,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 2},
       // tslint:disable-next-line: object-literal-sort-keys
-      'testbook1-testpage11-uuid': 1,
-      'testbook1-testpage4-uuid': 5,
+      'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage4-uuid': {[HighlightColorEnum.Green]: 5},
     };
 
     const expectedLocationFiltersIds = [
