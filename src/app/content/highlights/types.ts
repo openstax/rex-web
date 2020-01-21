@@ -1,4 +1,5 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightsSummary } from '../../../../../highlighter/highlights-client/dist/models/HighlightsSummary';
 import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
@@ -10,11 +11,7 @@ export interface SummaryFilters {
   colors: HighlightColorEnum[];
 }
 
-export interface CountsPerSource {
-  [sourceId: string]: Partial<{
-    [color in HighlightColorEnum]: number
-  }>;
-}
+export type CountsPerSource = NonNullable<HighlightsSummary['countsPerSource']>;
 
 export type SummaryHighlightsPagination = null | {
   sourceIds: string[];
