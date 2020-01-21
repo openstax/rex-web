@@ -5,9 +5,10 @@ import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { Book, PageReferenceMap } from '../../types';
+import { Book, BookWithOSWebData, PageReferenceMap } from '../../types';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 
 export const mapStateToContentLinkProp = (state: AppState) => ({
@@ -29,10 +30,10 @@ export const reduceReferences = ({references, currentPath}: ContentLinkProp) => 
     pageContent
   );
 
-const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap) =>
+const isPathRefernceForBook = (pathname: string, book: Book | BookWithOSWebData) => (ref: PageReferenceMap) =>
   content.getUrl(ref.params) === pathname
     && (
-      ('book' in ref.params && ref.params.book === book.slug)
+      ('book' in ref.params && hasOSWebData(book) && ref.params.book === book.slug)
       || ('uuid' in ref.params && ref.params.uuid === book.id)
     );
 

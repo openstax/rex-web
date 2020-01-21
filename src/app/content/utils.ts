@@ -1,6 +1,6 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
-import { ArchiveBook, Book } from './types';
+import { ArchiveBook, Book, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -19,18 +19,21 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
-export const formatBookData = (archiveBook: ArchiveBook, osWebBook: OSWebBook): Book => ({
-  ...archiveBook,
-  authors: osWebBook.authors,
-  publish_date: osWebBook.publish_date,
-  slug: osWebBook.meta.slug,
-  theme: osWebBook.cover_color,
-});
+export const formatBookData = (archiveBook: ArchiveBook, osWebBook?: OSWebBook): Book | BookWithOSWebData  =>
+osWebBook ?
+  {
+    ...archiveBook,
+    authors: osWebBook.authors,
+    publish_date: osWebBook.publish_date,
+    slug: osWebBook.meta.slug,
+    theme: osWebBook.cover_color,
+  }
+: archiveBook;
 
 export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
-) => async(bookId: string, bookVersion: string) => {
+) => async(bookId: string, bookVersion?: string) => {
   const bookLoader = archiveLoader.book(bookId, bookVersion);
   const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await bookLoader.load();

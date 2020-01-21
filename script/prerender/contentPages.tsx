@@ -8,8 +8,9 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
+import { hasOSWebData } from '../../src/app/content/guards';
 import { content } from '../../src/app/content/routes';
-import { Book } from '../../src/app/content/types';
+import { Book, BookWithOSWebData } from '../../src/app/content/types';
 import { formatBookData, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import { notFound } from '../../src/app/errors/routes';
@@ -27,22 +28,30 @@ import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils
 
 export async function prepareContentPage(
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-  bookSlug: string,
+  book: Book | BookWithOSWebData,
   pageId: string,
   pageSlug: string
 ) {
-  const book = await bookLoader.load();
+  const loadedBook = await bookLoader.load();
   const page = await bookLoader.page(pageId).load();
 
-  const action: Match<typeof content> = {
-    params: {
-      book: bookSlug,
+  const params = hasOSWebData(book)
+    ? {
+      book: book.slug,
       page: pageSlug,
-    },
+    }
+    : {
+      page: pageSlug,
+      uuid: book.id,
+      version: book.version,
+    };
+
+  const action: Match<typeof content> = {
+    params,
     route: content,
     state: {
-      bookUid: book.id,
-      bookVersion: book.version,
+      bookUid: loadedBook.id,
+      bookVersion: loadedBook.version,
       pageUid: page.id,
     },
   };
@@ -150,9 +159,9 @@ export const prepareErrorPages = (): Promise<Pages> => Promise.resolve([
 
 export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-  book: Book
+  book: Book | BookWithOSWebData
 ) => asyncPool(20, findTreePages(book.tree), (section) =>
-  prepareContentPage(bookLoader, book.slug, stripIdVersion(section.id),
+  prepareContentPage(bookLoader, book, stripIdVersion(section.id),
     assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
   )
     .then((page) => ({code: 200, page}))

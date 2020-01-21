@@ -69,7 +69,7 @@ describe('locationChange', () => {
     ]);
 
     expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: 'book-slug-1'}));
     expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
     expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
@@ -84,7 +84,7 @@ describe('locationChange', () => {
     ]);
 
     expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: 'book-slug-1'}));
     expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
     expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
