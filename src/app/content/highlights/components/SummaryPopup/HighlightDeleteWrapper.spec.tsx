@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../../test/createTestStore';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import createTestStore from '../../../../../test/createTestStore';
+import MessageProvider from '../../../../MessageProvider';
+import { Store } from '../../../../types';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 
 describe('HighlightDeleteWrapper', () => {

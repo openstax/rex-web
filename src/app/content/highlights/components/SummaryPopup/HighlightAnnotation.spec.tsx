@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../../test/createTestStore';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import createTestStore from '../../../../../test/createTestStore';
+import MessageProvider from '../../../../MessageProvider';
+import { Store } from '../../../../types';
 import HighlightAnnotation from './HighlightAnnotation';
 
 describe('HighlightDeleteWrapper', () => {
@@ -18,7 +18,7 @@ describe('HighlightDeleteWrapper', () => {
       <MessageProvider>
         <HighlightAnnotation
           annotation='Some annotation'
-          isEditable={false}
+          isEditing={false}
           // tslint:disable-next-line: no-empty
           onSave={() => {}}
           // tslint:disable-next-line: no-empty
@@ -36,7 +36,7 @@ describe('HighlightDeleteWrapper', () => {
       <MessageProvider>
         <HighlightAnnotation
           annotation='Some annotation'
-          isEditable={true}
+          isEditing={true}
           // tslint:disable-next-line: no-empty
           onSave={() => {}}
           // tslint:disable-next-line: no-empty
@@ -58,7 +58,7 @@ describe('HighlightDeleteWrapper', () => {
       <MessageProvider>
         <HighlightAnnotation
           annotation={annotation}
-          isEditable={true}
+          isEditing={true}
           onCancel={() => { cancelClicked = true; }}
           onSave={(text) => { savedText = text; }}
         />

@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -35,7 +36,7 @@ describe('ChapterFilter', () => {
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }));
     addCurrentPageToSummaryFilters(helpers);
 
@@ -164,7 +165,7 @@ describe('ChapterFilter', () => {
   it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }));
     addCurrentPageToSummaryFilters(helpers);
 
@@ -195,7 +196,7 @@ describe('ChapterFilter', () => {
   it('chapters without highlights are disabled', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': 1,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }));
     addCurrentPageToSummaryFilters(helpers);
 

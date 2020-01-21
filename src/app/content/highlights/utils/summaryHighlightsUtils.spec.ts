@@ -4,17 +4,23 @@ import {
   HighlightUpdate,
   HighlightUpdateColorEnum,
 } from '@openstax/highlighter/dist/api';
+import { CountsPerSource } from '../types';
 import {
-  addOneToTotalCounts,
   addSummaryHighlight,
-  getHighlightByIdFromSummaryHighlights,
-  removeOneFromTotalCounts,
+  addToTotalCounts,
+  removeFromTotalCounts,
   removeSummaryHighlight,
+  updateInTotalCounts,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
 
-const highlight = { id: 'highlight', color: HighlightColorEnum.Green, annotation: 'asd' } as Highlight;
+const highlight = {
+  annotation: 'asd',
+  color: HighlightColorEnum.Green,
+  id: 'highlight',
+  sourceId: 'page1',
+} as Highlight;
 const highlight2 = { id: 'highlight2' } as Highlight;
 
 describe('addSummaryHighlight', () => {
@@ -92,7 +98,7 @@ describe('removeSummaryHighlight', () => {
       id: highlight.id,
       locationFilterId: 'location',
       pageId: 'page',
-    })).toMatchObject(expectedResult);
+    })[0]).toMatchObject(expectedResult);
   });
 
   it('remove highlight and page if it does not have more highlights', () => {
@@ -113,7 +119,7 @@ describe('removeSummaryHighlight', () => {
       id: highlight.id,
       locationFilterId: 'location',
       pageId: 'page',
-    })).toMatchObject(expectedResult);
+    })[0]).toMatchObject(expectedResult);
   });
 
   it('remove highlight, page and location if it does not have more highlights', () => {
@@ -324,92 +330,87 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
   });
 });
 
-describe('removeOneFromTotalCounts', () => {
+describe('removeFromTotalCounts', () => {
   it('remove one from total counts from given id', () => {
-    const totalCounts = {
-      page1: 1,
-      page2: 3,
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    const expectedResult = {
-      page1: 0,
-      page2: 3,
+    const expectedResult: CountsPerSource = {
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    expect(removeOneFromTotalCounts(totalCounts, 'page1')).toEqual(expectedResult);
+    expect(removeFromTotalCounts(totalCounts, highlight)).toEqual(expectedResult);
   });
 
   it('do nothing if if given id doesn\'t not exists', () => {
-    const totalCounts = {
-      page1: 1,
-      page2: 3,
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    const expectedResult = {
-      page1: 1,
-      page2: 3,
+    const expectedResult: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    expect(removeOneFromTotalCounts(totalCounts, 'wrong-id')).toEqual(expectedResult);
+    expect(removeFromTotalCounts(totalCounts, {...highlight, sourceId: 'asdf'})).toEqual(expectedResult);
   });
 });
 
 describe('addOneToTotalCounts', () => {
   it('add one to total counts for given id', () => {
-    const totalCounts = {
-      page1: 1,
-      page2: 3,
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    const expectedResult = {
-      page1: 2,
-      page2: 3,
+    const expectedResult: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 2},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    expect(addOneToTotalCounts(totalCounts, 'page1')).toEqual(expectedResult);
+    expect(addToTotalCounts(totalCounts, highlight)).toEqual(expectedResult);
   });
 
   it('create new prop if there is no result for given id', () => {
-    const totalCounts = {
-      page1: 1,
-      page2: 3,
+    const totalCounts: CountsPerSource = {
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    const expectedResult = {
-      newPage: 1,
-      page1: 1,
-      page2: 3,
+    const expectedResult: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
     };
 
-    expect(addOneToTotalCounts(totalCounts, 'newPage')).toEqual(expectedResult);
+    expect(addToTotalCounts(totalCounts, highlight)).toEqual(expectedResult);
+  });
+});
+
+describe('updateInTotalCounts', () => {
+  it('updates', () => {
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
+    };
+
+    const expectedResult: CountsPerSource = {
+      page1: {[HighlightColorEnum.Pink]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
+    };
+
+    expect(updateInTotalCounts(totalCounts, highlight, {...highlight, color: HighlightColorEnum.Pink}))
+      .toEqual(expectedResult);
   });
 
-  describe('getHighlightByIdFromSummaryHighlights', () => {
-    it('get highlight', () => {
-      const summaryHighlights = {
-        page: {
-          page: [highlight],
-        },
-        page2: {
-          page: [highlight2],
-        },
-      };
+  it('noops if there is nothing to change', () => {
+    const totalCounts: CountsPerSource = {
+      page1: {[HighlightColorEnum.Green]: 1},
+      page2: {[HighlightColorEnum.Pink]: 3},
+    };
 
-      const foundHighlight = getHighlightByIdFromSummaryHighlights(summaryHighlights, highlight.id);
-
-      expect(foundHighlight).toEqual(highlight);
-    });
-
-    it('return undefined if highlight was not found', () => {
-      const summaryHighlights = {
-        page: {
-          page: [highlight],
-        },
-      };
-
-      const foundHighlight = getHighlightByIdFromSummaryHighlights(summaryHighlights, 'not-here');
-
-      expect(foundHighlight).toBeUndefined();
-    });
+    expect(updateInTotalCounts(totalCounts, highlight, highlight))
+      .toBe(totalCounts);
   });
 });

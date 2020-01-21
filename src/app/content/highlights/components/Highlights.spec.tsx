@@ -10,15 +10,22 @@ import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { deleteHighlight, receiveSummaryHighlights, setSummaryFilters, updateHighlight } from '../actions';
+import {
+  deleteHighlight,
+  receiveHighlightsTotalCounts,
+  receiveSummaryHighlights,
+  setSummaryFilters,
+  updateHighlight,
+} from '../actions';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import HighlightAnnotation from './HighlightAnnotation';
-import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import Highlights, { SectionHighlights } from './Highlights';
-import HighlightToggleEdit from './HighlightToggleEdit';
-import { HighlightContentWrapper, HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
+import { HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
+import ContextMenu from './SummaryPopup/ContextMenu';
+import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
+import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
+import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -53,6 +60,10 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
 
     const summaryHighlights = {
       [pageId]: {
@@ -63,7 +74,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -100,6 +111,11 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
+
     const summaryHighlights = {
       [pageId]: {
         [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
@@ -111,7 +127,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -133,7 +149,14 @@ describe('Highlights', () => {
     expect(isLoading).toBeDefined();
   });
 
-  it('show no highlights tip when locationIds filter is empty', () => {
+  it('show no highlights tip when there are no highlights for selected filters', () => {
+    store.dispatch(receiveHighlightsTotalCounts({
+      pageId: {[HighlightColorEnum.Green]: 5},
+      pageId2: {[HighlightColorEnum.Green]: 2},
+    }));
+    store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
+    store.dispatch(receiveSummaryHighlights({}, null));
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <Highlights/>
@@ -144,16 +167,7 @@ describe('Highlights', () => {
       .toBeDefined();
   });
 
-  it('show add highlight message when there is no highlights on specific page', () => {
-    const pageId = stripIdVersion(page.id);
-
-    const summaryHighlights = {} as SummaryHighlights;
-
-    renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
-    });
-
+  it('show add highlight message when there are no highlights in specific book', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <Highlights/>
@@ -169,6 +183,7 @@ describe('Highlights', () => {
     const pageId = stripIdVersion(pageInChapter.id);
     const locations = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
+    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: {[HighlightColorEnum.Green]: 5} }));
 
     const summaryHighlights = {
       [location!.id]: {
@@ -178,7 +193,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     });
 
     consoleError.mockReturnValueOnce(null);
@@ -199,6 +214,10 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
 
     const summaryHighlights = {
       [pageId]: {
@@ -209,7 +228,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -217,7 +236,7 @@ describe('Highlights', () => {
       </MessageProvider>
     </Provider>);
 
-    const editingMenus = component.root.findAllByType(HighlightToggleEdit);
+    const editingMenus = component.root.findAllByType(ContextMenu);
     expect(editingMenus.length).toEqual(6);
   });
 
@@ -229,6 +248,10 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
 
     const summaryHighlights = {
       [pageId]: {
@@ -239,7 +262,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
@@ -249,15 +272,15 @@ describe('Highlights', () => {
     </Provider>);
 
     let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
-    expect(firstAnnotation.props.isEditable).toEqual(false);
+    expect(firstAnnotation.props.isEditing).toEqual(false);
 
     renderer.act(() => {
-      const [firstEditMenu] = component.root.findAllByType(HighlightToggleEdit);
-      firstEditMenu.props.onEdit();
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onEdit();
     });
 
     [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
-    expect(firstAnnotation.props.isEditable).toEqual(true);
+    expect(firstAnnotation.props.isEditing).toEqual(true);
 
     renderer.act(() => {
       firstAnnotation.props.onSave('text');
@@ -266,7 +289,6 @@ describe('Highlights', () => {
     expect(dispatch).toHaveBeenCalledWith(updateHighlight({
       highlight: {
         annotation: 'text',
-        color: hlBlue.color as string as HighlightUpdateColorEnum,
       },
       id: hlBlue.id,
     }, {
@@ -283,6 +305,10 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
 
     const summaryHighlights = {
       [pageId]: {
@@ -293,7 +319,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
@@ -303,8 +329,8 @@ describe('Highlights', () => {
     </Provider>);
 
     renderer.act(() => {
-      const [firstEditMenu] = component.root.findAllByType(HighlightToggleEdit);
-      firstEditMenu.props.onColorChange('yellow');
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onColorChange('yellow');
     });
 
     expect(dispatch).toHaveBeenCalledWith(updateHighlight({
@@ -326,6 +352,10 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
 
     const summaryHighlights = {
       [pageId]: {
@@ -336,7 +366,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
@@ -346,8 +376,8 @@ describe('Highlights', () => {
     </Provider>);
 
     renderer.act(() => {
-      const [firstEditMenu] = component.root.findAllByType(HighlightToggleEdit);
-      firstEditMenu.props.onDelete();
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onDelete();
     });
 
     renderer.act(() => {

@@ -1,26 +1,51 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '../../../components/Button';
-import * as Styled from './ShowMyHighlightsStyles';
+import styled from 'styled-components';
+import Button from '../../../../components/Button';
+import { textRegularStyle } from '../../../../components/Typography';
+import theme from '../../../../theme';
+import { HighlightEditButtons } from './styles';
+
+// tslint:disable-next-line:variable-name
+const HighlightNote = styled.div`
+  ${textRegularStyle}
+  padding-top: 1.2rem;
+  display: flex;
+
+  span {
+    margin: 0 0.8rem 0 0;
+    overflow: visible;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const Textarea = styled.textarea`
+  ${textRegularStyle}
+  flex: 1;
+  letter-spacing: 0;
+  line-height: 20px;
+  color: ${theme.color.text.label};
+  padding: 8px;
+`;
 
 interface HighlightAnnotationProps {
   annotation: string;
-  isEditable: boolean;
+  isEditing: boolean;
   onSave: (annotation: string) => void;
   onCancel: () => void;
 }
 
 // tslint:disable-next-line:variable-name
 const HighlightAnnotation = (
-  { annotation, isEditable, onSave, onCancel }: HighlightAnnotationProps
+  { annotation, isEditing, onSave, onCancel }: HighlightAnnotationProps
 ) => {
   const [anno, setAnno] = React.useState(annotation);
 
-  return <Styled.HighlightNote>
-    {isEditable
+  return <HighlightNote>
+    {isEditing
       ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
-        {(msg: string) => <textarea
+        {(msg: string) => <Textarea
           value={anno}
           placeholder={msg}
           autoFocus={true}
@@ -29,16 +54,16 @@ const HighlightAnnotation = (
           }}
         />}
       </FormattedMessage>
-      : <Styled.HighlightNote>
-        <span>
+      : <React.Fragment>
+        <span className='highlight-note-text'>
           <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
         </span>
         {annotation}
-      </Styled.HighlightNote>
+      </React.Fragment>
       }
-    {isEditable && <Styled.HighlightEditButtons>
+    {isEditing && <HighlightEditButtons>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
           data-testid='save'
@@ -56,8 +81,8 @@ const HighlightAnnotation = (
           onClick={onCancel}
         >{msg}</Button>}
       </FormattedMessage>
-    </Styled.HighlightEditButtons>}
-  </Styled.HighlightNote>;
+    </HighlightEditButtons>}
+  </HighlightNote>;
 };
 
 export default HighlightAnnotation;

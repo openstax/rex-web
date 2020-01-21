@@ -18,39 +18,20 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
   overflow: visible;
 }
 
-.c0 textarea {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  line-height: 20px;
-  color: #6f6f6f;
-  padding: 8px;
-}
-
 <div
   className="c0"
 >
-  <div
-    className="c0"
+  <span
+    className="highlight-note-text"
   >
-    <span>
-      Note:
-    </span>
-    Some annotation
-  </div>
+    Note:
+  </span>
+  Some annotation
 </div>
 `;
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] = `
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -79,15 +60,15 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   border: none;
 }
 
-.c2:hover {
+.c3:hover {
   background-color: #e96128;
 }
 
-.c2:active {
+.c3:active {
   background-color: #df571e;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -116,12 +97,28 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   font-weight: regular;
 }
 
-.c3:hover {
+.c4:hover {
   background-color: #fafafa;
 }
 
-.c3:active {
+.c4:active {
   background-color: #e5e5e5;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.c2 button:first-child {
+  margin-right: 8px;
 }
 
 .c0 {
@@ -141,7 +138,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   overflow: visible;
 }
 
-.c0 textarea {
+.c1 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -158,36 +155,21 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   padding: 8px;
 }
 
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 0 8px;
-}
-
-.c1 button:first-child {
-  margin-right: 8px;
-}
-
 <div
   className="c0"
 >
   <textarea
     autoFocus={true}
+    className="c1"
     onChange={[Function]}
     placeholder="Add a note..."
     value="Some annotation"
   />
   <div
-    className="c1"
+    className="c2"
   >
     <button
-      className="c2"
+      className="c3"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -195,7 +177,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
       Save
     </button>
     <button
-      className="c3"
+      className="c4"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}

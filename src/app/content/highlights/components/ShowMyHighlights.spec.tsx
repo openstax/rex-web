@@ -12,12 +12,13 @@ import { User } from '../../../auth/types';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { openMyHighlights, receiveHighlights } from '../actions';
+import { loadMoreSummaryHighlights, openMyHighlights, receiveHighlights } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
-import { HighlightContentWrapper, ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
 describe('Show my highlights', () => {
   let store: Store;
@@ -85,6 +86,52 @@ describe('Show my highlights', () => {
     };
 
     expect(() => render()).not.toThrow();
+  });
+
+  it('doesn\'t request more if not at bottom', () => {
+    const dispatch = spyOn(store, 'dispatch');
+
+    const {root} = renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <ShowMyHighlights/>
+      </MessageProvider>
+    </Provider>);
+    const target = root.querySelector('[data-testid="show-myhighlights-body"]');
+    if (!target) {
+      return expect(target).toBeTruthy();
+    }
+    Object.defineProperty(target, 'scrollHeight', { value: 1000 });
+    Object.defineProperty(target, 'offsetHeight', { value: 100 });
+    Object.defineProperty(target, 'scrollTop', { value: 100 });
+
+    const scrollEvent = window.document.createEvent('UIEvents');
+    scrollEvent.initEvent('scroll', true, false);
+    target.dispatchEvent(scrollEvent);
+
+    expect(dispatch).not.toHaveBeenCalledWith(loadMoreSummaryHighlights());
+  });
+
+  it('requests more highlights when scrolling down', () => {
+    const dispatch = spyOn(store, 'dispatch');
+
+    const {root} = renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <ShowMyHighlights/>
+      </MessageProvider>
+    </Provider>);
+    const target = root.querySelector('[data-testid="show-myhighlights-body"]');
+    if (!target) {
+      return expect(target).toBeTruthy();
+    }
+    Object.defineProperty(target, 'scrollHeight', { value: 1000 });
+    Object.defineProperty(target, 'offsetHeight', { value: 100 });
+    Object.defineProperty(target, 'scrollTop', { value: 900 });
+
+    const scrollEvent = window.document.createEvent('UIEvents');
+    scrollEvent.initEvent('scroll', true, false);
+    target.dispatchEvent(scrollEvent);
+
+    expect(dispatch).toHaveBeenCalledWith(loadMoreSummaryHighlights());
   });
 
   it('shows back to top button on scroll and works on click', async() => {

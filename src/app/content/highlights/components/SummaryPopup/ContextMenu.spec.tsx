@@ -2,13 +2,13 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../../test/createTestStore';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
-import ColorPicker from './ColorPicker';
-import HighlightToggleEdit from './HighlightToggleEdit';
+import createTestStore from '../../../../../test/createTestStore';
+import MessageProvider from '../../../../MessageProvider';
+import { Store } from '../../../../types';
+import ColorPicker from '../ColorPicker';
+import ContextMenu from './ContextMenu';
 
-describe('HighlightToggleEdit', () => {
+describe('ContextMenu', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('HighlightToggleEdit', () => {
   it('match snapshot', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightToggleEdit
+        <ContextMenu
           color={HighlightColorEnum.Blue}
           // tslint:disable-next-line: no-empty
           onEdit={() => {}}
@@ -40,7 +40,7 @@ describe('HighlightToggleEdit', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightToggleEdit
+        <ContextMenu
           color={HighlightColorEnum.Blue}
           onEdit={() => { editClicked = true; }}
           onDelete={() => { deleteClicked = true; }}
@@ -61,17 +61,17 @@ describe('HighlightToggleEdit', () => {
     expect(deleteClicked).toEqual(true);
   });
 
-  it('properly fire onDelete and onColorChange props', () => {
-    let deleteClicked = false;
+  it('properly fire onColorChange props', () => {
     let color = HighlightColorEnum.Blue;
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightToggleEdit
+        <ContextMenu
           color={color}
           // tslint:disable-next-line: no-empty
           onEdit={() => {}}
-          onDelete={() => { deleteClicked = true; }}
+          // tslint:disable-next-line: no-empty
+          onDelete={() => {}}
           // tslint:disable-next-line: no-empty
           onColorChange={(newColor) => { color = newColor as HighlightColorEnum; }}
         />
@@ -81,10 +81,8 @@ describe('HighlightToggleEdit', () => {
     renderer.act(() => {
       const colorPicker = component.root.findByType(ColorPicker);
       colorPicker.props.onChange('yellow');
-      colorPicker.props.onRemove();
     });
 
-    expect(deleteClicked).toEqual(true);
     expect(color).toEqual('yellow');
   });
 });
