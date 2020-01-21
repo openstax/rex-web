@@ -111,6 +111,7 @@ class Content(Page):
         if self.my_highlights_open:
             my_highlights_root = self.find_element(*self._modal_root_locator)
             return MyHighlights(self, my_highlights_root)
+        return None
 
     @property
     def my_highlights_open(self) -> bool:

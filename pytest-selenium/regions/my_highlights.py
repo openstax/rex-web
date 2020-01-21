@@ -18,11 +18,11 @@ class MyHighlights(Region):
     """The 'My Highlights and Notes' modal."""
 
     _close_x_button_locator = (
-        By.CSS_SELECTOR, "[data-testid='close-highlights-popup']")
+        By.CSS_SELECTOR, "[data-testid=close-highlights-popup]")
     _content_header_locator = (
         By.CSS_SELECTOR, "[class*=Body] h3")
     _back_to_top_button_locator = (
-        By.CSS_SELECTOR, ".back-to-top-highlights")
+        By.CSS_SELECTOR, "[data-testid=back-to-top-highlights]")
     _highlight_locator = (
         By.CSS_SELECTOR,
         "[data-testid=show-myhighlights-body] > div:not([data-testid]) > div")
@@ -30,6 +30,8 @@ class MyHighlights(Region):
         By.CSS_SELECTOR, "[href*=accounts]")
     _modal_title_locator = (
         By.CSS_SELECTOR, "[class*=Modal] > h3")
+    _my_highlights_body_locator = (
+        By.CSS_SELECTOR, "[data-testid=show-myhighlights-body]")
 
     @property
     def back_to_top_available(self) -> bool:
@@ -74,6 +76,19 @@ class MyHighlights(Region):
         return bool(self.find_elements(*self._log_in_link_locator))
 
     @property
+    def scroll_position(self) -> int:
+        """Return the My Highlights and Notes body scroll position.
+
+        :return: the number of pixels the My Highlights scroll position is from
+            the top
+        :rtype: int
+
+        """
+        return self.driver.execute_script(
+            "return arguments[0].scrollTop;",
+            self.find_element(*self._my_highlights_body_locator))
+
+    @property
     def title(self) -> str:
         """Return the modal title text.
 
@@ -93,7 +108,7 @@ class MyHighlights(Region):
         if self.back_to_top_available:
             button = self.find_element(*self._back_to_top_button_locator)
             Utilities.click_option(self.driver, element=button)
-            sleep(0.15)
+            sleep(0.33)
             return self
 
     def close(self) -> Page:

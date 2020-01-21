@@ -2,8 +2,11 @@
 
 import logging
 import random
+from math import isclose
 
 import pytest
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 from pages.accounts import Signup
 from pages.content import Content
@@ -227,3 +230,115 @@ def test_my_highlights_summary_shows_all_types_of_content(
     assert(summary_highlights == len(highlight_ids)), (
         "number of summary highlights different from page highlights "
         f"(found {summary_highlights}, expected {len(highlight_ids)})")
+
+
+@markers.test_case("C592640")
+@pytest.mark.xfail()
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("chemistry-2e",
+         "1-introduction")])
+@markers.desktop_only
+def test_able_to_close_my_highlights_with_keyboard_navigation(
+        selenium, base_url, book_slug, page_slug):
+    """My Highlights and Notes summary shows all types of page content."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   the My Highlights and Notes modal is open
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email, password = Signup(selenium).register(True)
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    book.toolbar.my_highlights()
+
+    # WHEN: they tab to the close 'x' and send the return key to it
+    (ActionChains(selenium)
+        .send_keys(Keys.TAB * 4)
+        .send_keys(Keys.RETURN)
+        .perform())
+
+    # THEN: the My Highlights and Notes modal is closed
+    assert(not book.my_highlights_open), \
+        "My Highlights and Notes modal is still open"
+
+
+@markers.test_case("C592641")
+@markers.parametrize(
+    "book_slug,page_slug", [
+        ("chemistry-2e",
+         "1-1-chemistry-in-context")])
+def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
+        selenium, base_url, book_slug, page_slug):
+    """My Highlights and Notes summary has a floating back to top button."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   several sections are highlighted
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email, password = Signup(selenium).register(True)
+    logging.info(f'"{email.address}":"{password}"')
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # making a highlight requires a non-mobile window width temporarily
+    width, height = book.get_window_size()
+    if width <= DESKTOP[0]:
+        selenium.set_window_size(width=DESKTOP[0], height=height)
+
+    for _ in range(8):
+        book.content.highlight(target=random.choice(book.content.paragraphs),
+                               offset=Highlight.ENTIRE,
+                               color=Highlight.random_color())
+
+    if width != DESKTOP[0]:
+        # reset the window width for a mobile test
+        selenium.set_window_size(width=width, height=height)
+
+    # WHEN: they open the highlights summary modal
+    # AND:  the modal is scrolled down
+    my_highlights = book.toolbar.my_highlights()
+    initial_scroll_top = my_highlights.scroll_position
+    within = initial_scroll_top * 0.01
+
+    Utilities.scroll_to(selenium, element=my_highlights.highlights[-1].root)
+
+    # THEN: a floating back to top button is displayed in the lower right
+    #       side of the modal
+    assert(my_highlights.scroll_position > initial_scroll_top), \
+        "modal not scrolled down"
+    assert(my_highlights.back_to_top_available), \
+        "back to top button not found"
+
+    # WHEN: they click the back to top button
+    my_highlights = my_highlights.back_to_top()
+
+    # THEN: the modal is scrolled to the top
+    # AND:  the back to top button is not available
+    return_position = my_highlights.scroll_position
+    assert(isclose(return_position, initial_scroll_top, rel_tol=within)), (
+        r"return scroll position not within 1% of the initial scroll position "
+        "({low} <= {target} <= {high})".format(
+            low=initial_scroll_top - within,
+            high=initial_scroll_top + within,
+            target=return_position))
+
+    assert(not my_highlights.back_to_top_available), \
+        "back to top button still available"
