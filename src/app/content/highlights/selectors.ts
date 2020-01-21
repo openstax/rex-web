@@ -9,7 +9,11 @@ import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
+import {
+  getHighlightColorFiltersWithContent,
+  getHighlightLocationFilters,
+  getHighlightLocationFiltersWithContent,
+} from './utils';
 import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
 export const localState = createSelector(
@@ -89,6 +93,11 @@ export const highlightLocationFiltersWithContent = createSelector(
   highlightLocationFilters,
   totalCountsPerPageOrEmpty,
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
+);
+
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  (totalCounts) => getHighlightColorFiltersWithContent(totalCounts)
 );
 
 export const loadedCountsPerSource = createSelector(

@@ -11,6 +11,7 @@ export interface SummaryFilters {
 }
 
 export type CountsPerSource = NonNullable<HighlightsSummary['countsPerSource']>;
+export type HighlightColorCounts = CountsPerSource[string];
 
 export type SummaryHighlightsPagination = null | {
   sourceIds: string[];
