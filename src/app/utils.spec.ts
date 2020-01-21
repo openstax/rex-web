@@ -101,6 +101,18 @@ describe('assertDefined', () => {
   });
 });
 
+describe('assertNotNull', () => {
+  it('returns value', () => {
+    expect(utils.assertNotNull('foo', 'error')).toBe('foo');
+  });
+
+  it('throws on null', () => {
+    expect(() =>
+      utils.assertNotNull(null, 'error')
+    ).toThrowErrorMatchingInlineSnapshot(`"error"`);
+  });
+});
+
 describe('assertString', () => {
   it('returns value', () => {
     expect(utils.assertString('foo', 'error')).toBe('foo');
