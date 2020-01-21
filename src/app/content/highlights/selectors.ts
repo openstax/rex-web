@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import mapValues from 'lodash/fp/mapValues';
 import merge from 'lodash/fp/merge';
+import omit from 'lodash/fp/omit';
 import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
@@ -9,7 +10,10 @@ import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
+import {
+  getHighlightLocationFilters,
+  getHighlightLocationFiltersWithContent,
+} from './utils';
 import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
 export const localState = createSelector(
@@ -113,4 +117,12 @@ export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
   (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts)
+);
+
+export const hasMoreResults = createSelector(
+  loadedCountsPerSource,
+  filteredCountsPerPage,
+  (loaded, filteredCounts) => {
+    return Boolean(Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
+  }
 );

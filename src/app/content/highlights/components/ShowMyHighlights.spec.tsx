@@ -1,10 +1,13 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
@@ -12,8 +15,17 @@ import { User } from '../../../auth/types';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { loadMoreSummaryHighlights, openMyHighlights, receiveHighlights } from '../actions';
+import { receiveBook } from '../../actions';
+import { formatBookData } from '../../utils';
+import {
+  loadMoreSummaryHighlights,
+  openMyHighlights,
+  receiveHighlights,
+  receiveHighlightsTotalCounts,
+  setSummaryFilters,
+} from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
+import { hasMoreResults, summaryHighlights } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
@@ -111,6 +123,16 @@ describe('Show my highlights', () => {
   });
 
   it('requests more highlights when scrolling down', () => {
+    const book = formatBookData(archiveBook, mockCmsBook);
+    store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
+    }));
+    store.dispatch(setSummaryFilters({ locationIds: ['testbook1-testpage1-uuid'] }));
+
+    expect(summaryHighlights(store.getState())).toEqual({});
+    expect(hasMoreResults(store.getState())).toBeTruthy();
+
     const dispatch = spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
@@ -131,6 +153,31 @@ describe('Show my highlights', () => {
     target.dispatchEvent(scrollEvent);
 
     expect(dispatch).toHaveBeenCalledWith(loadMoreSummaryHighlights());
+  });
+
+  it('do not requests more highlights when there is no more results', () => {
+    expect(hasMoreResults(store.getState())).toBeFalsy();
+
+    const dispatch = spyOn(store, 'dispatch');
+
+    const {root} = renderToDom(<Provider store={store}>
+      <MessageProvider>
+        <ShowMyHighlights/>
+      </MessageProvider>
+    </Provider>);
+    const target = root.querySelector('[data-testid="show-myhighlights-body"]');
+    if (!target) {
+      return expect(target).toBeTruthy();
+    }
+    Object.defineProperty(target, 'scrollHeight', { value: 1000 });
+    Object.defineProperty(target, 'offsetHeight', { value: 100 });
+    Object.defineProperty(target, 'scrollTop', { value: 900 });
+
+    const scrollEvent = window.document.createEvent('UIEvents');
+    scrollEvent.initEvent('scroll', true, false);
+    target.dispatchEvent(scrollEvent);
+
+    expect(dispatch).not.toHaveBeenCalledWith(loadMoreSummaryHighlights());
   });
 
   it('shows back to top button on scroll and works on click', async() => {
