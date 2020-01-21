@@ -1,5 +1,5 @@
 import { ActionHookBody } from '../../types';
-import { actionHook, assertDefined } from '../../utils';
+import { actionHook, assertNotNull } from '../../utils';
 import * as actions from '../actions';
 
 export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({payload: {title, meta, links}}) => {
@@ -9,7 +9,7 @@ export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({payload:
 
   document.title = title;
 
-  const head = assertDefined(document.head, 'document must have a head');
+  const head = assertNotNull(document.head, 'document must have a head');
 
   for (const metaValue of meta) {
     const tag = document.createElement('meta');

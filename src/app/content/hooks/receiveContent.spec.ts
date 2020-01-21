@@ -148,12 +148,21 @@ describe('setHead hook', () => {
       expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
     });
 
-    it('returns nothing when the page is only in the current book (not in the canonical book)', async() => {
+    it('doesn\'t add link when canonical is null', async() => {
       const bookId = book.id;
       const pageShortId = 'unique-snowflake-page';
       CANONICAL_MAP[bookId] = [ bookId ];
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
-      expect(x).toBeNull();
+
+      store.dispatch(receiveBook(combinedBook));
+      store.dispatch(receivePage({...page, references: [], shortId: pageShortId}));
+
+      await hook(receivePage({...page, references: [], shortId: pageShortId}));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead({
+        links: [],
+        meta: expect.anything(),
+        title: expect.anything(),
+      }));
     });
 
     it('adds <link rel="canonical">', async() => {
@@ -165,7 +174,11 @@ describe('setHead hook', () => {
 
       await hook(receivePage({...page, references: []}));
 
-      expect(dispatch).toHaveBeenCalledWith(setHead(expect.anything()));
+      expect(dispatch).toHaveBeenCalledWith(setHead({
+        links: [{rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1'}],
+        meta: expect.anything(),
+        title: expect.anything(),
+      }));
     });
   });
 });

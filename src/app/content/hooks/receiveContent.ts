@@ -3,7 +3,6 @@ import { setHead } from '../../head/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
-import { assertDefined } from '../../utils';
 import { receivePage } from '../actions';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
@@ -45,16 +44,13 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   // the abstract could be '<div/>'.
   const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
   const description = abstract || stripHtmlAndTrim(getCleanContent(book, page, archiveLoader));
-  const canonical = assertDefined(
-    await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId),
-    'should have found a canonical book and page'
-  );
-  const canonicalUrl = contentRoute.getUrl(canonical);
+  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId);
+  const canonicalUrl = canonical && contentRoute.getUrl(canonical);
 
   dispatch(setHead({
-    links: [
+    links: canonicalUrl ? [
       {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
-    ],
+    ] : [],
     meta: [
       {name: 'description', content: description},
       {property: 'og:description', content: description},
