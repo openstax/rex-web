@@ -84,9 +84,9 @@ export const summaryPagination = createSelector(
 
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
- (book) => book
-  ? getHighlightLocationFilters(book)
-  : new Map() as HighlightLocationFilters
+  (book) => book
+    ? getHighlightLocationFilters(book)
+    : new Map() as HighlightLocationFilters
 );
 
 export const highlightLocationFiltersWithContent = createSelector(

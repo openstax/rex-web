@@ -12,6 +12,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
   const totalCountsInState = select.totalCountsPerPage(state);
+  const locationFilters = select.highlightLocationFilters(state);
 
   if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
     return;
@@ -36,7 +37,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   });
 
   if (totalCounts.countsPerSource) {
-    dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource));
+    dispatch(receiveHighlightsTotalCounts(totalCounts.countsPerSource, locationFilters));
   }
 };
 
