@@ -408,7 +408,7 @@ def test_focussed_note_card_is_displayed_when_highlight_clicked(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.BLUE,
@@ -472,7 +472,7 @@ def test_delete_a_highlight_and_note_using_the_context_menu(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.PINK,
@@ -533,7 +533,7 @@ def test_delete_a_note_using_the_context_menu(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     highlight_color = Color.PINK
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
@@ -629,7 +629,7 @@ def test_cancel_deleting_a_highlight_using_the_context_menu(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.GREEN,
@@ -701,7 +701,7 @@ def test_cancel_deleting_a_note_using_the_context_menu(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.GREEN,
@@ -774,7 +774,7 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.GREEN,
@@ -786,7 +786,7 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
     # AND:  click the "Save" button
     book.content.highlight_box.edit_note()
 
-    new_note = Utilities.random_string(75)
+    new_note = Utilities.random_string(length=75)
     book.content.highlight_box.note = new_note
 
     book.content.highlight_box.save()
@@ -838,7 +838,7 @@ def test_clicking_a_note_highlight_color_doesnt_change_the_highlight(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     highlight_color = Color.GREEN
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
@@ -898,7 +898,7 @@ def test_clicking_a_new_note_highlight_color_changes_the_highlight(
     book.content.show_solutions()
 
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     initial_highlight_color = Color.GREEN
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
@@ -984,7 +984,7 @@ def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
 
     # WHEN: they add a note to the highlight without saving it
     # AND:  click outside the edit box
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     book.content.highlight_box.note = note
 
     book.content.close_edit_note_box()
@@ -1025,7 +1025,7 @@ def test_read_only_display_card_is_shown_when_highlight_clicked_in_mobile(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     initial_highlight_color = Color.GREEN
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
@@ -1101,7 +1101,7 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     initial_highlight_color = Color.YELLOW
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
@@ -1223,7 +1223,7 @@ def test_open_note_card_after_searching_for_term_in_highlight(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
     paragraph = random.choice(book.content.paragraphs)
-    note = Utilities.random_string(length=100)
+    note = Utilities.random_string()
     initial_highlight_color = Color.YELLOW
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
@@ -1308,14 +1308,14 @@ def test_open_a_second_note_when_the_first_is_already_displayed(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
     paragraphs = random.sample(book.content.paragraphs, 2)
-    note_one = Utilities.random_string(length=100)
+    note_one = Utilities.random_string()
     first_highlight_color = Color.YELLOW
     book.content.highlight(target=paragraphs[0],
                            offset=Highlight.ENTIRE,
                            color=first_highlight_color,
                            note=note_one)
     highlight_id_one = book.content.highlight_ids[0]
-    note_two = Utilities.random_string(length=100)
+    note_two = Utilities.random_string()
     second_highlight_color = Color.BLUE
     book.content.highlight(target=paragraphs[1],
                            offset=Highlight.ENTIRE,
@@ -1403,7 +1403,7 @@ def test_top_of_create_note_box_is_even_with_top_of_content_highlight(
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.YELLOW,
-                           note=Utilities.random_string(length=100),
+                           note=Utilities.random_string(),
                            close_box=False)
     highlight_id = book.content.highlight_ids[0]
 
@@ -1474,7 +1474,7 @@ def test_top_of_create_note_box_is_even_with_bottom_of_content_highlight(
     book.content.highlight(target=paragraph,
                            offset=Highlight.ENTIRE,
                            color=Color.GREEN,
-                           note=Utilities.random_string(length=100),
+                           note=Utilities.random_string(),
                            close_box=False)
     highlight_id = book.content.highlight_ids[0]
 

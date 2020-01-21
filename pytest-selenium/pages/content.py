@@ -495,12 +495,13 @@ class Content(Page):
                 found
 
             """
-            for box in self.highlight_boxes:
-                display = self.driver.execute_script(
-                    COMPUTED_STYLES.format(field=".display"), box)
-                if display != "none":
-                    return self.HighlightBox(self, box)
-            sleep(5)
+            for _ in range(2):
+                for box in self.highlight_boxes:
+                    sleep(0.1)
+                    display = self.driver.execute_script(
+                        COMPUTED_STYLES.format(field=".display"), box)
+                    if display != "none":
+                        return self.HighlightBox(self, box)
             raise NoSuchElementException("No open highlight boxes found")
 
         @property

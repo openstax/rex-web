@@ -3,6 +3,7 @@
 import logging
 import random
 from math import isclose
+from time import sleep
 
 import pytest
 from selenium.webdriver.common.action_chains import ActionChains
@@ -303,7 +304,7 @@ def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
 
-    for _ in range(8):
+    for _ in range(10):
         book.content.highlight(target=random.choice(book.content.paragraphs),
                                offset=Highlight.ENTIRE,
                                color=Highlight.random_color())
@@ -316,9 +317,10 @@ def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     # AND:  the modal is scrolled down
     my_highlights = book.toolbar.my_highlights()
     initial_scroll_top = my_highlights.scroll_position
-    within = initial_scroll_top * 0.01
+    within = max(initial_scroll_top * 0.01, 10.0)
 
     Utilities.scroll_to(selenium, element=my_highlights.highlights[-1].root)
+    sleep(0.33)
 
     # THEN: a floating back to top button is displayed in the lower right
     #       side of the modal
