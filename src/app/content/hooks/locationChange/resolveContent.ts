@@ -53,7 +53,7 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  if (bookSlug !== select.loadingBook(state) || bookId !== select.loadingUuid(state)) {
+  if (!select.loadingBook(state) && !select.loadingUuid(state)) {
     if (bookSlug) {
       dispatch(requestBook({book: bookSlug}));
     } else {
