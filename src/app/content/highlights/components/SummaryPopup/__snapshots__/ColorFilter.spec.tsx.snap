@@ -469,7 +469,7 @@ input:checked + .c8 .c9 {
     className="c5 c17"
   >
     <input
-      checked={true}
+      checked={false}
       disabled={true}
       onChange={[Function]}
       type="checkbox"
@@ -512,7 +512,7 @@ input:checked + .c8 .c9 {
     className="c5 c17"
   >
     <input
-      checked={true}
+      checked={false}
       disabled={true}
       onChange={[Function]}
       type="checkbox"

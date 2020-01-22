@@ -12,6 +12,7 @@ import { State } from './types';
 import {
   addSummaryHighlight,
   addToTotalCounts,
+  getHighlightColorFiltersWithContent,
   getHighlightLocationFiltersWithContent,
   removeFromTotalCounts,
   removeSummaryHighlight,
@@ -191,13 +192,14 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveHighlightsTotalCounts): {
       const locationIds = Array.from(getHighlightLocationFiltersWithContent(action.meta, action.payload));
+      const colors = Array.from(getHighlightColorFiltersWithContent(action.payload));
 
       return {
         ...state,
         summary: {
           ...state.summary,
           filters: {
-            ...state.summary.filters,
+            colors,
             locationIds,
           },
           totalCountsPerPage: action.payload,
