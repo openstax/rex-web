@@ -137,7 +137,7 @@ describe('Show my highlights', () => {
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{} as HighlightData],
+        'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
       },
     }, null));
 
@@ -178,6 +178,7 @@ describe('Show my highlights', () => {
         <ShowMyHighlights/>
       </MessageProvider>
     </Provider>);
+
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {
       return expect(target).toBeTruthy();

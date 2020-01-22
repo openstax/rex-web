@@ -83,6 +83,14 @@ describe('highlight reducer', () => {
     expect(state.summary.loading).toBe(true);
   });
 
+  it('init sets loading state', () => {
+    const state = reducer({
+      ...initialState,
+    }, actions.initializeMyHighlightsSummary());
+
+    expect(state.summary.loading).toBe(true);
+  });
+
   it('creates highlights', () => {
     const state = reducer({
       ...initialState,

@@ -9,12 +9,10 @@ import loadMore from './loadMore';
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {
   const { dispatch, getState, highlightClient } = services;
   const state = getState();
-  const book = selectContent.book(state);
-  const locationFilters = select.highlightLocationFilters(state);
 
-  if (!book) {
-    return;
-  }
+  // this can only be undefined in dev if you press the MH button before book is loaded, whatever
+  const book = assertDefined(selectContent.book(state), 'book should be defined');
+  const locationFilters = select.highlightLocationFilters(state);
 
   const totalCounts = await highlightClient.getHighlightsSummary({
     scopeId: book.id,
