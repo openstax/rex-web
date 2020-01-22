@@ -145,7 +145,7 @@ describe('filtersChange', () => {
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
     expect(filters.locationIds.length).toEqual(0);
-    expect(filters.colors.length).toEqual(5);
+    expect(filters.colors.length).toEqual(1);
 
     const highlights = [{
       id: 'highlight1',
@@ -188,7 +188,7 @@ describe('filtersChange', () => {
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
     expect(filters.locationIds.length).toEqual(0);
-    expect(filters.colors.length).toEqual(5);
+    expect(filters.colors.length).toEqual(1);
 
     const highlights = [{
       id: 'highlight1',
