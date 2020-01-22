@@ -197,7 +197,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 
   public render() {
     const { pageNode, book } = this.props;
-    const defaultTheme = 'blue' as const;
+    const defaultTheme = 'blue' as BookWithOSWebData['theme'];
 
     if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
