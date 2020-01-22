@@ -59,7 +59,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         });
       }
 
-      const totalCountsPerPage = addToTotalCounts(state.summary.totalCountsPerPage || {}, highlight);
+      const totalCountsPerPage = state.summary.totalCountsPerPage
+        ? addToTotalCounts(state.summary.totalCountsPerPage, highlight)
+        : state.summary.totalCountsPerPage;
 
       return {
         ...state,
@@ -155,6 +157,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.initializeMyHighlightsSummary):
     case getType(actions.loadMoreSummaryHighlights): {
       return {
         ...state,
