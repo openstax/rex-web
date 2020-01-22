@@ -102,7 +102,10 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 
 export default connect((state: AppState) => ({
   hasMoreResults: select.hasMoreResults(state),
-  isInitialLoad: select.summaryHighlights(state) === null && select.summaryIsLoading(state) === false,
+  isInitialLoad: select.summaryHighlights(state) === null
+    && select.summaryIsLoading(state) === false
+    && select.hasMoreResults(state) === true
+  ,
   summaryIsLoading: select.summaryIsLoading(state),
 }), (dispatch: Dispatch) => ({
   loadMore: () => dispatch(loadMoreSummaryHighlights()),
