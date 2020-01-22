@@ -73,7 +73,7 @@ export default styled(Filters)`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  padding: 2.1rem ${popupPadding}rem 0 ${popupPadding}rem;
+  padding: 2rem ${popupPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.base};
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   ${theme.breakpoints.mobile(css`

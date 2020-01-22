@@ -9,8 +9,8 @@ import { Book } from '../../types';
 import * as Styled from './styled';
 
 interface Props {
-  currentPath?: string;
-  book?: Book | undefined;
+  currentPath: string;
+  book: Book | undefined;
   className?: string;
 }
 
