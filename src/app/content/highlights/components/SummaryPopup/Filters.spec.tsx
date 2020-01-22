@@ -8,12 +8,13 @@ import { book as archiveBook, pageInChapter } from '../../../../../test/mocks/ar
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
+import { assertDefined } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
+import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
-import { setSummaryFilters } from '../../actions';
+import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../actions';
 import { summaryFilters } from '../../selectors';
-import { addCurrentPageToSummaryFilters } from '../../utils';
 import Filters from './Filters';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
@@ -89,12 +90,13 @@ describe('Filters', () => {
   it('removes colors and chapters from filters on click', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
-    addCurrentPageToSummaryFilters(helpers);
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testchapter5-uuid': {[HighlightColorEnum.Green]: 1},
+    }, new Map([[
+      'testbook1-testchapter5-uuid',
+      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter5-uuid'), ''),
+    ]])));
     const filters = summaryFilters(store.getState());
-
-    expect(dispatch).toBeCalledWith(setSummaryFilters({
-      locationIds: ['testbook1-testchapter5-uuid'],
-    }));
 
     dispatch.mockClear();
     storeDispatch.mockClear();

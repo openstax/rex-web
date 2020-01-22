@@ -12,7 +12,7 @@ import { User } from '../../../auth/types';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { loadMoreSummaryHighlights, openMyHighlights, receiveHighlights } from '../actions';
+import { loadMoreSummaryHighlights, openMyHighlights, receiveHighlights, receiveSummaryHighlights } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
@@ -88,6 +88,8 @@ describe('Show my highlights', () => {
   });
 
   it('doesn\'t request more if not at bottom', () => {
+    store.dispatch(receiveSummaryHighlights({}, null));
+
     const dispatch = spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
