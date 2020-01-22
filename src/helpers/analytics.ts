@@ -16,7 +16,6 @@ const triggerEvent = <Args extends any[]>(event: (...args: Args) => (AnalyticsEv
   const analyticsEvent = event(...args);
 
   if (analyticsEvent) {
-    console.log(analyticsEvent.getGoogleAnalyticsPayload());
     googleAnalyticsClient.trackEventPayload(analyticsEvent.getGoogleAnalyticsPayload());
   }
 };

@@ -53,10 +53,6 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       ? {'data-analytics-region': props['data-analytics-region']}
       : {}
     }
-    {...props['data-analytics-label']
-      ? {'data-analytics-label': props['data-analytics-label']}
-      : {}
-    }
   >
     <FormattedMessage id={message}>
       {(msg: Element | string) => <label>{msg}</label>}

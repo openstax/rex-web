@@ -11,7 +11,6 @@ import withServices from '../../../context/Services';
 import theme from '../../../theme';
 import { AppServices } from '../../../types';
 import { assertWindow, mergeRefs } from '../../../utils';
-import * as selectContent from '../../selectors';
 import { clearFocusedHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
@@ -22,7 +21,6 @@ import onClickOutside from './utils/onClickOutside';
 
 interface Props {
   authenticated: boolean;
-  book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   loginLink: string;
   isFocused: boolean;
   highlight: Highlight;
