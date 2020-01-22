@@ -13,6 +13,7 @@ import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
 
 interface ShowMyHighlightsProps {
+  hasMoreResults: boolean;
   summaryIsLoading: boolean;
   isInitialLoad: boolean;
   loadMore: () => void;
@@ -46,7 +47,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
   public fetchMoreHighlights = (bodyElement: HTMLElement) => {
     if (this.props.summaryIsLoading) { return; }
     const scrollBottom = bodyElement.scrollHeight - bodyElement.offsetHeight - bodyElement.scrollTop;
-    if (scrollBottom <= loadMoreDistanceFromBottom) {
+    if (scrollBottom <= loadMoreDistanceFromBottom && this.props.hasMoreResults) {
       this.props.loadMore();
     }
   };
@@ -100,7 +101,11 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 }
 
 export default connect((state: AppState) => ({
-  isInitialLoad: select.summaryHighlights(state) === null && select.summaryIsLoading(state) === false,
+  hasMoreResults: select.hasMoreResults(state),
+  isInitialLoad: select.summaryHighlights(state) === null
+    && select.summaryIsLoading(state) === false
+    && select.hasMoreResults(state) === true
+  ,
   summaryIsLoading: select.summaryIsLoading(state),
 }), (dispatch: Dispatch) => ({
   loadMore: () => dispatch(loadMoreSummaryHighlights()),

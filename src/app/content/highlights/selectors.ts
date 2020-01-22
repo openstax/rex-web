@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import mapValues from 'lodash/fp/mapValues';
 import merge from 'lodash/fp/merge';
+import omit from 'lodash/fp/omit';
 import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
@@ -130,4 +131,12 @@ export const filteredCountsPerPage = createSelector(
     (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
     (counts) => filterCountsPerSourceByColorFilter(colorFilters, counts)
   )(totalCounts)
+);
+
+export const hasMoreResults = createSelector(
+  loadedCountsPerSource,
+  filteredCountsPerPage,
+  (loaded, filteredCounts) => {
+    return Boolean(Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
+  }
 );
