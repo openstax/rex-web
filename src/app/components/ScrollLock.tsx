@@ -56,6 +56,10 @@ export const Overlay = styled.div`
       display: block;
     `)}
   `}
+
+  @media print {
+    background: white;
+  }
 `;
 
 interface Props {
