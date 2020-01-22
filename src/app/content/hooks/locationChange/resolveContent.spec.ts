@@ -148,6 +148,7 @@ describe('locationChange', () => {
   });
 
   it('uses uuid if present', async() => {
+    helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any)  ;
     const versionedSlugParams = {
       page: match.params.page,
       uuid: testUUID,
@@ -163,7 +164,7 @@ describe('locationChange', () => {
 
   it('throws if there is no uuid', async() => {
     try {
-      helpers.osWebLoader.getBookIdFromSlug = jest.fn(() => Promise.resolve(undefined)) as any;
+      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any) ;
       await hook(helpers, match);
     } catch (err) {
       expect(err.message).toEqual(`No uuid provided or ${testBookSlug} doesn't have one`);
