@@ -99,13 +99,10 @@ const resolveBookReference = async(
     ? match.params.version === 'latest'
       ? undefined
       : match.params.version
-    : bookUid
-      ? assertDefined(
+    : assertDefined(
         BOOKS[bookUid],
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
-      ).defaultVersion
-      : undefined;
-
+      ).defaultVersion;
   return [bookUid, bookSlug, bookVersion];
 };
 
