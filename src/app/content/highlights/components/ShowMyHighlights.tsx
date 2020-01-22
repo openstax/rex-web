@@ -15,7 +15,6 @@ import Filters from './SummaryPopup/Filters';
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
   summaryIsLoading: boolean;
-  isInitialLoad: boolean;
   loadMore: () => void;
 }
 
@@ -63,10 +62,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
       typesetMath(highlightsBodyRef, assertWindow());
     }
-
-    if (this.props.isInitialLoad) {
-      this.props.loadMore();
-    }
   }
 
   public componentWillUnmount() {
@@ -102,10 +97,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 
 export default connect((state: AppState) => ({
   hasMoreResults: select.hasMoreResults(state),
-  isInitialLoad: select.summaryHighlights(state) === null
-    && select.summaryIsLoading(state) === false
-    && select.hasMoreResults(state) === true
-  ,
   summaryIsLoading: select.summaryIsLoading(state),
 }), (dispatch: Dispatch) => ({
   loadMore: () => dispatch(loadMoreSummaryHighlights()),
