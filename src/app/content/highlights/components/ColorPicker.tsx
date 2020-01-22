@@ -51,7 +51,6 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
 )`
   cursor: pointer;
   margin: 0 ${cardPadding}rem ${cardPadding}rem 0;
-
   input {
     position: absolute;
     opacity: 0;
@@ -62,24 +61,25 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
 `;
 
 // tslint:disable-next-line:variable-name
-const ColorPicker = styled(({className, ...props}: Props) => {
+const ColorPicker = ({className, ...props}: Props) => {
+
   return <div className={className}>
     {highlightStyles.map((style) => <ColorButton key={style.label}
       name={style.label}
       checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
       style={style}
-      onChange={() => { props.multiple
+      onChange={() => props.multiple
         ? props.selected.includes(style.label)
           ? props.onChange(props.selected.filter(not(match(style.label))))
           : props.onChange([...props.selected, style.label])
         : props.color === style.label
           ? props.onRemove()
-          : props.onChange(style.label); } }
+          : props.onChange(style.label)}
     />)}
   </div>;
-})`
+};
+
+export default styled(ColorPicker)`
   display: flex;
   flex-direction: row;
 `;
-
-export default ColorPicker;

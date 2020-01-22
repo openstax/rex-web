@@ -1,8 +1,12 @@
 import { Highlight } from '@openstax/highlighter';
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../../test/createTestServices';
+import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../constants';
@@ -18,6 +22,8 @@ jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation {...pro
 describe('EditCard', () => {
   const highlight = createMockHighlight('asdf');
   const highlightData = highlight.serialize().data;
+  const services = createTestServices();
+  const store = createTestStore();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -29,18 +35,30 @@ describe('EditCard', () => {
       color: highlightStyles[0].label,
       ...highlightData,
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} data={data} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} data={data}/>
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshot with data', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} data={highlightData} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} data={highlightData} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -48,9 +66,15 @@ describe('EditCard', () => {
 
   it('matches snapshot when editing', () => {
     highlight.getStyle.mockReturnValue('red');
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} data={highlightData} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} data={highlightData} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
@@ -62,9 +86,15 @@ describe('EditCard', () => {
   });
 
   it('matches snapshot without data', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -76,14 +106,20 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: '',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        onRemove={onRemove}
-        onCancel={() => null}
-        data={data}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onRemove={onRemove}
+              onCancel={() => null}
+              data={data}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const picker = component.root.findByType(ColorPicker);
     renderer.act(() => {
@@ -99,9 +135,15 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: 'asdf',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const picker = component.root.findByType(ColorPicker);
     renderer.act(() => {
@@ -118,9 +160,15 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: '',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
@@ -144,15 +192,21 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: 'qwer',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        onRemove={onRemove}
-        onCancel={onCancel}
-        onBlur={blur}
-        data={data}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onRemove={onRemove}
+              onCancel={onCancel}
+              onBlur={blur}
+              data={data}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
     const findByTestId = makeFindByTestId(component.root);
 
     const note = component.root.findByType(Note);
@@ -176,18 +230,24 @@ describe('EditCard', () => {
   it('save saves', () => {
     const blur = jest.fn();
     const save = jest.fn();
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        data={highlightData}
-        locationFilterId='locationId'
-        pageId='pageId'
-        onCancel={() => null}
-        onSave={save}
-        onBlur={blur}
-        onCreate={jest.fn()}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              data={highlightData}
+              locationFilterId='locationId'
+              pageId='pageId'
+              onCancel={() => null}
+              onSave={save}
+              onBlur={blur}
+              onCreate={jest.fn()}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
     const findByTestId = makeFindByTestId(component.root);
 
     const note = component.root.findByType(Note);
@@ -217,9 +277,15 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: 'qwer',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
     const findByTestId = makeFindByTestId(component.root);
 
     const note = component.root.findByType(Note);
@@ -242,17 +308,23 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: 'qwer',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        locationFilterId='locationId'
-        pageId='pageId'
-        onSave={save}
-        onCancel={() => null}
-        data={data}
-        onBlur={blur}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              locationFilterId='locationId'
+              pageId='pageId'
+              onSave={save}
+              onCancel={() => null}
+              data={data}
+              onBlur={blur}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
     const findByTestId = makeFindByTestId(component.root);
 
     const note = component.root.findByType(Note);
@@ -289,9 +361,15 @@ describe('EditCard', () => {
       ...highlightData,
       annotation: 'qwer',
     };
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} onSave={save} data={data} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
     const findByTestId = makeFindByTestId(component.root);
 
     const note = component.root.findByType(Note);
@@ -317,15 +395,21 @@ describe('EditCard', () => {
 
   it('handles color change when there is data', () => {
     const save = jest.fn();
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        data={highlightData}
-        locationFilterId='locationId'
-        pageId='pageId'
-        onSave={save}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              data={highlightData}
+              locationFilterId='locationId'
+              pageId='pageId'
+              onSave={save}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const picker = component.root.findByType(ColorPicker);
     renderer.act(() => {
@@ -344,9 +428,15 @@ describe('EditCard', () => {
 
   it('creates when changing color on a new highlight', () => {
     const create = jest.fn();
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onCreate={create} />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} onCreate={create} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const picker = component.root.findByType(ColorPicker);
     renderer.act(() => {
@@ -359,13 +449,19 @@ describe('EditCard', () => {
 
   it('sets color and creates when you focus', () => {
     const create = jest.fn();
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        onCreate={create}
-        authenticated={true}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onCreate={create}
+              authenticated={true}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
@@ -379,13 +475,19 @@ describe('EditCard', () => {
   it('focusing an existing note does nothing', () => {
     highlight.getStyle.mockReturnValue('red');
     const create = jest.fn();
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        data={highlightData}
-        authenticated={true}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              data={highlightData}
+              authenticated={true}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
@@ -402,9 +504,15 @@ describe('EditCard', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);
 
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur}/>
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur}/>
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     onClickOutside.mock.calls[0][2]();
 
@@ -420,13 +528,19 @@ describe('EditCard', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);
 
-    const component = renderer.create(<MessageProvider onError={() => null}>
-      <EditCard
-        highlight={highlight as unknown as Highlight}
-        onBlur={onBlur}
-        data={highlightData}
-      />
-    </MessageProvider>);
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onBlur={onBlur}
+              data={highlightData}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
