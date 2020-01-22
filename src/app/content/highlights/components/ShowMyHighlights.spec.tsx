@@ -125,30 +125,6 @@ describe('Show my highlights', () => {
     expect(dispatch).not.toHaveBeenCalledWith(loadMoreSummaryHighlights());
   });
 
-  it('requests initial page', () => {
-    const book = formatBookData(archiveBook, mockCmsBook);
-    store.dispatch(receiveBook(book));
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
-    }, new Map([
-      ['testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), '')],
-    ])));
-
-    const dispatch = jest.spyOn(store, 'dispatch');
-
-    const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
-    </Provider>);
-    const target = root.querySelector('[data-testid="show-myhighlights-body"]');
-    if (!target) {
-      return expect(target).toBeTruthy();
-    }
-
-    expect(dispatch).toHaveBeenCalledWith(loadMoreSummaryHighlights());
-  });
-
   it('requests more highlights when scrolling down', () => {
     const book = formatBookData(archiveBook, mockCmsBook);
     store.dispatch(receiveBook(book));

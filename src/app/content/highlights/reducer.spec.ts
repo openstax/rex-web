@@ -93,6 +93,7 @@ describe('highlight reducer', () => {
           locationIds: ['highlightChapter'],
         },
         highlights: {},
+        totalCountsPerPage: {},
       },
     }, actions.createHighlight({...mockHighlight, sourceId: 'highlightSource'} as any, {
       locationFilterId: 'highlightChapter',
