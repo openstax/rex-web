@@ -22,6 +22,7 @@ import {
   openMyHighlights,
   receiveHighlights,
   receiveHighlightsTotalCounts,
+  receiveSummaryHighlights,
   setSummaryFilters,
 } from '../actions';
 import { highlightingFeatureFlag, highlightStyles } from '../constants';
@@ -100,6 +101,8 @@ describe('Show my highlights', () => {
   });
 
   it('doesn\'t request more if not at bottom', () => {
+    store.dispatch(receiveSummaryHighlights({}, null));
+
     const dispatch = spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
@@ -127,7 +130,7 @@ describe('Show my highlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
-    }));
+    }, new Map()));
     store.dispatch(setSummaryFilters({ locationIds: ['testbook1-testpage1-uuid'] }));
 
     expect(summaryHighlights(store.getState())).toEqual({});

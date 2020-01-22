@@ -12,6 +12,8 @@ import { State } from './types';
 import {
   addSummaryHighlight,
   addToTotalCounts,
+  getHighlightColorFiltersWithContent,
+  getHighlightLocationFiltersWithContent,
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
@@ -25,7 +27,7 @@ export const initialState: State = {
   myHighlightsOpen: false,
   summary: {
     filters: {colors: defaultColors, locationIds: []},
-    highlights: {},
+    highlights: null,
     loading: false,
     pagination: null,
     totalCountsPerPage: null,
@@ -50,7 +52,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
 
       let newSummaryHighlights;
-      if (state.summary.filters.colors.includes(highlight.color)) {
+      if (state.summary.filters.colors.includes(highlight.color) && state.summary.highlights) {
         newSummaryHighlights = addSummaryHighlight(state.summary.highlights, {
           ...action.meta,
           highlight,
@@ -90,10 +92,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const newHighlights = [...state.highlights];
       newHighlights[oldHiglightIndex] = newHighlight;
 
-      const newSummaryHighlights = updateSummaryHighlightsDependOnFilters(
-        state.summary.highlights,
-        state.summary.filters,
-        {...action.meta, highlight: newHighlight});
+      const newSummaryHighlights = state.summary.highlights
+        ? updateSummaryHighlightsDependOnFilters(
+          state.summary.highlights,
+          state.summary.filters,
+          {...action.meta, highlight: newHighlight})
+        : state.summary.highlights
+      ;
 
       const totalCountsPerPage = state.summary.totalCountsPerPage
         ? updateInTotalCounts(state.summary.totalCountsPerPage, oldHighlight, newHighlight)
@@ -115,10 +120,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return state;
       }
 
-      const [newSummaryHighlights, removedHighlight] = removeSummaryHighlight(state.summary.highlights, {
-        ...action.meta,
-        id: action.payload,
-      });
+      const [newSummaryHighlights, removedHighlight] = state.summary.highlights
+        ? removeSummaryHighlight(state.summary.highlights, {
+          ...action.meta,
+          id: action.payload,
+        })
+        : [state.summary.highlights, null]
+      ;
 
       const totalCountsPerPage = state.summary.totalCountsPerPage && removedHighlight
         ? removeFromTotalCounts(state.summary.totalCountsPerPage, removedHighlight)
@@ -176,17 +184,24 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          highlights: merge(state.summary.highlights, action.payload),
+          highlights: merge(state.summary.highlights || {}, action.payload),
           loading: false,
           pagination: action.meta,
         },
       };
     }
     case getType(actions.receiveHighlightsTotalCounts): {
+      const locationIds = Array.from(getHighlightLocationFiltersWithContent(action.meta, action.payload));
+      const colors = Array.from(getHighlightColorFiltersWithContent(action.payload));
+
       return {
         ...state,
         summary: {
           ...state.summary,
+          filters: {
+            colors,
+            locationIds,
+          },
           totalCountsPerPage: action.payload,
         },
       };

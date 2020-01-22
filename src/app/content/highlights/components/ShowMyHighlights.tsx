@@ -7,7 +7,7 @@ import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { loadMoreSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
-import { hasMoreResults, summaryIsLoading } from '../selectors';
+import * as select from '../selectors';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
@@ -15,6 +15,7 @@ import Filters from './SummaryPopup/Filters';
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
   summaryIsLoading: boolean;
+  isInitialLoad: boolean;
   loadMore: () => void;
 }
 
@@ -63,6 +64,9 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
       typesetMath(highlightsBodyRef, assertWindow());
     }
 
+    if (this.props.isInitialLoad) {
+      this.props.loadMore();
+    }
   }
 
   public componentWillUnmount() {
@@ -97,8 +101,9 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 }
 
 export default connect((state: AppState) => ({
-  hasMoreResults: hasMoreResults(state),
-  summaryIsLoading: summaryIsLoading(state),
+  hasMoreResults: select.hasMoreResults(state),
+  isInitialLoad: select.summaryHighlights(state) === null && select.summaryIsLoading(state) === false,
+  summaryIsLoading: select.summaryIsLoading(state),
 }), (dispatch: Dispatch) => ({
   loadMore: () => dispatch(loadMoreSummaryHighlights()),
 }))(ShowMyHighlights);

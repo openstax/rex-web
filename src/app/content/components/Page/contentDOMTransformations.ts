@@ -1,6 +1,6 @@
 import { HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { assertDefined } from '../../../utils';
+import { assertDefined, assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
@@ -79,7 +79,7 @@ function wrapElements(rootEl: HTMLElement) {
 function tweakFigures(rootEl: HTMLElement) {
   // move caption to bottom of figure
   rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
-    const parent = assertDefined(el.parentElement, 'figcaption parent should always be defined');
+    const parent = assertNotNull(el.parentElement, 'figcaption parent should always be defined');
     parent.classList.add('ui-has-child-figcaption');
     parent.appendChild(el);
   });
@@ -90,7 +90,7 @@ function fixLists(rootEl: HTMLElement) {
   rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
   [data-type="list"][data-list-type="enumerated"][data-mark-prefix] > [data-type="item"],
   [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]`).forEach((el) => {
-    const parent = assertDefined(el.parentElement, 'list parent should always be defined');
+    const parent = assertNotNull(el.parentElement, 'list parent should always be defined');
     const markPrefix = parent.getAttribute('data-mark-prefix');
     const markSuffix = parent.getAttribute('data-mark-suffix');
     if (markPrefix) { el.setAttribute('data-mark-prefix', markPrefix); }

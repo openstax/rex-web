@@ -47,7 +47,7 @@ describe('filtersChange', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 15},
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 15},
-    }));
+    }, new Map()));
 
     const page1 = Array.from(new Array(15).keys()).map((index) => ({
       id: 'highlight' + index,
@@ -141,11 +141,11 @@ describe('filtersChange', () => {
     store.dispatch(receivePage(page));
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
-    }));
+    }, new Map()));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
     expect(filters.locationIds.length).toEqual(0);
-    expect(filters.colors.length).toEqual(5);
+    expect(filters.colors.length).toEqual(1);
 
     const highlights = [{
       id: 'highlight1',
@@ -184,11 +184,11 @@ describe('filtersChange', () => {
     store.dispatch(receivePage({...pageInChapter, references: []}));
     store.dispatch(receiveHighlightsTotalCounts({
       [pageInChapter.id]: {[HighlightColorEnum.Green]: 1},
-    }));
+    }, new Map()));
 
     const {content: {highlights: {summary: {filters}}}} = store.getState();
     expect(filters.locationIds.length).toEqual(0);
-    expect(filters.colors.length).toEqual(5);
+    expect(filters.colors.length).toEqual(1);
 
     const highlights = [{
       id: 'highlight1',
