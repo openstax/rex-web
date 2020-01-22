@@ -10,6 +10,8 @@ import {
   toRelativeUrl
 } from './urlUtils';
 
+const testUUID = 'longidin-vali-dfor-mat1-111111111111';
+
 jest.mock('../../../config', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
   return {BOOKS: {
@@ -29,6 +31,12 @@ describe('getBookPageUrlAndParams', () => {
       page
     );
     expect((result.params as any).version).toBe('asdf');
+  });
+  it('generates params for books without osweb data', () => {
+    const result = getBookPageUrlAndParams(formatBookData({...mockArchiveBook, id: testUUID}), page);
+
+    expect((result.params as any)).not.toHaveProperty('slug');
+    expect((result.params as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
   });
 });
 
