@@ -17,4 +17,4 @@ export const isLinkedArchiveTreeSection =
     (section as LinkedArchiveTree).contents === undefined && section.parent !== undefined;
 
 export const hasOSWebData = (book: Book | BookWithOSWebData | undefined): book is BookWithOSWebData =>
-  book ? 'theme' in book : false;
+  book ? 'slug' in book : false;
