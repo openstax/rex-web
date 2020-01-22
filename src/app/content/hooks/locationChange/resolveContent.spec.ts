@@ -14,6 +14,7 @@ const mockConfig = {BOOKS: {
 
 jest.doMock('../../../../config', () => mockConfig);
 
+const testBookSlug = 'book-slug-1';
 const testUUID = 'longidin-vali-dfor-mat1-111111111111';
 const testPage = 'test-page-1';
 
@@ -160,4 +161,12 @@ describe('locationChange', () => {
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('longidin-vali-dfor-mat1-111111111111', '1.0');
   });
 
+  it('throws if there is no uuid', async() => {
+    try {
+      helpers.osWebLoader.getBookIdFromSlug = jest.fn(() => Promise.resolve(undefined)) as any;
+      await hook(helpers, match);
+    } catch (err) {
+      expect(err.message).toEqual(`No uuid provided or ${testBookSlug} doesn't have one`);
+    }
+  });
 });
