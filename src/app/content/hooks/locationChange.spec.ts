@@ -53,14 +53,14 @@ describe('locationChange', () => {
 
   it('loads book', async() => {
     await hook(payload);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestBook('book-slug-1'));
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({book: 'book-slug-1'}));
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    store.dispatch(receiveBook({...formatBookData(book, mockCmsBook), slug: 'book'}));
+    store.dispatch(receiveBook(formatBookData(book, {...mockCmsBook, meta: {slug: 'book'}})));
     await hook(payload);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook('book'));
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook({book: 'book'}));
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
