@@ -129,6 +129,49 @@ input:checked + .c8 .c9 {
   border: 1px solid #df571e;
 }
 
+.c17 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.c17 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c17:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c17:focus-within .c7 {
+  border: 1px solid #df571e;
+}
+
+.c17.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c17.focus-within .c7 {
+  border: 1px solid #df571e;
+}
+
 .c15 {
   display: none;
 }
@@ -193,39 +236,9 @@ input:checked + .c8 .c9 {
   display: block;
 }
 
-.c17 {
+.c18 {
   background-color: #c8f5ff;
   border: 1px solid #00c3ed;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c17 .c14 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c17 input:checked + .c14 {
-  color: #00c3ed;
-  display: block;
-}
-
-.c18 {
-  background-color: #cbcfff;
-  border: 1px solid #545ec8;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -249,13 +262,13 @@ input:checked + .c8 .c9 {
 }
 
 .c18 input:checked + .c14 {
-  color: #545ec8;
+  color: #00c3ed;
   display: block;
 }
 
 .c19 {
-  background-color: #ffc5e1;
-  border: 1px solid #de017e;
+  background-color: #cbcfff;
+  border: 1px solid #545ec8;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -279,6 +292,36 @@ input:checked + .c8 .c9 {
 }
 
 .c19 input:checked + .c14 {
+  color: #545ec8;
+  display: block;
+}
+
+.c20 {
+  background-color: #ffc5e1;
+  border: 1px solid #de017e;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.c20 .c14 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c20 input:checked + .c14 {
   color: #de017e;
   display: block;
 }
@@ -341,6 +384,7 @@ input:checked + .c8 .c9 {
   >
     <input
       checked={true}
+      disabled={false}
       onChange={[Function]}
       type="checkbox"
     />
@@ -383,6 +427,7 @@ input:checked + .c8 .c9 {
   >
     <input
       checked={true}
+      disabled={false}
       onChange={[Function]}
       type="checkbox"
     />
@@ -421,52 +466,11 @@ input:checked + .c8 .c9 {
     green
   </label>
   <label
-    className="c5 c6"
+    className="c5 c17"
   >
     <input
       checked={true}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="c7 c8"
-    >
-      <svg
-        aria-hidden="true"
-        className="c9 c10 c11"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
-    <div
-      className="c12 c17"
-    >
-      <svg
-        aria-hidden="true"
-        className="c14 c15 c11"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
-    blue
-  </label>
-  <label
-    className="c5 c6"
-  >
-    <input
-      checked={true}
+      disabled={true}
       onChange={[Function]}
       type="checkbox"
     />
@@ -502,13 +506,14 @@ input:checked + .c8 .c9 {
         />
       </svg>
     </div>
-    purple
+    blue
   </label>
   <label
-    className="c5 c6"
+    className="c5 c17"
   >
     <input
       checked={true}
+      disabled={true}
       onChange={[Function]}
       type="checkbox"
     />
@@ -530,6 +535,49 @@ input:checked + .c8 .c9 {
     </span>
     <div
       className="c12 c19"
+    >
+      <svg
+        aria-hidden="true"
+        className="c14 c15 c11"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    purple
+  </label>
+  <label
+    className="c5 c6"
+  >
+    <input
+      checked={true}
+      disabled={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="c7 c8"
+    >
+      <svg
+        aria-hidden="true"
+        className="c9 c10 c11"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+    <div
+      className="c12 c20"
     >
       <svg
         aria-hidden="true"

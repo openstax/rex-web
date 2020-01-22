@@ -9,8 +9,12 @@ import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
-import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
+import {
+  getHighlightColorFiltersWithContent,
+  getHighlightLocationFilters,
+  getHighlightLocationFiltersWithContent,
+} from './utils';
+import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -68,6 +72,11 @@ export const summaryLocationFilters = createSelector(
   (filters) => filters.locationIds
 );
 
+export const summaryColorFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.colors
+);
+
 export const summaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
@@ -80,15 +89,20 @@ export const summaryPagination = createSelector(
 
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
- (book) => book
-  ? getHighlightLocationFilters(book)
-  : new Map() as HighlightLocationFilters
+  (book) => book
+    ? getHighlightLocationFilters(book)
+    : new Map() as HighlightLocationFilters
 );
 
 export const highlightLocationFiltersWithContent = createSelector(
   highlightLocationFilters,
   totalCountsPerPageOrEmpty,
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
+);
+
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  (totalCounts) => getHighlightColorFiltersWithContent(totalCounts)
 );
 
 export const loadedCountsPerSource = createSelector(
@@ -108,9 +122,12 @@ const selectedHighlightLocationFilters = createSelector(
  , new Map() as HighlightLocationFilters)
 );
 
-// TODO - filter this by color when available from api
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
-  (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts)
+  summaryColorFilters,
+  (totalCounts, locationFilters, colorFilters) => flow(
+    (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
+    (counts) => filterCountsPerSourceByColorFilter(colorFilters, counts)
+  )(totalCounts)
 );

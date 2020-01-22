@@ -3,6 +3,7 @@ import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
   HighlightData,
+  HighlightLocationFilters,
   SummaryFilters,
   SummaryHighlights,
   SummaryHighlightsPagination,
@@ -37,4 +38,4 @@ export const receiveSummaryHighlights = createStandardAction('Content/Highlights
 >();
 export const receiveHighlightsTotalCounts = createStandardAction(
   'Content/receiveHighlightsTotalCounts'
-)<CountsPerSource>();
+)<CountsPerSource, HighlightLocationFilters>();
