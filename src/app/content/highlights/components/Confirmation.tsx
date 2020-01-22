@@ -29,6 +29,7 @@ export const Overlay = styled.div`
     flex: 1;
     color: ${theme.color.text.white};
     margin-bottom: ${cardPadding}rem;
+    overflow: visible;
   }
 `;
 

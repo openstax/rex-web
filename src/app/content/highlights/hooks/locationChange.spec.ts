@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -97,13 +98,14 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const totalCountsInState = { somePage: 1 };
+    const totalCountsInState = { somePage: {[HighlightColorEnum.Green]: 1} };
     store.dispatch(receiveHighlightsTotalCounts(totalCountsInState));
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: 1 }}));
+      // TODO remove cast when swagger updated
+      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }} as any));
 
     await hook();
 
@@ -117,17 +119,18 @@ describe('locationChange', () => {
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
 
     const totalCountsPerPage = {
-      'testbook1-testpage1-uuid': 1,
-      'testbook1-testpage2-uuid': 2,
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 1},
       // tslint:disable-next-line: object-literal-sort-keys
-      'testbook1-testpage11-uuid': 1,
-      'testbook1-testpage4-uuid': 5,
+      'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage4-uuid': {[HighlightColorEnum.Green]: 1},
     };
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage }));
+      // TODO remove cast when swagger updated
+      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage } as any));
 
     await hook();
 
