@@ -1,7 +1,11 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { treeWithUnits } from '../../../../test/trees';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
-import { filterCountsPerSourceByLocationFilter, getNextPageSources } from './paginationUtils';
+import {
+  filterCountsPerSourceByColorFilter,
+  filterCountsPerSourceByLocationFilter,
+  getNextPageSources
+} from './paginationUtils';
 
 describe('getNextPageSources', () => {
   it('gets one page id if it has enough records left to fill a response', () => {
@@ -55,6 +59,22 @@ describe('filterCountsPerSourceByLocationFilter', () => {
       {
         page1: {[HighlightColorEnum.Green]: 2},
         preface: {[HighlightColorEnum.Pink]: 3},
+      }
+    );
+  });
+});
+
+describe('filterCountsPerSourceByColorFilter', () => {
+  it('filters by colors', () => {
+    expect(filterCountsPerSourceByColorFilter(
+      [HighlightColorEnum.Green],
+      {
+        page1: {[HighlightColorEnum.Green]: 2},
+        preface: {[HighlightColorEnum.Pink]: 3},
+      }
+    )).toEqual(
+      {
+        page1: {[HighlightColorEnum.Green]: 2},
       }
     );
   });
