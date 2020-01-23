@@ -106,7 +106,7 @@ const resolveBookReference = async(
       : await osWebLoader.getBookIdFromSlug(match.params.book);
 
   if (!bookUid) {
-    throw new Error(`No uuid provided or ${bookSlug} doesn't have one`);
+    throw new Error(`Expected ${bookSlug} to have an uuid`);
   }
 
   const bookVersion = 'version' in match.params
