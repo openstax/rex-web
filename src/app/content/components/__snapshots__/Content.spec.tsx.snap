@@ -625,6 +625,12 @@ Array [
   text-decoration: none;
 }
 
+.c28:hover,
+.c28:focus {
+  color: #424242;
+  outline-color: transparent;
+}
+
 .c51 {
   height: 1.7rem;
   width: 1.7rem;
@@ -1597,6 +1603,13 @@ li[aria-label="Current Page"] .c44 {
 @media screen and (max-width:75em) {
   .c12 {
     margin-right: unset;
+  }
+}
+
+@supports (-moz-appearance:none) {
+  .c28:hover,
+  .c28:focus {
+    outline-color: black;
   }
 }
 
@@ -4038,6 +4051,12 @@ Array [
   text-decoration: none;
 }
 
+.c20:hover,
+.c20:focus {
+  color: #424242;
+  outline-color: transparent;
+}
+
 .c47 {
   height: 1.7rem;
   width: 1.7rem;
@@ -4593,6 +4612,13 @@ Array [
 @media screen and (max-width:75em) {
   .c4 {
     margin-right: unset;
+  }
+}
+
+@supports (-moz-appearance:none) {
+  .c20:hover,
+  .c20:focus {
+    outline-color: black;
   }
 }
 
