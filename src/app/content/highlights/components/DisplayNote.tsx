@@ -82,8 +82,8 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
     <label>Note:</label>
     <TruncatedText text={note} isFocused={isFocused} />
     {confirmingDelete && <Confirmation
-      data-analytics-label='delete-highlight'
-      data-analytics-region='inline-highlight-card'
+      data-analytics-label='delete'
+      data-analytics-region='confirm-delete-inline-highlight'
       message='i18n:highlighting:confirmation:delete-both'
       confirmMessage='i18n:highlighting:button:delete'
       onConfirm={onRemove}
