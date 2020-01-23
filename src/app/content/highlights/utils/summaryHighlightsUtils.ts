@@ -227,3 +227,17 @@ export const updateInTotalCounts = (
     (counts) => addToTotalCounts(counts, newHighlight)
   )(totalCounts);
 };
+
+export const getHighlightByIdFromSummaryHighlights = (
+  summaryHighlights: SummaryHighlights, id: string
+): Highlight | undefined => {
+
+  for (const data of Object.values(summaryHighlights)) {
+    for (const highlights of Object.values(data)) {
+      const highlight = highlights.find((search) => search.id === id);
+      if (highlight) { return highlight; }
+    }
+  }
+
+  return;
+};

@@ -8,6 +8,7 @@ import { CountsPerSource } from '../types';
 import {
   addSummaryHighlight,
   addToTotalCounts,
+  getHighlightByIdFromSummaryHighlights,
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
@@ -412,5 +413,34 @@ describe('updateInTotalCounts', () => {
 
     expect(updateInTotalCounts(totalCounts, highlight, highlight))
       .toBe(totalCounts);
+  });
+
+  describe('getHighlightByIdFromSummaryHighlights', () => {
+    it('get highlight', () => {
+      const summaryHighlights = {
+        page: {
+          page: [highlight],
+        },
+        page2: {
+          page: [highlight2],
+        },
+      };
+
+      const foundHighlight = getHighlightByIdFromSummaryHighlights(summaryHighlights, highlight.id);
+
+      expect(foundHighlight).toEqual(highlight);
+    });
+
+    it('return undefined if highlight was not found', () => {
+      const summaryHighlights = {
+        page: {
+          page: [highlight],
+        },
+      };
+
+      const foundHighlight = getHighlightByIdFromSummaryHighlights(summaryHighlights, 'not-here');
+
+      expect(foundHighlight).toBeUndefined();
+    });
   });
 });

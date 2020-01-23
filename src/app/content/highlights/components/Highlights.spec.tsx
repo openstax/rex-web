@@ -217,7 +217,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
       [location!.id]: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, locationFilters));
 
     const summaryHighlights = {
       [pageId]: {
@@ -251,7 +251,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
       [location!.id]: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, locationFilters));
 
     const summaryHighlights = {
       [pageId]: {
@@ -323,7 +323,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
       [location!.id]: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, locationFilters));
 
     const summaryHighlights = {
       [pageId]: {
@@ -370,7 +370,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
       [location!.id]: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, locationFilters));
 
     const summaryHighlights = {
       [pageId]: {
