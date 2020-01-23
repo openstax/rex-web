@@ -6,14 +6,15 @@ import { receiveBook, receivePage, requestBook, requestPage } from '../../action
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { ArchivePage, Book, BookWithOSWebData, PageReferenceMap } from '../../types';
+import { Params } from '../../types';
+import { ArchivePage, Book, PageReferenceMap } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
   getPageIdFromUrlParam,
-  getUrlParamForPageId
 } from '../../utils';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
+import { getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
   services: AppServices & MiddlewareAPI,
@@ -37,12 +38,25 @@ const getBookResponse = async(
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
 };
 
+const bookIsLoading = (identifier: string, version?: string, currentlyLoading?: Params ) => {
+  if (!currentlyLoading) {
+    return false;
+  }
+  if ('uuid' in currentlyLoading) {
+    return identifier === currentlyLoading.uuid && version === currentlyLoading.version;
+  }
+  if ('version' in currentlyLoading) {
+    return identifier === currentlyLoading.book  && version === currentlyLoading.version;
+  }
+  return identifier === currentlyLoading.book;
+};
+
 const resolveBook = async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
-  const [bookId, bookSlug, bookVersion] = await resolveBookReference(services, match);
+  const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
 
   const loader = archiveLoader.book(bookId, bookVersion);
   const state = getState();
@@ -53,11 +67,11 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  if (!select.loadingBook(state) && !select.loadingUuid(state)) {
+  if (!bookIsLoading(bookSlug || bookId, bookVersion, select.loadingBook(state))) {
     if (bookSlug) {
-      dispatch(requestBook({book: bookSlug}));
+      dispatch(requestBook({book: bookSlug, page: match.params.page}));
     } else {
-      dispatch(requestBook({uuid: bookId}));
+      dispatch(requestBook({uuid: bookId, page: match.params.page, version: bookVersion || 'latest'}));
     }
 
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
@@ -71,7 +85,7 @@ const resolveBook = async(
 const resolveBookReference = async(
   {osWebLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
-): Promise<[string, string?, string?]> => {
+): Promise<[string | undefined, string, string | undefined]> => {
   const state = getState();
   const currentBook = select.book(state);
 
@@ -82,14 +96,14 @@ const resolveBookReference = async(
       : await osWebLoader.getBookSlugFromId(match.params.uuid);
 
   if (match.state && match.state.bookUid && match.state.bookVersion) {
-      return [match.state.bookUid, bookSlug,  match.state.bookVersion];
+      return [bookSlug, match.state.bookUid,  match.state.bookVersion];
   }
 
   const bookUid  = 'uuid' in match.params
     ? match.params.uuid
     : currentBook && hasOSWebData(currentBook) && currentBook.slug === bookSlug
       ? currentBook.id
-      : bookSlug && await osWebLoader.getBookIdFromSlug(bookSlug);
+      : await osWebLoader.getBookIdFromSlug(match.params.book);
 
   if (!bookUid) {
     throw new Error(`No uuid provided or ${bookSlug} doesn't have one`);
@@ -103,7 +117,7 @@ const resolveBookReference = async(
         BOOKS[bookUid],
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
       ).defaultVersion;
-  return [bookUid, bookSlug, bookVersion];
+  return [bookSlug, bookUid, bookVersion];
 };
 
 const loadPage = async(
@@ -179,7 +193,7 @@ const resolveExternalBookReference = async(
 
 const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
-  book: Book | BookWithOSWebData,
+  book: Book,
   page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[0]
 ) => {
@@ -187,19 +201,9 @@ const loadContentReference = async(
     ? book
     : await resolveExternalBookReference(services, book, page, reference.pageUid);
 
-  const params = hasOSWebData(targetBook)
-    ? {
-      book: targetBook.slug,
-      page: getUrlParamForPageId(targetBook, reference.pageUid),
-    } : {
-      page: getUrlParamForPageId(targetBook, reference.pageUid),
-      uuid: targetBook.id,
-      version: targetBook.version,
-    };
-
   return {
     match: reference.match,
-    params,
+    params: getUrlParamsForBook(targetBook, reference),
     state: {
       bookUid: targetBook.id,
       bookVersion: targetBook.version,

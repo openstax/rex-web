@@ -6,24 +6,30 @@ import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
+export function getUrlParamsForBook(book: Book, page: {pageUid: string} | {shortId: string}): Params {
+  const pageID = 'shortId' in page ? page.shortId : page.pageUid;
+  const pageParam = getUrlParamForPageId(book, pageID);
+
+  return hasOSWebData(book) ?
+    {
+      book: book.slug,
+      page: pageParam,
+    } : {
+      page: pageParam,
+      uuid: book.id,
+      version: book.version,
+    };
+}
+
 export function bookDetailsUrl(book: BookWithOSWebData) {
   return `/details/books/${book.slug}`;
 }
 
 export const getBookPageUrlAndParams = (
-  book: Book | BookWithOSWebData,
+  book: Book,
   page: Pick<Page, 'id' | 'shortId' | 'title'>
 ) => {
-  const params: Params = hasOSWebData(book)
-    ? {
-      book: book.slug,
-      page: getUrlParamForPageId(book, page.shortId),
-    }
-    : {
-      page: getUrlParamForPageId(book, page.shortId),
-      uuid: book.id,
-      version: book.version,
-    };
+  const params: Params = getUrlParamsForBook(book, page);
 
   const state = {
     bookUid: book.id,
@@ -33,7 +39,7 @@ export const getBookPageUrlAndParams = (
 
   if (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion) {
     const paramsWithVersion = { ...params, version: book.version };
-    return { params: paramsWithVersion, state, url: contentRoute.getUrl(params) };
+    return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
   }
 
   return {params, state, url: contentRoute.getUrl(params)};

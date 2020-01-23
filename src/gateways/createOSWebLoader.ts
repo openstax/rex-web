@@ -33,12 +33,13 @@ export default (prefix: string) => {
 
   const cache = new Map();
 
-  const cacheRecord = (record?: OSWebBook) => {
+  const cacheRecord = (id: string) => (record: OSWebBook) => {
     if (!record) {
-      return;
+      cache.set(id, undefined);
+    } else {
+      cache.set(record.meta.slug, record);
+      cache.set(record.cnx_id, record);
     }
-    cache.set(record.meta.slug, record);
-    cache.set(record.cnx_id, record);
     return record;
   };
 
@@ -51,7 +52,7 @@ export default (prefix: string) => {
       .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
       .then(toJson)
       .then(firstRecord)
-      .then(cacheRecord)
+      .then(cacheRecord(param))
     ;
   };
 

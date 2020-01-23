@@ -93,7 +93,13 @@ async function findBooks() {
   const books = await Promise.all(Object.entries(bookConfig).map(([bookId, {defaultVersion}]) =>
     bookLoader(bookId, defaultVersion)
   ));
-  return books.filter((book) => onlyOneBook && hasOSWebData(book) ? book.slug === onlyOneBook : true);
+  return books.filter((book) => {
+    if (!hasOSWebData(book)) {
+      throw new Error(`no osweb data found for ${book.title}`);
+    }
+
+    return onlyOneBook && onlyOneBook === book.slug;
+  });
 }
 
 function findBookPages(book: Book) {

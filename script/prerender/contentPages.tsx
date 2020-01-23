@@ -8,7 +8,6 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
-import { hasOSWebData } from '../../src/app/content/guards';
 import { content } from '../../src/app/content/routes';
 import { Book, BookWithOSWebData } from '../../src/app/content/types';
 import { formatBookData, stripIdVersion } from '../../src/app/content/utils';
@@ -28,26 +27,18 @@ import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils
 
 export async function prepareContentPage(
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-  book: Book | BookWithOSWebData,
+  book: BookWithOSWebData,
   pageId: string,
   pageSlug: string
 ) {
   const loadedBook = await bookLoader.load();
   const page = await bookLoader.page(pageId).load();
 
-  const params = hasOSWebData(book)
-    ? {
+  const action: Match<typeof content> = {
+    params: {
       book: book.slug,
       page: pageSlug,
-    }
-    : {
-      page: pageSlug,
-      uuid: book.id,
-      version: book.version,
-    };
-
-  const action: Match<typeof content> = {
-    params,
+    },
     route: content,
     state: {
       bookUid: loadedBook.id,
@@ -159,7 +150,7 @@ export const prepareErrorPages = (): Promise<Pages> => Promise.resolve([
 
 export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-  book: Book | BookWithOSWebData
+  book: BookWithOSWebData
 ) => asyncPool(20, findTreePages(book.tree), (section) =>
   prepareContentPage(bookLoader, book, stripIdVersion(section.id),
     assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
