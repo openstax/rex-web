@@ -1,48 +1,44 @@
 import { BOOKS } from '../../../config';
 import { assertDefined } from '../../utils';
-import { hasOSWebData } from '../guards';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
-
-export function getUrlParamsForBook(book: Book, page: {pageUid: string} | {shortId: string}): Params {
-  const pageID = 'shortId' in page ? page.shortId : page.pageUid;
-  const pageParam = getUrlParamForPageId(book, pageID);
-
-  return hasOSWebData(book) ?
-    {
-      book: book.slug,
-      page: pageParam,
-    } : {
-      page: pageParam,
-      uuid: book.id,
-      version: book.version,
-    };
-}
 
 export function bookDetailsUrl(book: BookWithOSWebData) {
   return `/details/books/${book.slug}`;
 }
 
 export const getBookPageUrlAndParams = (
-  book: Book,
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
   page: Pick<Page, 'id' | 'shortId' | 'title'>
 ) => {
-  const params: Params = getUrlParamsForBook(book, page);
-
+  const params: Params = {
+    ...getUrlParamsForBook(book),
+    page: getUrlParamForPageId(book, page.shortId),
+  };
   const state = {
     bookUid: book.id,
     bookVersion: book.version,
     pageUid: stripIdVersion(page.id),
   };
 
-  if (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion) {
+  if (!('version' in params) && (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion)) {
     const paramsWithVersion = { ...params, version: book.version };
     return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
   }
 
   return {params, state, url: contentRoute.getUrl(params)};
+};
+
+export const getUrlParamsForBook = (
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
+): {book: string} | {uuid: string, version: string} => {
+  if ('slug' in book && book.slug) {
+    return {book: book.slug};
+  } else {
+    return {uuid: book.id, version: book.version};
+  }
 };
 
 const getUrlParamForPageIdCache = new Map();

@@ -1,4 +1,5 @@
-import { BOOKS } from '../../../../config';
+import isEqual from 'lodash/fp/isEqual';
+import { APP_ENV, BOOKS } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
@@ -6,7 +7,6 @@ import { receiveBook, receivePage, requestBook, requestPage } from '../../action
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { Params } from '../../types';
 import { ArchivePage, Book, PageReferenceMap } from '../../types';
 import {
   formatBookData,
@@ -14,7 +14,7 @@ import {
   getPageIdFromUrlParam,
 } from '../../utils';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
-import { getUrlParamsForBook } from '../../utils/urlUtils';
+import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
   services: AppServices & MiddlewareAPI,
@@ -22,6 +22,10 @@ export default async(
 ) => {
   const [book, loader] = await resolveBook(services, match);
   const page = await resolvePage(services, match, book, loader);
+
+  if (!hasOSWebData(book) && APP_ENV === 'production') {
+    throw new Error('books without cms data are only supported outside production');
+  }
 
   return {book, page};
 };
@@ -36,19 +40,6 @@ const getBookResponse = async(
   const archiveBook = await loader.load();
   const newBook = formatBookData(archiveBook, osWebBook);
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
-};
-
-const bookIsLoading = (identifier: string, version?: string, currentlyLoading?: Params ) => {
-  if (!currentlyLoading) {
-    return false;
-  }
-  if ('uuid' in currentlyLoading) {
-    return identifier === currentlyLoading.uuid && version === currentlyLoading.version;
-  }
-  if ('version' in currentlyLoading) {
-    return identifier === currentlyLoading.book  && version === currentlyLoading.version;
-  }
-  return identifier === currentlyLoading.book;
 };
 
 const resolveBook = async(
@@ -67,13 +58,8 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  if (!bookIsLoading(bookSlug || bookId, bookVersion, select.loadingBook(state))) {
-    if (bookSlug) {
-      dispatch(requestBook({book: bookSlug, page: match.params.page}));
-    } else {
-      dispatch(requestBook({uuid: bookId, page: match.params.page, version: bookVersion || 'latest'}));
-    }
-
+  if (!isEqual(match.params, select.loadingBook(state))) {
+    dispatch(requestBook(match.params));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
@@ -101,12 +87,12 @@ const resolveBookReference = async(
 
   const bookUid  = 'uuid' in match.params
     ? match.params.uuid
-    : currentBook && hasOSWebData(currentBook) && currentBook.slug === bookSlug
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book
       ? currentBook.id
       : await osWebLoader.getBookIdFromSlug(match.params.book);
 
   if (!bookUid) {
-    throw new Error(`Expected ${bookSlug} to have an uuid`);
+    throw new Error(`Could not resolve uuid for slug: ${bookSlug}`);
   }
 
   const bookVersion = 'version' in match.params
@@ -117,6 +103,7 @@ const resolveBookReference = async(
         BOOKS[bookUid],
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
       ).defaultVersion;
+
   return [bookSlug, bookUid, bookVersion];
 };
 
@@ -203,7 +190,10 @@ const loadContentReference = async(
 
   return {
     match: reference.match,
-    params: getUrlParamsForBook(targetBook, reference),
+    params: {
+      ...getUrlParamsForBook(targetBook),
+      page: getUrlParamForPageId(targetBook, reference.pageUid),
+    },
     state: {
       bookUid: targetBook.id,
       bookVersion: targetBook.version,
