@@ -7,10 +7,16 @@ describe('getHighlightColorFiltersWithContent', () => {
       location: {
         [HighlightColorEnum.Blue]: 1,
         [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: undefined,
+        [HighlightColorEnum.Pink]: undefined,
+        [HighlightColorEnum.Purple]: undefined,
       },
       location2: {
         [HighlightColorEnum.Pink]: 1,
         [HighlightColorEnum.Yellow]: 1,
+        [HighlightColorEnum.Blue]: undefined,
+        [HighlightColorEnum.Green]: undefined,
+        [HighlightColorEnum.Purple]: undefined,
       },
     };
 

@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -109,28 +110,40 @@ describe('ColorFilter', () => {
     expect(box2.props.checked).toBe(false);
   });
 
-  it('selects all', () => {
+  it('selects all selects only colors witch have highlights', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
+    }, new Map()));
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ColorFilter />
       </MessageProvider>
     </Provider>);
 
-    const [box1, box2] = component.root.findAllByType(Checkbox);
+    const [yellow, green, blue, purple, pink] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);
 
     renderer.act(() => {
       allOrNone.props.onNone();
     });
 
-    expect(box1.props.checked).toBe(false);
-    expect(box2.props.checked).toBe(false);
+    expect(blue.props.checked).toBe(false);
+    expect(green.props.checked).toBe(false);
+    expect(pink.props.checked).toBe(false);
+    expect(purple.props.checked).toBe(false);
+    expect(yellow.props.checked).toBe(false);
 
     renderer.act(() => {
       allOrNone.props.onAll();
     });
 
-    expect(box1.props.checked).toBe(true);
-    expect(box2.props.checked).toBe(true);
+    expect(blue.props.checked).toBe(false);
+    expect(green.props.checked).toBe(true);
+    expect(pink.props.checked).toBe(false);
+    expect(purple.props.checked).toBe(false);
+    expect(yellow.props.checked).toBe(true);
   });
 });
