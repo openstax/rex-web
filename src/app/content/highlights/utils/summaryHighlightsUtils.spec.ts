@@ -113,7 +113,7 @@ describe('insertHighlightInOrder', () => {
     ] as HighlightData[];
 
     mockHighlghts.forEach((mockHighlight) => {
-      highlights = insertHighlightInOrder(highlights, mockHighlight)
+      highlights = insertHighlightInOrder(highlights, mockHighlight);
     });
     expect(highlights.map((hl) => hl.id)).toEqual(['hl4', 'hl1', 'hl3', 'hl2', 'hl5']);
   });
