@@ -106,6 +106,7 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
 
   // Wrap solutions in a div so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
+    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
     const contents = el.innerHTML;
     el.innerHTML = `
       <div class="ui-toggle-wrapper">
