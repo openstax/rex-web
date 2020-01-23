@@ -55,12 +55,13 @@ async function render() {
   const books = await prepareBooks(archiveLoader, osWebLoader);
 
   for (const {loader, book} of books) {
-    if (hasOSWebData(book)) {
-      const bookPages = await prepareBookPages(loader, book);
-      renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
-
-      await renderPages(renderHelpers, bookPages);
+    if (!hasOSWebData(book)) {
+      throw new Error(`failed to load osweb data for ${book.id}`);
     }
+    const bookPages = await prepareBookPages(loader, book);
+    renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
+
+    await renderPages(renderHelpers, bookPages);
   }
 
   await renderSitemapIndex();
