@@ -38,7 +38,7 @@ const ColorFilter = ({className}: Props) => {
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedColors([])}
-      onAll={() => setSelectedColors([...colorFiltersWithContent])}
+      onAll={() => setSelectedColors(Array.from(colorFiltersWithContent))}
     />
     {highlightStyles.map((style) => <Checkbox
       key={style.label}

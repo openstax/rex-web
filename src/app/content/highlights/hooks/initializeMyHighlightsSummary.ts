@@ -7,6 +7,7 @@ import { actionHook, assertDefined } from '../../../utils';
 import * as selectContent from '../../selectors';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts } from '../actions';
 import * as select from '../selectors';
+import { CountsPerSource } from '../types';
 import loadMore from './loadMore';
 
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {
@@ -25,8 +26,9 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
 
   dispatch(receiveHighlightsTotalCounts(
-    mapValues((colorCounts) => pickBy(isDefined, colorCounts), countsPerSource),
-    locationFilters));
+    mapValues(pickBy<CountsPerSource>(isDefined), countsPerSource),
+    locationFilters
+  ));
 
   await loadMore(services);
 };
