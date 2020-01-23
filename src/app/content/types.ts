@@ -22,13 +22,12 @@ export interface State {
   tocOpen: boolean | null;
   params: Params | null;
   loading: {
-    book?: string;
+    book?: Params;
     page?: string;
-    uuid?: string;
   };
   search: SearchState;
   highlights: HighlightState;
-  book?: Book | BookWithOSWebData;
+  book?: Book;
   page?: Page;
   references: PageReferenceMap[];
 }
@@ -42,29 +41,7 @@ export interface PageReference {
   params: RouteParams<typeof content>;
 }
 
-interface RequestBookByUuid {
-  uuid: string;
-}
-
-interface RequestBookBySlug {
-  book: string;
-}
-
-export type RequestBook = RequestBookByUuid | RequestBookBySlug;
-
-export interface Book {
-  id: string;
-  shortId: string;
-  title: string;
-  tree: ArchiveTree;
-  version: string;
-  license: {
-    name: string;
-    version: string;
-  };
-}
-
-export interface BookWithOSWebData extends Book {
+export interface BookWithOSWebData extends ArchiveBook {
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
   publish_date: string;
@@ -75,6 +52,8 @@ export interface BookWithOSWebData extends Book {
     }
   }>;
 }
+
+export type Book = BookWithOSWebData | ArchiveBook;
 
 export interface Page {
   abstract: string;

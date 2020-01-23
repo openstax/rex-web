@@ -126,24 +126,24 @@ class Attribution extends Component<Props> {
   public render() {
     const {book} = this.props;
 
-    return <AttributionDetails
+    return hasOSWebData(book) ? <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
       data-analytics-region='attribution'
     >
-      <FormattedMessage id='i18n:attribution:toggle'>
+      <FormattedMessage id='i18n:attribution:to)ggle'>
         {(msg) => <AttributionSummary aria-label={msg}>
           <SummaryClosedIcon />
           <SummaryOpenIcon />
           <span>{msg}</span>
         </AttributionSummary>}
       </FormattedMessage>
-      {hasOSWebData(book) && <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
+      <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
         ></Content>}
-      </FormattedHTMLMessage>}
-    </AttributionDetails>;
+      </FormattedHTMLMessage>
+    </AttributionDetails> : null;
   }
 
   private getValues = (book: BookWithOSWebData) => {
