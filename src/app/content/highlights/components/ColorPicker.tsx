@@ -51,6 +51,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
 )`
   cursor: pointer;
   margin: 0 ${cardPadding}rem ${cardPadding}rem 0;
+
   input {
     position: absolute;
     opacity: 0;
