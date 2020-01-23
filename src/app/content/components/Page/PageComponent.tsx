@@ -38,7 +38,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       'text/html'
     );
     transformContent(cleanContent.body, this.props.intl);
-    return cleanContent.body.outerHTML;
+    return cleanContent.body.innerHTML;
   };
 
   public componentDidMount() {
