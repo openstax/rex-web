@@ -1,4 +1,7 @@
 import { GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
+import mapValues from 'lodash/fp/mapValues';
+import pickBy from 'lodash/fp/pickBy';
+import { isDefined } from '../../../guards';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import * as selectContent from '../../selectors';
@@ -21,7 +24,9 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
 
-  dispatch(receiveHighlightsTotalCounts(countsPerSource, locationFilters));
+  dispatch(receiveHighlightsTotalCounts(
+    mapValues((colorCounts) => pickBy(isDefined, colorCounts), countsPerSource),
+    locationFilters));
 
   await loadMore(services);
 };

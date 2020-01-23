@@ -6,8 +6,8 @@ export default (locationsWithContent: CountsPerSource) => {
   const colorFiltersWithContent: Set<HighlightColorEnum> = new Set();
 
   for (const colorCounts of Object.values(locationsWithContent)) {
-    for (const [color, counts] of Object.entries(colorCounts)) {
-      if (counts) { colorFiltersWithContent.add(color as HighlightColorEnum); }
+    for (const color of Object.keys(colorCounts)) {
+      colorFiltersWithContent.add(color as HighlightColorEnum);
     }
     // If already all colors were found, break without processing rest of object
     if (colorFiltersWithContent.size === highlightStyles.length) { break; }
