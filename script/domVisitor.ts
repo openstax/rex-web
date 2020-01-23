@@ -4,7 +4,6 @@ import path from 'path';
 import { basename } from 'path';
 import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
-import { hasOSWebData } from '../src/app/content/guards';
 import { Book } from '../src/app/content/types';
 import { flattenArchiveTree, getBookPageUrlAndParams, makeUnifiedBookLoader } from '../src/app/content/utils';
 import config from '../src/config';
@@ -65,7 +64,7 @@ async function run() {
 
   if (books.length === 0) {
     // tslint:disable-next-line:no-console
-    console.error(`Could not find a matching book. ${onlyOneBook ? 'Check that the slug name is correct' : ''}`);
+    console.error(`Could not find a matching book. ${onlyOneBook ? 'Check that the id is correct' : ''}`);
     process.exit(1);
   }
 }
@@ -93,13 +92,8 @@ async function findBooks() {
   const books = await Promise.all(Object.entries(bookConfig).map(([bookId, {defaultVersion}]) =>
     bookLoader(bookId, defaultVersion)
   ));
-  return books.filter((book) => {
-    if (!hasOSWebData(book)) {
-      throw new Error(`no osweb data found for ${book.title}`);
-    }
 
-    return onlyOneBook && onlyOneBook === book.slug;
-  });
+  return books.filter((book) => onlyOneBook ? book.id === onlyOneBook : true);
 }
 
 function findBookPages(book: Book) {
