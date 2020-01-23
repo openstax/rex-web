@@ -22,7 +22,7 @@ interface DataAdd extends BaseData {
   highlight: Highlight;
 }
 
-const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: HighlightData) => {
+export const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: HighlightData) => {
   const insertHighlightAtIndex = (
     highlights: HighlightData[],
     highlight: HighlightData, index: number
@@ -48,10 +48,8 @@ const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: 
   const forwardsInsertIndex = prevHighlights.findIndex((oldHighlight) => {
       return oldHighlight.id === newHighlight.nextHighlightId;
   });
-
-  if (forwardsInsertIndex !== -1) {
-      const insertIndex = forwardsInsertIndex === 0 ? forwardsInsertIndex : forwardsInsertIndex - 1;
-      return insertHighlightAtIndex(prevHighlights, newHighlight, insertIndex);
+  if (forwardsInsertIndex === 0) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, forwardsInsertIndex);
   }
 
   return [...prevHighlights, newHighlight];
