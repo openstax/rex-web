@@ -1,7 +1,7 @@
 import { resetModules } from '../../../test/utils';
 import { locationChange } from '../../navigation/actions';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
-import { assertDefined } from '../../utils';
+import { assertNotNull } from '../../utils';
 
 describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof locationChange>;
@@ -21,7 +21,7 @@ describe('setHead hook', () => {
       if (typeof(document) === 'undefined') {
         return expect(document).toBeTruthy();
       }
-      const head = assertDefined(document.head, 'document must have a head');
+      const head = assertNotNull(document.head, 'document must have a head');
 
       for (let i = 0; i < 5; i++) {
         const tag = document.createElement('meta');

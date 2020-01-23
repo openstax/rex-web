@@ -1,6 +1,6 @@
 import { locationChange } from '../../navigation/actions';
 import { ActionHookBody } from '../../types';
-import { actionHook, assertDefined } from '../../utils';
+import { actionHook, assertNotNull } from '../../utils';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -11,7 +11,7 @@ export const hookBody: ActionHookBody<typeof locationChange> = () => () => {
     return;
   }
 
-  const head = assertDefined(document.head, 'document must have a head');
+  const head = assertNotNull(document.head, 'document must have a head');
 
   head.querySelectorAll('meta[data-rex-page],link[data-rex-page]').forEach((tag) => tag.remove());
 };

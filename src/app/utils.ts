@@ -66,7 +66,15 @@ export const assertDefined = <X>(x: X, message: string) => {
     throw new Error(message);
   }
 
-  return x!;
+  return x as Exclude<X, undefined>;
+};
+
+export const assertNotNull = <X>(x: X, message: string) => {
+  if (x === null) {
+    throw new Error(message);
+  }
+
+  return x as Exclude<X, null>;
 };
 
 export const assertString = <X>(x: X, message: string): string => {
