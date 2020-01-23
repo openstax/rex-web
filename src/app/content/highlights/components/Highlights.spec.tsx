@@ -63,7 +63,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
       [location!.id]: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, new Map()));
 
     const summaryHighlights = {
       [pageId]: {
@@ -114,7 +114,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
       [location!.id]: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, new Map()));
 
     const summaryHighlights = {
       [pageId]: {
@@ -153,7 +153,7 @@ describe('Highlights', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       pageId: {[HighlightColorEnum.Green]: 5},
       pageId2: {[HighlightColorEnum.Green]: 2},
-    }));
+    }, new Map()));
     store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
     store.dispatch(receiveSummaryHighlights({}, null));
 
@@ -183,7 +183,7 @@ describe('Highlights', () => {
     const pageId = stripIdVersion(pageInChapter.id);
     const locations = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
-    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: {[HighlightColorEnum.Green]: 5} }));
+    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: {[HighlightColorEnum.Green]: 5} }, new Map()));
 
     const summaryHighlights = {
       [location!.id]: {

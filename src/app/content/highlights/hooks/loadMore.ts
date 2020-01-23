@@ -1,6 +1,6 @@
 import { GetHighlightsColorsEnum, GetHighlightsSourceTypeEnum, Highlight } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
-import { ActionHookBody, AppServices, AppState, Store } from '../../../types';
+import { ActionHookBody, AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -78,9 +78,7 @@ const loadUntilPageSize = async({
   return {pagination, highlights};
 };
 
-export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> = ({
-  dispatch, getState, highlightClient,
-}) => async() => {
+const loadMore = async({getState, highlightClient, dispatch}: MiddlewareAPI & AppServices) => {
   const state = getState();
   const locationFilters = select.highlightLocationFilters(state);
   const previousPagination = select.summaryPagination(state);
@@ -110,6 +108,11 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
 
   dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
 };
+
+export default loadMore;
+
+export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
+  (services) => () => loadMore(services);
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
 export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);

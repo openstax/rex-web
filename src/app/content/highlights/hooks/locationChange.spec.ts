@@ -99,41 +99,16 @@ describe('locationChange', () => {
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
     const totalCountsInState = { somePage: {[HighlightColorEnum.Green]: 1} };
-    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState));
+    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState, new Map()));
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      // TODO remove cast when swagger updated
-      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }} as any));
+      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }}));
 
     await hook();
 
     expect(dispatch).not.toHaveBeenCalled();
     expect(store.getState().content.highlights.summary.totalCountsPerPage).toEqual(totalCountsInState);
-  });
-
-  it('receive total counts and set total counts per location', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveUser(formatUser(testAccountsUser)));
-
-    const totalCountsPerPage = {
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 1},
-      // tslint:disable-next-line: object-literal-sort-keys
-      'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 1},
-      'testbook1-testpage4-uuid': {[HighlightColorEnum.Green]: 1},
-    };
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({}));
-    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      // TODO remove cast when swagger updated
-      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage } as any));
-
-    await hook();
-
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlightsTotalCounts(totalCountsPerPage));
   });
 });

@@ -1,5 +1,6 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import { receiveFeatureFlags } from '../../actions';
+import { assertNotNull } from '../../utils';
 import * as actions from './actions';
 import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
@@ -69,7 +70,7 @@ describe('highlight reducer', () => {
 
     const state = reducer({
       ...initialState,
-    }, actions.receiveHighlightsTotalCounts(totalCountsPerPage));
+    }, actions.receiveHighlightsTotalCounts(totalCountsPerPage, new Map()));
 
     expect(state.summary.totalCountsPerPage).toMatchObject(totalCountsPerPage);
   });
@@ -78,6 +79,14 @@ describe('highlight reducer', () => {
     const state = reducer({
       ...initialState,
     }, actions.loadMoreSummaryHighlights());
+
+    expect(state.summary.loading).toBe(true);
+  });
+
+  it('init sets loading state', () => {
+    const state = reducer({
+      ...initialState,
+    }, actions.initializeMyHighlightsSummary());
 
     expect(state.summary.loading).toBe(true);
   });
@@ -91,6 +100,8 @@ describe('highlight reducer', () => {
           ...initialState.summary.filters,
           locationIds: ['highlightChapter'],
         },
+        highlights: {},
+        totalCountsPerPage: {},
       },
     }, actions.createHighlight({...mockHighlight, sourceId: 'highlightSource'} as any, {
       locationFilterId: 'highlightChapter',
@@ -103,7 +114,7 @@ describe('highlight reducer', () => {
     expect(state.highlights.length).toEqual(1);
     expect(state.highlights[0].id).toEqual('asdf');
     expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: {blue: 1} });
-    const highlights = state.summary.highlights.highlightChapter.highlightSource;
+    const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
     expect(highlights.find((h) => h.id === mockHighlight.id)).toBeTruthy();
   });
@@ -148,7 +159,7 @@ describe('highlight reducer', () => {
 
       expect(state.highlights.length).toEqual(0);
       expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: {green: 1} });
-      const chapterHighlights = state.summary.highlights.highlightChapter;
+      const chapterHighlights = assertNotNull(state.summary.highlights, '').highlightChapter;
       expect(Object.keys(chapterHighlights).length).toEqual(1);
       expect(chapterHighlights.highlightSource).toBeUndefined();
     });
@@ -197,9 +208,34 @@ describe('highlight reducer', () => {
 
       expect(state.highlights[0].annotation).toEqual('asdf');
       expect(state.highlights[1]).toEqual(mock3);
-      const highlights = state.summary.highlights.highlightChapter.highlightSource;
+      const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
       expect(highlights[0].annotation).toEqual('asdf');
       expect(highlights[1]).toEqual(mock3);
+    });
+
+    it('does not modify summary highlights if they haven\'t been loaded', () => {
+      const mock1 = {...mockHighlight, sourceId: 'highlightSource'};
+      const mock3 = {...mockHighlight, id: 'qwer', sourceId: 'highlightSource'};
+
+      const state = reducer({
+        ...initialState,
+        highlights: [mock1, mock3],
+        summary: {
+          ...initialState.summary,
+          filters: {
+            colors: [HighlightColorEnum.Blue],
+            locationIds: ['highlightChapter'],
+          },
+          totalCountsPerPage: {
+            highlightSource: {[HighlightColorEnum.Blue]: 2},
+          },
+        },
+      }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
+        locationFilterId: 'highlightChapter',
+        pageId: 'highlightSource',
+      }));
+
+      expect(state.summary.highlights).toBe(null);
     });
 
     it('remove highlight from summary highlights if color filters does not match', () => {
@@ -235,7 +271,7 @@ describe('highlight reducer', () => {
 
       expect(state.highlights[0].color).toEqual(HighlightColorEnum.Green);
       expect(state.highlights[1]).toEqual(mock3);
-      const highlights = state.summary.highlights.highlightChapter.highlightSource;
+      const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
       expect(highlights.length).toEqual(1);
       expect(highlights[0]).toEqual(mock3);
       expect(state.summary.totalCountsPerPage!.highlightSource.blue).toEqual(1);
@@ -272,7 +308,7 @@ describe('highlight reducer', () => {
 
       expect(state.highlights[0].color).toEqual(HighlightColorEnum.Blue);
       expect(state.highlights[1]).toEqual(mock3);
-      const highlights = state.summary.highlights.highlightChapter.highlightSource;
+      const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
       expect(highlights.length).toEqual(1);
       expect(highlights[0].color).toEqual(HighlightUpdateColorEnum.Blue);
     });
