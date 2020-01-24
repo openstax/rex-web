@@ -17,8 +17,6 @@ interface Props {
   className?: string;
 }
 
-const allColors = highlightStyles.map((style) => style.label);
-
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
   const filters = useSelector(summaryFilters);
@@ -40,7 +38,7 @@ const ColorFilter = ({className}: Props) => {
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedColors([])}
-      onAll={() => setSelectedColors(allColors)}
+      onAll={() => setSelectedColors(Array.from(colorFiltersWithContent))}
     />
     {highlightStyles.map((style) => <Checkbox
       key={style.label}
