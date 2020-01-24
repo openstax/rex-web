@@ -190,9 +190,6 @@ class MyHighlights(Region):
         By.CSS_SELECTOR, "[data-testid=back-to-top-highlights]")
     _filter_bar_locator = (
         By.CSS_SELECTOR, "div[class*=Filters]")
-    _highlight_locator = (
-        By.CSS_SELECTOR,
-        "[data-testid=show-myhighlights-body] > div:not([data-testid]) > div")
     _loading_animation_locator = (
         By.CSS_SELECTOR, "[data-testid=loader]")
     _log_in_link_locator = (
@@ -202,8 +199,8 @@ class MyHighlights(Region):
     _my_highlights_body_locator = (
         By.CSS_SELECTOR, "[data-testid=show-myhighlights-body]")
     _my_highlights_data_locator = (
-        By.CSS_SELECTOR,
-        "[data-testid=show-myhighlights-body] > div:nth-child(2)")
+        By.CSS_SELECTOR, "[data-testid=show-myhighlights-body]"
+                         " > div:nth-child(2)")
 
     @property
     def loaded(self) -> bool:
@@ -216,11 +213,11 @@ class MyHighlights(Region):
         return not bool(self.find_elements(*self._loading_animation_locator))
 
     @property
-    def all_highlights(self) -> List[MyHighlights.Highlight]:
+    def all_highlights(self) -> List[Highlight]:
         """Access the page highlights.
 
         :return: the list of available highlights
-        :rtype: list(:py:class:`~regions.my_highlights.MyHighlights.Highlight`)
+        :rtype: list(:py:class:`~regions.my_highlights.Highlight`)
 
         """
         highlights = []
