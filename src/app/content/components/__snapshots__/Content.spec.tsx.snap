@@ -408,7 +408,6 @@ Array [
 
 .c23:hover,
 .c23:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -441,7 +440,6 @@ Array [
 
 .c25:hover,
 .c25:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -623,12 +621,6 @@ Array [
   margin-left: 2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c28:hover,
-.c28:focus {
-  color: #424242;
-  outline-color: transparent;
 }
 
 .c51 {
@@ -1603,13 +1595,6 @@ li[aria-label="Current Page"] .c44 {
 @media screen and (max-width:75em) {
   .c12 {
     margin-right: unset;
-  }
-}
-
-@supports (-moz-appearance:none) {
-  .c28:hover,
-  .c28:focus {
-    outline-color: black;
   }
 }
 
@@ -3834,7 +3819,6 @@ Array [
 
 .c15:hover,
 .c15:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -3867,7 +3851,6 @@ Array [
 
 .c17:hover,
 .c17:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -4049,12 +4032,6 @@ Array [
   margin-left: 2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c20:hover,
-.c20:focus {
-  color: #424242;
-  outline-color: transparent;
 }
 
 .c47 {
@@ -4612,13 +4589,6 @@ Array [
 @media screen and (max-width:75em) {
   .c4 {
     margin-right: unset;
-  }
-}
-
-@supports (-moz-appearance:none) {
-  .c20:hover,
-  .c20:focus {
-    outline-color: black;
   }
 }
 

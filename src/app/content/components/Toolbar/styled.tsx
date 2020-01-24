@@ -83,7 +83,6 @@ export const PlainButton = styled.button`
 
   :hover,
   :focus {
-    outline: none;
     color: ${toolbarIconColor.darker};
   }
 `;
@@ -328,17 +327,6 @@ export const BuyBookWrapper = styled.a`
   color: ${toolbarIconColor.base};
   margin-left: 2rem;
   text-decoration: none;
-
-  :hover,
-  :focus {
-    color: ${toolbarIconColor.darker};
-    outline-color: transparent;
-
-    @supports (-moz-appearance: none) {
-      outline-color: black;
-    }
-  }
-
   ${theme.breakpoints.mobile(css`
     margin: 0;
   `)}
