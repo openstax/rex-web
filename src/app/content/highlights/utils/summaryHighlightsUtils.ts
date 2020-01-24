@@ -22,34 +22,30 @@ interface DataAdd extends BaseData {
   highlight: Highlight;
 }
 
-export const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: HighlightData) => {
-  const insertHighlightAtIndex = (
-    highlights: HighlightData[],
-    highlight: HighlightData, index: number
-  ) => {
-      return [
-          ...highlights.slice(0, index),
-          highlight,
-          ...highlights.slice(index),
-      ];
-  };
+const insertHighlightAtIndex = (
+  highlights: HighlightData[],
+  highlight: HighlightData, index: number
+) => {
+    return [
+        ...highlights.slice(0, index),
+        highlight,
+        ...highlights.slice(index),
+    ];
+};
 
+export const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: HighlightData) => {
   if (!prevHighlights || !prevHighlights.length) {
       return [newHighlight];
   }
+  const { prevHighlightId, nextHighlightId } = newHighlight;
 
-  const backwardsInsertIndex = prevHighlights.findIndex((oldHighlight) => {
-      return oldHighlight.id === newHighlight.prevHighlightId;
-  });
-  if (backwardsInsertIndex !== -1) {
-      return insertHighlightAtIndex(prevHighlights, newHighlight, backwardsInsertIndex + 1);
-  }
-
-  const forwardsInsertIndex = prevHighlights.findIndex((oldHighlight) => {
-      return oldHighlight.id === newHighlight.nextHighlightId;
-  });
-  if (forwardsInsertIndex === 0) {
-      return insertHighlightAtIndex(prevHighlights, newHighlight, forwardsInsertIndex);
+  for (const  [index, highlight] of prevHighlights.entries()) {
+    if (highlight.id === prevHighlightId) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, index + 1);
+    }
+    if (highlight.id === nextHighlightId) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, index);
+    }
   }
 
   return [...prevHighlights, newHighlight];
