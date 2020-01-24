@@ -290,7 +290,8 @@ class Utilities(object):
                 fake.first_name_female(),
                 fake.last_name())
 
-    def random_string(length: int = 100) -> str:
+    @classmethod
+    def random_string(cls, length: int = 100) -> str:
         """Return a random string of a specified length for use in notes.
 
         :param int length: (optional) the length of the desired string

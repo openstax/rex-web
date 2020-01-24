@@ -5,7 +5,6 @@ import random
 from math import isclose
 from time import sleep
 
-import pytest
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
@@ -17,7 +16,6 @@ from utils.utility import Highlight, Utilities
 
 
 @markers.test_case("C592636")
-@pytest.mark.xfail()
 @markers.parametrize(
     "book_slug,page_slug", [
         ("chemistry-2e",
@@ -33,6 +31,8 @@ def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
     highlight_notes = [
         "", Utilities.random_string(), "", Utilities.random_string()]
     highlight_partial_text = [""] * 4
+    chapter_one = ("1", "Essential Ideas")
+    sections = [("", "Introduction"), ("1.1", "Chemistry in Context")]
 
     # GIVEN: the Chemistry 2e book section 1.0 is displayed
     # AND:   a user is logged in
@@ -116,21 +116,44 @@ def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
     assert(my_highlights.root.is_displayed()), \
         "My Highlights modal not displayed"
 
-    # TODO: placeholder section assertions
+    assert(len(my_highlights.highlights.chapters) == 1), \
+        "chapter heading not displayed in the highlights summary"
+    highlight_chapter = (my_highlights.highlights.chapters[0].number,
+                         my_highlights.highlights.chapters[0].title)
+    assert(highlight_chapter == chapter_one), \
+        "chapter number and title do not match in the summary"
+    assert(len(my_highlights.highlights.sections) == 2), \
+        "did not find two section headings"
+    highlight_sections = [(section.number, section.title)
+                          for section
+                          in my_highlights.highlights.sections]
+    assert(set(highlight_sections) == set(sections)), \
+        "mismatched section numbers and/or names"
 
-    current_summary_highlights = len(my_highlights.highlights)
+    current_summary_highlights = len(my_highlights.all_highlights)
     assert(current_summary_highlights == len(highlight_ids)), (
         "unexpected number of highlights found on the summary page ("
         f"found {current_summary_highlights}, expected {len(highlight_ids)})")
 
-    for index, highlight in enumerate(my_highlights.highlights):
-        assert(highlight_colors[index] == highlight.color), \
+    # ordering could be in sequence or reversed so check against both section
+    # highlights
+    for index, highlight in enumerate(my_highlights.all_highlights):
+        option_1, option_2 = (ONE, TWO) if index <= TWO else (THREE, FOUR)
+        assert(highlight.color == highlight_colors[option_1] or
+               highlight.color == highlight_colors[option_2]), \
             f"highlight color for highlight {index + 1} does not match"
 
-        assert(highlight_partial_text[index] in highlight.content), \
+        content = highlight.content
+        assert(highlight_partial_text[option_1] in content or
+               highlight_partial_text[option_2] in content), \
             f"partial note text not found in summary highlight {index + 1}"
 
-        assert(highlight_notes[index] == highlight.note), \
+        # currently the summary trims extra spaces and removes carriage returns
+        note_1 = (highlight_notes[option_1]
+                  .replace("\n", " ").replace("  ", " "))
+        note_2 = (highlight_notes[option_2]
+                  .replace("\n", " ").replace("  ", " "))
+        assert(highlight.note == note_1 or highlight.note == note_2), \
             f"highlight note {index + 1} does not match content note"
 
 
@@ -227,14 +250,13 @@ def test_my_highlights_summary_shows_all_types_of_content(
     assert(my_highlights.root.is_displayed()), \
         "My Highlights modal not displayed"
 
-    summary_highlights = len(my_highlights.highlights)
+    summary_highlights = len(my_highlights.all_highlights)
     assert(summary_highlights == len(highlight_ids)), (
         "number of summary highlights different from page highlights "
         f"(found {summary_highlights}, expected {len(highlight_ids)})")
 
 
 @markers.test_case("C592640")
-@pytest.mark.xfail()
 @markers.parametrize(
     "book_slug,page_slug", [
         ("chemistry-2e",
@@ -264,7 +286,7 @@ def test_able_to_close_my_highlights_with_keyboard_navigation(
 
     # WHEN: they tab to the close 'x' and send the return key to it
     (ActionChains(selenium)
-        .send_keys(Keys.TAB * 4)
+        .send_keys(Keys.TAB)
         .send_keys(Keys.RETURN)
         .perform())
 
@@ -304,8 +326,8 @@ def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
 
-    for _ in range(10):
-        book.content.highlight(target=random.choice(book.content.paragraphs),
+    for paragraph in random.choices(book.content.paragraphs, k=10):
+        book.content.highlight(target=paragraph,
                                offset=Highlight.ENTIRE,
                                color=Highlight.random_color())
 
@@ -319,7 +341,8 @@ def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     initial_scroll_top = my_highlights.scroll_position
     within = max(initial_scroll_top * 0.01, 10.0)
 
-    Utilities.scroll_to(selenium, element=my_highlights.highlights[-1].root)
+    Utilities.scroll_to(selenium,
+                        element=my_highlights.all_highlights[-1].root)
     sleep(0.33)
 
     # THEN: a floating back to top button is displayed in the lower right
