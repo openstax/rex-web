@@ -131,7 +131,7 @@ class Attribution extends Component<Props> {
       data-testid='attribution-details'
       data-analytics-region='attribution'
     >
-      <FormattedMessage id='i18n:attribution:to)ggle'>
+      <FormattedMessage id='i18n:attribution:toggle'>
         {(msg) => <AttributionSummary aria-label={msg}>
           <SummaryClosedIcon />
           <SummaryOpenIcon />

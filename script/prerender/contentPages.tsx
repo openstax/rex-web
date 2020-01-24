@@ -31,7 +31,6 @@ export async function prepareContentPage(
   pageId: string,
   pageSlug: string
 ) {
-  const loadedBook = await bookLoader.load();
   const page = await bookLoader.page(pageId).load();
 
   const action: Match<typeof content> = {
@@ -41,8 +40,8 @@ export async function prepareContentPage(
     },
     route: content,
     state: {
-      bookUid: loadedBook.id,
-      bookVersion: loadedBook.version,
+      bookUid: book.id,
+      bookVersion: book.version,
       pageUid: page.id,
     },
   };

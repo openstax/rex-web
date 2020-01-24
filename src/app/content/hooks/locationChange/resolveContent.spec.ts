@@ -70,7 +70,7 @@ describe('locationChange', () => {
     ]);
 
     expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: 'book-slug-1'}));
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: testBookSlug, page: testPage}));
     expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
     expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
@@ -85,7 +85,7 @@ describe('locationChange', () => {
     ]);
 
     expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: 'book-slug-1'}));
+    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: testBookSlug, page: testPage}));
     expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
     expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
     expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
@@ -148,7 +148,7 @@ describe('locationChange', () => {
   });
 
   it('uses uuid if present', async() => {
-    helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any)  ;
+    helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
     const versionedSlugParams = {
       page: match.params.page,
       uuid: testUUID,
@@ -164,10 +164,10 @@ describe('locationChange', () => {
 
   it('throws if there is no uuid', async() => {
     try {
-      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any) ;
+      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
       await hook(helpers, match);
     } catch (err) {
-      expect(err.message).toEqual(`No uuid provided or ${testBookSlug} doesn't have one`);
+      expect(err.message).toEqual(`Could not resolve uuid for slug: ${testBookSlug}`);
     }
   });
 });
