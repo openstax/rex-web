@@ -146,11 +146,18 @@ export const SearchQuery = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const SearchQueryWrapper = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   background: ${theme.color.neutral.base};
   min-height: ${headerHeight}rem;
+
+  ${theme.breakpoints.mobile(css`
+    position: auto;
+    top: auto;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
