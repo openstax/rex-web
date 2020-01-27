@@ -68,7 +68,7 @@ const resolveBook = async(
   }
 };
 
-const resolveBookReference = async(
+export const resolveBookReference = async(
   {osWebLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[string | undefined, string, string | undefined]> => {

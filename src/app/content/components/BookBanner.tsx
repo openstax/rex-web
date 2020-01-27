@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
+import { notFound } from '../../errors/routes';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertDefined } from '../../utils';
@@ -33,7 +34,7 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-const applyBookTextColor = (props: {colorSchema: BookWithOSWebData['theme'] | undefined } ) => props.colorSchema && css`
+const applyBookTextColor = (props: {colorSchema: BookWithOSWebData['theme'] } ) => props.colorSchema && css`
   color: ${theme.color.primary[props.colorSchema].foreground};
 `;
 
@@ -203,7 +204,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : '/errors/404';
+    const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
 
     return this.renderBars({theme: defaultTheme, ...book}, bookUrl, pageNode);
   }

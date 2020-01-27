@@ -8,6 +8,7 @@ import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { BarWrapper, BookBanner } from './BookBanner';
 
 const book = formatBookData(archiveBook, mockCmsBook);
+const bookWithoutOsWebData = formatBookData(archiveBook);
 const pageNode = findArchiveTreeNode(archiveBook.tree, shortPage.id)!;
 
 describe('BookBanner', () => {
@@ -21,6 +22,13 @@ describe('BookBanner', () => {
 
   it('renders correctly when you pass a page and book', () => {
     const component = renderer.create(<BookBanner pageNode={pageNode} book={book} />);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly without osweb data', () => {
+    const component = renderer.create(<BookBanner pageNode={pageNode} book={bookWithoutOsWebData} />);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
