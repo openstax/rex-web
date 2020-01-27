@@ -1,10 +1,11 @@
-import { HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertDefined, assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
-export const transformContent = (rootEl: HTMLElement, intl: IntlShape) => {
+export const transformContent = (document: Document, intl: IntlShape) => {
+  const rootEl = document.body;
   addScopeToTables(rootEl);
   wrapElements(rootEl);
   tweakFigures(rootEl);
