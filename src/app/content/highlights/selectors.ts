@@ -138,6 +138,6 @@ export const hasMoreResults = createSelector(
   filteredCountsPerPage,
   summaryPagination,
   (loaded, filteredCounts, pagination) => {
-    return (pagination || Boolean(Object.keys(omit(Object.keys(loaded), filteredCounts)).length));
+    return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
   }
 );
