@@ -119,7 +119,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
                           {(msg: Element | string) => msg}
                         </FormattedMessage>
                       </span>
-                      {item.annotation}
+                      <Styled.HighlightNoteAnnotation>
+                        {item.annotation}
+                      </Styled.HighlightNoteAnnotation>
                     </Styled.HighlightNote>
                   ) : null}
                 </Styled.HighlightContentWrapper>
