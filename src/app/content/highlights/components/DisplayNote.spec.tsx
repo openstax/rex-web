@@ -85,4 +85,52 @@ describe('DisplayNote', () => {
     expect(() => component.root.findByType(Confirmation)).toThrow();
     expect(onRemove).not.toHaveBeenCalled();
   });
+
+  it('closes confirmation after changing focus and reopen', () => {
+    let isFocused = true;
+
+    const component = renderer.create(<MessageProvider onError={() => null}>
+      <DisplayNote style={highlightStyles[0]} isFocused={isFocused} onRemove={jest.fn()} />
+    </MessageProvider>);
+
+    expect(() => component.root.findByType(Confirmation)).toThrow();
+
+    const findByTestId = makeFindByTestId(component.root);
+    const deleteButton = findByTestId('delete');
+    renderer.act(() => {
+      deleteButton.props.onClick();
+    });
+
+    expect(component.root.findByType(Confirmation)).toBeDefined();
+
+    isFocused = false;
+
+    component.update(<MessageProvider onError={() => null}>
+      <DisplayNote
+        style={highlightStyles[0]}
+        isFocused={isFocused}
+        onRemove={jest.fn()}
+      />
+    </MessageProvider>);
+
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(() => component.root.findByType(Confirmation)).toThrow();
+
+    isFocused = true;
+
+    component.update(<MessageProvider onError={() => null}>
+      <DisplayNote
+        style={highlightStyles[0]}
+        isFocused={isFocused}
+        onRemove={jest.fn()}
+      />
+    </MessageProvider>);
+
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(() => component.root.findByType(Confirmation)).toThrow();
+  });
 });
