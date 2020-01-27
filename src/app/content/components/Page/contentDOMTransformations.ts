@@ -33,22 +33,27 @@ export const toggleSolution = (button: HTMLElement, intl: IntlShape) => () => {
 
 export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLButtonElement) => void) => {
   if (container) {
-    Array.from(container.querySelectorAll<HTMLButtonElement>(
+    for (const el of Array.from(container.querySelectorAll<HTMLButtonElement>(
       '[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle, .solution > .ui-toggle-wrapper > .ui-toggle'
-    )).forEach(cb);
+    ))) {
+      cb(el);
+    }
   }
 };
 
 function addScopeToTables(rootEl: HTMLElement) {
-  rootEl.querySelectorAll('table th').forEach((el) => el.setAttribute('scope', 'col'));
+  for (const el of Array.from(rootEl.querySelectorAll('table th'))) {
+    el.setAttribute('scope', 'col');
+  }
 }
 
 // Wrap title and content elements in header and section elements, respectively
 function wrapElements(rootEl: HTMLElement) {
-  rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
+  const elements = rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
     [data-type="example"], [data-type="exercise"],
-    [data-type="note"], [data-type="abstract"]`).forEach((el) => {
+    [data-type="note"], [data-type="abstract"]`);
 
+  for (const el of Array.from(elements)) {
     // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
     const titles = Array.from(el.children).filter((child) => child.matches('.title, [data-type="title"], .os-title'));
 
@@ -65,7 +70,9 @@ function wrapElements(rootEl: HTMLElement) {
     // When the title exists, this attribute is added before it
     const label = el.getAttribute('data-label');
     if (label) {
-      titles.forEach((title) => title.setAttribute('data-label-parent', label));
+      for (const title of titles) {
+        title.setAttribute('data-label-parent', label);
+      }
     }
 
     // Add a class for styling since CSS does not support `:has(> .title)`
@@ -73,39 +80,43 @@ function wrapElements(rootEl: HTMLElement) {
     if (titles.length > 0) {
       el.classList.add('ui-has-child-title');
     }
-  });
+  }
 }
 
 function tweakFigures(rootEl: HTMLElement) {
   // move caption to bottom of figure
-  rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
+  for (const el of Array.from(rootEl.querySelectorAll('figure > figcaption'))) {
     const parent = assertNotNull(el.parentElement, 'figcaption parent should always be defined');
     parent.classList.add('ui-has-child-figcaption');
     parent.appendChild(el);
-  });
+  }
 }
 
 function fixLists(rootEl: HTMLElement) {
   // Copy data-mark-prefix and -suffix from ol to li so they can be used in css
-  rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
+  const elements = rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
   [data-type="list"][data-list-type="enumerated"][data-mark-prefix] > [data-type="item"],
-  [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]`).forEach((el) => {
+  [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]`);
+  for (const el of Array.from(elements)) {
     const parent = assertNotNull(el.parentElement, 'list parent should always be defined');
     const markPrefix = parent.getAttribute('data-mark-prefix');
     const markSuffix = parent.getAttribute('data-mark-suffix');
     if (markPrefix) { el.setAttribute('data-mark-prefix', markPrefix); }
     if (markSuffix) { el.setAttribute('data-mark-suffix', markSuffix); }
-  });
-  rootEl.querySelectorAll('ol[start], [data-type="list"][data-list-type="enumerated"][start]').forEach((el) => {
+  }
+
+  const lists = rootEl.querySelectorAll('ol[start], [data-type="list"][data-list-type="enumerated"][start]');
+  for (const el of Array.from(lists)) {
     el.setAttribute('style', `counter-reset: list-item ${el.getAttribute('start')}`);
-  });
+  }
 }
 
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
   // Wrap solutions in a div so "Show/Hide Solutions" work
-  rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
+  const solutions = rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]');
+  for (const el of Array.from(solutions)) {
     el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
     const contents = el.innerHTML;
     el.innerHTML = `
@@ -114,5 +125,5 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
       </div>
       <section class="ui-body" role="alert">${contents}</section>
     `;
-  });
+  }
 }
