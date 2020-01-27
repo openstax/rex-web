@@ -136,7 +136,8 @@ export const filteredCountsPerPage = createSelector(
 export const hasMoreResults = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
-  (loaded, filteredCounts) => {
-    return Boolean(Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
+  summaryPagination,
+  (loaded, filteredCounts, pagination) => {
+    return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
   }
 );

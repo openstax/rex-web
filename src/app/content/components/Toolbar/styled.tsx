@@ -83,7 +83,6 @@ export const PlainButton = styled.button`
 
   :hover,
   :focus {
-    outline: none;
     color: ${toolbarIconColor.darker};
   }
 `;

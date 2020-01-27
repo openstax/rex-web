@@ -94,6 +94,7 @@ export const Header = styled(H3)`
 
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
+  -webkit-overflow-scrolling: touch;
   height: calc(100% - ${headerHeight}rem);
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
