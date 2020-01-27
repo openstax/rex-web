@@ -7,7 +7,13 @@ import BuyBook from '../../../../assets/buy-book-icon.svg';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
-import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
+import {
+  clearSearch,
+  closeSearchResultsMobile,
+  openMobileToolbar,
+  openSearchResultsMobile,
+  requestSearch,
+} from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
@@ -19,6 +25,7 @@ interface Props {
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
+  closeSearch: () => void;
   openSearchResults: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
@@ -76,6 +83,11 @@ class Toolbar extends React.Component<Props, State> {
       this.props.openSearchResults();
     };
 
+    const closeSearchbar = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      this.props.closeSearch();
+    };
+
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
@@ -131,11 +143,16 @@ class Toolbar extends React.Component<Props, State> {
         <Styled.MobileSearchContainer>
           {!this.props.searchSidebarOpen && this.props.hasSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <Styled.ToggleSeachResultsText onClick={openSearchbar} data-testid='back-to-search-results'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
                 <Styled.LeftArrow/><Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.ToggleSeachResultsText>}
-            </FormattedMessage>
-          }
+              </Styled.SeachResultsTextButton>}
+            </FormattedMessage>}
+          {this.props.searchSidebarOpen && this.props.hasSearchResults &&
+            <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={closeSearchbar} data-testid='close-search-results'>
+                <Styled.InnerText>{msg}</Styled.InnerText>
+              </Styled.SeachResultsTextButton>}
+            </FormattedMessage>}
           <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
@@ -161,6 +178,7 @@ export default connect(
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
+    closeSearch: flow(closeSearchResultsMobile, dispatch),
     openMobileToolbar: flow(openMobileToolbar, dispatch),
     openSearchResults: flow(openSearchResultsMobile, dispatch),
     search: flow(requestSearch, dispatch),
