@@ -712,7 +712,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   .c11:focus,
   .c11.focus-within,
   .c5:focus ~ .c11 {
-    padding-top: 40%;
+    padding-top: calc(20vh + 5vw);
     background: rgba(255,255,255,0.98);
     height: auto;
     width: auto;
@@ -721,7 +721,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   }
 
   .c11:focus-within {
-    padding-top: 40%;
+    padding-top: calc(20vh + 5vw);
     background: rgba(255,255,255,0.98);
     height: auto;
     width: auto;

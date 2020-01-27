@@ -1,17 +1,20 @@
 import { user } from '../../../auth/selectors';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
+import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import { openMyHighlights } from '../actions';
-import { addCurrentPageToSummaryFilters } from '../utils';
+import { initializeMyHighlightsSummary, openMyHighlights } from '../actions';
+import * as select from '../selectors';
 
-export const hookBody: ActionHookBody<typeof openMyHighlights> = (
-  services: MiddlewareAPI & AppServices
-) => () => {
-  const authenticated = user(services.getState());
+export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
+  dispatch, getState,
+}) => async() => {
+  const state = getState();
+  const authenticated = user(state);
+  const summaryNeedsInitialization = () => select.summaryHighlights(state) === null
+    && select.summaryIsLoading(state) === false;
 
-  if (!authenticated) { return; }
-
-  addCurrentPageToSummaryFilters(services);
+  if (authenticated && summaryNeedsInitialization()) {
+    dispatch(initializeMyHighlightsSummary());
+  }
 };
 
-export default actionHook(openMyHighlights, hookBody);
+export const openMyHighlightsHook = actionHook(openMyHighlights, hookBody);

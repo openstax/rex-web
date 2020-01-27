@@ -10,7 +10,7 @@ import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import { receiveHighlightsTotalCounts, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
@@ -48,6 +48,10 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }, new Map()));
 
     const summaryHighlights = {
       [pageId]: {
@@ -58,7 +62,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -95,6 +99,11 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }, new Map()));
+
     const summaryHighlights = {
       [pageId]: {
         [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
@@ -106,7 +115,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -128,7 +137,14 @@ describe('Highlights', () => {
     expect(isLoading).toBeDefined();
   });
 
-  it('show no highlights tip when locationIds filter is empty', () => {
+  it('show no highlights tip when there are no highlights for selected filters', () => {
+    store.dispatch(receiveHighlightsTotalCounts({
+      pageId: {[HighlightColorEnum.Green]: 5},
+      pageId2: {[HighlightColorEnum.Green]: 2},
+    }, new Map()));
+    store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
+    store.dispatch(receiveSummaryHighlights({}, null));
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <Highlights/>
@@ -139,16 +155,7 @@ describe('Highlights', () => {
       .toBeDefined();
   });
 
-  it('show add highlight message when there is no highlights on specific page', () => {
-    const pageId = stripIdVersion(page.id);
-
-    const summaryHighlights = {} as SummaryHighlights;
-
-    renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
-    });
-
+  it('show add highlight message when there are no highlights in specific book', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <Highlights/>
@@ -164,6 +171,7 @@ describe('Highlights', () => {
     const pageId = stripIdVersion(pageInChapter.id);
     const locations = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
+    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: {[HighlightColorEnum.Green]: 5} }, new Map()));
 
     const summaryHighlights = {
       [location!.id]: {
@@ -173,7 +181,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
     });
 
     consoleError.mockReturnValueOnce(null);

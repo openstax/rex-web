@@ -51,4 +51,5 @@ declare global {
   var document: dom.Document | undefined;
   var navigator: dom.Navigator | undefined;
   var URL: dom.URLConstructor | undefined;
+  var DOMParser: dom.DOMParserConstructor
 }
