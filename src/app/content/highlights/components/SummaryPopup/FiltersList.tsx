@@ -43,6 +43,11 @@ const ItemLabel = styled.span`
   }
 `;
 
+// tslint:disable-next-line: variable-name
+const FilterListItem = styled.li`
+  height: 4rem;
+`;
+
 interface FiltersListColorProps {
   color: HighlightColorEnum;
   onRemove: () => void;
@@ -50,14 +55,14 @@ interface FiltersListColorProps {
 
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
-  <li>
+  <FilterListItem>
     <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
         {(msg: Element | string) => msg}
       </FormattedMessage>
     </ItemLabel>
-  </li>
+  </FilterListItem>
 );
 
 interface FiltersListChapterProps {
@@ -68,10 +73,10 @@ interface FiltersListChapterProps {
 
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
-  <li>
+  <FilterListItem>
     <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
-  </li>
+  </FilterListItem>
 );
 
 interface FiltersListProps {
@@ -119,7 +124,7 @@ export default styled(FiltersList)`
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 2rem 0;
+  padding: 0.4rem 0;
   list-style: none;
 
   li {

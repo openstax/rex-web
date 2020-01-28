@@ -257,7 +257,11 @@ export const InfoIconWrapper = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIconWrapper = PlainButton;
+export const CloseIconWrapper = styled(PlainButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
