@@ -1,0 +1,692 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplayNote matches snapshot 1`] = `
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  cursor: pointer;
+}
+
+.c5 {
+  overflow: visible;
+}
+
+.c3 .c4 + .c6 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4.focus-within + .c6 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4:focus-within + .c6 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4 > .c6 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4.focus-within > .c6 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4:focus-within > .c6 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4 > *:not(.c6) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 .c4 > *:not(.c6) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4.focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4:focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c13 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+}
+
+.c13 li {
+  display: inline-block;
+}
+
+.c13 li button,
+.c13 li a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0 0.8rem;
+  margin: 0;
+  height: 3.2rem;
+  background: none;
+  min-width: 7.2rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c13 li button:hover,
+.c13 li a:hover,
+.c13 li button:focus,
+.c13 li a:focus {
+  background: #d5d5d5;
+}
+
+.c2 {
+  overflow: visible;
+  position: relative;
+}
+
+.c10 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #818181;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 {
+  border: none;
+  display: block;
+}
+
+.c14 {
+  color: #818181;
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c0 {
+  width: 20rem;
+  overflow: visible;
+  background: #f5f5f5;
+}
+
+.c0 > label {
+  display: none;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  color: #fed200;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1.2000000000000002rem 0 0 1.6rem;
+}
+
+.c0 .c12.c12 {
+  left: -4rem;
+}
+
+.c0 .c1 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c0 .c1 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 .c1:focus-within .c9 {
+  color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    width: unset;
+  }
+
+  .c0 > label {
+    display: block;
+  }
+
+  .c0 .c1 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1 c2 c3"
+  >
+    <div
+      className="c4 c5"
+    >
+      <div
+        className="c6 c7 c8"
+        tabIndex={0}
+      >
+        <svg
+          aria-hidden="true"
+          className="c9 c10 c11"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <ol
+        className="c12 c13"
+      >
+        <li>
+          <a
+            href=""
+            onClick={[Function]}
+            tabIndex={0}
+          >
+            Edit
+          </a>
+        </li>
+        <li>
+          <a
+            href=""
+            onClick={[Function]}
+            tabIndex={0}
+          >
+            Delete
+          </a>
+        </li>
+      </ol>
+    </div>
+    <div
+      className="c6 c7 c8"
+      tabIndex={0}
+    >
+      <svg
+        aria-hidden="true"
+        className="c9 c10 c11"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 192 512"
+      >
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </div>
+  <svg
+    aria-hidden="true"
+    className="c14"
+    focusable="false"
+    height="15px"
+    version="1.1"
+    viewBox="0 0 15 15"
+    width="15px"
+  >
+    <g
+      fill="none"
+      fillRule="evenodd"
+      stroke="none"
+      strokeWidth="1"
+    >
+      <g
+        fill="currentColor"
+        transform="translate(-302.000000, -18.000000)"
+      >
+        <g
+          transform="translate(302.000000, 18.000000)"
+        >
+          <path
+            d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+  <label>
+    Note:
+  </label>
+  <div
+    isFocused={false}
+    mock-truncated-text={true}
+  />
+</div>
+`;
+
+exports[`DisplayNote matches snapshot when focused 1`] = `
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  cursor: pointer;
+}
+
+.c5 {
+  overflow: visible;
+}
+
+.c3 .c4 + .c6 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4.focus-within + .c6 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4:focus-within + .c6 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4 > .c6 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4.focus-within > .c6 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4:focus-within > .c6 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4 > *:not(.c6) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 .c4 > *:not(.c6) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c3 .c4.focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3 .c4:focus-within > *:not(.c6) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c13 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+}
+
+.c13 li {
+  display: inline-block;
+}
+
+.c13 li button,
+.c13 li a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0 0.8rem;
+  margin: 0;
+  height: 3.2rem;
+  background: none;
+  min-width: 7.2rem;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c13 li button:hover,
+.c13 li a:hover,
+.c13 li button:focus,
+.c13 li a:focus {
+  background: #d5d5d5;
+}
+
+.c2 {
+  overflow: visible;
+  position: relative;
+}
+
+.c10 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #818181;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 {
+  border: none;
+  display: block;
+}
+
+.c14 {
+  color: #818181;
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c15 .c12.c12 {
+  left: -4rem;
+}
+
+.c15 .c1 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c15 .c1 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c15 .c1:focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 {
+  width: 20rem;
+  overflow: visible;
+  background: #f5f5f5;
+  background: #fff;
+}
+
+.c0 > label {
+  display: none;
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  color: #fed200;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1.2000000000000002rem 0 0 1.6rem;
+}
+
+.c0 .c12.c12 {
+  left: -4rem;
+}
+
+.c0 .c1 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c0 .c1 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 .c1:focus-within .c9 {
+  color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c15 .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    width: unset;
+  }
+
+  .c0 > label {
+    display: block;
+  }
+
+  .c0 .c1 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1 c2 c3"
+  >
+    <div
+      className="c4 c5"
+    >
+      <div
+        className="c6 c7 c8"
+        tabIndex={0}
+      >
+        <svg
+          aria-hidden="true"
+          className="c9 c10 c11"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <ol
+        className="c12 c13"
+      >
+        <li>
+          <a
+            href=""
+            onClick={[Function]}
+            tabIndex={0}
+          >
+            Edit
+          </a>
+        </li>
+        <li>
+          <a
+            href=""
+            onClick={[Function]}
+            tabIndex={0}
+          >
+            Delete
+          </a>
+        </li>
+      </ol>
+    </div>
+    <div
+      className="c6 c7 c8"
+      tabIndex={0}
+    >
+      <svg
+        aria-hidden="true"
+        className="c9 c10 c11"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 192 512"
+      >
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </div>
+  <svg
+    aria-hidden="true"
+    className="c14"
+    focusable="false"
+    height="15px"
+    version="1.1"
+    viewBox="0 0 15 15"
+    width="15px"
+  >
+    <g
+      fill="none"
+      fillRule="evenodd"
+      stroke="none"
+      strokeWidth="1"
+    >
+      <g
+        fill="currentColor"
+        transform="translate(-302.000000, -18.000000)"
+      >
+        <g
+          transform="translate(302.000000, 18.000000)"
+        >
+          <path
+            d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+  <label>
+    Note:
+  </label>
+  <div
+    isFocused={true}
+    mock-truncated-text={true}
+  />
+</div>
+`;

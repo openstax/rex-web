@@ -12,9 +12,11 @@ const {
   ARCHIVE_URL,
   OS_WEB_URL,
   SEARCH_URL,
+  HIGHLIGHTS_URL,
   ACCOUNTS_URL,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
+  REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL
 } = require('./config');
 
@@ -114,12 +116,24 @@ function accountsProxy(app) {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,
+    cookieDomainRewrite: "",
+    onProxyReq: (preq, req, res) => {
+      preq.setHeader('host', req.headers.host);
+    }
   }));
 }
 
 function searchProxy(app) {
   app.use(proxy(REACT_APP_SEARCH_URL, {
     target: SEARCH_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
+}
+
+function highlightsProxy(app) {
+  app.use(proxy(REACT_APP_HIGHLIGHTS_URL, {
+    target: HIGHLIGHTS_URL,
     changeOrigin: true,
     autoRewrite: true,
   }));
@@ -133,10 +147,23 @@ function osWebApiProxy(app) {
 }
 
 function osWebProxy(app) {
-  app.use(proxy((path) => !path.match(/^\/(books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|\/$/) , {
+  app.use(proxy((path) => !path.match(/^\/((books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|manifest.json|service-worker.js|precache-manifest.*|index.html|\/)?$/) , {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
+}
+
+function stubEnvironment(app) {
+  app.use((req, res, next) => {
+    const  {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/environment.json') {
+      const envFile = path.join(__dirname, 'environment.development.json');
+      sendFile(res, envFile);
+    } else {
+      next();
+    }
+  });
 }
 
 function setupProxy(app) {
@@ -146,7 +173,9 @@ function setupProxy(app) {
   archiveProxy(app);
   accountsProxy(app);
   searchProxy(app);
+  highlightsProxy(app);
   osWebApiProxy(app);
+  stubEnvironment(app);
 
   if (!SKIP_OS_WEB_PROXY) {
     osWebProxy(app);

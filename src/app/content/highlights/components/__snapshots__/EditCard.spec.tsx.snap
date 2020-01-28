@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditCard matches snapshot when editing 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  height: 3rem;
+  padding: 0 2rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c3:hover {
+  background-color: #e96128;
+}
+
+.c3:active {
+  background-color: #df571e;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  height: 3rem;
+  padding: 0 2rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c4:hover {
+  background-color: #fafafa;
+}
+
+.c4:active {
+  background-color: #e5e5e5;
+}
+
+.c2 {
+  display: grid;
+  overflow: visible;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+}
+
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
+<form
+  className="c0"
+  data-analytics-region="edit-note"
+>
+  <div
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    mock-note={true}
+    note="asdf"
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
+  <div
+    className="c1 c2"
+  >
+    <button
+      className="c3"
+      data-analytics-label="save"
+      data-testid="save"
+      onClick={[Function]}
+    >
+      Save
+    </button>
+    <button
+      className="c4"
+      data-analytics-label="cancel"
+      data-testid="cancel"
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+  </div>
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
+  />
+</form>
+`;
+
+exports[`EditCard matches snapshot when focused 1`] = `
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
+<form
+  className="c0"
+  data-analytics-region="edit-note"
+>
+  <div
+    color="yellow"
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    mock-note={true}
+    note=""
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
+  />
+</form>
+`;
+
+exports[`EditCard matches snapshot with data 1`] = `
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
+<form
+  className="c0"
+  data-analytics-region="edit-note"
+>
+  <div
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    mock-note={true}
+    note=""
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
+  />
+</form>
+`;
+
+exports[`EditCard matches snapshot without data 1`] = `
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    visibility: hidden;
+  }
+}
+
+<form
+  className="c0"
+  data-analytics-region="edit-note"
+>
+  <div
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    mock-note={true}
+    note=""
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
+  <div
+    confirmMessage="i18n:highlighting:login:link"
+    data-analytics-region="highlighting-login"
+    message="i18n:highlighting:login:prompt"
+    mock-confirmation={true}
+  />
+</form>
+`;

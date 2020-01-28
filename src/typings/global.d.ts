@@ -18,6 +18,10 @@ declare global {
       prototype: dom.HTMLAnchorElement;
       new(): dom.HTMLAnchorElement;
     };
+    HTMLButtonElement: {
+      prototype: dom.HTMLButtonElement;
+      new(): dom.HTMLButtonElement;
+    };
     HTMLDetailsElement: {
       prototype: dom.HTMLDetailsElement;
       new(): dom.HTMLDetailsElement;
@@ -25,6 +29,18 @@ declare global {
     Element: {
       prototype: dom.Element;
       new(): dom.Element;
+    };
+    Node: {
+      prototype: dom.Node;
+      new(): dom.Node;
+    };
+    CustomEvent: {
+      prototype: CustomEvent;
+      new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
+    };
+    Event: {
+      prototype: Event;
+      new<T>(typeArg: string, eventInitDict?: EventInit<T>): Event<T>;
     };
     MathJax: any;
     ga: UniversalAnalytics.ga;
@@ -35,4 +51,5 @@ declare global {
   var document: dom.Document | undefined;
   var navigator: dom.Navigator | undefined;
   var URL: dom.URLConstructor | undefined;
+  var DOMParser: dom.DOMParserConstructor
 }

@@ -1,5 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -15,10 +16,10 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
+import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
-import { scrollTo } from '../../utils';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
@@ -33,9 +34,9 @@ import allImagesLoaded from './utils/allImagesLoaded';
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
-jest.mock('../../utils', () => ({
+jest.mock('../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
-  ...(jest as any).requireActual('../../utils'),
+  ...(jest as any).requireActual('../../domUtils'),
   scrollTo: jest.fn(),
 }));
 
@@ -312,16 +313,16 @@ describe('Page', () => {
               <p id="paragraph1">blah blah blah</p>
             </div></div>
             <div data-type="solution" id="fs-id2913818" data-print-placement="here">
-        <div class="ui-toggle-wrapper">
-          <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
-        </div>
-        <section class="ui-body" role="alert">
+      <div class="ui-toggle-wrapper">
+        <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
+      </div>
+      <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
-      </div>
+    </div>
           </section></div>
         `);
       });
@@ -438,6 +439,8 @@ describe('Page', () => {
     expect(evt3.preventDefault).not.toHaveBeenCalled();
     expect(evt4.preventDefault).not.toHaveBeenCalled();
 
+    await new Promise((resolve) => defer(resolve));
+
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
@@ -457,7 +460,7 @@ describe('Page', () => {
   });
 
   it('passes search when clicking content links to same book', async() => {
-    store.dispatch(requestSearch('asdf'));
+    state.navigation.state = {search: {query: 'asdf'}};
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -472,6 +475,8 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
 
     firstLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
@@ -492,7 +497,7 @@ describe('Page', () => {
   });
 
   it('passes search when clicking hash links', async() => {
-    store.dispatch(requestSearch('asdf'));
+    state.navigation.state = {search: {query: 'asdf'}};
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -508,6 +513,8 @@ describe('Page', () => {
     const evt1 = makeEvent(document);
 
     hashLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: expect.anything(),
@@ -645,6 +652,50 @@ describe('Page', () => {
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
+  it('doesn\'t scroll to search result when selected but unchanged', async() => {
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const focus = jest.fn();
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus,
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit1,
+      },
+      {
+        highlights: {},
+        result: hit2,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+    store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    focus.mockClear();
+    (scrollTo as any).mockClear();
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
   it('scrolls to search result when selected before page navigation', async() => {
     renderDomWithReferences();
 
@@ -692,6 +743,8 @@ describe('Page', () => {
 
     // page lifecycle hooks
     await Promise.resolve();
+    // previous processing
+    await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
 
@@ -726,7 +779,7 @@ describe('Page', () => {
     typesetMath.mockRestore();
   });
 
-  it('scrolls to top on new content', () => {
+  it('scrolls to top on new content', async() => {
     if (!window) {
       return expect(window).toBeTruthy();
     }
@@ -756,6 +809,8 @@ describe('Page', () => {
       title: 'qerqwer',
       version: '0',
     }));
+
+    await Promise.resolve();
 
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
@@ -806,6 +861,7 @@ describe('Page', () => {
       references: [],
     }));
 
+    await Promise.resolve();
     await Promise.resolve();
 
     expect(scrollTo).not.toHaveBeenCalled();
@@ -895,6 +951,8 @@ describe('Page', () => {
     }));
 
     // page lifecycle hooks
+    await Promise.resolve();
+    // previous processing
     await Promise.resolve();
     // images loaded
     await Promise.resolve();

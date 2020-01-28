@@ -64,24 +64,6 @@ describe('locationChange', () => {
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
-  it('doesn\'t load book if its already loading', async() => {
-    helpers.archiveLoader.mock.loadBook.mockImplementation(
-      () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
-    );
-
-    await Promise.all([
-      hook(payload),
-      hook(payload),
-      hook(payload),
-    ]);
-
-    expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
-    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
-    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
-  });
-
   it('loads page', async() => {
     await hook(payload);
     expect(dispatch).toHaveBeenCalledWith(actions.requestPage('test-page-1'));
@@ -97,23 +79,6 @@ describe('locationChange', () => {
     expect(helpers.archiveLoader.mock.loadPage).not.toHaveBeenCalled();
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('page', expect.anything());
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pagelongid', expect.anything());
-  });
-
-  it('doesn\'t load page if its already loading', async() => {
-    await Promise.all([
-      hook(payload),
-      hook(payload),
-      hook(payload),
-      hook(payload),
-    ]);
-
-    expect(dispatch).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook('book-slug-1'));
-    expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-    expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
-    expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
-
-    expect(helpers.archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
   });
 
   it('loads more specific data when available', async() => {

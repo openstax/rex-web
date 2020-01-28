@@ -20,7 +20,8 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -81,6 +82,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
 
 <div
   className="c0"
+  data-analytics-region="prev-next"
 >
   <span
     aria-hidden={true}
@@ -88,6 +90,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
   <a
     aria-label="Next Page"
     className="c1"
+    data-analytics-href="next"
     href="books/book-slug-1/pages/test-page-1"
     onClick={[Function]}
   >
@@ -134,7 +137,8 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -147,7 +151,8 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   text-decoration: none;
 }
 
-.c4:hover {
+.c4:hover,
+.c4:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -214,10 +219,12 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 
 <div
   className="c0"
+  data-analytics-region="prev-next"
 >
   <a
     aria-label="Previous Page"
     className="c1"
+    data-analytics-href="prev"
     href="books/book-slug-1/pages/2-test-page-3"
     onClick={[Function]}
   >
@@ -237,6 +244,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   <a
     aria-label="Next Page"
     className="c4"
+    data-analytics-href="next"
     href="books/book-slug-1/pages/4-test-page-5"
     onClick={[Function]}
   >
@@ -276,7 +284,8 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -337,6 +346,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 
 <div
   className="c0"
+  data-analytics-region="prev-next"
 >
   <span
     aria-hidden={true}
@@ -344,6 +354,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
   <a
     aria-label="Next Page"
     className="c1"
+    data-analytics-href="next"
     href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
     onClick={[Function]}
   >
@@ -382,7 +393,8 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   text-decoration: none;
 }
 
-.c1:hover {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -443,10 +455,12 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 
 <div
   className="c0"
+  data-analytics-region="prev-next"
 >
   <a
     aria-label="Previous Page"
     className="c1"
+    data-analytics-href="prev"
     href="books/book-slug-1/pages/d-glossary-of-key-symbols-and-notation"
     onClick={[Function]}
   >

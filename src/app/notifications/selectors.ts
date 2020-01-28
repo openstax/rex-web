@@ -5,6 +5,7 @@ import * as parentSelectors from '../selectors';
 import { acceptCookies, updateAvailable } from './actions';
 import { isAppMessage } from './guards';
 import { appMessageType } from './reducer';
+import { AnyNotification } from './types';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -19,19 +20,17 @@ const messagePriority = [
   getType(acceptCookies),
 ];
 
-export const notificationsForDisplay = createSelector(
+export const notificationForDisplay = createSelector(
   notifications,
   pathname,
-  (messages, url) => messages
+  (messages, url): AnyNotification | undefined =>  messages
     .filter((message) => {
       if (isAppMessage(message) && message.payload.url_regex) {
         return url.match(message.payload.url_regex);
       }
-
       return true;
     })
     .sort((first, second) => {
       return messagePriority.indexOf(first.type) - messagePriority.indexOf(second.type);
-    })
-    .slice(0, 1)
+    })[0]
 );

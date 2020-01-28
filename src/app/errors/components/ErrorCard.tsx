@@ -6,7 +6,7 @@ import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, h3Style, h4Style } from '../../components/Typography';
 import { toolbarIconColor } from '../../content/components/constants';
-import { toolbarIconStyles } from '../../content/components/Toolbar/styled';
+import { toolbarIconStyles } from '../../content/components/Toolbar/iconStyles';
 import theme from '../../theme';
 
 const margin = 3.0;
@@ -37,7 +37,7 @@ const Header = styled.header`
   align-items: center;
   margin-bottom: ${margin * 0.5}rem;
   padding: ${margin * 0.5}rem ${margin}rem;
-  background: #f1f1f1;
+  background: ${theme.color.neutral.pageBackground};
   border-bottom: solid 0.1rem ${theme.color.neutral.darker};
   justify-content: space-between;
 `;

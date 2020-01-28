@@ -22,11 +22,15 @@ const padding = {
 };
 
 const color = {
+  black: '#000',
   neutral: {
     base: '#fff',
     darker: '#fafafa',
     darkest: '#e5e5e5',
     foreground: textColors.default,
+    formBackground: '#f5f5f5',
+    formBorder: '#d5d5d5',
+    pageBackground: '#f1f1f1',
   },
   primary: {
     'blue': {
@@ -79,6 +83,7 @@ const color = {
     red: {base: '#c22032'},
   },
   text: textColors,
+  white: '#fff',
 };
 
 const mobileBreak = 75;
@@ -96,12 +101,19 @@ export default {
   },
   color,
   padding,
-  zIndex: {
-    contentNotifications: 2,
-    focusedHiddenLink: 20,
-    modal: 12,
-    navbar: 5,
-    overlay: 3,
-    sidebar: 4,
-  },
+  zIndex: [
+    'highlightInlineCard',
+    'contentNotifications',
+    'searchSidebar',
+    'toolbar',
+    'overlay',
+    'sidebar',
+    'navbar',
+    'highlightSummaryPopup',
+    'errorPopup',
+    'focusedHiddenLink',
+  ].reduce((result, key, index) => {
+    result[key] = (index + 1) * 10;
+    return result;
+  }, {} as {[key: string]: number}),
 };

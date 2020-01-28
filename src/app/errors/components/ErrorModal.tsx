@@ -17,7 +17,6 @@ const Mask = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  z-index: 2;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
 `;
@@ -25,7 +24,7 @@ const Mask = styled.div`
 // tslint:disable-next-line:variable-name
 const Modal = styled.div`
   top: 0;
-  z-index: ${theme.zIndex.modal};
+  z-index: ${theme.zIndex.errorPopup};
   left: 0;
   width: 100%;
   height: 100%;
@@ -37,7 +36,7 @@ const Modal = styled.div`
 
 // tslint:disable-next-line:variable-name
 const CardWrapper = styled.div`
-  z-index: ${theme.zIndex.sidebar};
+  z-index: 1;
 `;
 
 interface PropTypes {

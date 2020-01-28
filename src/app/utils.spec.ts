@@ -101,6 +101,18 @@ describe('assertDefined', () => {
   });
 });
 
+describe('assertNotNull', () => {
+  it('returns value', () => {
+    expect(utils.assertNotNull('foo', 'error')).toBe('foo');
+  });
+
+  it('throws on null', () => {
+    expect(() =>
+      utils.assertNotNull(null, 'error')
+    ).toThrowErrorMatchingInlineSnapshot(`"error"`);
+  });
+});
+
 describe('assertString', () => {
   it('returns value', () => {
     expect(utils.assertString('foo', 'error')).toBe('foo');
@@ -235,5 +247,55 @@ describe('getAllRegexMatches', () => {
 
   it('throws when global flag not passed' , () => {
     expect(() => utils.getAllRegexMatches(/asdf/)).toThrow();
+  });
+});
+
+describe('merge', () => {
+  it('merges things', () => {
+    expect(utils.merge({asdf: 'asdf'}, {qwer: 'qwer'})).toEqual({asdf: 'asdf', qwer: 'qwer'});
+  });
+
+  it('merges arrays', () => {
+    expect(utils.merge({asdf: [1]}, {asdf: [2]})).toEqual({asdf: [1, 2]});
+  });
+
+  it('maintains object references when possible', () => {
+    const thing1 = {subobject: {}, asdf: 'asdf'};
+    const thing2 = {qwer: 'qwer'};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(thing1.subobject).toBe(merged.subobject);
+  });
+
+  it('doesn\'t modify refernces when merging', () => {
+    const thing1 = {subobject: {qwer: 'qwer'}, asdf: 'asdf'};
+    const thing2 = {subobject: {asdf: 'asdf'}};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(thing1.subobject).not.toBe(merged.subobject);
+    expect(merged).toEqual({
+      asdf: 'asdf',
+      subobject: {
+        asdf: 'asdf',
+        qwer: 'qwer',
+      },
+    });
+  });
+
+  it('last arg wins for non-plain objects', () => {
+    const thing1 = {asdf: 'asdf'};
+    const thing2 = {asdf: 'qwer'};
+    const merged = utils.merge(thing1, thing2);
+
+    expect(merged.asdf).toBe(thing2.asdf);
+    expect(merged.asdf).toEqual('qwer');
+  });
+});
+
+describe('preventDefault', () => {
+  it('does it', () => {
+    const event = {preventDefault: jest.fn()} as any;
+    utils.preventDefault(event);
+    expect(event.preventDefault).toHaveBeenCalled();
   });
 });

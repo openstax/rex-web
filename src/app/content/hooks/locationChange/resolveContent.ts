@@ -65,21 +65,34 @@ const resolveBook = async(
 const resolveBookReference = async(
   {osWebLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
-): Promise<[string, string, string]> => {
+): Promise<[string, string, string | undefined]> => {
   const state = getState();
-  const bookSlug = match.params.book;
   const currentBook = select.book(state);
+
+  const bookSlug = 'book' in match.params
+    ? match.params.book
+    : currentBook && currentBook.id === match.params.uuid
+      ? currentBook.slug
+      : await osWebLoader.getBookSlugFromId(match.params.uuid);
 
   if (match.state && match.state.bookUid && match.state.bookVersion) {
     return [bookSlug, match.state.bookUid, match.state.bookVersion];
   }
 
-  const bookUid = currentBook && currentBook.slug === bookSlug
-    ? currentBook.id
-    : await osWebLoader.getBookIdFromSlug(bookSlug);
+  const bookUid  = 'uuid' in match.params
+    ? match.params.uuid
+    : currentBook && currentBook.slug === bookSlug
+      ? currentBook.id
+      : await osWebLoader.getBookIdFromSlug(bookSlug);
 
-  const bookVersion = assertDefined(BOOKS[bookUid], `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
-  ).defaultVersion;
+  const bookVersion = 'version' in match.params
+    ? match.params.version === 'latest'
+      ? undefined
+      : match.params.version
+    : assertDefined(
+        BOOKS[bookUid],
+        `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
+      ).defaultVersion;
 
   return [bookSlug, bookUid, bookVersion];
 };

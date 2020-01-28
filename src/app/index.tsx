@@ -1,11 +1,12 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
-import config from '../config';
+import analytics from '../helpers/analytics';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
+import * as appAactions from './actions';
 import * as auth from './auth';
 import * as content from './content';
 import * as Services from './context/Services';
@@ -23,6 +24,7 @@ import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
 
 export const actions = {
+  app: appAactions,
   auth: auth.actions,
   content: content.actions,
   errors: errors.actions,
@@ -53,6 +55,7 @@ const hooks = [
 ];
 
 const defaultServices = () => ({
+  analytics,
   fontCollector: new FontCollector(),
   promiseCollector: new PromiseCollector(),
 });
@@ -92,7 +95,7 @@ export default (options: AppOptions) => {
     ...hooks.map((hook) => hook(services)),
   ];
 
-  if (config.SENTRY_ENABLED) {
+  if (Sentry.shouldCollectErrors) {
     middleware.push(Sentry.initializeWithMiddleware());
   }
 

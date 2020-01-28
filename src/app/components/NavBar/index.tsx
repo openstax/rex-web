@@ -24,7 +24,14 @@ export class Dropdown extends React.Component<{user: User, currentPath: string}>
     const {user, currentPath} = this.props;
     return <OnScroll callback={this.blockScroll}>
       <Styled.DropdownOverlay tabIndex='-1' ref={this.overlay}>
-        <Styled.OverlayLogo aria-hidden='true' src={openstaxLogo} />
+        <FormattedMessage id='i18n:nav:logo:alt'>
+          {(msg: Element | string) => <a aria-hidden='true' href='/'>
+            <Styled.OverlayLogo
+              src={openstaxLogo}
+              alt={assertString(msg, 'alt text must be a string')}
+            />
+          </a>}
+        </FormattedMessage>
         <div>
           <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
             {(msg: Element | string) => <Styled.OverlayHeading>{msg}</Styled.OverlayHeading>}
@@ -92,7 +99,7 @@ interface NavigationBarProps {
 }
 // tslint:disable-next-line:variable-name
 const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
-  <Styled.BarWrapper>
+  <Styled.BarWrapper data-analytics-region='openstax-navbar'>
     <Styled.TopBar data-testid='navbar'>
       <FormattedMessage id='i18n:nav:logo:alt'>
         {(msg: Element | string) => <a href='/'>

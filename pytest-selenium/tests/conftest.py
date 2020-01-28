@@ -1,11 +1,10 @@
-import sys
-
 import os
+import random
+import sys
 
 import pytest
 
 from utils import utility
-
 
 # Window resolutions. Pytest takes these inputs backwards.
 DESKTOP = (1500, 1080)
@@ -29,9 +28,12 @@ def selenium(selenium, request):
     Desktop size: 1920x1080
     Mobile size: 738x414 (iPhone 7+)
     """
-    marker = request.node.get_closest_marker("mobile_only")
-    if marker and request.param == DESKTOP:
+    desktop_only = request.node.get_closest_marker("desktop_only")
+    mobile_only = request.node.get_closest_marker("mobile_only")
+    if mobile_only and request.param == DESKTOP:
         pytest.skip("Skipping desktop test")
+    elif desktop_only and request.param == MOBILE:
+        pytest.skip("Skipping mobile test")
     selenium.set_window_size(*request.param)
     return selenium
 
@@ -41,6 +43,7 @@ def pytest_addoption(parser):
 
     """
     group = parser.getgroup("selenium", "selenium")
+
     group.addoption(
         "--disable-dev-shm-usage",
         action="store_true",
@@ -83,7 +86,7 @@ def chrome_options(chrome_options, pytestconfig, language):
     if pytestconfig.getoption("--disable-dev-shm-usage"):
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-    chrome_options.add_experimental_option('w3c', False)
+    chrome_options.add_experimental_option("w3c", False)
 
     # Set the browser language
     chrome_options.add_argument("--lang={lang}".format(lang=language))
@@ -102,3 +105,15 @@ def pytest_runtest_setup(item):
 def book_slug():
     book_list = utility.Library()
     return book_list.random_book_slug()
+
+
+@pytest.fixture
+def email(store):
+    user_info = random.choice((store.get("_user_info")))
+    return user_info["email"]
+
+
+@pytest.fixture
+def password(store):
+    user_info = random.choice((store.get("_user_info")))
+    return user_info["password"]

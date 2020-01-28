@@ -8,7 +8,7 @@ import {
   shortPage
 } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import MobileScrollLock from '../../components/MobileScrollLock';
+import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
@@ -23,6 +23,13 @@ import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
+
+jest.mock('../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
 
 describe('content', () => {
   let store: Store;
@@ -201,7 +208,7 @@ describe('content', () => {
     );
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
-    const mobileScrollLock = component.root.findByType(MobileScrollLock);
+    const mobileScrollLock = component.root.findByType(ScrollLock);
 
     expect(tableOfContentsComponent.props.isOpen).toBe(true);
     renderer.act(() => {

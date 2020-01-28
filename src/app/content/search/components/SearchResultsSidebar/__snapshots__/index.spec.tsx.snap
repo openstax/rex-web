@@ -20,8 +20,9 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 4;
+  z-index: 30;
   height: calc(100vh - 18rem);
+  max-height: calc(100vh - 12rem);
   margin-left: -44rem;
   -webkit-animation: jnNuMv 300ms forwards;
   animation: jnNuMv 300ms forwards;
@@ -107,6 +108,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
+    max-height: calc(100vh - 10rem);
   }
 }
 
@@ -245,8 +247,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 4;
+  z-index: 30;
   height: calc(100vh - 18rem);
+  max-height: calc(100vh - 12rem);
   margin-left: -44rem;
   -webkit-animation: jnNuMv 300ms forwards;
   animation: jnNuMv 300ms forwards;
@@ -533,6 +536,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
+    max-height: calc(100vh - 10rem);
   }
 }
 
@@ -951,8 +955,9 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   width: 44rem;
   background-color: #f1f1f1;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  z-index: 4;
+  z-index: 30;
   height: calc(100vh - 18rem);
+  max-height: calc(100vh - 12rem);
   margin-left: -44rem;
   -webkit-animation: jnNuMv 300ms forwards;
   animation: jnNuMv 300ms forwards;
@@ -1018,6 +1023,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
     margin-top: 0;
     top: 15.3rem;
     padding: 0;
+    max-height: calc(100vh - 10rem);
   }
 }
 

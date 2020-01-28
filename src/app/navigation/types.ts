@@ -48,7 +48,8 @@ export type reducer = (state: State, action: AnyAction) => State;
 export interface Route<P, S = undefined> {
   name: string;
   paths: string[];
-  getUrl: (...args: P extends undefined ? []: [P]) => string;
+  // https://github.com/Microsoft/TypeScript/issues/29368#issuecomment-453529532
+  getUrl: (...args: [P] extends [undefined] ? []: [P]) => string;
   component: ComponentType;
 }
 

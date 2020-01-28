@@ -91,7 +91,7 @@ Array [
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 4;
+  z-index: 69;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
 }
@@ -161,6 +161,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
@@ -285,7 +286,7 @@ Array [
   transition: transform 200ms;
   position: -webkit-sticky;
   position: sticky;
-  z-index: 3;
+  z-index: 68;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
   margin-top: -7rem;
@@ -377,6 +378,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="book-banner-collapsed"
   >
     <div
       className="c1"
@@ -429,7 +431,7 @@ exports[`BookBanner renders empty state with no page or book 1`] = `
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 4;
+  z-index: 69;
   overflow: hidden;
 }
 
@@ -469,7 +471,7 @@ exports[`BookBanner wrapper transition matches snapshot 1`] = `
   -webkit-transition: transform 200ms;
   transition: transform 200ms;
   position: relative;
-  z-index: 4;
+  z-index: 69;
   overflow: hidden;
   background: linear-gradient(to right, #002468, #004aa2);
   -webkit-transform: translateY(-7rem);

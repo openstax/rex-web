@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 20;
+  z-index: 100;
 }
 
 <a
@@ -58,7 +58,7 @@ Array [
 
 .c0 {
   overflow: visible;
-  z-index: 5;
+  z-index: 70;
   background: #fff;
   position: relative;
   padding: 0 3.2rem;
@@ -91,6 +91,7 @@ Array [
 
 <div
     className="c0"
+    data-analytics-region="openstax-navbar"
   >
     <div
       className="c1"
@@ -161,9 +162,11 @@ Array [
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  white-space: nowrap;
   font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
   min-width: 12rem;
   font-size: 1.6rem;
   height: 4rem;
@@ -301,6 +304,12 @@ Array [
           >
             <button
               className="c8"
+              onClick={[Function]}
+            >
+              accept cookies
+            </button>
+            <button
+              className="c8"
               data-testid="trigger-updates-available"
               onClick={[Function]}
             >
@@ -355,6 +364,8 @@ Array [
               Content
             </h3>
             path: 
+            /books/:uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:version/pages/:page
+            /books/:book@:version/pages/:page
             /books/:book/pages/:page
           </div>
           <div>
@@ -716,6 +727,7 @@ Array [
 
 <footer
     className="c0"
+    data-analytics-region="footer"
   >
     <div
       className="c1"
@@ -864,7 +876,7 @@ Array [
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
-  <div data-html=\\"copyright\\">© 1999-2019, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
