@@ -23,7 +23,12 @@ export async function getCanonicalUrlParams(
 
     const canonicalBook = await getBook(id, version);
     const treeSection = findArchiveTreeNode(canonicalBook.tree, pageShortId);
-    if (treeSection && hasOSWebData(canonicalBook)) {
+
+    if (!hasOSWebData(canonicalBook)) {
+      throw new Error (`Canonical book ${id} is missing cms data`);
+    }
+
+    if (treeSection) {
       const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
       return {book: canonicalBook.slug, page: pageInBook};
     }

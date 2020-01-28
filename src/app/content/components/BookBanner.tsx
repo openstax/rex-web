@@ -14,6 +14,7 @@ import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
 import { bookDetailsUrl } from '../utils/urlUtils';
+import { defaultTheme } from './constants';
 import {
   bookBannerDesktopBigHeight,
   bookBannerDesktopMiniHeight,
@@ -198,7 +199,6 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 
   public render() {
     const { pageNode, book } = this.props;
-    const defaultTheme = 'blue' as BookWithOSWebData['theme'];
 
     if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
