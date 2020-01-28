@@ -9,7 +9,6 @@ import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
 import {
   clearSearch,
-  closeSearchResultsMobile,
   openMobileToolbar,
   openSearchResultsMobile,
   requestSearch,
@@ -25,7 +24,6 @@ interface Props {
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
-  closeSearchResults: () => void;
   openSearchResults: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
@@ -83,14 +81,11 @@ class Toolbar extends React.Component<Props, State> {
       this.props.openSearchResults();
     };
 
-    const closeSearchResults = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      this.props.closeSearchResults();
-    };
-
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
+
+    const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
@@ -141,15 +136,15 @@ class Toolbar extends React.Component<Props, State> {
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
-          {!this.props.searchSidebarOpen && this.props.hasSearchResults &&
+          {showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
               {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
                 <Styled.LeftArrow/><Styled.InnerText>{msg}</Styled.InnerText>
               </Styled.SeachResultsTextButton>}
             </FormattedMessage>}
-          {this.props.searchSidebarOpen && this.props.hasSearchResults &&
+          {!showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-              {(msg) => <Styled.SeachResultsTextButton onClick={closeSearchResults} data-testid='close-search-results'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
                 <Styled.InnerText>{msg}</Styled.InnerText>
               </Styled.SeachResultsTextButton>}
             </FormattedMessage>}
@@ -178,7 +173,6 @@ export default connect(
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
-    closeSearchResults: flow(closeSearchResultsMobile, dispatch),
     openMobileToolbar: flow(openMobileToolbar, dispatch),
     openSearchResults: flow(openSearchResultsMobile, dispatch),
     search: flow(requestSearch, dispatch),
