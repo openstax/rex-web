@@ -107,8 +107,8 @@ describe("content", () => {
 
     expect(scrollOffset.props).toMatchInlineSnapshot(`
       Object {
-        "desktopOffset": 16,
-        "mobileOffset": 14,
+        "desktopOffset": 15,
+        "mobileOffset": 13,
       }
     `);
   });
@@ -130,8 +130,8 @@ describe("content", () => {
 
     expect(scrollOffset.props).toMatchInlineSnapshot(`
       Object {
-        "desktopOffset": 16,
-        "mobileOffset": 19.3,
+        "desktopOffset": 15,
+        "mobileOffset": 18.3,
       }
     `);
   });
