@@ -29,7 +29,6 @@ export const LoaderWrapper = styled.div`
 export const HighlightsChapterWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 5.6rem;
   padding: 0 ${popupPadding}rem;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${popupPadding}rem;
@@ -43,6 +42,7 @@ export const HighlightsChapter = styled.div`
   display: flex;
   align-items: baseline;
   width: 100%;
+  min-height: 5.6rem;
 
   .os-number {
     overflow: visible;
