@@ -1,38 +1,38 @@
-import React from "react";
-import { Provider } from "react-redux";
-import renderer from "react-test-renderer";
-import createTestServices from "../../../test/createTestServices";
-import createTestStore from "../../../test/createTestStore";
-import { book, shortPage } from "../../../test/mocks/archiveLoader";
-import { mockCmsBook } from "../../../test/mocks/osWebLoader";
-import ScrollLock from "../../components/ScrollLock";
-import ScrollOffset from "../../components/ScrollOffset";
-import * as Services from "../../context/Services";
-import MessageProvider from "../../MessageProvider";
-import { locationChange } from "../../navigation/actions";
-import { Store } from "../../types";
-import { assertWindow } from "../../utils";
-import { openToc, receiveBook, receivePage } from "../actions";
-import { content } from "../routes";
-import { openMobileToolbar } from "../search/actions";
-import { Book } from "../types";
-import { formatBookData } from "../utils";
-import { findArchiveTreeNode } from "../utils/archiveTreeUtils";
-import Content from "./Content";
-import { TableOfContents } from "./TableOfContents";
+import React from 'react';
+import { Provider } from 'react-redux';
+import renderer from 'react-test-renderer';
+import createTestServices from '../../../test/createTestServices';
+import createTestStore from '../../../test/createTestStore';
+import { book, shortPage } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import ScrollLock from '../../components/ScrollLock';
+import ScrollOffset from '../../components/ScrollOffset';
+import * as Services from '../../context/Services';
+import MessageProvider from '../../MessageProvider';
+import { locationChange } from '../../navigation/actions';
+import { Store } from '../../types';
+import { assertWindow } from '../../utils';
+import { openToc, receiveBook, receivePage } from '../actions';
+import { content } from '../routes';
+import { openMobileToolbar } from '../search/actions';
+import { Book } from '../types';
+import { formatBookData } from '../utils';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import Content from './Content';
+import { TableOfContents } from './TableOfContents';
 
-jest.mock("../../../config", () => {
+jest.mock('../../../config', () => {
   const mockBook = (jest as any).requireActual(
-    "../../../test/mocks/archiveLoader"
+    '../../../test/mocks/archiveLoader'
   ).book;
   return {
     BOOKS: {
-      [mockBook.id]: { defaultVersion: mockBook.version }
-    }
+      [mockBook.id]: { defaultVersion: mockBook.version },
+    },
   };
 });
 
-describe("content", () => {
+describe('content', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
   const bookState: Book = formatBookData(book, mockCmsBook);
@@ -41,25 +41,25 @@ describe("content", () => {
     store = createTestStore();
     store.dispatch(
       locationChange({
-        action: "PUSH",
+        action: 'PUSH',
         location: {
           ...assertWindow().location,
-          pathname: "/books/book-slug-1/pages/doesnotmatter",
-          state: {}
+          pathname: '/books/book-slug-1/pages/doesnotmatter',
+          state: {},
         },
         match: {
           params: {
             book: bookState.slug,
-            page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug
+            page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
           },
-          route: content
-        }
+          route: content,
+        },
       })
     );
     services = createTestServices();
   });
 
-  it("matches snapshot", () => {
+  it('matches snapshot', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -77,7 +77,7 @@ describe("content", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("renders empty state", () => {
+  it('renders empty state', () => {
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -92,7 +92,7 @@ describe("content", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("provides the right scroll offset when mobile search collapsed", () => {
+  it('provides the right scroll offset when mobile search collapsed', () => {
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -113,7 +113,7 @@ describe("content", () => {
     `);
   });
 
-  it("provides the right scroll offset when mobile search collapsed", () => {
+  it('provides the right scroll offset when mobile search collapsed', () => {
     store.dispatch(openMobileToolbar());
 
     const component = renderer.create(
@@ -136,7 +136,7 @@ describe("content", () => {
     `);
   });
 
-  it("gets page content out of cached archive query", () => {
+  it('gets page content out of cached archive query', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -152,13 +152,13 @@ describe("content", () => {
 
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledWith(
-      "testbook1-uuid",
-      "1.0",
-      "testbook1-testpage4-uuid"
+      'testbook1-uuid',
+      '1.0',
+      'testbook1-testpage4-uuid'
     );
   });
 
-  it("page element is still rendered if archive content is unavailable", () => {
+  it('page element is still rendered if archive content is unavailable', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -174,12 +174,12 @@ describe("content", () => {
       </Provider>
     );
 
-    const pageComponent = component.root.findByProps({ id: "main-content" });
+    const pageComponent = component.root.findByProps({ id: 'main-content' });
 
     expect(pageComponent).toBeDefined();
   });
 
-  it("renders with ToC in null state", () => {
+  it('renders with ToC in null state', () => {
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -195,7 +195,7 @@ describe("content", () => {
     expect(tableOfContentsComponent.props.isOpen).toBe(null);
   });
 
-  it("clicking overlay closes toc", () => {
+  it('clicking overlay closes toc', () => {
     renderer.act(() => {
       store.dispatch(openToc());
     });
@@ -220,7 +220,7 @@ describe("content", () => {
     expect(tableOfContentsComponent.props.isOpen).toBe(false);
   });
 
-  it("SidebarControl opens and closes ToC", () => {
+  it('SidebarControl opens and closes ToC', () => {
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -235,7 +235,7 @@ describe("content", () => {
 
     renderer.act(() => {
       component.root
-        .findByProps({ "aria-label": "Click to close the Table of Contents" })
+        .findByProps({ 'aria-label': 'Click to close the Table of Contents' })
         .props.onClick();
     });
 
@@ -243,7 +243,7 @@ describe("content", () => {
 
     renderer.act(() => {
       component.root
-        .findByProps({ "aria-label": "Click to open the Table of Contents" })
+        .findByProps({ 'aria-label': 'Click to open the Table of Contents' })
         .props.onClick();
     });
 
