@@ -67,6 +67,12 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
 
+  React.useEffect(() => {
+    if (!isFocused) {
+      setConfirmingDelete(false);
+    }
+  }, [isFocused]);
+
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuToggle />}>
       <DropdownList>
@@ -82,6 +88,8 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
     <label>Note:</label>
     <TruncatedText text={note} isFocused={isFocused} />
     {confirmingDelete && <Confirmation
+      data-analytics-label='delete'
+      data-analytics-region='confirm-delete-inline-highlight'
       message='i18n:highlighting:confirmation:delete-both'
       confirmMessage='i18n:highlighting:button:delete'
       onConfirm={onRemove}
