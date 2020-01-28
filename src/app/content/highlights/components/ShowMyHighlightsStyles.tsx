@@ -129,6 +129,13 @@ export const HighlightNote = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+export const HighlightNoteAnnotation = styled.div`
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+`;
+
+// tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding: 1.2rem ${popupBodyPadding}rem;
   ${(props: {color: string}) => {
