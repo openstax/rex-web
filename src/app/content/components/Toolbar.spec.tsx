@@ -221,6 +221,22 @@ describe('search', () => {
     expect(dispatch).toHaveBeenCalledWith(openSearchResultsMobile());
   });
 
+  it('clicking "Close" hides search results', () => {
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
+
+    renderer.act(() => {
+      findById('close-search-results').props.onClick(makeEvent());
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
+  });
+
   it('input value syncs between mobile and desktop', () => {
     const component = render();
     const findById = makeFindByTestId(component.root);

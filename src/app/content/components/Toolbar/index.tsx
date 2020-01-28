@@ -25,7 +25,7 @@ interface Props {
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
-  closeSearch: () => void;
+  closeSearchResults: () => void;
   openSearchResults: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
@@ -83,9 +83,9 @@ class Toolbar extends React.Component<Props, State> {
       this.props.openSearchResults();
     };
 
-    const closeSearchbar = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const closeSearchResults = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      this.props.closeSearch();
+      this.props.closeSearchResults();
     };
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -149,7 +149,7 @@ class Toolbar extends React.Component<Props, State> {
             </FormattedMessage>}
           {this.props.searchSidebarOpen && this.props.hasSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-              {(msg) => <Styled.SeachResultsTextButton onClick={closeSearchbar} data-testid='close-search-results'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={closeSearchResults} data-testid='close-search-results'>
                 <Styled.InnerText>{msg}</Styled.InnerText>
               </Styled.SeachResultsTextButton>}
             </FormattedMessage>}
@@ -178,7 +178,7 @@ export default connect(
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
-    closeSearch: flow(closeSearchResultsMobile, dispatch),
+    closeSearchResults: flow(closeSearchResultsMobile, dispatch),
     openMobileToolbar: flow(openMobileToolbar, dispatch),
     openSearchResults: flow(openSearchResultsMobile, dispatch),
     search: flow(requestSearch, dispatch),
