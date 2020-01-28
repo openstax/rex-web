@@ -8,6 +8,7 @@ import flow from 'lodash/fp/flow';
 import partition from 'lodash/fp/partition';
 import {
   CountsPerSource,
+  HighlightData,
   SummaryFilters,
   SummaryHighlights,
 } from '../types';
@@ -21,6 +22,36 @@ interface DataAdd extends BaseData {
   highlight: Highlight;
 }
 
+const insertHighlightAtIndex = (
+  highlights: HighlightData[],
+  highlight: HighlightData,
+  index: number
+) => {
+  return [
+    ...highlights.slice(0, index),
+    highlight,
+    ...highlights.slice(index),
+  ];
+};
+
+export const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: HighlightData) => {
+  if (!prevHighlights.length) {
+    return [newHighlight];
+  }
+  const { prevHighlightId, nextHighlightId } = newHighlight;
+
+  for (const [index, highlight] of prevHighlights.entries()) {
+    if (highlight.id === prevHighlightId) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, index + 1);
+    }
+    if (highlight.id === nextHighlightId) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, index);
+    }
+  }
+
+  return [...prevHighlights, newHighlight];
+};
+
 export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: DataAdd) => {
   const { locationFilterId, pageId, highlight } = data;
   const newHighlights: SummaryHighlights = {
@@ -31,7 +62,7 @@ export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: 
     },
   };
 
-  newHighlights[locationFilterId][pageId].push(highlight);
+  newHighlights[locationFilterId][pageId] = insertHighlightInOrder(newHighlights[locationFilterId][pageId], highlight);
 
   return newHighlights;
 };
