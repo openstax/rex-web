@@ -18,6 +18,7 @@ export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
 export const headerHeight = 7.2;
 const topBottomMargin = headerHeight + popupBodyPadding;
+const popupBodyPaddingMobile = 1.6;
 
 export const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -68,7 +69,8 @@ export const Modal = styled.div`
   max-width: ${contentWrapperMaxWidth}rem;
   width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
-    margin: 3rem ${mobileMargin}rem;
+    margin: 2rem 0;
+    width: calc(100% - ${mobileMargin}rem * 2);
   `)}
 
   @media print {
@@ -90,6 +92,9 @@ export const Header = styled(H3)`
   height: ${headerHeight}rem;
   overflow: hidden;
   ${disablePrint}
+  ${theme.breakpoints.mobile(css`
+    padding: ${popupBodyPaddingMobile}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
