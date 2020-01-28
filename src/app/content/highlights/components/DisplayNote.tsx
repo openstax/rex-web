@@ -67,6 +67,12 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
 
+  React.useEffect(() => {
+    if (!isFocused) {
+      setConfirmingDelete(false);
+    }
+  }, [isFocused]);
+
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuToggle />}>
       <DropdownList>

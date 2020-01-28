@@ -408,7 +408,6 @@ Array [
 
 .c23:hover,
 .c23:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -441,7 +440,6 @@ Array [
 
 .c25:hover,
 .c25:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -3821,7 +3819,6 @@ Array [
 
 .c15:hover,
 .c15:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -3854,7 +3851,6 @@ Array [
 
 .c17:hover,
 .c17:focus {
-  outline: none;
   color: #424242;
 }
 
