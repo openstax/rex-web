@@ -110,6 +110,7 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
                 <Styled.HighlightContentWrapper color={item.color}>
                   <Styled.HighlightContent
                     className='summary-highlight-content'
+                    data-highlight-id={item.id}
                     dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
                   />
                   {item.annotation ? (
@@ -119,7 +120,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
                           {(msg: Element | string) => msg}
                         </FormattedMessage>
                       </span>
-                      {item.annotation}
+                      <Styled.HighlightNoteAnnotation>
+                        {item.annotation}
+                      </Styled.HighlightNoteAnnotation>
                     </Styled.HighlightNote>
                   ) : null}
                 </Styled.HighlightContentWrapper>
