@@ -83,6 +83,7 @@ export const Modal = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const Header = styled(H3)`
+  ${disablePrint}
   background: #002569;
   color: ${theme.color.neutral.base};
   padding: ${popupPadding}rem;
@@ -91,7 +92,6 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
-  ${disablePrint}
   ${theme.breakpoints.mobile(css`
     padding: ${popupBodyPaddingMobile}rem;
   `)}

@@ -42,6 +42,7 @@ describe('ChapterFilter', () => {
     </Provider>);
 
     const tree = component.toJSON();
+    console.log(tree);
     expect(tree).toMatchSnapshot();
   });
 
