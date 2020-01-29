@@ -7,6 +7,7 @@ export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtil
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
+import { hasOSWebData } from './guards';
 
 export const getContentPageReferences = (content: string) =>
   (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
@@ -38,7 +39,13 @@ export const makeUnifiedBookLoader = (
   const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await bookLoader.load();
 
-  return formatBookData(archiveBook, osWebBook);
+  const book = formatBookData(archiveBook, osWebBook);
+
+  if (!hasOSWebData(book)) {
+    throw new Error(`could not load cms data for book: ${bookId}`);
+  }
+
+  return book;
 };
 
 export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOADED_STATE__

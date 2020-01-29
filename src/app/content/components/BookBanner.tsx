@@ -50,7 +50,7 @@ const LeftArrow = styled(ChevronLeft)`
 
 interface PropTypes {
   pageNode?: ArchiveTreeSection;
-  book?: BookWithOSWebData | Book;
+  book?: Book;
 }
 
 // tslint:disable-next-line:variable-name

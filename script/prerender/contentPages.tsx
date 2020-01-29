@@ -9,8 +9,8 @@ import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
-import { Book, BookWithOSWebData } from '../../src/app/content/types';
-import { formatBookData, stripIdVersion } from '../../src/app/content/utils';
+import { BookWithOSWebData } from '../../src/app/content/types';
+import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
@@ -128,15 +128,13 @@ const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode)
 export const prepareBooks = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
-): Promise<Array<{book: Book, loader: ReturnType<AppServices['archiveLoader']['book']>}>> => {
+): Promise<Array<{book: BookWithOSWebData, loader: ReturnType<AppServices['archiveLoader']['book']>}>> => {
   return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
-    const bookLoader = archiveLoader.book(bookId, defaultVersion);
-    const cmsBook = await osWebLoader.getBookFromId(bookId);
-    const archiveBook = await bookLoader.load();
+    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
     return {
-      book: formatBookData(archiveBook, cmsBook),
-      loader: bookLoader,
+      book: await bookLoader(bookId, defaultVersion),
+      loader: archiveLoader.book(bookId, defaultVersion),
     };
   }));
 };
