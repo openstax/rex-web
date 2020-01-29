@@ -11,6 +11,7 @@ const textColors = {
   black: '#000',
   default: '#424242',
   label: '#6f6f6f',
+  red: '#C23834',
   white: '#fff',
 };
 

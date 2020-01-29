@@ -5,13 +5,17 @@ import { AppState } from '../../types';
 import * as actions from '../actions';
 import { appMessageType } from '../reducer';
 import * as select from '../selectors';
-import { AnyNotification } from '../types';
+import { AnyNotification, State } from '../types';
 import AcceptCookies from './AcceptCookies';
 import AppMessage from './AppMessage';
+import SearchFailure from './SearchFailure';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props {
-  notification?: AnyNotification | undefined;
+  notifications: {
+    firstInQueue: State['notificationQueue'][0] | undefined
+    queuelessNotifications: State['queuelessNotifications']
+  };
   className?: string;
 }
 
@@ -28,6 +32,11 @@ const renderNotification = (
         <AcceptCookies notification={notification} className={className} />
       );
     }
+    case getType(actions.searchFailure): {
+      return (
+        <SearchFailure notification={notification}/>
+      );
+    }
     case appMessageType: {
       return <AppMessage notification={notification} className={className} />;
     }
@@ -38,11 +47,13 @@ const renderNotification = (
 
 export class Notifications extends Component<Props> {
   public render() {
-    const { notification, className } = this.props;
-    return notification ? renderNotification(notification, className) : null;
+    const { notifications: {firstInQueue, queuelessNotifications}, className } = this.props;
+    const notificationsToRender = [...queuelessNotifications, firstInQueue || null ];
+
+    return notificationsToRender.map((notificaton) => notificaton ? renderNotification(notificaton, className) : null);
   }
 }
 
 export default connect((state: AppState) => ({
-  notification: select.notificationForDisplay(state),
+  notifications: select.notificationForDisplay(state),
 }))(Notifications);

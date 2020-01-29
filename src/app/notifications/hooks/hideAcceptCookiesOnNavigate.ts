@@ -7,7 +7,7 @@ import * as select from '../selectors';
 
 export const hideAcceptCookiesOnNavigateHookBody: ActionHookBody<typeof locationChange> =
   (middleware) => () => {
-    const notifications = select.notifications(middleware.getState());
+    const notifications = select.notificationsInQueue(middleware.getState());
     const acceptCookiesNotification = notifications.find((notification) =>
       notification.type === getType(acceptCookies)
     );

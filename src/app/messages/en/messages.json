@@ -60,6 +60,7 @@
   "i18n:notification:update:body": "This page needs to be reloaded.",
   "i18n:notification:update:header": "Updates Available",
   "i18n:notification:update:reload": "Reload",
+  "i18n:notification:search-failure": "We're unable to find that search result. Please try another.",
   "i18n:prevnext:next:aria-label": "Next Page",
   "i18n:prevnext:next:text": "Next",
   "i18n:prevnext:prev:aria-label": "Previous Page",
