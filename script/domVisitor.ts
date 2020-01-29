@@ -64,7 +64,7 @@ async function run() {
 
   if (books.length === 0) {
     // tslint:disable-next-line:no-console
-    console.error(`Could not find a matching book. ${onlyOneBook ? 'Check that the id is correct' : ''}`);
+    console.error(`Could not find a matching book. ${onlyOneBook ? 'Check that the slug name is correct' : ''}`);
     process.exit(1);
   }
 }
@@ -92,8 +92,7 @@ async function findBooks() {
   const books = await Promise.all(Object.entries(bookConfig).map(([bookId, {defaultVersion}]) =>
     bookLoader(bookId, defaultVersion)
   ));
-
-  return books.filter((book) => onlyOneBook ? book.id === onlyOneBook : true);
+  return books.filter((book) => onlyOneBook ? book.slug === onlyOneBook : true);
 }
 
 function findBookPages(book: Book) {
