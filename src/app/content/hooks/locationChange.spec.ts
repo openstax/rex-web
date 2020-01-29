@@ -53,7 +53,7 @@ describe('locationChange', () => {
 
   it('loads book', async() => {
     await hook(payload);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({book: 'book-slug-1', page: 'test-page-1'}));
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({book: 'book-slug-1'}));
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
   });
 
