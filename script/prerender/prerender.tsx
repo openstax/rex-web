@@ -52,11 +52,10 @@ async function render() {
   await renderPages(renderHelpers, await prepareErrorPages());
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
-
   for (const {loader, book} of books) {
     const bookPages = await prepareBookPages(loader, book);
-    renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
 
+    renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
     await renderPages(renderHelpers, bookPages);
   }
 
