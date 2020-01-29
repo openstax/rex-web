@@ -6,21 +6,17 @@ import Button from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import { closeCallToActionPopup } from '../../actions';
 import { showCTAPopup } from '../../selectors';
-import bottomLayer from './assets/bottom-layer.svg';
-import ctaGraphic from './assets/desktop-mobile-graphic.svg';
-import middleLayer from './assets/middle-layer.svg';
-import topLayer from './assets/top-layer.svg';
 import {
   CTABackground,
   CTABottomLayer,
   CTAButtons,
   CTACloseButton,
+  CTACloseIcon,
   CTAContent,
   CTAGraphic,
   CTAHeading,
   CTAMiddleLayer,
   CTAParagraph,
-  CTAText,
   CTATextLink,
   CTATopLayer,
   CTAWrapper,
@@ -39,9 +35,9 @@ const CallToActionPopup = () => {
     dispatch(closeCallToActionPopup());
   };
 
-  return <CTAWrapper data-analytics-region='CTA popup'>
+  return <CTAWrapper data-analytics-region='signup CTA'>
     <CTAContent>
-      <CTAText>
+      <div>
         <CTAHeading>
           <FormattedMessage id='i18n:cta:heading'>
             {(msg: Element | string) => msg}
@@ -72,14 +68,16 @@ const CallToActionPopup = () => {
             </FormattedMessage>
           </CTATextLink>
         </CTAButtons>
-      </CTAText>
-      <CTAGraphic src={ctaGraphic} alt='' />
+      </div>
+      <CTAGraphic />
     </CTAContent>
-    <CTACloseButton onClick={closePopup} data-analytics-label='close' />
+    <CTACloseButton onClick={closePopup} data-analytics-label='close'>
+      <CTACloseIcon />
+    </CTACloseButton>
     <CTABackground>
-      <CTATopLayer src={topLayer} alt='' />
-      <CTAMiddleLayer src={middleLayer} alt='' />
-      <CTABottomLayer src={bottomLayer} alt='' />
+      <CTABottomLayer />
+      <CTAMiddleLayer />
+      <CTATopLayer />
     </CTABackground>
   </CTAWrapper>;
 };
@@ -87,4 +85,4 @@ const CallToActionPopup = () => {
 export default CallToActionPopup;
 
 // tslint:disable-next-line: variable-name
-const CtaPara = htmlMessage('i18n:cta:text', (props) => <CTAParagraph {...props} />);
+const CtaPara = htmlMessage('i18n:cta:text', CTAParagraph);

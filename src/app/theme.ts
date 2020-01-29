@@ -112,6 +112,7 @@ export default {
     'highlightSummaryPopup',
     'errorPopup',
     'focusedHiddenLink',
+    'ctaPopup',
   ].reduce((result, key, index) => {
     result[key] = (index + 1) * 10;
     return result;
