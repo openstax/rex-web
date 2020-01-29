@@ -15,7 +15,6 @@ import { assertWindow } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
-import { BookWithOSWebData } from '../types';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import Content from './Content';
@@ -35,7 +34,7 @@ jest.mock('../../../config', () => {
 describe('content', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
-  const bookState = formatBookData(book, mockCmsBook) as BookWithOSWebData;
+  const bookState = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
     store = createTestStore();
