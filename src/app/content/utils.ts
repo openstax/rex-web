@@ -1,5 +1,6 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
+import { hasOSWebData } from './guards';
 import { ArchiveBook, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
 
@@ -7,7 +8,6 @@ export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtil
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
-import { hasOSWebData } from './guards';
 
 export const getContentPageReferences = (content: string) =>
   (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
