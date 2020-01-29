@@ -10,7 +10,7 @@ export const openToc = createStandardAction('Content/openToc')<void>();
 export const closeToc = createStandardAction('Content/closeToc')<void>();
 export const resetToc = createStandardAction('Content/resetToc')<void>();
 
-export const requestBook = createStandardAction('Content/requestBook')<Params>();
+export const requestBook = createStandardAction('Content/requestBook')<Omit<Params, 'page'>>();
 export const receiveBook = createStandardAction('Content/receiveBook')<Book>();
 
 export const requestPage = createStandardAction('Content/requestPage')<string>();

@@ -22,7 +22,7 @@ export interface State {
   tocOpen: boolean | null;
   params: Params | null;
   loading: {
-    book?: Params;
+    book?: Omit<Params, 'page'>;
     page?: string;
   };
   search: SearchState;

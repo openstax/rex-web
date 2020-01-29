@@ -1,4 +1,5 @@
 import isEqual from 'lodash/fp/isEqual';
+import omit from 'lodash/fp/omit';
 import { APP_ENV, BOOKS } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
@@ -58,8 +59,9 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  if (!isEqual(match.params, select.loadingBook(state))) {
-    dispatch(requestBook(match.params));
+  const omitPage = omit('page');
+  if (!isEqual(omitPage(match.params), omitPage(select.loadingBook(state)))) {
+    dispatch(requestBook(omitPage(match.params)));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;

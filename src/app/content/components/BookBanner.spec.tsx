@@ -8,7 +8,7 @@ import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { BarWrapper, BookBanner } from './BookBanner';
 
 const book = formatBookData(archiveBook, mockCmsBook);
-const bookWithoutOsWebData = formatBookData(archiveBook);
+const bookWithoutOsWebData = formatBookData(archiveBook, undefined);
 const pageNode = findArchiveTreeNode(archiveBook.tree, shortPage.id)!;
 
 describe('BookBanner', () => {

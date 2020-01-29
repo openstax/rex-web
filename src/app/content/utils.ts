@@ -1,6 +1,6 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
-import { ArchiveBook, Book } from './types';
+import { ArchiveBook, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -20,16 +20,24 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
-export const formatBookData = (archiveBook: ArchiveBook, osWebBook?: OSWebBook): Book  =>
-osWebBook ?
-  {
-    ...archiveBook,
-    authors: osWebBook.authors,
-    publish_date: osWebBook.publish_date,
-    slug: osWebBook.meta.slug,
-    theme: osWebBook.cover_color,
+export const formatBookData = <O extends OSWebBook | undefined>(
+  archiveBook: ArchiveBook,
+  osWebBook: O
+): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
+  if (osWebBook === undefined) {
+    // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
+    return archiveBook as ArchiveBook as any;
   }
-: archiveBook;
+
+  return {
+      ...archiveBook,
+      authors: osWebBook.authors,
+      publish_date: osWebBook.publish_date,
+      slug: osWebBook.meta.slug,
+      theme: osWebBook.cover_color,
+    // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
+    } as BookWithOSWebData as any;
+};
 
 export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],

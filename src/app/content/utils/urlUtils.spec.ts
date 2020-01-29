@@ -33,7 +33,7 @@ describe('getBookPageUrlAndParams', () => {
     expect((result.params as any).version).toBe('asdf');
   });
   it('generates params for books without osweb data', () => {
-    const result = getBookPageUrlAndParams(formatBookData({...mockArchiveBook, id: testUUID}), page);
+    const result = getBookPageUrlAndParams(formatBookData({...mockArchiveBook, id: testUUID}, undefined), page);
 
     expect((result.params as any)).not.toHaveProperty('slug');
     expect((result.params as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
