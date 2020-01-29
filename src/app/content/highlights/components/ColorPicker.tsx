@@ -7,9 +7,9 @@ import { cardPadding, highlightStyles } from '../constants';
 import ColorIndicator from './ColorIndicator';
 
 interface SingleSelectProps {
-  color?: string;
+  color?: HighlightColorEnum;
   onRemove?: () => void;
-  onChange: (color: string) => void;
+  onChange: (color: HighlightColorEnum) => void;
   multiple: false | undefined;
 }
 

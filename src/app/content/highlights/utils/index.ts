@@ -12,4 +12,3 @@ export {
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
 } from './summaryHighlightsUtils';
-export { default as updateHighlights } from './updateHighlights';

@@ -1,4 +1,4 @@
-import { Highlight, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -82,9 +82,9 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     setIsEditing(false);
   };
 
-  const updateColor = (color: string) => {
+  const updateColor = (color: HighlightColorEnum) => {
     dispatch(updateHighlight({
-      highlight: {color: color as HighlightUpdateColorEnum},
+      highlight: {color: color as string as HighlightUpdateColorEnum},
       id: highlight.id,
     }, {
       locationFilterId,

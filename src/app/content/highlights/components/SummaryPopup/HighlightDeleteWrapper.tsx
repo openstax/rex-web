@@ -37,7 +37,7 @@ interface HighlightDeleteWrapperProps {
 const HighlightDeleteWrapper = ({
   onDelete,
   onCancel,
-}: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper>
+}: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper data-analytics-region='MH delete'>
   <FormattedMessage id='i18n:highlighting:confirmation:delete-both'>
     {(msg: string) => <span>{msg}</span>}
   </FormattedMessage>
