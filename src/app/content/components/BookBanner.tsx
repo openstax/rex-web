@@ -128,11 +128,13 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
   `)}
 `;
 
+interface BarWrapperProps {
+  colorSchema: BookWithOSWebData['theme'] | undefined;
+  up: boolean;
+  variant: 'mini' | 'big';
+}
 // tslint:disable-next-line:variable-name
-export const BarWrapper = styled.div<{
-  colorSchema: BookWithOSWebData['theme'] | undefined,
-  up: boolean, variant: 'mini' | 'big'}
->`
+export const BarWrapper = styled.div<BarWrapperProps>`
   ${disablePrint}
 
   top: 0;
