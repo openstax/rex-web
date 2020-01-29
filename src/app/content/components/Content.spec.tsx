@@ -3,10 +3,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import {
-  book,
-  shortPage
-} from '../../../test/mocks/archiveLoader';
+import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
@@ -25,10 +22,14 @@ import Content from './Content';
 import { TableOfContents } from './TableOfContents';
 
 jest.mock('../../../config', () => {
-  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  const mockBook = (jest as any).requireActual(
+    '../../../test/mocks/archiveLoader'
+  ).book;
+  return {
+    BOOKS: {
+      [mockBook.id]: { defaultVersion: mockBook.version },
+    },
+  };
 });
 
 describe('content', () => {
@@ -38,27 +39,29 @@ describe('content', () => {
 
   beforeEach(() => {
     store = createTestStore();
-    store.dispatch(locationChange({
-      action: 'PUSH',
-      location: {
-        ...assertWindow().location,
-        pathname: '/books/book-slug-1/pages/doesnotmatter',
-        state: {},
-      },
-      match: {
-        params: {
-          book: bookState.slug,
-          page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+    store.dispatch(
+      locationChange({
+        action: 'PUSH',
+        location: {
+          ...assertWindow().location,
+          pathname: '/books/book-slug-1/pages/doesnotmatter',
+          state: {},
         },
-        route: content,
-      },
-    }));
+        match: {
+          params: {
+            book: bookState.slug,
+            page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+          },
+          route: content,
+        },
+      })
+    );
     services = createTestServices();
   });
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(bookState));
-    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     const component = renderer.create(
       <Provider store={store}>
@@ -103,11 +106,11 @@ describe('content', () => {
     const scrollOffset = component.root.findByType(ScrollOffset);
 
     expect(scrollOffset.props).toMatchInlineSnapshot(`
-            Object {
-              "desktopOffset": 12,
-              "mobileOffset": 10,
-            }
-        `);
+      Object {
+        "desktopOffset": 15,
+        "mobileOffset": 13,
+      }
+    `);
   });
 
   it('provides the right scroll offset when mobile search collapsed', () => {
@@ -127,15 +130,15 @@ describe('content', () => {
 
     expect(scrollOffset.props).toMatchInlineSnapshot(`
       Object {
-        "desktopOffset": 12,
-        "mobileOffset": 15.3,
+        "desktopOffset": 15,
+        "mobileOffset": 18.3,
       }
     `);
   });
 
   it('gets page content out of cached archive query', () => {
     store.dispatch(receiveBook(bookState));
-    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     renderer.create(
       <Provider store={store}>
@@ -157,7 +160,7 @@ describe('content', () => {
 
   it('page element is still rendered if archive content is unavailable', () => {
     store.dispatch(receiveBook(bookState));
-    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     services.archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 

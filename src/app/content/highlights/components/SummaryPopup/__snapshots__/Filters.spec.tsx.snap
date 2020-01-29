@@ -62,7 +62,6 @@ exports[`Filters matches snapshot 1`] = `
 
 .c11:hover,
 .c11:focus {
-  outline: none;
   color: #424242;
 }
 

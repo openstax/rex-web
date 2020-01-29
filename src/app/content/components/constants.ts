@@ -6,6 +6,8 @@ export const bookBannerDesktopMiniHeight = 7;
 export const bookBannerMobileBigHeight = 10.4;
 export const bookBannerMobileMiniHeight = 6;
 
+export const scrollOffset = 3;
+
 export const sidebarDesktopWidth = 33.5;
 export const sidebarMobileWidth = 28.8;
 export const sidebarTransitionTime = 300;

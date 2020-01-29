@@ -4,10 +4,11 @@ import {
   HighlightUpdate,
   HighlightUpdateColorEnum,
 } from '@openstax/highlighter/dist/api';
-import { CountsPerSource } from '../types';
+import { CountsPerSource, HighlightData } from '../types';
 import {
   addSummaryHighlight,
   addToTotalCounts,
+  insertHighlightInOrder,
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
@@ -77,6 +78,44 @@ describe('addSummaryHighlight', () => {
       locationFilterId: 'location',
       pageId: 'page2',
     })).toMatchObject(expectedResult);
+  });
+});
+
+describe('insertHighlightInOrder', () => {
+  it('inserts highlights in proper order', () => {
+    let highlights: HighlightData[] = [];
+    const mockHighlghts = [
+      {
+        id: 'hl1',
+        nextHighlightId: undefined,
+        prevHighlightId: undefined,
+      } ,
+      {
+        id: 'hl2',
+        nextHighlightId: undefined,
+        prevHighlightId: 'hl1',
+      },
+      {
+        id: 'hl3',
+        nextHighlightId: 'hl2',
+        prevHighlightId: 'hl1',
+      } ,
+      {
+        id: 'hl4',
+        nextHighlightId: 'hl1',
+        prevHighlightId: undefined,
+      },
+      {
+        id: 'hl5',
+        nextHighlightId: undefined,
+        prevHighlightId: 'hl2',
+      },
+    ] as HighlightData[];
+
+    mockHighlghts.forEach((mockHighlight) => {
+      highlights = insertHighlightInOrder(highlights, mockHighlight);
+    });
+    expect(highlights.map((hl) => hl.id)).toEqual(['hl4', 'hl1', 'hl3', 'hl2', 'hl5']);
   });
 });
 

@@ -98,9 +98,10 @@ const FiltersList = ({className}: FiltersListProps) => {
   };
 
   return <ul className={className}>
-    {filters.locationIds.map((locationId) => locationFilters.has(locationId) && <FiltersListChapter
+    {Array.from(locationFilters).map(([locationId, location]) => filters.locationIds.includes(locationId) &&
+    <FiltersListChapter
       key={locationId}
-      title={locationFilters.get(locationId)!.title}
+      title={location.title}
       locationId={locationId}
       onRemove={() => onRemoveChapter(locationId)}
     />)}

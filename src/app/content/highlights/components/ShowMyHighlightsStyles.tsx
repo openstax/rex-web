@@ -109,7 +109,7 @@ export const HighlightOuterWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
-  overflow: visible;
+  overflow: auto;
 
   * {
     overflow: initial;
@@ -126,6 +126,13 @@ export const HighlightNote = styled.div`
     margin: 0 0.8rem 0 0;
     overflow: visible;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightNoteAnnotation = styled.div`
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 `;
 
 // tslint:disable-next-line:variable-name
