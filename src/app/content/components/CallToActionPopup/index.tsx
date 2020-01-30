@@ -7,7 +7,6 @@ import htmlMessage from '../../../components/htmlMessage';
 import { closeCallToActionPopup } from '../../actions';
 import { showCTAPopup } from '../../selectors';
 import {
-  CTABackground,
   CTABottomLayer,
   CTAButtons,
   CTACloseButton,
@@ -17,6 +16,7 @@ import {
   CTAHeading,
   CTAMiddleLayer,
   CTAParagraph,
+  CTAText,
   CTATextLink,
   CTATopLayer,
   CTAWrapper,
@@ -36,8 +36,11 @@ const CallToActionPopup = () => {
   };
 
   return <CTAWrapper data-analytics-region='signup CTA'>
+    <CTABottomLayer />
+    <CTAMiddleLayer />
+    <CTATopLayer />
     <CTAContent>
-      <div>
+      <CTAText>
         <CTAHeading>
           <FormattedMessage id='i18n:cta:heading'>
             {(msg: Element | string) => msg}
@@ -68,17 +71,12 @@ const CallToActionPopup = () => {
             </FormattedMessage>
           </CTATextLink>
         </CTAButtons>
-      </div>
+      </CTAText>
       <CTAGraphic />
     </CTAContent>
     <CTACloseButton onClick={closePopup} data-analytics-label='close'>
       <CTACloseIcon />
     </CTACloseButton>
-    <CTABackground>
-      <CTABottomLayer />
-      <CTAMiddleLayer />
-      <CTATopLayer />
-    </CTABackground>
   </CTAWrapper>;
 };
 

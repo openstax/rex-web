@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import Button from '../../../components/Button';
+import { PlainButton } from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -21,16 +22,18 @@ const slideIn = keyframes`
 `;
 
 const slideInAnimation = css`
-  animation: ${300}ms ${slideIn} ease-out;
+  animation: ${800}ms ${slideIn} ease-out;
 `;
 
 // tslint:disable-next-line: variable-name
 export const CTAWrapper = styled.div`
+  height: 34.8rem;
   position: fixed;
+  pointer-events: none;
   left: 0;
+  right: 0;
   bottom: 0;
   z-index: ${theme.zIndex.ctaPopup};
-  width: 100%;
   ${slideInAnimation}
   ${theme.breakpoints.mobile(css`
     display: none;
@@ -46,6 +49,11 @@ export const CTAContent = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1;
+`;
+
+// tslint:disable-next-line: variable-name
+export const CTAText = styled.div`
+  pointer-events: auto;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -94,19 +102,14 @@ export const CTATextLink = styled.span`
 `;
 
 // tslint:disable-next-line: variable-name
-export const CTACloseButton = styled(Button)`
+export const CTACloseButton = styled(PlainButton)`
+  pointer-events: auto;
   position: absolute;
-  top: 47%;
-  right: 1%;
-  background: transparent;
+  top: 11rem;
+  right: 1rem;
   min-width: auto;
   padding: 2rem;
-  border: none;
   z-index: 1;
-
-  &:hover {
-    background: transparent;
-  }
 `;
 
 // tslint:disable-next-line: variable-name
@@ -123,31 +126,28 @@ export const CTAGraphic = styled((props) => <img src={ctaGraphic} alt='' {...pro
 // tslint:disable-next-line: variable-name
 export const CTATopLayer = styled((props) => <img src={topLayer} alt='' {...props} />)`
   position: absolute;
-  right: -0.5rem;
+  height: 7.7rem;
+  width: 48.3rem;
+  right: 0;
   bottom: 0;
 `;
 
 // tslint:disable-next-line: variable-name
 export const CTAMiddleLayer = styled((props) => <img src={middleLayer} alt='' {...props} />)`
-  width: 100%;
-  min-width: 160rem;
   position: absolute;
-  left: 0;
+  height: 32.8rem;
+  width: 100%;
+  right: 0;
   bottom: 0;
+  left: 0;
 `;
 
 // tslint:disable-next-line: variable-name
 export const CTABottomLayer = styled((props) => <img src={bottomLayer} alt='' {...props} />)`
-  width: 100%;
-  min-width: 160rem;
   position: absolute;
+  height: 32.8rem;
+  width: 100%;
+  top: 0;
   left: 0;
-  bottom: 2rem;
-`;
-
-// tslint:disable-next-line: variable-name
-export const CTABackground = styled.div`
-  position: relative;
-  height: 42rem;
-  overflow: hidden;
+  right: 0;
 `;
