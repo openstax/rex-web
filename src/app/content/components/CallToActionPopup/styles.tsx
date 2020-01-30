@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import Button from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
@@ -10,6 +10,20 @@ import ctaGraphic from './assets/desktop-mobile-graphic.svg';
 import middleLayer from './assets/middle-layer.svg';
 import topLayer from './assets/top-layer.svg';
 
+const slideIn = keyframes`
+  0% {
+    bottom: -100%;
+  }
+
+  100% {
+    bottom: 0;
+  }
+`;
+
+const slideInAnimation = css`
+  animation: ${300}ms ${slideIn} ease-out;
+`;
+
 // tslint:disable-next-line: variable-name
 export const CTAWrapper = styled.div`
   position: fixed;
@@ -17,6 +31,7 @@ export const CTAWrapper = styled.div`
   bottom: 0;
   z-index: ${theme.zIndex.ctaPopup};
   width: 100%;
+  ${slideInAnimation}
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
