@@ -2,10 +2,8 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { reactAndFriends } from '../../../../test/utils';
-import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
@@ -17,10 +15,8 @@ describe('CallToActionPopup', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  const services = createTestServices();
 
   beforeEach(() => {
-    jest.resetAllMocks();
     store = createTestStore();
 
     dispatch = jest.spyOn(store, 'dispatch');
@@ -30,9 +26,7 @@ describe('CallToActionPopup', () => {
   it('matches snapshot when close', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <Services.Provider value={services}>
-          <CallToActionPopup/>
-        </Services.Provider>
+        <CallToActionPopup/>
       </MessageProvider>
     </Provider>);
 
@@ -44,9 +38,7 @@ describe('CallToActionPopup', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <Services.Provider value={services}>
-          <CallToActionPopup/>
-        </Services.Provider>
+        <CallToActionPopup/>
       </MessageProvider>
     </Provider>);
 
@@ -58,9 +50,7 @@ describe('CallToActionPopup', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <Services.Provider value={services}>
-          <CallToActionPopup/>
-        </Services.Provider>
+        <CallToActionPopup/>
       </MessageProvider>
     </Provider>);
 
@@ -77,9 +67,7 @@ describe('CallToActionPopup', () => {
     const window = assertWindow();
     const {root} = renderToDom(<Provider store={store}>
       <MessageProvider>
-        <Services.Provider value={services}>
-          <CallToActionPopup/>
-        </Services.Provider>
+        <CallToActionPopup/>
       </MessageProvider>
     </Provider>);
 
