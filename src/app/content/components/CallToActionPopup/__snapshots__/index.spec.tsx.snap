@@ -158,8 +158,8 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   border: 1px solid #d5d5d5;
   font-weight: regular;
   position: absolute;
-  top: 40%;
-  right: 3rem;
+  top: 47%;
+  right: 1%;
   background: transparent;
   min-width: auto;
   padding: 2rem;
@@ -196,6 +196,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
 
 .c14 {
   width: 100%;
+  min-width: 1600px;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -203,6 +204,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
 
 .c13 {
   width: 100%;
+  min-width: 1600px;
   position: absolute;
   left: 0;
   bottom: 20px;
