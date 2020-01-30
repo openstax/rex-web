@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CallToActionPopup matches snapshot when close 1`] = `null`;
+
+exports[`CallToActionPopup matches snapshot when open 1`] = `
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 1.6rem;
+  height: 5rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c6:hover {
+  background-color: #e96128;
+}
+
+.c6:active {
+  background-color: #df571e;
+}
+
+.c0 {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 110;
+  width: 100%;
+}
+
+.c1 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  -webkit-letter-spacing: -0.14rem;
+  -moz-letter-spacing: -0.14rem;
+  -ms-letter-spacing: -0.14rem;
+  letter-spacing: -0.14rem;
+  color: #fff;
+  margin: 0;
+  max-width: 50rem;
+  overflow: hidden;
+}
+
+.c3 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 3rem;
+  margin: 1rem 0;
+  color: #fff;
+  max-width: 57rem;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 .c5 {
+  width: 17rem;
+}
+
+.c7 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #fff;
+  margin-left: 1.5rem;
+}
+
+.c7 a {
+  color: #fff;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+  position: absolute;
+  top: 40%;
+  right: 3rem;
+  background: transparent;
+  min-width: auto;
+  padding: 2rem;
+  border: none;
+  z-index: 1;
+}
+
+.c9:hover {
+  background-color: #fafafa;
+}
+
+.c9:active {
+  background-color: #e5e5e5;
+}
+
+.c9:hover {
+  background: transparent;
+}
+
+.c10 {
+  width: 1.8rem;
+  color: #fff;
+}
+
+.c8 {
+  margin-left: 3rem;
+}
+
+.c15 {
+  position: absolute;
+  right: -5px;
+  bottom: 0;
+}
+
+.c14 {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.c13 {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+}
+
+.c12 {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+  data-analytics-region="signup CTA"
+>
+  <div
+    className="c1"
+  >
+    <div>
+      <h2
+        className="c2"
+      >
+        Sign up and continue reading. It's 100% FREE.
+      </h2>
+      <p
+        className="c3"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Read your book and get <strong>free</strong> study tools. Highlight, take notes, and make your own study guide.",
+          }
+        }
+      />
+      <div
+        className="c4"
+      >
+        <a
+          className="c5 c6"
+          data-analytics-label="sign-up"
+          data-testid="sign-up"
+          href="/accounts/signup?r=/"
+        >
+          Sign up
+        </a>
+        <span
+          className="c7"
+        >
+          or
+          <a
+            data-analytics-label="log-in"
+            data-testid="log-in"
+            href="/accounts/login?r=/"
+          >
+            Log in
+          </a>
+        </span>
+      </div>
+    </div>
+    <img
+      alt=""
+      className="c8"
+      src="desktop-mobile-graphic.svg"
+    />
+  </div>
+  <button
+    className="c5 c9"
+    data-analytics-label="close"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="c10 c11"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 352 512"
+    >
+      <path
+        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+        fill="currentColor"
+      />
+    </svg>
+  </button>
+  <div
+    className="c12"
+  >
+    <img
+      alt=""
+      className="c13"
+      src="bottom-layer.svg"
+    />
+    <img
+      alt=""
+      className="c14"
+      src="middle-layer.svg"
+    />
+    <img
+      alt=""
+      className="c15"
+      src="top-layer.svg"
+    />
+  </div>
+</div>
+`;

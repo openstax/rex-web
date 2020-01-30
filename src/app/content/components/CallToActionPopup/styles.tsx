@@ -38,9 +38,10 @@ export const CTAHeading = styled.h2`
   ${textStyle}
   font-size: 3.6rem;
   line-height: 4rem;
+  letter-spacing: -0.14rem;
   color: ${theme.color.text.white};
   margin: 0;
-  max-width: 57rem;
+  max-width: 50rem;
   overflow: hidden;
 `;
 
