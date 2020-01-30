@@ -130,7 +130,7 @@ export const CTATopLayer = styled((props) => <img src={topLayer} alt='' {...prop
 // tslint:disable-next-line: variable-name
 export const CTAMiddleLayer = styled((props) => <img src={middleLayer} alt='' {...props} />)`
   width: 100%;
-  min-width: 1600px;
+  min-width: 160rem;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -139,7 +139,7 @@ export const CTAMiddleLayer = styled((props) => <img src={middleLayer} alt='' {.
 // tslint:disable-next-line: variable-name
 export const CTABottomLayer = styled((props) => <img src={bottomLayer} alt='' {...props} />)`
   width: 100%;
-  min-width: 1600px;
+  min-width: 160rem;
   position: absolute;
   left: 0;
   bottom: 2rem;
