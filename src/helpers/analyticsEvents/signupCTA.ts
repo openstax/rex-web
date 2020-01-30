@@ -11,11 +11,11 @@ export const selector = createSelector(
 
 export const track = (
   {pathname}: ReturnType<typeof selector>,
-  open: boolean
+  event: 'open' | 'close' | 'close by navigating'
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
-      eventAction: open ? 'open' : 'close by navigating',
+      eventAction: event,
       eventCategory: signupCTA,
       eventLabel: pathname,
     }),

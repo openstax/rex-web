@@ -3,7 +3,7 @@ import { track } from './signupCTA';
 describe('signupCTA', () => {
   describe('google analytics', () => {
     it('reports open', () => {
-      const result = track({pathname: 'asdf'}, true);
+      const result = track({pathname: 'asdf'}, 'open');
       if (!result) {
         return expect(result).toBeTruthy();
       }
@@ -11,7 +11,7 @@ describe('signupCTA', () => {
     });
 
     it('reports close by navigation', () => {
-      const result = track({pathname: 'asdf'}, false);
+      const result = track({pathname: 'asdf'}, 'close by navigating');
       if (!result) {
         return expect(result).toBeTruthy();
       }

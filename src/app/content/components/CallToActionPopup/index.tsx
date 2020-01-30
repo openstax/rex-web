@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { loginLink as loginLinkSelector, signupLink as signupLinkSelector } from '../../../auth/selectors';
 import Button from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
@@ -28,10 +29,12 @@ const CallToActionPopup = () => {
   const showPopup = useSelector(showCTAPopup);
   const loginLink = useSelector(loginLinkSelector);
   const signupLink = useSelector(signupLinkSelector);
+  const trackClose = useAnalyticsEvent('signupCTA');
 
   if (!showPopup) { return null; }
 
   const closePopup = () => {
+    trackClose('close');
     dispatch(closeCallToActionPopup());
   };
 
