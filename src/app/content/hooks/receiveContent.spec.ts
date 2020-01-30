@@ -4,7 +4,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { setHead } from '../../head/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { formatBookData } from '../utils';
 
@@ -20,7 +20,7 @@ describe('setHead hook', () => {
   let hook: ReturnType<typeof import ('./receiveContent').default>;
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let helpers: MiddlewareAPI & AppServices;
+  let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     getCanonicalUrlParams = require('../utils/canonicalUrl').getCanonicalUrlParams;
@@ -146,6 +146,21 @@ describe('setHead hook', () => {
       CANONICAL_MAP[bookId] = [ bookId ];
       const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
       expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
+    });
+
+    it('throws if canonical book is missing cms data', async() => {
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      const bookId = book.id;
+      const pageShortId = page.shortId;
+      CANONICAL_MAP[bookId] = [ bookId ];
+
+      await expect(getCanonicalUrlParams(
+        helpers.archiveLoader,
+        helpers.osWebLoader,
+        bookId,
+        pageShortId
+      )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
     });
 
     it('doesn\'t add link when canonical is null', async() => {
