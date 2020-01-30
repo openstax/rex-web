@@ -1,5 +1,5 @@
 import { isFuture, isPast } from 'date-fns';
-import * as actions from './actions'
+import * as actions from './actions';
 import { isAppMessageDismissed } from './dismissAppMessages';
 import { isQueuelessNotification } from './guards';
 import { AnyNotification, Message, State } from './types';
@@ -33,7 +33,7 @@ export const pushNotification = (
     : notificationExists(state.notificationQueue, notification)
       ? state
       : {...state, notificationQueue: [...state.notificationQueue, notification]};
-}
+};
 
 export const filterClosedNotification = (state: State, notification: AnyNotification) => {
   if (isQueuelessNotification(notification)) {
@@ -46,4 +46,4 @@ export const filterClosedNotification = (state: State, notification: AnyNotifica
     ...state,
     notificationQueue: state.notificationQueue.filter(({type}) => type !== notification.type),
   };
-}
+};

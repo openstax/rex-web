@@ -9,13 +9,18 @@ describe('notifications reducer', () => {
     expect(newState.notificationQueue).toContainEqual(actions.updateAvailable());
   });
 
-  it('doesn\'t duplicate update available notification', () => {
-    const state = {
-      ...initialState,
+  it('doesn\'t duplicate standard notifications', () => {
+    const stateWithNotifications = {
       notificationQueue: [actions.updateAvailable()],
+      queuelessNotifications: [actions.searchFailure()],
     };
-    const newState = reducer(state, actions.updateAvailable());
-    expect(newState).toBe(state);
+
+    const newState = flow(
+      (state) => reducer(state, actions.updateAvailable()),
+      (state) => reducer(state,  actions.searchFailure())
+    )(stateWithNotifications);
+
+    expect(newState).toBe(stateWithNotifications);
   });
 
   it('doesn\'t duplicate app messages', () => {
@@ -66,14 +71,18 @@ describe('notifications reducer', () => {
 
   it('dismissesNotification', () => {
     const acceptCookiesNotification = actions.acceptCookies();
+    const searchFailureNotification = actions.searchFailure();
 
     const newState = flow(
       (state) => reducer(state, actions.updateAvailable()),
+      (state) => reducer(state, searchFailureNotification),
       (state) => reducer(state, acceptCookiesNotification),
-      (state) => reducer(state, actions.dismissNotification(acceptCookiesNotification))
+      (state) => reducer(state, actions.dismissNotification(acceptCookiesNotification)),
+      (state) => reducer(state, actions.dismissNotification(searchFailureNotification))
     )(initialState);
 
     expect(newState.notificationQueue).not.toContainEqual(actions.acceptCookies());
+    expect(newState.queuelessNotifications).not.toContainEqual(searchFailureNotification);
   });
 
   it('reduces acceptCookies', () => {

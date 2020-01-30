@@ -1,5 +1,5 @@
 import { getType } from 'typesafe-actions';
-import * as actions from './actions'
+import * as actions from './actions';
 import { appMessageType } from './reducer';
 
 import { AnyNotification, AppMessageNotification, QueuelessNotifications } from './types';
@@ -9,4 +9,4 @@ export const isAppMessage = (message: AnyNotification): message is AppMessageNot
 
 export const isQueuelessNotification =
   (notification: AnyNotification): notification is QueuelessNotifications =>
-    notification.type === getType(actions.searchFailure)
+    notification.type === getType(actions.searchFailure);

@@ -444,7 +444,151 @@ exports[`Notifications matches snapshot 2`] = `
 `;
 
 exports[`Notifications matches snapshot 3`] = `
-.c6 {
+.c2 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background-color: #fafafa;
+  line-height: 4rem;
+}
+
+.c2 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 a:hover {
+  color: #0064A0;
+}
+
+.c0 {
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: #F8E8EB;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border: 1px solid #E297A0;
+  z-index: 20;
+  overflow: visible;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 12rem;
+}
+
+.c0 .c1 {
+  width: 90%;
+  background: inherit;
+  color: #C23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+.c4 {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+
+.c3 {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #EDBFC5;
+}
+
+.c3:hover {
+  color: #E297A0;
+}
+
+@media (max-width:75em) {
+  .c2 {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
+  }
+}
+
+@media (max-width:75em) {
+  .c0 {
+    top: 10rem;
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    z-index: calc(30 + 1);
+    padding: 1.6rem 1.6rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1 c2"
+  >
+    We're unable to find that search result. Please try another.
+  </div>
+  <button
+    className="c3"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="c4"
+      focusable="false"
+      height="15px"
+      version="1.1"
+      viewBox="0 0 15 15"
+      width="15px"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+        stroke="none"
+        strokeWidth="1"
+      >
+        <g
+          fill="currentColor"
+          transform="translate(-302.000000, -18.000000)"
+        >
+          <g
+            transform="translate(302.000000, 18.000000)"
+          >
+            <path
+              d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+  </button>
+</div>
+`;
+
+exports[`Notifications matches snapshot 4`] = `
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -473,15 +617,15 @@ exports[`Notifications matches snapshot 3`] = `
   border: none;
 }
 
-.c6:hover {
+.c7:hover {
   background-color: #e96128;
 }
 
-.c6:active {
+.c7:active {
   background-color: #df571e;
 }
 
-.c5 {
+.c6 {
   display: grid;
   overflow: visible;
   grid-auto-flow: column;
@@ -492,12 +636,12 @@ exports[`Notifications matches snapshot 3`] = `
   width: 100%;
 }
 
-.c1 .c4 {
+.c1 .c5 {
   padding: 1rem;
   margin: 0;
 }
 
-.c3 {
+.c4 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -506,14 +650,14 @@ exports[`Notifications matches snapshot 3`] = `
   padding: 1rem;
 }
 
-.c3 a {
+.c4 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3 a:hover {
+.c4 a:hover {
   color: #0064A0;
 }
 
@@ -550,12 +694,12 @@ exports[`Notifications matches snapshot 3`] = `
   overflow: visible;
 }
 
-.c0 > div > .c4 {
+.c0 > div > .c5 {
   padding: 1rem;
   margin: 0;
 }
 
-.c2 {
+.c3 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -566,26 +710,34 @@ exports[`Notifications matches snapshot 3`] = `
   line-height: 4rem;
 }
 
-.c2 a {
+.c3 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c2 a:hover {
+.c3 a:hover {
   color: #0064A0;
 }
 
+.c8 .c2 {
+  width: 90%;
+  background: inherit;
+  color: #C23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
 @media (max-width:75em) {
-  .c1 > .c4 {
+  .c1 > .c5 {
     display: block;
     padding: 1.6rem 0 0 0;
   }
 }
 
 @media (max-width:75em) {
-  .c3 {
+  .c4 {
     padding: 0;
   }
 }
@@ -612,7 +764,7 @@ exports[`Notifications matches snapshot 3`] = `
     background-color: initial;
   }
 
-  .c0 > div > .c4 {
+  .c0 > div > .c5 {
     padding: 0;
   }
 }
@@ -624,7 +776,7 @@ exports[`Notifications matches snapshot 3`] = `
 }
 
 @media (max-width:75em) {
-  .c2 {
+  .c3 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
@@ -639,12 +791,12 @@ exports[`Notifications matches snapshot 3`] = `
       className="c1"
     >
       <div
-        className="c2"
+        className="c2 c3"
       >
         Notification
       </div>
       <p
-        className="c3"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "asdf",
@@ -653,10 +805,10 @@ exports[`Notifications matches snapshot 3`] = `
       />
     </div>
     <div
-      className="c4 c5"
+      className="c5 c6"
     >
       <button
-        className="c6"
+        className="c7"
         onClick={[Function]}
       >
         OK

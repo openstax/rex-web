@@ -18,7 +18,7 @@ import { dismissNotification, searchFailure,  } from '../actions';
 import { inlineDisplayBreak } from '../theme';
 import { Header } from './Card';
 
-const clearErrorAfter = 3200;
+export const clearErrorAfter = 3200;
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
@@ -33,7 +33,7 @@ const BannerBody = styled.div`
   background: ${bannerBackground};
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   border: 1px solid ${errorBorderColor};
   z-index: ${theme.zIndex.contentNotifications};
   overflow: visible;
@@ -41,7 +41,7 @@ const BannerBody = styled.div`
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
 
   ${Header} {
-    width:90%;
+    width: 90%;
     background: inherit;
     color: ${theme.color.text.red};
     font-weight: normal;
@@ -49,11 +49,11 @@ const BannerBody = styled.div`
   }
 
   @media (max-width: ${inlineDisplayBreak}) {
-    top : ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
-    align-items:flex-start;
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+    align-items: flex-start;
     z-index: calc(${theme.zIndex.searchSidebar} + 1);
     padding: 1.6rem ${theme.padding.page.mobile}rem;
-  };
+  }
 
   ${disablePrint}
 `;
@@ -71,49 +71,58 @@ export const CloseButton = styled.button`
   border: 0;
   padding: 0;
   color: ${closeIconClor};
-  &:hover{
+
+  &:hover {
     color: ${hoveredCloseIconColor};
   }
 `;
 
+interface Props {
+  dismiss: () => void;
+}
+
 // tslint:disable-next-line:variable-name
-const SearchFailure = ({dismiss}: {dismiss: () => void }) => {
+class SearchFailure extends React.Component<Props> {
+  public autoClose: number;
 
-  const dismissAndClearEvents = () => {
-    dismiss();
-    clearWindowEvents();
+  constructor(props: Props) {
+    super(props);
+    this.autoClose = setTimeout(this.dismissAndClearEvents, clearErrorAfter);
+  }
+
+  public componentDidMount() {
+    const window = assertWindow();
+
+    window.addEventListener('click', this.dismissAndClearEvents);
+    window.addEventListener('scroll', this.dismissAndClearEvents);
+  }
+
+  public dismissAndClearEvents = () => {
+    clearTimeout(this.autoClose);
+
+    this.props.dismiss();
+    this.clearWindowEvents();
   };
 
-  const clearWindowEvents = () => {
+  public clearWindowEvents = () => {
     const window = assertWindow();
-    window.removeEventListener('click', dismissAndClearEvents);
-    window.removeEventListener('scroll', dismissAndClearEvents);
+    window.removeEventListener('click', this.dismissAndClearEvents);
+    window.removeEventListener('scroll', this.dismissAndClearEvents);
   };
 
-  React.useEffect(() => {
-    const window = assertWindow();
-    const close = setTimeout(dismiss, clearErrorAfter);
-
-    window.addEventListener('click', dismissAndClearEvents);
-    window.addEventListener('scroll', dismissAndClearEvents);
-
-    return () => {
-      clearTimeout(close);
-      clearWindowEvents();
-    };
-  }, []);
-
-  return (
-    <BannerBody>
+  public render() {
+    return (
+      <BannerBody>
         <FormattedMessage id='i18n:notification:search-failure'>
           {(txt) =>  <Header>{txt}</Header>}
         </FormattedMessage>
-        <CloseButton onClick={dismissAndClearEvents}>
+        <CloseButton onClick={this.dismissAndClearEvents}>
           <CloseIcon />
         </CloseButton>
-    </BannerBody>
-  );
-};
+      </BannerBody>
+    );
+  }
+}
 
 export default connect(
   () => ({

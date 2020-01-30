@@ -8,4 +8,3 @@ export const searchFailure = createStandardAction('Notification/searchFailure')(
 export const receiveMessages = createStandardAction('Notification/receiveMessages')<Message[]>();
 
 export const dismissNotification = createStandardAction('Notification/dismiss')<AnyNotification>();
-
