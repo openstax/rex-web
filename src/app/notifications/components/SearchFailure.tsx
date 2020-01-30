@@ -79,23 +79,23 @@ export const CloseButton = styled.button`
 // tslint:disable-next-line:variable-name
 const SearchFailure = ({dismiss}: {dismiss: () => void }) => {
 
-  const dismissAndClearnEvents = () => {
+  const dismissAndClearEvents = () => {
     dismiss();
     clearWindowEvents();
   };
 
   const clearWindowEvents = () => {
     const window = assertWindow();
-    window.removeEventListener('click', dismissAndClearnEvents);
-    window.removeEventListener('scroll', dismissAndClearnEvents);
-  }
+    window.removeEventListener('click', dismissAndClearEvents);
+    window.removeEventListener('scroll', dismissAndClearEvents);
+  };
 
   React.useEffect(() => {
     const window = assertWindow();
     const close = setTimeout(dismiss, clearErrorAfter);
 
-    window.addEventListener('click', dismissAndClearnEvents);
-    window.addEventListener('scroll', dismissAndClearnEvents);
+    window.addEventListener('click', dismissAndClearEvents);
+    window.addEventListener('scroll', dismissAndClearEvents);
 
     return () => {
       clearTimeout(close);
@@ -108,7 +108,7 @@ const SearchFailure = ({dismiss}: {dismiss: () => void }) => {
         <FormattedMessage id='i18n:notification:search-failure'>
           {(txt) =>  <Header>{txt}</Header>}
         </FormattedMessage>
-        <CloseButton onClick={dismissAndClearnEvents}>
+        <CloseButton onClick={dismissAndClearEvents}>
           <CloseIcon />
         </CloseButton>
     </BannerBody>
