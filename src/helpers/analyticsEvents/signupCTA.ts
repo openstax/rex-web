@@ -11,7 +11,7 @@ export const selector = createSelector(
 
 export const track = (
   {pathname}: ReturnType<typeof selector>,
-  event: 'open' | 'close' | 'close by navigating'
+  event: 'open' | 'close by navigating'
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
