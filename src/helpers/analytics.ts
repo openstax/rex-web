@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { servicesContext } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
 import { Store } from '../app/types';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
@@ -73,6 +76,22 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
       analytics.print.track(analytics.print.selector(store.getState()));
     }
   });
+};
+
+export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T) => {
+  // the types in here are horrible, probably because of:
+  // https://github.com/Microsoft/TypeScript/issues/13995
+  // but the returned function has the correct args so whatever
+  const services = useContext(servicesContext);
+  const event = services.analytics[eventType];
+  const data = useSelector(event.selector as any);
+
+  type E = typeof services['analytics'][T];
+  type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
+
+  return (...args: RemainingArgumentTypes) => {
+    (event.track as any)(data, ...args);
+  };
 };
 
 export default analytics;
