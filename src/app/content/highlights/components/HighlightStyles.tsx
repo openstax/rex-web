@@ -9,7 +9,7 @@ import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
-import { mobileMargin } from './SummaryPopup/constants';
+import { mobileMargin, mobilePadding } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -18,7 +18,6 @@ export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
 export const headerHeight = 7.2;
 const topBottomMargin = headerHeight + popupBodyPadding;
-const popupBodyPaddingMobile = 1.6;
 
 export const stickyNoteMeasures = {
   blue: 'rgba(13, 192, 220)',
@@ -70,7 +69,7 @@ export const Modal = styled.div`
   width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
     margin: 2rem 0;
-    width: calc(100% - ${mobileMargin}rem * 2);
+    width: calc(100% - ${mobileMargin * 2}rem);
   `)}
 
   @media print {
@@ -93,7 +92,7 @@ export const Header = styled(H3)`
   height: ${headerHeight}rem;
   overflow: hidden;
   ${theme.breakpoints.mobile(css`
-    padding: ${popupBodyPaddingMobile}rem;
+    padding: ${mobilePadding.leftRight}rem;
   `)}
 `;
 
