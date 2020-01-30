@@ -123,7 +123,7 @@ export const CTAGraphic = styled((props) => <img src={ctaGraphic} alt='' {...pro
 // tslint:disable-next-line: variable-name
 export const CTATopLayer = styled((props) => <img src={topLayer} alt='' {...props} />)`
   position: absolute;
-  right: -5px;
+  right: -0.5rem;
   bottom: 0;
 `;
 
@@ -140,12 +140,12 @@ export const CTABottomLayer = styled((props) => <img src={bottomLayer} alt='' {.
   width: 100%;
   position: absolute;
   left: 0;
-  bottom: 20px;
+  bottom: 2rem;
 `;
 
 // tslint:disable-next-line: variable-name
 export const CTABackground = styled.div`
   position: relative;
-  height: 420px;
+  height: 42rem;
   overflow: hidden;
 `;
