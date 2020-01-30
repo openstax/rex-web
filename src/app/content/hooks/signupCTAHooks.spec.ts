@@ -1,8 +1,10 @@
-import { Location, MediaQueryList } from '@openstax/types/lib.dom';
+import { MediaQueryList } from '@openstax/types/lib.dom';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { receiveLoggedOut } from '../../auth/actions';
+import { locationChange } from '../../navigation/actions';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { assertWindow } from '../../utils';
 import { closeCallToActionPopup, openCallToActionPopup } from '../actions';
 import { content } from '../routes';
 import * as CTAHooks from './signupCTAHooks';
@@ -54,31 +56,41 @@ describe('signupCTAHooks hooks', () => {
   it('closes popup on location change', async() => {
     store.dispatch(openCallToActionPopup());
 
-    await hookClose({
-      location: {} as Location,
+    await hookClose(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
       match: {
         params: {
-          book: 'book-slug-1',
-          page: 'test-page-1',
+          book: 'doesnotmatter',
+          page: 'doesnotmatter',
         },
         route: content,
       },
-    } as any);
+    }));
 
     expect(dispatch).toHaveBeenCalledWith(closeCallToActionPopup());
   });
 
   it('does not dispatch if popup is not open', async() => {
-    await hookClose({
-      location: {} as Location,
+    await hookClose(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
       match: {
         params: {
-          book: 'book-slug-1',
-          page: 'test-page-1',
+          book: 'doesnotmatter',
+          page: 'doesnotmatter',
         },
         route: content,
       },
-    } as any);
+    }));
 
     expect(dispatch).not.toHaveBeenCalled();
   });
