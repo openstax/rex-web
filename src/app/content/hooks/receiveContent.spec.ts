@@ -107,7 +107,7 @@ describe('setHead hook', () => {
       })));
     });
     it('always dispatches sethead with description tags', async() => {
-      store.dispatch(receiveBook(combinedBook));
+      store.dispatch(receiveBook(book));
       store.dispatch(receivePage({
         ...page,
         abstract: undefined as any as string,
