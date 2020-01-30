@@ -13,9 +13,12 @@ import {
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
+import { assertWindow } from '../../utils';
 import { dismissNotification, searchFailure,  } from '../actions';
 import { inlineDisplayBreak } from '../theme';
 import { Header } from './Card';
+
+const clearErrorAfter = 3200;
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
@@ -74,15 +77,43 @@ export const CloseButton = styled.button`
 `;
 
 // tslint:disable-next-line:variable-name
-const SearchFailure = ({dismiss}: {dismiss: () => void }) =>
-  <BannerBody>
-    <FormattedMessage id='i18n:notification:search-failure'>
-      {(txt) =>  <Header>{txt}</Header>}
-    </FormattedMessage>
-    <CloseButton onClick={dismiss}>
-      <CloseIcon />
-    </CloseButton>
-  </BannerBody>;
+const SearchFailure = ({dismiss}: {dismiss: () => void }) => {
+
+  const dismissAndClearnEvents = () => {
+    dismiss();
+    clearWindowEvents();
+  };
+
+  const clearWindowEvents = () => {
+    const window = assertWindow();
+    window.removeEventListener('click', dismissAndClearnEvents);
+    window.removeEventListener('scroll', dismissAndClearnEvents);
+  }
+
+  React.useEffect(() => {
+    const window = assertWindow();
+    const close = setTimeout(dismiss, clearErrorAfter);
+
+    window.addEventListener('click', dismissAndClearnEvents);
+    window.addEventListener('scroll', dismissAndClearnEvents);
+
+    return () => {
+      clearTimeout(close);
+      clearWindowEvents();
+    };
+  }, []);
+
+  return (
+    <BannerBody>
+        <FormattedMessage id='i18n:notification:search-failure'>
+          {(txt) =>  <Header>{txt}</Header>}
+        </FormattedMessage>
+        <CloseButton onClick={dismissAndClearnEvents}>
+          <CloseIcon />
+        </CloseButton>
+    </BannerBody>
+  );
+};
 
 export default connect(
   () => ({
