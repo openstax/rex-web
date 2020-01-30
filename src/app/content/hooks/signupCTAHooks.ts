@@ -1,12 +1,13 @@
 import { receiveLoggedOut } from '../../auth/actions';
-import { RouteHookBody } from '../../navigation/types';
-import { routeHook } from '../../navigation/utils';
+import { locationChange } from '../../navigation/actions';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { actionHook, assertWindow } from '../../utils';
 import { closeCallToActionPopup, openCallToActionPopup } from '../actions';
-import { content } from '../routes';
 import { showCTAPopup } from '../selectors';
+
+const pageLoadedAt = new Date().getTime();
+const showPopupAfter = 5000;
 
 export const receiveLoggedOutHookBody: ActionHookBody<typeof receiveLoggedOut> = (services) => async() => {
   const state = services.getState();
@@ -14,14 +15,16 @@ export const receiveLoggedOutHookBody: ActionHookBody<typeof receiveLoggedOut> =
   const eventData = services.analytics.signupCTA.selector(state);
 
   if (showCTA === null && !assertWindow().matchMedia(theme.breakpoints.mobileQuery).matches) {
+    const now = new Date().getTime();
+    const timeFromPageLoaded = now - pageLoadedAt;
     setTimeout(() => {
       services.analytics.signupCTA.track(eventData, true);
       services.dispatch(openCallToActionPopup());
-    }, 5000);
+    }, Math.max(showPopupAfter - timeFromPageLoaded, 0));
   }
 };
 
-export const locationChangeHookBody: RouteHookBody<typeof content> = (services) => async() => {
+export const locationChangeHookBody: ActionHookBody<typeof locationChange> = (services) => async() => {
   const state = services.getState();
   const showCTA = showCTAPopup(state);
   const eventData = services.analytics.signupCTA.selector(state);
@@ -33,4 +36,4 @@ export const locationChangeHookBody: RouteHookBody<typeof content> = (services) 
 };
 
 export const showCTAPopupHook = actionHook(receiveLoggedOut, receiveLoggedOutHookBody);
-export const closeCTAPopupHook = routeHook(content, locationChangeHookBody);
+export const closeCTAPopupHook = actionHook(locationChange, locationChangeHookBody);
