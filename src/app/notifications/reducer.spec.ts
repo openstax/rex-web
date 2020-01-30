@@ -6,11 +6,14 @@ describe('notifications reducer', () => {
 
   it('adds update available notification', () => {
     const newState = reducer(initialState, actions.updateAvailable());
-    expect(newState).toContainEqual(actions.updateAvailable());
+    expect(newState.notificationQueue).toContainEqual(actions.updateAvailable());
   });
 
   it('doesn\'t duplicate update available notification', () => {
-    const state = [actions.updateAvailable()];
+    const state = {
+      ...initialState,
+      notificationQueue: [actions.updateAvailable()],
+    };
     const newState = reducer(state, actions.updateAvailable());
     expect(newState).toBe(state);
   });
@@ -53,12 +56,12 @@ describe('notifications reducer', () => {
         type: appMessageType,
       },
     ];
-    const newState = reducer(messages, actions.receiveMessages([
+    const newState = reducer({...initialState, notificationQueue: messages}, actions.receiveMessages([
       ...messages.slice(1).map(({payload}) => payload),
       ...newMessages.map(({payload}) => payload),
     ]));
-    expect(newState.length).toBe(3);
-    expect(newState).toEqual([...messages, ...newMessages]);
+    expect(newState.notificationQueue.length).toBe(3);
+    expect(newState.notificationQueue).toEqual([...messages, ...newMessages]);
   });
 
   it('dismissesNotification', () => {
@@ -70,11 +73,11 @@ describe('notifications reducer', () => {
       (state) => reducer(state, actions.dismissNotification(acceptCookiesNotification))
     )(initialState);
 
-    expect(newState).not.toContainEqual(actions.acceptCookies());
+    expect(newState.notificationQueue).not.toContainEqual(actions.acceptCookies());
   });
 
   it('reduces acceptCookies', () => {
     const newState = reducer(initialState, actions.acceptCookies());
-    expect(newState).toContainEqual(actions.acceptCookies());
+    expect(newState.notificationQueue).toContainEqual(actions.acceptCookies());
   });
 });
