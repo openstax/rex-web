@@ -19,6 +19,7 @@ import {
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   mainContentBackground,
+  scrollOffset,
   sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarDesktopHeight,
@@ -164,8 +165,16 @@ const OuterWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
-    desktopOffset={bookBannerDesktopMiniHeight + toolbarDesktopHeight}
-    mobileOffset={bookBannerMobileMiniHeight + (mobileExpanded ? toolbarMobileExpandedHeight : toolbarMobileHeight)}
+    desktopOffset={
+      bookBannerDesktopMiniHeight
+      + toolbarDesktopHeight
+      + scrollOffset
+    }
+    mobileOffset={
+      bookBannerMobileMiniHeight
+      + (mobileExpanded ? toolbarMobileExpandedHeight : toolbarMobileHeight)
+      + scrollOffset
+    }
   />
   <Background>
     <BookBanner />
