@@ -96,8 +96,8 @@ export const CTATextLink = styled.span`
 // tslint:disable-next-line: variable-name
 export const CTACloseButton = styled(Button)`
   position: absolute;
-  top: 40%;
-  right: 3rem;
+  top: 47%;
+  right: 1%;
   background: transparent;
   min-width: auto;
   padding: 2rem;
@@ -130,6 +130,7 @@ export const CTATopLayer = styled((props) => <img src={topLayer} alt='' {...prop
 // tslint:disable-next-line: variable-name
 export const CTAMiddleLayer = styled((props) => <img src={middleLayer} alt='' {...props} />)`
   width: 100%;
+  min-width: 160rem;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -138,6 +139,7 @@ export const CTAMiddleLayer = styled((props) => <img src={middleLayer} alt='' {.
 // tslint:disable-next-line: variable-name
 export const CTABottomLayer = styled((props) => <img src={bottomLayer} alt='' {...props} />)`
   width: 100%;
+  min-width: 160rem;
   position: absolute;
   left: 0;
   bottom: 2rem;
