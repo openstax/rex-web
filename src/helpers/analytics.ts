@@ -10,6 +10,7 @@ import * as highlightingEditAnnotation from './analyticsEvents/highlighting/edit
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
+import * as signupCTA from './analyticsEvents/signupCTA';
 import * as unload from './analyticsEvents/unload';
 
 const triggerEvent = <Args extends any[]>(event: (...args: Args) => (AnalyticsEvent | void)) => (...args: Args) => {
@@ -36,6 +37,7 @@ const analytics = {
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
+  signupCTA: mapEventType(signupCTA),
   unload: mapEventType(unload),
 };
 

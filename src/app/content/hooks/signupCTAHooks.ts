@@ -11,18 +11,23 @@ import { showCTAPopup } from '../selectors';
 export const receiveLoggedOutHookBody: ActionHookBody<typeof receiveLoggedOut> = (services) => async() => {
   const state = services.getState();
   const showCTA = showCTAPopup(state);
+  const eventData = services.analytics.signupCTA.selector(state);
 
   if (showCTA === null && !assertWindow().matchMedia(theme.breakpoints.mobileQuery).matches) {
     setTimeout(() => {
+      services.analytics.signupCTA.track(eventData, true);
       services.dispatch(openCallToActionPopup());
     }, 5000);
   }
 };
 
 export const locationChangeHookBody: RouteHookBody<typeof content> = (services) => async() => {
-  const showCTA = showCTAPopup(services.getState());
+  const state = services.getState();
+  const showCTA = showCTAPopup(state);
+  const eventData = services.analytics.signupCTA.selector(state);
 
   if (showCTA === true) {
+    services.analytics.signupCTA.track(eventData, false);
     services.dispatch(closeCallToActionPopup());
   }
 };
