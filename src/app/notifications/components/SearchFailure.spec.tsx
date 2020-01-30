@@ -2,10 +2,9 @@ import ReactType from 'react';
 import { Provider } from 'react-redux';
 import rendererType from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
-import { renderToDom } from '../../../test/reactutils';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { assertDocument, assertWindow } from '../../utils';
+import { assertWindow } from '../../utils';
 import { dismissNotification, searchFailure } from '../actions';
 import SearchFailure, { clearErrorAfter } from './SearchFailure';
 
