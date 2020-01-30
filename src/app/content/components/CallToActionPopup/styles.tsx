@@ -6,6 +6,7 @@ import { PlainButton } from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
+import { disablePrint } from '../utils/disablePrint';
 import bottomLayer from './assets/bottom-layer.svg';
 import ctaGraphic from './assets/desktop-mobile-graphic.svg';
 import middleLayer from './assets/middle-layer.svg';
@@ -38,6 +39,7 @@ export const CTAWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -120,6 +122,7 @@ export const CTACloseIcon = styled(Times)`
 
 // tslint:disable-next-line: variable-name
 export const CTAGraphic = styled((props) => <img src={ctaGraphic} alt='' {...props} />)`
+  pointer-events: auto;
   margin-left: 3rem;
 `;
 
