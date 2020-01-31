@@ -129,19 +129,17 @@ class SearchFailure extends React.Component<Props, {shouldFadeOut: boolean}> {
 
   public cleanup() {
     const window = assertWindow();
+
     window.removeEventListener('click', this.startFadeOut);
     window.removeEventListener('scroll', this.startFadeOut);
-
     clearTimeout(this.autoClose);
   }
 
   public startFadeOut = () => {
     this.cleanup();
-    if (!this.state.shouldFadeOut) {
-      this.setState({
-        shouldFadeOut: true,
-      });
-    }
+    this.setState({
+      shouldFadeOut: true,
+    });
   };
 
   public render() {
