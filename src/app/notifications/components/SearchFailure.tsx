@@ -26,19 +26,33 @@ const closeIconClor = '#EDBFC5';
 const hoveredCloseIconColor = errorBorderColor;
 
 // tslint:disable-next-line:variable-name
-const BannerBody = styled.div`
+const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
-  padding: 0.5rem 1rem;
-  background: ${bannerBackground};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid ${errorBorderColor};
+  height: 0;
   z-index: ${theme.zIndex.contentNotifications};
   overflow: visible;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+
+  @media (max-width: ${inlineDisplayBreak}) {
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+    z-index: calc(${theme.zIndex.searchSidebar} + 1);
+  }
+
+  ${disablePrint}
+`;
+
+// tslint:disable-next-line:variable-name
+const BannerBody = styled.div`
+  width: 100%;
+  position: absolute;
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  background: ${bannerBackground};
+  justify-content: space-between;
+  border: 1px solid ${errorBorderColor};
 
   ${Header} {
     width: 90%;
@@ -49,24 +63,20 @@ const BannerBody = styled.div`
   }
 
   @media (max-width: ${inlineDisplayBreak}) {
-    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
     align-items: flex-start;
-    z-index: calc(${theme.zIndex.searchSidebar} + 1);
     padding: 1.6rem ${theme.padding.page.mobile}rem;
   }
-
-  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   width: 1.8rem;
   height: 1.8rem;
   cursor: pointer;
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseButton = styled.button`
+const CloseButton = styled.button`
   background: transparent;
   border: 0;
   padding: 0;
@@ -112,14 +122,16 @@ class SearchFailure extends React.Component<Props> {
 
   public render() {
     return (
-      <BannerBody>
-        <FormattedMessage id='i18n:notification:search-failure'>
-          {(txt) =>  <Header>{txt}</Header>}
-        </FormattedMessage>
-        <CloseButton onClick={this.dismissAndClearEvents}>
-          <CloseIcon />
-        </CloseButton>
-      </BannerBody>
+      <BannerBodyWrapper>
+        <BannerBody>
+          <FormattedMessage id='i18n:notification:search-failure'>
+            {(txt) =>  <Header>{txt}</Header>}
+          </FormattedMessage>
+          <CloseButton onClick={this.dismissAndClearEvents}>
+            <CloseIcon />
+          </CloseButton>
+        </BannerBody>
+      </BannerBodyWrapper>
     );
   }
 }
