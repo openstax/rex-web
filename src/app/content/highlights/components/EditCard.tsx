@@ -123,6 +123,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     <ColorPicker color={data ? data.color : undefined} onChange={onColorChange} onRemove={() => {
       if ((!data || !data.annotation) && !pendingAnnotation) {
         onRemove();
+        if (data) { trackDeleteHighlight(data.color); }
       }
     }} />
     <Note
@@ -150,7 +151,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
             if (pendingAnnotation === '' && data.annotation) {
               setConfirmingDelete(true);
-              trackDeleteHighlight(data.color);
             } else {
               saveAnnotation(data);
             }
@@ -182,6 +182,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       always={() => setConfirmingDelete(false)}
     />}
     {!authenticated && <Confirmation
+      data-analytics-href='login'
       data-analytics-region='highlighting-login'
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
