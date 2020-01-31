@@ -1,7 +1,9 @@
 import React from 'react';
 import { AppServices } from '../types';
 
-const {Consumer, Provider} = React.createContext({} as AppServices);
+export const servicesContext = React.createContext({} as AppServices);
+
+const {Consumer, Provider} = servicesContext;
 
 export {
   Consumer,
