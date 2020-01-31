@@ -16,7 +16,7 @@ const books = {
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '16.4'},
   /* Entrepreneurship */ 'd380510e-6145-4625-b19a-4fa68204b6b1': {defaultVersion: '10.4'},
   /* Introduction to Business */ '4e09771f-a8aa-40ce-9063-aa58cc24e77f': {defaultVersion: '9.3'},
-  /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': {defaultVersion: '13.27'},
+  /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': {defaultVersion: '14.1'},
   /* Introductory Statistics */ '30189442-6998-4686-ac05-ed152b91b9de': {defaultVersion: '24.1'},
   /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '8.6'},
   /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': {defaultVersion: '7.2'},
