@@ -1,4 +1,4 @@
-import { Highlight, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -21,12 +21,19 @@ const HighlightOuterWrapper = styled.div`
   }
 
   background: ${theme.color.neutral.base};
+
+  @media print {
+    border-width: 0;
+    position: relative;
+    page-break-inside: avoid;
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
-  overflow: visible;
+  overflow: auto;
 
   * {
     overflow: initial;
@@ -55,6 +62,12 @@ export const HighlightContentWrapper = styled.div`
       }
     `;
   }}
+
+  @media print {
+    ${HighlightContent} {
+      background-color: white;
+    }
+  }
 `;
 
 interface HighlightListElementProps {
@@ -82,9 +95,9 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     setIsEditing(false);
   };
 
-  const updateColor = (color: string) => {
+  const updateColor = (color: HighlightColorEnum) => {
     dispatch(updateHighlight({
-      highlight: {color: color as HighlightUpdateColorEnum},
+      highlight: {color: color as string as HighlightUpdateColorEnum},
       id: highlight.id,
     }, {
       locationFilterId,

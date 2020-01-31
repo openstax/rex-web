@@ -10,7 +10,6 @@ import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
-  addSummaryHighlight,
   addToTotalCounts,
   getHighlightByIdFromSummaryHighlights,
   getHighlightColorFiltersWithContent,
@@ -52,13 +51,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         sourceType: action.payload.sourceType as string as HighlightSourceTypeEnum,
       };
 
-      let newSummaryHighlights;
-      if (state.summary.filters.colors.includes(highlight.color) && state.summary.highlights) {
-        newSummaryHighlights = addSummaryHighlight(state.summary.highlights, {
-          ...action.meta,
-          highlight,
-        });
-      }
+      const newSummaryHighlights = state.summary.highlights
+        ? updateSummaryHighlightsDependOnFilters(
+          state.summary.highlights,
+          state.summary.filters,
+          {...action.meta, highlight })
+        : state.summary.highlights;
 
       const totalCountsPerPage = state.summary.totalCountsPerPage
         ? addToTotalCounts(state.summary.totalCountsPerPage, highlight)

@@ -75,7 +75,7 @@ interface ContextMenuProps {
   color: HighlightColorEnum;
   onDelete: () => void;
   onEdit: () => void;
-  onColorChange: (color: string) => void;
+  onColorChange: (color: HighlightColorEnum) => void;
 }
 
 // tslint:disable-next-line:variable-name

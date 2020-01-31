@@ -2,6 +2,7 @@ import Color from 'color';
 import React from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
+import { disablePrint } from '../content/components/utils/disablePrint';
 import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 
@@ -17,6 +18,12 @@ const ScrollLockBodyClass = createGlobalStyle`
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
       overflow: hidden;
     `}
+  }
+
+  @media print {
+    body.body {
+      overflow: visible;
+    }
   }
 `;
 
@@ -50,6 +57,8 @@ export const Overlay = styled.div`
       display: block;
     `)}
   `}
+
+  ${disablePrint}
 `;
 
 interface Props {
