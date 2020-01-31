@@ -3,13 +3,13 @@
 exports[`CallToActionPopup matches snapshot when close 1`] = `null`;
 
 exports[`CallToActionPopup matches snapshot when open 1`] = `
-.c11 {
+.c15 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c6 {
+.c10 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -37,25 +37,27 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   border: none;
 }
 
-.c6:hover {
+.c10:hover {
   background-color: #e96128;
 }
 
-.c6:active {
+.c10:active {
   background-color: #df571e;
 }
 
 .c0 {
+  height: 34.8rem;
   position: fixed;
+  pointer-events: none;
   left: 0;
+  right: 0;
   bottom: 0;
   z-index: 90;
-  width: 100%;
-  -webkit-animation: 300ms bNiYjl ease-out;
-  animation: 300ms bNiYjl ease-out;
+  -webkit-animation: 800ms bNiYjl ease-out;
+  animation: 800ms bNiYjl ease-out;
 }
 
-.c1 {
+.c4 {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -74,7 +76,11 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   z-index: 1;
 }
 
-.c2 {
+.c5 {
+  pointer-events: auto;
+}
+
+.c6 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
@@ -89,7 +95,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   overflow: hidden;
 }
 
-.c3 {
+.c7 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
@@ -99,7 +105,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   max-width: 57rem;
 }
 
-.c4 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -110,11 +116,11 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   align-items: center;
 }
 
-.c4 .c5 {
+.c8 .c9 {
   width: 17rem;
 }
 
-.c7 {
+.c11 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -123,100 +129,70 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   margin-left: 1.5rem;
 }
 
-.c7 a {
+.c11 a {
   color: #fff;
   -webkit-text-decoration: underline;
   text-decoration: underline;
   margin-left: 0.5rem;
 }
 
-.c9 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c13 {
   cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  font-family: Neue Helvetica W01;
-  border-radius: 0.2rem;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
+  border: none;
+  padding: 0;
+  background: none;
+  pointer-events: auto;
   position: absolute;
-  top: 47%;
-  right: 1%;
-  background: transparent;
+  top: 11rem;
+  right: 1rem;
   min-width: auto;
   padding: 2rem;
-  border: none;
   z-index: 1;
 }
 
-.c9:hover {
-  background-color: #fafafa;
-}
-
-.c9:active {
-  background-color: #e5e5e5;
-}
-
-.c9:hover {
-  background: transparent;
-}
-
-.c10 {
+.c14 {
   width: 1.8rem;
   color: #fff;
 }
 
-.c8 {
+.c12 {
+  pointer-events: auto;
   margin-left: 3rem;
 }
 
-.c15 {
+.c3 {
   position: absolute;
-  right: -5px;
+  height: 7.7rem;
+  width: 48.3rem;
+  right: 0;
   bottom: 0;
 }
 
-.c14 {
-  width: 100%;
-  min-width: 1600px;
+.c2 {
   position: absolute;
-  left: 0;
+  height: 32.8rem;
+  width: 100%;
+  right: 0;
   bottom: 0;
-}
-
-.c13 {
-  width: 100%;
-  min-width: 1600px;
-  position: absolute;
   left: 0;
-  bottom: 20px;
 }
 
-.c12 {
-  position: relative;
-  height: 420px;
-  overflow: hidden;
+.c1 {
+  position: absolute;
+  height: 32.8rem;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 @media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media print {
   .c0 {
     display: none;
   }
@@ -226,17 +202,34 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   className="c0"
   data-analytics-region="signup CTA"
 >
-  <div
+  <img
+    alt=""
     className="c1"
+    src="bottom-layer.svg"
+  />
+  <img
+    alt=""
+    className="c2"
+    src="middle-layer.svg"
+  />
+  <img
+    alt=""
+    className="c3"
+    src="top-layer.svg"
+  />
+  <div
+    className="c4"
   >
-    <div>
+    <div
+      className="c5"
+    >
       <h2
-        className="c2"
+        className="c6"
       >
         Sign up and continue reading. It's 100% FREE.
       </h2>
       <p
-        className="c3"
+        className="c7"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Read your book and get <strong>free</strong> study tools. Highlight, take notes, and make your own study guide.",
@@ -244,10 +237,10 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
         }
       />
       <div
-        className="c4"
+        className="c8"
       >
         <a
-          className="c5 c6"
+          className="c9 c10"
           data-analytics-label="sign-up"
           data-testid="sign-up"
           href="/accounts/signup?r=/"
@@ -255,7 +248,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
           Sign up
         </a>
         <span
-          className="c7"
+          className="c11"
         >
           or
           <a
@@ -270,18 +263,18 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
     </div>
     <img
       alt=""
-      className="c8"
+      className="c12"
       src="desktop-mobile-graphic.svg"
     />
   </div>
   <button
-    className="c5 c9"
+    className="c13"
     data-analytics-label="close"
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="c10 c11"
+      className="c14 c15"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 352 512"
@@ -292,24 +285,5 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
       />
     </svg>
   </button>
-  <div
-    className="c12"
-  >
-    <img
-      alt=""
-      className="c13"
-      src="bottom-layer.svg"
-    />
-    <img
-      alt=""
-      className="c14"
-      src="middle-layer.svg"
-    />
-    <img
-      alt=""
-      className="c15"
-      src="top-layer.svg"
-    />
-  </div>
 </div>
 `;
