@@ -13,10 +13,10 @@ export const CANONICAL_MAP: ObjectLiteral<string[] | undefined> = {
   /* Principles of Microeconomics 2e */ '5c09762c-b540-47d3-9541-dda1f44f16e5': [
     /* Principles of Economics 2e */'bc498e1f-efe9-43a0-8dea-d3569ad09a82',
   ],
-  /* Principles of Microeconomics 2e for AP Courses */ '636cbfd9-4e37-4575-83ab-9dec9029ca4e': [
+  /* Principles of Microeconomics for AP Courses 2e */ '636cbfd9-4e37-4575-83ab-9dec9029ca4e': [
     /* Principles of Economics 2e */'bc498e1f-efe9-43a0-8dea-d3569ad09a82',
   ],
-  /* Principles of Macroeconomics 2e for AP Courses */ '9117cf8c-a8a3-4875-8361-9cb0f1fc9362': [
+  /* Principles of Macroeconomics for AP Courses 2e */ '9117cf8c-a8a3-4875-8361-9cb0f1fc9362': [
     /* Principles of Economics 2e */'bc498e1f-efe9-43a0-8dea-d3569ad09a82',
   ],
   /* Introductory Business Statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': [
