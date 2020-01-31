@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -5,6 +6,7 @@ import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
 import theme from '../../../theme';
+import { useOnEsc } from '../../../utils';
 import { cardPadding } from '../constants';
 import { cardBorder } from './style';
 
@@ -46,8 +48,12 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props) => {
+  const element = React.useRef<HTMLElement>(null);
+
+  useOnEsc(element, onCancel);
 
   return <Overlay
+    ref={element}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}

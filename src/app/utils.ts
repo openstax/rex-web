@@ -3,7 +3,7 @@ import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
 
-import { Document } from '@openstax/types/lib.dom';
+import { Document, HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import { isPlainObject } from './guards';
 import {
   ActionHookBody,
@@ -173,3 +173,38 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ),
   }), {}),
 });
+
+/**
+ * This function will return array where first item is a function which will set
+ * event listener for given element and second item is a function which will remove
+ * this listener.
+ *
+ * This function can be used in React class components.
+ */
+export const onEsc = (
+  element: HTMLElement, cb: () => void
+): [() => void, () => void] => {
+  const handler = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+      cb();
+    }
+  };
+
+  return [
+    () => element.addEventListener('keydown', handler),
+    () => element.removeEventListener('keydown', handler),
+  ];
+};
+
+export const useOnEsc = (element: React.RefObject<HTMLElement>, cb: () => void) => {
+  React.useEffect(() => {
+    const el = element && element.current;
+    if (!el) { return; }
+
+    const [addEvListener, removeEvListener] = onEsc(el, cb);
+    addEvListener();
+
+    return removeEvListener;
+  }, [element, cb]);
+};

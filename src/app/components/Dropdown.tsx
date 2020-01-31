@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
 import theme from '../theme';
-import { preventDefault } from '../utils';
+import { preventDefault, useOnEsc } from '../utils';
 import { textStyle } from './Typography/base';
 
 interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
@@ -58,6 +58,7 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
   const container = React.useRef<HTMLElement>(null);
 
   useOnClickOutside(container, open, () => setOpen(false));
+  useOnEsc(container, () => setOpen(false));
 
   return <div className={className} ref={container}>
     <DropdownToggle component={toggle} onClick={() => setOpen(!open)} />
