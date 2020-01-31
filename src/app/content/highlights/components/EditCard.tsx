@@ -61,12 +61,23 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const trackCreateNote = useAnalyticsEvent('createNote');
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackShowCreate = useAnalyticsEvent('showCreate');
+  const trackShowLogin = useAnalyticsEvent('showLogin');
 
   const blurIfNotEditing = () => {
     if (!editingAnnotation) {
       onBlur();
     }
   };
+
+  React.useEffect(() => {
+    if (authenticated) {
+      trackShowCreate();
+    } else {
+      trackShowLogin();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
