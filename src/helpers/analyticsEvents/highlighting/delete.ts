@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
-const createNote = 'REX highlighting (inline create)';
+const deleteHighlight = 'REX highlighting (delete-inline-highlight)';
 
 export const selector = createSelector(
   selectNavigation.pathname,
@@ -16,7 +16,7 @@ export const track = (
   return {
     getGoogleAnalyticsPayload: () => ({
       eventAction: color,
-      eventCategory: createNote,
+      eventCategory: deleteHighlight,
       eventLabel: pathname,
     }),
   };

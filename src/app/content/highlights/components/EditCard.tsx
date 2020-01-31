@@ -99,7 +99,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const saveAnnotation = (toSave: HighlightData) => {
     const addedNote = (data && data.annotation === undefined) ? true : false;
-    const action = addedNote ? 'created note' : 'edited note';
 
     onSave({
       highlight: {
@@ -111,7 +110,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       locationFilterId,
       pageId,
     });
-    services.analytics.editAnnotation.track(editNoteEventData.note, addedNote, action);
+    services.analytics.editAnnotation.track(editNoteEventData.note, addedNote, toSave.color);
     onCancel();
   };
 
@@ -156,6 +155,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
             if (pendingAnnotation === '' && data.annotation) {
               setConfirmingDelete(true);
+              services.analytics.deleteHighlight.track(editNoteEventData.note, data.color);
             } else {
               saveAnnotation(data);
             }
