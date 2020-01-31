@@ -37,7 +37,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       getCleanContent(book, page, services.archiveLoader, contentLinks.reduceReferences(this.props.contentLinks)),
       'text/html'
     );
-    transformContent(cleanContent, this.props.intl);
+    transformContent(cleanContent, cleanContent.body, this.props.intl);
     return cleanContent.body.innerHTML;
   };
 

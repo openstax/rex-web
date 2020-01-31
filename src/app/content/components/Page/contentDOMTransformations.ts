@@ -4,8 +4,8 @@ import { assertDefined, assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
-export const transformContent = (document: Document, intl: IntlShape) => {
-  const rootEl = document.body;
+// We are passing Document because it is required to prerender.
+export const transformContent = (_: Document, rootEl: HTMLElement, intl: IntlShape) => {
   addScopeToTables(rootEl);
   wrapElements(rootEl);
   tweakFigures(rootEl);
