@@ -1,5 +1,8 @@
+import { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { servicesContext } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
-import { Store } from '../app/types';
+import { AppState, Store } from '../app/types';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
 import * as clickLink from './analyticsEvents/clickLink';
@@ -11,21 +14,34 @@ import * as highlightingEditAnnotation from './analyticsEvents/highlighting/edit
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
+import * as signupCTA from './analyticsEvents/signupCTA';
 import * as unload from './analyticsEvents/unload';
 
-const triggerEvent = <Args extends any[]>(event: (...args: Args) => (AnalyticsEvent | void)) => (...args: Args) => {
-  const analyticsEvent = event(...args);
+type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
+type Selector = (state: AppState) => object;
+interface Event {track: EventConstructor; selector: Selector; }
+
+const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
+  const analyticsEvent = event.track(...args);
 
   if (analyticsEvent) {
     googleAnalyticsClient.trackEventPayload(analyticsEvent.getGoogleAnalyticsPayload());
   }
 };
 
-type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
+const bindTrackSelector = <E extends Event>(event: E) => (state: AppState) =>  {
+  type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
 
-const mapEventType = <E extends {track: EventConstructor}>(event: E): E => ({
+  return (...args: RemainingArgumentTypes) => {
+    const data = event.selector(state);
+    triggerEvent(event)(data, ...args);
+  };
+};
+
+const mapEventType = <E extends Event>(event: E) => ({
   ...event,
-  track: triggerEvent(event.track),
+  bind: bindTrackSelector(event),
+  track: triggerEvent(event),
 });
 
 const analytics = {
@@ -38,6 +54,7 @@ const analytics = {
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
+  signupCTA: mapEventType(signupCTA),
   unload: mapEventType(unload),
 };
 
@@ -75,6 +92,22 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
       analytics.print.track(analytics.print.selector(store.getState()));
     }
   });
+};
+
+export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T) => {
+  // the types in here are horrible, probably because of:
+  // https://github.com/Microsoft/TypeScript/issues/13995
+  // but the returned function has the correct args so whatever
+  const services = useContext(servicesContext);
+  const event = services.analytics[eventType];
+  const data = useSelector(event.selector as any);
+
+  type E = typeof services['analytics'][T];
+  type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
+
+  return (...args: RemainingArgumentTypes) => {
+    (event.track as any)(data, ...args);
+  };
 };
 
 export default analytics;

@@ -9,7 +9,7 @@ import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
-import { mobileMargin } from './SummaryPopup/constants';
+import { mobileMargin, mobilePadding } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -68,7 +68,8 @@ export const Modal = styled.div`
   max-width: ${contentWrapperMaxWidth}rem;
   width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
-    margin: 3rem ${mobileMargin}rem;
+    margin: 2rem 0;
+    width: calc(100% - ${mobileMargin * 2}rem);
   `)}
 
   @media print {
@@ -81,6 +82,7 @@ export const Modal = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const Header = styled(H3)`
+  ${disablePrint}
   background: #002569;
   color: ${theme.color.neutral.base};
   padding: ${popupPadding}rem;
@@ -89,7 +91,9 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
-  ${disablePrint}
+  ${theme.breakpoints.mobile(css`
+    padding: ${mobilePadding.leftRight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -252,7 +256,11 @@ export const InfoIconWrapper = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIconWrapper = PlainButton;
+export const CloseIconWrapper = styled(PlainButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
