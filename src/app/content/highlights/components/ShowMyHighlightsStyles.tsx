@@ -37,6 +37,11 @@ export const HighlightsChapter = styled.div`
   ${theme.breakpoints.mobile(css`
     padding: 0 ${popupPadding}rem;
   `)}
+
+  @media print {
+    padding: 0;
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -46,6 +51,10 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
     text-align: left;
     padding: 0;
   `)}
+
+  @media print {
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -53,6 +62,11 @@ export const HighlightWrapper = styled.div`
   margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
   overflow: unset;
+
+  @media print {
+    border-width: 0;
+    margin: 0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -69,6 +83,11 @@ export const HighlightSection = styled.div`
   > .os-divider,
   > .os-text {
     overflow: hidden;
+  }
+
+  @media print {
+    page-break-after: avoid;
+    background: white;
   }
 `;
 

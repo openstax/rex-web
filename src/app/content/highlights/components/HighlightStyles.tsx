@@ -8,6 +8,7 @@ import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
+import { disablePrint } from '../../components/utils/disablePrint';
 import { mobileMargin } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
@@ -43,6 +44,14 @@ export const imageStyles = css`
 export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
+
+  @media print {
+    display: block;
+
+    & ~ div {
+      display: none;
+    }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -61,6 +70,13 @@ export const Modal = styled.div`
   ${theme.breakpoints.mobile(css`
     margin: 3rem ${mobileMargin}rem;
   `)}
+
+  @media print {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -73,16 +89,23 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
+  -webkit-overflow-scrolling: touch;
   height: calc(100% - ${headerHeight}rem);
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
   `)}
+
+  @media print {
+    height: max-content;
+    overflow: auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -239,6 +262,8 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   :hover {
     color: ${toolbarIconColor.base};
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -269,6 +294,11 @@ export const GeneralText = styled(H3)`
 export const GeneralTextWrapper = styled.div`
   ${bodyCopyRegularStyle}
   padding: ${popupBodyPadding}rem ${popupPadding}rem 0;
+
+  @media print {
+    height: max-content;
+    overflow: auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

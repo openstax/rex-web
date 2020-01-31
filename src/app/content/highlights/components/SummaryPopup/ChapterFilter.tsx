@@ -79,7 +79,7 @@ const ChapterFilter = ({className}: Props) => {
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(Array.from(locationFiltersWithContent.keys()))}
+      onAll={() => setSelectedChapters(Array.from(locationFiltersWithContent))}
     />
     <Row>
       {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>

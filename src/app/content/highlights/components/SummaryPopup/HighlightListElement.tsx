@@ -21,12 +21,19 @@ const HighlightOuterWrapper = styled.div`
   }
 
   background: ${theme.color.neutral.base};
+
+  @media print {
+    border-width: 0;
+    position: relative;
+    page-break-inside: avoid;
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
-  overflow: visible;
+  overflow: auto;
 
   * {
     overflow: initial;
@@ -55,6 +62,12 @@ const HighlightContentWrapper = styled.div`
       }
     `;
   }}
+
+  @media print {
+    ${HighlightContent} {
+      background-color: white;
+    }
+  }
 `;
 
 interface HighlightListElementProps {
