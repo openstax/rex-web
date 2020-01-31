@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { requestSearch } from '../content/search/actions';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import { AnyNotification, Message , State } from './types';
@@ -37,6 +38,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, notificationQueue: [...state.notificationQueue, ...processAppMessages(state, action)]};
     case getType(actions.dismissNotification):
       return filterClosedNotification(state, action.payload);
+    case getType(requestSearch):
+      return filterClosedNotification(state, actions.searchFailure());
     default:
       return state;
   }

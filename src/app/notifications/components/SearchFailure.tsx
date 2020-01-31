@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { ActionType } from 'typesafe-actions';
 import Times from '../../components/Times';
 import {
@@ -9,6 +9,7 @@ import {
   bookBannerMobileMiniHeight,
   toolbarDesktopHeight,
   toolbarMobileHeight,
+  toolbarMobileSearchWrapperHeight
 } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
@@ -19,14 +20,24 @@ import { inlineDisplayBreak } from '../theme';
 import { Header } from './Card';
 
 export const clearErrorAfter = 3200;
+const fadeOutDuration = 1000;
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
 const closeIconClor = '#EDBFC5';
 const hoveredCloseIconColor = errorBorderColor;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
 // tslint:disable-next-line:variable-name
-const BannerBodyWrapper = styled.div`
+const BannerBodyWrapper = styled.div<{shouldFadeOut: boolean}>`
   width: 100%;
   margin: 0;
   height: 0;
@@ -36,9 +47,13 @@ const BannerBodyWrapper = styled.div`
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
-    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem;
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight}rem;
     z-index: calc(${theme.zIndex.searchSidebar} + 1);
   }
+
+  ${(props) => props.shouldFadeOut && css`
+    animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
+  `}
 
   ${disablePrint}
 `;
@@ -92,42 +107,54 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-class SearchFailure extends React.Component<Props> {
+class SearchFailure extends React.Component<Props, {shouldFadeOut: boolean}> {
+  public state = { shouldFadeOut: false };
   public autoClose: number;
 
   constructor(props: Props) {
     super(props);
-    this.autoClose = setTimeout(this.dismissAndClearEvents, clearErrorAfter);
+    this.autoClose = setTimeout(this.startFadeOut, clearErrorAfter);
   }
 
   public componentDidMount() {
     const window = assertWindow();
 
-    window.addEventListener('click', this.dismissAndClearEvents);
-    window.addEventListener('scroll', this.dismissAndClearEvents);
+    window.addEventListener('click', this.startFadeOut);
+    window.addEventListener('scroll', this.startFadeOut);
   }
 
-  public dismissAndClearEvents = () => {
-    clearTimeout(this.autoClose);
+  public componentWillUnmount() {
+    this.cleanup();
+  }
 
-    this.props.dismiss();
-    this.clearWindowEvents();
-  };
-
-  public clearWindowEvents = () => {
+  public cleanup() {
     const window = assertWindow();
-    window.removeEventListener('click', this.dismissAndClearEvents);
-    window.removeEventListener('scroll', this.dismissAndClearEvents);
+    window.removeEventListener('click', this.startFadeOut);
+    window.removeEventListener('scroll', this.startFadeOut);
+
+    clearTimeout(this.autoClose);
+  }
+
+  public startFadeOut = () => {
+    this.cleanup();
+    if (!this.state.shouldFadeOut) {
+      this.setState({
+        shouldFadeOut: true,
+      });
+    }
   };
 
   public render() {
     return (
-      <BannerBodyWrapper>
+      <BannerBodyWrapper
+        onAnimationEnd={this.props.dismiss}
+        shouldFadeOut={this.state.shouldFadeOut}
+      >
         <BannerBody>
           <FormattedMessage id='i18n:notification:search-failure'>
             {(txt) =>  <Header>{txt}</Header>}
           </FormattedMessage>
-          <CloseButton onClick={this.dismissAndClearEvents}>
+          <CloseButton onClick={this.props.dismiss}>
             <CloseIcon />
           </CloseButton>
         </BannerBody>

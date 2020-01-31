@@ -31,7 +31,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.openMobileToolbar): {
       return {...state, mobileToolbarOpen: true};
     }
-    case getType(searchFailure):
     case getType(openToc):
     case getType(actions.clearSearch): {
       return initialState;
@@ -43,6 +42,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.openSearchResultsMobile): {
       return {...state, sidebarOpen: true};
+    }
+    case getType(searchFailure): {
+      return {...state, loading: false };
     }
     case getType(actions.closeSearchResultsMobile): {
       return {...state, sidebarOpen: false};
