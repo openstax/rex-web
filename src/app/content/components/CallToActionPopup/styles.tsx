@@ -40,7 +40,6 @@ export const CTAWrapper = styled.div`
     display: none;
   `)}
   ${disablePrint}
-  overflow: hidden;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -132,7 +131,7 @@ export const CTATopLayer = styled((props) => <img src={topLayer} alt='' {...prop
   position: absolute;
   height: 7.7rem;
   width: 48.3rem;
-  right: -0.5rem;
+  right: 0;
   bottom: 0;
 `;
 
