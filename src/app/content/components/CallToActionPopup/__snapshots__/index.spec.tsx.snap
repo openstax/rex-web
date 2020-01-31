@@ -55,6 +55,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   z-index: 90;
   -webkit-animation: 800ms bNiYjl ease-out;
   animation: 800ms bNiYjl ease-out;
+  overflow: hidden;
 }
 
 .c4 {
@@ -164,7 +165,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   position: absolute;
   height: 7.7rem;
   width: 48.3rem;
-  right: 0;
+  right: -0.5rem;
   bottom: 0;
 }
 
