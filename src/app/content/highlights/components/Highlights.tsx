@@ -90,9 +90,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
   const pageIdIsSameAsSectionId = highlights[location.id][location.id];
   return (
     <React.Fragment>
-      <Styled.HighlightsChapter
-        dangerouslySetInnerHTML={{ __html: location.title }}
-      />
+      <Styled.HighlightsChapterWrapper>
+        <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: location.title }} />
+      </Styled.HighlightsChapterWrapper>
       {Object.entries(highlights[location.id]).map(([pageId, pageHighlights]) => {
         const page = assertDefined(
           archiveTreeSectionIsChapter(location)

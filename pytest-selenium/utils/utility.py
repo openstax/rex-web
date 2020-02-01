@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from enum import Enum
 from platform import system
-from random import choice, randint
+from random import choice, choices, randint
+from string import digits, ascii_letters
+
 from time import sleep
 from typing import Dict, List, Tuple
 
@@ -287,6 +289,21 @@ class Utilities(object):
         return (fake.first_name_male() if use_male_functions else
                 fake.first_name_female(),
                 fake.last_name())
+
+    @classmethod
+    def random_string(cls, length: int = 100) -> str:
+        """Return a random string of a specified length for use in notes.
+
+        :param int length: (optional) the length of the desired string
+        :return: a string of random letters and digits with inner white space
+        :rtype: str
+
+        """
+        characters = ascii_letters + digits + " " * 6 + "\n" * 2
+        string = "".join(choices(population=characters, k=length)).strip()
+        mod_len = length - len(string)
+        mod = "".join(choices(population=characters.strip(), k=mod_len))
+        return f"{string}{mod}"
 
     @classmethod
     def scroll_to(
