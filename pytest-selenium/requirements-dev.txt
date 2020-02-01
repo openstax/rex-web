@@ -5,7 +5,7 @@ certifi==2019.11.28
 cfgv==2.0.1
 chardet==3.0.4
 chromedriver-binary==80.0.3987.16.0
-identify==1.4.7
+identify==1.4.11
 idna==2.8
 importlib-metadata==0.23
 more-itertools==7.2.0
