@@ -30,7 +30,7 @@ toml==0.10.0
 urllib3==1.25.8
 virtualenv==16.7.9
 zipp==2.1.0
-zope.component==4.5
+zope.component==4.6
 zope.deferredimport==4.3.1
 zope.deprecation==4.4.0
 zope.event==4.4
