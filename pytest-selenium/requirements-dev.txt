@@ -28,7 +28,7 @@ simplejson==3.17.0
 six==1.14.0
 toml==0.10.0
 urllib3==1.25.8
-virtualenv==16.7.7
+virtualenv==16.7.9
 zipp==0.6.0
 zope.component==4.5
 zope.deferredimport==4.3.1
