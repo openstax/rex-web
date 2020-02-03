@@ -1,6 +1,6 @@
 import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { assertDefined, assertNotNull } from '../../../utils';
+import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
@@ -53,10 +53,10 @@ function wrapElements(document: Document, rootEl: HTMLElement) {
     // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
     const titles = Array.from(el.children).filter((child) => child.matches('.title, [data-type="title"], .os-title'));
 
-    const bodyWrap = assertDefined(document, 'document should be defined').createElement('section');
+    const bodyWrap = document.createElement('section');
     bodyWrap.append(...Array.from(el.childNodes));
 
-    const titleWrap = assertDefined(document, 'document should be defined').createElement('header');
+    const titleWrap = document.createElement('header');
     titleWrap.append(...titles);
 
     el.append(titleWrap, bodyWrap);
