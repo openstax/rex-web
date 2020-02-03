@@ -252,8 +252,8 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
         >
           or
           <a
-            data-analytics-label="log-in"
-            data-testid="log-in"
+            data-analytics-label="login"
+            data-testid="login"
             href="/accounts/login?r=/"
           >
             Log in
