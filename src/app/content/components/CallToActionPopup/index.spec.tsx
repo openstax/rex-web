@@ -71,7 +71,7 @@ describe('CallToActionPopup', () => {
       </MessageProvider>
     </Provider>);
 
-    const loginButton = root.querySelector('[data-testid="log-in"]');
+    const loginButton = root.querySelector('[data-testid="login"]');
     const signupButton = root.querySelector('[data-testid="sign-up"]');
 
     expect(loginButton).toBeTruthy();

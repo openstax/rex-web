@@ -15,7 +15,7 @@ export const track = (
   anchor: HTMLAnchorElement
 ): AnalyticsEvent | void => {
   const region = getAnalyticsRegion(anchor);
-  const href = anchor.getAttribute('data-analytics-href') || anchor.getAttribute('href');
+  const href = anchor.getAttribute('data-analytics-label') || anchor.getAttribute('href');
 
   if (!href) {
     return;
