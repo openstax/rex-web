@@ -153,13 +153,6 @@ export const updateSummaryHighlightsDependOnFilters = (
 ) => {
   const { locationFilterId, pageId, highlight: updatedHighlight, highlight: { color, annotation } } = data;
   const { colors, locationIds } = filters;
-  let newHighlights: SummaryHighlights = {
-    ...summaryHighlights,
-    [locationFilterId]: {
-      ...summaryHighlights[locationFilterId],
-      [pageId]: [...(summaryHighlights[locationFilterId] || {})[pageId] || []],
-    },
-  };
 
   // If highlight's chapter is not in summary filters stop here...
   if (!locationIds.includes(locationFilterId)) { return summaryHighlights; }
@@ -167,38 +160,34 @@ export const updateSummaryHighlightsDependOnFilters = (
   // If highlight's color has changed and it's no longer in filters
   // remove this highlight from summary highlights...
   if (!colors.includes(color)) {
-    [newHighlights] = removeSummaryHighlight(newHighlights, {
+    return removeSummaryHighlight(summaryHighlights, {
       id: updatedHighlight.id,
       locationFilterId,
       pageId,
-    });
-    return newHighlights;
+    })[0];
   }
 
-  // If color it is in filters and highlight was already in summary highlights
+  // If color is in filters and highlight was already in summary highlights
   // then just update it.
   if (
-    newHighlights[locationFilterId]
-    && newHighlights[locationFilterId][pageId]
-    && newHighlights[locationFilterId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
+    summaryHighlights[locationFilterId]
+    && summaryHighlights[locationFilterId][pageId]
+    && summaryHighlights[locationFilterId][pageId].find((currHighlight) => currHighlight.id === updatedHighlight.id)
   ) {
-    newHighlights = updateSummaryHighlight(newHighlights, {
+    return updateSummaryHighlight(summaryHighlights, {
       highlight: { color: color as string as HighlightUpdateColorEnum, annotation },
       id: updatedHighlight.id,
       locationFilterId,
       pageId,
     });
-    return newHighlights;
   }
 
   // If it wasn't then add it to summary highlights.
-  newHighlights = addSummaryHighlight(newHighlights, {
+  return addSummaryHighlight(summaryHighlights, {
     highlight: updatedHighlight,
     locationFilterId,
     pageId,
   });
-
-  return newHighlights;
 };
 
 export const removeFromTotalCounts = (

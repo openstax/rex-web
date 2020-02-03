@@ -64,8 +64,8 @@ const CallToActionPopup = () => {
             </FormattedMessage>
             <FormattedMessage id='i18n:cta:button:login'>
               {(msg: Element | string) => <a
-                data-testid='log-in'
-                data-analytics-label='log-in'
+                data-testid='login'
+                data-analytics-label='login'
                 href={loginLink}
               >{msg}</a>}
             </FormattedMessage>
