@@ -91,9 +91,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
 
   return (
     <React.Fragment>
-      <Styled.HighlightsChapter
-        dangerouslySetInnerHTML={{ __html: location.title }}
-      />
+      <Styled.HighlightsChapterWrapper>
+        <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: location.title }} />
+      </Styled.HighlightsChapterWrapper>
       {Object.entries(highlights[location.id])
         .sort(([pageA], [pageB]) => {
           if (archiveTreeSectionIsChapter(location)) {
