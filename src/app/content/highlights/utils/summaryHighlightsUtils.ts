@@ -83,10 +83,10 @@ export const removeSummaryHighlight = (
     ? partition((highlight) => highlight.id !== id, pageHighlights)
     : [null, []]
   ;
-  const removedHighlight = removedHighlights[0] || null;
+  const removedHighlight = removedHighlights[0];
 
-  if (!filteredHighlights) {
-    return [summaryHighlights, removedHighlight];
+  if (!filteredHighlights || !removedHighlight) {
+    return [summaryHighlights, null];
   }
 
   const newHighlights: SummaryHighlights = {
@@ -155,10 +155,6 @@ export const updateSummaryHighlightsDependOnFilters = (
   const { colors, locationIds } = filters;
   let newHighlights: SummaryHighlights = {
     ...summaryHighlights,
-    [locationFilterId]: {
-      ...summaryHighlights[locationFilterId],
-      [pageId]: [...(summaryHighlights[locationFilterId] || {})[pageId] || []],
-    },
   };
 
   // If highlight's chapter is not in summary filters stop here...
@@ -175,7 +171,7 @@ export const updateSummaryHighlightsDependOnFilters = (
     return newHighlights;
   }
 
-  // If color it is in filters and highlight was already in summary highlights
+  // If color is in filters and highlight was already in summary highlights
   // then just update it.
   if (
     newHighlights[locationFilterId]
