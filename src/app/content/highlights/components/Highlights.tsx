@@ -103,41 +103,41 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
           return 0;
         })
         .map(([pageId, pageHighlights]) => {
-        const page = assertDefined(
-          archiveTreeSectionIsChapter(location)
-            ? findArchiveTreeNode(location, stripIdVersion(pageId))
-            : location,
-          `Page is undefined in SectionHighlights`
-        );
-        return <Styled.HighlightWrapper key={pageId}>
-          {!pageIdIsSameAsSectionId && <Styled.HighlightSection
-            dangerouslySetInnerHTML={{ __html: page.title }}
-          />}
-          {pageHighlights.map((item) => {
-            return (
-              <Styled.HighlightOuterWrapper key={item.id}>
-                <Styled.HighlightContentWrapper color={item.color}>
-                  <Styled.HighlightContent
-                    className='summary-highlight-content'
-                    data-highlight-id={item.id}
-                    dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
-                  />
-                  {item.annotation ? (
-                    <Styled.HighlightNote>
-                      <span>
-                        <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
-                          {(msg: Element | string) => msg}
-                        </FormattedMessage>
-                      </span>
-                      <Styled.HighlightNoteAnnotation>
-                        {item.annotation}
-                      </Styled.HighlightNoteAnnotation>
-                    </Styled.HighlightNote>
-                  ) : null}
-                </Styled.HighlightContentWrapper>
-              </Styled.HighlightOuterWrapper>
-            );
-          })}
+          const page = assertDefined(
+            archiveTreeSectionIsChapter(location)
+              ? findArchiveTreeNode(location, stripIdVersion(pageId))
+              : location,
+            `Page is undefined in SectionHighlights`
+          );
+          return <Styled.HighlightWrapper key={pageId}>
+            {!pageIdIsSameAsSectionId && <Styled.HighlightSection
+              dangerouslySetInnerHTML={{ __html: page.title }}
+            />}
+            {pageHighlights.map((item) => {
+              return (
+                <Styled.HighlightOuterWrapper key={item.id}>
+                  <Styled.HighlightContentWrapper color={item.color}>
+                    <Styled.HighlightContent
+                      className='summary-highlight-content'
+                      data-highlight-id={item.id}
+                      dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
+                    />
+                    {item.annotation ? (
+                      <Styled.HighlightNote>
+                        <span>
+                          <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
+                            {(msg: Element | string) => msg}
+                          </FormattedMessage>
+                        </span>
+                        <Styled.HighlightNoteAnnotation>
+                          {item.annotation}
+                        </Styled.HighlightNoteAnnotation>
+                      </Styled.HighlightNote>
+                    ) : null}
+                  </Styled.HighlightContentWrapper>
+                </Styled.HighlightOuterWrapper>
+              );
+            })}
         </Styled.HighlightWrapper>;
       })}
     </React.Fragment>
