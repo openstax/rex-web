@@ -76,17 +76,17 @@ export const removeSummaryHighlight = (
   data: DataRemove
 ): [SummaryHighlights, Highlight | null] => {
   const { locationFilterId, pageId, id } = data;
-
+  console.log('locationFilterId', locationFilterId, 'pageId', pageId, 'id', id)
   const pageHighlights: Highlight[] | undefined =
     summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId];
   const [filteredHighlights, removedHighlights] = pageHighlights
     ? partition((highlight) => highlight.id !== id, pageHighlights)
     : [null, []]
   ;
-  const removedHighlight = removedHighlights[0];
+  const removedHighlight = removedHighlights[0] || null;
 
-  if (!filteredHighlights || !removedHighlight) {
-    return [summaryHighlights, null];
+  if (!filteredHighlights) {
+    return [summaryHighlights, removedHighlight];
   }
 
   const newHighlights: SummaryHighlights = {
