@@ -13,6 +13,7 @@ import { mobileToolbarOpen } from '../search/selectors';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
+import CallToActionPopup from './CallToActionPopup';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -180,6 +181,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
     <ErrorBoundary>
       <HighlightsPopUp />
       <Toolbar />
+      <CallToActionPopup />
       <OuterWrapper>
         <SearchResultsSidebar/>
         <Wrapper>

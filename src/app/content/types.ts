@@ -26,6 +26,7 @@ export interface State {
     page?: string;
   };
   search: SearchState;
+  showCallToActionPopup: boolean | null;
   highlights: HighlightState;
   book?: Book;
   page?: Page;

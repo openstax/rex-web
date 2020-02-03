@@ -77,8 +77,7 @@ export default styled(Filters)`
   background: ${theme.color.neutral.base};
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   ${theme.breakpoints.mobile(css`
-    padding: 0 ${mobilePadding}rem;
-    height: 3.6rem;
+    padding: ${mobilePadding.topBottom}rem ${mobilePadding.leftRight}rem;
   `)}
 
   ${css`
