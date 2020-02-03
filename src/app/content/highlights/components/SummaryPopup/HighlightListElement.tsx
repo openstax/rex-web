@@ -14,7 +14,7 @@ import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
   position: relative;
-  overflow: unset;
+  overflow: visible;
 
   :not(:last-child) {
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};

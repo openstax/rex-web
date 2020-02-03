@@ -71,7 +71,7 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 export const HighlightWrapper = styled.div`
   margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
-  overflow: unset;
+  overflow: visible;
 
   @media print {
     border-width: 0;
