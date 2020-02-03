@@ -18,6 +18,12 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
   overflow: visible;
 }
 
+.c1 {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 <div
   className="c0"
 >
@@ -26,7 +32,11 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
   >
     Note:
   </span>
-  Some annotation
+  <div
+    className="c1"
+  >
+    Some annotation
+  </div>
 </div>
 `;
 

@@ -128,6 +128,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
 
 <div
   className="c0"
+  data-analytics-region="MH delete"
 >
   <span>
     Are you sure you want to delete this note and highlight?
