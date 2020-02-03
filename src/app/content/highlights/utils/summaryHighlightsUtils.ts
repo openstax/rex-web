@@ -76,7 +76,7 @@ export const removeSummaryHighlight = (
   data: DataRemove
 ): [SummaryHighlights, Highlight | null] => {
   const { locationFilterId, pageId, id } = data;
-  console.log('locationFilterId', locationFilterId, 'pageId', pageId, 'id', id)
+
   const pageHighlights: Highlight[] | undefined =
     summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId];
   const [filteredHighlights, removedHighlights] = pageHighlights
