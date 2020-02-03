@@ -50,10 +50,11 @@ interface Props {
 const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props) => {
   const element = React.useRef<HTMLElement>(null);
 
-  useOnEsc(element, onCancel);
+  useOnEsc(element, true, onCancel);
 
   return <Overlay
     ref={element}
+    focus={true}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}

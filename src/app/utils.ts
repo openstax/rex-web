@@ -197,14 +197,18 @@ export const onEsc = (
   ];
 };
 
-export const useOnEsc = (element: React.RefObject<HTMLElement>, cb: () => void) => {
-  React.useEffect(() => {
-    const el = element && element.current;
-    if (!el) { return; }
+export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => () => {
+  const el = element && element.current;
+  if (!el) { return; }
 
-    const [addEvListener, removeEvListener] = onEsc(el, cb);
+  const [addEvListener, removeEvListener] = onEsc(el, cb);
+  if (isEnabled) {
     addEvListener();
+  }
 
-    return removeEvListener;
-  }, [element, cb]);
+  return removeEvListener;
+}
+
+export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
+  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };

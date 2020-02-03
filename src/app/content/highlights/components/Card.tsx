@@ -58,7 +58,7 @@ const Card = (props: Props) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
-  useOnEsc(element, props.blur);
+  useOnEsc(element, props.isFocused, props.blur);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
