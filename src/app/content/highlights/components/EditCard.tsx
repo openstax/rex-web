@@ -121,9 +121,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     data-analytics-region='edit-note'
   >
     <ColorPicker color={data ? data.color : undefined} onChange={onColorChange} onRemove={() => {
-      if ((!data || !data.annotation) && !pendingAnnotation) {
+      if (data && !data.annotation && !pendingAnnotation) {
         onRemove();
-        if (data) { trackDeleteHighlight(data.color); }
+        trackDeleteHighlight(data.color);
       }
     }} />
     <Note
