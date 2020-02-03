@@ -118,7 +118,7 @@ const OuterWrapper = styled.div`
   @media screen {
     display: flex;
     flex-direction: row;
-    overflow: visible;
+    overflow: auto;
   }
 `;
 
