@@ -2064,7 +2064,7 @@ li[aria-label="Current Page"] .c44 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    overflow: visible;
+    overflow: auto;
   }
 }
 
@@ -4886,7 +4886,7 @@ Array [
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    overflow: visible;
+    overflow: auto;
   }
 }
 
