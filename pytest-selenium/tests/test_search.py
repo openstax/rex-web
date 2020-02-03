@@ -1,3 +1,6 @@
+"""Test REx search."""
+
+from math import isclose
 from random import choice
 from string import digits, ascii_letters
 
@@ -8,83 +11,91 @@ from tests import markers
 @markers.test_case("C543235")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_message_when_search_yields_no_results(selenium, base_url, book_slug, page_slug):
-    # GIVEN: Book page is loaded
-    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    toolbar = content.toolbar
-    mobile = content.mobile_search_toolbar
-    search_sidebar = content.search_sidebar
+def test_message_when_search_yields_no_results(
+        selenium, base_url, book_slug, page_slug):
+    """Verify default message is displayed when no search results are found."""
+    # GIVEN: a book page is loaded
+    content = Content(selenium, base_url,
+                      book_slug=book_slug, page_slug=page_slug).open()
     page_url_before_search = content.current_url
-
-    # Using regex to create a random search term
+    # Using a random search term not found in the content
     search_term = "".join(choice(digits + ascii_letters) for i in range(25))
 
-    # WHEN: Search is triggered for a term which yields no results
+    # WHEN: they search for a term that yields no results
     if content.is_desktop:
-        toolbar.search_for(search_term)
+        content.toolbar.search_for(search_term)
+    else:
+        content.mobile_search_toolbar.search_for(search_term)
 
-    if content.is_mobile:
-        mobile.search_for(search_term)
+    # THEN: the search sidebar displays the no results message
+    # AND:  they remain on the same page as before they executed the search
+    assert(content.search_sidebar.no_results_message ==
+           f"Sorry, no results found for   ‘{search_term}’"), \
+        "search sidebar no results message not found or incorrect"
 
-    # THEN: Search sidebar displays no results message
-    assert search_sidebar.no_results_message == f"Sorry, no results found for   ‘{search_term}’"
+    assert(content.current_url == page_url_before_search), \
+        "page URL different after search"
 
-    # AND: User stays in the same page as before executing the search
-    assert content.current_url == page_url_before_search
-
-    # AND: Scroll position of the content is not changed during the search
-
+    # WHEN: they close the search results
     # For mobile resolution, click on the search icon to close the search
     # sidebar/navigate back to content page
     if content.is_mobile:
-        toolbar.click_search_icon()
-
+        content.toolbar.click_search_icon()
     # For desktop, close search sidebar
-    if content.is_desktop:
-        search_sidebar.close_search_sidebar()
+    else:
+        content.search_sidebar.close_search_sidebar()
 
-    assert content.page_not_scrolled
+    # THEN: the scroll position of the content is not changed during the search
+    assert(content.page_not_scrolled), "page scroll position is different"
 
 
 @markers.test_case("C568506")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_scroll_position_when_search_yields_no_results(selenium, base_url, book_slug, page_slug):
+def test_scroll_position_when_search_yields_no_results(
+        selenium, base_url, book_slug, page_slug):
     # GIVEN: Book page is loaded
-    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    toolbar = content.toolbar
-    mobile = content.mobile_search_toolbar
-    search_sidebar = content.search_sidebar
+    content = Content(selenium, base_url,
+                      book_slug=book_slug, page_slug=page_slug).open()
 
-    # WHEN: Scroll the page down
+    # WHEN: they scroll the page down
+    # AND:  trigger a search for a term that yields no results
     content.scroll_through_page()
-
     scroll_position_before_search = content.scroll_position
-
-    # AND: Search is triggered for a term which yields no results
-
-    # Using regex to create a random search term
+    # use a random search term not found in the content
     search_term = "".join(choice(digits + ascii_letters) for i in range(25))
 
     if content.is_desktop:
-        toolbar.search_for(search_term)
-
-    if content.is_mobile:
-        mobile.search_for(search_term)
+        content.toolbar.search_for(search_term)
+    else:
+        content.mobile_search_toolbar.search_for(search_term)
         # For mobile resolution, click on the search icon to close the search
         # sidebar/navigate back to content page
-        toolbar.click_search_icon()
-
-    scroll_position_after_search = content.scroll_position
+        content.toolbar.click_search_icon()
 
     # THEN: Scroll position of content is not changed after search
-    assert scroll_position_before_search == scroll_position_after_search
+    scroll_position_after_search = content.scroll_position
+    within = scroll_position_before_search * 0.01
+    assert(isclose(scroll_position_before_search,
+                   scroll_position_after_search,
+                   rel_tol=within)), (
+        r"vertical position after search not within 1% of position "
+        "before search ({low} <= {target} <= {high})".format(
+            low=scroll_position_before_search - within,
+            high=scroll_position_before_search + within,
+            target=scroll_position_after_search))
 
-    # WHEN: Close search sidebar for desktop
     if content.is_desktop:
-        search_sidebar.close_search_sidebar()
+        # WHEN: they close the search sidebar
+        content.search_sidebar.close_search_sidebar()
 
+        # THEN: the content scroll position is unchanged
         scroll_position_after_closing_search = content.scroll_position
-
-        # THEN: Scroll position of content is not changed after closing search sidebar
-        assert scroll_position_before_search == scroll_position_after_closing_search
+        assert(isclose(scroll_position_before_search,
+                       scroll_position_after_closing_search,
+                       rel_tol=within)), (
+            r"vertical position after search not within 1% of position "
+            "before search ({low} <= {target} <= {high})".format(
+                low=scroll_position_before_search - within,
+                high=scroll_position_before_search + within,
+                target=scroll_position_after_closing_search))
