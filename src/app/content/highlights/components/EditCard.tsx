@@ -182,7 +182,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       always={() => setConfirmingDelete(false)}
     />}
     {!authenticated && <Confirmation
-      data-analytics-href='login'
+      data-analytics-label='login'
       data-analytics-region='highlighting-login'
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'

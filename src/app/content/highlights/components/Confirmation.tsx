@@ -37,7 +37,6 @@ interface Props {
   message: string;
   'data-analytics-region'?: string;
   'data-analytics-label'?: string;
-  'data-analytics-href'?: string;
   confirmMessage: string;
   confirmLink?: string;
   onConfirm?: () => void;
@@ -62,8 +61,7 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       <FormattedMessage id={confirmMessage}>
         {(msg: Element | string) => <Button
           size='small'
-          data-analytics-label= {props['data-analytics-label'] ? props['data-analytics-label'] : 'confirm' }
-          data-analytics-href= {props['data-analytics-href'] ? props['data-analytics-href'] : {}}
+          data-analytics-label={props['data-analytics-label'] ? props['data-analytics-label'] : 'confirm'}
           data-testid='confirm'
           variant='primary'
           onClick={(e: React.FormEvent) => {
