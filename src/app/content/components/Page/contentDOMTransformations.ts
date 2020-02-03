@@ -5,10 +5,9 @@ import { assertDefined, assertNotNull } from '../../../utils';
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
 // We are passing Document because it is required to prerender.
-// @ts-ignore
 export const transformContent = (document: Document, rootEl: HTMLElement, intl: IntlShape) => {
   addScopeToTables(rootEl);
-  wrapElements(rootEl);
+  wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(rootEl, intl);
@@ -46,7 +45,7 @@ function addScopeToTables(rootEl: HTMLElement) {
 }
 
 // Wrap title and content elements in header and section elements, respectively
-function wrapElements(rootEl: HTMLElement) {
+function wrapElements(document: Document, rootEl: HTMLElement) {
   rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
     [data-type="example"], [data-type="exercise"],
     [data-type="note"], [data-type="abstract"]`).forEach((el) => {
