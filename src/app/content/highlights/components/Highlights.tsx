@@ -22,7 +22,7 @@ const NoHighlightsTip = htmlMessage(
 // tslint:disable-next-line: variable-name
 const Highlights = () => {
   const locationFilters = useSelector(selectors.highlightLocationFilters);
-  const highlights = useSelector(selectors.summaryHighlights);
+  const highlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
 

@@ -84,6 +84,11 @@ export const summaryPagination = createSelector(
   (state) => state.summary.pagination
 );
 
+export const summaryHighlights = createSelector(
+  localState,
+  (state) => state.summary.highlights
+);
+
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
   (book) => book
@@ -91,7 +96,7 @@ export const highlightLocationFilters = createSelector(
     : new Map() as HighlightLocationFilters
 );
 
-export const summaryHighlights = createSelector(
+export const orderedSummaryHighlights = createSelector(
   localState,
   highlightLocationFilters,
   (state, locationFilters) => {
