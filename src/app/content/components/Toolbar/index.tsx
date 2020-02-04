@@ -119,7 +119,7 @@ class Toolbar extends React.Component<Props, State> {
             target='_blank'
             rel='noopener'
             href={buyBookLink}
-            data-analytics-href='buy-book'
+            data-analytics-label='buy-book'
           >
             <Styled.BuyBookIcon aria-hidden src={BuyBook}></Styled.BuyBookIcon>
               <Styled.PrintOptions>{msg}</Styled.PrintOptions>

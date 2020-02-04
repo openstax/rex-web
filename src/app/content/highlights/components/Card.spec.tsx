@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/highlights-client/dist/models/NewHighlight';
+import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
