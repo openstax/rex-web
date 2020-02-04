@@ -6,7 +6,7 @@ import Button from '../../../components/Button';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { discardHighlightChanges, toggleDiscardHighlightModal } from '../actions';
-import { hasUnsavedHighlight } from '../selectors';
+import { shouldShowDiscardModal } from '../selectors';
 
 import DiscardCard, { Footer } from './DiscardCard';
 
@@ -84,7 +84,7 @@ const DiscardModal = ({ shouldShowModal, discardChanges, cancelDiscard }: PropTy
 };
 
 export default connect(
-    (state: AppState) => ({ shouldShowModal: hasUnsavedHighlight(state) }),
+    (state: AppState) => ({ shouldShowModal: shouldShowDiscardModal(state) }),
     (dispatch: Dispatch) => ({
       cancelDiscard: () => dispatch(toggleDiscardHighlightModal(false)),
       discardChanges: () => dispatch(discardHighlightChanges()),

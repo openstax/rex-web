@@ -19,7 +19,13 @@ import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
-import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
+import { 
+  clearFocusedHighlight,
+  createHighlight,
+  deleteHighlight,
+  editStateChange,
+  updateHighlight
+} from '../actions';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -47,6 +53,7 @@ interface Props {
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
+  editStateChange: typeof editStateChange;
   data?: HighlightData;
   className: string;
 }
@@ -129,6 +136,7 @@ const Card = (props: Props) => {
     locationFilterId={locationFilterId}
     pageId={page.id}
     onCreate={onCreate}
+    onEditStateChange={props.editStateChange}
     onCancel={() => setEditing(false)}
     onSave={props.save}
     data={props.data}
@@ -307,6 +315,7 @@ export default connect(
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
+    editStateChange: flow(editStateChange, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
   })

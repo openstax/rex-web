@@ -6,14 +6,16 @@ import { toggleDiscardHighlightModal } from '../actions';
 import {  } from '../actions';
 import * as select from '../selectors';
 
-const actionsToIntercept = new Set()
+const actionsToIntercept = new Set();
 actionsToIntercept.add(getType(locationChange));
 
 export default (): Middleware => ({dispatch, getState}) => {
-    const state = getState();
-    const hasUnsavedHighlight = select.hasUnsavedHighlight(state);
+
     return (next: Dispatch) => (action: AnyAction) => {
-        if (!hasUnsavedHighlight || !actionsToIntercept.has(action.type) ) {
+        const state = getState();
+        const hasUnsavedHighlight = select.hasUnsavedHighlight(state);
+
+        if(!hasUnsavedHighlight || (hasUnsavedHighlight && !actionsToIntercept.has(action.type))) {
             return next(action);
         }
 

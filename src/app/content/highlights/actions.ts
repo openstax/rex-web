@@ -23,7 +23,7 @@ export const updateHighlight = createStandardAction('Content/Highlights/update')
   locationFilterId: string,
   pageId: string,
 }>();
-export const highlightIsBeingEdited = createStandardAction('Content/Highlights/isBeingEdited')();
+export const editStateChange = createStandardAction('Content/Highlights/editStateChange')<boolean>();
 export const discardHighlightChanges = createStandardAction('Content/Highlights/discard')();
 export const toggleDiscardHighlightModal = createStandardAction('Content/Highlights/toggleModal')<boolean>();
 

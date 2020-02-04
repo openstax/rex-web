@@ -9,7 +9,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
 import { assertWindow, mergeRefs } from '../../../utils';
-import { clearFocusedHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, editStateChange, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
@@ -26,6 +26,7 @@ interface Props {
   pageId: string;
   onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
+  onEditStateChange: typeof editStateChange;
   onSave: typeof updateHighlight;
   onRemove: () => void;
   onCancel: () => void;
@@ -47,6 +48,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     onBlur,
     onCancel,
     onCreate,
+    onEditStateChange,
     onRemove,
     onSave,
   }: Props,
@@ -111,6 +113,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
+    onEditStateChange(false);
     setEditing(false);
     onCancel();
   };
@@ -135,6 +138,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       }}
       onChange={(newValue) => {
         setPendingAnnotation(newValue);
+        onEditStateChange(true)
         setEditing(true);
       }}
     />
