@@ -10,8 +10,9 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertString } from '../../utils';
+import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
-import { Book, Page } from '../types';
+import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page/PageContent';
 import { disablePrint } from './utils/disablePrint';
@@ -125,7 +126,7 @@ class Attribution extends Component<Props> {
   public render() {
     const {book} = this.props;
 
-    return <AttributionDetails
+    return hasOSWebData(book) ? <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
       data-analytics-region='attribution'
@@ -137,15 +138,15 @@ class Attribution extends Component<Props> {
           <span>{msg}</span>
         </AttributionSummary>}
       </FormattedMessage>
-      {book && <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
+      <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
         ></Content>}
-      </FormattedHTMLMessage>}
-    </AttributionDetails>;
+      </FormattedHTMLMessage>
+    </AttributionDetails> : null;
   }
 
-  private getValues = (book: Book) => {
+  private getValues = (book: BookWithOSWebData) => {
     const introPage = findDefaultBookPage(book);
     const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
     const bookPublishDate = new Date(book.publish_date);
