@@ -7,7 +7,7 @@ import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import { findElementSelfOrParent, scrollIntoView } from '../../../domUtils';
+import { findElementSelfOrParent } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, remsToEms } from '../../../utils';
@@ -49,6 +49,10 @@ interface Props {
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
   className: string;
+  topOffset: number;
+  onHeightChange: (id: string, height: number) => void;
+  onFocus: (id: string) => void;
+  onBlur: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -60,10 +64,11 @@ const Card = (props: Props) => {
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
-      scrollIntoView(element.current);
+      props.onFocus(props.highlight.id);
     }
     if (!props.isFocused) {
       setEditing(false);
+      props.onBlur();
     }
   }, [props.isFocused]);
 
@@ -74,6 +79,12 @@ const Card = (props: Props) => {
       props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
     }
   }, [props.highlight, annotation]);
+
+  React.useEffect(() => {
+    if (element.current) {
+      props.onHeightChange(props.highlight.id, element.current.offsetHeight);
+    }
+  }, [props.highlight.id, element]);
 
   const {page, book} = props;
 
@@ -158,7 +169,7 @@ const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highl
     return;
   }
 
-  const {top, bottom} = highlight.range.getBoundingClientRect();
+  const {top, bottom } = highlight.range.getBoundingClientRect();
 
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
   const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
@@ -170,7 +181,7 @@ const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highl
   };
 };
 
-const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
+export const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
   const offset = getHighlightOffset(container, highlight);
 
   if (offset) {
@@ -201,15 +212,9 @@ const overlapDisplay = css`
 const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
-  top: ${(props: Props) => {
-    return getHighlightTopOffset(props.container, props.highlight) || 0;
-  }}px;
+  top: ${(props: Props) => `${props.topOffset}px;`}
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
-  `}
-  ${(props: Props) => !props.isFocused && css`
-    /* temporary simplification */
-    display: none;
   `}
 `;
 
