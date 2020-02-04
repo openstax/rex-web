@@ -65,6 +65,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       return {
         ...state,
+        hasUnsavedHighlight: false,
         highlights: [...state.highlights || [], highlight],
         summary: {
           ...state.summary,
@@ -109,6 +110,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       return {
         ...state,
+        hasUnsavedHighlight: false,
         highlights: newHighlights,
         summary: {
           ...state.summary,
@@ -138,6 +140,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
+        hasUnsavedHighlight: false,
         highlights: state.highlights.filter(({id}) => id !== action.payload),
         summary: {
           ...state.summary,
@@ -158,7 +161,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return state.hasUnsavedHighlight ? state : omit('focused', state);
     }
     case getType(actions.editStateChange): {
-      console.log("payload", action.payload)
       return {
         ...state,
         hasUnsavedHighlight: action.payload,
@@ -172,7 +174,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.discardHighlightChanges): {
       return {
-        ...state,
+        ...omit('focused', state),
         hasUnsavedHighlight: false,
         shouldShowDiscardModal: false,
       }

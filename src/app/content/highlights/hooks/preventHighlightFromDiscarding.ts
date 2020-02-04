@@ -15,7 +15,7 @@ export default (): Middleware => ({dispatch, getState}) => {
         const state = getState();
         const hasUnsavedHighlight = select.hasUnsavedHighlight(state);
 
-        if(!hasUnsavedHighlight || (hasUnsavedHighlight && !actionsToIntercept.has(action.type))) {
+        if (!hasUnsavedHighlight || (hasUnsavedHighlight && !actionsToIntercept.has(action.type))) {
             return next(action);
         }
 
