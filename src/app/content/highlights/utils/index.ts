@@ -10,4 +10,5 @@ export {
   removeSummaryHighlight,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
+  getSortedSummeryHighlights
 } from './summaryHighlightsUtils';

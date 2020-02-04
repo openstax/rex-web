@@ -6,7 +6,7 @@ import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { assertDefined } from '../../../utils';
 import { LinkedArchiveTreeNode } from '../../types';
-import { archiveTreeSectionIsChapter, findArchiveTreeNode, findTreePages } from '../../utils/archiveTreeUtils';
+import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as selectors from '../selectors';
 import { SummaryHighlights } from '../types';
@@ -95,13 +95,6 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
         dangerouslySetInnerHTML={{ __html: location.title }}
       />
       {Object.entries(highlights[location.id])
-        .sort(([pageA], [pageB]) => {
-          if (archiveTreeSectionIsChapter(location)) {
-            const orderedPages = findTreePages(location);
-            return orderedPages.findIndex(({id}) => id === pageA) - orderedPages.findIndex(({id}) => id === pageB);
-          }
-          return 0;
-        })
         .map(([pageId, pageHighlights]) => {
           const page = assertDefined(
             archiveTreeSectionIsChapter(location)
@@ -138,8 +131,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
                 </Styled.HighlightOuterWrapper>
               );
             })}
-        </Styled.HighlightWrapper>;
-      })}
+          </Styled.HighlightWrapper>;
+        })
+      }
     </React.Fragment>
   );
 };

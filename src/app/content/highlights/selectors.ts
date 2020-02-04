@@ -14,6 +14,7 @@ import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
+  getSortedSummeryHighlights
 } from './utils';
 import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
@@ -78,11 +79,6 @@ export const summaryColorFilters = createSelector(
   (filters) => filters.colors
 );
 
-export const summaryHighlights = createSelector(
-  localState,
-  (state) => state.summary.highlights
-);
-
 export const summaryPagination = createSelector(
   localState,
   (state) => state.summary.pagination
@@ -93,6 +89,14 @@ export const highlightLocationFilters = createSelector(
   (book) => book
     ? getHighlightLocationFilters(book)
     : new Map() as HighlightLocationFilters
+);
+
+export const summaryHighlights = createSelector(
+  localState,
+  highlightLocationFilters,
+  (state, locationFilters) => {
+    return getSortedSummeryHighlights(state.summary.highlights, locationFilters);
+  }
 );
 
 export const highlightLocationFiltersWithContent = createSelector(
