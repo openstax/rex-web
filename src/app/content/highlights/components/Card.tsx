@@ -10,7 +10,7 @@ import { User } from '../../../auth/types';
 import { findElementSelfOrParent, scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow, remsToEms, useOnEsc } from '../../../utils';
+import { assertWindow, remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
@@ -57,8 +57,6 @@ const Card = (props: Props) => {
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
-
-  useOnEsc(element, props.isFocused, props.blur);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
