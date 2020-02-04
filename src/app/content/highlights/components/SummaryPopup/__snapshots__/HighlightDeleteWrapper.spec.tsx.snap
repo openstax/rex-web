@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighlightDeleteWrapper match snapshot 1`] = `
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c2:hover {
+  background-color: #e96128;
+}
+
+.c2:active {
+  background-color: #df571e;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c3:hover {
+  background-color: #fafafa;
+}
+
+.c3:active {
+  background-color: #e5e5e5;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.c1 button:first-child {
+  margin-right: 8px;
+}
+
+.c0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.c0 span {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  -webkit-letter-spacing: -0.2;
+  -moz-letter-spacing: -0.2;
+  -ms-letter-spacing: -0.2;
+  letter-spacing: -0.2;
+  color: #fff;
+  margin-right: 8px;
+}
+
+<div
+  className="c0"
+  data-analytics-region="MH delete"
+>
+  <span>
+    Are you sure you want to delete this note and highlight?
+  </span>
+  <div
+    className="c1"
+  >
+    <button
+      className="c2"
+      data-analytics-label="delete"
+      data-testid="delete"
+      onClick={[Function]}
+    >
+      Delete
+    </button>
+    <button
+      className="c3"
+      data-analytics-label="cancel"
+      data-testid="cancel"
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+`;

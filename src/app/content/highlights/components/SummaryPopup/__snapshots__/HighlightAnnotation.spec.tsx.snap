@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] = `
+.c0 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding-top: 1.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 span {
+  margin: 0 0.8rem 0 0;
+  overflow: visible;
+}
+
+.c1 {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+<div
+  className="c0"
+>
+  <span
+    className="highlight-note-text"
+  >
+    Note:
+  </span>
+  <div
+    className="c1"
+  >
+    Some annotation
+  </div>
+</div>
+`;
+
+exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c3:hover {
+  background-color: #e96128;
+}
+
+.c3:active {
+  background-color: #df571e;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c4:hover {
+  background-color: #fafafa;
+}
+
+.c4:active {
+  background-color: #e5e5e5;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.c2 button:first-child {
+  margin-right: 8px;
+}
+
+.c0 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding-top: 1.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 span {
+  margin: 0 0.8rem 0 0;
+  overflow: visible;
+}
+
+.c1 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  line-height: 20px;
+  color: #6f6f6f;
+  padding: 8px;
+}
+
+<div
+  className="c0"
+>
+  <textarea
+    autoFocus={true}
+    className="c1"
+    onChange={[Function]}
+    placeholder="Add a note..."
+    value="Some annotation"
+  />
+  <div
+    className="c2"
+  >
+    <button
+      className="c3"
+      data-analytics-label="save"
+      data-testid="save"
+      onClick={[Function]}
+    >
+      Save
+    </button>
+    <button
+      className="c4"
+      data-analytics-label="cancel"
+      data-testid="cancel"
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+`;

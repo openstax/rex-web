@@ -41,7 +41,7 @@ const HighlightContent = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightContentWrapper = styled.div`
+export const HighlightContentWrapper = styled.div`
   padding: 1.2rem ${popupBodyPadding}rem;
   ${(props: {color: string}) => {
     const style = highlightStyles.find((search) => search.label === props.color);

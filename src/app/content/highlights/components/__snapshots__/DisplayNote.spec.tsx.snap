@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayNote matches snapshot 1`] = `
-.c11 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c7 {
   cursor: pointer;
 }
@@ -146,15 +140,25 @@ exports[`DisplayNote matches snapshot 1`] = `
   position: relative;
 }
 
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
 .c10 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #818181;
+  color: #e5e5e5;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.c10:hover {
+  color: #818181;
 }
 
 .c8 {
@@ -334,12 +338,6 @@ exports[`DisplayNote matches snapshot 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
-.c11 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c7 {
   cursor: pointer;
 }
@@ -479,15 +477,25 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   position: relative;
 }
 
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
 .c10 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #818181;
+  color: #e5e5e5;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.c10:hover {
+  color: #818181;
 }
 
 .c8 {
