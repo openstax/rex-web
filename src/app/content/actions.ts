@@ -17,3 +17,6 @@ export const requestPage = createStandardAction('Content/requestPage')<string>()
 export const receivePage = createStandardAction('Content/receivePage')<
   ArchivePage & {references: State['references']}
 >();
+
+export const closeCallToActionPopup = createStandardAction('Content/closeCallToActionPopup')();
+export const openCallToActionPopup = createStandardAction('Content/openCallToActionPopup')();

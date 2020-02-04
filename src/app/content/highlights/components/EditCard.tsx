@@ -4,12 +4,10 @@ import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import Button, { ButtonGroup } from '../../../components/Button';
-import withServices from '../../../context/Services';
 import theme from '../../../theme';
-import { AppServices } from '../../../types';
 import { assertWindow, mergeRefs } from '../../../utils';
 import { clearFocusedHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
@@ -33,7 +31,6 @@ interface Props {
   onCancel: () => void;
   data?: HighlightData;
   className: string;
-  services: AppServices;
 }
 
 // tslint:disable-next-line:variable-name
@@ -52,7 +49,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     onCreate,
     onRemove,
     onSave,
-    services,
   }: Props,
   ref
 ) => {
@@ -62,11 +58,10 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
-  const createNoteEventData = useSelector(services.analytics.createNote.selector);
-  const editNoteEventData = {
-    color: useSelector(services.analytics.editNoteColor.selector),
-    note: useSelector(services.analytics.editAnnotation.selector),
-  };
+  const trackCreateNote = useAnalyticsEvent('createNote');
+  const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
+  const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
   const blurIfNotEditing = () => {
     if (!editingAnnotation) {
@@ -89,17 +84,16 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         locationFilterId,
         pageId,
       });
-      services.analytics.editNoteColor.track(editNoteEventData.color, color);
+      trackEditNoteColor(color);
     } else {
       assertWindow().getSelection().removeAllRanges();
       onCreate();
-      services.analytics.createNote.track(createNoteEventData, isDefault ? 'default' : color);
+      trackCreateNote(isDefault ? 'default' : color);
     }
   };
 
   const saveAnnotation = (toSave: HighlightData) => {
     const addedNote = (data && data.annotation === undefined) ? true : false;
-    const action = addedNote ? 'created note' : 'edited note';
 
     onSave({
       highlight: {
@@ -111,7 +105,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       locationFilterId,
       pageId,
     });
-    services.analytics.editAnnotation.track(editNoteEventData.note, addedNote, action);
+    trackEditAnnotation(addedNote, toSave.color);
     onCancel();
   };
 
@@ -127,8 +121,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     data-analytics-region='edit-note'
   >
     <ColorPicker color={data ? data.color : undefined} onChange={onColorChange} onRemove={() => {
-      if ((!data || !data.annotation) && !pendingAnnotation) {
+      if (data && !data.annotation && !pendingAnnotation) {
         onRemove();
+        trackDeleteHighlight(data.color);
       }
     }} />
     <Note
@@ -187,6 +182,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       always={() => setConfirmingDelete(false)}
     />}
     {!authenticated && <Confirmation
+      data-analytics-label='login'
       data-analytics-region='highlighting-login'
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
@@ -196,7 +192,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   </form>;
 });
 
-export default styled(withServices(EditCard))`
+export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;

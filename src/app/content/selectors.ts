@@ -20,6 +20,11 @@ export const book = createSelector(
   (state) => state.book
 );
 
+export const showCTAPopup = createSelector(
+  localState,
+  (state) => state.showCallToActionPopup
+);
+
 export const contentReferences = createSelector(
   localState,
   (state) => state.references

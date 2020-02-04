@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import * as selectNavigation from '../../../app/navigation/selectors';
-import { AnalyticsEvent } from '../event';
+import * as selectNavigation from '../../app/navigation/selectors';
+import { AnalyticsEvent } from './event';
 
-const createNote = 'REX highlighting (inline create)';
+const signupCTA = 'signup CTA';
 
 export const selector = createSelector(
   selectNavigation.pathname,
@@ -11,12 +11,12 @@ export const selector = createSelector(
 
 export const track = (
   {pathname}: ReturnType<typeof selector>,
-  color: string
+  event: 'open' | 'close by navigating'
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
-      eventAction: color,
-      eventCategory: createNote,
+      eventAction: event,
+      eventCategory: signupCTA,
       eventLabel: pathname,
     }),
   };
