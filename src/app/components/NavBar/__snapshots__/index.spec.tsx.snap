@@ -301,9 +301,11 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     </a>
     <a
       className="c3"
+      data-analytics-label="login"
       data-testid="nav-login"
       href="/accounts/login?r=/"
     >
+       
       Log in
     </a>
   </div>
