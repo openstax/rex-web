@@ -240,6 +240,8 @@ const StyledCard = styled(Card)`
   ${rightSideDisplay}
   ${disablePrint}
 
+  transition: all 0.3s;
+
   ${(props: {data: HighlightData}) => {
     const data = props.data;
 

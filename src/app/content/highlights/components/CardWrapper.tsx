@@ -58,7 +58,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   };
 
   const onBlur = () => {
-    element.current!.style.top = 'auto';
+    element.current!.style.top = '0';
   };
 
   const updatePositions = React.useCallback((hlData?: HighlightPositionData[]) => {
@@ -118,4 +118,6 @@ export default styled(Wrapper)`
   position: relative;
   overflow: visible;
   z-index: ${theme.zIndex.highlightInlineCard};
+  top: 0;
+  transition: all 0.3s;
 `;
