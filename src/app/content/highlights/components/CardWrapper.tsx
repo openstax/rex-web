@@ -31,12 +31,11 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const [highlightsData, setHighlightsData] = React.useState<HighlightPositionData[]>([]);
 
   const onHeightChange = (id: string, height: number) => {
-    console.log('onHeightChange', id, height)
     const position = highlightsData.find((data) => data.id === id);
     if (!position) { return; }
 
     if (height !== position.height) {
-      const updated = highlightsData.map((data) => data.id === id ? { ...data, height } : data )
+      const updated = highlightsData.map((data) => data.id === id ? { ...data, height } : data);
       setHighlightsData(updated);
       updatePositions(updated);
     }

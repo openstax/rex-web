@@ -19,7 +19,7 @@ import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
-import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight, updateHighlight } from '../actions';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -44,6 +44,7 @@ interface Props {
   highlighter: Highlighter;
   highlight: Highlight;
   create: typeof createHighlight;
+  focus: typeof focusHighlight;
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
@@ -86,6 +87,12 @@ const Card = (props: Props) => {
     }
   }, [props.highlight.id, element]);
 
+  const handleClickOnCard = () => {
+    if (!props.isFocused) {
+      props.focus(props.highlight.id);
+    }
+  };
+
   const {page, book} = props;
 
   if (!props.highlight.range || !page || !book) {
@@ -127,23 +134,27 @@ const Card = (props: Props) => {
     ref: element,
   };
 
-  return !editing && style && annotation ? <DisplayNote
-    {...commonProps}
-    style={style}
-    note={annotation}
-    onEdit={() => setEditing(true)}
-  /> : <EditCard
-    {...commonProps}
-    authenticated={!!props.user}
-    loginLink={props.loginLink}
-    highlight={props.highlight}
-    locationFilterId={locationFilterId}
-    pageId={page.id}
-    onCreate={onCreate}
-    onCancel={() => setEditing(false)}
-    onSave={props.save}
-    data={props.data}
-  />;
+  return <div onClick={handleClickOnCard}>
+    {
+      !editing && style && annotation ? <DisplayNote
+        {...commonProps}
+        style={style}
+        note={annotation}
+        onEdit={() => setEditing(true)}
+      /> : <EditCard
+        {...commonProps}
+        authenticated={!!props.user}
+        loginLink={props.loginLink}
+        highlight={props.highlight}
+        locationFilterId={locationFilterId}
+        pageId={page.id}
+        onCreate={onCreate}
+        onCancel={() => setEditing(false)}
+        onSave={props.save}
+        data={props.data}
+      />
+    }
+  </div>;
 };
 
 /*
@@ -314,6 +325,7 @@ export default connect(
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
+    focus: flow(focusHighlight, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
   })
