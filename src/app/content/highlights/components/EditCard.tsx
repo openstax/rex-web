@@ -61,6 +61,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const trackCreateNote = useAnalyticsEvent('createNote');
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
   const blurIfNotEditing = () => {
     if (!editingAnnotation) {
@@ -94,7 +95,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const saveAnnotation = (toSave: HighlightData) => {
     const addedNote = (data && data.annotation === undefined) ? true : false;
-    const action = addedNote ? 'created note' : 'edited note';
 
     onSave({
       highlight: {
@@ -106,7 +106,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       locationFilterId,
       pageId,
     });
-    trackEditAnnotation(addedNote, action);
+    trackEditAnnotation(addedNote, toSave.color);
     onCancel();
   };
 
@@ -122,8 +122,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     data-analytics-region='edit-note'
   >
     <ColorPicker color={data ? data.color : undefined} onChange={onColorChange} onRemove={() => {
-      if ((!data || !data.annotation) && !pendingAnnotation) {
+      if (data && !data.annotation && !pendingAnnotation) {
         onRemove();
+        trackDeleteHighlight(data.color);
       }
     }} />
     <Note
@@ -182,6 +183,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       always={() => setConfirmingDelete(false)}
     />}
     {!authenticated && <Confirmation
+      data-analytics-label='login'
       data-analytics-region='highlighting-login'
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'

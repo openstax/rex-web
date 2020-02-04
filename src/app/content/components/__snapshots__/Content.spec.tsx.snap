@@ -2255,7 +2255,7 @@ li[aria-label="Current Page"] .c44 {
         <a
           aria-label="Buy book"
           className="c28"
-          data-analytics-href="buy-book"
+          data-analytics-label="buy-book"
           href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
           rel="noopener"
           target="_blank"
@@ -2921,7 +2921,7 @@ li[aria-label="Current Page"] .c44 {
                       <a
                         aria-label="Previous Page"
                         className="c66"
-                        data-analytics-href="prev"
+                        data-analytics-label="prev"
                         href="2-test-page-3"
                         onClick={[Function]}
                       >
@@ -2941,7 +2941,7 @@ li[aria-label="Current Page"] .c44 {
                       <a
                         aria-label="Next Page"
                         className="c68"
-                        data-analytics-href="next"
+                        data-analytics-label="next"
                         href="4-test-page-5"
                         onClick={[Function]}
                       >
@@ -5011,7 +5011,7 @@ Array [
         <a
           aria-label="Buy book"
           className="c20"
-          data-analytics-href="buy-book"
+          data-analytics-label="buy-book"
           href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
           rel="noopener"
           target="_blank"
