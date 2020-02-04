@@ -81,6 +81,7 @@ const UndoPadding = isOpenConnector(styled.div`
     margin-right: -${theme.padding.page.desktop}rem;
     ${theme.breakpoints.mobile(css`
       margin: 0 -${theme.padding.page.mobile}rem;
+      width: calc(100vw - ${theme.padding.page.mobile}rem);
     `)}
 
     ${styleWhenSidebarClosed(css`
@@ -118,7 +119,7 @@ const OuterWrapper = styled.div`
   @media screen {
     display: flex;
     flex-direction: row;
-    overflow: auto;
+    overflow: visible;
   }
 `;
 
