@@ -22,6 +22,8 @@ export interface State {
   myHighlightsOpen: boolean;
   enabled: boolean;
   focused?: string;
+  hasUnsavedHighlight: boolean;
+  shouldShowDiscardModal: boolean;
   highlights: null | HighlightData[];
   summary: {
     pagination: SummaryHighlightsPagination,

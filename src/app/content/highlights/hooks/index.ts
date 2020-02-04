@@ -5,12 +5,14 @@ import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSumma
 import { loadMoreHook, setSummaryFiltersHook } from './loadMore';
 import loadHighlights from './locationChange';
 import { openMyHighlightsHook } from './openMyHighlights';
+import preventHighlightFromDiscarding from './preventHighlightFromDiscarding';
 import removeHighlight from './removeHighlight';
 import updateHighlight from './updateHighlight';
 
 export { loadHighlights };
 
 export default [
+  preventHighlightFromDiscarding,
   createHighlight,
   removeHighlight,
   updateHighlight,

@@ -22,8 +22,10 @@ import {
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
   enabled: false,
+  hasUnsavedHighlight: false,
   highlights: null,
   myHighlightsOpen: false,
+  shouldShowDiscardModal: false,
   summary: {
     filters: {colors: defaultColors, locationIds: []},
     highlights: null,
@@ -153,8 +155,28 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, focused: action.payload};
     }
     case getType(actions.clearFocusedHighlight): {
-      return omit('focused', state);
+      return state.hasUnsavedHighlight ? state : omit('focused', state);
     }
+    case getType(actions.highlightIsBeingEdited): {
+      return {
+        ...state,
+        hasUnsavedHighlight: true,
+      };
+    }
+    case getType(actions.toggleDiscardHighlightModal): {
+      return {
+        ...state,
+        shouldShowDiscardModal: action.payload,
+      }
+    }
+    case getType(actions.discardHighlightChanges): {
+      return {
+        ...state,
+        hasUnsavedHighlight: false,
+        shouldShowDiscardModal: false,
+      }
+    }
+
     case getType(actions.initializeMyHighlightsSummary):
     case getType(actions.loadMoreSummaryHighlights): {
       return {
