@@ -48,4 +48,24 @@ describe('HighlightDeleteWrapper', () => {
     expect(deleteClicked).toEqual(true);
     expect(cancelClicked).toEqual(true);
   });
+
+  it('focus wrapper on render', async () => {
+    const focus = jest.fn();
+    const createNodeMock = () => ({ focus });
+
+    renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightDeleteWrapper
+          onCancel={() => null}
+          onDelete={() => null}
+        />
+      </MessageProvider>
+    </Provider>, {createNodeMock});
+
+    // Wait for React.useEffect()
+    // tslint:disable-next-line: no-empty
+    await renderer.act(async() => {});
+
+    expect(focus).toHaveBeenCalled();
+  });
 });
