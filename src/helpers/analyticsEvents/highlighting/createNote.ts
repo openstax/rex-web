@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
-const createNote = 'REX highlighting - create note';
+const createNote = 'REX highlighting (inline create)';
 
 export const selector = createSelector(
   selectNavigation.pathname,

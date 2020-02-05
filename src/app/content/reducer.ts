@@ -21,6 +21,7 @@ export const initialState = {
   params: null,
   references: [],
   search: initialSearchState,
+  showCallToActionPopup: null,
   tocOpen: null,
 };
 
@@ -88,13 +89,19 @@ function reduceContent(state: State, action: AnyAction) {
       // book and page are the same, probably on page navigation like hash changing
       return {...state, params: action.payload.match.params};
     }
+    case getType(actions.openCallToActionPopup): {
+      return {...state, showCallToActionPopup: true };
+    }
+    case getType(actions.closeCallToActionPopup): {
+      return {...state, showCallToActionPopup: false };
+    }
     default:
       return state;
   }
 }
 
 function reduceReceiveBook(state: State, action: ActionType<typeof actions.receiveBook>) {
-  const loading = omit('book', state.loading);
+  const loading = omit(['book'], state.loading);
   const book = pick([
     'id',
     'shortId',

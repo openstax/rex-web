@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { PlainButton } from '../../../../components/Button';
 import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
@@ -43,6 +43,11 @@ const ItemLabel = styled.span`
   }
 `;
 
+// tslint:disable-next-line: variable-name
+const FilterListItem = styled.li`
+  height: 4rem;
+`;
+
 interface FiltersListColorProps {
   color: HighlightColorEnum;
   onRemove: () => void;
@@ -50,14 +55,14 @@ interface FiltersListColorProps {
 
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
-  <li>
+  <FilterListItem>
     <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
         {(msg: Element | string) => msg}
       </FormattedMessage>
     </ItemLabel>
-  </li>
+  </FilterListItem>
 );
 
 interface FiltersListChapterProps {
@@ -68,10 +73,10 @@ interface FiltersListChapterProps {
 
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
-  <li>
+  <FilterListItem>
     <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
-  </li>
+  </FilterListItem>
 );
 
 interface FiltersListProps {
@@ -120,11 +125,8 @@ export default styled(FiltersList)`
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 2rem 0;
+  padding: 0.4rem 0;
   list-style: none;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
 
   li {
     margin-right: 3.2rem;
