@@ -178,9 +178,38 @@ describe('MyHighlights button and PopUp', () => {
 
     isHtmlElement.mockReturnValue(true);
 
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(addEventListener).toHaveBeenCalled();
+
     // Force componentDidUpdate()
     act(() => { store.dispatch(receiveUser(user)); });
 
     expect(removeEventListener).toHaveBeenCalled();
+  });
+
+  it('else path for component will unmount', () => {
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
+
+    const component = renderer.create(<Provider store={{...store, }}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>, {createNodeMock});
+
+    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
+
+    isHtmlElement.mockReturnValue(false);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(addEventListener).not.toHaveBeenCalled();
+
+    component.unmount();
+
+    expect(removeEventListener).not.toHaveBeenCalled();
   });
 });
