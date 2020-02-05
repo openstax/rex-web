@@ -50,7 +50,7 @@ const Highlights = () => {
     </Styled.Highlights>;
   }
 
-  if (!isLoading && orderedHighlights && Object.keys(orderedHighlights).length === 0) {
+  if (!isLoading && orderedHighlights && orderedHighlights.length === 0) {
     return <Styled.Highlights>
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
@@ -89,8 +89,7 @@ export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: 
       <Styled.HighlightsChapterWrapper>
         <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: location.title }} />
       </Styled.HighlightsChapterWrapper>
-      {pages
-        .map(({pageId, highlights}) => {
+      {pages.map(({pageId, highlights}) => {
           const page = assertDefined(
             archiveTreeSectionIsChapter(location)
               ? findArchiveTreeNode(location, stripIdVersion(pageId))
