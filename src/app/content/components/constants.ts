@@ -1,9 +1,12 @@
 import theme from '../../theme';
+import { BookWithOSWebData } from '../types';
 
 export const bookBannerDesktopBigHeight = 13;
 export const bookBannerDesktopMiniHeight = 7;
 export const bookBannerMobileBigHeight = 10.4;
 export const bookBannerMobileMiniHeight = 6;
+
+export const scrollOffset = 3;
 
 export const sidebarDesktopWidth = 33.5;
 export const sidebarMobileWidth = 28.8;
@@ -37,3 +40,5 @@ export const mainContentBackground = '#fff';
 
 export const maxContentGutter = 6;
 export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + maxContentGutter * 2;
+
+export const defaultTheme = 'blue' as BookWithOSWebData['theme'];

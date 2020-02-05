@@ -111,6 +111,7 @@ export default {
     'sidebar',
     'navbar',
     'highlightSummaryPopup',
+    'ctaPopup',
     'errorPopup',
     'focusedHiddenLink',
   ].reduce((result, key, index) => {
