@@ -14,7 +14,7 @@ import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
-  getSortedSummeryHighlights
+  getSortedSummaryHighlights
 } from './utils';
 import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
@@ -100,7 +100,7 @@ export const orderedSummaryHighlights = createSelector(
   summaryHighlights,
   highlightLocationFilters,
   (highlightsToSort, locationFilters) => {
-    return getSortedSummeryHighlights(highlightsToSort, locationFilters);
+    return getSortedSummaryHighlights(highlightsToSort, locationFilters);
   }
 );
 
