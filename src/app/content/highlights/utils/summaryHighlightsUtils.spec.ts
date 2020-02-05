@@ -309,6 +309,27 @@ describe('updateSummaryHighlightsDependOnFilters', () => {
     })).toMatchObject(summaryHighlights);
   });
 
+  it('noops if color is not in filters', () => {
+    const summaryHighlights = {
+      location: {
+        page: [highlight],
+      },
+    };
+
+    const filters = {
+      colors: [HighlightColorEnum.Yellow],
+      locationIds: ['location'],
+    };
+
+    const newHighlight = {...highlight, color: HighlightColorEnum.Blue};
+
+    expect(updateSummaryHighlightsDependOnFilters(summaryHighlights, filters, {
+      highlight: newHighlight,
+      locationFilterId: 'location',
+      pageId: 'page2',
+    })).toMatchObject(summaryHighlights);
+  });
+
   it('remove highlight if it does not match current color filters', () => {
     const summaryHighlights = {
       location: {

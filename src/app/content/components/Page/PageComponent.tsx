@@ -21,6 +21,8 @@ if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
 
+const parser = new DOMParser();
+
 export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
@@ -29,9 +31,14 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollTargetManager = stubScrollTargetManager;
   private processing: Promise<void> = Promise.resolve();
 
-  public getCleanContent = () => {
+  public getTrasnformedContent = () => {
     const {book, page, services} = this.props;
-    return getCleanContent(book, page, services.archiveLoader, contentLinks.reduceReferences(this.props.contentLinks));
+    const cleanContent = parser.parseFromString(
+      getCleanContent(book, page, services.archiveLoader, contentLinks.reduceReferences(this.props.contentLinks)),
+      'text/html'
+    );
+    transformContent(cleanContent, cleanContent.body, this.props.intl);
+    return cleanContent.body.innerHTML;
   };
 
   public componentDidMount() {
@@ -87,7 +94,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   private renderContent = () => {
-    const html = this.getCleanContent() || this.getPrerenderedContent();
+    const html = this.getTrasnformedContent() || this.getPrerenderedContent();
 
     return <PageContent
       key='main-content'
@@ -155,7 +162,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
 
-    transformContent(container, this.props.intl);
     this.listenersOn();
 
     const promise = typesetMath(container, assertWindow());

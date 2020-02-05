@@ -89,7 +89,7 @@ interface PropTypes {
 const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper data-analytics-region='prev-next'>
   <FormattedMessage id='i18n:prevnext:prev:aria-label'>
     {(ariaLabel: Element | string) =>
-    <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel} data-analytics-href='prev'>
+    <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel} data-analytics-label='prev'>
       <LeftArrow />
       <FormattedMessage id='i18n:prevnext:prev:text'>
         {(msg: Element | string) => msg}
@@ -100,7 +100,7 @@ const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper dat
 
   <FormattedMessage id='i18n:prevnext:next:aria-label'>
     {(ariaLabel: Element | string) =>
-    <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel} data-analytics-href='next'>
+    <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel} data-analytics-label='next'>
       <FormattedMessage id='i18n:prevnext:next:text'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
