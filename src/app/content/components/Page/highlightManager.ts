@@ -8,6 +8,7 @@ import { AppState, Dispatch } from '../../../types';
 import {
   clearFocusedHighlight,
   focusHighlight,
+  toggleDiscardHighlightModal,
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import * as selectHighlights from '../../highlights/selectors';
@@ -25,10 +26,12 @@ interface Services {
 export const mapStateToHighlightProp = (state: AppState) => ({
   enabled: selectHighlights.isEnabled(state),
   focused: selectHighlights.focused(state),
+  hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
+  askToDiscard: () => dispatch(toggleDiscardHighlightModal(true)),
   clearFocus: flow(clearFocusedHighlight, dispatch),
   focus: flow(focusHighlight, dispatch),
 });
@@ -50,8 +53,12 @@ const onSelectHighlight = (
   highlights: Highlight[],
   highlight: Highlight | undefined
 ) => defer(() => {
-  if (highlights.length > 0 || !highlight || services.getProp().focused) {
+  if (highlights.length > 0 || !highlight) {
     return;
+  }
+
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight) {
+    return services.getProp().askToDiscard();
   }
 
   services.getProp().focus(highlight.id);

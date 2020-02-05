@@ -21,6 +21,7 @@ interface Props {
   authenticated: boolean;
   loginLink: string;
   isFocused: boolean;
+  hasUnsavedHighlight: boolean;
   highlight: Highlight;
   locationFilterId: string;
   pageId: string;
@@ -44,6 +45,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     locationFilterId,
     pageId,
     isFocused,
+    hasUnsavedHighlight,
     loginLink,
     onBlur,
     onCancel,
@@ -56,7 +58,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 ) => {
   const defaultAnnotation = () => data && data.annotation ? data.annotation : '';
   const [pendingAnnotation, setPendingAnnotation] = React.useState<string>(defaultAnnotation());
-  const [editingAnnotation, setEditing] = React.useState<boolean>(!!data && !!data.annotation);
+  const [editingAnnotation, setEditing] = React.useState<boolean>(false);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
@@ -70,6 +72,12 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       onBlur();
     }
   };
+
+  React.useEffect(() => {
+    if (isFocused && editingAnnotation !== hasUnsavedHighlight) {
+      onEditStateChange(editingAnnotation);
+    }
+  }, [editingAnnotation, hasUnsavedHighlight, isFocused]);
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
@@ -113,8 +121,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
-    onEditStateChange(false);
     setEditing(false);
+    onEditStateChange(false);
     onCancel();
   };
 
@@ -138,7 +146,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       }}
       onChange={(newValue) => {
         setPendingAnnotation(newValue);
-        onEditStateChange(true)
+   
         setEditing(true);
       }}
     />

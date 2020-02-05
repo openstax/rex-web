@@ -64,6 +64,7 @@ const Card = (props: Props) => {
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
+  const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
@@ -134,6 +135,7 @@ const Card = (props: Props) => {
     loginLink={props.loginLink}
     highlight={props.highlight}
     locationFilterId={locationFilterId}
+    hasUnsavedHighlight={hasUnsavedHighlight}
     pageId={page.id}
     onCreate={onCreate}
     onEditStateChange={props.editStateChange}

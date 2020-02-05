@@ -170,16 +170,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         shouldShowDiscardModal: action.payload,
-      }
+      };
     }
     case getType(actions.discardHighlightChanges): {
       return {
         ...omit('focused', state),
         hasUnsavedHighlight: false,
         shouldShowDiscardModal: false,
-      }
+      };
     }
-
     case getType(actions.initializeMyHighlightsSummary):
     case getType(actions.loadMoreSummaryHighlights): {
       return {
