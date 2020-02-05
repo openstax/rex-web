@@ -5,11 +5,14 @@ import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
+import { disablePrint } from '../../../components/utils/disablePrint';
 import ColorPicker from '../ColorPicker';
 import MenuToggle, { MenuIcon } from '../MenuToggle';
 
 // tslint:disable-next-line:variable-name
 export const StyledContextMenu = styled.div`
+  ${disablePrint}
+
   ${Dropdown} {
     position: absolute;
     width: 150px;
@@ -73,6 +76,7 @@ const HighlightToggleEditContent = styled.div`
 
 interface ContextMenuProps {
   color: HighlightColorEnum;
+  hasAnnotation: boolean;
   onDelete: () => void;
   onEdit: () => void;
   onColorChange: (color: HighlightColorEnum) => void;
@@ -81,6 +85,7 @@ interface ContextMenuProps {
 // tslint:disable-next-line:variable-name
 const ContextMenu = ({
   color,
+  hasAnnotation,
   onColorChange,
   onEdit,
   onDelete,
@@ -97,7 +102,7 @@ const ContextMenu = ({
       <StyledDropdownList>
         <DropdownItem
           data-testid='edit'
-          message='i18n:highlighting:dropdown:edit'
+          message={hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note'}
           prefix={<StyledEditIcon/>}
           onClick={() => onEdit()}
         />
