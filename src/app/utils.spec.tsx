@@ -1,5 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import renderer from 'react-test-renderer';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import { renderToDom } from '../test/reactutils';
@@ -303,48 +304,47 @@ describe('preventDefault', () => {
   });
 });
 
-// tslint:disable-next-line: variable-name
-const TestComponent = ({ ref, cb }: { ref?: any, cb: () => void }) => {
-  const element = ref || React.useRef<HTMLElement>(null);
+describe('onEscHandler', () => {
+  let ref: React.RefObject<HTMLElement>;
+  let htmlElement: HTMLElement;
+  let addEventListener: jest.SpyInstance;
+  let removeEventListener: jest.SpyInstance;
 
-  utils.useOnEsc(element, cb);
+  beforeEach(() => {
+    htmlElement = assertDocument().createElement('div');
+    ref = {
+      current: htmlElement,
+    } as React.RefObject<HTMLElement>;
+    addEventListener = jest.spyOn(ref.current!, 'addEventListener');
+    removeEventListener = jest.spyOn(ref.current!, 'removeEventListener');
+  });
 
-  return <div ref={element} />;
-};
-
-describe('useOnEsc / onEsc', () => {
-  it('registers event listener after render', () => {
-    const component = renderToDom(<TestComponent cb={() => null} />);
-    const addEventListener: jest.SpyInstance = jest.spyOn(component.node, 'addEventListener');
-
+  it('registers event listener', () => {
+    utils.onEscHandler(ref, true, () => null)();
     expect(addEventListener).toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when ref.current doesn\'t exist', () => {
-    const component = renderToDom(<TestComponent ref={null} cb={() => null} />);
-    const addEventListener: jest.SpyInstance = jest.spyOn(component.root, 'addEventListener');
-
+    utils.onEscHandler({ current: null }, true, () => null)();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('removes event listener', () => {
-    const component = renderToDom(<TestComponent cb={() => null} />);
-    const removeEventListener: jest.SpyInstance = jest.spyOn(component.root, 'removeEventListener');
-
-    component.root.remove();
-
+    const removeEvListener = utils.onEscHandler(ref, true, () => null)();
+    expect(removeEvListener).toBeDefined();
+    removeEvListener!();
     expect(removeEventListener).toHaveBeenCalled();
   });
 
   it('clicking Escape invokes callback', () => {
     const window = utils.assertWindow();
     const cb = jest.fn();
-    const component = renderToDom(<TestComponent ref={null} cb={cb} />);
+    utils.onEscHandler(ref, true, cb)();
 
     const keyboardEvent = window.document.createEvent('KeyboardEvent');
     keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Escape', 0, '', false, '');
 
-    component.root.dispatchEvent(keyboardEvent);
+    ref.current!.dispatchEvent(keyboardEvent);
 
     expect(cb).toHaveBeenCalled();
   });
@@ -352,14 +352,13 @@ describe('useOnEsc / onEsc', () => {
   it('clicking other button doesn\'t invokes callback', () => {
     const window = utils.assertWindow();
     const cb = jest.fn();
-    const component = renderToDom(<TestComponent ref={null} cb={cb} />);
+    utils.onEscHandler(ref, true, cb)();
 
     const keyboardEvent = window.document.createEvent('KeyboardEvent');
     keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Other key', 0, '', false, '');
 
-    component.root.dispatchEvent(keyboardEvent);
+    ref.current!.dispatchEvent(keyboardEvent);
 
     expect(cb).not.toHaveBeenCalled();
   });
 });
-

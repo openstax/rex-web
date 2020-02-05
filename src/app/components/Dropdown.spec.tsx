@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import * as onClickOutside from '../content/highlights/components/utils/onClickOutside';
 import MessageProvider from '../MessageProvider';
+import * as utils from '../utils';
 import Dropdown, { DropdownItem, DropdownList } from './Dropdown';
 
 describe('Dropdown', () => {
@@ -71,6 +72,31 @@ describe('Dropdown', () => {
 
     renderer.act(() => {
       useOnClickOutside.mock.calls[0][2]();
+    });
+
+    expect(() => component.root.findByType(DropdownList)).toThrow();
+  });
+
+  it('tab hidden closes on Esc', () => {
+    const useOnEscSpy = jest.spyOn(utils, 'useOnEsc');
+
+    const component = renderer.create(<MessageProvider>
+      <Dropdown transparentTab={false} toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+          <DropdownItem onClick={() => null} href='/wooo' message='i18n:highlighting:dropdown:edit' />
+        </DropdownList>
+      </Dropdown>
+    </MessageProvider>);
+
+    renderer.act(() => {
+      component.root.findByType('button').props.onClick();
+    });
+
+    expect(() => component.root.findByType(DropdownList)).not.toThrow();
+
+    renderer.act(() => {
+      useOnEscSpy.mock.calls[0][2]();
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();

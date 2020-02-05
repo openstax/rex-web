@@ -207,7 +207,7 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
   }
 
   return removeEvListener;
-}
+};
 
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
