@@ -76,7 +76,7 @@ const HighlightToggleEditContent = styled.div`
 
 interface ContextMenuProps {
   color: HighlightColorEnum;
-  hasAnnotation: boolean;
+  hasAnnotation?: boolean;
   onDelete: () => void;
   onEdit: () => void;
   onColorChange: (color: HighlightColorEnum) => void;

@@ -29,7 +29,7 @@ const StyledHighlightDeleteWrapper = styled.div`
 `;
 
 interface HighlightDeleteWrapperProps {
-  hasAnnotation: boolean;
+  hasAnnotation?: boolean;
   onCancel: () => void;
   onDelete: () => void;
 }
