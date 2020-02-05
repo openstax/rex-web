@@ -35,7 +35,7 @@
   "i18n:highlighting:card:placeholder": "Add a note...",
   "i18n:highlighting:card:show-more": "show more",
   "i18n:highlighting:confirmation:delete-both": "Are you sure you want to delete this note and highlight?",
-  "i18n:highlighting:confirmation:delete-highlights": "Are you sure you want to delete this highlight?",
+  "i18n:highlighting:confirmation:delete-highlight": "Are you sure you want to delete this highlight?",
   "i18n:highlighting:confirmation:delete-note": "Are you sure you want to delete this note?",
   "i18n:highlighting:dropdown:delete": "Delete",
   "i18n:highlighting:dropdown:edit": "Edit",

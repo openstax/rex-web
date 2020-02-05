@@ -399,6 +399,12 @@ exports[`ContextMenu match snapshot 1`] = `
   background-color: #f5f5f5;
 }
 
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 <div
   className="c0"
 >
@@ -568,7 +574,7 @@ exports[`ContextMenu match snapshot 1`] = `
                   fill="currentColor"
                 />
               </svg>
-              Edit
+              Add note
             </a>
           </li>
           <li>

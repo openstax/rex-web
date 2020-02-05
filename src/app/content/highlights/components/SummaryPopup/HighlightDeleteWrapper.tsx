@@ -41,7 +41,7 @@ const HighlightDeleteWrapper = ({
   onCancel,
 }: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper data-analytics-region='MH delete'>
   <FormattedMessage
-    id={hasAnnotation ? 'i18n:highlighting:confirmation:delete-both' : 'i18n:highlighting:confirmation:delete'}
+    id={hasAnnotation ? 'i18n:highlighting:confirmation:delete-both' : 'i18n:highlighting:confirmation:delete-highlight'}
   >
     {(msg: string) => <span>{msg}</span>}
   </FormattedMessage>
