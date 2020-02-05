@@ -93,18 +93,23 @@ export const getSortedSummaryHighlights =
 
       const orderedPages = findTreePages(location);
 
+      const pages: OrderedSummaryHighlights[0]['pages'] = [];
+
+      for (const page of orderedPages) {
+        console.log(page.id)
+        if (!summaryHighlights[locationID][page.id]) { continue; }
+        console.log(page.id)
+        pages.push({
+          highlights: summaryHighlights[locationID][page.id],
+          pageId: page.id,
+        });
+      }
+
       return [
         ...previousLocations,
         {
           location,
-          pages:  Object.entries(summaryHighlights[locationID]).sort(([pageA], [pageB]) => {
-            return orderedPages.findIndex(({ id }) => id === pageA) - orderedPages.findIndex(({ id }) => id === pageB);
-          }).reduce((previousPages, [pageId, highlights]) => {
-            return [...previousPages, {
-              highlights,
-              pageId,
-            }];
-          }, [] as OrderedSummaryHighlights[0]['pages']),
+          pages,
         },
       ];
     }, [] as OrderedSummaryHighlights);

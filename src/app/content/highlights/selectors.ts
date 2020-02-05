@@ -79,14 +79,14 @@ export const summaryColorFilters = createSelector(
   (filters) => filters.colors
 );
 
-export const summaryPagination = createSelector(
-  localState,
-  (state) => state.summary.pagination
-);
-
 export const summaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
+);
+
+export const summaryPagination = createSelector(
+  localState,
+  (state) => state.summary.pagination
 );
 
 export const highlightLocationFilters = createSelector(
