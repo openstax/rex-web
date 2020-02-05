@@ -1,9 +1,9 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button from '../../../../components/Button';
 import { textStyle } from '../../../../components/Typography';
+import { useDrawFocus } from '../../../../reactUtils';
 import { HighlightEditButtons } from './styles';
 
 // tslint:disable-next-line:variable-name
@@ -39,13 +39,7 @@ const HighlightDeleteWrapper = ({
   onDelete,
   onCancel,
 }: HighlightDeleteWrapperProps) => {
-  const ref = React.useRef<HTMLElement | null>(null);
-
-  React.useEffect(() => {
-    if (ref && ref.current) {
-      ref.current.focus();
-    }
-  }, [ref]);
+  const ref = useDrawFocus();
 
   return (
     <StyledHighlightDeleteWrapper
