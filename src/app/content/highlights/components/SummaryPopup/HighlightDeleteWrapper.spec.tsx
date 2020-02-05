@@ -49,7 +49,7 @@ describe('HighlightDeleteWrapper', () => {
     expect(cancelClicked).toEqual(true);
   });
 
-  it('focus wrapper on render', async () => {
+  it('focus wrapper on render', async() => {
     const focus = jest.fn();
     const createNodeMock = () => ({ focus });
 
