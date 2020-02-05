@@ -40,8 +40,11 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
 const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(() => {
-  if (!highlight || services.getProp().focused) {
+  if (!highlight || services.getProp().focused === highlight.id) {
     return;
+  }
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight) {
+    return services.getProp().askToDiscard();
   }
 
   services.getProp().focus(highlight.id);

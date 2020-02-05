@@ -155,7 +155,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.focusHighlight): {
-      return {...state, focused: action.payload};
+      return {...state, focused: action.payload, hasUnsavedHighlight: false };
     }
     case getType(actions.clearFocusedHighlight): {
       return state.hasUnsavedHighlight ? state : omit('focused', state);

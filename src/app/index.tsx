@@ -91,8 +91,8 @@ export default (options: AppOptions) => {
   };
 
   const middleware: Middleware[] = [
-    navigation.createMiddleware(routes, history),
     ...hooks.map((hook) => hook(services)),
+    navigation.createMiddleware(routes, history),
   ];
 
   if (Sentry.shouldCollectErrors) {
