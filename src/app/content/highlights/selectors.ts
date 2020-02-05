@@ -97,10 +97,10 @@ export const highlightLocationFilters = createSelector(
 );
 
 export const orderedSummaryHighlights = createSelector(
-  localState,
+  summaryHighlights,
   highlightLocationFilters,
-  (state, locationFilters) => {
-    return getSortedSummeryHighlights(state.summary.highlights, locationFilters);
+  (highlightsToSort, locationFilters) => {
+    return getSortedSummeryHighlights(highlightsToSort, locationFilters);
   }
 );
 

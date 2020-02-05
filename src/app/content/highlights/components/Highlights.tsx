@@ -5,11 +5,10 @@ import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.pn
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { assertDefined } from '../../../utils';
-import { LinkedArchiveTreeNode } from '../../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as selectors from '../selectors';
-import { SummaryHighlights } from '../types';
+import { OrderedSummaryHighlights } from '../types';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
 
@@ -21,8 +20,7 @@ const NoHighlightsTip = htmlMessage(
 
 // tslint:disable-next-line: variable-name
 const Highlights = () => {
-  const locationFilters = useSelector(selectors.highlightLocationFilters);
-  const highlights = useSelector(selectors.orderedSummaryHighlights);
+  const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
 
@@ -52,7 +50,7 @@ const Highlights = () => {
     </Styled.Highlights>;
   }
 
-  if (!isLoading && highlights && Object.keys(highlights).length === 0) {
+  if (!isLoading && orderedHighlights && Object.keys(orderedHighlights).length === 0) {
     return <Styled.Highlights>
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
@@ -65,13 +63,11 @@ const Highlights = () => {
 
   return <React.Fragment>
     {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
-    {highlights && <Styled.Highlights>
-      {Array.from(locationFilters).map(([id, location]) => {
-        if (!highlights[id]) { return null; }
+    {orderedHighlights && <Styled.Highlights>
+      {orderedHighlights.map((highlightData) => {
         return <SectionHighlights
-          key={id}
-          location={location}
-          highlights={highlights}
+          key={highlightData.location.id}
+          highlightDataInSection={highlightData}
         />;
       })}
     </Styled.Highlights>}
@@ -81,21 +77,20 @@ const Highlights = () => {
 export default Highlights;
 
 interface SectionHighlightsProps {
-  location: LinkedArchiveTreeNode;
-  highlights: SummaryHighlights;
+  highlightDataInSection: OrderedSummaryHighlights[0];
 }
 
 // tslint:disable-next-line: variable-name
-export const SectionHighlights = ({ location, highlights }: SectionHighlightsProps) => {
-  const pageIdIsSameAsSectionId = highlights[location.id][location.id];
+export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: SectionHighlightsProps) => {
+  const pageIdIsSameAsSectionId = pages.every((highlights) => highlights.pageId === location.id);
 
   return (
     <React.Fragment>
       <Styled.HighlightsChapterWrapper>
         <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: location.title }} />
       </Styled.HighlightsChapterWrapper>
-      {Object.entries(highlights[location.id])
-        .map(([pageId, pageHighlights]) => {
+      {pages
+        .map(({pageId, highlights}) => {
           const page = assertDefined(
             archiveTreeSectionIsChapter(location)
               ? findArchiveTreeNode(location, stripIdVersion(pageId))
@@ -106,7 +101,7 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
             {!pageIdIsSameAsSectionId && <Styled.HighlightSection
               dangerouslySetInnerHTML={{ __html: page.title }}
             />}
-            {pageHighlights.map((item) => {
+            {highlights.map((item) => {
               return (
                 <Styled.HighlightOuterWrapper key={item.id}>
                   <Styled.HighlightContentWrapper color={item.color}>

@@ -11,6 +11,7 @@ import {
   CountsPerSource,
   HighlightData,
   HighlightLocationFilters,
+  OrderedSummaryHighlights,
   SummaryFilters,
   SummaryHighlights,
 } from '../types';
@@ -75,26 +76,38 @@ export const getSortedSummeryHighlights =
       return  null;
     }
 
-    return Array.from(locationFilters).reduce((prev, [locationID, location]) => {
+    return Array.from(locationFilters).reduce((previousLocations, [locationID, location]) => {
       if (!summaryHighlights[locationID]) {
-        return prev;
+        return previousLocations;
       }
 
       if (!archiveTreeSectionIsChapter(location)) {
-        return { ...prev, [locationID]: summaryHighlights[locationID] };
+        return [...previousLocations, {
+          location,
+          pages: [{
+            highlights: summaryHighlights[locationID][locationID],
+            pageId: locationID,
+          }],
+        }];
       }
 
       const orderedPages = findTreePages(location);
 
-      return {
-        ...prev,
-        [locationID]: Array.from(Object.entries(summaryHighlights[locationID])).sort(([pageA], [pageB]) => {
-          return orderedPages.findIndex(({ id }) => id === pageA) - orderedPages.findIndex(({ id }) => id === pageB);
-        }).reduce((prevPages, [pageID, highlights]) => {
-            return { ...prevPages, [pageID] : highlights };
-        }, {}),
-      };
-    }, {} as SummaryHighlights);
+      return [
+        ...previousLocations,
+        {
+          location,
+          pages:  Object.entries(summaryHighlights[locationID]).sort(([pageA], [pageB]) => {
+            return orderedPages.findIndex(({ id }) => id === pageA) - orderedPages.findIndex(({ id }) => id === pageB);
+          }).reduce((previousPages, [pageId, highlights]) => {
+            return [...previousPages, {
+              highlights,
+              pageId,
+            }];
+          }, [] as OrderedSummaryHighlights[0]['pages']),
+        },
+      ];
+    }, [] as OrderedSummaryHighlights);
 };
 
 interface DataRemove extends BaseData {
