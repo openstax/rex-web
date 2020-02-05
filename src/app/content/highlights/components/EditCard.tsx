@@ -71,13 +71,14 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   };
 
   React.useEffect(() => {
+    if (!isFocused) { return; }
     if (authenticated) {
       trackShowCreate();
     } else {
       trackShowLogin();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFocused]);
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
