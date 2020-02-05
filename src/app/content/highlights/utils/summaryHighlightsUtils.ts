@@ -96,9 +96,7 @@ export const getSortedSummaryHighlights =
       const pages: OrderedSummaryHighlights[0]['pages'] = [];
 
       for (const page of orderedPages) {
-        console.log(page.id)
         if (!summaryHighlights[locationID][page.id]) { continue; }
-        console.log(page.id)
         pages.push({
           highlights: summaryHighlights[locationID][page.id],
           pageId: page.id,
