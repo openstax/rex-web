@@ -4,10 +4,12 @@ import {
   HighlightUpdate,
   HighlightUpdateColorEnum,
 } from '@openstax/highlighter/dist/api';
+import { treeWithoutUnits } from '../../../../test/trees';
 import { CountsPerSource, HighlightData } from '../types';
 import {
   addSummaryHighlight,
   addToTotalCounts,
+  getSortedSummaryHighlights,
   insertHighlightInOrder,
   removeFromTotalCounts,
   removeSummaryHighlight,
@@ -78,6 +80,43 @@ describe('addSummaryHighlight', () => {
       locationFilterId: 'location',
       pageId: 'page2',
     })).toMatchObject(expectedResult);
+  });
+});
+
+describe('getSortedSummaryHighlights', () => {
+  it('returns highlights sorted according to page order', () => {
+    const unsortedPageIds = ['page2', 'page1'];
+    const mockHighlights = [highlight, highlight2];
+    const mockChapterTree = {
+      ...treeWithoutUnits,
+      parent: 'parent' as any,
+      title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
+    };
+    const locationId = 'location';
+    const summaryHighlights = {
+      [locationId]: unsortedPageIds.reduce((p, c) => ({...p, [c]: mockHighlights }), {}),
+    };
+
+    const expectedResult = [
+      {
+        location: mockChapterTree,
+        pages: [
+          {
+            highlights: mockHighlights,
+            pageId: 'page1',
+          },
+          {
+            highlights: mockHighlights,
+            pageId: 'page2',
+          },
+        ],
+      },
+    ];
+
+    const locationFilters =  new Map([[locationId, mockChapterTree]]);
+    const sortedHighlights = getSortedSummaryHighlights(summaryHighlights, locationFilters);
+
+    expect(sortedHighlights).toEqual(expectedResult);
   });
 });
 
