@@ -101,7 +101,7 @@ function reduceContent(state: State, action: AnyAction) {
 }
 
 function reduceReceiveBook(state: State, action: ActionType<typeof actions.receiveBook>) {
-  const loading = omit('book', state.loading);
+  const loading = omit(['book'], state.loading);
   const book = pick([
     'id',
     'shortId',
