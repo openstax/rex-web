@@ -26,17 +26,27 @@ export const LoaderWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightsChapter = styled.div`
-  ${h4Style}
-  height: 5.6rem;
-  font-weight: bold;
+export const HighlightsChapterWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 0 ${popupPadding}rem;
-  width: 100%;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${popupPadding}rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightsChapter = styled.div`
+  ${h4Style}
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  min-height: 5.6rem;
+
+  .os-number {
+    overflow: visible;
+  }
 
   @media print {
     padding: 0;

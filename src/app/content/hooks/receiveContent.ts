@@ -4,6 +4,8 @@ import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
+import { defaultTheme } from '../components/constants';
+import { hasOSWebData } from '../guards';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
@@ -29,7 +31,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const loadingPage = select.loadingPage(state);
   const pathname = selectNavigation.pathname(state);
 
-  if (!book || !page) {
+  if (!page || !book) {
     return;
   }
   if (loadingBook) {
@@ -46,7 +48,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const description = abstract || stripHtmlAndTrim(getCleanContent(book, page, archiveLoader));
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
-
+  const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
   dispatch(setHead({
     links: canonicalUrl ? [
       {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
@@ -56,7 +58,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
       {property: 'og:description', content: description},
       {property: 'og:title', content: title},
       {property: 'og:url', content: `https://openstax.org${canonicalUrl}`},
-      {name: 'theme-color', content: theme.color.primary[book.theme].base},
+      {name: 'theme-color', content: bookTheme},
     ],
     title,
   }));

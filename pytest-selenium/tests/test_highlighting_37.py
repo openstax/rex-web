@@ -1,7 +1,6 @@
 """Reading Experience highlighting."""
 
 import random
-from string import digits, ascii_letters
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
@@ -10,19 +9,7 @@ from pages.accounts import Login, Signup
 from pages.content import Content
 from tests import markers
 from tests.conftest import DESKTOP
-from utils.utility import Color, Highlight
-
-
-def random_string(length: int = 100):
-    """Return a random string of a specified length for use in notes.
-
-    .. note::
-       beginning and ending white space are stripped from the final string so
-       the return length may not equal ``length``
-
-    """
-    characters = ascii_letters + digits + " " * 6 + "\n" * 2
-    return "".join(random.choices(population=characters, k=length)).strip()
+from utils.utility import Color, Highlight, Utilities
 
 
 @markers.test_case("C591999")
@@ -114,7 +101,7 @@ def test_color_auto_selected_if_a_note_is_added(
     expected_color = Color.YELLOW
 
     # WHEN: they type a note in the create note box
-    book.content.highlight_box.note = random_string()
+    book.content.highlight_box.note = Utilities.random_string()
     highlight_ids = book.content.highlight_ids
 
     # THEN: the first hightlight color is automatically selected (yellow)
@@ -234,7 +221,7 @@ def test_display_highlights_for_returning_users(
     book.content.highlight(target=paragraphs[1],
                            offset=Highlight.ENTIRE,
                            color=second_highlight_color,
-                           note=random_string())
+                           note=Utilities.random_string())
     highlight_ids = book.content.highlight_ids
     highlight_id_two = highlight_ids[1] \
         if highlight_id_one == highlight_ids[0] \

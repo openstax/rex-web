@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CallToActionPopup matches snapshot when close 1`] = `null`;
+
+exports[`CallToActionPopup matches snapshot when open 1`] = `
+.c15 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: Neue Helvetica W01;
+  border-radius: 0.2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 1.6rem;
+  height: 5rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #f36b32;
+  font-weight: bold;
+  border: none;
+}
+
+.c10:hover {
+  background-color: #e96128;
+}
+
+.c10:active {
+  background-color: #df571e;
+}
+
+.c0 {
+  height: 34.8rem;
+  position: fixed;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  -webkit-animation: 800ms bNiYjl ease-out;
+  animation: 800ms bNiYjl ease-out;
+}
+
+.c4 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.c5 {
+  pointer-events: auto;
+}
+
+.c6 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 3.6rem;
+  line-height: 4rem;
+  -webkit-letter-spacing: -0.14rem;
+  -moz-letter-spacing: -0.14rem;
+  -ms-letter-spacing: -0.14rem;
+  letter-spacing: -0.14rem;
+  color: #fff;
+  margin: 0;
+  max-width: 50rem;
+  overflow: hidden;
+}
+
+.c7 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 3rem;
+  margin: 1rem 0;
+  color: #fff;
+  max-width: 57rem;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c8 .c9 {
+  width: 17rem;
+}
+
+.c11 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #fff;
+  margin-left: 1.5rem;
+}
+
+.c11 a {
+  color: #fff;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+
+.c13 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  pointer-events: auto;
+  position: absolute;
+  top: 11rem;
+  right: 1rem;
+  min-width: auto;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.c14 {
+  width: 1.8rem;
+  color: #fff;
+}
+
+.c12 {
+  pointer-events: auto;
+  margin-left: 3rem;
+}
+
+.c3 {
+  position: absolute;
+  height: 7.7rem;
+  width: 48.3rem;
+  right: 0;
+  bottom: 0;
+}
+
+.c2 {
+  position: absolute;
+  height: 32.8rem;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.c1 {
+  position: absolute;
+  height: 32.8rem;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+  data-analytics-region="signup CTA"
+>
+  <img
+    alt=""
+    className="c1"
+    src="bottom-layer.svg"
+  />
+  <img
+    alt=""
+    className="c2"
+    src="middle-layer.svg"
+  />
+  <img
+    alt=""
+    className="c3"
+    src="top-layer.svg"
+  />
+  <div
+    className="c4"
+  >
+    <div
+      className="c5"
+    >
+      <h2
+        className="c6"
+      >
+        Sign up and continue reading. It's 100% FREE.
+      </h2>
+      <p
+        className="c7"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Read your book and get <strong>free</strong> study tools. Highlight, take notes, and make your own study guide.",
+          }
+        }
+      />
+      <div
+        className="c8"
+      >
+        <a
+          className="c9 c10"
+          data-analytics-label="sign-up"
+          data-testid="sign-up"
+          href="/accounts/signup?r=/"
+        >
+          Sign up
+        </a>
+        <span
+          className="c11"
+        >
+          or
+          <a
+            data-analytics-label="login"
+            data-testid="login"
+            href="/accounts/login?r=/"
+          >
+            Log in
+          </a>
+        </span>
+      </div>
+    </div>
+    <img
+      alt=""
+      className="c12"
+      src="desktop-mobile-graphic.svg"
+    />
+  </div>
+  <button
+    className="c13"
+    data-analytics-label="close"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="c14 c15"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 352 512"
+    >
+      <path
+        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+        fill="currentColor"
+      />
+    </svg>
+  </button>
+</div>
+`;
