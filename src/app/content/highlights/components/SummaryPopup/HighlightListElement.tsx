@@ -112,9 +112,12 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     }));
   };
 
+  const hasAnnotation = Boolean(highlight.annotation);
+
   return <HighlightOuterWrapper>
     <ContextMenu
       color={highlight.color}
+      hasAnnotation={hasAnnotation}
       onDelete={() => setIsDeleting(true)}
       onEdit={() => setIsEditing(true)}
       onColorChange={updateColor}
@@ -132,6 +135,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       />
     </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
+      hasAnnotation={hasAnnotation}
       onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}

@@ -132,7 +132,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
   tabIndex={0}
 >
   <span>
-    Are you sure you want to delete this note and highlight?
+    Are you sure you want to delete this highlight?
   </span>
   <div
     className="c1"
