@@ -70,7 +70,7 @@ export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: 
   return newHighlights;
 };
 
-export const getSortedSummeryHighlights =
+export const getSortedSummaryHighlights =
   (summaryHighlights: SummaryHighlights | null, locationFilters: HighlightLocationFilters ) => {
     if (!summaryHighlights) {
       return  null;
