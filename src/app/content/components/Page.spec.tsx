@@ -247,8 +247,7 @@ describe('Page', () => {
             <span class="os-divider"> </span>
           </div>
         </div>
-      `)).toEqual(`
-        <div class="os-figure" id="figure-id1">
+      `)).toEqual(`<div class="os-figure" id="figure-id1">
           <figure data-id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
               <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
@@ -303,8 +302,7 @@ describe('Page', () => {
               </div>
             </div>
           </div>
-        `)).toEqual(`
-          <div data-type="exercise" id="exercise1" data-element-type="check-understanding"` +
+        `)).toEqual(`<div data-type="exercise" id="exercise1" data-element-type="check-understanding"` +
           ` class="ui-has-child-title">` +
           `<header><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3></header>` +
           `<section>
@@ -312,7 +310,7 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div data-type="solution" id="fs-id2913818" data-print-placement="here">
+            <div data-type="solution" id="fs-id2913818" data-print-placement="here" aria-label="show solution">
       <div class="ui-toggle-wrapper">
         <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
       </div>
