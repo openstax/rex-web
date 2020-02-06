@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
+import { useFocusLost } from '../reactUtils';
 import theme from '../theme';
 import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
@@ -58,6 +59,7 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
   const container = React.useRef<HTMLElement>(null);
 
   useOnClickOutside(container, open, () => setOpen(false));
+  useFocusLost(container, open, () => setOpen(false));
 
   return <div className={className} ref={container}>
     <DropdownToggle component={toggle} onClick={() => setOpen(!open)} />

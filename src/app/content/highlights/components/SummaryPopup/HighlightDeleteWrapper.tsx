@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import Button from '../../../../components/Button';
 import { textStyle } from '../../../../components/Typography';
+import { useDrawFocus } from '../../../../reactUtils';
 import { HighlightEditButtons } from './styles';
 
 // tslint:disable-next-line:variable-name
@@ -39,7 +40,11 @@ const HighlightDeleteWrapper = ({
   hasAnnotation,
   onDelete,
   onCancel,
-}: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper data-analytics-region='MH delete'>
+}: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper
+  data-analytics-region='MH delete'
+  tabIndex={0}
+  ref={useDrawFocus()}
+>
   <FormattedMessage
     id={hasAnnotation
       ? 'i18n:highlighting:confirmation:delete-both'
