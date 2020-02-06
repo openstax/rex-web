@@ -79,7 +79,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       trackShowLogin();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, []);
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
