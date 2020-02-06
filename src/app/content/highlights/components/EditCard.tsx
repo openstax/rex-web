@@ -137,7 +137,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
     setEditing(false);
-    onEditStateChange(false);
     onCancel();
   };
 
