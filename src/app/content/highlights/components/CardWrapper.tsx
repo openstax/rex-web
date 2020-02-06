@@ -16,43 +16,31 @@ interface Props {
 // TODO: Move those to some file with constants
 // highlight's offset is in pixels so those are too.
 const minimalCardHeight = 34;
-const cardPadding = 8;
 const cardMarginBottom = 20;
-
-interface HighlightPositionData {
-  id: string;
-  top: number;
-  height: number;
-}
 
 // tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const element = React.useRef<HTMLElement>(null);
-  const [highlightsData, setHighlightsData] = React.useState<HighlightPositionData[]>([]);
+  const [highlightsPositions, setHighlightsPositions] = React.useState<Map<string, number>>(new Map());
+  const [highlightsHeights, setHighlightsHeights] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, height: number) => {
-    const position = highlightsData.find((data) => data.id === id);
-    if (!position) { return; }
-
-    if (height !== position.height) {
-      const updated = highlightsData.map((data) => data.id === id ? { ...data, height } : data);
-      setHighlightsData(updated);
-      updatePositions(updated);
-    }
+    const updated = highlightsHeights.set(id, height);
+    setHighlightsHeights(updated);
   };
 
   const onFocus = (id: string) => {
     const highlight = highlights.find((search) => search.id === id);
-    const position = highlightsData.find((data) => data.id === id);
-    if (!position || !highlight) { return; }
+    const position = highlightsPositions.get(id);
+    if (typeof position !== 'number' || !highlight) { return; }
 
     const topOffset = assertDefined(
       getHighlightTopOffset(container, highlight),
       `Couldn't get top offset for highlights`
     );
 
-    if (position.top > topOffset) {
-      element.current!.style.top = `-${position.top - topOffset}px`;
+    if (position > topOffset) {
+      element.current!.style.top = `-${position - topOffset}px`;
     }
   };
 
@@ -60,52 +48,45 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     element.current!.style.top = '0';
   };
 
-  const updatePositions = React.useCallback((hlData?: HighlightPositionData[]) => {
-    const data: HighlightPositionData[] = [];
+  const updatePositions = React.useCallback(() => {
+    const newPositions: Map<string, number> = new Map();
     for (const [index, highlight] of highlights.entries()) {
       const topOffset = assertDefined(
         getHighlightTopOffset(container, highlight),
         `Couldn't get top offset for highlights`
       );
 
-      const prevHighlight = hlData ? hlData[index - 1] : data[index - 1];
-      const prevHighlightHeight = prevHighlight
-        ? prevHighlight.height : 0;
+      const prevHighlightId = highlights[index - 1] && highlights[index - 1].id;
+      const prevHighlightPosition = highlightsPositions.get(prevHighlightId) || newPositions.get(prevHighlightId);
+      const prevHighlightHeight = highlightsHeights.get(prevHighlightId) || minimalCardHeight;
 
-      let stackedTopOffset = prevHighlight ? prevHighlight.top : 0;
+      let stackedTopOffset = prevHighlightPosition || 0;
 
       if ((topOffset - prevHighlightHeight) < stackedTopOffset) {
         stackedTopOffset = stackedTopOffset
           + prevHighlightHeight
-          + (index > 0 ? cardMarginBottom : 0)
-          + (cardPadding * 2);
+          + (index > 0 ? cardMarginBottom : 0);
       } else {
         stackedTopOffset = topOffset;
       }
 
-      data.push({
-        // Default height is min height for highlight. This height can be updated after render.
-        height: minimalCardHeight,
-        id: highlight.id,
-        top: stackedTopOffset,
-      });
+      newPositions.set(highlight.id, stackedTopOffset);
 
-      setHighlightsData(data);
+      setHighlightsPositions(newPositions);
     }
-  }, [highlights, container]);
+  }, [highlights, highlightsHeights, container]);
 
-  // Set initial positions for highlights
   React.useEffect(() => {
     updatePositions();
   }, [updatePositions]);
 
   return <div className={className} ref={element}>
-    {highlights.map((highlight, index) => <Card
+    {highlights.map((highlight) => <Card
       highlighter={highlighter}
       highlight={highlight}
       key={highlight.id}
       container={container}
-      topOffset={(highlightsData[index] && highlightsData[index].top) || 0}
+      topOffset={highlightsPositions.get(highlight.id) || 0}
       onHeightChange={onHeightChange}
       onFocus={onFocus}
       onBlur={onBlur}
