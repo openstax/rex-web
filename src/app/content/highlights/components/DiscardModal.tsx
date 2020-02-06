@@ -1,13 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import Button from '../../../components/Button';
 import theme from '../../../theme';
-import { AppState, Dispatch } from '../../../types';
-import { discardHighlightChanges, toggleDiscardHighlightModal } from '../actions';
-import { shouldShowDiscardModal } from '../selectors';
-
 import DiscardCard, { Footer } from './DiscardCard';
 
 // tslint:disable-next-line:variable-name
@@ -40,16 +35,13 @@ const CardWrapper = styled.div`
 `;
 
 interface PropTypes {
-  shouldShowModal: boolean;
-  discardChanges: () => void;
-  cancelDiscard: () => void;
+  onAnswer: (answer: boolean) => void;
 }
 
 // tslint:disable-next-line:variable-name
-const DiscardModal = ({ shouldShowModal, discardChanges, cancelDiscard }: PropTypes) => {
-  if (!shouldShowModal) {
-    return null;
-  }
+const DiscardModal = ({ onAnswer }: PropTypes) => {
+  const confirm = () => onAnswer(true);
+  const deny = () => onAnswer(false);
 
   return (
     <Modal className='discard-changes'>
@@ -60,7 +52,7 @@ const DiscardModal = ({ shouldShowModal, discardChanges, cancelDiscard }: PropTy
               <FormattedMessage id='i18n:discard:button:discard'>
                 {(msg) => <Button
                   data-testid='discard-changes'
-                  onClick={discardChanges}
+                  onClick={confirm}
                   variant='primary'
                   > {msg}
                 </Button>}
@@ -68,14 +60,14 @@ const DiscardModal = ({ shouldShowModal, discardChanges, cancelDiscard }: PropTy
               <FormattedMessage id='i18n:discard:button:cancel'>
                 {(msg) => <Button
                   data-testid='cancel-discard'
-                  onClick={cancelDiscard}
+                  onClick={deny}
                   variant='secondary'
                   > {msg}
                 </Button>}
               </FormattedMessage>
             </Footer>
           }
-          onModalClose={cancelDiscard}
+          onModalClose={deny}
         />
       </CardWrapper>
       <Mask />
@@ -83,11 +75,4 @@ const DiscardModal = ({ shouldShowModal, discardChanges, cancelDiscard }: PropTy
   );
 };
 
-export default connect(
-    (state: AppState) => ({ shouldShowModal: shouldShowDiscardModal(state) }),
-    (dispatch: Dispatch) => ({
-      cancelDiscard: () => dispatch(toggleDiscardHighlightModal(false)),
-      discardChanges: () => dispatch(discardHighlightChanges()),
-    })
-
-)(DiscardModal);
+export default DiscardModal;

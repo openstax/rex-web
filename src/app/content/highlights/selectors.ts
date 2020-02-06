@@ -58,11 +58,6 @@ export const hasUnsavedHighlight = createSelector(
   (state) => state.hasUnsavedHighlight
 );
 
-export const shouldShowDiscardModal = createSelector(
-  localState,
-  (state) => state.shouldShowDiscardModal
-)
-
 export const myHighlightsOpen = createSelector(
   localState,
   (state) => state.myHighlightsOpen

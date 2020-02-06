@@ -78,7 +78,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       setEditing(false);
       setPendingAnnotation(defaultAnnotation());
     }
-  },[hasUnsavedHighlight])
+  }, [hasUnsavedHighlight]);
 
   React.useEffect(() => {
     if (isFocused && editingAnnotation !== hasUnsavedHighlight) {

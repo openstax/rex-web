@@ -1,6 +1,5 @@
 import React, { SFC } from 'react';
 import styled, { css } from 'styled-components/macro';
-import DiscardModal from '../content/highlights/components/DiscardModal';
 import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
@@ -11,7 +10,6 @@ import SkipToContentWrapper from './SkipToContentWrapper';
 const Layout: SFC = ({ children }) => <SkipToContentWrapper>
   <NavBar />
   <ErrorModal />
-  <DiscardModal />
   <ErrorBoundary>
     {children}
   </ErrorBoundary>
