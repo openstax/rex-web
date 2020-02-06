@@ -64,15 +64,17 @@ const Card = (props: Props) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
+  const { isFocused } = props;
+
   React.useEffect(() => {
-    if (element.current && props.isFocused) {
+    if (element.current && isFocused) {
       props.onFocus(props.highlight.id);
     }
-    if (!props.isFocused) {
+    if (!isFocused) {
       setEditing(false);
       props.onBlur();
     }
-  }, [props.isFocused]);
+  }, [isFocused]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -84,14 +86,19 @@ const Card = (props: Props) => {
 
   const prevHeight = element.current && element.current.offsetHeight;
   React.useEffect(() => {
+    if (!annotation && !isFocused) {
+      props.onHeightChange(props.highlight.id, 0);
+      return;
+    }
+
     const currentHeight = element.current && element.current.offsetHeight;
-    if (element.current && currentHeight && prevHeight !== currentHeight) {
+    if (currentHeight && prevHeight !== currentHeight) {
       props.onHeightChange(props.highlight.id, currentHeight);
     }
-  }, [element, editing]);
+  }, [element, editing, annotation, isFocused]);
 
   const handleClickOnCard = () => {
-    if (!props.isFocused) {
+    if (!isFocused) {
       props.focus(props.highlight.id);
     }
   };
@@ -136,6 +143,8 @@ const Card = (props: Props) => {
     onRemove,
     ref: element,
   };
+
+  if (!props.isFocused && !annotation) { return null; }
 
   return <div onClick={handleClickOnCard}>
     {

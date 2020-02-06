@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
 import { assertDefined } from '../../../utils';
+import { cardMarginBottom } from '../constants';
 import Card, { getHighlightTopOffset } from './Card';
 
 interface Props {
@@ -13,11 +14,6 @@ interface Props {
   className?: string;
 }
 
-// TODO: Move those to some file with constants
-// highlight's offset is in pixels so those are too.
-const minimalCardHeight = 34;
-const cardMarginBottom = 20;
-
 // tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const element = React.useRef<HTMLElement>(null);
@@ -25,7 +21,9 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const [highlightsHeights, setHighlightsHeights] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, height: number) => {
-    setHighlightsHeights((data) => new Map(data.set(id, height)));
+    if (highlightsHeights.get(id) !== height) {
+      setHighlightsHeights((data) => new Map(data.set(id, height)));
+    }
   };
 
   const onFocus = (id: string) => {
@@ -49,24 +47,29 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
 
   const updatePositions = React.useCallback(() => {
     const newPositions: Map<string, number> = new Map();
+
+    let lastVisibleHighlightPosition: number = 0;
+    let lastVisibleHighlightHeight: number = 0;
+
     for (const [index, highlight] of highlights.entries()) {
       const topOffset = assertDefined(
         getHighlightTopOffset(container, highlight),
         `Couldn't get top offset for highlights`
       );
 
-      const prevHighlightId = highlights[index - 1] && highlights[index - 1].id;
-      const prevHighlightPosition = newPositions.get(prevHighlightId) || highlightsPositions.get(prevHighlightId);
-      const prevHighlightHeight = highlightsHeights.get(prevHighlightId) || minimalCardHeight;
+      let stackedTopOffset = lastVisibleHighlightPosition;
 
-      let stackedTopOffset = prevHighlightPosition || 0;
-
-      if ((topOffset - prevHighlightHeight) < stackedTopOffset) {
+      if ((topOffset - lastVisibleHighlightPosition) < stackedTopOffset) {
         stackedTopOffset = stackedTopOffset
-          + prevHighlightHeight
-          + (index > 0 ? cardMarginBottom : 0);
+          + lastVisibleHighlightHeight
+          + (index > 0 ? (cardMarginBottom * 10) : 0); // * 10 because constants are in pixels and we need rems.
       } else {
         stackedTopOffset = topOffset;
+      }
+
+      if (highlightsHeights.get(highlight.id)) {
+        lastVisibleHighlightPosition = stackedTopOffset;
+        lastVisibleHighlightHeight = highlightsHeights.get(highlight.id)!;
       }
 
       newPositions.set(highlight.id, stackedTopOffset);

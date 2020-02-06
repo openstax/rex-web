@@ -10,6 +10,7 @@ export const cardPadding = 0.8;
 export const cardContentMargin = 3;
 export const cardFocusedContentMargin = 1;
 export const cardMinWindowMargin = 2;
+export const cardMarginBottom = 2;
 
 export const highlightStyles: Array<{label: HighlightColorEnum, passive: string, focused: string}> = [
   {label: HighlightColorEnum.Yellow, passive: '#ffff8a', focused: '#fed200'},
