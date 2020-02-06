@@ -1,20 +1,20 @@
 import { BOOKS } from '../../../config';
 import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
-import { Book, Page, Params } from '../types';
+import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
-export function bookDetailsUrl(book: Book) {
+export function bookDetailsUrl(book: BookWithOSWebData) {
   return `/details/books/${book.slug}`;
 }
 
 export const getBookPageUrlAndParams = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'slug' | 'version'>,
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
   page: Pick<Page, 'id' | 'shortId' | 'title'>
 ) => {
   const params: Params = {
-    book: book.slug,
+    ...getUrlParamsForBook(book),
     page: getUrlParamForPageId(book, page.shortId),
   };
   const state = {
@@ -23,12 +23,22 @@ export const getBookPageUrlAndParams = (
     pageUid: stripIdVersion(page.id),
   };
 
-  if (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion) {
+  if (!('version' in params) && (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion)) {
     const paramsWithVersion = { ...params, version: book.version };
-    return { params: paramsWithVersion, state, url: contentRoute.getUrl(params) };
+    return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
   }
 
   return {params, state, url: contentRoute.getUrl(params)};
+};
+
+export const getUrlParamsForBook = (
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
+): {book: string} | {uuid: string, version: string} => {
+  if ('slug' in book && book.slug) {
+    return {book: book.slug};
+  } else {
+    return {uuid: book.id, version: book.version};
+  }
 };
 
 const getUrlParamForPageIdCache = new Map();
