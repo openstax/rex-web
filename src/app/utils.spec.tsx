@@ -1,9 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
-import { renderToDom } from '../test/reactutils';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
