@@ -2,7 +2,7 @@ import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@opensta
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../actions';
+import { receiveFeatureFlags, receivePageFocus } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
@@ -24,6 +24,7 @@ export const initialState: State = {
   enabled: false,
   highlights: null,
   myHighlightsOpen: false,
+  pageFocus: false,
   summary: {
     filters: {colors: defaultColors, locationIds: []},
     highlights: null,
@@ -37,6 +38,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(receiveFeatureFlags): {
       return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
+    }
+    case getType(receivePageFocus): {
+      return {...state, pageFocus: action.payload};
     }
     case getType(locationChange): {
       return {...initialState, enabled: state.enabled, myHighlightsOpen: false,

@@ -11,12 +11,13 @@ import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
-import { registerGlobalAnalytics } from './helpers/analytics';
+import analytics, { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import { receivePageFocus } from './app/actions';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -78,6 +79,15 @@ function doneRendering() {
     actions.forEach((action: any) => app.store.dispatch(action));
   }
 }
+
+// Calling analytics from here, to make re-fetching highlights easier (detecting tab change)
+const onPageFocusChange = (focus: boolean) => () => {
+  analytics.pageFocus.track(analytics.pageFocus.selector(app.store.getState()), focus);
+  focus ? console.log('change tab') : console.log('blur');
+  app.store.dispatch(receivePageFocus(focus));
+};
+window.onblur = onPageFocusChange(false);
+window.onfocus = onPageFocusChange(true);
 
 registerGlobalAnalytics(window, app.store);
 

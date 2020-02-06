@@ -65,12 +65,6 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
     analytics.unload.track(analytics.unload.selector(store.getState()));
   });
 
-  const onPageFocusChange = (focus: boolean) => () => {
-    analytics.pageFocus.track(analytics.pageFocus.selector(store.getState()), focus);
-  };
-  window.onblur = onPageFocusChange(false);
-  window.onfocus = onPageFocusChange(true);
-
   document.addEventListener('click', (e) => {
     if (!e.target || !(e.target instanceof window.Node)) {
       return;

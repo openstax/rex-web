@@ -11,6 +11,10 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
+  const pageFocus = select.pageFocus(state);
+
+  console.log('loaded ' + loaded);
+  console.log('pageFocus ' + pageFocus);
 
   if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
     return;
