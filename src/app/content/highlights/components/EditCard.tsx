@@ -72,6 +72,13 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       onBlur();
     }
   };
+ 
+  React.useEffect(() => {
+    if (!isFocused && hasUnsavedHighlight) {
+        setPendingAnnotation(defaultAnnotation());
+        setEditing(false);
+    }
+  }, [isFocused, hasUnsavedHighlight]);
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
