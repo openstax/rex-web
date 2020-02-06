@@ -25,8 +25,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const [highlightsHeights, setHighlightsHeights] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, height: number) => {
-    const updated = highlightsHeights.set(id, height);
-    setHighlightsHeights(updated);
+    setHighlightsHeights((data) => new Map(data.set(id, height)));
   };
 
   const onFocus = (id: string) => {
@@ -57,7 +56,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
       );
 
       const prevHighlightId = highlights[index - 1] && highlights[index - 1].id;
-      const prevHighlightPosition = highlightsPositions.get(prevHighlightId) || newPositions.get(prevHighlightId);
+      const prevHighlightPosition = newPositions.get(prevHighlightId) || highlightsPositions.get(prevHighlightId);
       const prevHighlightHeight = highlightsHeights.get(prevHighlightId) || minimalCardHeight;
 
       let stackedTopOffset = prevHighlightPosition || 0;

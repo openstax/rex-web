@@ -7,6 +7,7 @@ import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
+import Dropdown from '../../../components/Dropdown';
 import { findElementSelfOrParent } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
@@ -81,11 +82,13 @@ const Card = (props: Props) => {
     }
   }, [props.highlight, annotation]);
 
+  const prevHeight = element.current && element.current.offsetHeight;
   React.useEffect(() => {
-    if (element.current) {
-      props.onHeightChange(props.highlight.id, element.current.offsetHeight);
+    const currentHeight = element.current && element.current.offsetHeight;
+    if (element.current && currentHeight && prevHeight !== currentHeight) {
+      props.onHeightChange(props.highlight.id, currentHeight);
     }
-  }, [props.highlight.id, element]);
+  }, [element, editing]);
 
   const handleClickOnCard = () => {
     if (!props.isFocused) {
@@ -252,6 +255,10 @@ const StyledCard = styled(Card)`
   ${disablePrint}
 
   transition: all 0.3s;
+
+  ${Dropdown} {
+    z-index: 1;
+  }
 
   ${(props: {data: HighlightData}) => {
     const data = props.data;
