@@ -95,7 +95,7 @@ const Card = (props: Props) => {
     if (currentHeight && prevHeight !== currentHeight) {
       props.onHeightChange(props.highlight.id, currentHeight);
     }
-  }, [element, editing, annotation, isFocused]);
+  }, [element, editing, annotation, isFocused, prevHeight]);
 
   const handleClickOnCard = () => {
     if (!isFocused) {
