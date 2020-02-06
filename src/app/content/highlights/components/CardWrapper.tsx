@@ -17,18 +17,18 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const element = React.useRef<HTMLElement>(null);
-  const [highlightsPositions, setHighlightsPositions] = React.useState<Map<string, number>>(new Map());
-  const [highlightsHeights, setHighlightsHeights] = React.useState<Map<string, number>>(new Map());
+  const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
+  const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, height: number) => {
-    if (highlightsHeights.get(id) !== height) {
-      setHighlightsHeights((data) => new Map(data.set(id, height)));
+    if (cardsHeights.get(id) !== height) {
+      setCardsHeights((data) => new Map(data.set(id, height)));
     }
   };
 
   const onFocus = (id: string) => {
     const highlight = highlights.find((search) => search.id === id);
-    const position = highlightsPositions.get(id);
+    const position = cardsPositions.get(id);
     if (typeof position !== 'number' || !highlight) { return; }
 
     const topOffset = assertDefined(
@@ -67,16 +67,16 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
         stackedTopOffset = topOffset;
       }
 
-      if (highlightsHeights.get(highlight.id)) {
+      if (cardsHeights.get(highlight.id)) {
         lastVisibleHighlightPosition = stackedTopOffset;
-        lastVisibleHighlightHeight = highlightsHeights.get(highlight.id)!;
+        lastVisibleHighlightHeight = cardsHeights.get(highlight.id)!;
       }
 
       newPositions.set(highlight.id, stackedTopOffset);
 
-      setHighlightsPositions(newPositions);
+      setCardsPositions(newPositions);
     }
-  }, [highlights, highlightsHeights, container]);
+  }, [highlights, cardsHeights, container]);
 
   React.useEffect(() => {
     updatePositions();
@@ -88,7 +88,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
       highlight={highlight}
       key={highlight.id}
       container={container}
-      topOffset={highlightsPositions.get(highlight.id) || 0}
+      topOffset={cardsPositions.get(highlight.id) || 0}
       onHeightChange={onHeightChange}
       onFocus={onFocus}
       onBlur={onBlur}
