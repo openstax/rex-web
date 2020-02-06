@@ -48,8 +48,8 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const updatePositions = React.useCallback(() => {
     const newPositions: Map<string, number> = new Map();
 
-    let lastVisibleHighlightPosition: number = 0;
-    let lastVisibleHighlightHeight: number = 0;
+    let lastVisibleHCardPosition: number = 0;
+    let lastVisibleCardHeight: number = 0;
 
     for (const [index, highlight] of highlights.entries()) {
       const topOffset = assertDefined(
@@ -57,19 +57,19 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
         `Couldn't get top offset for highlights`
       );
 
-      let stackedTopOffset = lastVisibleHighlightPosition;
+      let stackedTopOffset = lastVisibleHCardPosition;
 
-      if ((topOffset - lastVisibleHighlightPosition) < stackedTopOffset) {
+      if ((topOffset - lastVisibleHCardPosition) < stackedTopOffset) {
         stackedTopOffset = stackedTopOffset
-          + lastVisibleHighlightHeight
+          + lastVisibleCardHeight
           + (index > 0 ? (cardMarginBottom * 10) : 0); // * 10 because constants are in pixels and we need rems.
       } else {
         stackedTopOffset = topOffset;
       }
 
       if (cardsHeights.get(highlight.id)) {
-        lastVisibleHighlightPosition = stackedTopOffset;
-        lastVisibleHighlightHeight = cardsHeights.get(highlight.id)!;
+        lastVisibleHCardPosition = stackedTopOffset;
+        lastVisibleCardHeight = cardsHeights.get(highlight.id)!;
       }
 
       newPositions.set(highlight.id, stackedTopOffset);
