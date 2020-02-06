@@ -23,7 +23,6 @@ export interface State {
   enabled: boolean;
   focused?: string;
   hasUnsavedHighlight: boolean;
-  shouldShowDiscardModal: boolean;
   highlights: null | HighlightData[];
   summary: {
     pagination: SummaryHighlightsPagination,

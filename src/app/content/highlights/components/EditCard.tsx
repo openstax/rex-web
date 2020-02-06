@@ -73,19 +73,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     }
   };
 
-  React.useEffect(() => {
-    if (!hasUnsavedHighlight) {
-      setEditing(false);
-      setPendingAnnotation(defaultAnnotation());
-    }
-  }, [hasUnsavedHighlight]);
-
-  React.useEffect(() => {
-    if (isFocused && editingAnnotation !== hasUnsavedHighlight) {
-      onEditStateChange(editingAnnotation);
-    }
-  }, [editingAnnotation, hasUnsavedHighlight, isFocused]);
-
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
@@ -126,6 +113,20 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     onCancel();
   };
 
+  const updateUnsavedHighlightStatus = (newValue: string) => {
+    if (!data) {
+      return;
+    }
+
+    if (data.annotation !== newValue && !hasUnsavedHighlight) {
+      onEditStateChange(true);
+    }
+
+    if ((data.annotation === newValue || (data.annotation === undefined && newValue === '')) && hasUnsavedHighlight) {
+      onEditStateChange(false);
+    }
+  };
+
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
     setEditing(false);
@@ -153,6 +154,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       }}
       onChange={(newValue) => {
         setPendingAnnotation(newValue);
+        updateUnsavedHighlightStatus(newValue);
         setEditing(true);
       }}
     />

@@ -8,9 +8,9 @@ import { AppState, Dispatch } from '../../../types';
 import {
   clearFocusedHighlight,
   focusHighlight,
-  toggleDiscardHighlightModal,
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
+import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
@@ -31,7 +31,6 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   page: select.page(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
-  askToDiscard: () => dispatch(toggleDiscardHighlightModal(true)),
   clearFocus: flow(clearFocusedHighlight, dispatch),
   focus: flow(focusHighlight, dispatch),
 });
@@ -39,12 +38,13 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
-const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(() => {
+const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(async() => {
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
   if (services.getProp().focused && services.getProp().hasUnsavedHighlight) {
-    return services.getProp().askToDiscard();
+    const didConfirm = await showConfirmation();
+    return didConfirm  && services.getProp().clearFocus();
   }
 
   services.getProp().focus(highlight.id);
@@ -55,13 +55,14 @@ const onSelectHighlight = (
   services: Services,
   highlights: Highlight[],
   highlight: Highlight | undefined
-) => defer(() => {
+) => defer(async() => {
   if (highlights.length > 0 || !highlight) {
     return;
   }
 
   if (services.getProp().focused && services.getProp().hasUnsavedHighlight) {
-    return services.getProp().askToDiscard();
+    const didConfirm = await showConfirmation();
+    return didConfirm && services.getProp().clearFocus();
   }
 
   services.getProp().focus(highlight.id);

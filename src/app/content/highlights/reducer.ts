@@ -25,7 +25,6 @@ export const initialState: State = {
   hasUnsavedHighlight: false,
   highlights: null,
   myHighlightsOpen: false,
-  shouldShowDiscardModal: false,
   summary: {
     filters: {colors: defaultColors, locationIds: []},
     highlights: null,
@@ -167,19 +166,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         hasUnsavedHighlight: action.payload,
-      };
-    }
-    case getType(actions.toggleDiscardHighlightModal): {
-      return {
-        ...state,
-        shouldShowDiscardModal: action.payload,
-      };
-    }
-    case getType(actions.discardHighlightChanges): {
-      return {
-        ...omit('focused', state),
-        hasUnsavedHighlight: false,
-        shouldShowDiscardModal: false,
       };
     }
     case getType(actions.initializeMyHighlightsSummary):

@@ -24,8 +24,6 @@ export const updateHighlight = createStandardAction('Content/Highlights/update')
   pageId: string,
 }>();
 export const editStateChange = createStandardAction('Content/Highlights/editStateChange')<boolean>();
-export const discardHighlightChanges = createStandardAction('Content/Highlights/discard')();
-export const toggleDiscardHighlightModal = createStandardAction('Content/Highlights/toggleModal')<boolean>();
 
 export const receiveHighlights = createStandardAction('Content/Highlights/receive')<HighlightData[]>();
 
