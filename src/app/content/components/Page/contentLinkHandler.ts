@@ -33,7 +33,7 @@ export const reduceReferences = ({references, currentPath}: ContentLinkProp) => 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap) =>
   content.getUrl(ref.params) === pathname
     && (
-      ('book' in ref.params && hasOSWebData(book) && ref.params.book === book.slug)
+      ('slug' in ref.params && hasOSWebData(book) && ref.params.slug === book.slug)
       || ('uuid' in ref.params && ref.params.uuid === book.id)
     );
 

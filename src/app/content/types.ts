@@ -4,7 +4,7 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 
 interface SlugParams {
-  book: string;
+  slug: string;
   page: string;
 }
 interface VersionedSlugParams extends SlugParams {

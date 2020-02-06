@@ -35,8 +35,8 @@ export async function prepareContentPage(
 
   const action: Match<typeof content> = {
     params: {
-      book: book.slug,
       page: pageSlug,
+      slug: book.slug,
     },
     route: content,
     state: {

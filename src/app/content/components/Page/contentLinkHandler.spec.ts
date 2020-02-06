@@ -80,8 +80,8 @@ describe('contentLinkHandler', () => {
     prop.references = [{
       match: link,
       params: {
-        book: book.slug,
         page: 'page-title',
+        slug: book.slug,
       },
       state: {
         bookUid: 'book',
@@ -102,8 +102,8 @@ describe('contentLinkHandler', () => {
 
     expect(prop.navigate).toHaveBeenCalledWith({
       params: {
-        book: book.slug,
         page: 'page-title',
+        slug: book.slug,
       },
       route: routes.content,
       state: {

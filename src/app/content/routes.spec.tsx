@@ -12,13 +12,13 @@ describe('content route', () => {
 
   it('generates a url', () => {
     content = require('./routes').content;
-    const url = content.getUrl({book: 'book', page: 'page'});
+    const url = content.getUrl({slug: 'book', page: 'page'});
     expect(url).toEqual('/books/book/pages/page');
   });
 
   it('generates a versioned url', () => {
     content = require('./routes').content;
-    const url = content.getUrl({book: 'book', page: 'page', version: 'asdf'});
+    const url = content.getUrl({slug: 'book', page: 'page', version: 'asdf'});
     expect(url).toEqual('/books/book@asdf/pages/page');
   });
 
@@ -50,8 +50,8 @@ describe('content route', () => {
       const services = createTestServices();
 
       const params = {
-        book: mockCmsBook.meta.slug,
         page: 'test-page-1',
+        slug: mockCmsBook.meta.slug,
       };
       const state = {
         bookUid: book.id,

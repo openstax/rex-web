@@ -49,7 +49,7 @@ describe('setHead hook', () => {
   it('does nothing if book is loading', async() => {
     store.dispatch(receiveBook(combinedBook));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(requestBook({book: 'asdf', page: 'anypage'}));
+    store.dispatch(requestBook({slug: 'asdf', page: 'anypage'}));
 
     await hook(receivePage({...page, references: []}));
 
@@ -137,7 +137,7 @@ describe('setHead hook', () => {
       const bookId = book.id;
       const pageShortId = page.shortId;
       const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
-      expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
+      expect(x).toEqual({slug: 'book-slug-1', page: 'test-page-1'});
     });
 
     it('finds a canonical book for a page', async() => {
@@ -145,7 +145,7 @@ describe('setHead hook', () => {
       const pageShortId = page.shortId;
       CANONICAL_MAP[bookId] = [ bookId ];
       const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
-      expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
+      expect(x).toEqual({slug: 'book-slug-1', page: 'test-page-1'});
     });
 
     it('throws if canonical book is missing cms data', async() => {

@@ -103,8 +103,8 @@ describe('Page', () => {
       {
         match: '/content/link',
         params: {
-          book: 'book-slug-1',
           page: 'page-title',
+          slug: 'book-slug-1',
         },
         state: {
           bookUid: 'book',
@@ -442,8 +442,8 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        book: 'book-slug-1',
         page: 'page-title',
+        slug: 'book-slug-1',
       },
       route: routes.content,
       state: {
@@ -478,8 +478,8 @@ describe('Page', () => {
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        book: 'book-slug-1',
         page: 'page-title',
+        slug: 'book-slug-1',
       },
       route: routes.content,
       state: {

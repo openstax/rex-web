@@ -6,9 +6,9 @@ import { Params } from './types';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
 
-const CONTENT_PATH = '/books/:book/pages/:page';
+const CONTENT_PATH = '/books/:slug/pages/:page';
 const UUID_CONTENT_PATH = `/books/:uuid(${MATCH_UUID})@:version/pages/:page`;
-const VERSIONED_CONTENT_PATH = '/books/:book@:version/pages/:page';
+const VERSIONED_CONTENT_PATH = '/books/:slug@:version/pages/:page';
 
 interface State {
   bookUid: string;

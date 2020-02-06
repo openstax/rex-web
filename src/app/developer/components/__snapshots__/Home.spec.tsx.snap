@@ -365,8 +365,8 @@ Array [
             </h3>
             path: 
             /books/:uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:version/pages/:page
-            /books/:book@:version/pages/:page
-            /books/:book/pages/:page
+            /books/:slug@:version/pages/:page
+            /books/:slug/pages/:page
           </div>
           <div>
             <h3

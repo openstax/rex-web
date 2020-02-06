@@ -77,8 +77,8 @@ export const resolveBookReference = async(
   const state = getState();
   const currentBook = select.book(state);
 
-  const bookSlug = 'book' in match.params
-    ? match.params.book
+  const bookSlug = 'slug' in match.params
+    ? match.params.slug
     : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.uuid
       ? currentBook.slug
       : await osWebLoader.getBookSlugFromId(match.params.uuid);
@@ -89,9 +89,9 @@ export const resolveBookReference = async(
 
   const bookUid  = 'uuid' in match.params
     ? match.params.uuid
-    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.slug
       ? currentBook.id
-      : await osWebLoader.getBookIdFromSlug(match.params.book);
+      : await osWebLoader.getBookIdFromSlug(match.params.slug);
 
   if (!bookUid) {
     throw new Error(`Could not resolve uuid for slug: ${bookSlug}`);
