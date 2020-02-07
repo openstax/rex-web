@@ -6,6 +6,7 @@ import createTestStore from '../../../../../test/createTestStore';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import ColorPicker from '../ColorPicker';
+import MenuToggle from '../MenuToggle';
 import ContextMenu from './ContextMenu';
 
 describe('ContextMenu', () => {
@@ -15,7 +16,7 @@ describe('ContextMenu', () => {
     store = createTestStore();
   });
 
-  it('match snapshot', () => {
+  it('match snapshot when closed', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
@@ -29,6 +30,30 @@ describe('ContextMenu', () => {
         />
       </MessageProvider>
     </Provider>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('match snapshot when open', () => {
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ContextMenu
+          color={HighlightColorEnum.Blue}
+          // tslint:disable-next-line: no-empty
+          onEdit={() => {}}
+          // tslint:disable-next-line: no-empty
+          onDelete={() => {}}
+          // tslint:disable-next-line: no-empty
+          onColorChange={() => {}}
+        />
+      </MessageProvider>
+    </Provider>);
+
+    renderer.act(() => {
+      const openButton = component.root.findByType(MenuToggle);
+      openButton.props.onClick();
+    });
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -49,6 +74,11 @@ describe('ContextMenu', () => {
         />
       </MessageProvider>
     </Provider>);
+
+    renderer.act(() => {
+      const openButton = component.root.findByType(MenuToggle);
+      openButton.props.onClick();
+    });
 
     renderer.act(() => {
       const editButton = component.root.findByProps({ 'data-testid': 'edit' });
@@ -77,6 +107,11 @@ describe('ContextMenu', () => {
         />
       </MessageProvider>
     </Provider>);
+
+    renderer.act(() => {
+      const openButton = component.root.findByType(MenuToggle);
+      openButton.props.onClick();
+    });
 
     renderer.act(() => {
       const colorPicker = component.root.findByType(ColorPicker);
