@@ -52,7 +52,7 @@ describe('hooks', () => {
 
       expect(dispatch).toBeCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith(searchFailure());
-    })
+    });
 
     it('noops when there isn\'t a book', async() => {
       await hook(requestSearch('asdf'));
