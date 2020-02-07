@@ -145,6 +145,7 @@ class SearchFailure extends React.Component<Props, {shouldFadeOut: boolean}> {
   public render() {
     return (
       <BannerBodyWrapper
+        data-testid='banner-body'
         onAnimationEnd={this.props.dismiss}
         shouldFadeOut={this.state.shouldFadeOut}
       >
