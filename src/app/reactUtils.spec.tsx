@@ -7,6 +7,7 @@ describe('useFocusLost', () => {
   let ref: React.RefObject<HTMLElement>;
   let htmlElement: HTMLElement;
   let childElement: HTMLElement;
+  let siblingElement: HTMLElement;
   let addEventListener: jest.SpyInstance;
   let removeEventListener: jest.SpyInstance;
 
@@ -14,6 +15,7 @@ describe('useFocusLost', () => {
     htmlElement = assertDocument().createElement('div');
     childElement = assertDocument().createElement('div');
     htmlElement.appendChild(childElement);
+    siblingElement = assertDocument().createElement('div');
     ref = {
       current: htmlElement,
     } as React.RefObject<HTMLElement>;
@@ -49,6 +51,10 @@ describe('useFocusLost', () => {
     onFocusLostHandler(ref, true, cb)();
 
     const focusOutEvent = window.document.createEvent('FocusEvent');
+    Object.defineProperty(focusOutEvent, 'relatedTarget', {
+      value: siblingElement,
+      writable: false,
+    });
     focusOutEvent.initEvent('focusout', true, false);
 
     ref.current!.dispatchEvent(focusOutEvent);
@@ -61,10 +67,14 @@ describe('useFocusLost', () => {
     const cb = jest.fn();
     onFocusLostHandler(ref, true, cb)();
 
-    const focusEvent = window.document.createEvent('FocusEvent');
-    focusEvent.initEvent('focus', true, false);
+    const focusOutEvent = window.document.createEvent('FocusEvent');
+    Object.defineProperty(focusOutEvent, 'relatedTarget', {
+      value: childElement,
+      writable: false,
+    });
+    focusOutEvent.initEvent('focusout', true, false);
 
-    childElement.dispatchEvent(focusEvent);
+    childElement.dispatchEvent(focusOutEvent);
 
     expect(cb).not.toHaveBeenCalled();
   });
