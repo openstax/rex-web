@@ -256,6 +256,9 @@ const mobileDisplay = css`
   `}
 `;
 
+export const mediaQueryBreakToStopDisplaingAllCards = remsToEms(
+ contentTextWidth + sidebarDesktopWidth + additionalWidthForCard) + 'em';
+
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
   position: absolute;
@@ -306,7 +309,7 @@ const StyledCard = styled(Card)`
     `;
   }}
 
-  @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
+  @media (max-width: ${mediaQueryBreakToStopDisplaingAllCards}) {
     /* the window is too small to show note cards next to content when the toc is open */
     ${overlapDisplay}
     ${styleWhenSidebarClosed(rightSideDisplay)}
