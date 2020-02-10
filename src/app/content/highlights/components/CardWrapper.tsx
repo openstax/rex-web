@@ -2,6 +2,7 @@ import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled from 'styled-components';
+import { scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { assertDefined } from '../../../utils';
 import { cardMarginBottom } from '../constants';
@@ -20,9 +21,10 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
 
-  const onHeightChange = (id: string, height: number) => {
+  const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
+    const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
-      setCardsHeights((data) => new Map(data.set(id, height)));
+      setCardsHeights((data) => new Map(data.set(id, height === null ? 0 : height)));
     }
   };
 
@@ -39,6 +41,8 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     if (position > topOffset) {
       element.current!.style.top = `-${position - topOffset}px`;
     }
+
+    scrollIntoView(highlight.elements[0] as HTMLElement);
   };
 
   const onBlur = () => {

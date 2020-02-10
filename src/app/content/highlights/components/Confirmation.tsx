@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -45,9 +46,12 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props) => {
-
+const Confirmation = React.forwardRef<HTMLElement, Props>((
+  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props,
+  ref
+) => {
   return <Overlay
+    ref={ref}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
@@ -98,6 +102,6 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       </FormattedMessage>
     </ButtonGroup>
   </Overlay>;
-};
+});
 
 export default Confirmation;

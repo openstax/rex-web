@@ -52,7 +52,7 @@ interface Props {
   data?: HighlightData;
   className: string;
   topOffset: number;
-  onHeightChange: (id: string, height: number) => void;
+  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
   onFocus: (id: string) => void;
   onBlur: () => void;
 }
@@ -87,13 +87,13 @@ const Card = (props: Props) => {
   const prevHeight = element.current && element.current.offsetHeight;
   React.useEffect(() => {
     if (!annotation && !isFocused) {
-      props.onHeightChange(props.highlight.id, 0);
+      props.onHeightChange(props.highlight.id, { current: null } as React.RefObject<HTMLElement>);
       return;
     }
 
     const currentHeight = element.current && element.current.offsetHeight;
     if (currentHeight && prevHeight !== currentHeight) {
-      props.onHeightChange(props.highlight.id, currentHeight);
+      props.onHeightChange(props.highlight.id, element);
     }
   }, [element, editing, annotation, isFocused, prevHeight]);
 
@@ -138,8 +138,10 @@ const Card = (props: Props) => {
 
   const commonProps = {
     className: props.className,
+    highlight: props.highlight,
     isFocused: props.isFocused,
     onBlur: props.blur,
+    onHeightChange: props.onHeightChange,
     onRemove,
     ref: element,
   };
@@ -157,7 +159,6 @@ const Card = (props: Props) => {
         {...commonProps}
         authenticated={!!props.user}
         loginLink={props.loginLink}
-        highlight={props.highlight}
         locationFilterId={locationFilterId}
         pageId={page.id}
         onCreate={onCreate}
