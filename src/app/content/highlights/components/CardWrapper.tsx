@@ -2,6 +2,7 @@ import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled from 'styled-components';
+import { scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { assertDefined } from '../../../utils';
 import { cardMarginBottom } from '../constants';
@@ -40,6 +41,8 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     if (position > topOffset) {
       element.current!.style.top = `-${position - topOffset}px`;
     }
+
+    scrollIntoView(highlight.elements[0] as HTMLElement);
   };
 
   const onBlur = () => {
