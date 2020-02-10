@@ -34,5 +34,5 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled, cb]);
+  React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
 };
