@@ -70,11 +70,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
-
-    if (!window) {
-      return;
-    }
-
     this.updateHighlights(prevProps);
   }
 

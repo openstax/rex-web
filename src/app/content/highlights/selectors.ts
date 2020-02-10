@@ -141,8 +141,3 @@ export const hasMoreResults = createSelector(
     return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
   }
 );
-
-export const pageFocus = createSelector(
-  localState,
-  (state) => state.pageFocus
-);

@@ -23,7 +23,6 @@ export interface State {
   enabled: boolean;
   focused?: string;
   highlights: null | HighlightData[];
-  pageFocus: boolean;
   summary: {
     pagination: SummaryHighlightsPagination,
     totalCountsPerPage: CountsPerSource | null;

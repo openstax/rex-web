@@ -1,6 +1,8 @@
 import { Element, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
+import { receivePageFocus } from './actions';
 import { isHtmlElement } from './guards';
+import { AppServices, Store } from './types';
 import { assertDocument, assertWindow } from './utils';
 
 export const SCROLL_UP: 'scroll_up' = 'scroll_up';
@@ -116,4 +118,9 @@ export const elementDescendantOf = (element: Element, ancestor: Element): boolea
   }
 
   return elementDescendantOf(element.parentNode, ancestor);
+};
+
+export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
+  app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
+  app.store.dispatch(receivePageFocus(focus));
 };
