@@ -29,6 +29,7 @@ interface Props {
   onSave: typeof updateHighlight;
   onRemove: () => void;
   onCancel: () => void;
+  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
 }
@@ -47,6 +48,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     onBlur,
     onCancel,
     onCreate,
+    onHeightChange,
     onRemove,
     onSave,
   }: Props,
@@ -70,6 +72,12 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   };
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
+
+  React.useEffect(() => {
+    if (element.current) {
+      onHeightChange(highlight.id, element);
+    }
+  }, [onHeightChange, highlight, element, editingAnnotation]);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     highlight.setStyle(color);

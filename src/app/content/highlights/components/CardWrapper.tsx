@@ -20,9 +20,10 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
 
-  const onHeightChange = (id: string, height: number) => {
+  const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
+    const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
-      setCardsHeights((data) => new Map(data.set(id, height)));
+      setCardsHeights((data) => new Map(data.set(id, height === null ? 0 : height)));
     }
   };
 

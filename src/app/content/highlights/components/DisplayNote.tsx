@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
@@ -51,19 +52,22 @@ interface Props {
   note: string;
   style: typeof highlightStyles[number];
   isFocused: boolean;
+  highlight: Highlight;
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
+  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, Props>((
-  {note, isFocused, onBlur, onEdit, onRemove, className}: Props,
+  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, highlight, className}: Props,
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
+  const confirmationRef = React.useRef<HTMLElement>(null);
 
   React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
 
@@ -72,6 +76,11 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
       setConfirmingDelete(false);
     }
   }, [isFocused]);
+
+  React.useEffect(() => {
+    const refElement = confirmationRef.current ? confirmationRef : element;
+    onHeightChange(highlight.id, refElement);
+  }, [element, highlight, confirmationRef, confirmingDelete]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuToggle />}>
@@ -88,6 +97,7 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
     <label>Note:</label>
     <TruncatedText text={note} isFocused={isFocused} />
     {confirmingDelete && <Confirmation
+      ref={confirmationRef}
       data-analytics-label='delete'
       data-analytics-region='confirm-delete-inline-highlight'
       message='i18n:highlighting:confirmation:delete-both'
