@@ -1,4 +1,4 @@
-import { Book } from '../app/content/types';
+import { BookWithOSWebData } from '../app/content/types';
 import { acceptStatus } from '../helpers/fetch';
 
 export interface OSWebBook {
@@ -12,7 +12,7 @@ export interface OSWebBook {
       senior_author: boolean;
     }
   }>;
-  cover_color: Book['theme'];
+  cover_color: BookWithOSWebData['theme'];
   cnx_id: string;
 }
 
@@ -29,22 +29,21 @@ export default (prefix: string) => {
   const baseUrl = `${prefix}/v2/pages`;
   const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
 
-  const firstRecord = (id: string) => (data: OSWebResponse) => {
-    if (!data.items[0]) {
-      throw new Error(`OSWeb record "${id}" not found`);
-    }
-    return data.items[0];
-  };
+  const firstRecord = (data: OSWebResponse) => data.items[0];
 
   const cache = new Map();
 
-  const cacheRecord = (record: OSWebBook) => {
-    cache.set(record.meta.slug, record);
-    cache.set(record.cnx_id, record);
+  const cacheRecord = (id: string) => (record: OSWebBook) => {
+    if (!record) {
+      cache.set(id, undefined);
+    } else {
+      cache.set(record.meta.slug, record);
+      cache.set(record.cnx_id, record);
+    }
     return record;
   };
 
-  const loader = (buildUrl: (param: string) => string) => (param: string) => {
+  const loader = (buildUrl: (param: string) => string) => (param: string): Promise<OSWebBook | undefined> => {
     if (cache.has(param)) {
       return Promise.resolve(cache.get(param));
     }
@@ -52,8 +51,8 @@ export default (prefix: string) => {
     return fetch(buildUrl(param))
       .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
       .then(toJson)
-      .then(firstRecord(param))
-      .then(cacheRecord)
+      .then(firstRecord)
+      .then(cacheRecord(param))
     ;
   };
 
@@ -63,8 +62,8 @@ export default (prefix: string) => {
   return {
     getBookFromId: (id: string) => idLoader(id),
     getBookFromSlug: (slug: string) => slugLoader(slug),
-    getBookIdFromSlug: (slug: string) => slugLoader(slug).then(({cnx_id}) => cnx_id),
-    getBookSlugFromId: (id: string) => idLoader(id).then(({meta: {slug}}) => slug),
+    getBookIdFromSlug: (slug: string) => slugLoader(slug).then((book) => book && book.cnx_id),
+    getBookSlugFromId: (id: string) => idLoader(id).then((book) => book && book.meta.slug),
     preloadCache: cacheRecord, // exposed for testing books that don't exist in osweb
   };
 };
