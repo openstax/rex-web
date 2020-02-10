@@ -7,7 +7,7 @@ import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import Dropdown from '../../../components/Dropdown';
+import { DropdownList } from '../../../components/Dropdown';
 import { findElementSelfOrParent } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
@@ -269,7 +269,7 @@ const StyledCard = styled(Card)`
 
   transition: all 0.3s;
 
-  ${Dropdown} {
+  ${DropdownList} {
     z-index: 1;
   }
 
