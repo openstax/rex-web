@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../../components/Button';
@@ -8,6 +9,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { printSummaryHighlights } from '../../actions';
 import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
@@ -53,20 +55,28 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) => <div className={className}>
-  <FormattedMessage id='i18n:highlighting:filters:chapters'>
-    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
-      <ChapterFilter />
-    </Dropdown>}
-  </FormattedMessage>
-  <FormattedMessage id='i18n:highlighting:filters:colors'>
-    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
-      <ColorFilter />
-    </Dropdown>}
-  </FormattedMessage>
-  <HighlightsPrintButton />
-  <FiltersList />
-</div>;
+const Filters = ({className}: Props) => {
+  const dispatch = useDispatch();
+
+  const printHighlights = () => {
+    dispatch(printSummaryHighlights());
+  };
+
+  return <div className={className}>
+    <FormattedMessage id='i18n:highlighting:filters:chapters'>
+      {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
+        <ChapterFilter />
+      </Dropdown>}
+    </FormattedMessage>
+    <FormattedMessage id='i18n:highlighting:filters:colors'>
+      {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
+        <ColorFilter />
+      </Dropdown>}
+    </FormattedMessage>
+    <HighlightsPrintButton onClick={printHighlights} />
+    <FiltersList />
+  </div>;
+};
 
 export default styled(Filters)`
   overflow: visible;

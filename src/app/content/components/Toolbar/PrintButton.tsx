@@ -12,6 +12,7 @@ interface Props {
   currentPath: string;
   book: Book | undefined;
   className?: string;
+  onClick?: () => void;
 }
 
 class PrintButton extends Component<Props> {
@@ -22,7 +23,7 @@ class PrintButton extends Component<Props> {
           <FormattedMessage id='i18n:toolbar:print:aria-label'>
             {(label: Element | string) => (
               <Styled.PrintOptWrapper
-                onClick={() => assertWindow().print()}
+                onClick={this.props.onClick ? this.props.onClick : () => assertWindow().print()}
                 aria-label={label}
                 data-testid='print'
                 className={this.props.className}
