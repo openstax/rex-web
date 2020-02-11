@@ -1,22 +1,15 @@
 import { GetHighlightsColorsEnum, Highlight } from '@openstax/highlighter/dist/api';
-import omit from 'lodash/fp/omit';
-import { ActionHookBody, AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
+import { ActionHookBody, AppServices, Store } from '../../../types';
 import { actionHook } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { summaryPageSize } from '../constants';
 import * as select from '../selectors';
 import { SummaryHighlightsPagination } from '../types';
-import { getNextPageSources } from '../utils/paginationUtils';
-import { fetchHighlightsForSource, formatReceivedHighlights, incrementPage } from './utils';
+import { getNewSources } from './utils';
+import { fetchHighlightsForSource, incrementPage, loadMoreByFunction } from './utils';
 
-const getNewSources = (state: AppState, omitSources: string[]) => {
-  const book = bookSelector(state);
-  const remainingCounts = omit(omitSources, select.filteredCountsPerPage(state));
-  return book ? getNextPageSources(remainingCounts, book.tree, summaryPageSize) : [];
-};
-
-const loadUntilPageSize = async({
+export const loadUntilPageSize = async({
   previousPagination,
   ...args
 }: {
@@ -31,7 +24,7 @@ const loadUntilPageSize = async({
   const {colors} = select.summaryFilters(state);
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getNewSources(state, args.sourcesFetched), page: 1};
+    : {sourceIds: getNewSources(state, args.sourcesFetched, summaryPageSize), page: 1};
 
   if (!book || sourceIds.length === 0) {
     return {pagination: null, highlights: args.highlights || []};
@@ -58,28 +51,11 @@ const loadUntilPageSize = async({
   return {pagination, highlights};
 };
 
-const loadMore = async({getState, highlightClient, dispatch}: MiddlewareAPI & AppServices) => {
-  const state = getState();
-  const locationFilters = select.highlightLocationFilters(state);
-  const previousPagination = select.summaryPagination(state);
-  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
-
-  const {pagination, highlights} = await loadUntilPageSize({
-    getState,
-    highlightClient,
-    previousPagination,
-    sourcesFetched,
-  });
-
-  const formattedHighlights = formatReceivedHighlights(highlights, locationFilters);
-
-  dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
-};
-
-export default loadMore;
-
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
-  (services) => () => loadMore(services);
+  (services) => async() => {
+    const {formattedHighlights, pagination} = await loadMoreByFunction(loadUntilPageSize, services);
+    services.dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
+  };
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
 export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);

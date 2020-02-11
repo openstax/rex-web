@@ -1,19 +1,12 @@
 import { GetHighlightsColorsEnum, Highlight } from '@openstax/highlighter/dist/api';
-import omit from 'lodash/fp/omit';
-import { ActionHookBody, AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
+import { ActionHookBody, AppServices, MiddlewareAPI, Store } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { printSummaryHighlights, receiveSummaryHighlights } from '../actions';
 import { maxHighlightsPerFetch } from '../constants';
 import * as select from '../selectors';
 import { SummaryHighlightsPagination,  } from '../types';
-import { fetchHighlightsForSource, formatReceivedHighlights, incrementPage } from './utils';
-
-const getAllRemainingSources = (state: AppState, omitSources: string[]) => {
-  const book = bookSelector(state);
-  const remainingCounts = omit(omitSources, select.filteredCountsPerPage(state));
-  return book ? Object.keys(remainingCounts) : [];
-};
+import { fetchHighlightsForSource, formatReceivedHighlights, getNewSources, incrementPage } from './utils';
 
 const loadAllRemainingHighlights = async({
   previousPagination,
@@ -30,7 +23,7 @@ const loadAllRemainingHighlights = async({
   const {colors} = select.summaryFilters(state);
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getAllRemainingSources(state, args.sourcesFetched), page: 1};
+    : {sourceIds: getNewSources(state, args.sourcesFetched), page: 1};
 
   if (!book || sourceIds.length === 0) {
     return {pagination: null, highlights: args.highlights || []};

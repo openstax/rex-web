@@ -4,12 +4,22 @@ import {
   Highlight,
   Highlights
 } from '@openstax/highlighter/dist/api';
-import { AppServices } from '../../../types';
+import omit from 'lodash/fp/omit';
+import { AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { book as bookSelector } from '../../selectors';
 import { Book } from '../../types';
 import { stripIdVersion } from '../../utils';
+import * as select from '../selectors';
 import { HighlightLocationFilters, SummaryHighlightsPagination, } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
+import { getNextPageSources } from '../utils/paginationUtils';
+
+type fetchFunctionBody = (args: { previousPagination: SummaryHighlightsPagination, getState: Store['getState'],
+    highlightClient: AppServices['highlightClient'],
+    highlights?: Highlight[]
+    sourcesFetched: string[]}
+) =>  Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}>;
 
 export const formatReceivedHighlights = (
     highlights: Highlight[],
@@ -31,6 +41,12 @@ export const formatReceivedHighlights = (
 
 export const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
 ({...pagination, page: pagination.page + 1});
+
+export const getNewSources = (state: AppState, omitSources: string[], limit?: number) => {
+  const book = bookSelector(state);
+  const remainingCounts = omit(omitSources, select.filteredCountsPerPage(state));
+  return book ?  getNextPageSources(remainingCounts, book.tree, limit) : [];
+};
 
 export const extractDataFromHighlightClientResponse = (highlightsResponse: Highlights) => {
   // TODO - change swagger so none of this is nullable
@@ -83,4 +99,25 @@ export const fetchHighlightsForSource = async({
     highlights: prevHighlights ? [...prevHighlights, ...data] : data,
     pagination: nextPagination,
   };
+};
+
+export const loadMoreByFunction = async(fetchingFunction: fetchFunctionBody, {
+  getState,
+  highlightClient,
+}: MiddlewareAPI & AppServices) => {
+  const state = getState();
+  const locationFilters = select.highlightLocationFilters(state);
+  const previousPagination = select.summaryPagination(state);
+  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
+
+  const {pagination, highlights} = await fetchingFunction({
+    getState,
+    highlightClient,
+    previousPagination,
+    sourcesFetched,
+  });
+
+  const formattedHighlights = formatReceivedHighlights(highlights, locationFilters);
+
+  return {formattedHighlights, pagination};
 };
