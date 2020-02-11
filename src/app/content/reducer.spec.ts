@@ -45,8 +45,8 @@ describe('content reducer', () => {
   });
 
   it('reduces requestBook', () => {
-    const newState = reducer(initialState, actions.requestBook('bookId'));
-    expect(newState.loading.book).toEqual('bookId');
+    const newState = reducer(initialState, actions.requestBook({uuid: 'bookId', version: '3'}));
+    expect(newState.loading.book!).toEqual({uuid: 'bookId', version: '3'});
   });
 
   it('reduces requestPage', () => {
