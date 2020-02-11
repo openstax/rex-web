@@ -7,7 +7,7 @@ import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import Dropdown from '../../../components/Dropdown';
+import { DropdownList } from '../../../components/Dropdown';
 import { findElementSelfOrParent } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
@@ -256,6 +256,9 @@ const mobileDisplay = css`
   `}
 `;
 
+export const mediaQueryBreakToStopDisplaingAllCards = remsToEms(
+ contentTextWidth + sidebarDesktopWidth + additionalWidthForCard) + 'em';
+
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
   position: absolute;
@@ -266,7 +269,7 @@ const StyledCard = styled(Card)`
 
   transition: all 0.3s;
 
-  ${Dropdown} {
+  ${DropdownList} {
     z-index: 1;
   }
 
@@ -306,7 +309,7 @@ const StyledCard = styled(Card)`
     `;
   }}
 
-  @media (max-width: ${remsToEms(contentTextWidth + sidebarDesktopWidth + additionalWidthForCard)}em) {
+  @media (max-width: ${mediaQueryBreakToStopDisplaingAllCards}) {
     /* the window is too small to show note cards next to content when the toc is open */
     ${overlapDisplay}
     ${styleWhenSidebarClosed(rightSideDisplay)}
