@@ -52,7 +52,8 @@ export const CloseIcon = styled(Times)`
   width: 1.4rem;
 `;
 
-const cookieId = 'highlights_help_info_dissmised';
+export const cookieId = 'highlights_help_info_dissmised';
+export const timeBeforeShow = 1000;
 // tslint:disable-next-line: max-line-length
 const supportCenterLink = 'https://openstax.secure.force.com/help/articles/FAQ/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting';
 
@@ -70,7 +71,7 @@ const HighlightsHelpInfo = () => {
       if (!Boolean(Cookies.get(cookieId)) && assertWindow().matchMedia(theme.breakpoints.mobileQuery).matches) {
         setShow(true);
       }
-    }, 1000);
+    }, timeBeforeShow);
   }, []);
 
   if (!show) { return null; }
