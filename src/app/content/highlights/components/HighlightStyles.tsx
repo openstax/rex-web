@@ -8,7 +8,8 @@ import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
-import { mobileMargin } from './SummaryPopup/constants';
+import { disablePrint } from '../../components/utils/disablePrint';
+import { mobileMargin, mobilePadding } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -43,6 +44,14 @@ export const imageStyles = css`
 export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
+
+  @media print {
+    display: block;
+
+    & ~ div {
+      display: none;
+    }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -59,12 +68,21 @@ export const Modal = styled.div`
   max-width: ${contentWrapperMaxWidth}rem;
   width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
-    margin: 3rem ${mobileMargin}rem;
+    margin: 2rem 0;
+    width: calc(100% - ${mobileMargin * 2}rem);
   `)}
+
+  @media print {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 export const Header = styled(H3)`
+  ${disablePrint}
   background: #002569;
   color: ${theme.color.neutral.base};
   padding: ${popupPadding}rem;
@@ -73,16 +91,25 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
+  ${theme.breakpoints.mobile(css`
+    padding: ${mobilePadding.leftRight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
+  -webkit-overflow-scrolling: touch;
   height: calc(100% - ${headerHeight}rem);
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
   `)}
+
+  @media print {
+    height: max-content;
+    overflow: auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -229,7 +256,11 @@ export const InfoIconWrapper = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIconWrapper = PlainButton;
+export const CloseIconWrapper = styled(PlainButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
@@ -239,6 +270,8 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   :hover {
     color: ${toolbarIconColor.base};
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -269,6 +302,11 @@ export const GeneralText = styled(H3)`
 export const GeneralTextWrapper = styled.div`
   ${bodyCopyRegularStyle}
   padding: ${popupBodyPadding}rem ${popupPadding}rem 0;
+
+  @media print {
+    height: max-content;
+    overflow: auto;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

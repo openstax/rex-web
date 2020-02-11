@@ -3,8 +3,9 @@ import { setHead } from '../../head/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
-import { assertDefined } from '../../utils';
 import { receivePage } from '../actions';
+import { defaultTheme } from '../components/constants';
+import { hasOSWebData } from '../guards';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
@@ -30,7 +31,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const loadingPage = select.loadingPage(state);
   const pathname = selectNavigation.pathname(state);
 
-  if (!book || !page) {
+  if (!page || !book) {
     return;
   }
   if (loadingBook) {
@@ -45,22 +46,19 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   // the abstract could be '<div/>'.
   const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
   const description = abstract || stripHtmlAndTrim(getCleanContent(book, page, archiveLoader));
-  const canonical = assertDefined(
-    await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId),
-    'should have found a canonical book and page'
-  );
-  const canonicalUrl = contentRoute.getUrl(canonical);
-
+  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId);
+  const canonicalUrl = canonical && contentRoute.getUrl(canonical);
+  const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
   dispatch(setHead({
-    links: [
+    links: canonicalUrl ? [
       {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
-    ],
+    ] : [],
     meta: [
       {name: 'description', content: description},
       {property: 'og:description', content: description},
       {property: 'og:title', content: title},
       {property: 'og:url', content: `https://openstax.org${canonicalUrl}`},
-      {name: 'theme-color', content: theme.color.primary[book.theme].base},
+      {name: 'theme-color', content: bookTheme},
     ],
     title,
   }));

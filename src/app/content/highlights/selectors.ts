@@ -10,8 +10,12 @@ import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
 import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
-import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from './utils';
-import { filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
+import {
+  getHighlightColorFiltersWithContent,
+  getHighlightLocationFilters,
+  getHighlightLocationFiltersWithContent,
+} from './utils';
+import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -69,16 +73,26 @@ export const summaryLocationFilters = createSelector(
   (filters) => filters.locationIds
 );
 
+export const summaryColorFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.colors
+);
+
 export const summaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
 );
 
+export const summaryPagination = createSelector(
+  localState,
+  (state) => state.summary.pagination
+);
+
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
- (book) => book
-  ? getHighlightLocationFilters(book)
-  : new Map() as HighlightLocationFilters
+  (book) => book
+    ? getHighlightLocationFilters(book)
+    : new Map() as HighlightLocationFilters
 );
 
 export const highlightLocationFiltersWithContent = createSelector(
@@ -87,7 +101,12 @@ export const highlightLocationFiltersWithContent = createSelector(
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
 
-const loadedCountsPerSource = createSelector(
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  (totalCounts) => getHighlightColorFiltersWithContent(totalCounts)
+);
+
+export const loadedCountsPerSource = createSelector(
   summaryHighlights,
   flow(
     values,
@@ -104,15 +123,21 @@ const selectedHighlightLocationFilters = createSelector(
  , new Map() as HighlightLocationFilters)
 );
 
-// TODO - filter this by color when available from api
-const filteredCountsPerPage = createSelector(
+export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
-  (totalCounts, locationFilters) => filterCountsPerSourceByLocationFilter(locationFilters, totalCounts)
+  summaryColorFilters,
+  (totalCounts, locationFilters, colorFilters) => flow(
+    (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
+    (counts) => filterCountsPerSourceByColorFilter(colorFilters, counts)
+  )(totalCounts)
 );
 
-export const remainingSourceCounts = createSelector(
+export const hasMoreResults = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
-  (loadedCounts, totalCounts) => omit(Object.keys(loadedCounts), totalCounts)
+  summaryPagination,
+  (loaded, filteredCounts, pagination) => {
+    return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
+  }
 );

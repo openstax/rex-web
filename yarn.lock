@@ -1767,22 +1767,24 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@openstax/highlighter@1.4.4":
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.4.4.tgz#f71b34a1efb91016a748151cc3621a18cf589de9"
-  integrity sha512-+YjTzwFL4sm+BGSERcYRPXD2C68hH3p0Urn6NH5lNs9GNAj1/F06Cf82PsO1dnyuCH/8a/72GbBD9THP1oo8qQ==
+"@openstax/highlighter@1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.4.5.tgz#c94a10ccae0c1bd189bf21c1bc2d3f301989739e"
+  integrity sha512-ye8RJtPgCbaXhvPI9isWMC8iYy9duXLPG02VPntdLzbFZFKPS0vSf3RObhyBUHFHRyLK+Zqdj4fJ6vV5LTJuBw==
   dependencies:
     change-case "^4.0.0"
     serialize-selection "^1.1.1"
     uuid "^3.3.3"
 
-"@openstax/open-search-client@./open-search-client/":
+"@openstax/open-search-client@0.1.0":
   version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@openstax/open-search-client/-/open-search-client-0.1.0.tgz#57c0d5d9524eb8cf8fc729251fcccfe5c26b8358"
+  integrity sha512-m3+jeNIwegiuTW0ncxdafRYG2EjlPyH5F2v6zdlDQcGVXK6yZWrKthz8jrRxmTCx7CE5Iw+Jv2UwE0ghVi2TXg==
 
-"@openstax/types@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-1.0.2.tgz#8421a412f9ea279c5bebf43f2bb8814f0bfd13c9"
-  integrity sha512-S2coW686v7sSR9a621762OeT+dpgH8CbnfBhYmSrXNbeXf2c38g9hnNuyYQO83GUjVbfi581PO5rpn7sdTe3rg==
+"@openstax/types@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-1.0.3.tgz#c90211337d0cef885ff5c518f3068e1ce2770b64"
+  integrity sha512-PaW94871xMyEnVeM13o5+WoQojPy3qDWnU5333Xiss3l/kUqlqihoxNSGXB3mKh+u36GqKAKQ/kYwSufTPEz+g==
 
 "@sentry/browser@5.6.1", "@sentry/browser@^5.0.0", "@sentry/browser@^5.6.1":
   version "5.6.1"

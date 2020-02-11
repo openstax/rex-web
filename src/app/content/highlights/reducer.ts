@@ -5,15 +5,18 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
+import { merge } from '../../utils';
 import * as actions from './actions';
 import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
-  addOneToTotalCounts,
-  addSummaryHighlight,
-  removeOneFromTotalCounts,
+  addToTotalCounts,
+  getHighlightColorFiltersWithContent,
+  getHighlightLocationFiltersWithContent,
+  removeFromTotalCounts,
   removeSummaryHighlight,
-  updateSummaryHighlightsDependOnFilters,
+  updateInTotalCounts,
+  updateSummaryHighlightsDependOnFilters
 } from './utils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
@@ -23,7 +26,7 @@ export const initialState: State = {
   myHighlightsOpen: false,
   summary: {
     filters: {colors: defaultColors, locationIds: []},
-    highlights: {},
+    highlights: null,
     loading: false,
     pagination: null,
     totalCountsPerPage: null,
@@ -47,16 +50,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         sourceType: action.payload.sourceType as string as HighlightSourceTypeEnum,
       };
 
-      let newSummaryHighlights;
-      if (state.summary.filters.colors.includes(highlight.color)) {
-        newSummaryHighlights = addSummaryHighlight(state.summary.highlights, {
-          ...action.meta,
-          highlight,
-        });
-      }
+      const newSummaryHighlights = state.summary.highlights
+        ? updateSummaryHighlightsDependOnFilters(
+          state.summary.highlights,
+          state.summary.filters,
+          {...action.meta, highlight })
+        : state.summary.highlights;
 
-      const { pageId } = action.meta;
-      const totalCountsPerPage = addOneToTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = state.summary.totalCountsPerPage
+        ? addToTotalCounts(state.summary.totalCountsPerPage, highlight)
+        : state.summary.totalCountsPerPage;
 
       return {
         ...state,
@@ -79,18 +82,28 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         (highlight) => highlight.id === action.payload.id);
       if (oldHiglightIndex < 0) { return state; }
 
+      const oldHighlight = state.highlights[oldHiglightIndex];
+
       const newHighlight = {
-        ...state.highlights[oldHiglightIndex],
+        ...oldHighlight,
         ...action.payload.highlight,
       } as Highlight;
 
       const newHighlights = [...state.highlights];
       newHighlights[oldHiglightIndex] = newHighlight;
 
-      const newSummaryHighlights = updateSummaryHighlightsDependOnFilters(
-        state.summary.highlights,
-        state.summary.filters,
-        {...action.meta, highlight: newHighlight});
+      const newSummaryHighlights = state.summary.highlights
+        ? updateSummaryHighlightsDependOnFilters(
+          state.summary.highlights,
+          state.summary.filters,
+          {...action.meta, highlight: newHighlight})
+        : state.summary.highlights
+      ;
+
+      const totalCountsPerPage = state.summary.totalCountsPerPage
+        ? updateInTotalCounts(state.summary.totalCountsPerPage, oldHighlight, newHighlight)
+        : state.summary.totalCountsPerPage
+      ;
 
       return {
         ...state,
@@ -98,6 +111,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
+          totalCountsPerPage,
         },
       };
     }
@@ -106,13 +120,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return state;
       }
 
-      const newSummaryHighlights = removeSummaryHighlight(state.summary.highlights, {
-        ...action.meta,
-        id: action.payload,
-      });
+      const [newSummaryHighlights, removedHighlight] = state.summary.highlights
+        ? removeSummaryHighlight(state.summary.highlights, {
+          ...action.meta,
+          id: action.payload,
+        })
+        : [state.summary.highlights, null]
+      ;
 
-      const { pageId } = action.meta;
-      const totalCountsPerPage = removeOneFromTotalCounts(state.summary.totalCountsPerPage || {}, pageId);
+      const totalCountsPerPage = state.summary.totalCountsPerPage && removedHighlight
+        ? removeFromTotalCounts(state.summary.totalCountsPerPage, removedHighlight)
+        : state.summary.totalCountsPerPage
+      ;
 
       return {
         ...state,
@@ -136,6 +155,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.initializeMyHighlightsSummary):
+    case getType(actions.loadMoreSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: true,
+        },
+      };
+    }
     case getType(actions.setSummaryFilters): {
       return {
         ...state,
@@ -145,7 +174,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
           loading: true,
+          pagination: null,
         },
       };
     }
@@ -154,16 +185,24 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          highlights: action.payload,
+          highlights: merge(state.summary.highlights || {}, action.payload),
           loading: false,
+          pagination: action.meta,
         },
       };
     }
     case getType(actions.receiveHighlightsTotalCounts): {
+      const locationIds = Array.from(getHighlightLocationFiltersWithContent(action.meta, action.payload));
+      const colors = Array.from(getHighlightColorFiltersWithContent(action.payload));
+
       return {
         ...state,
         summary: {
           ...state.summary,
+          filters: {
+            colors,
+            locationIds,
+          },
           totalCountsPerPage: action.payload,
         },
       };

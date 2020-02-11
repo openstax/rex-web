@@ -11,6 +11,7 @@ import * as Styled from './styled';
 interface Props {
   currentPath: string;
   book: Book | undefined;
+  className?: string;
 }
 
 class PrintButton extends Component<Props> {
@@ -24,6 +25,7 @@ class PrintButton extends Component<Props> {
                 onClick={() => assertWindow().print()}
                 aria-label={label}
                 data-testid='print'
+                className={this.props.className}
               >
                 <Styled.PrintIcon />
                 <Styled.PrintOptions>{msg}</Styled.PrintOptions>

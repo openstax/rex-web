@@ -26,17 +26,32 @@ export const LoaderWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightsChapter = styled.div`
-  ${h4Style}
-  height: 5.6rem;
-  font-weight: bold;
+export const HighlightsChapterWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 0 ${popupPadding}rem;
-  width: 100%;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${popupPadding}rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightsChapter = styled.div`
+  ${h4Style}
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  min-height: 5.6rem;
+
+  .os-number {
+    overflow: visible;
+  }
+
+  @media print {
+    padding: 0;
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -46,12 +61,21 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
     text-align: left;
     padding: 0;
   `)}
+
+  @media print {
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
   margin: 1.6rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
+
+  @media print {
+    border-width: 0;
+    margin: 0;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -69,6 +93,11 @@ export const HighlightSection = styled.div`
   > .os-text {
     overflow: hidden;
   }
+
+  @media print {
+    page-break-after: avoid;
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -78,12 +107,19 @@ export const HighlightOuterWrapper = styled.div`
   }
 
   background: ${theme.color.neutral.base};
+
+  @media print {
+    border-width: 0;
+    position: relative;
+    page-break-inside: avoid;
+    background: white;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 export const HighlightContent = styled.div`
   ${bodyCopyRegularStyle}
-  overflow: visible;
+  overflow: auto;
 
   * {
     overflow: initial;
@@ -100,6 +136,13 @@ export const HighlightNote = styled.div`
     margin: 0 0.8rem 0 0;
     overflow: visible;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const HighlightNoteAnnotation = styled.div`
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -124,6 +167,12 @@ export const HighlightContentWrapper = styled.div`
       }
     `;
   }}
+
+  @media print {
+    ${HighlightContent} {
+      background-color: white;
+    }
+  }
 `;
 
 // tslint:disable-next-line:variable-name

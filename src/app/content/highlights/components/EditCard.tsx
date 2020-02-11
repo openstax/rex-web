@@ -5,6 +5,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
 import { assertWindow, mergeRefs } from '../../../utils';
@@ -57,6 +58,11 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
+  const trackCreateNote = useAnalyticsEvent('createNote');
+  const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
+  const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
+
   const blurIfNotEditing = () => {
     if (!editingAnnotation) {
       onBlur();
@@ -65,7 +71,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
-  const onColorChange = (color: HighlightColorEnum) => {
+  const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     highlight.setStyle(color);
     if (data) {
       onSave({
@@ -78,13 +84,17 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         locationFilterId,
         pageId,
       });
+      trackEditNoteColor(color);
     } else {
       assertWindow().getSelection().removeAllRanges();
       onCreate();
+      trackCreateNote(isDefault ? 'default' : color);
     }
   };
 
   const saveAnnotation = (toSave: HighlightData) => {
+    const addedNote = (data && data.annotation === undefined) ? true : false;
+
     onSave({
       highlight: {
         annotation: pendingAnnotation,
@@ -95,6 +105,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       locationFilterId,
       pageId,
     });
+    trackEditAnnotation(addedNote, toSave.color);
     onCancel();
   };
 
@@ -110,15 +121,16 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     data-analytics-region='edit-note'
   >
     <ColorPicker color={data ? data.color : undefined} onChange={onColorChange} onRemove={() => {
-      if ((!data || !data.annotation) && !pendingAnnotation) {
+      if (data && !data.annotation && !pendingAnnotation) {
         onRemove();
+        trackDeleteHighlight(data.color);
       }
     }} />
     <Note
       note={pendingAnnotation}
       onFocus={() => {
         if (!highlight.getStyle()) {
-          onColorChange(highlightStyles[0].label);
+          onColorChange(highlightStyles[0].label, true);
         }
       }}
       onChange={(newValue) => {
@@ -170,6 +182,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       always={() => setConfirmingDelete(false)}
     />}
     {!authenticated && <Confirmation
+      data-analytics-label='login'
       data-analytics-region='highlighting-login'
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'

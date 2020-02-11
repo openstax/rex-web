@@ -4,6 +4,7 @@ import * as select from './selectors';
 
 jest.mock('./constants', () => ({
   enabledForBooks: ['enabledbook'],
+  highlightStyles: (jest as any).requireActual('./constants').highlightStyles,
 }));
 
 const mockBook = book as any as jest.SpyInstance;
@@ -41,7 +42,7 @@ describe('highlightLocationFiltersWithContent', () => {
     mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
     expect(select.highlightLocationFiltersWithContent({
       summary: {
-        totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
+        totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
       },
     } as any)).toEqual(new Set(['chapter1', 'preface']));
   });
@@ -56,18 +57,22 @@ describe('highlightLocationFiltersWithContent', () => {
   });
 });
 
-describe('remainingSourceCounts', () => {
-  it('returns remaining', () => {
+describe('highlightColorFiltersWithContent', () => {
+  it('filters', () => {
     mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
-    expect(select.remainingSourceCounts({
+    expect(select.highlightColorFiltersWithContent({
       summary: {
-        filters: {locationIds: ['chapter1', 'preface']},
-        highlights: {
-          chapter1: {page1: [{}]},
-          preface: {preface: [{}, {}]},
-        },
-        totalCountsPerPage: {page1: 1, page2: 3, preface: 2},
+        totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
       },
-    } as any)).toEqual({page2: 3});
+    } as any)).toEqual(new Set(['blue', 'pink', 'yellow']));
+  });
+
+  it('works with null counts', () => {
+    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    expect(select.highlightColorFiltersWithContent({
+      summary: {
+        totalCountsPerPage: null,
+      },
+    } as any)).toEqual(new Set());
   });
 });

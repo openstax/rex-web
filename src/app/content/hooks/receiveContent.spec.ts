@@ -4,7 +4,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { setHead } from '../../head/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { formatBookData } from '../utils';
 
@@ -20,7 +20,7 @@ describe('setHead hook', () => {
   let hook: ReturnType<typeof import ('./receiveContent').default>;
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let helpers: MiddlewareAPI & AppServices;
+  let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     getCanonicalUrlParams = require('../utils/canonicalUrl').getCanonicalUrlParams;
@@ -49,7 +49,7 @@ describe('setHead hook', () => {
   it('does nothing if book is loading', async() => {
     store.dispatch(receiveBook(combinedBook));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(requestBook('asdf'));
+    store.dispatch(requestBook({book: 'asdf', page: 'anypage'}));
 
     await hook(receivePage({...page, references: []}));
 
@@ -107,7 +107,7 @@ describe('setHead hook', () => {
       })));
     });
     it('always dispatches sethead with description tags', async() => {
-      store.dispatch(receiveBook(combinedBook));
+      store.dispatch(receiveBook(book));
       store.dispatch(receivePage({
         ...page,
         abstract: undefined as any as string,
@@ -148,12 +148,36 @@ describe('setHead hook', () => {
       expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
     });
 
-    it('returns nothing when the page is only in the current book (not in the canonical book)', async() => {
+    it('throws if canonical book is missing cms data', async() => {
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      const bookId = book.id;
+      const pageShortId = page.shortId;
+      CANONICAL_MAP[bookId] = [ bookId ];
+
+      await expect(getCanonicalUrlParams(
+        helpers.archiveLoader,
+        helpers.osWebLoader,
+        bookId,
+        pageShortId
+      )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
+    });
+
+    it('doesn\'t add link when canonical is null', async() => {
       const bookId = book.id;
       const pageShortId = 'unique-snowflake-page';
       CANONICAL_MAP[bookId] = [ bookId ];
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
-      expect(x).toBeNull();
+
+      store.dispatch(receiveBook(combinedBook));
+      store.dispatch(receivePage({...page, references: [], shortId: pageShortId}));
+
+      await hook(receivePage({...page, references: [], shortId: pageShortId}));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead({
+        links: [],
+        meta: expect.anything(),
+        title: expect.anything(),
+      }));
     });
 
     it('adds <link rel="canonical">', async() => {
@@ -165,7 +189,11 @@ describe('setHead hook', () => {
 
       await hook(receivePage({...page, references: []}));
 
-      expect(dispatch).toHaveBeenCalledWith(setHead(expect.anything()));
+      expect(dispatch).toHaveBeenCalledWith(setHead({
+        links: [{rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1'}],
+        meta: expect.anything(),
+        title: expect.anything(),
+      }));
     });
   });
 });

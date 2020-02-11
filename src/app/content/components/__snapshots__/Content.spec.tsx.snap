@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 100;
+  z-index: 110;
 }
 
 <a
@@ -343,6 +343,284 @@ Array [
 .c32 {
   width: 100%;
   padding: 0 3.2rem;
+}
+
+.c14 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  margin-right: 0.5rem;
+}
+
+.c17 {
+  font-family: Neue Helvetica W01;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.c38 {
+  font-family: Neue Helvetica W01;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.c13 {
+  color: #5e6062;
+  border: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  background: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.c13:hover {
+  color: #424242;
+}
+
+.c23 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+}
+
+.c23:hover,
+.c23:focus {
+  color: #424242;
+}
+
+.c25 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: auto;
+}
+
+.c25:hover,
+.c25:focus {
+  color: #424242;
+}
+
+.c27 {
+  font-weight: 600;
+  font-family: Neue Helvetica W01;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0 0 0 0.5rem;
+}
+
+.c26 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c22 {
+  display: none;
+}
+
+.c22 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c24 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c20 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 2rem;
+  position: relative;
+  color: #5e6062;
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  width: 38rem;
+}
+
+.c20:focus-within {
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c20.focus-within {
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c21 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: 3.2rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.c21::-webkit-search-decoration,
+.c21::-webkit-search-cancel-button,
+.c21::-webkit-search-results-button,
+.c21::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.c21::-webkit-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c21::-moz-placeholder {
+  color: #6f6f6f;
+}
+
+.c21:-ms-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c21::placeholder {
+  color: #6f6f6f;
+}
+
+.c18 {
+  height: 100%;
+  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.c10 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  width: 100%;
+  overflow: visible;
+  display: block;
+  z-index: 40;
+  background-color: #fff;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+}
+
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: visible;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 128rem;
+  margin: 0 auto;
+  width: calc(100% - 3.2rem * 2);
+  height: 5rem;
+}
+
+.c29 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c12 {
+  margin-right: auto;
+}
+
+.c28 {
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #5e6062;
+  margin-left: 2rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c51 {
@@ -827,53 +1105,6 @@ Array [
   display: flex;
 }
 
-.c14 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  margin-right: 0.5rem;
-}
-
-.c17 {
-  font-family: Neue Helvetica W01;
-  font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.c38 {
-  font-family: Neue Helvetica W01;
-  font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.c13 {
-  color: #5e6062;
-  border: none;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  background: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.c13:hover {
-  color: #424242;
-}
-
 .c34 {
   position: -webkit-sticky;
   position: sticky;
@@ -1151,239 +1382,6 @@ li[aria-label="Current Page"] .c44 {
   overflow: visible;
 }
 
-.c23 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-}
-
-.c23:hover,
-.c23:focus {
-  outline: none;
-  color: #424242;
-}
-
-.c25 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: auto;
-}
-
-.c25:hover,
-.c25:focus {
-  outline: none;
-  color: #424242;
-}
-
-.c27 {
-  font-weight: 600;
-  font-family: Neue Helvetica W01;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0 0 0 0.5rem;
-}
-
-.c26 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c22 {
-  display: none;
-}
-
-.c22 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c24 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c20 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-right: 2rem;
-  position: relative;
-  color: #5e6062;
-  border: solid 0.1rem;
-  border-radius: 0.2rem;
-  width: 38rem;
-}
-
-.c20:focus-within {
-  border: solid 0.1rem #0dc0dc;
-  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
-}
-
-.c20.focus-within {
-  border: solid 0.1rem #0dc0dc;
-  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
-}
-
-.c21 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  font-size: 1.6rem;
-  margin: 0 1rem 0 1rem;
-  height: 3.2rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.c21::-webkit-search-decoration,
-.c21::-webkit-search-cancel-button,
-.c21::-webkit-search-results-button,
-.c21::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: none;
-}
-
-.c21::-webkit-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c21::-moz-placeholder {
-  color: #6f6f6f;
-}
-
-.c21:-ms-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c21::placeholder {
-  color: #6f6f6f;
-}
-
-.c18 {
-  height: 100%;
-  text-align: right;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-}
-
-.c10 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 40;
-  background-color: #fff;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-}
-
-.c11 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: visible;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  max-width: 128rem;
-  margin: 0 auto;
-  width: calc(100% - 3.2rem * 2);
-  height: 5rem;
-}
-
-.c29 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c12 {
-  margin-right: auto;
-}
-
-.c28 {
-  min-width: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  color: #5e6062;
-  margin-left: 2rem;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 .c33 {
   overflow: visible;
   margin: 0 auto;
@@ -1512,6 +1510,97 @@ li[aria-label="Current Page"] .c44 {
 @media screen and (max-width:75em) {
   .c32 {
     padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c17 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c27 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c22 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c24 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c20 {
+    margin-right: 0;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c21 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c18 {
+    height: 100%;
+  }
+
+  .c18 .c19 {
+    border: none;
+    border-radius: 0;
+    width: 45px;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c10 {
+    top: 6rem;
+  }
+}
+
+@media print {
+  .c10 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    width: calc(100% - 1.6rem * 2);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c12 {
+    margin-right: unset;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c28 {
+    margin: 0;
   }
 }
 
@@ -1855,12 +1944,6 @@ li[aria-label="Current Page"] .c44 {
 }
 
 @media screen and (max-width:75em) {
-  .c17 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c34 {
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
@@ -1903,91 +1986,6 @@ li[aria-label="Current Page"] .c44 {
 @media screen and (max-width:75em) {
   .c42 {
     margin-top: 1.7rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c27 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c22 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c24 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c20 {
-    margin-right: 0;
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c21 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c18 {
-    height: 100%;
-  }
-
-  .c18 .c19 {
-    border: none;
-    border-radius: 0;
-    width: 45px;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    top: 6rem;
-  }
-}
-
-@media print {
-  .c10 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c11 {
-    width: calc(100% - 1.6rem * 2);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c11 {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    height: 4rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c12 {
-    margin-right: unset;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c28 {
-    margin: 0;
   }
 }
 
@@ -2257,7 +2255,7 @@ li[aria-label="Current Page"] .c44 {
         <a
           aria-label="Buy book"
           className="c28"
-          data-analytics-href="buy-book"
+          data-analytics-label="buy-book"
           href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
           rel="noopener"
           target="_blank"
@@ -2923,7 +2921,7 @@ li[aria-label="Current Page"] .c44 {
                       <a
                         aria-label="Previous Page"
                         className="c66"
-                        data-analytics-href="prev"
+                        data-analytics-label="prev"
                         href="2-test-page-3"
                         onClick={[Function]}
                       >
@@ -2943,7 +2941,7 @@ li[aria-label="Current Page"] .c44 {
                       <a
                         aria-label="Next Page"
                         className="c68"
-                        data-analytics-href="next"
+                        data-analytics-label="next"
                         href="4-test-page-5"
                         onClick={[Function]}
                       >
@@ -3367,7 +3365,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 100;
+  z-index: 110;
 }
 
 <a
@@ -3461,23 +3459,23 @@ Array [
   overflow: hidden;
 }
 
-.c67 {
+.c56 {
   height: 1em;
 }
 
-.c68 {
+.c57 {
   height: 1em;
 }
 
-.c70 {
+.c59 {
   height: 1em;
 }
 
-.c69 {
+.c58 {
   height: 1em;
 }
 
-.c51 {
+.c40 {
   font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
@@ -3488,16 +3486,16 @@ Array [
   transition: opacity 0.2s;
 }
 
-.c52 {
+.c41 {
   color: #d5d5d5;
   display: grid;
 }
 
-.c53 {
+.c42 {
   background-color: #424242;
 }
 
-.c54 {
+.c43 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3519,32 +3517,32 @@ Array [
   overflow: visible;
 }
 
-.c55 {
+.c44 {
   grid-area: headline;
 }
 
-.c56 {
+.c45 {
   grid-area: mission;
 }
 
-.c56 a {
+.c45 a {
   color: inherit;
   font-weight: bold;
   text-underline-position: under;
 }
 
-.c59 {
+.c48 {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c59:hover {
+.c48:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c71 {
+.c60 {
   color: inherit;
   display: inline-grid;
   grid-auto-flow: column;
@@ -3552,28 +3550,28 @@ Array [
   overflow: hidden;
 }
 
-.c57 {
+.c46 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col1;
 }
 
-.c60 {
+.c49 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c61 {
+.c50 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col3;
 }
 
-.c58 {
+.c47 {
   font-size: 1.8rem;
   font-weight: bold;
   -webkit-letter-spacing: -0.072rem;
@@ -3583,7 +3581,7 @@ Array [
   line-height: normal;
 }
 
-.c62 {
+.c51 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -3594,7 +3592,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c63 {
+.c52 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3616,22 +3614,22 @@ Array [
   overflow: visible;
 }
 
-.c64 {
+.c53 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c64 [data-html="copyright"] {
+.c53 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c64 a {
+.c53 a {
   color: inherit;
   overflow: visible;
 }
 
-.c64 sup {
+.c53 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -3639,7 +3637,7 @@ Array [
   vertical-align: top;
 }
 
-.c65 {
+.c54 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -3654,7 +3652,7 @@ Array [
   overflow: visible;
 }
 
-.c66 {
+.c55 {
   color: inherit;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -3673,7 +3671,7 @@ Array [
   width: 3rem;
 }
 
-.c72 {
+.c61 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -3758,248 +3756,6 @@ Array [
   transform-origin: center;
 }
 
-.c47 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c50 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c44 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c44::before {
-  display: none;
-}
-
-.c44::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c44::-webkit-details-marker {
-  display: none;
-}
-
-.c73[open] > summary .c46 {
-  display: none;
-}
-
-.c73:not([open]) > summary .c49 {
-  display: none;
-}
-
-.c38 {
-  outline: none;
-}
-
-.c37 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  overflow: visible;
-}
-
-.c37 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c37 a:hover {
-  color: #0064A0;
-}
-
-.c37 .MathJax_Display .highlight,
-.c37 .MathJax_Preview + .highlight {
-  display: inline-block;
-}
-
-.c37 .highlight.yellow {
-  background-color: #ffff8a;
-}
-
-.c37 .highlight.yellow.has-note {
-  border-bottom: 1px solid #fed200;
-}
-
-.c37 .highlight.green {
-  background-color: #def99f;
-}
-
-.c37 .highlight.green.has-note {
-  border-bottom: 1px solid #92d101;
-}
-
-.c37 .highlight.blue {
-  background-color: #c8f5ff;
-}
-
-.c37 .highlight.blue.has-note {
-  border-bottom: 1px solid #00c3ed;
-}
-
-.c37 .highlight.purple {
-  background-color: #cbcfff;
-}
-
-.c37 .highlight.purple.has-note {
-  border-bottom: 1px solid #545ec8;
-}
-
-.c37 .highlight.pink {
-  background-color: #ffc5e1;
-}
-
-.c37 .highlight.pink.has-note {
-  border-bottom: 1px solid #de017e;
-}
-
-.c37 .os-figure,
-.c37 .os-figure:last-child {
-  margin-bottom: 5px;
-}
-
-.c37 #main-content * {
-  overflow: initial;
-}
-
-.c23 {
-  position: relative;
-  overflow: visible;
-  -webkit-transition: margin-left 300ms;
-  transition: margin-left 300ms;
-}
-
-.c45 {
-  margin-left: -0.3rem;
-}
-
-.c48 {
-  margin-left: -0.3rem;
-}
-
-.c42 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-weight: 500;
-  list-style: none;
-}
-
-.c42 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c42 a:hover {
-  color: #0064A0;
-}
-
-.c42,
-.c42 span {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c42 a,
-.c42 span a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c42 a:hover,
-.c42 span a:hover {
-  color: #0064A0;
-}
-
-.c42:hover,
-.c42 span:hover,
-.c42:focus,
-.c42 span:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c40 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 2rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c40[open] > summary .c46 {
-  display: none;
-}
-
-.c40:not([open]) > summary .c49 {
-  display: none;
-}
-
-.c40 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c40 a:hover {
-  color: #0064A0;
-}
-
-.c40 > .c41 {
-  margin-bottom: 1.8rem;
-}
-
-.c40 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c1 {
-  top: 0;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 13rem;
-  -webkit-transition: -webkit-transform 200ms;
-  -webkit-transition: transform 200ms;
-  transition: transform 200ms;
-  position: relative;
-  z-index: 69;
-  overflow: hidden;
-}
-
 .c6 {
   height: 2.5rem;
   width: 2.5rem;
@@ -4047,106 +3803,6 @@ Array [
   color: #424242;
 }
 
-.c26 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  margin-top: -5rem;
-  overflow-y: auto;
-  height: calc(100vh - 13rem);
-  max-height: calc(100vh - 7rem);
-  -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
-  -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
-  transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
-  background-color: #fafafa;
-  z-index: 60;
-  margin-left: -50vw;
-  padding-left: 50vw;
-  width: calc(50vw + 33.5rem);
-  min-width: calc(50vw + 33.5rem);
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c26 > ol {
-  -webkit-overflow-scrolling: touch;
-  position: relative;
-  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c26 > ol > li:first-child {
-  margin-top: 0;
-}
-
-.c26 > ol::before {
-  content: "";
-  background: #fafafa;
-  display: block;
-  height: 1.8rem;
-  margin: -1.8rem -1.8rem 0 -1.8rem;
-}
-
-.c26 > * {
-  -webkit-transition: all 300ms;
-  transition: all 300ms;
-  opacity: 1;
-}
-
-.c28 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 5rem;
-  overflow: visible;
-  box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
-}
-
-.c31 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  margin-right: 0;
-  padding-right: 0;
-  color: #818181;
-}
-
-.c31:hover {
-  color: #5e6062;
-}
-
-.c29 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-right: 1.8rem;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c29 .c8,
-.c29 .c27 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: left;
-}
-
 .c15 {
   cursor: pointer;
   border: none;
@@ -4163,7 +3819,6 @@ Array [
 
 .c15:hover,
 .c15:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -4196,7 +3851,6 @@ Array [
 
 .c17:hover,
 .c17:focus {
-  outline: none;
   color: #424242;
 }
 
@@ -4380,6 +4034,211 @@ Array [
   text-decoration: none;
 }
 
+.c38 {
+  outline: none;
+}
+
+.c37 {
+  font-family: Neue Helvetica W01;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  overflow: visible;
+}
+
+.c37 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c37 a:hover {
+  color: #0064A0;
+}
+
+.c37 .MathJax_Display .highlight,
+.c37 .MathJax_Preview + .highlight {
+  display: inline-block;
+}
+
+.c37 .highlight.yellow {
+  background-color: #ffff8a;
+}
+
+.c37 .highlight.yellow.has-note {
+  border-bottom: 1px solid #fed200;
+}
+
+.c37 .highlight.green {
+  background-color: #def99f;
+}
+
+.c37 .highlight.green.has-note {
+  border-bottom: 1px solid #92d101;
+}
+
+.c37 .highlight.blue {
+  background-color: #c8f5ff;
+}
+
+.c37 .highlight.blue.has-note {
+  border-bottom: 1px solid #00c3ed;
+}
+
+.c37 .highlight.purple {
+  background-color: #cbcfff;
+}
+
+.c37 .highlight.purple.has-note {
+  border-bottom: 1px solid #545ec8;
+}
+
+.c37 .highlight.pink {
+  background-color: #ffc5e1;
+}
+
+.c37 .highlight.pink.has-note {
+  border-bottom: 1px solid #de017e;
+}
+
+.c37 .os-figure,
+.c37 .os-figure:last-child {
+  margin-bottom: 5px;
+}
+
+.c37 #main-content * {
+  overflow: initial;
+}
+
+.c23 {
+  position: relative;
+  overflow: visible;
+  -webkit-transition: margin-left 300ms;
+  transition: margin-left 300ms;
+}
+
+.c1 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+}
+
+.c26 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  margin-top: -5rem;
+  overflow-y: auto;
+  height: calc(100vh - 13rem);
+  max-height: calc(100vh - 7rem);
+  -webkit-transition: -webkit-transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  transition: transform 300ms ease-in-out,box-shadow 300ms ease-in-out,background-color 300ms ease-in-out;
+  background-color: #fafafa;
+  z-index: 60;
+  margin-left: -50vw;
+  padding-left: 50vw;
+  width: calc(50vw + 33.5rem);
+  min-width: calc(50vw + 33.5rem);
+  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c26 > ol {
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  padding: 1.8rem 1.8rem 1.8rem 0.2rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c26 > ol > li:first-child {
+  margin-top: 0;
+}
+
+.c26 > ol::before {
+  content: "";
+  background: #fafafa;
+  display: block;
+  height: 1.8rem;
+  margin: -1.8rem -1.8rem 0 -1.8rem;
+}
+
+.c26 > * {
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  opacity: 1;
+}
+
+.c28 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 5rem;
+  overflow: visible;
+  box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
+}
+
+.c31 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  margin-right: 0;
+  padding-right: 0;
+  color: #818181;
+}
+
+.c31:hover {
+  color: #5e6062;
+}
+
+.c29 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 1.8rem;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c29 .c8,
+.c29 .c27 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: left;
+}
+
 .c25 {
   overflow: visible;
   margin: 0 auto;
@@ -4387,31 +4246,31 @@ Array [
 }
 
 @media print {
-  .c51 {
+  .c40 {
     display: none;
   }
 }
 
 @media (min-width:60.1em) {
-  .c53 {
+  .c42 {
     padding: 7rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c53 {
+  .c42 {
     padding: 2rem 0;
   }
 }
 
 @media (max-width:60.1em) and (min-width:37.6em) {
-  .c53 {
+  .c42 {
     padding: 4rem 0;
   }
 }
 
 @media (min-width:37.6em) {
-  .c54 {
+  .c43 {
     -webkit-align-items: start;
     -webkit-box-align: start;
     -ms-flex-align: start;
@@ -4422,19 +4281,19 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c54 {
+  .c43 {
     grid-template: "headline" "mission" "col1" "col2" "col3";
   }
 }
 
 @media (min-width:60.1em) {
-  .c54 {
+  .c43 {
     grid-column-gap: 8rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c55 {
+  .c44 {
     font-size: 2.4rem;
     font-weight: bold;
     -webkit-letter-spacing: -0.096rem;
@@ -4446,7 +4305,7 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c55 {
+  .c44 {
     font-size: 2rem;
     font-weight: bold;
     -webkit-letter-spacing: -0.08rem;
@@ -4458,7 +4317,7 @@ Array [
 }
 
 @media (min-width:37.6em) {
-  .c56 {
+  .c45 {
     font-size: 1.8rem;
     font-weight: normal;
     -webkit-letter-spacing: normal;
@@ -4470,37 +4329,37 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c59 {
+  .c48 {
     line-height: 4.5rem;
   }
 }
 
 @media (max-width:37.5em) {
-  .c58 {
+  .c47 {
     line-height: 4.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c62 {
+  .c51 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c62 {
+  .c51 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c63 {
+  .c52 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c63 {
+  .c52 {
     padding: 0;
   }
 }
@@ -4508,6 +4367,97 @@ Array [
 @media screen and (max-width:75em) {
   .c24 {
     padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c19 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c16 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c12 {
+    margin-right: 0;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c13 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c10 {
+    height: 100%;
+  }
+
+  .c10 .c11 {
+    border: none;
+    border-radius: 0;
+    width: 45px;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    top: 6rem;
+  }
+}
+
+@media print {
+  .c2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    width: calc(100% - 1.6rem * 2);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c4 {
+    margin-right: unset;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c20 {
+    margin: 0;
   }
 }
 
@@ -4596,36 +4546,6 @@ Array [
   }
 }
 
-@media screen {
-  .c42 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c40 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c40 {
-    min-height: 4rem;
-    padding-top: 0.8rem;
-  }
-
-  .c40 > .c43 {
-    margin-bottom: 0.8rem;
-  }
-}
-
-@media print {
-  .c40 {
-    display: none;
-  }
-}
-
 @media print {
   .c1 {
     display: none;
@@ -4685,12 +4605,6 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c9 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c26 {
     width: calc(50vw + 28.8rem);
     min-width: calc(50vw + 28.8rem);
@@ -4727,91 +4641,6 @@ Array [
 @media screen and (max-width:75em) {
   .c28 {
     height: 4rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c19 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c14 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c16 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c12 {
-    margin-right: 0;
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c13 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    height: 100%;
-  }
-
-  .c10 .c11 {
-    border: none;
-    border-radius: 0;
-    width: 45px;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    top: 6rem;
-  }
-}
-
-@media print {
-  .c2 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    width: calc(100% - 1.6rem * 2);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    height: 4rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c4 {
-    margin-right: unset;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c20 {
-    margin: 0;
   }
 }
 
@@ -5015,7 +4844,7 @@ Array [
         <a
           aria-label="Buy book"
           className="c20"
-          data-analytics-href="buy-book"
+          data-analytics-label="buy-book"
           href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
           rel="noopener"
           target="_blank"
@@ -5204,66 +5033,28 @@ Array [
                     </div>
                   </div>
                 </div>
-                <details
-                  className="c40"
-                  data-analytics-region="attribution"
-                  data-testid="attribution-details"
-                >
-                  <summary
-                    aria-label="Citation/Attribution"
-                    className="c41 c42 c43 c44"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="c45 c46 c47 c7"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 192 512"
-                    >
-                      <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="c48 c49 c50 c7"
-                      fill="currentColor"
-                      focusable="false"
-                      viewBox="0 0 320 512"
-                    >
-                      <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span>
-                      Citation/Attribution
-                    </span>
-                  </summary>
-                </details>
                 <footer
-                  className="c51"
+                  className="c40"
                   data-analytics-region="footer"
                 >
                   <div
-                    className="c52"
+                    className="c41"
                   >
                     <div
-                      className="c53"
+                      className="c42"
                     >
                       <div
-                        className="c54"
+                        className="c43"
                       >
                         <div
                           aria-level={2}
-                          className="c55"
+                          className="c44"
                           role="heading"
                         >
                           OpenStax at Rice University is a 501(c)(3) nonprofit charity
                         </div>
                         <div
-                          className="c56"
+                          className="c45"
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
@@ -5274,15 +5065,15 @@ Array [
                           }
                         />
                         <div
-                          className="c57"
+                          className="c46"
                         >
                           <div
-                            className="c58"
+                            className="c47"
                           >
                             Help
                           </div>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/contact"
                             rel=""
                             target="_self"
@@ -5290,7 +5081,7 @@ Array [
                             Contact Us
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="https://openstax.secure.force.com/help"
                             rel="noopener"
                             target="_blank"
@@ -5298,7 +5089,7 @@ Array [
                             Support Center
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/faq"
                             rel=""
                             target="_self"
@@ -5307,15 +5098,15 @@ Array [
                           </a>
                         </div>
                         <div
-                          className="c60"
+                          className="c49"
                         >
                           <div
-                            className="c58"
+                            className="c47"
                           >
                             OpenStax
                           </div>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/press"
                             rel=""
                             target="_self"
@@ -5323,7 +5114,7 @@ Array [
                             Press
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
                             rel="noopener"
                             target="_blank"
@@ -5331,7 +5122,7 @@ Array [
                             Newsletter
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/careers"
                             rel=""
                             target="_self"
@@ -5340,15 +5131,15 @@ Array [
                           </a>
                         </div>
                         <div
-                          className="c61"
+                          className="c50"
                         >
                           <div
-                            className="c58"
+                            className="c47"
                           >
                             Policies
                           </div>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/accessibility-statement"
                             rel=""
                             target="_self"
@@ -5356,7 +5147,7 @@ Array [
                             Accessibility Statement
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/tos"
                             rel=""
                             target="_self"
@@ -5364,7 +5155,7 @@ Array [
                             Terms of Use
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/license"
                             rel=""
                             target="_self"
@@ -5372,7 +5163,7 @@ Array [
                             Licensing
                           </a>
                           <a
-                            className="c59"
+                            className="c48"
                             href="/privacy-policy"
                             rel=""
                             target="_self"
@@ -5383,13 +5174,13 @@ Array [
                       </div>
                     </div>
                     <div
-                      className="c62"
+                      className="c51"
                     >
                       <div
-                        className="c63"
+                        className="c52"
                       >
                         <div
-                          className="c64"
+                          className="c53"
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
@@ -5407,19 +5198,19 @@ Array [
                           }
                         />
                         <div
-                          className="c65"
+                          className="c54"
                           role="directory"
                         >
                           <a
                             aria-label="facebook"
-                            className="c66"
+                            className="c55"
                             href="https://www.facebook.com/openstax"
                             rel="noopener"
                             target="_blank"
                           >
                             <svg
                               aria-hidden="true"
-                              className="c67 c7"
+                              className="c56 c7"
                               fill="currentColor"
                               focusable="false"
                               viewBox="0 0 320 512"
@@ -5432,14 +5223,14 @@ Array [
                           </a>
                           <a
                             aria-label="twitter"
-                            className="c66"
+                            className="c55"
                             href="https://twitter.com/openstax"
                             rel="noopener"
                             target="_blank"
                           >
                             <svg
                               aria-hidden="true"
-                              className="c68 c7"
+                              className="c57 c7"
                               fill="currentColor"
                               focusable="false"
                               viewBox="0 0 512 512"
@@ -5452,14 +5243,14 @@ Array [
                           </a>
                           <a
                             aria-label="linkedin"
-                            className="c66"
+                            className="c55"
                             href="https://www.linkedin.com/company/openstax"
                             rel="noopener"
                             target="_blank"
                           >
                             <svg
                               aria-hidden="true"
-                              className="c69 c7"
+                              className="c58 c7"
                               fill="currentColor"
                               focusable="false"
                               viewBox="0 0 448 512"
@@ -5472,14 +5263,14 @@ Array [
                           </a>
                           <a
                             aria-label="instagram"
-                            className="c66"
+                            className="c55"
                             href="https://www.instagram.com/openstax/"
                             rel="noopener"
                             target="_blank"
                           >
                             <svg
                               aria-hidden="true"
-                              className="c70 c7"
+                              className="c59 c7"
                               fill="currentColor"
                               focusable="false"
                               viewBox="0 0 448 512"
@@ -5491,14 +5282,14 @@ Array [
                             </svg>
                           </a>
                           <a
-                            className="c71"
+                            className="c60"
                             href="http://www.rice.edu"
                             rel="noopener"
                             target="_blank"
                           >
                             <img
                               alt="Rice University logo"
-                              className="c72"
+                              className="c61"
                               src="rice-white-text.png"
                             />
                           </a>

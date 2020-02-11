@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -97,40 +98,17 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const totalCountsInState = { somePage: 1 };
-    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState));
+    const totalCountsInState = { somePage: {[HighlightColorEnum.Green]: 1} };
+    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState, new Map()));
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: 1 }}));
+      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }}));
 
     await hook();
 
     expect(dispatch).not.toHaveBeenCalled();
     expect(store.getState().content.highlights.summary.totalCountsPerPage).toEqual(totalCountsInState);
-  });
-
-  it('receive total counts and set total counts per location', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveUser(formatUser(testAccountsUser)));
-
-    const totalCountsPerPage = {
-      'testbook1-testpage1-uuid': 1,
-      'testbook1-testpage2-uuid': 2,
-      // tslint:disable-next-line: object-literal-sort-keys
-      'testbook1-testpage11-uuid': 1,
-      'testbook1-testpage4-uuid': 5,
-    };
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({}));
-    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage }));
-
-    await hook();
-
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlightsTotalCounts(totalCountsPerPage));
   });
 });

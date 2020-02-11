@@ -52,7 +52,7 @@ const Highlights = () => {
     </Styled.Highlights>;
   }
 
-  if (!isLoading && Object.keys(highlights).length === 0) {
+  if (!isLoading && highlights && Object.keys(highlights).length === 0) {
     return <Styled.Highlights>
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
@@ -65,7 +65,7 @@ const Highlights = () => {
 
   return <React.Fragment>
     {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
-    <Styled.Highlights>
+    {highlights && <Styled.Highlights>
       {Array.from(locationFilters).map(([id, location]) => {
         if (!highlights[id]) { return null; }
         return <SectionHighlights
@@ -74,7 +74,7 @@ const Highlights = () => {
           highlights={highlights}
         />;
       })}
-    </Styled.Highlights>
+    </Styled.Highlights>}
   </React.Fragment>;
 };
 
@@ -90,9 +90,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
   const pageIdIsSameAsSectionId = highlights[location.id][location.id];
   return (
     <React.Fragment>
-      <Styled.HighlightsChapter
-        dangerouslySetInnerHTML={{ __html: location.title }}
-      />
+      <Styled.HighlightsChapterWrapper>
+        <Styled.HighlightsChapter dangerouslySetInnerHTML={{ __html: location.title }} />
+      </Styled.HighlightsChapterWrapper>
       {Object.entries(highlights[location.id]).map(([pageId, pageHighlights]) => {
         const page = assertDefined(
           archiveTreeSectionIsChapter(location)
@@ -110,6 +110,7 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
                 <Styled.HighlightContentWrapper color={item.color}>
                   <Styled.HighlightContent
                     className='summary-highlight-content'
+                    data-highlight-id={item.id}
                     dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
                   />
                   {item.annotation ? (
@@ -119,7 +120,9 @@ export const SectionHighlights = ({ location, highlights }: SectionHighlightsPro
                           {(msg: Element | string) => msg}
                         </FormattedMessage>
                       </span>
-                      {item.annotation}
+                      <Styled.HighlightNoteAnnotation>
+                        {item.annotation}
+                      </Styled.HighlightNoteAnnotation>
                     </Styled.HighlightNote>
                   ) : null}
                 </Styled.HighlightContentWrapper>

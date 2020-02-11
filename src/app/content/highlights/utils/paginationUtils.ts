@@ -1,6 +1,13 @@
 import add from 'lodash/fp/add';
+import flow from 'lodash/fp/flow';
+import isEmpty from 'lodash/fp/isEmpty';
+import map from 'lodash/fp/map';
+import mapValues from 'lodash/fp/mapValues';
+import pick from 'lodash/fp/pick';
 import pickBy from 'lodash/fp/pickBy';
-import { reduceUntil } from '../../../fpUtils';
+import reduce from 'lodash/fp/reduce';
+import values from 'lodash/fp/values';
+import { not, reduceUntil } from '../../../fpUtils';
 import { isArchiveTree } from '../../guards';
 import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
 import {
@@ -8,9 +15,17 @@ import {
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { CountsPerSource, HighlightLocationFilters } from '../types';
+import { CountsPerSource, HighlightLocationFilters, SummaryFilters } from '../types';
 
-const totalOfCountsPerSource = (perSource: CountsPerSource) => Object.values(perSource).reduce(add, 0);
+const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
+  values,
+  reduce(add, 0)
+);
+const totalOfCountsPerSource: (counts: CountsPerSource) => number = flow(
+  values,
+  map(totalOfCountsForSource),
+  reduce(add, 0)
+);
 
 /*
  * in order to avoid passing all page ids for all selected chapters in
@@ -33,7 +48,7 @@ export const getNextPageSources = (
     const pageId = stripIdVersion(page.id);
     const pageCount = remainingCounts[pageId];
 
-    if (!pageCount) {
+    if (!totalOfCountsForSource(pageCount)) {
       return counts;
     }
 
@@ -49,16 +64,24 @@ export const getNextPageSources = (
 export const filterCountsPerSourceByLocationFilter = (
   locationFilters: HighlightLocationFilters,
   counts: CountsPerSource
-) => {
+): CountsPerSource => {
   const chapterFilters = Array.from(locationFilters.values()).filter(isArchiveTree);
 
   const someChapterContainsNode = (sourceId: string) => chapterFilters.find(
     (location) => archiveTreeContainsNode(location, sourceId)
   );
 
-  const matchesLocationFilter = (_count: number, sourceId: string) => {
+  const matchesLocationFilter = (_counts: CountsPerSource[string], sourceId: string) => {
     return locationFilters.has(sourceId) || someChapterContainsNode(sourceId);
   };
 
   return pickBy(matchesLocationFilter, counts);
 };
+
+export const filterCountsPerSourceByColorFilter = (
+  colorFilters: SummaryFilters['colors'],
+  counts: CountsPerSource
+) => flow(
+  mapValues(pick(colorFilters)),
+  pickBy(not(isEmpty))
+)(counts) as CountsPerSource;

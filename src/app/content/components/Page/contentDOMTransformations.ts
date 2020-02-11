@@ -1,12 +1,13 @@
-import { HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { assertDefined } from '../../../utils';
+import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
-export const transformContent = (rootEl: HTMLElement, intl: IntlShape) => {
+// We are passing Document because it is required to prerender.
+export const transformContent = (document: Document, rootEl: HTMLElement, intl: IntlShape) => {
   addScopeToTables(rootEl);
-  wrapElements(rootEl);
+  wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(rootEl, intl);
@@ -44,7 +45,7 @@ function addScopeToTables(rootEl: HTMLElement) {
 }
 
 // Wrap title and content elements in header and section elements, respectively
-function wrapElements(rootEl: HTMLElement) {
+function wrapElements(document: Document, rootEl: HTMLElement) {
   rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
     [data-type="example"], [data-type="exercise"],
     [data-type="note"], [data-type="abstract"]`).forEach((el) => {
@@ -52,10 +53,10 @@ function wrapElements(rootEl: HTMLElement) {
     // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
     const titles = Array.from(el.children).filter((child) => child.matches('.title, [data-type="title"], .os-title'));
 
-    const bodyWrap = assertDefined(document, 'document should be defined').createElement('section');
+    const bodyWrap = document.createElement('section');
     bodyWrap.append(...Array.from(el.childNodes));
 
-    const titleWrap = assertDefined(document, 'document should be defined').createElement('header');
+    const titleWrap = document.createElement('header');
     titleWrap.append(...titles);
 
     el.append(titleWrap, bodyWrap);
@@ -79,7 +80,7 @@ function wrapElements(rootEl: HTMLElement) {
 function tweakFigures(rootEl: HTMLElement) {
   // move caption to bottom of figure
   rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
-    const parent = assertDefined(el.parentElement, 'figcaption parent should always be defined');
+    const parent = assertNotNull(el.parentElement, 'figcaption parent should always be defined');
     parent.classList.add('ui-has-child-figcaption');
     parent.appendChild(el);
   });
@@ -90,7 +91,7 @@ function fixLists(rootEl: HTMLElement) {
   rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
   [data-type="list"][data-list-type="enumerated"][data-mark-prefix] > [data-type="item"],
   [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]`).forEach((el) => {
-    const parent = assertDefined(el.parentElement, 'list parent should always be defined');
+    const parent = assertNotNull(el.parentElement, 'list parent should always be defined');
     const markPrefix = parent.getAttribute('data-mark-prefix');
     const markSuffix = parent.getAttribute('data-mark-suffix');
     if (markPrefix) { el.setAttribute('data-mark-prefix', markPrefix); }
@@ -106,6 +107,7 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
 
   // Wrap solutions in a div so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
+    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
     const contents = el.innerHTML;
     el.innerHTML = `
       <div class="ui-toggle-wrapper">
