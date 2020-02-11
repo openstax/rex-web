@@ -1,6 +1,7 @@
-import { FocusEventInit, HTMLElement } from '@openstax/types/lib.dom';
+import { EventListener, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { elementDescendantOf } from './domUtils';
+import { assertWindow } from './utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -18,8 +19,11 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
   const el = ref && ref.current;
   if (!el) { return; }
 
-  const handler = (ev: FocusEventInit) => {
-    const relatedTarget = ev.relatedTarget as HTMLElement | null;
+  const handler: EventListener = (event) => {
+    if (!(event instanceof assertWindow().FocusEvent)) {
+      return;
+    }
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
 
     if (!relatedTarget || !elementDescendantOf(relatedTarget, ref.current!)) {
       cb();

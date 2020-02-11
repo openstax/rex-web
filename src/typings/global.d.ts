@@ -38,6 +38,10 @@ declare global {
       prototype: CustomEvent;
       new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
     };
+    FocusEvent: {
+      prototype: dom.FocusEvent;
+      new(typeArg: string, eventInitDict?: dom.FocusEventInit): dom.FocusEvent;
+    };
     Event: {
       prototype: Event;
       new<T>(typeArg: string, eventInitDict?: EventInit<T>): Event<T>;
@@ -51,5 +55,5 @@ declare global {
   var document: dom.Document | undefined;
   var navigator: dom.Navigator | undefined;
   var URL: dom.URLConstructor | undefined;
-  var DOMParser: dom.DOMParserConstructor
+  var DOMParser: dom.DOMParserConstructor;
 }
