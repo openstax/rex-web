@@ -79,7 +79,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
       >
         <Filters />
-        <Highlights />
+        <Highlights/>
         {this.state.showGoToTop && (
           <Styled.GoToTopWrapper
             onClick={this.scrollToTop}
