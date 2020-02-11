@@ -3,7 +3,7 @@ import { ActionHookBody } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { printSummaryHighlights, receiveSummaryHighlights } from '../actions';
-import { maxHighlightsPerFetch } from '../constants';
+import { maxHighlightsPerPage } from '../constants';
 import * as select from '../selectors';
 import {
   fetchFunctionBody,
@@ -20,9 +20,14 @@ const loadAllRemainingHighlights: fetchFunctionBody = async({
   const state = args.getState();
   const book = bookSelector(state);
   const {colors} = select.summaryFilters(state);
-  const {page, sourceIds} = previousPagination
+
+  const {page, sourceIds, perPage} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getNewSources(state, args.sourcesFetched, maxHighlightsPerFetch), page: 1};
+    : {
+        page: 1,
+        perPage: maxHighlightsPerPage,
+        sourceIds: getNewSources(state, args.sourcesFetched),
+      };
 
   if (!book || sourceIds.length === 0) {
     return {pagination: null, highlights: args.highlights || []};
@@ -32,14 +37,13 @@ const loadAllRemainingHighlights: fetchFunctionBody = async({
     book,
     colors: colors as unknown as GetHighlightsColorsEnum[],
     highlightClient: args.highlightClient,
-    pagination: {page, sourceIds},
-    perFetch: maxHighlightsPerFetch,
+    pagination: {page, sourceIds, perPage},
     prevHighlights: args.highlights,
   });
 
   return loadAllRemainingHighlights({
     ...args,
-    highlights: args.highlights ? [...args.highlights, ...highlights] : highlights,
+    highlights,
     previousPagination: pagination,
     sourcesFetched: [...args.sourcesFetched, ...sourceIds],
   });

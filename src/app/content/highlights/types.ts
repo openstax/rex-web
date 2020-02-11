@@ -16,6 +16,7 @@ export type HighlightColorCounts = CountsPerSource[string];
 export type SummaryHighlightsPagination = null | {
   sourceIds: string[];
   page: number;
+  perPage: number;
 };
 
 export interface State {

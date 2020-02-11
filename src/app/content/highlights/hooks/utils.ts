@@ -67,33 +67,27 @@ export const fetchHighlightsForSource = async({
   highlightClient,
   colors,
   prevHighlights,
-  perFetch,
   book,
   pagination,
 }: {
   highlightClient: AppServices['highlightClient'],
   colors: GetHighlightsColorsEnum[],
   prevHighlights?: Highlight[],
-  perFetch: number,
   book: Book,
   pagination: NonNullable<SummaryHighlightsPagination>
 }) => {
-  const {sourceIds, page} = pagination;
-
   const highlightsResponse = await highlightClient.getHighlights({
     colors: colors as unknown as GetHighlightsColorsEnum[],
-    page,
-    perPage: perFetch,
     scopeId: book.id,
-    sourceIds,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+    ...pagination,
   });
 
   const {data, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse);
 
-  const loadedResults = (page - 1) * perPage + data.length;
+  const loadedResults = (pagination.page - 1) * perPage + data.length;
   const nextPagination = loadedResults < totalCount
-    ? {sourceIds, page}
+    ? pagination
     : null;
 
   return {

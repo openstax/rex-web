@@ -20,9 +20,9 @@ export const loadUntilPageSize: fetchFunctionBody = async({
   const state = args.getState();
   const book = bookSelector(state);
   const {colors} = select.summaryFilters(state);
-  const {page, sourceIds} = previousPagination
+  const {page, sourceIds, perPage} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getNewSources(state, args.sourcesFetched, summaryPageSize), page: 1};
+    : {sourceIds: getNewSources(state, args.sourcesFetched, summaryPageSize), page: 1, perPage: summaryPageSize};
 
   if (!book || sourceIds.length === 0) {
     return {pagination: null, highlights: args.highlights || []};
@@ -32,8 +32,7 @@ export const loadUntilPageSize: fetchFunctionBody = async({
     book,
     colors: colors as unknown as GetHighlightsColorsEnum[],
     highlightClient: args.highlightClient,
-    pagination: {page, sourceIds},
-    perFetch: summaryPageSize,
+    pagination: {page, sourceIds, perPage},
     prevHighlights: args.highlights,
   });
 
