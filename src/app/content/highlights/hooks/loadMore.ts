@@ -1,24 +1,22 @@
-import { GetHighlightsColorsEnum, Highlight } from '@openstax/highlighter/dist/api';
-import { ActionHookBody, AppServices, Store } from '../../../types';
+import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
+import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import { summaryPageSize } from '../constants';
 import * as select from '../selectors';
-import { SummaryHighlightsPagination } from '../types';
-import { getNewSources } from './utils';
-import { fetchHighlightsForSource, incrementPage, loadMoreByFunction } from './utils';
+import {
+  fetchFunctionBody,
+  fetchHighlightsForSource,
+  getNewSources,
+  incrementPage,
+  loadMoreByFunction,
+} from './utils';
 
-export const loadUntilPageSize = async({
+export const loadUntilPageSize: fetchFunctionBody = async({
   previousPagination,
   ...args
-}: {
-  previousPagination: SummaryHighlightsPagination,
-  getState: Store['getState'],
-  highlightClient: AppServices['highlightClient'],
-  highlights?: Highlight[]
-  sourcesFetched: string[]
-}): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
+}) => {
   const state = args.getState();
   const book = bookSelector(state);
   const {colors} = select.summaryFilters(state);

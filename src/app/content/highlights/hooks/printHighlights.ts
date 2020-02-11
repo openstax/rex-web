@@ -1,29 +1,28 @@
-import { GetHighlightsColorsEnum, Highlight } from '@openstax/highlighter/dist/api';
-import { ActionHookBody, AppServices, MiddlewareAPI, Store } from '../../../types';
+import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
+import { ActionHookBody } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { printSummaryHighlights, receiveSummaryHighlights } from '../actions';
 import { maxHighlightsPerFetch } from '../constants';
 import * as select from '../selectors';
-import { SummaryHighlightsPagination,  } from '../types';
-import { fetchHighlightsForSource, formatReceivedHighlights, getNewSources, incrementPage } from './utils';
+import {
+  fetchFunctionBody,
+  fetchHighlightsForSource,
+  getNewSources,
+  incrementPage,
+  loadMoreByFunction,
+} from './utils';
 
-const loadAllRemainingHighlights = async({
+const loadAllRemainingHighlights: fetchFunctionBody = async({
   previousPagination,
   ...args
-}: {
-  previousPagination: SummaryHighlightsPagination,
-  getState: Store['getState'],
-  highlightClient: AppServices['highlightClient'],
-  highlights?: Highlight[]
-  sourcesFetched: string[]
-}): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
+}) => {
   const state = args.getState();
   const book = bookSelector(state);
   const {colors} = select.summaryFilters(state);
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
-    : {sourceIds: getNewSources(state, args.sourcesFetched), page: 1};
+    : {sourceIds: getNewSources(state, args.sourcesFetched, maxHighlightsPerFetch), page: 1};
 
   if (!book || sourceIds.length === 0) {
     return {pagination: null, highlights: args.highlights || []};
@@ -46,29 +45,14 @@ const loadAllRemainingHighlights = async({
   });
 };
 
-const printHighlights = async({getState, highlightClient, dispatch}: MiddlewareAPI & AppServices) => {
-  const state = getState();
-  const locationFilters = select.highlightLocationFilters(state);
-  const previousPagination = select.summaryPagination(state);
-  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
-
-  const { highlights } = await loadAllRemainingHighlights({
-    getState,
-    highlightClient,
-    previousPagination,
-    sourcesFetched,
-  });
-
-  const formattedHighlights = formatReceivedHighlights(highlights, locationFilters);
-
-  dispatch(receiveSummaryHighlights(formattedHighlights, null));
-
-  assertWindow().print();
-};
-
-export default printHighlights;
-
+// very similar to `loadMore` hook since both are meant to fetch summary highlights
+// main difference is that this one is meant to recursively fetch all of them, the other one
+// only up to a set limit.
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
-  (services) => () => printHighlights(services);
+  (services) => async() => {
+    const {formattedHighlights, pagination} = await loadMoreByFunction(loadAllRemainingHighlights, services);
+    services.dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
+    assertWindow().print();
+  };
 
 export const printHighlightsHook = actionHook(printSummaryHighlights, hookBody);

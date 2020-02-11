@@ -15,11 +15,11 @@ import { HighlightLocationFilters, SummaryHighlightsPagination, } from '../types
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 import { getNextPageSources } from '../utils/paginationUtils';
 
-type fetchFunctionBody = (args: { previousPagination: SummaryHighlightsPagination, getState: Store['getState'],
+export type fetchFunctionBody = (args: { previousPagination: SummaryHighlightsPagination, getState: Store['getState'],
     highlightClient: AppServices['highlightClient'],
     highlights?: Highlight[]
     sourcesFetched: string[]}
-) =>  Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}>;
+  ) => Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}>;
 
 export const formatReceivedHighlights = (
     highlights: Highlight[],
