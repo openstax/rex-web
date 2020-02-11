@@ -5,7 +5,7 @@ import {
   Highlights
 } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
-import { AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
+import { AppServices, AppState } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { Book } from '../../types';
@@ -14,12 +14,6 @@ import * as select from '../selectors';
 import { HighlightLocationFilters, SummaryHighlightsPagination, } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 import { getNextPageSources } from '../utils/paginationUtils';
-
-export type fetchFunctionBody = (args: { previousPagination: SummaryHighlightsPagination, getState: Store['getState'],
-    highlightClient: AppServices['highlightClient'],
-    highlights?: Highlight[]
-    sourcesFetched: string[]}
-  ) => Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}>;
 
 export const formatReceivedHighlights = (
     highlights: Highlight[],
@@ -94,25 +88,4 @@ export const fetchHighlightsForSource = async({
     highlights: prevHighlights ? [...prevHighlights, ...data] : data,
     pagination: nextPagination,
   };
-};
-
-export const loadMoreByFunction = async(fetchingFunction: fetchFunctionBody, {
-  getState,
-  highlightClient,
-}: MiddlewareAPI & AppServices) => {
-  const state = getState();
-  const locationFilters = select.highlightLocationFilters(state);
-  const previousPagination = select.summaryPagination(state);
-  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
-
-  const {pagination, highlights} = await fetchingFunction({
-    getState,
-    highlightClient,
-    previousPagination,
-    sourcesFetched,
-  });
-
-  const formattedHighlights = formatReceivedHighlights(highlights, locationFilters);
-
-  return {formattedHighlights, pagination};
 };

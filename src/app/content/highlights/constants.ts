@@ -3,6 +3,7 @@ import books from '../../../config.books';
 export const highlightingFeatureFlag = 'enableHighlighting';
 
 export const maxHighlightsPerPage = 200;
+export const maxResourcesPerFetch = 10;
 export const summaryPageSize = 20;
 export const loadMoreDistanceFromBottom = 50;
 
