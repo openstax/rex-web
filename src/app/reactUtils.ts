@@ -1,4 +1,4 @@
-import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import { FocusEventInit, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { elementDescendantOf } from './domUtils';
 
@@ -18,7 +18,7 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
   const el = ref && ref.current;
   if (!el) { return; }
 
-  const handler = (ev: FocusEvent) => {
+  const handler = (ev: FocusEventInit) => {
     const relatedTarget = ev.relatedTarget as HTMLElement | null;
 
     if (!relatedTarget || !elementDescendantOf(relatedTarget, ref.current!)) {
@@ -27,10 +27,10 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
   };
 
   if (isEnabled) {
-    el.addEventListener('focusout', handler as any);
+    el.addEventListener('focusout', handler);
   }
 
-  return () => el.removeEventListener('focusout', handler as any);
+  return () => el.removeEventListener('focusout', handler);
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
