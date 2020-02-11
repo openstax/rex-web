@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 110;
+  z-index: 120;
 }
 
 <a
