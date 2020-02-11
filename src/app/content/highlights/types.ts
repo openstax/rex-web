@@ -1,10 +1,19 @@
 import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
-import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
+import { LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
 export interface SummaryHighlights {
   [locationId: string]: {[pageId: string]: HighlightData[]};
 }
+
+export type OrderedSummaryHighlights = Array<{
+  location: LinkedArchiveTreeNode,
+  pages: Array<{
+    pageId: string;
+    highlights: HighlightData[];
+  }>
+}>;
+
 export interface SummaryFilters {
   locationIds: string[];
   colors: HighlightColorEnum[];
