@@ -1,4 +1,3 @@
-
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';

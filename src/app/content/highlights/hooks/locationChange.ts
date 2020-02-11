@@ -14,7 +14,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
 
-  const pageFocusIn = action && action.payload && action.type === getType(receivePageFocus);
+  const pageFocusIn = action && action.type === getType(receivePageFocus) && action.payload;
 
   if (!authenticated || !book || !page || typeof(window) === 'undefined' || (loaded && !pageFocusIn)) {
     return;
