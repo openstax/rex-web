@@ -54,8 +54,11 @@ const loadAllRemainingHighlights: fetchFunctionBody = async({
 // only up to a set limit.
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
   (services) => async() => {
-    const {formattedHighlights, pagination} = await loadMoreByFunction(loadAllRemainingHighlights, services);
-    services.dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
+    const {formattedHighlights} = await loadMoreByFunction(loadAllRemainingHighlights, services);
+    if (Object.keys(formattedHighlights).length) {
+      services.dispatch(receiveSummaryHighlights(formattedHighlights, null));
+    }
+
     assertWindow().print();
   };
 

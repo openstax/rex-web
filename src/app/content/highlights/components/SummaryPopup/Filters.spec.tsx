@@ -14,6 +14,7 @@ import { formatBookData } from '../../../utils';
 import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../actions';
+import { printSummaryHighlights } from '../../actions';
 import Filters from './Filters';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
@@ -84,6 +85,22 @@ describe('Filters', () => {
     expect(colorFilters.length).toEqual(2);
     expect(colorFilters[0].props.color).toEqual(HighlightColorEnum.Blue);
     expect(colorFilters[1].props.color).toEqual(HighlightColorEnum.Yellow);
+  });
+
+  it('dispatches action to print highlights', () => {
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Filters />
+      </MessageProvider>
+    </Provider>);
+
+    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
+
+    renderer.act(() => {
+      renderedPrintButton.props.onClick();
+    });
+
+    expect(storeDispatch).toHaveBeenCalledWith(printSummaryHighlights());
   });
 
   it('removes colors and chapters from filters on click', () => {

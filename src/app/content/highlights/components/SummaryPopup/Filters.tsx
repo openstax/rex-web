@@ -73,7 +73,7 @@ const Filters = ({className}: Props) => {
         <ColorFilter />
       </Dropdown>}
     </FormattedMessage>
-    <HighlightsPrintButton onClick={printHighlights} />
+    <HighlightsPrintButton data-testid='hl-print-button' onClick={printHighlights} />
     <FiltersList />
   </div>;
 };
