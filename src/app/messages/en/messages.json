@@ -92,6 +92,8 @@
   "i18n:toolbar:highlights:popup:body:no-highlights-in-book": "You have no highlights in this book",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
   "i18n:toolbar:highlights:popup:body:use-this-page": "Then use this page to create your own study guide",
+  "i18n:toolbar:highlights:popup:help-info": "Need help? Visit the ",
+  "i18n:toolbar:highlights:popup:help-info:link": "Support Center",
   "i18n:toolbar:buy-book:text": "Buy book",
   "i18n:cta:heading": "Sign up and continue reading. It's 100% FREE.",
   "i18n:cta:text": "Read your book and get <strong>free</strong> study tools. Highlight, take notes, and make your own study guide.",
