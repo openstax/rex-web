@@ -5,6 +5,7 @@ import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
+import { mobilePadding } from './SummaryPopup/constants';
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
@@ -29,9 +30,10 @@ export const LoaderWrapper = styled.div`
 export const HighlightsChapterWrapper = styled.div`
   display: flex;
   align-items: center;
+  min-height: 5.6rem;
   padding: 0 ${popupPadding}rem;
   ${theme.breakpoints.mobile(css`
-    padding: 0 ${popupPadding}rem;
+    padding: 0 ${mobilePadding.leftRight}rem;
   `)}
 `;
 
@@ -42,7 +44,6 @@ export const HighlightsChapter = styled.div`
   display: flex;
   align-items: baseline;
   width: 100%;
-  min-height: 5.6rem;
 
   .os-number {
     overflow: visible;
@@ -69,8 +70,11 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: 1.6rem ${popupPadding}rem;
+  margin: ${mobilePadding.leftRight}rem ${popupPadding}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
+  ${theme.breakpoints.mobile(css`
+    margin: 0 0 ${mobilePadding.leftRight}rem 0;
+  `)}
 
   @media print {
     border-width: 0;

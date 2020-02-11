@@ -9,7 +9,7 @@ import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
-import { mobileMargin, mobilePadding } from './SummaryPopup/constants';
+import { mobileMarginSides, mobileMarginTopBottom, mobilePadding } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -69,7 +69,8 @@ export const Modal = styled.div`
   width: calc(100% - ${popupBodyPadding}rem * 2);
   ${theme.breakpoints.mobile(css`
     margin: 2rem 0;
-    width: calc(100% - ${mobileMargin * 2}rem);
+    width: calc(100% - ${mobileMarginSides * 2}rem);
+    height: calc(100% - ${mobileMarginTopBottom * 2}rem)
   `)}
 
   @media print {
