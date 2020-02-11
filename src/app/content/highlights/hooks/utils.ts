@@ -79,6 +79,7 @@ export const fetchHighlightsForSource = async({
   pagination: NonNullable<SummaryHighlightsPagination>
 }) => {
   const {sourceIds, page} = pagination;
+
   const highlightsResponse = await highlightClient.getHighlights({
     colors: colors as unknown as GetHighlightsColorsEnum[],
     page,
