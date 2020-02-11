@@ -91,6 +91,7 @@ describe('filtersChange', () => {
     }));
     expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {
       page: 1,
+      perPage: 20,
       sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
     }));
 
