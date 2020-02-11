@@ -22,10 +22,11 @@ export interface State {
   tocOpen: boolean | null;
   params: Params | null;
   loading: {
-    book?: string;
+    book?: Omit<Params, 'page'>;
     page?: string;
   };
   search: SearchState;
+  showCallToActionPopup: boolean | null;
   highlights: HighlightState;
   book?: Book;
   page?: Page;
@@ -41,18 +42,9 @@ export interface PageReference {
   params: RouteParams<typeof content>;
 }
 
-export interface Book {
-  id: string;
-  shortId: string;
-  title: string;
+export interface BookWithOSWebData extends ArchiveBook {
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
-  tree: ArchiveTree;
-  version: string;
   slug: string;
-  license: {
-    name: string;
-    version: string;
-  };
   publish_date: string;
   authors: Array<{
     value: {
@@ -61,6 +53,8 @@ export interface Book {
     }
   }>;
 }
+
+export type Book = BookWithOSWebData | ArchiveBook;
 
 export interface Page {
   abstract: string;

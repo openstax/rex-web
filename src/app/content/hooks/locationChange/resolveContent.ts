@@ -1,8 +1,11 @@
-import { BOOKS } from '../../../../config';
+import isEqual from 'lodash/fp/isEqual';
+import omit from 'lodash/fp/omit';
+import { APP_ENV, BOOKS } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage, requestBook, requestPage } from '../../actions';
+import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
 import { ArchivePage, Book, PageReferenceMap } from '../../types';
@@ -10,9 +13,9 @@ import {
   formatBookData,
   getContentPageReferences,
   getPageIdFromUrlParam,
-  getUrlParamForPageId
 } from '../../utils';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
+import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
   services: AppServices & MiddlewareAPI,
@@ -21,6 +24,10 @@ export default async(
   const [book, loader] = await resolveBook(services, match);
   const page = await resolvePage(services, match, book, loader);
 
+  if (!hasOSWebData(book) && APP_ENV === 'production') {
+    throw new Error('books without cms data are only supported outside production');
+  }
+
   return {book, page};
 };
 
@@ -28,9 +35,9 @@ const getBookResponse = async(
   osWebLoader: AppServices['osWebLoader'],
   archiveLoader: AppServices['archiveLoader'],
   loader: ReturnType<AppServices['archiveLoader']['book']>,
-  bookSlug: string
+  bookSlug?: string
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
-  const osWebBook = await osWebLoader.getBookFromSlug(bookSlug);
+  const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
   const archiveBook = await loader.load();
   const newBook = formatBookData(archiveBook, osWebBook);
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
@@ -52,8 +59,9 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  if (bookSlug !== select.loadingBook(state)) {
-    dispatch(requestBook(bookSlug));
+  const omitPage = omit('page');
+  if (!isEqual(omitPage(match.params), omitPage(select.loadingBook(state)))) {
+    dispatch(requestBook(omitPage(match.params)));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
@@ -62,28 +70,32 @@ const resolveBook = async(
   }
 };
 
-const resolveBookReference = async(
+export const resolveBookReference = async(
   {osWebLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
-): Promise<[string, string, string | undefined]> => {
+): Promise<[string | undefined, string, string | undefined]> => {
   const state = getState();
   const currentBook = select.book(state);
 
   const bookSlug = 'book' in match.params
     ? match.params.book
-    : currentBook && currentBook.id === match.params.uuid
+    : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.uuid
       ? currentBook.slug
       : await osWebLoader.getBookSlugFromId(match.params.uuid);
 
   if (match.state && match.state.bookUid && match.state.bookVersion) {
-    return [bookSlug, match.state.bookUid, match.state.bookVersion];
+      return [bookSlug, match.state.bookUid,  match.state.bookVersion];
   }
 
   const bookUid  = 'uuid' in match.params
     ? match.params.uuid
-    : currentBook && currentBook.slug === bookSlug
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book
       ? currentBook.id
-      : await osWebLoader.getBookIdFromSlug(bookSlug);
+      : await osWebLoader.getBookIdFromSlug(match.params.book);
+
+  if (!bookUid) {
+    throw new Error(`Could not resolve uuid for slug: ${bookSlug}`);
+  }
 
   const bookVersion = 'version' in match.params
     ? match.params.version === 'latest'
@@ -181,7 +193,7 @@ const loadContentReference = async(
   return {
     match: reference.match,
     params: {
-      book: targetBook.slug,
+      ...getUrlParamsForBook(targetBook),
       page: getUrlParamForPageId(targetBook, reference.pageUid),
     },
     state: {

@@ -9,7 +9,7 @@ import {
 } from '../../test/browserutils';
 import { updateAvailable } from '../notifications/actions';
 
-const TEST_PAGE_NAME = 'test-page-1';
+const TEST_PAGE_NAME = '2-test-page-3';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/3-test-page-4`;
 

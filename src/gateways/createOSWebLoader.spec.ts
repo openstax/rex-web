@@ -38,17 +38,11 @@ describe('osWebLoader', () => {
       });
     });
 
-    it('throws if there are no matching records', async() => {
+    it('returns undefined for slugs without uuid', async() => {
       (global as any).fetch = mockFetch(200, {items: [], meta: {item_count: 0}});
-      let message: string | undefined;
+      const uuid = await osWebLoader.getBookIdFromSlug('asdf');
 
-      try {
-        await osWebLoader.getBookIdFromSlug('asdf');
-      } catch (e) {
-        message = e.message;
-      }
-
-      expect(message).toEqual('OSWeb record "asdf" not found');
+      expect(uuid).toEqual(undefined);
     });
 
     it('throws on error', async() => {
