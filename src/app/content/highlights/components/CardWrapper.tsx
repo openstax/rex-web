@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
-import { assertDefined, assertWindow } from '../../../utils';
+import { assertDefined, assertWindow, remsToPx } from '../../../utils';
 import { cardMarginBottom } from '../constants';
 import Card, { getHighlightTopOffset, mediaQueryBreakToStopDisplaingAllCards } from './Card';
 
@@ -71,10 +71,10 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
 
       let stackedTopOffset = lastVisibleCardPosition;
 
-      if ((topOffset - lastVisibleCardPosition) < stackedTopOffset) {
+      if (topOffset < (lastVisibleCardPosition + lastVisibleCardHeight + remsToPx(cardMarginBottom))) {
         stackedTopOffset = stackedTopOffset
           + lastVisibleCardHeight
-          + (index > 0 ? (cardMarginBottom * 10) : 0); // * 10 because constants are in pixels and we need rems.
+          + (index > 0 ? remsToPx(cardMarginBottom) : 0);
       } else {
         stackedTopOffset = topOffset;
       }
