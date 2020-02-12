@@ -1,7 +1,7 @@
-import { EventListener, HTMLElement } from '@openstax/types/lib.dom';
+import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { elementDescendantOf } from './domUtils';
-import { assertWindow } from './utils';
+import { addSafeEventListener, elementDescendantOf } from './domUtils';
+import { isElement } from './guards';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -19,22 +19,17 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
   const el = ref && ref.current;
   if (!el) { return; }
 
-  const handler: EventListener = (event) => {
-    if (!(event instanceof assertWindow().FocusEvent)) {
-      return;
-    }
-    const relatedTarget = event.relatedTarget as HTMLElement | null;
+  const handler = (event: FocusEvent) => {
+    const relatedTarget = event.relatedTarget;
 
-    if (!relatedTarget || !elementDescendantOf(relatedTarget, ref.current!)) {
+    if (!isElement(relatedTarget) || !elementDescendantOf(relatedTarget, ref.current!)) {
       cb();
     }
   };
 
   if (isEnabled) {
-    el.addEventListener('focusout', handler);
+    return addSafeEventListener(el, 'focusout', handler);
   }
-
-  return () => el.removeEventListener('focusout', handler);
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
