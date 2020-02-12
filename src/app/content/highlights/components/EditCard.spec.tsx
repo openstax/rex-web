@@ -24,7 +24,7 @@ describe('EditCard', () => {
   const highlightData = highlight.serialize().data;
   const services = createTestServices();
   const store = createTestStore();
-  const onEditStateChange = jest.fn();
+  const setAnnotationChangesPending = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     highlight.elements = [assertDocument().createElement('span')];
@@ -72,7 +72,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               highlight={highlight as unknown as Highlight}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
             />
           </MessageProvider>
@@ -171,7 +171,7 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onRemove={onRemove}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
             />
           </MessageProvider>
@@ -210,7 +210,7 @@ describe('EditCard', () => {
               onRemove={onRemove}
               onCancel={onCancel}
               onBlur={blur}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
             />
           </MessageProvider>
@@ -251,7 +251,7 @@ describe('EditCard', () => {
               pageId='pageId'
               onCancel={() => null}
               onSave={save}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               onBlur={blur}
               onCreate={jest.fn()}
             />
@@ -295,7 +295,7 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onSave={save}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
             />
           </MessageProvider>
@@ -334,7 +334,7 @@ describe('EditCard', () => {
               pageId='pageId'
               onSave={save}
               onCancel={() => null}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               onBlur={blur}
             />
@@ -385,7 +385,7 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onSave={save}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
             />
           </MessageProvider>
@@ -557,7 +557,7 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onBlur={onBlur}
-              onEditStateChange={onEditStateChange}
+              setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
             />
           </MessageProvider>

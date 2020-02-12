@@ -165,7 +165,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         hasUnsavedHighlight: false,
       };
     }
-    case getType(actions.editStateChange): {
+    case getType(actions.setAnnotationChangesPending): {
       return {
         ...state,
         hasUnsavedHighlight: action.payload,

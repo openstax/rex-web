@@ -8,7 +8,7 @@ export default async() => {
     const document = assertDocument();
     const domNode = document.createElement('div');
 
-    domNode.id = 'portal';
+    domNode.id = `dialog-${Math.random().toString(36).substring(7)}`;
     const root = assertNotNull(document.getElementById('root'), 'root element not found');
     root.insertAdjacentElement('afterend', domNode);
 

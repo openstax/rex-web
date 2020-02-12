@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
+import { assertWindow } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -42,9 +43,8 @@ const onClickHighlight = (services: Services, highlight: Highlight | undefined) 
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
-  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && await showConfirmation()) {
-    const didConfirm = await showConfirmation();
-    return didConfirm  && services.getProp().clearFocus();
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+    return;
   }
 
   services.getProp().focus(highlight.id);
@@ -60,9 +60,9 @@ const onSelectHighlight = (
     return;
   }
 
-  if (services.getProp().focused && services.getProp().hasUnsavedHighlight) {
-    const didConfirm = await showConfirmation();
-    return didConfirm && services.getProp().clearFocus();
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+    assertWindow().getSelection().removeAllRanges();
+    return;
   }
 
   services.getProp().focus(highlight.id);

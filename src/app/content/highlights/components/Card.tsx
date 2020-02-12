@@ -23,7 +23,7 @@ import {
   clearFocusedHighlight,
   createHighlight,
   deleteHighlight,
-  editStateChange,
+  setAnnotationChangesPending,
   updateHighlight
 } from '../actions';
 import {
@@ -53,7 +53,7 @@ interface Props {
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
-  editStateChange: typeof editStateChange;
+  setAnnotationChangesPending: typeof setAnnotationChangesPending;
   data?: HighlightData;
   className: string;
 }
@@ -138,7 +138,7 @@ const Card = (props: Props) => {
     hasUnsavedHighlight={hasUnsavedHighlight}
     pageId={page.id}
     onCreate={onCreate}
-    onEditStateChange={props.editStateChange}
+    setAnnotationChangesPending={props.setAnnotationChangesPending}
     onCancel={() => setEditing(false)}
     onSave={props.save}
     data={props.data}
@@ -317,8 +317,8 @@ export default connect(
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
-    editStateChange: flow(editStateChange, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
+    setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
 )(StyledCard);

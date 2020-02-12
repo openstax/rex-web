@@ -7,11 +7,16 @@ import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { RouteState } from '../../navigation/types';
 import { AppState, Dispatch } from '../../types';
+import showConfirmation from '../highlights/components/utils/showConfirmation';
+import {
+  hasUnsavedHighlight as hasUnsavedHighlightSelector
+} from '../highlights/selectors';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
+import isModifiedClick from './utils/isModifiedClick';
 
 interface Props {
   book: Book;
@@ -24,6 +29,7 @@ interface Props {
   onClick?: () => void;
   navigate: typeof push;
   currentPath: string;
+  hasUnsavedHighlight: boolean;
   search: RouteState<typeof content>['search'];
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
@@ -41,6 +47,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     onClick,
     children,
     myForwardedRef,
+    hasUnsavedHighlight,
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
@@ -49,14 +56,18 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
   return <a
     ref={myForwardedRef}
-    onClick={(e) => {
-      const { metaKey, altKey, ctrlKey, shiftKey } = e;
+    onClick={async(e) => {
 
-      if (metaKey || altKey || ctrlKey || shiftKey) {
+      if (isModifiedClick(e)) {
         return;
       }
 
       e.preventDefault();
+
+      if (hasUnsavedHighlight && !await showConfirmation()) {
+        return;
+      }
+
       if (onClick) {
         onClick();
       }
@@ -84,6 +95,7 @@ export const ConnectedContentLink = connect(
   (state: AppState, ownProps: {search?: Partial<RouteState<typeof content>['search']>}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
+    hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       query: selectSearch.query(state),
       selectedResult: selectSearch.selectedResult(state),

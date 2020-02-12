@@ -23,7 +23,9 @@ export const updateHighlight = createStandardAction('Content/Highlights/update')
   locationFilterId: string,
   pageId: string,
 }>();
-export const editStateChange = createStandardAction('Content/Highlights/editStateChange')<boolean>();
+export const setAnnotationChangesPending = createStandardAction('Content/Highlights/setAnnotationChangesPending')<
+  boolean
+>();
 
 export const receiveHighlights = createStandardAction('Content/Highlights/receive')<HighlightData[]>();
 

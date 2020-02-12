@@ -44,7 +44,7 @@ const DiscardModal = ({ onAnswer }: PropTypes) => {
   const deny = () => onAnswer(false);
 
   return (
-    <Modal className='discard-changes'>
+    <Modal>
       <CardWrapper>
         <DiscardCard
           footer={
