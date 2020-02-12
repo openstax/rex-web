@@ -87,7 +87,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(() => {
     if (!isFocused) {
-        cancelEditing();
+      cancelEditing();
     }
   }, [isFocused, cancelEditing]);
 

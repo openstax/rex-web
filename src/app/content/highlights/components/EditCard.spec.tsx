@@ -39,7 +39,11 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} data={data}/>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              data={data}
+              isFocused={true}
+            />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -54,7 +58,10 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} data={highlightData} />
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              isFocused={true}
+            />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -74,6 +81,7 @@ describe('EditCard', () => {
               highlight={highlight as unknown as Highlight}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
+              isFocused={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -94,7 +102,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} />
+            <EditCard highlight={highlight as unknown as Highlight} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -117,7 +125,7 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onRemove={onRemove}
-              onCancel={() => null}
+              isFocused={true}
               data={data}
             />
           </MessageProvider>
@@ -143,7 +151,12 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} onRemove={onRemove} data={data} />
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onRemove={onRemove}
+              data={data}
+              isFocused={true}
+            />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -173,6 +186,7 @@ describe('EditCard', () => {
               onRemove={onRemove}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
+              isFocused={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -195,7 +209,6 @@ describe('EditCard', () => {
   it('cancelling resets the form state', () => {
     const blur = jest.fn();
     const onRemove = jest.fn();
-    const onCancel = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
@@ -208,10 +221,11 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onRemove={onRemove}
-              onCancel={onCancel}
+              onCancel={() => null}
               onBlur={blur}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
+              isFocused={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -240,6 +254,7 @@ describe('EditCard', () => {
   it('save saves', () => {
     const blur = jest.fn();
     const save = jest.fn();
+    const cancel = jest.fn();
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -249,10 +264,11 @@ describe('EditCard', () => {
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              onCancel={() => null}
+              onCancel={cancel}
               onSave={save}
               setAnnotationChangesPending={setAnnotationChangesPending}
               onBlur={blur}
+              isFocused={true}
               onCreate={jest.fn()}
             />
           </MessageProvider>
@@ -280,6 +296,7 @@ describe('EditCard', () => {
     });
     expect(blur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
+    expect(cancel).toHaveBeenCalled();
   });
 
   it('removing note shows confirmation', () => {
@@ -297,6 +314,7 @@ describe('EditCard', () => {
               onSave={save}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
+              isFocused={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -319,6 +337,7 @@ describe('EditCard', () => {
 
   it('confirmation can save', () => {
     const save = jest.fn();
+    const cancel = jest.fn();
     const blur = jest.fn();
     const data = {
       ...highlightData,
@@ -333,7 +352,8 @@ describe('EditCard', () => {
               locationFilterId='locationId'
               pageId='pageId'
               onSave={save}
-              onCancel={() => null}
+              onCancel={cancel}
+              isFocused={true}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               onBlur={blur}
@@ -369,6 +389,7 @@ describe('EditCard', () => {
       pageId: 'pageId',
     });
     expect(blur).not.toHaveBeenCalled();
+    expect(cancel).toHaveBeenCalled();
   });
 
   it('confirmation can cancel', () => {
@@ -387,6 +408,7 @@ describe('EditCard', () => {
               onSave={save}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
+              isFocused={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -427,6 +449,7 @@ describe('EditCard', () => {
               locationFilterId='locationId'
               pageId='pageId'
               onSave={save}
+              isFocused={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -454,7 +477,11 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} onCreate={create} />
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onCreate={create}
+              isFocused={true}
+            />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -479,6 +506,7 @@ describe('EditCard', () => {
               highlight={highlight as unknown as Highlight}
               onCreate={create}
               authenticated={true}
+              onCancel={() => null}
             />
           </MessageProvider>
         </Services.Provider>
@@ -505,6 +533,7 @@ describe('EditCard', () => {
               highlight={highlight as unknown as Highlight}
               data={highlightData}
               authenticated={true}
+              onCancel={() => null}
             />
           </MessageProvider>
         </Services.Provider>
@@ -530,7 +559,11 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} onBlur={onBlur}/>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onBlur={onBlur}
+              isFocused={true}
+            />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -545,6 +578,7 @@ describe('EditCard', () => {
 
   it('doesn\'t blur when clicking outside and editing', () => {
     const onBlur = jest.fn();
+    const onCancel = jest.fn();
     highlight.getStyle.mockReturnValue('red');
 
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
@@ -557,6 +591,7 @@ describe('EditCard', () => {
             <EditCard
               highlight={highlight as unknown as Highlight}
               onBlur={onBlur}
+              isFocused={true}
               setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
             />
@@ -574,5 +609,6 @@ describe('EditCard', () => {
 
     expect(onClickOutside.mock.calls.length).toBe(2);
     expect(onBlur).not.toHaveBeenCalled();
+    expect(onCancel).not.toHaveBeenCalled();
   });
 });
