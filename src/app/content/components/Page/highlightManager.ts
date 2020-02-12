@@ -115,17 +115,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
     const ordered = highlights.filter((highlight) => !pending || highlight.id !== pending.id);
     const prevHighlight = highlighter.getHighlightBefore(pending);
-    if (!prevHighlight) {
-      ordered.unshift(pending);
-      return ordered;
-    }
 
-    const indexToInsert = ordered.findIndex((highlight) => highlight.id === prevHighlight.id);
-    if (indexToInsert === -1) {
-      ordered.push(pending);
-    } else {
-      ordered.splice(indexToInsert, 0, pending);
-    }
+    const indexToInsert = prevHighlight && ordered.findIndex((highlight) => highlight.id === prevHighlight.id);
+    ordered.splice((typeof indexToInsert === 'undefined' ? -1 : indexToInsert) + 1, 0, pending);
     return ordered;
   };
 
