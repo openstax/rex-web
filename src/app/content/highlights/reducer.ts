@@ -11,8 +11,6 @@ import { highlightingFeatureFlag, highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
-  getHighlightColorFiltersWithContent,
-  getHighlightLocationFiltersWithContent,
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
@@ -192,15 +190,14 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlightsTotalCounts): {
-      const locationIds = Array.from(getHighlightLocationFiltersWithContent(action.meta, action.payload));
-      const colors = Array.from(getHighlightColorFiltersWithContent(action.payload));
+      const locationIds = Array.from(action.meta.keys());
 
       return {
         ...state,
         summary: {
           ...state.summary,
           filters: {
-            colors,
+            ...state.summary.filters,
             locationIds,
           },
           totalCountsPerPage: action.payload,

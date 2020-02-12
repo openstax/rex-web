@@ -64,21 +64,6 @@ export const summaryIsLoading = createSelector(
   (state) => state.summary.loading
 );
 
-export const summaryFilters = createSelector(
-  localState,
-  (state) => state.summary.filters
-);
-
-export const summaryLocationFilters = createSelector(
-  summaryFilters,
-  (filters) => filters.locationIds
-);
-
-export const summaryColorFilters = createSelector(
-  summaryFilters,
-  (filters) => filters.colors
-);
-
 export const summaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
@@ -124,10 +109,39 @@ export const loadedCountsPerSource = createSelector(
   )
 );
 
+const summaryFilters = createSelector(
+  localState,
+  (state) => state.summary.filters
+);
+
+const rawSummaryLocationFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.locationIds
+);
+
+const rawSummaryColorFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.colors
+);
+
+export const summaryLocationFilters = createSelector(
+  rawSummaryLocationFilters,
+  highlightLocationFiltersWithContent,
+  (selectedLocations, withContent) =>
+    new Set(selectedLocations.filter((locationId) => withContent.has(locationId)))
+);
+
+export const summaryColorFilters = createSelector(
+  rawSummaryColorFilters,
+  highlightColorFiltersWithContent,
+  (selectedColors, withContent) =>
+    new Set(selectedColors.filter((color) => withContent.has(color)))
+);
+
 const selectedHighlightLocationFilters = createSelector(
   highlightLocationFilters,
   summaryLocationFilters,
- (locationFilters, selectedIds) => selectedIds.reduce((result, selectedId) =>
+ (locationFilters, selectedIds) => [...selectedIds].reduce((result, selectedId) =>
    result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
  , new Map() as HighlightLocationFilters)
 );
@@ -138,7 +152,7 @@ export const filteredCountsPerPage = createSelector(
   summaryColorFilters,
   (totalCounts, locationFilters, colorFilters) => flow(
     (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
-    (counts) => filterCountsPerSourceByColorFilter(colorFilters, counts)
+    (counts) => filterCountsPerSourceByColorFilter([...colorFilters], counts)
   )(totalCounts)
 );
 

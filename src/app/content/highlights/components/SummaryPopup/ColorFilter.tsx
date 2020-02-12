@@ -10,7 +10,7 @@ import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
 import { highlightStyles } from '../../constants';
-import { highlightColorFiltersWithContent, summaryFilters } from '../../selectors';
+import { highlightColorFiltersWithContent, summaryColorFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({className}: Props) => {
-  const filters = useSelector(summaryFilters);
+  const selectedColorFilters = useSelector(summaryColorFilters);
   const colorFiltersWithContent = useSelector(highlightColorFiltersWithContent);
   const dispatch = useDispatch();
 
@@ -28,10 +28,10 @@ const ColorFilter = ({className}: Props) => {
   };
 
   const handleChange = (label: HighlightColorEnum) => {
-    if (filters.colors.includes(label)) {
-      setSelectedColors(filters.colors.filter(not(match(label))));
+    if (selectedColorFilters.has(label)) {
+      setSelectedColors([...selectedColorFilters].filter(not(match(label))));
     } else {
-      setSelectedColors([...filters.colors, label]);
+      setSelectedColors([...selectedColorFilters, label]);
     }
   };
 
@@ -42,7 +42,7 @@ const ColorFilter = ({className}: Props) => {
     />
     {highlightStyles.map((style) => <Checkbox
       key={style.label}
-      checked={filters.colors.includes(style.label)}
+      checked={selectedColorFilters.has(style.label)}
       disabled={!colorFiltersWithContent.has(style.label)}
       onChange={() => handleChange(style.label)}
     >

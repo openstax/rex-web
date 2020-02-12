@@ -7,7 +7,7 @@ import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryFilters } from '../../selectors';
+import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 import { mobileMargin, mobilePadding } from './constants';
 
@@ -61,7 +61,7 @@ const chunk = <T extends any>(sections: T[]) => {
 const ChapterFilter = ({className}: Props) => {
   const locationFilters = useSelector(highlightLocationFilters);
   const locationFiltersWithContent = useSelector(highlightLocationFiltersWithContent);
-  const filters = useSelector(summaryFilters);
+  const selectedLocationFilters = useSelector(summaryLocationFilters);
   const dispatch = useDispatch();
 
   const setSelectedChapters = (ids: string[]) => {
@@ -69,10 +69,10 @@ const ChapterFilter = ({className}: Props) => {
   };
 
   const handleChange = (id: string) => {
-    if (filters.locationIds.includes(id)) {
-      setSelectedChapters(filters.locationIds.filter(not(match(id))));
+    if (selectedLocationFilters.has(id)) {
+      setSelectedChapters([...selectedLocationFilters].filter(not(match(id))));
     } else {
-      setSelectedChapters([...filters.locationIds, id]);
+      setSelectedChapters([...selectedLocationFilters, id]);
     }
   };
 
@@ -85,7 +85,7 @@ const ChapterFilter = ({className}: Props) => {
       {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
-          checked={filters.locationIds.includes(location.id)}
+          checked={selectedLocationFilters.has(location.id)}
           disabled={!locationFiltersWithContent.has(location.id)}
           onChange={() => handleChange(location.id)}
         >
