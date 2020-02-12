@@ -70,7 +70,7 @@ export const Modal = styled.div`
   ${theme.breakpoints.mobile(css`
     margin: 2rem 0;
     width: calc(100% - ${mobileMarginSides * 2}rem);
-    height: calc(100% - ${mobileMarginTopBottom * 2}rem)
+    height: calc(100% - ${mobileMarginTopBottom * 2}rem);
   `)}
 
   @media print {
