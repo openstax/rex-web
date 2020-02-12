@@ -28,6 +28,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
   });
 
   if (highlights.data) {
+    dispatch(receiveHighlights([]));
     dispatch(receiveHighlights(highlights.data));
   }
 };
