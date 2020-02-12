@@ -22,7 +22,7 @@ function mockModal({onAnswer}: {onAnswer: (answer: boolean) => void}) {
   return null;
 }
 
-const moduleNode = assertDocument().createElement('div');
+const modalNode = assertDocument().createElement('div');
 
 describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
@@ -35,21 +35,21 @@ describe('ShowConfirmation', () => {
     document.body.appendChild(rootNode);
 
     rootNode.insertAdjacentElement = jest.fn().mockImplementation(() => {
-      document.body.appendChild(moduleNode);
+      document.body.appendChild(modalNode);
     });
 
     render = jest.spyOn(ReactDOM, 'render');
     unmount = jest.spyOn(ReactDOM, 'unmountComponentAtNode');
 
-    createElement = jest.spyOn(document, 'createElement').mockImplementation(() => moduleNode);
+    createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
   });
 
   it('unmounts on answer', async() => {
     await showConfirmation();
 
     expect(createElement).toHaveBeenCalledWith('div');
-    expect(render).toHaveBeenCalledWith(expect.anything(), moduleNode);
-    expect(rootNode.insertAdjacentElement).toHaveBeenCalledWith('afterend', moduleNode);
-    expect(unmount).toHaveBeenCalledWith(moduleNode);
+    expect(render).toHaveBeenCalledWith(expect.anything(), modalNode);
+    expect(rootNode.insertAdjacentElement).toHaveBeenCalledWith('afterend', modalNode);
+    expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 });
