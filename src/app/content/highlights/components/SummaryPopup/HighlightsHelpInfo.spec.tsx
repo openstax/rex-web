@@ -2,10 +2,12 @@ import * as Cookies from 'js-cookie';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
 import { receiveUser } from '../../../../auth/actions';
 import { User } from '../../../../auth/types';
 import { PlainButton } from '../../../../components/Button';
+import * as Services from '../../../../context/Services';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import HighlightsHelpInfo, { cookieId, timeBeforeShow } from './HighlightsHelpInfo';
@@ -20,6 +22,7 @@ describe('HighlightsHelpInfo', () => {
   jest.useFakeTimers();
   let store: Store;
   let user: User;
+  const services = createTestServices();
 
   beforeEach(() => {
     store = createTestStore();
@@ -28,9 +31,11 @@ describe('HighlightsHelpInfo', () => {
 
   it('matches snapshot when hidden', () => {
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsHelpInfo/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsHelpInfo/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     expect(component.toJSON()).toMatchSnapshot();
@@ -40,9 +45,11 @@ describe('HighlightsHelpInfo', () => {
     store.dispatch(receiveUser(user));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsHelpInfo/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsHelpInfo/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     await renderer.act(async() => {
@@ -54,9 +61,11 @@ describe('HighlightsHelpInfo', () => {
 
   it('does not open if user is not logged in', async() => {
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsHelpInfo/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsHelpInfo/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     await renderer.act(async() => {
@@ -73,9 +82,11 @@ describe('HighlightsHelpInfo', () => {
     spy.mockImplementationOnce(() => 'true' as any);
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsHelpInfo/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsHelpInfo/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     await renderer.act(async() => {
@@ -89,9 +100,11 @@ describe('HighlightsHelpInfo', () => {
     store.dispatch(receiveUser(user));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsHelpInfo/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsHelpInfo/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     await renderer.act(async() => {

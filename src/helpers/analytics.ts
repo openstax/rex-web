@@ -12,6 +12,7 @@ import * as deleteHighlight from './analyticsEvents/highlighting/delete';
 import * as highlightingEditColor from './analyticsEvents/highlighting/editColor';
 import * as highlightingEditAnnotation from './analyticsEvents/highlighting/editNote';
 import * as showCreate from './analyticsEvents/highlighting/showCreate';
+import * as showHelpInfo from './analyticsEvents/highlighting/showHelpInfo';
 import * as showLogin from './analyticsEvents/highlighting/showLogin';
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
@@ -57,6 +58,7 @@ const analytics = {
   print: mapEventType(print),
   search: mapEventType(search),
   showCreate: mapEventType(showCreate),
+  showHelpInfo: mapEventType(showHelpInfo),
   showLogin: mapEventType(showLogin),
   signupCTA: mapEventType(signupCTA),
   unload: mapEventType(unload),
