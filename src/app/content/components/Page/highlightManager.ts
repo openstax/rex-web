@@ -42,7 +42,7 @@ const onClickHighlight = (services: Services, highlight: Highlight | undefined) 
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
-  if (services.getProp().focused && services.getProp().hasUnsavedHighlight) {
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && await showConfirmation()) {
     const didConfirm = await showConfirmation();
     return didConfirm  && services.getProp().clearFocus();
   }
