@@ -61,6 +61,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   const trackCreateNote = useAnalyticsEvent('createNote');
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackShowCreate = useAnalyticsEvent('showCreate');
+  const trackShowLogin = useAnalyticsEvent('showLogin');
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
   const blurIfNotEditing = () => {
@@ -70,6 +72,17 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   };
 
   useOnEsc(element, isFocused, onCancel);
+
+  React.useEffect(() => {
+    if (data) { return; }
+    if (authenticated) {
+      trackShowCreate();
+    } else {
+      trackShowLogin();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   React.useEffect(onClickOutside(element, isFocused, blurIfNotEditing), [isFocused, editingAnnotation]);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
