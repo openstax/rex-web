@@ -124,7 +124,7 @@ class HighlightsPopUp extends Component<Props> {
           </Styled.Header>
           {this.props.user ? <ShowMyHighlights /> : this.loginForHighlights()}
         </Styled.Modal>
-        {this.props.user && <HighlightsHelpInfo />}
+        <HighlightsHelpInfo />
       </Styled.PopupWrapper>
     : null;
   }

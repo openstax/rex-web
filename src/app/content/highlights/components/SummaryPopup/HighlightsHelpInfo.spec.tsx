@@ -1,9 +1,13 @@
-import { MediaQueryList } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestStore from '../../../../../test/createTestStore';
+import { receiveUser } from '../../../../auth/actions';
+import { User } from '../../../../auth/types';
 import { PlainButton } from '../../../../components/Button';
 import MessageProvider from '../../../../MessageProvider';
+import { Store } from '../../../../types';
 import HighlightsHelpInfo, { cookieId, timeBeforeShow } from './HighlightsHelpInfo';
 
 jest.mock('js-cookie', () => ({
@@ -14,21 +18,32 @@ jest.mock('js-cookie', () => ({
 
 describe('HighlightsHelpInfo', () => {
   jest.useFakeTimers();
+  let store: Store;
+  let user: User;
+
+  beforeEach(() => {
+    store = createTestStore();
+    user = {firstName: 'test', isNotGdprLocation: true, uuid: 'a_uuid'};
+  });
 
   it('matches snapshot when hidden', () => {
-    const component = renderer.create(<MessageProvider>
-      <HighlightsHelpInfo/>
-    </MessageProvider>);
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsHelpInfo/>
+      </MessageProvider>
+    </Provider>);
 
     expect(component.toJSON()).toMatchSnapshot();
   });
 
   it('matches snapshot when showed', async() => {
-    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
+    store.dispatch(receiveUser(user));
 
-    const component = renderer.create(<MessageProvider>
-      <HighlightsHelpInfo/>
-    </MessageProvider>);
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsHelpInfo/>
+      </MessageProvider>
+    </Provider>);
 
     await renderer.act(async() => {
       jest.runTimersToTime(timeBeforeShow);
@@ -37,12 +52,12 @@ describe('HighlightsHelpInfo', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('does not open if we are not on mobile', async() => {
-    window!.matchMedia = () => ({matches: false}) as MediaQueryList;
-
-    const component = renderer.create(<MessageProvider>
-      <HighlightsHelpInfo/>
-    </MessageProvider>);
+  it('does not open if user is not logged in', async() => {
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsHelpInfo/>
+      </MessageProvider>
+    </Provider>);
 
     await renderer.act(async() => {
       jest.runTimersToTime(timeBeforeShow);
@@ -52,14 +67,16 @@ describe('HighlightsHelpInfo', () => {
   });
 
   it('does not open if cookie is already set', async() => {
-    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
+    store.dispatch(receiveUser(user));
 
     const spy = jest.spyOn(Cookies, 'get');
     spy.mockImplementationOnce(() => 'true' as any);
 
-    const component = renderer.create(<MessageProvider>
-      <HighlightsHelpInfo/>
-    </MessageProvider>);
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsHelpInfo/>
+      </MessageProvider>
+    </Provider>);
 
     await renderer.act(async() => {
       jest.runTimersToTime(timeBeforeShow);
@@ -69,11 +86,13 @@ describe('HighlightsHelpInfo', () => {
   });
 
   it('set cookie on dismiss', async() => {
-    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
+    store.dispatch(receiveUser(user));
 
-    const component = renderer.create(<MessageProvider>
-      <HighlightsHelpInfo/>
-    </MessageProvider>);
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsHelpInfo/>
+      </MessageProvider>
+    </Provider>);
 
     await renderer.act(async() => {
       jest.runTimersToTime(timeBeforeShow);

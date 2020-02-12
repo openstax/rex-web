@@ -1,12 +1,13 @@
 import * as Cookies from 'js-cookie';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
+import { user as userSelector } from '../../../../auth/selectors';
 import { PlainButton } from '../../../../components/Button';
+import htmlMessage from '../../../../components/htmlMessage';
 import { linkStyle, textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
-import { assertWindow } from '../../../../utils';
 
 // This is copied from CallToActionPopup > styles.tsx
 // Wher should we store this kind of functions?
@@ -44,6 +45,10 @@ const Wrapper = styled.div`
     ${linkStyle}
     text-decoration: none;
   }
+
+  @media screen and (min-width: ${theme.breakpoints.mobileBreak}em) {
+    display: none;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
@@ -54,12 +59,16 @@ export const CloseIcon = styled(Times)`
 
 export const cookieId = 'highlights_help_info_dissmised';
 export const timeBeforeShow = 1000;
-// tslint:disable-next-line: max-line-length
-const supportCenterLink = 'https://openstax.secure.force.com/help/articles/FAQ/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting';
+
+// tslint:disable-next-line: variable-name
+const Message = htmlMessage(
+  'i18n:toolbar:highlights:popup:help-info',
+  (props) => <span {...props} />);
 
 // tslint:disable-next-line:variable-name
 const HighlightsHelpInfo = () => {
   const [show, setShow] = React.useState(false);
+  const user = useSelector(userSelector);
 
   const dismiss = () => {
     Cookies.set(cookieId, 'true');
@@ -68,25 +77,16 @@ const HighlightsHelpInfo = () => {
 
   React.useEffect(() => {
     setTimeout(() => {
-      if (!Boolean(Cookies.get(cookieId)) && assertWindow().matchMedia(theme.breakpoints.mobileQuery).matches) {
+      if (!Boolean(Cookies.get(cookieId))) {
         setShow(true);
       }
     }, timeBeforeShow);
   }, []);
 
-  if (!show) { return null; }
+  if (!show || !user) { return null; }
 
   return <Wrapper data-analytics-region='Mobile MH help info'>
-    <span>
-    <FormattedMessage id='i18n:toolbar:highlights:popup:help-info'/>
-      <FormattedMessage id='i18n:toolbar:highlights:popup:help-info:link'>
-        {(msg: Element | string) => <a
-          data-testid='support-link'
-          data-analytics-label='support-link'
-          href={supportCenterLink}
-        >{msg}</a>}
-      </FormattedMessage>
-    </span>
+    <Message />
     <PlainButton onClick={dismiss} data-analytics-label='close'>
       <CloseIcon />
     </PlainButton>
