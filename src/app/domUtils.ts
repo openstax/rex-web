@@ -120,7 +120,7 @@ export const elementDescendantOf = (element: Element, ancestor: Element): boolea
 };
 
 const eventTypeMap = {
-  focusout: 'FocusEvent' as const,
+  focusout: 'FocusEvent' as 'FocusEvent',
 };
 type EventTypeMap = typeof eventTypeMap;
 // this ['prototype'] is only necessary because of the duplicate names in lib.dom.d.ts, if we
