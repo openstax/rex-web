@@ -291,11 +291,12 @@ export const LeftArrow = styled(AngleLeft)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SeachResultsTextButton = styled.a`
+export const SeachResultsTextButton = styled(PlainButton)`
   ${textRegularStyle}
   ${decoratedLinkStyle}
   display: flex;
   overflow: visible;
+  min-width: auto;
 `;
 
 // tslint:disable-next-line:variable-name
