@@ -58,9 +58,12 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
   const container = React.useRef<HTMLElement>(null);
 
   useOnClickOutside(container, open, () => setOpen(false));
-  useOnEsc(container, open, () => setOpen(false));
+  useOnEsc(container, open, () => {
+    setOpen(false);
+    if (container.current) { container.current.focus(); }
+  });
 
-  return <div className={className} ref={container}>
+  return <div className={className} ref={container} tabIndex={0}>
     <DropdownToggle component={toggle} onClick={() => setOpen(!open)} />
     {open && children}
   </div>;

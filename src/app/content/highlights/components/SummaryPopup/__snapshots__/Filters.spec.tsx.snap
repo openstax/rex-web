@@ -256,6 +256,7 @@ exports[`Filters matches snapshot 1`] = `
 >
   <div
     className="c1 c2 c3"
+    tabIndex={0}
   >
     <button
       className="c4 c5 c6 c7"
@@ -282,6 +283,7 @@ exports[`Filters matches snapshot 1`] = `
   </div>
   <div
     className="c1 c2 c3"
+    tabIndex={0}
   >
     <button
       className="c4 c5 c6 c7"

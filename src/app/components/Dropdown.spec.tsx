@@ -100,5 +100,40 @@ describe('Dropdown', () => {
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();
+
+    useOnEscSpy.mockClear();
+  });
+
+  it('tab hidden focus after Esc', () => {
+    const useOnEscSpy = jest.spyOn(utils, 'useOnEsc');
+
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
+
+    const component = renderer.create(<MessageProvider>
+      <Dropdown transparentTab={false} toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+          <DropdownItem onClick={() => null} href='/wooo' message='i18n:highlighting:dropdown:edit' />
+        </DropdownList>
+      </Dropdown>
+    </MessageProvider>, {createNodeMock});
+
+    renderer.act(() => {
+      component.root.findByType('button').props.onClick();
+    });
+
+    expect(() => component.root.findByType(DropdownList)).not.toThrow();
+
+    renderer.act(() => {
+      useOnEscSpy.mock.calls[0][2]();
+    });
+
+    expect(() => component.root.findByType(DropdownList)).toThrow();
+    expect(focus).toHaveBeenCalled();
+
+    useOnEscSpy.mockClear();
   });
 });
