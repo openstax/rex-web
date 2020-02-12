@@ -437,6 +437,68 @@ describe('EditCard', () => {
     expect(note.props.note).toBe('qwer');
   });
 
+  it('responds to changes', () => {
+    const save = jest.fn();
+    highlight.getStyle.mockReturnValue('red');
+    const data = {
+      ...highlightData,
+      annotation: 'qwer',
+    };
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onSave={save}
+              setAnnotationChangesPending={setAnnotationChangesPending}
+              data={data}
+              isFocused={true}
+              hasUnsavedHighlight={false}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+    const note = component.root.findByType(Note);
+
+    renderer.act(() => {
+      note.props.onChange('');
+    });
+    expect(setAnnotationChangesPending).toHaveBeenCalledWith(true);
+  });
+
+  it('dispatches if changes are reverted', () => {
+    const save = jest.fn();
+    highlight.getStyle.mockReturnValue('red');
+    const data = {
+      ...highlightData,
+      annotation: 'qwer',
+    };
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              highlight={highlight as unknown as Highlight}
+              onSave={save}
+              setAnnotationChangesPending={setAnnotationChangesPending}
+              data={data}
+              isFocused={true}
+              hasUnsavedHighlight={true}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+    const note = component.root.findByType(Note);
+
+    renderer.act(() => {
+      note.props.onChange('qwer');
+    });
+    expect(setAnnotationChangesPending).toHaveBeenCalledWith(false);
+  });
+
   it('handles color change when there is data', () => {
     const save = jest.fn();
     const component = renderer.create(

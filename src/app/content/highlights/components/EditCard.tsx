@@ -142,11 +142,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {
-    if (!data) {
-      return;
-    }
-
-    const currentValue = data.annotation || '';
+    const currentValue = data && data.annotation || '';
 
     if (currentValue !== newValue && !hasUnsavedHighlight) {
       setAnnotationChangesPending(true);
