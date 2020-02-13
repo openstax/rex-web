@@ -57,8 +57,10 @@ describe('Card', () => {
         nodeName: 'div',
         nodeType: 1,
         offsetTop: 50,
+        tagName: 'DIV',
         title: '',
       },
+      tagName: 'DIV',
       title: '',
     } as unknown as HTMLElement;
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));

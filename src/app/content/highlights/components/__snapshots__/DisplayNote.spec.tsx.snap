@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayNote matches snapshot 1`] = `
+.c9 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
 .c7 {
   cursor: pointer;
 }
@@ -91,18 +98,18 @@ exports[`DisplayNote matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c13 {
+.c14 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
 }
 
-.c13 li {
+.c14 li {
   display: inline-block;
 }
 
-.c13 li button,
-.c13 li a {
+.c14 li button,
+.c14 li a {
   -webkit-text-decoration: none;
   text-decoration: none;
   display: -webkit-box;
@@ -128,10 +135,10 @@ exports[`DisplayNote matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c13 li button:hover,
-.c13 li a:hover,
-.c13 li button:focus,
-.c13 li a:focus {
+.c14 li button:hover,
+.c14 li a:hover,
+.c14 li button:focus,
+.c14 li a:focus {
   background: #d5d5d5;
 }
 
@@ -140,13 +147,13 @@ exports[`DisplayNote matches snapshot 1`] = `
   position: relative;
 }
 
-.c11 {
+.c12 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c10 {
+.c11 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -157,7 +164,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   user-select: none;
 }
 
-.c10:hover {
+.c11:hover {
   color: #818181;
 }
 
@@ -166,7 +173,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   display: block;
 }
 
-.c14 {
+.c15 {
   color: #818181;
   height: 4.2rem;
   width: 4.2rem;
@@ -193,7 +200,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   margin: 1.2000000000000002rem 0 0 1.6rem;
 }
 
-.c0 .c12.c12 {
+.c0 .c13.c13 {
   left: -4rem;
 }
 
@@ -203,16 +210,16 @@ exports[`DisplayNote matches snapshot 1`] = `
   right: -0.2rem;
 }
 
-.c0 .c1 .focus-within .c9 {
+.c0 .c1 .focus-within .c10 {
   color: #5e6062;
 }
 
-.c0 .c1:focus-within .c9 {
+.c0 .c1:focus-within .c10 {
   color: #5e6062;
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c15 {
     display: block;
   }
 }
@@ -244,21 +251,25 @@ exports[`DisplayNote matches snapshot 1`] = `
         className="c6 c7 c8"
         tabIndex={0}
       >
-        <svg
-          aria-hidden="true"
-          className="c9 c10 c11"
-          fill="currentColor"
-          focusable="false"
-          viewBox="0 0 192 512"
+        <button
+          className="c9"
         >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
             fill="currentColor"
-          />
-        </svg>
+            focusable="false"
+            viewBox="0 0 192 512"
+          >
+            <path
+              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
       </div>
       <ol
-        className="c12 c13"
+        className="c13 c14"
       >
         <li>
           <a
@@ -284,23 +295,27 @@ exports[`DisplayNote matches snapshot 1`] = `
       className="c6 c7 c8"
       tabIndex={0}
     >
-      <svg
-        aria-hidden="true"
-        className="c9 c10 c11"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 192 512"
+      <button
+        className="c9"
       >
-        <path
-          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+        <svg
+          aria-hidden="true"
+          className="c10 c11 c12"
           fill="currentColor"
-        />
-      </svg>
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
     </div>
   </div>
   <svg
     aria-hidden="true"
-    className="c14"
+    className="c15"
     focusable="false"
     height="15px"
     version="1.1"
@@ -338,6 +353,13 @@ exports[`DisplayNote matches snapshot 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
+.c9 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
 .c7 {
   cursor: pointer;
 }
@@ -428,18 +450,18 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   overflow: visible;
 }
 
-.c13 {
+.c14 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
 }
 
-.c13 li {
+.c14 li {
   display: inline-block;
 }
 
-.c13 li button,
-.c13 li a {
+.c14 li button,
+.c14 li a {
   -webkit-text-decoration: none;
   text-decoration: none;
   display: -webkit-box;
@@ -465,10 +487,10 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   line-height: 2rem;
 }
 
-.c13 li button:hover,
-.c13 li a:hover,
-.c13 li button:focus,
-.c13 li a:focus {
+.c14 li button:hover,
+.c14 li a:hover,
+.c14 li button:focus,
+.c14 li a:focus {
   background: #d5d5d5;
 }
 
@@ -477,13 +499,13 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   position: relative;
 }
 
-.c11 {
+.c12 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c10 {
+.c11 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -494,7 +516,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   user-select: none;
 }
 
-.c10:hover {
+.c11:hover {
   color: #818181;
 }
 
@@ -503,7 +525,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   display: block;
 }
 
-.c14 {
+.c15 {
   color: #818181;
   height: 4.2rem;
   width: 4.2rem;
@@ -514,21 +536,21 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   right: 0;
 }
 
-.c15 .c12.c12 {
+.c16 .c13.c13 {
   left: -4rem;
 }
 
-.c15 .c1 {
+.c16 .c1 {
   position: absolute;
   top: 0.8rem;
   right: -0.2rem;
 }
 
-.c15 .c1 .focus-within .c9 {
+.c16 .c1 .focus-within .c10 {
   color: #5e6062;
 }
 
-.c15 .c1:focus-within .c9 {
+.c16 .c1:focus-within .c10 {
   color: #5e6062;
 }
 
@@ -549,7 +571,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   margin: 1.2000000000000002rem 0 0 1.6rem;
 }
 
-.c0 .c12.c12 {
+.c0 .c13.c13 {
   left: -4rem;
 }
 
@@ -559,22 +581,22 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   right: -0.2rem;
 }
 
-.c0 .c1 .focus-within .c9 {
+.c0 .c1 .focus-within .c10 {
   color: #5e6062;
 }
 
-.c0 .c1:focus-within .c9 {
+.c0 .c1:focus-within .c10 {
   color: #5e6062;
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c15 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c15 .c1 {
+  .c16 .c1 {
     display: none;
   }
 }
@@ -606,21 +628,25 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         className="c6 c7 c8"
         tabIndex={0}
       >
-        <svg
-          aria-hidden="true"
-          className="c9 c10 c11"
-          fill="currentColor"
-          focusable="false"
-          viewBox="0 0 192 512"
+        <button
+          className="c9"
         >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          <svg
+            aria-hidden="true"
+            className="c10 c11 c12"
             fill="currentColor"
-          />
-        </svg>
+            focusable="false"
+            viewBox="0 0 192 512"
+          >
+            <path
+              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
       </div>
       <ol
-        className="c12 c13"
+        className="c13 c14"
       >
         <li>
           <a
@@ -646,23 +672,27 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       className="c6 c7 c8"
       tabIndex={0}
     >
-      <svg
-        aria-hidden="true"
-        className="c9 c10 c11"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 192 512"
+      <button
+        className="c9"
       >
-        <path
-          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+        <svg
+          aria-hidden="true"
+          className="c10 c11 c12"
           fill="currentColor"
-        />
-      </svg>
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
     </div>
   </div>
   <svg
     aria-hidden="true"
-    className="c14"
+    className="c15"
     focusable="false"
     height="15px"
     version="1.1"

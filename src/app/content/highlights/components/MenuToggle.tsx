@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
+import { PlainButton } from '../../../components/Button';
 import theme from '../../../theme';
 
 // tslint:disable-next-line:variable-name
@@ -22,7 +23,7 @@ export const MenuIcon = styled(EllipsisV)`
   https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
 */
 // tslint:disable-next-line:variable-name
-const MenuToggle = styled(({className}) => <div tabIndex={0} className={className}><MenuIcon /></div>)`
+const MenuToggle = styled((props) => <div tabIndex={0} {...props}><PlainButton><MenuIcon /></PlainButton></div>)`
   border: none;
   display: block;
 `;

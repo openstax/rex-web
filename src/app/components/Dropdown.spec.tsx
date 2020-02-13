@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import * as onClickOutside from '../content/highlights/components/utils/onClickOutside';
+import * as reactUtils from '../../app/reactUtils';
 import MessageProvider from '../MessageProvider';
 import Dropdown, { DropdownItem, DropdownList } from './Dropdown';
 
@@ -51,8 +51,8 @@ describe('Dropdown', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('tab hidden closes', () => {
-    const useOnClickOutside = jest.spyOn(onClickOutside, 'useOnClickOutside');
+  it('tab hidden closes on focus lost', () => {
+    const useFocusLost = jest.spyOn(reactUtils, 'useFocusLost');
 
     const component = renderer.create(<MessageProvider>
       <Dropdown transparentTab={false} toggle={<button>show more</button>}>
@@ -70,7 +70,7 @@ describe('Dropdown', () => {
     expect(() => component.root.findByType(DropdownList)).not.toThrow();
 
     renderer.act(() => {
-      useOnClickOutside.mock.calls[0][2]();
+      useFocusLost.mock.calls[0][2]();
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();

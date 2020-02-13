@@ -10,7 +10,7 @@ import { cardPadding, cardWidth, highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
-import onClickOutside from './utils/onClickOutside';
+import { useOnClickOutside } from './utils/onClickOutside';
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
@@ -45,7 +45,7 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
 
-  React.useEffect(onClickOutside(element, isFocused, onBlur), [isFocused]);
+  useOnClickOutside(element, isFocused, onBlur);
 
   React.useEffect(() => {
     if (!isFocused) {

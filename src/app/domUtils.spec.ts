@@ -1,3 +1,4 @@
+import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
 import scrollTo from 'scroll-to-element';
 import * as domUtils from './domUtils';
 import { assertDocument, assertWindow } from './utils';
@@ -127,5 +128,68 @@ describe('findElementSelfOrParent', () => {
     const element = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     const result = domUtils.findElementSelfOrParent(element);
     expect(result).toBeUndefined();
+  });
+});
+
+describe('addSafeEventListener', () => {
+  let element: HTMLElement;
+
+  beforeEach(() => {
+    element = assertDocument().createElement('div');
+  });
+
+  it('handles matching events', () => {
+    const handler = jest.fn<void, [FocusEvent]>();
+    let safeHandler: ((e: Event) => void) | undefined;
+
+    jest.spyOn(element, 'addEventListener').mockImplementation((_, add: any) => safeHandler = add);
+
+    domUtils.addSafeEventListener(element, 'focusout', handler);
+
+    if (!safeHandler) {
+      return expect(safeHandler).toBeTruthy();
+    }
+
+    const event = new (assertWindow().FocusEvent)('focusout');
+
+    safeHandler(event);
+
+    expect(handler).toHaveBeenCalledWith(event);
+  });
+
+  it('ignores not matching events', () => {
+    const handler = jest.fn<void, [FocusEvent]>();
+    let safeHandler: ((e: Event) => void) | undefined;
+
+    jest.spyOn(element, 'addEventListener').mockImplementation((_, add: any) => safeHandler = add);
+
+    domUtils.addSafeEventListener(element, 'focusout', handler);
+
+    if (!safeHandler) {
+      return expect(safeHandler).toBeTruthy();
+    }
+
+    const event = new (assertWindow().CustomEvent)('asdf');
+    safeHandler(event);
+
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  it('returns unbind', () => {
+    const handler = jest.fn<void, [FocusEvent]>();
+    let safeHandler: ((e: Event) => void) | undefined;
+
+    jest.spyOn(element, 'addEventListener').mockImplementation((_, add: any) => safeHandler = add);
+    const remove = jest.spyOn(element, 'removeEventListener');
+
+    const unbind = domUtils.addSafeEventListener(element, 'focusout', handler);
+
+    if (!safeHandler) {
+      return expect(safeHandler).toBeTruthy();
+    }
+
+    unbind();
+
+    expect(remove).toHaveBeenCalledWith('focusout', safeHandler);
   });
 });

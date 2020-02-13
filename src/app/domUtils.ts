@@ -1,7 +1,8 @@
-import { Element, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import * as dom from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { isHtmlElement } from './guards';
-import { assertDocument, assertWindow } from './utils';
+import { assertDefined, assertDocument, assertWindow } from './utils';
 
 export const SCROLL_UP: 'scroll_up' = 'scroll_up';
 export const SCROLL_DOWN: 'scroll_down' = 'scroll_down';
@@ -116,4 +117,34 @@ export const elementDescendantOf = (element: Element, ancestor: Element): boolea
   }
 
   return elementDescendantOf(element.parentNode, ancestor);
+};
+
+const eventTypeMap = {
+  focusout: 'FocusEvent' as 'FocusEvent',
+};
+type EventTypeMap = typeof eventTypeMap;
+// this ['prototype'] is only necessary because of the duplicate names in lib.dom.d.ts, if we
+// change the names we can use the interface direcly here.
+type EventTypeFromMap<S extends keyof EventTypeMap> = (typeof dom)[EventTypeMap[S]]['prototype'];
+
+export const addSafeEventListener = <S extends keyof EventTypeMap>(
+  element: HTMLElement,
+  eventString: S,
+  handler: (event: EventTypeFromMap<S>) => void
+) => {
+  const eventType = assertDefined(
+    assertWindow()[eventTypeMap[eventString]],
+    'event type is not defined in eventTypeMap in /src/app/domUtils.ts'
+  );
+
+  const typeMatches = (event: dom.Event): event is EventTypeFromMap<S> => event instanceof eventType;
+
+  const safeHandler: EventListener = (event) => {
+    if (typeMatches(event)) {
+      handler(event);
+    }
+  };
+
+  element.addEventListener(eventString, safeHandler);
+  return () => element.removeEventListener(eventString, safeHandler);
 };
