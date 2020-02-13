@@ -34,6 +34,11 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   display: block;
 }
 
+.c7 > div {
+  display: inline-block;
+  outline: none;
+}
+
 .c5 {
   cursor: pointer;
 }
@@ -89,13 +94,12 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   <div
     className="c1 c2 c3"
   >
-    <div
-      className="c4 c5 c6 c7"
+    <button
+      className="c4 c5 c6 c7 c8"
       onClick={[Function]}
-      tabIndex={0}
     >
-      <button
-        className="c8"
+      <div
+        tabIndex={-1}
       >
         <svg
           aria-hidden="true"
@@ -109,8 +113,8 @@ exports[`ContextMenu match snapshot when closed 1`] = `
             fill="currentColor"
           />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
   </div>
 </div>
 `;
@@ -290,6 +294,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
 }
 
 .c14 {
+  outline: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -324,6 +329,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
 .c7 {
   border: none;
   display: block;
+}
+
+.c7 > div {
+  display: inline-block;
+  outline: none;
 }
 
 .c5 {
@@ -457,13 +467,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
   <div
     className="c1 c2 c3"
   >
-    <div
-      className="c4 c5 c6 c7"
+    <button
+      className="c4 c5 c6 c7 c8"
       onClick={[Function]}
-      tabIndex={0}
     >
-      <button
-        className="c8"
+      <div
+        tabIndex={-1}
       >
         <svg
           aria-hidden="true"
@@ -477,13 +486,14 @@ exports[`ContextMenu match snapshot when open 1`] = `
             fill="currentColor"
           />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
     <div
       className="c12"
     >
       <div
         className="c13 c14"
+        tabIndex={-1}
       >
         <label
           className="c15 c16"

@@ -173,6 +173,11 @@ exports[`DisplayNote matches snapshot 1`] = `
   display: block;
 }
 
+.c8 > div {
+  display: inline-block;
+  outline: none;
+}
+
 .c15 {
   color: #818181;
   height: 4.2rem;
@@ -247,12 +252,12 @@ exports[`DisplayNote matches snapshot 1`] = `
     <div
       className="c4 c5"
     >
-      <div
-        className="c6 c7 c8"
+      <button
+        className="c6 c7 c8 c9"
         tabIndex={0}
       >
-        <button
-          className="c9"
+        <div
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -266,8 +271,8 @@ exports[`DisplayNote matches snapshot 1`] = `
               fill="currentColor"
             />
           </svg>
-        </button>
-      </div>
+        </div>
+      </button>
       <ol
         className="c13 c14"
       >
@@ -291,12 +296,12 @@ exports[`DisplayNote matches snapshot 1`] = `
         </li>
       </ol>
     </div>
-    <div
-      className="c6 c7 c8"
+    <button
+      className="c6 c7 c8 c9"
       tabIndex={0}
     >
-      <button
-        className="c9"
+      <div
+        tabIndex={-1}
       >
         <svg
           aria-hidden="true"
@@ -310,8 +315,8 @@ exports[`DisplayNote matches snapshot 1`] = `
             fill="currentColor"
           />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
   </div>
   <svg
     aria-hidden="true"
@@ -525,6 +530,11 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   display: block;
 }
 
+.c8 > div {
+  display: inline-block;
+  outline: none;
+}
+
 .c15 {
   color: #818181;
   height: 4.2rem;
@@ -624,12 +634,12 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     <div
       className="c4 c5"
     >
-      <div
-        className="c6 c7 c8"
+      <button
+        className="c6 c7 c8 c9"
         tabIndex={0}
       >
-        <button
-          className="c9"
+        <div
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -643,8 +653,8 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
               fill="currentColor"
             />
           </svg>
-        </button>
-      </div>
+        </div>
+      </button>
       <ol
         className="c13 c14"
       >
@@ -668,12 +678,12 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         </li>
       </ol>
     </div>
-    <div
-      className="c6 c7 c8"
+    <button
+      className="c6 c7 c8 c9"
       tabIndex={0}
     >
-      <button
-        className="c9"
+      <div
+        tabIndex={-1}
       >
         <svg
           aria-hidden="true"
@@ -687,8 +697,8 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
             fill="currentColor"
           />
         </svg>
-      </button>
-    </div>
+      </div>
+    </button>
   </div>
   <svg
     aria-hidden="true"
