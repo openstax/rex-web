@@ -64,7 +64,11 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
 // tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
 
-  return <div className={className}>
+  // its important that this be click focusable, because when clicking
+  // labels in chrome the focus is first moved to a background element
+  // before the input, and that might cause weird behavior in parent
+  // elements.
+  return <div className={className} tabIndex={-1}>
     {highlightStyles.map((style) => <ColorButton key={style.label}
       name={style.label}
       checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
@@ -82,6 +86,7 @@ const ColorPicker = ({className, ...props}: Props) => {
 };
 
 export default styled(ColorPicker)`
+  outline: none;
   display: flex;
   flex-direction: row;
 `;
