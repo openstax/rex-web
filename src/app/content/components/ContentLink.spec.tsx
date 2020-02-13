@@ -7,6 +7,7 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { push } from '../../navigation/actions';
 import { Store } from '../../types';
 import { receiveBook } from '../actions';
+import { setAnnotationChangesPending } from '../highlights/actions';
 import { content } from '../routes';
 import { requestSearch } from '../search/actions';
 import { formatBookData } from '../utils';
@@ -16,6 +17,8 @@ const BOOK_SLUG = 'book-slug-1';
 const PAGE_SLUG = 'test-page-1';
 
 const book = formatBookData(archiveBook, mockCmsBook);
+
+jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve()));
 
 describe('ContentLink', () => {
   let consoleError: jest.SpyInstance;
@@ -128,6 +131,24 @@ describe('ContentLink', () => {
 
     expect(dispatch).not.toHaveBeenCalled();
     expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
+  it('does not call onClick or dispatch if user decides not to discard changes' , () => {
+    const clickSpy = jest.fn();
+    store.dispatch(setAnnotationChangesPending(true));
+    const component = renderer.create(<Provider store={store}>
+      <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+    </Provider>);
+
+    const event = {
+      preventDefault: jest.fn(),
+    };
+
+    component.root.findByType('a').props.onClick(event);
+
+    expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
+    expect(event.preventDefault).toHaveBeenCalled();
     expect(clickSpy).not.toHaveBeenCalled();
   });
 });
