@@ -83,6 +83,7 @@ const HighlightsHelpInfo = () => {
       setShow(true);
       trackShowHelpInfo();
     }, timeBeforeShow);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!show || !user) { return null; }
