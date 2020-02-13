@@ -40,7 +40,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(locationChange): {
       return {...initialState, enabled: state.enabled, myHighlightsOpen: false,
-        summary: {...state.summary, loading: true},
+        summary: {...state.summary},
       };
     }
     case getType(actions.createHighlight): {
@@ -146,7 +146,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveHighlights): {
       return {...state, highlights: action.payload,
-        summary: {...state.summary, loading: false},
+        summary: {...state.summary},
       };
     }
     case getType(actions.focusHighlight): {
