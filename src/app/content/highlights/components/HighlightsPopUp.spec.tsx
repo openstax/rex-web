@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
-import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as appGuards from '../../../guards';
@@ -14,7 +13,6 @@ import { assertWindow } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
-import { highlightingFeatureFlag } from '../constants';
 import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
 
@@ -29,8 +27,6 @@ describe('MyHighlights button and PopUp', () => {
   beforeEach(() => {
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
-
-    store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
   });

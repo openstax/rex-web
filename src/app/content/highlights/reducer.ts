@@ -2,12 +2,11 @@ import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@opensta
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import * as actions from './actions';
-import { highlightingFeatureFlag, highlightStyles } from './constants';
+import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
@@ -21,7 +20,6 @@ import {
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
-  enabled: false,
   highlights: null,
   myHighlightsOpen: false,
   summary: {
@@ -35,11 +33,8 @@ export const initialState: State = {
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
-    case getType(receiveFeatureFlags): {
-      return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
-    }
     case getType(locationChange): {
-      return {...initialState, enabled: state.enabled, myHighlightsOpen: false,
+      return {...initialState, myHighlightsOpen: false,
         summary: {...state.summary, loading: true},
       };
     }

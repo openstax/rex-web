@@ -1,6 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import books from '../../../config.books';
-export const highlightingFeatureFlag = 'enableHighlighting';
 
 export const summaryPageSize = 20;
 export const loadMoreDistanceFromBottom = 50;
