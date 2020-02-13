@@ -56,11 +56,6 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   color: #0064A0;
 }
 
-.c0 a {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 .c2 {
   color: #818181;
   width: 1.4rem;

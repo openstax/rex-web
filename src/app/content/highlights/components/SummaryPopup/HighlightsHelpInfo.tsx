@@ -42,10 +42,6 @@ const Wrapper = styled.div`
   border: 1px solid ${theme.color.neutral.formBorder};
   ${slideInAnimation}
 
-  a {
-    text-decoration: none;
-  }
-
   @media screen and (min-width: ${theme.breakpoints.mobileBreak}em) {
     display: none;
   }
