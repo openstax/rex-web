@@ -5,7 +5,12 @@ import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { highlightStyles } from '../constants';
 import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
-import { mobilePaddingSides } from './SummaryPopup/constants';
+import {
+  desktopHorizontalMargin,
+  desktopVerticalMargin,
+  mobileMarginSides,
+  mobilePaddingSides
+} from './SummaryPopup/constants';
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
@@ -70,10 +75,10 @@ export const ShowMyHighlightsBody = styled(PopupBody)`
 
 // tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
-  margin: ${mobilePaddingSides}rem ${popupPadding}rem;
+  margin: ${desktopVerticalMargin}rem ${desktopHorizontalMargin}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
   ${theme.breakpoints.mobile(css`
-    margin: 0 0 ${mobilePaddingSides}rem 0;
+    margin: 0 0 ${mobileMarginSides * 2}rem 0;
   `)}
 
   @media print {
