@@ -12,7 +12,7 @@ import { content } from '../../routes';
 import * as select from '../../selectors';
 import { Book, PageReferenceMap } from '../../types';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
-import isModifiedClick from '../utils/isModifiedClick';
+import isClickWithModifierKeys from '../utils/isClickWithModifierKeys';
 
 export const mapStateToContentLinkProp = (state: AppState) => ({
   book: select.book(state),
@@ -46,7 +46,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     const {references, navigate, book, page, locationState, currentPath, hasUnsavedHighlight} = getProps();
     const href = anchor.getAttribute('href');
 
-    if (!href || !book || !page || isModifiedClick(e)) {
+    if (!href || !book || !page || isClickWithModifierKeys(e)) {
       return;
     }
 

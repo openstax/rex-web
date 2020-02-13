@@ -112,7 +112,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       return {
         ...state,
-        hasUnsavedHighlight: onlyColorChanged ? true : false,
+        hasUnsavedHighlight: Boolean(onlyColorChanged),
         highlights: newHighlights,
         summary: {
           ...state.summary,

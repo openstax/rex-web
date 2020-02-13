@@ -60,7 +60,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   }: Props,
   ref
 ) => {
-  const defaultAnnotation = () => data && data.annotation ? data.annotation : '';
+  const defaultAnnotation = React.useCallback(() => data && data.annotation ? data.annotation : '', [data]);
   const [pendingAnnotation, setPendingAnnotation] = React.useState<string>(defaultAnnotation());
   const [editingAnnotation, setEditing] = React.useState<boolean>(!!data && !!data.annotation);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -79,11 +79,11 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     }
   };
 
-  const cancelEditing = () => {
+  const cancelEditing = React.useCallback(() => {
     setPendingAnnotation(defaultAnnotation());
     setEditing(false);
     onCancel();
-  };
+  }, [defaultAnnotation, onCancel]);
 
   React.useEffect(() => {
     if (!isFocused) {
@@ -142,7 +142,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {
-    const currentValue = data && data.annotation || '';
+    const currentValue = data && data.annotation ? data.annotation : '';
 
     if (currentValue !== newValue && !hasUnsavedHighlight) {
       setAnnotationChangesPending(true);

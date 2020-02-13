@@ -16,7 +16,7 @@ import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
-import isModifiedClick from './utils/isModifiedClick';
+import isClickWithModifierKeys from './utils/isClickWithModifierKeys';
 
 interface Props {
   book: Book;
@@ -58,7 +58,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ref={myForwardedRef}
     onClick={async(e) => {
 
-      if (isModifiedClick(e)) {
+      if (isClickWithModifierKeys(e)) {
         return;
       }
 

@@ -5,7 +5,6 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
