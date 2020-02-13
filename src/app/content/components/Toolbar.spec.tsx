@@ -9,6 +9,7 @@ import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import {
+  clearSearch,
   closeSearchResultsMobile,
   openSearchResultsMobile,
   receiveSearchResults,
@@ -219,6 +220,22 @@ describe('search', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(openSearchResultsMobile());
+  });
+
+  it('clicking "Close" clears search results', () => {
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
+
+    renderer.act(() => {
+      findById('close-search-results').props.onClick(makeEvent());
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(clearSearch());
   });
 
   it('input value syncs between mobile and desktop', () => {
