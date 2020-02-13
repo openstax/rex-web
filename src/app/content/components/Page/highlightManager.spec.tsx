@@ -3,6 +3,7 @@ import UntypedHighlighter, {
 } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
+import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { page } from '../../../../test/mocks/archiveLoader';
@@ -146,8 +147,10 @@ describe('highlightManager', () => {
     const highlight = Highlighter.mock.instances[0].highlight;
 
     Highlighter.mock.instances[0].getHighlight
+      .mockReturnValueOnce(mockHighlight)
       .mockReturnValueOnce(undefined)
-      .mockReturnValue(mockHighlight);
+      .mockReturnValue(mockHighlight)
+    ;
 
     update();
 
@@ -174,6 +177,27 @@ describe('highlightManager', () => {
 
     expect(erase).toHaveBeenCalledTimes(1);
     expect(erase).toHaveBeenCalledWith(mockHighlight2);
+  });
+
+  it('focuses highlights', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    const {update} = highlightManager(element, () => prop);
+
+    prop.focused = mockHighlights[0].id;
+    prop.highlights = mockHighlights.map(({id}) => ({id} as HighlightData));
+
+    const focus = jest.spyOn(mockHighlights[0], 'focus');
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    update();
+
+    expect(focus).toHaveBeenCalledTimes(1);
+    expect(focus).toHaveBeenCalledWith();
   });
 
   it('umounts', () => {
@@ -229,8 +253,10 @@ describe('highlightManager', () => {
       const component = renderer.create(React.createElement(manager.CardList));
 
       Highlighter.mock.instances[0].getHighlight
+        .mockReturnValueOnce(existingHighlight)
         .mockReturnValueOnce()
-        .mockReturnValueOnce(existingHighlight);
+        .mockReturnValueOnce(existingHighlight)
+      ;
 
       Highlighter.mock.instances[0].getOrderedHighlights
         .mockReturnValueOnce([existingHighlight]);
