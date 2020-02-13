@@ -287,7 +287,6 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 
 <div
   className="c0 c1"
-  tabIndex={-1}
 >
   <button
     className="c2 c3"
@@ -446,7 +445,6 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 
 <div
   className="c0 c1"
-  tabIndex={-1}
 >
   <button
     className="c2 c3"

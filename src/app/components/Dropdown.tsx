@@ -8,14 +8,17 @@ import theme from '../theme';
 import { preventDefault, useOnEsc } from '../utils';
 import { textStyle } from './Typography/base';
 
-interface ToggleProps<T extends React.ComponentType = React.ComponentType> {
+type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
+interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   className?: string;
   component: T extends React.ComponentType
     ? React.ReactComponentElement<T>:
     never;
 }
 // tslint:disable-next-line:variable-name
-export const DropdownToggle = styled(({component, ...props}: ToggleProps) => React.cloneElement(component, props))`
+export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(
+  ({component, ...props}, ref) => React.cloneElement(component, {...props, ref})
+))`
   cursor: pointer;
 `;
 
@@ -56,15 +59,16 @@ type Props = React.PropsWithChildren<{
 const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const container = React.useRef<HTMLElement>(null);
+  const toggleElement = React.useRef<HTMLElement>(null);
 
   useOnClickOutside(container, open, () => setOpen(false));
   useOnEsc(container, open, () => {
     setOpen(false);
-    if (container.current) { container.current.focus(); }
+    if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  return <div className={className} ref={container} tabIndex={-1}>
-    <DropdownToggle component={toggle} onClick={() => setOpen(!open)} />
+  return <div className={className} ref={container}>
+    <DropdownToggle ref={toggleElement} component={toggle} onClick={() => setOpen(!open)} />
     {open && children}
   </div>;
 })`
