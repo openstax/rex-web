@@ -110,6 +110,17 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     }
   };
 
+  const insertPendingCardInOrder = (highlights: Highlight[], pending: Highlight) => {
+    if (!highlighter) { return highlights; }
+
+    const ordered = highlights.filter((highlight) => !pending || highlight.id !== pending.id);
+    const prevHighlight = highlighter.getHighlightBefore(pending);
+
+    const indexToInsert = prevHighlight && ordered.findIndex((highlight) => highlight.id === prevHighlight.id);
+    ordered.splice((typeof indexToInsert === 'undefined' ? -1 : indexToInsert) + 1, 0, pending);
+    return ordered;
+  };
+
   const services = {
     clearPendingHighlight,
     container,
@@ -137,12 +148,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
           container,
           highlighter: listHighlighter,
           highlights: listPendingHighlight
-            ? [
-              ...listHighlights.filter(
-                (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
-              ),
-              listPendingHighlight,
-            ]
+            ? insertPendingCardInOrder(listHighlights, listPendingHighlight)
             : listHighlights,
         });
       }
