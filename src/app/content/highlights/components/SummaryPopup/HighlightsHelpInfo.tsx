@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
+import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { user as userSelector } from '../../../../auth/selectors';
 import { PlainButton } from '../../../../components/Button';
 import htmlMessage from '../../../../components/htmlMessage';
@@ -68,6 +69,7 @@ const Message = htmlMessage(
 const HighlightsHelpInfo = () => {
   const [show, setShow] = React.useState(false);
   const user = useSelector(userSelector);
+  const trackShowHelpInfo = useAnalyticsEvent('showHelpInfo');
 
   const dismiss = () => {
     Cookies.set(cookieId, 'true');
@@ -76,10 +78,11 @@ const HighlightsHelpInfo = () => {
 
   React.useEffect(() => {
     setTimeout(() => {
-      if (!Boolean(Cookies.get(cookieId))) {
-        setShow(true);
-      }
+      if (Boolean(Cookies.get(cookieId))) { return; }
+      setShow(true);
+      trackShowHelpInfo();
     }, timeBeforeShow);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!show || !user) { return null; }
