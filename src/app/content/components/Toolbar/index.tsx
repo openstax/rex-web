@@ -7,7 +7,12 @@ import BuyBook from '../../../../assets/buy-book-icon.svg';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
-import { clearSearch, openMobileToolbar, openSearchResultsMobile, requestSearch } from '../../search/actions';
+import {
+  clearSearch,
+  openMobileToolbar,
+  openSearchResultsMobile,
+  requestSearch,
+} from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
@@ -80,6 +85,8 @@ class Toolbar extends React.Component<Props, State> {
       this.setState({ query: e.currentTarget.value, formSubmitted: false });
     };
 
+    const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
+
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
         <Styled.SidebarControl hideMobileText={true} />
@@ -129,13 +136,18 @@ class Toolbar extends React.Component<Props, State> {
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
-          {!this.props.searchSidebarOpen && this.props.hasSearchResults &&
+          {showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <Styled.ToggleSeachResultsText onClick={openSearchbar} data-testid='back-to-search-results'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
                 <Styled.LeftArrow/><Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.ToggleSeachResultsText>}
-            </FormattedMessage>
-          }
+              </Styled.SeachResultsTextButton>}
+            </FormattedMessage>}
+          {!showBackToSearchResults &&
+            <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
+                <Styled.InnerText>{msg}</Styled.InnerText>
+              </Styled.SeachResultsTextButton>}
+            </FormattedMessage>}
           <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
