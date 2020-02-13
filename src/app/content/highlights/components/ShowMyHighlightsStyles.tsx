@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { labelStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';

@@ -1,7 +1,7 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';

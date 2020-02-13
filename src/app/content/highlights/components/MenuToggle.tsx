@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import { PlainButton } from '../../../components/Button';
 import theme from '../../../theme';

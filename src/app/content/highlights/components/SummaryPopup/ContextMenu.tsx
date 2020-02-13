@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';

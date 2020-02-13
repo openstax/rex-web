@@ -1,7 +1,7 @@
 import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { deleteHighlight, updateHighlight } from '../../actions';
