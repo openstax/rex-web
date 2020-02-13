@@ -23,7 +23,9 @@ export const MenuIcon = styled(EllipsisV)`
   https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
 */
 // tslint:disable-next-line:variable-name
-const MenuToggle = styled((props) => <div tabIndex={0} {...props}><PlainButton><MenuIcon /></PlainButton></div>)`
+const MenuToggle = styled(React.forwardRef<HTMLDivElement>((props, ref) => <div tabIndex={0} {...props} ref={ref}>
+  <PlainButton><MenuIcon /></PlainButton>
+</div>))`
   border: none;
   display: block;
 `;
