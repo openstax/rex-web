@@ -299,6 +299,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c1 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -543,6 +546,13 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 @media print {
   .c0 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    position: auto;
+    top: auto;
   }
 }
 
