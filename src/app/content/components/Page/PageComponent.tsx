@@ -43,19 +43,12 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public componentDidMount() {
     this.postProcess();
-    if (!this.container.current || !window) {
+    if (!this.container.current) {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
     this.scrollTargetManager = scrollTargetManager(this.container.current);
-  }
-
-  public updateHighlights(pageProps: PagePropTypes) {
-    const highlgihtsAddedOrRemoved = this.highlightManager.update();
-    this.searchHighlightManager.update(pageProps.searchHighlights, this.props.searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
-    });
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -70,7 +63,11 @@ export default class PageComponent extends Component<PagePropTypes> {
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
-    this.updateHighlights(prevProps);
+
+    const highlgihtsAddedOrRemoved = this.highlightManager.update();
+    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
+      forceRedraw: highlgihtsAddedOrRemoved,
+    });
   }
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
