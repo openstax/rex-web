@@ -33,7 +33,7 @@ const page2 = Array.from(new Array(5).keys()).map((index) => ({
   sourceId: 'testbook1-testpage2-uuid',
 })) as HighlightData[];
 
-describe('filtersChange', () => {
+describe('printHighlights', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
