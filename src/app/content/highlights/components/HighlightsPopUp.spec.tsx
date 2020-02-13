@@ -9,7 +9,7 @@ import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
 import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
-import { assertWindow } from '../../../utils';
+import * as utils from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
@@ -84,7 +84,8 @@ describe('MyHighlights button and PopUp', () => {
 
   it('focus is on pop up content', async() => {
     const focus = jest.fn();
-    const createNodeMock = () => ({focus});
+    const addEventListener = jest.fn();
+    const createNodeMock = () => ({focus, addEventListener});
 
     renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -109,7 +110,7 @@ describe('MyHighlights button and PopUp', () => {
     store.dispatch(locationChange({
       action: 'PUSH',
       location: {
-        ...assertWindow().location,
+        ...utils.assertWindow().location,
         state: {},
       },
       match: {
@@ -132,4 +133,79 @@ describe('MyHighlights button and PopUp', () => {
     expect(highlightSelectors.summaryIsLoading(store.getState())).toBe(true);
   });
 
+  it('handles event listeners on mount and unmount for onEsc util', () => {
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>, {createNodeMock});
+
+    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
+
+    isHtmlElement.mockReturnValueOnce(true);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(addEventListener).toHaveBeenCalled();
+
+    component.unmount();
+
+    expect(removeEventListener).toHaveBeenCalled();
+  });
+
+  it('handles event listeners on component update for onEsc util', () => {
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
+
+    renderer.create(<Provider store={{...store, }}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>, {createNodeMock});
+
+    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
+
+    isHtmlElement.mockReturnValue(true);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(addEventListener).toHaveBeenCalled();
+
+    // Force componentDidUpdate()
+    act(() => { store.dispatch(receiveUser(user)); });
+
+    expect(removeEventListener).toHaveBeenCalled();
+  });
+
+  it('else path for component will unmount', () => {
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
+
+    const component = renderer.create(<Provider store={{...store, }}>
+      <MessageProvider>
+        <HighlightsPopUp />
+      </MessageProvider>
+    </Provider>, {createNodeMock});
+
+    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
+
+    isHtmlElement.mockReturnValue(false);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(addEventListener).not.toHaveBeenCalled();
+
+    component.unmount();
+
+    expect(removeEventListener).not.toHaveBeenCalled();
+  });
 });
