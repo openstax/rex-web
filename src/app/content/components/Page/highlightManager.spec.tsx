@@ -16,6 +16,7 @@ import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
+jest.mock('../../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 jest.mock('../../highlights/components/Card', () => (props: any) => <div mock-card {...props} />);
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();
@@ -48,6 +49,7 @@ describe('highlightManager', () => {
       enabled: true,
       focus: jest.fn(),
       focused: undefined,
+      hasUnsavedHighlight: false,
       highlights: [],
       page,
     };
@@ -204,6 +206,20 @@ describe('highlightManager', () => {
       expect(highlight).not.toBeCalled();
     });
 
+    it('noops if user decides not to discard changes', async() => {
+      prop.focused = 'random id';
+      prop.hasUnsavedHighlight = true;
+      manager.update();
+
+      const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
+
+      await renderer.act(() => {
+        Highlighter.mock.calls[0][1].onSelect([], {});
+        return new Promise((resolve) => defer(resolve));
+      });
+      expect(highlight).not.toBeCalled();
+    });
+
     it('shows create card when there aren\'t any highlights in selection', async() => {
       const mockHighlight = createMockHighlight();
       prop.enabled = true;
@@ -313,6 +329,17 @@ describe('highlightManager', () => {
 
     it('noops without highlight', async() => {
       Highlighter.mock.calls[0][1].onClick();
+      await new Promise((resolve) => defer(resolve));
+      expect(prop.focus).not.toHaveBeenCalled();
+    });
+
+    it('noops if user decides not to discard changes', async() => {
+      prop.focused = 'random id';
+      prop.hasUnsavedHighlight = true;
+
+      manager.update();
+
+      Highlighter.mock.calls[0][1].onClick({});
       await new Promise((resolve) => defer(resolve));
       expect(prop.focus).not.toHaveBeenCalled();
     });
