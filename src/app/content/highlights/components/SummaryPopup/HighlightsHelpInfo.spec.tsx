@@ -1,3 +1,4 @@
+import { MediaQueryList } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -42,6 +43,7 @@ describe('HighlightsHelpInfo', () => {
   });
 
   it('matches snapshot when showed', async() => {
+    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
     store.dispatch(receiveUser(user));
 
     const component = renderer.create(<Provider store={store}>
@@ -60,6 +62,28 @@ describe('HighlightsHelpInfo', () => {
   });
 
   it('does not open if user is not logged in', async() => {
+    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsHelpInfo/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    await renderer.act(async() => {
+      jest.runTimersToTime(timeBeforeShow);
+    });
+
+    expect(() => component.root.findByProps({ 'data-testid': 'support-link' })).toThrow();
+  });
+
+  it('does not open if not on mobile', async() => {
+    window!.matchMedia = () => ({matches: false}) as MediaQueryList;
+
+    store.dispatch(receiveUser(user));
+
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -76,6 +100,8 @@ describe('HighlightsHelpInfo', () => {
   });
 
   it('does not open if cookie is already set', async() => {
+    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
+
     store.dispatch(receiveUser(user));
 
     const spy = jest.spyOn(Cookies, 'get');
@@ -97,6 +123,8 @@ describe('HighlightsHelpInfo', () => {
   });
 
   it('set cookie on dismiss', async() => {
+    window!.matchMedia = () => ({matches: true}) as MediaQueryList;
+
     store.dispatch(receiveUser(user));
 
     const component = renderer.create(<Provider store={store}>

@@ -9,6 +9,7 @@ import { PlainButton } from '../../../../components/Button';
 import htmlMessage from '../../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
+import { assertWindow } from '../../../../utils';
 
 // This is copied from CallToActionPopup > styles.tsx
 // Wher should we store this kind of functions?
@@ -74,7 +75,10 @@ const HighlightsHelpInfo = () => {
 
   React.useEffect(() => {
     setTimeout(() => {
-      if (Boolean(Cookies.get(cookieId))) { return; }
+      if (
+        Boolean(Cookies.get(cookieId))
+        || !assertWindow().matchMedia(theme.breakpoints.mobileQuery).matches
+      ) { return; }
       setShow(true);
       trackShowHelpInfo();
     }, timeBeforeShow);
