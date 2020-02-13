@@ -17,17 +17,21 @@ export const MenuIcon = styled(EllipsisV)`
   }
 `;
 
-/*
-  this should be a button but Safari and firefox don't support focusing buttons
-  https://bugs.webkit.org/show_bug.cgi?id=22261
-  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-*/
 // tslint:disable-next-line:variable-name
-const MenuToggle = styled(React.forwardRef<HTMLDivElement>((props, ref) => <div tabIndex={0} {...props} ref={ref}>
-  <PlainButton><MenuIcon /></PlainButton>
-</div>))`
+const MenuToggle = styled(React.forwardRef<HTMLDivElement>((props, ref) =>
+  <PlainButton {...props} ref={ref}>
+    <div tabIndex={-1}>
+      <MenuIcon />
+    </div>
+  </PlainButton>
+))`
   border: none;
   display: block;
+
+  > div {
+    display: inline-block;
+    outline: none;
+  }
 `;
 
 export default MenuToggle;
