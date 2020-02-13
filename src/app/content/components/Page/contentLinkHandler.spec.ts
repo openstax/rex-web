@@ -23,6 +23,7 @@ describe('contentLinkHandler', () => {
     prop = {
       book,
       currentPath: '/asdf',
+      hasUnsavedHighlight: false,
       locationState: {} as any,
       navigate: jest.fn(),
       page,

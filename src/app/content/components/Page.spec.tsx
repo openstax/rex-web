@@ -23,6 +23,7 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { setAnnotationChangesPending } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
@@ -32,6 +33,7 @@ import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
+jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
@@ -564,6 +566,25 @@ describe('Page', () => {
 
     expect(evt1.preventDefault).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops if user decides not to discard', async() => {
+    const {root} = renderDomWithReferences();
+    const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!document || !firstLink) {
+      expect(document).toBeTruthy();
+      expect(firstLink).toBeTruthy();
+      return;
+    }
+
+    store.dispatch(setAnnotationChangesPending(true));
+    const evt1 = makeEvent(document);
+
+    firstLink.dispatchEvent(evt1);
+    await new Promise((resolve) => defer(resolve));
+
+    expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
   });
 
   it('removes listener when it unmounts', async() => {
