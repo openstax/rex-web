@@ -9,6 +9,7 @@ import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import { onEsc } from '../../../utils';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
@@ -24,6 +25,9 @@ interface Props {
 
 class HighlightsPopUp extends Component<Props> {
   public popUp = React.createRef<HTMLElement>();
+
+  // tslint:disable-next-line: ban-types
+  public removeEvListener: null | Function = null;
 
   public loginForHighlights = () => {
     return (
@@ -131,6 +135,20 @@ class HighlightsPopUp extends Component<Props> {
     const popUp = this.popUp.current;
     if (isHtmlElement(popUp)) {
       popUp.focus();
+
+      if (this.removeEvListener) {
+        this.removeEvListener();
+      }
+
+      const [addEvListener, removeEvListener] = onEsc(popUp, this.props.closeMyHighlights);
+      addEvListener();
+      this.removeEvListener = removeEvListener;
+    }
+  }
+
+  public componentWillUnmount() {
+    if (this.removeEvListener) {
+      this.removeEvListener();
     }
   }
 }
