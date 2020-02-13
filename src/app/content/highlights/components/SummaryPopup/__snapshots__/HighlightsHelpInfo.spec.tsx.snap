@@ -50,12 +50,15 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c0 a:hover {
   color: #0064A0;
+}
+
+.c0 a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c2 {

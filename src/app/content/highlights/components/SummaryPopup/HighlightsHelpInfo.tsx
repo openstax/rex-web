@@ -6,7 +6,7 @@ import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { user as userSelector } from '../../../../auth/selectors';
 import { PlainButton } from '../../../../components/Button';
 import htmlMessage from '../../../../components/htmlMessage';
-import { linkStyle, textRegularStyle } from '../../../../components/Typography';
+import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 
 // This is copied from CallToActionPopup > styles.tsx
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   position: fixed;
   bottom: 0;
   z-index: ${theme.zIndex.highlightsHelpInfoMobile};
-  ${textRegularStyle}
+  ${bodyCopyRegularStyle}
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,7 +42,6 @@ const Wrapper = styled.div`
   ${slideInAnimation}
 
   a {
-    ${linkStyle}
     text-decoration: none;
   }
 
