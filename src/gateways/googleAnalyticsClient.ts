@@ -12,6 +12,7 @@ interface Event {
   eventAction: string;
   eventLabel?: string;
   eventValue?: number;
+  nonInteraction?: boolean;
   transport: 'beacon';
 }
 
@@ -78,12 +79,19 @@ class GoogleAnalyticsClient {
     }});
   }
 
-  public trackEvent(eventCategory: string, eventAction: string, eventLabel?: string, eventValue?: number) {
+  public trackEvent(
+    eventCategory: string,
+    eventAction: string,
+    eventLabel?: string,
+    eventValue?: number,
+    nonInteraction?: boolean
+  ) {
     this.trackEventPayload({
       eventAction,
       eventCategory,
       eventLabel,
       eventValue,
+      nonInteraction,
     });
   }
 
