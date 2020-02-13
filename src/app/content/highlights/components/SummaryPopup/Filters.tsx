@@ -31,12 +31,14 @@ const HighlightsPrintButton = styled(PrintButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-const Toggle = styled(({label, ...props}) => <PlainButton {...props}>
-  <div tabIndex={-1}>
-    {label}
-    <DownIcon />
-  </div>
-</PlainButton>)`
+const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
+  ({label, ...props}, ref) => <PlainButton ref={ref} {...props}>
+    <div tabIndex={-1}>
+      {label}
+      <DownIcon />
+    </div>
+  </PlainButton>
+))`
   > div {
     outline: none;
     ${textStyle}
