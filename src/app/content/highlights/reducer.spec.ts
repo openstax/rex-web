@@ -213,6 +213,22 @@ describe('highlight reducer', () => {
       expect(highlights[1]).toEqual(mock3);
     });
 
+    it('does not affect hasUnsavedHighlight if only color has changed', () => {
+      const mock1 = {...mockHighlight, sourceId: 'highlightSource'};
+      const mock3 = {...mockHighlight, id: 'qwer', sourceId: 'highlightSource'};
+
+      const state = reducer({
+        ...initialState,
+        hasUnsavedHighlight: true,
+        highlights: [mock1, mock3],
+      }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
+        locationFilterId: 'highlightChapter',
+        pageId: 'highlightSource',
+      }));
+
+      expect(state.hasUnsavedHighlight).toBe(true);
+    });
+
     it('does not modify summary highlights if they haven\'t been loaded', () => {
       const mock1 = {...mockHighlight, sourceId: 'highlightSource'};
       const mock3 = {...mockHighlight, id: 'qwer', sourceId: 'highlightSource'};
