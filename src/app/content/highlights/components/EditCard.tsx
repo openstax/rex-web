@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
-import { assertWindow, mergeRefs } from '../../../utils';
+import { assertWindow, mergeRefs, useOnEsc } from '../../../utils';
 import { clearFocusedHighlight, updateHighlight } from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
@@ -70,6 +70,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       onBlur();
     }
   };
+
+  useOnEsc(element, isFocused, onCancel);
 
   React.useEffect(() => {
     if (data) { return; }
