@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
@@ -36,6 +36,10 @@ export const StyledContextMenu = styled.div`
     float: right;
     margin-right: 0.2rem;
   }
+
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
