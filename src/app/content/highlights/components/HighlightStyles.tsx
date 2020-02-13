@@ -20,10 +20,10 @@ export const headerHeight = 7.2;
 const topBottomMargin = headerHeight + popupBodyPadding;
 
 export const stickyNoteMeasures = {
-  blue: 'rgba(13, 192, 220)',
+  blue: 'rgb(13, 192, 220)',
   bulletSize: 1.6,
   defaultOffset: 3.2,
-  green: 'rgba(99, 165, 36)',
+  green: 'rgb(99, 165, 36)',
   height: 8,
   left: 32.8,
   opacity: '0.85',
