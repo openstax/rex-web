@@ -95,6 +95,16 @@ export const HighlightSection = styled.div`
     overflow: hidden;
   }
 
+  > .os-number,
+  > .os-divider {
+    flex-shrink: 0;
+  }
+
+  > .os-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
   @media print {
     page-break-after: avoid;
     background: white;
