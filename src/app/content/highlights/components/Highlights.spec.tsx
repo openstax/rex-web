@@ -178,34 +178,6 @@ describe('Highlights', () => {
       .toBeDefined();
   });
 
-  it('throws an error if page from summary highlights wasn\'t found in book', () => {
-    store.dispatch(receivePage({...pageInChapter, references: []}));
-    const pageId = stripIdVersion(pageInChapter.id);
-    const locations = highlightLocationFilters(store.getState());
-    const location = getHighlightLocationFilterForPage(locations, pageInChapter.id);
-    store.dispatch(receiveHighlightsTotalCounts({ [location!.id]: {[HighlightColorEnum.Green]: 5} }, new Map()));
-
-    const summaryHighlights = {
-      [location!.id]: {
-        'page-not-in-given-section': [hlBlue],
-      },
-    } as unknown as SummaryHighlights;
-
-    renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
-    });
-
-    consoleError.mockReturnValueOnce(null);
-
-    expect(() => renderer.create(<Provider store={store}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Provider>)
-    ).toThrow();
-  });
-
   it('display highlight editing menus', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);

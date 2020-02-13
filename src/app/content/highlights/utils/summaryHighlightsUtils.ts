@@ -6,9 +6,12 @@ import {
 } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import partition from 'lodash/fp/partition';
+import { archiveTreeSectionIsChapter, findTreePages } from '../../utils/archiveTreeUtils';
 import {
   CountsPerSource,
   HighlightData,
+  HighlightLocationFilters,
+  OrderedSummaryHighlights,
   SummaryFilters,
   SummaryHighlights,
 } from '../types';
@@ -65,6 +68,49 @@ export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: 
   newHighlights[locationFilterId][pageId] = insertHighlightInOrder(newHighlights[locationFilterId][pageId], highlight);
 
   return newHighlights;
+};
+
+export const getSortedSummaryHighlights =
+  (summaryHighlights: SummaryHighlights | null, locationFilters: HighlightLocationFilters ) => {
+    if (!summaryHighlights) {
+      return  null;
+    }
+
+    return Array.from(locationFilters).reduce((previousLocations, [locationID, location]) => {
+      if (!summaryHighlights[locationID]) {
+        return previousLocations;
+      }
+
+      if (!archiveTreeSectionIsChapter(location)) {
+        return [...previousLocations, {
+          location,
+          pages: [{
+            highlights: summaryHighlights[locationID][locationID],
+            pageId: locationID,
+          }],
+        }];
+      }
+
+      const orderedPages = findTreePages(location);
+
+      const pages: OrderedSummaryHighlights[0]['pages'] = [];
+
+      for (const page of orderedPages) {
+        if (!summaryHighlights[locationID][page.id]) { continue; }
+        pages.push({
+          highlights: summaryHighlights[locationID][page.id],
+          pageId: page.id,
+        });
+      }
+
+      return [
+        ...previousLocations,
+        {
+          location,
+          pages,
+        },
+      ];
+    }, [] as OrderedSummaryHighlights);
 };
 
 interface DataRemove extends BaseData {
