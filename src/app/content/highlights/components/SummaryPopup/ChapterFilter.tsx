@@ -9,7 +9,7 @@ import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
 import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
-import { mobileMarginSides, mobilePadding } from './constants';
+import { mobileMarginSides, mobilePaddingSides } from './constants';
 
 interface Props {
   className?: string;
@@ -107,7 +107,7 @@ export default styled(ChapterFilter)`
   z-index: 1;
   ${theme.breakpoints.mobile(css`
     &&& {
-      left: -${mobilePadding.leftRight}rem;
+      left: -${mobilePaddingSides}rem;
       max-width: calc(100vw - ${mobileMarginSides}rem * 2);
     }
   `)}

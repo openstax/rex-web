@@ -137,6 +137,7 @@ describe('highlightManager', () => {
   it('highlights highlights', () => {
     const mockHighlight = createMockHighlight();
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
+    console.log(mockHighlightData);
     const {update} = highlightManager(element, () => prop);
 
     prop.highlights = [

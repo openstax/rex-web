@@ -9,7 +9,7 @@ import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
-import { mobileMarginSides, mobileMarginTopBottom, mobilePadding } from './SummaryPopup/constants';
+import { mobileMarginSides, mobileMarginTopBottom, mobilePaddingSides } from './SummaryPopup/constants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;
@@ -93,7 +93,7 @@ export const Header = styled(H3)`
   height: ${headerHeight}rem;
   overflow: hidden;
   ${theme.breakpoints.mobile(css`
-    padding: ${mobilePadding.leftRight}rem;
+    padding: ${mobilePaddingSides}rem;
   `)}
 `;
 
