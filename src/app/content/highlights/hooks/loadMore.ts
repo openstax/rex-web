@@ -3,7 +3,7 @@ import { ActionHookBody, AppServices, MiddlewareAPI, Store } from '../../../type
 import { actionHook } from '../../../utils';
 import { book as bookSelector } from '../../selectors';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
-import { maxHighlightsPerPage, summaryPageSize } from '../constants';
+import { maxHighlightsApiPageSize, summaryPageSize } from '../constants';
 import * as select from '../selectors';
 import { SummaryHighlightsPagination } from '../types';
 import {
@@ -17,7 +17,8 @@ export const loadUntilPageSize = async({
   previousPagination,
   ...args
 }: {
-  previousPagination: SummaryHighlightsPagination, getState: Store['getState'],
+  previousPagination: SummaryHighlightsPagination,
+  getState: Store['getState'],
   highlightClient: AppServices['highlightClient'],
   highlights?: Highlight[]
   sourcesFetched: string[],
@@ -30,7 +31,7 @@ export const loadUntilPageSize = async({
     ? incrementPage(previousPagination)
     : {
       page: 1,
-      perPage: args.pageSize || maxHighlightsPerPage,
+      perPage: args.pageSize || maxHighlightsApiPageSize,
       sourceIds: getNewSources(state, args.sourcesFetched, args.pageSize),
     };
 
@@ -46,7 +47,7 @@ export const loadUntilPageSize = async({
     prevHighlights: args.highlights,
   });
 
-  if (highlights.length < summaryPageSize || !args.pageSize) {
+  if (highlights.length < perPage || !args.pageSize) {
     return loadUntilPageSize({
       ...args,
       highlights,
@@ -54,7 +55,6 @@ export const loadUntilPageSize = async({
       sourcesFetched: [...args.sourcesFetched, ...sourceIds],
     });
   }
-
   return {pagination, highlights};
 };
 

@@ -29,7 +29,9 @@ export const openMyHighlights = createStandardAction('Content/Highlights/Summary
 export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();
 export const initializeMyHighlightsSummary = createStandardAction('Content/Highlights/Summary/init')<void>();
 
-export const printSummaryHighlights = createStandardAction('Content/Highlights/Summary/print')();
+export const printSummaryHighlights = createStandardAction('Content/Highlights/Summary/print')<{
+  shouldFetchMore: boolean
+}>();
 
 export const loadMoreSummaryHighlights = createStandardAction('Content/Highlights/Summary/loadMore')();
 export const setSummaryFilters = createStandardAction('Content/Highlights/Summary/setFilters')<

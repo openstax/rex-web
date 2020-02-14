@@ -155,7 +155,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
-    case getType(actions.printSummaryHighlights):
+    case getType(actions.printSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: action.payload.shouldFetchMore,
+        },
+      };
+    }
     case getType(actions.initializeMyHighlightsSummary):
     case getType(actions.loadMoreSummaryHighlights): {
       return {

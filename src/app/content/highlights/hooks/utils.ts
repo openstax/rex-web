@@ -16,30 +16,30 @@ import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils
 import { getNextPageSources } from '../utils/paginationUtils';
 
 export const formatReceivedHighlights = (
-    highlights: Highlight[],
-    locationFilters: HighlightLocationFilters
+  highlights: Highlight[],
+  locationFilters: HighlightLocationFilters
 ) => highlights.reduce((result, highlight) => {
-    const pageId = stripIdVersion(highlight.sourceId);
-    const location = assertDefined(
-      getHighlightLocationFilterForPage(locationFilters, pageId),
-      'highlight is not in a valid location'
-    );
-    const locationFilterId = stripIdVersion(location.id);
+  const pageId = stripIdVersion(highlight.sourceId);
+  const location = assertDefined(
+    getHighlightLocationFilterForPage(locationFilters, pageId),
+    'highlight is not in a valid location'
+  );
+  const locationFilterId = stripIdVersion(location.id);
 
-    return addSummaryHighlight(result, {
-      highlight,
-      locationFilterId,
-      pageId,
-    });
+  return addSummaryHighlight(result, {
+    highlight,
+    locationFilterId,
+    pageId,
+  });
 }, {} as ReturnType<typeof addSummaryHighlight>);
 
 export const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
-({...pagination, page: pagination.page + 1});
+  ({...pagination, page: pagination.page + 1});
 
-export const getNewSources = (state: AppState, omitSources: string[], limit?: number) => {
+export const getNewSources = (state: AppState, omitSources: string[], pageSize?: number) => {
   const book = bookSelector(state);
   const remainingCounts = omit(omitSources, select.filteredCountsPerPage(state));
-  return book ?  getNextPageSources(remainingCounts, book.tree, limit) : [];
+  return book ? getNextPageSources(remainingCounts, book.tree, pageSize) : [];
 };
 
 export const extractDataFromHighlightClientResponse = (highlightsResponse: Highlights) => {

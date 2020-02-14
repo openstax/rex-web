@@ -1,20 +1,18 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../../components/Button';
 import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
-import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
-import { printSummaryHighlights } from '../../actions';
 import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePadding } from './constants';
 import FiltersList from './FiltersList';
+import HighlightsPrintButton from './HighlightsPrintButton';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
@@ -23,13 +21,6 @@ const DownIcon = styled(AngleDown)`
   height: 2rem;
   margin-left: 0.8rem;
   padding-top: 0.2rem;
-`;
-
-// tslint:disable-next-line:variable-name
-const HighlightsPrintButton = styled(PrintButton)`
-  min-width: auto;
-  height: max-content;
-  margin-left: auto;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -57,28 +48,20 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) => {
-  const dispatch = useDispatch();
-
-  const printHighlights = () => {
-    dispatch(printSummaryHighlights());
-  };
-
-  return <div className={className}>
-    <FormattedMessage id='i18n:highlighting:filters:chapters'>
-      {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
-        <ChapterFilter />
-      </Dropdown>}
-    </FormattedMessage>
-    <FormattedMessage id='i18n:highlighting:filters:colors'>
-      {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
-        <ColorFilter />
-      </Dropdown>}
-    </FormattedMessage>
-    <HighlightsPrintButton data-testid='hl-print-button' onClick={printHighlights} />
-    <FiltersList />
-  </div>;
-};
+const Filters = ({className}: Props) =>   <div className={className}>
+  <FormattedMessage id='i18n:highlighting:filters:chapters'>
+    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
+      <ChapterFilter />
+    </Dropdown>}
+  </FormattedMessage>
+  <FormattedMessage id='i18n:highlighting:filters:colors'>
+    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
+      <ColorFilter />
+    </Dropdown>}
+  </FormattedMessage>
+  <HighlightsPrintButton />
+  <FiltersList />
+</div>;
 
 export default styled(Filters)`
   overflow: visible;

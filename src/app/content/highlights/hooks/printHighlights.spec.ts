@@ -10,12 +10,14 @@ import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import {
+  closeMyHighlights,
+  openMyHighlights,
   printSummaryHighlights,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
-  setSummaryFilters
+  setSummaryFilters,
 } from '../actions';
-import { maxHighlightsPerPage } from '../constants';
+import { maxHighlightsApiPageSize } from '../constants';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -54,17 +56,19 @@ describe('printHighlights', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    hook = (require('./printHighlights').hookBody)(helpers);
-  });
-
-  it('fetches all highlights before print', async() => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(openMyHighlights());
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 210},
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map()));
+    store.dispatch(setSummaryFilters({locationIds}));
 
+    hook = (require('./printHighlights').hookBody)(helpers);
+  });
+
+  it('fetches all highlights before print', async() => {
     const firstFetch = page1.slice(0, 200);
     const secondFetch = [...page1.slice(200), ...page2];
 
@@ -81,21 +85,19 @@ describe('printHighlights', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: firstFetch,
         meta: {
-          perPage: maxHighlightsPerPage,
+          perPage: maxHighlightsApiPageSize,
           totalCount: page1.length + page2.length,
         },
       }))
       .mockReturnValueOnce(Promise.resolve({
         data: secondFetch,
         meta: {
-          perPage: maxHighlightsPerPage,
+          perPage: maxHighlightsApiPageSize,
           totalCount: page1.length + page2.length,
         },
       }))
     ;
-
-    store.dispatch(setSummaryFilters({locationIds}));
-    await hook(printSummaryHighlights());
+    await hook(printSummaryHighlights({shouldFetchMore: true}));
     expect(highlightClient).toHaveBeenCalledTimes(2);
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
@@ -103,14 +105,17 @@ describe('printHighlights', () => {
   });
 
   it('noops if all sources have been fetched', async() => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage(page));
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 210},
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
-    }, new Map()));
+    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-    store.dispatch(setSummaryFilters({locationIds}));
+    await hook(printSummaryHighlights({shouldFetchMore: false}));
+
+    expect(highlightClient).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+
+    expect(print).toHaveBeenCalled();
+  });
+
+  it('doesn\'t trigger print if myhighlights are closed', async() => {
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testchapter1-uuid': {
         'testbook1-testpage2-uuid': page2,
@@ -119,25 +124,14 @@ describe('printHighlights', () => {
         'testbook1-testpage1-uuid': page1,
       },
     }, null));
+    store.dispatch(closeMyHighlights());
 
-    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
+    await hook(printSummaryHighlights({shouldFetchMore: true}));
 
-    await hook(printSummaryHighlights());
-
-    expect(highlightClient).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalled();
-
-    expect(print).toHaveBeenCalled();
+    expect(print).not.toHaveBeenCalled();
   });
 
   it('uses pagination from previous requests', async() => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage(page));
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 210},
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
-    }, new Map()));
-
     const firstFetch = page1.slice(105);
     const secondFetch = page2;
 
@@ -163,20 +157,18 @@ describe('printHighlights', () => {
         data: secondFetch,
         meta: {
           page: 1,
-          perPage: maxHighlightsPerPage,
+          perPage: maxHighlightsApiPageSize,
           totalCount: page2.length,
         },
       }))
     ;
-
-    store.dispatch(setSummaryFilters({locationIds}));
 
     // meant to immitate fetched highlights before triggering print
     store.dispatch(receiveSummaryHighlights( {'testbook1-testpage1-uuid': {
       'testbook1-testpage1-uuid': page1.slice(0, 105),
     }}, {perPage: 105, sourceIds: locationIds, page: 1}));
 
-    await hook(printSummaryHighlights());
+    await hook(printSummaryHighlights({shouldFetchMore: true}));
     expect(highlightClient).toHaveBeenCalledTimes(2);
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
