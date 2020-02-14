@@ -11,6 +11,7 @@ import * as selectors from '../selectors';
 import { OrderedSummaryHighlights } from '../types';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
+import HighlightListElement from './SummaryPopup/HighlightListElement';
 
 // tslint:disable-next-line: variable-name
 const NoHighlightsTip = htmlMessage(
@@ -100,31 +101,12 @@ export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: 
           {!pageIdIsSameAsSectionId && <Styled.HighlightSection
             dangerouslySetInnerHTML={{ __html: page.title }}
           />}
-          {highlights.map((item) => {
-            return (
-              <Styled.HighlightOuterWrapper key={item.id}>
-                <Styled.HighlightContentWrapper color={item.color}>
-                  <Styled.HighlightContent
-                    className='summary-highlight-content'
-                    data-highlight-id={item.id}
-                    dangerouslySetInnerHTML={{ __html: item.highlightedContent }}
-                  />
-                  {item.annotation ? (
-                    <Styled.HighlightNote>
-                      <span>
-                        <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
-                          {(msg: Element | string) => msg}
-                        </FormattedMessage>
-                      </span>
-                      <Styled.HighlightNoteAnnotation>
-                        {item.annotation}
-                      </Styled.HighlightNoteAnnotation>
-                    </Styled.HighlightNote>
-                  ) : null}
-                </Styled.HighlightContentWrapper>
-              </Styled.HighlightOuterWrapper>
-            );
-          })}
+          {highlights.map((item) => <HighlightListElement
+            key={item.id}
+            highlight={item}
+            locationFilterId={location.id}
+            pageId={pageId}
+          />)}
         </Styled.HighlightWrapper>;
       })}
     </React.Fragment>
