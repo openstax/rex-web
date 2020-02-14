@@ -10,6 +10,7 @@ import htmlMessage from '../../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { assertWindow } from '../../../../utils';
+import { disablePrint } from '../../../components/utils/disablePrint';
 
 // This is copied from CallToActionPopup > styles.tsx
 // Wher should we store this kind of functions?
@@ -46,6 +47,8 @@ const Wrapper = styled.div`
   @media screen and (min-width: ${theme.breakpoints.mobileBreak}em) {
     display: none;
   }
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line: variable-name
