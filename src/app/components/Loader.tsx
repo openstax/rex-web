@@ -1,6 +1,6 @@
 // tslint:disable:max-line-length
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 
 // Create the keyframes
 const loadSvg = keyframes`
