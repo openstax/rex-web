@@ -9,7 +9,8 @@ export async function getCanonicalUrlParams(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader'],
   bookId: string,
-  pageShortId: string
+  pageShortId: string,
+  bookVersion?: string
 ) {
   const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader);
   const canonicals = [
@@ -18,13 +19,17 @@ export async function getCanonicalUrlParams(
   ].filter((id) => !!BOOKS[id]);
 
   for (const id of canonicals) {
-    const version = BOOKS[id].defaultVersion;
+    const version = bookVersion || BOOKS[id].defaultVersion;
 
     const canonicalBook = await getBook(id, version);
     const treeSection = findArchiveTreeNode(canonicalBook.tree, pageShortId);
     if (treeSection) {
       const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
-      return {book: canonicalBook.slug, page: pageInBook};
+      const params = {book: canonicalBook.slug, page: pageInBook};
+
+      return version === BOOKS[id].defaultVersion
+        ? params
+        : {...params, version};
     }
   }
 

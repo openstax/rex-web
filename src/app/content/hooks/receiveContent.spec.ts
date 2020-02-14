@@ -148,6 +148,17 @@ describe('setHead hook', () => {
       expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1'});
     });
 
+    it('gets a versioned cannonical ', async() => {
+      const bookId = book.id;
+      const version = '2.0';
+      helpers.archiveLoader.mock.loadBook.mockImplementationOnce(() => Promise.resolve(book));
+
+      const pageShortId = page.shortId;
+      CANONICAL_MAP[bookId] = [ bookId ];
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId, version);
+      expect(x).toEqual({book: 'book-slug-1', page: 'test-page-1', version});
+    });
+
     it('throws if canonical book is missing cms data', async() => {
       helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.resolve(undefined) as any);
 
