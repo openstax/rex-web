@@ -16,9 +16,6 @@ import { closeMyHighlights, openMyHighlights } from '../actions';
 import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
 
-jest.spyOn(highlightSelectors, 'isEnabled')
-  .mockReturnValue(true);
-
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
