@@ -201,6 +201,7 @@ describe('locationChange', () => {
         slug: 'new-book',
       },
       publish_date: '2012-06-21',
+      revised: '2012-06-21',
     };
 
     beforeEach(() => {

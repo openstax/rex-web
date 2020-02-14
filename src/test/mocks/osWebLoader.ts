@@ -8,6 +8,7 @@ export const mockCmsBook: OSWebBook = {
     slug: 'book-slug-1',
   },
   publish_date: '2012-06-21',
+  revised: '2012-06-21',
 };
 
 export default () => ({
