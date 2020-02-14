@@ -85,6 +85,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
   -ms-flex-align: center;
   align-items: center;
   padding: 0 8px;
+  overflow: visible;
 }
 
 .c1 button:first-child {
