@@ -5,8 +5,10 @@ import { book as archiveBook, page as archivePage, pageInChapter } from '../../.
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
+import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
+import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   loadMoreSummaryHighlights,
@@ -14,6 +16,7 @@ import {
   receiveSummaryHighlights,
   setSummaryFilters
 } from '../actions';
+import { summaryColorFilters, summaryLocationFilters } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -141,11 +144,15 @@ describe('filtersChange', () => {
     store.dispatch(receivePage(page));
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
-    }, new Map()));
+    }, new Map([
+      [pageId, assertDefined(findArchiveTreeNode(book.tree, pageId), '')],
+    ])));
 
-    const {content: {highlights: {summary: {filters}}}} = store.getState();
-    expect(filters.locationIds.length).toEqual(0);
-    expect(filters.colors.length).toEqual(1);
+    const state = store.getState();
+    const locationFilters = summaryLocationFilters(state);
+    const colorFilters = summaryColorFilters(state);
+    expect(locationFilters.size).toEqual(1);
+    expect(colorFilters.size).toEqual(1);
 
     const highlights = [{
       id: 'highlight1',
@@ -184,11 +191,15 @@ describe('filtersChange', () => {
     store.dispatch(receivePage({...pageInChapter, references: []}));
     store.dispatch(receiveHighlightsTotalCounts({
       [pageInChapter.id]: {[HighlightColorEnum.Green]: 1},
-    }, new Map()));
+    }, new Map([
+      [chapterIdForPageInChapter, assertDefined(findArchiveTreeNode(book.tree, chapterIdForPageInChapter), '')],
+    ])));
 
-    const {content: {highlights: {summary: {filters}}}} = store.getState();
-    expect(filters.locationIds.length).toEqual(0);
-    expect(filters.colors.length).toEqual(1);
+    const state = store.getState();
+    const locationFilters = summaryLocationFilters(state);
+    const colorFilters = summaryColorFilters(state);
+    expect(locationFilters.size).toEqual(1);
+    expect(colorFilters.size).toEqual(1);
 
     const highlights = [{
       id: 'highlight1',
