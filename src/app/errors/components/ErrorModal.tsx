@@ -3,41 +3,23 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import Button from '../../components/Button';
-import theme from '../../theme';
+import { supportCenterLink } from '../../components/Footer';
+import htmlMessage from '../../components/htmlMessage';
+import Modal from '../../components/Modal';
 import { Dispatch } from '../../types';
 import { AppState } from '../../types';
 import { clearCurrentError } from '../actions';
 import { currentError } from '../selectors';
-import ErrorCard, { Footer } from './ErrorCard';
+
+const margin = 3.0;
 
 // tslint:disable-next-line:variable-name
-const Mask = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.3);
+const BodyErrorText = styled.div`
+  padding: ${margin * 0.5}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
-const Modal = styled.div`
-  top: 0;
-  z-index: ${theme.zIndex.errorPopup};
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: fixed;
-  justify-content: center;
-  align-items: center;
-`;
-
-// tslint:disable-next-line:variable-name
-const CardWrapper = styled.div`
-  z-index: 1;
-`;
+const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 interface PropTypes {
   error?: Error;
@@ -49,26 +31,25 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
   if (!error) { return null; }
 
   return (
-    <Modal className='error-modal'>
-      <CardWrapper>
-        <ErrorCard
-          footer={
-            <Footer>
-              <FormattedMessage id='i18n:error:boundary:action-btn-text'>
-                {(msg) => <Button
-                  data-testid='clear-error'
-                  onClick={clearError}
-                  variant='primary'
-                  > {msg}
-                </Button>}
-              </FormattedMessage>
-            </Footer>
-          }
-          clearError={clearError}
-        />
-      </CardWrapper>
-      <Mask />
-    </Modal>
+    <Modal
+      className='error-modal'
+      headerTextId='i18n:error:boundary:heading'
+      bodyTextId='i18n:error:boundary:sub-heading'
+      body={
+        <BodyWithLink values={{supportCenterLink}}/>
+      }
+      footer={
+        <FormattedMessage id='i18n:error:boundary:action-btn-text'>
+          {(msg) => <Button
+            data-testid='clear-error'
+            onClick={clearError}
+            variant='primary'
+            > {msg}
+          </Button>}
+        </FormattedMessage>
+      }
+      onModalClose={clearError}
+    />
   );
 };
 

@@ -4,7 +4,7 @@ import showConfirmation from './showConfirmation';
 
 import { assertDocument } from '../../../../utils';
 
-jest.mock('../DiscardModal', () => {
+jest.mock('../../../../components/Modal', () => {
   return {
     __esModule: true,
     default: mockModal,
@@ -17,8 +17,8 @@ const rootNode = (() => {
   return mockNode;
 })();
 
-function mockModal({onAnswer}: {onAnswer: (answer: boolean) => void}) {
-  onAnswer(true);
+function mockModal({onModalClose}: {onModalClose: (answer: boolean) => void}) {
+  onModalClose(true);
   return null;
 }
 

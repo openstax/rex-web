@@ -1,18 +1,19 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import * as Styled from './ConfirmationModalStyles';
+import * as Styled from './ModalStyles';
 
 interface PropTypes {
   onModalClose: () => void;
-  footer: JSX.Element;
+  footer: JSX.Element | null;
+  body: JSX.Element | null;
   headerTextId: string;
   bodyTextId: string;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const ConfirmationModal = ({className, headerTextId, onModalClose, footer, bodyTextId }: PropTypes) => {
+const ConfirmationModal = ({className, headerTextId, onModalClose, footer, bodyTextId, body }: PropTypes) => {
   return (
     <Styled.Modal className={className}>
       <Styled.CardWrapper>
@@ -31,6 +32,7 @@ const ConfirmationModal = ({className, headerTextId, onModalClose, footer, bodyT
             <FormattedMessage id={bodyTextId}>
               {(msg) => <Styled.BodyHeading>{msg}</Styled.BodyHeading>}
             </FormattedMessage>
+            {body}
           </Styled.Body>
           <Styled.Footer>
             {footer}

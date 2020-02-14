@@ -38,10 +38,6 @@ exports[`ErrorModal matches snapshot 1`] = `
   background-color: #df571e;
 }
 
-.c8 {
-  padding: 1.5rem 0;
-}
-
 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -144,30 +140,6 @@ exports[`ErrorModal matches snapshot 1`] = `
   margin-top: 0;
 }
 
-.c9 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 3rem;
-}
-
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  cursor: pointer;
-  margin-right: 0;
-  padding-right: 0;
-  color: #818181;
-  height: 2rem;
-  width: 2rem;
-}
-
-.c5:hover {
-  color: #5e6062;
-}
-
 .c11 {
   top: 0;
   left: 0;
@@ -204,6 +176,38 @@ exports[`ErrorModal matches snapshot 1`] = `
 
 .c1 {
   z-index: 1;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 3rem;
+}
+
+.c5 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  margin-right: 0;
+  padding-right: 0;
+  color: #818181;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c5:hover {
+  color: #5e6062;
+}
+
+.c8 {
+  padding: 1.5rem 0;
 }
 
 @media screen and (max-width:75em) {

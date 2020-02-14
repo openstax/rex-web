@@ -1,16 +1,15 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
-import Times from '../../../../app/components/Times';
-import { bodyCopyRegularStyle, h3Style, h4Style } from '../../../components/Typography';
-import { toolbarIconColor } from '../../../content/components/constants';
-import { toolbarIconStyles } from '../../../content/components/Toolbar/iconStyles';
-import theme from '../../../theme';
+import { toolbarIconColor } from '../content/components/constants';
+import { toolbarIconStyles } from '../content/components/Toolbar/iconStyles';
+import theme from '../theme';
+import Times from './Times';
+import { bodyCopyRegularStyle, h3Style, h4Style } from './Typography';
 
 const margin = 3.0;
 
 // tslint:disable-next-line:variable-name
-const Card = styled.div`
+export const Card = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -22,7 +21,7 @@ const Card = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const Header = styled.header`
+export const Header = styled.header`
   display: flex;
   align-items: center;
   margin-bottom: ${margin * 0.5}rem;
@@ -33,7 +32,7 @@ const Header = styled.header`
 `;
 
 // tslint:disable-next-line:variable-name
-const Heading = styled.h1`
+export const Heading = styled.h1`
   ${h4Style}
   display: flex;
   align-items: center;
@@ -42,14 +41,14 @@ const Heading = styled.h1`
 `;
 
 // tslint:disable-next-line:variable-name
-const BodyHeading = styled.h3`
+export const BodyHeading = styled.h3`
   ${h3Style}
   font-weight: 400;
   padding: ${margin * 0.5}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
-const Body = styled.div`
+export const Body = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 ${margin}rem;
@@ -57,6 +56,35 @@ const Body = styled.div`
   ${Card.Header} + & { /* stylelint-disable */
   margin-top: 0;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const Mask = styled.div`
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+`;
+
+// tslint:disable-next-line:variable-name
+export const Modal = styled.div`
+  top: 0;
+  z-index: ${theme.zIndex.errorPopup};
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+`;
+
+// tslint:disable-next-line:variable-name
+export const CardWrapper = styled.div`
+  z-index: 1;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -80,31 +108,3 @@ export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='t
   height: 2rem;
   width: 2rem;
 `;
-
-interface Props {
-  className?: string;
-  footer?: JSX.Element;
-  onModalClose?: () => void;
-}
-
-// tslint:disable-next-line:variable-name
-const DiscardCard = ({className, footer, onModalClose}: Props) => <Card className={className}>
-  <Header>
-    <FormattedMessage id='i18n:discard:heading'>
-      {(message) => (
-        <Heading>
-          {message}
-        </Heading>
-      )}
-    </FormattedMessage>
-    <CloseModalIcon onClick={onModalClose}/>
-  </Header>
-  <Body>
-    <FormattedMessage id='i18n:discard:body'>
-      {(msg) => <BodyHeading>{msg}</BodyHeading>}
-    </FormattedMessage>
-  </Body>
-  {footer}
-</Card>;
-
-export default DiscardCard;
