@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import Button from '../../../components/Button';
 import { PlainButton } from '../../../components/Button';
