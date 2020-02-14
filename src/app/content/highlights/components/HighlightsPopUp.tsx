@@ -14,6 +14,7 @@ import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
+import HighlightsHelpInfo from './SummaryPopup/HighlightsHelpInfo';
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -127,6 +128,7 @@ class HighlightsPopUp extends Component<Props> {
           </Styled.Header>
           {this.props.user ? <ShowMyHighlights /> : this.loginForHighlights()}
         </Styled.Modal>
+        <HighlightsHelpInfo />
       </Styled.PopupWrapper>
     : null;
   }
