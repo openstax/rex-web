@@ -10,6 +10,7 @@ import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
+  getHighlightByIdFromSummaryHighlights,
   getHighlightColorFiltersWithContent,
   getHighlightLocationFiltersWithContent,
   removeFromTotalCounts,
@@ -73,19 +74,19 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.updateHighlight): {
       if (!state.highlights) { return state; }
 
-      const oldHiglightIndex = state.highlights.findIndex(
-        (highlight) => highlight.id === action.payload.id);
-      if (oldHiglightIndex < 0) { return state; }
-
-      const oldHighlight = state.highlights[oldHiglightIndex];
+      const oldHighlight = state.highlights.find((highlight) => highlight.id === action.payload.id)
+        || getHighlightByIdFromSummaryHighlights(state.summary.highlights || {}, action.payload.id);
+      if (!oldHighlight) { return state; }
 
       const newHighlight = {
         ...oldHighlight,
         ...action.payload.highlight,
       } as Highlight;
 
-      const newHighlights = [...state.highlights];
-      newHighlights[oldHiglightIndex] = newHighlight;
+      const newHighlights = state.highlights.map((highlight) => {
+        if (highlight.id === oldHighlight.id) { return newHighlight; }
+        return highlight;
+      });
 
       const newSummaryHighlights = state.summary.highlights
         ? updateSummaryHighlightsDependOnFilters(
