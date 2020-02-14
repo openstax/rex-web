@@ -27,9 +27,10 @@ describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
-  const services = createTestServices();
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
+    services = createTestServices();
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
 
@@ -157,9 +158,11 @@ describe('MyHighlights button and PopUp', () => {
     const createNodeMock = () => ({focus, addEventListener, removeEventListener});
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsPopUp />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsPopUp />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
@@ -182,9 +185,11 @@ describe('MyHighlights button and PopUp', () => {
     const createNodeMock = () => ({focus, addEventListener, removeEventListener});
 
     renderer.create(<Provider store={{...store, }}>
-      <MessageProvider>
-        <HighlightsPopUp />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsPopUp />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
@@ -208,9 +213,11 @@ describe('MyHighlights button and PopUp', () => {
     const createNodeMock = () => ({focus, addEventListener, removeEventListener});
 
     const component = renderer.create(<Provider store={{...store, }}>
-      <MessageProvider>
-        <HighlightsPopUp />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsPopUp />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
