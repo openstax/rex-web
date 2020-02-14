@@ -30,7 +30,8 @@ import { hasMoreResults } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
-import { HighlightContentWrapper, ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
 describe('Show my highlights', () => {
   let store: Store;
