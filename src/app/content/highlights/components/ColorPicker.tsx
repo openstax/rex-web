@@ -7,9 +7,9 @@ import { cardPadding, highlightStyles } from '../constants';
 import ColorIndicator from './ColorIndicator';
 
 interface SingleSelectProps {
-  color?: string;
-  onRemove: () => void;
-  onChange: (color: string) => void;
+  color?: HighlightColorEnum;
+  onRemove?: () => void;
+  onChange: (color: HighlightColorEnum) => void;
   multiple: false | undefined;
 }
 
@@ -64,23 +64,29 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
 // tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
 
-  return <div className={className}>
+  // its important that this be click focusable, because when clicking
+  // labels in chrome the focus is first moved to a background element
+  // before the input, and that might cause weird behavior in parent
+  // elements.
+  return <div className={className} tabIndex={-1}>
     {highlightStyles.map((style) => <ColorButton key={style.label}
       name={style.label}
       checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
       style={style}
+      size={props.size}
       onChange={() => props.multiple
         ? props.selected.includes(style.label)
           ? props.onChange(props.selected.filter(not(match(style.label))))
           : props.onChange([...props.selected, style.label])
         : props.color === style.label
-          ? props.onRemove()
+          ? props.onRemove ? props.onRemove() : null
           : props.onChange(style.label)}
     />)}
   </div>;
 };
 
 export default styled(ColorPicker)`
+  outline: none;
   display: flex;
   flex-direction: row;
 `;
