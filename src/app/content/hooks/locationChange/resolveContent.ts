@@ -53,7 +53,7 @@ const resolveBook = async(
   const loader = archiveLoader.book(bookId, bookVersion);
   const state = getState();
   const bookState = select.book(state);
-  const book = bookState && bookState.id === bookId ? bookState : undefined;
+  const book = bookState && bookState.id === bookId && bookState.version === bookVersion ? bookState : undefined;
 
   if (book) {
     return [book, loader];
