@@ -111,6 +111,7 @@ export default {
     'sidebar',
     'navbar',
     'highlightSummaryPopup',
+    'highlightsHelpInfoMobile',
     'ctaPopup',
     'errorPopup',
     'focusedHiddenLink',
