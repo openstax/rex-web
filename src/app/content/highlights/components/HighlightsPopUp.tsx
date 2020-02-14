@@ -57,6 +57,7 @@ class HighlightsPopUp extends Component<Props> {
   public blueNote = () => {
     return (
       <Styled.BlueStickyNote>
+        <Styled.StickyNoteBullet />
         <Styled.StickyNoteUl>
           <Styled.StickyNoteLi>
             <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
@@ -76,6 +77,7 @@ class HighlightsPopUp extends Component<Props> {
   public greenNote = () => {
     return (
       <Styled.GreenStickyNote>
+        <Styled.StickyNoteBullet />
         <Styled.StickyNoteUl>
           <Styled.StickyNoteLi>
             <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>

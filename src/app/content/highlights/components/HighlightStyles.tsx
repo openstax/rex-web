@@ -128,14 +128,23 @@ export const ImageWrapper = styled.div`
   width: ${(desktopPopupWidth - popupBodyPadding) / 2}rem;
 `;
 
-export const stickyNoteBullet = css`
-  content: " ";
+// tslint:disable-next-line: variable-name
+export const StickyNoteBullet = styled.div`
   position: absolute;
-  width: ${stickyNoteMeasures.bulletSize}rem;
+  width: ${stickyNoteMeasures.bulletSize * 2}rem;
   height: ${stickyNoteMeasures.bulletSize}rem;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
-  clip-path: polygon(-100% -100%, 100% 0, 0 100%);
-  z-index: 1;
+  overflow: hidden;
+
+  ::after {
+    content: "";
+    position: absolute;
+    width: ${stickyNoteMeasures.bulletSize}rem;
+    height: ${stickyNoteMeasures.bulletSize}rem;
+    transform: rotate(45deg);
+    top: ${stickyNoteMeasures.bulletSize / 2}rem;
+    left: ${stickyNoteMeasures.bulletSize / 2}rem;
+    box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -155,12 +164,14 @@ export const BlueStickyNote = styled(StickyNote)`
   top: ${stickyNoteMeasures.defaultOffset}rem;
   left: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
 
-  ::before {
-    ${stickyNoteBullet}
-    transform: rotate(-45deg);
+  ${StickyNoteBullet} {
+    transform: rotate(-90deg);
     top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
-    left: -${stickyNoteMeasures.bulletSize / 2}rem;
-    background: ${stickyNoteMeasures.blue};
+    left: -${stickyNoteMeasures.bulletSize * 1.5}rem;
+
+    ::after {
+      background: ${stickyNoteMeasures.blue};
+    }
   }
 `;
 
@@ -170,12 +181,14 @@ export const GreenStickyNote = styled(StickyNote)`
   bottom: ${stickyNoteMeasures.defaultOffset}rem;
   right: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
 
-  ::before {
-    ${stickyNoteBullet}
-    transform: rotate(135deg);
+  ${StickyNoteBullet} {
+    transform: rotate(90deg);
     top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
-    right: -${stickyNoteMeasures.bulletSize / 2}rem;
-    background: ${stickyNoteMeasures.green};
+    right: -${stickyNoteMeasures.bulletSize * 1.5}rem;
+
+    ::after {
+      background: ${stickyNoteMeasures.green};
+    }
   }
 `;
 
