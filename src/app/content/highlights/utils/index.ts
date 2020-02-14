@@ -8,6 +8,7 @@ export {
   updateInTotalCounts,
   removeFromTotalCounts,
   addSummaryHighlight,
+  getHighlightByIdFromSummaryHighlights,
   removeSummaryHighlight,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
