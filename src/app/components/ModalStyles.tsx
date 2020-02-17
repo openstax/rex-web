@@ -70,7 +70,7 @@ export const Mask = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Modal = styled.div`
+export const ModalWrapper = styled.div`
   top: 0;
   z-index: ${theme.zIndex.errorPopup};
   left: 0;

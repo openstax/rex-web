@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FormattedMessage } from 'react-intl';
-import Button from '../../../../components/Button';
-import Modal from '../../../../components/Modal';
 import MessageProvider from '../../../../MessageProvider';
 import { assertDocument, assertNotNull } from '../../../../utils';
+import ConfirmationModal from '../ConfirmationModal';
 
 export default async() => {
   const document = assertDocument();
@@ -17,35 +15,9 @@ export default async() => {
   const userChoice: boolean = await new Promise((resolve) => {
     const confirm = () => resolve(true);
     const deny = () => resolve(false);
-
     ReactDOM.render(
       <MessageProvider>
-        <Modal
-          onModalClose={deny}
-          body={null}
-          footer={
-            <>
-              <FormattedMessage id='i18n:discard:button:discard'>
-                {(msg) => <Button
-                  data-testid='discard-changes'
-                  onClick={confirm}
-                  variant='primary'
-                  > {msg}
-                </Button>}
-              </FormattedMessage>
-              <FormattedMessage id='i18n:discard:button:cancel'>
-                {(msg) => <Button
-                  data-testid='cancel-discard'
-                  onClick={deny}
-                  variant='secondary'
-                  > {msg}
-                </Button>}
-              </FormattedMessage>
-            </>
-          }
-          headerTextId='i18n:discard:heading'
-          bodyTextId='i18n:discard:body'
-        />
+        <ConfirmationModal {...{deny, confirm}} />
       </MessageProvider>,
       domNode
     );

@@ -13,9 +13,9 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const ConfirmationModal = ({className, headerTextId, onModalClose, footer, bodyTextId, body }: PropTypes) => {
+const Modal = ({className, headerTextId, onModalClose, footer, bodyTextId, body }: PropTypes) => {
   return (
-    <Styled.Modal className={className}>
+    <Styled.ModalWrapper className={className}>
       <Styled.CardWrapper>
         <Styled.Card>
           <Styled.Header>
@@ -40,8 +40,8 @@ const ConfirmationModal = ({className, headerTextId, onModalClose, footer, bodyT
         </Styled.Card>
       </Styled.CardWrapper>
       <Styled.Mask />
-    </Styled.Modal>
+    </Styled.ModalWrapper>
   );
 };
 
-export default ConfirmationModal;
+export default Modal;

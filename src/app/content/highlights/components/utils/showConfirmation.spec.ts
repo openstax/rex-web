@@ -4,10 +4,18 @@ import showConfirmation from './showConfirmation';
 
 import { assertDocument } from '../../../../utils';
 
-jest.mock('../../../../components/Modal', () => {
+jest.mock('../ConfirmationModal', () => {
   return {
     __esModule: true,
-    default: mockModal,
+    default: jest.fn()
+      .mockImplementationOnce(({ confirm }) => {
+        confirm();
+        return null;
+      })
+      .mockImplementationOnce(({ deny }) => {
+        deny();
+        return null;
+      }),
   };
 });
 
@@ -16,11 +24,6 @@ const rootNode = (() => {
   mockNode.id = 'root';
   return mockNode;
 })();
-
-function mockModal({onModalClose}: {onModalClose: (answer: boolean) => void}) {
-  onModalClose(true);
-  return null;
-}
 
 const modalNode = assertDocument().createElement('div');
 
@@ -44,12 +47,20 @@ describe('ShowConfirmation', () => {
     createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
   });
 
-  it('unmounts on answer', async() => {
-    await showConfirmation();
+  it('unmounts on confirmation', async() => {
+    const answer = await showConfirmation();
 
+    expect(answer).toBe(true);
     expect(createElement).toHaveBeenCalledWith('div');
     expect(render).toHaveBeenCalledWith(expect.anything(), modalNode);
     expect(rootNode.insertAdjacentElement).toHaveBeenCalledWith('afterend', modalNode);
+    expect(unmount).toHaveBeenCalledWith(modalNode);
+  });
+
+  it('unmounts on denial', async() => {
+    const answer = await showConfirmation();
+
+    expect(answer).toBe(false);
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 });
