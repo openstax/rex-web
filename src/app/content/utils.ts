@@ -33,7 +33,6 @@ export const formatBookData = <O extends OSWebBook | undefined>(
       ...archiveBook,
       authors: osWebBook.authors,
       publish_date: osWebBook.publish_date,
-      revised: osWebBook.revised,
       slug: osWebBook.meta.slug,
       theme: osWebBook.cover_color,
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995

@@ -6,7 +6,6 @@ export interface OSWebBook {
     slug: string;
   };
   publish_date: string;
-  revised: string;
   authors: Array<{
     value: {
       name: string;
