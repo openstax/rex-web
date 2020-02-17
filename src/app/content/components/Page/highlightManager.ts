@@ -57,7 +57,7 @@ const onSelectHighlight = (
   services.setPendingHighlight(highlight);
 });
 
-export const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
+const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
     onClick: (...args) => onClickHighlight({ ...services, highlighter }, ...args),
