@@ -22,7 +22,7 @@ jest.mock('../../../config', () => {
 describe('getBookPageUrlAndParams', () => {
   it('generates params without version', () => {
     const result = getBookPageUrlAndParams(formatBookData(mockArchiveBook, mockCmsBook), page);
-    expect((result.params as any).version).toBeUndefined();
+    expect((result.params.book as any).version).toBeUndefined();
   });
 
   it('generates params with version', () => {
@@ -30,13 +30,13 @@ describe('getBookPageUrlAndParams', () => {
       {...formatBookData(mockArchiveBook, mockCmsBook), version: 'asdf'},
       page
     );
-    expect((result.params as any).version).toBe('asdf');
+    expect((result.params.book as any).version).toBe('asdf');
   });
   it('generates params for books without osweb data', () => {
     const result = getBookPageUrlAndParams(formatBookData({...mockArchiveBook, id: testUUID}, undefined), page);
 
-    expect((result.params as any)).not.toHaveProperty('slug');
-    expect((result.params as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
+    expect((result.params.book as any)).not.toHaveProperty('slug');
+    expect((result.params.book as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
   });
 });
 
@@ -66,13 +66,13 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual('preface');
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual('preface');
+    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('preface');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('preface');
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
   it('throws on invalid id', () => {

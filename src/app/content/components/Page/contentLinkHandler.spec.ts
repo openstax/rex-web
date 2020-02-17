@@ -38,9 +38,13 @@ describe('contentLinkHandler', () => {
     prop.references = [{
       match: link,
       params: {
-        page: 'page-title',
-        uuid: book.id,
-        version: book.version,
+        book: {
+          uuid: book.id,
+          version: book.version,
+        },
+        page: {
+          slug: 'page-title',
+        },
       },
       state: {
         bookUid: 'book',
@@ -61,9 +65,13 @@ describe('contentLinkHandler', () => {
 
     expect(prop.navigate).toHaveBeenCalledWith({
       params: {
-        page: 'page-title',
-        uuid: book.id,
-        version: book.version,
+        book: {
+          uuid: book.id,
+          version: book.version,
+        },
+        page: {
+          slug: 'page-title',
+        },
       },
       route: routes.content,
       state: {
@@ -80,8 +88,12 @@ describe('contentLinkHandler', () => {
     prop.references = [{
       match: link,
       params: {
-        page: 'page-title',
-        slug: book.slug,
+        book: {
+          slug: book.slug,
+        },
+        page: {
+          slug: 'page-title',
+        },
       },
       state: {
         bookUid: 'book',
@@ -102,8 +114,12 @@ describe('contentLinkHandler', () => {
 
     expect(prop.navigate).toHaveBeenCalledWith({
       params: {
-        page: 'page-title',
-        slug: book.slug,
+        book: {
+          slug: book.slug,
+        },
+        page: {
+          slug: 'page-title',
+        },
       },
       route: routes.content,
       state: {

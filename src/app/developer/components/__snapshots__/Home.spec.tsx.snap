@@ -364,9 +364,9 @@ Array [
               Content
             </h3>
             path: 
-            /books/:uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:version/pages/:page
-            /books/:slug@:version/pages/:page
-            /books/:slug/pages/:page
+            /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
+            /books/:book_slug@:book_version/pages/:page_slug
+            /books/:book_slug/pages/:page_slug
           </div>
           <div>
             <h3

@@ -59,9 +59,8 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  const omitPage = omit('page');
-  if (!isEqual(omitPage(match.params), omitPage(select.loadingBook(state)))) {
-    dispatch(requestBook(omitPage(match.params)));
+  if (!isEqual((match.params.book), select.loadingBook(state))) {
+    dispatch(requestBook(match.params.book));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
@@ -77,30 +76,30 @@ export const resolveBookReference = async(
   const state = getState();
   const currentBook = select.book(state);
 
-  const bookSlug = 'slug' in match.params
-    ? match.params.slug
-    : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.uuid
+  const bookSlug = 'slug' in match.params.book
+    ? match.params.book.slug
+    : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.book.uuid
       ? currentBook.slug
-      : await osWebLoader.getBookSlugFromId(match.params.uuid);
+      : await osWebLoader.getBookSlugFromId(match.params.book.uuid);
 
   if (match.state && match.state.bookUid && match.state.bookVersion) {
       return [bookSlug, match.state.bookUid,  match.state.bookVersion];
   }
 
-  const bookUid  = 'uuid' in match.params
-    ? match.params.uuid
-    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.slug
+  const bookUid  = 'uuid' in match.params.book
+    ? match.params.book.uuid
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book.slug
       ? currentBook.id
-      : await osWebLoader.getBookIdFromSlug(match.params.slug);
+      : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
 
   if (!bookUid) {
     throw new Error(`Could not resolve uuid for slug: ${bookSlug}`);
   }
 
-  const bookVersion = 'version' in match.params
-    ? match.params.version === 'latest'
+  const bookVersion = 'version' in match.params.book
+    ? match.params.book.version === 'latest'
       ? undefined
-      : match.params.version
+      : match.params.book.version
     : assertDefined(
         BOOKS[bookUid],
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
@@ -116,7 +115,7 @@ const loadPage = async(
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   pageId: string
 ) => {
-  services.dispatch(requestPage(match.params.page));
+  services.dispatch(requestPage({slug: match.params.page.slug}));
   return await bookLoader.page(pageId).load()
     .then(loadContentReferences(services, book))
     .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
@@ -133,7 +132,7 @@ const resolvePage = async(
   const state = getState();
   const pageId = match.state && match.state.pageUid
     ? match.state.pageUid
-    : getPageIdFromUrlParam(book, match.params.page);
+    : getPageIdFromUrlParam(book, match.params.page.slug);
 
   if (!pageId) {
     // TODO - 404 handling
@@ -144,10 +143,11 @@ const resolvePage = async(
     throw new Error('Page not found');
   }
 
+  const loadingPage = select.loadingPage(state);
   const pageState = select.page(state);
   if (pageState && pageState.id === pageId) {
     return pageState;
-  } else if (match.params.page !== select.loadingPage(state)) {
+  } else if (!(loadingPage && loadingPage.slug === match.params.page.slug)) {
     return await loadPage(services, match, book, bookLoader, pageId);
   }
 };
@@ -193,7 +193,7 @@ const loadContentReference = async(
   return {
     match: reference.match,
     params: {
-      ...getUrlParamsForBook(targetBook),
+      book: getUrlParamsForBook(targetBook),
       page: getUrlParamForPageId(targetBook, reference.pageUid),
     },
     state: {

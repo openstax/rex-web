@@ -1,7 +1,7 @@
 import { BOOKS } from '../../../config';
 import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
-import { Book, BookWithOSWebData, Page, Params } from '../types';
+import { Book, BookWithOSWebData, Page, Params, SlugParams } from '../types';
 import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
@@ -14,7 +14,7 @@ export const getBookPageUrlAndParams = (
   page: Pick<Page, 'id' | 'shortId' | 'title'>
 ) => {
   const params: Params = {
-    ...getUrlParamsForBook(book),
+    book: getUrlParamsForBook(book),
     page: getUrlParamForPageId(book, page.shortId),
   };
   const state = {
@@ -23,8 +23,8 @@ export const getBookPageUrlAndParams = (
     pageUid: stripIdVersion(page.id),
   };
 
-  if (!('version' in params) && (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion)) {
-    const paramsWithVersion = { ...params, version: book.version };
+  if (!('version' in params.book) && (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion)) {
+    const paramsWithVersion = { ...params, book: {...params.book, version: book.version}};
     return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
   }
 
@@ -33,7 +33,7 @@ export const getBookPageUrlAndParams = (
 
 export const getUrlParamsForBook = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
-): {slug: string} | {uuid: string, version: string} => {
+): Params['book'] => {
   if ('slug' in book && book.slug) {
     return {slug: book.slug};
   } else {
@@ -42,12 +42,12 @@ export const getUrlParamsForBook = (
 };
 
 const getUrlParamForPageIdCache = new Map();
-export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): string => {
+export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): SlugParams => {
 
   const cacheKey = `${book.id}:${pageId}`;
 
   if (getUrlParamForPageIdCache.has(cacheKey)) {
-    return getUrlParamForPageIdCache.get(cacheKey);
+    return {slug: getUrlParamForPageIdCache.get(cacheKey)};
   }
 
   const treeSection = findArchiveTreeNode(book.tree, pageId);
@@ -57,7 +57,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
   getUrlParamForPageIdCache.set(cacheKey, result);
 
-  return result;
+  return {slug: result};
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {

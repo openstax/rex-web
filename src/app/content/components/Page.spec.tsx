@@ -103,8 +103,12 @@ describe('Page', () => {
       {
         match: '/content/link',
         params: {
-          page: 'page-title',
-          slug: 'book-slug-1',
+          book: {
+            slug: 'book-slug-1',
+          } ,
+          page: {
+            slug: 'page-title',
+          },
         },
         state: {
           bookUid: 'book',
@@ -442,8 +446,12 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        page: 'page-title',
-        slug: 'book-slug-1',
+        book: {
+          slug: 'book-slug-1',
+        } ,
+        page: {
+          slug: 'page-title',
+        },
       },
       route: routes.content,
       state: {
@@ -478,8 +486,12 @@ describe('Page', () => {
 
     expect(dispatch).toHaveBeenCalledWith(push({
       params: {
-        page: 'page-title',
-        slug: 'book-slug-1',
+        book: {
+          slug: 'book-slug-1',
+        } ,
+        page: {
+          slug: 'page-title',
+        },
       },
       route: routes.content,
       state: {

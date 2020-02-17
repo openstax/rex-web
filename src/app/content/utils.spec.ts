@@ -89,13 +89,13 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual('preface');
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual('preface');
+    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('preface');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('preface');
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
   it('throws on invalid id', () => {

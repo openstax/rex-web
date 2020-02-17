@@ -17,7 +17,7 @@ import { getPageSlug } from './utils/archiveTreeUtils';
 
 export const initialState = {
   highlights: initialHighlightState,
-  loading: {},
+  loading: null,
   params: null,
   references: [],
   search: initialSearchState,
@@ -82,7 +82,7 @@ function reduceContent(state: State, action: AnyAction) {
       }
 
       // book is the same, page is different
-      if (state.book && state.page && action.payload.match.params.page !== getPageSlug(state.book, state.page)) {
+      if (state.book && state.page && action.payload.match.params.page.slug !== getPageSlug(state.book, state.page)) {
         return {...omitPage(state), params: action.payload.match.params};
       }
 

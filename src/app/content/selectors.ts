@@ -42,23 +42,24 @@ export const loading = createSelector(
 
 export const loadingBook = createSelector(
   loading,
-  (slugs) => slugs.book
+  (slugs) => slugs ? slugs.book : null
 );
 
 export const loadingPage = createSelector(
   loading,
-  (slugs) => slugs.page
+  (slugs) => slugs ? slugs.page : null
 );
 
 export const pageParam = createSelector(
   localState,
-  (state) => state.params ? state.params.page : null
+  (state) => state.params ? state.params.page.slug : null
 );
 
 export const pageNode = createSelector(
   book,
   pageParam,
-  (selectedBook, slug) => selectedBook && slug ? findArchiveTreeNodeBySlug(selectedBook.tree, slug) : undefined
+  (selectedBook, slug) =>
+    selectedBook && slug ? findArchiveTreeNodeBySlug(selectedBook.tree, slug) : undefined
 );
 
 export const bookAndPage = createSelector(

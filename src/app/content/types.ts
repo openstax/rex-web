@@ -3,7 +3,7 @@ import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
-interface SlugParams {
+export interface SlugParams {
   slug: string;
 }
 interface VersionedSlugParams extends SlugParams {
@@ -22,7 +22,7 @@ export interface Params {
 export interface State {
   tocOpen: boolean | null;
   params: Params | null;
-  loading: Params;
+  loading: Params | null;
   search: SearchState;
   showCallToActionPopup: boolean | null;
   highlights: HighlightState;

@@ -12,19 +12,26 @@ describe('content route', () => {
 
   it('generates a url', () => {
     content = require('./routes').content;
-    const url = content.getUrl({slug: 'book', page: 'page'});
+    const url = content.getUrl({book: {slug: 'book'}, page: {slug: 'page'}});
     expect(url).toEqual('/books/book/pages/page');
   });
 
   it('generates a versioned url', () => {
     content = require('./routes').content;
-    const url = content.getUrl({slug: 'book', page: 'page', version: 'asdf'});
+    const url = content.getUrl({book: {slug: 'book', version: 'asdf'}, page: {slug: 'page'}});
     expect(url).toEqual('/books/book@asdf/pages/page');
   });
 
   it('generates a url with uuid', () => {
     content = require('./routes').content;
-    const url = content.getUrl({uuid: 'longidin-vali-dfor-mat1-111111111111', page: 'page', version: '1.0'});
+    const url = content.getUrl({
+      book: {
+        uuid: 'longidin-vali-dfor-mat1-111111111111',
+        version: '1.0',
+      },
+      page: {
+        slug: 'page',
+      }});
     expect(url).toEqual('/books/longidin-vali-dfor-mat1-111111111111@1.0/pages/page');
   });
 
@@ -50,8 +57,12 @@ describe('content route', () => {
       const services = createTestServices();
 
       const params = {
-        page: 'test-page-1',
-        slug: mockCmsBook.meta.slug,
+        book: {
+          slug: mockCmsBook.meta.slug,
+        },
+        page: {
+          slug: 'test-page-1',
+        },
       };
       const state = {
         bookUid: book.id,
