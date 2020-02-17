@@ -1,9 +1,9 @@
 import { ActionHookBody } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, makeApiCallOrThrow } from '../../../utils';
 import { updateHighlight } from '../actions';
 
 export const hookBody: ActionHookBody<typeof updateHighlight> = ({highlightClient}) => async({payload}) => {
-  await highlightClient.updateHighlight(payload);
+  await makeApiCallOrThrow(highlightClient.updateHighlight(payload));
 };
 
 export default actionHook(updateHighlight, hookBody);

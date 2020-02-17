@@ -360,3 +360,43 @@ describe('onEscHandler', () => {
     expect(cb).not.toHaveBeenCalled();
   });
 });
+
+describe('makeApiCallOrThrow', () => {
+  it('throw normal error if status is different than 422', async() => {
+    const promise = new Promise((_resolve, reject) => {
+      reject({ status: 404 });
+    });
+    await expect(utils.makeApiCallOrThrow(promise)).rejects.toMatchSnapshot();
+  });
+
+  it('throw custom error if status is equal to 422', async() => {
+    const promise = new Promise((_resolve, reject) => {
+      reject({
+        json: async() => Promise.resolve({ messages: ['msg1', 'msg2'] }),
+        status: 422,
+        statusText: 'Custom title',
+      });
+    });
+    await expect(utils.makeApiCallOrThrow(promise)).rejects
+      .toEqual(new Error('Custom title: msg1, msg2'));
+  });
+
+  it('throw default error if there was no messages property', async() => {
+    const promise = new Promise((_resolve, reject) => {
+      reject({
+        json: async() => Promise.resolve({}),
+        status: 422,
+        statusText: 'Custom title',
+      });
+    });
+    await expect(utils.makeApiCallOrThrow(promise)).rejects
+      .toEqual(new Error('Custom title: Undefined api error response'));
+  });
+
+  it('return expected value if there was no error', async() => {
+    const promise = new Promise((resolve, _reject) => {
+      resolve('success');
+    });
+    await expect(utils.makeApiCallOrThrow(promise)).resolves.toBe('success');
+  });
+});

@@ -3,7 +3,7 @@ import mapValues from 'lodash/fp/mapValues';
 import pickBy from 'lodash/fp/pickBy';
 import { isDefined } from '../../../guards';
 import { ActionHookBody } from '../../../types';
-import { actionHook, assertDefined } from '../../../utils';
+import { actionHook, assertDefined, makeApiCallOrThrow } from '../../../utils';
 import * as selectContent from '../../selectors';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts } from '../actions';
 import * as select from '../selectors';
@@ -18,10 +18,10 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   const book = assertDefined(selectContent.book(state), 'book should be defined');
   const locationFilters = select.highlightLocationFilters(state);
 
-  const totalCounts = await highlightClient.getHighlightsSummary({
+  const totalCounts = await makeApiCallOrThrow(highlightClient.getHighlightsSummary({
     scopeId: book.id,
     sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-  });
+  }));
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
 
