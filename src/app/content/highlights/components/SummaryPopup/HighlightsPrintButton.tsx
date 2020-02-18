@@ -5,35 +5,40 @@ import styled from 'styled-components/macro';
 import { AppState, Dispatch } from '../../../../types';
 import PrintButton from '../../../components/Toolbar/PrintButton';
 import { printSummaryHighlights } from '../../actions';
-import { hasMoreResults } from '../../selectors';
+import { hasMoreResults, summaryIsLoading } from '../../selectors';
 
 interface Props {
   className: string;
   shouldFetchMore: boolean;
+  isLoading: boolean;
   print: typeof printSummaryHighlights;
 }
 
 // tslint:disable-next-line:variable-name
-const HighlightsPrintButton = ({className, print, shouldFetchMore}: Props) => {
+const HighlightsPrintButton = ({className, print, shouldFetchMore, isLoading}: Props) => {
   return <PrintButton
     className={className}
     onClick={() => print({shouldFetchMore})}
     data-testid='hl-print-button'
+    disabled={isLoading}
   />;
 };
 
 // tslint:disable-next-line:variable-name
-const ConnectedHighlightsPrintButton = connect(
+const StyledHighlightsPrintButton = styled(HighlightsPrintButton)`
+  min-width: auto;
+  height: max-content;
+  margin-left: auto;
+  cursor: ${({isLoading}) => isLoading ? 'wait' : 'auto'};
+`;
+
+// tslint:disable-next-line:variable-name
+export default connect(
   (state: AppState) => ({
+    isLoading: summaryIsLoading(state),
     shouldFetchMore: hasMoreResults(state),
   }),
   (dispatch: Dispatch) => ({
     print: flow(printSummaryHighlights, dispatch),
   })
-)(HighlightsPrintButton);
-
-export default styled(ConnectedHighlightsPrintButton)`
-  min-width: auto;
-  height: max-content;
-  margin-left: auto;
-`;
+)(StyledHighlightsPrintButton);

@@ -146,6 +146,7 @@ exports[`Filters matches snapshot 1`] = `
   height: -moz-max-content;
   height: max-content;
   margin-left: auto;
+  cursor: auto;
 }
 
 .c8 {
@@ -310,6 +311,7 @@ exports[`Filters matches snapshot 1`] = `
     aria-label="print"
     className="c10 c11"
     data-testid="print"
+    disabled={false}
     onClick={[Function]}
   >
     <svg

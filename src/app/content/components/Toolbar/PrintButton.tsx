@@ -13,6 +13,7 @@ interface Props {
   book: Book | undefined;
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 class PrintButton extends Component<Props> {
@@ -27,6 +28,7 @@ class PrintButton extends Component<Props> {
                 aria-label={label}
                 data-testid='print'
                 className={this.props.className}
+                disabled={this.props.disabled}
               >
                 <Styled.PrintIcon />
                 <Styled.PrintOptions>{msg}</Styled.PrintOptions>
