@@ -1,5 +1,4 @@
 import isEqual from 'lodash/fp/isEqual';
-import omit from 'lodash/fp/omit';
 import { APP_ENV, BOOKS } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
