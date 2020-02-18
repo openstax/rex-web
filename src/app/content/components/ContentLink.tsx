@@ -16,7 +16,7 @@ import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
-import isClickWithModifierKeys from './utils/isClickWithModifierKeys';
+import { isClickWithModifierKeys } from '../utils/domUtils';
 
 interface Props {
   book: Book;

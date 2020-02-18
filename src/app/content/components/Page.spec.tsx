@@ -568,25 +568,6 @@ describe('Page', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  it('noops if user decides not to discard', async() => {
-    const {root} = renderDomWithReferences();
-    const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
-
-    if (!document || !firstLink) {
-      expect(document).toBeTruthy();
-      expect(firstLink).toBeTruthy();
-      return;
-    }
-
-    store.dispatch(setAnnotationChangesPending(true));
-    const evt1 = makeEvent(document);
-
-    firstLink.dispatchEvent(evt1);
-    await new Promise((resolve) => defer(resolve));
-
-    expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
-  });
-
   it('removes listener when it unmounts', async() => {
     const { root } = renderDomWithReferences();
     const links = Array.from(root.querySelectorAll('#main-content a'));

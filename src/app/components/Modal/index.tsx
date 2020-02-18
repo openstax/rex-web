@@ -6,20 +6,26 @@ import * as Styled from './styles';
 interface PropTypes {
   onModalClose: () => void;
   footer: JSX.Element | null;
-  body: JSX.Element | null;
-  headerTextId: string;
-  bodyTextId: string;
+  heading: string;
+  subheading: string;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Modal = ({className, headerTextId, onModalClose, footer, bodyTextId, body }: PropTypes) => {
+const Modal = ({
+  className,
+  heading,
+  subheading,
+  onModalClose,
+  footer,
+  children,
+}: React.PropsWithChildren<PropTypes>) => {
   return (
     <Styled.ModalWrapper className={className}>
       <Styled.CardWrapper>
         <Styled.Card>
           <Styled.Header>
-            <FormattedMessage id={headerTextId}>
+            <FormattedMessage id={heading}>
               {(message) => (
                 <Styled.Heading>
                   {message}
@@ -29,10 +35,10 @@ const Modal = ({className, headerTextId, onModalClose, footer, bodyTextId, body 
             <Styled.CloseModalIcon onClick={onModalClose}/>
           </Styled.Header>
           <Styled.Body>
-            <FormattedMessage id={bodyTextId}>
+            <FormattedMessage id={subheading}>
               {(msg) => <Styled.BodyHeading>{msg}</Styled.BodyHeading>}
             </FormattedMessage>
-            {body}
+            {children}
           </Styled.Body>
           <Styled.Footer>
             {footer}

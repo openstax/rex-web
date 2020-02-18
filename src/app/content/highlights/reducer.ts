@@ -85,7 +85,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       if (oldHiglightIndex < 0) { return state; }
 
       const oldHighlight = state.highlights[oldHiglightIndex];
-      const onlyColorChanged =
+      const hasUnsavedHighlight =
         oldHighlight.annotation === action.payload.highlight.annotation
         && state.hasUnsavedHighlight;
 
@@ -112,7 +112,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       return {
         ...state,
-        hasUnsavedHighlight: Boolean(onlyColorChanged),
+        hasUnsavedHighlight: Boolean(hasUnsavedHighlight),
         highlights: newHighlights,
         summary: {
           ...state.summary,

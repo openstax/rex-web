@@ -11,7 +11,8 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ConfirmationModal = ({deny, confirm}: Props) => <Modal
   onModalClose={deny}
-  body={null}
+  heading='i18n:discard:heading'
+  subheading='i18n:discard:body'
   footer={
     <>
       <FormattedMessage id='i18n:discard:button:discard'>
@@ -32,8 +33,6 @@ const ConfirmationModal = ({deny, confirm}: Props) => <Modal
       </FormattedMessage>
     </>
   }
-  headerTextId='i18n:discard:heading'
-  bodyTextId='i18n:discard:body'
 />;
 
 export default ConfirmationModal;

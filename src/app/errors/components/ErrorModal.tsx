@@ -33,11 +33,8 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
   return (
     <Modal
       className='error-modal'
-      headerTextId='i18n:error:boundary:heading'
-      bodyTextId='i18n:error:boundary:sub-heading'
-      body={
-        <BodyWithLink values={{supportCenterLink}}/>
-      }
+      heading='i18n:error:boundary:heading'
+      subheading='i18n:error:boundary:sub-heading'
       footer={
         <FormattedMessage id='i18n:error:boundary:action-btn-text'>
           {(msg) => <Button
@@ -49,7 +46,9 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
         </FormattedMessage>
       }
       onModalClose={clearError}
-    />
+    >
+      <BodyWithLink values={{supportCenterLink}}/>
+    </Modal>
   );
 };
 

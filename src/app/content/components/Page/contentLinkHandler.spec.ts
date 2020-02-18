@@ -1,11 +1,12 @@
-import { HTMLAnchorElement } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../../test/utils';
 import { assertDocument } from '../../../utils';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
-import { contentLinkHandler, ContentLinkProp } from './contentLinkHandler';
+import { ContentLinkProp } from './contentLinkHandler';
 
 const book = {
   ...formatBookData(archiveBook, mockCmsBook),
@@ -13,11 +14,12 @@ const book = {
 };
 
 describe('contentLinkHandler', () => {
-  let handler: ReturnType<typeof contentLinkHandler>;
+  let handler: (e: MouseEvent) => Promise<void>;
   let prop: ContentLinkProp;
   let anchor: HTMLAnchorElement;
 
   beforeEach(() => {
+    resetModules();
     anchor = assertDocument().createElement('a');
 
     prop = {
@@ -29,89 +31,153 @@ describe('contentLinkHandler', () => {
       page,
       references: [],
     };
-
-    handler = contentLinkHandler(anchor, () => prop);
   });
 
-  it('intercepts clicking content links with uuid', async() => {
-    const link = `/books/${book.id}@${book.version}/pages/page-title`;
-    anchor.setAttribute('href', link);
-    prop.references = [{
-      match: link,
-      params: {
-        page: 'page-title',
-        uuid: book.id,
-        version: book.version,
-      },
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
-    }];
+  describe('without unsaved highlight', () => {
+    beforeEach(() => {
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
+    });
 
-    const event = {
-      preventDefault: jest.fn(),
-    };
+    it('intercepts clicking content links with uuid', async() => {
+      const link = `/books/${book.id}@${book.version}/pages/page-title`;
+      anchor.setAttribute('href', link);
+      prop.references = [{
+        match: link,
+        params: {
+          page: 'page-title',
+          uuid: book.id,
+          version: book.version,
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
 
-    handler(event as any);
+      const event = {
+        preventDefault: jest.fn(),
+      };
 
-    expect(event.preventDefault).toHaveBeenCalled();
+      await handler(event as any);
 
-    await new Promise((resolve) => defer(resolve));
+      expect(event.preventDefault).toHaveBeenCalled();
 
-    expect(prop.navigate).toHaveBeenCalledWith({
-      params: {
-        page: 'page-title',
-        uuid: book.id,
-        version: book.version,
-      },
-      route: routes.content,
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
-    }, expect.anything());
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).toHaveBeenCalledWith({
+        params: {
+          page: 'page-title',
+          uuid: book.id,
+          version: book.version,
+        },
+        route: routes.content,
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }, expect.anything());
+    });
+
+    it('intercepts clicking content links with slug', async() => {
+      const link = `/books/${book.slug}/pages/page-title`;
+      anchor.setAttribute('href', link);
+      prop.references = [{
+        match: link,
+        params: {
+          book: book.slug,
+          page: 'page-title',
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
+
+      const event = {
+        preventDefault: jest.fn(),
+      };
+
+      await handler(event as any);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).toHaveBeenCalledWith({
+        params: {
+          book: book.slug,
+          page: 'page-title',
+        },
+        route: routes.content,
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }, expect.anything());
+    });
   });
 
-  it('intercepts clicking content links with slug', async() => {
-    const link = `/books/${book.slug}/pages/page-title`;
-    anchor.setAttribute('href', link);
-    prop.references = [{
-      match: link,
-      params: {
-        book: book.slug,
-        page: 'page-title',
-      },
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
-    }];
+  describe('with unsaved highlight', () => {
+    let event: any;
+    const mockConfirmation = jest.fn()
+      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)))
+      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(true), 300)));
 
-    const event = {
-      preventDefault: jest.fn(),
-    };
+    jest.mock(
+      '../../highlights/components/utils/showConfirmation',
+      () => mockConfirmation
+    );
 
-    handler(event as any);
+    beforeEach(() => {
+      prop.hasUnsavedHighlight = true;
 
-    expect(event.preventDefault).toHaveBeenCalled();
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
 
-    await new Promise((resolve) => defer(resolve));
+      const link = `/books/${book.id}@${book.version}/pages/page-title`;
+      anchor.setAttribute('href', link);
+      prop.references = [{
+        match: link,
+        params: {
+          page: 'page-title',
+          uuid: book.id,
+          version: book.version,
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
 
-    expect(prop.navigate).toHaveBeenCalledWith({
-      params: {
-        book: book.slug,
-        page: 'page-title',
-      },
-      route: routes.content,
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
-    }, expect.anything());
+      event = {
+        preventDefault: jest.fn(),
+      };
+    });
+
+    it('noops if user chooses not to discard', async() => {
+      await handler(event as any);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(mockConfirmation).toHaveBeenCalled();
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).not.toHaveBeenCalled();
+    });
+
+    it('intercepts clicking if user chooses to discard', async() => {
+      await handler(event as any);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(mockConfirmation).toHaveBeenCalled();
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).toHaveBeenCalled();
+    });
   });
 });

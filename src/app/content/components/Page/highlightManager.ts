@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
+import { assertWindow } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -59,7 +60,8 @@ const onSelectHighlight = (
     return;
   }
 
-  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+  if (services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+    assertWindow().getSelection().removeAllRanges();
     return;
   }
 

@@ -8,10 +8,9 @@ describe('Modal', () => {
     const component = renderer.create(<MessageProvider>
       <Modal
         onModalClose={() => null}
+        heading='i18n:discard:heading'
+        subheading='i18n:discard:body'
         footer={null}
-        body={null}
-        headerTextId='i18n:discard:heading'
-        bodyTextId='i18n:discard:body'
       />
     </MessageProvider>);
 

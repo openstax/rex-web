@@ -11,8 +11,8 @@ import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highli
 import { content } from '../../routes';
 import * as select from '../../selectors';
 import { Book, PageReferenceMap } from '../../types';
+import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
-import isClickWithModifierKeys from '../utils/isClickWithModifierKeys';
 
 export const mapStateToContentLinkProp = (state: AppState) => ({
   book: select.book(state),

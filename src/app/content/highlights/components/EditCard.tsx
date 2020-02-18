@@ -60,7 +60,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
   }: Props,
   ref
 ) => {
-  const defaultAnnotation = React.useCallback(() => data && data.annotation ? data.annotation : '', [data]);
+  const defaultAnnotation = () => data && data.annotation ? data.annotation : '';
   const [pendingAnnotation, setPendingAnnotation] = React.useState<string>(defaultAnnotation());
   const [editingAnnotation, setEditing] = React.useState<boolean>(!!data && !!data.annotation);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -79,17 +79,18 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     }
   };
 
-  const cancelEditing = React.useCallback(() => {
+  const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
     setEditing(false);
     onCancel();
-  }, [defaultAnnotation, onCancel]);
+  };
 
   React.useEffect(() => {
     if (!isFocused) {
       cancelEditing();
     }
-  }, [isFocused, cancelEditing]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   React.useEffect(() => {
     if (data) { return; }
