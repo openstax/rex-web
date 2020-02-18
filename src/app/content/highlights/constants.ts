@@ -4,6 +4,7 @@ export const highlightingFeatureFlag = 'enableHighlighting';
 
 export const maxHighlightsApiPageSize = 200;
 export const maxResourcesPerFetch = 10;
+
 export const summaryPageSize = 20;
 export const loadMoreDistanceFromBottom = 50;
 

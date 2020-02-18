@@ -13,7 +13,7 @@ import {
   incrementPage,
 } from './utils';
 
-export const loadUntilPageSize = async({
+const loadUntilPageSize = async({
   previousPagination,
   ...args
 }: {
