@@ -179,15 +179,16 @@ export const DropdownList = styled.ol`
 interface DropdownItemProps {
   message: string;
   href?: string;
+  target?: string;
   prefix?: ReactNode;
   onClick?: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-export const DropdownItem = ({message, href, prefix, onClick}: DropdownItemProps) => <li>
+export const DropdownItem = ({message, href, target, prefix, onClick}: DropdownItemProps) => <li>
   <FormattedMessage id={message}>
     {(msg: Element | string) => href
-      ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
+      ? <a href={href} onClick={onClick} target={target}>{prefix}{msg}</a>
       /*
         this should be a button but Safari and firefox don't support focusing buttons
         which breaks the tab transparent dropdown
