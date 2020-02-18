@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
-import { contentFont, decoratedLinkStyle, linkStyle } from './Typography';
+import { decoratedLinkStyle, linkStyle } from './Typography';
 import { textStyle } from './Typography/base';
 
 const applyColor = (color: ColorSet) => `
@@ -46,7 +46,6 @@ const Button = styled(ButtonHoc)`
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  font-family: ${contentFont};
   border-radius: 0.2rem;
   text-decoration: none;
   white-space: nowrap;
