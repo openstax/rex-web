@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`makeApiCallOrThrow throw normal error if status is different than 422 1`] = `[Error: [object Object]]`;

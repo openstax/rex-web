@@ -4,7 +4,6 @@ import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
-import { makeApiCallOrThrow } from '../../../utils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const {dispatch, getState, highlightClient} = services;
@@ -17,12 +16,12 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     return;
   }
 
-  const highlights = await makeApiCallOrThrow(highlightClient.getHighlights({
+  const highlights = await highlightClient.getHighlights({
     perPage: 100,
     scopeId: book.id,
     sourceIds: [page.id],
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
-  }));
+  });
 
   if (highlights.data) {
     dispatch(receiveHighlights(highlights.data));

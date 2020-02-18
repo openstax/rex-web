@@ -366,7 +366,9 @@ describe('makeApiCallOrThrow', () => {
     const promise = new Promise((_resolve, reject) => {
       reject({ status: 404 });
     });
-    await expect(utils.makeApiCallOrThrow(promise)).rejects.toMatchSnapshot();
+    await expect(utils.makeApiCallOrThrow(promise)).rejects.toEqual({
+      status: 404,
+    });
   });
 
   it('throw custom error if status is equal to 422', async() => {
@@ -378,7 +380,7 @@ describe('makeApiCallOrThrow', () => {
       });
     });
     await expect(utils.makeApiCallOrThrow(promise)).rejects
-      .toEqual(new Error('Custom title: msg1, msg2'));
+      .toEqual('Custom title: msg1, msg2');
   });
 
   it('throw default error if there was no messages property', async() => {
@@ -390,7 +392,7 @@ describe('makeApiCallOrThrow', () => {
       });
     });
     await expect(utils.makeApiCallOrThrow(promise)).rejects
-      .toEqual(new Error('Custom title: Undefined api error response'));
+      .toEqual('Custom title: Undefined api error response');
   });
 
   it('return expected value if there was no error', async() => {
