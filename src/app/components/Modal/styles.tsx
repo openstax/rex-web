@@ -6,7 +6,7 @@ import theme from '../../theme';
 import Times from '../Times';
 import { bodyCopyRegularStyle, h3Style, h4Style } from '../Typography';
 
-const margin = 3.0;
+export const modalPadding = 3.0;
 
 // tslint:disable-next-line:variable-name
 export const Card = styled.div`
@@ -24,8 +24,8 @@ export const Card = styled.div`
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  margin-bottom: ${margin * 0.5}rem;
-  padding: ${margin * 0.5}rem ${margin}rem;
+  margin-bottom: ${modalPadding * 0.5}rem;
+  padding: ${modalPadding * 0.5}rem ${modalPadding}rem;
   background: ${theme.color.neutral.pageBackground};
   border-bottom: solid 0.1rem ${theme.color.neutral.darker};
   justify-content: space-between;
@@ -37,24 +37,24 @@ export const Heading = styled.h1`
   display: flex;
   align-items: center;
   margin: 0;
-  padding: ${margin * 0.5}rem 0;
+  padding: ${modalPadding * 0.5}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
 export const BodyHeading = styled.h3`
   ${h3Style}
   font-weight: 400;
-  padding: ${margin * 0.5}rem 0;
+  padding: ${modalPadding * 0.5}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 ${margin}rem;
+  padding: 0 ${modalPadding}rem ${modalPadding}rem;
 
   ${Card.Header} + & { /* stylelint-disable */
-  margin-top: 0;
+    margin-top: 0;
   }
 `;
 
@@ -85,13 +85,6 @@ export const ModalWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const CardWrapper = styled.div`
   z-index: 1;
-`;
-
-// tslint:disable-next-line:variable-name
-export const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: ${margin}rem;
 `;
 
 // tslint:disable-next-line:variable-name

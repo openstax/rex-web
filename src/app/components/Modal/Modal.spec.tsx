@@ -10,7 +10,6 @@ describe('Modal', () => {
         onModalClose={() => null}
         heading='i18n:discard:heading'
         subheading='i18n:discard:body'
-        footer={null}
       />
     </MessageProvider>);
 

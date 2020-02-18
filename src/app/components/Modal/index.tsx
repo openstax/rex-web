@@ -5,7 +5,6 @@ import * as Styled from './styles';
 
 interface PropTypes {
   onModalClose: () => void;
-  footer: JSX.Element | null;
   heading: string;
   subheading: string;
   className?: string;
@@ -17,7 +16,6 @@ const Modal = ({
   heading,
   subheading,
   onModalClose,
-  footer,
   children,
 }: React.PropsWithChildren<PropTypes>) => {
   return (
@@ -40,9 +38,6 @@ const Modal = ({
             </FormattedMessage>
             {children}
           </Styled.Body>
-          <Styled.Footer>
-            {footer}
-          </Styled.Footer>
         </Styled.Card>
       </Styled.CardWrapper>
       <Styled.Mask />
