@@ -1,12 +1,17 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
+import { ExternalLinkAlt as LinkIcon } from 'styled-icons/fa-solid/ExternalLinkAlt';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { book as bookSelector } from '../../../selectors';
+import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
+import { getBookPageUrlAndParams } from '../../../utils/urlUtils';
 import ColorPicker from '../ColorPicker';
 import MenuToggle, { MenuIcon } from '../MenuToggle';
 
@@ -72,6 +77,14 @@ const StyledTrashAltIcon = styled(TrashAltIcon)`
   color: ${theme.color.text.default};
 `;
 
+// tslint:disable-next-line: variable-name
+const StyledLinkIcon = styled(LinkIcon)`
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: ${theme.color.text.default};
+`;
+
 // tslint:disable-next-line:variable-name
 const HighlightToggleEditContent = styled.div`
   z-index: 2;
@@ -88,8 +101,7 @@ const HighlightDropdownMenu = React.forwardRef((props, ref) => {
 });
 
 interface ContextMenuProps {
-  color: HighlightColorEnum;
-  hasAnnotation?: boolean;
+  highlight: Highlight;
   onDelete: () => void;
   onEdit: () => void;
   onColorChange: (color: HighlightColorEnum) => void;
@@ -97,14 +109,31 @@ interface ContextMenuProps {
 
 // tslint:disable-next-line:variable-name
 const ContextMenu = ({
-  color,
-  hasAnnotation,
+  highlight: {
+    id,
+    color,
+    annotation: hasAnnotation,
+    sourceId,
+    anchor,
+  },
   onColorChange,
   onEdit,
   onDelete,
 }: ContextMenuProps) => {
   const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
   const deleteMessage = 'i18n:highlighting:dropdown:delete';
+  const book = useSelector(bookSelector);
+
+  const page = React.useMemo(() => book
+    ? findArchiveTreeNode(book.tree, sourceId)
+    : null
+  , [book, sourceId]);
+
+  const linkToHighlight = React.useMemo(() => {
+    const searchTarget = `{"type":"highlight", "id":${id}}`;
+    return `${page && book ? getBookPageUrlAndParams(book, page).url : ''}?target=${searchTarget}#${anchor}`;
+  }, [id, page, book, anchor]);
+
   return <StyledContextMenu>
     <Dropdown
       toggle={<HighlightDropdownMenu />}
@@ -130,6 +159,13 @@ const ContextMenu = ({
             message={deleteMessage}
             prefix={<StyledTrashAltIcon/>}
             onClick={() => onDelete()}
+          />
+          <DropdownItem
+            data-testid='goto-highlight'
+            message='i18n:highlighting:dropdown:goto-highlight'
+            prefix={<StyledLinkIcon/>}
+            href={linkToHighlight}
+            target='_blank'
           />
         </StyledDropdownList>
       </HighlightToggleEditContent>
