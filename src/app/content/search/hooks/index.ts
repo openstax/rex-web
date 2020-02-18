@@ -81,7 +81,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     },
   };
   const options = {
-    hash: selectedResult.result.source.elementId,
     search: `search=${query}`,
   };
 

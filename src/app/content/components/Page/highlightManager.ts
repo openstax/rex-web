@@ -148,6 +148,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       }
       return null;
     },
+    highlighter,
     unmount: (): void => highlighter && highlighter.unmount(),
     update: () => {
       if (!highlighter && getProp().enabled) {
@@ -206,6 +207,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
+  highlighter: undefined as undefined | Highlighter,
   unmount: (): void => undefined,
   update: (): boolean => false,
 });

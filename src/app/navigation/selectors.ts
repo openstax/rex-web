@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { ScrollTarget } from './types';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -23,7 +24,35 @@ export const hash = createSelector(
 
 export const searchQuery = createSelector(
   localState,
-  (state) => decodeURI(state.search.replace('?search=', ''))
+  (state) => state.search.includes('?search=')
+    ? decodeURI(state.search.replace('?search=', ''))
+    : ''
+);
+
+export const highlightId = createSelector(
+  localState,
+  (state) => state.search.includes('?highlight=')
+    ? decodeURI(state.search.replace('?highlight=', ''))
+    : ''
+);
+
+export const scrollTarget = createSelector(
+  hash,
+  highlightId,
+  (currentHash, currentHighlightId): ScrollTarget | undefined => {
+    if (currentHash) {
+      return {
+        type: 'hash',
+        value: currentHash,
+      };
+    } else if (currentHighlightId) {
+      return {
+        type: 'highlight',
+        value: currentHighlightId,
+      };
+    }
+    return undefined;
+  }
 );
 
 export const location = localState;

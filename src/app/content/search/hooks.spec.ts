@@ -298,7 +298,6 @@ describe('hooks', () => {
             search: expect.objectContaining({query: 'asdf'}),
           },
         }, {
-          hash: hit.source.elementId,
           search: 'search=asdf',
         })
       );
@@ -320,7 +319,6 @@ describe('hooks', () => {
             search: expect.objectContaining({query: 'asdf'}),
           },
         }, {
-          hash: hit.source.elementId,
           search: 'search=asdf',
         })
       );
@@ -343,7 +341,6 @@ describe('hooks', () => {
             search: expect.objectContaining({selectedResult}),
           },
         }, {
-          hash: selectedResult.result.source.elementId,
           search: 'search=asdf',
         })
       );

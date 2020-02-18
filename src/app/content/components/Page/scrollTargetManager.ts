@@ -1,19 +1,20 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
+import { ScrollTarget } from '../../../navigation/types';
 import { AppState } from '../../../types';
 import { assertWindow, resetTabIndex } from '../../../utils';
 import * as select from '../../selectors';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollTargetProp = (state: AppState) => ({
-  hash: selectNavigation.hash(state),
   page: select.page(state),
+  target: selectNavigation.scrollTarget(state),
 });
 type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
 
-const scrollToTarget = (container: HTMLElement | null, hash: string) => {
-  const target = getScrollTarget(container, hash);
+const scrollToTarget = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
+  const target = getScrollTarget(container, scrollTarget);
 
   if (target && container) {
     allImagesLoaded(container).then(
@@ -22,9 +23,9 @@ const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   }
 };
 
-const scrollToTargetOrTop = (container: HTMLElement | null, hash: string) => {
-  if (getScrollTarget(container, hash)) {
-    scrollToTarget(container, hash);
+const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
+  if (getScrollTarget(container, scrollTarget)) {
+    scrollToTarget(container, scrollTarget);
   } else {
     scrollToTop();
   }
@@ -36,17 +37,27 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {
-  return container && typeof(window) !== 'undefined' && hash
-    ? container.querySelector(`[id="${hash.replace(/^#/, '')}"]`)
-    : null;
+const getScrollTarget = (
+  container: HTMLElement | null, { type, value }: ScrollTarget
+): HTMLElement | null => {
+  if (!container || typeof(window) === 'undefined') { return null; }
+
+  if (type === 'hash') {
+    return container.querySelector(`[id="${value.replace(/^#/, '')}"]`);
+  } else if (type === 'highlight' || type === 'search') {
+    return container.querySelector(`[data-highlight-id="${value}"]`);
+  }
+
+  return null;
 };
 
 const scrollTargetManager = (container: HTMLElement) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
+  if (!current.target) { return; }
+
   if (previous.page !== current.page) {
-    scrollToTargetOrTop(container, current.hash);
-  } else if (previous.hash !== current.hash) {
-    scrollToTarget(container, current.hash);
+    scrollToTargetOrTop(container, current.target);
+  } else if (!previous.target || previous.target.value !== current.target.value) {
+    scrollToTarget(container, current.target);
   }
 };
 

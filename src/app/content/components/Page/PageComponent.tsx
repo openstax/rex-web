@@ -58,8 +58,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
-
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
@@ -68,6 +66,26 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       forceRedraw: highlgihtsAddedOrRemoved,
     });
+
+    if (!this.highlightManager.highlighter && this.container.current) {
+      this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
+    }
+
+    if (
+      this.props.scrollTarget.target
+      && this.props.scrollTarget.target.type === 'highlight'
+      && this.highlightManager.highlighter
+      ) {
+      const highlight = this.highlightManager.highlighter.getHighlight(this.props.scrollTarget.target.value);
+      if (highlight) {
+        this.scrollTargetManager({ page: undefined, target: undefined }, this.props.scrollTarget);
+      } else {
+        // TODO: Display some error dialog.
+        // Probably when https://github.com/openstax/rex-web/pull/465 is merged
+      }
+    } else {
+      this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
+    }
   }
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
