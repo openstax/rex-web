@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { toolbarIconColor } from '../content/components/constants';
-import { toolbarIconStyles } from '../content/components/Toolbar/iconStyles';
-import theme from '../theme';
-import Times from './Times';
-import { bodyCopyRegularStyle, h3Style, h4Style } from './Typography';
+import { toolbarIconColor } from '../../content/components/constants';
+import { toolbarIconStyles } from '../../content/components/Toolbar/iconStyles';
+import theme from '../../theme';
+import Times from '../Times';
+import { bodyCopyRegularStyle, h3Style, h4Style } from '../Typography';
 
 const margin = 3.0;
 

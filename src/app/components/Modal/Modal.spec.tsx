@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MessageProvider from '../MessageProvider';
-import Modal from './Modal';
+import Modal from '.';
+import MessageProvider from '../../MessageProvider';
 
 describe('Modal', () => {
   it('matches snapshot', () => {
