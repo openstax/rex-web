@@ -12,12 +12,6 @@ html {
   text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
 
-@media print {
-  html {
-    font-size: 8px; /* Open to interpretation */
-  }
-}
-
 @media screen {
   body, #root, html {
     min-height: 100%;
