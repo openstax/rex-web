@@ -212,18 +212,3 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
 };
-
-export const makeApiCallOrThrow = async<T>(promise: Promise<T>): Promise<T> => {
-  return promise.catch((error) => {
-    if (error.status !== 422) {
-      return Promise.reject(error);
-    }
-    return error.json()
-      .then((res: { messages?: string[], status_code?: number }) => {
-        const errorMessages = res && res.messages
-          ? res.messages.join(', ')
-          : 'Undefined api error response';
-        return Promise.reject(`${error.statusText}: ${errorMessages}`);
-      });
-  });
-};
