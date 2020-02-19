@@ -1,3 +1,5 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
+import React from 'react';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
@@ -297,5 +299,64 @@ describe('preventDefault', () => {
     const event = {preventDefault: jest.fn()} as any;
     utils.preventDefault(event);
     expect(event.preventDefault).toHaveBeenCalled();
+  });
+});
+
+describe('onEscHandler', () => {
+  let ref: React.RefObject<HTMLElement>;
+  let htmlElement: HTMLElement;
+  let addEventListener: jest.SpyInstance;
+  let removeEventListener: jest.SpyInstance;
+
+  beforeEach(() => {
+    htmlElement = assertDocument().createElement('div');
+    ref = {
+      current: htmlElement,
+    } as React.RefObject<HTMLElement>;
+    addEventListener = jest.spyOn(ref.current!, 'addEventListener');
+    removeEventListener = jest.spyOn(ref.current!, 'removeEventListener');
+  });
+
+  it('registers event listener', () => {
+    utils.onEscHandler(ref, true, () => null)();
+    expect(addEventListener).toHaveBeenCalled();
+  });
+
+  it('doesn\'t register event listener when ref.current doesn\'t exist', () => {
+    utils.onEscHandler({ current: null }, true, () => null)();
+    expect(addEventListener).not.toHaveBeenCalled();
+  });
+
+  it('removes event listener', () => {
+    const removeEvListener = utils.onEscHandler(ref, true, () => null)();
+    expect(removeEvListener).toBeDefined();
+    removeEvListener!();
+    expect(removeEventListener).toHaveBeenCalled();
+  });
+
+  it('clicking Escape invokes callback', () => {
+    const window = utils.assertWindow();
+    const cb = jest.fn();
+    utils.onEscHandler(ref, true, cb)();
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Escape', 0, '', false, '');
+
+    ref.current!.dispatchEvent(keyboardEvent);
+
+    expect(cb).toHaveBeenCalled();
+  });
+
+  it('clicking other button doesn\'t invokes callback', () => {
+    const window = utils.assertWindow();
+    const cb = jest.fn();
+    utils.onEscHandler(ref, true, cb)();
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Other key', 0, '', false, '');
+
+    ref.current!.dispatchEvent(keyboardEvent);
+
+    expect(cb).not.toHaveBeenCalled();
   });
 });

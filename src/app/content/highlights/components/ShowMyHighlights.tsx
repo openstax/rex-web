@@ -77,6 +77,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
       <Styled.ShowMyHighlightsBody
         ref={this.myHighlightsBodyRef}
         data-testid='show-myhighlights-body'
+        data-analytics-region='MH popup'
       >
         <Filters />
         <Highlights />

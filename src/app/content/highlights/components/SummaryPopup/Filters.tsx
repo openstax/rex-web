@@ -11,7 +11,7 @@ import { disablePrint } from '../../../components/utils/disablePrint';
 import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
-import { mobilePadding } from './constants';
+import { mobilePaddingSides, mobilePaddingTopBottom } from './constants';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
@@ -31,12 +31,14 @@ const HighlightsPrintButton = styled(PrintButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-const Toggle = styled(({label, ...props}) => <PlainButton {...props}>
-  <div tabIndex={-1}>
-    {label}
-    <DownIcon />
-  </div>
-</PlainButton>)`
+const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
+  ({label, ...props}, ref) => <PlainButton ref={ref} {...props}>
+    <div tabIndex={-1}>
+      {label}
+      <DownIcon />
+    </div>
+  </PlainButton>
+))`
   > div {
     outline: none;
     ${textStyle}
@@ -77,7 +79,7 @@ export default styled(Filters)`
   background: ${theme.color.neutral.base};
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   ${theme.breakpoints.mobile(css`
-    padding: ${mobilePadding.topBottom}rem ${mobilePadding.leftRight}rem;
+    padding: ${mobilePaddingTopBottom}rem ${mobilePaddingSides}rem;
   `)}
 
   ${css`

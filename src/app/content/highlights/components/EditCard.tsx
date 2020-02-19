@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import Button, { ButtonGroup } from '../../../components/Button';
 import theme from '../../../theme';
-import { assertWindow, mergeRefs } from '../../../utils';
+import { assertWindow, mergeRefs, useOnEsc } from '../../../utils';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
@@ -91,6 +91,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
+
+  useOnEsc(element, isFocused, onCancel);
 
   React.useEffect(() => {
     if (data) { return; }
