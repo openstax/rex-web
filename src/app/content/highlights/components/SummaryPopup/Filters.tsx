@@ -48,7 +48,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) =>   <div className={className}>
+const Filters = ({className}: Props) => <div className={className}>
   <FormattedMessage id='i18n:highlighting:filters:chapters'>
     {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
       <ChapterFilter />

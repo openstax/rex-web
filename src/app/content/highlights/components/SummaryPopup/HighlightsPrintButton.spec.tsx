@@ -1,3 +1,4 @@
+import noop from 'lodash/fp/noop';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
@@ -6,16 +7,22 @@ import createTestStore from '../../../../../test/createTestStore';
 import { resetModules } from '../../../../../test/utils';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
+import { assertWindow } from '../../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights } from '../../actions';
 import HighlightsPrintButton from './HighlightsPrintButton';
 
 describe('HighlightsPrintButton', () => {
   let store: Store;
   let storeDispatch: jest.SpyInstance;
+  let print: jest.SpyInstance;
 
   beforeEach(() => {
     resetModules();
+    print = jest.spyOn(assertWindow(), 'print');
+    print.mockImplementation(noop);
+
     store = createTestStore();
+
     storeDispatch = jest.spyOn(store, 'dispatch');
   });
 
@@ -47,12 +54,12 @@ describe('HighlightsPrintButton', () => {
       renderedPrintButton.props.onClick();
     });
 
-    expect(storeDispatch).toHaveBeenCalledWith(printSummaryHighlights({shouldFetchMore: true}));
+    expect(storeDispatch).toHaveBeenCalledWith(printSummaryHighlights());
   });
 
   it('does nothing if summary is loading', async() => {
     store.dispatch(receiveSummaryHighlights({}, {} as any));
-    store.dispatch(printSummaryHighlights({shouldFetchMore: true}));
+    store.dispatch(printSummaryHighlights());
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -66,5 +73,27 @@ describe('HighlightsPrintButton', () => {
     ReactTestUtils.Simulate.click(renderedPrintButton);
 
     expect(storeDispatch).not.toHaveBeenCalled();
+    expect(print).not.toHaveBeenCalled();
+  });
+
+  it('doesn\'t dispatch if all highlights have been loaded', () => {
+    store.dispatch(receiveSummaryHighlights({}, null));
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPrintButton />
+      </MessageProvider>
+    </Provider>);
+
+    storeDispatch.mockClear();
+
+    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
+
+    renderer.act(() => {
+      renderedPrintButton.props.onClick();
+    });
+
+    expect(storeDispatch).not.toHaveBeenCalled();
+    expect(print).toHaveBeenCalled();
   });
 });

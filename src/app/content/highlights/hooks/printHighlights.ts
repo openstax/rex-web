@@ -5,11 +5,9 @@ import { myHighlightsOpen } from '../selectors';
 import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
-  (services) => async({payload}) => {
-    if (payload.shouldFetchMore) {
-      const {formattedHighlights} = await loadMore(services);
-      services.dispatch(receiveSummaryHighlights(formattedHighlights, null));
-    }
+  (services) => async() => {
+    const {formattedHighlights} = await loadMore(services);
+    services.dispatch(receiveSummaryHighlights(formattedHighlights, null));
 
     if (myHighlightsOpen(services.getState())) {
       assertWindow().print();

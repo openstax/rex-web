@@ -161,7 +161,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          loading: action.payload.shouldFetchMore,
+          loading: true,
         },
       };
     }
