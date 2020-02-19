@@ -48,8 +48,12 @@ describe('content', () => {
         },
         match: {
           params: {
-            book: bookState.slug,
-            page: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+            book: {
+              slug: bookState.slug, 
+            },
+            page: {
+              slug: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug 
+            }
           },
           route: content,
         },
