@@ -8,7 +8,7 @@ import { receiveHighlights } from '../actions';
 import { maxHighlightsApiPageSize } from '../constants';
 import * as select from '../selectors';
 import { HighlightData, SummaryHighlightsPagination } from '../types';
-import { incrementPage } from './loadMore';
+import { incrementPage } from './utils';
 
 // TODO - some of this logic could be integrated into src/app/content/highlights/hooks/utils.ts
 // once openstax/rex-web#489 is merged
@@ -56,7 +56,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const highlights = await loadAllHighlights({
     book,
     highlightClient,
-    pagination: {page: 1, sourceIds: [page.id]},
+    pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
   });
 
   dispatch(receiveHighlights(highlights));
