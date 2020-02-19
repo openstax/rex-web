@@ -4,7 +4,7 @@ import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { deleteHighlight } from '../actions';
 
-describe('locationChange', () => {
+describe('removeHighlight', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./removeHighlight').hookBody>;

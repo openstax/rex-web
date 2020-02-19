@@ -14,7 +14,7 @@ const updateMockHighlight = () => {
   } as UpdateHighlightRequest;
 };
 
-describe('locationChange', () => {
+describe('updateHighlight', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./updateHighlight').hookBody>;
