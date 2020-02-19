@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import highlightIcon from '../../../../assets/highlightIcon.svg';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { openMyHighlights } from '../../highlights/actions';
@@ -38,21 +39,27 @@ const MyHighlightsText = styled.span`
   ${toolbarDefaultText}
 `;
 
-class HighlightButton extends Component<Props> {
-  public render() {
-    return this.props.enabled
-      ? <FormattedMessage id='i18n:toolbar:highlights:text'>
-        {(msg: Element | string) =>
-          <MyHighlightsWrapper onClick={() => this.props.openMyHighlights()} aria-label={msg}>
-            <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
-            <MyHighlightsText>{msg}</MyHighlightsText>
-          </MyHighlightsWrapper>
-        }
-      </FormattedMessage>
-      : null
-    ;
-  }
-}
+// tslint:disable-next-line:variable-name
+const HighlightButton = ({ enabled, openMyHighlights}: Props) => {
+  const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
+
+  const openHighlightsSummary = () => {
+    openMyHighlights();
+    trackOpenCloseMH();
+  };
+
+  return enabled
+    ? <FormattedMessage id='i18n:toolbar:highlights:text'>
+      {(msg: Element | string) =>
+        <MyHighlightsWrapper onClick={() => openHighlightsSummary()} aria-label={msg}>
+          <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
+          <MyHighlightsText>{msg}</MyHighlightsText>
+        </MyHighlightsWrapper>
+      }
+    </FormattedMessage>
+    : null
+  ;
+};
 
 export default connect(
   (state: AppState) => ({

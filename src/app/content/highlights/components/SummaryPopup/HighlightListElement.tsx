@@ -10,6 +10,7 @@ import { popupBodyPadding } from '../HighlightStyles';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
+import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -82,9 +83,15 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const [isDeleting, setIsDeleting] = React.useState(false);
   const dispatch = useDispatch();
 
+  const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
+  const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
+
   const updateAnnotation = (
     annotation: string
   ) => {
+    const addedNote = (highlight.annotation === undefined) ? true : false;
+
     dispatch(updateHighlight({
       highlight: {annotation},
       id: highlight.id,
@@ -92,6 +99,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       locationFilterId,
       pageId,
     }));
+    trackEditAnnotation(addedNote, highlight.color, true);
     setIsEditing(false);
   };
 
@@ -103,6 +111,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       locationFilterId,
       pageId,
     }));
+    trackEditNoteColor(color, true);
   };
 
   const confirmDelete = () => {
@@ -110,6 +119,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       locationFilterId,
       pageId,
     }));
+    trackDeleteHighlight(highlight.color, true);
   };
 
   const hasAnnotation = Boolean(highlight.annotation);

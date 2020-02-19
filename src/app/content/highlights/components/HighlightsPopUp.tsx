@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
 import ScrollLock from '../../../components/ScrollLock';
@@ -24,16 +25,42 @@ interface Props {
   loginLink: string;
 }
 
-class HighlightsPopUp extends Component<Props> {
-  public popUp = React.createRef<HTMLElement>();
+// tslint:disable-next-line: variable-name
+const HighlightsPopUp = ({ ...props }: Props) => {
+  const popUpRef = React.createRef<HTMLElement>();
+  const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
   // tslint:disable-next-line: ban-types
-  public removeEvListener: null | Function = null;
+  let removeEvListener: null | Function = null;
 
-  public loginForHighlights = () => {
+  React.useEffect(() => {
+    const popUp = popUpRef.current;
+
+    const closeAndTrack = () => {
+      props.closeMyHighlights();
+      trackOpenCloseMH('esc');
+    };
+
+    if (isHtmlElement(popUp)) {
+      popUp.focus();
+
+      if (removeEvListener) {
+        removeEvListener();
+      }
+
+      const [addEvListener, removeEListener] = onEsc(
+        popUp,
+        closeAndTrack
+      );
+      addEvListener();
+      removeEvListener = removeEListener;
+    }
+  }, [popUpRef, removeEvListener]);
+
+  const loginForHighlights = () => {
     return (
       <Styled.PopupBody>
-        <Styled.LoginText values={{ loginLink: this.props.loginLink }} />
+        <Styled.LoginText values={{ loginLink: props.loginLink }} />
         <Styled.GridWrapper>
           <Styled.GeneralText>
             <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
@@ -43,11 +70,11 @@ class HighlightsPopUp extends Component<Props> {
           <Styled.ImagesGrid>
             <Styled.ImageWrapper>
               <Styled.FirstImage src={notLoggedImage1} />
-              {this.blueNote()}
+              {blueNote()}
             </Styled.ImageWrapper>
             <Styled.ImageWrapper>
               <Styled.SecondImage src={notLoggedImage2} />
-              {this.greenNote()}
+              {greenNote()}
             </Styled.ImageWrapper>
           </Styled.ImagesGrid>
         </Styled.GridWrapper>
@@ -55,7 +82,7 @@ class HighlightsPopUp extends Component<Props> {
     );
   };
 
-  public blueNote = () => {
+  const blueNote = () => {
     return (
       <Styled.BlueStickyNote>
         <Styled.StickyNoteUl>
@@ -74,7 +101,7 @@ class HighlightsPopUp extends Component<Props> {
     );
   };
 
-  public greenNote = () => {
+  const greenNote = () => {
     return (
       <Styled.GreenStickyNote>
         <Styled.StickyNoteUl>
@@ -101,59 +128,39 @@ class HighlightsPopUp extends Component<Props> {
     );
   };
 
-  public render() {
-    return this.props.myHighlightsOpen ?
-      <Styled.PopupWrapper>
-        <ScrollLock
-          overlay={true}
-          mobileOnly={false}
-          zIndex={theme.zIndex.highlightSummaryPopup}
-          onClick={this.props.closeMyHighlights}
-        />
-        <Styled.Modal
-          ref={this.popUp}
-          tabIndex='-1'
-          data-testid='highlights-popup-wrapper'
-        >
-          <Styled.Header>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-            <Styled.CloseIconWrapper
-              data-testid='close-highlights-popup'
-              onClick={() => this.props.closeMyHighlights()}
-            >
-              <Styled.CloseIcon />
-            </Styled.CloseIconWrapper>
-          </Styled.Header>
-          {this.props.user ? <ShowMyHighlights /> : this.loginForHighlights()}
-        </Styled.Modal>
-        <HighlightsHelpInfo />
-      </Styled.PopupWrapper>
-    : null;
-  }
-
-  public componentDidUpdate() {
-    const popUp = this.popUp.current;
-    if (isHtmlElement(popUp)) {
-      popUp.focus();
-
-      if (this.removeEvListener) {
-        this.removeEvListener();
-      }
-
-      const [addEvListener, removeEvListener] = onEsc(popUp, this.props.closeMyHighlights);
-      addEvListener();
-      this.removeEvListener = removeEvListener;
-    }
-  }
-
-  public componentWillUnmount() {
-    if (this.removeEvListener) {
-      this.removeEvListener();
-    }
-  }
-}
+  return props.myHighlightsOpen ? (
+    <Styled.PopupWrapper>
+      <ScrollLock
+        overlay={true}
+        mobileOnly={false}
+        zIndex={theme.zIndex.highlightSummaryPopup}
+        onClick={() => { props.closeMyHighlights(); trackOpenCloseMH('overlay'); }}
+      />
+      <Styled.Modal
+        ref={popUpRef}
+        tabIndex='-1'
+        data-testid='highlights-popup-wrapper'
+      >
+        <Styled.Header>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+          <Styled.CloseIconWrapper
+            data-testid='close-highlights-popup'
+            onClick={() => {
+              props.closeMyHighlights();
+              trackOpenCloseMH('button');
+            }}
+          >
+            <Styled.CloseIcon />
+          </Styled.CloseIconWrapper>
+        </Styled.Header>
+        {props.user ? <ShowMyHighlights /> : loginForHighlights()}
+      </Styled.Modal>
+      <HighlightsHelpInfo />
+    </Styled.PopupWrapper>
+  ) : null;
+};
 
 export default connect(
   (state: AppState) => ({
