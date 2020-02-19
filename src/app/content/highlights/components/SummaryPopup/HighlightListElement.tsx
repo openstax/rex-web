@@ -2,6 +2,7 @@ import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openst
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { deleteHighlight, updateHighlight } from '../../actions';
@@ -10,7 +11,6 @@ import { popupBodyPadding } from '../HighlightStyles';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
-import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
