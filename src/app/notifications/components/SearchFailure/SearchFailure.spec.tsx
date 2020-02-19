@@ -2,13 +2,14 @@ import ReactType from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../test/createTestStore';
-import { renderToDom } from '../../../test/reactutils';
-import MessageProvider from '../../MessageProvider';
-import { Store } from '../../types';
-import { assertWindow } from '../../utils';
-import { dismissNotification, searchFailure } from '../actions';
-import SearchFailure, { clearErrorAfter } from './SearchFailure';
+import SearchFailure from '.';
+import createTestStore from '../../../../test/createTestStore';
+import { renderToDom } from '../../../../test/reactutils';
+import MessageProvider from '../../../MessageProvider';
+import { Store } from '../../../types';
+import { assertWindow } from '../../../utils';
+import { dismissNotification, searchFailure } from '../../actions';
+import { clearErrorAfter } from './styles';
 
 jest.mock('react', () => {
     const react = (jest as any).requireActual('react');

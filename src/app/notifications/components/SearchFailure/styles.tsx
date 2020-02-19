@@ -1,0 +1,98 @@
+import React from 'react';
+import styled, { css, keyframes } from 'styled-components/macro';
+import { PlainButton } from '../../../components/Button';
+import Times from '../../../components/Times';
+import {
+  bookBannerDesktopMiniHeight,
+  bookBannerMobileMiniHeight,
+  toolbarDesktopHeight,
+  toolbarMobileHeight,
+  toolbarMobileSearchWrapperHeight
+} from '../../../content/components/constants';
+import { disablePrint } from '../../../content/components/utils/disablePrint';
+import theme from '../../../theme';
+import { inlineDisplayBreak } from '../../theme';
+import { Header } from '../Card';
+
+export const clearErrorAfter = 3200;
+const fadeOutDuration = 1000;
+
+const bannerBackground = '#F8E8EB';
+const errorBorderColor = '#E297A0';
+const closeIconClor = '#EDBFC5';
+const hoveredCloseIconColor = errorBorderColor;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const BannerBodyWrapper = styled.div<{shouldFadeOut: boolean}>`
+  width: 100%;
+  margin: 0;
+  height: 0;
+  z-index: ${theme.zIndex.contentNotifications};
+  overflow: visible;
+  position: sticky;
+  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+
+  @media (max-width: ${inlineDisplayBreak}) {
+    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight}rem;
+    z-index: calc(${theme.zIndex.searchSidebar} + 1);
+  }
+
+  ${(props) => props.shouldFadeOut && css`
+    animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
+  `}
+
+  ${disablePrint}
+`;
+
+// tslint:disable-next-line:variable-name
+export const BannerBody = styled.div`
+  width: 100%;
+  position: absolute;
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  background: ${bannerBackground};
+  justify-content: space-between;
+  border: 1px solid ${errorBorderColor};
+
+  ${Header} {
+    width: 90%;
+    background: inherit;
+    color: ${theme.color.text.red};
+    font-weight: normal;
+    line-height: 2.6rem;
+  }
+
+  @media (max-width: ${inlineDisplayBreak}) {
+    align-items: flex-start;
+    padding: 1.6rem ${theme.padding.page.mobile}rem;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseButton = styled(PlainButton)`
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: ${closeIconClor};
+
+  &:hover {
+    color: ${hoveredCloseIconColor};
+  }
+`;

@@ -17,7 +17,7 @@ describe('notifications reducer', () => {
 
     const newState = flow(
       (state) => reducer(state, actions.updateAvailable()),
-      (state) => reducer(state,  actions.searchFailure())
+      (state) => reducer(state, actions.searchFailure())
     )(stateWithNotifications);
 
     expect(newState).toBe(stateWithNotifications);
