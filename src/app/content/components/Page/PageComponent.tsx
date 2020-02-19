@@ -67,7 +67,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       };
     }
 
-    console.log('target', target)
     if (
       target
       && target.type === 'highlight'
@@ -79,7 +78,6 @@ export default class PageComponent extends Component<PagePropTypes> {
         this.lastScrollTargetHighlightId = highlight.id;
         focus(highlight.id);
       } else {
-        console.error('highlight not found')
         // TODO: Display some error dialog.
         // Probably when https://github.com/openstax/rex-web/pull/465 is merged
       }
@@ -113,7 +111,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
 
     const currentScrollTarget = this.getCurrentScrollTarget(prevProps);
-    console.log('prevProps.scrollTarget', prevProps.scrollTarget, 'currentScrollTarget', currentScrollTarget)
     this.scrollTargetManager(prevProps.scrollTarget, currentScrollTarget);
   }
 

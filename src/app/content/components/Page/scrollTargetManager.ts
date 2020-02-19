@@ -15,7 +15,6 @@ type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
 
 const scrollToTarget = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
   const target = getScrollTarget(container, scrollTarget);
-console.log('scrollToTarget')
   if (target && container) {
     allImagesLoaded(container).then(
       () => scrollTo(target)
@@ -23,9 +22,8 @@ console.log('scrollToTarget')
   }
 };
 
-const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
-  console.log('scrollToTargetOrTop')
-  if (getScrollTarget(container, scrollTarget)) {
+const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: ScrollTarget | undefined) => {
+  if (scrollTarget && getScrollTarget(container, scrollTarget)) {
     scrollToTarget(container, scrollTarget);
   } else {
     scrollToTop();
@@ -33,7 +31,6 @@ const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: Scroll
 };
 
 const scrollToTop = () => {
-  console.log('scrollToTop')
   const window = assertWindow();
   resetTabIndex(window.document);
   window.scrollTo(0, 0);
@@ -57,11 +54,9 @@ const scrollTargetManager = (container: HTMLElement) => (
   previous: ScrollTargetProp,
   current: ScrollTargetProp
 ) => {
-  if (!current.target) { return; }
-
   if (previous.page !== current.page) {
     scrollToTargetOrTop(container, current.target);
-  } else if (!previous.target || previous.target.value !== current.target.value) {
+  } else if (current.target && (!previous.target || previous.target.value !== current.target.value)) {
     scrollToTarget(container, current.target);
   }
 };
