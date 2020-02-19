@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -10,7 +11,7 @@ import ScrollLock from '../../../components/ScrollLock';
 import { isHtmlElement } from '../../../guards';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { onEsc } from '../../../utils';
+import { useOnEsc } from '../../../utils';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
@@ -30,32 +31,20 @@ const HighlightsPopUp = ({ ...props }: Props) => {
   const popUpRef = React.createRef<HTMLElement>();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
-  // tslint:disable-next-line: ban-types
-  let removeEvListener: null | Function = null;
+  const closeAndTrack = () => {
+    props.closeMyHighlights();
+    trackOpenCloseMH('esc');
+  };
+
+  useOnEsc(popUpRef, props.myHighlightsOpen, closeAndTrack);
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
 
-    const closeAndTrack = () => {
-      props.closeMyHighlights();
-      trackOpenCloseMH('esc');
-    };
-
-    if (isHtmlElement(popUp)) {
+    if (isHtmlElement(popUp) && props.myHighlightsOpen) {
       popUp.focus();
-
-      if (removeEvListener) {
-        removeEvListener();
-      }
-
-      const [addEvListener, removeEListener] = onEsc(
-        popUp,
-        closeAndTrack
-      );
-      addEvListener();
-      removeEvListener = removeEListener;
     }
-  }, [popUpRef, removeEvListener]);
+  }, [props.myHighlightsOpen]);
 
   const loginForHighlights = () => {
     return (

@@ -6,7 +6,7 @@ import highlightIcon from '../../../../assets/highlightIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { openMyHighlights } from '../../highlights/actions';
+import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
 import * as selectors from '../../highlights/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
@@ -67,6 +67,6 @@ export default connect(
     myHighlightsOpen: selectors.myHighlightsOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    openMyHighlights: () => dispatch(openMyHighlights()),
+    openMyHighlights: () => dispatch(openMyHighlightsAction()),
   })
 )(HighlightButton);
