@@ -19,60 +19,53 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-class SearchFailure extends React.Component<Props, {shouldFadeOut: boolean}> {
-  public state = { shouldFadeOut: false };
-  public autoClose: number;
+const SearchFailure = ({dismiss}: Props) => {
+  const autoCloseTimeout = React.useRef<number | null>(null);
+  const [isFadingOut, setIsFadingOut] = React.useState(false);
 
-  constructor(props: Props) {
-    super(props);
-    this.autoClose = setTimeout(this.startFadeOut, clearErrorAfter);
-  }
-
-  public componentDidMount() {
-    const window = assertWindow();
-
-    window.addEventListener('click', this.startFadeOut);
-    window.addEventListener('scroll', this.startFadeOut);
-  }
-
-  public componentWillUnmount() {
-    this.cleanup();
-  }
-
-  public cleanup() {
-    const window = assertWindow();
-
-    window.removeEventListener('click', this.startFadeOut);
-    window.removeEventListener('scroll', this.startFadeOut);
-    clearTimeout(this.autoClose);
-  }
-
-  public startFadeOut = () => {
-    this.cleanup();
-    this.setState({
-      shouldFadeOut: true,
-    });
+  const startFadeOut = () => {
+    cleanup();
+    setIsFadingOut(true);
   };
 
-  public render() {
-    return (
-      <BannerBodyWrapper
-        data-testid='banner-body'
-        onAnimationEnd={this.props.dismiss}
-        shouldFadeOut={this.state.shouldFadeOut}
-      >
-        <BannerBody>
-          <FormattedMessage id='i18n:notification:search-failure'>
-            {(txt) =>  <Header>{txt}</Header>}
-          </FormattedMessage>
-          <CloseButton onClick={this.props.dismiss}>
-            <CloseIcon />
-          </CloseButton>
-        </BannerBody>
-      </BannerBodyWrapper>
-    );
-  }
-}
+  const cleanup = () => {
+    const window = assertWindow();
+
+    window.removeEventListener('click', startFadeOut);
+    window.removeEventListener('scroll', startFadeOut);
+    if (autoCloseTimeout.current) {
+      clearTimeout(autoCloseTimeout.current);
+    }
+  };
+
+  React.useEffect(() => {
+    autoCloseTimeout.current = setTimeout(startFadeOut, clearErrorAfter);
+
+    const window = assertWindow();
+
+    window.addEventListener('click', startFadeOut);
+    window.addEventListener('scroll', startFadeOut);
+
+    return () => cleanup();
+  }, []);
+
+  return (
+    <BannerBodyWrapper
+      data-testid='banner-body'
+      onAnimationEnd={dismiss}
+      isFadingOut={isFadingOut}
+    >
+      <BannerBody>
+        <FormattedMessage id='i18n:notification:search-failure'>
+          {(txt) =>  <Header>{txt}</Header>}
+        </FormattedMessage>
+        <CloseButton onClick={dismiss}>
+          <CloseIcon />
+        </CloseButton>
+      </BannerBody>
+    </BannerBodyWrapper>
+  );
+};
 
 export default connect(undefined,
   (dispatch: Dispatch, ownProps: {notification: ActionType<typeof searchFailure>}) => ({

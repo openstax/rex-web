@@ -32,7 +32,7 @@ const fadeOut = keyframes`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BannerBodyWrapper = styled.div<{shouldFadeOut: boolean}>`
+export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
   height: 0;
@@ -46,7 +46,7 @@ export const BannerBodyWrapper = styled.div<{shouldFadeOut: boolean}>`
     z-index: calc(${theme.zIndex.searchSidebar} + 1);
   }
 
-  ${(props) => props.shouldFadeOut && css`
+  ${(props) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
   `}
 
@@ -87,11 +87,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 
 // tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton)`
-  background: transparent;
-  border: 0;
-  padding: 0;
   color: ${closeIconClor};
-
   &:hover {
     color: ${hoveredCloseIconColor};
   }
