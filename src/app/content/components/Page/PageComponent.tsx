@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
+import { ScrollTarget } from '../../../navigation/types';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -41,6 +42,50 @@ export default class PageComponent extends Component<PagePropTypes> {
     return cleanContent.body.innerHTML;
   };
 
+  public getCurrentScrollTarget = (prevProps: PagePropTypes) => {
+    const {
+      searchHighlights,
+      scrollTarget: { page, target },
+      highlights: { focus, focused },
+    } = this.props;
+
+    const highlgihtsAddedOrRemoved = this.highlightManager.update();
+    const searchResult = this.searchHighlightManager.update(prevProps.searchHighlights, searchHighlights, {
+      forceRedraw: highlgihtsAddedOrRemoved,
+    });
+
+    if (searchResult) {
+      return {
+        page,
+        target: {
+          type: 'highlight',
+          value: searchResult.id,
+        } as ScrollTarget,
+      };
+    }
+
+    if (
+      target
+      && target.type === 'highlight'
+      && focused !== target.value
+      && this.highlightManager.highlighter
+    ) {
+      const highlight = this.highlightManager.highlighter.getHighlight(target.value);
+      if (highlight) {
+        focus(highlight.id);
+      } else {
+        // TODO: Display some error dialog.
+        // Probably when https://github.com/openstax/rex-web/pull/465 is merged
+        return undefined;
+      }
+    }
+
+    return {
+      page,
+      target,
+    };
+  };
+
   public componentDidMount() {
     this.postProcess();
     if (!this.container.current) {
@@ -62,29 +107,13 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
-    const highlgihtsAddedOrRemoved = this.highlightManager.update();
-    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
-    });
-
     if (!this.highlightManager.highlighter && this.container.current) {
       this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
     }
 
-    if (
-      this.props.scrollTarget.target
-      && this.props.scrollTarget.target.type === 'highlight'
-      && this.highlightManager.highlighter
-      ) {
-      const highlight = this.highlightManager.highlighter.getHighlight(this.props.scrollTarget.target.value);
-      if (highlight) {
-        this.scrollTargetManager({ page: undefined, target: undefined }, this.props.scrollTarget);
-      } else {
-        // TODO: Display some error dialog.
-        // Probably when https://github.com/openstax/rex-web/pull/465 is merged
-      }
-    } else {
-      this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
+    const currentScrollTarget = this.getCurrentScrollTarget(prevProps);
+    if (currentScrollTarget) {
+      this.scrollTargetManager(prevProps.scrollTarget, currentScrollTarget);
     }
   }
 

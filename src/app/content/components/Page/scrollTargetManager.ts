@@ -44,14 +44,17 @@ const getScrollTarget = (
 
   if (type === 'hash') {
     return container.querySelector(`[id="${value.replace(/^#/, '')}"]`);
-  } else if (type === 'highlight' || type === 'search') {
+  } else if (type === 'highlight') {
     return container.querySelector(`[data-highlight-id="${value}"]`);
   }
 
   return null;
 };
 
-const scrollTargetManager = (container: HTMLElement) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
+const scrollTargetManager = (container: HTMLElement) => (
+  previous: ScrollTargetProp,
+  current: ScrollTargetProp
+) => {
   if (!current.target) { return; }
 
   if (previous.page !== current.page) {

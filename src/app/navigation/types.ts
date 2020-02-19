@@ -67,6 +67,6 @@ export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppSer
     Promise<any> | void;
 
 export interface ScrollTarget {
-  type: 'hash' | 'highlight' | 'search';
+  type: 'hash' | 'highlight';
   value: string;
 }

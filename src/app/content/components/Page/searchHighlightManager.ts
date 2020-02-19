@@ -1,11 +1,9 @@
-import Highlighter from '@openstax/highlighter';
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
-import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
-import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
   highlighter: Highlighter;
@@ -39,7 +37,7 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const resultToSelect = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
   if (!current.selectedResult) {
     return;
   }
@@ -60,15 +58,13 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   }
 
   if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
-    allImagesLoaded(services.container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
-    );
+    return firstSelectedHighlight;
   }
 };
 
 const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
   updateResults(services, previous, current, options);
-  selectResult(services, previous, current, options);
+  return resultToSelect(services, previous, current, options);
 };
 
 const searchHighlightManager = (container: HTMLElement) => {
@@ -90,5 +86,5 @@ export default searchHighlightManager;
 
 export const stubManager: ReturnType<typeof searchHighlightManager> = {
   unmount: (): void => undefined,
-  update: (): void => undefined,
+  update: (): Highlight | undefined => undefined,
 };
