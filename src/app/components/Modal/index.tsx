@@ -6,7 +6,6 @@ import * as Styled from './styles';
 interface PropTypes {
   onModalClose: () => void;
   heading: string;
-  subheading: string;
   className?: string;
 }
 
@@ -14,7 +13,6 @@ interface PropTypes {
 const Modal = ({
   className,
   heading,
-  subheading,
   onModalClose,
   children,
 }: React.PropsWithChildren<PropTypes>) => {
@@ -32,12 +30,7 @@ const Modal = ({
             </FormattedMessage>
             <Styled.CloseModalIcon onClick={onModalClose}/>
           </Styled.Header>
-          <Styled.Body>
-            <FormattedMessage id={subheading}>
-              {(msg) => <Styled.BodyHeading>{msg}</Styled.BodyHeading>}
-            </FormattedMessage>
-            {children}
-          </Styled.Body>
+          {children}
         </Styled.Card>
       </Styled.CardWrapper>
       <Styled.Mask />

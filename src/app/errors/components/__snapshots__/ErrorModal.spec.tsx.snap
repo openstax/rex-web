@@ -178,18 +178,6 @@ exports[`ErrorModal matches snapshot 1`] = `
   z-index: 1;
 }
 
-.c9 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 3rem;
-}
-
 .c5 {
   height: 2.5rem;
   width: 2.5rem;
@@ -204,6 +192,18 @@ exports[`ErrorModal matches snapshot 1`] = `
 
 .c5:hover {
   color: #5e6062;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 3rem;
 }
 
 .c8 {

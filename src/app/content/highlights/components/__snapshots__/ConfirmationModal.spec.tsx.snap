@@ -192,7 +192,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
 
 .c0 {
   top: 0;
-  z-index: 100;
+  z-index: 110;
   left: 0;
   width: 100%;
   height: 100%;
@@ -215,18 +215,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
   z-index: 1;
 }
 
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 3rem;
-}
-
 .c5 {
   height: 2.5rem;
   width: 2.5rem;
@@ -241,6 +229,22 @@ exports[`ConfirmationModal matches snapshot 1`] = `
 
 .c5:hover {
   color: #5e6062;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 3rem;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 @media screen and (max-width:75em) {

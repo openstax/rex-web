@@ -51,7 +51,7 @@ export const BodyHeading = styled.h3`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 ${modalPadding}rem ${modalPadding}rem;
+  padding: 0 ${modalPadding}rem;
 
   ${Card.Header} + & { /* stylelint-disable */
     margin-top: 0;
@@ -100,4 +100,11 @@ export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='t
   }
   height: 2rem;
   width: 2rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: ${modalPadding}rem;
 `;
