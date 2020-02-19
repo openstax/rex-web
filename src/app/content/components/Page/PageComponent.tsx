@@ -106,12 +106,12 @@ export default class PageComponent extends Component<PagePropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
+    const currentScrollTarget = this.getCurrentScrollTarget(prevProps);
+    this.scrollTargetManager(prevProps.scrollTarget, currentScrollTarget);
+
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
-
-    const currentScrollTarget = this.getCurrentScrollTarget(prevProps);
-    this.scrollTargetManager(prevProps.scrollTarget, currentScrollTarget);
   }
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
