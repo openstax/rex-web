@@ -49,11 +49,11 @@ describe('content', () => {
         match: {
           params: {
             book: {
-              slug: bookState.slug, 
+              slug: bookState.slug,
             },
             page: {
-              slug: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug 
-            }
+              slug: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+            },
           },
           route: content,
         },
