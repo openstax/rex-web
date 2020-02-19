@@ -31,6 +31,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private highlightManager = stubHighlightManager;
   private scrollTargetManager = stubScrollTargetManager;
   private processing: Promise<void> = Promise.resolve();
+  private lastScrollTargetHighlightId: string | undefined = undefined;
 
   public getTrasnformedContent = () => {
     const {book, page, services} = this.props;
@@ -46,37 +47,41 @@ export default class PageComponent extends Component<PagePropTypes> {
     const {
       searchHighlights,
       scrollTarget: { page, target },
-      highlights: { focus, focused },
+      highlights: { focus, focused, highlights },
     } = this.props;
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
-    const searchResult = this.searchHighlightManager.update(prevProps.searchHighlights, searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
-    });
+    const searchResultHighlight = this.searchHighlightManager.update(
+      prevProps.searchHighlights,
+      searchHighlights,
+      { forceRedraw: highlgihtsAddedOrRemoved }
+    );
 
-    if (searchResult) {
+    if (searchResultHighlight) {
       return {
         page,
         target: {
           type: 'highlight',
-          value: searchResult.id,
+          value: searchResultHighlight.id,
         } as ScrollTarget,
       };
     }
 
+    console.log('target', target)
     if (
       target
       && target.type === 'highlight'
+      && target.value !== this.lastScrollTargetHighlightId
       && focused !== target.value
-      && this.highlightManager.highlighter
     ) {
-      const highlight = this.highlightManager.highlighter.getHighlight(target.value);
+      const highlight = highlights.find((search) => search.id === target.value);
       if (highlight) {
+        this.lastScrollTargetHighlightId = highlight.id;
         focus(highlight.id);
       } else {
+        console.error('highlight not found')
         // TODO: Display some error dialog.
         // Probably when https://github.com/openstax/rex-web/pull/465 is merged
-        return undefined;
       }
     }
 
@@ -107,14 +112,9 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
-    if (!this.highlightManager.highlighter && this.container.current) {
-      this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
-    }
-
     const currentScrollTarget = this.getCurrentScrollTarget(prevProps);
-    if (currentScrollTarget) {
-      this.scrollTargetManager(prevProps.scrollTarget, currentScrollTarget);
-    }
+    console.log('prevProps.scrollTarget', prevProps.scrollTarget, 'currentScrollTarget', currentScrollTarget)
+    this.scrollTargetManager(prevProps.scrollTarget, currentScrollTarget);
   }
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {

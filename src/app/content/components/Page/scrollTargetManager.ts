@@ -15,7 +15,7 @@ type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
 
 const scrollToTarget = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
   const target = getScrollTarget(container, scrollTarget);
-
+console.log('scrollToTarget')
   if (target && container) {
     allImagesLoaded(container).then(
       () => scrollTo(target)
@@ -24,6 +24,7 @@ const scrollToTarget = (container: HTMLElement | null, scrollTarget: ScrollTarge
 };
 
 const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
+  console.log('scrollToTargetOrTop')
   if (getScrollTarget(container, scrollTarget)) {
     scrollToTarget(container, scrollTarget);
   } else {
@@ -32,6 +33,7 @@ const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: Scroll
 };
 
 const scrollToTop = () => {
+  console.log('scrollToTop')
   const window = assertWindow();
   resetTabIndex(window.document);
   window.scrollTo(0, 0);
