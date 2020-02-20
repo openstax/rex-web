@@ -255,7 +255,7 @@ input:checked + .c10 .c11 {
 @media screen and (max-width:75em) {
   .c0.c0.c0 {
     left: -1.6rem;
-    max-width: calc(100vw - 0.8rem * 2);
+    max-width: calc(100vw - 1.6rem);
   }
 }
 
