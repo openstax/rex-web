@@ -108,7 +108,7 @@ export default styled(ChapterFilter)`
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePaddingSides}rem;
-      max-width: calc(100vw - ${mobileMarginSides}rem * 2);
+      max-width: calc(100vw - ${mobileMarginSides * 2}rem);
     }
   `)}
 

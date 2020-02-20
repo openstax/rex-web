@@ -1,6 +1,8 @@
 import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { getType } from 'typesafe-actions';
+import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
-import { AppServices, MiddlewareAPI } from '../../../types';
+import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { bookAndPage } from '../../selectors';
 import { Book } from '../../types';
@@ -42,14 +44,16 @@ const loadAllHighlights = async(args: LoadAllHighlightsArgs): Promise<HighlightD
   }
 };
 
-const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
   const {dispatch, getState, highlightClient} = services;
   const state = getState();
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
 
-  if (!authenticated || !book || !page || typeof(window) === 'undefined' || loaded) {
+  const pageFocusIn = action && action.type === getType(receivePageFocus) && action.payload;
+
+  if (!authenticated || !book || !page || typeof(window) === 'undefined' || (loaded && !pageFocusIn)) {
     return;
   }
 
