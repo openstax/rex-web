@@ -5,8 +5,10 @@ import mockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import { resetModules } from '../../../../test/utils';
+import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
+import { locationChange } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -55,6 +57,40 @@ describe('locationChange', () => {
     const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     hook();
+
+    expect(getHighlights).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops with no pageFocus action', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
+
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+    const mock = mockHighlight();
+    const highlights = [{id: mock.id} as HighlightData];
+    store.dispatch(receiveHighlights(highlights));
+
+    hook(locationChange({} as any));
+
+    expect(getHighlights).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops when focus is leaving', () => {
+    const mock = mockHighlight();
+    const highlights = [{id: mock.id} as HighlightData];
+
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+    store.dispatch(receiveHighlights(highlights));
+
+    const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
+
+    hook(receivePageFocus(false));
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();

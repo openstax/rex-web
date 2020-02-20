@@ -75,6 +75,14 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
 const isUnknownHighlightData = (highlighter: Highlighter) => (data: HighlightData) =>
   !highlighter.getHighlight(data.id);
 
+const updateStyle = (highlighter: Highlighter) => (data: HighlightData) => {
+  const highlight = highlighter.getHighlight(data.id);
+
+  if (highlight) {
+    highlight.setStyle(data.color);
+  }
+};
+
 const highlightData = (services: Services) => (data: HighlightData) => {
   const { highlighter } = services;
 
@@ -172,6 +180,10 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         addedOrRemoved = true;
         attachHighlight(pendingHighlight, highlighter);
       }
+
+      getProp().highlights
+        .map(updateStyle(highlighter))
+      ;
 
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))
