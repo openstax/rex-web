@@ -57,7 +57,7 @@ describe('HighlightsPrintButton', () => {
     expect(storeDispatch).toHaveBeenCalledWith(printSummaryHighlights());
   });
 
-  it('does nothing if summary is loading', async() => {
+  it('disables print button if summary is loading', () => {
     store.dispatch(receiveSummaryHighlights({}, {} as any));
     store.dispatch(printSummaryHighlights());
 
@@ -69,11 +69,8 @@ describe('HighlightsPrintButton', () => {
 
     storeDispatch.mockClear();
 
-    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
-    ReactTestUtils.Simulate.click(renderedPrintButton);
-
-    expect(storeDispatch).not.toHaveBeenCalled();
-    expect(print).not.toHaveBeenCalled();
+    const button = component.root.findByProps({'data-testid': 'print'});
+    expect(button.props.disabled).toBe(true);
   });
 
   it('doesn\'t dispatch if all highlights have been loaded', () => {

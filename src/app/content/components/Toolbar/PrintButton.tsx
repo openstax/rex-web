@@ -12,7 +12,7 @@ interface Props {
   currentPath: string;
   book: Book | undefined;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }
 
