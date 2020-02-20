@@ -16,6 +16,7 @@ export const track = (
     getGoogleAnalyticsPayload: () => ({
       eventAction: pathname,
       eventCategory: eventName,
+      nonInteraction: true,
     }),
   };
 };
