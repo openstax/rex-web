@@ -151,9 +151,11 @@ describe('Show my highlights', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {
@@ -179,9 +181,11 @@ describe('Show my highlights', () => {
     const dispatch = spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
@@ -220,9 +224,11 @@ describe('Show my highlights', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {

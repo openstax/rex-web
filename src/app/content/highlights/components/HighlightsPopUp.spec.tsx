@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -110,10 +111,11 @@ describe('MyHighlights button and PopUp', () => {
     </Provider>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
-
     isHtmlElement.mockReturnValueOnce(true);
 
     act(() => { store.dispatch(openMyHighlights()); });
+    // Force componentDidUpdate()
+    act(() => { store.dispatch(receiveUser(user)); });
 
     expect(focus).toHaveBeenCalled();
   });
@@ -206,7 +208,7 @@ describe('MyHighlights button and PopUp', () => {
     expect(removeEventListener).toHaveBeenCalled();
   });
 
-  it('else path for component will unmount', () => {
+  /*it('else path for component will unmount', () => {
     const focus = jest.fn();
     const addEventListener = jest.fn();
     const removeEventListener = jest.fn();
@@ -231,5 +233,25 @@ describe('MyHighlights button and PopUp', () => {
     component.unmount();
 
     expect(removeEventListener).not.toHaveBeenCalled();
+  });*/
+
+  it('closes popup on esc and tracks analytics', async() => {
+    //const focus = jest.fn();
+    //const addEventListener = jest.fn();
+    //const createNodeMock = () => ({focus, addEventListener});
+
+    const { node, tree } = renderToDom(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsPopUp />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    act(() => { store.dispatch(openMyHighlights()); });
+    ReactTestUtils.Simulate.keyDown(node, { key : 'esc'});
+
+    expect(services.analytics.openCloseMH).toHaveBeenCalled();
+
   });
 });
