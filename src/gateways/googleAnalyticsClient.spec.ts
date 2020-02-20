@@ -147,6 +147,19 @@ describe('GoogleAnalyticsClient', () => {
         transport: 'beacon',
       });
     });
+
+    it('calls with category, action, label, value and non-interaction', async() => {
+      client.trackEvent('category', 'action', 'label', 42, true);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
+        eventAction: 'action',
+        eventCategory: 'category',
+        eventLabel: 'label',
+        eventValue: 42,
+        hitType: 'event',
+        nonInteraction: true,
+        transport: 'beacon',
+      });
+    });
   });
 
 });
