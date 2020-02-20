@@ -1,9 +1,11 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
+import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
+import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
   highlighter: Highlighter;
@@ -77,6 +79,11 @@ const searchHighlightManager = (container: HTMLElement) => {
   };
 
   return {
+    scrollTo: (searchHighlight: Highlight) => () => {
+      allImagesLoaded(services.container).then(
+        () => scrollTo(searchHighlight.elements[0] as HTMLElement)
+      );
+    },
     unmount: () => services.highlighter.unmount(),
     update: handleUpdate(services),
   };
@@ -85,6 +92,7 @@ const searchHighlightManager = (container: HTMLElement) => {
 export default searchHighlightManager;
 
 export const stubManager: ReturnType<typeof searchHighlightManager> = {
+  scrollTo: (_searchHighlight: Highlight) => (): void => undefined,
   unmount: (): void => undefined,
   update: (): Highlight | undefined => undefined,
 };

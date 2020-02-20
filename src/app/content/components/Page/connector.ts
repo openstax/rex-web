@@ -18,7 +18,7 @@ export interface PagePropTypes {
   className?: string;
   contentLinks: ContentLinkProp;
   locationState: ReturnType<typeof selectNavigation.locationState>;
-  scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
+  scrollTargets: ReturnType<typeof mapStateToScrollTargetProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
@@ -31,7 +31,7 @@ export default connect(
     currentPath: selectNavigation.pathname(state),
     highlights: mapStateToHighlightProp(state),
     page: select.page(state),
-    scrollTarget: mapStateToScrollTargetProp(state),
+    scrollTargets: mapStateToScrollTargetProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch) => ({

@@ -1,21 +1,25 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
-import { ScrollTarget } from '../../../navigation/types';
 import { AppState } from '../../../types';
 import { assertWindow, resetTabIndex } from '../../../utils';
-import * as select from '../../selectors';
+import { Page } from '../../types';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollTargetProp = (state: AppState) => ({
-  page: select.page(state),
-  target: selectNavigation.scrollTarget(state),
+  hash: selectNavigation.hash(state),
+  highlightId: selectNavigation.highlightId(state),
 });
-type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
 
-const scrollToTarget = (container: HTMLElement | null, scrollTarget: ScrollTarget) => {
-  const target = getScrollTarget(container, scrollTarget);
+export interface ScrollTargets {
+  hash?: string;
+  highlight?: () => void;
+  searchHighlight?: () => void;
+}
+
+const scrollToTarget = (container: HTMLElement | null, hash: string) => {
+  const target = getScrollTarget(container, hash);
+
   if (target && container) {
     allImagesLoaded(container).then(
       () => scrollTo(target)
@@ -23,9 +27,9 @@ const scrollToTarget = (container: HTMLElement | null, scrollTarget: ScrollTarge
   }
 };
 
-const scrollToTargetOrTop = (container: HTMLElement | null, scrollTarget: ScrollTarget | undefined) => {
-  if (scrollTarget && getScrollTarget(container, scrollTarget)) {
-    scrollToTarget(container, scrollTarget);
+const scrollToTargetOrTop = (container: HTMLElement | null, hash: string) => {
+  if (getScrollTarget(container, hash)) {
+    scrollToTarget(container, hash);
   } else {
     scrollToTop();
   }
@@ -37,28 +41,27 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const getScrollTarget = (
-  container: HTMLElement | null, { type, value }: ScrollTarget
-): HTMLElement | null => {
-  if (!container || typeof(window) === 'undefined') { return null; }
-
-  if (type === 'hash') {
-    return container.querySelector(`[id="${value.replace(/^#/, '')}"]`);
-  } else if (type === 'highlight') {
-    return container.querySelector(`[data-highlight-id="${value}"]`);
-  }
-
-  return null;
+const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {
+  return container && typeof(window) !== 'undefined' && hash
+    ? container.querySelector(`[id="${hash.replace(/^#/, '')}"]`)
+    : null;
 };
 
 const scrollTargetManager = (container: HTMLElement) => (
-  previous: ScrollTargetProp,
-  current: ScrollTargetProp
+  scrollTargets: ScrollTargets,
+  previousePage: Page | undefined,
+  currentPage: Page | undefined
 ) => {
-  if (previous.page !== current.page) {
-    scrollToTargetOrTop(container, current.target);
-  } else if (current.target && !isEqual(previous.target, current.target)) {
-    scrollToTarget(container, current.target);
+  const { hash, highlight, searchHighlight } = scrollTargets;
+
+  if (hash) {
+    scrollToTargetOrTop(container, hash);
+  } else if (highlight) {
+    highlight();
+  } else if (searchHighlight) {
+    searchHighlight();
+  } else if (previousePage !== currentPage) {
+    scrollToTop();
   }
 };
 
