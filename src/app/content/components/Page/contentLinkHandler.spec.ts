@@ -34,7 +34,10 @@ describe('contentLinkHandler', () => {
   });
 
   describe('without unsaved highlight', () => {
+    let contentRoute: typeof routes['content'];
+
     beforeEach(() => {
+      contentRoute = require('../../routes').content;
       handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
     });
 
@@ -71,7 +74,7 @@ describe('contentLinkHandler', () => {
           uuid: book.id,
           version: book.version,
         },
-        route: routes.content,
+        route: contentRoute,
         state: {
           bookUid: 'book',
           bookVersion: 'version',
@@ -111,7 +114,7 @@ describe('contentLinkHandler', () => {
           book: book.slug,
           page: 'page-title',
         },
-        route: routes.content,
+        route: contentRoute,
         state: {
           bookUid: 'book',
           bookVersion: 'version',
