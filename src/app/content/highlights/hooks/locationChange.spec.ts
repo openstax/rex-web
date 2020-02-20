@@ -1,4 +1,3 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -13,7 +12,7 @@ import { locationChange } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { receiveHighlights, receiveHighlightsTotalCounts } from '../actions';
+import { receiveHighlights } from '../actions';
 import { HighlightData } from '../types';
 
 const mockConfig = {BOOKS: {
@@ -106,45 +105,30 @@ describe('locationChange', () => {
     const highlights = [{id: mock.id} as HighlightData];
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({data: highlights}));
-    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({}));
+      .mockReturnValue(Promise.resolve({data: highlights, meta: {perPage: 200, page: 1, totalCount: 1}}));
 
     await hook();
 
     expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
   });
 
-  it('noops on invalid response', async() => {
+  it('receives multiple pages of highlights', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
 
+    const highlights1 = [{id: mockHighlight().id} as HighlightData];
+    const highlights2 = [{id: mockHighlight().id} as HighlightData];
+    const highlights = [...highlights1, ...highlights2];
+
     jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({}));
-    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({}));
+      .mockReturnValueOnce(Promise.resolve({data: highlights1, meta: {perPage: 1, page: 1, totalCount: 2}}))
+      .mockReturnValueOnce(Promise.resolve({data: highlights2, meta: {perPage: 1, page: 2, totalCount: 2}}))
+      .mockReturnValue(Promise.resolve({}))
+    ;
 
     await hook();
 
-    expect(dispatch).not.toHaveBeenCalled();
-  });
-
-  it('noops if totalCountsInState are not empty', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    const totalCountsInState = { somePage: {[HighlightColorEnum.Green]: 1} };
-    store.dispatch(receiveHighlightsTotalCounts(totalCountsInState, new Map()));
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(Promise.resolve({}));
-    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(Promise.resolve({ countsPerSource: { pageId: {[HighlightColorEnum.Green]: 1} }}));
-
-    await hook();
-
-    expect(dispatch).not.toHaveBeenCalled();
-    expect(store.getState().content.highlights.summary.totalCountsPerPage).toEqual(totalCountsInState);
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
   });
 });
