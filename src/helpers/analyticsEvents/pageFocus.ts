@@ -18,6 +18,7 @@ export const track = (
       eventAction: focused ? 'focused' : 'unfocused',
       eventCategory: eventName,
       eventLabel: pathname,
+      nonInteraction: true,
     }),
   };
 };
