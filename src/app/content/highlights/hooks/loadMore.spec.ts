@@ -68,6 +68,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights,
         meta: {
+          page: 1,
           perPage: 20,
           totalCount: 30,
         },
@@ -109,6 +110,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: page3,
         meta: {
+          page: 1,
           perPage: 20,
           totalCount: 30,
         },
@@ -116,6 +118,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: page4,
         meta: {
+          page: 1,
           perPage: 20,
           totalCount: 5,
         },
@@ -157,6 +160,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights as HighlightData[],
         meta: {
+          page: 1,
           perPage: 1,
           totalCount: 1,
         },
@@ -200,6 +204,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights as HighlightData[],
         meta: {
+          page: 1,
           perPage: 1,
           totalCount: 1,
         },

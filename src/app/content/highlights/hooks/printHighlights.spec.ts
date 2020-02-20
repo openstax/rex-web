@@ -43,9 +43,11 @@ describe('printHighlights', () => {
   let hook: ReturnType<typeof import ('./printHighlights').hookBody>;
 
   beforeEach(() => {
+    resetModules();
+
     print = jest.spyOn(assertWindow(), 'print');
     print.mockImplementation(noop);
-    resetModules();
+
     store = createTestStore();
 
     helpers = {
@@ -59,119 +61,128 @@ describe('printHighlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(openMyHighlights());
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 210},
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
-    }, new Map()));
-    store.dispatch(setSummaryFilters({locationIds}));
 
     hook = (require('./printHighlights').hookBody)(helpers);
   });
 
-  it('fetches all highlights before print', async() => {
-    const firstFetch = page1.slice(0, 200);
-    const secondFetch = [...page1.slice(200), ...page2];
+  describe('with unfetched resources', () => {
+    beforeEach(() => {
+      store.dispatch(receiveHighlightsTotalCounts({
+        'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 210},
+        'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
+      }, new Map()));
+      store.dispatch(setSummaryFilters({locationIds}));
+    });
 
-    const response: SummaryHighlights = {
-      'testbook1-testchapter1-uuid': {
-        'testbook1-testpage2-uuid': page2,
-      },
-      'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': page1,
-      },
-    };
+    it('fetches all highlights before print', async() => {
+      const firstFetch = page1.slice(0, 200);
+      const secondFetch = [...page1.slice(200), ...page2];
 
-    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValueOnce(Promise.resolve({
-        data: firstFetch,
-        meta: {
-          perPage: maxHighlightsApiPageSize,
-          totalCount: page1.length + page2.length,
+      const response: SummaryHighlights = {
+        'testbook1-testchapter1-uuid': {
+          'testbook1-testpage2-uuid': page2,
         },
-      }))
-      .mockReturnValueOnce(Promise.resolve({
-        data: secondFetch,
-        meta: {
-          perPage: maxHighlightsApiPageSize,
-          totalCount: page1.length + page2.length,
+        'testbook1-testpage1-uuid': {
+          'testbook1-testpage1-uuid': page1,
         },
-      }))
-    ;
-    await hook(printSummaryHighlights({shouldFetchMore: true}));
-    expect(highlightClient).toHaveBeenCalledTimes(2);
+      };
 
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
-    expect(print).toHaveBeenCalled();
+      const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockReturnValueOnce(Promise.resolve({
+          data: firstFetch,
+          meta: {
+            page: 1,
+            perPage: maxHighlightsApiPageSize,
+            totalCount: page1.length + page2.length,
+          },
+        }))
+        .mockReturnValueOnce(Promise.resolve({
+          data: secondFetch,
+          meta: {
+            page: 2,
+            perPage: maxHighlightsApiPageSize,
+            totalCount: page1.length + page2.length,
+          },
+        }))
+      ;
+      await hook(printSummaryHighlights());
+      expect(highlightClient).toHaveBeenCalledTimes(2);
+
+      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
+      expect(print).toHaveBeenCalled();
+    });
+
+    it('doesn\'t trigger print if myhighlights are closed', async() => {
+      store.dispatch(receiveSummaryHighlights({
+        'testbook1-testchapter1-uuid': {
+          'testbook1-testpage2-uuid': page2,
+        },
+        'testbook1-testpage1-uuid': {
+          'testbook1-testpage1-uuid': page1,
+        },
+      }, null));
+      store.dispatch(closeMyHighlights());
+
+      await hook(printSummaryHighlights());
+
+      expect(print).not.toHaveBeenCalled();
+    });
+
+    it('uses pagination from previous requests', async() => {
+      const firstFetch = page1.slice(105);
+      const secondFetch = page2;
+
+      const response: SummaryHighlights = {
+        'testbook1-testchapter1-uuid': {
+          'testbook1-testpage2-uuid': secondFetch,
+        },
+        'testbook1-testpage1-uuid': {
+          'testbook1-testpage1-uuid': firstFetch,
+        },
+      };
+
+      const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockReturnValueOnce(Promise.resolve({
+          data: firstFetch,
+          meta: {
+            page: 2,
+            perPage: 105,
+            totalCount: page1.length,
+          },
+        }))
+        .mockReturnValueOnce(Promise.resolve({
+          data: secondFetch,
+          meta: {
+            page: 1,
+            perPage: maxHighlightsApiPageSize,
+            totalCount: page2.length,
+          },
+        }))
+      ;
+
+      // meant to immitate fetched highlights before triggering print
+      store.dispatch(receiveSummaryHighlights( {'testbook1-testpage1-uuid': {
+        'testbook1-testpage1-uuid': page1.slice(0, 105),
+      }}, {perPage: 105, sourceIds: locationIds, page: 1}));
+
+      await hook(printSummaryHighlights());
+      expect(highlightClient).toHaveBeenCalledTimes(2);
+
+      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
+      expect(print).toHaveBeenCalled();
+    });
   });
 
-  it('noops if all sources have been fetched', async() => {
-    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
+  describe('with all resources fetched', () => {
+    it('doesn\'t call highlight client', async() => {
+      const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-    await hook(printSummaryHighlights({shouldFetchMore: false}));
+      await hook(printSummaryHighlights());
 
-    expect(highlightClient).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalled();
+      expect(highlightClient).not.toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights({}, null));
 
-    expect(print).toHaveBeenCalled();
-  });
-
-  it('doesn\'t trigger print if myhighlights are closed', async() => {
-    store.dispatch(receiveSummaryHighlights({
-      'testbook1-testchapter1-uuid': {
-        'testbook1-testpage2-uuid': page2,
-      },
-      'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': page1,
-      },
-    }, null));
-    store.dispatch(closeMyHighlights());
-
-    await hook(printSummaryHighlights({shouldFetchMore: true}));
-
-    expect(print).not.toHaveBeenCalled();
-  });
-
-  it('uses pagination from previous requests', async() => {
-    const firstFetch = page1.slice(105);
-    const secondFetch = page2;
-
-    const response: SummaryHighlights = {
-      'testbook1-testchapter1-uuid': {
-        'testbook1-testpage2-uuid': secondFetch,
-      },
-      'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': firstFetch,
-      },
-    };
-
-    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValueOnce(Promise.resolve({
-        data: firstFetch,
-        meta: {
-          page: 2,
-          perPage: 105,
-          totalCount: page1.length,
-        },
-      }))
-      .mockReturnValueOnce(Promise.resolve({
-        data: secondFetch,
-        meta: {
-          page: 1,
-          perPage: maxHighlightsApiPageSize,
-          totalCount: page2.length,
-        },
-      }))
-    ;
-
-    // meant to immitate fetched highlights before triggering print
-    store.dispatch(receiveSummaryHighlights( {'testbook1-testpage1-uuid': {
-      'testbook1-testpage1-uuid': page1.slice(0, 105),
-    }}, {perPage: 105, sourceIds: locationIds, page: 1}));
-
-    await hook(printSummaryHighlights({shouldFetchMore: true}));
-    expect(highlightClient).toHaveBeenCalledTimes(2);
-
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
-    expect(print).toHaveBeenCalled();
+      expect(print).toHaveBeenCalled();
+    });
   });
 });

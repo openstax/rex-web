@@ -5,6 +5,7 @@ import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import {
   filterCountsPerSourceByColorFilter,
   filterCountsPerSourceByLocationFilter,
+  getNextPageSources as nextResources
 } from './paginationUtils';
 
 describe('getNextPageSources', () => {
@@ -13,8 +14,13 @@ describe('getNextPageSources', () => {
   });
 
   describe('under resource limit' , () => {
+    let getNextPageSources: typeof nextResources;
+
+    beforeEach(() => {
+      getNextPageSources = require('./paginationUtils').getNextPageSources;
+    });
+
     it('gets one page id if it has enough records left to fill a response', () => {
-      const {getNextPageSources} = require('./paginationUtils');
       expect(getNextPageSources({
         page1: {[HighlightColorEnum.Green]: 10},
         page2: {[HighlightColorEnum.Pink]: 10},
@@ -22,7 +28,6 @@ describe('getNextPageSources', () => {
     });
 
     it('fails over to next page if more records are needed', () => {
-      const {getNextPageSources} = require('./paginationUtils');
       expect(getNextPageSources({
         page1: {[HighlightColorEnum.Green]: 5},
         page2: {[HighlightColorEnum.Pink]: 10},
@@ -30,7 +35,6 @@ describe('getNextPageSources', () => {
     });
 
     it('skips pages with no highlights', () => {
-      const {getNextPageSources} = require('./paginationUtils');
       expect(getNextPageSources({
         page1: {[HighlightColorEnum.Green]: 0},
         page2: {[HighlightColorEnum.Pink]: 10},

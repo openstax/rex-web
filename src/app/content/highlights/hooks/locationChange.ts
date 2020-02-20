@@ -26,7 +26,7 @@ const loadAllHighlights = async(args: LoadAllHighlightsArgs): Promise<HighlightD
     ...pagination,
   });
 
-  const {data, page, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse)
+  const {data, page, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse);
   const loadedResults = (page - 1) * perPage + data.length;
 
   if (loadedResults < totalCount) {
