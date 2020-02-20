@@ -173,6 +173,7 @@ describe('locationChange', () => {
       abstract: '',
       id: 'newbookid',
       license: {name: '', version: ''},
+      revised: '2012-06-21',
       shortId: 'newbookshortid',
       title: 'newbook',
       tree: {
@@ -271,6 +272,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockBook({
         id: 'garbagebookid',
         license: {name: '', version: ''},
+        revised: '2012-06-21',
         shortId: 'garbagebookshortid',
         title: 'book without the page you\'re looking for',
         tree: {

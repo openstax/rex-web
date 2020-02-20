@@ -150,15 +150,18 @@ class Attribution extends Component<Props> {
     const introPage = findDefaultBookPage(book);
     const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
     const bookPublishDate = new Date(book.publish_date);
+    const bookLatestRevision = new Date(book.revised);
 
     // date is initialized as UTC, conversion to local time can change the date.
     // this compensates
     bookPublishDate.setMinutes(bookPublishDate.getMinutes() + bookPublishDate.getTimezoneOffset());
+    bookLatestRevision.setMinutes(bookLatestRevision.getMinutes() + bookLatestRevision.getTimezoneOffset());
 
     const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
 
     return {
       bookAuthors: seniorAuthors.map(({value: {name}}) => name).join(', '),
+      bookLatestRevision,
       bookLicenseName: book.license.name,
       bookLicenseVersion: book.license.version,
       bookPublishDate,
