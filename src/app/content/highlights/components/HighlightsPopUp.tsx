@@ -8,7 +8,6 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
 import ScrollLock from '../../../components/ScrollLock';
-import { isHtmlElement } from '../../../guards';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { useOnEsc } from '../../../utils';
@@ -17,6 +16,46 @@ import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
 import HighlightsHelpInfo from './SummaryPopup/HighlightsHelpInfo';
+
+// tslint:disable-next-line: variable-name
+const BlueNote = () => <Styled.BlueStickyNote>
+  <Styled.StickyNoteUl>
+    <Styled.StickyNoteLi>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
+    </Styled.StickyNoteLi>
+    <Styled.StickyNoteLi>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
+    </Styled.StickyNoteLi>
+  </Styled.StickyNoteUl>
+</Styled.BlueStickyNote>;
+
+// tslint:disable-next-line: variable-name
+const GreenNote = () => <Styled.GreenStickyNote>
+  <Styled.StickyNoteUl>
+    <Styled.StickyNoteLi>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
+      <Styled.InfoIconWrapper>
+        <Styled.InfoIcon />
+        <Styled.Tooltip>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:body:tooltip:review'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+        </Styled.Tooltip>
+      </Styled.InfoIconWrapper>
+    </Styled.StickyNoteLi>
+    <Styled.StickyNoteLi>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
+        {(msg: Element | string) => msg}
+      </FormattedMessage>
+    </Styled.StickyNoteLi>
+  </Styled.StickyNoteUl>
+</Styled.GreenStickyNote>;
 
 interface Props {
   myHighlightsOpen: boolean;
@@ -28,7 +67,7 @@ interface Props {
 
 // tslint:disable-next-line: variable-name
 const HighlightsPopUp = ({ ...props }: Props) => {
-  const popUpRef = React.createRef<HTMLElement>();
+  const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
   const closeAndTrack = () => {
@@ -41,14 +80,14 @@ const HighlightsPopUp = ({ ...props }: Props) => {
   React.useEffect(() => {
     const popUp = popUpRef.current;
 
-    if (isHtmlElement(popUp) && props.myHighlightsOpen) {
+    if (popUp && props.myHighlightsOpen) {
       popUp.focus();
     }
   }, [props.myHighlightsOpen]);
 
   const loginForHighlights = () => {
     return (
-      <Styled.PopupBody>
+      <Styled.PopupBody ref={popUpRef}>
         <Styled.LoginText values={{ loginLink: props.loginLink }} />
         <Styled.GridWrapper>
           <Styled.GeneralText>
@@ -59,61 +98,15 @@ const HighlightsPopUp = ({ ...props }: Props) => {
           <Styled.ImagesGrid>
             <Styled.ImageWrapper>
               <Styled.FirstImage src={notLoggedImage1} />
-              {blueNote()}
+              <BlueNote />
             </Styled.ImageWrapper>
             <Styled.ImageWrapper>
               <Styled.SecondImage src={notLoggedImage2} />
-              {greenNote()}
+              <GreenNote />
             </Styled.ImageWrapper>
           </Styled.ImagesGrid>
         </Styled.GridWrapper>
       </Styled.PopupBody>
-    );
-  };
-
-  const blueNote = () => {
-    return (
-      <Styled.BlueStickyNote>
-        <Styled.StickyNoteUl>
-          <Styled.StickyNoteLi>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.StickyNoteLi>
-          <Styled.StickyNoteLi>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.StickyNoteLi>
-        </Styled.StickyNoteUl>
-      </Styled.BlueStickyNote>
-    );
-  };
-
-  const greenNote = () => {
-    return (
-      <Styled.GreenStickyNote>
-        <Styled.StickyNoteUl>
-          <Styled.StickyNoteLi>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-            <Styled.InfoIconWrapper>
-              <Styled.InfoIcon />
-              <Styled.Tooltip>
-                <FormattedMessage id='i18n:toolbar:highlights:popup:body:tooltip:review'>
-                  {(msg: Element | string) => msg}
-                </FormattedMessage>
-              </Styled.Tooltip>
-            </Styled.InfoIconWrapper>
-          </Styled.StickyNoteLi>
-          <Styled.StickyNoteLi>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.StickyNoteLi>
-        </Styled.StickyNoteUl>
-      </Styled.GreenStickyNote>
     );
   };
 

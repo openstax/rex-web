@@ -14,6 +14,7 @@ import MessageProvider from '../../../MessageProvider';
 import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import * as utils from '../../../utils';
+import { assertNotNull } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
@@ -23,6 +24,15 @@ import HighlightsPopUp from './HighlightsPopUp';
 
 jest.spyOn(highlightSelectors, 'isEnabled')
   .mockReturnValue(true);
+
+// this is a hack because useEffect is currently not called
+// when using jsdom? https://github.com/facebook/react/issues/14050
+// seems to work better in react-test-renderer but
+// i need the ref here
+jest.mock('react', () => {
+  const react = (jest as any).requireActual('react');
+  return { ...react, useEffect: react.useLayoutEffect };
+});
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
@@ -76,9 +86,7 @@ describe('MyHighlights button and PopUp', () => {
   });
 
   it('opens pop up in "logged in" state', async() => {
-    act(() => {
-      store.dispatch(receiveUser(user));
-    });
+    store.dispatch(receiveUser(user));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -236,11 +244,10 @@ describe('MyHighlights button and PopUp', () => {
   });*/
 
   it('closes popup on esc and tracks analytics', async() => {
-    //const focus = jest.fn();
-    //const addEventListener = jest.fn();
-    //const createNodeMock = () => ({focus, addEventListener});
+    store.dispatch(openMyHighlights());
+    store.dispatch(receiveUser(user));
 
-    const { node, tree } = renderToDom(<Provider store={store}>
+    const { node } = renderToDom(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
           <HighlightsPopUp />
@@ -248,10 +255,12 @@ describe('MyHighlights button and PopUp', () => {
       </Services.Provider>
     </Provider>);
 
-    act(() => { store.dispatch(openMyHighlights()); });
-    ReactTestUtils.Simulate.keyDown(node, { key : 'esc'});
+    const track = jest.spyOn(services.analytics.openCloseMH, 'track');
+    const element = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-wrapper\']'), '');
 
-    expect(services.analytics.openCloseMH).toHaveBeenCalled();
+    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+
+    expect(track).toHaveBeenCalled();
 
   });
 });
