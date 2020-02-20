@@ -95,6 +95,7 @@ export interface ArchiveBook {
     name: string;
     version: string;
   };
+  revised: string;
 }
 
 export interface ArchivePage {
