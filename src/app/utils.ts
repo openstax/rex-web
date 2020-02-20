@@ -28,8 +28,10 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
 
       if (matches(action)) {
         const catchError = (e: Error) => {
-          Sentry.captureException(e);
-          stateHelpers.dispatch(recordError(e));
+          stateHelpers.dispatch(recordError({
+            error: e,
+            sentryErrorId: Sentry.captureException(e),
+          }));
         };
         try {
           const promise = boundHook(action);

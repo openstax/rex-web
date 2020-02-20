@@ -15,7 +15,7 @@ describe('ErrorModal', () => {
 
   beforeEach(() => {
     error = new Error('unknown error');
-    store = createTestStore({ errors: { error } });
+    store = createTestStore({ errors: { error, errorIdStack: [] } });
     dispatch = jest.spyOn(store, 'dispatch');
   });
   it('matches snapshot', () => {

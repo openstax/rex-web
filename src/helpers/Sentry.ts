@@ -33,7 +33,8 @@ export default {
 
   captureException(error: any) {
     if (this.isEnabled) {
-      Sentry.captureException(error);
+      const sentryErrorId = Sentry.captureException(error);
+      return sentryErrorId;
     } else if (!this.shouldCollectErrors) {
       console.error(error); // tslint:disable-line:no-console
     }

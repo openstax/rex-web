@@ -11,6 +11,11 @@ export const currentError = createSelector(
   (state) => state.error
 );
 
+export const getErrorIdStack = createSelector(
+  localState,
+  (state) => state.errorIdStack
+);
+
 export const code = createSelector(
   localState,
   (state) => state.code

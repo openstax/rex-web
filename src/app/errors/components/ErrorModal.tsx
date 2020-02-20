@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import Button from '../../components/Button';
 import theme from '../../theme';
-import { Dispatch } from '../../types';
-import { AppState } from '../../types';
+import { AppState, Dispatch } from '../../types';
 import { clearCurrentError } from '../actions';
-import { currentError } from '../selectors';
+import { currentError, getErrorIdStack } from '../selectors';
 import ErrorCard, { Footer } from './ErrorCard';
 
 // tslint:disable-next-line:variable-name
@@ -41,6 +40,7 @@ const CardWrapper = styled.div`
 
 interface PropTypes {
   error?: Error;
+  stack: string[];
   clearError: () => void;
 }
 
@@ -73,7 +73,10 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
 };
 
 export default connect(
-  (state: AppState) => ({ error: currentError(state) }),
+  (state: AppState) => ({
+    error: currentError(state),
+    stack: getErrorIdStack(state),
+  }),
   (dispatch: Dispatch) => ({
     clearError: () => dispatch(clearCurrentError()),
   })
