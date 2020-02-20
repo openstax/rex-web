@@ -16,7 +16,6 @@ describe('registerGlobalAnalytics', () => {
   let clickButton: jest.SpyInstance;
   let print: jest.SpyInstance;
   let unload: jest.SpyInstance;
-  let pageFocus: jest.SpyInstance;
   const addListener = jest.fn();
   const matchMedia = (window as any).matchMedia = jest.fn();
 
@@ -29,7 +28,6 @@ describe('registerGlobalAnalytics', () => {
     clickButton = jest.spyOn(analytics.clickButton, 'track');
     print = jest.spyOn(analytics.print, 'track');
     unload = jest.spyOn(analytics.unload, 'track');
-    pageFocus = jest.spyOn(analytics.pageFocus, 'track');
 
     clickLink.mockClear();
     clickButton.mockClear();
@@ -61,22 +59,6 @@ describe('registerGlobalAnalytics', () => {
     document.dispatchEvent(event);
 
     expect(unload).toHaveBeenCalled();
-  });
-
-  it('reports focusin', () => {
-    if (!window.onfocus) {
-      return expect(window.onfocus).toBeTruthy();
-    }
-    window.onfocus({} as any);
-    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
-  });
-
-  it('reports focusout', () => {
-    if (!window.onblur) {
-      return expect(window.onblur).toBeTruthy();
-    }
-    window.onblur({} as any);
-    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
   });
 
   it('noops on unknown click target', () => {
