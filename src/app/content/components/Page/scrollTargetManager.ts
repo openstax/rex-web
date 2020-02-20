@@ -1,4 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
 import { ScrollTarget } from '../../../navigation/types';
@@ -56,7 +57,7 @@ const scrollTargetManager = (container: HTMLElement) => (
 ) => {
   if (previous.page !== current.page) {
     scrollToTargetOrTop(container, current.target);
-  } else if (current.target && (!previous.target || previous.target.value !== current.target.value)) {
+  } else if (current.target && !isEqual(previous.target, current.target)) {
     scrollToTarget(container, current.target);
   }
 };
