@@ -8,7 +8,6 @@ import values from 'lodash/fp/values';
 import { createSelector } from 'reselect';
 import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
-import { enabledForBooks } from './constants';
 import { HighlightLocationFilters } from './types';
 import {
   getHighlightColorFiltersWithContent,
@@ -21,12 +20,6 @@ import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilt
 export const localState = createSelector(
   parentSelectors.localState,
   (parentState) => parentState.highlights
-);
-
-export const isEnabled = createSelector(
-  localState,
-  parentSelectors.book,
-  (state, book) => !!state.enabled && !!book && enabledForBooks.includes(book.id)
 );
 
 export const highlightsLoaded = createSelector(
