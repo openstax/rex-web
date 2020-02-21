@@ -10,12 +10,12 @@ import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
-  getHighlightByIdFromSummaryHighlights,
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
   updateSummaryHighlightsDependOnFilters
 } from './utils';
+import { findHighlight } from './utils/reducerUtils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
@@ -70,11 +70,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
-      if (!state.highlights) { return state; }
+      const oldHighlight = findHighlight(state, action.payload.id);
 
-      const oldHighlight = state.highlights.find((highlight) => highlight.id === action.payload.id)
-        || getHighlightByIdFromSummaryHighlights(state.summary.highlights || {}, action.payload.id);
-      if (!oldHighlight) { return state; }
+      if (!state.highlights || !oldHighlight) {
+        return state;
+      }
 
       const newHighlight = {
         ...oldHighlight,
@@ -110,20 +110,22 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.deleteHighlight): {
-      if (!state.highlights) {
+      const highlightToRemove = findHighlight(state, action.payload);
+
+      if (!state.highlights || !highlightToRemove) {
         return state;
       }
 
-      const [newSummaryHighlights, removedHighlight] = state.summary.highlights
+      const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
           ...action.meta,
           id: action.payload,
         })
-        : [state.summary.highlights, null]
+        : state.summary.highlights
       ;
 
-      const totalCountsPerPage = state.summary.totalCountsPerPage && removedHighlight
-        ? removeFromTotalCounts(state.summary.totalCountsPerPage, removedHighlight)
+      const totalCountsPerPage = state.summary.totalCountsPerPage && highlightToRemove
+        ? removeFromTotalCounts(state.summary.totalCountsPerPage, highlightToRemove)
         : state.summary.totalCountsPerPage
       ;
 
