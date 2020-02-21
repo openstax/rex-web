@@ -113,6 +113,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
   return props.myHighlightsOpen ? (
     <Styled.PopupWrapper>
       <ScrollLock
+        data-testid='highlights-popup-overlay'
         overlay={true}
         mobileOnly={false}
         zIndex={theme.zIndex.highlightSummaryPopup}

@@ -90,7 +90,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const updateAnnotation = (
     annotation: string
   ) => {
-    const addedNote = (highlight.annotation === undefined) ? true : false;
+    const addedNote = (highlight.annotation === undefined);
 
     dispatch(updateHighlight({
       highlight: {annotation},
