@@ -3,7 +3,7 @@ import { HighlightData } from '../../app/content/highlights/types';
 
 const defaultData = {
   color: HighlightColorEnum.Blue,
-  id: Math.random().toString(36),
+  id: 'this-cant-be-random',
   sourceId: 'testbook1-testpage1-uuid',
 };
 

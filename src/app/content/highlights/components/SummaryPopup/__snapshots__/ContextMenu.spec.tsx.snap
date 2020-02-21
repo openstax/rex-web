@@ -651,7 +651,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 fill="currentColor"
               />
             </svg>
-            Edit
+            Add note
           </a>
         </li>
         <li>
@@ -677,7 +677,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </li>
         <li>
           <a
-            href="?highlight=hl1"
+            href="?highlight=this-cant-be-random"
             target="_blank"
           >
             <svg

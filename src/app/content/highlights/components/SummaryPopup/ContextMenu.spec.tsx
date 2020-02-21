@@ -1,9 +1,10 @@
-import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../../test/createTestStore';
 import { book } from '../../../../../test/mocks/archiveLoader';
+import createMockHighlightData from '../../../../../test/mocks/highlightData';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
@@ -13,12 +14,7 @@ import ColorPicker from '../ColorPicker';
 import MenuToggle from '../MenuToggle';
 import ContextMenu from './ContextMenu';
 
-const highlight = {
-  annotation: 'hl1',
-  color: HighlightColorEnum.Blue,
-  id: 'hl1',
-  sourceId: 'testbook1-testpage1-uuid',
-} as unknown as Highlight;
+const highlight = createMockHighlightData();
 
 describe('ContextMenu', () => {
   let store: Store;
