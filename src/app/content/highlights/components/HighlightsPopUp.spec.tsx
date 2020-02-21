@@ -18,6 +18,7 @@ import { closeMyHighlights, openMyHighlights } from '../actions';
 import { highlightingFeatureFlag } from '../constants';
 import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
+import { renderToDom } from '../../../../test/reactutils';
 
 jest.spyOn(highlightSelectors, 'isEnabled')
   .mockReturnValue(true);
