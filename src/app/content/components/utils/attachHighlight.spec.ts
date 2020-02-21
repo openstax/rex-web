@@ -4,7 +4,7 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import attachHighlight from './attachHighlight';
 
 jest.mock('../../../../helpers/Sentry', () => ({
-  captureException: jest.fn(),
+  error: jest.fn(),
 }));
 
 describe('attachHighlight', () => {
@@ -31,7 +31,7 @@ describe('attachHighlight', () => {
     attachHighlight(mockHighlight, HighlighterMock);
 
     expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockHighlight);
-    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(Sentry.error).not.toHaveBeenCalled();
   });
 
   it('attaches serialized highlight', () => {
@@ -52,7 +52,7 @@ describe('attachHighlight', () => {
     );
 
     expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockSerializedHighlight);
-    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(Sentry.error).not.toHaveBeenCalled();
   });
 
   it('call Sentry if highlight was not attached', () => {
@@ -66,7 +66,7 @@ describe('attachHighlight', () => {
     attachHighlight(mockHighlight, HighlighterMock);
 
     expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockHighlight);
-    expect(Sentry.captureException)
+    expect(Sentry.error)
       .toHaveBeenCalledWith(`Highlight with id: ${mockHighlight.id} has not been attached.`);
   });
 });

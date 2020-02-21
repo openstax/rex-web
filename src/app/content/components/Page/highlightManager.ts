@@ -88,9 +88,7 @@ const highlightData = (services: Services) => (data: HighlightData) => {
 
   const serialized = SerializedHighlight.fromApiResponse(data);
 
-  attachHighlight(serialized, highlighter);
-
-  return highlighter.getHighlight(data.id);
+  return attachHighlight(serialized, highlighter);
 };
 
 const erase = (highlighter: Highlighter) => (highlight: Highlight) => {

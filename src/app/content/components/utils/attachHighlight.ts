@@ -6,12 +6,11 @@ const attachHighlight = (
   highlighter: Highlighter
 ) => {
   highlighter.highlight(highlight);
-  const hl = highlight instanceof SerializedHighlight
-    ? highlighter.getHighlight(highlight.id)
-    : highlight;
-  if (!hl || !hl.isAttached()) {
-    Sentry.captureException(`Highlight with id: ${highlight.id} has not been attached.`);
+  const result = highlighter.getHighlight(highlight.id);
+  if (!result || !result.isAttached()) {
+    Sentry.error(`Highlight with id: ${highlight.id} has not been attached.`);
   }
+  return result;
 };
 
 export default attachHighlight;

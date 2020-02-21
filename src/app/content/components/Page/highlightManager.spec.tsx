@@ -81,7 +81,10 @@ describe('highlightManager', () => {
   });
 
   it('CardList doesn\'t double render the pending highlight', async() => {
-    const mockHighlight = createMockHighlight();
+    const mockHighlight = {
+      ...createMockHighlight(),
+      isAttached: () => true,
+    };
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
     prop.enabled = true;
     const {CardList, update} = highlightManager(element, () => prop);
