@@ -23,7 +23,6 @@ interface Services {
 }
 
 export const mapStateToHighlightProp = (state: AppState) => ({
-  enabled: selectHighlights.isEnabled(state),
   focused: selectHighlights.focused(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
@@ -98,7 +97,7 @@ const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
 };
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
-  let highlighter: Highlighter | undefined;
+  let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
   let setListHighlights = (_highlights: Highlight[]): void => undefined;
@@ -125,10 +124,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     setPendingHighlight,
   };
 
-  if (getProp().enabled) {
-    highlighter = createHighlighter(services);
-    setListHighlighter(highlighter);
-  }
+  highlighter = createHighlighter(services);
+  setListHighlighter(highlighter);
 
   return {
     CardList: () => {
@@ -140,34 +137,22 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       setListHighlights = setHighlights;
       setListPendingHighlight = setInnerPendingHighlight;
 
-      if (listHighlighter) {
-        return React.createElement(CardWrapper, {
-          container,
-          highlighter: listHighlighter,
-          highlights: listPendingHighlight
-            ? [
-              ...listHighlights.filter(
-                (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
-              ),
-              listPendingHighlight,
-            ]
-            : listHighlights,
-        });
-      }
-      return null;
+      return React.createElement(CardWrapper, {
+        container,
+        highlighter: listHighlighter,
+        highlights: listPendingHighlight
+          ? [
+            ...listHighlights.filter(
+              (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
+            ),
+            listPendingHighlight,
+          ]
+          : listHighlights,
+      });
     },
     unmount: (): void => highlighter && highlighter.unmount(),
     update: () => {
-      if (!highlighter && getProp().enabled) {
-        highlighter = createHighlighter(services);
-        setListHighlighter(highlighter);
-      }
-
       let addedOrRemoved = false;
-
-      if (!highlighter) {
-        return addedOrRemoved;
-      }
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
 
