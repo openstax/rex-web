@@ -5,7 +5,6 @@ import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
-import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as Services from '../../../context/Services';
@@ -16,12 +15,7 @@ import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { closeMyHighlights, openMyHighlights } from '../actions';
-import { highlightingFeatureFlag } from '../constants';
-import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
-
-jest.spyOn(highlightSelectors, 'isEnabled')
-  .mockReturnValue(true);
 
 // this is a hack because useEffect is currently not called
 // when using jsdom? https://github.com/facebook/react/issues/14050
@@ -42,8 +36,6 @@ describe('MyHighlights button and PopUp', () => {
     services = createTestServices();
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
-
-    store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
   });

@@ -14,7 +14,6 @@ import { PlainButton, toolbarDefaultText } from './styled';
 interface Props {
   openMyHighlights: () => void;
   myHighlightsOpen?: boolean;
-  enabled: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -40,7 +39,7 @@ const MyHighlightsText = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightButton = ({ enabled, openMyHighlights}: Props) => {
+const HighlightButton = ({ openMyHighlights }: Props) => {
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
   const openHighlightsSummary = () => {
@@ -48,8 +47,7 @@ const HighlightButton = ({ enabled, openMyHighlights}: Props) => {
     trackOpenCloseMH();
   };
 
-  return enabled
-    ? <FormattedMessage id='i18n:toolbar:highlights:text'>
+  return <FormattedMessage id='i18n:toolbar:highlights:text'>
       {(msg: Element | string) =>
         <MyHighlightsWrapper onClick={() => openHighlightsSummary()} aria-label={msg}>
           <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
@@ -57,13 +55,11 @@ const HighlightButton = ({ enabled, openMyHighlights}: Props) => {
         </MyHighlightsWrapper>
       }
     </FormattedMessage>
-    : null
   ;
 };
 
 export default connect(
   (state: AppState) => ({
-    enabled: selectors.isEnabled(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
   }),
   (dispatch: Dispatch) => ({
