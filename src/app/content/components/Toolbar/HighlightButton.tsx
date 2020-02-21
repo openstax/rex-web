@@ -13,7 +13,6 @@ import { PlainButton, toolbarDefaultText } from './styled';
 interface Props {
   openMyHighlights: () => void;
   myHighlightsOpen?: boolean;
-  enabled: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -40,23 +39,19 @@ const MyHighlightsText = styled.span`
 
 class HighlightButton extends Component<Props> {
   public render() {
-    return this.props.enabled
-      ? <FormattedMessage id='i18n:toolbar:highlights:text'>
+    return <FormattedMessage id='i18n:toolbar:highlights:text'>
         {(msg: Element | string) =>
           <MyHighlightsWrapper onClick={() => this.props.openMyHighlights()} aria-label={msg}>
             <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
             <MyHighlightsText>{msg}</MyHighlightsText>
           </MyHighlightsWrapper>
         }
-      </FormattedMessage>
-      : null
-    ;
+    </FormattedMessage>;
   }
 }
 
 export default connect(
   (state: AppState) => ({
-    enabled: selectors.isEnabled(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
   }),
   (dispatch: Dispatch) => ({
