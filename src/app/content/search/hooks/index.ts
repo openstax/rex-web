@@ -1,7 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
 import { push, replace } from '../../../navigation/actions';
 import { RouteHookBody } from '../../../navigation/types';
-import { searchFailure } from '../../../notifications/actions';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { openToc } from '../../actions';
@@ -23,18 +22,14 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     return;
   }
 
-  try {
-    const results = await services.searchClient.search({
-      books: [`${book.id}@${book.version}`],
-      indexStrategy: 'i1',
-      q: payload,
-      searchStrategy: 's1',
-    });
-    services.dispatch(receiveSearchResults(results, meta));
-  } catch (err) {
-    services.dispatch(searchFailure());
-  }
+  const results = await services.searchClient.search({
+    books: [`${book.id}@${book.version}`],
+    indexStrategy: 'i1',
+    q: payload,
+    searchStrategy: 's1',
+  });
 
+  services.dispatch(receiveSearchResults(results, meta));
 };
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {

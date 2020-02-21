@@ -8,7 +8,7 @@ import { renderToDom } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { dismissNotification, searchFailure } from '../../actions';
+import { dismissNotification } from '../../actions';
 import { clearErrorAfter } from './styles';
 
 jest.mock('react', () => {
@@ -18,9 +18,7 @@ jest.mock('react', () => {
 
 describe('SearchFailure', () => {
   let React: typeof ReactType; // tslint:disable-line:variable-name
-  let dispatch: jest.SpyInstance;
-  let store: Store;
-  let notification: ReturnType<typeof searchFailure>;
+
   let addEventListener: jest.SpyInstance;
   let setTimeout: jest.SpyInstance;
   let clearTimeout: jest.SpyInstance;
@@ -34,18 +32,10 @@ describe('SearchFailure', () => {
     removeEventListener = jest.spyOn(window, 'removeEventListener');
     setTimeout = jest.spyOn(window, 'setTimeout');
     clearTimeout = jest.spyOn(window, 'clearTimeout');
-    store = createTestStore();
-    dispatch = jest.spyOn(store, 'dispatch');
-
-    notification = searchFailure();
   });
 
   it('manages timeout', async() => {
-    const component = renderer.create(<Provider store={store}>
-        <MessageProvider>
-          <SearchFailure notification={notification} />
-        </MessageProvider>
-      </Provider>);
+    const component = renderer.create(<MessageProvider><SearchFailure /></MessageProvider>);
 
     expect(addEventListener).toHaveBeenCalledWith('scroll', expect.anything());
     expect(addEventListener).toHaveBeenCalledWith('click', expect.anything());
@@ -60,11 +50,7 @@ describe('SearchFailure', () => {
   });
 
   it('dismisses on animation end', () => {
-    const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <SearchFailure notification={notification} />
-      </MessageProvider>
-    </Provider>);
+    const {root} = renderToDom(<MessageProvider><SearchFailure /></MessageProvider>);
 
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -74,21 +60,13 @@ describe('SearchFailure', () => {
 
     ReactTestUtils.Simulate.animationEnd(wrapper);
 
-    expect(dispatch).toHaveBeenCalledTimes(1);
-    expect(dispatch).toHaveBeenCalledWith(dismissNotification(notification));
   });
 
   it('dismisses notification on click', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <SearchFailure notification={notification} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<MessageProvider><SearchFailure /></MessageProvider>);
 
     component.root.findByType('button').props.onClick();
 
-    expect(dispatch).toHaveBeenCalledTimes(1);
-    expect(dispatch).toHaveBeenCalledWith(dismissNotification(notification));
     expect(removeEventListener).toHaveBeenCalledWith('scroll', expect.anything());
     expect(removeEventListener).toHaveBeenCalledWith('click', expect.anything());
     component.unmount();

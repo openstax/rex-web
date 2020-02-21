@@ -5,7 +5,6 @@ import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { push, replace } from '../../navigation/actions';
-import { searchFailure } from '../../notifications/actions';
 import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
@@ -40,18 +39,6 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       await hook(requestSearch('asdf'));
       expect(helpers.searchClient.search).toHaveBeenCalled();
-    });
-
-    it('catches search related error', async() => {
-      helpers.searchClient.search = jest.fn().mockImplementation(() => {
-        throw new Error();
-      });
-
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      await hook(requestSearch('asdf'));
-
-      expect(dispatch).toBeCalledTimes(1);
-      expect(dispatch).toHaveBeenCalledWith(searchFailure());
     });
 
     it('noops when there isn\'t a book', async() => {

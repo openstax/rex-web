@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { acceptCookies, receiveMessages, searchFailure, updateAvailable  } from '../actions';
+import { acceptCookies, receiveMessages, updateAvailable  } from '../actions';
 import ConnectedNotifications from './Notifications';
 
 describe('Notifications', () => {
@@ -40,19 +40,6 @@ describe('Notifications', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshot' , () => {
-    store.dispatch(searchFailure());
-
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedNotifications />
-      </MessageProvider>
-    </Provider>);
-
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   it('matches snapshot', () => {
     store.dispatch(receiveMessages([{
       dismissable: false,
@@ -74,7 +61,7 @@ describe('Notifications', () => {
   });
 
   it('matches snapshot for unknown notification', () => {
-    store.getState().notifications.notificationQueue.push({type: 'foobar'} as any);
+    store.getState().notifications.push({type: 'foobar'} as any);
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>

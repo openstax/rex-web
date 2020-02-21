@@ -60,7 +60,7 @@ describe('notifications', () => {
       ...matchingMessages,
     ]));
 
-    expect(notificationForDisplay(store.getState()).firstInQueue).toEqual(
+    expect(notificationForDisplay(store.getState())).toEqual(
       matchingMessages.map((payload) => ({payload, type: appMessageType}))[0]
     );
   });

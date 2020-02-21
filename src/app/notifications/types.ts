@@ -17,14 +17,7 @@ export interface AppMessageNotification {
 
 export type Messages = Message[];
 
-export type NotificationsInQueue = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
+export type AnyNotification =  ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
   | AppMessageNotification;
 
-export type QueuelessNotifications = ActionType<Pick<typeof actions, 'searchFailure'>>;
-
-export type AnyNotification = NotificationsInQueue | QueuelessNotifications;
-
-export interface State {
-  queuelessNotifications: QueuelessNotifications[];
-  notificationQueue: NotificationsInQueue[];
-}
+export type State = AnyNotification[];
