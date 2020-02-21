@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as Services from '../../../context/Services';
@@ -12,12 +11,7 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { closeMyHighlights, openMyHighlights } from '../actions';
-import { highlightingFeatureFlag } from '../constants';
-import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
-
-jest.spyOn(highlightSelectors, 'isEnabled')
-  .mockReturnValue(true);
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
@@ -29,8 +23,6 @@ describe('MyHighlights button and PopUp', () => {
     services = createTestServices();
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
-
-    store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
   });
