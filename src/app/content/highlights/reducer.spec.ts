@@ -1,8 +1,6 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import { receiveFeatureFlags } from '../../actions';
 import { assertNotNull } from '../../utils';
 import * as actions from './actions';
-import { highlightingFeatureFlag } from './constants';
 import reducer, { initialState } from './reducer';
 import {
   CountsPerSource,
@@ -16,29 +14,6 @@ const mockHighlight = {
 } as HighlightData;
 
 describe('highlight reducer', () => {
-
-  it('is initially disabled', () => {
-    const newState = reducer(undefined, {type: 'adsf'} as any);
-    expect(newState.enabled).toEqual(false);
-  });
-
-  it('activates feature flag', () => {
-    const state = reducer({
-      ...initialState,
-      enabled: false,
-    }, receiveFeatureFlags([highlightingFeatureFlag]));
-
-    expect(state.enabled).toEqual(true);
-  });
-
-  it('doesn\'t active for other flags', () => {
-    const state = reducer({
-      ...initialState,
-      enabled: false,
-    }, receiveFeatureFlags(['asdf']));
-
-    expect(state.enabled).toEqual(false);
-  });
 
   it('focuses highlight', () => {
     const state = reducer(undefined, actions.focusHighlight('asdf'));
