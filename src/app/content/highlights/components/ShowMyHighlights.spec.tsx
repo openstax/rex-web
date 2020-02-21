@@ -11,7 +11,6 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import createMockHighlightData from '../../../../test/mocks/highlightData';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
-import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as Services from '../../../context/Services';
@@ -28,7 +27,7 @@ import {
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
 } from '../actions';
-import { highlightingFeatureFlag, highlightStyles } from '../constants';
+import { highlightStyles } from '../constants';
 import { hasMoreResults } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
@@ -46,8 +45,6 @@ describe('Show my highlights', () => {
   beforeEach(() => {
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
-
-    store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     highlight1 = createMockHighlight('asdf');
     highlight2 = createMockHighlight('lkjh');
