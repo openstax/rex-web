@@ -4,8 +4,9 @@ import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useFocusLost } from '../reactUtils';
+import { useOnEsc } from '../reactUtils';
 import theme from '../theme';
-import { preventDefault, useOnEsc } from '../utils';
+import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
