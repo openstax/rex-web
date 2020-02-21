@@ -46,7 +46,6 @@ describe('highlightManager', () => {
     element = window.document.createElement('div');
     prop = {
       clearFocus: jest.fn(),
-      enabled: true,
       focus: jest.fn(),
       focused: undefined,
       highlights: [],
@@ -64,17 +63,8 @@ describe('highlightManager', () => {
     expect(() => component.root.findByType(CardWrapper)).not.toThrow();
   });
 
-  it('CardList is not rendered when disabled', () => {
-    prop.enabled = false;
-    const {CardList} = highlightManager(element, () => prop);
-    const component = renderer.create(React.createElement(CardList));
-    expect(() => component.root.findByType(CardWrapper)).toThrow();
-  });
-
   it('CardList is rendered after update', () => {
-    prop.enabled = false;
     const {CardList, update} = highlightManager(element, () => prop);
-    prop.enabled = true;
     update();
     const component = renderer.create(React.createElement(CardList));
     expect(() => component.root.findByType(CardWrapper)).not.toThrow();
@@ -86,7 +76,6 @@ describe('highlightManager', () => {
       isAttached: () => true,
     };
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
-    prop.enabled = true;
     const {CardList, update} = highlightManager(element, () => prop);
     const component = renderer.create(React.createElement(CardList));
 
@@ -118,23 +107,8 @@ describe('highlightManager', () => {
     expect(component.root.findAllByType(Card).length).toEqual(1);
   });
 
-  it('creates highlighter when enabled', () => {
+  it('creates highlighter', () => {
     highlightManager(element, () => prop);
-    expect(Highlighter).toHaveBeenCalled();
-  });
-
-  it('doesn\'t create highlighter when not enabled', () => {
-    prop.enabled = false;
-    highlightManager(element, () => prop);
-    expect(Highlighter).not.toHaveBeenCalled();
-  });
-
-  it('creates highlighter when it becomes enabled', () => {
-    prop.enabled = false;
-    const {update} = highlightManager(element, () => prop);
-    expect(Highlighter).not.toHaveBeenCalled();
-    prop.enabled = true;
-    update();
     expect(Highlighter).toHaveBeenCalled();
   });
 
@@ -233,7 +207,6 @@ describe('highlightManager', () => {
 
     it('shows create card when there aren\'t any highlights in selection', async() => {
       const mockHighlight = createMockHighlight();
-      prop.enabled = true;
       manager.update();
       const component = renderer.create(React.createElement(manager.CardList));
 
@@ -250,7 +223,6 @@ describe('highlightManager', () => {
     it('clears pending highlight when it is removed from state', async() => {
       const mockHighlight = createMockHighlight();
       const existingHighlight = createMockHighlight();
-      prop.enabled = true;
       prop.highlights = [{id: existingHighlight.id} as HighlightData];
 
       const component = renderer.create(React.createElement(manager.CardList));
@@ -297,7 +269,6 @@ describe('highlightManager', () => {
 
     it('clears pending highlight when it is removed from state before element is mounted', async() => {
       const mockHighlight = createMockHighlight();
-      prop.enabled = true;
       manager.update();
 
       await renderer.act(() => {
@@ -316,7 +287,6 @@ describe('highlightManager', () => {
 
     it('loads pending highlight when selected before component mount', async() => {
       const mockHighlight = createMockHighlight();
-      prop.enabled = true;
       manager.update();
 
       Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
