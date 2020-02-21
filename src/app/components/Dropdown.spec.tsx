@@ -2,7 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import * as reactUtils from '../../app/reactUtils';
 import MessageProvider from '../MessageProvider';
-import * as utils from '../utils';
 import Dropdown, { DropdownItem, DropdownList } from './Dropdown';
 
 describe('Dropdown', () => {
@@ -78,7 +77,7 @@ describe('Dropdown', () => {
   });
 
   it('tab hidden closes on Esc', () => {
-    const useOnEscSpy = jest.spyOn(utils, 'useOnEsc');
+    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
 
     const component = renderer.create(<MessageProvider>
       <Dropdown transparentTab={false} toggle={<button>show more</button>}>
@@ -105,7 +104,7 @@ describe('Dropdown', () => {
   });
 
   it('tab hidden focus after Esc', () => {
-    const useOnEscSpy = jest.spyOn(utils, 'useOnEsc');
+    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
 
     const focus = jest.fn();
     const addEventListener = jest.fn();
