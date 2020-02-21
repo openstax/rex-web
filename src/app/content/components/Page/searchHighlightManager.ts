@@ -1,4 +1,4 @@
-import Highlighter from '@openstax/highlighter';
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
@@ -39,7 +39,13 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const selectResult = (
+  services: Services,
+  previous: HighlightProp,
+  current: HighlightProp,
+  options: Options,
+  cb?: (selectedHighlight?: Highlight) => void
+) => {
   if (!current.selectedResult) {
     return;
   }
@@ -64,11 +70,20 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
       () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
   }
+
+  if (cb) {
+    cb(firstSelectedHighlight);
+  }
 };
 
-const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
+const handleUpdate = (services: Services) => (
+  previous: HighlightProp,
+  current: HighlightProp,
+  options: Options,
+  cb?: (selectedHighlight?: Highlight) => void
+) => {
   updateResults(services, previous, current, options);
-  selectResult(services, previous, current, options);
+  selectResult(services, previous, current, options, cb);
 };
 
 const searchHighlightManager = (container: HTMLElement) => {

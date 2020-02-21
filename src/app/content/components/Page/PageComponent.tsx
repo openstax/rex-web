@@ -1,9 +1,11 @@
+import { Highlight } from '@openstax/highlighter';
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import { assertWindow } from '../../../utils';
+import SearchFailure from '../../../notifications/components/SearchFailure'
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import PrevNextBar from '../PrevNextBar';
@@ -25,6 +27,7 @@ const parser = new DOMParser();
 
 export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
+  public state = { hasSearchError: false }
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -65,10 +68,28 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
-    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
-    });
+
+    this.searchHighlightManager.update(
+      prevProps.searchHighlights,
+      this.props.searchHighlights,
+      { forceRedraw: highlgihtsAddedOrRemoved },
+      this.onHighlightSelect
+    );
   }
+
+  public onHighlightSelect = (highlight?: Highlight) => {
+    if (!highlight && !this.state.hasSearchError) {
+      this.setState({
+        hasSearchError: true,
+      });
+    }
+  };
+
+  public dismissError = () => {
+    this.setState({
+      hasSearchError: false,
+    });
+  };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
     if (prevProps.page !== this.props.page) {
@@ -86,6 +107,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
+      {this.state.hasSearchError ? <SearchFailure dismiss={this.dismissError} /> : null}
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
         <PrevNextBar />
