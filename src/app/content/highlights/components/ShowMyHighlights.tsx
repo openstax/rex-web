@@ -53,7 +53,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 
   public componentDidMount() {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
-    console.log(highlightsBodyRef);
 
     if (isHtmlElement(highlightsBodyRef)) {
       this.scrollHandler = () => {
