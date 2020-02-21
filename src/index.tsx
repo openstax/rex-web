@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
+import { onPageFocusChange } from './app/domUtils';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
@@ -78,6 +79,9 @@ function doneRendering() {
     actions.forEach((action: any) => app.store.dispatch(action));
   }
 }
+
+window.onblur = onPageFocusChange(false, app);
+window.onfocus = onPageFocusChange(true, app);
 
 registerGlobalAnalytics(window, app.store);
 

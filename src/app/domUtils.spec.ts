@@ -1,6 +1,11 @@
 import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import { Store } from 'redux';
 import scrollTo from 'scroll-to-element';
+import createTestServices from '../test/createTestServices';
+import createTestStore from '../test/createTestStore';
 import * as domUtils from './domUtils';
+import { onPageFocusChange } from './domUtils';
+import { AppServices } from './types';
 import { assertDocument, assertWindow } from './utils';
 
 jest.mock('scroll-to-element');
@@ -128,6 +133,32 @@ describe('findElementSelfOrParent', () => {
     const element = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     const result = domUtils.findElementSelfOrParent(element);
     expect(result).toBeUndefined();
+  });
+});
+
+describe('focus on tab change', () => {
+  let store: Store;
+  let services: AppServices;
+  let pageFocus: jest.SpyInstance;
+
+  beforeEach(() => {
+    store = createTestStore();
+    services = createTestServices();
+    pageFocus = jest.spyOn(services.analytics.pageFocus, 'track');
+  });
+
+  afterEach(() => {
+    pageFocus.mockRestore();
+  });
+
+  it('reports focusin', async() => {
+    onPageFocusChange(true, {services, store})();
+    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
+  });
+
+  it('reports focusout', () => {
+    onPageFocusChange(false, {services, store})();
+    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
   });
 });
 

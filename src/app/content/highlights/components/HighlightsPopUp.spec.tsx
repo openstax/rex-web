@@ -1,26 +1,23 @@
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { renderToDom } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as Services from '../../../context/Services';
 import * as appGuards from '../../../guards';
 import MessageProvider from '../../../MessageProvider';
-import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
-import { content } from '../../routes';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import { highlightingFeatureFlag } from '../constants';
 import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
-import ReactTestUtils from 'react-dom/test-utils';
 
 jest.spyOn(highlightSelectors, 'isEnabled')
   .mockReturnValue(true);
@@ -126,39 +123,6 @@ describe('MyHighlights button and PopUp', () => {
     act(() => { store.dispatch(receiveUser(user)); });
 
     expect(focus).toHaveBeenCalled();
-  });
-
-  it('renders loader', async() => {
-    act(() => {
-      store.dispatch(receiveUser(user));
-    });
-
-    store.dispatch(locationChange({
-      action: 'PUSH',
-      location: {
-        ...utils.assertWindow().location,
-        state: {},
-      },
-      match: {
-        params: {
-          book: 'newbook',
-          page: 'bar',
-        },
-        route: content,
-      },
-    }));
-
-    renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
-
-    act(() => { store.dispatch(openMyHighlights()); });
-
-    expect(highlightSelectors.summaryIsLoading(store.getState())).toBe(true);
   });
 
   it('handles event listeners on mount and unmount for onEsc util', () => {
