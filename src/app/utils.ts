@@ -1,9 +1,8 @@
+import { Document, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
-
-import { Document, HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import { isPlainObject } from './guards';
 import {
   ActionHookBody,
@@ -212,3 +211,27 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
 };
+
+export const useOnDOMEvent = (
+  element: React.RefObject<HTMLElement>['current'] | Window ,
+  isEnabled: boolean,
+  event: keyof HTMLElementEventMap,
+  cb: () => void
+) => {
+  React.useEffect(() => {
+    if (!element) { return; }
+
+    if (isEnabled) {
+      element.addEventListener(event, cb);
+    } else {
+      element.removeEventListener(event, cb);
+    }
+
+    return () => element.removeEventListener(event, cb);
+  }, [element, isEnabled, cb, event]);
+};
+
+export const useTimeout = (delay: number, cb: () => void, deps: any[]) => React.useEffect(() => {
+  const timeout = setTimeout(cb, delay);
+  return () => clearTimeout(timeout);
+}, deps);

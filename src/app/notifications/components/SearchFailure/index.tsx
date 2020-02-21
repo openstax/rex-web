@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { ActionType } from 'typesafe-actions';
 import { Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertWindow, useOnDOMEvent, useTimeout } from '../../../utils';
 import { dismissNotification, searchFailure,  } from '../../actions';
 import { Header } from '../Card';
 import {
@@ -18,36 +18,18 @@ interface Props {
   dismiss: () => void;
 }
 
+const window = assertWindow();
+
 // tslint:disable-next-line:variable-name
 const SearchFailure = ({dismiss}: Props) => {
-  const autoCloseTimeout = React.useRef<number | null>(null);
   const [isFadingOut, setIsFadingOut] = React.useState(false);
 
-  const startFadeOut = () => {
-    cleanup();
-    setIsFadingOut(true);
-  };
+  const startFadeOut = () => setIsFadingOut(true);
 
-  const cleanup = () => {
-    const window = assertWindow();
+  useTimeout(clearErrorAfter, startFadeOut, []);
 
-    window.removeEventListener('click', startFadeOut);
-    window.removeEventListener('scroll', startFadeOut);
-    if (autoCloseTimeout.current) {
-      clearTimeout(autoCloseTimeout.current);
-    }
-  };
-
-  React.useEffect(() => {
-    autoCloseTimeout.current = setTimeout(startFadeOut, clearErrorAfter);
-
-    const window = assertWindow();
-
-    window.addEventListener('click', startFadeOut);
-    window.addEventListener('scroll', startFadeOut);
-
-    return () => cleanup();
-  }, []);
+  useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut);
+  useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut);
 
   return (
     <BannerBodyWrapper
