@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { renderToDom } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
@@ -18,7 +19,6 @@ import { closeMyHighlights, openMyHighlights } from '../actions';
 import { highlightingFeatureFlag } from '../constants';
 import * as highlightSelectors from '../selectors';
 import HighlightsPopUp from './HighlightsPopUp';
-import { renderToDom } from '../../../../test/reactutils';
 
 jest.spyOn(highlightSelectors, 'isEnabled')
   .mockReturnValue(true);
@@ -216,7 +216,7 @@ describe('MyHighlights button and PopUp', () => {
     </Provider>);
 
     const track = jest.spyOn(services.analytics.openCloseMH, 'track');
-    const element = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-overlay\']'), '');
+    const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 
     const event = window.document.createEvent('MouseEvents');
     event.initEvent('click', true, true);

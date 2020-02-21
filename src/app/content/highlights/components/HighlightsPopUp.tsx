@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
@@ -57,12 +57,37 @@ const GreenNote = () => <Styled.GreenStickyNote>
   </Styled.StickyNoteUl>
 </Styled.GreenStickyNote>;
 
+// tslint:disable-next-line: variable-name
+const LoginForHighlights = () => {
+  const loginLink = useSelector(authSelect.loginLink);
+
+  return <Styled.PopupBody>
+    <Styled.LoginText values={{ loginLink }} />
+    <Styled.GridWrapper>
+      <Styled.GeneralText>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+      </Styled.GeneralText>
+      <Styled.ImagesGrid>
+        <Styled.ImageWrapper>
+          <Styled.FirstImage src={notLoggedImage1} />
+          <BlueNote />
+        </Styled.ImageWrapper>
+        <Styled.ImageWrapper>
+          <Styled.SecondImage src={notLoggedImage2} />
+          <GreenNote />
+        </Styled.ImageWrapper>
+      </Styled.ImagesGrid>
+    </Styled.GridWrapper>
+  </Styled.PopupBody>;
+};
+
 interface Props {
   myHighlightsOpen: boolean;
   closeMyHighlights: () => void;
   user?: User;
   loggedOut: boolean;
-  loginLink: string;
 }
 
 // tslint:disable-next-line: variable-name
@@ -85,35 +110,9 @@ const HighlightsPopUp = ({ ...props }: Props) => {
     }
   }, [props.myHighlightsOpen]);
 
-  const loginForHighlights = () => {
-    return (
-      <Styled.PopupBody ref={popUpRef}>
-        <Styled.LoginText values={{ loginLink: props.loginLink }} />
-        <Styled.GridWrapper>
-          <Styled.GeneralText>
-            <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.GeneralText>
-          <Styled.ImagesGrid>
-            <Styled.ImageWrapper>
-              <Styled.FirstImage src={notLoggedImage1} />
-              <BlueNote />
-            </Styled.ImageWrapper>
-            <Styled.ImageWrapper>
-              <Styled.SecondImage src={notLoggedImage2} />
-              <GreenNote />
-            </Styled.ImageWrapper>
-          </Styled.ImagesGrid>
-        </Styled.GridWrapper>
-      </Styled.PopupBody>
-    );
-  };
-
   return props.myHighlightsOpen ? (
     <Styled.PopupWrapper>
       <ScrollLock
-        data-testid='highlights-popup-overlay'
         overlay={true}
         mobileOnly={false}
         zIndex={theme.zIndex.highlightSummaryPopup}
@@ -138,7 +137,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
             <Styled.CloseIcon />
           </Styled.CloseIconWrapper>
         </Styled.Header>
-        {props.user ? <ShowMyHighlights /> : loginForHighlights()}
+        {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       </Styled.Modal>
       <HighlightsHelpInfo />
     </Styled.PopupWrapper>
@@ -148,7 +147,6 @@ const HighlightsPopUp = ({ ...props }: Props) => {
 export default connect(
   (state: AppState) => ({
     loggedOut: authSelect.loggedOut(state),
-    loginLink: authSelect.loginLink(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
     user: authSelect.user(state),
   }),
