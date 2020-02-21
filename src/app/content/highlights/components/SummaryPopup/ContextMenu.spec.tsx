@@ -1,13 +1,24 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../../test/createTestStore';
+import { book } from '../../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
+import { receiveBook } from '../../../actions';
+import { formatBookData } from '../../../utils';
 import ColorPicker from '../ColorPicker';
 import MenuToggle from '../MenuToggle';
 import ContextMenu from './ContextMenu';
+
+const highlight = {
+  annotation: 'hl1',
+  color: HighlightColorEnum.Blue,
+  id: 'hl1',
+  sourceId: 'testbook1-testpage1-uuid',
+} as unknown as Highlight;
 
 describe('ContextMenu', () => {
   let store: Store;
@@ -20,7 +31,7 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={HighlightColorEnum.Blue}
+          highlight={highlight}
           // tslint:disable-next-line: no-empty
           onEdit={() => {}}
           // tslint:disable-next-line: no-empty
@@ -39,13 +50,10 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={HighlightColorEnum.Blue}
-          // tslint:disable-next-line: no-empty
-          onEdit={() => {}}
-          // tslint:disable-next-line: no-empty
-          onDelete={() => {}}
-          // tslint:disable-next-line: no-empty
-          onColorChange={() => {}}
+          highlight={highlight}
+          onEdit={() => null}
+          onDelete={() => null}
+          onColorChange={() => null}
         />
       </MessageProvider>
     </Provider>);
@@ -66,11 +74,10 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={HighlightColorEnum.Blue}
+          highlight={highlight}
           onEdit={() => { editClicked = true; }}
           onDelete={() => { deleteClicked = true; }}
-          // tslint:disable-next-line: no-empty
-          onColorChange={() => {}}
+          onColorChange={() => null}
         />
       </MessageProvider>
     </Provider>);
@@ -97,12 +104,9 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={color}
-          // tslint:disable-next-line: no-empty
-          onEdit={() => {}}
-          // tslint:disable-next-line: no-empty
-          onDelete={() => {}}
-          // tslint:disable-next-line: no-empty
+          highlight={highlight}
+          onEdit={() => null}
+          onDelete={() => null}
           onColorChange={(newColor) => { color = newColor as HighlightColorEnum; }}
         />
       </MessageProvider>
@@ -119,5 +123,32 @@ describe('ContextMenu', () => {
     });
 
     expect(color).toEqual('yellow');
+  });
+
+  it('create valid link to the highlight', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+
+    const expectedLink = `/books/book-slug-1/pages/test-page-1?highlight=${highlight.id}`;
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ContextMenu
+          highlight={highlight}
+          onEdit={() => null}
+          onDelete={() => null}
+          onColorChange={() => null}
+        />
+      </MessageProvider>
+    </Provider>);
+
+    renderer.act(() => {
+      const openButton = component.root.findByType(MenuToggle);
+      openButton.props.onClick();
+    });
+
+    renderer.act(() => {
+      const linkButton = component.root.findByProps({ 'data-testid': 'goto-highlight' });
+      expect(linkButton.props.href).toEqual(expectedLink);
+    });
   });
 });
