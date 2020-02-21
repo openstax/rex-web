@@ -120,7 +120,7 @@ interface DataRemove extends BaseData {
 export const removeSummaryHighlight = (
   summaryHighlights: SummaryHighlights,
   data: DataRemove
-): [SummaryHighlights, Highlight | null] => {
+): SummaryHighlights => {
   const { locationFilterId, pageId, id } = data;
 
   const pageHighlights: Highlight[] | undefined =
@@ -132,7 +132,7 @@ export const removeSummaryHighlight = (
   const removedHighlight = removedHighlights[0];
 
   if (!filteredHighlights || !removedHighlight) {
-    return [summaryHighlights, null];
+    return summaryHighlights;
   }
 
   const newHighlights: SummaryHighlights = {
@@ -150,7 +150,7 @@ export const removeSummaryHighlight = (
     delete newHighlights[locationFilterId];
   }
 
-  return [newHighlights, removedHighlight];
+  return newHighlights;
 };
 
 interface DataUpdate extends BaseData, UpdateHighlightRequest {}
@@ -210,7 +210,7 @@ export const updateSummaryHighlightsDependOnFilters = (
       id: updatedHighlight.id,
       locationFilterId,
       pageId,
-    })[0];
+    });
   }
 
   // If color is in filters and highlight was already in summary highlights
