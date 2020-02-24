@@ -13,6 +13,7 @@ import CardWrapper from '../../highlights/components/CardWrapper';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
+import attachHighlight from '../utils/attachHighlight';
 
 interface Services {
   getProp: () => HighlightProp;
@@ -86,9 +87,7 @@ const highlightData = (services: Services) => (data: HighlightData) => {
 
   const serialized = SerializedHighlight.fromApiResponse(data);
 
-  highlighter.highlight(serialized);
-
-  return highlighter.getHighlight(data.id);
+  return attachHighlight(serialized, highlighter);
 };
 
 const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
@@ -162,7 +161,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
       ) {
         addedOrRemoved = true;
-        highlighter.highlight(pendingHighlight);
+        attachHighlight(pendingHighlight, highlighter);
       }
 
       getProp().highlights
