@@ -16,7 +16,6 @@ jest.mock('@openstax/highlighter/dist/Highlight', () => ({
     constructor(_range: any, data: any) {
       this.data = data;
     }
-    public isAttached = () => true;
   },
 }));
 
