@@ -122,6 +122,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     <HighlightContentWrapper color={highlight.color}>
       <HighlightContent
         className='summary-highlight-content'
+        data-highlight-id={highlight.id}
         dangerouslySetInnerHTML={{ __html: highlight.highlightedContent }}
       />
       <HighlightAnnotation
