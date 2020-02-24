@@ -27,6 +27,7 @@ const HighlightsPrintButton = styled(PrintButton)`
   min-width: auto;
   height: max-content;
   margin-left: auto;
+  padding: 2rem 2.4rem 0 0;
 `;
 
 interface ToggleProps {
@@ -44,7 +45,7 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   </PlainButton>
 ))`
   position: relative;
-  padding: 1.6rem 2.4rem;
+  padding: 2rem 2.4rem 0.8rem 2.4rem;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
   ${(props: ToggleProps) => props.isOpen

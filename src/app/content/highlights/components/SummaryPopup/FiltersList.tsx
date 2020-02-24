@@ -125,7 +125,7 @@ export default styled(FiltersList)`
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 0.4rem 0;
+  padding: 0 2.8rem 0.4rem 2.8rem;
   list-style: none;
 
   li {
