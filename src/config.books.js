@@ -17,7 +17,7 @@ const books = {
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': {defaultVersion: '18.3'},
   /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': {defaultVersion: '29.3'},
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '16.4'},
-  /* Entrepreneurship */ 'd380510e-6145-4625-b19a-4fa68204b6b1': {defaultVersion: '10.4'},
+  /* Entrepreneurship */ 'd380510e-6145-4625-b19a-4fa68204b6b1': {defaultVersion: '10.5'},
   /* Introduction to Business */ '4e09771f-a8aa-40ce-9063-aa58cc24e77f': {defaultVersion: '9.3'},
   /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': {defaultVersion: '14.1'},
   /* Introductory Statistics */ '30189442-6998-4686-ac05-ed152b91b9de': {defaultVersion: '24.1'},
