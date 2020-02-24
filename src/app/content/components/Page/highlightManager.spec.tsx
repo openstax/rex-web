@@ -25,8 +25,6 @@ UntypedHighlighter.prototype.highlight = jest.fn();
 
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
-// tslint:disable-next-line:variable-name
-const SerializedHighlight = UntypedSerializedHighlight as unknown as jest.SpyInstance;
 const fromApiResponse = UntypedSerializedHighlight.fromApiResponse = jest.fn();
 
 beforeEach(() => {
@@ -113,7 +111,10 @@ describe('highlightManager', () => {
   });
 
   it('highlights highlights', () => {
-    const mockHighlight = createMockHighlight();
+    const mockHighlight = {
+      ...createMockHighlight(),
+      isAttached: () => true,
+    };
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
     const {update} = highlightManager(element, () => prop);
 
@@ -129,12 +130,14 @@ describe('highlightManager', () => {
       .mockReturnValue(mockHighlight)
     ;
 
+    fromApiResponse.mockReturnValue(mockHighlight);
+
     update();
 
     expect(fromApiResponse).toHaveBeenCalledTimes(1);
     expect(fromApiResponse).toHaveBeenCalledWith(mockHighlightData);
     expect(highlight).toHaveBeenCalled();
-    expect(highlight.mock.calls[0][0]).toBe(SerializedHighlight.mock.instances[0]);
+    expect(highlight.mock.calls[0][0]).toBe(mockHighlight);
   });
 
   it('erases highlights', () => {
@@ -149,6 +152,11 @@ describe('highlightManager', () => {
     const erase = Highlighter.mock.instances[0].erase;
 
     Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight1, mockHighlight2]);
+
+    fromApiResponse
+      .mockReturnValueOnce(mockHighlight1)
+      .mockReturnValueOnce(mockHighlight2)
+    ;
 
     update();
 
@@ -222,7 +230,10 @@ describe('highlightManager', () => {
 
     it('clears pending highlight when it is removed from state', async() => {
       const mockHighlight = createMockHighlight();
-      const existingHighlight = createMockHighlight();
+      const existingHighlight = {
+        ...createMockHighlight(),
+        isAttached: () => true,
+      };
       prop.highlights = [{id: existingHighlight.id} as HighlightData];
 
       const component = renderer.create(React.createElement(manager.CardList));
@@ -235,6 +246,8 @@ describe('highlightManager', () => {
 
       Highlighter.mock.instances[0].getOrderedHighlights
         .mockReturnValueOnce([existingHighlight]);
+
+      fromApiResponse.mockReturnValue(existingHighlight);
 
       renderer.act(() => {
         manager.update();
