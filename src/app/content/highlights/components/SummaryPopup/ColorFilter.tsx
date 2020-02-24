@@ -62,7 +62,9 @@ export default styled(ColorFilter)`
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
   outline: none;
-  z-index: 2;
+  z-index: 1;
+  top: calc(100% - 0.1rem) !important;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2) !important;
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

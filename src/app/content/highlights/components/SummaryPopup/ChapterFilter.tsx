@@ -105,6 +105,8 @@ export default styled(ChapterFilter)`
   max-height: 72rem;
   overflow: auto;
   z-index: 1;
+  top: calc(100% - 0.1rem) !important;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2) !important;
   ${theme.breakpoints.mobile(css`
     &&& {
       left: -${mobilePaddingSides}rem;

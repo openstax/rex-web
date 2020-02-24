@@ -8,7 +8,6 @@ import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
-import { popupPadding } from '../HighlightStyles';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { mobilePaddingSides, mobilePaddingTopBottom } from './constants';
@@ -30,8 +29,13 @@ const HighlightsPrintButton = styled(PrintButton)`
   margin-left: auto;
 `;
 
+interface ToggleProps {
+  label: string;
+  isOpen: boolean;
+}
+
 // tslint:disable-next-line:variable-name
-const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
+const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   ({label, ...props}, ref) => <PlainButton ref={ref} {...props}>
     <div tabIndex={-1}>
       {label}
@@ -39,6 +43,26 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
     </div>
   </PlainButton>
 ))`
+  position: relative;
+  padding: 1.6rem 2.4rem;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  ${(props: ToggleProps) => props.isOpen
+    ? css`
+      z-index: 2;
+      box-shadow: 0 -0.4rem 0.6rem 0 rgba(0,0,0,0.2);
+      background-color: ${theme.color.white};
+      border-left: 1px solid ${theme.color.neutral.formBorder};
+      border-right: 1px solid ${theme.color.neutral.formBorder};
+
+      ${DownIcon} {
+        transform: rotate(180deg);
+        padding-top: 0;
+        padding-bottom: 0.2rem;
+      }
+    `
+    : null
+  }
   > div {
     outline: none;
     ${textStyle}
@@ -47,6 +71,7 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
   }
 `;
 
@@ -57,12 +82,18 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const Filters = ({className}: Props) => <div className={className}>
   <FormattedMessage id='i18n:highlighting:filters:chapters'>
-    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
+    {(msg: Element | string) => <Dropdown
+      toggle={<Toggle label={msg} />}
+      transparentTab={false}
+    >
       <ChapterFilter />
     </Dropdown>}
   </FormattedMessage>
   <FormattedMessage id='i18n:highlighting:filters:colors'>
-    {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
+    {(msg: Element | string) => <Dropdown
+      toggle={<Toggle label={msg} />}
+      transparentTab={false}
+    >
       <ColorFilter />
     </Dropdown>}
   </FormattedMessage>
@@ -71,11 +102,12 @@ const Filters = ({className}: Props) => <div className={className}>
 </div>;
 
 export default styled(Filters)`
+  position: relative;
+  z-index: 2;
   overflow: visible;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  padding: 2rem ${popupPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.base};
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   ${theme.breakpoints.mobile(css`
@@ -85,13 +117,6 @@ export default styled(Filters)`
   ${css`
     ${DropdownToggle} {
       font-weight: bold;
-    }
-
-    ${Dropdown}:first-of-type {
-      margin-right: 8rem;
-      ${theme.breakpoints.mobile(css`
-        margin-right: 4.8rem;
-      `)}
     }
   `}
 
