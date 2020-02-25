@@ -23,7 +23,6 @@ Array [
 }
 
 .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -53,7 +52,6 @@ Array [
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -98,7 +96,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -215,7 +212,6 @@ Array [
 }
 
 .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -246,7 +242,6 @@ Array [
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -294,7 +289,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -326,7 +320,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c5 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -436,7 +429,6 @@ Array [
 }
 
 .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -466,7 +458,6 @@ Array [
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -511,7 +502,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -628,7 +618,6 @@ Array [
 }
 
 .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -659,7 +648,6 @@ Array [
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -707,7 +695,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c2 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -739,7 +726,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c5 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
