@@ -122,6 +122,7 @@ class Toolbar extends React.Component<Props, State> {
         <PrintButton />
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
           {(msg) => <Styled.BuyBookWrapper
+            data-testid='buy-book'
             aria-label={msg}
             onClick={() => assertWindow().open(buyBookLink)}
             data-analytics-label='buy-book'
