@@ -129,7 +129,6 @@ exports[`DisplayNote matches snapshot 1`] = `
   height: 3.2rem;
   background: none;
   min-width: 7.2rem;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 2rem;
@@ -197,7 +196,6 @@ exports[`DisplayNote matches snapshot 1`] = `
 
 .c0 > label {
   display: none;
-  font-family: Neue Helvetica W01;
   color: #424242;
   color: #fed200;
   font-size: 1.4rem;
@@ -486,7 +484,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   height: 3.2rem;
   background: none;
   min-width: 7.2rem;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 2rem;
@@ -573,7 +570,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 
 .c0 > label {
   display: none;
-  font-family: Neue Helvetica W01;
   color: #424242;
   color: #fed200;
   font-size: 1.4rem;

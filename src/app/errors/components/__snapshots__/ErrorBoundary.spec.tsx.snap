@@ -3,7 +3,6 @@
 exports[`ErrorBoundary matches snapshot 1`] = `
 Array [
   .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
   line-height: 4rem;
@@ -29,7 +28,6 @@ Array [
 }
 
 .c3 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -93,7 +91,6 @@ Array [
 }
 
 .c0 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
