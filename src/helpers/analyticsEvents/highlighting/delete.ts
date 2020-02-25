@@ -3,6 +3,7 @@ import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
 const deleteHighlight = 'REX highlighting (delete-inline-highlight)';
+const deleteHighlightMH = 'REX highlighting (delete-highlight) - MH popup';
 
 export const selector = createSelector(
   selectNavigation.pathname,
@@ -11,12 +12,13 @@ export const selector = createSelector(
 
 export const track = (
   {pathname}: ReturnType<typeof selector>,
-  color: string
+  color: string,
+  isMH?: boolean
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
       eventAction: color,
-      eventCategory: deleteHighlight,
+      eventCategory: isMH ? deleteHighlightMH : deleteHighlight,
       eventLabel: pathname,
     }),
   };
