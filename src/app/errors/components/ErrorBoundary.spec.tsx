@@ -5,7 +5,6 @@ import Sentry from '../../../helpers/Sentry';
 import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { recordError } from '../actions';
 import ErrorBoundary from './ErrorBoundary';
 
 jest.mock('../../../helpers/Sentry', () => ({
@@ -20,11 +19,9 @@ const Buggy: React.SFC = () => {
 describe('ErrorBoundary', () => {
   let consoleError: jest.SpyInstance;
   let store: Store;
-  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    dispatch = jest.spyOn(store, 'dispatch');
     consoleError = jest
       .spyOn(console, 'error')
       .mockImplementation((msg) => msg);
@@ -48,6 +45,5 @@ describe('ErrorBoundary', () => {
       expect.stringMatching(/error occurred in the <Buggy> component/)
     );
     expect(Sentry.captureException).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(recordError({sentryErrorId: 'randomErrorId'}));
   });
 });
