@@ -290,6 +290,7 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 >
   <button
     className="c2 c3"
+    isOpen={false}
     onClick={[Function]}
   >
     show more
@@ -448,6 +449,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 >
   <button
     className="c2 c3"
+    isOpen={true}
     onClick={[Function]}
   >
     show more

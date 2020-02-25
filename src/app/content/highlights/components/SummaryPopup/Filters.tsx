@@ -122,7 +122,7 @@ export default styled(Filters)`
     }
 
     ${Dropdown} {
-      ${ChapterFilter}, ${ColorFilter} {
+      & > *:not(${DropdownToggle}) {
         top: calc(100% - 0.1rem);
         box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
         max-height: calc(100vh - 26rem);
