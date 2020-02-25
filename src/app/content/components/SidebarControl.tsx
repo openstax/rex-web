@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ListOl } from 'styled-icons/fa-solid/ListOl';
-import { contentFont, textRegularSize } from '../../components/Typography';
+import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertString } from '../../utils';
@@ -34,7 +34,6 @@ const ListIcon = styled(ListOl)`
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
-  font-family: ${contentFont};
   font-weight: 600;
   ${textRegularSize};
   margin: 0;
