@@ -138,7 +138,6 @@ Array [
 }
 
 .c80 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -353,7 +352,6 @@ Array [
 }
 
 .c17 {
-  font-family: Neue Helvetica W01;
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -362,7 +360,6 @@ Array [
 }
 
 .c41 {
-  font-family: Neue Helvetica W01;
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -445,7 +442,6 @@ Array [
 
 .c30 {
   font-weight: 600;
-  font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
@@ -501,7 +497,6 @@ Array [
 }
 
 .c21 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -679,10 +674,11 @@ Array [
 }
 
 .c66 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
   overflow: visible;
 }
 
@@ -767,7 +763,6 @@ Array [
 }
 
 .c75 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -788,7 +783,6 @@ Array [
 
 .c75,
 .c75 span {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -821,7 +815,6 @@ Array [
 }
 
 .c79 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -843,7 +836,6 @@ Array [
 }
 
 .c73 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -897,7 +889,6 @@ Array [
 }
 
 .c3 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -927,7 +918,6 @@ Array [
 }
 
 .c8 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -958,7 +948,6 @@ Array [
 }
 
 .c6 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -980,7 +969,6 @@ Array [
 }
 
 .c9 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -1088,7 +1076,6 @@ Array [
 }
 
 .c68 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -1222,7 +1209,6 @@ Array [
 }
 
 .c58 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -1237,7 +1223,6 @@ Array [
 }
 
 .c47 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -1439,7 +1424,6 @@ li[aria-label="Current Page"] .c47 {
 
 .c27 {
   font-weight: 600;
-  font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
@@ -1791,7 +1775,6 @@ li[aria-label="Current Page"] .c47 {
 
 @media screen and (max-width:75em) {
   .c3 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -1817,7 +1800,6 @@ li[aria-label="Current Page"] .c47 {
 
 @media screen and (max-width:75em) {
   .c8 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -1873,7 +1855,6 @@ li[aria-label="Current Page"] .c47 {
 
 @media screen and (max-width:75em) {
   .c9 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -3566,7 +3547,6 @@ Array [
 }
 
 .c43 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -3854,7 +3834,6 @@ Array [
 }
 
 .c9 {
-  font-family: Neue Helvetica W01;
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -3863,7 +3842,6 @@ Array [
 }
 
 .c33 {
-  font-family: Neue Helvetica W01;
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -3946,7 +3924,6 @@ Array [
 
 .c22 {
   font-weight: 600;
-  font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
@@ -4002,7 +3979,6 @@ Array [
 }
 
 .c13 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -4145,10 +4121,11 @@ Array [
 }
 
 .c40 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
   overflow: visible;
 }
 
@@ -4386,7 +4363,6 @@ Array [
 
 .c19 {
   font-weight: 600;
-  font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
