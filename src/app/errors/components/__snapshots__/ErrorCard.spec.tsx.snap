@@ -16,7 +16,6 @@ exports[`ErrorCard matches snapshot 1`] = `
   margin: auto;
   overflow: hidden;
   width: 40rem;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -55,7 +54,6 @@ exports[`ErrorCard matches snapshot 1`] = `
 }
 
 .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -78,7 +76,6 @@ exports[`ErrorCard matches snapshot 1`] = `
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -125,7 +122,6 @@ exports[`ErrorCard matches snapshot 1`] = `
 
 @media screen and (max-width:75em) {
   .c2 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
