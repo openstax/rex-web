@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
+import createMockHighlightData from '../../../../test/mocks/highlightData';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -29,11 +30,11 @@ import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
-const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
-const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
-const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl' };
-const hlPurple = { id: 'hl4', color: HighlightColorEnum.Purple, annotation: 'hl' };
-const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow };
+const hlBlue = createMockHighlightData({ annotation: 'hl1', color: HighlightColorEnum.Blue });
+const hlGreen = createMockHighlightData({ annotation: 'hl', color: HighlightColorEnum.Green });
+const hlPink = createMockHighlightData({ annotation: 'hl', color: HighlightColorEnum.Pink });
+const hlPurple = createMockHighlightData({ annotation: 'hl', color: HighlightColorEnum.Purple });
+const hlYellow = createMockHighlightData({ color: HighlightColorEnum.Yellow });
 
 describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);

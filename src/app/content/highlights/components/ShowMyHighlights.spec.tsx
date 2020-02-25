@@ -8,6 +8,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import createMockHighlightData from '../../../../test/mocks/highlightData';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import { receiveUser } from '../../../auth/actions';
@@ -139,7 +140,7 @@ describe('Show my highlights', () => {
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
+        'testbook1-testpage1-uuid': [createMockHighlightData()],
       },
     }, null));
 
@@ -212,7 +213,7 @@ describe('Show my highlights', () => {
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{} as HighlightData],
+        'testbook1-testpage1-uuid': [createMockHighlightData()],
       },
     }, null));
 
