@@ -1,6 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import books from '../../../config.books';
-export const highlightingFeatureFlag = 'enableHighlighting';
 
 export const maxHighlightsApiPageSize = 200;
 export const maxResourcesPerFetch = 10;

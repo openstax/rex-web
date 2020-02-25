@@ -1,3 +1,4 @@
+import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { actionHook } from '../../../utils';
 import createHighlight from './createHighlight';
@@ -21,4 +22,5 @@ export default [
   printHighlightsHook,
   loadMoreHook,
   actionHook(receiveUser, loadHighlights),
+  actionHook(receivePageFocus, loadHighlights),
 ];

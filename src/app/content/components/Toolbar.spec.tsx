@@ -2,9 +2,11 @@ import noop from 'lodash/fp/noop';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
+import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
@@ -19,19 +21,23 @@ import Toolbar from './Toolbar';
 
 describe('print button', () => {
   let store: Store;
+  let services: ReturnType<typeof createTestServices>;
   let print: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
+    services = createTestServices();
     print = jest.spyOn(assertWindow(), 'print');
     print.mockImplementation(noop);
   });
 
   it('prints', () => {
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Toolbar />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Toolbar />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const event = {
@@ -47,16 +53,20 @@ describe('print button', () => {
 describe('search', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
+    services = createTestServices();
   });
 
   const render = () => renderer.create(<Provider store={store}>
-    <MessageProvider>
-      <Toolbar />
-    </MessageProvider>
+    <Services.Provider value={services}>
+      <MessageProvider>
+        <Toolbar />
+      </MessageProvider>
+    </Services.Provider>
   </Provider>);
 
   it('opens and closes mobile interface', () => {
