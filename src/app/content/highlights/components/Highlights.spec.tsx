@@ -2,10 +2,12 @@ import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highligh
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import createMockHighlightData from '../../../../test/mocks/highlightData';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
@@ -38,6 +40,7 @@ describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let consoleError: jest.SpyInstance;
   let store: Store;
+  let services: ReturnType<typeof createTestServices>;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
@@ -47,6 +50,8 @@ describe('Highlights', () => {
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
+
+    services = createTestServices();
   });
 
   afterEach(() => {
@@ -78,9 +83,11 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const sections = component.root.findAllByType(SectionHighlights);
@@ -132,9 +139,11 @@ describe('Highlights', () => {
     });
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const sections = component.root.findAllByType(SectionHighlights);
@@ -204,9 +213,11 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const editingMenus = component.root.findAllByType(ContextMenu);
@@ -239,9 +250,11 @@ describe('Highlights', () => {
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
@@ -311,9 +324,11 @@ describe('Highlights', () => {
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     renderer.act(() => {
@@ -358,9 +373,11 @@ describe('Highlights', () => {
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     renderer.act(() => {
