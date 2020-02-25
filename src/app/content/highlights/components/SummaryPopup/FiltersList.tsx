@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../../components/Button';
 import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
@@ -125,8 +125,12 @@ export default styled(FiltersList)`
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 0 2.8rem 0.4rem 2.8rem;
+  padding: 0 2.8rem 1rem 2.8rem;
+  margin-top: -1rem;
   list-style: none;
+  ${theme.breakpoints.mobile(css`
+    padding: 0 2.4rem 0.4rem 2.4rem;
+  `)}
 
   li {
     margin-right: 3.2rem;
