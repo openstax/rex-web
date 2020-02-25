@@ -7,7 +7,7 @@ import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import Times from '../Times';
-import { contentFont, h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
+import { h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
 
 export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 6.0;
@@ -105,7 +105,6 @@ export const navElementStyle = css`
   text-decoration: none;
   font-weight: bold;
   padding: 1rem 0;
-  font-family: ${contentFont};
   color: ${theme.color.primary.gray.base};
 
   :hover {
