@@ -13,7 +13,6 @@ exports[`ColorFilter matches snapshot 1`] = `
   padding: 0;
   background: none;
   outline: none;
-  font-family: Neue Helvetica W01;
   color: #424242;
   color: #027EB5;
   cursor: pointer;
@@ -335,7 +334,6 @@ input:checked + .c8 .c9 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   padding: 0.8rem 1.6rem;
