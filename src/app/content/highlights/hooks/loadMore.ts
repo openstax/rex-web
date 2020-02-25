@@ -42,7 +42,7 @@ const loadUntilPageSize = async({
 
   const {highlights, pagination} = await fetchHighlightsForSource({
     book,
-    colors: [...colors] as unknown as GetHighlightsColorsEnum[]
+    colors: [...colors] as unknown as GetHighlightsColorsEnum[],
     highlightClient: args.highlightClient,
     pagination: {page, sourceIds, perPage},
     prevHighlights: args.highlights,

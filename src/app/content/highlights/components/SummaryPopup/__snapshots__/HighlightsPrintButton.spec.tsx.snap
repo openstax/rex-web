@@ -21,7 +21,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
     />
   </svg>
   <span
-    className="kxXenI"
+    className="bRCGrc"
   >
     Print
   </span>

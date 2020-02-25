@@ -73,7 +73,7 @@ export const fetchHighlightsForSource = async({
   pagination: NonNullable<SummaryHighlightsPagination>
 }) => {
   const highlightsResponse = await highlightClient.getHighlights({
-    colors: colors as unknown as GetHighlightsColorsEnum[],
+    colors,
     scopeId: book.id,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     ...pagination,
