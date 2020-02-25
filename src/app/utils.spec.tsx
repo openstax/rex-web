@@ -196,7 +196,7 @@ describe('mergeRefs', () => {
 describe('remsToPx', () => {
 
   it('converts based on body font size', () => {
-    assertDocument().body.style.fontSize = '14px';
+    assertDocument().documentElement!.style.fontSize = '14px';
     expect(utils.remsToPx(1)).toEqual(14);
   });
 
