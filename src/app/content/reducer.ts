@@ -1,5 +1,5 @@
-import equals from 'lodash/fp/equals';
 import flow from 'lodash/fp/flow';
+import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
 import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
@@ -13,7 +13,6 @@ import highlightReducer, {initialState as initialHighlightState } from './highli
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
 import { State } from './types';
-import { getPageSlug } from './utils/archiveTreeUtils';
 
 export const initialState = {
   highlights: initialHighlightState,
@@ -69,10 +68,8 @@ function reduceContent(state: State, action: AnyAction) {
         return initialState;
       }
 
-      const omitPage = omit(['page']);
-
       // book is different
-      if (!equals(omitPage(action.payload.match.params), omitPage(state.params))) {
+      if (!state.params || !isEqual(action.payload.match.params.book, state.params.book)) {
         return {
           ...initialState,
           highlights: state.highlights,
@@ -82,8 +79,8 @@ function reduceContent(state: State, action: AnyAction) {
       }
 
       // book is the same, page is different
-      if (state.book && state.page && action.payload.match.params.page.slug !== getPageSlug(state.book, state.page)) {
-        return {...omitPage(state), params: action.payload.match.params};
+      if (state.book && state.page && !isEqual(action.payload.match.params.page, state.params.page)) {
+        return {...omit(['page'], state), params: action.payload.match.params};
       }
 
       // book and page are the same, probably on page navigation like hash changing

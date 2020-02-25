@@ -146,7 +146,7 @@ const resolvePage = async(
   const pageState = select.page(state);
   if (pageState && pageState.id === pageId) {
     return pageState;
-  } else if (!(loadingPage && loadingPage.slug === match.params.page.slug)) {
+  } else if (!isEqual(loadingPage, match.params.page)) {
     return await loadPage(services, match, book, bookLoader, pageId);
   }
 };

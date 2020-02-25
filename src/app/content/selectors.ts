@@ -58,8 +58,7 @@ export const pageParam = createSelector(
 export const pageNode = createSelector(
   book,
   pageParam,
-  (selectedBook, slug) =>
-    selectedBook && slug ? findArchiveTreeNodeBySlug(selectedBook.tree, slug) : undefined
+  (selectedBook, slug) => selectedBook && slug ? findArchiveTreeNodeBySlug(selectedBook.tree, slug) : undefined
 );
 
 export const bookAndPage = createSelector(
