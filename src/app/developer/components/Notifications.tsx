@@ -2,7 +2,7 @@ import flow from 'lodash/fp/flow';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Button, { ButtonGroup } from '../../components/Button';
-import { recordError as recordErrorAction } from '../../errors/actions';
+import { recordError } from '../../errors/actions';
 import * as notifications from '../../notifications/actions';
 import { Dispatch } from '../../types';
 import demoAppMessages from '../sample-app-messages.json';
@@ -10,13 +10,13 @@ import Panel from './Panel';
 
 interface Props {
   updateAvailable: () => void;
-  recordError: (errorToRecord: {error: Error}) => void;
+  error: (error: Error) => void;
   sendMessages: () => void;
   acceptCookies: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Notifications = ({updateAvailable, recordError, sendMessages, acceptCookies}: Props) => {
+const Notifications = ({updateAvailable, error, sendMessages, acceptCookies}: Props) => {
   const [showError, setError] = useState(false);
 
   if (showError) {
@@ -31,7 +31,7 @@ const Notifications = ({updateAvailable, recordError, sendMessages, acceptCookie
       <Button onClick={updateAvailable} data-testid='trigger-updates-available'>update available</Button>
       <Button onClick={sendMessages} data-testid='trigger-messages'>app messages</Button>
       <Button onClick={() => setError(true)} data-testid='trigger-inline-error'>inline error</Button>
-      <Button onClick={() => recordError({error: new Error('this is an error')})} data-testid='trigger-modal-error'>
+      <Button onClick={() => error(new Error('this is an error'))} data-testid='trigger-modal-error'>
         modal error
       </Button>
     </ButtonGroup>
@@ -42,7 +42,7 @@ export default connect<{}, React.ComponentProps<typeof Notifications>>(
   () => ({}),
   (dispatch: Dispatch): Props => ({
     acceptCookies: flow(notifications.acceptCookies, dispatch),
-    recordError: flow(recordErrorAction, dispatch),
+    error: flow(recordError, dispatch),
     sendMessages: () => dispatch(notifications.receiveMessages(demoAppMessages)),
     updateAvailable: flow(notifications.updateAvailable, dispatch),
   })

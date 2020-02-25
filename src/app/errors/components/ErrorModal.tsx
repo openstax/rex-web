@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { clearCurrentError } from '../actions';
-import { currentError, getErrorIdStack } from '../selectors';
+import { currentError, getMessageIdStack } from '../selectors';
 import ErrorCard, { Footer } from './ErrorCard';
 
 // tslint:disable-next-line:variable-name
@@ -75,7 +75,7 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
 export default connect(
   (state: AppState) => ({
     error: currentError(state),
-    stack: getErrorIdStack(state),
+    stack: getMessageIdStack(state),
   }),
   (dispatch: Dispatch) => ({
     clearError: () => dispatch(clearCurrentError()),

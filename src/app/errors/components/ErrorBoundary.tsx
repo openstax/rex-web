@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
 import Footer from '../../components/Footer';
@@ -9,12 +8,9 @@ import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 import theme from '../../theme';
-import { Dispatch } from '../../types';
-import { recordError as recordErrorAction } from '../actions';
 
 interface Props {
   children: ReactNode;
-  recordError: (sentryErrorId?: string) => void;
 }
 
 interface State {
@@ -47,8 +43,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   public state = { error: undefined };
 
   public componentDidCatch(error: Error) {
-    const sentryErrorId = Sentry.captureException(error);
-    this.props.recordError(sentryErrorId);
+    Sentry.captureException(error);
     this.setState({ error });
   }
 
@@ -70,8 +65,4 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 }
 
-export default connect(null,
-  (dispatch: Dispatch) => ({
-    recordError: (sentryErrorId?: string) => dispatch(recordErrorAction({sentryErrorId})),
-  })
-)(ErrorBoundary);
+export default ErrorBoundary;
