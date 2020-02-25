@@ -73,9 +73,12 @@ export default class ScrollLock extends React.Component<Props> {
   public render() {
     return <OnScroll onTouchMove={this.blockScroll}>
       <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
-      {this.props.overlay !== false &&
-        <Overlay onClick={this.props.onClick} mobileOnly={this.props.mobileOnly} zIndex={this.props.zIndex}/>
-      }
+      {this.props.overlay !== false && <Overlay
+        data-testid='scroll-lock-overlay'
+        onClick={this.props.onClick}
+        mobileOnly={this.props.mobileOnly}
+        zIndex={this.props.zIndex}
+      />}
     </OnScroll>;
   }
 
