@@ -2,6 +2,7 @@ import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openst
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { deleteHighlight, updateHighlight } from '../../actions';
@@ -82,9 +83,15 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const [isDeleting, setIsDeleting] = React.useState(false);
   const dispatch = useDispatch();
 
+  const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
+  const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
+
   const updateAnnotation = (
     annotation: string
   ) => {
+    const addedNote = (highlight.annotation === undefined);
+
     dispatch(updateHighlight({
       highlight: {annotation},
       id: highlight.id,
@@ -92,6 +99,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       locationFilterId,
       pageId,
     }));
+    trackEditAnnotation(addedNote, highlight.color, true);
     setIsEditing(false);
   };
 
@@ -103,6 +111,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       locationFilterId,
       pageId,
     }));
+    trackEditNoteColor(color, true);
   };
 
   const confirmDelete = () => {
@@ -110,6 +119,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       locationFilterId,
       pageId,
     }));
+    trackDeleteHighlight(highlight.color, true);
   };
 
   const hasAnnotation = Boolean(highlight.annotation);
