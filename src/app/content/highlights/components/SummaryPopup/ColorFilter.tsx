@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../../components/AllOrNone';
 import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
@@ -65,6 +65,10 @@ export default styled(ColorFilter)`
   z-index: 1;
   top: calc(100% - 0.1rem) !important;
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2) !important;
+  max-height: calc(100vh - 24.4rem);
+  ${theme.breakpoints.mobile(css`
+    max-height: calc(100vh - 20.4rem);
+  `)}
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

@@ -107,7 +107,10 @@ export default styled(ChapterFilter)`
   z-index: 1;
   top: calc(100% - 0.1rem) !important;
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2) !important;
+  max-height: calc(100vh - 24.4rem);
   ${theme.breakpoints.mobile(css`
+    max-height: calc(100vh - 20.4rem);
+
     &&& {
       left: -${mobilePaddingSides}rem;
       max-width: calc(100vw - ${mobileMarginSides * 2}rem);
