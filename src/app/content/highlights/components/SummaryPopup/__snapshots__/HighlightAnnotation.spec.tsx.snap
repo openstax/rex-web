@@ -2,7 +2,6 @@
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] = `
 .c0 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -55,7 +54,6 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -92,7 +90,6 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -133,7 +130,6 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
 }
 
 .c0 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -150,7 +146,6 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
 }
 
 .c1 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
