@@ -12,6 +12,7 @@ import { setSummaryFilters } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { highlightColorFiltersWithContent, summaryColorFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
+import { filters } from './constants';
 
 interface Props {
   className?: string;
@@ -60,7 +61,7 @@ export default styled(ColorFilter)`
   flex-direction: column;
   ${textStyle}
   font-size: 1.4rem;
-  padding: 0.8rem 1.6rem;
+  padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
   z-index: 1;
 

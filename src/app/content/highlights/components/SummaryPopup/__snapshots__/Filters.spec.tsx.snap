@@ -97,7 +97,7 @@ exports[`Filters matches snapshot 1`] = `
   color: #424242;
   font-weight: 300;
   color: #5e6062;
-  max-width: 80px;
+  max-width: 8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -158,8 +158,8 @@ exports[`Filters matches snapshot 1`] = `
 .c6 {
   position: relative;
   padding: 2rem 2.4rem;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
 }
 
 .c6 > div {
@@ -200,7 +200,7 @@ exports[`Filters matches snapshot 1`] = `
   -ms-flex-align: center;
   align-items: center;
   background: #fff;
-  border-bottom: 1px solid #d5d5d5;
+  border-bottom: 0.1rem solid #d5d5d5;
 }
 
 .c0 .c4 {
@@ -259,7 +259,7 @@ exports[`Filters matches snapshot 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 .c1 > *:not(.c4) {
-    max-height: calc(100vh - 19.6rem);
+    max-height: calc(100vh - 19.599999999999998rem);
   }
 }
 
@@ -628,7 +628,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 
 .c15 {
   font-weight: 600;
-  font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
@@ -640,40 +639,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   padding: 0.4rem;
 }
 
-.c19 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  height: 1.7rem;
-  margin-right: 0.4rem;
-}
-
-.c19 svg {
-  height: 0.8rem;
-  width: 0.8rem;
-  color: #5e6062;
-}
-
-.c20 {
-  font-family: Neue Helvetica W01;
-  color: #424242;
-  font-weight: 300;
-  color: #5e6062;
-  max-width: 80px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-}
-
-.c18 {
-  height: 4rem;
-}
-
 .c17 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -722,13 +688,12 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 .c6 {
   position: relative;
   padding: 2rem 2.4rem;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
 }
 
 .c6 > div {
   outline: none;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   color: #5e6062;
@@ -752,13 +717,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 .c11 {
   position: relative;
   padding: 2rem 2.4rem;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
   z-index: 2;
   box-shadow: 0 -0.4rem 0.6rem 0 rgba(0,0,0,0.2);
   background-color: #fff;
-  border-left: 1px solid #d5d5d5;
-  border-right: 1px solid #d5d5d5;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
 }
 
 .c11 .c8 {
@@ -771,7 +736,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 
 .c11 > div {
   outline: none;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   color: #5e6062;
@@ -808,7 +772,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   -ms-flex-align: center;
   align-items: center;
   background: #fff;
-  border-bottom: 1px solid #d5d5d5;
+  border-bottom: 0.1rem solid #d5d5d5;
 }
 
 .c0 .c4 {
@@ -824,20 +788,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 @media screen and (max-width:75em) {
   .c15 {
     display: none;
-  }
-}
-
-@media print {
-  .c19 {
-    display: none;
-  }
-}
-
-@media print {
-  .c20 {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
   }
 }
 
@@ -873,7 +823,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 .c1 > *:not(.c4) {
-    max-height: calc(100vh - 19.6rem);
+    max-height: calc(100vh - 19.599999999999998rem);
   }
 }
 
@@ -973,207 +923,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   </button>
   <ul
     className="c16 c17"
-  >
-    <li
-      className="c18"
-    >
-      <button
-        className="c19"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c20"
-      >
-        blue
-      </span>
-    </li>
-    <li
-      className="c18"
-    >
-      <button
-        className="c19"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c20"
-      >
-        green
-      </span>
-    </li>
-    <li
-      className="c18"
-    >
-      <button
-        className="c19"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c20"
-      >
-        pink
-      </span>
-    </li>
-    <li
-      className="c18"
-    >
-      <button
-        className="c19"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c20"
-      >
-        purple
-      </span>
-    </li>
-    <li
-      className="c18"
-    >
-      <button
-        className="c19"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c20"
-      >
-        yellow
-      </span>
-    </li>
-  </ul>
+  />
 </div>
 `;

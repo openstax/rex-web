@@ -10,13 +10,14 @@ import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
+import { filters } from './constants';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
   color: ${theme.color.primary.gray.base};
-  width: 1rem;
-  height: 2rem;
+  width: ${filters.dropdownToggle.icon.width}rem;
+  height: ${filters.dropdownToggle.icon.height}rem;
   margin-left: 0.8rem;
   padding-top: 0.2rem;
 `;
@@ -26,9 +27,9 @@ const HighlightsPrintButton = styled(PrintButton)`
   min-width: auto;
   height: max-content;
   margin-left: auto;
-  padding-right: 2.4rem;
+  padding-right: ${filters.dropdownToggle.sides.desktop}rem;
   ${theme.breakpoints.mobile(css`
-    padding-right: 2rem;
+    padding-right: ${filters.dropdownToggle.sides.mobile}rem;
   `)}
 `;
 
@@ -47,19 +48,19 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   </PlainButton>
 ))`
   position: relative;
-  padding: 2rem 2.4rem;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
+  border-left: ${filters.border}rem solid transparent;
+  border-right: ${filters.border}rem solid transparent;
   ${theme.breakpoints.mobile(css`
-    padding: 1.6rem 2rem;
+    padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
   `)}
   ${(props: ToggleProps) => props.isOpen
     ? css`
       z-index: 2;
       box-shadow: 0 -0.4rem 0.6rem 0 rgba(0,0,0,0.2);
       background-color: ${theme.color.white};
-      border-left: 1px solid ${theme.color.neutral.formBorder};
-      border-right: 1px solid ${theme.color.neutral.formBorder};
+      border-left: ${filters.border}rem solid ${theme.color.neutral.formBorder};
+      border-right: ${filters.border}rem solid ${theme.color.neutral.formBorder};
 
       ${DownIcon} {
         transform: rotate(180deg);
@@ -115,7 +116,7 @@ export default styled(Filters)`
   flex-flow: row wrap;
   align-items: center;
   background: ${theme.color.neutral.base};
-  border-bottom: 1px solid ${theme.color.neutral.formBorder};
+  border-bottom: ${filters.border}rem solid ${theme.color.neutral.formBorder};
   ${css`
     ${DropdownToggle} {
       font-weight: bold;
@@ -123,11 +124,11 @@ export default styled(Filters)`
 
     ${Dropdown} {
       & > *:not(${DropdownToggle}) {
-        top: calc(100% - 0.1rem);
+        top: calc(100% - ${filters.border}rem);
         box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
-        max-height: calc(100vh - 26rem);
+        max-height: calc(100vh - ${filters.valueToSubstractFromVH.desktop}rem);
         ${theme.breakpoints.mobile(css`
-          max-height: calc(100vh - 19.6rem);
+          max-height: calc(100vh - ${filters.valueToSubstractFromVH.mobile}rem);
         `)}
       }
     }

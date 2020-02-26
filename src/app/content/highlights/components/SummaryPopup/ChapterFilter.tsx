@@ -9,7 +9,7 @@ import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
 import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
-import { mobileMarginSides } from './constants';
+import { filters, mobileMarginSides } from './constants';
 
 interface Props {
   className?: string;
@@ -100,13 +100,13 @@ export default styled(ChapterFilter)`
   ${textStyle}
   background: ${theme.color.white};
   font-size: 1.4rem;
-  padding: 0.8rem 1.6rem;
+  padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
   overflow: auto;
   z-index: 1;
   ${theme.breakpoints.mobile(css`
     &&& {
-      max-width: calc(100vw - ${mobileMarginSides * 2}rem - 3.2rem);
+      max-width: calc(100vw - ${(mobileMarginSides * 2) + filters.dropdownContent.minimumWhiteSpace}rem);
     }
   `)}
 

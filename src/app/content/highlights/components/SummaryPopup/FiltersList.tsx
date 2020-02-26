@@ -31,7 +31,7 @@ const ItemLabel = styled.span`
   ${textStyle}
   font-weight: 300;
   color: ${theme.color.primary.gray.base};
-  max-width: 80px;
+  max-width: 8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
