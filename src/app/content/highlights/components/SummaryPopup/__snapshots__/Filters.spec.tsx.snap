@@ -259,7 +259,7 @@ exports[`Filters matches snapshot 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 .c1 > *:not(.c4) {
-    max-height: calc(100vh - 19.599999999999998rem);
+    max-height: calc(100vh - 19.6rem);
   }
 }
 
@@ -823,7 +823,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 .c1 > *:not(.c4) {
-    max-height: calc(100vh - 19.599999999999998rem);
+    max-height: calc(100vh - 19.6rem);
   }
 }
 

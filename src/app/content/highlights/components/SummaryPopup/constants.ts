@@ -37,7 +37,12 @@ export const filters = {
     const buttonMobileHeight = (this.dropdownToggle.topBottom.mobile * 2) + this.dropdownToggle.icon.height;
     return {
       desktop: this.dropdownContent.minimumWhiteSpace + desktopPaddingAndHeader + buttonDesktopHeight,
-      mobile: this.dropdownContent.minimumWhiteSpace + mobilePaddingAndHeader + buttonMobileHeight,
+      mobile: Number(
+        this.dropdownContent.minimumWhiteSpace + mobilePaddingAndHeader + buttonMobileHeight
+      ).toFixed(1),
     };
+  },
+  get valueToSubstractFromVW() {
+    return Number((mobileMarginSides * 2) + this.dropdownContent.minimumWhiteSpace).toFixed(1);
   },
 };

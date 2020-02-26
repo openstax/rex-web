@@ -9,7 +9,7 @@ import theme from '../../../../theme';
 import { setSummaryFilters } from '../../actions';
 import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
-import { filters, mobileMarginSides } from './constants';
+import { filters } from './constants';
 
 interface Props {
   className?: string;
@@ -106,7 +106,7 @@ export default styled(ChapterFilter)`
   z-index: 1;
   ${theme.breakpoints.mobile(css`
     &&& {
-      max-width: calc(100vw - ${(mobileMarginSides * 2) + filters.dropdownContent.minimumWhiteSpace}rem);
+      max-width: calc(100vw - ${filters.valueToSubstractFromVW}rem);
     }
   `)}
 
