@@ -7,8 +7,9 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import Button, { ButtonGroup } from '../../../components/Button';
+import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertWindow, mergeRefs, useOnEsc } from '../../../utils';
+import { assertWindow, mergeRefs } from '../../../utils';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,

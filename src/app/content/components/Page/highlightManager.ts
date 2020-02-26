@@ -15,6 +15,7 @@ import showConfirmation from '../../highlights/components/utils/showConfirmation
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
+import attachHighlight from '../utils/attachHighlight';
 
 interface Services {
   getProp: () => HighlightProp;
@@ -25,7 +26,6 @@ interface Services {
 }
 
 export const mapStateToHighlightProp = (state: AppState) => ({
-  enabled: selectHighlights.isEnabled(state),
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
@@ -85,14 +85,20 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
 const isUnknownHighlightData = (highlighter: Highlighter) => (data: HighlightData) =>
   !highlighter.getHighlight(data.id);
 
+const updateStyle = (highlighter: Highlighter) => (data: HighlightData) => {
+  const highlight = highlighter.getHighlight(data.id);
+
+  if (highlight) {
+    highlight.setStyle(data.color);
+  }
+};
+
 const highlightData = (services: Services) => (data: HighlightData) => {
   const { highlighter } = services;
 
   const serialized = SerializedHighlight.fromApiResponse(data);
 
-  highlighter.highlight(serialized);
-
-  return highlighter.getHighlight(data.id);
+  return attachHighlight(serialized, highlighter);
 };
 
 const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
@@ -101,7 +107,7 @@ const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
 };
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
-  let highlighter: Highlighter | undefined;
+  let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
   let setListHighlights = (_highlights: Highlight[]): void => undefined;
@@ -128,10 +134,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     setPendingHighlight,
   };
 
-  if (getProp().enabled) {
-    highlighter = createHighlighter(services);
-    setListHighlighter(highlighter);
-  }
+  highlighter = createHighlighter(services);
+  setListHighlighter(highlighter);
 
   return {
     CardList: () => {
@@ -143,34 +147,22 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       setListHighlights = setHighlights;
       setListPendingHighlight = setInnerPendingHighlight;
 
-      if (listHighlighter) {
-        return React.createElement(CardWrapper, {
-          container,
-          highlighter: listHighlighter,
-          highlights: listPendingHighlight
-            ? [
-              ...listHighlights.filter(
-                (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
-              ),
-              listPendingHighlight,
-            ]
-            : listHighlights,
-        });
-      }
-      return null;
+      return React.createElement(CardWrapper, {
+        container,
+        highlighter: listHighlighter,
+        highlights: listPendingHighlight
+          ? [
+            ...listHighlights.filter(
+              (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
+            ),
+            listPendingHighlight,
+          ]
+          : listHighlights,
+      });
     },
     unmount: (): void => highlighter && highlighter.unmount(),
     update: () => {
-      if (!highlighter && getProp().enabled) {
-        highlighter = createHighlighter(services);
-        setListHighlighter(highlighter);
-      }
-
       let addedOrRemoved = false;
-
-      if (!highlighter) {
-        return addedOrRemoved;
-      }
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
 
@@ -180,8 +172,12 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
       ) {
         addedOrRemoved = true;
-        highlighter.highlight(pendingHighlight);
+        attachHighlight(pendingHighlight, highlighter);
       }
+
+      getProp().highlights
+        .map(updateStyle(highlighter))
+      ;
 
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))

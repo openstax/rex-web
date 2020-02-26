@@ -10,7 +10,6 @@ import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
-import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as Services from '../../../context/Services';
@@ -27,7 +26,7 @@ import {
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
 } from '../actions';
-import { highlightingFeatureFlag, highlightStyles } from '../constants';
+import { highlightStyles } from '../constants';
 import { hasMoreResults } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
@@ -45,8 +44,6 @@ describe('Show my highlights', () => {
   beforeEach(() => {
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
-
-    store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     highlight1 = createMockHighlight('asdf');
     highlight2 = createMockHighlight('lkjh');
@@ -151,9 +148,11 @@ describe('Show my highlights', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {
@@ -179,9 +178,11 @@ describe('Show my highlights', () => {
     const dispatch = spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
@@ -220,9 +221,11 @@ describe('Show my highlights', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {

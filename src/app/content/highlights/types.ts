@@ -29,7 +29,6 @@ export type SummaryHighlightsPagination = null | {
 
 export interface State {
   myHighlightsOpen: boolean;
-  enabled: boolean;
   focused?: string;
   hasUnsavedHighlight: boolean;
   highlights: null | HighlightData[];

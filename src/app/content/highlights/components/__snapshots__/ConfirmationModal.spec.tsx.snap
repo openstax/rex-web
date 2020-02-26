@@ -15,7 +15,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -52,7 +51,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -86,7 +84,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
   margin: auto;
   overflow: hidden;
   width: 40rem;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -125,7 +122,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
 }
 
 .c4 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -148,7 +144,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
 }
 
 .c7 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -249,7 +244,6 @@ exports[`ConfirmationModal matches snapshot 1`] = `
 
 @media screen and (max-width:75em) {
   .c4 {
-    font-family: Neue Helvetica W01;
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;

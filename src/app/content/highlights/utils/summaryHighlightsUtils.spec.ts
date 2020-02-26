@@ -177,7 +177,7 @@ describe('removeSummaryHighlight', () => {
       id: highlight.id,
       locationFilterId: 'location',
       pageId: 'page',
-    })[0]).toMatchObject(expectedResult);
+    })).toMatchObject(expectedResult);
   });
 
   it('remove highlight and page if it does not have more highlights', () => {
@@ -198,7 +198,7 @@ describe('removeSummaryHighlight', () => {
       id: highlight.id,
       locationFilterId: 'location',
       pageId: 'page',
-    })[0]).toMatchObject(expectedResult);
+    })).toMatchObject(expectedResult);
   });
 
   it('remove highlight, page and location if it does not have more highlights', () => {
