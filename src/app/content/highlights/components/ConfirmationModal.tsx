@@ -25,13 +25,13 @@ const ConfirmationModal = ({deny, confirm}: Props) => {
     </Body>
     <ConfirmationFooter>
       <FormattedMessage id='i18n:discard:button:discard'>
-          {(msg) => <Button
-            data-testid='discard-changes'
-            onClick={confirm}
-            variant='primary'
-            > {msg}
-          </Button>}
-        </FormattedMessage>
+        {(msg) => <Button
+          data-testid='discard-changes'
+          onClick={confirm}
+          variant='primary'
+          > {msg}
+        </Button>}
+      </FormattedMessage>
       <FormattedMessage id='i18n:discard:button:cancel'>
         {(msg) => <Button
           data-testid='cancel-discard'
