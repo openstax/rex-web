@@ -16,7 +16,7 @@ import { State } from './types';
 
 export const initialState = {
   highlights: initialHighlightState,
-  loading: null,
+  loading: {},
   params: null,
   references: [],
   search: initialSearchState,

@@ -22,7 +22,10 @@ export interface Params {
 export interface State {
   tocOpen: boolean | null;
   params: Params | null;
-  loading: Params | null;
+  loading: {
+    book?: Params['book']
+    page?: Params['page']
+  };
   search: SearchState;
   showCallToActionPopup: boolean | null;
   highlights: HighlightState;

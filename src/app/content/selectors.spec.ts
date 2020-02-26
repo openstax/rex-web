@@ -9,9 +9,3 @@ describe('pageParam', () => {
     expect(select.pageParam({} as any)).toBe(null);
   });
 });
-
-describe('loadingPage', () => {
-  it('defaults to null', () => {
-    expect(select.loadingPage({} as any)).toBe(null);
-  });
-});

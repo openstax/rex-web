@@ -7,7 +7,6 @@ import {
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
-  Page
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
@@ -85,21 +84,6 @@ export const archiveTreeContainsNode = (
   tree: ArchiveTree,
   nodeId: string
 ): boolean => !!findArchiveTreeNode(tree, nodeId);
-
-export const getPageSlug = (book: {id: string, tree: ArchiveTree}, page: Page) => {
-  const node = findArchiveTreeNode(book.tree, page.id);
-
-  if (!node) {
-    throw new Error(`trying to find slug of page, got undefined, pageid: ${page.id}, bookid: ${book.id}`);
-  }
-  if (!archiveTreeSectionIsPage(node)) {
-    throw new Error(
-      `trying to find slug of page, found node that was not a page, pageid: ${page.id}, bookid: ${book.id}`
-    );
-  }
-
-  return node.slug;
-};
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;

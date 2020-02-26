@@ -42,12 +42,12 @@ export const loading = createSelector(
 
 export const loadingBook = createSelector(
   loading,
-  (slugs) => slugs ? slugs.book : null
+  (slugs) => slugs.book
 );
 
 export const loadingPage = createSelector(
   loading,
-  (slugs) => slugs ? slugs.page : null
+  (slugs) => slugs.page
 );
 
 export const pageParam = createSelector(
