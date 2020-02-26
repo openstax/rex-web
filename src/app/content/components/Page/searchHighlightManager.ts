@@ -28,6 +28,7 @@ type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 
 interface Options {
   forceRedraw: boolean;
+  cb?: (selectedHighlight?: Highlight) => void;
 }
 
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
@@ -43,8 +44,7 @@ const selectResult = (
   services: Services,
   previous: HighlightProp,
   current: HighlightProp,
-  options: Options,
-  cb?: (selectedHighlight?: Highlight) => void
+  options: Options
 ) => {
   if (!current.selectedResult) {
     return;
@@ -71,8 +71,8 @@ const selectResult = (
     );
   }
 
-  if (cb) {
-    cb(firstSelectedHighlight);
+  if (options.cb) {
+    options.cb(firstSelectedHighlight);
   }
 };
 
@@ -80,10 +80,9 @@ const handleUpdate = (services: Services) => (
   previous: HighlightProp,
   current: HighlightProp,
   options: Options,
-  cb?: (selectedHighlight?: Highlight) => void
 ) => {
   updateResults(services, previous, current, options);
-  selectResult(services, previous, current, options, cb);
+  selectResult(services, previous, current, options);
 };
 
 const searchHighlightManager = (container: HTMLElement) => {

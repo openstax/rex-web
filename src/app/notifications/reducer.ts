@@ -27,8 +27,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.updateAvailable):
     case getType(actions.acceptCookies):
       return state.find(({type}) => type === action.type)
-      ? state
-      : [...state, action];
+        ? state
+        : [...state, action];
     case getType(actions.receiveMessages):
       return [...state, ...processAppMessages(state, action)];
     case getType(actions.dismissNotification):

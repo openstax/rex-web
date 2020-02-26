@@ -1,24 +1,17 @@
-import ReactType from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchFailure from '.';
-import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { dismissNotification } from '../../actions';
 import { clearErrorAfter } from './styles';
 
 jest.mock('react', () => {
-    const react = (jest as any).requireActual('react');
-    return { ...react, useEffect: react.useLayoutEffect };
+  const react = (jest as any).requireActual('react');
+  return { ...react, useEffect: react.useLayoutEffect };
 });
 
 describe('SearchFailure', () => {
-  let React: typeof ReactType; // tslint:disable-line:variable-name
-
   let addEventListener: jest.SpyInstance;
   let setTimeout: jest.SpyInstance;
   let clearTimeout: jest.SpyInstance;
@@ -26,7 +19,6 @@ describe('SearchFailure', () => {
   let removeEventListener: jest.SpyInstance;
 
   beforeEach(() => {
-    React = require('react');
     window = assertWindow();
     addEventListener = jest.spyOn(window, 'addEventListener');
     removeEventListener = jest.spyOn(window, 'removeEventListener');
@@ -35,7 +27,9 @@ describe('SearchFailure', () => {
   });
 
   it('manages timeout', async() => {
-    const component = renderer.create(<MessageProvider><SearchFailure /></MessageProvider>);
+    const dismiss = jest.fn(() => undefined);
+
+    const component = renderer.create(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
 
     expect(addEventListener).toHaveBeenCalledWith('scroll', expect.anything());
     expect(addEventListener).toHaveBeenCalledWith('click', expect.anything());
@@ -50,7 +44,9 @@ describe('SearchFailure', () => {
   });
 
   it('dismisses on animation end', () => {
-    const {root} = renderToDom(<MessageProvider><SearchFailure /></MessageProvider>);
+    const dismiss = jest.fn(() => undefined);
+
+    const {root} = renderToDom(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
 
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -63,7 +59,9 @@ describe('SearchFailure', () => {
   });
 
   it('dismisses notification on click', () => {
-    const component = renderer.create(<MessageProvider><SearchFailure /></MessageProvider>);
+    const dismiss = jest.fn(() => undefined);
+
+    const component = renderer.create(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
 
     component.root.findByType('button').props.onClick();
 

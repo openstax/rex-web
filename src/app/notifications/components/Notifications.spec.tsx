@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { acceptCookies, receiveMessages, updateAvailable  } from '../actions';
+import { acceptCookies, receiveMessages, updateAvailable } from '../actions';
 import ConnectedNotifications from './Notifications';
 
 describe('Notifications', () => {

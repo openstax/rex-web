@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { assertWindow, useOnDOMEvent, useTimeout } from '../../../utils';
 import { Header } from '../Card';
@@ -14,10 +14,9 @@ interface Props {
   dismiss: () => void;
 }
 
-const window = assertWindow();
-
 // tslint:disable-next-line:variable-name
-const SearchFailure = memo(({ dismiss }: Props) => {
+const SearchFailure = ({ dismiss }: Props) => {
+  const window = assertWindow();
   const [isFadingOut, setIsFadingOut] = React.useState(false);
 
   const startFadeOut = () => setIsFadingOut(true);
@@ -43,8 +42,6 @@ const SearchFailure = memo(({ dismiss }: Props) => {
       </BannerBody>
     </BannerBodyWrapper>
   );
-}, () => {
-  return true;
-});
+};
 
 export default SearchFailure;

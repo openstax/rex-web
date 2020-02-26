@@ -3,7 +3,7 @@ import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
-import { isPlainObject } from './guards';
+import { isPlainObject, isWindow } from './guards';
 import {
   ActionHookBody,
   AnyAction,
@@ -213,25 +213,25 @@ export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boole
 };
 
 export const useOnDOMEvent = (
-  element: React.RefObject<HTMLElement>['current'] | Window ,
+  element: React.RefObject<HTMLElement> | Window ,
   isEnabled: boolean,
   event: keyof HTMLElementEventMap,
   cb: () => void
 ) => {
   React.useEffect(() => {
-    if (!element) { return; }
+    const target = isWindow(element) ? element : element.current;
+
+    if (!target) { return; }
 
     if (isEnabled) {
-      element.addEventListener(event, cb);
-    } else {
-      element.removeEventListener(event, cb);
+      target.addEventListener(event, cb);
     }
 
-    return () => element.removeEventListener(event, cb);
+    return () => target.removeEventListener(event, cb);
   }, [element, isEnabled, cb, event]);
 };
 
-export const useTimeout = (delay: number, cb: () => void, deps: any[]) => React.useEffect(() => {
+export const useTimeout = (delay: number, cb: () => void, deps: React.DependencyList) => React.useEffect(() => {
   const timeout = setTimeout(cb, delay);
   return () => clearTimeout(timeout);
 }, deps);

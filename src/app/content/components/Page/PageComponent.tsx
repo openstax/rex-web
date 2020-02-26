@@ -72,8 +72,10 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.searchHighlightManager.update(
       prevProps.searchHighlights,
       this.props.searchHighlights,
-      { forceRedraw: highlgihtsAddedOrRemoved },
-      this.onHighlightSelect
+      {
+        cb: this.onHighlightSelect,
+        forceRedraw: highlgihtsAddedOrRemoved,
+      }
     );
   }
 
