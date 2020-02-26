@@ -318,7 +318,7 @@ export const SidebarControl = styled(OpenSidebarControl)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BuyBookWrapper = styled(PlainButton)`
+export const BuyBookWrapper = styled.a`
   min-width: ${buttonMinWidth};
   display: flex;
   align-items: center;

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import BuyBook from '../../../../assets/buy-book-icon.svg';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument, assertString, assertWindow } from '../../../utils';
+import { assertDocument, assertString } from '../../../utils';
 import {
   clearSearch,
   openMobileToolbar,
@@ -122,9 +122,10 @@ class Toolbar extends React.Component<Props, State> {
         <PrintButton />
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
           {(msg) => <Styled.BuyBookWrapper
-            data-testid='buy-book'
             aria-label={msg}
-            onClick={() => assertWindow().open(buyBookLink)}
+            target='_blank'
+            rel='noopener'
+            href={buyBookLink}
             data-analytics-label='buy-book'
           >
             <Styled.BuyBookIcon aria-hidden src={BuyBook}></Styled.BuyBookIcon>

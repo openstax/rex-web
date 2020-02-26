@@ -19,7 +19,7 @@ import {
 } from '../search/actions';
 import Toolbar from './Toolbar';
 
-describe('buttons', () => {
+describe('print button', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
   let print: jest.SpyInstance;
@@ -31,7 +31,7 @@ describe('buttons', () => {
     print.mockImplementation(noop);
   });
 
-  it('print button', () => {
+  it('prints', () => {
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -47,24 +47,6 @@ describe('buttons', () => {
     component.root.findByProps({'data-testid': 'print'}).props.onClick(event);
 
     expect(print).toHaveBeenCalled();
-  });
-
-  it('buy book button', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Toolbar />
-      </MessageProvider>
-    </Provider>);
-
-    const event = {
-      preventDefault: jest.fn(),
-    };
-
-    const open = jest.spyOn(assertWindow(), 'open');
-
-    component.root.findByProps({'data-testid': 'buy-book'}).props.onClick(event);
-
-    expect(open).toHaveBeenCalled();
   });
 });
 

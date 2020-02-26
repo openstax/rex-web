@@ -599,17 +599,6 @@ Array [
 }
 
 .c31 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
   min-width: 45px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -627,11 +616,6 @@ Array [
   margin-left: 2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c31:hover,
-.c31:focus {
-  color: #424242;
 }
 
 .c54 {
@@ -2324,12 +2308,13 @@ li[aria-label="Current Page"] .c47 {
             Print
           </span>
         </button>
-        <button
+        <a
           aria-label="Buy book"
           className="c31"
           data-analytics-label="buy-book"
-          data-testid="buy-book"
-          onClick={[Function]}
+          href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+          rel="noopener"
+          target="_blank"
         >
           <img
             aria-hidden={true}
@@ -2341,7 +2326,7 @@ li[aria-label="Current Page"] .c47 {
           >
             Buy book
           </span>
-        </button>
+        </a>
       </div>
     </div>
     <div
@@ -4081,17 +4066,6 @@ Array [
 }
 
 .c23 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
   min-width: 45px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4109,11 +4083,6 @@ Array [
   margin-left: 2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c23:hover,
-.c23:focus {
-  color: #424242;
 }
 
 .c41 {
@@ -4998,12 +4967,13 @@ Array [
             Print
           </span>
         </button>
-        <button
+        <a
           aria-label="Buy book"
           className="c23"
           data-analytics-label="buy-book"
-          data-testid="buy-book"
-          onClick={[Function]}
+          href="https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+          rel="noopener"
+          target="_blank"
         >
           <img
             aria-hidden={true}
@@ -5015,7 +4985,7 @@ Array [
           >
             Buy book
           </span>
-        </button>
+        </a>
       </div>
     </div>
     <div
