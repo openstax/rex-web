@@ -65,3 +65,17 @@ export type AnyMatch = UnionRouteMatches<AnyRoute>;
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
   (locationChange: Required<LocationChange<Match<R>>>) =>
     Promise<any> | void;
+
+export interface ScrollTargetHash {
+  id: string;
+  value: string;
+  type: 'hash';
+}
+
+export interface ScrollTargetHighlight {
+  id: string;
+  type: 'highlight' | 'search-highlight';
+  scrollToFunction: () => void;
+}
+
+export type ScrollTarget = ScrollTargetHash | ScrollTargetHighlight;

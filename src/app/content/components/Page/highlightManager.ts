@@ -4,6 +4,8 @@ import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
+import * as selectNavigation from '../../../navigation/selectors';
+import { ScrollTargetHighlight } from '../../../navigation/types';
 import { AppState, Dispatch } from '../../../types';
 import {
   clearFocusedHighlight,
@@ -27,6 +29,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   focused: selectHighlights.focused(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
+  scrollTargetHighlightId: selectNavigation.highlightId(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
@@ -149,8 +152,21 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
           : listHighlights,
       });
     },
-    scrollTo: (highlightId: string) => () => {
-      services.getProp().focus(highlightId);
+    getScrollTarget: (): ScrollTargetHighlight | null => {
+      const targetId = services.getProp().scrollTargetHighlightId;
+      if (!targetId) { return null; }
+
+      if (!services.getProp().highlights.find((search) => search.id === targetId)) {
+        // TODO: Display some error dialog.
+        // Probably when https://github.com/openstax/rex-web/pull/465 is merged
+        return null;
+      }
+
+      return {
+        id: targetId,
+        scrollToFunction: () => services.getProp().focus(targetId),
+        type: 'highlight',
+      };
     },
     unmount: (): void => highlighter && highlighter.unmount(),
     update: () => {
@@ -205,7 +221,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
-  scrollTo: (_highlightId: string) => (): void => undefined,
+  getScrollTarget: (): ScrollTargetHighlight | null => null,
   unmount: (): void => undefined,
   update: (): boolean => false,
 });

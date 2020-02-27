@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
+import { ScrollTarget } from '../../../navigation/types';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -14,7 +15,7 @@ import highlightManager, { stubHighlightManager } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
-import scrollTargetManager, { ScrollTargets, stubScrollTargetManager } from './scrollTargetManager';
+import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
@@ -30,7 +31,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private highlightManager = stubHighlightManager;
   private scrollTargetManager = stubScrollTargetManager;
   private processing: Promise<void> = Promise.resolve();
-  private prevScrollTargetHighlightId: string | undefined = undefined;
+  private prevScrollTargets: ScrollTarget[] = [];
 
   public getTrasnformedContent = () => {
     const {book, page, services} = this.props;
@@ -40,46 +41,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     );
     transformContent(cleanContent, cleanContent.body, this.props.intl);
     return cleanContent.body.innerHTML;
-  };
-
-  public getScrollTargets = (prevProps: PagePropTypes): ScrollTargets => {
-    const {
-      searchHighlights,
-      scrollTargets: {
-        hash,
-        highlightId,
-      },
-      highlights: { highlights },
-    } = this.props;
-
-    const scrollTargets: ScrollTargets = {
-      hash,
-    };
-
-    const highlgihtsAddedOrRemoved = this.highlightManager.update();
-    const searchResultHighlight = this.searchHighlightManager.update(
-      prevProps.searchHighlights,
-      searchHighlights,
-      { forceRedraw: highlgihtsAddedOrRemoved }
-    );
-
-    if (searchResultHighlight) {
-      scrollTargets.searchHighlight = this.searchHighlightManager.scrollTo(searchResultHighlight);
-    }
-
-    if (
-      highlightId
-      && highlightId !== this.prevScrollTargetHighlightId
-      && highlights.find((search) => search.id === highlightId)
-    ) {
-      this.prevScrollTargetHighlightId = highlightId;
-      scrollTargets.highlight = this.highlightManager.scrollTo(highlightId);
-    } else {
-      // TODO: Display some error dialog.
-      // Probably when https://github.com/openstax/rex-web/pull/465 is merged
-    }
-
-    return scrollTargets;
   };
 
   public componentDidMount() {
@@ -99,8 +60,34 @@ export default class PageComponent extends Component<PagePropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    const scrollTargets = this.getScrollTargets(prevProps);
-    this.scrollTargetManager(scrollTargets, prevProps.page, this.props.page);
+    const scrollTargets: ScrollTarget[] = [];
+
+    if (this.props.hash) {
+      scrollTargets.push({
+        id: this.props.hash,
+        type: 'hash',
+        value: this.props.hash,
+      });
+    }
+
+    const highlightScrollTarget = this.highlightManager.getScrollTarget();
+    if (highlightScrollTarget) {
+      scrollTargets.push(highlightScrollTarget);
+    }
+
+    const highlightsAddedOrRemoved = this.highlightManager.update();
+    const searchHighlightScrollTarget = this.searchHighlightManager.getScrollTarget(
+      prevProps.searchHighlights,
+      this.props.searchHighlights,
+      { forceRedraw: highlightsAddedOrRemoved }
+    );
+    if (searchHighlightScrollTarget) {
+      scrollTargets.push(searchHighlightScrollTarget);
+    }
+
+    this.scrollTargetManager(this.prevScrollTargets, scrollTargets, prevProps.page, this.props.page);
+
+    this.prevScrollTargets = scrollTargets;
 
     if (prevProps.page !== this.props.page) {
       await this.postProcess();

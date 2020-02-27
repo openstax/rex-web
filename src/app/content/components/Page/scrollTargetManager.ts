@@ -1,21 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import { differenceWith } from 'lodash';
 import { scrollTo } from '../../../domUtils';
-import * as selectNavigation from '../../../navigation/selectors';
-import { AppState } from '../../../types';
+import { ScrollTarget } from '../../../navigation/types';
 import { assertWindow, resetTabIndex } from '../../../utils';
 import { Page } from '../../types';
 import allImagesLoaded from '../utils/allImagesLoaded';
-
-export const mapStateToScrollTargetProp = (state: AppState) => ({
-  hash: selectNavigation.hash(state),
-  highlightId: selectNavigation.highlightId(state),
-});
-
-export interface ScrollTargets {
-  hash?: string;
-  highlight?: () => void;
-  searchHighlight?: () => void;
-}
 
 const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
@@ -48,23 +37,42 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
 };
 
 const scrollTargetManager = (container: HTMLElement) => (
-  scrollTargets: ScrollTargets,
+  prevScrollTargets: ScrollTarget[],
+  scrollTargets: ScrollTarget[],
   previousePage: Page | undefined,
   currentPage: Page | undefined
 ) => {
-  const { hash, highlight, searchHighlight } = scrollTargets;
+  const newScrollTargets = differenceWith(scrollTargets, prevScrollTargets, compareScrollTargets);
 
-  if (hash) {
-    scrollToTargetOrTop(container, hash);
-  } else if (highlight) {
-    highlight();
-  } else if (searchHighlight) {
-    searchHighlight();
-  } else if (previousePage !== currentPage) {
+  if (newScrollTargets.length === 0 && previousePage !== currentPage) {
     scrollToTop();
+    return;
+  }
+
+  const scrollTarget = newScrollTargets.sort(sortByPriority)[0];
+  if (!scrollTarget) { return; }
+
+  if (scrollTarget.type === 'hash') {
+    scrollToTargetOrTop(container, scrollTarget.value);
+  } else {
+    allImagesLoaded(container).then(() => scrollTarget.scrollToFunction());
   }
 };
 
 export default scrollTargetManager;
 
 export const stubScrollTargetManager: ReturnType<typeof scrollTargetManager> = () => stubScrollTargetManager;
+
+const compareScrollTargets = (target1: ScrollTarget, target2: ScrollTarget) => {
+  return target1.id === target2.id;
+};
+
+const sortByPriority = (target1: ScrollTarget, target2: ScrollTarget): number => {
+  if (target1.type === 'hash' && target2.type !== 'hash') {
+    return 1;
+  } else if (target1.type !== 'hash' && target2.type === 'hash') {
+    return -1;
+  }
+
+  return 0;
+};
