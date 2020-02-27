@@ -23,7 +23,6 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
-import { setAnnotationChangesPending } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';

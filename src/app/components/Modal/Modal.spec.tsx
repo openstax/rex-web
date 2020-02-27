@@ -9,8 +9,22 @@ describe('Modal', () => {
       <Modal
         onModalClose={() => null}
         heading='i18n:discard:heading'
-        subheading='i18n:discard:body'
       />
+    </MessageProvider>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot with children', () => {
+    const component = renderer.create(<MessageProvider>
+      <Modal
+        onModalClose={() => null}
+        heading='i18n:discard:heading'
+      >
+        <div>child 1</div>
+        <div>child 2</div>
+      </Modal>
     </MessageProvider>);
 
     const tree = component.toJSON();
