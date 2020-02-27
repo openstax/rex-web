@@ -1,8 +1,9 @@
 import * as SentryLibrary from '@sentry/browser';
+import { recordSentryMessage } from '../app/errors/actions';
 import { Store } from '../app/types';
 import config from '../config';
 import createTestStore from '../test/createTestStore';
-import Sentry from './Sentry';
+import Sentry, { onBeforeSend } from './Sentry';
 
 jest.mock('../config', () => ({
   DEPLOYED_ENV: 'test',
@@ -22,11 +23,15 @@ jest.mock('@sentry/browser', () => ({
 
 describe('Sentry error logging', () => {
   let store: Store;
-
+  let dispatch: jest.SpyInstance;
+  let beforeSend: ReturnType<typeof onBeforeSend>;
   beforeEach(() => {
     jest.clearAllMocks();
 
     store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
+
+    beforeSend = onBeforeSend(store);
   });
 
   it('initializes Sentry library', () => {
@@ -84,5 +89,24 @@ describe('Sentry error logging', () => {
     Sentry.log('test log');
     expect(SentryLibrary.captureMessage).toHaveBeenCalled();
     mock.mockRestore();
+  });
+
+  describe('onBeforeSend', () => {
+    it('does nothing if event does not have an id', () => {
+      const event = {};
+
+      const processedEvent = beforeSend(event);
+
+      expect(dispatch).not.toHaveBeenCalled();
+      expect(processedEvent).toEqual(event);
+    });
+
+    it('adds event\'s id to state', () => {
+      const event = {event_id: 'random id'};
+
+      const processedEvent = beforeSend(event);
+      expect(dispatch).toHaveBeenCalledWith(recordSentryMessage(event.event_id));
+      expect(processedEvent).toEqual(event);
+    });
   });
 });
