@@ -1,5 +1,5 @@
 export interface State {
   code?: number;
-  error?: Error ;
+  error?: Error;
   sentryMessageIdStack: string[];
 }
