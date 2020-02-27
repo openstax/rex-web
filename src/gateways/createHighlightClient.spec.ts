@@ -1,6 +1,6 @@
 import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { resetModules } from '../test/utils';
-import createHighlightClient from './createHighlightClient';
+import createHighlightClient, { DoNotHandleMe } from './createHighlightClient';
 
 describe('createHighlightClient', () => {
   const fetchBackup = fetch;
@@ -62,5 +62,22 @@ describe('createHighlightClient', () => {
       sourceIds: ['source'],
       sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     })).rejects.toEqual('Some error: msg1, msg2');
+  });
+
+  it('reject with DoNotHandleMe if response status is 401', async() => {
+    fetchSpy = (global as any).fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 401,
+      })
+    );
+
+    const client = createHighlightClient('asdf');
+
+    await expect(client.getHighlights({
+      perPage: 100,
+      scopeId: 'scope',
+      sourceIds: ['source'],
+      sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+    })).rejects.toBeInstanceOf(DoNotHandleMe);
   });
 });

@@ -1,6 +1,7 @@
 import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
+import { DoNotHandleMe } from '../gateways/createHighlightClient';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
 import { isPlainObject } from './guards';
@@ -27,6 +28,9 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
 
       if (matches(action)) {
         const catchError = (e: Error) => {
+          if (e instanceof DoNotHandleMe) {
+            return;
+          }
           Sentry.captureException(e);
           stateHelpers.dispatch(recordError(e));
         };
