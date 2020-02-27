@@ -39,7 +39,6 @@ def test_buy_book_link(selenium, base_url, book_slug, page_slug):
 
     # THEN: The Amazon link should be opened in a new tab
     browser.switch_to_window(1)
-    # new_url = browser.current_url
     assert browser.current_url == "https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
 
     # AND: The first tab has rex page open
