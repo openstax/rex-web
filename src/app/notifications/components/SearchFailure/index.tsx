@@ -18,10 +18,16 @@ interface Props {
 const SearchFailure = ({ dismiss }: Props) => {
   const window = assertWindow();
   const [isFadingOut, setIsFadingOut] = React.useState(false);
+  const [shouldAllowDismissal, setShouldAllowDismissal] = React.useState(false);
 
-  const startFadeOut = () => setIsFadingOut(true);
+  const startFadeOut = () => {
+    if (shouldAllowDismissal) {
+      setIsFadingOut(true);
+    }
+  };
 
-  useTimeout(clearErrorAfter, startFadeOut, []);
+  useTimeout(clearErrorAfter, startFadeOut, [shouldAllowDismissal]);
+  useTimeout(100, () => setShouldAllowDismissal(true), []);
 
   useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut);
   useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut);
