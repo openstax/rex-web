@@ -1,5 +1,7 @@
 import * as SentryLibrary from '@sentry/browser';
+import { Store } from '../app/types';
 import config from '../config';
+import createTestStore from '../test/createTestStore';
 import Sentry from './Sentry';
 
 jest.mock('../config', () => ({
@@ -14,13 +16,17 @@ jest.mock('@sentry/browser', () => ({
   },
   captureException: jest.fn(),
   captureMessage: jest.fn(),
+  configureScope: jest.fn(),
   init: jest.fn(),
 }));
 
 describe('Sentry error logging', () => {
+  let store: Store;
 
   beforeEach(() => {
     jest.clearAllMocks();
+
+    store = createTestStore();
   });
 
   it('initializes Sentry library', () => {
@@ -31,7 +37,7 @@ describe('Sentry error logging', () => {
     Sentry.captureException(new Error('test'));
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
-    const middleware = Sentry.initializeWithMiddleware();
+    const middleware = Sentry.initializeWithMiddleware()(store);
     expect(middleware).toBeDefined();
 
     expect(SentryLibrary.init).toHaveBeenCalledWith(
@@ -45,7 +51,7 @@ describe('Sentry error logging', () => {
 
   it('forwards log calls to sentry', () => {
     config.SENTRY_ENABLED = true;
-    Sentry.initializeWithMiddleware();
+    Sentry.initializeWithMiddleware()(store);
     const err = new Error('this is bad');
     Sentry.captureException(err);
     expect(SentryLibrary.captureException).toHaveBeenCalledWith(err);
@@ -55,7 +61,7 @@ describe('Sentry error logging', () => {
 
   it('skips logging when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initializeWithMiddleware()(store);
     expect(Sentry.isEnabled).toBe(false);
     expect(() => Sentry.captureException(new Error('this is bad'))).toThrow();
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
