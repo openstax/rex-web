@@ -98,7 +98,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     }
   }, [updatePositions, displayAllCards]);
 
-  return highlights.length
+  return highlights.length && (displayAllCards ? cardsPositions.size : true)
     ? <div className={className} ref={element}>
       {highlights.map((highlight) => <Card
         highlighter={highlighter}

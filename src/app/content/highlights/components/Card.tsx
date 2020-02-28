@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
 import { DropdownList } from '../../../components/Dropdown';
@@ -259,8 +259,23 @@ const mobileDisplay = css`
 export const mediaQueryBreakToStopDisplaingAllCards = remsToEms(
  contentTextWidth + sidebarDesktopWidth + additionalWidthForCard) + 'em';
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeInAnimation = css`
+  animation: ${600}ms ${fadeIn} ease-out;
+`;
+
 // tslint:disable-next-line:variable-name
 const StyledCard = styled(Card)`
+  ${fadeInAnimation}
   position: absolute;
   padding: ${cardPadding}rem;
   ${cardBorder}
@@ -311,6 +326,7 @@ const StyledCard = styled(Card)`
 
   @media (max-width: ${mediaQueryBreakToStopDisplaingAllCards}) {
     /* the window is too small to show note cards next to content when the toc is open */
+    animation: none;
     ${overlapDisplay}
     ${styleWhenSidebarClosed(rightSideDisplay)}
   }
