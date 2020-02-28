@@ -41,8 +41,8 @@ export default class PageComponent extends Component<PagePropTypes> {
     return cleanContent.body.innerHTML;
   };
 
-  public componentDidMount() {
-    this.postProcess();
+  public async componentDidMount() {
+    await this.postProcess();
     if (!this.container.current) {
       return;
     }
