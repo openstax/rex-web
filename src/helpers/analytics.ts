@@ -12,7 +12,9 @@ import * as deleteHighlight from './analyticsEvents/highlighting/delete';
 import * as highlightingEditColor from './analyticsEvents/highlighting/editColor';
 import * as highlightingEditAnnotation from './analyticsEvents/highlighting/editNote';
 import * as showCreate from './analyticsEvents/highlighting/showCreate';
+import * as showHelpInfo from './analyticsEvents/highlighting/showHelpInfo';
 import * as showLogin from './analyticsEvents/highlighting/showLogin';
+import * as openCloseMH from './analyticsEvents/highlighting/summaryPopup/openClose';
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
@@ -53,10 +55,12 @@ const analytics = {
   deleteHighlight: mapEventType(deleteHighlight),
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
+  openCloseMH: mapEventType(openCloseMH),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
   showCreate: mapEventType(showCreate),
+  showHelpInfo: mapEventType(showHelpInfo),
   showLogin: mapEventType(showLogin),
   signupCTA: mapEventType(signupCTA),
   unload: mapEventType(unload),
@@ -68,12 +72,6 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
   window.addEventListener('beforeunload', () => {
     analytics.unload.track(analytics.unload.selector(store.getState()));
   });
-
-  const onPageFocusChange = (focus: boolean) => () => {
-    analytics.pageFocus.track(analytics.pageFocus.selector(store.getState()), focus);
-  };
-  window.onblur = onPageFocusChange(false);
-  window.onfocus = onPageFocusChange(true);
 
   document.addEventListener('click', (e) => {
     if (!e.target || !(e.target instanceof window.Node)) {

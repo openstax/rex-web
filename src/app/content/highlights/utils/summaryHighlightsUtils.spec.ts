@@ -9,6 +9,7 @@ import { CountsPerSource, HighlightData } from '../types';
 import {
   addSummaryHighlight,
   addToTotalCounts,
+  getHighlightByIdFromSummaryHighlights,
   getSortedSummaryHighlights,
   insertHighlightInOrder,
   removeFromTotalCounts,
@@ -176,7 +177,7 @@ describe('removeSummaryHighlight', () => {
       id: highlight.id,
       locationFilterId: 'location',
       pageId: 'page',
-    })[0]).toMatchObject(expectedResult);
+    })).toMatchObject(expectedResult);
   });
 
   it('remove highlight and page if it does not have more highlights', () => {
@@ -197,7 +198,7 @@ describe('removeSummaryHighlight', () => {
       id: highlight.id,
       locationFilterId: 'location',
       pageId: 'page',
-    })[0]).toMatchObject(expectedResult);
+    })).toMatchObject(expectedResult);
   });
 
   it('remove highlight, page and location if it does not have more highlights', () => {
@@ -511,5 +512,34 @@ describe('updateInTotalCounts', () => {
 
     expect(updateInTotalCounts(totalCounts, highlight, highlight))
       .toBe(totalCounts);
+  });
+
+  describe('getHighlightByIdFromSummaryHighlights', () => {
+    it('get highlight', () => {
+      const summaryHighlights = {
+        page: {
+          page: [highlight],
+        },
+        page2: {
+          page: [highlight2],
+        },
+      };
+
+      const foundHighlight = getHighlightByIdFromSummaryHighlights(summaryHighlights, highlight.id);
+
+      expect(foundHighlight).toEqual(highlight);
+    });
+
+    it('return undefined if highlight was not found', () => {
+      const summaryHighlights = {
+        page: {
+          page: [highlight],
+        },
+      };
+
+      const foundHighlight = getHighlightByIdFromSummaryHighlights(summaryHighlights, 'not-here');
+
+      expect(foundHighlight).toBeUndefined();
+    });
   });
 });

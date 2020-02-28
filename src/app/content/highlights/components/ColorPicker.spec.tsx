@@ -96,4 +96,18 @@ describe('ColorPicker', () => {
     expect(onRemove).not.toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith([]);
   });
+
+  it('do not call remove if it was not passed', () => {
+    const onChange = jest.fn();
+
+    const component = renderer.create(<MessageProvider>
+      <ColorPicker color={highlightStyles[0].label} onChange={onChange} />
+    </MessageProvider>);
+
+    const [first] = component.root.findAllByType('input');
+
+    first.props.onChange();
+
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });

@@ -4,14 +4,15 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
+import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
-import { receiveFeatureFlags } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
+import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined, assertWindow } from '../../../utils';
@@ -25,12 +26,13 @@ import {
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
 } from '../actions';
-import { highlightingFeatureFlag, highlightStyles } from '../constants';
+import { highlightStyles } from '../constants';
 import { hasMoreResults } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
-import { HighlightContentWrapper, ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
+import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
 describe('Show my highlights', () => {
   let store: Store;
@@ -42,8 +44,6 @@ describe('Show my highlights', () => {
   beforeEach(() => {
     store = createTestStore();
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
-
-    store.dispatch(receiveFeatureFlags([highlightingFeatureFlag]));
 
     highlight1 = createMockHighlight('asdf');
     highlight2 = createMockHighlight('lkjh');
@@ -66,9 +66,11 @@ describe('Show my highlights', () => {
     });
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightsPopUp/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <HighlightsPopUp/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     act(() => { store.dispatch(openMyHighlights()); });
@@ -146,9 +148,11 @@ describe('Show my highlights', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {
@@ -174,9 +178,11 @@ describe('Show my highlights', () => {
     const dispatch = spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
@@ -215,9 +221,11 @@ describe('Show my highlights', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()}>
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {

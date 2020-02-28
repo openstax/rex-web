@@ -21,7 +21,7 @@ Array [
   clip: auto;
   height: auto;
   width: auto;
-  z-index: 110;
+  z-index: 120;
 }
 
 <a
@@ -110,7 +110,6 @@ Array [
     </div>
   </div>,
   .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 4.8rem;
   line-height: 5rem;
@@ -123,7 +122,6 @@ Array [
 }
 
 .c3 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
   line-height: 4rem;
@@ -136,7 +134,6 @@ Array [
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -162,7 +159,6 @@ Array [
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -209,7 +205,6 @@ Array [
 }
 
 .c1 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -404,7 +399,6 @@ Array [
 }
 
 .c0 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;

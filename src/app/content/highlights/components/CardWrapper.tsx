@@ -98,18 +98,20 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     }
   }, [updatePositions, displayAllCards]);
 
-  return <div className={className} ref={element}>
-    {highlights.map((highlight) => <Card
-      highlighter={highlighter}
-      highlight={highlight}
-      key={highlight.id}
-      container={container}
-      topOffset={cardsPositions.get(highlight.id) || 0}
-      onHeightChange={onHeightChange}
-      onFocus={onFocus}
-      onBlur={onBlur}
-    />)}
-  </div>;
+  return highlights.length
+    ? <div className={className} ref={element}>
+      {highlights.map((highlight) => <Card
+        highlighter={highlighter}
+        highlight={highlight}
+        key={highlight.id}
+        container={container}
+        topOffset={cardsPositions.get(highlight.id) || 0}
+        onHeightChange={onHeightChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />)}
+    </div>
+    : null;
 };
 
 export default styled(Wrapper)`

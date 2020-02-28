@@ -8,7 +8,9 @@ jest.mock('./Card', () => () => null);
 
 describe('CardWrapper', () => {
   it('matches snapshot', () => {
-    const component = renderer.create(<CardWrapper highlights={[]} />);
+    const component = renderer.create(<CardWrapper
+      highlights={[createMockHighlight()]}
+    />);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();

@@ -20,7 +20,7 @@ const createMockHighlight = () => ({
     id: Math.random().toString(36).substring(7),
   }) as FirstArgumentType<typeof createHighlight>;
 
-describe('locationChange', () => {
+describe('createHighlight', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./createHighlight').hookBody>;

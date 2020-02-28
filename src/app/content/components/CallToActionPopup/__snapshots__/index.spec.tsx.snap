@@ -23,7 +23,6 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -52,7 +51,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 90;
+  z-index: 100;
   -webkit-animation: 800ms bNiYjl ease-out;
   animation: 800ms bNiYjl ease-out;
 }
@@ -81,7 +80,6 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
 }
 
 .c6 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 3.6rem;
   line-height: 4rem;
@@ -96,7 +94,6 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
 }
 
 .c7 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 3rem;
@@ -121,7 +118,6 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
 }
 
 .c11 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;

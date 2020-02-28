@@ -11,7 +11,7 @@ import { SummaryHighlightsPagination } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 import { getNextPageSources } from '../utils/paginationUtils';
 
-const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
+export const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
   ({...pagination, page: pagination.page + 1});
 
 const getNewSources = (state: AppState, omitSources: string[]) => {
@@ -32,7 +32,7 @@ const loadUntilPageSize = async({
 }): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
   const state = args.getState();
   const book = bookSelector(state);
-  const {colors} = select.summaryFilters(state);
+  const colors = select.summaryColorFilters(state);
   const {page, sourceIds} = previousPagination
     ? incrementPage(previousPagination)
     : {sourceIds: getNewSources(state, args.sourcesFetched), page: 1};
@@ -42,7 +42,7 @@ const loadUntilPageSize = async({
   }
 
   const highlightsResponse = await args.highlightClient.getHighlights({
-    colors: colors as unknown as GetHighlightsColorsEnum[],
+    colors: [...colors] as unknown as GetHighlightsColorsEnum[],
     page,
     perPage: summaryPageSize,
     scopeId: book.id,

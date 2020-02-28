@@ -1,11 +1,12 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { useOnClickOutside } from '../content/highlights/components/utils/onClickOutside';
+import { useFocusLost } from '../reactUtils';
+import { useOnEsc } from '../reactUtils';
 import theme from '../theme';
-import { preventDefault, useOnEsc } from '../utils';
+import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
@@ -61,7 +62,7 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
 
-  useOnClickOutside(container, open, () => setOpen(false));
+  useFocusLost(container, open, () => setOpen(false));
   useOnEsc(container, open, () => {
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
@@ -85,7 +86,7 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
 `;
 
 // tslint:disable-next-line:variable-name
-const DropdownFocusWrapper = styled.div`
+export const DropdownFocusWrapper = styled.div`
   overflow: visible;
 `;
 
@@ -176,11 +177,18 @@ export const DropdownList = styled.ol`
   }
 `;
 
+interface DropdownItemProps {
+  message: string;
+  href?: string;
+  prefix?: ReactNode;
+  onClick?: () => void;
+}
+
 // tslint:disable-next-line:variable-name
-export const DropdownItem = ({message, href, onClick}: {message: string, href?: string, onClick?: () => void}) => <li>
+export const DropdownItem = ({message, href, prefix, onClick}: DropdownItemProps) => <li>
   <FormattedMessage id={message}>
     {(msg: Element | string) => href
-      ? <a href={href} onClick={onClick}>{msg}</a>
+      ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
       /*
         this should be a button but Safari and firefox don't support focusing buttons
         which breaks the tab transparent dropdown
@@ -188,7 +196,7 @@ export const DropdownItem = ({message, href, onClick}: {message: string, href?: 
         https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
       */
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{msg}</a>
+      : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
     }
   </FormattedMessage>
 </li>;

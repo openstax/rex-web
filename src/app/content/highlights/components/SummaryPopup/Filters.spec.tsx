@@ -10,6 +10,7 @@ import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { assertDefined } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
+import { ArchiveTree } from '../../../types';
 import { formatBookData } from '../../../utils';
 import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -41,6 +42,16 @@ describe('Filters', () => {
   });
 
   it('matches snapshot', () => {
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+        [HighlightColorEnum.Blue]: 1,
+        [HighlightColorEnum.Pink]: 1,
+        [HighlightColorEnum.Purple]: 1,
+      },
+    }, new Map()));
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <Filters />
@@ -52,7 +63,28 @@ describe('Filters', () => {
   });
 
   it('updates on summary filters change', () => {
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    const chapterId = stripIdVersion(book.tree.contents[1].id);
+    const chapterPageId = stripIdVersion((book.tree.contents[1] as ArchiveTree).contents[1].id);
+
     store.dispatch(receiveBook(book));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+      },
+      [chapterPageId]: {
+        [HighlightColorEnum.Blue]: 1,
+        [HighlightColorEnum.Pink]: 1,
+        [HighlightColorEnum.Purple]: 1,
+      },
+    }, new Map([
+      [pageId, assertDefined(findArchiveTreeNode(book.tree, pageId), '')],
+      [chapterId, assertDefined(findArchiveTreeNode(book.tree, chapterId), '')],
+    ])));
+    store.dispatch(setSummaryFilters({
+      locationIds: [],
+    }));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -66,8 +98,6 @@ describe('Filters', () => {
     expect(chapterFilters.length).toEqual(0);
     expect(colorFilters.length).toEqual(5);
 
-    const pageId = stripIdVersion(book.tree.contents[0].id);
-    const chapterId = stripIdVersion(book.tree.contents[1].id);
     renderer.act(() => {
       store.dispatch(setSummaryFilters({
         colors: [HighlightColorEnum.Blue, HighlightColorEnum.Yellow],

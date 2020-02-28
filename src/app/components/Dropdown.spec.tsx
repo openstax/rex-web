@@ -1,8 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import * as onClickOutside from '../content/highlights/components/utils/onClickOutside';
+import * as reactUtils from '../../app/reactUtils';
 import MessageProvider from '../MessageProvider';
-import * as utils from '../utils';
 import Dropdown, { DropdownItem, DropdownList } from './Dropdown';
 
 describe('Dropdown', () => {
@@ -52,8 +51,8 @@ describe('Dropdown', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('tab hidden closes', () => {
-    const useOnClickOutside = jest.spyOn(onClickOutside, 'useOnClickOutside');
+  it('tab hidden closes on focus lost', () => {
+    const useFocusLost = jest.spyOn(reactUtils, 'useFocusLost');
 
     const component = renderer.create(<MessageProvider>
       <Dropdown transparentTab={false} toggle={<button>show more</button>}>
@@ -71,14 +70,14 @@ describe('Dropdown', () => {
     expect(() => component.root.findByType(DropdownList)).not.toThrow();
 
     renderer.act(() => {
-      useOnClickOutside.mock.calls[0][2]();
+      useFocusLost.mock.calls[0][2]();
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();
   });
 
   it('tab hidden closes on Esc', () => {
-    const useOnEscSpy = jest.spyOn(utils, 'useOnEsc');
+    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
 
     const component = renderer.create(<MessageProvider>
       <Dropdown transparentTab={false} toggle={<button>show more</button>}>
@@ -105,7 +104,7 @@ describe('Dropdown', () => {
   });
 
   it('tab hidden focus after Esc', () => {
-    const useOnEscSpy = jest.spyOn(utils, 'useOnEsc');
+    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
 
     const focus = jest.fn();
     const addEventListener = jest.fn();

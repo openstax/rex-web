@@ -2,26 +2,23 @@ import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@opensta
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import * as actions from './actions';
-import { highlightingFeatureFlag, highlightStyles } from './constants';
+import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
-  getHighlightColorFiltersWithContent,
-  getHighlightLocationFiltersWithContent,
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
   updateSummaryHighlightsDependOnFilters
 } from './utils';
+import { findHighlight } from './utils/reducerUtils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
-  enabled: false,
   highlights: null,
   myHighlightsOpen: false,
   summary: {
@@ -35,12 +32,9 @@ export const initialState: State = {
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
-    case getType(receiveFeatureFlags): {
-      return {...state, enabled: action.payload.includes(highlightingFeatureFlag)};
-    }
     case getType(locationChange): {
-      return {...initialState, enabled: state.enabled, myHighlightsOpen: false,
-        summary: {...state.summary, loading: true},
+      return {...initialState, myHighlightsOpen: false,
+        summary: {...state.summary},
       };
     }
     case getType(actions.createHighlight): {
@@ -76,21 +70,21 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.closeMyHighlights):
       return {...state, myHighlightsOpen: false};
     case getType(actions.updateHighlight): {
-      if (!state.highlights) { return state; }
+      const oldHighlight = findHighlight(state, action.payload.id);
 
-      const oldHiglightIndex = state.highlights.findIndex(
-        (highlight) => highlight.id === action.payload.id);
-      if (oldHiglightIndex < 0) { return state; }
-
-      const oldHighlight = state.highlights[oldHiglightIndex];
+      if (!state.highlights || !oldHighlight) {
+        return state;
+      }
 
       const newHighlight = {
         ...oldHighlight,
         ...action.payload.highlight,
       } as Highlight;
 
-      const newHighlights = [...state.highlights];
-      newHighlights[oldHiglightIndex] = newHighlight;
+      const newHighlights = state.highlights.map((highlight) => {
+        if (highlight.id === oldHighlight.id) { return newHighlight; }
+        return highlight;
+      });
 
       const newSummaryHighlights = state.summary.highlights
         ? updateSummaryHighlightsDependOnFilters(
@@ -116,20 +110,22 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.deleteHighlight): {
-      if (!state.highlights) {
+      const highlightToRemove = findHighlight(state, action.payload);
+
+      if (!state.highlights || !highlightToRemove) {
         return state;
       }
 
-      const [newSummaryHighlights, removedHighlight] = state.summary.highlights
+      const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
           ...action.meta,
           id: action.payload,
         })
-        : [state.summary.highlights, null]
+        : state.summary.highlights
       ;
 
-      const totalCountsPerPage = state.summary.totalCountsPerPage && removedHighlight
-        ? removeFromTotalCounts(state.summary.totalCountsPerPage, removedHighlight)
+      const totalCountsPerPage = state.summary.totalCountsPerPage && highlightToRemove
+        ? removeFromTotalCounts(state.summary.totalCountsPerPage, highlightToRemove)
         : state.summary.totalCountsPerPage
       ;
 
@@ -145,8 +141,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlights): {
-      return {...state, highlights: [...state.highlights || [], ...action.payload],
-        summary: {...state.summary, loading: false},
+      return {...state, highlights: action.payload,
+        summary: {...state.summary},
       };
     }
     case getType(actions.focusHighlight): {
@@ -192,15 +188,14 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlightsTotalCounts): {
-      const locationIds = Array.from(getHighlightLocationFiltersWithContent(action.meta, action.payload));
-      const colors = Array.from(getHighlightColorFiltersWithContent(action.payload));
+      const locationIds = Array.from(action.meta.keys());
 
       return {
         ...state,
         summary: {
           ...state.summary,
           filters: {
-            colors,
+            ...state.summary.filters,
             locationIds,
           },
           totalCountsPerPage: action.payload,
