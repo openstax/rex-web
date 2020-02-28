@@ -189,10 +189,7 @@ const resolveExternalBookReference = async(
   page: ArchivePage,
   pageId: string
 ) => {
-
   const bookInformation = await getBookInformation(services, pageId);
-
-  console.log(bookInformation);
 
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${pageId}", ${message}`
