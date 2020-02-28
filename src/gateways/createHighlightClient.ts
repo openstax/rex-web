@@ -9,11 +9,7 @@ const formatError = (response: Response) => {
     });
 };
 
-export class DoNotHandleMe extends Error {
-  constructor(message?: string) {
-    super(message);
-  }
-}
+export class DoNotHandleMe extends Error {}
 
 export default (url: string) => {
   const config = new Configuration({
