@@ -40,5 +40,3 @@ export const receiveSummaryHighlights = createStandardAction('Content/Highlights
 export const receiveHighlightsTotalCounts = createStandardAction(
   'Content/receiveHighlightsTotalCounts'
 )<CountsPerSource, HighlightLocationFilters>();
-
-export const clearHighlights = createStandardAction('Content/Highlights/clear')<void>();
