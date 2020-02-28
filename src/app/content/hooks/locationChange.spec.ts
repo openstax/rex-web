@@ -229,8 +229,12 @@ describe('locationChange', () => {
     });
 
     it('load', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['newbookid']));
-      helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
+      console.log(
+        helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['newbookid']))
+      );
+      console.log(
+        helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook))
+      );
 
       await hook(payload);
 
@@ -298,7 +302,7 @@ describe('locationChange', () => {
 
       expect(message).toEqual(
         'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
-        ', archive thought it would be in "garbagebookid", but it wasn\'t'
+        ', but it could not be found in any configured books.'
       );
     });
   });
