@@ -16,7 +16,7 @@ export async function getCanonicalUrlParams(
 
   const canonicals = [
     ...(CANONICAL_MAP[bookId] || []),
-    ...(bookVersion === BOOKS[bookId].defaultVersion ? [bookId] : []),
+    ...(BOOKS[bookId] && bookVersion === BOOKS[bookId].defaultVersion ? [bookId] : []),
     // use the current book as a last resort if it has the same version as in books config
   ].filter((id) => !!BOOKS[id]);
 
