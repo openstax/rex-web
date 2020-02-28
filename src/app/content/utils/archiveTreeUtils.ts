@@ -119,7 +119,7 @@ export const prevNextBookPage = (
   };
 };
 
-export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode) => !section.parent;
+export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode) => section ? !section.parent : false;
 export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)

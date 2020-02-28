@@ -34,7 +34,7 @@ export const getBookPageUrlAndParams = (
 export const getUrlParamsForBook = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
 ): {book: string} | {uuid: string, version: string} => {
-  if ('slug' in book && book.slug) {
+  if ('slug' in book && book.slug && BOOKS[book.id]) {
     return {book: book.slug};
   } else {
     return {uuid: book.id, version: book.version};
