@@ -9,7 +9,11 @@ const formatError = (response: Response) => {
     });
 };
 
-export class DoNotHandleMe extends Error {}
+export class DoNotHandleMe extends Error {
+  constructor(message?: string) {
+    super(message);
+  }
+}
 
 export default (url: string) => {
   const config = new Configuration({
@@ -17,7 +21,6 @@ export default (url: string) => {
     credentials: 'include',
     fetchApi: (...args) => fetch(...args)
       .then((response) => {
-        console.log('response stats', response.status)
         if (response.status === 422) {
           return formatError(response);
         } else if (response.status === 401) {

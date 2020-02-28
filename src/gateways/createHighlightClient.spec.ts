@@ -1,6 +1,18 @@
 import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { receiveLoggedOut } from '../app/auth/actions';
 import { resetModules } from '../test/utils';
 import createHighlightClient, { DoNotHandleMe } from './createHighlightClient';
+
+const mockDispatch = jest.fn();
+
+jest.mock('../app/utils', () => ({
+  ...jest.requireActual('../app/utils'),
+  assertWindow: () => ({
+    __APP_STORE: {
+      dispatch: mockDispatch,
+    },
+  }),
+}));
 
 describe('createHighlightClient', () => {
   const fetchBackup = fetch;
@@ -79,5 +91,6 @@ describe('createHighlightClient', () => {
       sourceIds: ['source'],
       sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     })).rejects.toBeInstanceOf(DoNotHandleMe);
+    expect(mockDispatch).toHaveBeenCalledWith(receiveLoggedOut());
   });
 });

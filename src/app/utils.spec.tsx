@@ -1,3 +1,4 @@
+import { DoNotHandleMe } from '../gateways/createHighlightClient';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
@@ -86,6 +87,22 @@ describe('actionHook', () => {
 
     expect(Sentry.captureException).toHaveBeenCalled();
     expect(hookSpy).toHaveBeenCalled();
+    jest.resetAllMocks();
+  });
+
+  it('do not log error if it is instace of DoNotHandleMe', () => {
+    const hookSpy = jest.fn(async() => Promise.reject(new DoNotHandleMe('asd')));
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
+    jest.resetAllMocks();
   });
 });
 
