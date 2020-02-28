@@ -1,4 +1,5 @@
 import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
@@ -29,7 +30,10 @@ export const openMyHighlights = createStandardAction('Content/Highlights/Summary
 export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();
 export const initializeMyHighlightsSummary = createStandardAction('Content/Highlights/Summary/init')<void>();
 
-export const printSummaryHighlights = createStandardAction('Content/Highlights/Summary/print')();
+export const printSummaryHighlights = createStandardAction('Content/Highlights/Summary/print')<
+  React.RefObject<HTMLElement>
+>();
+export const toggleSummaryHighlightsLoading = createStandardAction('Content/Highlights/Summary/loading')<boolean>();
 
 export const loadMoreSummaryHighlights = createStandardAction('Content/Highlights/Summary/loadMore')();
 export const setSummaryFilters = createStandardAction('Content/Highlights/Summary/setFilters')<
@@ -37,7 +41,10 @@ export const setSummaryFilters = createStandardAction('Content/Highlights/Summar
 >();
 export const receiveSummaryHighlights = createStandardAction('Content/Highlights/Summary/receiveHighlights')<
   SummaryHighlights,
-  SummaryHighlightsPagination
+  {
+    pagination: SummaryHighlightsPagination,
+    isStillLoading?: boolean
+  }
 >();
 export const receiveHighlightsTotalCounts = createStandardAction(
   'Content/receiveHighlightsTotalCounts'

@@ -1,13 +1,23 @@
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
-import { printSummaryHighlights, receiveSummaryHighlights } from '../actions';
+import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
 import { myHighlightsOpen } from '../selectors';
 import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
-  (services) => async() => {
+  (services) => async({payload}) => {
     const {formattedHighlights} = await loadMore(services);
-    services.dispatch(receiveSummaryHighlights(formattedHighlights, null));
+    services.dispatch(receiveSummaryHighlights(formattedHighlights, {
+      isStillLoading: true,
+      pagination: null,
+    }));
+
+    if (payload.current) {
+      await allImagesLoaded(payload.current);
+    }
+
+    services.dispatch(toggleSummaryHighlightsLoading(false));
 
     if (myHighlightsOpen(services.getState())) {
       assertWindow().print();

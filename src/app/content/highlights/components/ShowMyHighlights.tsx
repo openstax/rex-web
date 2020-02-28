@@ -5,7 +5,7 @@ import { typesetMath } from '../../../../helpers/mathjax';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { loadMoreSummaryHighlights } from '../actions';
+import { loadMoreSummaryHighlights, printSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
 import Highlights from './Highlights';
@@ -16,6 +16,7 @@ interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
   summaryIsLoading: boolean;
   loadMore: () => void;
+  loadHighlightsAndPrint: (containerRef: React.RefObject<HTMLElement>) => void;
 }
 
 class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: boolean }> {
@@ -51,6 +52,14 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
     }
   };
 
+  public printHighlights = () => {
+    if (this.props.hasMoreResults) {
+      this.props.loadHighlightsAndPrint(this.myHighlightsBodyRef);
+    } else {
+      assertWindow().print();
+    }
+  };
+
   public componentDidMount() {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
@@ -79,7 +88,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
-        <Filters />
+        <Filters printHighlights={this.printHighlights}/>
         <Highlights />
         {this.state.showGoToTop && (
           <Styled.GoToTopWrapper
@@ -100,5 +109,8 @@ export default connect((state: AppState) => ({
   hasMoreResults: select.hasMoreResults(state),
   summaryIsLoading: select.summaryIsLoading(state),
 }), (dispatch: Dispatch) => ({
+  loadHighlightsAndPrint: (containerRef: React.RefObject<HTMLElement>) => {
+    dispatch(printSummaryHighlights(containerRef));
+  },
   loadMore: () => dispatch(loadMoreSummaryHighlights()),
 }))(ShowMyHighlights);

@@ -1,25 +1,21 @@
-import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
-import { AppState, Dispatch } from '../../../../types';
-import { assertWindow } from '../../../../utils';
+import { AppState } from '../../../../types';
 import PrintButton from '../../../components/Toolbar/PrintButton';
-import { printSummaryHighlights } from '../../actions';
-import { hasMoreResults, summaryIsLoading } from '../../selectors';
+import { summaryIsLoading } from '../../selectors';
 
 interface Props {
   className: string;
-  shouldFetchMore: boolean;
   isLoading: boolean;
-  loadHighlightsAndPrint: typeof printSummaryHighlights;
+  printHighlights: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const HighlightsPrintButton = ({className, loadHighlightsAndPrint, shouldFetchMore, isLoading}: Props) => {
+const HighlightsPrintButton = ({className, printHighlights, isLoading}: Props) => {
   return <PrintButton
     className={className}
-    onClick={() => shouldFetchMore ? loadHighlightsAndPrint() : assertWindow().print()}
+    onClick={printHighlights}
     data-testid='hl-print-button'
     disabled={isLoading}
   />;
@@ -37,9 +33,5 @@ const StyledHighlightsPrintButton = styled(HighlightsPrintButton)`
 export default connect(
   (state: AppState) => ({
     isLoading: summaryIsLoading(state),
-    shouldFetchMore: hasMoreResults(state),
-  }),
-  (dispatch: Dispatch) => ({
-    loadHighlightsAndPrint: flow(printSummaryHighlights, dispatch),
   })
 )(StyledHighlightsPrintButton);

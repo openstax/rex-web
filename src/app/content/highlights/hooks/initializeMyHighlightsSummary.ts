@@ -32,7 +32,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   ));
 
   const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-  dispatch(receiveSummaryHighlights(formattedHighlights, pagination));
+  dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };
 
 export const initializeMyHighlightsSummaryHook = actionHook(initializeMyHighlightsSummary, hookBody);
