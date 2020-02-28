@@ -74,7 +74,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     ));
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(
-      expect.anything(), null
+      expect.anything(), {pagination: null}
     ));
   });
 });

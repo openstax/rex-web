@@ -103,7 +103,7 @@ describe('Show my highlights', () => {
   });
 
   it('doesn\'t request more if not at bottom', () => {
-    store.dispatch(receiveSummaryHighlights({}, null));
+    store.dispatch(receiveSummaryHighlights({}, {pagination: null}));
 
     const dispatch = jest.spyOn(store, 'dispatch');
 
@@ -141,7 +141,7 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {
         'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
       },
-    }, null));
+    }, {pagination: null}));
 
     expect(hasMoreResults(store.getState())).toBeTruthy();
 
@@ -214,7 +214,7 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {
         'testbook1-testpage1-uuid': [{} as HighlightData],
       },
-    }, null));
+    }, {pagination: null}));
 
     expect(hasMoreResults(store.getState())).toBeTruthy();
 

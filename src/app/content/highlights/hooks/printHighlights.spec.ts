@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import noop from 'lodash/fp/noop';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -16,6 +17,7 @@ import {
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
   setSummaryFilters,
+  toggleSummaryHighlightsLoading,
 } from '../actions';
 import { maxHighlightsApiPageSize } from '../constants';
 import { HighlightData, SummaryHighlights } from '../types';
@@ -41,10 +43,11 @@ describe('printHighlights', () => {
   let dispatch: jest.SpyInstance;
   let print: jest.SpyInstance;
   let hook: ReturnType<typeof import ('./printHighlights').hookBody>;
+  let ref: React.RefObject<HTMLElement>;
 
   beforeEach(() => {
     resetModules();
-
+    ref = {current: null};
     print = jest.spyOn(assertWindow(), 'print');
     print.mockImplementation(noop);
 
@@ -105,10 +108,14 @@ describe('printHighlights', () => {
           },
         }))
       ;
-      await hook(printSummaryHighlights());
+      await hook(printSummaryHighlights({containerRef: ref}));
       expect(highlightClient).toHaveBeenCalledTimes(2);
 
-      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
+      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, {
+        isStillLoading: true,
+        pagination: null,
+      }));
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(print).toHaveBeenCalled();
     });
 
@@ -120,10 +127,10 @@ describe('printHighlights', () => {
         'testbook1-testpage1-uuid': {
           'testbook1-testpage1-uuid': page1,
         },
-      }, null));
+      }, {pagination: null}));
       store.dispatch(closeMyHighlights());
 
-      await hook(printSummaryHighlights());
+      await hook(printSummaryHighlights({containerRef: ref}));
 
       expect(print).not.toHaveBeenCalled();
     });
@@ -161,14 +168,26 @@ describe('printHighlights', () => {
       ;
 
       // meant to immitate fetched highlights before triggering print
-      store.dispatch(receiveSummaryHighlights( {'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': page1.slice(0, 105),
-      }}, {perPage: 105, sourceIds: locationIds, page: 1}));
+      store.dispatch(receiveSummaryHighlights({
+          'testbook1-testpage1-uuid': {
+            'testbook1-testpage1-uuid': page1.slice(0, 105),
+          },
+        }, {
+        pagination: {
+          page: 1,
+          perPage: 105,
+          sourceIds: locationIds,
+        },
+      }));
 
-      await hook(printSummaryHighlights());
+      await hook(printSummaryHighlights({containerRef: ref}));
       expect(highlightClient).toHaveBeenCalledTimes(2);
 
-      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, null));
+      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, {
+        isStillLoading: true,
+        pagination: null,
+      }));
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(print).toHaveBeenCalled();
     });
   });
@@ -177,10 +196,14 @@ describe('printHighlights', () => {
     it('doesn\'t call highlight client', async() => {
       const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-      await hook(printSummaryHighlights());
+      await hook(printSummaryHighlights({containerRef: ref}));
 
       expect(highlightClient).not.toHaveBeenCalled();
-      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights({}, null));
+      expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights({}, {
+        isStillLoading: true,
+        pagination: null,
+      }));
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
 
       expect(print).toHaveBeenCalled();
     });

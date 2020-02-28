@@ -30,9 +30,9 @@ export const openMyHighlights = createStandardAction('Content/Highlights/Summary
 export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();
 export const initializeMyHighlightsSummary = createStandardAction('Content/Highlights/Summary/init')<void>();
 
-export const printSummaryHighlights = createStandardAction('Content/Highlights/Summary/print')<
-  React.RefObject<HTMLElement>
->();
+export const printSummaryHighlights = createStandardAction('Content/Highlights/Summary/print')<{
+  containerRef: React.RefObject<HTMLElement>
+}>();
 export const toggleSummaryHighlightsLoading = createStandardAction('Content/Highlights/Summary/loading')<boolean>();
 
 export const loadMoreSummaryHighlights = createStandardAction('Content/Highlights/Summary/loadMore')();

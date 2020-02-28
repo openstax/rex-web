@@ -110,7 +110,7 @@ export default connect((state: AppState) => ({
   summaryIsLoading: select.summaryIsLoading(state),
 }), (dispatch: Dispatch) => ({
   loadHighlightsAndPrint: (containerRef: React.RefObject<HTMLElement>) => {
-    dispatch(printSummaryHighlights(containerRef));
+    dispatch(printSummaryHighlights({containerRef}));
   },
   loadMore: () => dispatch(loadMoreSummaryHighlights()),
 }))(ShowMyHighlights);

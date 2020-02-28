@@ -13,8 +13,8 @@ export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
       pagination: null,
     }));
 
-    if (payload.current) {
-      await allImagesLoaded(payload.current);
+    if (payload.containerRef.current) {
+      await allImagesLoaded(payload.containerRef.current);
     }
 
     services.dispatch(toggleSummaryHighlightsLoading(false));
