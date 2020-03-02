@@ -677,14 +677,14 @@ Array [
   color: #0064A0;
 }
 
-.c66 .MathJax_Display .highlight,
-.c66 .MathJax_Preview + .highlight {
-  display: inline-block;
-}
-
 .c66 .highlight {
   position: relative;
   padding-top: 0.3rem;
+}
+
+.c66 .MathJax_Display .highlight,
+.c66 .MathJax_Preview + .highlight {
+  display: inline-block;
 }
 
 .c66 .highlight.yellow {
@@ -4189,14 +4189,14 @@ Array [
   color: #0064A0;
 }
 
-.c40 .MathJax_Display .highlight,
-.c40 .MathJax_Preview + .highlight {
-  display: inline-block;
-}
-
 .c40 .highlight {
   position: relative;
   padding-top: 0.3rem;
+}
+
+.c40 .MathJax_Display .highlight,
+.c40 .MathJax_Preview + .highlight {
+  display: inline-block;
 }
 
 .c40 .highlight.yellow {

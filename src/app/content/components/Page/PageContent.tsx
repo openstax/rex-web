@@ -47,14 +47,14 @@ export default styled(MainContent)`
     }
   }
 
-  .MathJax_Display .highlight,
-  .MathJax_Preview + .highlight {
-    display: inline-block;
-  }
-
   .highlight {
     position: relative;
     padding-top: 0.3rem;
+  }
+
+  .MathJax_Display .highlight,
+  .MathJax_Preview + .highlight {
+    display: inline-block;
   }
 
   ${highlightStyles.map((style) => css`
