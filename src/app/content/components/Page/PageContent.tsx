@@ -53,11 +53,30 @@ export default styled(MainContent)`
   }
 
   ${highlightStyles.map((style) => css`
+    .highlight {
+      position: relative;
+    }
     .highlight.${style.label} {
       background-color: ${style.passive};
+      padding-top: 0.3rem;
 
       &.has-note {
         border-bottom: 1px solid ${style.focused};
+      }
+
+      &.first.text {
+        &:before {
+          position: absolute;
+          top: -0.1rem;
+          left: -0.5rem;
+          content: "";
+          width: 0;
+          height: 0;
+          border-left: 0.8rem solid transparent;
+          border-right: 0.8rem solid transparent;
+          border-bottom: 0.8rem solid ${style.focused};
+          transform: rotate(-45deg);
+        }
       }
 
       @media screen {
