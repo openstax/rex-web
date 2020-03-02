@@ -95,9 +95,22 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
+let typesetCounter = 0;
+
 const typesetDocumentPromise = (root: Element, windowImpl: Window): Promise<void> => new Promise((resolve) => {
   typesetDocument(root, windowImpl);
-  windowImpl.MathJax.Hub.Queue(resolve);
+  windowImpl.MathJax.Hub.Queue(() => {
+    if (
+      (findLatexNodes(root).length || findUnprocessedMath(root).length)
+      && typesetCounter < 5
+    ) {
+      typesetDocumentPromise(root, windowImpl);
+      typesetCounter++;
+    } else {
+      typesetCounter = 0;
+      resolve();
+    }
+  });
 });
 
 // memoize'd getter for typeset document function so that each node's
