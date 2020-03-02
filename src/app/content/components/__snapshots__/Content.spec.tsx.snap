@@ -684,11 +684,11 @@ Array [
 
 .c66 .highlight {
   position: relative;
+  padding-top: 0.3rem;
 }
 
 .c66 .highlight.yellow {
   background-color: #ffff8a;
-  padding-top: 0.3rem;
 }
 
 .c66 .highlight.yellow.has-note {
@@ -710,13 +710,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c66 .highlight {
-  position: relative;
-}
-
 .c66 .highlight.green {
   background-color: #def99f;
-  padding-top: 0.3rem;
 }
 
 .c66 .highlight.green.has-note {
@@ -738,13 +733,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c66 .highlight {
-  position: relative;
-}
-
 .c66 .highlight.blue {
   background-color: #c8f5ff;
-  padding-top: 0.3rem;
 }
 
 .c66 .highlight.blue.has-note {
@@ -766,13 +756,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c66 .highlight {
-  position: relative;
-}
-
 .c66 .highlight.purple {
   background-color: #cbcfff;
-  padding-top: 0.3rem;
 }
 
 .c66 .highlight.purple.has-note {
@@ -794,13 +779,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c66 .highlight {
-  position: relative;
-}
-
 .c66 .highlight.pink {
   background-color: #ffc5e1;
-  padding-top: 0.3rem;
 }
 
 .c66 .highlight.pink.has-note {
@@ -4216,11 +4196,11 @@ Array [
 
 .c40 .highlight {
   position: relative;
+  padding-top: 0.3rem;
 }
 
 .c40 .highlight.yellow {
   background-color: #ffff8a;
-  padding-top: 0.3rem;
 }
 
 .c40 .highlight.yellow.has-note {
@@ -4242,13 +4222,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c40 .highlight {
-  position: relative;
-}
-
 .c40 .highlight.green {
   background-color: #def99f;
-  padding-top: 0.3rem;
 }
 
 .c40 .highlight.green.has-note {
@@ -4270,13 +4245,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c40 .highlight {
-  position: relative;
-}
-
 .c40 .highlight.blue {
   background-color: #c8f5ff;
-  padding-top: 0.3rem;
 }
 
 .c40 .highlight.blue.has-note {
@@ -4298,13 +4268,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c40 .highlight {
-  position: relative;
-}
-
 .c40 .highlight.purple {
   background-color: #cbcfff;
-  padding-top: 0.3rem;
 }
 
 .c40 .highlight.purple.has-note {
@@ -4326,13 +4291,8 @@ Array [
   transform: rotate(-45deg);
 }
 
-.c40 .highlight {
-  position: relative;
-}
-
 .c40 .highlight.pink {
   background-color: #ffc5e1;
-  padding-top: 0.3rem;
 }
 
 .c40 .highlight.pink.has-note {
