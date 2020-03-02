@@ -15,7 +15,6 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -51,7 +50,6 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  font-family: Neue Helvetica W01;
   border-radius: 0.2rem;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -104,7 +102,6 @@ exports[`Confirmation matches snapshot no selection 1`] = `
 }
 
 .c0 label {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;

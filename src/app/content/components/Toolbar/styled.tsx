@@ -7,7 +7,6 @@ import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import { maxNavWidth } from '../../../components/NavBar/styled';
 import {
-  contentFont,
   decoratedLinkStyle,
   textRegularSize,
   textRegularStyle,
@@ -35,7 +34,6 @@ export const buttonMinWidth = `45px`;
 
 export const toolbarDefaultText = css`
   font-weight: 600;
-  font-family: ${contentFont};
   ${textRegularSize};
   margin: 0 0 0 0.5rem;
   ${theme.breakpoints.mobile(css`

@@ -113,9 +113,9 @@ export const assertDocumentElement = (message: string = 'BUG: Document Element i
 export const remsToEms = (rems: number) => rems * 10 / 16;
 
 export const remsToPx = (rems: number) => {
-  const bodyFontSize = typeof(window) === 'undefined'
+  const bodyFontSize = typeof(window) === 'undefined' || !window.document.documentElement
     ? 10
-    : parseFloat(window.getComputedStyle(window.document.body).fontSize || '') || 10;
+    : parseFloat(window.getComputedStyle(window.document.documentElement).fontSize || '') || 10;
 
   return rems * bodyFontSize;
 };
