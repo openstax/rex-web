@@ -70,3 +70,5 @@ export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI
 // helpers
 export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;
 export type FirstArgumentType<F> = F extends (first: infer A, ...args: any) => any ? A : never;
+
+export class UnauthenticatedError extends Error {}

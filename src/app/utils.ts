@@ -1,8 +1,8 @@
 import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
-import { DoNotHandleMe } from '../gateways/createHighlightClient';
 import Sentry from '../helpers/Sentry';
+import { receiveLoggedOut } from './auth/actions';
 import { recordError } from './errors/actions';
 import { isPlainObject } from './guards';
 import {
@@ -11,7 +11,8 @@ import {
   AnyActionCreator,
   AppServices,
   Dispatch,
-  Middleware
+  Middleware,
+  UnauthenticatedError
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
@@ -27,25 +28,27 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       const result = next(action);
 
       if (matches(action)) {
-        const catchError = (e: Error) => {
-          if (e instanceof DoNotHandleMe) {
-            return;
-          }
-          Sentry.captureException(e);
-          stateHelpers.dispatch(recordError(e));
-        };
         try {
           const promise = boundHook(action);
           if (promise) {
-            services.promiseCollector.add(promise.catch(catchError));
+            services.promiseCollector.add(promise.catch((e) => catchError(e, stateHelpers.dispatch)));
           }
         } catch (e) {
-          catchError(e);
+          catchError(e, stateHelpers.dispatch);
         }
       }
       return result;
     };
   };
+
+const catchError = (e: Error, dispatch: Dispatch) => {
+  if (e instanceof UnauthenticatedError) {
+    dispatch(receiveLoggedOut());
+    return;
+  }
+  Sentry.captureException(e);
+  dispatch(recordError(e));
+};
 
 // from https://github.com/facebook/react/issues/13029#issuecomment-445480443
 export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => {

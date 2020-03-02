@@ -1,8 +1,7 @@
-import { DoNotHandleMe } from '../gateways/createHighlightClient';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
-import { AppServices, AppState, MiddlewareAPI } from './types';
+import { AppServices, AppState, MiddlewareAPI, UnauthenticatedError } from './types';
 import * as utils from './utils';
 import { assertDocument } from './utils';
 
@@ -90,8 +89,8 @@ describe('actionHook', () => {
     jest.resetAllMocks();
   });
 
-  it('do not log error if it is instace of DoNotHandleMe', () => {
-    const hookSpy = jest.fn(async() => Promise.reject(new DoNotHandleMe('asd')));
+  it('do not log error if it is instace of UnauthenticatedError', () => {
+    const hookSpy = jest.fn(async() => Promise.reject(new UnauthenticatedError('asd')));
     const helpers = ({
       dispatch: () => undefined,
       getState: () => ({} as AppState),

@@ -1,17 +1,10 @@
 import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
-import { receiveLoggedOut } from '../app/auth/actions';
+import { UnauthenticatedError } from '../app/types';
 import { resetModules } from '../test/utils';
-import createHighlightClient, { DoNotHandleMe } from './createHighlightClient';
-
-const mockDispatch = jest.fn();
+import createHighlightClient from './createHighlightClient';
 
 jest.mock('../app/utils', () => ({
   ...jest.requireActual('../app/utils'),
-  assertWindow: () => ({
-    __APP_STORE: {
-      dispatch: mockDispatch,
-    },
-  }),
 }));
 
 describe('createHighlightClient', () => {
@@ -76,7 +69,7 @@ describe('createHighlightClient', () => {
     })).rejects.toEqual('Some error: msg1, msg2');
   });
 
-  it('reject with DoNotHandleMe if response status is 401', async() => {
+  it('reject with UnauthenticatedError if response status is 401', async() => {
     fetchSpy = (global as any).fetch = jest.fn(() =>
       Promise.resolve({
         status: 401,
@@ -90,7 +83,6 @@ describe('createHighlightClient', () => {
       scopeId: 'scope',
       sourceIds: ['source'],
       sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
-    })).rejects.toBeInstanceOf(DoNotHandleMe);
-    expect(mockDispatch).toHaveBeenCalledWith(receiveLoggedOut());
+    })).rejects.toBeInstanceOf(UnauthenticatedError);
   });
 });
