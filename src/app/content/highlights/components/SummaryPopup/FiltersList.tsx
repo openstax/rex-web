@@ -45,6 +45,10 @@ const ItemLabel = styled.span`
 
 // tslint:disable-next-line: variable-name
 const FilterListItem = styled.li`
+  margin-right: 3.2rem;
+  display: flex;
+  align-items: center;
+  overflow: visible;
   height: 4rem;
 `;
 
@@ -127,12 +131,7 @@ export default styled(FiltersList)`
   margin: 0;
   padding: 0.4rem 0;
   list-style: none;
-
-  li {
-    margin-right: 3.2rem;
-    display: flex;
-    align-items: center;
-  }
+  overflow: visible;
 
   @media print {
     margin: 0;
