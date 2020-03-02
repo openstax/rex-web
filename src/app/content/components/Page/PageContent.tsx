@@ -52,13 +52,14 @@ export default styled(MainContent)`
     display: inline-block;
   }
 
+  .highlight {
+    position: relative;
+    padding-top: 0.3rem;
+  }
+
   ${highlightStyles.map((style) => css`
-    .highlight {
-      position: relative;
-    }
     .highlight.${style.label} {
       background-color: ${style.passive};
-      padding-top: 0.3rem;
 
       &.has-note {
         border-bottom: 1px solid ${style.focused};
