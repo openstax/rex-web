@@ -106,6 +106,16 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 .c16 {
+  margin-right: 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
   height: 4rem;
 }
 
@@ -123,18 +133,7 @@ exports[`Filters matches snapshot 1`] = `
   margin: 0;
   padding: 0.4rem 0;
   list-style: none;
-}
-
-.c15 li {
-  margin-right: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  overflow: visible;
 }
 
 .c8 {
