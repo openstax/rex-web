@@ -1,19 +1,32 @@
+import { Highlight } from '@openstax/highlighter';
 import React from 'react';
 import renderer from 'react-test-renderer';
+import createMockHighlight from '../../../../test/mocks/highlight';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
 import { highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
-import DisplayNote from './DisplayNote';
+import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./TruncatedText', () => (props: any) => <div mock-truncated-text {...props} />);
 
 describe('DisplayNote', () => {
+  let displayNoteProps: Partial<DisplayNoteProps>;
+
+  beforeEach(() => {
+    displayNoteProps = {
+      highlight: createMockHighlight() as any as Highlight,
+      onBlur: jest.fn,
+      onEdit: jest.fn,
+      onHeightChange: jest.fn,
+      onRemove: jest.fn,
+    };
+  });
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={false} />
+      <DisplayNote {...displayNoteProps} style={highlightStyles[0]} isFocused={false} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -22,7 +35,7 @@ describe('DisplayNote', () => {
 
   it('matches snapshot when focused', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} />
+      <DisplayNote {...displayNoteProps} style={highlightStyles[0]} isFocused={true} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -32,7 +45,7 @@ describe('DisplayNote', () => {
   it('shows delete confirmation', () => {
     const onRemove = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
+      <DisplayNote {...displayNoteProps} style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -48,7 +61,7 @@ describe('DisplayNote', () => {
   it('confirmation deletes', () => {
     const onRemove = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
+      <DisplayNote {...displayNoteProps} style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -68,7 +81,7 @@ describe('DisplayNote', () => {
   it('confirmation cancels', () => {
     const onRemove = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
+      <DisplayNote {...displayNoteProps} style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -90,7 +103,7 @@ describe('DisplayNote', () => {
     let isFocused = true;
 
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={isFocused} onRemove={jest.fn()} />
+      <DisplayNote {...displayNoteProps} style={highlightStyles[0]} isFocused={isFocused} onRemove={jest.fn()} />
     </MessageProvider>);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
@@ -107,6 +120,7 @@ describe('DisplayNote', () => {
 
     component.update(<MessageProvider onError={() => null}>
       <DisplayNote
+        {...displayNoteProps}
         style={highlightStyles[0]}
         isFocused={isFocused}
         onRemove={jest.fn()}
@@ -122,6 +136,7 @@ describe('DisplayNote', () => {
 
     component.update(<MessageProvider onError={() => null}>
       <DisplayNote
+        {...displayNoteProps}
         style={highlightStyles[0]}
         isFocused={isFocused}
         onRemove={jest.fn()}

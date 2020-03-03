@@ -28,7 +28,7 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
  `)}
 `;
 
-interface Props {
+export interface DisplayNoteProps {
   note: string;
   style: typeof highlightStyles[number];
   isFocused: boolean;
@@ -41,8 +41,8 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const DisplayNote = React.forwardRef<HTMLElement, Props>((
-  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, highlight, className}: Props,
+const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
+  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, highlight, className}: DisplayNoteProps,
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -92,14 +92,14 @@ export default styled(DisplayNote)`
   width: ${cardWidth}rem;
   overflow: visible;
   background: ${theme.color.neutral.formBackground};
-  ${(props: Props) => props.isFocused && css`
+  ${(props: DisplayNoteProps) => props.isFocused && css`
     background: ${theme.color.white};
   `}
 
   > label {
     display: none;
     ${textStyle}
-    color: ${(props: Props) => props.style.focused};
+    color: ${(props: DisplayNoteProps) => props.style.focused};
     font-size: 1.4rem;
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
