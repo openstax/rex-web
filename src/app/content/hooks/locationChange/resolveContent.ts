@@ -114,7 +114,7 @@ const loadPage = async(
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   pageId: string
 ) => {
-  services.dispatch(requestPage({slug: match.params.page.slug}));
+  services.dispatch(requestPage(match.params.page));
   return await bookLoader.page(pageId).load()
     .then(loadContentReferences(services, book))
     .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
