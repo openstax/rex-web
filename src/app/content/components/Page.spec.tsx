@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement, MediaQueryList } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -20,7 +20,7 @@ import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
-import { assertDocument, assertWindow } from '../../utils';
+import * as utils from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
 import { initialState } from '../reducer';
@@ -32,7 +32,15 @@ import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
-
+jest.mock('../../utils', () => ({
+  ...jest.requireActual('../../utils'),
+  assertWindow: () => ({
+    ...jest.requireActual('../../utils').assertWindow(),
+    matchMedia: () => ({
+      matches: false,
+    } as MediaQueryList),
+  }),
+}));
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
@@ -623,7 +631,7 @@ describe('Page', () => {
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page});
 
-    const highlightElement = assertDocument().createElement('span');
+    const highlightElement = utils.assertDocument().createElement('span');
     const mockHighlight = {
       elements: [highlightElement],
       focus: jest.fn(),
@@ -655,7 +663,7 @@ describe('Page', () => {
     const hit1 = makeSearchResultHit({book, page});
     const hit2 = makeSearchResultHit({book, page});
 
-    const highlightElement = assertDocument().createElement('span');
+    const highlightElement = utils.assertDocument().createElement('span');
     const focus = jest.fn();
     const mockHighlight = {
       elements: [highlightElement],
@@ -703,7 +711,7 @@ describe('Page', () => {
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page: shortPage});
 
-    const highlightElement = assertDocument().createElement('span');
+    const highlightElement = utils.assertDocument().createElement('span');
     const mockHighlight = {
       elements: [highlightElement],
       focus: jest.fn(),
@@ -1059,11 +1067,11 @@ describe('Page', () => {
 
   describe('with prerendered state', () => {
     beforeEach(() => {
-      assertWindow().__PRELOADED_STATE__ = state;
+      utils.assertWindow().__PRELOADED_STATE__ = state;
     });
 
     afterEach(() => {
-      delete assertWindow().__PRELOADED_STATE__;
+      delete utils.assertWindow().__PRELOADED_STATE__;
     });
 
     it('uses prerendered content', () => {
