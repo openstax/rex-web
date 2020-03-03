@@ -720,7 +720,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
   z-index: 2;
-  box-shadow: 0 -0.5rem 0.6rem 0 rgba(0,0,0,0.2);
+  box-shadow: 0 -0.6rem 0.6rem 0 rgba(0,0,0,0.2);
   background-color: #fff;
   border-left: 0.1rem solid #d5d5d5;
   border-right: 0.1rem solid #d5d5d5;
