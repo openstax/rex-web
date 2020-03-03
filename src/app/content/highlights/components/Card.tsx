@@ -8,10 +8,9 @@ import styled, { css, keyframes } from 'styled-components/macro';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
 import { DropdownList } from '../../../components/Dropdown';
-import { findElementSelfOrParent } from '../../../domUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow, remsToEms } from '../../../utils';
+import { remsToEms } from '../../../utils';
 import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
@@ -31,6 +30,7 @@ import {
 } from '../constants';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
+import { getHighlightBottomOffset } from './cardUtils';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import { cardBorder } from './style';
@@ -187,38 +187,6 @@ const Card = (props: CardProps) => {
  */
 
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
-
-const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
-  if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
-    return;
-  }
-
-  const {top, bottom } = highlight.range.getBoundingClientRect();
-
-  const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
-  const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
-  const scrollOffset = assertWindow().scrollY;
-
-  return {
-    bottom: bottom - parentOffset + scrollOffset,
-    top: top - parentOffset + scrollOffset,
-  };
-};
-
-export const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(container, highlight);
-
-  if (offset) {
-    return offset.top;
-  }
-};
-const getHighlightBottomOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(container, highlight);
-
-  if (offset) {
-    return offset.bottom;
-  }
-};
 
 const overlapDisplay = css`
   ${(props: CardProps) => !!props.isFocused && css`

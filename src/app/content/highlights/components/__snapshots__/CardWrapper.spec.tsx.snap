@@ -1,3 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CardWrapper matches snapshot 1`] = `null`;
+exports[`CardWrapper matches snapshot 1`] = `
+.c0 {
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+  top: 0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+<div
+  className="c0"
+/>
+`;

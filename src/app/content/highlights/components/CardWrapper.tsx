@@ -6,7 +6,8 @@ import { scrollIntoView } from '../../../domUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, remsToPx } from '../../../utils';
 import { cardMarginBottom } from '../constants';
-import Card, { getHighlightTopOffset, mediaQueryBreakToStopDisplaingAllCards } from './Card';
+import Card, { mediaQueryBreakToStopDisplaingAllCards } from './Card';
+import { getHighlightTopOffset } from './cardUtils';
 
 interface Props {
   container: HTMLElement;
