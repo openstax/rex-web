@@ -35,7 +35,7 @@ import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import { cardBorder } from './style';
 
-interface Props {
+export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
@@ -58,7 +58,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Card = (props: Props) => {
+const Card = (props: CardProps) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
@@ -221,14 +221,14 @@ const getHighlightBottomOffset = (container: HTMLElement | undefined, highlight:
 };
 
 const overlapDisplay = css`
-  ${(props: Props) => !!props.isFocused && css`
+  ${(props: CardProps) => !!props.isFocused && css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${() => {
       return getHighlightBottomOffset(props.container, props.highlight) || 0;
     }}px;
   `}
-  ${(props: Props) => !props.isFocused && css`
+  ${(props: CardProps) => !props.isFocused && css`
     display: none;
   `}
 `;
@@ -236,14 +236,14 @@ const overlapDisplay = css`
 const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
-  top: ${(props: Props) => `${props.topOffset}px;`}
-  ${(props: Props) => !!props.isFocused && css`
+  top: ${(props: CardProps) => `${props.topOffset}px;`}
+  ${(props: CardProps) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
   `}
 `;
 
 const mobileDisplay = css`
-  ${(props: Props) => !!props.isFocused && css`
+  ${(props: CardProps) => !!props.isFocused && css`
     left: 0;
     right: 0;
     bottom: 0;
@@ -251,7 +251,7 @@ const mobileDisplay = css`
     position: fixed;
     padding: 0;
   `}
-  ${(props: Props) => !props.isFocused && css`
+  ${(props: CardProps) => !props.isFocused && css`
     display: none;
   `}
 `;
