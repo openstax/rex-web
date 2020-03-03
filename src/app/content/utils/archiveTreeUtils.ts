@@ -7,6 +7,7 @@ import {
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
+  Params,
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
@@ -74,11 +75,11 @@ export const findArchiveTreeNode = (
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
   flattenArchiveTree(tree).find(nodeMatcher(nodeId));
 
-export const findArchiveTreeNodeBySlug = (
+export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
-  nodeSlug: string
+  pageParam: Params['page']
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find((node) => node.slug === nodeSlug);
+  flattenArchiveTree(tree).find((node) => node.slug.toLowerCase() === pageParam.slug.toLowerCase());
 
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,

@@ -131,7 +131,7 @@ const resolvePage = async(
   const state = getState();
   const pageId = match.state && match.state.pageUid
     ? match.state.pageUid
-    : getPageIdFromUrlParam(book, match.params.page.slug);
+    : getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
     // TODO - 404 handling

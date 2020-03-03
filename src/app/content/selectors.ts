@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import {
-  findArchiveTreeNodeBySlug,
+  findArchiveTreeNodeByPageParam,
   prevNextBookPage,
 } from './utils/archiveTreeUtils';
 
@@ -52,13 +52,15 @@ export const loadingPage = createSelector(
 
 export const pageParam = createSelector(
   localState,
-  (state) => state.params ? state.params.page.slug : null
+  (state) => state.params ? state.params.page : null
 );
 
 export const pageNode = createSelector(
   book,
   pageParam,
-  (selectedBook, slug) => selectedBook && slug ? findArchiveTreeNodeBySlug(selectedBook.tree, slug) : undefined
+  (selectedBook, selectedPageParam) => selectedBook && selectedPageParam
+    ? findArchiveTreeNodeByPageParam(selectedBook.tree, selectedPageParam)
+    : undefined
 );
 
 export const bookAndPage = createSelector(

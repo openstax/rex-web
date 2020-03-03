@@ -1,8 +1,8 @@
 import { BOOKS } from '../../../config';
 import { assertDefined } from '../../utils';
 import { content as contentRoute } from '../routes';
-import { Book, BookWithOSWebData, Page, Params, SlugParams } from '../types';
-import { findArchiveTreeNode, flattenArchiveTree } from './archiveTreeUtils';
+import { Book, BookWithOSWebData, Page, Params } from '../types';
+import { findArchiveTreeNode, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: BookWithOSWebData) {
@@ -42,7 +42,7 @@ export const getUrlParamsForBook = (
 };
 
 const getUrlParamForPageIdCache = new Map();
-export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): SlugParams => {
+export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, pageId: string): Params['page'] => {
 
   const cacheKey = `${book.id}:${pageId}`;
 
@@ -60,13 +60,11 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   return {slug: result};
 };
 
-export const getPageIdFromUrlParam = (book: Book, pageParam: string): string | undefined => {
-  for (const section of flattenArchiveTree(book.tree)) {
-    const sectionParam = assertDefined(section.slug, `could not find page slug for "${section.id}" in ${book.title}`);
-    if (sectionParam && sectionParam.toLowerCase() === pageParam.toLowerCase()) {
-      return stripIdVersion(section.id);
-    }
-  }
+export const getPageIdFromUrlParam = (book: Book, pageParam: Params['page']): string | undefined => {
+  const pageNode = findArchiveTreeNodeByPageParam(book.tree, pageParam);
+  if (!pageNode) { return; }
+
+  return stripIdVersion(pageNode.id);
 };
 
 const getCommonParts = (firstPath: string[], secondPath: string[]) => {

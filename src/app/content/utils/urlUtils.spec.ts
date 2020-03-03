@@ -107,15 +107,15 @@ describe('getPageIdFromUrlParam', () => {
   });
 
   it('finds id for simple param', () => {
-    expect(getPageIdFromUrlParam(book, 'Preface')).toEqual('pagelongid');
+    expect(getPageIdFromUrlParam(book, {slug: 'Preface'})).toEqual('pagelongid');
   });
 
   it('ignores captialization', () => {
-    expect(getPageIdFromUrlParam(book, 'preface')).toEqual('pagelongid');
+    expect(getPageIdFromUrlParam(book, {slug: 'preface'})).toEqual('pagelongid');
   });
 
   it('returns undefined for unknown route', () => {
-    expect(getPageIdFromUrlParam(book, 'asdfasdf')).toBeUndefined();
+    expect(getPageIdFromUrlParam(book, {slug: 'asdfasdf'})).toBeUndefined();
   });
 });
 
