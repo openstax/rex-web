@@ -7,7 +7,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
 import { Params } from '../../types';
-import { resolveBookReference } from './resolveContent';
+import { resolveBookReference, resolveExternalBookReference } from './resolveContent';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -32,6 +32,32 @@ describe('locationChange', () => {
     };
     helpers.archiveLoader.mockBook(uuidBook);
     helpers.archiveLoader.mockPage(uuidBook, page, 'test-page-1');
+  };
+
+  const mockOtherBook = {
+    abstract: '',
+    id: 'newbookid',
+    license: {name: '', version: ''},
+    revised: '2012-06-21',
+    shortId: 'newbookshortid',
+    title: 'newbook',
+    tree: {
+      contents: [],
+      id: 'newbookid@0',
+      shortId: 'newbookshortid@0',
+      slug: 'newbook',
+      title: 'newbook',
+    },
+    version: '0',
+  };
+  const mockPageInOtherBook = {
+    abstract: '',
+    content: 'dope content bruh',
+    id: 'newbookpageid',
+    revised: '2018-07-30T15:58:45Z',
+    shortId: 'newbookpageshortid',
+    title: 'page in a new book',
+    version: '0',
   };
 
   beforeEach(() => {
@@ -168,6 +194,21 @@ describe('locationChange', () => {
       await expect(
         resolveBookReference(helpers, match)
       ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
+    });
+
+    it('allows content links outside of BOOKS config', async() => {
+      await helpers.archiveLoader.mockBook(mockOtherBook);
+      await helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
+
+      match.params = {
+        page: mockPageInOtherBook.id,
+        uuid: mockOtherBook.id,
+        version: '1.0',
+      };
+      console.log(
+        await resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id)
+      );
+
     });
   });
 

@@ -156,9 +156,11 @@ const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
   pageId: string
 ) => {
-  const devEnvironment = process.env.NODE_ENV === 'development';
+  const devEnvironment = process.env.APP_ENV === 'development';
   const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
+
+  console.log(devEnvironment);
 
   if (configuredReference) {
     const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
@@ -169,6 +171,7 @@ const getBookInformation = async(
     return {osWebBook, archiveBook};
 
   } else if (devEnvironment) {
+    console.log(allReferences);
     for (const {id, bookVersion} of allReferences) {
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
       const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
@@ -183,7 +186,7 @@ const getBookInformation = async(
 
 };
 
-const resolveExternalBookReference = async(
+export const resolveExternalBookReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
