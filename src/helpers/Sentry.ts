@@ -15,9 +15,9 @@ const importantActions: Set<AnyAction['type']> = new Set([
 const filterBreadcrumbActions = (action: AnyAction) => importantActions.has(action.type);
 
 export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
-  const { event_id, level } = event;
+  const { event_id, exception} = event;
 
-  if (event_id && level === 'error') {
+  if (event_id && exception)  {
     store.dispatch(recordSentryMessage(event_id));
   }
 
