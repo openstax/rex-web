@@ -7,7 +7,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
 import { Params } from '../../types';
-import { resolveBookReference, resolveExternalBookReference } from './resolveContent';
+import { resolveBookReference } from './resolveContent';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -23,6 +23,7 @@ describe('locationChange', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let match: Match<typeof routes.content>;
   let hook: typeof import ('./resolveContent').default;
+  let resolveExternalBookReference: typeof import ('./resolveContent').resolveExternalBookReference;
 
   const mockUUIDBook = () => {
     const uuidBook = {
@@ -79,11 +80,15 @@ describe('locationChange', () => {
       route: routes.content,
     };
 
-    hook = require('./resolveContent').default;
+    const resolveContent = require('./resolveContent');
+    hook = resolveContent.default;
+    resolveExternalBookReference = resolveContent.resolveExternalBookReference;
   });
 
   describe('in development', () => {
-    jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+    beforeAll(() => {
+      jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+    });
 
     it('doesn\'t load book if its already loading', async() => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(

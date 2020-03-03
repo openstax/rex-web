@@ -156,7 +156,7 @@ const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
   pageId: string
 ) => {
-  const devEnvironment = process.env.APP_ENV === 'development';
+  const devEnvironment = APP_ENV === 'development';
   const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
 
