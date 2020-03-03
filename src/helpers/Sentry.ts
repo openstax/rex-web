@@ -2,22 +2,22 @@ import * as Sentry from '@sentry/browser';
 import * as Integrations from '@sentry/integrations';
 import createSentryMiddleware from 'redux-sentry-middleware';
 import { getType } from 'typesafe-actions';
-import { recordSentryMessage } from '../app/errors/actions';
+import { recordError, recordSentryMessage } from '../app/errors/actions';
 import { AnyAction, Middleware, MiddlewareAPI } from '../app/types';
 import config from '../config';
 
 let IS_INITIALIZED = false;
 
-const ignoredActions: Set<AnyAction['type']> = new Set([
-  recordSentryMessage,
+const importantActions: Set<AnyAction['type']> = new Set([
+  recordError,
 ].map(getType));
 
-const filterBreadcrumbActions = (action: AnyAction) => !ignoredActions.has(action.type);
+const filterBreadcrumbActions = (action: AnyAction) => importantActions.has(action.type);
 
 export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
-  const { event_id } = event;
+  const { event_id, level } = event;
 
-  if (event_id) {
+  if (event_id && level === 'error') {
     store.dispatch(recordSentryMessage(event_id));
   }
 
