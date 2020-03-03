@@ -1,14 +1,14 @@
 import UntypedHighlighter, {
   SerializedHighlight as UntypedSerializedHighlight
 } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, MediaQueryList } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import { assertWindow } from '../../../utils';
+import * as utils from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData } from '../../highlights/types';
@@ -16,6 +16,15 @@ import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
+jest.mock('../../../utils', () => ({
+  ...jest.requireActual('../../../utils'),
+  assertWindow: () => ({
+    ...jest.requireActual('../../../utils').assertWindow(),
+    matchMedia: () => ({
+      matches: false,
+    } as MediaQueryList),
+  }),
+}));
 
 jest.mock('../../highlights/components/Card', () => (props: any) => <div mock-card {...props} />);
 
@@ -40,7 +49,7 @@ describe('highlightManager', () => {
   let prop: HighlightProp;
 
   beforeEach(() => {
-    window = assertWindow();
+    window = utils.assertWindow();
     element = window.document.createElement('div');
     prop = {
       clearFocus: jest.fn(),
@@ -330,7 +339,10 @@ describe('highlightManager', () => {
     });
 
     it('focuses on click', async() => {
-      const mockHighlight = createMockHighlight();
+      const mockHighlight = {
+        ...createMockHighlight(),
+        annotation: 'anno',
+      };
 
       Highlighter.mock.calls[0][1].onClick(mockHighlight);
 
