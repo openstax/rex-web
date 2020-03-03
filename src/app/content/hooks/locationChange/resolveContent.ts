@@ -160,8 +160,6 @@ const getBookInformation = async(
   const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
 
-  console.log(devEnvironment);
-
   if (configuredReference) {
     const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
     const archiveBook = await services.archiveLoader.book(
@@ -171,12 +169,11 @@ const getBookInformation = async(
     return {osWebBook, archiveBook};
 
   } else if (devEnvironment) {
-    console.log(allReferences);
     for (const {id, bookVersion} of allReferences) {
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
       const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
 
-      if (archiveTreeSectionIsBook(archiveBook.tree)) {
+      if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
         return {osWebBook, archiveBook};
       }
     }

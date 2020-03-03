@@ -201,19 +201,44 @@ describe('locationChange', () => {
       ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
     });
 
-    it('allows content links outside of BOOKS config', async() => {
-      await helpers.archiveLoader.mockBook(mockOtherBook);
-      await helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
+    it('allows content links outside of BOOKS config and throws if not found', async() => {
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
+        Promise.resolve([{ id: 'newbookid', bookVersion: '0' }])
+      );
+      helpers.archiveLoader.mockBook(mockOtherBook);
+      helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
 
       match.params = {
         page: mockPageInOtherBook.id,
         uuid: mockOtherBook.id,
         version: '1.0',
       };
-      console.log(
-        await resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id)
-      );
 
+      const referenceBook = await resolveExternalBookReference(
+        helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(referenceBook).toBeTruthy();
+
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.reject() as any);
+      helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      let message: string | undefined;
+
+      try {
+        await resolveExternalBookReference(
+          helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(message).toEqual(
+        'BUG: \"newbook / page in a new book\" referenced \"newbookpageid\"' +
+        ', but it could not be found in any configured books.'
+      );
     });
   });
 
