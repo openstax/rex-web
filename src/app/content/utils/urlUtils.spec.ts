@@ -135,6 +135,11 @@ describe('toRelativeUrl', () => {
     expect(url).toMatchInlineSnapshot(`"page1"`);
   });
 
+  it('when in the same book but it ends with a /', () => {
+    const url = toRelativeUrl(`${BOOK_URL}/pages/doesnotmatter/`, PAGE_URL);
+    expect(url).toMatchInlineSnapshot('"../page1"');
+  });
+
   it('when under the same Page (unused)', () => {
     const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter`, PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../page1"`);
