@@ -4,7 +4,7 @@ import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
-import { highlightStyles, noteIndicatorSize } from '../../highlights/constants';
+import { highlightIndicatorSize, highlightStyles } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
@@ -69,13 +69,13 @@ export default styled(MainContent)`
         &:before {
           position: absolute;
           top: -0.1rem;
-          left: -${noteIndicatorSize - 0.3}rem;
+          left: -${highlightIndicatorSize - 0.3}rem;
           content: "";
           width: 0;
           height: 0;
-          border-left: ${noteIndicatorSize}rem solid transparent;
-          border-right: ${noteIndicatorSize}rem solid transparent;
-          border-bottom: ${noteIndicatorSize}rem solid ${style.focused};
+          border-left: ${highlightIndicatorSize}rem solid transparent;
+          border-right: ${highlightIndicatorSize}rem solid transparent;
+          border-bottom: ${highlightIndicatorSize}rem solid ${style.focused};
           transform: rotate(-45deg);
         }
       }
