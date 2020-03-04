@@ -180,7 +180,6 @@ const getBookInformation = async(
   }
 
   return undefined;
-
 };
 
 export const resolveExternalBookReference = async(

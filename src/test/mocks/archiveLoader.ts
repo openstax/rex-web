@@ -65,7 +65,7 @@ export default () => {
   });
 
   const getBookIdsForPage = jest.fn((_pageId: string) =>
-    Promise.resolve([] as Array<{id: string, bookVersion: string}>)
+    Promise.resolve([] as Array<{id: string, bookVersion: string | undefined}>)
   );
 
   return {
