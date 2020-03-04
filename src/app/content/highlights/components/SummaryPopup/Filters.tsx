@@ -57,7 +57,8 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   ${(props: ToggleProps) => props.isOpen
     ? css`
       z-index: 2;
-      box-shadow: 0 -0.6rem 0.6rem 0 rgba(0,0,0,0.2);
+      box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+      clip-path: inset(0 -0.6rem 0px -0.6rem);
       background-color: ${theme.color.white};
       border-left: ${filters.border}rem solid ${theme.color.neutral.formBorder};
       border-right: ${filters.border}rem solid ${theme.color.neutral.formBorder};
