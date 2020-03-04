@@ -92,10 +92,13 @@ export const toRelativeUrl = (from: string, to: string) => {
 
   // remove the last piece of the "to" so that it is always output
   const commonParts = getCommonParts(parsedFrom, parsedTo.slice(0, -1));
+  // . to prevent going outside from '/'
+  const hasTrailingSlash = /.\/$/.test(from);
 
-  const lastFromFragment = last(parsedFrom);
-  const hasTrailingSlash = lastFromFragment && last(parsedTo) !== lastFromFragment && /\/$/.test(from);
+  const valueToSubtract = hasTrailingSlash && last(parsedTo) !== last(parsedFrom)
+    ? commonParts.length
+    : commonParts.length + 1;
 
-  return '../'.repeat(parsedFrom.length - commonParts.length - 1 + (hasTrailingSlash ?  1 : 0))
+  return '../'.repeat(parsedFrom.length - valueToSubtract)
     + parsedTo.slice(commonParts.length).join('/');
-};
+}
