@@ -101,4 +101,4 @@ export const toRelativeUrl = (from: string, to: string) => {
 
   return '../'.repeat(parsedFrom.length - valueToSubtract)
     + parsedTo.slice(commonParts.length).join('/');
-}
+};
