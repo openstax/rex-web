@@ -4,6 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
+import Sentry from '../../../helpers/Sentry';
 import { RouteState } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import { content } from '../routes';
@@ -147,11 +148,20 @@ export const highlightResults = (
     }
 
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
-      const highlights = getHighlightRanges(element, highlightText).map((range) => {
-        const highlight = new Highlight(range.nativeRange, {content: range.toString()});
-        highlighter.highlight(highlight);
-        return highlight;
-      });
+      const highlights = getHighlightRanges(element, highlightText)
+        .map((range) => {
+          const highlight = new Highlight(range.nativeRange, {content: range.toString()});
+
+          try {
+            highlighter.highlight(highlight);
+          } catch (e) {
+            Sentry.captureException(e);
+          }
+
+          return highlight;
+        })
+        .filter((highlight) => highlight.elements.length > 0)
+      ;
 
       return {index, highlights};
     })
