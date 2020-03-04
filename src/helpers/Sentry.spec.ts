@@ -102,7 +102,7 @@ describe('Sentry error logging', () => {
     });
 
     it('adds event\'s id to state', () => {
-      const event = {event_id: 'random id'};
+      const event = {event_id: 'random id', exception: {}};
 
       const processedEvent = beforeSend(event);
       expect(dispatch).toHaveBeenCalledWith(recordSentryMessage(event.event_id));
