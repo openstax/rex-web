@@ -1,9 +1,11 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { typesetMath } from '../../../../helpers/mathjax';
+import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
-import { AppState, Dispatch } from '../../../types';
+import { AppServices, AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { loadMoreSummaryHighlights, printSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
@@ -11,12 +13,14 @@ import * as select from '../selectors';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
+import allImagesLoaded from '../../components/utils/allImagesLoaded';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
   summaryIsLoading: boolean;
   loadMore: () => void;
-  loadHighlightsAndPrint: (containerRef: React.RefObject<HTMLElement>) => void;
+  printHighlights: () => void;
+  services: AppServices;
 }
 
 class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: boolean }> {
@@ -54,7 +58,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 
   public printHighlights = () => {
     if (this.props.hasMoreResults) {
-      this.props.loadHighlightsAndPrint(this.myHighlightsBodyRef);
+      this.props.printHighlights();
     } else {
       assertWindow().print();
     }
@@ -81,6 +85,10 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
     }
   }
 
+  public componentDidUpdate(prevProps: ShowMyHighlightsProps) {
+    if (this.myHighlightsBodyRef.current) { return; }
+  }
+
   public render() {
     return (
       <Styled.ShowMyHighlightsBody
@@ -105,12 +113,15 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
   }
 }
 
-export default connect((state: AppState) => ({
-  hasMoreResults: select.hasMoreResults(state),
-  summaryIsLoading: select.summaryIsLoading(state),
-}), (dispatch: Dispatch) => ({
-  loadHighlightsAndPrint: (containerRef: React.RefObject<HTMLElement>) => {
-    dispatch(printSummaryHighlights({containerRef}));
-  },
-  loadMore: () => dispatch(loadMoreSummaryHighlights()),
-}))(ShowMyHighlights);
+const connector = connect(
+  (state: AppState) => ({
+    hasMoreResults: select.hasMoreResults(state),
+    summaryIsLoading: select.summaryIsLoading(state),
+  }),
+  (dispatch: Dispatch) => ({
+    loadMore: () => dispatch(loadMoreSummaryHighlights()),
+    printHighlights: () => dispatch(printSummaryHighlights()),
+  })
+);
+
+export default flow(withServices, connector)(ShowMyHighlights);
