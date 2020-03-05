@@ -697,17 +697,16 @@ Array [
 
 .c66 .highlight.yellow.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #fed200;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #fed200;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c66 .highlight.green {
@@ -720,17 +719,16 @@ Array [
 
 .c66 .highlight.green.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #92d101;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #92d101;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c66 .highlight.blue {
@@ -743,17 +741,16 @@ Array [
 
 .c66 .highlight.blue.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #00c3ed;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #00c3ed;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c66 .highlight.purple {
@@ -766,17 +763,16 @@ Array [
 
 .c66 .highlight.purple.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #545ec8;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #545ec8;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c66 .highlight.pink {
@@ -789,17 +785,16 @@ Array [
 
 .c66 .highlight.pink.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #de017e;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #de017e;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c66 .os-figure,
@@ -4209,17 +4204,16 @@ Array [
 
 .c40 .highlight.yellow.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #fed200;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #fed200;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c40 .highlight.green {
@@ -4232,17 +4226,16 @@ Array [
 
 .c40 .highlight.green.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #92d101;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #92d101;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c40 .highlight.blue {
@@ -4255,17 +4248,16 @@ Array [
 
 .c40 .highlight.blue.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #00c3ed;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #00c3ed;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c40 .highlight.purple {
@@ -4278,17 +4270,16 @@ Array [
 
 .c40 .highlight.purple.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #545ec8;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #545ec8;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c40 .highlight.pink {
@@ -4301,17 +4292,16 @@ Array [
 
 .c40 .highlight.pink.first.text:before {
   position: absolute;
-  top: -0.1rem;
-  left: -0.5rem;
+  top: 0;
+  left: 0;
   content: "";
   width: 0;
   height: 0;
-  border-left: 0.8rem solid transparent;
-  border-right: 0.8rem solid transparent;
-  border-bottom: 0.8rem solid #de017e;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  border-left: 1.1rem solid #de017e;
+  border-top: 1.1rem solid transparent;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .c40 .os-figure,

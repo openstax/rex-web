@@ -68,15 +68,14 @@ export default styled(MainContent)`
       &.first.text {
         &:before {
           position: absolute;
-          top: -0.1rem;
-          left: -${highlightIndicatorSize - 0.3}rem;
+          top: 0;
+          left: 0;
           content: "";
           width: 0;
           height: 0;
-          border-left: ${highlightIndicatorSize}rem solid transparent;
-          border-right: ${highlightIndicatorSize}rem solid transparent;
-          border-bottom: ${highlightIndicatorSize}rem solid ${style.focused};
-          transform: rotate(-45deg);
+          border-left: ${highlightIndicatorSize}rem solid ${style.focused};
+          border-top: ${highlightIndicatorSize}rem solid transparent;
+          transform: rotate(90deg);
         }
       }
 
