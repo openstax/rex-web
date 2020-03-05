@@ -1,28 +1,26 @@
-import defer from 'lodash/fp/defer';
+
 import { ActionHookBody } from '../../../types';
-import { actionHook, assertWindow } from '../../../utils';
+import { actionHook, assertDocument, assertWindow } from '../../../utils';
+import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
 import { myHighlightsOpen } from '../selectors';
 import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
-  (services) => () => {
-    loadMore(services).then(({formattedHighlights}) => {
-      services.dispatch(receiveSummaryHighlights(formattedHighlights, {
-        isStillLoading: true,
-        pagination: null,
-      }));
+  (services) => async() => {
+    const {formattedHighlights} = await loadMore(services);
 
-      defer(() => {
-        services.promiseCollector.calm().then(() => {
-          services.dispatch(toggleSummaryHighlightsLoading(false));
+    services.dispatch(receiveSummaryHighlights(formattedHighlights, {
+      isStillLoading: true,
+      pagination: null,
+    }));
 
-          if (myHighlightsOpen(services.getState())) {
-            assertWindow().print();
-          }
-        });
-      });
-    });
+    await allImagesLoaded(assertDocument());
+    services.dispatch(toggleSummaryHighlightsLoading(false));
+
+    if (myHighlightsOpen(services.getState())) {
+      assertWindow().print();
+    }
   };
 
 export const printHighlightsHook = actionHook(printSummaryHighlights, hookBody);

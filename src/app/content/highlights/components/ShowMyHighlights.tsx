@@ -1,14 +1,12 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
-import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { typesetMath } from '../../../../helpers/mathjax';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
-import { assertWindow, lastProp } from '../../../utils';
-import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import { assertWindow } from '../../../utils';
 import { loadMoreSummaryHighlights, printSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
@@ -85,20 +83,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 
     if (this.scrollHandler && isHtmlElement(highlightsBodyRef)) {
       highlightsBodyRef.removeEventListener('scroll', this.scrollHandler);
-    }
-  }
-
-  public componentDidUpdate(prevProps: ShowMyHighlightsProps) {
-
-    if (!prevProps.summaryIsLoading || !this.myHighlightsBodyRef.current) { return; }
-
-    const {summaryHighlights: prevHighlights} = prevProps;
-    const {summaryHighlights: currHighlights} = this.props;
-
-    if (!prevHighlights || !currHighlights) { return; }
-
-    if (!isEqual(lastProp(prevHighlights), lastProp(currHighlights))) {
-      this.props.services.promiseCollector.add(allImagesLoaded(this.myHighlightsBodyRef.current));
     }
   }
 
