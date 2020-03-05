@@ -1,9 +1,9 @@
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
-import { AppServices, AppState, MiddlewareAPI, UnauthenticatedError } from './types';
+import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
-import { assertDocument } from './utils';
+import { assertDocument, UnauthenticatedError } from './utils';
 
 jest.mock('../helpers/Sentry');
 

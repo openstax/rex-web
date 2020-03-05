@@ -1,11 +1,7 @@
 import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
-import { UnauthenticatedError } from '../app/types';
+import { UnauthenticatedError } from '../app/utils';
 import { resetModules } from '../test/utils';
 import createHighlightClient from './createHighlightClient';
-
-jest.mock('../app/utils', () => ({
-  ...jest.requireActual('../app/utils'),
-}));
 
 describe('createHighlightClient', () => {
   const fetchBackup = fetch;

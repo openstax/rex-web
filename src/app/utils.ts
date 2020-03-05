@@ -12,7 +12,6 @@ import {
   AppServices,
   Dispatch,
   Middleware,
-  UnauthenticatedError
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
@@ -28,20 +27,21 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       const result = next(action);
 
       if (matches(action)) {
+        const catchError = makeCatchError(stateHelpers.dispatch);
         try {
           const promise = boundHook(action);
           if (promise) {
-            services.promiseCollector.add(promise.catch((e) => catchError(e, stateHelpers.dispatch)));
+            services.promiseCollector.add(promise.catch(catchError));
           }
         } catch (e) {
-          catchError(e, stateHelpers.dispatch);
+          catchError(e);
         }
       }
       return result;
     };
   };
 
-const catchError = (e: Error, dispatch: Dispatch) => {
+const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
   if (e instanceof UnauthenticatedError) {
     dispatch(receiveLoggedOut());
     return;
@@ -179,3 +179,5 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ),
   }), {}),
 });
+
+export class UnauthenticatedError extends Error {}

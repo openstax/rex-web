@@ -1,5 +1,5 @@
 import { Configuration, HighlightsApi } from '@openstax/highlighter/dist/api';
-import { UnauthenticatedError } from '../app/types';
+import { UnauthenticatedError } from '../app/utils';
 
 const formatError = (response: Response) => {
   return response.json()
