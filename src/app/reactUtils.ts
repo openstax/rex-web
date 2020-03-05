@@ -58,4 +58,5 @@ export const useOnDOMEvent = (
 export const useTimeout = (delay: number, cb: () => void, deps: React.DependencyList) => React.useEffect(() => {
   const timeout = setTimeout(cb, delay);
   return () => clearTimeout(timeout);
-}, deps);
+  // eslint-disabled-next-line react-hooks/exhaustive-deps
+}, [...deps, cb, delay]);
