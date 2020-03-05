@@ -95,21 +95,25 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
-let typesetCounter = 0;
+let recursiveCounter = 0;
+const resolveOrWait = (root: Element, resolve: () => void) => {
+  if (
+    (findLatexNodes(root).length || findUnprocessedMath(root).length)
+    && recursiveCounter < 5
+  ) {
+    setTimeout(() => {
+      recursiveCounter++;
+      resolveOrWait(root, resolve);
+    }, 200);
+  } else {
+    resolve();
+  }
+};
 
 const typesetDocumentPromise = (root: Element, windowImpl: Window): Promise<void> => new Promise((resolve) => {
   typesetDocument(root, windowImpl);
   windowImpl.MathJax.Hub.Queue(() => {
-    if (
-      (findLatexNodes(root).length || findUnprocessedMath(root).length)
-      && typesetCounter < 5
-    ) {
-      typesetDocumentPromise(root, windowImpl);
-      typesetCounter++;
-    } else {
-      typesetCounter = 0;
-      resolve();
-    }
+    resolveOrWait(root, resolve);
   });
 });
 
