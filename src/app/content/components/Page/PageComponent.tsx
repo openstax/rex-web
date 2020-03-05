@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchFailure from '../../../notifications/components/SearchFailure'
+import SearchFailure from '../../../notifications/components/SearchFailure';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -27,7 +27,7 @@ const parser = new DOMParser();
 
 export default class PageComponent extends Component<PagePropTypes, {hasSearchError: boolean}> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false }
+  public state = { hasSearchError: false };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;

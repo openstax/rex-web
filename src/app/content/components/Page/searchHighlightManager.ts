@@ -67,7 +67,6 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   }
 
   if (options.onSelect) {
-    console.log(firstSelectedHighlight)
     options.onSelect(firstSelectedHighlight);
   }
 };
