@@ -149,6 +149,10 @@ class Attribution extends Component<Props> {
   private getValues = (book: BookWithOSWebData) => {
     const introPage = findDefaultBookPage(book);
     const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
+
+    if (!book.publish_date) {
+      throw new Error(`BUG: Could not find publication date`);
+    }
     const bookPublishDate = new Date(book.publish_date);
     const bookLatestRevision = new Date(book.revised);
 
