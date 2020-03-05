@@ -1,7 +1,7 @@
-import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import { FocusEvent, HTMLElement, HTMLElementEventMap } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener, elementDescendantOf } from './domUtils';
-import { isElement } from './guards';
+import { isElement, isWindow } from './guards';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -35,3 +35,27 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
 };
+
+export const useOnDOMEvent = (
+  element: React.RefObject<HTMLElement> | Window ,
+  isEnabled: boolean,
+  event: keyof HTMLElementEventMap,
+  cb: () => void
+) => {
+  React.useEffect(() => {
+    const target = isWindow(element) ? element : element.current;
+
+    if (!target) { return; }
+
+    if (isEnabled) {
+      target.addEventListener(event, cb);
+    }
+
+    return () => target.removeEventListener(event, cb);
+  }, [element, isEnabled, cb, event]);
+};
+
+export const useTimeout = (delay: number, cb: () => void, deps: React.DependencyList) => React.useEffect(() => {
+  const timeout = setTimeout(cb, delay);
+  return () => clearTimeout(timeout);
+}, deps);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { assertWindow, useOnDOMEvent, useTimeout } from '../../../utils';
+import { useOnDOMEvent, useTimeout } from '../../../reactUtils';
+import { assertWindow } from '../../../utils';
 import { Header } from '../Card';
 import {
   BannerBody,
@@ -18,16 +19,16 @@ interface Props {
 const SearchFailure = ({ dismiss }: Props) => {
   const window = assertWindow();
   const [isFadingOut, setIsFadingOut] = React.useState(false);
-  const [shouldAllowDismissal, setShouldAllowDismissal] = React.useState(false);
+  const [shouldAutoDismiss, setShouldAutoDismiss] = React.useState(false);
 
   const startFadeOut = () => {
-    if (shouldAllowDismissal) {
+    if (shouldAutoDismiss) {
       setIsFadingOut(true);
     }
   };
 
-  useTimeout(clearErrorAfter, startFadeOut, [shouldAllowDismissal]);
-  useTimeout(100, () => setShouldAllowDismissal(true), []);
+  useTimeout(clearErrorAfter, startFadeOut, []);
+  useTimeout(100, () => setShouldAutoDismiss(true), []);
 
   useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut);
   useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut);

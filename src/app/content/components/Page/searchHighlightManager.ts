@@ -28,7 +28,7 @@ type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 
 interface Options {
   forceRedraw: boolean;
-  cb?: (selectedHighlight?: Highlight) => void;
+  onSelect?: (selectedHighlight?: Highlight) => void;
 }
 
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
@@ -40,12 +40,7 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (
-  services: Services,
-  previous: HighlightProp,
-  current: HighlightProp,
-  options: Options
-) => {
+const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
   if (!current.selectedResult) {
     return;
   }
@@ -71,16 +66,13 @@ const selectResult = (
     );
   }
 
-  if (options.cb) {
-    options.cb(firstSelectedHighlight);
+  if (options.onSelect) {
+    console.log(firstSelectedHighlight)
+    options.onSelect(firstSelectedHighlight);
   }
 };
 
-const handleUpdate = (services: Services) => (
-  previous: HighlightProp,
-  current: HighlightProp,
-  options: Options,
-) => {
+const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
   updateResults(services, previous, current, options);
   selectResult(services, previous, current, options);
 };

@@ -17,7 +17,7 @@ export interface AppMessageNotification {
 
 export type Messages = Message[];
 
-export type AnyNotification =  ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
+export type AnyNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
   | AppMessageNotification;
 
 export type State = AnyNotification[];

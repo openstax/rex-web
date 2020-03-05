@@ -19,7 +19,9 @@ const fadeOutDuration = 1000;
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
-const closeIconClor = '#EDBFC5';
+const closeIconColor = '#EDBFC5';
+const errorTextColor = '#C23834';
+
 const hoveredCloseIconColor = errorBorderColor;
 
 const fadeOut = keyframes`
@@ -66,7 +68,7 @@ export const BannerBody = styled.div`
   ${Header} {
     width: 90%;
     background: inherit;
-    color: ${theme.color.text.red};
+    color: ${errorTextColor};
     font-weight: normal;
     line-height: 2.6rem;
   }
@@ -86,7 +88,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 
 // tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton)`
-  color: ${closeIconClor};
+  color: ${closeIconColor};
   &:hover {
     color: ${hoveredCloseIconColor};
   }

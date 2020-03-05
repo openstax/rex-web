@@ -1,9 +1,9 @@
-import { Document, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@openstax/types/lib.dom';
+import { Document, HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { recordError } from './errors/actions';
-import { isPlainObject, isWindow } from './guards';
+import { isPlainObject } from './guards';
 import {
   ActionHookBody,
   AnyAction,
@@ -211,27 +211,3 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
 };
-
-export const useOnDOMEvent = (
-  element: React.RefObject<HTMLElement> | Window ,
-  isEnabled: boolean,
-  event: keyof HTMLElementEventMap,
-  cb: () => void
-) => {
-  React.useEffect(() => {
-    const target = isWindow(element) ? element : element.current;
-
-    if (!target) { return; }
-
-    if (isEnabled) {
-      target.addEventListener(event, cb);
-    }
-
-    return () => target.removeEventListener(event, cb);
-  }, [element, isEnabled, cb, event]);
-};
-
-export const useTimeout = (delay: number, cb: () => void, deps: React.DependencyList) => React.useEffect(() => {
-  const timeout = setTimeout(cb, delay);
-  return () => clearTimeout(timeout);
-}, deps);

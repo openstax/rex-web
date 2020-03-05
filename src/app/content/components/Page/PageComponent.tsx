@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import { assertWindow } from '../../../utils';
 import SearchFailure from '../../../notifications/components/SearchFailure'
+import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import PrevNextBar from '../PrevNextBar';
@@ -25,7 +25,7 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-export default class PageComponent extends Component<PagePropTypes> {
+export default class PageComponent extends Component<PagePropTypes, {hasSearchError: boolean}> {
   public container = React.createRef<HTMLDivElement>();
   public state = { hasSearchError: false }
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
@@ -69,14 +69,10 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
-    this.searchHighlightManager.update(
-      prevProps.searchHighlights,
-      this.props.searchHighlights,
-      {
-        cb: this.onHighlightSelect,
-        forceRedraw: highlgihtsAddedOrRemoved,
-      }
-    );
+    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
+      forceRedraw: highlgihtsAddedOrRemoved,
+      onSelect: this.onHighlightSelect,
+    });
   }
 
   public onHighlightSelect = (highlight?: Highlight) => {
