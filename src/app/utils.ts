@@ -11,7 +11,7 @@ import {
   AnyActionCreator,
   AppServices,
   Dispatch,
-  Middleware,
+  Middleware
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
