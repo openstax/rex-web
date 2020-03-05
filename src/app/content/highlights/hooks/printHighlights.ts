@@ -1,3 +1,4 @@
+import defer from 'lodash/fp/defer';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
@@ -12,12 +13,14 @@ export const hookBody: ActionHookBody<typeof printSummaryHighlights> =
         pagination: null,
       }));
 
-      services.promiseCollector.calm().then(() => {
-        services.dispatch(toggleSummaryHighlightsLoading(false));
+      defer(() => {
+        services.promiseCollector.calm().then(() => {
+          services.dispatch(toggleSummaryHighlightsLoading(false));
 
-        if (myHighlightsOpen(services.getState())) {
-          assertWindow().print();
-        }
+          if (myHighlightsOpen(services.getState())) {
+            assertWindow().print();
+          }
+        });
       });
     });
   };

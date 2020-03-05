@@ -1,22 +1,25 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
+import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { typesetMath } from '../../../../helpers/mathjax';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertWindow, lastProp } from '../../../utils';
+import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { loadMoreSummaryHighlights, printSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
+import { SummaryHighlights } from '../types';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
-import allImagesLoaded from '../../components/utils/allImagesLoaded';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
+  summaryHighlights: SummaryHighlights | null;
   summaryIsLoading: boolean;
   loadMore: () => void;
   printHighlights: () => void;
@@ -86,7 +89,17 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
   }
 
   public componentDidUpdate(prevProps: ShowMyHighlightsProps) {
-    if (this.myHighlightsBodyRef.current) { return; }
+
+    if (!prevProps.summaryIsLoading || !this.myHighlightsBodyRef.current) { return; }
+
+    const {summaryHighlights: prevHighlights} = prevProps;
+    const {summaryHighlights: currHighlights} = this.props;
+
+    if (!prevHighlights || !currHighlights) { return; }
+
+    if (!isEqual(lastProp(prevHighlights), lastProp(currHighlights))) {
+      this.props.services.promiseCollector.add(allImagesLoaded(this.myHighlightsBodyRef.current));
+    }
   }
 
   public render() {
@@ -116,6 +129,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 const connector = connect(
   (state: AppState) => ({
     hasMoreResults: select.hasMoreResults(state),
+    summaryHighlights: select.summaryHighlights(state),
     summaryIsLoading: select.summaryIsLoading(state),
   }),
   (dispatch: Dispatch) => ({
