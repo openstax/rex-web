@@ -64,9 +64,9 @@ export const useOnDOMEvent = (
 
 export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList) => {
   const savedCallback = React.useRef<typeof callback>();
+  const timeout = React.useRef<number>();
 
   const timeoutHandler = () => savedCallback.current && savedCallback.current();
-  const timeout = React.useRef(setTimeout(timeoutHandler, delay));
 
   useEffect(() => {
     savedCallback.current = callback;
