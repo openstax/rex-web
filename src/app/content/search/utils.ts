@@ -160,7 +160,7 @@ export const highlightResults = (
 
           return highlight;
         })
-        .filter((highlight) => highlight.elements.length > 0)
+        .filter((highlight) => highlight.elements && highlight.elements.length > 0)
       ;
 
       return {index, highlights};

@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import SearchFailure from '.';
@@ -35,11 +36,15 @@ describe('SearchFailure', () => {
     expect(addEventListener).toHaveBeenCalledWith('click', expect.anything());
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), clearErrorAfter);
 
-    await new Promise(((resolve) => window.setTimeout(resolve, clearErrorAfter)));
+    await renderer.act(() => {
+      return new Promise(((resolve) => window.setTimeout(resolve, clearErrorAfter)));
+    });
+
     expect(clearTimeout).toHaveBeenCalled();
 
     expect(removeEventListener).toHaveBeenCalledWith('scroll', expect.anything());
     expect(removeEventListener).toHaveBeenCalledWith('click', expect.anything());
+
     component.unmount();
   });
 
@@ -56,6 +61,7 @@ describe('SearchFailure', () => {
 
     ReactTestUtils.Simulate.animationEnd(wrapper);
 
+    expect(dismiss).toHaveBeenCalled();
   });
 
   it('dismisses notification on click', () => {
@@ -67,6 +73,9 @@ describe('SearchFailure', () => {
 
     expect(removeEventListener).toHaveBeenCalledWith('scroll', expect.anything());
     expect(removeEventListener).toHaveBeenCalledWith('click', expect.anything());
+
+    expect(dismiss).toHaveBeenCalled();
+
     component.unmount();
   });
 });
