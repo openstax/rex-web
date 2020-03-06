@@ -1,5 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { resetModules } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
 
@@ -77,6 +78,76 @@ describe('useFocusLost', () => {
     childElement.dispatchEvent(focusOutEvent);
 
     expect(cb).not.toHaveBeenCalled();
+  });
+});
+
+describe('useOnDOMEvent', () => {
+  let addEventListener: jest.SpyInstance;
+  let removeEventListener: jest.SpyInstance;
+  const cb = () => undefined;
+  beforeEach(() => {
+    resetModules();
+  });
+
+  describe('on html element' , () => {
+    let ref: React.RefObject<HTMLElement>;
+    let htmlElement: HTMLElement;
+
+    beforeEach(() => {
+      htmlElement = assertDocument().createElement('div');
+      ref = {
+        current: htmlElement,
+      } as React.RefObject<HTMLElement>;
+
+      addEventListener = jest.spyOn(ref.current!, 'addEventListener');
+      removeEventListener = jest.spyOn(ref.current!, 'removeEventListener');
+    });
+
+    it('doesn\'t do anything without a target', () => {
+      const cleanup = utils.onDOMEventHandler({current: null}, true, 'click', cb)();
+      expect(cleanup).not.toBeDefined();
+    });
+
+    it('registers event listenr' , () => {
+      utils.onDOMEventHandler(ref, true, 'click', cb)();
+      expect(addEventListener).toHaveBeenCalledWith('click', cb);
+    });
+
+    it('removes event listener', () => {
+      const cleanup = utils.onDOMEventHandler(ref, true, 'click', cb)();
+
+      expect(cleanup).toBeDefined();
+      cleanup!();
+      expect(removeEventListener).toHaveBeenCalledWith('click', cb);
+    });
+
+    it('doesn\'t register event handler if is disabled', () => {
+      const cleanup = utils.onDOMEventHandler(ref, false, 'click', cb)();
+
+      expect(addEventListener).not.toHaveBeenCalled();
+      expect(cleanup).toBeDefined();
+    });
+  });
+
+  describe('on window' , () => {
+    let window: Window;
+
+    beforeEach(() => {
+      window = assertWindow();
+
+      addEventListener = jest.spyOn(window, 'addEventListener');
+      removeEventListener = jest.spyOn(window, 'removeEventListener');
+    });
+
+    it('follows the normal flow', () => {
+      const cleanup = utils.onDOMEventHandler(window, true, 'click', cb)();
+
+      expect(cleanup).toBeDefined();
+      expect(addEventListener).toHaveBeenCalledWith('click', cb);
+
+      cleanup!();
+      expect(removeEventListener).toBeDefined();
+    });
   });
 });
 
