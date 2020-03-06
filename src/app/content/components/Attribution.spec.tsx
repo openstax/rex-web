@@ -127,5 +127,28 @@ describe('Attribution', () => {
 
       expect(element.unmount).not.toThrow();
     });
+
+    it('throws if cms doesn\'t return a publication date ', () => {
+      const newState = (cloneDeep({
+        content: {
+          ...initialState,
+          book: formatBookData(book, { ...mockCmsBook, publish_date: null} ),
+          page,
+        },
+        navigation: { pathname: 'cool path name' },
+      }) as any) as AppState;
+
+      store = createTestStore(newState);
+
+      let message: string | undefined;
+
+      try {
+        renderer.create(render());
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(message).toEqual('BUG: Could not find publication date');
+    });
   });
 });
