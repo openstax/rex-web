@@ -7,20 +7,17 @@ import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { loadMoreSummaryHighlights, printSummaryHighlights } from '../actions';
+import { loadMoreSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
-import { SummaryHighlights } from '../types';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
-  summaryHighlights: SummaryHighlights | null;
   summaryIsLoading: boolean;
   loadMore: () => void;
-  printHighlights: () => void;
   services: AppServices;
 }
 
@@ -57,14 +54,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
     }
   };
 
-  public printHighlights = () => {
-    if (this.props.hasMoreResults) {
-      this.props.printHighlights();
-    } else {
-      assertWindow().print();
-    }
-  };
-
   public componentDidMount() {
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
@@ -93,7 +82,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
-        <Filters printHighlights={this.printHighlights}/>
+        <Filters />
         <Highlights />
         {this.state.showGoToTop && (
           <Styled.GoToTopWrapper
@@ -113,12 +102,10 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 const connector = connect(
   (state: AppState) => ({
     hasMoreResults: select.hasMoreResults(state),
-    summaryHighlights: select.summaryHighlights(state),
     summaryIsLoading: select.summaryIsLoading(state),
   }),
   (dispatch: Dispatch) => ({
     loadMore: () => dispatch(loadMoreSummaryHighlights()),
-    printHighlights: () => dispatch(printSummaryHighlights()),
   })
 );
 

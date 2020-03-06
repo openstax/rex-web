@@ -1,4 +1,3 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import noop from 'lodash/fp/noop';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -13,15 +12,17 @@ import HighlightsPrintButton from './HighlightsPrintButton';
 
 describe('HighlightsPrintButton', () => {
   let store: Store;
+  let storeDispatch: jest.SpyInstance;
   let print: jest.SpyInstance;
-  let ref: React.RefObject<HTMLElement>;
+
   beforeEach(() => {
     resetModules();
-    ref = {current: null};
     print = jest.spyOn(assertWindow(), 'print');
     print.mockImplementation(noop);
 
     store = createTestStore();
+
+    storeDispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('matches snapshot', () => {
@@ -35,9 +36,8 @@ describe('HighlightsPrintButton', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('disables button if summary is loading', () => {
-    store.dispatch(receiveSummaryHighlights({}, {} as any));
-    store.dispatch(printSummaryHighlights({containerRef: ref}));
+  it('dispatches action to print highlights', () => {
+    store.dispatch(receiveSummaryHighlights({}, {pagination: {} as any}));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -45,7 +45,53 @@ describe('HighlightsPrintButton', () => {
       </MessageProvider>
     </Provider>);
 
+    storeDispatch.mockClear();
+
+    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
+
+    renderer.act(() => {
+      renderedPrintButton.props.onClick();
+    });
+
+    expect(storeDispatch).toHaveBeenCalledWith(printSummaryHighlights());
+  });
+
+  it('disables print button if summary is loading', () => {
+    store.dispatch(receiveSummaryHighlights({}, {} as any));
+    store.dispatch(printSummaryHighlights());
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPrintButton />
+      </MessageProvider>
+    </Provider>);
+
+    storeDispatch.mockClear();
+
     const button = component.root.findByProps({'data-testid': 'print'});
     expect(button.props.disabled).toBe(true);
+  });
+
+  it('doesn\'t dispatch if all highlights have been loaded', () => {
+    store.dispatch(receiveSummaryHighlights({}, {
+      pagination: null,
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <HighlightsPrintButton />
+      </MessageProvider>
+    </Provider>);
+
+    storeDispatch.mockClear();
+
+    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
+
+    renderer.act(() => {
+      renderedPrintButton.props.onClick();
+    });
+
+    expect(storeDispatch).not.toHaveBeenCalled();
+    expect(print).toHaveBeenCalled();
   });
 });

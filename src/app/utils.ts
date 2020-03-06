@@ -151,12 +151,6 @@ export const preventDefault = (event: React.MouseEvent) => {
 export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>
   Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
 
-export const lastProp = <Thing extends {}>(thing: Thing) => {
-  const keys = Object.keys(thing) as Array<keyof Thing>;
-
-  return thing[keys[keys.length - 1]];
-}
-
 /*
  * recursive merge properties of two inputs. values are merged if they are
  * plain objects or arrays, otherwise if the same property exists in both

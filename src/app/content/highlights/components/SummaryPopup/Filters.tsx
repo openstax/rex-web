@@ -45,11 +45,10 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
 
 interface Props {
   className?: string;
-  printHighlights: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className, printHighlights}: Props) => <div className={className}>
+const Filters = ({className}: Props) => <div className={className}>
   <FormattedMessage id='i18n:highlighting:filters:chapters'>
     {(msg: Element | string) => <Dropdown toggle={<Toggle label={msg} />} transparentTab={false}>
       <ChapterFilter />
@@ -60,7 +59,7 @@ const Filters = ({className, printHighlights}: Props) => <div className={classNa
       <ColorFilter />
     </Dropdown>}
   </FormattedMessage>
-  <HighlightsPrintButton printHighlights={printHighlights} />
+  <HighlightsPrintButton />
   <FiltersList />
 </div>;
 
