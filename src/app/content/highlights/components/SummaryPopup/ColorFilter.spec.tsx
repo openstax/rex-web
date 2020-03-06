@@ -40,6 +40,11 @@ describe('ColorFilter', () => {
   });
 
   it('unchecks colors', () => {
+    store.dispatch(receiveHighlightsTotalCounts({
+      'preface': {[HighlightColorEnum.Green]: 3},
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
+    }, new Map()));
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ColorFilter />
@@ -60,6 +65,11 @@ describe('ColorFilter', () => {
   });
 
   it('checks colors', () => {
+    store.dispatch(receiveHighlightsTotalCounts({
+      'preface': {[HighlightColorEnum.Green]: 3},
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
+    }, new Map()));
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ColorFilter />
@@ -90,6 +100,11 @@ describe('ColorFilter', () => {
   });
 
   it('selects none', () => {
+    store.dispatch(receiveHighlightsTotalCounts({
+      'preface': {[HighlightColorEnum.Green]: 3},
+      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
+    }, new Map()));
+
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ColorFilter />

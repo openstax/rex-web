@@ -20,7 +20,6 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   position: fixed;
   bottom: 0;
   z-index: 90;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;

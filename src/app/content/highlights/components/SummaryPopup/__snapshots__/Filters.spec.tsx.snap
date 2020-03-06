@@ -67,7 +67,6 @@ exports[`Filters matches snapshot 1`] = `
 
 .c13 {
   font-weight: 600;
-  font-family: Neue Helvetica W01;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
@@ -95,7 +94,6 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 .c18 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -108,11 +106,20 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 .c16 {
+  margin-right: 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
   height: 4rem;
 }
 
 .c15 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -126,18 +133,7 @@ exports[`Filters matches snapshot 1`] = `
   margin: 0;
   padding: 0.4rem 0;
   list-style: none;
-}
-
-.c15 li {
-  margin-right: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  overflow: visible;
 }
 
 .c8 {
@@ -158,7 +154,6 @@ exports[`Filters matches snapshot 1`] = `
 
 .c6 > div {
   outline: none;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   color: #5e6062;

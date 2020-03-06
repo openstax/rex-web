@@ -1,4 +1,4 @@
-import { Document, HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
+import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
@@ -113,9 +113,9 @@ export const assertDocumentElement = (message: string = 'BUG: Document Element i
 export const remsToEms = (rems: number) => rems * 10 / 16;
 
 export const remsToPx = (rems: number) => {
-  const bodyFontSize = typeof(window) === 'undefined'
+  const bodyFontSize = typeof(window) === 'undefined' || !window.document.documentElement
     ? 10
-    : parseFloat(window.getComputedStyle(window.document.body).fontSize || '') || 10;
+    : parseFloat(window.getComputedStyle(window.document.documentElement).fontSize || '') || 10;
 
   return rems * bodyFontSize;
 };
@@ -172,42 +172,3 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ),
   }), {}),
 });
-
-/**
- * This function will return array where first item is a function which will set
- * event listener for given element and second item is a function which will remove
- * this listener.
- *
- * This function can be used in React class components.
- */
-export const onEsc = (
-  element: HTMLElement, cb: () => void
-): [() => void, () => void] => {
-  const handler = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      e.stopPropagation();
-      cb();
-    }
-  };
-
-  return [
-    () => element.addEventListener('keydown', handler),
-    () => element.removeEventListener('keydown', handler),
-  ];
-};
-
-export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => () => {
-  const el = element && element.current;
-  if (!el) { return; }
-
-  const [addEvListener, removeEvListener] = onEsc(el, cb);
-  if (isEnabled) {
-    addEvListener();
-  }
-
-  return removeEvListener;
-};
-
-export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
-};

@@ -38,7 +38,6 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 }
 
 .c5 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -274,7 +273,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c2 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -319,7 +317,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c24 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -378,7 +375,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c13 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -389,7 +385,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c26 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -428,7 +423,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 }
 
 .c14 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;

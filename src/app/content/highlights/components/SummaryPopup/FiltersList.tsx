@@ -10,7 +10,7 @@ import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, summaryFilters } from '../../selectors';
+import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
@@ -45,6 +45,10 @@ const ItemLabel = styled.span`
 
 // tslint:disable-next-line: variable-name
 const FilterListItem = styled.li`
+  margin-right: 3.2rem;
+  display: flex;
+  align-items: center;
+  overflow: visible;
   height: 4rem;
 `;
 
@@ -86,31 +90,31 @@ interface FiltersListProps {
 // tslint:disable-next-line: variable-name
 const FiltersList = ({className}: FiltersListProps) => {
   const locationFilters = useSelector(highlightLocationFilters);
-  const filters = useSelector(summaryFilters);
-
+  const selectedColorFilters = useSelector(summaryColorFilters);
+  const selectedLocationFilters = useSelector(summaryLocationFilters);
   const dispatch = useDispatch();
 
   const onRemoveChapter = (locationId: string) => {
     dispatch(setSummaryFilters({
-      locationIds: filters.locationIds.filter(not(match(locationId))),
+      locationIds: [...selectedLocationFilters].filter(not(match(locationId))),
     }));
   };
 
   const onRemoveColor = (color: HighlightColorEnum) => {
     dispatch(setSummaryFilters({
-      colors: filters.colors.filter(not(match(color))),
+      colors: [...selectedColorFilters].filter(not(match(color))),
     }));
   };
 
   return <ul className={className}>
-    {Array.from(locationFilters).map(([locationId, location]) => filters.locationIds.includes(locationId) &&
+    {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
     <FiltersListChapter
       key={locationId}
       title={location.title}
       locationId={locationId}
       onRemove={() => onRemoveChapter(locationId)}
     />)}
-    {filters.colors.sort().map((color) => <FiltersListColor
+    {[...selectedColorFilters].sort().map((color) => <FiltersListColor
       key={color}
       color={color}
       onRemove={() => onRemoveColor(color)}
@@ -127,12 +131,7 @@ export default styled(FiltersList)`
   margin: 0;
   padding: 0.4rem 0;
   list-style: none;
-
-  li {
-    margin-right: 3.2rem;
-    display: flex;
-    align-items: center;
-  }
+  overflow: visible;
 
   @media print {
     margin: 0;

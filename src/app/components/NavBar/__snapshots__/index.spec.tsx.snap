@@ -114,7 +114,6 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   text-decoration: none;
   font-weight: bold;
   padding: 1rem 0;
-  font-family: Neue Helvetica W01;
   color: #5e6062;
 }
 
@@ -491,7 +490,6 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   text-decoration: none;
   font-weight: bold;
   padding: 1rem 0;
-  font-family: Neue Helvetica W01;
   color: #5e6062;
   cursor: pointer;
 }
@@ -501,7 +499,6 @@ exports[`content in browser when logged in matches snapshot 1`] = `
 }
 
 .c13 {
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -541,7 +538,6 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   white-space: nowrap;
   display: block;
   padding: 0 1rem;
-  font-family: Neue Helvetica W01;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
