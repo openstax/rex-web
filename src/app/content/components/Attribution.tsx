@@ -9,7 +9,7 @@ import { scrollTo } from '../../domUtils';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertString } from '../../utils';
+import { assertNotNull, assertString } from '../../utils';
 import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
@@ -150,9 +150,7 @@ class Attribution extends Component<Props> {
     const introPage = findDefaultBookPage(book);
     const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
 
-    if (!book.publish_date) {
-      throw new Error(`BUG: Could not find publication date`);
-    }
+    assertNotNull(book.publish_date, `BUG: Could not find publication date`);
     const bookPublishDate = new Date(book.publish_date);
     const bookLatestRevision = new Date(book.revised);
 
