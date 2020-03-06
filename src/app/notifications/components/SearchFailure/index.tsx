@@ -8,8 +8,10 @@ import {
   BannerBodyWrapper,
   clearErrorAfter,
   CloseButton,
-  CloseIcon
+  CloseIcon,
 } from './styles';
+
+export const shouldAutoDismissAfter = 100;
 
 interface Props {
   dismiss: () => void;
@@ -28,7 +30,7 @@ const SearchFailure = ({ dismiss }: Props) => {
   };
 
   useTimeout(clearErrorAfter, startFadeOut, []);
-  useTimeout(100, () => setShouldAutoDismiss(true), []);
+  useTimeout(shouldAutoDismissAfter, () => setShouldAutoDismiss(true), []);
 
   useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut);
   useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut);

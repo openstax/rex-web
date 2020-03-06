@@ -15,7 +15,7 @@ import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
 
 export const clearErrorAfter = 3200;
-const fadeOutDuration = 1000;
+export const fadeOutDuration = 1000;
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
