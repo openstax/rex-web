@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
@@ -32,17 +31,16 @@ interface Props {
   note: string;
   style: typeof highlightStyles[number];
   isFocused: boolean;
-  highlight: Highlight;
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
-  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
+  onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, Props>((
-  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, highlight, className}: Props,
+  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, className}: Props,
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -59,8 +57,8 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(() => {
     const refElement = confirmationRef.current ? confirmationRef : element;
-    onHeightChange(highlight.id, refElement);
-  }, [element, highlight, confirmationRef, confirmingDelete]);
+    onHeightChange(refElement);
+  }, [element, confirmationRef, confirmingDelete]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuToggle />}>

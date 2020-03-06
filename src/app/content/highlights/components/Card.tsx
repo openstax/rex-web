@@ -51,9 +51,9 @@ interface Props {
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
   className: string;
-  topOffset: number;
-  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
-  onFocus: (id: string) => void;
+  topOffset?: number;
+  onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
+  onFocus: () => void;
   onBlur: () => void;
 }
 
@@ -68,7 +68,7 @@ const Card = (props: Props) => {
 
   React.useEffect(() => {
     if (element.current && isFocused) {
-      props.onFocus(props.highlight.id);
+      props.onFocus();
     }
     if (!isFocused) {
       setEditing(false);
@@ -84,18 +84,11 @@ const Card = (props: Props) => {
     }
   }, [props.highlight, annotation]);
 
-  const prevHeight = element.current && element.current.offsetHeight;
   React.useEffect(() => {
     if (!annotation && !isFocused) {
-      props.onHeightChange(props.highlight.id, { current: null } as React.RefObject<HTMLElement>);
-      return;
+      props.onHeightChange({ current: null } as React.RefObject<HTMLElement>);
     }
-
-    const currentHeight = element.current && element.current.offsetHeight;
-    if (currentHeight && prevHeight !== currentHeight) {
-      props.onHeightChange(props.highlight.id, element);
-    }
-  }, [element, editing, annotation, isFocused, prevHeight]);
+  }, [annotation, isFocused]);
 
   const handleClickOnCard = () => {
     if (!isFocused) {
@@ -138,7 +131,6 @@ const Card = (props: Props) => {
 
   const commonProps = {
     className: props.className,
-    highlight: props.highlight,
     isFocused: props.isFocused,
     onBlur: props.blur,
     onHeightChange: props.onHeightChange,
@@ -157,6 +149,7 @@ const Card = (props: Props) => {
         onEdit={() => setEditing(true)}
       /> : <EditCard
         {...commonProps}
+        highlight={props.highlight}
         authenticated={!!props.user}
         loginLink={props.loginLink}
         locationFilterId={locationFilterId}
@@ -236,7 +229,7 @@ const overlapDisplay = css`
 const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
-  top: ${(props: Props) => `${props.topOffset}px;`}
+  top: ${(props: Props) => `${props.topOffset || getHighlightBottomOffset(props.container, props.highlight)}px;`}
   ${(props: Props) => !!props.isFocused && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
   `}
@@ -256,8 +249,12 @@ const mobileDisplay = css`
   `}
 `;
 
-export const mediaQueryBreakToStopDisplaingAllCards = remsToEms(
- contentTextWidth + sidebarDesktopWidth + additionalWidthForCard) + 'em';
+const minimalWidth = contentTextWidth + additionalWidthForCard;
+export const minimalWidthForCards = '(max-width: ' + remsToEms(minimalWidth) + 'em)';
+export const minimalWidthForCardsWithToc = '(max-width: ' +
+  remsToEms(minimalWidth + sidebarDesktopWidth) + 'em)';
+export const minimalWidthForCardsWithSearchResults = '(max-width: ' +
+  remsToEms(minimalWidth + searchResultsBarDesktopWidth) + 'em)';
 
 const fadeIn = keyframes`
   0% {
@@ -324,7 +321,7 @@ const StyledCard = styled(Card)`
     `;
   }}
 
-  @media (max-width: ${mediaQueryBreakToStopDisplaingAllCards}) {
+  @media ${minimalWidthForCardsWithToc} {
     /* the window is too small to show note cards next to content when the toc is open */
     animation: none;
     ${overlapDisplay}
@@ -332,20 +329,20 @@ const StyledCard = styled(Card)`
   }
 
   ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
-    @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
+    @media ${minimalWidthForCardsWithSearchResults} {
       /* the window is too small to show note cards next to content when search is open */
       ${overlapDisplay}
     }
   `}
 
-  @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
+  @media (max-width: ${minimalWidthForCards}em) {
     /* the window is too small to show note cards next to content even without sidebars */
     ${overlapDisplay}
   }
 
   ${theme.breakpoints.mobile(css`
     ${mobileDisplay}
- `)}
+  `)}
 `;
 
 export default connect(

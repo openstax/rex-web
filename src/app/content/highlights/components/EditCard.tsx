@@ -30,7 +30,7 @@ interface Props {
   onSave: typeof updateHighlight;
   onRemove: () => void;
   onCancel: () => void;
-  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
+  onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
 }
@@ -90,9 +90,9 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   React.useEffect(() => {
     if (element.current) {
-      onHeightChange(highlight.id, element);
+      onHeightChange(element);
     }
-  }, [onHeightChange, highlight, element, editingAnnotation]);
+  }, [onHeightChange, element, editingAnnotation]);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     highlight.setStyle(color);
