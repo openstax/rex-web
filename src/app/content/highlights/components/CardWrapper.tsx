@@ -26,6 +26,8 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   const window = assertWindow();
   const hasQuery = useSelector(query);
   const displayAllCards = React.useMemo(() => {
+    // This corresponds to the styling in Card, but probably should be rewritten
+    // to take into consideration tocOpen and searchResultsOpen.
     const mediaQuery = hasQuery ? minimalWidthForCardsWithSearchResults : minimalWidthForCardsWithToc;
     return !window.matchMedia(mediaQuery).matches;
   }, [window.outerWidth, query]);
@@ -39,16 +41,15 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
 
     const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
-      setCardsHeights((data) => new Map(data.set(id, height === null ? 0 : height)));
+      setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
     }
   };
 
-  const onFocus = (id: string) => {
+  const onFocus = (highlight: Highlight) => {
     if (!displayAllCards) { return; }
 
-    const highlight = highlights.find((search) => search.id === id);
-    const position = cardsPositions.get(id);
-    if (typeof position !== 'number' || !highlight) { return; }
+    const position = cardsPositions.get(highlight.id);
+    if (typeof position !== 'number') { return; }
 
     const topOffset = assertDefined(
       getHighlightTopOffset(container, highlight),
@@ -59,10 +60,13 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
       element.current!.style.top = `-${position - topOffset}px`;
     }
 
-    scrollIntoView(highlight.elements[0] as HTMLElement);
+    // This will be undefined for pendingHighlight
+    if (highlight.elements[0]) {
+      scrollIntoView(highlight.elements[0] as HTMLElement);
+    }
   };
 
-  const onBlur = () => {
+  const resetTopOffset = () => {
     if (element.current) {
       element.current.style.top = '0';
     }
@@ -80,15 +84,9 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
         `Couldn't get top offset for highlights`
       );
 
-      let stackedTopOffset = lastVisibleCardPosition;
-
-      if (topOffset < (lastVisibleCardPosition + lastVisibleCardHeight + remsToPx(cardMarginBottom))) {
-        stackedTopOffset = stackedTopOffset
-          + lastVisibleCardHeight
-          + (index > 0 ? remsToPx(cardMarginBottom) : 0);
-      } else {
-        stackedTopOffset = topOffset;
-      }
+      const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
+        + lastVisibleCardHeight
+        + (index > 0 ? remsToPx(cardMarginBottom) : 0));
 
       if (cardsHeights.get(highlight.id)) {
         lastVisibleCardPosition = stackedTopOffset;
@@ -105,7 +103,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     if (displayAllCards) {
       updatePositions();
     } else {
-      onBlur();
+      resetTopOffset();
     }
   }, [updatePositions, displayAllCards]);
 
@@ -119,8 +117,8 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
         container={container}
         topOffset={displayAllCards ? cardsPositions.get(highlight.id) || 0 : undefined}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
-        onFocus={() => onFocus(highlight.id)}
-        onBlur={onBlur}
+        onFocus={() => onFocus(highlight)}
+        onBlur={resetTopOffset}
       />)}
     </div>
     : null;

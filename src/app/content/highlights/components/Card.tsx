@@ -74,7 +74,7 @@ const Card = (props: Props) => {
       setEditing(false);
       props.onBlur();
     }
-  }, [isFocused]);
+  }, [isFocused, element.current]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -331,6 +331,7 @@ const StyledCard = styled(Card)`
   ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
     @media ${minimalWidthForCardsWithSearchResults} {
       /* the window is too small to show note cards next to content when search is open */
+      animation: none;
       ${overlapDisplay}
     }
   `}
