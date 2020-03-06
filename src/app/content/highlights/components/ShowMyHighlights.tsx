@@ -2,11 +2,9 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { typesetMath } from '../../../../helpers/mathjax';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
 import { loadMoreSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
@@ -63,7 +61,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         this.fetchMoreHighlights(highlightsBodyRef);
       };
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
-      typesetMath(highlightsBodyRef, assertWindow());
     }
   }
 
