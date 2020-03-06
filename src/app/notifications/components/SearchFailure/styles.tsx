@@ -38,12 +38,13 @@ export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
   height: 0;
-  z-index: ${theme.zIndex.contentNotifications};
+  z-index: ${theme.zIndex.contentNotifications - 1};
   overflow: visible;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
 
   @media (max-width: ${inlineDisplayBreak}) {
+    z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight}rem;
   }
 
