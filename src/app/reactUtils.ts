@@ -1,5 +1,5 @@
 import { FocusEvent, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@openstax/types/lib.dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { addSafeEventListener, elementDescendantOf } from './domUtils';
 import { isElement, isWindow } from './guards';
 
@@ -62,11 +62,27 @@ export const useOnDOMEvent = (
   React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, cb, event]);
 };
 
-export const useTimeout = (delay: number, cb: () => void, deps: React.DependencyList) => React.useEffect(() => {
-  const timeout = setTimeout(cb, delay);
-  return () => clearTimeout(timeout);
-  // eslint-disabled-next-line react-hooks/exhaustive-deps
-}, [...deps, cb, delay]);
+export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList) => {
+  const savedCallback = React.useRef<typeof callback>();
+
+  const timeoutHandler = () => savedCallback.current && savedCallback.current();
+  const timeout = React.useRef(setTimeout(timeoutHandler, delay));
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [...deps, callback]);
+
+  useEffect(() => {
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+      }
+
+      timeout.current = setTimeout(timeoutHandler, delay);
+  }, [delay]);
+
+  React.useEffect(() => () => timeout.current ? clearTimeout(timeout.current) : undefined, []);
+};
+
 /**
  * This function will return array where first item is a function which will set
  * event listener for given element and second item is a function which will remove
