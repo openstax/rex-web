@@ -5,7 +5,7 @@ export interface OSWebBook {
   meta: {
     slug: string;
   };
-  publish_date: string;
+  publish_date: string | null;
   authors: Array<{
     value: {
       name: string;
