@@ -24,6 +24,8 @@ export default styled(AllOrNone)`
   &,
   ${ButtonLink} {
     font-size: 1.4rem;
+    margin: 0;
+    overflow: hidden;
   }
 
   height: 2rem;
