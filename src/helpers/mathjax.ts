@@ -95,15 +95,13 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
-let recursiveCounter = 0;
-const resolveOrWait = (root: Element, resolve: () => void) => {
+const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
   if (
-    (findLatexNodes(root).length || findUnprocessedMath(root).length)
-    && recursiveCounter < 5
+    remainingTries
+    && (findLatexNodes(root).length || findUnprocessedMath(root).length)
   ) {
     setTimeout(() => {
-      recursiveCounter++;
-      resolveOrWait(root, resolve);
+      resolveOrWait(root, resolve, remainingTries - 1);
     }, 200);
   } else {
     resolve();
