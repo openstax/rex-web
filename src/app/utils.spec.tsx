@@ -3,7 +3,7 @@ import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
-import { assertDocument } from './utils';
+import { assertDocument, UnauthenticatedError } from './utils';
 
 jest.mock('../helpers/Sentry');
 
@@ -86,6 +86,22 @@ describe('actionHook', () => {
 
     expect(Sentry.captureException).toHaveBeenCalled();
     expect(hookSpy).toHaveBeenCalled();
+    jest.resetAllMocks();
+  });
+
+  it('do not log error if it is instace of UnauthenticatedError', () => {
+    const hookSpy = jest.fn(async() => Promise.reject(new UnauthenticatedError('asd')));
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
+    jest.resetAllMocks();
   });
 });
 
