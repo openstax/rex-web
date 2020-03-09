@@ -13,7 +13,7 @@ import {
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
-  overflow: hidden;
+  overflow: visible;
   .os-divider {
     width: 0.8rem;
   }
@@ -82,11 +82,6 @@ export const HighlightWrapper = styled.div`
     margin: 0 0 ${mobileMarginSides * 2}rem 0;
   `)}
   overflow: visible;
-
-  :last-child {
-    /*give space for context menu to show on last highlight*/
-    margin: ${desktopVerticalMargin}rem ${desktopHorizontalMargin}rem 6.2rem;
-  }
 
   @media print {
     border-width: 0;
