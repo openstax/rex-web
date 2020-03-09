@@ -14,6 +14,7 @@ import {
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
   overflow: visible;
+
   .os-divider {
     width: 0.8rem;
   }
