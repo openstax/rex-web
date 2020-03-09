@@ -2,6 +2,7 @@ import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@opensta
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
+import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
@@ -219,6 +220,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           totalCountsPerPage: action.payload,
         },
       };
+    }
+    case getType(receiveLoggedOut): {
+      return initialState;
     }
     default:
       return state;
