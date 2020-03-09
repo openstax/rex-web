@@ -1,4 +1,5 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { receiveLoggedOut } from '../../auth/actions';
 import { assertNotNull } from '../../utils';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
@@ -367,5 +368,21 @@ describe('highlight reducer', () => {
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);
     });
+  });
+
+  it('clear state when receive logged out', () => {
+    const state = reducer({
+      ...initialState,
+      summary: {
+        ...initialState.summary,
+        filters: {
+          colors: [HighlightColorEnum.Green],
+          locationIds: ['id'],
+        },
+        loading: true,
+      },
+    }, receiveLoggedOut());
+
+    expect(state).toEqual(initialState);
   });
 });
