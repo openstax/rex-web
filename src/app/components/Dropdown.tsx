@@ -72,7 +72,7 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
-      onClick={() => setOpen(!open)}
+      onClick={() => setOpen((prevIsOpen) => !prevIsOpen)}
       isOpen={open}
     />
     {open && children}
