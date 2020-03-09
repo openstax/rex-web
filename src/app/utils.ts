@@ -20,14 +20,13 @@ export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {
     const boundHook = body({...stateHelpers, ...services});
-
+    const catchError = makeCatchError(stateHelpers.dispatch);
     const matches = checkActionType(actionCreator);
 
     return (next: Dispatch) => (action: AnyAction) => {
       const result = next(action);
 
       if (matches(action)) {
-        const catchError = makeCatchError(stateHelpers.dispatch);
         try {
           const promise = boundHook(action);
           if (promise) {
