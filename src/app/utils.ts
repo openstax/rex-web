@@ -2,6 +2,7 @@ import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
+import { receiveLoggedOut } from './auth/actions';
 import { recordError } from './errors/actions';
 import { isPlainObject } from './guards';
 import {
@@ -19,17 +20,13 @@ export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {
     const boundHook = body({...stateHelpers, ...services});
-
+    const catchError = makeCatchError(stateHelpers.dispatch);
     const matches = checkActionType(actionCreator);
 
     return (next: Dispatch) => (action: AnyAction) => {
       const result = next(action);
 
       if (matches(action)) {
-        const catchError = (e: Error) => {
-          Sentry.captureException(e);
-          stateHelpers.dispatch(recordError(e));
-        };
         try {
           const promise = boundHook(action);
           if (promise) {
@@ -42,6 +39,15 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
       return result;
     };
   };
+
+const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
+  if (e instanceof UnauthenticatedError) {
+    dispatch(receiveLoggedOut());
+    return;
+  }
+  Sentry.captureException(e);
+  dispatch(recordError(e));
+};
 
 // from https://github.com/facebook/react/issues/13029#issuecomment-445480443
 export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => {
@@ -172,3 +178,5 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ),
   }), {}),
 });
+
+export class UnauthenticatedError extends Error {}
