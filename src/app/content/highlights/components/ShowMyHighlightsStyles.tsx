@@ -13,6 +13,7 @@ import {
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
+  overflow: hidden;
   .os-divider {
     width: 0.8rem;
   }
@@ -82,6 +83,11 @@ export const HighlightWrapper = styled.div`
   `)}
   overflow: visible;
 
+  :last-child {
+    /*give space for context menu to show on last highlight*/
+    margin: ${desktopVerticalMargin}rem ${desktopHorizontalMargin}rem 6.2rem;
+  }
+
   @media print {
     border-width: 0;
     margin: 0;
@@ -125,7 +131,7 @@ export const GoToTopWrapper = styled.div`
   width: 4.8rem;
   height: 4.8rem;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   bottom: 4.8rem;
   right: 4.8rem;
   display: flex;
