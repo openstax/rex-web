@@ -45,6 +45,8 @@ exports[`ChapterFilter matches snapshot 1`] = `
 .c2,
 .c2 .c3 {
   font-size: 1.4rem;
+  margin: 0;
+  overflow: hidden;
 }
 
 .c2 span {
