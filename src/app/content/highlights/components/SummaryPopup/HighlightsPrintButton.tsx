@@ -29,7 +29,7 @@ const StyledHighlightsPrintButton = styled(HighlightsPrintButton)`
   min-width: auto;
   height: max-content;
   margin-left: auto;
-  cursor: ${({isLoading}) => isLoading ? 'wait' : 'auto'};
+  cursor: ${({isLoading}) => isLoading ? 'wait' : 'pointer'};
 `;
 
 // tslint:disable-next-line:variable-name
