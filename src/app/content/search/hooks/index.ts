@@ -81,6 +81,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     },
   };
   const options = {
+    hash: selectedResult.highlight.toString(),
     search: `search=${query}`,
   };
 

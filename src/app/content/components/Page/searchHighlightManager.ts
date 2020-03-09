@@ -49,15 +49,9 @@ const resultToSelect = (services: Services, previous: HighlightProp, current: Hi
 
   const {selectedResult} = current;
 
-  services.highlighter.clearFocus();
-
   const elementHighlights = services.searchResultMap.find((map) => isEqual(map.result, selectedResult.result));
   const selectedHighlights = elementHighlights && elementHighlights.highlights[selectedResult.highlight];
   const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
-
-  if (firstSelectedHighlight) {
-    firstSelectedHighlight.focus();
-  }
 
   if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
     return firstSelectedHighlight;
@@ -87,9 +81,11 @@ const searchHighlightManager = (container: HTMLElement) => {
 
       return {
         id: searchResultHighlight.id,
-        scrollToFunction: () => scrollTo(
-          searchResultHighlight.elements[0] as HTMLElement
-        ),
+        scrollToFunction: () => {
+          services.highlighter.clearFocus();
+          searchResultHighlight.focus();
+          scrollTo(searchResultHighlight.elements[0] as HTMLElement);
+        },
         type: 'search-highlight',
       };
     },

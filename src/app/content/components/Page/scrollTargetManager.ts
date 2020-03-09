@@ -68,9 +68,9 @@ const compareScrollTargets = (target1: ScrollTarget, target2: ScrollTarget) => {
 };
 
 const sortByPriority = (target1: ScrollTarget, target2: ScrollTarget): number => {
-  if (target1.type === 'hash' && target2.type !== 'hash') {
+  if (target1.type !== 'hash' && target2.type === 'hash') {
     return 1;
-  } else if (target1.type !== 'hash' && target2.type === 'hash') {
+  } else if (target1.type === 'hash' && target2.type !== 'hash') {
     return -1;
   }
 
