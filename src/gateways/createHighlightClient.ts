@@ -1,4 +1,5 @@
 import { Configuration, HighlightsApi } from '@openstax/highlighter/dist/api';
+import { UnauthenticatedError } from '../app/utils';
 
 const formatError = (response: Response) => {
   return response.json()
@@ -15,6 +16,8 @@ export default (url: string) => {
       .then((response) => {
         if (response.status === 422) {
           return formatError(response);
+        } else if (response.status === 401) {
+          return Promise.reject(new UnauthenticatedError());
         }
         return Promise.resolve(response);
       }),
