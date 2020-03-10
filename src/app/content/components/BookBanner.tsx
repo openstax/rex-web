@@ -1,4 +1,4 @@
-import { HTMLDivElement } from '@openstax/types/lib.dom';
+import { HTMLDivElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
@@ -8,11 +8,15 @@ import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import { notFound } from '../../errors/routes';
 import theme from '../../theme';
-import { AppState } from '../../types';
+import { AppState, Dispatch } from '../../types';
 import { assertDefined } from '../../utils';
 import { hasOSWebData } from '../guards';
+import { clearFocusedHighlight } from '../highlights/actions';
+import showConfirmation from '../highlights/components/utils/showConfirmation';
+import { hasUnsavedHighlight } from '../highlights/selectors';
 import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
+import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import { defaultTheme } from './constants';
 import {
@@ -51,6 +55,8 @@ const LeftArrow = styled(ChevronLeft)`
 interface PropTypes {
   pageNode?: ArchiveTreeSection;
   book?: Book;
+  hasUnsavedHighlight: boolean;
+  clearFocusedHighlight: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -191,6 +197,20 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
     }
   };
 
+  public handleLinkClick = async(e: MouseEvent) => {
+    if (isClickWithModifierKeys(e) || !this.props.hasUnsavedHighlight) {
+      return;
+    }
+
+    e.preventDefault();
+
+    if (!await showConfirmation()) {
+      return;
+    }
+
+    this.props.clearFocusedHighlight();
+  };
+
   public componentDidMount() {
     if (typeof document === 'undefined') {
       return;
@@ -225,7 +245,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       data-analytics-region='book-banner-expanded'
     >
       <TopBar>
-        <BookTitle href={bookUrl} colorSchema={book.theme}>
+        <BookTitle href={bookUrl} colorSchema={book.theme} onClick={this.handleLinkClick}>
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
         <BookChapter colorSchema={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
@@ -239,7 +259,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
-        <BookTitle href={bookUrl} variant='mini' colorSchema={book.theme}>
+        <BookTitle href={bookUrl} variant='mini' colorSchema={book.theme} onClick={this.handleLinkClick}>
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
         <BookChapter colorSchema={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
@@ -251,6 +271,10 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    hasUnsavedHighlight: hasUnsavedHighlight(state),
     pageNode: select.pageNode(state),
+  }),
+  (dispatch: Dispatch) => ({
+    clearFocusedHighlight: () => dispatch(clearFocusedHighlight()),
   })
 )(BookBanner);
