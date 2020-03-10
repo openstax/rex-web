@@ -10,10 +10,10 @@ export const openToc = createStandardAction('Content/openToc')<void>();
 export const closeToc = createStandardAction('Content/closeToc')<void>();
 export const resetToc = createStandardAction('Content/resetToc')<void>();
 
-export const requestBook = createStandardAction('Content/requestBook')<Omit<Params, 'page'>>();
+export const requestBook = createStandardAction('Content/requestBook')<Params['book']>();
 export const receiveBook = createStandardAction('Content/receiveBook')<Book>();
 
-export const requestPage = createStandardAction('Content/requestPage')<string>();
+export const requestPage = createStandardAction('Content/requestPage')<Params['page']>();
 export const receivePage = createStandardAction('Content/receivePage')<
   ArchivePage & {references: State['references']}
 >();
