@@ -27,7 +27,7 @@ export async function getCanonicalUrlParams(
 
     if (treeSection) {
       const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
-      return {book: canonicalBook.slug, page: pageInBook};
+      return {book: {slug: canonicalBook.slug}, page: {slug: pageInBook}};
     }
   }
 
