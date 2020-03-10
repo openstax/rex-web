@@ -31,7 +31,7 @@ describe('locationChange', () => {
       version: '1.0',
     };
     helpers.archiveLoader.mockBook(uuidBook);
-    helpers.archiveLoader.mockPage(uuidBook, page, 'test-page-1');
+    helpers.archiveLoader.mockPage(uuidBook, page, testPage);
   };
 
   beforeEach(() => {
@@ -47,8 +47,12 @@ describe('locationChange', () => {
 
     match = {
       params: {
-        book: 'book-slug-1',
-        page: testPage,
+        book: {
+          slug: 'book-slug-1',
+        },
+        page : {
+          slug: testPage,
+        },
       },
       route: routes.content,
     };
@@ -70,9 +74,9 @@ describe('locationChange', () => {
         hook(helpers, match),
       ]);
       expect(dispatch).toHaveBeenCalledTimes(4);
-      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: testBookSlug}));
+      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({slug: testBookSlug}));
       expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage({slug: testPage}));
       expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
     });
 
@@ -85,9 +89,9 @@ describe('locationChange', () => {
       ]);
 
       expect(dispatch).toHaveBeenCalledTimes(4);
-      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: testBookSlug}));
+      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({slug: testBookSlug}));
       expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage({slug: testPage}));
       expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
 
       expect(helpers.archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
@@ -96,10 +100,14 @@ describe('locationChange', () => {
     it('doesn\'t query book slug when already loaded', async() => {
       mockUUIDBook();
       match.params = {
-        page: testPage,
-        uuid: testUUID,
-        version: '1.0',
-      };
+        book: {
+          uuid: testUUID,
+          version: '1.0',
+        },
+        page: {
+          slug: testPage,
+        },
+      },
       await hook(helpers, match);
       await hook(helpers, match);
 
@@ -111,7 +119,10 @@ describe('locationChange', () => {
     it('uses param version if there is one', async() => {
       const versionedSlugParams = {
         ...match.params,
-        version: 'asdf',
+        book: {
+          ...match.params.book,
+          version: 'asdf',
+        },
       } as Params;
 
       match.params = versionedSlugParams;
@@ -123,7 +134,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockPage({
         ...book,
         version: 'asdf',
-      }, page, 'test-page-1');
+      }, page, testPage);
       await hook(helpers, match);
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', 'asdf');
     });
@@ -131,7 +142,10 @@ describe('locationChange', () => {
     it('uses latest version if requested', async() => {
       const versionedSlugParams = {
         ...match.params,
-        version: 'latest',
+        book: {
+          ...match.params.book,
+          version: 'latest',
+        },
       } as Params;
 
       match.params = versionedSlugParams;
@@ -142,7 +156,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockPage({
         ...book,
         version: undefined as any as string,
-      }, page, 'test-page-1');
+      }, page, testPage);
       await hook(helpers, match);
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', undefined);
     });
@@ -150,9 +164,13 @@ describe('locationChange', () => {
     it('uses uuid if present', async() => {
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       const versionedUuidParams = {
-        page: match.params.page,
-        uuid: testUUID,
-        version: '1.0',
+        book: {
+          uuid: testUUID,
+          version: '1.0',
+        },
+        page: {
+          slug: match.params.page.slug,
+        },
       } as Params;
 
       mockUUIDBook();
@@ -181,9 +199,13 @@ describe('locationChange', () => {
       mockUUIDBook();
 
       const versionedUuidParams = {
-        page: match.params.page,
-        uuid: testUUID,
-        version: '1.0',
+        book: {
+          uuid: testUUID,
+          version: '1.0',
+        },
+        page: {
+          slug: match.params.page.slug,
+        },
       } as Params;
       match.params = versionedUuidParams;
 
