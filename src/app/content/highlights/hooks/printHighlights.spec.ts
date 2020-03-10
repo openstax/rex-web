@@ -12,6 +12,7 @@ import { formatBookData } from '../../utils';
 import {
   closeMyHighlights,
   openMyHighlights,
+  printSummaryHighlights,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
   setSummaryFilters,
@@ -40,7 +41,9 @@ describe('printHighlights', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   let print: jest.SpyInstance;
-  let hook: typeof import ('./printHighlights').asyncHelper;
+  let addPromise: jest.SpyInstance;
+  let asyncHelper: typeof import ('./printHighlights').asyncHelper;
+  let hook: typeof import ('./printHighlights').printHighlightsHook;
 
   beforeEach(() => {
     resetModules();
@@ -55,13 +58,21 @@ describe('printHighlights', () => {
       getState: store.getState,
     };
 
+    addPromise = jest.spyOn(helpers.promiseCollector, 'add');
     dispatch = jest.spyOn(helpers, 'dispatch');
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(openMyHighlights());
 
-    hook = (require('./printHighlights').asyncHelper);
+    asyncHelper = (require('./printHighlights').asyncHelper);
+    hook = (require('./printHighlights').printHighlightsHook);
+  });
+
+  it('doesn\'t get added to promise collector', () => {
+    hook(helpers)(helpers)((action) => action)(printSummaryHighlights());
+
+    expect(addPromise).not.toHaveBeenCalled();
   });
 
   describe('with unfetched resources', () => {
@@ -104,7 +115,7 @@ describe('printHighlights', () => {
           },
         }))
       ;
-      await hook(helpers);
+      await asyncHelper(helpers);
       expect(highlightClient).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, {
@@ -126,7 +137,7 @@ describe('printHighlights', () => {
       }, {pagination: null}));
       store.dispatch(closeMyHighlights());
 
-      await hook(helpers);
+      await asyncHelper(helpers);
 
       expect(print).not.toHaveBeenCalled();
     });
@@ -176,7 +187,7 @@ describe('printHighlights', () => {
         },
       }));
 
-      await hook(helpers);
+      await asyncHelper(helpers);
       expect(highlightClient).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, {
@@ -192,7 +203,7 @@ describe('printHighlights', () => {
     it('doesn\'t call highlight client', async() => {
       const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-      await hook(helpers);
+      await asyncHelper(helpers);
 
       expect(highlightClient).not.toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights({}, {
