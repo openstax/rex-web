@@ -49,7 +49,7 @@ export default styled(MainContent)`
 
   .highlight {
     position: relative;
-    padding-top: 0.3rem;
+    padding-top: 0.2em;
   }
 
   .MathJax_Display .highlight,
@@ -65,18 +65,16 @@ export default styled(MainContent)`
         border-bottom: 1px solid ${style.focused};
       }
 
-      &.first.text {
-        &:before {
-          position: absolute;
-          top: 0;
-          left: 0;
-          content: "";
-          width: 0;
-          height: 0;
-          border-left: ${highlightIndicatorSize}rem solid ${style.focused};
-          border-top: ${highlightIndicatorSize}rem solid transparent;
-          transform: rotate(90deg);
-        }
+      &.first.text:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: ${highlightIndicatorSize}em solid ${style.focused};
+        border-top: ${highlightIndicatorSize}em solid transparent;
+        transform: rotate(90deg);
       }
 
       @media screen {
