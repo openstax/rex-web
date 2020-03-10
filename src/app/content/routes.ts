@@ -1,14 +1,15 @@
 import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
 import { Route } from '../navigation/types';
+import { getUrlRegexParams } from '../navigation/utils';
 import { SelectedResult } from './search/types';
 import { Params } from './types';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
 
-const CONTENT_PATH = '/books/:book/pages/:page';
-const UUID_CONTENT_PATH = `/books/:uuid(${MATCH_UUID})@:version/pages/:page`;
-const VERSIONED_CONTENT_PATH = '/books/:book@:version/pages/:page';
+const CONTENT_PATH = '/books/:book_slug/pages/:page_slug';
+const UUID_CONTENT_PATH = `/books/:book_uuid(${MATCH_UUID})@:book_version/pages/:page_slug`;
+const VERSIONED_CONTENT_PATH = '/books/:book_slug@:book_version/pages/:page_slug';
 
 interface State {
   bookUid: string;
@@ -24,13 +25,14 @@ export const content: Route<Params, State> = {
     modules: ['Content'],
   }),
   getUrl: (params: Params): string => {
-    if ('uuid' in params) {
-      return pathToRegexp.compile(UUID_CONTENT_PATH)(params);
+    const {book} = params;
+    if ('uuid' in book) {
+      return pathToRegexp.compile(UUID_CONTENT_PATH)(getUrlRegexParams(params));
     }
-    if ('version' in params) {
-      return pathToRegexp.compile(VERSIONED_CONTENT_PATH)(params);
+    if ('version' in book) {
+      return pathToRegexp.compile(VERSIONED_CONTENT_PATH)(getUrlRegexParams(params));
     }
-    return pathToRegexp.compile(CONTENT_PATH)(params);
+    return pathToRegexp.compile(CONTENT_PATH)(getUrlRegexParams(params));
   },
   name: 'Content',
   paths: [UUID_CONTENT_PATH, VERSIONED_CONTENT_PATH, CONTENT_PATH],
