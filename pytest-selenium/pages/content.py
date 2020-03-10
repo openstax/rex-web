@@ -37,29 +37,20 @@ class Content(Page):
 
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
 
-    _body_locator = (
-        By.CSS_SELECTOR, "body")
-    _book_section_content_locator = (
-        By.CSS_SELECTOR, "[class*=MinPageHeight]")
-    _error_modal_locator = (
-        By.CSS_SELECTOR, ".error-modal")
-    _main_content_locator = (
-        By.CSS_SELECTOR, "h1")
-    _modal_root_locator = (
-        By.CSS_SELECTOR, "[class*=PopupWrapper]")
-    _next_locator = (
-        By.CSS_SELECTOR, "[aria-label='Next Page']")
-    _notification_pop_up_locator = (
-        By.CSS_SELECTOR, "[class*=ContentNotifications]")
-    _previous_locator = (
-        By.CSS_SELECTOR, "[aria-label='Previous Page']")
-    _print_locator = (
-        By.CSS_SELECTOR, "[data-testid=print]")
+    _body_locator = (By.CSS_SELECTOR, "body")
+    _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
+    _error_modal_locator = (By.CSS_SELECTOR, ".error-modal")
+    _main_content_locator = (By.CSS_SELECTOR, "h1")
+    _modal_root_locator = (By.CSS_SELECTOR, "[class*=PopupWrapper]")
+    _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
+    _notification_pop_up_locator = (By.CSS_SELECTOR, "[class*=ContentNotifications]")
+    _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
+    _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
+    _buy_book_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
 
     @property
     def loaded(self) -> bool:
-        return bool(self.find_element(*self._body_locator)
-                    .get_attribute("data-rex-loaded"))
+        return bool(self.find_element(*self._body_locator).get_attribute("data-rex-loaded"))
 
     @property
     def attribution(self) -> Content.Attribution:
@@ -79,8 +70,7 @@ class Content(Page):
 
         """
         if not self.error_shown():
-            content_root = self.find_element(
-                *self._book_section_content_locator)
+            content_root = self.find_element(*self._book_section_content_locator)
             return self.Content(self, content_root)
         raise ContentError(f"Error modal displayed: {self.error.heading}")
 
@@ -174,6 +164,10 @@ class Content(Page):
         return self.find_element(*self._print_locator)
 
     @property
+    def buy_book(self) -> WebElement:
+        return self.find_element(*self._buy_book_locator)
+
+    @property
     def search_sidebar(self) -> SearchSidebar:
         return SearchSidebar(self)
 
@@ -190,8 +184,7 @@ class Content(Page):
     @property
     def sidebar_width_offset(self) -> int:
         sidebar_width = self.width(self.sidebar.root)
-        sidebar_width_left_offset = (
-            self.sidebar.root.get_attribute("offsetLeft"))
+        sidebar_width_left_offset = self.sidebar.root.get_attribute("offsetLeft")
         return int(sidebar_width) + int(sidebar_width_left_offset)
 
     @property
@@ -217,15 +210,15 @@ class Content(Page):
         x = randint(self.sidebar_width_offset, self.window_width)
         y = randint(self.sidebar_height_offset, self.window_height)
 
-        (ActionChains(self.driver)
-            .move_to_element_with_offset(
-                self.driver.find_element(*self._body_locator), 0, 0)
+        (
+            ActionChains(self.driver)
+            .move_to_element_with_offset(self.driver.find_element(*self._body_locator), 0, 0)
             .move_by_offset(x, y)
             .click()
-            .perform())
+            .perform()
+        )
         return self.wait.until(
-            expected.invisibility_of_element_located(
-                self.sidebar.header.toc_toggle_button)
+            expected.invisibility_of_element_located(self.sidebar.header.toc_toggle_button)
         )
 
     def click_next_link(self):
@@ -287,17 +280,15 @@ class Content(Page):
 
     class Attribution(Region):
 
-        _root_locator = (
-            By.CSS_SELECTOR, "[data-testid='attribution-details']")
+        _root_locator = (By.CSS_SELECTOR, "[data-testid='attribution-details']")
 
-        _access_free_locator = (
-            By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
+        _access_free_locator = (By.XPATH, "//*[contains(text(), 'Access for free at')]/a")
         _attribution_toggle_locator = (
-            By.CSS_SELECTOR, '[data-testid="attribution-details"] summary')
-        _book_url_locator = (
-            By.XPATH, "//*[contains(text(), 'Book URL')]/a")
-        _section_url_locator = (
-            By.XPATH, "//*[contains(text(), 'Section URL')]/a")
+            By.CSS_SELECTOR,
+            '[data-testid="attribution-details"] summary',
+        )
+        _book_url_locator = (By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
 
         @property
         def attribution_link(self) -> WebElement:
@@ -317,13 +308,11 @@ class Content(Page):
 
         @property
         def book_url(self) -> str:
-            return (self.find_element(*self._book_url_locator)
-                    .get_attribute("href"))
+            return self.find_element(*self._book_url_locator).get_attribute("href")
 
         @property
         def access_free_url(self) -> str:
-            return (self.find_element(*self._access_free_locator)
-                    .get_attribute("href"))
+            return self.find_element(*self._access_free_locator).get_attribute("href")
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)
@@ -333,12 +322,9 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
 
-        _book_title_locator = (
-            By.CSS_SELECTOR, "div > a")
-        _chapter_section_locator = (
-            By.CSS_SELECTOR, "div > h1 > span.os-number")
-        _chapter_title_locator = (
-            By.CSS_SELECTOR, "div > h1 > span.os-text")
+        _book_title_locator = (By.CSS_SELECTOR, "div > a")
+        _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
+        _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
 
         @property
         def book_title(self) -> WebElement:
@@ -359,39 +345,37 @@ class Content(Page):
     class Content(Region):
         """The main content for the book section."""
 
-        _caption_locator = (
-            By.CSS_SELECTOR, ".os-caption-container")
-        _figure_container_locator = (
-            By.CSS_SELECTOR, ".os-figure")
-        _figure_locator = (
-            By.CSS_SELECTOR, "figure")
-        _footnote_locator = (
-            By.CSS_SELECTOR, "[data-type=footnote-ref]")
+        _caption_locator = (By.CSS_SELECTOR, ".os-caption-container")
+        _figure_container_locator = (By.CSS_SELECTOR, ".os-figure")
+        _figure_locator = (By.CSS_SELECTOR, "figure")
+        _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
         _highlight_box_locator = (
-            By.CSS_SELECTOR, "form[class*=StyledCard], div[class*=StyledCard]")
-        _highlighted_element_locator = (
-            By.CSS_SELECTOR, ".highlight")
-        _highlight_note_locator = (
-            By.CSS_SELECTOR, "div[class*=StyledCard]")
-        _image_locator = (
-            By.CSS_SELECTOR, "img")
+            By.CSS_SELECTOR,
+            "form[class*=StyledCard], div[class*=StyledCard]",
+        )
+        _highlighted_element_locator = (By.CSS_SELECTOR, ".highlight")
+        _highlight_note_locator = (By.CSS_SELECTOR, "div[class*=StyledCard]")
+        _image_locator = (By.CSS_SELECTOR, "img")
         _link_locator = (
-            By.CSS_SELECTOR, ":not([class*=PrevNextBar])"
-                             ":not(sup):not([id*=footnote]) > a")
+            By.CSS_SELECTOR,
+            ":not([class*=PrevNextBar])" ":not(sup):not([id*=footnote]) > a",
+        )
         _list_locator = (
-            By.CSS_SELECTOR, ":not([data-type*=footnote]) > ol, "
-                             ":not([data-type*=footnote]) > ul")
-        _math_equation_locator = (
-            By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
+            By.CSS_SELECTOR,
+            ":not([data-type*=footnote]) > ol, " ":not([data-type*=footnote]) > ul",
+        )
+        _math_equation_locator = (By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
         _show_solution_toggle_locator = (
-            By.CSS_SELECTOR, "[aria-label='show solution'] button, "
-                             "[data-type=solution]:not([aria-label]) button")
-        _table_locator = (
-            By.CSS_SELECTOR, "table")
+            By.CSS_SELECTOR,
+            "[aria-label='show solution'] button, " "[data-type=solution]:not([aria-label]) button",
+        )
+        _table_locator = (By.CSS_SELECTOR, "table")
         _text_content_locator = (
-            By.CSS_SELECTOR, "p[id^='fs-']:not([data-depth])"  # Intro Stats
-                             ":not([data-bullet-style]):not([type]), "
-                             "p[id^='eip'], p[id^='import-auto']")  # Phys
+            By.CSS_SELECTOR,
+            "p[id^='fs-']:not([data-depth])"  # Intro Stats
+            ":not([data-bullet-style]):not([type]), "
+            "p[id^='eip'], p[id^='import-auto']",
+        )  # Phys
 
         @property
         def captions(self) -> List[WebElement]:
@@ -408,10 +392,9 @@ class Content(Page):
             """
             captions = [
                 caption
-                for caption
-                in self.find_elements(*self._caption_locator)
-                if not caption.find_elements(
-                    *self._highlighted_element_locator)]
+                for caption in self.find_elements(*self._caption_locator)
+                if not caption.find_elements(*self._highlighted_element_locator)
+            ]
             if not captions:
                 raise ContentError("no clean captions found")
             return captions
@@ -426,11 +409,11 @@ class Content(Page):
             :raises ContentError: if no figures are found in the content
 
             """
-            figures = [figure
-                       for figure
-                       in self.find_elements(*self._figure_locator)
-                       if not figure.find_elements(
-                           *self._highlighted_element_locator)]
+            figures = [
+                figure
+                for figure in self.find_elements(*self._figure_locator)
+                if not figure.find_elements(*self._highlighted_element_locator)
+            ]
             if not figures:
                 raise ContentError("no figures found")
             return figures
@@ -445,11 +428,11 @@ class Content(Page):
                 section
 
             """
-            notes = [footnote
-                     for footnote
-                     in self.find_elements(*self._footnote_locator)
-                     if not footnote.find_elements(
-                         *self._highlighted_element_locator)]
+            notes = [
+                footnote
+                for footnote in self.find_elements(*self._footnote_locator)
+                if not footnote.find_elements(*self._highlighted_element_locator)
+            ]
             if not notes:
                 raise ContentError("no footnotes found")
             return notes
@@ -464,11 +447,11 @@ class Content(Page):
             :raises ContentError: if no figures are found in the content
 
             """
-            figs = [figure_and_caption
-                    for figure_and_caption
-                    in self.find_elements(*self._figure_container_locator)
-                    if not figure_and_caption.find_elements(
-                        *self._highlighted_element_locator)]
+            figs = [
+                figure_and_caption
+                for figure_and_caption in self.find_elements(*self._figure_container_locator)
+                if not figure_and_caption.find_elements(*self._highlighted_element_locator)
+            ]
             if not figs:
                 raise ContentError("no figure groups found")
             return figs
@@ -499,7 +482,8 @@ class Content(Page):
                 for box in self.highlight_boxes:
                     sleep(0.1)
                     display = self.driver.execute_script(
-                        COMPUTED_STYLES.format(field=".display"), box)
+                        COMPUTED_STYLES.format(field=".display"), box
+                    )
                     if display != "none":
                         return self.HighlightBox(self, box)
             raise NoSuchElementException("No open highlight boxes found")
@@ -537,9 +521,9 @@ class Content(Page):
             :rtype: list(str)
 
             """
-            return list(set([highlight.get_attribute("data-highlight-id")
-                             for highlight
-                             in self.highlights]))
+            return list(
+                set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights])
+            )
 
         @property
         def images(self) -> List[WebElement]:
@@ -550,11 +534,11 @@ class Content(Page):
             :raises ContentError: if no image is found in the content
 
             """
-            images = [image
-                      for image
-                      in self.find_elements(*self._image_locator)
-                      if not image.find_elements(
-                          *self._highlighted_element_locator)]
+            images = [
+                image
+                for image in self.find_elements(*self._image_locator)
+                if not image.find_elements(*self._highlighted_element_locator)
+            ]
             if not images:
                 raise ContentError("no images found")
             return images
@@ -575,10 +559,9 @@ class Content(Page):
             """
             links = [
                 link
-                for link
-                in self.find_elements(*self._link_locator)
-                if not link.find_elements(
-                    *self._highlighted_element_locator)]
+                for link in self.find_elements(*self._link_locator)
+                if not link.find_elements(*self._highlighted_element_locator)
+            ]
             if not links:
                 raise ContentError("no clean links found")
             return links
@@ -593,11 +576,11 @@ class Content(Page):
             :raises ContentError: if no list is found in the content
 
             """
-            lists = [list_group
-                     for list_group
-                     in self.find_elements(*self._list_locator)
-                     if not list_group.find_elements(
-                         *self._highlighted_element_locator)]
+            lists = [
+                list_group
+                for list_group in self.find_elements(*self._list_locator)
+                if not list_group.find_elements(*self._highlighted_element_locator)
+            ]
             if not lists:
                 raise ContentError("no list groups found")
             return lists
@@ -619,22 +602,22 @@ class Content(Page):
             """
             wait = WebDriverWait(self.driver, 1)
             try:
-                wait.until(
-                    lambda _: self.find_elements(*self._math_equation_locator))
+                wait.until(lambda _: self.find_elements(*self._math_equation_locator))
             except TimeoutException:
                 from warnings import warn
-                warn("Content request - "
-                     "no math found or MathJax failed to load; "
-                     "rerunning math search")
-                self.driver.execute_script(
-                    "MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
-                wait.until(
-                    lambda _: self.find_elements(*self._math_equation_locator))
-            math = [equation
-                    for equation
-                    in self.find_elements(*self._math_equation_locator)
-                    if not equation.find_elements(
-                        *self._highlighted_element_locator)]
+
+                warn(
+                    "Content request - "
+                    "no math found or MathJax failed to load; "
+                    "rerunning math search"
+                )
+                self.driver.execute_script("MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
+                wait.until(lambda _: self.find_elements(*self._math_equation_locator))
+            math = [
+                equation
+                for equation in self.find_elements(*self._math_equation_locator)
+                if not equation.find_elements(*self._highlighted_element_locator)
+            ]
             if not math:
                 raise ContentError("no rendered math found")
             return math
@@ -663,11 +646,11 @@ class Content(Page):
                 found in the content
 
             """
-            paragraphs = [text
-                          for text
-                          in self.find_elements(*self._text_content_locator)
-                          if not text.find_elements(
-                              *self._highlighted_element_locator)]
+            paragraphs = [
+                text
+                for text in self.find_elements(*self._text_content_locator)
+                if not text.find_elements(*self._highlighted_element_locator)
+            ]
             if not paragraphs:
                 raise ContentError("no standard paragraph content found")
             return paragraphs
@@ -685,9 +668,7 @@ class Content(Page):
             :rtype: list(WebElement)
 
             """
-            return [toggle
-                    for toggle
-                    in self.find_elements(*self._show_solution_toggle_locator)]
+            return [toggle for toggle in self.find_elements(*self._show_solution_toggle_locator)]
 
         @property
         def tables(self) -> List[WebElement]:
@@ -698,11 +679,11 @@ class Content(Page):
             :raises ContentError: if no tables are found in the content
 
             """
-            tables = [table
-                      for table
-                      in self.find_elements(*self._table_locator)
-                      if not table.find_elements(
-                          *self._highlighted_element_locator)]
+            tables = [
+                table
+                for table in self.find_elements(*self._table_locator)
+                if not table.find_elements(*self._highlighted_element_locator)
+            ]
             if not tables:
                 raise ContentError("no tables found")
             return tables
@@ -713,15 +694,16 @@ class Content(Page):
             :return: None
 
             """
-            (ActionChains(self.driver)
+            (
+                ActionChains(self.driver)
                 .move_to_element_with_offset(self.root, 5, 0)
                 .click()
-                .perform())
+                .perform()
+            )
 
-        def get_highlight(self,
-                          by_id: Union[int, str] = None,
-                          by_timestamp: Union[int, str] = None) \
-                -> List[WebElement]:
+        def get_highlight(
+            self, by_id: Union[int, str] = None, by_timestamp: Union[int, str] = None
+        ) -> List[WebElement]:
             """Return the list of highlights for a given data ID or time stamp.
 
             .. note::
@@ -738,19 +720,23 @@ class Content(Page):
             :rtype: list(WebElement)
 
             """
-            data, attribute = (str(by_id), "data-highlight-id") if by_id \
+            data, attribute = (
+                (str(by_id), "data-highlight-id")
+                if by_id
                 else (str(by_timestamp), "data-timestamp")
-            return [segment
-                    for segment
-                    in self.highlights
-                    if data == segment.get_attribute(attribute)]
+            )
+            return [
+                segment for segment in self.highlights if data == segment.get_attribute(attribute)
+            ]
 
-        def highlight(self,
-                      target: WebElement,
-                      offset: Union[Highlight.Offset, str] = Highlight.RANDOM,
-                      color: Union[Color, None] = Color.YELLOW,
-                      note: str = "",
-                      close_box: bool = True):
+        def highlight(
+            self,
+            target: WebElement,
+            offset: Union[Highlight.Offset, str] = Highlight.RANDOM,
+            color: Union[Color, None] = Color.YELLOW,
+            note: str = "",
+            close_box: bool = True,
+        ):
             """Highlight a page element.
 
             .. note::
@@ -777,10 +763,8 @@ class Content(Page):
             """
             # Scroll the page to bring the element into view then shift due to
             # the top bars
-            self.driver.execute_script(
-                "arguments[0].scrollIntoView();", target)
-            self.driver.execute_script(
-                "window.scrollBy(0, -130);")
+            self.driver.execute_script("arguments[0].scrollIntoView();", target)
+            self.driver.execute_script("window.scrollBy(0, -130);")
 
             # Compute the start and end offsets for the mouse movement
             start, end = self._compute_offsets(target, offset)
@@ -809,17 +793,14 @@ class Content(Page):
         def show_solutions(self):
             """Open each closed solution then return to the top of the page."""
             for toggle in self.solution_toggles:
-                self.driver.execute_script(
-                    "arguments[0].scrollIntoView();", toggle)
-                self.driver.execute_script(
-                    "window.scrollBy(0, -130);")
+                self.driver.execute_script("arguments[0].scrollIntoView();", toggle)
+                self.driver.execute_script("window.scrollBy(0, -130);")
                 Utilities.click_option(self.driver, element=toggle)
             Utilities.scroll_top(self.driver)
 
-        def _compute_offsets(self,
-                             target: WebElement,
-                             offset: Highlight.Offset) \
-                -> Tuple[Highlight.Offset, Highlight.Offset]:
+        def _compute_offsets(
+            self, target: WebElement, offset: Highlight.Offset
+        ) -> Tuple[Highlight.Offset, Highlight.Offset]:
             """Compute the start and stop offsets.
 
             :param WebElement target: the element to be highlighted
@@ -857,11 +838,9 @@ class Content(Page):
             if target.tag_name == "img" or target.tag_name == "figure":
                 end = (width * 0.75, 3)
             elif offset == Highlight.ENTIRE:
-                end = (width - 1,
-                       height - 1)
+                end = (width - 1, height - 1)
             elif offset == Highlight.RANDOM:
-                end = (randint(10, max(10, width)),
-                       randint(20, max(20, height)))
+                end = (randint(10, max(10, width)), randint(20, max(20, height)))
             elif isinstance(offset, tuple) and len(offset) == 2:
                 end = offset
             else:
@@ -879,15 +858,16 @@ class Content(Page):
             :return: None
 
             """
-            (ActionChains(self.driver)
+            (
+                ActionChains(self.driver)
                 .move_to_element_with_offset(target, 10, 10)
                 .double_click(target)
-                .perform())
+                .perform()
+            )
 
-        def _highlight_section(self,
-                               target: WebElement,
-                               start: Highlight.Offset,
-                               stop: Highlight.Offset):
+        def _highlight_section(
+            self, target: WebElement, start: Highlight.Offset, stop: Highlight.Offset
+        ):
             """Highlight an element using the mouse.
 
             If not a math highlight, highlight the section starting from the
@@ -912,68 +892,54 @@ class Content(Page):
             actions = ActionChains(self.driver)
 
             if target.tag_name == "table":
-                (actions.move_to_element_with_offset(target, *start)
+                (
+                    actions.move_to_element_with_offset(target, *start)
                     .click_and_hold()
                     .move_by_offset(*stop)
                     .release()
                     .move_to_element_with_offset(target, *retag)
                     .click()
-                    .perform())
+                    .perform()
+                )
                 return
-            (actions.move_to_element_with_offset(target, *start)
-                    .click_and_hold()
-                    .move_by_offset(*stop)
-                    .release()
-                    .perform())
+            (
+                actions.move_to_element_with_offset(target, *start)
+                .click_and_hold()
+                .move_by_offset(*stop)
+                .release()
+                .perform()
+            )
             try:
                 self.highlight_box
             except NoSuchElementException:
                 sleep(0.1)
-                (actions.move_to_element_with_offset(target, *retag)
-                    .click()
-                    .perform())
+                (actions.move_to_element_with_offset(target, *retag).click().perform())
 
         class HighlightBox(Region):
             """The highlight color and annotation box."""
 
-            _alter_menu_toggle_locator = (
-                By.CSS_SELECTOR, "[class*=Focus] [class*=MenuToggle]")
-            _annotation_textbox_locator = (
-                By.CSS_SELECTOR, "textarea")
-            _cancel_annotation_button_locator = (
-                By.CSS_SELECTOR, "[data-testid=cancel]")
-            _close_x_button_locator = (
-                By.CSS_SELECTOR, "[class*=CloseIcon]")
-            _confirm_delete_note_button_locator = (
-                By.CSS_SELECTOR, "[data-testid=confirm]")
-            _context_menu_dropdown_locator = (
-                By.CSS_SELECTOR, "[class*=Dropdown__Tab]")
-            _delete_confirmation_locator = (
-                By.CSS_SELECTOR, "[class*=Confirmation]")
-            _delete_confirmation_message_locator = (
-                By.CSS_SELECTOR, "[class*=Confirmation] label")
-            _delete_note_button_locator = (
-                By.CSS_SELECTOR, "[class*=DropdownList] li:last-child a")
-            _edit_note_button_locator = (
-                By.CSS_SELECTOR, "[class*=DropdownList] li:first-child a")
-            _highlight_blue_locator = (
-                By.CSS_SELECTOR, "[name=blue]")
-            _highlight_green_locator = (
-                By.CSS_SELECTOR, "[name=green]")
+            _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=Focus] [class*=MenuToggle]")
+            _annotation_textbox_locator = (By.CSS_SELECTOR, "textarea")
+            _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
+            _close_x_button_locator = (By.CSS_SELECTOR, "[class*=CloseIcon]")
+            _confirm_delete_note_button_locator = (By.CSS_SELECTOR, "[data-testid=confirm]")
+            _context_menu_dropdown_locator = (By.CSS_SELECTOR, "[class*=Dropdown__Tab]")
+            _delete_confirmation_locator = (By.CSS_SELECTOR, "[class*=Confirmation]")
+            _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=Confirmation] label")
+            _delete_note_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:last-child a")
+            _edit_note_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:first-child a")
+            _highlight_blue_locator = (By.CSS_SELECTOR, "[name=blue]")
+            _highlight_green_locator = (By.CSS_SELECTOR, "[name=green]")
             _highlight_login_overlay_locator = (
-                By.CSS_SELECTOR, "[data-analytics-region=highlighting-login]")
-            _highlight_pink_locator = (
-                By.CSS_SELECTOR, "[name=red], [name=pink]")
-            _highlight_purple_locator = (
-                By.CSS_SELECTOR, "[name=purple]")
-            _highlight_yellow_locator = (
-                By.CSS_SELECTOR, "[name=yellow]")
-            _log_in_button_locator = (
-                By.CSS_SELECTOR, "[href*=login]")
-            _note_text_locator = (
-                By.CSS_SELECTOR, "[class*=TruncatedText]")
-            _save_annotation_button_locator = (
-                By.CSS_SELECTOR, "[data-testid=save]")
+                By.CSS_SELECTOR,
+                "[data-analytics-region=highlighting-login]",
+            )
+            _highlight_pink_locator = (By.CSS_SELECTOR, "[name=red], [name=pink]")
+            _highlight_purple_locator = (By.CSS_SELECTOR, "[name=purple]")
+            _highlight_yellow_locator = (By.CSS_SELECTOR, "[name=yellow]")
+            _log_in_button_locator = (By.CSS_SELECTOR, "[href*=login]")
+            _note_text_locator = (By.CSS_SELECTOR, "[class*=TruncatedText]")
+            _save_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=save]")
 
             # --------------------------------------------------------------- #
             # Properties
@@ -997,8 +963,7 @@ class Content(Page):
                 :rtype: WebElement
 
                 """
-                return self.find_element(
-                    *self._cancel_annotation_button_locator)
+                return self.find_element(*self._cancel_annotation_button_locator)
 
             @property
             def confirm_delete_button(self) -> WebElement:
@@ -1008,8 +973,7 @@ class Content(Page):
                 :rtype: WebElement
 
                 """
-                return self.find_element(
-                    *self._confirm_delete_note_button_locator)
+                return self.find_element(*self._confirm_delete_note_button_locator)
 
             @property
             def content_menu_available(self) -> bool:
@@ -1021,7 +985,8 @@ class Content(Page):
                 """
                 menu = self.find_element(*self._context_menu_dropdown_locator)
                 return self.driver.execute_script(
-                    COMPUTED_STYLES.format(field=".display != 'none';"), menu)
+                    COMPUTED_STYLES.format(field=".display != 'none';"), menu
+                )
 
             @property
             def delete_button(self) -> WebElement:
@@ -1041,8 +1006,7 @@ class Content(Page):
                 :rtype: str
 
                 """
-                return (self.find_element(
-                    *self._delete_confirmation_message_locator).text)
+                return self.find_element(*self._delete_confirmation_message_locator).text
 
             @property
             def delete_confirmation_visible(self) -> bool:
@@ -1053,8 +1017,7 @@ class Content(Page):
                 :rtype: bool
 
                 """
-                return bool(
-                    self.find_elements(*self._delete_confirmation_locator))
+                return bool(self.find_elements(*self._delete_confirmation_locator))
 
             @property
             def display_note(self) -> WebElement:
@@ -1116,7 +1079,8 @@ class Content(Page):
 
                 """
                 display = self.driver.execute_script(
-                    COMPUTED_STYLES.format(field=".display"), self.root)
+                    COMPUTED_STYLES.format(field=".display"), self.root
+                )
                 return display == "block"
 
             @property
@@ -1127,8 +1091,7 @@ class Content(Page):
                 :rtype: bool
 
                 """
-                return bool(
-                    self.find_elements(*self._highlight_login_overlay_locator))
+                return bool(self.find_elements(*self._highlight_login_overlay_locator))
 
             @property
             def note(self) -> str:
@@ -1223,8 +1186,7 @@ class Content(Page):
             def confirm_deletion(self):
                 """Click the delete confirmation button."""
                 sleep(0.25)
-                Utilities.click_option(
-                    self.driver, element=self.confirm_delete_button)
+                Utilities.click_option(self.driver, element=self.confirm_delete_button)
 
             def delete(self) -> Content.Content:
                 """Delete the highlight and note.
@@ -1235,9 +1197,7 @@ class Content(Page):
                 """
                 self.delete_note()
                 self.confirm_deletion()
-                self.wait.until(
-                    expected.staleness_of(
-                        self.root))
+                self.wait.until(expected.staleness_of(self.root))
                 return self.page
 
             def delete_note(self) -> Content.Content.HighlightBox:
@@ -1271,13 +1231,14 @@ class Content(Page):
                 :rtype: bool
 
                 """
-                colors = {Color.BLUE: self.blue,
-                          Color.GREEN: self.green,
-                          Color.PINK: self.pink,
-                          Color.PURPLE: self.purple,
-                          Color.YELLOW: self.yellow, }
-                return self.driver.execute_script(
-                    "return arguments[0].checked;", colors[color])
+                colors = {
+                    Color.BLUE: self.blue,
+                    Color.GREEN: self.green,
+                    Color.PINK: self.pink,
+                    Color.PURPLE: self.purple,
+                    Color.YELLOW: self.yellow,
+                }
+                return self.driver.execute_script("return arguments[0].checked;", colors[color])
 
             def log_in(self) -> Union[None, Login]:
                 """Click the 'Log in' overlay nudge button.
@@ -1320,9 +1281,9 @@ class Content(Page):
                 """
                 # Find the initial heights and sizes
                 minimum_box_height = self.driver.execute_script(
-                    COMPUTED_STYLES.format(field=".minHeight"), self.note)
-                box_boundries = self.driver.execute_script(
-                    BOUNDING_RECTANGLE, self.note)
+                    COMPUTED_STYLES.format(field=".minHeight"), self.note
+                )
+                box_boundries = self.driver.execute_script(BOUNDING_RECTANGLE, self.note)
                 current_box_height = box_boundries.get("height")
 
                 # Find the vertical adjustment (negative moves up and shrinks
@@ -1330,19 +1291,13 @@ class Content(Page):
                 change = height - current_box_height
                 if height < minimum_box_height or change == 0:
                     return -1
-                resize_location_arrow = (box_boundries.get("width") - 3,
-                                         current_box_height - 3)
+                resize_location_arrow = (box_boundries.get("width") - 3, current_box_height - 3)
 
                 # Adjust the textarea
-                ActionChains(self.driver) \
-                    .move_to_element_with_offset(self.note,
-                                                 *resize_location_arrow) \
-                    .click_and_hold() \
-                    .move_by_offset(0, change) \
-                    .release() \
-                    .perform()
-                return self.driver.execute_script(
-                    BOUNDING_RECTANGLE, self.note).get("height")
+                ActionChains(self.driver).move_to_element_with_offset(
+                    self.note, *resize_location_arrow
+                ).click_and_hold().move_by_offset(0, change).release().perform()
+                return self.driver.execute_script(BOUNDING_RECTANGLE, self.note).get("height")
 
             def save(self) -> Content.Content.HighlightBox:
                 """Click the save note button.
@@ -1355,8 +1310,7 @@ class Content(Page):
                 sleep(0.1)
                 return self
 
-            def toggle_color(self, color: Color) \
-                    -> Content.Content.HighlightBox:
+            def toggle_color(self, color: Color) -> Content.Content.HighlightBox:
                 """Toggle a highlight color.
 
                 :param color: the color to toggle on or off
@@ -1365,11 +1319,13 @@ class Content(Page):
                 :rtype: :py:class:`~Content.Content.HighlightBox`
 
                 """
-                colors = {Color.BLUE: self.blue,
-                          Color.GREEN: self.green,
-                          Color.PINK: self.pink,
-                          Color.PURPLE: self.purple,
-                          Color.YELLOW: self.yellow, }
+                colors = {
+                    Color.BLUE: self.blue,
+                    Color.GREEN: self.green,
+                    Color.PINK: self.pink,
+                    Color.PURPLE: self.purple,
+                    Color.YELLOW: self.yellow,
+                }
                 Utilities.click_option(self.driver, element=colors[color])
                 return self
 
@@ -1389,16 +1345,11 @@ class Content(Page):
     class Error(Region):
         """An error pop up modal."""
 
-        _clear_error_button_locator = (
-            By.CSS_SELECTOR, "[class*=Footer] button")
-        _content_text_locator = (
-            By.CSS_SELECTOR, "[class*=BodyError]")
-        _heading_text_locator = (
-            By.CSS_SELECTOR, "[class*=BodyHeading]")
-        _help_link_locator = (
-            By.CSS_SELECTOR, "a")
-        _title_text_locator = (
-            By.CSS_SELECTOR, "[class*='_Heading']")
+        _clear_error_button_locator = (By.CSS_SELECTOR, "[class*=Footer] button")
+        _content_text_locator = (By.CSS_SELECTOR, "[class*=BodyError]")
+        _heading_text_locator = (By.CSS_SELECTOR, "[class*=BodyHeading]")
+        _help_link_locator = (By.CSS_SELECTOR, "a")
+        _title_text_locator = (By.CSS_SELECTOR, "[class*='_Heading']")
 
         @property
         def content(self) -> str:
@@ -1408,8 +1359,9 @@ class Content(Page):
             :rtype: str
 
             """
-            return (self.find_element(*self._content_text_locator)
-                    .get_attribute("textContent").strip())
+            return (
+                self.find_element(*self._content_text_locator).get_attribute("textContent").strip()
+            )
 
         @property
         def heading(self) -> str:
@@ -1455,8 +1407,7 @@ class Content(Page):
 
     class MobileSearchToolbar(Region):
 
-        _search_textbox_mobile_locator = (
-            By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+        _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
 
         @property
         def search_textbox(self) -> WebElement:
@@ -1485,23 +1436,16 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, '[data-testid="navbar"]')
 
-        _account_profile_locator = (
-            By.XPATH, "//a[contains(text(), 'Account Profile')]")
-        _login_locator = (
-            By.CSS_SELECTOR, "[data-testid='nav-login']")
-        _logout_locator = (
-            By.XPATH, "//a[contains(text(), 'Log out')]")
-        _openstax_logo_link_locator = (
-            By.CSS_SELECTOR, "div > a")
-        _user_nav_locator = (
-            By.CSS_SELECTOR, "[data-testid='user-nav']")
-        _user_nav_toggle_locator = (
-            By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
+        _account_profile_locator = (By.XPATH, "//a[contains(text(), 'Account Profile')]")
+        _login_locator = (By.CSS_SELECTOR, "[data-testid='nav-login']")
+        _logout_locator = (By.XPATH, "//a[contains(text(), 'Log out')]")
+        _openstax_logo_link_locator = (By.CSS_SELECTOR, "div > a")
+        _user_nav_locator = (By.CSS_SELECTOR, "[data-testid='user-nav']")
+        _user_nav_toggle_locator = (By.CSS_SELECTOR, "[data-testid='user-nav-toggle']")
 
         @property
         def openstax_logo_link(self) -> str:
-            return (self.find_element(*self._openstax_logo_link_locator)
-                    .get_attribute("href"))
+            return self.find_element(*self._openstax_logo_link_locator).get_attribute("href")
 
         @property
         def user_nav(self) -> WebElement:
@@ -1514,9 +1458,7 @@ class Content(Page):
         @property
         def user_is_not_logged_in(self) -> bool:
             try:
-                self.wait.until(
-                    expected.visibility_of_element_located(
-                        self._login_locator))
+                self.wait.until(expected.visibility_of_element_located(self._login_locator))
                 return True
             except TimeoutException:
                 return False
@@ -1525,8 +1467,8 @@ class Content(Page):
         def user_is_logged_in(self) -> bool:
             try:
                 self.wait.until(
-                    expected.visibility_of_element_located(
-                        self._user_nav_toggle_locator))
+                    expected.visibility_of_element_located(self._user_nav_toggle_locator)
+                )
                 return True
             except TimeoutException:
                 return False
@@ -1534,8 +1476,7 @@ class Content(Page):
         @property
         def account_profile_is_displayed(self) -> bool:
             try:
-                return (self.find_element(*self._account_profile_locator)
-                        .is_displayed())
+                return self.find_element(*self._account_profile_locator).is_displayed()
             except NoSuchElementException:
                 return False
 
@@ -1548,29 +1489,22 @@ class Content(Page):
             return self.find_element(*self._logout_locator)
 
         def click_login(self):
-            self.wait.until(
-                expected.visibility_of_element_located(
-                    self._login_locator))
+            self.wait.until(expected.visibility_of_element_located(self._login_locator))
             Utilities.click_option(self.driver, element=self.login)
 
         def click_logout(self):
             Utilities.click_option(self.driver, element=self.logout)
 
         def click_user_name(self):
-            self.wait.until(
-                expected.visibility_of_element_located(
-                    self._user_nav_locator))
+            self.wait.until(expected.visibility_of_element_located(self._user_nav_locator))
             Utilities.click_option(self.driver, element=self.user_nav)
 
     class Notification(Region):
         """A pop up notification box."""
 
-        _acknowledge_button_locator = (
-            By.CSS_SELECTOR, "button")
-        _content_text_locator = (
-            By.CSS_SELECTOR, "p")
-        _notification_title_locator = (
-            By.CSS_SELECTOR, "[class*=Header]")
+        _acknowledge_button_locator = (By.CSS_SELECTOR, "button")
+        _content_text_locator = (By.CSS_SELECTOR, "p")
+        _notification_title_locator = (By.CSS_SELECTOR, "[class*=Header]")
 
         @property
         def button(self) -> WebElement:
@@ -1590,10 +1524,7 @@ class Content(Page):
             :rtype: str
 
             """
-            return " ".join(
-                [body.text
-                 for body
-                 in self.find_elements(*self._content_text_locator)])
+            return " ".join([body.text for body in self.find_elements(*self._content_text_locator)])
 
         @property
         def title(self) -> str:
@@ -1603,8 +1534,7 @@ class Content(Page):
             :rtype: str
 
             """
-            return (self.find_element(*self._notification_title_locator)
-                    .text)
+            return self.find_element(*self._notification_title_locator).text
 
         def click(self) -> Page:
             """Click on the pop up notification box button.
@@ -1636,7 +1566,9 @@ class Content(Page):
             _root_locator = (By.CSS_SELECTOR, '[data-testid="tocheader"]')
 
             _toc_toggle_button_locator = (
-                By.CSS_SELECTOR, "[aria-label*='close the Table of Contents']")
+                By.CSS_SELECTOR,
+                "[aria-label*='close the Table of Contents']",
+            )
 
             @property
             def toc_toggle_button(self) -> WebElement:
@@ -1645,23 +1577,18 @@ class Content(Page):
             def click_toc_toggle_button(self) -> WebElement:
                 self.offscreen_click(self.toc_toggle_button)
                 return self.wait.until(
-                    expected.invisibility_of_element_located(
-                        self.toc_toggle_button))
+                    expected.invisibility_of_element_located(self.toc_toggle_button)
+                )
 
     class ToolBar(Region):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
 
-        _my_highlights_button_locator = (
-            By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
-        _search_button_desktop_locator = (
-            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (
-            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
-        _search_textbox_desktop_locator = (
-            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _toc_toggle_button_locator = (
-            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
+        _my_highlights_button_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
+        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
         _my_highlights_selector = "[class*=HighlightStyles__PopupWrapper]"
 
@@ -1701,11 +1628,11 @@ class Content(Page):
             :rtype: :py:class:`~regions.my_highlights.MyHighlights`
 
             """
-            Utilities.click_option(
-                self.driver, element=self.my_highlights_button)
+            Utilities.click_option(self.driver, element=self.my_highlights_button)
             sleep(0.1)
             my_highlights_root = self.driver.execute_script(
-                ELEMENT_SELECT.format(selector=self._my_highlights_selector))
+                ELEMENT_SELECT.format(selector=self._my_highlights_selector)
+            )
             return MyHighlights(self.page, my_highlights_root)
 
         def search_for(self, search_term: str) -> Content.SideBar:
