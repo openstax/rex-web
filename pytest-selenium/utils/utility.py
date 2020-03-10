@@ -38,8 +38,8 @@ return hasScrollBar(arguments[0]);"""
 HIGHLIGHTS = "return document.querySelectorAll('.highlight').length;"
 PAGE_HIGHLIGHTS = "return __APP_STORE.getState().content.highlights.highlights;"  # NOQA
 RELOAD = "location.reload();"
-SCROLL_INTO_VIEW = 'arguments[0].scrollIntoView();'
-SHIFT_VIEW_BY = 'window.scrollBy(0, arguments[0]);'
+SCROLL_INTO_VIEW = "arguments[0].scrollIntoView();"
+SHIFT_VIEW_BY = "window.scrollBy(0, arguments[0]);"
 
 
 class Color(Enum):
@@ -129,12 +129,13 @@ class Highlight:
         :rtype: dict(str, float)
 
         """
-        position = driver.execute_script(
-            "return arguments[0].getBoundingClientRect();", element)
-        return {"top": position.get("top"),
-                "right": position.get("right"),
-                "bottom": position.get("bottom"),
-                "left": position.get("left"), }
+        position = driver.execute_script("return arguments[0].getBoundingClientRect();", element)
+        return {
+            "top": position.get("top"),
+            "right": position.get("right"),
+            "bottom": position.get("bottom"),
+            "left": position.get("left"),
+        }
 
     @classmethod
     def random_color(cls) -> int:
@@ -163,37 +164,46 @@ class Highlight:
 class Library(object):
 
     books = {
-        "anatomy-and-physiology": {
-            "default_page":
-                "1-introduction"},
-        "astronomy": {
-            "default_page":
-                "1-introduction"},
-        "biology-2e": {
-            "default_page":
-                "1-introduction"},
-        "biology-ap-courses": {
-            "default_page":
-                "1-introduction"},
-        "chemistry-2e": {
-            "default_page":
-                "1-introduction"},
-        "chemistry-atoms-first-2e": {
-            "default_page":
-                "1-introduction"},
+        "anatomy-and-physiology": {"default_page": "1-introduction"},
+        "astronomy": {"default_page": "1-introduction"},
+        "biology-2e": {"default_page": "1-introduction"},
+        "biology-ap-courses": {"default_page": "1-introduction"},
+        "chemistry-2e": {"default_page": "1-introduction"},
+        "chemistry-atoms-first-2e": {"default_page": "1-introduction"},
         "college-physics": {
-            "default_page":
-                "1-introduction-to-science-and-the-realm-of-"
-                "physics-physical-quantities-and-units"},
-        "college-physics-ap-courses": {
-            "default_page":
-                "1-connection-for-ap-r-courses"},
-        "concepts-biology": {
-            "default_page":
-                "1-introduction"},
-        "microbiology": {
-            "default_page":
-                "1-introduction"},
+            "default_page": "1-introduction-to-science-and-the-realm-of-"
+            "physics-physical-quantities-and-units"
+        },
+        "college-physics-ap-courses": {"default_page": "1-connection-for-ap-r-courses"},
+        "concepts-biology": {"default_page": "1-introduction"},
+        "microbiology": {"default_page": "1-introduction"},
+        "calculus-volume-1": {"default_page": "1-introduction"},
+        "calculus-volume-2": {"default_page": "1-introduction"},
+        "calculus-volume-3": {"default_page": "1-introduction"},
+        "university-physics-volume-1": {"default_page": "1-introduction"},
+        "university-physics-volume-2": {"default_page": "1-introduction"},
+        "university-physics-volume-3": {"default_page": "1-introduction"},
+        "american-government-2e": {"default_page": "1-introduction"},
+        "principles-economics-2e": {"default_page": "1-introduction"},
+        "principles-macroeconomics-2e": {"default_page": "1-introduction"},
+        "principles-microeconomics-2e": {"default_page": "1-introduction"},
+        "introduction-sociology-2e": {"default_page": "1-introduction-to-sociology"},
+        "us-history": {"default_page": "1-introduction"},
+        "principles-financial-accounting": {"default_page": "1-why-it-matters"},
+        "principles-managerial-accounting": {"default_page": "1-why-it-matters"},
+        "introduction-business": {"default_page": "1-introduction"},
+        "business-ethics": {"default_page": "1-introduction"},
+        "introductory-business-statistics": {"default_page": "1-introduction"},
+        "principles-management": {"default_page": "1-introduction"},
+        "entrepreneurship": {"default_page": "1-introduction"},
+        "organizational-behavior": {"default_page": "1-introduction"},
+        "introductory-statistics": {"default_page": "1-introduction"},
+        "precalculus": {"default_page": "1-introduction-to-functions"},
+        "college-algebra": {"default_page": "1-introduction-to-prerequisites"},
+        "algebra-and-trigonometry": {"default_page": "1-introduction-to-prerequisites"},
+        "business-law-i-essentials": {"default_page": "1-introduction"},
+        "principles-macroeconomics-ap-courses-2e": {"default_page": "1-introduction"},
+        "principles-microeconomics-ap-courses-2e": {"default_page": "1-introduction"},
     }
 
     def random_book_slug(self):
@@ -221,18 +231,14 @@ class Utilities(object):
         :returns: None
         """
         sleep(0.1)
-        if driver.name == 'firefox':
-            special = Keys.COMMAND if system() == 'Darwin' else Keys.CONTROL
-            ActionChains(driver) \
-                .click(field) \
-                .key_down(special) \
-                .send_keys('a') \
-                .key_up(special) \
-                .send_keys(Keys.DELETE) \
-                .perform()
+        if driver.name == "firefox":
+            special = Keys.COMMAND if system() == "Darwin" else Keys.CONTROL
+            ActionChains(driver).click(field).key_down(special).send_keys("a").key_up(
+                special
+            ).send_keys(Keys.DELETE).perform()
             return
         clear = []
-        for _ in range(len(field.get_attribute('value'))):
+        for _ in range(len(field.get_attribute("value"))):
             clear.append(Keys.DELETE)
             clear.append(Keys.BACKSPACE)
         field.send_keys(clear)
@@ -286,9 +292,10 @@ class Utilities(object):
         """
         fake = Faker()
         use_male_functions = randint(0, 1) == 0
-        return (fake.first_name_male() if use_male_functions else
-                fake.first_name_female(),
-                fake.last_name())
+        return (
+            fake.first_name_male() if use_male_functions else fake.first_name_female(),
+            fake.last_name(),
+        )
 
     @classmethod
     def random_string(cls, length: int = 100) -> str:
@@ -306,8 +313,7 @@ class Utilities(object):
         return f"{string}{mod}"
 
     @classmethod
-    def scroll_to(
-            cls, driver, element_locator=None, element=None, shift=0):
+    def scroll_to(cls, driver, element_locator=None, element=None, shift=0):
         """Scroll the screen to the element.
 
         :param driver: the selenium webdriver browser object
