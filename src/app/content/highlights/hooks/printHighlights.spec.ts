@@ -12,7 +12,6 @@ import { formatBookData } from '../../utils';
 import {
   closeMyHighlights,
   openMyHighlights,
-  printSummaryHighlights,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
   setSummaryFilters,
@@ -41,7 +40,7 @@ describe('printHighlights', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   let print: jest.SpyInstance;
-  let hook: ReturnType<typeof import ('./printHighlights').hookBody>;
+  let hook: typeof import ('./printHighlights').asyncHelper;
 
   beforeEach(() => {
     resetModules();
@@ -62,7 +61,7 @@ describe('printHighlights', () => {
     store.dispatch(receivePage(page));
     store.dispatch(openMyHighlights());
 
-    hook = (require('./printHighlights').hookBody)(helpers);
+    hook = (require('./printHighlights').asyncHelper);
   });
 
   describe('with unfetched resources', () => {
@@ -105,7 +104,7 @@ describe('printHighlights', () => {
           },
         }))
       ;
-      await hook(printSummaryHighlights());
+      await hook(helpers);
       expect(highlightClient).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, {
@@ -127,7 +126,7 @@ describe('printHighlights', () => {
       }, {pagination: null}));
       store.dispatch(closeMyHighlights());
 
-      await hook(printSummaryHighlights());
+      await hook(helpers);
 
       expect(print).not.toHaveBeenCalled();
     });
@@ -177,7 +176,7 @@ describe('printHighlights', () => {
         },
       }));
 
-      await hook(printSummaryHighlights());
+      await hook(helpers);
       expect(highlightClient).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(response, {
@@ -193,7 +192,7 @@ describe('printHighlights', () => {
     it('doesn\'t call highlight client', async() => {
       const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
-      await hook(printSummaryHighlights());
+      await hook(helpers);
 
       expect(highlightClient).not.toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights({}, {
