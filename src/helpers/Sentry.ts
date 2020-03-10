@@ -1,23 +1,16 @@
 import * as Sentry from '@sentry/browser';
 import * as Integrations from '@sentry/integrations';
 import createSentryMiddleware from 'redux-sentry-middleware';
-import { getType } from 'typesafe-actions';
-import { recordError, recordSentryMessage } from '../app/errors/actions';
-import { AnyAction, Middleware, MiddlewareAPI } from '../app/types';
+import { recordSentryMessage } from '../app/errors/actions';
+import { Middleware, MiddlewareAPI } from '../app/types';
 import config from '../config';
 
 let IS_INITIALIZED = false;
 
-const importantActions: Set<AnyAction['type']> = new Set([
-  recordError,
-].map(getType));
-
-const filterBreadcrumbActions = (action: AnyAction) => importantActions.has(action.type);
-
 export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
-  const { event_id, exception} = event;
+  const { event_id } = event;
 
-  if (event_id && exception)  {
+  if (event_id)  {
     store.dispatch(recordSentryMessage(event_id));
   }
 
@@ -42,9 +35,7 @@ export default {
       });
       IS_INITIALIZED = true;
 
-      return createSentryMiddleware(Sentry, {
-        filterBreadcrumbActions,
-      })(store);
+      return createSentryMiddleware(Sentry)(store);
     };
   },
 
