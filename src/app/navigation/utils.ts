@@ -1,3 +1,4 @@
+import { flatten, unflatten } from 'flat';
 import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import pathToRegexp, { Key } from 'path-to-regexp';
@@ -6,6 +7,8 @@ import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
 import { AnyMatch, AnyRoute, GenericMatch, LocationChange, Match, RouteHookBody, RouteState } from './types';
+
+const delimiter = '_';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
@@ -16,12 +19,14 @@ export const locationChangeForRoute = <R extends AnyRoute>(
 ): locationChange is Required<LocationChange<Match<R>>> =>
   !!locationChange.match && locationChange.match.route.name === route.name;
 
+export const getUrlRegexParams = <T extends {}>(obj: T): T => flatten(obj, {delimiter});
+
 const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   const [, ...values] = match;
-  return keys.reduce((result, key, index) => {
+  return unflatten(keys.reduce((result, key, index) => {
     const value = values[index] ? decodeURIComponent(values[index]) : values[index];
-    return {...result, [key.name]: value};
-  }, {});
+    return {...result, [key.name] : value};
+  }, {}), {delimiter});
 };
 
 const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray) => ({
@@ -36,7 +41,6 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
       const match = re.exec(location.pathname);
-
       if (match) {
         return formatRouteMatch(route, location.state, keys, match);
       }
