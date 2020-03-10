@@ -46,18 +46,20 @@ describe('content reducer', () => {
 
   it('reduces requestBook', () => {
     const newState = reducer(initialState, actions.requestBook({uuid: 'bookId', version: '3'}));
+
     expect(newState.loading.book!).toEqual({uuid: 'bookId', version: '3'});
   });
 
   it('reduces requestPage', () => {
-    const newState = reducer(initialState, actions.requestPage('pageId'));
-    expect(newState.loading.page).toEqual('pageId');
+    const newState = reducer(initialState, actions.requestPage({slug: 'pageId'}));
+
+    expect(newState.loading.page).toEqual({slug: 'pageId'});
   });
 
   it('reduces receiveBook', () => {
     const state = {
       ...initialState,
-      loading: {book: book.id},
+      loading: {book: {slug:  book.slug}},
     };
     const newState = reducer(state, actions.receiveBook(book));
     expect(newState.loading.book).not.toBeDefined();
@@ -73,7 +75,7 @@ describe('content reducer', () => {
     const page = { id: 'pageId', content: 'fooobarcontent' } as FirstArgumentType<typeof actions.receivePage>;
     const state = {
       ...initialState,
-      loading: {page: 'pageId'},
+      loading: {page: {slug: 'pageId'}},
     };
     const newState = reducer(state, actions.receivePage(page));
     expect(newState.loading.page).not.toBeDefined();
@@ -89,8 +91,12 @@ describe('content reducer', () => {
     const state = {
       ...initialState,
       params: {
-        book: 'foo',
-        page: 'bar',
+        book: {
+          slug: 'foo',
+        },
+        page: {
+          slug: 'bar',
+        },
       },
       tocOpen: true,
     };
@@ -102,8 +108,12 @@ describe('content reducer', () => {
       },
       match: {
         params: {
-          book: 'newbook',
-          page: 'bar',
+          book: {
+            slug: 'newbook',
+          },
+          page: {
+            slug: 'bar',
+          },
         },
         route: content,
       },
@@ -112,8 +122,12 @@ describe('content reducer', () => {
     expect(newState).toEqual({
       ...initialState,
       params: {
-        book: 'newbook',
-        page: 'bar',
+        book: {
+          slug: 'newbook',
+        },
+        page: {
+          slug: 'bar',
+        },
       },
     });
 
@@ -125,8 +139,12 @@ describe('content reducer', () => {
       book,
       page: {...archivePage, references: []},
       params: {
-        book: 'foo',
-        page: 'bar',
+        book: {
+          slug: 'foo',
+        },
+        page: {
+          slug: 'bar',
+        },
       },
       tocOpen: true,
     };
@@ -138,8 +156,12 @@ describe('content reducer', () => {
       },
       match: {
         params: {
-          book: 'foo',
-          page: 'new page',
+          book: {
+            slug: 'foo',
+          },
+          page: {
+            slug: 'new page',
+          },
         },
         route: content,
       },
@@ -148,8 +170,12 @@ describe('content reducer', () => {
     expect(newState).toEqual({
       ...omit('page', state),
       params: {
-        book: 'foo',
-        page: 'new page',
+        book: {
+          slug: 'foo',
+        },
+        page: {
+          slug: 'new page',
+        },
       },
     });
   });
@@ -158,8 +184,12 @@ describe('content reducer', () => {
     const state = {
       ...initialState,
       params: {
-        book: book.slug,
-        page: 'foo',
+        book: {
+          slug: book.slug,
+        },
+        page: {
+          slug: 'foo',
+        },
       },
     };
     const newState = reducer(state, locationChange({
@@ -170,8 +200,12 @@ describe('content reducer', () => {
       },
       match: {
         params: {
-          book: book.slug,
-          page: 'new page',
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'new page',
+          },
         },
         route: content,
       },
@@ -180,8 +214,12 @@ describe('content reducer', () => {
     expect(newState).toEqual({
       ...initialState,
       params: {
-        book: book.slug,
-        page: 'new page',
+        book: {
+          slug: book.slug,
+        },
+        page: {
+          slug: 'new page',
+        },
       },
     });
   });
