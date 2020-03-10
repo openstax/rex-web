@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 
 from time import sleep
@@ -10,21 +9,21 @@ from selenium.common.exceptions import (
     ElementNotInteractableException,
     StaleElementReferenceException,
     TimeoutException,
+    WebDriverException,
 )
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as expected
 
 from tests.conftest import DESKTOP, MOBILE
 
 
 class Page(pypom.Page):
-
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
         super().__init__(driver, base_url, timeout, **url_kwargs)
 
-    _math_equation_locator = (
-        By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
+    _math_equation_locator = (By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
 
     @property
@@ -33,8 +32,7 @@ class Page(pypom.Page):
 
     @property
     def page_title(self):
-        return (self.find_element(*self._title_locator)
-                .get_attribute("innerHTML"))
+        return self.find_element(*self._title_locator).get_attribute("innerHTML")
 
     @property
     def window_width(self):
@@ -132,26 +130,25 @@ class Page(pypom.Page):
 
         """
         try:
-            self.driver.execute_script('location.reload();')
+            self.driver.execute_script("location.reload();")
             self.wait_for_page_to_load()
         except StaleElementReferenceException:
             pass
         if math_check:
             wait = WebDriverWait(self.driver, 3)
             try:
-                wait.until(
-                    lambda _: self.find_elements(*self._math_equation_locator))
+                wait.until(lambda _: self.find_elements(*self._math_equation_locator))
             except TimeoutException:
                 from warnings import warn
-                warn("On page reload - "
-                     "no math found or MathJax failed to load; "
-                     "rerunning math search")
-                self.driver.execute_script(
-                    "MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
+
+                warn(
+                    "On page reload - "
+                    "no math found or MathJax failed to load; "
+                    "rerunning math search"
+                )
+                self.driver.execute_script("MathJax.Hub.Queue(['Typeset', MathJax.Hub]);")
                 try:
-                    wait.until(
-                        lambda _:
-                        self.find_elements(*self._math_equation_locator))
+                    wait.until(lambda _: self.find_elements(*self._math_equation_locator))
                 except TimeoutException:
                     pass
                 sleep(1.0)
@@ -167,9 +164,7 @@ class Page(pypom.Page):
         size = self.driver.get_window_size()
         return (size.get("width"), size.get("height"))
 
-    def set_window_size(self,
-                        width: int = DESKTOP[0],
-                        height: int = DESKTOP[1]):
+    def set_window_size(self, width: int = DESKTOP[0], height: int = DESKTOP[1]):
         """Resize the browser window.
 
         :param int width: the desired browser width in pixels
@@ -178,3 +173,24 @@ class Page(pypom.Page):
 
         """
         self.driver.set_window_size(width=width, height=height)
+
+    def switch_to_window(self, n):
+        """"Switch to new browser tab.
+
+        Wait till the number of tabs increases to minimum 2 before switching to the nth window.
+
+        :param int n: the desired window handle to be switched to
+        :return: None
+
+        """
+
+        WebDriverWait(self.driver, 5).until(expected.number_of_windows_to_be(2))
+
+        try:
+            self.driver.switch_to.window(self.driver.window_handles[n])
+
+            if self.driver.current_window_handle != n:
+                raise WebDriverException("Try again")
+
+        except WebDriverException:
+            self.driver.switch_to_window(self.driver.window_handles[n])
