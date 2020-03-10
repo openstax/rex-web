@@ -41,8 +41,12 @@ describe('locationChange', () => {
       location: {} as Location,
       match: {
         params: {
-          book: 'book-slug-1',
-          page: 'test-page-1',
+          book: {
+            slug: 'book-slug-1',
+          },
+          page: {
+            slug: 'test-page-1',
+          },
         },
         route: routes.content,
       },
@@ -53,20 +57,20 @@ describe('locationChange', () => {
 
   it('loads book', async() => {
     await hook(payload);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({book: 'book-slug-1'}));
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({slug: 'book-slug-1'}));
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
   });
 
   it('doesn\'t load book if its already loaded', async() => {
     store.dispatch(receiveBook(formatBookData(book, {...mockCmsBook, meta: {slug: 'book'}})));
     await hook(payload);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook({book: 'book', page: 'test-page-1'}));
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook({slug: 'book'}));
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
   it('loads page', async() => {
     await hook(payload);
-    expect(dispatch).toHaveBeenCalledWith(actions.requestPage('test-page-1'));
+    expect(dispatch).toHaveBeenCalledWith(actions.requestPage({slug: 'test-page-1'}));
     expect(helpers.archiveLoader.mock.loadPage)
       .toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
   });
@@ -114,7 +118,7 @@ describe('locationChange', () => {
       version: '0',
     }, 'qwerqewrqwer');
 
-    payload.match.params.page = 'qwerqewrqwer';
+    payload.match.params.page.slug = 'qwerqewrqwer';
 
     payload.match.state = {
       bookUid: 'testbook1-uuid',
@@ -127,8 +131,12 @@ describe('locationChange', () => {
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
       match: '/contents/rando-page-id',
       params: {
-        book: 'book-slug-1',
-        page: 'rando-page',
+        book: {
+          slug: 'book-slug-1',
+        },
+        page: {
+          slug: 'rando-page',
+        },
       },
       state: {
         bookUid: 'testbook1-uuid',
@@ -139,7 +147,7 @@ describe('locationChange', () => {
   });
 
   it('throws on unknown id', async() => {
-    payload.match.params.page = 'garbage';
+    payload.match.params.page.slug = 'garbage';
     let message: string | undefined;
 
     try {
@@ -219,7 +227,7 @@ describe('locationChange', () => {
         version: '0',
       }, 'page-referencing-different-book');
 
-      payload.match.params.page = 'page referencing different book';
+      payload.match.params.page.slug = 'page referencing different book';
 
       payload.match.state = {
         bookUid: 'testbook1-uuid',
@@ -240,8 +248,12 @@ describe('locationChange', () => {
       expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
         match: '/contents/newbookpageid',
         params: {
-          book: 'new-book',
-          page: 'page-in-a-new-book',
+          book: {
+            slug: 'new-book',
+          },
+          page: {
+            slug: 'page-in-a-new-book',
+          },
         },
         state: {
           bookUid: 'newbookid',
