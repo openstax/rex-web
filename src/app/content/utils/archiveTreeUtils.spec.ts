@@ -1,6 +1,6 @@
-import { book, page } from '../../../test/mocks/archiveLoader';
+import { book } from '../../../test/mocks/archiveLoader';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
-import { ArchiveTree, ArchiveTreeSection, Page } from '../types';
+import { ArchiveTree, ArchiveTreeSection } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -8,7 +8,6 @@ import {
   archiveTreeSectionIsUnit,
   findArchiveTreeNode,
   findDefaultBookPage,
-  getPageSlug,
   nodeHasId,
   splitTitleParts,
 } from './archiveTreeUtils';
@@ -119,24 +118,6 @@ describe('tree section identifiers', () => {
     expect(archiveTreeSectionIsPage(unit)).toBe(false);
     expect(archiveTreeSectionIsUnit(unit)).toBe(true);
     expect(archiveTreeSectionIsChapter(unit)).toBe(false);
-  });
-});
-
-describe('getPageSlug', () => {
-  it('throws when node is not found', () => {
-    expect(() =>
-      getPageSlug(book, { ...page, id: 'asdf' })
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"trying to find slug of page, got undefined, pageid: asdf, bookid: testbook1-uuid"`
-    );
-  });
-  it('throws when node is not found', () => {
-    expect(() =>
-      getPageSlug(book, { id: 'testbook1-testchapter1-uuid' } as Page)
-    ).toThrowErrorMatchingInlineSnapshot(
-      // tslint:disable-next-line:max-line-length
-      `"trying to find slug of page, found node that was not a page, pageid: testbook1-testchapter1-uuid, bookid: testbook1-uuid"`
-    );
   });
 });
 
