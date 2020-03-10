@@ -65,8 +65,12 @@ describe('signupCTAHooks hooks', () => {
       },
       match: {
         params: {
-          book: 'doesnotmatter',
-          page: 'doesnotmatter',
+          book: {
+            slug: 'doesnotmatter',
+          },
+          page: {
+            slug: 'doesnotmatter',
+          },
         },
         route: content,
       },
@@ -85,8 +89,12 @@ describe('signupCTAHooks hooks', () => {
       },
       match: {
         params: {
-          book: 'doesnotmatter',
-          page: 'doesnotmatter',
+          book: {
+            slug: 'doesnotmatter',
+          },
+          page: {
+            slug: 'doesnotmatter',
+          },
         },
         route: content,
       },

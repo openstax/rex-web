@@ -58,7 +58,7 @@ describe('ContentLink', () => {
       const event = await click(component);
 
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: BOOK_SLUG, page: PAGE_SLUG},
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
         state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
       }));
@@ -73,8 +73,9 @@ describe('ContentLink', () => {
       </Provider>);
 
       const event = await click(component);
+
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: BOOK_SLUG, page: PAGE_SLUG},
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
         state: {
           bookUid: 'testbook1-uuid',
@@ -94,8 +95,9 @@ describe('ContentLink', () => {
       </Provider>);
 
       const event = await click(component);
+
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: BOOK_SLUG, page: PAGE_SLUG},
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
         state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
       }));
@@ -109,8 +111,9 @@ describe('ContentLink', () => {
       </Provider>);
 
       const event = await click(component);
+
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: BOOK_SLUG, page: PAGE_SLUG},
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
         state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
       }));

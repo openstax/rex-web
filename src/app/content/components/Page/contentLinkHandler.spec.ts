@@ -47,9 +47,13 @@ describe('contentLinkHandler', () => {
       prop.references = [{
         match: link,
         params: {
-          page: 'page-title',
-          uuid: book.id,
-          version: book.version,
+          book: {
+            uuid: book.id,
+            version: book.version,
+          },
+          page: {
+            slug: 'page-title',
+          },
         },
         state: {
           bookUid: 'book',
@@ -62,7 +66,7 @@ describe('contentLinkHandler', () => {
         preventDefault: jest.fn(),
       };
 
-      await handler(event as any);
+      handler(event as any);
 
       expect(event.preventDefault).toHaveBeenCalled();
 
@@ -70,9 +74,13 @@ describe('contentLinkHandler', () => {
 
       expect(prop.navigate).toHaveBeenCalledWith({
         params: {
-          page: 'page-title',
-          uuid: book.id,
-          version: book.version,
+          book: {
+            uuid: book.id,
+            version: book.version,
+          },
+          page: {
+            slug: 'page-title',
+          },
         },
         route: contentRoute,
         state: {
@@ -89,8 +97,12 @@ describe('contentLinkHandler', () => {
       prop.references = [{
         match: link,
         params: {
-          book: book.slug,
-          page: 'page-title',
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
         },
         state: {
           bookUid: 'book',
@@ -111,8 +123,12 @@ describe('contentLinkHandler', () => {
 
       expect(prop.navigate).toHaveBeenCalledWith({
         params: {
-          book: book.slug,
-          page: 'page-title',
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
         },
         route: contentRoute,
         state: {
@@ -145,9 +161,13 @@ describe('contentLinkHandler', () => {
       prop.references = [{
         match: link,
         params: {
-          page: 'page-title',
-          uuid: book.id,
-          version: book.version,
+          book: {
+            uuid: book.id,
+            version: book.version,
+          },
+          page: {
+            slug: 'page-title',
+          },
         },
         state: {
           bookUid: 'book',

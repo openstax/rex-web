@@ -14,6 +14,7 @@
     "@types/redux-sentry-middleware": "^0.1.0",
     "color": "^3.1.2",
     "details-element-polyfill": "^2.3.1",
+    "flat": "^5.0.0",
     "focus-within-polyfill": "^5.0.4",
     "history": "^4.7.2",
     "html-entities": "^1.2.1",
@@ -91,6 +92,7 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
+    "@types/flat": "^0.0.28",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
