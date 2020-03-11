@@ -28,6 +28,7 @@ const fadeOut = keyframes`
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -90,6 +91,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 // tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton)`
   color: ${closeIconColor};
+
   &:hover {
     color: ${hoveredCloseIconColor};
   }
