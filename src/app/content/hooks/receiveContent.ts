@@ -46,7 +46,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   // the abstract could be '<div/>'.
   const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
   const description = abstract || stripHtmlAndTrim(getCleanContent(book, page, archiveLoader));
-  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId);
+  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book.id, page.shortId, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
   dispatch(setHead({
