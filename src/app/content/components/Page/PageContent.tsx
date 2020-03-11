@@ -61,11 +61,7 @@ export default styled(MainContent)`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
-      &.has-note {
-        border-bottom: 1px solid ${style.focused};
-      }
-
-      &.first.text:before {
+      &.first.text.has-note:before {
         position: absolute;
         top: 0;
         left: 0;
