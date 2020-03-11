@@ -611,7 +611,7 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
-    renderDomWithReferences();
+    const {root} = renderDomWithReferences();
 
     const hit = makeSearchResultHit({book, page});
 
@@ -624,6 +624,18 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(scrollTo).not.toHaveBeenCalled();
+
+    const button = root.querySelector('[data-testid=banner-body] button');
+
+    if (!button) {
+      return expect(button).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(button);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body] button')).toBeFalsy();
   });
 
   it('scrolls to search result when selected', async() => {
