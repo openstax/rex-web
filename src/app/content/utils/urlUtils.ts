@@ -80,22 +80,14 @@ const getCommonParts = (firstPath: string[], secondPath: string[]) => {
   return result;
 };
 
-const last = (pieces: string[]) => pieces[pieces.length - 1];
-
-const trimTrailingSlash = (path: string) => path.replace(/([^/]{1})\/+$/, '$1');
-
 export const toRelativeUrl = (from: string, to: string) => {
-  const parsedFrom = trimTrailingSlash(from).split('/');
-  const parsedTo = trimTrailingSlash(to).split('/');
+  const parsedFrom = from.split('/');
+  const parsedTo = to.replace(/\/$/, '').split('/');
 
   // remove the last piece of the "to" so that it is always output
   const commonParts = getCommonParts(parsedFrom, parsedTo.slice(0, -1));
-  // . to prevent going outside from '/'
-  const hasTrailingSlash = /.\/$/.test(from);
 
-  const valueToSubtract = hasTrailingSlash && last(parsedTo) !== last(parsedFrom)
-    ? commonParts.length
-    : commonParts.length + 1;
+  const valueToSubtract = commonParts.length + 1 ;
 
   return '../'.repeat(parsedFrom.length - valueToSubtract)
     + parsedTo.slice(commonParts.length).join('/');

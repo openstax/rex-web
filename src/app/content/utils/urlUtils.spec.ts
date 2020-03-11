@@ -180,9 +180,4 @@ describe('toRelativeUrl', () => {
     const url = toRelativeUrl(PAGE_URL, PAGE_URL + '/');
     expect(url).toMatchInlineSnapshot(`"page1"`);
   });
-
-  it('ignores trailing slashes on the source', () => {
-    const url = toRelativeUrl(PAGE_URL + '/', PAGE_URL);
-    expect(url).toMatchInlineSnapshot(`"page1"`);
-  });
 });
