@@ -2,6 +2,7 @@ import { FocusEvent, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@op
 import React, { useEffect } from 'react';
 import { addSafeEventListener, elementDescendantOf } from './domUtils';
 import { isElement, isWindow } from './guards';
+import { assertDefined } from './utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -80,7 +81,7 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
       timeout.current = setTimeout(timeoutHandler, delay);
   }, [delay]);
 
-  React.useEffect(() => () => timeout.current ? clearTimeout(timeout.current) : undefined, []);
+  React.useEffect(() => () => clearTimeout(assertDefined(timeout.current, 'timeout ID can\'t be undefined')), []);
 };
 
 /**

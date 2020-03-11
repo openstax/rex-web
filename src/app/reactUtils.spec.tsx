@@ -1,5 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { resetModules } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
@@ -78,6 +79,46 @@ describe('useFocusLost', () => {
     childElement.dispatchEvent(focusOutEvent);
 
     expect(cb).not.toHaveBeenCalled();
+  });
+});
+
+describe('useTimeout', () => {
+  // tslint:disable-next-line:variable-name
+  let Component: React.ComponentType;
+  let callback: jest.Mock;
+  beforeEach(() => {
+    resetModules();
+    jest.useFakeTimers();
+
+    callback = jest.fn();
+
+    Component = () => {
+      const [delay, setDelay] = React.useState(1000);
+      utils.useTimeout(delay, callback, []);
+
+      return <button onClick={() => setDelay(2000)}></button>;
+    };
+  });
+
+  it('resets after delay changes' , () => {
+    const {root} = renderer.create(<Component />);
+
+    expect(callback).not.toHaveBeenCalled();
+
+    const button = root.findByType('button');
+
+    renderer.act(() => {
+      button.props.onClick();
+      jest.advanceTimersByTime(1000);
+    });
+
+    expect(callback).not.toHaveBeenCalled();
+
+    renderer.act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+
+    expect(callback).toHaveBeenCalled();
   });
 });
 
