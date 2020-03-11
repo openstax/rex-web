@@ -45,6 +45,7 @@ exports[`ColorFilter matches snapshot 1`] = `
 .c2,
 .c2 .c3 {
   font-size: 1.4rem;
+  overflow: visible;
 }
 
 .c2 span {
