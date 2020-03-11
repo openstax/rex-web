@@ -1,15 +1,12 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
-import theme from '../../../theme';
-import { assertDefined, assertWindow, remsToPx } from '../../../utils';
-import { query } from '../../search/selectors';
+import { assertDefined, remsToPx } from '../../../utils';
 import { cardMarginBottom } from '../constants';
 import Card from './Card';
-import { minimalWidthForCardsWithSearchResults, minimalWidthForCardsWithToc } from './cardStyles';
+import { mainWrapperStyles } from './cardStyles';
 import { getHighlightTopOffset } from './cardUtils';
 
 interface Props {
@@ -21,22 +18,11 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter}: Props) => {
-  const window = assertWindow();
-  const hasQuery = useSelector(query);
-  const displayAllCards = React.useMemo(() => {
-    // This corresponds to the styling in Card, but probably should be rewritten
-    // to take into consideration tocOpen and searchResultsOpen.
-    const mediaQuery = hasQuery ? minimalWidthForCardsWithSearchResults : minimalWidthForCardsWithToc;
-    return !window.matchMedia(mediaQuery).matches;
-  }, [window.outerWidth, query]);
-
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
-    if (!displayAllCards) { return; }
-
     const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
       setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
@@ -44,8 +30,6 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   };
 
   const onFocus = (highlight: Highlight) => {
-    if (!displayAllCards) { return; }
-
     const position = cardsPositions.get(highlight.id);
     if (typeof position !== 'number') { return; }
 
@@ -65,9 +49,7 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   };
 
   const resetTopOffset = () => {
-    if (element.current) {
-      element.current.style.top = '0';
-    }
+    element.current!.style.top = '0';
   };
 
   const updatePositions = React.useCallback(() => {
@@ -98,22 +80,17 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
   }, [highlights, cardsHeights, container]);
 
   React.useEffect(() => {
-    if (displayAllCards) {
-      updatePositions();
-    } else {
-      resetTopOffset();
-    }
-  }, [updatePositions, displayAllCards]);
+    updatePositions();
+  }, [updatePositions]);
 
-  const displayHighlights = highlights.length && (displayAllCards ? cardsPositions.size : true);
-  return displayHighlights
+  return highlights.length
     ? <div className={className} ref={element}>
       {highlights.map((highlight) => <Card
         highlighter={highlighter}
         highlight={highlight}
         key={highlight.id}
         container={container}
-        topOffset={displayAllCards ? cardsPositions.get(highlight.id) || 0 : undefined}
+        topOffset={cardsPositions.get(highlight.id)}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
         onFocus={() => onFocus(highlight)}
         onBlur={resetTopOffset}
@@ -123,9 +100,5 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
 };
 
 export default styled(Wrapper)`
-  position: relative;
-  overflow: visible;
-  z-index: ${theme.zIndex.highlightInlineCard};
-  top: 0;
-  transition: all 0.3s;
+  ${mainWrapperStyles}
 `;

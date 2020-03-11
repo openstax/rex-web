@@ -58,6 +58,7 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
   React.useEffect(() => {
     const refElement = confirmationRef.current ? confirmationRef : element;
     onHeightChange(refElement);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, confirmationRef, confirmingDelete]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>

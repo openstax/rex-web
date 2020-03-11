@@ -96,7 +96,7 @@ const fadeInAnimation = css`
   animation: ${600}ms ${fadeIn} ease-out;
 `;
 
-export const mainStyles = css`
+export const mainCardStyles = css`
   ${fadeInAnimation}
   position: absolute;
   padding: ${cardPadding}rem;
@@ -168,5 +168,25 @@ export const mainStyles = css`
 
   ${theme.breakpoints.mobile(css`
     ${mobileDisplay}
+  `)}
+`;
+
+export const mainWrapperStyles = css`
+  position: relative;
+  overflow: visible;
+  z-index: ${theme.zIndex.highlightInlineCard};
+  top: 0;
+  transition: all 0.3s;
+
+  @media ${minimalWidthForCardsWithToc} {
+    top: 0 !important;
+  }
+
+  @media (max-width: ${minimalWidthForCards}em) {
+    top: 0 !important;
+  }
+
+  ${theme.breakpoints.mobile(css`
+    top: 0 !important;
   `)}
 `;

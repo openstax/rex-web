@@ -17,7 +17,7 @@ import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight
 import { highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import { mainStyles } from './cardStyles';
+import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 
@@ -44,68 +44,85 @@ export interface CardProps {
 }
 
 // tslint:disable-next-line:variable-name
-const Card = (props: CardProps) => {
-  const annotation = props.data && props.data.annotation;
+const Card = ({
+  book,
+  blur,
+  className,
+  create,
+  data,
+  focus,
+  highlight,
+  highlighter,
+  loginLink,
+  isFocused,
+  onFocus,
+  onBlur,
+  onHeightChange,
+  page,
+  remove,
+  save,
+  user,
+}: CardProps) => {
+  const annotation = data && data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
-  const { isFocused } = props;
-
   React.useEffect(() => {
     if (element.current && isFocused) {
-      props.onFocus();
+      onFocus();
     }
     if (!isFocused) {
       setEditing(false);
-      props.onBlur();
+      onBlur();
     }
-  }, [isFocused, element.current]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused, element]);
 
   React.useEffect(() => {
     if (annotation) {
-      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
+      highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
     } else {
-      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
+      highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
     }
-  }, [props.highlight, annotation]);
+  }, [highlight, annotation]);
 
   React.useEffect(() => {
     if (!annotation && !isFocused) {
-      props.onHeightChange({ current: null } as React.RefObject<HTMLElement>);
+      onHeightChange({ current: null } as React.RefObject<HTMLElement>);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [annotation, isFocused]);
 
-  const handleClickOnCard = () => {
-    if (!isFocused) {
-      props.focus(props.highlight.id);
-    }
-  };
+  const location = React.useMemo(() => {
+    return page && getHighlightLocationFilterForPage(locationFilters, page);
+  }, [locationFilters, page]);
 
-  const {page, book} = props;
+  const locationFilterId = location && stripIdVersion(location.id);
 
-  if (!props.highlight.range || !page || !book) {
+  if (!highlight.range || !page || !book || !locationFilterId || (!isFocused && !annotation)) {
     return null;
   }
 
-  const location = getHighlightLocationFilterForPage(locationFilters, page);
-  if (!location) { return null; }
-
-  const locationFilterId = stripIdVersion(location.id);
+  const handleClickOnCard = () => {
+    if (!isFocused) {
+      focus(highlight.id);
+    }
+  };
 
   const onRemove = () => {
-    if (props.data) {
-      props.remove(props.data.id, {
+    if (data) {
+      remove(data.id, {
         locationFilterId,
         pageId: page.id,
       });
     }
   };
-  const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
+  const style = highlightStyles.find((search) => data && search.label === data.color);
 
   const onCreate = () => {
-    props.create({
-      ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
+    create({
+      ...highlight.serialize().getApiPayload(highlighter, highlight),
       scopeId: book.id,
       sourceId: page.id,
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
@@ -116,17 +133,15 @@ const Card = (props: CardProps) => {
   };
 
   const commonProps = {
-    className: props.className,
-    isFocused: props.isFocused,
-    onBlur: props.blur,
-    onHeightChange: props.onHeightChange,
+    className,
+    isFocused,
+    onBlur: blur,
+    onHeightChange,
     onRemove,
     ref: element,
   };
 
-  if (!props.isFocused && !annotation) { return null; }
-
-  return <div onClick={handleClickOnCard}>
+  return <div className='card' onClick={handleClickOnCard}>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -135,15 +150,15 @@ const Card = (props: CardProps) => {
         onEdit={() => setEditing(true)}
       /> : <EditCard
         {...commonProps}
-        highlight={props.highlight}
-        authenticated={!!props.user}
-        loginLink={props.loginLink}
+        highlight={highlight}
+        authenticated={!!user}
+        loginLink={loginLink}
         locationFilterId={locationFilterId}
         pageId={page.id}
         onCreate={onCreate}
         onCancel={() => setEditing(false)}
-        onSave={props.save}
-        data={props.data}
+        onSave={save}
+        data={data}
       />
     }
   </div>;
@@ -151,7 +166,7 @@ const Card = (props: CardProps) => {
 
 // tslint:disable-next-line: variable-name
 const StyledCard = styled(Card)`
-  ${mainStyles}
+  ${mainCardStyles}
 `;
 
 export default connect(
