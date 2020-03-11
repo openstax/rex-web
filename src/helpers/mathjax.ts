@@ -97,7 +97,7 @@ function typesetDocument(root: Element, windowImpl: Window) {
 
 const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
   if (
-    remainingTries
+    remainingTries > 0
     && (findLatexNodes(root).length || findUnprocessedMath(root).length)
   ) {
     setTimeout(() => {
