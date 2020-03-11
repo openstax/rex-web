@@ -1,21 +1,20 @@
+import identity from 'lodash/fp/identity';
 import createArchiveLoader from '../../../gateways/createArchiveLoader';
 import { Book, Page } from '../types';
 
-function ident(x: string) { return x; }
-
 export default function getCleanContent(
-    book: Book | undefined,
-    page: Page | undefined,
-    archiveLoader: ReturnType<typeof createArchiveLoader>,
-    reducer = ident) {
-
+  book: Book | undefined,
+  page: Page | undefined,
+  archiveLoader: ReturnType<typeof createArchiveLoader>,
+  transformer: (content: string) => string = identity
+) {
   const cachedPage = book && page &&
     archiveLoader.book(book.id, book.version).page(page.id).cached()
   ;
 
   const pageContent = cachedPage ? cachedPage.content : '';
 
-  return reducer(pageContent)
+  return transformer(pageContent)
     // remove body and surrounding content
     .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
     // fix assorted self closing tags

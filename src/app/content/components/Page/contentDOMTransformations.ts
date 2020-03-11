@@ -1,5 +1,6 @@
-import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLButtonElement, HTMLElement, HTMLImageElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
+import { REACT_APP_ARCHIVE_URL } from '../../../../config';
 import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
@@ -11,6 +12,7 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(rootEl, intl);
+  prefixResources(rootEl);
 };
 
 const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
@@ -116,4 +118,10 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
       <section class="ui-body" role="alert">${contents}</section>
     `;
   });
+}
+
+function prefixResources(rootEl: HTMLElement) {
+  rootEl.querySelectorAll<HTMLImageElement>('img[src^="/resources/"]').forEach(
+    (el) => el.src = REACT_APP_ARCHIVE_URL + el.getAttribute('src')
+  );
 }
