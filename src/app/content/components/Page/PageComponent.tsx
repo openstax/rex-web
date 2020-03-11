@@ -34,14 +34,17 @@ export default class PageComponent extends Component<PagePropTypes, {hasSearchEr
   private scrollTargetManager = stubScrollTargetManager;
   private processing: Promise<void> = Promise.resolve();
 
-  public getTrasnformedContent = () => {
+  public getTransformedContent = () => {
     const {book, page, services} = this.props;
-    const cleanContent = parser.parseFromString(
-      getCleanContent(book, page, services.archiveLoader, contentLinks.reduceReferences(this.props.contentLinks)),
-      'text/html'
+
+    const cleanContent = getCleanContent(book, page, services.archiveLoader,
+      contentLinks.reduceReferences(this.props.contentLinks)
     );
-    transformContent(cleanContent, cleanContent.body, this.props.intl);
-    return cleanContent.body.innerHTML;
+    const parsedContent = parser.parseFromString(cleanContent, 'text/html');
+
+    transformContent(parsedContent, parsedContent.body, this.props.intl);
+
+    return parsedContent.body.innerHTML;
   };
 
   public componentDidMount() {
@@ -114,7 +117,7 @@ export default class PageComponent extends Component<PagePropTypes, {hasSearchEr
   }
 
   private renderContent = () => {
-    const html = this.getTrasnformedContent() || this.getPrerenderedContent();
+    const html = this.getTransformedContent() || this.getPrerenderedContent();
 
     return <PageContent
       key='main-content'
