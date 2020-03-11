@@ -5,7 +5,7 @@ import {
   getContentPageReferences,
   getPageIdFromUrlParam,
   stripIdVersion,
-  toRelativeUrl
+  toRelativeUrl,
 } from './utils';
 
 describe('stripIdVersion', () => {
@@ -35,9 +35,7 @@ describe('getContentPageReferences', () => {
 
   it('picks up basic content reference', () => {
     expect(
-      getContentPageReferences(
-        'asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf'
-      )
+      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
     ).toEqual([
       {
         match: '/contents/as8s8xu9sdnjsd9',
@@ -91,17 +89,13 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual({ slug: 'preface' });
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual({ slug: 'preface' });
+    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({
-      slug: 'preface',
-    });
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({
-      slug: 'preface',
-    });
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
   it('throws on invalid id', () => {
@@ -136,19 +130,15 @@ describe('getPageIdFromUrlParam', () => {
   });
 
   it('finds id for simple param', () => {
-    expect(getPageIdFromUrlParam(book, { slug: 'Preface' })).toEqual(
-      'pagelongid'
-    );
+    expect(getPageIdFromUrlParam(book, {slug: 'Preface'})).toEqual('pagelongid');
   });
 
   it('ignores captialization', () => {
-    expect(getPageIdFromUrlParam(book, { slug: 'preface' })).toEqual(
-      'pagelongid'
-    );
+    expect(getPageIdFromUrlParam(book, {slug: 'preface'})).toEqual('pagelongid');
   });
 
   it('returns undefined for unknown route', () => {
-    expect(getPageIdFromUrlParam(book, { slug: 'asdfasdf' })).toBeUndefined();
+    expect(getPageIdFromUrlParam(book, {slug: 'asdfasdf'})).toBeUndefined();
   });
 });
 
