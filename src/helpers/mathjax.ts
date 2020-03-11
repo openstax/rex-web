@@ -95,9 +95,24 @@ function typesetDocument(root: Element, windowImpl: Window) {
   );
 }
 
+const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
+  if (
+    remainingTries > 0
+    && (findLatexNodes(root).length || findUnprocessedMath(root).length)
+  ) {
+    setTimeout(() => {
+      resolveOrWait(root, resolve, remainingTries - 1);
+    }, 200);
+  } else {
+    resolve();
+  }
+};
+
 const typesetDocumentPromise = (root: Element, windowImpl: Window): Promise<void> => new Promise((resolve) => {
   typesetDocument(root, windowImpl);
-  windowImpl.MathJax.Hub.Queue(resolve);
+  windowImpl.MathJax.Hub.Queue(() => {
+    resolveOrWait(root, resolve);
+  });
 });
 
 // memoize'd getter for typeset document function so that each node's
