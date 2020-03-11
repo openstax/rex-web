@@ -4,43 +4,29 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled from 'styled-components';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import { DropdownList } from '../../../components/Dropdown';
-import { findElementSelfOrParent } from '../../../domUtils';
-import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow, remsToEms } from '../../../utils';
-import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
-import { disablePrint } from '../../components/utils/disablePrint';
-import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight, updateHighlight } from '../actions';
-import {
-  cardContentMargin,
-  cardFocusedContentMargin,
-  cardMinWindowMargin,
-  cardPadding,
-  cardWidth,
-  highlightStyles
-} from '../constants';
+import { highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
+import { mainStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
-import { cardBorder } from './style';
 
-interface Props {
+export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isFocused: boolean;
-  user: User;
+  user?: User;
   loginLink: string;
   highlighter: Highlighter;
   highlight: Highlight;
@@ -50,7 +36,7 @@ interface Props {
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
-  className: string;
+  className?: string;
   topOffset?: number;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   onFocus: () => void;
@@ -58,7 +44,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Card = (props: Props) => {
+const Card = (props: CardProps) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
@@ -163,187 +149,9 @@ const Card = (props: Props) => {
   </div>;
 };
 
-/*
- * putting overflow hidden on a page wrapper that aligns with the window edge would
- * include the sidebar, which would break position: sticky.
- *
- * avoiding using an overflow hidden to hide cards when there is not enough space
- * means being very explicit about hiding them so they don't create a horizontal
- * scrollbar.
- *
- * in this case that means using extensive knowledge about the container widths,
- * which unfortunately means knowledge of all the sidebar widths and their state
- * too.
- *
- * consider making a helper like `styleWhenSidebarClosed` maybe `styleWhenContentWidth`
- * that has a selector to get the relevant stuff.
- */
-
-const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
-
-const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
-  if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
-    return;
-  }
-
-  const {top, bottom } = highlight.range.getBoundingClientRect();
-
-  const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
-  const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
-  const scrollOffset = assertWindow().scrollY;
-
-  return {
-    bottom: bottom - parentOffset + scrollOffset,
-    top: top - parentOffset + scrollOffset,
-  };
-};
-
-export const getHighlightTopOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(container, highlight);
-
-  if (offset) {
-    return offset.top;
-  }
-};
-const getHighlightBottomOffset = (container: HTMLElement | undefined, highlight: Highlight): number | undefined => {
-  const offset = getHighlightOffset(container, highlight);
-
-  if (offset) {
-    return offset.bottom;
-  }
-};
-
-const overlapDisplay = css`
-  ${(props: Props) => !!props.isFocused && css`
-    left: unset;
-    right: ${cardMinWindowMargin}rem;
-    top: ${() => {
-      return getHighlightBottomOffset(props.container, props.highlight) || 0;
-    }}px;
-  `}
-  ${(props: Props) => !props.isFocused && css`
-    display: none;
-  `}
-`;
-
-const rightSideDisplay = css`
-  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
-  right: unset;
-  top: ${(props: Props) => `${props.topOffset || getHighlightBottomOffset(props.container, props.highlight)}px;`}
-  ${(props: Props) => !!props.isFocused && css`
-    left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
-  `}
-`;
-
-const mobileDisplay = css`
-  ${(props: Props) => !!props.isFocused && css`
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: unset;
-    position: fixed;
-    padding: 0;
-  `}
-  ${(props: Props) => !props.isFocused && css`
-    display: none;
-  `}
-`;
-
-const minimalWidth = contentTextWidth + additionalWidthForCard;
-export const minimalWidthForCards = '(max-width: ' + remsToEms(minimalWidth) + 'em)';
-export const minimalWidthForCardsWithToc = '(max-width: ' +
-  remsToEms(minimalWidth + sidebarDesktopWidth) + 'em)';
-export const minimalWidthForCardsWithSearchResults = '(max-width: ' +
-  remsToEms(minimalWidth + searchResultsBarDesktopWidth) + 'em)';
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-`;
-
-const fadeInAnimation = css`
-  animation: ${600}ms ${fadeIn} ease-out;
-`;
-
-// tslint:disable-next-line:variable-name
+// tslint:disable-next-line: variable-name
 const StyledCard = styled(Card)`
-  ${fadeInAnimation}
-  position: absolute;
-  padding: ${cardPadding}rem;
-  ${cardBorder}
-  ${rightSideDisplay}
-  ${disablePrint}
-
-  transition: all 0.3s;
-
-  ${DropdownList} {
-    z-index: 1;
-  }
-
-  ${(props: {data: HighlightData}) => {
-    const data = props.data;
-
-    if (!data || !data.color) {
-      return null;
-    }
-
-    const style = highlightStyles.find((search) => search.label === props.data.color);
-
-    if (!style) {
-      return null;
-    }
-
-    return css`
-      ::before {
-        content: ' ';
-        border-radius: 0.4rem 0 0 0.4rem;
-        position: absolute;
-        top: 0;
-        left: 0
-        bottom: 0;
-        width: ${cardPadding / 2}rem;
-        background-color: ${style.focused};
-      }
-      ${theme.breakpoints.mobile(css`
-        ::before {
-          border-radius: 0.4rem 0.4rem 0 0;
-          right: 0;
-          bottom: unset;
-          width: unset;
-          height: ${cardPadding / 2}rem;
-        }
-     `)}
-    `;
-  }}
-
-  @media ${minimalWidthForCardsWithToc} {
-    /* the window is too small to show note cards next to content when the toc is open */
-    animation: none;
-    ${overlapDisplay}
-    ${styleWhenSidebarClosed(rightSideDisplay)}
-  }
-
-  ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
-    @media ${minimalWidthForCardsWithSearchResults} {
-      /* the window is too small to show note cards next to content when search is open */
-      animation: none;
-      ${overlapDisplay}
-    }
-  `}
-
-  @media (max-width: ${minimalWidthForCards}em) {
-    /* the window is too small to show note cards next to content even without sidebars */
-    ${overlapDisplay}
-  }
-
-  ${theme.breakpoints.mobile(css`
-    ${mobileDisplay}
-  `)}
+  ${mainStyles}
 `;
 
 export default connect(

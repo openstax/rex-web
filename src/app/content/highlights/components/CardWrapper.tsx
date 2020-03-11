@@ -8,11 +8,9 @@ import theme from '../../../theme';
 import { assertDefined, assertWindow, remsToPx } from '../../../utils';
 import { query } from '../../search/selectors';
 import { cardMarginBottom } from '../constants';
-import Card, {
-  getHighlightTopOffset,
-  minimalWidthForCardsWithSearchResults,
-  minimalWidthForCardsWithToc,
-} from './Card';
+import Card from './Card';
+import { minimalWidthForCardsWithSearchResults, minimalWidthForCardsWithToc } from './cardStyles';
+import { getHighlightTopOffset } from './cardUtils';
 
 interface Props {
   container: HTMLElement;
