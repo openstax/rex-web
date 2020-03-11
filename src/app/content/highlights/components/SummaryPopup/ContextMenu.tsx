@@ -89,6 +89,7 @@ const HighlightToggleEditContent = styled.div`
   z-index: 2;
   border: 1px solid ${theme.color.neutral.formBorder};
   background-color: ${theme.color.neutral.formBackground};
+  margin-bottom: 1rem; /* for last context menu to show with more space */
 `;
 
 interface ContextMenuProps {
