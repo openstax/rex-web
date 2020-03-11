@@ -13,6 +13,8 @@ import {
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`
+  overflow: visible;
+
   .os-divider {
     width: 0.8rem;
   }
@@ -125,7 +127,7 @@ export const GoToTopWrapper = styled.div`
   width: 4.8rem;
   height: 4.8rem;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   bottom: 4.8rem;
   right: 4.8rem;
   display: flex;
