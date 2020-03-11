@@ -679,7 +679,7 @@ Array [
 
 .c66 .highlight {
   position: relative;
-  padding-top: 0.2em;
+  z-index: 1;
 }
 
 .c66 .MathJax_Display .highlight,
@@ -693,6 +693,7 @@ Array [
 
 .c66 .highlight.yellow.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -711,6 +712,7 @@ Array [
 
 .c66 .highlight.green.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -729,6 +731,7 @@ Array [
 
 .c66 .highlight.blue.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -747,6 +750,7 @@ Array [
 
 .c66 .highlight.purple.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -765,6 +769,7 @@ Array [
 
 .c66 .highlight.pink.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -4166,7 +4171,7 @@ Array [
 
 .c40 .highlight {
   position: relative;
-  padding-top: 0.2em;
+  z-index: 1;
 }
 
 .c40 .MathJax_Display .highlight,
@@ -4180,6 +4185,7 @@ Array [
 
 .c40 .highlight.yellow.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -4198,6 +4204,7 @@ Array [
 
 .c40 .highlight.green.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -4216,6 +4223,7 @@ Array [
 
 .c40 .highlight.blue.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -4234,6 +4242,7 @@ Array [
 
 .c40 .highlight.purple.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";
@@ -4252,6 +4261,7 @@ Array [
 
 .c40 .highlight.pink.first.text.has-note:before {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   content: "";

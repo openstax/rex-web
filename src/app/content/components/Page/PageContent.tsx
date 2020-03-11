@@ -49,7 +49,7 @@ export default styled(MainContent)`
 
   .highlight {
     position: relative;
-    padding-top: 0.2em;
+    z-index: 1;
   }
 
   .MathJax_Display .highlight,
@@ -63,6 +63,7 @@ export default styled(MainContent)`
 
       &.first.text.has-note:before {
         position: absolute;
+        z-index: -1;
         top: 0;
         left: 0;
         content: "";
