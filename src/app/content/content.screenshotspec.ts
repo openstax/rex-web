@@ -32,6 +32,7 @@ describe('content', () => {
   it('short pages looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
+    await finishRender(page);
     await page.waitForSelector(closeCTAButton);
     await page.click(closeCTAButton);
     const screen = await fullPageScreenshot(page);
