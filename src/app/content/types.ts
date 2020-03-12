@@ -3,28 +3,26 @@ import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 
-interface SlugParams {
-  book: string;
-  page: string;
+export interface SlugParams {
+  slug: string;
 }
 interface VersionedSlugParams extends SlugParams {
   version: string;
 }
-interface UuidParams {
+interface VersionedUuidParams {
   uuid: string;
   version: string;
-  page: string;
 }
 
-export type Params = SlugParams | VersionedSlugParams | UuidParams;
+export interface Params {
+  book: SlugParams | VersionedSlugParams | VersionedUuidParams;
+  page: SlugParams;
+}
 
 export interface State {
   tocOpen: boolean | null;
   params: Params | null;
-  loading: {
-    book?: Omit<Params, 'page'>;
-    page?: string;
-  };
+  loading: Partial<Params>;
   search: SearchState;
   showCallToActionPopup: boolean | null;
   highlights: HighlightState;
