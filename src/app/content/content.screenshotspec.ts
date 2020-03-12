@@ -46,9 +46,10 @@ describe('content', () => {
   it('attribution looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
-    await page.click('details[data-testid="attribution-details"]');
     await page.waitForSelector(closeCTAButton);
     await page.click(closeCTAButton);
+    await page.click('details[data-testid="attribution-details"]');
+
     const screen = await fullPageScreenshot(page);
 
     expect(screen).toMatchImageSnapshot({
