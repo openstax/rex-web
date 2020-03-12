@@ -88,7 +88,7 @@ export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: 
   return (
     <React.Fragment>
       <Styled.HighlightsChapterWrapper>
-        <Styled.HighlightsChapter aria-label='mh-chapter-title' dangerouslySetInnerHTML={{ __html: location.title }} />
+        <Styled.HighlightsChapter data-testid='mh-chapter-title' dangerouslySetInnerHTML={{ __html: location.title }} />
       </Styled.HighlightsChapterWrapper>
       {pages.map(({pageId, highlights}) => {
         const page = assertDefined(
@@ -98,7 +98,7 @@ export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: 
           `Page is undefined in SectionHighlights`
         );
         return <Styled.HighlightWrapper key={pageId}>
-          {!pageIdIsSameAsSectionId && <Styled.HighlightSection aria-label='mh-section-title'
+          {!pageIdIsSameAsSectionId && <Styled.HighlightSection data-testid='mh-section-title'
             dangerouslySetInnerHTML={{ __html: page.title }}
           />}
           {highlights.map((item) => <HighlightListElement
