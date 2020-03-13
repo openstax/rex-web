@@ -237,7 +237,9 @@ describe('locationChange', () => {
     });
 
     it('load', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['newbookid']));
+      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
+        Promise.resolve([{id: 'newbookid', bookVersion: '0'}])
+      );
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       await hook(payload);
@@ -264,7 +266,9 @@ describe('locationChange', () => {
     });
 
     it('error when the page is not in any configured book', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['garbagebookid']));
+      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
+        Promise.resolve([{id: 'garbagebookid', bookVersion: '0'}])
+      );
 
       let message: string | undefined;
 
@@ -296,7 +300,9 @@ describe('locationChange', () => {
         },
         version: '0',
       });
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(Promise.resolve(['garbagebookid']));
+      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
+        Promise.resolve([{id: 'garbagebookid', bookVersion: '0'}])
+      );
       mockConfig.BOOKS.garbagebookid = {defaultVersion: '0'};
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
