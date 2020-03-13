@@ -1,23 +1,22 @@
-
 import ReactDOM from 'react-dom';
+import { resetModules } from '../../../../../test/utils';
+import { assertDocument } from '../../../../utils';
 import showConfirmation from './showConfirmation';
 
-import { assertDocument } from '../../../../utils';
-
-jest.mock('../ConfirmationModal', () => {
-  return {
-    __esModule: true,
-    default: jest.fn()
-      .mockImplementationOnce(({ confirm }) => {
-        confirm();
-        return null;
-      })
-      .mockImplementationOnce(({ deny }) => {
-        deny();
-        return null;
-      }),
-  };
-});
+jest.mock('../ConfirmationModal', () => jest.fn()
+  .mockImplementationOnce(({ confirm }) => {
+    confirm();
+    return null;
+  })
+  .mockImplementationOnce(({ deny }) => {
+    deny();
+    return null;
+  })
+  .mockImplementationOnce(({ deny }) => {
+    setTimeout(deny, 300);
+    return null;
+  })
+);
 
 const rootNode = (() => {
   const mockNode = assertDocument().createElement('div');
@@ -31,9 +30,12 @@ describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
   let render: jest.SpyInstance;
   let unmount: jest.SpyInstance;
-  let document: ReturnType<typeof assertDocument>;
+
   beforeEach(() => {
-    document = assertDocument();
+    resetModules();
+    jest.clearAllMocks();
+
+    const document = assertDocument();
     document.body.innerHTML = '';
     document.body.appendChild(rootNode);
 
@@ -62,5 +64,19 @@ describe('ShowConfirmation', () => {
 
     expect(answer).toBe(false);
     expect(unmount).toHaveBeenCalledWith(modalNode);
+  });
+
+  it('resolves all calls with the same value if called few times', async() => {
+    const answers = [showConfirmation(), showConfirmation(), showConfirmation()];
+
+    await new Promise((res) => setTimeout(res, 300));
+    const [answerA, answerB, answerC] = await Promise.all(answers);
+
+    expect(createElement).toHaveBeenCalledTimes(1);
+    expect(render).toHaveBeenCalledTimes(1);
+    expect(rootNode.insertAdjacentElement).toHaveBeenCalledTimes(1);
+    expect(unmount).toHaveBeenCalledTimes(1);
+
+    expect(answerA || answerB || answerC).toBe(false);
   });
 });
