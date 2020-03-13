@@ -12,11 +12,14 @@ import { updateAvailable } from '../notifications/actions';
 const TEST_PAGE_NAME = '2-test-page-3';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_SIMPLE_PAGE_URL = `/books/book-slug-1/pages/3-test-page-4`;
+const closeCTAButton = 'button[data-testid="closeCTA"]';
 
 describe('content', () => {
   it('looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
+    await page.waitForSelector(closeCTAButton);
+    await page.click(closeCTAButton);
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -29,6 +32,9 @@ describe('content', () => {
   it('short pages looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
+    await finishRender(page);
+    await page.waitForSelector(closeCTAButton);
+    await page.click(closeCTAButton);
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -41,7 +47,10 @@ describe('content', () => {
   it('attribution looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_SIMPLE_PAGE_URL);
+    await page.waitForSelector(closeCTAButton);
+    await page.click(closeCTAButton);
     await page.click('details[data-testid="attribution-details"]');
+
     const screen = await fullPageScreenshot(page);
 
     expect(screen).toMatchImageSnapshot({
@@ -78,6 +87,8 @@ describe('content', () => {
     it('looks right on inline desktop', async() => {
       await setDesktopViewport(page);
       await setup();
+      await page.waitForSelector(closeCTAButton);
+      await page.click(closeCTAButton);
 
       const screen = await page.screenshot();
       expect(screen).toMatchImageSnapshot({
@@ -90,6 +101,8 @@ describe('content', () => {
     it('looks right on toast desktop', async() => {
       await setWideDesktopViewport(page);
       await setup();
+      await page.waitForSelector(closeCTAButton);
+      await page.click(closeCTAButton);
 
       const screen = await page.screenshot();
       expect(screen).toMatchImageSnapshot({
