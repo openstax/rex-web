@@ -3,14 +3,13 @@ import { getType } from 'typesafe-actions';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
-import { assertDefined } from '../../../utils';
 import { bookAndPage } from '../../selectors';
 import { Book } from '../../types';
 import { receiveHighlights } from '../actions';
 import { maxHighlightsApiPageSize } from '../constants';
 import * as select from '../selectors';
 import { HighlightData, SummaryHighlightsPagination } from '../types';
-import { incrementPage } from './loadMore';
+import { extractDataFromHighlightClientResponse, incrementPage } from './utils';
 
 // TODO - some of this logic could be integrated into src/app/content/highlights/hooks/utils.ts
 // once openstax/rex-web#489 is merged
@@ -29,11 +28,7 @@ const loadAllHighlights = async(args: LoadAllHighlightsArgs): Promise<HighlightD
     ...pagination,
   });
 
-  const data = assertDefined(highlightsResponse.data, 'response from highlights api is invalid');
-  const meta = assertDefined(highlightsResponse.meta, 'response from highlights api is invalid');
-  const perPage = assertDefined(meta.perPage, 'response from highlights api is invalid');
-  const page = assertDefined(meta.page, 'response from highlights api is invalid');
-  const totalCount = assertDefined(meta.totalCount, 'response from highlights api is invalid');
+  const {data, page, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse);
   const loadedResults = (page - 1) * perPage + data.length;
 
   if (loadedResults < totalCount) {
@@ -60,7 +55,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
   const highlights = await loadAllHighlights({
     book,
     highlightClient,
-    pagination: {page: 1, sourceIds: [page.id]},
+    pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
   });
 
   dispatch(receiveHighlights(highlights));
