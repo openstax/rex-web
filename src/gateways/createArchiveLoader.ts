@@ -1,5 +1,6 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
+import { getIdVersion } from '../app/content/utils/idUtils';
 import { acceptStatus } from '../helpers/fetch';
 
 interface Extras {
@@ -27,13 +28,19 @@ export default (url: string) => {
   };
 
   const extrasCache = new Map();
-  const getBookIdsForPage: (pageId: string) => Promise<string[]> = (pageId) => {
+  const getBookIdsForPage: (pageId: string) => Promise<Array<{id: string, bookVersion: string | undefined}>> =
+    (pageId) => {
     if (extrasCache.has(pageId)) {
       return Promise.resolve(extrasCache.get(pageId));
     }
 
     return archiveFetch<Extras>(`${url}/extras/${pageId}`)
-      .then(({books}) => books.map(({ident_hash}) => stripIdVersion(ident_hash)))
+      .then(({books}) => books.map(({ident_hash}) => {
+        return {
+          bookVersion: getIdVersion(ident_hash),
+          id: stripIdVersion(ident_hash),
+        };
+      }))
       .then((response) => {
         extrasCache.set(pageId, response);
         return response;
