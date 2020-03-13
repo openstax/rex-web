@@ -15,6 +15,7 @@ import {
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
+import { maxResourcesPerFetch } from '../constants';
 import { CountsPerSource, HighlightLocationFilters, SummaryFilters } from '../types';
 
 const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
@@ -35,13 +36,25 @@ const totalOfCountsPerSource: (counts: CountsPerSource) => number = flow(
 export const getNextPageSources = (
   remainingCounts: CountsPerSource,
   tree: ArchiveTree,
-  nextPageSize: number
+  nextPageSize?: number
 ): string[] => {
   // remainingCounts is not ordered, so starting with this to make sure we load pages sequentially
   const pages = findTreePages(tree);
 
   const reduceUntilPageSize = reduceUntil(
-    (counts: CountsPerSource) => totalOfCountsPerSource(counts) >= nextPageSize
+    (counts: CountsPerSource) => {
+      const reachedResourceLimit = Object.keys(counts).length >= maxResourcesPerFetch;
+
+      if (reachedResourceLimit) {
+        return true;
+      }
+
+      if (nextPageSize && totalOfCountsPerSource(counts) >= nextPageSize) {
+        return true;
+      }
+
+      return false;
+    }
   );
 
   const addPageCount = (counts: CountsPerSource, page: LinkedArchiveTreeSection) => {

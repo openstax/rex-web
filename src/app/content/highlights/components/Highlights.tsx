@@ -1,10 +1,14 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
+import { typesetMath } from '../../../../helpers/mathjax';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
-import { assertDefined } from '../../../utils';
+import { useServices } from '../../../context/Services';
+import { assertDefined, assertWindow } from '../../../utils';
+import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as selectors from '../selectors';
@@ -24,12 +28,22 @@ const Highlights = () => {
   const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
+  const container = React.useRef<HTMLElement>(null);
+  const services = useServices();
+
+  React.useLayoutEffect(() => {
+    if (container.current) {
+      services.promiseCollector.add(allImagesLoaded(container.current));
+      services.promiseCollector.add(typesetMath(container.current, assertWindow()));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  }, [orderedHighlights]);
 
   if (
     !isLoading
     && (!totalCountsPerPage || Object.keys(totalCountsPerPage).length === 0)
   ) {
-    return <Styled.Highlights>
+    return <Styled.Highlights ref={container}>
       <HStyled.GeneralLeftText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book'>
           {(msg: Element | string) => msg}
@@ -52,7 +66,7 @@ const Highlights = () => {
   }
 
   if (!isLoading && orderedHighlights && orderedHighlights.length === 0) {
-    return <Styled.Highlights>
+    return <Styled.Highlights ref={container}>
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
           {(msg: Element | string) => msg}
@@ -64,7 +78,7 @@ const Highlights = () => {
 
   return <React.Fragment>
     {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
-    {orderedHighlights && <Styled.Highlights>
+    {orderedHighlights && <Styled.Highlights ref={container}>
       {orderedHighlights.map((highlightData) => {
         return <SectionHighlights
           key={highlightData.location.id}
