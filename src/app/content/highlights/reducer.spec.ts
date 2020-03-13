@@ -347,7 +347,7 @@ describe('highlight reducer', () => {
           },
           loading: true,
         },
-      }, actions.receiveSummaryHighlights(highlights, null));
+      }, actions.receiveSummaryHighlights(highlights, {pagination: null}));
 
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);
