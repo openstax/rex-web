@@ -5,6 +5,8 @@ export const servicesContext = React.createContext({} as AppServices);
 
 const {Consumer, Provider} = servicesContext;
 
+export const useServices = () => React.useContext(servicesContext);
+
 export {
   Consumer,
   Provider,
