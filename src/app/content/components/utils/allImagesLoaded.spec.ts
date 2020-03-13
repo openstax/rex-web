@@ -1,15 +1,26 @@
+import { HTMLDivElement, HTMLImageElement } from '@openstax/types/lib.dom';
+import { resetModules } from '../../../../test/utils';
 import { assertDocument } from '../../../utils';
 import allImagesLoaded from './allImagesLoaded';
 
 describe('allImagesLoaded', () => {
+  let element: HTMLDivElement;
+  let img: HTMLImageElement;
+  let finished: boolean;
+
+  beforeEach(() => {
+    resetModules();
+
+    finished = false;
+    element = assertDocument().createElement('div');
+    img = assertDocument().createElement('img');
+  });
+
   it('resolves when passed an element with no images', async() => {
-    const element = assertDocument().createElement('div');
     await expect(allImagesLoaded(element)).resolves.toBeUndefined();
   });
 
   it('resolves when passed an image that is already loaded', async() => {
-    const element = assertDocument().createElement('div');
-    const img = assertDocument().createElement('img');
     element.appendChild(img);
 
     Object.defineProperty(img, 'complete', {
@@ -20,45 +31,89 @@ describe('allImagesLoaded', () => {
     await expect(allImagesLoaded(element)).resolves.toBeUndefined();
   });
 
-  it('resolves once images are loaded', async() => {
-    const element = assertDocument().createElement('div');
-    const img = assertDocument().createElement('img');
-    element.appendChild(img);
+  describe('onload', () => {
+    it('resolves once images are loaded', async() => {
+      const onloadHandler = jest.fn();
+      img.onload = onloadHandler;
 
-    let finished = false;
-    allImagesLoaded(element).then(() => finished = true);
+      element.appendChild(img);
 
-    if (!img.onload) {
-      return expect(img.onload).toBeTruthy();
-    }
+      allImagesLoaded(element).then(() => finished = true);
 
-    await Promise.resolve();
-    expect(finished).toBe(false);
+      if (!img.onload) {
+        return expect(img.onload).toBeTruthy();
+      }
 
-    img.onload({} as any);
+      await Promise.resolve();
+      expect(finished).toBe(false);
 
-    await Promise.resolve();
-    expect(finished).toBe(true);
+      expect(img.onload).not.toBe(onloadHandler);
+      img.onload({} as any);
+
+      await Promise.resolve();
+      expect(finished).toBe(true);
+    });
+
+    it('resolves once images are loaded without onload handler', async() => {
+      element.appendChild(img);
+
+      allImagesLoaded(element).then(() => finished = true);
+
+      if (!img.onload) {
+        return expect(img.onload).toBeTruthy();
+      }
+
+      await Promise.resolve();
+      expect(finished).toBe(false);
+
+      img.onload({} as any);
+
+      await Promise.resolve();
+      expect(finished).toBe(true);
+    });
   });
 
-  it('resolves if images error', async() => {
-    const element = assertDocument().createElement('div');
-    const img = assertDocument().createElement('img');
-    element.appendChild(img);
+  describe('onerror', () => {
+    it('resolves if images error', async() => {
+      const onerrorHandler = jest.fn();
+      img.onerror = onerrorHandler;
 
-    let finished = false;
-    allImagesLoaded(element).then(() => finished = true);
+      element.appendChild(img);
 
-    if (!img.onerror) {
-      return expect(img.onerror).toBeTruthy();
-    }
+      allImagesLoaded(element).then(() => finished = true);
 
-    await Promise.resolve();
-    expect(finished).toBe(false);
+      if (!img.onerror) {
+        return expect(img.onerror).toBeTruthy();
+      }
 
-    img.onerror({} as any);
+      await Promise.resolve();
+      expect(finished).toBe(false);
 
-    await Promise.resolve();
-    expect(finished).toBe(true);
+      expect(img.onerror).not.toBe(onerrorHandler);
+      img.onerror({} as any);
+
+      expect(onerrorHandler).toHaveBeenCalled();
+
+      await Promise.resolve();
+      expect(finished).toBe(true);
+    });
+
+    it('resolves if images error without onerror handler', async() => {
+      element.appendChild(img);
+
+      allImagesLoaded(element).then(() => finished = true);
+
+      if (!img.onerror) {
+        return expect(img.onerror).toBeTruthy();
+      }
+
+      await Promise.resolve();
+      expect(finished).toBe(false);
+
+      img.onerror({} as any);
+
+      await Promise.resolve();
+      expect(finished).toBe(true);
+    });
   });
 });
