@@ -146,6 +146,7 @@ export const mainCardStyles = css`
     `;
   }}
 
+  /* for some reason isTocOpen prop will not refresh after first page load and is null */
   ${(props: CardProps) => (props.isTocOpen === null || props.isTocOpen) && css`
     @media ${minimalWidthForCardsWithToc} {
       /* the window is too small to show note cards next to content when the toc is open */
@@ -154,7 +155,11 @@ export const mainCardStyles = css`
     }
   `}
 
-  ${(props: CardProps) => (props.isSearchResultsOpen || props.hasQuery) && css`
+  /*
+    not sure if this breakpoint is necessary, because search results have same width
+    (from the visual perspective, because values are different)
+  */
+  ${(props: CardProps) => props.hasQuery && css`
     @media ${minimalWidthForCardsWithSearchResults} {
       /* the window is too small to show note cards next to content when search is open */
       animation: none;
@@ -187,7 +192,7 @@ export const mainWrapperStyles = css`
     }
   `}
 
-  ${(props: WrapperProps) => (props.isSearchResultsOpen || props.hasQuery) && css`
+  ${(props: WrapperProps) => props.hasQuery && css`
     @media (max-width: ${minimalWidthForCards}em) {
       top: 0 !important;
     }

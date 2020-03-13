@@ -14,9 +14,8 @@ import { mainWrapperStyles } from './cardStyles';
 import { getHighlightTopOffset } from './cardUtils';
 
 export interface WrapperProps {
-  isSearchResultsOpen: boolean;
-  isTocOpen: boolean;
   hasQuery: boolean;
+  isTocOpen: boolean;
   container: HTMLElement;
   highlighter: Highlighter;
   highlights: Highlight[];
@@ -109,7 +108,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 export default connect(
   (state: AppState) => ({
     hasQuery: !!selectSearch.query(state),
-    isSearchResultsOpen: selectSearch.searchResultsOpen(state),
     isTocOpen: contentSelect.tocOpen(state),
   })
 )(styled(Wrapper)`
