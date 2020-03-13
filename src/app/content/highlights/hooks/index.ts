@@ -6,6 +6,7 @@ import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSumma
 import { loadMoreHook, setSummaryFiltersHook } from './loadMore';
 import loadHighlights from './locationChange';
 import { openMyHighlightsHook } from './openMyHighlights';
+import { printHighlightsHook } from './printHighlights';
 import removeHighlight from './removeHighlight';
 import updateHighlight from './updateHighlight';
 
@@ -18,6 +19,7 @@ export default [
   initializeMyHighlightsSummaryHook,
   setSummaryFiltersHook,
   openMyHighlightsHook,
+  printHighlightsHook,
   loadMoreHook,
   actionHook(receiveUser, loadHighlights),
   actionHook(receivePageFocus, loadHighlights),

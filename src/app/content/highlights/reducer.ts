@@ -152,6 +152,24 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.printSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: true,
+        },
+      };
+    }
+    case getType(actions.toggleSummaryHighlightsLoading): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: action.payload,
+        },
+      };
+    }
     case getType(actions.initializeMyHighlightsSummary):
     case getType(actions.loadMoreSummaryHighlights): {
       return {
@@ -183,8 +201,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: merge(state.summary.highlights || {}, action.payload),
-          loading: false,
-          pagination: action.meta,
+          loading: Boolean(action.meta.isStillLoading),
+          pagination: action.meta.pagination,
         },
       };
     }
