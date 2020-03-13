@@ -28,7 +28,7 @@ export interface CardProps {
   isFocused: boolean;
   isTocOpen: boolean;
   hasQuery: boolean;
-  user?: User;
+  user: User;
   loginLink: string;
   highlighter: Highlighter;
   highlight: Highlight;
@@ -38,7 +38,7 @@ export interface CardProps {
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
-  className?: string;
+  className: string;
   topOffset?: number;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   onFocus: () => void;
