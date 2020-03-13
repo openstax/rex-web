@@ -64,7 +64,9 @@ export default () => {
     return pages && pages[pageId];
   });
 
-  const getBookIdsForPage = jest.fn((_pageId: string) => Promise.resolve([] as string[]));
+  const getBookIdsForPage = jest.fn((_pageId: string) =>
+    Promise.resolve([] as Array<{id: string, bookVersion: string | undefined}>)
+  );
 
   return {
     book: (bookId: string, bookVersion: string | undefined) => ({
