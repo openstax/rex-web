@@ -7,12 +7,12 @@ const REACT_APP_ARCHIVE_URL = typeof(window) === 'undefined'
 
 const UNLIMITED_CONTENT_OVERRIDE = typeof(window) === 'undefined'
   ? undefined
-  : query.parse(window.location.search).validateLinks !== undefined
+  : query.parse(window.location.search).validateLinks
 ;
 
 const UNLIMITED_CONTENT = UNLIMITED_CONTENT_OVERRIDE === undefined
   ? process.env.REACT_APP_UNLIMITED_CONTENT
-  : UNLIMITED_CONTENT_OVERRIDE
+  : Boolean(UNLIMITED_CONTENT_OVERRIDE)
 ;
 
 module.exports = {
