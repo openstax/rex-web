@@ -266,6 +266,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
   <button
     className="c13"
     data-analytics-label="close"
+    data-testid="closeCTA"
     onClick={[Function]}
   >
     <svg
