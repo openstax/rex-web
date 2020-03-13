@@ -228,9 +228,8 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
 
       match.params = {
-        page: mockPageInOtherBook.id,
-        uuid: mockOtherBook.id,
-        version: '1.0',
+        book: {uuid: mockOtherBook.id, version: '1.0'},
+        page: {slug: 'page-in-a-new-book'},
       };
 
       const referenceBook = await resolveExternalBookReference(
