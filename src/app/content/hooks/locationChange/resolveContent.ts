@@ -1,5 +1,5 @@
 import isEqual from 'lodash/fp/isEqual';
-import { APP_ENV, BOOKS } from '../../../../config';
+import { APP_ENV, BOOKS, UNLIMITED_CONTENT } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
@@ -155,7 +155,9 @@ const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
   pageId: string
 ) => {
-  const devEnvironment = APP_ENV === 'development';
+
+  console.log(UNLIMITED_CONTENT);
+  const devEnvironment = UNLIMITED_CONTENT;
   const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
 

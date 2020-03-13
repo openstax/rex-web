@@ -12,7 +12,7 @@ const UNLIMITED_CONTENT_OVERRIDE = typeof(window) === 'undefined'
 
 const UNLIMITED_CONTENT = UNLIMITED_CONTENT_OVERRIDE === undefined
   ? process.env.REACT_APP_UNLIMITED_CONTENT
-  : UNLIMITED_CONTENT
+  : UNLIMITED_CONTENT_OVERRIDE
 ;
 
 module.exports = {
