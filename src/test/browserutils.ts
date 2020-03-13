@@ -81,6 +81,7 @@ export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
   await finishRender(target);
+  await scrollUp(target);
 
   const bodyHandle = await target.$('body');
 
