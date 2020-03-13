@@ -80,7 +80,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -135,7 +135,7 @@ describe('Highlights', () => {
 
     renderer.act(() => {
       store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -165,7 +165,7 @@ describe('Highlights', () => {
       pageId2: {[HighlightColorEnum.Green]: 2},
     }, new Map()));
     store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
-    store.dispatch(receiveSummaryHighlights({}, null));
+    store.dispatch(receiveSummaryHighlights({}, {pagination: null}));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -210,7 +210,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -246,7 +246,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
@@ -320,7 +320,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
@@ -369,7 +369,7 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, null));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
     const component = renderer.create(<Provider store={store}>
