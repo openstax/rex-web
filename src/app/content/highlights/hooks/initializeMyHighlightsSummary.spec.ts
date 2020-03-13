@@ -59,6 +59,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights as HighlightData[],
         meta: {
+          page: 1,
           perPage: 1,
           totalCount: 1,
         },
@@ -73,7 +74,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     ));
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(
-      expect.anything(), null
+      expect.anything(), {pagination: null}
     ));
   });
 });
