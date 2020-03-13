@@ -165,6 +165,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   className="c0"
 >
   <textarea
+    aria-label="Enter note's text"
     autoFocus={true}
     className="c1"
     onChange={[Function]}
@@ -175,6 +176,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     className="c2"
   >
     <button
+      aria-label="Save"
       className="c3"
       data-analytics-label="save"
       data-testid="save"
@@ -183,6 +185,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
       Save
     </button>
     <button
+      aria-label="Cancel"
       className="c4"
       data-analytics-label="cancel"
       data-testid="cancel"

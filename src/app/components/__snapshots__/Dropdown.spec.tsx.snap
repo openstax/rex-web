@@ -154,7 +154,9 @@ exports[`Dropdown matches snapshot 1`] = `
     <ol
       className="c6"
     >
-      <li>
+      <li
+        aria-label="Delete"
+      >
         <a
           href=""
           onClick={[Function]}
@@ -163,7 +165,9 @@ exports[`Dropdown matches snapshot 1`] = `
           Delete
         </a>
       </li>
-      <li>
+      <li
+        aria-label="Edit"
+      >
         <a
           href="/wooo"
           onClick={[Function]}
@@ -453,7 +457,9 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
   <ol
     className="c4"
   >
-    <li>
+    <li
+      aria-label="Delete"
+    >
       <a
         href=""
         onClick={[Function]}
@@ -462,7 +468,9 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
         Delete
       </a>
     </li>
-    <li>
+    <li
+      aria-label="Edit"
+    >
       <a
         href="/wooo"
         onClick={[Function]}

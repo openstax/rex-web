@@ -253,6 +253,7 @@ exports[`Filters matches snapshot 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-label="Filter highlights by Chapter"
       className="c4 c5 c6 c7"
       onClick={[Function]}
     >
@@ -279,6 +280,7 @@ exports[`Filters matches snapshot 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-label="Filter highlights by Color"
       className="c4 c5 c6 c7"
       onClick={[Function]}
     >
@@ -332,6 +334,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c16"
     >
       <button
+        aria-label="Remove filter for color blue"
         className="c17"
         onClick={[Function]}
       >
@@ -372,6 +375,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c16"
     >
       <button
+        aria-label="Remove filter for color green"
         className="c17"
         onClick={[Function]}
       >
@@ -412,6 +416,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c16"
     >
       <button
+        aria-label="Remove filter for color pink"
         className="c17"
         onClick={[Function]}
       >
@@ -452,6 +457,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c16"
     >
       <button
+        aria-label="Remove filter for color purple"
         className="c17"
         onClick={[Function]}
       >
@@ -492,6 +498,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c16"
     >
       <button
+        aria-label="Remove filter for color yellow"
         className="c17"
         onClick={[Function]}
       >
