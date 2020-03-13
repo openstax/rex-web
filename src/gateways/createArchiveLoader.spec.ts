@@ -107,7 +107,9 @@ describe('archiveLoader', () => {
     });
 
     it('returns the ids', async() => {
-      expect(await archiveLoader.getBookIdsForPage('pageId')).toEqual(['id']);
+      expect(await archiveLoader.getBookIdsForPage('pageId')).toEqual(
+        [{bookVersion: undefined, id: 'id'}]
+      );
     });
 
     it('memoizes', async() => {
