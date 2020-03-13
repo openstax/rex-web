@@ -1,5 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
@@ -79,6 +80,13 @@ const HighlightToggleEditContent = styled.div`
   margin-bottom: 1rem; /* for last context menu to show with more space */
 `;
 
+// tslint:disable-next-line:variable-name
+const HighlightDropdownMenu = React.forwardRef((props, ref) => {
+  return <FormattedMessage id='i18n:highlighting:dropdown:edit:aria-label'>
+    {(msg: string | Element) => <MenuToggle aria-label={msg} ref={ref} {...props} />}
+  </FormattedMessage>;
+});
+
 interface ContextMenuProps {
   color: HighlightColorEnum;
   hasAnnotation?: boolean;
@@ -96,7 +104,7 @@ const ContextMenu = ({
   onDelete,
 }: ContextMenuProps) => <StyledContextMenu>
   <Dropdown
-    toggle={<MenuToggle/>}
+    toggle={<HighlightDropdownMenu />}
     transparentTab={false}
   >
     <HighlightToggleEditContent>

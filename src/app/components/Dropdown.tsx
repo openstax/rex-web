@@ -6,7 +6,7 @@ import styled, { css, keyframes } from 'styled-components/macro';
 import { useFocusLost } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme from '../theme';
-import { preventDefault } from '../utils';
+import { assertString, preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
@@ -185,21 +185,22 @@ interface DropdownItemProps {
 }
 
 // tslint:disable-next-line:variable-name
-export const DropdownItem = ({message, href, prefix, onClick}: DropdownItemProps) => <li>
-  <FormattedMessage id={message}>
-    {(msg: Element | string) => href
-      ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
-      /*
-        this should be a button but Safari and firefox don't support focusing buttons
-        which breaks the tab transparent dropdown
-        https://bugs.webkit.org/show_bug.cgi?id=22261
-        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-      */
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
+export const DropdownItem = ({message, href, prefix, onClick}: DropdownItemProps) => <FormattedMessage id={message}>
+    {(msg: Element | string) => <li aria-label={assertString(msg, 'aria-label must be a string')}>
+      {href
+        ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
+        /*
+          this should be a button but Safari and firefox don't support focusing buttons
+          which breaks the tab transparent dropdown
+          https://bugs.webkit.org/show_bug.cgi?id=22261
+          https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
+        */
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
+      }
+    </li>
     }
-  </FormattedMessage>
-</li>;
+</FormattedMessage>;
 
 // tslint:disable-next-line:variable-name
 const Dropdown = ({transparentTab, ...props}: {transparentTab?: boolean} & Props) => transparentTab !== false

@@ -37,15 +37,20 @@ interface ColorButtonProps {
 const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) =>
   <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
     {(msg: Element | string) =>
-      <ColorIndicator
-        style={style}
-        size={size}
-        title={msg}
-        component={<label />}
-        className={className}
-      >
-        <input type='checkbox' {...props} />
-      </ColorIndicator>
+      <FormattedMessage id='i18n:highlighting:change-color' values={{color: msg}}>
+        {(ariaMessage: Element | string) =>
+          <ColorIndicator
+            style={style}
+            size={size}
+            title={msg}
+            aria-label={ariaMessage}
+            component={<label />}
+            className={className}
+          >
+            <input type='checkbox' {...props} />
+          </ColorIndicator>
+        }
+      </FormattedMessage>
     }
   </FormattedMessage>
 )`
