@@ -1,15 +1,22 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
+import { AppState } from '../../../types';
 import { assertDefined, remsToPx } from '../../../utils';
+import * as selectSearch from '../../search/selectors';
+import * as contentSelect from '../../selectors';
 import { cardMarginBottom } from '../constants';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
 import { getHighlightTopOffset } from './cardUtils';
 
-interface Props {
+export interface WrapperProps {
+  isSearchResultsOpen: boolean;
+  isTocOpen: boolean;
+  hasQuery: boolean;
   container: HTMLElement;
   highlighter: Highlighter;
   highlights: Highlight[];
@@ -17,7 +24,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter}: Props) => {
+const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
@@ -99,6 +106,12 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
     : null;
 };
 
-export default styled(Wrapper)`
+export default connect(
+  (state: AppState) => ({
+    hasQuery: !!selectSearch.query(state),
+    isSearchResultsOpen: selectSearch.searchResultsOpen(state),
+    isTocOpen: contentSelect.tocOpen(state),
+  })
+)(styled(Wrapper)`
   ${mainWrapperStyles}
-`;
+`);

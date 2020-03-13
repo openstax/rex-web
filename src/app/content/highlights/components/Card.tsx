@@ -26,6 +26,9 @@ export interface CardProps {
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isFocused: boolean;
+  isSearchResultsOpen: boolean;
+  isTocOpen: boolean;
+  hasQuery: boolean;
   user?: User;
   loginLink: string;
   highlighter: Highlighter;
@@ -141,7 +144,7 @@ const Card = ({
     ref: element,
   };
 
-  return <div className='card' onClick={handleClickOnCard}>
+  return <div onClick={handleClickOnCard}>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -175,7 +178,8 @@ export default connect(
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
-    isOpen: contentSelect.tocOpen(state),
+    isSearchResultsOpen: selectSearch.searchResultsOpen(state),
+    isTocOpen: contentSelect.tocOpen(state),
     loginLink: selectAuth.loginLink(state),
     user: selectAuth.user(state),
   }),

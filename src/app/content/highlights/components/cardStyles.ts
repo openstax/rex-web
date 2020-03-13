@@ -8,7 +8,6 @@ import {
   sidebarDesktopWidth,
 } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
-import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -20,6 +19,7 @@ import {
 import { HighlightData } from '../types';
 import { CardProps } from './Card';
 import { getHighlightBottomOffset } from './cardUtils';
+import { WrapperProps } from './CardWrapper';
 import { cardBorder } from './style';
 
 /*
@@ -146,14 +146,15 @@ export const mainCardStyles = css`
     `;
   }}
 
-  @media ${minimalWidthForCardsWithToc} {
-    /* the window is too small to show note cards next to content when the toc is open */
-    animation: none;
-    ${overlapDisplay}
-    ${styleWhenSidebarClosed(rightSideDisplay)}
-  }
+  ${(props: CardProps) => (props.isTocOpen === null || props.isTocOpen) && css`
+    @media ${minimalWidthForCardsWithToc} {
+      /* the window is too small to show note cards next to content when the toc is open */
+      animation: none;
+      ${overlapDisplay}
+    }
+  `}
 
-  ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
+  ${(props: CardProps) => (props.isSearchResultsOpen || props.hasQuery) && css`
     @media ${minimalWidthForCardsWithSearchResults} {
       /* the window is too small to show note cards next to content when search is open */
       animation: none;
@@ -163,10 +164,12 @@ export const mainCardStyles = css`
 
   @media (max-width: ${minimalWidthForCards}em) {
     /* the window is too small to show note cards next to content even without sidebars */
+    animation: none;
     ${overlapDisplay}
   }
 
   ${theme.breakpoints.mobile(css`
+    animation: none;
     ${mobileDisplay}
   `)}
 `;
@@ -178,13 +181,17 @@ export const mainWrapperStyles = css`
   top: 0;
   transition: all 0.3s;
 
-  @media ${minimalWidthForCardsWithToc} {
-    top: 0 !important;
-  }
+  ${(props: WrapperProps) => (props.isTocOpen === null || props.isTocOpen) && css`
+    @media ${minimalWidthForCardsWithToc} {
+      top: 0 !important;
+    }
+  `}
 
-  @media (max-width: ${minimalWidthForCards}em) {
-    top: 0 !important;
-  }
+  ${(props: WrapperProps) => (props.isSearchResultsOpen || props.hasQuery) && css`
+    @media (max-width: ${minimalWidthForCards}em) {
+      top: 0 !important;
+    }
+  `}
 
   ${theme.breakpoints.mobile(css`
     top: 0 !important;
