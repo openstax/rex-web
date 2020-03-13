@@ -39,6 +39,7 @@ export interface CardProps {
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
   className: string;
+  zIndex: number;
   topOffset?: number;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   onFocus: () => void;

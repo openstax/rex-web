@@ -91,7 +91,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   return highlights.length
     ? <div className={className} ref={element}>
-      {highlights.map((highlight) => <Card
+      {highlights.map((highlight, index) => <Card
         highlighter={highlighter}
         highlight={highlight}
         key={highlight.id}
@@ -100,6 +100,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
         onFocus={() => onFocus(highlight)}
         onBlur={resetTopOffset}
+        zIndex={highlights.length - index}
       />)}
     </div>
     : null;

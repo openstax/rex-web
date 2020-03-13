@@ -104,6 +104,7 @@ export const mainCardStyles = css`
   ${rightSideDisplay}
   ${disablePrint}
 
+  z-index: ${(props: CardProps) => props.zIndex};
   transition: all 0.3s;
 
   ${DropdownList} {
