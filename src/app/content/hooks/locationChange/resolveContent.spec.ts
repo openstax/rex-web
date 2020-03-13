@@ -23,6 +23,7 @@ describe('locationChange', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let match: Match<typeof routes.content>;
   let hook: typeof import ('./resolveContent').default;
+  let resolveExternalBookReference: typeof import ('./resolveContent').resolveExternalBookReference;
 
   const mockUUIDBook = () => {
     const uuidBook = {
@@ -32,6 +33,32 @@ describe('locationChange', () => {
     };
     helpers.archiveLoader.mockBook(uuidBook);
     helpers.archiveLoader.mockPage(uuidBook, page, testPage);
+  };
+
+  const mockOtherBook = {
+    abstract: '',
+    id: 'newbookid',
+    license: {name: '', version: ''},
+    revised: '2012-06-21',
+    shortId: 'newbookshortid',
+    title: 'newbook',
+    tree: {
+      contents: [],
+      id: 'newbookid@0',
+      shortId: 'newbookshortid@0',
+      slug: 'newbook',
+      title: 'newbook',
+    },
+    version: '0',
+  };
+  const mockPageInOtherBook = {
+    abstract: '',
+    content: 'dope content bruh',
+    id: 'newbookpageid',
+    revised: '2018-07-30T15:58:45Z',
+    shortId: 'newbookpageshortid',
+    title: 'page in a new book',
+    version: '0',
   };
 
   beforeEach(() => {
@@ -57,11 +84,15 @@ describe('locationChange', () => {
       route: routes.content,
     };
 
-    hook = require('./resolveContent').default;
+    const resolveContent = require('./resolveContent');
+    hook = resolveContent.default;
+    resolveExternalBookReference = resolveContent.resolveExternalBookReference;
   });
 
   describe('in development', () => {
-    jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+    beforeAll(() => {
+      jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+    });
 
     it('doesn\'t load book if its already loading', async() => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(
@@ -186,6 +217,45 @@ describe('locationChange', () => {
       await expect(
         resolveBookReference(helpers, match)
       ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
+    });
+
+    it('allows content links outside of BOOKS config and throws if not found', async() => {
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
+        Promise.resolve([{ id: 'newbookid', bookVersion: '0' }])
+      );
+      helpers.archiveLoader.mockBook(mockOtherBook);
+      helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
+
+      match.params = {
+        book: {uuid: mockOtherBook.id, version: '1.0'},
+        page: {slug: 'page-in-a-new-book'},
+      };
+
+      const referenceBook = await resolveExternalBookReference(
+        helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(referenceBook).toBeTruthy();
+
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.reject() as any);
+      helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      let message: string | undefined;
+
+      try {
+        await resolveExternalBookReference(
+          helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(message).toEqual(
+        'BUG: \"newbook / page in a new book\" referenced \"newbookpageid\"' +
+        ', but it could not be found in any configured books.'
+      );
     });
   });
 

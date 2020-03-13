@@ -98,7 +98,8 @@ describe('MyHighlights button and PopUp', () => {
   it('focus is on pop up content', async() => {
     const focus = jest.fn();
     const addEventListener = jest.fn();
-    const createNodeMock = () => ({focus, addEventListener});
+    const querySelectorAll = jest.fn(() => []);
+    const createNodeMock = () => ({focus, addEventListener, querySelectorAll});
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

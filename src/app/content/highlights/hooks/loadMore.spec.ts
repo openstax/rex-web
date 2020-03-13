@@ -71,6 +71,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights,
         meta: {
+          page: 1,
           perPage: 20,
           totalCount: 30,
         },
@@ -93,8 +94,11 @@ describe('filtersChange', () => {
       page: 1,
     }));
     expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {
-      page: 1,
-      sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+      pagination: {
+        page: 1,
+        perPage: 20,
+        sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+      },
     }));
 
     const page3 = Array.from(new Array(10).keys()).map((_, index) => ({
@@ -111,6 +115,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: page3,
         meta: {
+          page: 1,
           perPage: 20,
           totalCount: 30,
         },
@@ -118,6 +123,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: page4,
         meta: {
+          page: 1,
           perPage: 20,
           totalCount: 5,
         },
@@ -134,7 +140,7 @@ describe('filtersChange', () => {
     };
 
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response2, null));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response2, {pagination: null}));
   });
 
   it('receive summary data for selected page', async() => {
@@ -163,6 +169,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights as HighlightData[],
         meta: {
+          page: 1,
           perPage: 1,
           totalCount: 1,
         },
@@ -181,7 +188,7 @@ describe('filtersChange', () => {
       },
     };
 
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, null));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {pagination: null}));
   });
 
   it('receive summary data for selected page in chapter', async() => {
@@ -210,6 +217,7 @@ describe('filtersChange', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: highlights as HighlightData[],
         meta: {
+          page: 1,
           perPage: 1,
           totalCount: 1,
         },
@@ -228,7 +236,7 @@ describe('filtersChange', () => {
       },
     };
 
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, null));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {pagination: null}));
   });
 
   it('noops without book', async() => {
@@ -238,7 +246,7 @@ describe('filtersChange', () => {
     })));
 
     expect(helpers.highlightClient.getHighlights).not.toBeCalled();
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, null));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null}));
   });
 
   it('return before api call when there are no filters', async() => {
@@ -254,7 +262,7 @@ describe('filtersChange', () => {
       .mockReturnValue(Promise.resolve({}));
 
     expect(helpers.highlightClient.getHighlights).not.toBeCalled();
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, null));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null}));
   });
 
   it('handle case for no highlights.data', async() => {
@@ -269,6 +277,6 @@ describe('filtersChange', () => {
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
 
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, null));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null}));
   });
 });
