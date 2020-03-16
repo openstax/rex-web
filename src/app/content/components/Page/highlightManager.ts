@@ -113,6 +113,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     pendingHighlight = highlight;
     if (setListPendingHighlight) {
       setListPendingHighlight(highlight);
+      getProp().focus(highlight.id);
     }
   };
 

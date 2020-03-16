@@ -359,9 +359,9 @@ Array [
               Content
             </h3>
             path: 
-            /books/:uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:version/pages/:page
-            /books/:book@:version/pages/:page
-            /books/:book/pages/:page
+            /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
+            /books/:book_slug@:book_version/pages/:page_slug
+            /books/:book_slug/pages/:page_slug
           </div>
           <div>
             <h3
@@ -737,7 +737,7 @@ Array [
             className="c4"
             role="heading"
           >
-            OpenStax at Rice University is a 501(c)(3) nonprofit charity
+            OpenStax is part of Rice University, which is a 501(c)(3) nonprofit charitable corporation.
           </div>
           <div
             className="c5"

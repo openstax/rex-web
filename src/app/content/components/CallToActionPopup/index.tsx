@@ -74,7 +74,7 @@ const CallToActionPopup = () => {
       </CTAText>
       <CTAGraphic />
     </CTAContent>
-    <CTACloseButton onClick={closePopup} data-analytics-label='close'>
+    <CTACloseButton onClick={closePopup} data-analytics-label='close' data-testid='closeCTA'>
       <CTACloseIcon />
     </CTACloseButton>
   </CTAWrapper>;

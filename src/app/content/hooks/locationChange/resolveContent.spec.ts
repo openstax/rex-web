@@ -23,6 +23,7 @@ describe('locationChange', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let match: Match<typeof routes.content>;
   let hook: typeof import ('./resolveContent').default;
+  let resolveExternalBookReference: typeof import ('./resolveContent').resolveExternalBookReference;
 
   const mockUUIDBook = () => {
     const uuidBook = {
@@ -31,7 +32,33 @@ describe('locationChange', () => {
       version: '1.0',
     };
     helpers.archiveLoader.mockBook(uuidBook);
-    helpers.archiveLoader.mockPage(uuidBook, page, 'test-page-1');
+    helpers.archiveLoader.mockPage(uuidBook, page, testPage);
+  };
+
+  const mockOtherBook = {
+    abstract: '',
+    id: 'newbookid',
+    license: {name: '', version: ''},
+    revised: '2012-06-21',
+    shortId: 'newbookshortid',
+    title: 'newbook',
+    tree: {
+      contents: [],
+      id: 'newbookid@0',
+      shortId: 'newbookshortid@0',
+      slug: 'newbook',
+      title: 'newbook',
+    },
+    version: '0',
+  };
+  const mockPageInOtherBook = {
+    abstract: '',
+    content: 'dope content bruh',
+    id: 'newbookpageid',
+    revised: '2018-07-30T15:58:45Z',
+    shortId: 'newbookpageshortid',
+    title: 'page in a new book',
+    version: '0',
   };
 
   beforeEach(() => {
@@ -47,17 +74,25 @@ describe('locationChange', () => {
 
     match = {
       params: {
-        book: 'book-slug-1',
-        page: testPage,
+        book: {
+          slug: 'book-slug-1',
+        },
+        page : {
+          slug: testPage,
+        },
       },
       route: routes.content,
     };
 
-    hook = require('./resolveContent').default;
+    const resolveContent = require('./resolveContent');
+    hook = resolveContent.default;
+    resolveExternalBookReference = resolveContent.resolveExternalBookReference;
   });
 
   describe('in development', () => {
-    jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+    beforeAll(() => {
+      jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+    });
 
     it('doesn\'t load book if its already loading', async() => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(
@@ -70,9 +105,9 @@ describe('locationChange', () => {
         hook(helpers, match),
       ]);
       expect(dispatch).toHaveBeenCalledTimes(4);
-      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: testBookSlug}));
+      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({slug: testBookSlug}));
       expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage({slug: testPage}));
       expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
     });
 
@@ -85,9 +120,9 @@ describe('locationChange', () => {
       ]);
 
       expect(dispatch).toHaveBeenCalledTimes(4);
-      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({book: testBookSlug}));
+      expect(dispatch).toHaveBeenNthCalledWith(1, actions.requestBook({slug: testBookSlug}));
       expect(dispatch).toHaveBeenNthCalledWith(2, actions.receiveBook(expect.anything()));
-      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage('test-page-1'));
+      expect(dispatch).toHaveBeenNthCalledWith(3, actions.requestPage({slug: testPage}));
       expect(dispatch).toHaveBeenNthCalledWith(4, actions.receivePage(expect.anything()));
 
       expect(helpers.archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
@@ -96,10 +131,14 @@ describe('locationChange', () => {
     it('doesn\'t query book slug when already loaded', async() => {
       mockUUIDBook();
       match.params = {
-        page: testPage,
-        uuid: testUUID,
-        version: '1.0',
-      };
+        book: {
+          uuid: testUUID,
+          version: '1.0',
+        },
+        page: {
+          slug: testPage,
+        },
+      },
       await hook(helpers, match);
       await hook(helpers, match);
 
@@ -111,7 +150,10 @@ describe('locationChange', () => {
     it('uses param version if there is one', async() => {
       const versionedSlugParams = {
         ...match.params,
-        version: 'asdf',
+        book: {
+          ...match.params.book,
+          version: 'asdf',
+        },
       } as Params;
 
       match.params = versionedSlugParams;
@@ -123,7 +165,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockPage({
         ...book,
         version: 'asdf',
-      }, page, 'test-page-1');
+      }, page, testPage);
       await hook(helpers, match);
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', 'asdf');
     });
@@ -131,7 +173,10 @@ describe('locationChange', () => {
     it('uses latest version if requested', async() => {
       const versionedSlugParams = {
         ...match.params,
-        version: 'latest',
+        book: {
+          ...match.params.book,
+          version: 'latest',
+        },
       } as Params;
 
       match.params = versionedSlugParams;
@@ -142,7 +187,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockPage({
         ...book,
         version: undefined as any as string,
-      }, page, 'test-page-1');
+      }, page, testPage);
       await hook(helpers, match);
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', undefined);
     });
@@ -150,9 +195,13 @@ describe('locationChange', () => {
     it('uses uuid if present', async() => {
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       const versionedUuidParams = {
-        page: match.params.page,
-        uuid: testUUID,
-        version: '1.0',
+        book: {
+          uuid: testUUID,
+          version: '1.0',
+        },
+        page: {
+          slug: match.params.page.slug,
+        },
       } as Params;
 
       mockUUIDBook();
@@ -169,6 +218,45 @@ describe('locationChange', () => {
         resolveBookReference(helpers, match)
       ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
     });
+
+    it('allows content links outside of BOOKS config and throws if not found', async() => {
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
+        Promise.resolve([{ id: 'newbookid', bookVersion: '0' }])
+      );
+      helpers.archiveLoader.mockBook(mockOtherBook);
+      helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
+
+      match.params = {
+        book: {uuid: mockOtherBook.id, version: '1.0'},
+        page: {slug: 'page-in-a-new-book'},
+      };
+
+      const referenceBook = await resolveExternalBookReference(
+        helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(referenceBook).toBeTruthy();
+
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.reject() as any);
+      helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      let message: string | undefined;
+
+      try {
+        await resolveExternalBookReference(
+          helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+      } catch (e) {
+        message = e.message;
+      }
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(message).toEqual(
+        'BUG: \"newbook / page in a new book\" referenced \"newbookpageid\"' +
+        ', but it could not be found in any configured books.'
+      );
+    });
   });
 
   describe('in production', () => {
@@ -181,9 +269,13 @@ describe('locationChange', () => {
       mockUUIDBook();
 
       const versionedUuidParams = {
-        page: match.params.page,
-        uuid: testUUID,
-        version: '1.0',
+        book: {
+          uuid: testUUID,
+          version: '1.0',
+        },
+        page: {
+          slug: match.params.page.slug,
+        },
       } as Params;
       match.params = versionedUuidParams;
 

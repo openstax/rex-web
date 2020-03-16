@@ -7,7 +7,7 @@ import {
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
-  Page
+  Params,
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
@@ -75,31 +75,16 @@ export const findArchiveTreeNode = (
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
   flattenArchiveTree(tree).find(nodeMatcher(nodeId));
 
-export const findArchiveTreeNodeBySlug = (
+export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
-  nodeSlug: string
+  pageParam: Params['page']
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find((node) => node.slug === nodeSlug);
+  flattenArchiveTree(tree).find((node) => node.slug.toLowerCase() === pageParam.slug.toLowerCase());
 
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,
   nodeId: string
 ): boolean => !!findArchiveTreeNode(tree, nodeId);
-
-export const getPageSlug = (book: {id: string, tree: ArchiveTree}, page: Page) => {
-  const node = findArchiveTreeNode(book.tree, page.id);
-
-  if (!node) {
-    throw new Error(`trying to find slug of page, got undefined, pageid: ${page.id}, bookid: ${book.id}`);
-  }
-  if (!archiveTreeSectionIsPage(node)) {
-    throw new Error(
-      `trying to find slug of page, found node that was not a page, pageid: ${page.id}, bookid: ${book.id}`
-    );
-  }
-
-  return node.slug;
-};
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;
@@ -119,7 +104,7 @@ export const prevNextBookPage = (
   };
 };
 
-export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode) => !section.parent;
+export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode | undefined) => section && !section.parent;
 export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)

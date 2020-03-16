@@ -1,5 +1,4 @@
 import isEqual from 'lodash/fp/isEqual';
-import omit from 'lodash/fp/omit';
 import { APP_ENV, BOOKS } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
@@ -14,7 +13,7 @@ import {
   getContentPageReferences,
   getPageIdFromUrlParam,
 } from '../../utils';
-import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
 import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
@@ -59,9 +58,8 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  const omitPage = omit('page');
-  if (!isEqual(omitPage(match.params), omitPage(select.loadingBook(state)))) {
-    dispatch(requestBook(omitPage(match.params)));
+  if (!isEqual((match.params.book), select.loadingBook(state))) {
+    dispatch(requestBook(match.params.book));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
@@ -77,30 +75,30 @@ export const resolveBookReference = async(
   const state = getState();
   const currentBook = select.book(state);
 
-  const bookSlug = 'book' in match.params
-    ? match.params.book
-    : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.uuid
+  const bookSlug = 'slug' in match.params.book
+    ? match.params.book.slug
+    : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.book.uuid
       ? currentBook.slug
-      : await osWebLoader.getBookSlugFromId(match.params.uuid);
+      : await osWebLoader.getBookSlugFromId(match.params.book.uuid);
 
   if (match.state && match.state.bookUid && match.state.bookVersion) {
       return [bookSlug, match.state.bookUid,  match.state.bookVersion];
   }
 
-  const bookUid  = 'uuid' in match.params
-    ? match.params.uuid
-    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book
+  const bookUid  = 'uuid' in match.params.book
+    ? match.params.book.uuid
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book.slug
       ? currentBook.id
-      : await osWebLoader.getBookIdFromSlug(match.params.book);
+      : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
 
   if (!bookUid) {
     throw new Error(`Could not resolve uuid for slug: ${bookSlug}`);
   }
 
-  const bookVersion = 'version' in match.params
-    ? match.params.version === 'latest'
+  const bookVersion = 'version' in match.params.book
+    ? match.params.book.version === 'latest'
       ? undefined
-      : match.params.version
+      : match.params.book.version
     : assertDefined(
         BOOKS[bookUid],
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
@@ -144,34 +142,62 @@ const resolvePage = async(
     throw new Error('Page not found');
   }
 
+  const loadingPage = select.loadingPage(state);
   const pageState = select.page(state);
   if (pageState && pageState.id === pageId) {
     return pageState;
-  } else if (match.params.page !== select.loadingPage(state)) {
+  } else if (!isEqual(loadingPage, match.params.page)) {
     return await loadPage(services, match, book, bookLoader, pageId);
   }
 };
 
-const resolveExternalBookReference = async(
-  {archiveLoader, osWebLoader}: AppServices & MiddlewareAPI,
+const getBookInformation = async(
+  services: AppServices & MiddlewareAPI,
+  pageId: string
+) => {
+  const devEnvironment = APP_ENV === 'development';
+  const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
+  const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
+
+  if (configuredReference) {
+    const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
+    const archiveBook = await services.archiveLoader.book(
+      configuredReference.id, BOOKS[configuredReference.id].defaultVersion
+    ).load();
+
+    return {osWebBook, archiveBook};
+
+  } else if (devEnvironment) {
+    for (const {id, bookVersion} of allReferences) {
+      const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
+      const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
+
+      if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+        return {osWebBook, archiveBook};
+      }
+    }
+  }
+
+  return undefined;
+};
+
+export const resolveExternalBookReference = async(
+  services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
   pageId: string
 ) => {
-  const bookId = (await archiveLoader.getBookIdsForPage(pageId)).filter((id) => BOOKS[id])[0];
+  const bookInformation = await getBookInformation(services, pageId);
+
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${pageId}", ${message}`
   );
 
-  if (!bookId) {
+  if (!bookInformation) {
     throw error('but it could not be found in any configured books.');
   }
 
-  const bookVersion = BOOKS[bookId].defaultVersion;
-
-  const osWebBook = await osWebLoader.getBookFromId(bookId);
-  const archiveBook = await archiveLoader.book(bookId, bookVersion).load();
-  const referencedBook = formatBookData(archiveBook, osWebBook);
+  const referencedBook = formatBookData(bookInformation.archiveBook, bookInformation.osWebBook);
 
   if (!archiveTreeContainsNode(referencedBook.tree, pageId)) {
     throw error(`archive thought it would be in "${referencedBook.id}", but it wasn't`);
@@ -193,7 +219,7 @@ const loadContentReference = async(
   return {
     match: reference.match,
     params: {
-      ...getUrlParamsForBook(targetBook),
+      book: getUrlParamsForBook(targetBook),
       page: getUrlParamForPageId(targetBook, reference.pageUid),
     },
     state: {

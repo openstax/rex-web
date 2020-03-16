@@ -2,6 +2,7 @@ import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@opensta
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
+import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
@@ -151,6 +152,24 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearFocusedHighlight): {
       return omit('focused', state);
     }
+    case getType(actions.printSummaryHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: true,
+        },
+      };
+    }
+    case getType(actions.toggleSummaryHighlightsLoading): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          loading: action.payload,
+        },
+      };
+    }
     case getType(actions.initializeMyHighlightsSummary):
     case getType(actions.loadMoreSummaryHighlights): {
       return {
@@ -182,8 +201,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           highlights: merge(state.summary.highlights || {}, action.payload),
-          loading: false,
-          pagination: action.meta,
+          loading: Boolean(action.meta.isStillLoading),
+          pagination: action.meta.pagination,
         },
       };
     }
@@ -201,6 +220,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           totalCountsPerPage: action.payload,
         },
       };
+    }
+    case getType(receiveLoggedOut): {
+      return initialState;
     }
     default:
       return state;

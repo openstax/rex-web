@@ -4,42 +4,30 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled from 'styled-components';
 import * as selectAuth from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import { DropdownList } from '../../../components/Dropdown';
-import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { remsToEms } from '../../../utils';
-import { contentTextWidth, searchResultsBarDesktopWidth, sidebarDesktopWidth } from '../../components/constants';
-import { disablePrint } from '../../components/utils/disablePrint';
-import { styleWhenSidebarClosed } from '../../components/utils/sidebar';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
 import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight, updateHighlight } from '../actions';
-import {
-  cardContentMargin,
-  cardFocusedContentMargin,
-  cardMinWindowMargin,
-  cardPadding,
-  cardWidth,
-  highlightStyles
-} from '../constants';
+import { highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import { getHighlightBottomOffset } from './cardUtils';
+import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
-import { cardBorder } from './style';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isFocused: boolean;
+  isTocOpen: boolean;
+  hasQuery: boolean;
   user: User;
   loginLink: string;
   highlighter: Highlighter;
@@ -51,82 +39,93 @@ export interface CardProps {
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
   className: string;
-  topOffset: number;
-  onHeightChange: (id: string, ref: React.RefObject<HTMLElement>) => void;
-  onFocus: (id: string) => void;
+  zIndex: number;
+  topOffset?: number;
+  onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
+  onFocus: () => void;
   onBlur: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = (props: CardProps) => {
-  const annotation = props.data && props.data.annotation;
+const Card = ({
+  book,
+  blur,
+  className,
+  create,
+  data,
+  focus,
+  highlight,
+  highlighter,
+  loginLink,
+  isFocused,
+  onFocus,
+  onBlur,
+  onHeightChange,
+  page,
+  remove,
+  save,
+  user,
+}: CardProps) => {
+  const annotation = data && data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
-  const { isFocused } = props;
-
   React.useEffect(() => {
     if (element.current && isFocused) {
-      props.onFocus(props.highlight.id);
+      onFocus();
     }
     if (!isFocused) {
       setEditing(false);
-      props.onBlur();
+      onBlur();
     }
-  }, [isFocused]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused, element]);
 
   React.useEffect(() => {
     if (annotation) {
-      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
+      highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
     } else {
-      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
+      highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
     }
-  }, [props.highlight, annotation]);
+  }, [highlight, annotation]);
 
-  const prevHeight = element.current && element.current.offsetHeight;
   React.useEffect(() => {
     if (!annotation && !isFocused) {
-      props.onHeightChange(props.highlight.id, { current: null } as React.RefObject<HTMLElement>);
-      return;
+      onHeightChange({ current: null } as React.RefObject<HTMLElement>);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [annotation, isFocused]);
 
-    const currentHeight = element.current && element.current.offsetHeight;
-    if (currentHeight && prevHeight !== currentHeight) {
-      props.onHeightChange(props.highlight.id, element);
-    }
-  }, [element, editing, annotation, isFocused, prevHeight]);
+  const location = React.useMemo(() => {
+    return page && getHighlightLocationFilterForPage(locationFilters, page);
+  }, [locationFilters, page]);
 
-  const handleClickOnCard = () => {
-    if (!isFocused) {
-      props.focus(props.highlight.id);
-    }
-  };
+  const locationFilterId = location && stripIdVersion(location.id);
 
-  const {page, book} = props;
-
-  if (!props.highlight.range || !page || !book) {
+  if (!highlight.range || !page || !book || !locationFilterId || (!isFocused && !annotation)) {
     return null;
   }
 
-  const location = getHighlightLocationFilterForPage(locationFilters, page);
-  if (!location) { return null; }
-
-  const locationFilterId = stripIdVersion(location.id);
+  const handleClickOnCard = () => {
+    if (!isFocused) {
+      focus(highlight.id);
+    }
+  };
 
   const onRemove = () => {
-    if (props.data) {
-      props.remove(props.data.id, {
+    if (data) {
+      remove(data.id, {
         locationFilterId,
         pageId: page.id,
       });
     }
   };
-  const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
+  const style = highlightStyles.find((search) => data && search.label === data.color);
 
   const onCreate = () => {
-    props.create({
-      ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
+    create({
+      ...highlight.serialize().getApiPayload(highlighter, highlight),
       scopeId: book.id,
       sourceId: page.id,
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
@@ -137,16 +136,13 @@ const Card = (props: CardProps) => {
   };
 
   const commonProps = {
-    className: props.className,
-    highlight: props.highlight,
-    isFocused: props.isFocused,
-    onBlur: props.blur,
-    onHeightChange: props.onHeightChange,
+    className,
+    isFocused,
+    onBlur: blur,
+    onHeightChange,
     onRemove,
     ref: element,
   };
-
-  if (!props.isFocused && !annotation) { return null; }
 
   return <div onClick={handleClickOnCard}>
     {
@@ -157,163 +153,23 @@ const Card = (props: CardProps) => {
         onEdit={() => setEditing(true)}
       /> : <EditCard
         {...commonProps}
-        authenticated={!!props.user}
-        loginLink={props.loginLink}
+        highlight={highlight}
+        authenticated={!!user}
+        loginLink={loginLink}
         locationFilterId={locationFilterId}
         pageId={page.id}
         onCreate={onCreate}
         onCancel={() => setEditing(false)}
-        onSave={props.save}
-        data={props.data}
+        onSave={save}
+        data={data}
       />
     }
   </div>;
 };
 
-/*
- * putting overflow hidden on a page wrapper that aligns with the window edge would
- * include the sidebar, which would break position: sticky.
- *
- * avoiding using an overflow hidden to hide cards when there is not enough space
- * means being very explicit about hiding them so they don't create a horizontal
- * scrollbar.
- *
- * in this case that means using extensive knowledge about the container widths,
- * which unfortunately means knowledge of all the sidebar widths and their state
- * too.
- *
- * consider making a helper like `styleWhenSidebarClosed` maybe `styleWhenContentWidth`
- * that has a selector to get the relevant stuff.
- */
-
-const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
-
-const overlapDisplay = css`
-  ${(props: CardProps) => !!props.isFocused && css`
-    left: unset;
-    right: ${cardMinWindowMargin}rem;
-    top: ${() => {
-      return getHighlightBottomOffset(props.container, props.highlight) || 0;
-    }}px;
-  `}
-  ${(props: CardProps) => !props.isFocused && css`
-    display: none;
-  `}
-`;
-
-const rightSideDisplay = css`
-  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
-  right: unset;
-  top: ${(props: CardProps) => `${props.topOffset}px;`}
-  ${(props: CardProps) => !!props.isFocused && css`
-    left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
-  `}
-`;
-
-const mobileDisplay = css`
-  ${(props: CardProps) => !!props.isFocused && css`
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: unset;
-    position: fixed;
-    padding: 0;
-  `}
-  ${(props: CardProps) => !props.isFocused && css`
-    display: none;
-  `}
-`;
-
-export const mediaQueryBreakToStopDisplaingAllCards = remsToEms(
- contentTextWidth + sidebarDesktopWidth + additionalWidthForCard) + 'em';
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-`;
-
-const fadeInAnimation = css`
-  animation: ${600}ms ${fadeIn} ease-out;
-`;
-
-// tslint:disable-next-line:variable-name
+// tslint:disable-next-line: variable-name
 const StyledCard = styled(Card)`
-  ${fadeInAnimation}
-  position: absolute;
-  padding: ${cardPadding}rem;
-  ${cardBorder}
-  ${rightSideDisplay}
-  ${disablePrint}
-
-  transition: all 0.3s;
-
-  ${DropdownList} {
-    z-index: 1;
-  }
-
-  ${(props: {data: HighlightData}) => {
-    const data = props.data;
-
-    if (!data || !data.color) {
-      return null;
-    }
-
-    const style = highlightStyles.find((search) => search.label === props.data.color);
-
-    if (!style) {
-      return null;
-    }
-
-    return css`
-      ::before {
-        content: ' ';
-        border-radius: 0.4rem 0 0 0.4rem;
-        position: absolute;
-        top: 0;
-        left: 0
-        bottom: 0;
-        width: ${cardPadding / 2}rem;
-        background-color: ${style.focused};
-      }
-      ${theme.breakpoints.mobile(css`
-        ::before {
-          border-radius: 0.4rem 0.4rem 0 0;
-          right: 0;
-          bottom: unset;
-          width: unset;
-          height: ${cardPadding / 2}rem;
-        }
-     `)}
-    `;
-  }}
-
-  @media (max-width: ${mediaQueryBreakToStopDisplaingAllCards}) {
-    /* the window is too small to show note cards next to content when the toc is open */
-    animation: none;
-    ${overlapDisplay}
-    ${styleWhenSidebarClosed(rightSideDisplay)}
-  }
-
-  ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
-    @media (max-width: ${remsToEms(contentTextWidth + searchResultsBarDesktopWidth + additionalWidthForCard)}em) {
-      /* the window is too small to show note cards next to content when search is open */
-      ${overlapDisplay}
-    }
-  `}
-
-  @media (max-width: ${remsToEms(contentTextWidth + additionalWidthForCard)}em) {
-    /* the window is too small to show note cards next to content even without sidebars */
-    ${overlapDisplay}
-  }
-
-  ${theme.breakpoints.mobile(css`
-    ${mobileDisplay}
- `)}
+  ${mainCardStyles}
 `;
 
 export default connect(
@@ -322,7 +178,7 @@ export default connect(
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
-    isOpen: contentSelect.tocOpen(state),
+    isTocOpen: contentSelect.tocOpen(state),
     loginLink: selectAuth.loginLink(state),
     user: selectAuth.user(state),
   }),

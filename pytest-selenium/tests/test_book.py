@@ -1,6 +1,7 @@
 from tests import markers
 from pages.content import Content
 from pages.osweb import WebBase
+from utils.utility import Utilities
 
 
 @markers.test_case("C476808")
@@ -22,3 +23,24 @@ def test_book_title_links_to_books_detail_page(selenium, base_url, book_slug, pa
     expected_page_url = base_url + "/details/books/" + book_slug
 
     assert expected_page_url == osweb.current_url
+
+
+@markers.test_case("C583482")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_buy_book_link(selenium, base_url, book_slug, page_slug):
+
+    # GIVEN: A page is loaded
+    browser = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    rex_url = browser.current_url
+
+    # WHEN: Click on 'Buy Book' link in toolbar
+    Utilities.click_option(selenium, element=browser.buy_book)
+
+    # THEN: The Amazon link should be opened in a new tab
+    browser.switch_to_window(1)
+    assert browser.current_url == "https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+
+    # AND: The first tab has rex page open
+    browser.switch_to_window(0)
+    assert browser.current_url == rex_url

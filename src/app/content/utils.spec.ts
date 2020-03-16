@@ -89,13 +89,13 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual('preface');
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual('preface');
+    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual('preface');
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual('preface');
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
   it('throws on invalid id', () => {
@@ -130,15 +130,15 @@ describe('getPageIdFromUrlParam', () => {
   });
 
   it('finds id for simple param', () => {
-    expect(getPageIdFromUrlParam(book, 'Preface')).toEqual('pagelongid');
+    expect(getPageIdFromUrlParam(book, {slug: 'Preface'})).toEqual('pagelongid');
   });
 
   it('ignores captialization', () => {
-    expect(getPageIdFromUrlParam(book, 'preface')).toEqual('pagelongid');
+    expect(getPageIdFromUrlParam(book, {slug: 'preface'})).toEqual('pagelongid');
   });
 
   it('returns undefined for unknown route', () => {
-    expect(getPageIdFromUrlParam(book, 'asdfasdf')).toBeUndefined();
+    expect(getPageIdFromUrlParam(book, {slug: 'asdfasdf'})).toBeUndefined();
   });
 });
 

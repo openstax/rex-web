@@ -1,46 +1,43 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
-import theme from '../../../theme';
-import { assertDefined, assertWindow, remsToPx } from '../../../utils';
+import { AppState } from '../../../types';
+import { assertDefined, remsToPx } from '../../../utils';
+import * as selectSearch from '../../search/selectors';
+import * as contentSelect from '../../selectors';
 import { cardMarginBottom } from '../constants';
-import Card, { mediaQueryBreakToStopDisplaingAllCards } from './Card';
+import Card from './Card';
+import { mainWrapperStyles } from './cardStyles';
 import { getHighlightTopOffset } from './cardUtils';
 
-interface Props {
+export interface WrapperProps {
+  hasQuery: boolean;
+  isTocOpen: boolean;
   container: HTMLElement;
   highlighter: Highlighter;
   highlights: Highlight[];
   className?: string;
 }
 
-const displayAllCardsMediaQuery = `(max-width: ${mediaQueryBreakToStopDisplaingAllCards})`;
-
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter}: Props) => {
-  const displayAllCards = !assertWindow().matchMedia(displayAllCardsMediaQuery).matches;
-
+const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
-    if (!displayAllCards) { return; }
-
     const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
-      setCardsHeights((data) => new Map(data.set(id, height === null ? 0 : height)));
+      setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
     }
   };
 
-  const onFocus = (id: string) => {
-    if (!displayAllCards) { return; }
-
-    const highlight = highlights.find((search) => search.id === id);
-    const position = cardsPositions.get(id);
-    if (typeof position !== 'number' || !highlight) { return; }
+  const onFocus = (highlight: Highlight) => {
+    const position = cardsPositions.get(highlight.id);
+    if (typeof position !== 'number') { return; }
 
     const topOffset = assertDefined(
       getHighlightTopOffset(container, highlight),
@@ -51,10 +48,13 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
       element.current!.style.top = `-${position - topOffset}px`;
     }
 
-    scrollIntoView(highlight.elements[0] as HTMLElement);
+    // This will be undefined for pendingHighlight
+    if (highlight.elements[0]) {
+      scrollIntoView(highlight.elements[0] as HTMLElement);
+    }
   };
 
-  const onBlur = () => {
+  const resetTopOffset = () => {
     element.current!.style.top = '0';
   };
 
@@ -70,15 +70,9 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
         `Couldn't get top offset for highlights`
       );
 
-      let stackedTopOffset = lastVisibleCardPosition;
-
-      if (topOffset < (lastVisibleCardPosition + lastVisibleCardHeight + remsToPx(cardMarginBottom))) {
-        stackedTopOffset = stackedTopOffset
-          + lastVisibleCardHeight
-          + (index > 0 ? remsToPx(cardMarginBottom) : 0);
-      } else {
-        stackedTopOffset = topOffset;
-      }
+      const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
+        + lastVisibleCardHeight
+        + (index > 0 ? remsToPx(cardMarginBottom) : 0));
 
       if (cardsHeights.get(highlight.id)) {
         lastVisibleCardPosition = stackedTopOffset;
@@ -86,39 +80,37 @@ const Wrapper = ({highlights, className, container, highlighter}: Props) => {
       }
 
       newPositions.set(highlight.id, stackedTopOffset);
-
-      setCardsPositions(newPositions);
     }
+
+    setCardsPositions(newPositions);
   }, [highlights, cardsHeights, container]);
 
   React.useEffect(() => {
-    if (displayAllCards) {
-      updatePositions();
-    } else {
-      onBlur();
-    }
-  }, [updatePositions, displayAllCards]);
+    updatePositions();
+  }, [updatePositions]);
 
-  return highlights.length && (displayAllCards ? cardsPositions.size : true)
+  return highlights.length
     ? <div className={className} ref={element}>
-      {highlights.map((highlight) => <Card
+      {highlights.map((highlight, index) => <Card
         highlighter={highlighter}
         highlight={highlight}
         key={highlight.id}
         container={container}
-        topOffset={cardsPositions.get(highlight.id) || 0}
-        onHeightChange={onHeightChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        topOffset={cardsPositions.get(highlight.id)}
+        onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
+        onFocus={() => onFocus(highlight)}
+        onBlur={resetTopOffset}
+        zIndex={highlights.length - index}
       />)}
     </div>
     : null;
 };
 
-export default styled(Wrapper)`
-  position: relative;
-  overflow: visible;
-  z-index: ${theme.zIndex.highlightInlineCard};
-  top: 0;
-  transition: all 0.3s;
-`;
+export default connect(
+  (state: AppState) => ({
+    hasQuery: !!selectSearch.query(state),
+    isTocOpen: contentSelect.tocOpen(state),
+  })
+)(styled(Wrapper)`
+  ${mainWrapperStyles}
+`);

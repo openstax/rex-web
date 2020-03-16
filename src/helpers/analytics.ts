@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { servicesContext } from '../app/context/Services';
+import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
 import { AppState, Store } from '../app/types';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
@@ -100,7 +99,7 @@ export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T
   // the types in here are horrible, probably because of:
   // https://github.com/Microsoft/TypeScript/issues/13995
   // but the returned function has the correct args so whatever
-  const services = useContext(servicesContext);
+  const services = useServices();
   const event = services.analytics[eventType];
   const data = useSelector(event.selector as any);
 
