@@ -10,7 +10,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
   left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
   right: unset;
-  top: undefinedpx;
+  top: 150px;
   left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -57,8 +57,10 @@ exports[`Card matches snapshot when focused without note 1`] = `
   }
 }
 
-@media (max-width:82.8125em) {
+@media (max-width:(max-width:82.8125em)em) {
   .c0 {
+    -webkit-animation: none;
+    animation: none;
     left: unset;
     right: 2rem;
     top: 150px;
@@ -67,6 +69,8 @@ exports[`Card matches snapshot when focused without note 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 {
+    -webkit-animation: none;
+    animation: none;
     left: 0;
     right: 0;
     bottom: 0;
@@ -102,8 +106,16 @@ exports[`Card matches snapshot when focused without note 1`] = `
             "calls": Array [
               Array [],
               Array [],
+              Array [],
             ],
             "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
               Object {
                 "type": "return",
                 "value": Object {

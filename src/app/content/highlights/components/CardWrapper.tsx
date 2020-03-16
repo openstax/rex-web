@@ -23,7 +23,7 @@ export interface WrapperProps {
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
+export const CardWrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
@@ -111,6 +111,6 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isTocOpen: contentSelect.tocOpen(state),
   })
-)(styled(Wrapper)`
+)(styled(CardWrapper)`
   ${mainWrapperStyles}
 `);

@@ -1,6 +1,9 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { Store } from '../../../types';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
 
@@ -10,10 +13,18 @@ jest.mock('./cardUtils', () => ({
 }));
 
 describe('CardWrapper', () => {
+  let store: Store;
+
+  beforeEach(() => {
+    store = createTestStore();
+  });
+
   it('matches snapshot', async() => {
-    const component = renderer.create(<CardWrapper
-      highlights={[createMockHighlight()]}
-    />);
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper
+        highlights={[createMockHighlight()]}
+      />
+    </Provider>);
 
     // wait for React.useEffect
     await renderer.act(async() => undefined);
@@ -23,9 +34,11 @@ describe('CardWrapper', () => {
   });
 
   it('renders cards', async() => {
-    const component = renderer.create(<CardWrapper
-      highlights={[createMockHighlight(), createMockHighlight()]}
-    />);
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper
+        highlights={[createMockHighlight(), createMockHighlight()]}
+      />
+    </Provider>);
 
     // wait for React.useEffect
     await renderer.act(async() => undefined);

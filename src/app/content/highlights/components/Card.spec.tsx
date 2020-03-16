@@ -95,7 +95,7 @@ describe('Card', () => {
     ] as HighlightData[]));
     store.dispatch(requestSearch('asdf'));
     const component = renderer.create(<Provider store={store}>
-      <Card {...cardProps} highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} topOffset={150} highlight={highlight as unknown as Highlight} />
     </Provider>);
 
     const tree = component.toJSON();

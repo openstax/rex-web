@@ -10,6 +10,18 @@ exports[`CardWrapper matches snapshot 1`] = `
   transition: all 0.3s;
 }
 
+@media (max-width:103.75em) {
+  .c0 {
+    top: 0 !important;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    top: 0 !important;
+  }
+}
+
 <div
   className="c0"
 />

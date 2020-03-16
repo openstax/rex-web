@@ -8,7 +8,7 @@ export const getHighlightOffset = (container: HTMLElement | undefined, highlight
     return;
   }
 
-  const {top, bottom } = highlight.range.getBoundingClientRect();
+  const {top, bottom} = highlight.range.getBoundingClientRect();
 
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
   const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
