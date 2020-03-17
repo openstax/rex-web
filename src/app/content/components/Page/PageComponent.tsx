@@ -108,7 +108,9 @@ export default class PageComponent extends Component<PagePropTypes, {hasSearchEr
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {this.state.hasSearchError ? <SearchFailure dismiss={this.dismissError} /> : null}
+      {this.state.hasSearchError
+        ? <SearchFailure dismiss={this.dismissError} mobileToolbarOpen={this.props.mobileToolbarOpen} />
+        : null}
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
         <PrevNextBar />

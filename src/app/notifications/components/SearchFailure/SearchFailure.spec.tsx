@@ -17,9 +17,13 @@ describe('SearchFailure', () => {
   let addEventListener: jest.SpyInstance;
   let window: Window;
   let removeEventListener: jest.SpyInstance;
+  let dismiss: jest.Mock;
 
   beforeEach(() => {
     resetModules();
+
+    dismiss = jest.fn();
+
     window = assertWindow();
     addEventListener = jest.spyOn(window, 'addEventListener');
     removeEventListener = jest.spyOn(window, 'removeEventListener');
@@ -27,10 +31,34 @@ describe('SearchFailure', () => {
     jest.useFakeTimers();
   });
 
-  it('manages timeouts', async() => {
-    const dismiss = jest.fn(() => undefined);
+  it('matches snapshot', () => {
+    const component = renderer.create(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+    </MessageProvider>);
 
-    const component = renderer.create(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
+    const tree = component.toJSON();
+    component.unmount();
+    expect(tree).toMatchSnapshot();
+
+    jest.runAllTimers();
+  });
+
+  it('matches snapshot when mobile toolbar is open', () => {
+    const component = renderer.create(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true} />
+    </MessageProvider>);
+
+    const tree = component.toJSON();
+    component.unmount();
+    expect(tree).toMatchSnapshot();
+
+    jest.runAllTimers();
+  });
+
+  it('manages timeouts', async() => {
+    const component = renderer.create(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+    </MessageProvider>);
 
     expect(addEventListener).toHaveBeenCalledWith('scroll', expect.anything());
     expect(addEventListener).toHaveBeenCalledWith('click', expect.anything());
@@ -53,9 +81,9 @@ describe('SearchFailure', () => {
   });
 
   it('doesnt allow dismissing immediately after mounting', () => {
-    const dismiss = jest.fn(() => undefined);
-
-    const component = renderer.create(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
+    const component = renderer.create(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+    </MessageProvider>);
 
     const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
 
@@ -70,9 +98,9 @@ describe('SearchFailure', () => {
   });
 
   it('dismisses on animation end', () => {
-    const dismiss = jest.fn(() => undefined);
-
-    const {root} = renderToDom(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
+    const {root} = renderToDom(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+    </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
     if (!wrapper) {
@@ -85,8 +113,9 @@ describe('SearchFailure', () => {
   });
 
   it('dismisses notification on click', () => {
-    const dismiss = jest.fn(() => undefined);
-    const component = renderer.create(<MessageProvider><SearchFailure dismiss={dismiss} /></MessageProvider>);
+    const component = renderer.create(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+    </MessageProvider>);
 
     renderer.act(() => {
       jest.advanceTimersByTime(shouldAutoDismissAfter);

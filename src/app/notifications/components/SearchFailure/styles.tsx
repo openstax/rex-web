@@ -46,7 +46,11 @@ export const BannerBodyWrapper = styled.div`
 
   @media (max-width: ${inlineDisplayBreak}) {
     z-index: ${theme.zIndex.contentNotifications + 1};
-    top: ${bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight}rem;
+    top: ${({mobileToolbarOpen}) => bookBannerMobileMiniHeight + toolbarMobileHeight + (
+      mobileToolbarOpen
+        ? toolbarMobileSearchWrapperHeight
+        : 0
+    )}rem;
   }
 
   ${(props) => props.isFadingOut && css`

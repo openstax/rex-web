@@ -15,10 +15,11 @@ export const shouldAutoDismissAfter = 100;
 
 interface Props {
   dismiss: () => void;
+  mobileToolbarOpen: boolean;
 }
 
 // tslint:disable-next-line:variable-name
-const SearchFailure = ({ dismiss }: Props) => {
+const SearchFailure = ({ dismiss, mobileToolbarOpen }: Props) => {
   const window = assertWindow();
   const [isFadingOut, setIsFadingOut] = React.useState(false);
   const [shouldAutoDismiss, setShouldAutoDismiss] = React.useState(false);
@@ -39,6 +40,7 @@ const SearchFailure = ({ dismiss }: Props) => {
     <BannerBodyWrapper
       data-testid='banner-body'
       onAnimationEnd={dismiss}
+      mobileToolbarOpen={mobileToolbarOpen}
       isFadingOut={isFadingOut}
     >
       <BannerBody>
