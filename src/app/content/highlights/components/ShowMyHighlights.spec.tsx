@@ -103,14 +103,16 @@ describe('Show my highlights', () => {
   });
 
   it('doesn\'t request more if not at bottom', () => {
-    store.dispatch(receiveSummaryHighlights({}, null));
+    store.dispatch(receiveSummaryHighlights({}, {pagination: null}));
 
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()} >
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
     if (!target) {
@@ -141,7 +143,7 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {
         'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
       },
-    }, null));
+    }, {pagination: null}));
 
     expect(hasMoreResults(store.getState())).toBeTruthy();
 
@@ -214,7 +216,7 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {
         'testbook1-testpage1-uuid': [{} as HighlightData],
       },
-    }, null));
+    }, {pagination: null}));
 
     expect(hasMoreResults(store.getState())).toBeTruthy();
 
@@ -267,9 +269,11 @@ describe('Show my highlights', () => {
     });
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()} >
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
@@ -322,9 +326,11 @@ describe('Show my highlights', () => {
     });
 
     const {root} = renderToDom(<Provider store={store}>
-      <MessageProvider>
-        <ShowMyHighlights/>
-      </MessageProvider>
+      <Services.Provider value={createTestServices()} >
+        <MessageProvider>
+          <ShowMyHighlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');

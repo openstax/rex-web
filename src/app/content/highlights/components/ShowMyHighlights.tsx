@@ -1,11 +1,11 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { typesetMath } from '../../../../helpers/mathjax';
+import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
-import { AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { AppServices, AppState, Dispatch } from '../../../types';
 import { loadMoreSummaryHighlights } from '../actions';
 import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
@@ -17,6 +17,7 @@ interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
   summaryIsLoading: boolean;
   loadMore: () => void;
+  services: AppServices;
 }
 
 class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: boolean }> {
@@ -61,7 +62,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         this.fetchMoreHighlights(highlightsBodyRef);
       };
       highlightsBodyRef.addEventListener('scroll', this.scrollHandler);
-      typesetMath(highlightsBodyRef, assertWindow());
     }
   }
 
@@ -102,9 +102,14 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
   }
 }
 
-export default connect((state: AppState) => ({
-  hasMoreResults: select.hasMoreResults(state),
-  summaryIsLoading: select.summaryIsLoading(state),
-}), (dispatch: Dispatch) => ({
-  loadMore: () => dispatch(loadMoreSummaryHighlights()),
-}))(ShowMyHighlights);
+const connector = connect(
+  (state: AppState) => ({
+    hasMoreResults: select.hasMoreResults(state),
+    summaryIsLoading: select.summaryIsLoading(state),
+  }),
+  (dispatch: Dispatch) => ({
+    loadMore: () => dispatch(loadMoreSummaryHighlights()),
+  })
+);
+
+export default flow(withServices, connector)(ShowMyHighlights);
