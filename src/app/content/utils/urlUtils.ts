@@ -85,10 +85,8 @@ export const toRelativeUrl = (from: string, to: string) => {
   const parsedTo = to.split('/');
 
   // remove the last piece of the "to" so that it is always output
-  const commonParts = getCommonParts(parsedFrom, parsedTo.slice(0, -1));
+  const commonParts = getCommonParts(parsedFrom, parsedTo.slice(0, /\/$/.test(to) ? -2 : -1));
 
-  const valueToSubtract = commonParts.length + 1;
-
-  return '../'.repeat(parsedFrom.length - valueToSubtract)
+  return '../'.repeat(parsedFrom.length - commonParts.length - 1)
     + parsedTo.slice(commonParts.length).join('/');
 };
