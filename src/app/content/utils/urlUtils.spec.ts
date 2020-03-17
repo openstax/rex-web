@@ -1,8 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import {
-  book as mockArchiveBook,
-  page
-} from '../../../test/mocks/archiveLoader';
+import { book as mockArchiveBook, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
 import { Book } from '../types';
@@ -16,28 +13,21 @@ import {
 const testUUID = 'longidin-vali-dfor-mat1-111111111111';
 
 jest.mock('../../../config', () => {
-  const mockBook = (jest as any).requireActual(
-    '../../../test/mocks/archiveLoader'
-  ).book;
-  return {
-    BOOKS: {
-      [mockBook.id]: { defaultVersion: mockBook.version },
-    },
-  };
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+    [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
 });
 
 describe('getBookPageUrlAndParams', () => {
   it('generates params without version', () => {
-    const result = getBookPageUrlAndParams(
-      formatBookData(mockArchiveBook, mockCmsBook),
-      page
-    );
+    const result = getBookPageUrlAndParams(formatBookData(mockArchiveBook, mockCmsBook), page);
     expect((result.params.book as any).version).toBeUndefined();
   });
 
   it('generates params with version', () => {
     const result = getBookPageUrlAndParams(
-      { ...formatBookData(mockArchiveBook, mockCmsBook), version: 'asdf' },
+      {...formatBookData(mockArchiveBook, mockCmsBook), version: 'asdf'},
       page
     );
     expect((result.params.book as any).version).toBe('asdf');
@@ -48,11 +38,8 @@ describe('getBookPageUrlAndParams', () => {
       page
     );
 
-    expect(result.params.book as any).not.toHaveProperty('slug');
-    expect(result.params.book as any).toMatchObject({
-      uuid: testUUID,
-      version: mockArchiveBook.version,
-    });
+    expect((result.params.book as any)).not.toHaveProperty('slug');
+    expect((result.params.book as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
   });
 });
 
@@ -82,17 +69,13 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual({ slug: 'preface' });
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual({ slug: 'preface' });
+    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
-    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({
-      slug: 'preface',
-    });
-    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({
-      slug: 'preface',
-    });
+    expect(getUrlParamForPageId(book, 'pagelongid')).toEqual({slug: 'preface'});
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
   it('throws on invalid id', () => {
@@ -127,19 +110,15 @@ describe('getPageIdFromUrlParam', () => {
   });
 
   it('finds id for simple param', () => {
-    expect(getPageIdFromUrlParam(book, { slug: 'Preface' })).toEqual(
-      'pagelongid'
-    );
+    expect(getPageIdFromUrlParam(book, {slug: 'Preface'})).toEqual('pagelongid');
   });
 
   it('ignores captialization', () => {
-    expect(getPageIdFromUrlParam(book, { slug: 'preface' })).toEqual(
-      'pagelongid'
-    );
+    expect(getPageIdFromUrlParam(book, {slug: 'preface'})).toEqual('pagelongid');
   });
 
   it('returns undefined for unknown route', () => {
-    expect(getPageIdFromUrlParam(book, { slug: 'asdfasdf' })).toBeUndefined();
+    expect(getPageIdFromUrlParam(book, {slug: 'asdfasdf'})).toBeUndefined();
   });
 });
 
