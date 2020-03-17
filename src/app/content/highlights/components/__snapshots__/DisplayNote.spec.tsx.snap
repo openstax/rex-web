@@ -274,9 +274,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       <ol
         className="c13 c14"
       >
-        <li
-          aria-label="Edit"
-        >
+        <li>
           <a
             href=""
             onClick={[Function]}
@@ -285,9 +283,7 @@ exports[`DisplayNote matches snapshot 1`] = `
             Edit
           </a>
         </li>
-        <li
-          aria-label="Delete"
-        >
+        <li>
           <a
             href=""
             onClick={[Function]}
@@ -658,9 +654,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       <ol
         className="c13 c14"
       >
-        <li
-          aria-label="Edit"
-        >
+        <li>
           <a
             href=""
             onClick={[Function]}
@@ -669,9 +663,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
             Edit
           </a>
         </li>
-        <li
-          aria-label="Delete"
-        >
+        <li>
           <a
             href=""
             onClick={[Function]}

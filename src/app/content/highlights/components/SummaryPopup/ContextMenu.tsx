@@ -102,33 +102,39 @@ const ContextMenu = ({
   onColorChange,
   onEdit,
   onDelete,
-}: ContextMenuProps) => <StyledContextMenu>
-  <Dropdown
-    toggle={<HighlightDropdownMenu />}
-    transparentTab={false}
-  >
-    <HighlightToggleEditContent>
-      <ColorPicker
-        color={color}
-        size='small'
-        onChange={onColorChange}
-      />
-      <StyledDropdownList>
-        <DropdownItem
-          data-testid='edit'
-          message={hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note'}
-          prefix={<StyledEditIcon/>}
-          onClick={() => onEdit()}
+}: ContextMenuProps) => {
+  const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
+  const deleteMessage = 'i18n:highlighting:dropdown:delete';
+  return <StyledContextMenu>
+    <Dropdown
+      toggle={<HighlightDropdownMenu />}
+      transparentTab={false}
+    >
+      <HighlightToggleEditContent>
+        <ColorPicker
+          color={color}
+          size='small'
+          onChange={onColorChange}
         />
-        <DropdownItem
-          data-testid='delete'
-          message='i18n:highlighting:dropdown:delete'
-          prefix={<StyledTrashAltIcon/>}
-          onClick={() => onDelete()}
-        />
-      </StyledDropdownList>
-    </HighlightToggleEditContent>
-  </Dropdown>
-</StyledContextMenu>;
+        <StyledDropdownList>
+          <DropdownItem
+            data-testid='edit'
+            ariaMessage={editMessage}
+            message={editMessage}
+            prefix={<StyledEditIcon/>}
+            onClick={() => onEdit()}
+          />
+          <DropdownItem
+            data-testid='delete'
+            ariaMessage={deleteMessage}
+            message={deleteMessage}
+            prefix={<StyledTrashAltIcon/>}
+            onClick={() => onDelete()}
+          />
+        </StyledDropdownList>
+      </HighlightToggleEditContent>
+    </Dropdown>
+  </StyledContextMenu>;
+};
 
 export default ContextMenu;
