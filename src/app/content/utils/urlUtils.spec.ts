@@ -15,7 +15,7 @@ const testUUID = 'longidin-vali-dfor-mat1-111111111111';
 jest.mock('../../../config', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
   return {BOOKS: {
-    [mockBook.id]: {defaultVersion: mockBook.version},
+   [mockBook.id]: {defaultVersion: mockBook.version},
   }};
 });
 
@@ -33,10 +33,7 @@ describe('getBookPageUrlAndParams', () => {
     expect((result.params.book as any).version).toBe('asdf');
   });
   it('generates params for books without osweb data', () => {
-    const result = getBookPageUrlAndParams(
-      formatBookData({ ...mockArchiveBook, id: testUUID }, undefined),
-      page
-    );
+    const result = getBookPageUrlAndParams(formatBookData({...mockArchiveBook, id: testUUID}, undefined), page);
 
     expect((result.params.book as any)).not.toHaveProperty('slug');
     expect((result.params.book as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
