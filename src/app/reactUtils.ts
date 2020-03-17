@@ -71,6 +71,7 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
 
   useEffect(() => {
     savedCallback.current = callback;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps, callback]);
 
   useEffect(() => {
