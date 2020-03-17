@@ -186,8 +186,8 @@ interface DropdownItemProps {
 }
 
 // tslint:disable-next-line:variable-name
-const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItemProps, 'ariaMessage'>) =>
-  <FormattedMessage id={message}>
+const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItemProps, 'ariaMessage'>) => {
+  return <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
       /*
@@ -199,7 +199,8 @@ const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItem
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
     }
-</FormattedMessage>;
+  </FormattedMessage>;
+};
 
 // tslint:disable-next-line:variable-name
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
