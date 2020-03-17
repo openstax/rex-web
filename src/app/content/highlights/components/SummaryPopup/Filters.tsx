@@ -34,7 +34,7 @@ const HighlightsPrintButton = styled(PrintButton)`
 const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
   ({label, ...props}, ref) => (
     <FormattedMessage id='i18n:highlighting:filters:filter-by:aria-label' values={{filter: label}}>
-      {(msg: Element | string) => <PlainButton ref={ref} {...props} aria-label={msg}>
+      {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
         <div tabIndex={-1}>
           {label}
           <DownIcon />

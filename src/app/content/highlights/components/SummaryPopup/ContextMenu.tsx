@@ -83,7 +83,7 @@ const HighlightToggleEditContent = styled.div`
 // tslint:disable-next-line:variable-name
 const HighlightDropdownMenu = React.forwardRef((props, ref) => {
   return <FormattedMessage id='i18n:highlighting:dropdown:edit:aria-label'>
-    {(msg: string | Element) => <MenuToggle aria-label={msg} ref={ref} {...props} />}
+    {(msg: string) => <MenuToggle aria-label={msg} ref={ref} {...props} />}
   </FormattedMessage>;
 });
 

@@ -84,7 +84,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         <Highlights />
         {this.state.showGoToTop && (
           <FormattedMessage id='i18n:toolbar:highlights:popup:button:back-to-top'>
-            {(msg: Element | string) => (
+            {(msg: string) => (
               <Styled.GoToTopWrapper
                 onClick={this.scrollToTop}
                 data-testid='back-to-top-highlights'

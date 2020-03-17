@@ -128,7 +128,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
             {(msg: Element | string) => msg}
           </FormattedMessage>
           <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
-            {(msg: Element | string) => (
+            {(msg: string) => (
               <Styled.CloseIconWrapper
                data-testid='close-highlights-popup'
                aria-label={msg}

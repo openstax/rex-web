@@ -38,7 +38,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
   <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
     {(msg: Element | string) =>
       <FormattedMessage id='i18n:highlighting:change-color' values={{color: msg}}>
-        {(ariaMessage: Element | string) =>
+        {(ariaMessage: string) =>
           <ColorIndicator
             style={style}
             size={size}

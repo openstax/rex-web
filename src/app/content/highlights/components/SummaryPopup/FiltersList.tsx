@@ -62,14 +62,14 @@ interface FiltersListColorProps {
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
     <FormattedMessage id='i18n:highlighting:filters:remove:color' values={{filterValue: props.color}}>
-      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
+      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
         <Times />
       </StyledPlainButton>}
     </FormattedMessage>
 
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
-        {(msg: Element | string) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
