@@ -24,11 +24,20 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
       : null,
   };
 };
-type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
+export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
+export type OptionsCallback = ({
+  current,
+  previous,
+  selectedHighlight,
+}: {
+  current: HighlightProp,
+  previous: HighlightProp,
+  selectedHighlight?: Highlight
+}) => void;
 
 interface Options {
   forceRedraw: boolean;
-  onSelect: (selectedHighlight?: Highlight) => void;
+  onSelect: OptionsCallback;
 }
 
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
@@ -66,7 +75,11 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
     );
   }
 
-  options.onSelect(firstSelectedHighlight);
+  options.onSelect({
+    current,
+    previous,
+    selectedHighlight: firstSelectedHighlight,
+  });
 };
 
 const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {

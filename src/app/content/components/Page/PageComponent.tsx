@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter';
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
@@ -17,7 +16,7 @@ import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
-import searchHighlightManager, { stubManager } from './searchHighlightManager';
+import searchHighlightManager, { HighlightProp, OptionsCallback, stubManager } from './searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -25,9 +24,14 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-export default class PageComponent extends Component<PagePropTypes, {hasSearchError: boolean}> {
+interface PageState {
+  hasSearchError: boolean;
+  selectedSearchResult: null | HighlightProp;
+}
+
+export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false };
+  public state = { hasSearchError: false, selectedSearchResult: null};
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -78,8 +82,14 @@ export default class PageComponent extends Component<PagePropTypes, {hasSearchEr
     });
   }
 
-  public onHighlightSelect = (highlight?: Highlight) => {
-    if (!highlight && !this.state.hasSearchError) {
+  public onHighlightSelect: OptionsCallback = ({current, previous, selectedHighlight}) => {
+    if (selectedHighlight) { return; }
+
+    if (this.state.hasSearchError && current !== previous) {
+      this.setState({
+        selectedSearchResult: current,
+      });
+    } else {
       this.setState({
         hasSearchError: true,
       });
@@ -109,7 +119,11 @@ export default class PageComponent extends Component<PagePropTypes, {hasSearchEr
     return <MinPageHeight>
       <this.highlightManager.CardList />
       {this.state.hasSearchError
-        ? <SearchFailure dismiss={this.dismissError} mobileToolbarOpen={this.props.mobileToolbarOpen} />
+        ? <SearchFailure
+            dismiss={this.dismissError}
+            selectedHighlight={this.state.selectedSearchResult}
+            mobileToolbarOpen={this.props.mobileToolbarOpen}
+          />
         : null}
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}

@@ -58,9 +58,10 @@ export const useOnDOMEvent = (
   element: React.RefObject<HTMLElement> | Window ,
   isEnabled: boolean,
   event: keyof HTMLElementEventMap,
-  cb: () => void
+  cb: () => void,
+  deps: React.DependencyList = []
 ) => {
-  React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, cb, event]);
+  React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, cb, event, ...deps]);
 };
 
 export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList) => {
@@ -68,6 +69,13 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
   const timeout = React.useRef<number>();
 
   const timeoutHandler = () => savedCallback.current && savedCallback.current();
+  const reset = () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+
+    timeout.current = setTimeout(timeoutHandler, delay);
+  }
 
   useEffect(() => {
     savedCallback.current = callback;
@@ -75,14 +83,12 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
   }, [...deps, callback]);
 
   useEffect(() => {
-      if (timeout.current) {
-        clearTimeout(timeout.current);
-      }
-
-      timeout.current = setTimeout(timeoutHandler, delay);
+      reset();
   }, [delay]);
 
   React.useEffect(() => () => clearTimeout(assertDefined(timeout.current, 'timeout ID can\'t be undefined')), []);
+
+  return reset;
 };
 
 /**
