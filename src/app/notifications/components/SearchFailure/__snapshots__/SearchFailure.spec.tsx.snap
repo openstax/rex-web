@@ -2,7 +2,7 @@
 
 exports[`SearchFailure matches snapshot 1`] = `
 <div
-  className="eqYFNp"
+  className="jkHHkz"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
@@ -54,7 +54,7 @@ exports[`SearchFailure matches snapshot 1`] = `
 
 exports[`SearchFailure matches snapshot when mobile toolbar is open 1`] = `
 <div
-  className="jPuRWL"
+  className="kiJIgN"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >

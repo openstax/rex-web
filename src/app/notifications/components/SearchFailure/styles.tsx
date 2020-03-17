@@ -43,15 +43,13 @@ export const BannerBodyWrapper = styled.div`
   overflow: visible;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-
-  @media (max-width: ${inlineDisplayBreak}) {
+  ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
-    top: ${({mobileToolbarOpen}) => bookBannerMobileMiniHeight + toolbarMobileHeight + (
-      mobileToolbarOpen
-        ? toolbarMobileSearchWrapperHeight
-        : 0
-    )}rem;
-  }
+    top: ${({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
+        ? bookBannerMobileMiniHeight + toolbarDesktopHeight + toolbarMobileSearchWrapperHeight
+        : bookBannerMobileMiniHeight + toolbarMobileHeight
+    }rem;
+  `)}
 
   ${(props) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
