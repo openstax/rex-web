@@ -177,6 +177,14 @@ export const DropdownList = styled.ol`
   }
 `;
 
+interface DropdownItemProps {
+  message: string;
+  ariaMessage?: string;
+  href?: string;
+  prefix?: ReactNode;
+  onClick?: () => void;
+}
+
 // tslint:disable-next-line:variable-name
 const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItemProps, 'ariaMessage'>) =>
   <FormattedMessage id={message}>
@@ -192,14 +200,6 @@ const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItem
       : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
     }
 </FormattedMessage>;
-
-interface DropdownItemProps {
-  message: string;
-  ariaMessage?: string;
-  href?: string;
-  prefix?: ReactNode;
-  onClick?: () => void;
-}
 
 // tslint:disable-next-line:variable-name
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
