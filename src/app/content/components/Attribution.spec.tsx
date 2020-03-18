@@ -165,12 +165,8 @@ describe('Attribution', () => {
       }) as any) as AppState;
 
       store = createTestStore(newState);
-      const { node } = renderToDom(render());
-      const details = node;
+      const { node: details } = await renderToDom(render());
       details.setAttribute('open', '');
-
-      // wait for dom events to do their thing
-      await new Promise((resolve) => setTimeout(resolve, 1));
 
       expect(details.children[1].innerHTML).toMatch(`Authors: Jhon Doe, Jonny Doe`);
     });
