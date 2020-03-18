@@ -41,30 +41,24 @@ export const useOnDOMEvent = (
   element: React.RefObject<HTMLElement> | Window ,
   isEnabled: boolean,
   event: keyof HTMLElementEventMap,
-  cb: () => void
+  cb: () => void,
+  deps: React.DependencyList = []
 ) => {
-  const savedCallback = React.useRef<typeof cb>();
-
-  React.useEffect(() => {
-    savedCallback.current = cb;
-  }, [cb]);
-
   React.useEffect(() => {
     const target = isWindow(element) ? element : element.current;
-    const handler = () => savedCallback.current && savedCallback.current();
 
-    if (!target || !savedCallback.current) { return; }
+    if (!target) { return; }
 
     if (isEnabled) {
-      target.addEventListener(event, handler);
+      target.addEventListener(event, cb);
     }
 
-    return () => target.removeEventListener(event, handler);
+    return () => target.removeEventListener(event, cb);
 
-  }, [element, isEnabled, event]);
+  }, [element, isEnabled, event, cb, ...deps]);
 };
 
-export const useTimeout = (delay: number, callback: () => void) => {
+export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList = []) => {
   const savedCallback = React.useRef<typeof callback>();
   const timeout = React.useRef<number>();
 
@@ -80,7 +74,7 @@ export const useTimeout = (delay: number, callback: () => void) => {
   useEffect(() => {
     savedCallback.current = callback;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callback]);
+  }, [...deps, callback]);
 
   useEffect(() => {
       reset();

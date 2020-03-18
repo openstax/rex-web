@@ -32,18 +32,20 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
     }
   };
 
-  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
+  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut, [shouldAutoDismiss]);
   const resetAutoDismiss = useTimeout(shouldAutoDismissAfter, () => setShouldAutoDismiss(true));
 
-  useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut);
-  useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut);
+  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'click', startFadeOut, [shouldAutoDismiss]);
+  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'scroll', startFadeOut, [shouldAutoDismiss]);
 
   React.useEffect(() => {
-    setIsFadingOut(false);
-    setShouldAutoDismiss(false);
-    resetAutoDismiss();
-    resetErrorClearing();
-  }, [selectedHighlight]);
+    setImmediate(() => {
+      setIsFadingOut(false);
+      setShouldAutoDismiss(false);
+      resetErrorClearing();
+      resetAutoDismiss();
+    });
+  }, [selectedHighlight, setIsFadingOut, setShouldAutoDismiss]);
 
   return (
     <BannerBodyWrapper
