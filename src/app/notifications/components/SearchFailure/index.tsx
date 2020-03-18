@@ -12,7 +12,7 @@ import {
   CloseIcon,
 } from './styles';
 
-export const shouldAutoDismissAfter = 100;
+export const shouldAutoDismissAfter = 200;
 
 interface Props {
   dismiss: () => void;
@@ -32,16 +32,16 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
     }
   };
 
-  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut, []);
-  const resetAutoDimiss = useTimeout(shouldAutoDismissAfter, () => setShouldAutoDismiss(true), []);
+  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
+  const resetAutoDismiss = useTimeout(shouldAutoDismissAfter, () => setShouldAutoDismiss(true));
 
-  useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut, [shouldAutoDismiss]);
-  useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut, [shouldAutoDismiss]);
+  useOnDOMEvent(window, !isFadingOut, 'click', startFadeOut);
+  useOnDOMEvent(window, !isFadingOut, 'scroll', startFadeOut);
 
   React.useEffect(() => {
     setIsFadingOut(false);
     setShouldAutoDismiss(false);
-    resetAutoDimiss();
+    resetAutoDismiss();
     resetErrorClearing();
   }, [selectedHighlight]);
 

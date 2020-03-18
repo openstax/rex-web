@@ -37,34 +37,34 @@ export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boole
   React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
 };
 
-export const onDOMEventHandler = (
-  element: React.RefObject<HTMLElement> | Window,
-  isEnabled: boolean,
-  event: keyof HTMLElementEventMap,
-  cb: () => void
-) => () => {
-  const target = isWindow(element) ? element : element.current;
-
-  if (!target) { return; }
-
-  if (isEnabled) {
-    target.addEventListener(event, cb);
-  }
-
-  return () => target.removeEventListener(event, cb);
-};
-
 export const useOnDOMEvent = (
   element: React.RefObject<HTMLElement> | Window ,
   isEnabled: boolean,
   event: keyof HTMLElementEventMap,
-  cb: () => void,
-  deps: React.DependencyList = []
+  cb: () => void
 ) => {
-  React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, cb, event, ...deps]);
+  const savedCallback = React.useRef<typeof cb>();
+
+  React.useEffect(() => {
+    savedCallback.current = cb;
+  }, [cb]);
+
+  React.useEffect(() => {
+    const target = isWindow(element) ? element : element.current;
+    const handler = () => savedCallback.current && savedCallback.current();
+
+    if (!target || !savedCallback.current) { return; }
+
+    if (isEnabled) {
+      target.addEventListener(event, handler);
+    }
+
+    return () => target.removeEventListener(event, handler);
+
+  }, [element, isEnabled, event]);
 };
 
-export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList) => {
+export const useTimeout = (delay: number, callback: () => void) => {
   const savedCallback = React.useRef<typeof callback>();
   const timeout = React.useRef<number>();
 
@@ -75,12 +75,12 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
     }
 
     timeout.current = setTimeout(timeoutHandler, delay);
-  }
+  };
 
   useEffect(() => {
     savedCallback.current = callback;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...deps, callback]);
+  }, [callback]);
 
   useEffect(() => {
       reset();
