@@ -49,7 +49,6 @@ export default styled(MainContent)`
 
   .highlight {
     position: relative;
-    z-index: 1;
   }
 
   .MathJax_Display .highlight,

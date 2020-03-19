@@ -679,7 +679,6 @@ Array [
 
 .c66 .highlight {
   position: relative;
-  z-index: 1;
 }
 
 .c66 .MathJax_Display .highlight,
@@ -4191,7 +4190,6 @@ Array [
 
 .c40 .highlight {
   position: relative;
-  z-index: 1;
 }
 
 .c40 .MathJax_Display .highlight,
