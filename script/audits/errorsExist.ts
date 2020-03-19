@@ -6,11 +6,9 @@ const errorsExist: Audit = (): string[] => {
     throw new Error(`BUG: Should run in browser context`);
   }
 
-  const isDefined = <X>(x: X): x is Exclude<X, undefined> => x !== undefined;
-
   return [window.__APP_STORE.getState().errors]
     .map(({error}) => error && error.message)
-    .filter(isDefined);
+    .filter((x): x is string => typeof x === 'string');
 };
 
 export default errorsExist;
