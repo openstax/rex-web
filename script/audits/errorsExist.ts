@@ -1,6 +1,6 @@
 import { Audit } from '../domVisitor';
 
-const crossBookLinks: Audit = (): string[] => {
+const errorsExist: Audit = (): string[] => {
   // Note: This executes in the browser context
   if (!window) {
     throw new Error(`BUG: Should run in browser context`);
@@ -13,4 +13,4 @@ const crossBookLinks: Audit = (): string[] => {
     .filter(isDefined);
 };
 
-export default crossBookLinks;
+export default errorsExist;
