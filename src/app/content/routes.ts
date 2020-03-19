@@ -6,6 +6,7 @@ import { getUrlRegexParams } from '../navigation/utils';
 import { SelectedResult } from './search/types';
 import { Params } from './types';
 import { findPathForParams } from './utils/urlUtils';
+import { assertDefined } from '../utils';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
 const base = '/books/:book/pages/:page';
@@ -47,11 +48,7 @@ export const content: Route<Params, State> = {
   }),
   getUrl: (params: Params): string => {
     const parsedParams = getUrlRegexParams(params);
-    const path = findPathForParams(parsedParams, contentPaths);
-
-    if (!path) {
-      throw new Error('Invalid parameters for content path');
-    }
+    const path = assertDefined(findPathForParams(parsedParams, contentPaths), 'Ivalid parameters for content path');
 
     return pathToRegexp.compile(path)(parsedParams);
   },

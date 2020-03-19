@@ -6,7 +6,7 @@ import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
-import { Params } from '../../types';
+import { Params, SlugParams } from '../../types';
 import { resolveBookReference } from './resolveContent';
 
 const mockConfig = {BOOKS: {
@@ -200,7 +200,7 @@ describe('locationChange', () => {
           version: '1.0',
         },
         page: {
-          slug: match.params.page.slug,
+          slug: (match.params.page as SlugParams).slug,
         },
       } as Params;
 
@@ -274,7 +274,7 @@ describe('locationChange', () => {
           version: '1.0',
         },
         page: {
-          slug: match.params.page.slug,
+          slug: (match.params.page as SlugParams).slug,
         },
       } as Params;
       match.params = versionedUuidParams;
