@@ -18,7 +18,12 @@ const {
   bookId,
   bookVersion,
   queryString,
-} = argv;
+} = argv as {
+  rootUrl?: string;
+  bookId?: string;
+  bookVersion?: string;
+  queryString?: string;
+};
 
 assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
 
