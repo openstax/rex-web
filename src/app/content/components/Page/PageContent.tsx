@@ -63,12 +63,12 @@ export default styled(MainContent)`
 
       &.first.text.has-note:before {
         position: absolute;
-        z-index: -1;
         top: 0;
         left: 0;
         content: "";
         width: 0;
         height: 0;
+        opacity: 0.8;
         border-left: ${highlightIndicatorSize}em solid ${style.focused};
         border-top: ${highlightIndicatorSize}em solid transparent;
         transform: rotate(90deg);
@@ -81,6 +81,10 @@ export default styled(MainContent)`
           ${Color(style.focused).isDark() && css`
             color: ${theme.color.text.white};
           `}
+
+          &.first.text.has-note:before {
+            display: none;
+          }
         }
       }
     }
