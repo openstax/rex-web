@@ -30,8 +30,6 @@ import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 (global as any).fetch = fetch;
 
-process.exit(1);
-
 async function renderManifest() {
   writeAssetFile('/rex/release.json', JSON.stringify({
     books: BOOKS,

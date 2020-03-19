@@ -69,7 +69,7 @@ async function run() {
   const books = await findBooks();
 
   const page = await browser.newPage();
-  page.setDefaultNavigationTimeout(1000 * 60);
+  page.setDefaultNavigationTimeout(60 * 1000);
 
   for (const book of books) {
     await visitPages(page, findBookPages(book), audit);
