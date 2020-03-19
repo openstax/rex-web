@@ -1,5 +1,7 @@
-import { BOOKS } from '../../../config';
+import { Key, parse } from 'path-to-regexp';
+import { APP_ENV, BOOKS } from '../../../config';
 import { assertDefined } from '../../utils';
+import { pathTokenIsKey } from '../guards';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNode, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -47,17 +49,22 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   const cacheKey = `${book.id}:${pageId}`;
 
   if (getUrlParamForPageIdCache.has(cacheKey)) {
-    return {slug: getUrlParamForPageIdCache.get(cacheKey)};
+    return getUrlParamForPageIdCache.get(cacheKey);
   }
 
   const treeSection = findArchiveTreeNode(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
-  const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
-  getUrlParamForPageIdCache.set(cacheKey, result);
 
-  return {slug: result};
+  if (APP_ENV === 'production' || treeSection.slug) {
+    const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
+    getUrlParamForPageIdCache.set(cacheKey, {slug: result});
+    return {slug: result};
+  } else {
+    getUrlParamForPageIdCache.set(cacheKey, {uuid: treeSection.id});
+    return {uuid: treeSection.id};
+  }
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: Params['page']): string | undefined => {
@@ -91,4 +98,12 @@ export const toRelativeUrl = (from: string, to: string) => {
 
   return '../'.repeat(parsedFrom.length - commonParts.length - 1)
     + parsedTo.slice(commonParts.length).join('/');
+};
+
+export const findPathForParams = (params: {}, paths: string[]) => {
+  const paramKeys = Object.keys(params);
+  return paths.find((path) => {
+    const paramsInPath = parse(path).filter((param) => pathTokenIsKey(param)) as Key[];
+    return paramsInPath.every(({name}) => paramKeys.includes(name.toString()));
+  });
 };

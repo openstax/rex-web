@@ -1,15 +1,36 @@
+import omit from 'lodash/fp/omit';
 import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
 import { Route } from '../navigation/types';
 import { getUrlRegexParams } from '../navigation/utils';
 import { SelectedResult } from './search/types';
 import { Params } from './types';
+import { findPathForParams } from './utils/urlUtils';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
+const base = '/books/:book/pages/:page';
 
-const CONTENT_PATH = '/books/:book_slug/pages/:page_slug';
-const UUID_CONTENT_PATH = `/books/:book_uuid(${MATCH_UUID})@:book_version/pages/:page_slug`;
-const VERSIONED_CONTENT_PATH = '/books/:book_slug@:book_version/pages/:page_slug';
+/*
+ * Recursively creates combinations of supplied replacements
+ * for the base parameter in an url
+ */
+
+const injectParamsToBaseUrl = (baseUrl: string, params: {[key: string]: string[]}): string[] => {
+  const paramKeys: Array<keyof typeof params> = Object.keys(params);
+  const keyToInject = paramKeys[0];
+
+  return params[keyToInject].reduce((output, value) => {
+    const injected = baseUrl.replace(new RegExp(`(?<=:)${keyToInject}`), value);
+    return paramKeys.length === 1
+      ? [...output, injected]
+      : [...output, ...injectParamsToBaseUrl(injected, omit([keyToInject], params))];
+  }, [] as string[]);
+};
+
+const contentPaths = injectParamsToBaseUrl(base, {
+  book: [`book_uuid(${MATCH_UUID})@:book_version`, 'book_slug@:book_version', 'book_slug'],
+  page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
+});
 
 interface State {
   bookUid: string;
@@ -25,15 +46,15 @@ export const content: Route<Params, State> = {
     modules: ['Content'],
   }),
   getUrl: (params: Params): string => {
-    const {book} = params;
-    if ('uuid' in book) {
-      return pathToRegexp.compile(UUID_CONTENT_PATH)(getUrlRegexParams(params));
+    const parsedParams = getUrlRegexParams(params);
+    const path = findPathForParams(parsedParams, contentPaths);
+
+    if (!path) {
+      throw new Error('Invalid parameters for content path');
     }
-    if ('version' in book) {
-      return pathToRegexp.compile(VERSIONED_CONTENT_PATH)(getUrlRegexParams(params));
-    }
-    return pathToRegexp.compile(CONTENT_PATH)(getUrlRegexParams(params));
+
+    return pathToRegexp.compile(path)(parsedParams);
   },
   name: 'Content',
-  paths: [UUID_CONTENT_PATH, VERSIONED_CONTENT_PATH, CONTENT_PATH],
+  paths: contentPaths,
 };

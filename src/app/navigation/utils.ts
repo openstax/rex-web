@@ -19,7 +19,7 @@ export const locationChangeForRoute = <R extends AnyRoute>(
 ): locationChange is Required<LocationChange<Match<R>>> =>
   !!locationChange.match && locationChange.match.route.name === route.name;
 
-export const getUrlRegexParams = <T extends {}>(obj: T): T => flatten(obj, {delimiter});
+export const getUrlRegexParams = <T extends {}>(obj: T): {} => flatten(obj, {delimiter});
 
 const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   const [, ...values] = match;
