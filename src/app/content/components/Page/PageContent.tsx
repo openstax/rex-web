@@ -4,7 +4,11 @@ import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
-import { highlightStyles } from '../../highlights/constants';
+import {
+  highlightBlockPadding,
+  highlightIndicatorSizeForBlock,
+  highlightStyles,
+} from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
@@ -47,6 +51,11 @@ export default styled(MainContent)`
     }
   }
 
+  .highlight {
+    position: relative;
+    z-index: 1;
+  }
+
   .MathJax_Display .highlight,
   .MathJax_Preview + .highlight {
     display: inline-block;
@@ -56,8 +65,33 @@ export default styled(MainContent)`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
-      &.has-note {
-        border-bottom: 1px solid ${style.focused};
+      &.block {
+        display: block;
+
+        &:after {
+          position: absolute;
+          z-index: -1;
+          content: "";
+          display: block;
+          width: calc(100% + 2rem);
+          height: calc(100% + 2rem);
+          top: -1rem;
+          left: -1rem;
+          background-color: ${style.passive};
+        }
+
+        &.first.has-note:before {
+          position: absolute;
+          bottom: -${highlightBlockPadding}rem;
+          right: -${highlightBlockPadding}rem;
+          content: "";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
+          border-top: ${highlightIndicatorSizeForBlock}em solid transparent;
+          transform: rotate(-90deg);
+        }
       }
 
       @media screen {
@@ -67,6 +101,18 @@ export default styled(MainContent)`
           ${Color(style.focused).isDark() && css`
             color: ${theme.color.text.white};
           `}
+
+          &.block {
+            border-color: ${style.focused};
+
+            &:after {
+              background-color: ${style.focused};
+            }
+
+            &.first.has-note:before {
+              display: none;
+            }
+          }
         }
       }
     }
