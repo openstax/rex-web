@@ -350,7 +350,10 @@ Array [
               Developer Home
             </h3>
             path: 
-            /
+            <span>
+              /
+            </span>
+            <br />
           </div>
           <div>
             <h3
@@ -359,9 +362,30 @@ Array [
               Content
             </h3>
             path: 
-            /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
-            /books/:book_slug@:book_version/pages/:page_slug
-            /books/:book_slug/pages/:page_slug
+            <span>
+              /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+            </span>
+            <br />
+            <span>
+              /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
+            </span>
+            <br />
+            <span>
+              /books/:book_slug@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+            </span>
+            <br />
+            <span>
+              /books/:book_slug@:book_version/pages/:page_slug
+            </span>
+            <br />
+            <span>
+              /books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+            </span>
+            <br />
+            <span>
+              /books/:book_slug/pages/:page_slug
+            </span>
+            <br />
           </div>
           <div>
             <h3
@@ -370,7 +394,10 @@ Array [
               NotFound
             </h3>
             path: 
-            /(.*)
+            <span>
+              /(.*)
+            </span>
+            <br />
           </div>
         </div>
       </div>

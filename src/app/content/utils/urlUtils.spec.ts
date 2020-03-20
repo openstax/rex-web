@@ -75,6 +75,12 @@ describe('getUrlParamForPageId', () => {
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
+  it('returns uuid param if tree is missing a slug', () => {
+    delete book.tree.contents[0].slug;
+
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({uuid: 'pagelongid'});
+  });
+
   it('throws on invalid id', () => {
     expect(() =>
       getUrlParamForPageId(book, 'wokowokowko')

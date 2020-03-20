@@ -3,10 +3,10 @@ import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
 import { Route } from '../navigation/types';
 import { getUrlRegexParams } from '../navigation/utils';
+import { assertDefined } from '../utils';
 import { SelectedResult } from './search/types';
 import { Params } from './types';
 import { findPathForParams } from './utils/urlUtils';
-import { assertDefined } from '../utils';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
 const base = '/books/:book/pages/:page';

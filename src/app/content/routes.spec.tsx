@@ -4,35 +4,64 @@ import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../test/utils';
 import { Match } from '../navigation/types';
 
+const longID = 'longidin-vali-dfor-mat1-111111111111';
+
 describe('content route', () => {
   let content: any;
   let React: any; // tslint:disable-line:variable-name
   let renderer: any;
   let createApp: any;
 
-  it('generates a url', () => {
-    content = require('./routes').content;
-    const url = content.getUrl({book: {slug: 'book'}, page: {slug: 'page'}});
-    expect(url).toEqual('/books/book/pages/page');
-  });
+  describe('generates urls', () => {
+    it('for book slug and page slug', () => {
+      content = require('./routes').content;
+      const url = content.getUrl({book: {slug: 'book'}, page: {slug: 'page'}});
+      expect(url).toEqual('/books/book/pages/page');
+    });
 
-  it('generates a versioned url', () => {
-    content = require('./routes').content;
-    const url = content.getUrl({book: {slug: 'book', version: 'asdf'}, page: {slug: 'page'}});
-    expect(url).toEqual('/books/book@asdf/pages/page');
-  });
+    it('for book slug with version and page slug', () => {
+      content = require('./routes').content;
+      const url = content.getUrl({book: {slug: 'book', version: 'asdf'}, page: {slug: 'page'}});
+      expect(url).toEqual('/books/book@asdf/pages/page');
+    });
 
-  it('generates a url with uuid', () => {
-    content = require('./routes').content;
-    const url = content.getUrl({
-      book: {
-        uuid: 'longidin-vali-dfor-mat1-111111111111',
-        version: '1.0',
-      },
-      page: {
-        slug: 'page',
-      }});
-    expect(url).toEqual('/books/longidin-vali-dfor-mat1-111111111111@1.0/pages/page');
+    it('for book uuid with version and page slug', () => {
+      content = require('./routes').content;
+      const url = content.getUrl({
+        book: {
+          uuid: longID,
+          version: '1.0',
+        },
+        page: {
+          slug: 'page',
+        }});
+      expect(url).toEqual('/books/longidin-vali-dfor-mat1-111111111111@1.0/pages/page');
+    });
+
+    it('for book slug and page uuid', () => {
+      content = require('./routes').content;
+      const url = content.getUrl({book: {slug: 'book'}, page: {uuid: longID}});
+      expect(url).toEqual('/books/book/pages/longidin-vali-dfor-mat1-111111111111');
+    });
+
+    it('for book slug with version and page uuid', () => {
+      content = require('./routes').content;
+      const url = content.getUrl({book: {slug: 'book', version: 'asdf'}, page: {uuid: longID}});
+      expect(url).toEqual('/books/book@asdf/pages/longidin-vali-dfor-mat1-111111111111');
+    });
+
+    it('for book uuid with version and page uuid', () => {
+      content = require('./routes').content;
+      const url = content.getUrl({
+        book: {
+          uuid: longID,
+          version: '1.0',
+        },
+        page: {
+          uuid: longID,
+        }});
+      expect(url).toEqual('/books/longidin-vali-dfor-mat1-111111111111@1.0/pages/longidin-vali-dfor-mat1-111111111111');
+    });
   });
 
   describe('route renders', () => {
