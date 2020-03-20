@@ -103,8 +103,6 @@ export default styled(MainContent)`
           `}
 
           &.block {
-            border-color: ${style.focused};
-
             &:after {
               background-color: ${style.focused};
             }
