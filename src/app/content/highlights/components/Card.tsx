@@ -72,15 +72,12 @@ const Card = ({
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
   React.useEffect(() => {
-    if (element.current && isFocused) {
-      onFocus();
-    }
     if (!isFocused) {
       setEditing(false);
       onBlur();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused, element]);
+  }, [isFocused]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -139,6 +136,7 @@ const Card = ({
     className,
     isFocused,
     onBlur: blur,
+    onFocus,
     onHeightChange,
     onRemove,
     ref: element,

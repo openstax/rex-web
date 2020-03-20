@@ -34,13 +34,14 @@ interface Props {
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
+  onFocus: () => void;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, Props>((
-  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, className}: Props,
+  {note, isFocused, onBlur, onEdit, onRemove, onFocus, onHeightChange, className}: Props,
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -52,8 +53,10 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
   React.useEffect(() => {
     if (!isFocused) {
       setConfirmingDelete(false);
+    } else {
+      onFocus();
     }
-  }, [isFocused]);
+  }, [isFocused, onFocus]);
 
   React.useEffect(() => {
     const refElement = confirmationRef.current ? confirmationRef : element;
