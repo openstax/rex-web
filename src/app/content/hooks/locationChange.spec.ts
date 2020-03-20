@@ -10,8 +10,8 @@ import { MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
 import { receiveBook, receivePage } from '../actions';
 import * as routes from '../routes';
-import { formatBookData } from '../utils';
 import { SlugParams } from '../types';
+import { formatBookData } from '../utils';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
