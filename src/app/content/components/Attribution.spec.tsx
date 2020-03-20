@@ -150,5 +150,25 @@ describe('Attribution', () => {
 
       expect(message).toEqual('BUG: Could not find publication date');
     });
+
+    it('displays first two contributing authors when no senior authors were found', async() => {
+      const newState = (cloneDeep({
+        content: {
+          ...initialState,
+          book: formatBookData(book, { ...mockCmsBook,
+            authors: [
+              {value: {name: 'Jhon Doe', senior_author: false}},
+              {value: {name: 'Jonny Doe', senior_author: false}},
+            ],
+          }),
+        },
+      }) as any) as AppState;
+
+      store = createTestStore(newState);
+      const { node: details } = renderToDom(render());
+      details.setAttribute('open', '');
+
+      expect(details.children[1].innerHTML).toMatch(`Authors: Jhon Doe, Jonny Doe`);
+    });
   });
 });
