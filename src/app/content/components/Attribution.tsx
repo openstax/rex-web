@@ -161,12 +161,12 @@ class Attribution extends Component<Props> {
 
     const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
 
-    const authorsToDisplay = seniorAuthors.length > 0 ?
-      seniorAuthors.map(({value: {name}}) => name).join(', ')
-      : book.authors.slice(0, 2).map(({value: {name}}) => name).join(', ');
+    const authorsToDisplay = seniorAuthors.length > 0
+      ? seniorAuthors
+      : book.authors.slice(0, 2);
 
     return {
-      bookAuthors: authorsToDisplay,
+      bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
       bookLatestRevision,
       bookLicenseName: book.license.name,
       bookLicenseVersion: book.license.version,
