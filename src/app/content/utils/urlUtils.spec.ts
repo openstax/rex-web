@@ -120,6 +120,11 @@ describe('getPageIdFromUrlParam', () => {
     expect(getPageIdFromUrlParam(book, {slug: 'preface'})).toEqual('pagelongid');
   });
 
+  it('doesn\'t search if page param is an uuid param', () => {
+    book.tree.contents[0].id = 'doesntmatter';
+    expect(getPageIdFromUrlParam(book, {uuid: 'pagelongid'})).toEqual('pagelongid');
+  });
+
   it('returns undefined for unknown route', () => {
     expect(getPageIdFromUrlParam(book, {slug: 'asdfasdf'})).toBeUndefined();
   });

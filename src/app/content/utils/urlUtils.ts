@@ -68,6 +68,10 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: Params['page']): string | undefined => {
+  if ('uuid' in pageParam) {
+    return pageParam.uuid;
+  }
+
   const pageNode = findArchiveTreeNodeByPageParam(book.tree, pageParam);
   if (!pageNode) { return; }
 

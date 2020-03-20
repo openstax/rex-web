@@ -7,6 +7,7 @@ import {
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
   findArchiveTreeNode,
+  findArchiveTreeNodeByPageParam,
   findDefaultBookPage,
   nodeHasId,
   splitTitleParts,
@@ -70,6 +71,12 @@ describe('findDefaultBookPage', () => {
 describe('splitTitleParts', () => {
   it('returns null when book is not baked', () => {
     expect(splitTitleParts('unbaked-title')).toEqual([null, 'unbaked-title']);
+  });
+});
+
+describe('findArchiveTreeNodeByPageParam', () => {
+  it('finds node by id', () => {
+    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'preface' })).toBeDefined();
   });
 });
 
