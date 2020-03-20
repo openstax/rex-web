@@ -25,11 +25,6 @@ export const getBookPageUrlAndParams = (
     pageUid: stripIdVersion(page.id),
   };
 
-  if (!('version' in params.book) && (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion)) {
-    const paramsWithVersion = { ...params, book: {...params.book, version: book.version}};
-    return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
-  }
-
   return {params, state, url: contentRoute.getUrl(params)};
 };
 
@@ -37,7 +32,9 @@ export const getUrlParamsForBook = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
 ): Params['book'] => {
   if ('slug' in book && book.slug && BOOKS[book.id]) {
-    return {slug: book.slug};
+    return book.version === BOOKS[book.id].defaultVersion
+      ? {slug: book.slug}
+      : {slug: book.slug, version: book.version};
   } else {
     return {uuid: book.id, version: book.version};
   }
