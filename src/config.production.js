@@ -15,4 +15,6 @@ module.exports = {
   SENTRY_ENABLED: true,
 
   PORT: 8000,
+
+  UNLIMITED_CONTENT: false
 };
