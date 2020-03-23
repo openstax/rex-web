@@ -56,7 +56,8 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
     } else {
       onFocus();
     }
-  }, [isFocused, onFocus]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   React.useEffect(() => {
     const refElement = confirmationRef.current ? confirmationRef : element;

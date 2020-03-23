@@ -147,7 +147,7 @@ export const mainCardStyles = css`
     `;
   }}
 
-  /* for some reason isTocOpen prop will not refresh after first page load and is null */
+  /* isTocOpen means toc is open on the desktop and for mobile, there is a different media query */
   ${(props: CardProps) => (props.isTocOpen === null || props.isTocOpen) && css`
     @media ${minimalWidthForCardsWithToc} {
       /* the window is too small to show note cards next to content when the toc is open */
@@ -194,7 +194,7 @@ export const mainWrapperStyles = css`
   `}
 
   ${(props: WrapperProps) => props.hasQuery && css`
-    @media (max-width: ${minimalWidthForCards}em) {
+    @media (max-width: ${minimalWidthForCardsWithSearchResults}em) {
       top: 0 !important;
     }
   `}

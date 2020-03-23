@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
 import { AppState } from '../../../types';
-import { assertDefined, remsToPx } from '../../../utils';
+import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { cardMarginBottom } from '../constants';
@@ -27,6 +27,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
+  const [topOffsets, setTopOffsets] = React.useState<Map<string, number>>(new Map());
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -45,7 +46,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     );
 
     if (position > topOffset) {
-      element.current!.style.top = `-${position - topOffset}px`;
+      assertNotNull(element.current, 'element.current can\'t be null').style.top = `-${position - topOffset}px`;
     }
 
     // This will be undefined for pendingHighlight
@@ -55,20 +56,30 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   };
 
   const resetTopOffset = () => {
-    element.current!.style.top = '0';
+    assertNotNull(element.current, 'element.current can\'t be null').style.top = '0';
   };
 
-  const updatePositions = React.useCallback(() => {
+  const getTopOffsetForHighlight = (highlight: Highlight) => {
+    if (topOffsets.has(highlight.id)) {
+      return assertDefined(topOffsets.get(highlight.id), 'this has to be defined');
+    } else {
+      const offset = assertDefined(
+        getHighlightTopOffset(container, highlight),
+        `Couldn't get top offset for highlight with an id: ${highlight.id}`
+      );
+      setTopOffsets((state) => new Map(state).set(highlight.id, offset));
+      return offset;
+    }
+  };
+
+  React.useEffect(() => {
     const newPositions: Map<string, number> = new Map();
 
     let lastVisibleCardPosition: number = 0;
     let lastVisibleCardHeight: number = 0;
 
     for (const [index, highlight] of highlights.entries()) {
-      const topOffset = assertDefined(
-        getHighlightTopOffset(container, highlight),
-        `Couldn't get top offset for highlights`
-      );
+      const topOffset = getTopOffsetForHighlight(highlight);
 
       const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
         + lastVisibleCardHeight
@@ -83,11 +94,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
 
     setCardsPositions(newPositions);
-  }, [highlights, cardsHeights, container]);
-
-  React.useEffect(() => {
-    updatePositions();
-  }, [updatePositions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlights, cardsHeights]);
 
   return highlights.length
     ? <div className={className} ref={element}>
@@ -97,9 +105,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         key={highlight.id}
         container={container}
         topOffset={cardsPositions.get(highlight.id)}
+        resetTopOffset={resetTopOffset}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
         onFocus={() => onFocus(highlight)}
-        onBlur={resetTopOffset}
         zIndex={highlights.length - index}
       />)}
     </div>

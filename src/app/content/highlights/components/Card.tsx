@@ -5,15 +5,13 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import * as selectAuth from '../../../auth/selectors';
-import { User } from '../../../auth/types';
 import { AppState, Dispatch } from '../../../types';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
-import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight, updateHighlight } from '../actions';
+import { clearFocusedHighlight, createHighlight, deleteHighlight, focusHighlight } from '../actions';
 import { highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
@@ -28,101 +26,81 @@ export interface CardProps {
   isFocused: boolean;
   isTocOpen: boolean;
   hasQuery: boolean;
-  user: User;
-  loginLink: string;
   highlighter: Highlighter;
   highlight: Highlight;
   create: typeof createHighlight;
   focus: typeof focusHighlight;
-  save: typeof updateHighlight;
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
   data?: HighlightData;
   className: string;
   zIndex: number;
   topOffset?: number;
+  resetTopOffset: () => void;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   onFocus: () => void;
-  onBlur: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const Card = ({
-  book,
-  blur,
-  className,
-  create,
-  data,
-  focus,
-  highlight,
-  highlighter,
-  loginLink,
-  isFocused,
-  onFocus,
-  onBlur,
-  onHeightChange,
-  page,
-  remove,
-  save,
-  user,
-}: CardProps) => {
-  const annotation = data && data.annotation;
+const Card = (props: CardProps) => {
+  const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
 
   React.useEffect(() => {
-    if (!isFocused) {
+    if (!props.isFocused) {
       setEditing(false);
-      onBlur();
+      props.resetTopOffset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, [props.isFocused]);
 
   React.useEffect(() => {
     if (annotation) {
-      highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
+      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
     } else {
-      highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
+      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
     }
-  }, [highlight, annotation]);
+  }, [props.highlight, annotation]);
 
   React.useEffect(() => {
-    if (!annotation && !isFocused) {
-      onHeightChange({ current: null } as React.RefObject<HTMLElement>);
+    if (!annotation && !props.isFocused) {
+      props.onHeightChange({ current: null } as React.RefObject<HTMLElement>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [annotation, isFocused]);
+  }, [annotation, props.isFocused]);
 
   const location = React.useMemo(() => {
-    return page && getHighlightLocationFilterForPage(locationFilters, page);
-  }, [locationFilters, page]);
+    return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
+  }, [locationFilters, props.page]);
 
   const locationFilterId = location && stripIdVersion(location.id);
 
-  if (!highlight.range || !page || !book || !locationFilterId || (!isFocused && !annotation)) {
+  const { page, book } = props;
+  if (!props.highlight.range || !page || !book || !locationFilterId || (!props.isFocused && !annotation)) {
     return null;
   }
 
   const handleClickOnCard = () => {
-    if (!isFocused) {
-      focus(highlight.id);
+    if (!props.isFocused) {
+      props.focus(props.highlight.id);
     }
   };
 
   const onRemove = () => {
-    if (data) {
-      remove(data.id, {
+    if (props.data) {
+      props.remove(props.data.id, {
         locationFilterId,
         pageId: page.id,
       });
     }
   };
-  const style = highlightStyles.find((search) => data && search.label === data.color);
+  const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = () => {
-    create({
-      ...highlight.serialize().getApiPayload(highlighter, highlight),
+    props.create({
+      ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
       sourceId: page.id,
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
@@ -133,11 +111,11 @@ const Card = ({
   };
 
   const commonProps = {
-    className,
-    isFocused,
-    onBlur: blur,
-    onFocus,
-    onHeightChange,
+    className: props.className,
+    isFocused: props.isFocused,
+    onBlur: props.blur,
+    onFocus: props.onFocus,
+    onHeightChange: props.onHeightChange,
     onRemove,
     ref: element,
   };
@@ -151,15 +129,12 @@ const Card = ({
         onEdit={() => setEditing(true)}
       /> : <EditCard
         {...commonProps}
-        highlight={highlight}
-        authenticated={!!user}
-        loginLink={loginLink}
+        highlight={props.highlight}
         locationFilterId={locationFilterId}
         pageId={page.id}
         onCreate={onCreate}
         onCancel={() => setEditing(false)}
-        onSave={save}
-        data={data}
+        data={props.data}
       />
     }
   </div>;
@@ -177,14 +152,11 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
-    loginLink: selectAuth.loginLink(state),
-    user: selectAuth.user(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
     focus: flow(focusHighlight, dispatch),
     remove: flow(deleteHighlight, dispatch),
-    save: flow(updateHighlight, dispatch),
   })
 )(StyledCard);
