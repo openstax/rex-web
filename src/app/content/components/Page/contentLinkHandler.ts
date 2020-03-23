@@ -26,7 +26,12 @@ export type ContentLinkProp =
 
 export const reduceReferences = ({references, currentPath}: ContentLinkProp) => (pageContent: string) =>
   references.reduce(
-    (html, reference) => html.replace(reference.match, toRelativeUrl(currentPath, content.getUrl(reference.params))),
+    (html, reference) => {
+      const path = content.getUrl(reference.params);
+      const search = content.getSearch && content.getSearch(reference.params);
+      const query = search ? `?${search}` : '';
+      return html.replace(reference.match, toRelativeUrl(currentPath, path) + query);
+    },
     pageContent
   );
 
@@ -45,8 +50,14 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     return;
   }
 
-  const {hash, search, pathname} = new URL(href, assertWindow().location.href);
+  const base = new URL(assertWindow().location);
+  base.hash = '';
+  base.search = '';
+
+  const {hash, search, pathname} = new URL(href, base.href);
   const reference = references.find(isPathRefernceForBook(pathname, book));
+
+  const searchString = search.substring(1);
 
   if (reference) {
     e.preventDefault();
@@ -58,7 +69,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
         ...locationState,
         ...reference.state,
       },
-    }, {hash, search}));
+    }, {hash, search: searchString}));
   } else if (pathname === currentPath && hash) {
     e.preventDefault();
     // defer to allow other handlers to execute before nav happens
@@ -70,6 +81,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
         ...getBookPageUrlAndParams(book, page).state,
 
       },
-    }, {hash, search}));
+    }, {hash, search: searchString}));
   }
 };

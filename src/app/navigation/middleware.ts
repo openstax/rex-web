@@ -4,7 +4,7 @@ import { AnyAction, Dispatch, Middleware } from '../types';
 import * as actions from './actions';
 import { hasState } from './guards';
 import { AnyRoute } from './types';
-import { changeToLocation, matchUrl } from './utils';
+import { changeToLocation, matchSearch, matchUrl } from './utils';
 
 export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}) => {
   history.listen(changeToLocation(routes, dispatch));
@@ -17,7 +17,8 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
     history[action.payload.method]({
       hash: action.payload.hash,
       pathname: matchUrl(action.payload),
-      search: action.payload.search,
+      search: matchSearch(action.payload, action.payload.search),
+      // search: action.payload.search,
       state: hasState(action.payload)
         ? action.payload.state
         : undefined,

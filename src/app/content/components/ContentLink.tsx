@@ -2,8 +2,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
-import { linkStyle } from '../../components/Typography';
-import { push } from '../../navigation/actions';
+import { linkStyle } from '../../components/Typography'; import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { RouteState } from '../../navigation/types';
 import { AppState, Dispatch } from '../../types';
@@ -63,7 +62,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       navigate({
         params,
         route: content,
-        state : {
+        state: {
           bookUid,
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),
