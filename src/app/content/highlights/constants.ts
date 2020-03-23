@@ -23,3 +23,5 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
 ];
 
 export const enabledForBooks = Object.keys(books);
+
+export const highlightIndicatorSize = 0.9;
