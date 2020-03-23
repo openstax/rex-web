@@ -5,6 +5,21 @@ const REACT_APP_ARCHIVE_URL = typeof(window) === 'undefined'
   : query.parse(window.location.search).archive
 ;
 
+const UNLIMITED_CONTENT_QUERY = typeof(window) === 'undefined'
+  ? undefined
+  : query.parse(window.location.search).validateLinks
+;
+
+const UNLIMITED_CONTENT_ENV = process.env.REACT_APP_UNLIMITED_CONTENT === undefined
+  ? undefined
+  : process.env.REACT_APP_UNLIMITED_CONTENT !== false
+;
+
+const UNLIMITED_CONTENT = UNLIMITED_CONTENT_QUERY === undefined
+  ? UNLIMITED_CONTENT_ENV
+  : Boolean(UNLIMITED_CONTENT_QUERY)
+;
+
 module.exports = {
   RELEASE_ID: 'development',
   CODE_VERSION: 'development',
@@ -23,4 +38,6 @@ module.exports = {
   BOOKS: require('./config.books'),
 
   PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 8000,
+
+  UNLIMITED_CONTENT: UNLIMITED_CONTENT === undefined ? true : UNLIMITED_CONTENT
 };
