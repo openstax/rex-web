@@ -76,10 +76,7 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
     ${textStyle}
     font-size: 1.6rem;
     color: ${theme.color.primary.gray.base};
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
+    display: contents;
   }
 `;
 
