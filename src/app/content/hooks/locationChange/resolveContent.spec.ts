@@ -92,6 +92,7 @@ describe('locationChange', () => {
   describe('in development', () => {
     beforeAll(() => {
       jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
+      jest.doMock('../../../../config', () => ({...mockConfig, UNLIMITED_CONTENT: true}));
     });
 
     it('doesn\'t load book if its already loading', async() => {
