@@ -388,6 +388,44 @@ describe('Page', () => {
         expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
       });
     });
+
+    it('moves footnotes from the content to the bottom of page', async() => {
+      expect(await htmlHelper(`
+        <div id="content">
+          <p>Some text</p>
+          <aside id="1" role="doc-footnote">
+            <p>Footnote text</p>
+          </aside>
+          <p>Another text</p>
+          <aside id="2" role="doc-footnote">
+            <p>Another <strong>footnote</strong> text</p>
+          </aside>
+        </div>
+      `.trim().replace(/\\n/g, '').replace(/\s+/g, ' ')))
+      .toEqual(`
+        <div id="content">
+          <p>Some text</p>
+          <p>Another text</p>
+          <div data-type="footnote-refs">
+            <h3 data-type="footnote-refs-title">Footnotes</h3>
+            <ul data-list-type="bulleted" data-bullet-style="none">
+              <li id="footnote1" data-type="footnote-ref">
+                <a data-type="footnote-ref-link" href="#1">1</a>
+                <span data-type="footnote-ref-content">
+                  <p>Footnote text</p>
+                </span>
+              </li>
+              <li id="footnote2" data-type="footnote-ref">
+                <a data-type="footnote-ref-link" href="#2">2</a>
+                <span data-type="footnote-ref-content">
+                  <p>Another <strong>footnote</strong> text</p>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      `.trim().replace(/\\n/g, ' ').replace(/\s+/g, ' '));
+    });
   });
 
   it('updates content link with new hrefs', async() => {
