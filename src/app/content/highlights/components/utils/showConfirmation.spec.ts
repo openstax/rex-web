@@ -65,18 +65,4 @@ describe('ShowConfirmation', () => {
     expect(answer).toBe(false);
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
-
-  it('resolves all calls with the same value if called few times', async() => {
-    const answers = [showConfirmation(), showConfirmation(), showConfirmation()];
-
-    await new Promise((res) => setTimeout(res, 300));
-    const [answerA, answerB, answerC] = await Promise.all(answers);
-
-    expect(createElement).toHaveBeenCalledTimes(1);
-    expect(render).toHaveBeenCalledTimes(1);
-    expect(rootNode.insertAdjacentElement).toHaveBeenCalledTimes(1);
-    expect(unmount).toHaveBeenCalledTimes(1);
-
-    expect(answerA || answerB || answerC).toBe(false);
-  });
 });

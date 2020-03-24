@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
+import { HighlightColorEnum } from '@openstax/highlights-client/dist/models/Highlight';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';

@@ -5,40 +5,27 @@ import MessageProvider from '../../../../MessageProvider';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
-const createConfirmationQueue = () => {
-  let currentlyOpenModal: null | Promise<boolean> = null;
+export default async() => {
+  const document = assertDocument();
+  const domNode = document.createElement('div');
 
-  return async() => {
-    if (currentlyOpenModal) {
-      return currentlyOpenModal;
-    }
+  domNode.id = `dialog-${uuid()}`;
+  const root = assertNotNull(document.getElementById('root'), 'root element not found');
+  root.insertAdjacentElement('afterend', domNode);
 
-    const document = assertDocument();
-    const domNode = document.createElement('div');
+  const userChoice: boolean = await new Promise((resolve) => {
+    const confirm = () => resolve(true);
+    const deny = () => resolve(false);
+    ReactDOM.render(
+      <MessageProvider>
+        <ConfirmationModal deny={deny} confirm={confirm} />
+      </MessageProvider>,
+      domNode
+    );
+  });
 
-    domNode.id = `dialog-discard-${uuid()}`;
-    const root = assertNotNull(document.getElementById('root'), 'root element not found');
-    root.insertAdjacentElement('afterend', domNode);
+  ReactDOM.unmountComponentAtNode(domNode);
+  assertNotNull(domNode.parentElement, 'parent element not found').removeChild(domNode);
 
-    currentlyOpenModal = new Promise((resolve) => {
-      const confirm = () => resolve(true);
-      const deny = () => resolve(false);
-      ReactDOM.render(
-        <MessageProvider>
-          <ConfirmationModal deny={deny} confirm={confirm} />
-        </MessageProvider>,
-        domNode
-      );
-    });
-
-    const userChoice: boolean = await currentlyOpenModal;
-    currentlyOpenModal = null;
-
-    ReactDOM.unmountComponentAtNode(domNode);
-    assertNotNull(domNode.parentElement, 'parent element not found').removeChild(domNode);
-
-    return userChoice;
-  };
+  return userChoice;
 };
-
-export default createConfirmationQueue();

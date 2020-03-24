@@ -72,7 +72,7 @@ const onSelectHighlight = (
 const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
-    onClick: (...args) => onClickHighlight({ ...services, highlighter }, ...args),
+    onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
