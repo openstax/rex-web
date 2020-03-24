@@ -48,12 +48,8 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   </PlainButton>
 ))`
   position: relative;
-  padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
   border-left: ${filters.border}rem solid transparent;
   border-right: ${filters.border}rem solid transparent;
-  ${theme.breakpoints.mobile(css`
-    padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-  `)}
   ${(props: ToggleProps) => props.isOpen
     ? css`
       z-index: 2;
@@ -72,6 +68,10 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
     : null
   }
   > div {
+    padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
+    ${theme.breakpoints.mobile(css`
+      padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
+    `)}
     outline: none;
     ${textStyle}
     font-size: 1.6rem;
