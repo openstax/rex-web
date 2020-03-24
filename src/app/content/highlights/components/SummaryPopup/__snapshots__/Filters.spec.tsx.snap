@@ -210,7 +210,6 @@ exports[`Filters matches snapshot 1`] = `
 
 .c0 .c4 {
   font-weight: bold;
-  outline: none;
 }
 
 .c0 .c1 > *:not(.c4) {
@@ -780,7 +779,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 
 .c0 .c4 {
   font-weight: bold;
-  outline: none;
 }
 
 .c0 .c1 > *:not(.c4) {
