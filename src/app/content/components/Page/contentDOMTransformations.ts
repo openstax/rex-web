@@ -1,7 +1,7 @@
 import { Document, HTMLButtonElement, HTMLElement, HTMLImageElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { REACT_APP_ARCHIVE_URL } from '../../../../config';
-import { assertNotNull } from '../../../utils';
+import { assertDefined, assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
@@ -153,7 +153,7 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
 
     const anchor = document.createElement('a');
     anchor.setAttribute('data-type', 'footnote-ref-link');
-    anchor.setAttribute('href', `#${footnote.getAttribute('id') || ''}`);
+    anchor.setAttribute('href', `#${assertDefined(footnote.getAttribute('id'), 'id of footnote was not provided')}`);
     anchor.innerHTML = counter.toString();
 
     const content = document.createElement('span');
