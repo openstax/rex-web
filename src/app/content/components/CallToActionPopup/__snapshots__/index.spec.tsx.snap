@@ -222,13 +222,13 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
       <h2
         className="c6"
       >
-        Sign up and continue reading. It's 100% FREE.
+        Sign up and continue reading. It's 100% free.
       </h2>
       <p
         className="c7"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Read your book and get <strong>free</strong> study tools. Highlight, take notes, and make your own study guide.",
+            "__html": "Read, search, highlight, add notes, build study guides -- all for <strong>free</strong>.",
           }
         }
       />
