@@ -121,6 +121,7 @@ export default styled(Filters)`
   ${css`
     ${DropdownToggle} {
       font-weight: bold;
+      outline: none;
     }
 
     ${Dropdown} {
