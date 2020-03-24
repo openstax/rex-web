@@ -193,9 +193,4 @@ describe('toRelativeUrl', () => {
     const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
   });
-
-  it('ignores trailing slashes on the target', () => {
-    const url = toRelativeUrl(PAGE_URL, PAGE_URL + '/');
-    expect(url).toMatchInlineSnapshot(`""`);
-  });
 });
