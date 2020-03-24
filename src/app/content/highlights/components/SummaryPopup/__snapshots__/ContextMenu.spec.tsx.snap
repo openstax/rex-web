@@ -10,6 +10,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 .c8 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
 }
@@ -313,6 +314,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
 .c8 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
 }

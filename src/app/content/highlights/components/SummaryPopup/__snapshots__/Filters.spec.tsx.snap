@@ -29,6 +29,7 @@ exports[`Filters matches snapshot 1`] = `
 .c7 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
 }
@@ -36,6 +37,7 @@ exports[`Filters matches snapshot 1`] = `
 .c17 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
   height: 1.7rem;
@@ -595,6 +597,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 .c7 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
 }
