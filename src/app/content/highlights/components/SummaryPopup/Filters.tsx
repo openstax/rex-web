@@ -6,12 +6,12 @@ import { PlainButton } from '../../../../components/Button';
 import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
-import PrintButton from '../../../components/Toolbar/PrintButton';
 import { disablePrint } from '../../../components/utils/disablePrint';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import { filters } from './constants';
 import FiltersList from './FiltersList';
+import HighlightsPrintButton from './HighlightsPrintButton';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
@@ -23,7 +23,7 @@ const DownIcon = styled(AngleDown)`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightsPrintButton = styled(PrintButton)`
+const StyledHighlightsPrintButton = styled(HighlightsPrintButton)`
   min-width: auto;
   height: max-content;
   margin-left: auto;
@@ -105,7 +105,7 @@ const Filters = ({className}: Props) => <div className={className}>
       <ColorFilter />
     </Dropdown>}
   </FormattedMessage>
-  <HighlightsPrintButton />
+  <StyledHighlightsPrintButton />
   <FiltersList />
 </div>;
 

@@ -2,6 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import books from '../../../config.books';
 
 export const maxHighlightsApiPageSize = 200;
+export const maxResourcesPerFetch = 10;
 
 export const summaryPageSize = 20;
 export const loadMoreDistanceFromBottom = 50;
@@ -21,3 +22,5 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
 ];
 
 export const enabledForBooks = Object.keys(books);
+
+export const highlightIndicatorSize = 0.9;

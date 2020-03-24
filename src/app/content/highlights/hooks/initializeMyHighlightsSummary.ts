@@ -5,10 +5,11 @@ import { isDefined } from '../../../guards';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import * as selectContent from '../../selectors';
-import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts } from '../actions';
+import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
+import { summaryPageSize } from '../constants';
 import * as select from '../selectors';
 import { CountsPerSource } from '../types';
-import loadMore from './loadMore';
+import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {
   const { dispatch, getState, highlightClient } = services;
@@ -30,7 +31,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     locationFilters
   ));
 
-  await loadMore(services);
+  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+  dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };
 
 export const initializeMyHighlightsSummaryHook = actionHook(initializeMyHighlightsSummary, hookBody);

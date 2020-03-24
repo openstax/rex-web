@@ -1,5 +1,5 @@
 import isEqual from 'lodash/fp/isEqual';
-import { APP_ENV, BOOKS } from '../../../../config';
+import { APP_ENV, BOOKS, UNLIMITED_CONTENT } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
@@ -13,7 +13,7 @@ import {
   getContentPageReferences,
   getPageIdFromUrlParam,
 } from '../../utils';
-import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
 import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
@@ -151,26 +151,52 @@ const resolvePage = async(
   }
 };
 
-const resolveExternalBookReference = async(
-  {archiveLoader, osWebLoader}: AppServices & MiddlewareAPI,
+const getBookInformation = async(
+  services: AppServices & MiddlewareAPI,
+  pageId: string
+) => {
+  const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
+  const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
+
+  if (configuredReference) {
+    const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
+    const archiveBook = await services.archiveLoader.book(
+      configuredReference.id, BOOKS[configuredReference.id].defaultVersion
+    ).load();
+
+    return {osWebBook, archiveBook};
+
+  } else if (UNLIMITED_CONTENT) {
+    for (const {id, bookVersion} of allReferences) {
+      const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
+      const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
+
+      if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+        return {osWebBook, archiveBook};
+      }
+    }
+  }
+
+  return undefined;
+};
+
+export const resolveExternalBookReference = async(
+  services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
   pageId: string
 ) => {
-  const bookId = (await archiveLoader.getBookIdsForPage(pageId)).filter((id) => BOOKS[id])[0];
+  const bookInformation = await getBookInformation(services, pageId);
+
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${pageId}", ${message}`
   );
 
-  if (!bookId) {
+  if (!bookInformation) {
     throw error('but it could not be found in any configured books.');
   }
 
-  const bookVersion = BOOKS[bookId].defaultVersion;
-
-  const osWebBook = await osWebLoader.getBookFromId(bookId);
-  const archiveBook = await archiveLoader.book(bookId, bookVersion).load();
-  const referencedBook = formatBookData(archiveBook, osWebBook);
+  const referencedBook = formatBookData(bookInformation.archiveBook, bookInformation.osWebBook);
 
   if (!archiveTreeContainsNode(referencedBook.tree, pageId)) {
     throw error(`archive thought it would be in "${referencedBook.id}", but it wasn't`);
