@@ -1,5 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
@@ -79,6 +80,13 @@ const HighlightToggleEditContent = styled.div`
   margin-bottom: 1rem; /* for last context menu to show with more space */
 `;
 
+// tslint:disable-next-line:variable-name
+const HighlightDropdownMenu = React.forwardRef((props, ref) => {
+  return <FormattedMessage id='i18n:highlighting:dropdown:edit:aria-label'>
+    {(msg: string) => <MenuToggle aria-label={msg} ref={ref} {...props} />}
+  </FormattedMessage>;
+});
+
 interface ContextMenuProps {
   color: HighlightColorEnum;
   hasAnnotation?: boolean;
@@ -94,33 +102,39 @@ const ContextMenu = ({
   onColorChange,
   onEdit,
   onDelete,
-}: ContextMenuProps) => <StyledContextMenu>
-  <Dropdown
-    toggle={<MenuToggle/>}
-    transparentTab={false}
-  >
-    <HighlightToggleEditContent>
-      <ColorPicker
-        color={color}
-        size='small'
-        onChange={onColorChange}
-      />
-      <StyledDropdownList>
-        <DropdownItem
-          data-testid='edit'
-          message={hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note'}
-          prefix={<StyledEditIcon/>}
-          onClick={() => onEdit()}
+}: ContextMenuProps) => {
+  const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
+  const deleteMessage = 'i18n:highlighting:dropdown:delete';
+  return <StyledContextMenu>
+    <Dropdown
+      toggle={<HighlightDropdownMenu />}
+      transparentTab={false}
+    >
+      <HighlightToggleEditContent>
+        <ColorPicker
+          color={color}
+          size='small'
+          onChange={onColorChange}
         />
-        <DropdownItem
-          data-testid='delete'
-          message='i18n:highlighting:dropdown:delete'
-          prefix={<StyledTrashAltIcon/>}
-          onClick={() => onDelete()}
-        />
-      </StyledDropdownList>
-    </HighlightToggleEditContent>
-  </Dropdown>
-</StyledContextMenu>;
+        <StyledDropdownList>
+          <DropdownItem
+            data-testid='edit'
+            ariaMessage={editMessage}
+            message={editMessage}
+            prefix={<StyledEditIcon/>}
+            onClick={() => onEdit()}
+          />
+          <DropdownItem
+            data-testid='delete'
+            ariaMessage={deleteMessage}
+            message={deleteMessage}
+            prefix={<StyledTrashAltIcon/>}
+            onClick={() => onDelete()}
+          />
+        </StyledDropdownList>
+      </HighlightToggleEditContent>
+    </Dropdown>
+  </StyledContextMenu>;
+};
 
 export default ContextMenu;

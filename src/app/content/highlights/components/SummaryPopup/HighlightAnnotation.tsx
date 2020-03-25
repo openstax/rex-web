@@ -53,15 +53,18 @@ const HighlightAnnotation = (
 
   return <HighlightNote>
     {isEditing
-      ? <FormattedMessage id='i18n:highlighting:card:placeholder'>
-        {(msg: string) => <Textarea
-          value={anno}
-          placeholder={msg}
-          autoFocus={true}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            setAnno(e.target.value);
-          }}
-        />}
+      ? <FormattedMessage id='i18n:highlighting:card:aria-label'>
+        {(ariaMsg: string) => <FormattedMessage id='i18n:highlighting:card:placeholder'>
+          {(msg: string) => <Textarea
+            value={anno}
+            placeholder={msg}
+            autoFocus={true}
+            aria-label={ariaMsg}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              setAnno(e.target.value);
+            }}
+          />}
+        </FormattedMessage>}
       </FormattedMessage>
       : <React.Fragment>
         <span className='highlight-note-text'>
@@ -81,6 +84,7 @@ const HighlightAnnotation = (
           data-analytics-label='save'
           size='medium'
           variant='primary'
+          aria-label={msg}
           onClick={() => onSave(anno)}
         >{msg}</Button>}
       </FormattedMessage>
@@ -89,6 +93,7 @@ const HighlightAnnotation = (
           size='medium'
           data-analytics-label='cancel'
           data-testid='cancel'
+          aria-label={msg}
           onClick={onCancel}
         >{msg}</Button>}
       </FormattedMessage>

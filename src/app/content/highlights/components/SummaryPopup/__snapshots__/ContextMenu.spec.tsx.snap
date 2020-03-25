@@ -101,6 +101,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-label="Edit this highlight"
       className="c4 c5 c6 c7 c8"
       onClick={[Function]}
     >
@@ -480,6 +481,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-label="Edit this highlight"
       className="c4 c5 c6 c7 c8"
       onClick={[Function]}
     >
@@ -508,6 +510,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         tabIndex={-1}
       >
         <label
+          aria-label="Apply yellow highlight"
           className="c15 c16"
           title="yellow"
         >
@@ -531,6 +534,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           </svg>
         </label>
         <label
+          aria-label="Apply green highlight"
           className="c15 c19"
           title="green"
         >
@@ -554,6 +558,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           </svg>
         </label>
         <label
+          aria-label="Apply blue highlight"
           className="c15 c20"
           title="blue"
         >
@@ -577,6 +582,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           </svg>
         </label>
         <label
+          aria-label="Apply purple highlight"
           className="c15 c21"
           title="purple"
         >
@@ -600,6 +606,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           </svg>
         </label>
         <label
+          aria-label="Apply pink highlight"
           className="c15 c22"
           title="pink"
         >
@@ -626,7 +633,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
       <ol
         className="c23"
       >
-        <li>
+        <li
+          aria-label="Add note"
+        >
           <a
             href=""
             onClick={[Function]}
@@ -647,7 +656,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
             Add note
           </a>
         </li>
-        <li>
+        <li
+          aria-label="Delete"
+        >
           <a
             href=""
             onClick={[Function]}
