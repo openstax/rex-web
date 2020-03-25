@@ -128,7 +128,7 @@ function prefixResources(rootEl: HTMLElement) {
 }
 
 function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape) {
-  const footnotes = document.querySelectorAll('[role=\'doc-footnote\']');
+  const footnotes = document.querySelectorAll('[role=doc-footnote]');
   if (!footnotes.length) { return; }
 
   const title = intl.formatMessage({id: 'i18n:content:footnotes:title'});
