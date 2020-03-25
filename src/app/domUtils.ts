@@ -126,6 +126,11 @@ export const onPageFocusChange = (focus: boolean, app: {services: AppServices, s
   app.store.dispatch(receivePageFocus(focus));
 };
 
+export const getContainedHighlightNode = (node: HTMLElement) => {
+  const highlight = node.querySelector('span[data-highlight-id]');
+  return highlight ? highlight : null;
+};
+
 const eventTypeMap = {
   focusout: 'FocusEvent' as 'FocusEvent',
 };

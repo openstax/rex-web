@@ -1,13 +1,14 @@
 import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
+import { getContainedHighlightNode } from '../../../domUtils';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { hasOSWebData } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
-import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
+import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
 import { Book, PageReferenceMap } from '../../types';
@@ -17,6 +18,7 @@ import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 export const mapStateToContentLinkProp = (state: AppState) => ({
   book: select.book(state),
   currentPath: selectNavigation.pathname(state),
+  focusedHighlight: focused(state),
   hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
@@ -43,7 +45,16 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
 
 export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) =>
   async(e: MouseEvent) => {
-    const {references, navigate, book, page, locationState, currentPath, hasUnsavedHighlight} = getProps();
+    const {
+      references,
+      navigate,
+      book,
+      page,
+      locationState,
+      currentPath,
+      hasUnsavedHighlight,
+      focusedHighlight,
+    } = getProps();
     const href = anchor.getAttribute('href');
 
     if (!href || !book || !page || isClickWithModifierKeys(e)) {
@@ -58,6 +69,15 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     }
 
     e.preventDefault();
+
+    const containedHighlight = getContainedHighlightNode(anchor);
+    if (containedHighlight) {
+      if (containedHighlight.getAttribute('data-highlight-id') !==  focusedHighlight) {
+        return;
+      }
+      e.stopPropagation();
+    }
+
     if (hasUnsavedHighlight && !await showConfirmation()) {
       return;
     }
