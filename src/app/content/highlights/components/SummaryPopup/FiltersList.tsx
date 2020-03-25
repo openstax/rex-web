@@ -9,6 +9,7 @@ import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import { setSummaryFilters } from '../../actions';
 import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../../selectors';
 
@@ -60,10 +61,15 @@ interface FiltersListColorProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
-    <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
+    <FormattedMessage id='i18n:highlighting:filters:remove:color' values={{filterValue: props.color}}>
+      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
+        <Times />
+      </StyledPlainButton>}
+    </FormattedMessage>
+
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
-        {(msg: Element | string) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
@@ -78,7 +84,14 @@ interface FiltersListChapterProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
-    <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
+    <FormattedMessage
+      id='i18n:highlighting:filters:remove:chapter'
+      values={{filterValue: splitTitleParts(props.title).join(' ')}}
+    >
+      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
+        <Times />
+      </StyledPlainButton>}
+    </FormattedMessage>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </FilterListItem>
 );
