@@ -82,6 +82,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
+    setAnnotationChangesPending(false);
     setEditing(false);
     onCancel();
   };
@@ -93,7 +94,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
-  useOnEsc(element, isFocused, onCancel);
+  useOnEsc(element, isFocused, cancelEditing);
 
   React.useEffect(() => {
     if (data) { return; }
