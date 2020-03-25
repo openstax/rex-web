@@ -10,6 +10,7 @@ import { content } from '../../routes';
 import * as select from '../../selectors';
 import { Book, PageReferenceMap } from '../../types';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
+import { REACT_APP_ARCHIVE_URL } from '../../../../config';
 
 export const mapStateToContentLinkProp = (state: AppState) => ({
   book: select.book(state),
@@ -29,6 +30,11 @@ export const reduceReferences = ({references, currentPath}: ContentLinkProp) => 
     (html, reference) => {
       const path = content.getUrl(reference.params);
       const search = content.getSearch && content.getSearch(reference.params);
+
+      console.log(REACT_APP_ARCHIVE_URL);
+      console.log(reference.params);
+      console.log(content.getSearch(reference.params));
+
       const query = search ? `?${search}` : '';
       return html.replace(reference.match, toRelativeUrl(currentPath, path) + query);
     },

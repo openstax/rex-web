@@ -18,7 +18,6 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
       hash: action.payload.hash,
       pathname: matchUrl(action.payload),
       search: matchSearch(action.payload, action.payload.search),
-      // search: action.payload.search,
       state: hasState(action.payload)
         ? action.payload.state
         : undefined,
