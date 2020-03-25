@@ -40,12 +40,16 @@ interface ToggleProps {
 
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({label, ...props}, ref) => <PlainButton ref={ref} {...props}>
-    <div tabIndex={-1}>
-      {label}
-      <DownIcon />
-    </div>
-  </PlainButton>
+  ({label, isOpen, ...props}, ref) => (
+    <FormattedMessage id='i18n:highlighting:filters:filter-by:aria-label' values={{filter: label}}>
+      {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
+        <div tabIndex={-1}>
+          {label}
+          <DownIcon />
+        </div>
+      </PlainButton>}
+    </FormattedMessage>
+  )
 ))`
   position: relative;
   border-left: ${filters.border}rem solid transparent;
