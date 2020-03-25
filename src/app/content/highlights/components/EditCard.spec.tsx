@@ -568,6 +568,7 @@ describe('EditCard', () => {
               highlight={highlight as unknown as Highlight}
               onCreate={create}
               authenticated={true}
+              setAnnotationChangesPending={() => null}
               onCancel={() => null}
             />
           </MessageProvider>
@@ -595,6 +596,7 @@ describe('EditCard', () => {
               highlight={highlight as unknown as Highlight}
               data={highlightData}
               authenticated={true}
+              setAnnotationChangesPending={() => null}
               onCancel={() => null}
             />
           </MessageProvider>
