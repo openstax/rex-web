@@ -194,3 +194,7 @@ class Page(pypom.Page):
 
         except WebDriverException:
             self.driver.switch_to_window(self.driver.window_handles[n])
+
+    def open_new_tab(self):
+        self.driver.execute_script("""window.open("","_blank");""")
+        self.wait.until(lambda b: len(b.window_handles) != 1)
