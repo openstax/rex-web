@@ -1,5 +1,6 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import { receiveLoggedOut } from '../../auth/actions';
+import { locationChange } from '../../navigation/actions';
 import { assertNotNull } from '../../utils';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
@@ -15,6 +16,22 @@ const mockHighlight = {
 } as HighlightData;
 
 describe('highlight reducer', () => {
+
+  it('locationChange - keeps recentlyLoadedFor and highlights if called with current pageUid', () => {
+    const state = reducer(
+      {...initialState, recentlyLoadedFor: '123', highlights: [mockHighlight]},
+      locationChange({location: {state: {pageUid: '123'}}} as any));
+    expect(state.recentlyLoadedFor).toEqual('123');
+    expect(state.highlights).toEqual([mockHighlight]);
+  });
+
+  it('locationChange - keeps recentlyLoadedFor and reset highlights if called with different pageUid', () => {
+    const state = reducer(
+      {...initialState, recentlyLoadedFor: '123', highlights: [mockHighlight]},
+      locationChange({location: {state: {pageUid: 'asdf'}}} as any));
+    expect(state.recentlyLoadedFor).toEqual('123');
+    expect(state.highlights).toEqual(initialState.highlights);
+  });
 
   it('focuses highlight', () => {
     const state = reducer(undefined, actions.focusHighlight('asdf'));

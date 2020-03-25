@@ -23,7 +23,9 @@ export const updateHighlight = createStandardAction('Content/Highlights/update')
   locationFilterId: string,
   pageId: string,
 }>();
-export const receiveHighlights = createStandardAction('Content/Highlights/receive')<HighlightData[]>();
+export const receiveHighlights = createStandardAction(
+  'Content/Highlights/receive'
+)<{highlights: HighlightData[], pageId: string}>();
 
 export const openMyHighlights = createStandardAction('Content/Highlights/Summary/open')<void>();
 export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();

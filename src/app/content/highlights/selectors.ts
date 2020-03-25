@@ -27,6 +27,11 @@ export const highlightsLoaded = createSelector(
   (state) => state.highlights !== null
 );
 
+export const highlightsRecentlyLoadedFor = createSelector(
+  localState,
+  (state) => state.recentlyLoadedFor
+);
+
 export const highlights = createSelector(
   localState,
   (state) => state.highlights || []

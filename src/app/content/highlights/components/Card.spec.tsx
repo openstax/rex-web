@@ -65,12 +65,15 @@ describe('Card', () => {
     } as unknown as HTMLElement;
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights([
-      {
-        color: highlightStyles[0].label,
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
     store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} container={container} />
@@ -83,11 +86,14 @@ describe('Card', () => {
   it('matches snapshot when passed data without note', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights([
-      {
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
     store.dispatch(requestSearch('asdf'));
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -120,11 +126,14 @@ describe('Card', () => {
 
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights([
-      {
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
     renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -138,12 +147,15 @@ describe('Card', () => {
   });
 
   it('unknown style doesn\'t throw', () => {
-    store.dispatch(receiveHighlights([
-      {
-        color: 'asdfasdfadsf' as HighlightColorEnum,
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          color: 'asdfasdfadsf' as HighlightColorEnum,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
     expect(() => renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
     </Provider>)).not.toThrow();
@@ -152,13 +164,16 @@ describe('Card', () => {
   it('switches to editing mode when onEdit is triggered', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights([
-      {
-        annotation: 'adsf',
-        color: highlightStyles[0].label,
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'adsf',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
     const component = renderer.create(<Provider store={store}>
       <Card highlight={highlight as unknown as Highlight} />
@@ -178,9 +193,7 @@ describe('Card', () => {
       color: highlightStyles[0].label,
       id: highlightData.id,
     } as HighlightData;
-    store.dispatch(receiveHighlights([
-      data,
-    ]));
+    store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
     store.dispatch(focusHighlight(highlight.id));
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
@@ -205,13 +218,16 @@ describe('Card', () => {
   it('removes when DisplayNote calls onRemove', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights([
-      {
-        annotation: 'adsf',
-        color: highlightStyles[0].label,
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'adsf',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
@@ -250,13 +266,16 @@ describe('Card', () => {
   it('creates when DisplayNote calls onCreate', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights([
-      {
-        annotation: '',
-        color: highlightStyles[0].label,
-        id: highlight.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: '',
+          color: highlightStyles[0].label,
+          id: highlight.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
     dispatch.mockClear();
 
@@ -296,12 +315,15 @@ describe('Card', () => {
 
   it('renders null if highlight doen\'t have range and its focused', () => {
     (highlight as any).range = undefined;
-    store.dispatch(receiveHighlights([
-      {
-        color: highlightStyles[0].label,
-        id: highlightData.id,
-      },
-    ] as HighlightData[]));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
     store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<Provider store={store}>

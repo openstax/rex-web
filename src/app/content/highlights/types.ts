@@ -39,6 +39,8 @@ export interface State {
     loading: boolean;
     highlights: SummaryHighlights | null;
   };
+  // PageID for which highlights where loaded
+  recentlyLoadedFor: string | null;
 }
 
 export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

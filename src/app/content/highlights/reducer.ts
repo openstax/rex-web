@@ -22,6 +22,7 @@ const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
   highlights: null,
   myHighlightsOpen: false,
+  recentlyLoadedFor: null,
   summary: {
     filters: {colors: defaultColors, locationIds: []},
     highlights: null,
@@ -34,7 +35,13 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
-      return {...initialState, myHighlightsOpen: false,
+      return {
+        ...initialState,
+        highlights: state.recentlyLoadedFor && action.payload.location.state.pageUid === state.recentlyLoadedFor
+          ? state.highlights
+          : initialState.highlights,
+        myHighlightsOpen: false,
+        recentlyLoadedFor: state.recentlyLoadedFor,
         summary: {...state.summary},
       };
     }
@@ -142,7 +149,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlights): {
-      return {...state, highlights: action.payload,
+      return {
+        ...state,
+        highlights: action.payload.highlights,
+        recentlyLoadedFor: action.payload.pageId,
         summary: {...state.summary},
       };
     }
