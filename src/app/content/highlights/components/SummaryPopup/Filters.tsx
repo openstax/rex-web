@@ -25,12 +25,16 @@ const DownIcon = styled(AngleDown)`
 
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, {label: string}>(
-  ({label, ...props}, ref) => <PlainButton ref={ref} {...props}>
-    <div tabIndex={-1}>
-      {label}
-      <DownIcon />
-    </div>
-  </PlainButton>
+  ({label, ...props}, ref) => (
+    <FormattedMessage id='i18n:highlighting:filters:filter-by:aria-label' values={{filter: label}}>
+      {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
+        <div tabIndex={-1}>
+          {label}
+          <DownIcon />
+        </div>
+      </PlainButton>}
+    </FormattedMessage>
+  )
 ))`
   > div {
     outline: none;
