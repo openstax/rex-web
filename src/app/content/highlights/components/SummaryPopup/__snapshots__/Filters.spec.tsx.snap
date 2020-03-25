@@ -858,6 +858,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-label="Filter highlights by Chapter"
       className="c4 c5 c6 c7"
       onClick={[Function]}
     >
@@ -884,6 +885,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-label="Filter highlights by Color"
       className="c4 c5 c11 c7"
       onClick={[Function]}
     >
