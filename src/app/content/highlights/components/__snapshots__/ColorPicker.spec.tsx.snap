@@ -190,6 +190,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   tabIndex={-1}
 >
   <label
+    aria-label="Apply yellow highlight"
     className="c1 c2"
     title="yellow"
   >
@@ -213,6 +214,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     </svg>
   </label>
   <label
+    aria-label="Apply green highlight"
     className="c1 c6"
     title="green"
   >
@@ -236,6 +238,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     </svg>
   </label>
   <label
+    aria-label="Apply blue highlight"
     className="c1 c7"
     title="blue"
   >
@@ -259,6 +262,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     </svg>
   </label>
   <label
+    aria-label="Apply purple highlight"
     className="c1 c8"
     title="purple"
   >
@@ -282,6 +286,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     </svg>
   </label>
   <label
+    aria-label="Apply pink highlight"
     className="c1 c9"
     title="pink"
   >
