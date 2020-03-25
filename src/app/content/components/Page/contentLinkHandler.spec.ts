@@ -139,6 +139,75 @@ describe('contentLinkHandler', () => {
         },
       }, expect.anything());
     });
+
+    it('requires two clicks for links with highlights', async() => {
+      const testHighlightID = 'randomid';
+
+      const highlight = assertDocument().createElement('span');
+      highlight.setAttribute('data-highlight-id', testHighlightID);
+
+      anchor.appendChild(highlight);
+
+      const link = `/books/${book.slug}/pages/page-title`;
+      anchor.setAttribute('href', link);
+      prop.references = [{
+        match: link,
+        params: {
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
+
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      };
+
+      await handler(event as any);
+
+      expect(event.stopPropagation).not.toHaveBeenCalled();
+      expect(event.preventDefault).toHaveBeenCalled();
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).not.toHaveBeenCalled();
+
+      prop.focusedHighlight = testHighlightID;
+      event.preventDefault.mockClear();
+
+      await handler(event as any);
+
+      expect(event.stopPropagation).toHaveBeenCalled();
+      expect(event.preventDefault).toHaveBeenCalled();
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).toHaveBeenCalledWith({
+        params: {
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
+        },
+        route: contentRoute,
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }, expect.anything());
+    });
   });
 
   describe('with unsaved highlight', () => {
