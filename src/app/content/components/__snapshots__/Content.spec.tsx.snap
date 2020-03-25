@@ -677,12 +677,12 @@ Array [
   color: #0064A0;
 }
 
-.c66 .highlight {
+.c65 .highlight {
   position: relative;
 }
 
-.c66 .MathJax_Display .highlight,
-.c66 .MathJax_Preview + .highlight {
+.c65 .MathJax_Display .highlight,
+.c65 .MathJax_Preview + .highlight {
   display: inline-block;
 }
 
@@ -690,7 +690,7 @@ Array [
   background-color: #ffff8a;
 }
 
-.c66 .highlight.yellow.first.text.has-note:before {
+.c65 .highlight.yellow.first.text.has-note:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -709,7 +709,7 @@ Array [
   background-color: #def99f;
 }
 
-.c66 .highlight.green.first.text.has-note:before {
+.c65 .highlight.green.first.text.has-note:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -728,7 +728,7 @@ Array [
   background-color: #c8f5ff;
 }
 
-.c66 .highlight.blue.first.text.has-note:before {
+.c65 .highlight.blue.first.text.has-note:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -747,7 +747,7 @@ Array [
   background-color: #cbcfff;
 }
 
-.c66 .highlight.purple.first.text.has-note:before {
+.c65 .highlight.purple.first.text.has-note:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -766,7 +766,7 @@ Array [
   background-color: #ffc5e1;
 }
 
-.c66 .highlight.pink.first.text.has-note:before {
+.c65 .highlight.pink.first.text.has-note:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -1699,7 +1699,7 @@ li[aria-label="Current Page"] .c46 {
     background-color: #fed200;
   }
 
-  .c66 .highlight.yellow.focus.first.text.has-note:before {
+  .c65 .highlight.yellow.focus.first.text.has-note:before {
     display: none;
   }
 }
@@ -1709,7 +1709,7 @@ li[aria-label="Current Page"] .c46 {
     background-color: #92d101;
   }
 
-  .c66 .highlight.green.focus.first.text.has-note:before {
+  .c65 .highlight.green.focus.first.text.has-note:before {
     display: none;
   }
 }
@@ -1719,7 +1719,7 @@ li[aria-label="Current Page"] .c46 {
     background-color: #00c3ed;
   }
 
-  .c66 .highlight.blue.focus.first.text.has-note:before {
+  .c65 .highlight.blue.focus.first.text.has-note:before {
     display: none;
   }
 }
@@ -1730,7 +1730,7 @@ li[aria-label="Current Page"] .c46 {
     color: #fff;
   }
 
-  .c66 .highlight.purple.focus.first.text.has-note:before {
+  .c65 .highlight.purple.focus.first.text.has-note:before {
     display: none;
   }
 }
@@ -1741,7 +1741,7 @@ li[aria-label="Current Page"] .c46 {
     color: #fff;
   }
 
-  .c66 .highlight.pink.focus.first.text.has-note:before {
+  .c65 .highlight.pink.focus.first.text.has-note:before {
     display: none;
   }
 }
