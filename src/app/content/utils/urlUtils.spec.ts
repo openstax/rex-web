@@ -146,6 +146,11 @@ describe('toRelativeUrl', () => {
     expect(url).toMatchInlineSnapshot(`"page1"`);
   });
 
+  it('when in the same book but it ends with a /', () => {
+    const url = toRelativeUrl(`${BOOK_URL}/pages/doesnotmatter/`, PAGE_URL);
+    expect(url).toMatchInlineSnapshot('"../page1"');
+  });
+
   it('when under the same Page (unused)', () => {
     const url = toRelativeUrl(`${PAGE_URL}/doesnotmatter`, PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../page1"`);
@@ -180,15 +185,5 @@ describe('toRelativeUrl', () => {
   it('when not in a book and not at the root', () => {
     const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
-  });
-
-  it('ignores trailing slashes on the target', () => {
-    const url = toRelativeUrl(PAGE_URL, PAGE_URL + '/');
-    expect(url).toMatchInlineSnapshot(`"page1"`);
-  });
-
-  it('ignores trailing slashes on the source', () => {
-    const url = toRelativeUrl(PAGE_URL + '/', PAGE_URL);
-    expect(url).toMatchInlineSnapshot(`"page1"`);
   });
 });
