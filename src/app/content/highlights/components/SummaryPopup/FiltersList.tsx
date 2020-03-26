@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../../components/Button';
 import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
@@ -32,7 +32,7 @@ const ItemLabel = styled.span`
   ${textStyle}
   font-weight: 300;
   color: ${theme.color.primary.gray.base};
-  max-width: 80px;
+  max-width: 8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -142,9 +142,13 @@ export default styled(FiltersList)`
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 0.4rem 0;
+  padding: 0 2.8rem 1rem 2.8rem;
+  margin-top: -1rem;
   list-style: none;
   overflow: visible;
+  ${theme.breakpoints.mobile(css`
+    padding: 0 2.4rem 0.4rem 2.4rem;
+  `)}
 
   @media print {
     margin: 0;
