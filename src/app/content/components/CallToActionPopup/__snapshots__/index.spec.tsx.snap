@@ -135,6 +135,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
 .c13 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
   pointer-events: auto;
