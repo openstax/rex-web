@@ -12,6 +12,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
 .c1 {
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
 }
