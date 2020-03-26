@@ -48,10 +48,6 @@ const makeEvent = (doc: Document) => {
   return event;
 };
 
-const mockConfig = {BOOKS: {
-  [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
-
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let state: AppState;
@@ -99,7 +95,6 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
         <a href="#hash">hash link</a>
-        <a href="?archive=some-content">archive link</a>
       `,
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
@@ -135,12 +130,6 @@ describe('Page', () => {
       </Provider>
     );
   };
-
-  beforeAll(() => {
-    jest.doMock('../../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL: '?archive=some-content'}));
-  });
-
-  require('./resolveContent');
 
   describe('Content tweaks for generic styles', () => {
     let pageElement: HTMLElement;
@@ -545,40 +534,49 @@ describe('Page', () => {
       }),
     }, {
       hash: '#hash',
-      search: 'archive=some-content',
+      search: '',
     }));
   });
 
   it('passes search when clicking archive links', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+    routes.content.getSearch = jest.fn().mockReturnValue('archive=some-content');
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
     await Promise.resolve();
 
-    const hashLink = root.querySelector('#main-content a[href="?archive=some-content"]');
+    const archiveLink = root.querySelector('#main-content a[href=""]');
 
-    if (!hashLink || !document) {
+    if (!archiveLink || !document) {
       expect(document).toBeTruthy();
-      return expect(hashLink).toBeTruthy();
+      return expect(archiveLink).toBeTruthy();
     }
 
     const evt1 = makeEvent(document);
 
-    hashLink.dispatchEvent(evt1);
+    archiveLink.dispatchEvent(evt1);
 
     await new Promise((resolve) => defer(resolve));
 
-    expect(dispatch).toHaveBeenCalledWith(push({
-      params: expect.anything(),
-      route: routes.content,
-      state: expect.objectContaining({
-        search: expect.objectContaining({query: 'asdf'}),
-      }),
-    }, {
-      hash: '#hash',
-      search: 'archive=some-content',
-    }));
+    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references: [
+      {
+        match: '/content/link',
+        params: {
+          book: {
+            slug: 'book-slug-1',
+          } ,
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      },
+    ]})));
   });
 
   it('does not intercept clicking content links when meta key is pressed', () => {
