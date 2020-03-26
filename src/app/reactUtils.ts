@@ -37,6 +37,23 @@ export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boole
   React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
 };
 
+export const onDOMEventHandler = (
+  element: React.RefObject<HTMLElement> | Window,
+  isEnabled: boolean,
+  event: keyof HTMLElementEventMap,
+  cb: () => void
+) => () => {
+  const target = isWindow(element) ? element : element.current;
+
+  if (!target) { return; }
+
+  if (isEnabled) {
+    target.addEventListener(event, cb);
+  }
+
+  return () => target.removeEventListener(event, cb);
+};
+
 export const useOnDOMEvent = (
   element: React.RefObject<HTMLElement> | Window ,
   isEnabled: boolean,
@@ -44,18 +61,7 @@ export const useOnDOMEvent = (
   cb: () => void,
   deps: React.DependencyList = []
 ) => {
-  React.useEffect(() => {
-    const target = isWindow(element) ? element : element.current;
-
-    if (!target) { return; }
-
-    if (isEnabled) {
-      target.addEventListener(event, cb);
-    }
-
-    return () => target.removeEventListener(event, cb);
-
-  }, [element, isEnabled, event, cb, ...deps]);
+  React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, event, cb, ...deps]);
 };
 
 export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList = []) => {

@@ -1,3 +1,4 @@
+import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { HighlightProp } from '../../../content/components/Page/searchHighlightManager';
@@ -32,14 +33,14 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
     }
   };
 
-  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut, [shouldAutoDismiss]);
+  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
   const resetAutoDismiss = useTimeout(shouldAutoDismissAfter, () => setShouldAutoDismiss(true));
 
-  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'click', startFadeOut, [shouldAutoDismiss]);
-  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'scroll', startFadeOut, [shouldAutoDismiss]);
+  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'click', startFadeOut);
+  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'scroll', startFadeOut);
 
   React.useEffect(() => {
-    setImmediate(() => {
+    defer(() => {
       setIsFadingOut(false);
       setShouldAutoDismiss(false);
       resetErrorClearing();

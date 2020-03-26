@@ -13,8 +13,9 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
+const selectedHighlight = {} as any;
+
 describe('SearchFailure', () => {
-  let addEventListener: jest.SpyInstance;
   let window: Window;
   let removeEventListener: jest.SpyInstance;
   let dismiss: jest.Mock;
@@ -25,7 +26,6 @@ describe('SearchFailure', () => {
     dismiss = jest.fn();
 
     window = assertWindow();
-    addEventListener = jest.spyOn(window, 'addEventListener');
     removeEventListener = jest.spyOn(window, 'removeEventListener');
 
     jest.useFakeTimers();
@@ -33,35 +33,36 @@ describe('SearchFailure', () => {
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight} />
     </MessageProvider>);
 
     const tree = component.toJSON();
     component.unmount();
     expect(tree).toMatchSnapshot();
 
-    jest.runAllTimers();
+    renderer.act(() => {
+      jest.runAllTimers();
+    });
   });
 
   it('matches snapshot when mobile toolbar is open', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true} selectedHighlight={selectedHighlight}  />
     </MessageProvider>);
 
     const tree = component.toJSON();
     component.unmount();
     expect(tree).toMatchSnapshot();
 
-    jest.runAllTimers();
+    renderer.act(() => {
+      jest.runAllTimers();
+    });
   });
 
   it('manages timeouts', async() => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
     </MessageProvider>);
-
-    expect(addEventListener).toHaveBeenCalledWith('scroll', expect.anything());
-    expect(addEventListener).toHaveBeenCalledWith('click', expect.anything());
 
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), clearErrorAfter);
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), shouldAutoDismissAfter);
@@ -82,7 +83,7 @@ describe('SearchFailure', () => {
 
   it('doesnt allow dismissing immediately after mounting', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
     </MessageProvider>);
 
     const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
@@ -99,7 +100,7 @@ describe('SearchFailure', () => {
 
   it('dismisses on animation end', () => {
     const {root} = renderToDom(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
     </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -114,10 +115,13 @@ describe('SearchFailure', () => {
 
   it('dismisses notification on click', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
     </MessageProvider>);
 
     renderer.act(() => {
+      // initial defer
+      jest.advanceTimersByTime(1);
+
       jest.advanceTimersByTime(shouldAutoDismissAfter);
     });
 
