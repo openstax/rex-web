@@ -101,6 +101,7 @@ export const ButtonGroup = styled.div`
 export const PlainButton = styled.button`
   cursor: pointer;
   border: none;
+  margin: 0;
   padding: 0;
   background: none;
 `;
