@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import SearchFailure, { shouldAutoDismissAfter } from '.';
+import SearchFailure, { shouldAutoDismissAfter, syncState } from '.';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
@@ -17,6 +17,7 @@ const selectedHighlight = {} as any;
 
 describe('SearchFailure', () => {
   let window: Window;
+  let addEventListener: jest.SpyInstance;
   let removeEventListener: jest.SpyInstance;
   let dismiss: jest.Mock;
 
@@ -26,6 +27,7 @@ describe('SearchFailure', () => {
     dismiss = jest.fn();
 
     window = assertWindow();
+    addEventListener = jest.spyOn(window, 'addEventListener');
     removeEventListener = jest.spyOn(window, 'removeEventListener');
 
     jest.useFakeTimers();
@@ -68,6 +70,13 @@ describe('SearchFailure', () => {
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), shouldAutoDismissAfter);
 
     renderer.act(() => {
+      jest.advanceTimersByTime(shouldAutoDismissAfter);
+    });
+
+    expect(addEventListener).toHaveBeenCalledWith('scroll', expect.anything());
+    expect(addEventListener).toHaveBeenCalledWith('click', expect.anything());
+
+    renderer.act(() => {
       jest.runAllTimers();
     });
 
@@ -78,23 +87,6 @@ describe('SearchFailure', () => {
 
     expect(bannerBody.props.isFadingOut).toBe(true);
 
-    component.unmount();
-  });
-
-  it('doesnt allow dismissing immediately after mounting', () => {
-    const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
-    </MessageProvider>);
-
-    const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
-
-    renderer.act(() => {
-      const event = assertDocument().createEvent('MouseEvent');
-      event.initEvent('click');
-      assertWindow().dispatchEvent(event);
-    });
-
-    expect(bannerBody.props.isFadingOut).toBe(false);
     component.unmount();
   });
 
@@ -119,9 +111,6 @@ describe('SearchFailure', () => {
     </MessageProvider>);
 
     renderer.act(() => {
-      // initial defer
-      jest.advanceTimersByTime(1);
-
       jest.advanceTimersByTime(shouldAutoDismissAfter);
     });
 
@@ -136,5 +125,41 @@ describe('SearchFailure', () => {
     expect(bannerBody.props.isFadingOut).toBe(true);
 
     component.unmount();
+  });
+
+  it('resets when selected highlight changes', () => {
+    const component = renderer.create(<MessageProvider>
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+    </MessageProvider>);
+
+    renderer.act(() => {
+      jest.advanceTimersByTime(shouldAutoDismissAfter);
+    });
+
+    const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
+
+    renderer.act(() => {
+      const event = assertDocument().createEvent('MouseEvent');
+      event.initEvent('click');
+      assertWindow().dispatchEvent(event);
+    });
+
+    expect(bannerBody.props.isFadingOut).toBe(true);
+
+    renderer.act(() => {
+      component.update(<MessageProvider>
+        <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={{} as any}  />
+      </MessageProvider>);
+    });
+
+    expect(bannerBody.props.isFadingOut).toBe(false);
+    component.unmount();
+  });
+
+  describe('syncState', () => {
+    it('doesn\'t allow to fade out if error is not ready to be dimissed', () => {
+      const state = { isFadingOut: false, shouldAutoDismiss: false};
+      expect(syncState(state)).toBe(state);
+    });
   });
 });

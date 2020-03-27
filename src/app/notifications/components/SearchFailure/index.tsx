@@ -1,4 +1,3 @@
-import defer from 'lodash/fp/defer';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { HighlightProp } from '../../../content/components/Page/searchHighlightManager';
@@ -21,39 +20,47 @@ interface Props {
   selectedHighlight: null | HighlightProp;
 }
 
+const initialState = {
+  isFadingOut: false,
+  shouldAutoDismiss: false,
+};
+
+export const syncState = (prevState: typeof initialState) => {
+  return prevState.shouldAutoDismiss ? {...prevState, isFadingOut: true} : prevState;
+};
+
 // tslint:disable-next-line:variable-name
 const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props) => {
   const window = assertWindow();
-  const [isFadingOut, setIsFadingOut] = React.useState(false);
-  const [shouldAutoDismiss, setShouldAutoDismiss] = React.useState(false);
+  const [fadeOutState, setFadeOutState] = React.useState(initialState);
 
   const startFadeOut = () => {
-    if (shouldAutoDismiss) {
-      setIsFadingOut(true);
-    }
+    setFadeOutState(syncState);
   };
 
+  const handlersEnabled = !fadeOutState.isFadingOut && fadeOutState.shouldAutoDismiss;
+
+  useOnDOMEvent(window, handlersEnabled, 'click', startFadeOut);
+  useOnDOMEvent(window, handlersEnabled, 'scroll', startFadeOut);
+
   const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
-  const resetAutoDismiss = useTimeout(shouldAutoDismissAfter, () => setShouldAutoDismiss(true));
+  const resetAutoDismiss = useTimeout(
+    shouldAutoDismissAfter,
+    () => setFadeOutState({...initialState, shouldAutoDismiss: true})
+  );
 
-  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'click', startFadeOut);
-  useOnDOMEvent(window, !isFadingOut && shouldAutoDismiss, 'scroll', startFadeOut);
-
-  React.useEffect(() => {
-    defer(() => {
-      setIsFadingOut(false);
-      setShouldAutoDismiss(false);
-      resetErrorClearing();
-      resetAutoDismiss();
-    });
-  }, [selectedHighlight, setIsFadingOut, setShouldAutoDismiss]);
+  React.useLayoutEffect(() => {
+    resetErrorClearing();
+    resetAutoDismiss();
+    setFadeOutState(initialState);
+  }, [selectedHighlight, setFadeOutState]);
 
   return (
     <BannerBodyWrapper
       data-testid='banner-body'
       onAnimationEnd={dismiss}
       mobileToolbarOpen={mobileToolbarOpen}
-      isFadingOut={isFadingOut}
+      isFadingOut={fadeOutState.isFadingOut}
     >
       <BannerBody>
         <FormattedMessage id='i18n:notification:search-failure'>
