@@ -2,13 +2,14 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../../components/Button';
 import Times from '../../../../components/Times';
 import { textStyle } from '../../../../components/Typography';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import { setSummaryFilters } from '../../actions';
 import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../../selectors';
 
@@ -31,7 +32,7 @@ const ItemLabel = styled.span`
   ${textStyle}
   font-weight: 300;
   color: ${theme.color.primary.gray.base};
-  max-width: 80px;
+  max-width: 8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -60,10 +61,15 @@ interface FiltersListColorProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
-    <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
+    <FormattedMessage id='i18n:highlighting:filters:remove:color' values={{filterValue: props.color}}>
+      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
+        <Times />
+      </StyledPlainButton>}
+    </FormattedMessage>
+
     <ItemLabel>
       <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
-        {(msg: Element | string) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
@@ -78,7 +84,14 @@ interface FiltersListChapterProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
-    <StyledPlainButton onClick={props.onRemove}><Times /></StyledPlainButton>
+    <FormattedMessage
+      id='i18n:highlighting:filters:remove:chapter'
+      values={{filterValue: splitTitleParts(props.title).join(' ')}}
+    >
+      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
+        <Times />
+      </StyledPlainButton>}
+    </FormattedMessage>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </FilterListItem>
 );
@@ -129,9 +142,13 @@ export default styled(FiltersList)`
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  padding: 0.4rem 0;
+  padding: 0 2.8rem 1rem 2.8rem;
+  margin-top: -1rem;
   list-style: none;
   overflow: visible;
+  ${theme.breakpoints.mobile(css`
+    padding: 0 2.4rem 0.4rem 2.4rem;
+  `)}
 
   @media print {
     margin: 0;

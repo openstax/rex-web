@@ -127,15 +127,20 @@ const HighlightsPopUp = ({ ...props }: Props) => {
           <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
-          <Styled.CloseIconWrapper
-            data-testid='close-highlights-popup'
-            onClick={() => {
-              props.closeMyHighlights();
-              trackOpenCloseMH('button');
-            }}
-          >
-            <Styled.CloseIcon />
-          </Styled.CloseIconWrapper>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
+            {(msg: string) => (
+              <Styled.CloseIconWrapper
+               data-testid='close-highlights-popup'
+               aria-label={msg}
+               onClick={() => {
+                 props.closeMyHighlights();
+                 trackOpenCloseMH('button');
+               }}
+              >
+                <Styled.CloseIcon />
+              </Styled.CloseIconWrapper>
+            )}
+          </FormattedMessage>
         </Styled.Header>
         {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       </Styled.Modal>

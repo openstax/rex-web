@@ -25,3 +25,4 @@ export const enabledForBooks = Object.keys(books);
 
 export const highlightBlockPadding = 1;
 export const highlightIndicatorSizeForBlock = 1.2;
+export const highlightIndicatorSize = 0.9;

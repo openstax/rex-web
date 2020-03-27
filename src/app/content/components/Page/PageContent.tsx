@@ -6,6 +6,7 @@ import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
 import {
   highlightBlockPadding,
+  highlightIndicatorSize,
   highlightIndicatorSizeForBlock,
   highlightStyles,
 } from '../../highlights/constants';
@@ -94,6 +95,19 @@ export default styled(MainContent)`
         }
       }
 
+      &.first.text.has-note:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+        border-left: ${highlightIndicatorSize}em solid ${style.focused};
+        border-top: ${highlightIndicatorSize}em solid transparent;
+        transform: rotate(90deg);
+      }
+
       @media screen {
         &.focus {
           background-color: ${style.focused};
@@ -102,14 +116,12 @@ export default styled(MainContent)`
             color: ${theme.color.text.white};
           `}
 
-          &.block {
-            &:after {
-              background-color: ${style.focused};
-            }
+          &.block:after {
+            background-color: ${style.focused};
+          }
 
-            &.first.has-note:before {
-              display: none;
-            }
+          &.first.has-note:before {
+            display: none;
           }
         }
       }
