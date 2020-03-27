@@ -70,7 +70,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
 
     e.preventDefault();
 
-    const containedHighlight = getContainedHighlightNode(anchor);
+    const containedHighlight = getContainedHighlightNode(e.target);
     if (containedHighlight) {
       if (containedHighlight.getAttribute('data-highlight-id') !==  focusedHighlight) {
         return;

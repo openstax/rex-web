@@ -1,4 +1,4 @@
-import { Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Element, EventListener, EventTarget, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import * as dom from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { receivePageFocus } from './actions';
@@ -126,9 +126,14 @@ export const onPageFocusChange = (focus: boolean, app: {services: AppServices, s
   app.store.dispatch(receivePageFocus(focus));
 };
 
-export const getContainedHighlightNode = (node: HTMLElement) => {
-  const highlight = node.querySelector('span[data-highlight-id]');
-  return highlight ? highlight : null;
+export const getContainedHighlightNode = (node: EventTarget | null) => {
+  if (node === null) {
+    return null;
+  }
+
+  return node instanceof assertWindow().Element && node.hasAttribute('data-highlight-id')
+    ? node
+    : null;
 };
 
 const eventTypeMap = {
