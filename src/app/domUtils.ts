@@ -126,16 +126,6 @@ export const onPageFocusChange = (focus: boolean, app: {services: AppServices, s
   app.store.dispatch(receivePageFocus(focus));
 };
 
-export const getContainedHighlightNode = (node: EventTarget | null) => {
-  if (node === null) {
-    return null;
-  }
-
-  return node instanceof assertWindow().Element && node.hasAttribute('data-highlight-id')
-    ? node
-    : null;
-};
-
 const eventTypeMap = {
   focusout: 'FocusEvent' as 'FocusEvent',
 };

@@ -146,8 +146,6 @@ describe('contentLinkHandler', () => {
       const highlight = assertDocument().createElement('span');
       highlight.setAttribute('data-highlight-id', testHighlightID);
 
-      anchor.appendChild(highlight);
-
       const link = `/books/${book.slug}/pages/page-title`;
       anchor.setAttribute('href', link);
       prop.references = [{
@@ -170,6 +168,7 @@ describe('contentLinkHandler', () => {
       const event = {
         preventDefault: jest.fn(),
         stopPropagation: jest.fn(),
+        target: highlight,
       };
 
       await handler(event as any);

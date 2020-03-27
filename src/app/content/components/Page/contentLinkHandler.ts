@@ -1,7 +1,7 @@
 import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
-import { getContainedHighlightNode } from '../../../domUtils';
+import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
@@ -70,9 +70,8 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
 
     e.preventDefault();
 
-    const containedHighlight = getContainedHighlightNode(e.target);
-    if (containedHighlight) {
-      if (containedHighlight.getAttribute('data-highlight-id') !==  focusedHighlight) {
+    if (isHtmlElementWithHighlight(e.target)) {
+      if (e.target.getAttribute('data-highlight-id') !==  focusedHighlight) {
         return;
       }
       e.stopPropagation();
