@@ -84,6 +84,7 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
 
   useEffect(() => {
       reset();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delay]);
 
   React.useEffect(() => () => clearTimeout(assertDefined(timeout.current, 'timeout ID can\'t be undefined')), []);
