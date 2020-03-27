@@ -53,6 +53,7 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
     resetErrorClearing();
     resetAutoDismiss();
     setFadeOutState(initialState);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedHighlight, setFadeOutState]);
 
   return (
