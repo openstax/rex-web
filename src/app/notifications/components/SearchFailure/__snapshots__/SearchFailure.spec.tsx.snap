@@ -15,7 +15,7 @@ exports[`SearchFailure matches snapshot 1`] = `
       We're unable to find that search result. Please try another.
     </div>
     <button
-      className="jmrLvf"
+      className="licVaD"
       onClick={[MockFunction]}
     >
       <svg
@@ -67,7 +67,7 @@ exports[`SearchFailure matches snapshot when mobile toolbar is open 1`] = `
       We're unable to find that search result. Please try another.
     </div>
     <button
-      className="jmrLvf"
+      className="licVaD"
       onClick={[MockFunction]}
     >
       <svg
