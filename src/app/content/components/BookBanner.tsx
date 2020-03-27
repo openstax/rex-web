@@ -199,13 +199,11 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
     if (isClickWithModifierKeys(e) || !this.props.hasUnsavedHighlight) {
       return;
     }
-
     e.preventDefault();
 
     if (!await showConfirmation()) {
       return;
     }
-
     assertWindow().location.assign(link);
   };
 
