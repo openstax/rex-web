@@ -66,7 +66,7 @@ export const matchSearch = (action: AnyMatch, search: string | undefined) => {
 
 export const matchUrl = (action: AnyMatch) => hasParams(action)
   ? action.route.getUrl(action.params)
-  : (action.route.getUrl)();
+  : action.route.getUrl();
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
