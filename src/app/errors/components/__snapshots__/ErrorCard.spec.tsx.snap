@@ -195,8 +195,8 @@ exports[`ErrorCard matches snapshot 1`] = `
       dangerouslySetInnerHTML={
         Object {
           "__html": "
-  We're not quite sure what went wrong. You can try refreshing the page, or contact
-  our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a> for help.
+  We're not quite sure what went wrong. Refresh the page. If this doesn't solve
+  the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
 ",
         }
       }
