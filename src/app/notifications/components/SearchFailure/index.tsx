@@ -7,17 +7,20 @@ import { Header } from '../Card';
 import {
   BannerBody,
   BannerBodyWrapper,
-  clearErrorAfter,
+//  clearErrorAfter,
   CloseButton,
   CloseIcon,
 } from './styles';
 
-export const shouldAutoDismissAfter = 200;
+//export const shouldAutoDismissAfter = 200;
 
 interface Props {
   dismiss: () => void;
   mobileToolbarOpen: boolean;
   selectedHighlight: null | HighlightProp;
+  fadeOutDuration: number,
+  shouldAutoDismissAfter: number,
+  clearErrorAfter: number
 }
 
 const initialState = {
@@ -30,7 +33,7 @@ export const syncState = (prevState: typeof initialState) => {
 };
 
 // tslint:disable-next-line:variable-name
-const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props) => {
+const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight, clearErrorAfter, shouldAutoDismissAfter, fadeOutDuration }: Props) => {
   const window = assertWindow();
   const [fadeOutState, setFadeOutState] = React.useState(initialState);
 
@@ -62,6 +65,7 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
       onAnimationEnd={dismiss}
       mobileToolbarOpen={mobileToolbarOpen}
       isFadingOut={fadeOutState.isFadingOut}
+      fadeOutDuration={fadeOutDuration}
     >
       <BannerBody>
         <FormattedMessage id='i18n:notification:search-failure'>
