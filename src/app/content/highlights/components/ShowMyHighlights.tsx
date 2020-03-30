@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
@@ -82,14 +83,19 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         <Filters />
         <Highlights />
         {this.state.showGoToTop && (
-          <Styled.GoToTopWrapper
-            onClick={this.scrollToTop}
-            data-testid='back-to-top-highlights'
-          >
-            <Styled.GoToTop>
-              <Styled.GoToTopIcon />
-            </Styled.GoToTop>
-          </Styled.GoToTopWrapper>
+          <FormattedMessage id='i18n:toolbar:highlights:popup:button:back-to-top'>
+            {(msg: string) => (
+              <Styled.GoToTopWrapper
+                onClick={this.scrollToTop}
+                data-testid='back-to-top-highlights'
+                aria-label={msg}
+              >
+                <Styled.GoToTop>
+                  <Styled.GoToTopIcon />
+                </Styled.GoToTop>
+              </Styled.GoToTopWrapper>
+            )}
+          </FormattedMessage>
         )}
       </Styled.ShowMyHighlightsBody>
     );
