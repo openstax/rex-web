@@ -147,7 +147,7 @@ export const mainCardStyles = css`
     `;
   }}
 
-  /* isTocOpen means toc is open on the desktop and for mobile, there is a different media query */
+  /* in this media query if isTocOpen is null or truthy it means that toc is open */
   ${(props: CardProps) => (props.isTocOpen === null || props.isTocOpen) && css`
     @media ${minimalWidthForCardsWithToc} {
       /* the window is too small to show note cards next to content when the toc is open */

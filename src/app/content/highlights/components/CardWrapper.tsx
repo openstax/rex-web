@@ -40,10 +40,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     const position = cardsPositions.get(highlight.id);
     if (typeof position !== 'number') { return; }
 
-    const topOffset = assertDefined(
-      getHighlightTopOffset(container, highlight),
-      `Couldn't get top offset for highlights`
-    );
+    const topOffset = getTopOffsetForHighlight(highlight);
 
     if (position > topOffset) {
       assertNotNull(element.current, 'element.current can\'t be null').style.top = `-${position - topOffset}px`;
