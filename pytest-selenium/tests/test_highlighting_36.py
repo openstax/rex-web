@@ -1,5 +1,6 @@
 """Reading Experience highlighting."""
-
+# fmt: off
+# flake8: noqa
 import logging
 import random
 import re
@@ -123,7 +124,7 @@ def test_highlighting_different_content(
     total_highlight_count = book.content.highlight_ids
 
     # WHEN: the page is refreshed
-    book = book.reload(True)
+    book = book.reload()
 
     # THEN: all of the preceding highlights should still be highlighted
     current_highlights = book.content.highlight_ids
@@ -1592,3 +1593,4 @@ def test_change_color_of_highlighted_text(
 @markers.skip_test(reason="not prioritized")
 def test_create_note_box_position_and_size_for_long_notes():
     """Verify the create note box position for long notes."""
+# fmt: on
