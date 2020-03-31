@@ -1,6 +1,5 @@
 import { Key, parse } from 'path-to-regexp';
 import { APP_ENV, BOOKS } from '../../../config';
-import { assertDefined } from '../../utils';
 import { pathTokenIsKey } from '../guards';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
@@ -54,14 +53,16 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
 
-  if (APP_ENV === 'production' || treeSection.slug) {
-    const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
-    getUrlParamForPageIdCache.set(cacheKey, {slug: result});
-    return {slug: result};
-  } else {
-    getUrlParamForPageIdCache.set(cacheKey, {uuid: treeSection.id});
-    return {uuid: treeSection.id};
+  if (APP_ENV === 'production' && !treeSection.slug) {
+    throw new Error(`could not find page slug for "${pageId}" in ${book.title}`);
   }
+
+  const param = treeSection.slug
+    ? {slug: treeSection.slug}
+    : {uuid: treeSection.id};
+
+  getUrlParamForPageIdCache.set(cacheKey, param);
+  return param;
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: Params['page']): string | undefined => {
@@ -99,7 +100,7 @@ export const toRelativeUrl = (from: string, to: string) => {
     + parsedTo.slice(commonParts.length).join('/');
 };
 
-export const findPathForParams = (params: {}, paths: string[]) => {
+export const findPathForParams = (params: object, paths: string[]) => {
   const paramKeys = Object.keys(params);
   return paths.find((path) => {
     const paramsInPath = parse(path).filter((param) => pathTokenIsKey(param)) as Key[];
