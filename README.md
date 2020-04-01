@@ -4,6 +4,9 @@ Unified **R**eading **Ex**perience
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/test_coverage)](https://codeclimate.com/github/openstax/rex-web/test_coverage)
 [![Updates](https://pyup.io/repos/github/openstax/rex-web/shield.svg)](https://pyup.io/repos/github/openstax/rex-web/) [![Greenkeeper badge](https://badges.greenkeeper.io/openstax/rex-web.svg)](https://greenkeeper.io/)
 
+## Confluence
+
+Real documentation is on [confluence](https://openstax.atlassian.net/wiki/spaces/UNIFIED/pages/196936/REX) everything here is just for quick reference.
 
 ## Development Setup
 
@@ -30,16 +33,6 @@ yarn start
 #### trust the certificate
 - run `yarn trust-localhost` after you can see the security error in a browser
 - reload the browser
-
-## Architecture Overview
-
-The app has two entrypoints, one for [prerender](script/prerender.tsx) and one for [browsers](src/index.tsx), both use [app](src/app/index.tsx) to construct the actual app container. The app container sets some stuff up and then passes [routes](src/app/content/routes.ts) into the [navigator](src/app/navigation/components/NavigationProvider.ts). Pages initialize their state by registering a [route hook](src/app/content/hooks/locationChange.ts), route hooks are a type of [action hook](src/app/content/hooks/receiveContent.ts) that can be used to respond to any redux action dispatched.
-
-## Notes on Navigation
-
-REX is just one part of the unified openstax experience. Depending on where you go, different applications will handle the request. In order for navigation to mostly work as intended, this development environment proxies some urls to other projects. Just because you can go to a url locally doesn't mean it is handled by REX. Urls handled by REX can be referenced [here](http://localhost:3000/), any other urls, even if they work locally, are being proxied to other apps.
-
-If this situation is super confusing you can use the `SKIP_OS_WEB_PROXY` environment variable and _most_ non-rexy things will 404.
 
 ## Available Scripts
 
@@ -108,11 +101,6 @@ docker run -t openstax/rex-web yarn server
 docker run -t openstax/rex-web yarn test
 ```
 
-### Environment Variables
-
-- `PUPPETEER_DEBUG=true yarn test` : Opens the browser with dev tools. This allows you to add `debugger` statements into the test _and_ into the browser code that is evaluated.
-- `SKIP_OS_WEB_PROXY yarn start` : Runs development environment without the osweb proxy, can be less confusing if you're not sure what pages this project is rendering.
-
 ## Test Suites
 
 ### Developer Tests
@@ -140,7 +128,3 @@ this suite:
 - runs against a **remote** environment
 - uses **real** content and **persistent** test data
 - is run against release candidates when they are updated
-
-# DOM Visitor
-
-`yarn analyze:dom` visits every page of every book and reports when an content element is wider than the allowed content.
