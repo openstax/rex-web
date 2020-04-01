@@ -15,6 +15,7 @@ class SearchSidebar(Region):
     _no_results_locator = (By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
     _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
 
+    # fmt: off
     @property
     def no_results_message(self):
         try:
@@ -42,3 +43,12 @@ class SearchSidebar(Region):
                 for result
                 in self.find_elements(*self._search_result_locator)
                 if term in result.get_attribute("textContent")]
+
+    # fmt: on
+
+    @property
+    def is_displayed(self):
+        try:
+            return self.root.is_displayed()
+        except NoSuchElementException:
+            return False
