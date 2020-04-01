@@ -6,8 +6,9 @@ from string import digits, ascii_letters
 
 from pages.content import Content
 from tests import markers
+from utils import utility
 
-
+# fmt: off
 @markers.test_case("C543235")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
@@ -29,8 +30,7 @@ def test_message_when_search_yields_no_results(
 
     # THEN: the search sidebar displays the no results message
     # AND:  they remain on the same page as before they executed the search
-    assert(content.search_sidebar.no_results_message ==
-           f"Sorry, no results found for   ‘{search_term}’"), \
+    assert(content.search_sidebar.no_results_message == f"Sorry, no results found for   ‘{search_term}’"), \
         "search sidebar no results message not found or incorrect"
 
     assert(content.current_url == page_url_before_search), \
@@ -99,3 +99,31 @@ def test_scroll_position_when_search_yields_no_results(
                 low=scroll_position_before_search - within,
                 high=scroll_position_before_search + within,
                 target=scroll_position_after_closing_search))
+# fmt: on
+
+
+@markers.test_case("C543231")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug, page_slug):
+    # GIVEN: Book page is loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    toolbar = content.toolbar
+    mobile = content.mobile_search_toolbar
+    toc_sidebar = content.sidebar
+    search_sidebar = content.search_sidebar
+
+    # WHEN: Search is triggered for a string
+    search_term = utility.get_search_term(book_slug)
+
+    if content.is_desktop:
+        toolbar.search_for(search_term)
+
+    if content.is_mobile:
+        mobile.search_for(search_term)
+
+    # THEN: TOC is not displayed
+    assert not toc_sidebar.is_displayed
+
+    # AND: Search sidebar is displayed
+    assert search_sidebar.is_displayed
