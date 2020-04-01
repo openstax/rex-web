@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
+from time import sleep
 
 from pages.base import Page
 from utils.utility import Utilities
@@ -15,15 +16,37 @@ class WebBase(Page):
 
     @property
     def loaded(self):
-        """Return True when the page-loaded class is added to the body tag."""
-        return not self.find_elements(*self._async_hide_locator)
+        """Return when the page is loaded.
+
+        Fires the 'load' event when the whole webpage (HTML) has loaded fully,
+        including all dependent resources such as CSS files, and images.
+        Or
+        Return when the async event is hidden.
+
+        """
+        script = r'document.addEventListener("load", function(event) {});'
+        sleep(0.5)
+        async_hide = bool(self.find_elements(*self._async_hide_locator))
+        return (self.driver.execute_script(script)) or (not async_hide)
 
     def wait_for_load(self):
         return self.wait.until(lambda _: self.loaded)
 
     @property
+    def user_nav(self):
+        return self.find_element(*self._user_nav_locator)
+
+    @property
     def mobile_user_nav(self):
         return self.find_element(*self._mobile_user_nav_locator)
+
+    @property
+    def mobile_user_nav_loaded(self):
+        return self.find_element(*self._mobile_user_nav_loaded_locator).is_displayed()
+
+    @property
+    def logout(self):
+        return self.find_element(*self._logout_locator)
 
     @property
     def user_is_logged_in(self):
@@ -53,3 +76,8 @@ class WebBase(Page):
         if self.is_desktop:
             self.open_toggle()
             return self.open()._selection_helper(self._logout_locator)
+        elif self.is_mobile:
+            Utilities.click_option(self.driver, element=self.mobile_user_nav)
+            Utilities.click_option(self.driver, element=self.user_nav)
+            Utilities.click_option(self.driver, element=self.logout)
+        self.wait_for_load()

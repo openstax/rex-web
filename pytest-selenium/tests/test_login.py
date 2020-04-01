@@ -18,14 +18,10 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
     user_nav.click_login()
 
     # THEN: The page navigates to accounts/login
-    expected_page_url_old = f"{base_url}/accounts/login?r=/books/" f"{book_slug}/pages/{page_slug}"
-    expected_page_url_new = (
+    expected_page_url = (
         f"{base_url}/accounts/i/login?r=%2Fbooks%2F" f"{book_slug}%2Fpages%2F{page_slug}"
     )
-    assert (
-        expected_page_url_old in selenium.current_url
-        or expected_page_url_new in selenium.current_url
-    ), "not viewing the Accounts log in page"
+    assert expected_page_url in selenium.current_url, "not viewing the Accounts log in page"
 
     # WHEN: they log in as an existing user
     Login(selenium).login(email, password)
@@ -88,11 +84,6 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
     osweb.click_logout()
     osweb.wait_for_load()
 
-    # THEN: REX tab will stay in logged-in state
+    # THEN: REX tab goes to logged-out state immediately
     rex.switch_to_window(0)
-
-    assert rex_nav.user_is_logged_in
-
-    # AND: REX tab goes to logged-out state on a reload
-    # selenium.refresh()
     assert rex_nav.user_is_not_logged_in
