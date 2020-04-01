@@ -17,13 +17,6 @@ import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { HighlightProp, OptionsCallback, stubManager } from './searchHighlightManager';
-import styled from 'styled-components'
-
-const Container = styled.div`
-  display:flex;
-  justify-content:space-between;
-  width:100%;
-`
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -34,20 +27,11 @@ const parser = new DOMParser();
 interface PageState {
   hasSearchError: boolean;
   selectedSearchResult: null | HighlightProp;
-  shouldAutoDismissAfter: number;
-  clearErrorAfter: number;
-  fadeOutDuration: number;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public state = {
-    clearErrorAfter: 3200,
-    hasSearchError: false, 
-    selectedSearchResult: null, 
-    shouldAutoDismissAfter: 200,
-    fadeOutDuration: 1000,
-  };
+  public state = { hasSearchError: false, selectedSearchResult: null };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -134,33 +118,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      <div style={{position:'sticky', height:0, top:'100px', overflow:'visible', zIndex:9999}}>
-        <div style={{position: 'absolute', top:'200px', padding:'10px', width:'500px', height:'max-content', left:'50%', display:'flex', flexDirection:'column',alignItems:'center', background:'white', border:'2px solid black' }}>
-        <button onClick={() => this.onHighlightSelect({current: {} as any, previous: {} as any})}>Show error</button>
-        <Container>
-          <button onClick={() => this.setState((previous) => ({...previous, clearErrorAfter: previous.clearErrorAfter + 100 }))}>+</button>
-          time until idle dismiss, currently: {this.state.clearErrorAfter}ms
-          <button onClick={() => this.setState((previous) => ({...previous, clearErrorAfter: previous.clearErrorAfter - 100 }))}>-</button>
-        </Container>
-        <Container>
-          <button onClick={() => this.setState((previous) => ({...previous, shouldAutoDismissAfter: previous.shouldAutoDismissAfter + 100 }))}>+</button>
-          time before error can be dismissed, currently: {this.state.shouldAutoDismissAfter}ms
-          <button onClick={() => this.setState((previous) => ({...previous, shouldAutoDismissAfter: previous.shouldAutoDismissAfter - 100 }))}>-</button>
-        </Container>
-        <Container>
-          <button onClick={() => this.setState((previous) => ({...previous, fadeOutDuration: previous.fadeOutDuration + 100 }))}>+</button>
-          duration of fade out animation, currently: {this.state.fadeOutDuration}ms
-          <button onClick={() => this.setState((previous) => ({...previous, fadeOutDuration: previous.fadeOutDuration - 100 }))}>-</button>
-        </Container>
-      </div>
-      </div>
-      
       {this.state.hasSearchError
         ? <SearchFailure
             dismiss={this.dismissError}
             selectedHighlight={this.state.selectedSearchResult}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
-            {...this.state}
           />
         : null}
       <RedoPadding>

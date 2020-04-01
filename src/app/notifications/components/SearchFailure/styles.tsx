@@ -14,8 +14,8 @@ import theme from '../../../theme';
 import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
 
-export const clearErrorAfter = 3200;
-//export const fadeOutDuration = 1000;
+export const clearErrorAfter = 5000;
+export const fadeOutDuration = 1000;
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
@@ -52,7 +52,7 @@ export const BannerBodyWrapper = styled.div`
   `)}
 
   ${(props) => props.isFadingOut && css`
-    animation: ${fadeOut} ${props.fadeOutDuration / 1000}s forwards;
+    animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
   `}
 
   ${disablePrint}
