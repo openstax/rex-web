@@ -168,7 +168,7 @@ export const mainCardStyles = css`
     }
   `}
 
-  @media (max-width: ${minimalWidthForCards}em) {
+  @media ${minimalWidthForCards} {
     /* the window is too small to show note cards next to content even without sidebars */
     animation: none;
     ${overlapDisplay}
@@ -200,6 +200,11 @@ export const mainWrapperStyles = css`
       top: 0 !important;
     }
   `}
+
+  @media ${minimalWidthForCards} {
+    /* override js inline styles for display of all cards while using overlap display */
+    top: 0 !important;
+  }
 
   ${theme.breakpoints.mobile(css`
     /* override js inline styles for display of all cards while using overlap display */
