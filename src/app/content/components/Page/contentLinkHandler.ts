@@ -52,8 +52,8 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       page,
       locationState,
       currentPath,
-      hasUnsavedHighlight,
       focusedHighlight,
+      hasUnsavedHighlight,
     } = getProps();
     const href = anchor.getAttribute('href');
 
