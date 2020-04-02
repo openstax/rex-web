@@ -43,11 +43,11 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
   useOnDOMEvent(window, handlersEnabled, 'click', startFadeOut);
   useOnDOMEvent(window, handlersEnabled, 'scroll', startFadeOut);
 
-  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
   const resetAutoDismiss = useTimeout(
     shouldAutoDismissAfter,
     () => setFadeOutState({...initialState, shouldAutoDismiss: true})
   );
+  const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
 
   React.useLayoutEffect(() => {
     resetErrorClearing();

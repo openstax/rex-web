@@ -1,4 +1,5 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
@@ -61,7 +62,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     this.scrollTargetManager = scrollTargetManager(this.container.current);
   }
 
-  public async componentDidUpdate(prevProps: PagePropTypes) {
+  public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -73,6 +74,8 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
+
+    if (!isEqual(prevState, this.state)) { return; }
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
