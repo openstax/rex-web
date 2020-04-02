@@ -620,7 +620,13 @@ describe('Page', () => {
     store.dispatch(receiveSearchResults(makeSearchResults([hit])));
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
-    // after images are loaded
+    await Promise.resolve();
+    await Promise.resolve();
+
+    // click again for selectedSearchResult to update
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    await Promise.resolve();
     await Promise.resolve();
 
     expect(scrollTo).not.toHaveBeenCalled();
