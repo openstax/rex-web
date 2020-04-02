@@ -95,6 +95,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     } else {
       this.setState({
         hasSearchError: true,
+        selectedSearchResult: current,
       });
     }
   };
@@ -102,6 +103,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public dismissError = () => {
     this.setState({
       hasSearchError: false,
+      selectedSearchResult: null,
     });
   };
 
