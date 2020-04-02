@@ -14,7 +14,7 @@ export interface OSWebBook {
   }>;
   cover_color: BookWithOSWebData['theme'];
   cnx_id: string;
-  amazon_link?: string;
+  amazon_link: string;
 }
 
 interface OSWebResponse {

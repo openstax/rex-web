@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { BookWithOSWebData } from './types';
+import { hasOSWebData } from './guards';
 import {
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,
@@ -23,8 +23,7 @@ export const book = createSelector(
 
 export const buyBookLink = createSelector(
   book,
-  // ts is throwing an error because amazon_link is undefined in ArchiveBook
-  (data) => data && (data as BookWithOSWebData).amazon_link
+  (data) => hasOSWebData(data) ? data.amazon_link : ''
 );
 
 export const showCTAPopup = createSelector(
