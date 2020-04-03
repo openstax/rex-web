@@ -46,7 +46,7 @@ export const BannerBodyWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
-        ? bookBannerMobileMiniHeight + toolbarDesktopHeight + toolbarMobileSearchWrapperHeight
+        ? bookBannerMobileMiniHeight + toolbarDesktopHeight + toolbarMobileSearchWrapperHeight - 1
         : bookBannerMobileMiniHeight + toolbarMobileHeight
     }rem;
   `)}

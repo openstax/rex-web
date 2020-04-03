@@ -54,7 +54,7 @@ exports[`SearchFailure matches snapshot 1`] = `
 
 exports[`SearchFailure matches snapshot when mobile toolbar is open 1`] = `
 <div
-  className="kiJIgN"
+  className="gnvDRu"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
