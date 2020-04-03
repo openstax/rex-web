@@ -24,7 +24,7 @@ interface OSWebResponse {
   items: OSWebBook[];
 }
 
-export const fields = 'cnx_id,authors,publish_date,cover_color';
+export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link';
 
 export default (prefix: string) => {
   const baseUrl = `${prefix}/v2/pages`;
