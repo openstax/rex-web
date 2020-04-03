@@ -700,10 +700,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #ffff8a;
 }
 
@@ -750,10 +750,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #def99f;
 }
 
@@ -800,10 +800,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #c8f5ff;
 }
 
@@ -850,10 +850,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #cbcfff;
 }
 
@@ -900,10 +900,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #ffc5e1;
 }
 
@@ -4387,10 +4387,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #ffff8a;
 }
 
@@ -4437,10 +4437,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #def99f;
 }
 
@@ -4487,10 +4487,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #c8f5ff;
 }
 
@@ -4537,10 +4537,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #cbcfff;
 }
 
@@ -4587,10 +4587,10 @@ Array [
   z-index: -1;
   content: "";
   display: block;
-  width: calc(100% + 2rem);
-  height: calc(100% + 2rem);
   top: -1rem;
+  bottom: -1rem;
   left: -1rem;
+  right: -1rem;
   background-color: #ffc5e1;
 }
 

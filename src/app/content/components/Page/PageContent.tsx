@@ -74,10 +74,10 @@ export default styled(MainContent)`
           z-index: -1;
           content: "";
           display: block;
-          width: calc(100% + 2rem);
-          height: calc(100% + 2rem);
           top: -1rem;
+          bottom: -1rem;
           left: -1rem;
+          right: -1rem;
           background-color: ${style.passive};
         }
 
