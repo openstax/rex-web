@@ -1,6 +1,4 @@
-import { Key, parse } from 'path-to-regexp';
 import { APP_ENV, BOOKS } from '../../../config';
-import { pathTokenIsKey } from '../guards';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNode, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -98,12 +96,4 @@ export const toRelativeUrl = (from: string, to: string) => {
 
   return '../'.repeat(Math.max(0, parsedFrom.length - commonParts.length - 1))
     + parsedTo.slice(commonParts.length).join('/');
-};
-
-export const findPathForParams = (params: object, paths: string[]) => {
-  const paramKeys = Object.keys(params);
-  return paths.find((path) => {
-    const paramsInPath = parse(path).filter((param) => pathTokenIsKey(param)) as Key[];
-    return paramsInPath.every(({name}) => paramKeys.includes(name.toString()));
-  });
 };

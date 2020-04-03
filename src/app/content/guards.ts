@@ -1,5 +1,3 @@
-import { isObject } from 'lodash/fp';
-import { Key, Token } from 'path-to-regexp';
 import {
   ArchiveTree,
   ArchiveTreeSection,
@@ -20,6 +18,3 @@ export const isLinkedArchiveTreeSection =
 
 export const hasOSWebData = (book: Book | undefined): book is BookWithOSWebData =>
   book ? 'slug' in book : false;
-
-export const pathTokenIsKey = (token: Token): token is Key =>
-  isObject(token);
