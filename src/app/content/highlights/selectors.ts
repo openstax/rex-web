@@ -24,17 +24,17 @@ export const localState = createSelector(
 
 export const highlightsLoaded = createSelector(
   localState,
-  (state) => state.highlights !== null
+  (state) => state.currentPage.highlights !== null
 );
 
-export const highlightsRecentlyLoadedFor = createSelector(
+export const highlightsPageId = createSelector(
   localState,
-  (state) => state.recentlyLoadedFor
+  (state) => state.currentPage.pageId
 );
 
 export const highlights = createSelector(
   localState,
-  (state) => state.highlights || []
+  (state) => state.currentPage.highlights || []
 );
 
 export const totalCountsPerPage = createSelector(
@@ -49,12 +49,12 @@ const totalCountsPerPageOrEmpty = createSelector(
 
 export const focused = createSelector(
   localState,
-  (state) => state.focused
+  (state) => state.currentPage.focused
 );
 
 export const myHighlightsOpen = createSelector(
   localState,
-  (state) => state.myHighlightsOpen
+  (state) => state.summary.open
 );
 
 export const summaryIsLoading = createSelector(

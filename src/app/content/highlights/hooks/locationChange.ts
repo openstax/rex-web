@@ -45,7 +45,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
   const loaded = select.highlightsLoaded(state);
-  const recentlyLoadedFor = select.highlightsRecentlyLoadedFor(state);
+  const highlightsPageId = select.highlightsPageId(state);
 
   const pageFocusIn = action && action.type === getType(receivePageFocus) && action.payload;
 
@@ -55,7 +55,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     || !page
     || typeof(window) === 'undefined'
     || (loaded && !pageFocusIn)
-    || (!pageFocusIn && recentlyLoadedFor === page.id)
+    || (!pageFocusIn && highlightsPageId === page.id)
   ) {
     return;
   }

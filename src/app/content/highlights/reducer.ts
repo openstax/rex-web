@@ -20,13 +20,15 @@ import { findHighlight } from './utils/reducerUtils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
-  highlights: null,
-  myHighlightsOpen: false,
-  recentlyLoadedFor: null,
+  currentPage: {
+    highlights: null,
+    pageId: null,
+  },
   summary: {
     filters: {colors: defaultColors, locationIds: []},
     highlights: null,
     loading: false,
+    open: false,
     pagination: null,
     totalCountsPerPage: null,
   },
@@ -36,13 +38,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
       return {
-        ...initialState,
-        highlights: state.recentlyLoadedFor && action.payload.location.state.pageUid === state.recentlyLoadedFor
-          ? state.highlights
-          : initialState.highlights,
-        myHighlightsOpen: false,
-        recentlyLoadedFor: state.recentlyLoadedFor,
-        summary: {...state.summary},
+        currentPage: {
+          ...state.currentPage,
+          highlights: state.currentPage.pageId && action.payload.location.state.pageUid === state.currentPage.pageId
+            ? state.currentPage.highlights
+            : initialState.currentPage.highlights,
+        },
+        summary: {
+          ...state.summary,
+          open: false,
+        },
       };
     }
     case getType(actions.createHighlight): {
@@ -64,8 +69,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         : state.summary.totalCountsPerPage;
 
       return {
-        ...state,
-        highlights: [...state.highlights || [], highlight],
+        currentPage: {
+          ...state.currentPage,
+          highlights: [...state.currentPage.highlights || [], highlight],
+        },
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
@@ -74,13 +81,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.openMyHighlights):
-      return {...state, myHighlightsOpen: true};
+      return {...state, summary: { ...state.summary, open: true }};
     case getType(actions.closeMyHighlights):
-      return {...state, myHighlightsOpen: false};
+      return {...state, summary: { ...state.summary, open: false }};
     case getType(actions.updateHighlight): {
       const oldHighlight = findHighlight(state, action.payload.id);
 
-      if (!state.highlights || !oldHighlight) {
+      if (!state.currentPage.highlights || !oldHighlight) {
         return state;
       }
 
@@ -89,7 +96,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...action.payload.highlight,
       } as Highlight;
 
-      const newHighlights = state.highlights.map((highlight) => {
+      const newHighlights = state.currentPage.highlights.map((highlight) => {
         if (highlight.id === oldHighlight.id) { return newHighlight; }
         return highlight;
       });
@@ -108,8 +115,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
-        ...state,
-        highlights: newHighlights,
+        currentPage: {
+          ...state.currentPage,
+          highlights: newHighlights,
+        },
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
@@ -120,7 +129,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.deleteHighlight): {
       const highlightToRemove = findHighlight(state, action.payload);
 
-      if (!state.highlights || !highlightToRemove) {
+      if (!state.currentPage.highlights || !highlightToRemove) {
         return state;
       }
 
@@ -138,9 +147,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
-        ...state,
-        focused: state.focused === action.payload ? undefined : state.focused,
-        highlights: state.highlights.filter(({id}) => id !== action.payload),
+        currentPage: {
+          ...state.currentPage,
+          focused: state.currentPage.focused === action.payload ? undefined : state.currentPage.focused,
+          highlights: state.currentPage.highlights.filter(({id}) => id !== action.payload),
+        },
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
@@ -150,17 +161,19 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveHighlights): {
       return {
-        ...state,
-        highlights: action.payload.highlights,
-        recentlyLoadedFor: action.payload.pageId,
+        currentPage: {
+          ...state.currentPage,
+          highlights: action.payload.highlights,
+          pageId: action.payload.pageId,
+        },
         summary: {...state.summary},
       };
     }
     case getType(actions.focusHighlight): {
-      return {...state, focused: action.payload};
+      return {...state, currentPage: { ...state.currentPage, focused: action.payload }};
     }
     case getType(actions.clearFocusedHighlight): {
-      return omit('focused', state);
+      return {...state, currentPage: omit('focused', state.currentPage)};
     }
     case getType(actions.printSummaryHighlights): {
       return {

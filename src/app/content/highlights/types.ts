@@ -29,18 +29,19 @@ export type SummaryHighlightsPagination = null | {
 };
 
 export interface State {
-  myHighlightsOpen: boolean;
-  focused?: string;
-  highlights: null | HighlightData[];
+  currentPage: {
+    pageId: string | null,
+    highlights: null | HighlightData[];
+    focused?: string;
+  };
   summary: {
+    open: boolean,
     pagination: SummaryHighlightsPagination,
     totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
     loading: boolean;
     highlights: SummaryHighlights | null;
   };
-  // PageID for which highlights where loaded
-  recentlyLoadedFor: string | null;
 }
 
 export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;
