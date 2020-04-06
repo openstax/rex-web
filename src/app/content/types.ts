@@ -47,6 +47,7 @@ export interface BookWithOSWebData extends ArchiveBook {
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
   publish_date: string;
+  amazon_link: string;
   authors: Array<{
     value: {
       name: string;
