@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { hasOSWebData } from './guards';
 import {
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,
@@ -18,6 +19,11 @@ export const tocOpen = createSelector(
 export const book = createSelector(
   localState,
   (state) => state.book
+);
+
+export const buyBookLink = createSelector(
+  book,
+  (data) => hasOSWebData(data) ? data.amazon_link : ''
 );
 
 export const showCTAPopup = createSelector(
