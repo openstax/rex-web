@@ -1,4 +1,4 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum } from '@openstax/highlighter/highlights-client/dist/models/Highlight';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
