@@ -17,7 +17,7 @@ describe('createTitle', () => {
     const page = makeArchiveSection('<span class="os-text">page1</span>');
     const chapter = makeArchiveTree(
       '<span class="os-number">1</span><span class="os-text">Chapter</span>',
-      [page]
+      [makeArchiveTree('some nested chapter', [page])]
     );
     const book = {
       title: 'book',

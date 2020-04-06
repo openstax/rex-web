@@ -12,10 +12,8 @@ export const createTitle = (page: Page, book: Book): string => {
     node = node.parent;
     if (archiveTreeSectionIsChapter(node)) {
       const number = getArchiveTreeSectionNumber(node);
-      if (number) {
-        title = `Ch. ${number.textContent} ` + title;
-        break;
-      }
+      title = `Ch. ${number} ` + title;
+      break;
     }
   }
   return title;
