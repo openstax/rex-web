@@ -18,6 +18,7 @@ params:
   TR_PASSWORD: ((testrail-password))
   SAUCELABS_USERNAME: ((saucelabs-username))
   SAUCELABS_API_KEY: ((saucelabs-api-key))
+  SECURE_STORE_PASSWORD: ((secure-store-password))
 
 run:
   path: rex-web/concourse/execute-test-runs/script.bash
