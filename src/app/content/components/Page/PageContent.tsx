@@ -66,10 +66,6 @@ export default styled(MainContent)`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
-      &.text {
-        display: inline-block;
-      }
-
       &.block {
         display: block;
 
