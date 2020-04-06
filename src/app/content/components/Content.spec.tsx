@@ -19,6 +19,7 @@ import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
+import BuyBook from './Toolbar/BuyBook';
 
 jest.mock('../../../config', () => {
   const mockBook = (jest as any).requireActual(
@@ -93,6 +94,23 @@ describe('content', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('renders BuyBook button if book have a link to amazon', () => {
+    store.dispatch(receiveBook({ ...bookState, amazon_link: 'some-link' }));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+
+    expect(component.root.findByType(BuyBook)).toBeTruthy();
   });
 
   it('provides the right scroll offset when mobile search collapsed', () => {
