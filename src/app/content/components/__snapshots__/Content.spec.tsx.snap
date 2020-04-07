@@ -722,7 +722,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c66 .highlight.yellow.first.text.has-note:before {
+.c66 .highlight.yellow.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -772,7 +772,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c66 .highlight.green.first.text.has-note:before {
+.c66 .highlight.green.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -822,7 +822,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c66 .highlight.blue.first.text.has-note:before {
+.c66 .highlight.blue.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -872,7 +872,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c66 .highlight.purple.first.text.has-note:before {
+.c66 .highlight.purple.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -922,7 +922,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c66 .highlight.pink.first.text.has-note:before {
+.c66 .highlight.pink.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -1889,7 +1889,7 @@ li[aria-label="Current Page"] .c47 {
     background-color: #fed200;
   }
 
-  .c66 .highlight.yellow.focus.first.has-note:before {
+  .c66 .highlight.yellow.focus.first.has-note:after {
     display: none;
   }
 }
@@ -1903,7 +1903,7 @@ li[aria-label="Current Page"] .c47 {
     background-color: #92d101;
   }
 
-  .c66 .highlight.green.focus.first.has-note:before {
+  .c66 .highlight.green.focus.first.has-note:after {
     display: none;
   }
 }
@@ -1917,7 +1917,7 @@ li[aria-label="Current Page"] .c47 {
     background-color: #00c3ed;
   }
 
-  .c66 .highlight.blue.focus.first.has-note:before {
+  .c66 .highlight.blue.focus.first.has-note:after {
     display: none;
   }
 }
@@ -1932,7 +1932,7 @@ li[aria-label="Current Page"] .c47 {
     background-color: #545ec8;
   }
 
-  .c66 .highlight.purple.focus.first.has-note:before {
+  .c66 .highlight.purple.focus.first.has-note:after {
     display: none;
   }
 }
@@ -1947,7 +1947,7 @@ li[aria-label="Current Page"] .c47 {
     background-color: #de017e;
   }
 
-  .c66 .highlight.pink.focus.first.has-note:before {
+  .c66 .highlight.pink.focus.first.has-note:after {
     display: none;
   }
 }
@@ -4409,7 +4409,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c40 .highlight.yellow.first.text.has-note:before {
+.c40 .highlight.yellow.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -4459,7 +4459,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c40 .highlight.green.first.text.has-note:before {
+.c40 .highlight.green.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -4509,7 +4509,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c40 .highlight.blue.first.text.has-note:before {
+.c40 .highlight.blue.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -4559,7 +4559,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c40 .highlight.purple.first.text.has-note:before {
+.c40 .highlight.purple.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -4609,7 +4609,7 @@ Array [
   transform: rotate(-90deg);
 }
 
-.c40 .highlight.pink.first.text.has-note:before {
+.c40 .highlight.pink.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -5068,7 +5068,7 @@ Array [
     background-color: #fed200;
   }
 
-  .c40 .highlight.yellow.focus.first.has-note:before {
+  .c40 .highlight.yellow.focus.first.has-note:after {
     display: none;
   }
 }
@@ -5082,7 +5082,7 @@ Array [
     background-color: #92d101;
   }
 
-  .c40 .highlight.green.focus.first.has-note:before {
+  .c40 .highlight.green.focus.first.has-note:after {
     display: none;
   }
 }
@@ -5096,7 +5096,7 @@ Array [
     background-color: #00c3ed;
   }
 
-  .c40 .highlight.blue.focus.first.has-note:before {
+  .c40 .highlight.blue.focus.first.has-note:after {
     display: none;
   }
 }
@@ -5111,7 +5111,7 @@ Array [
     background-color: #545ec8;
   }
 
-  .c40 .highlight.purple.focus.first.has-note:before {
+  .c40 .highlight.purple.focus.first.has-note:after {
     display: none;
   }
 }
@@ -5126,7 +5126,7 @@ Array [
     background-color: #de017e;
   }
 
-  .c40 .highlight.pink.focus.first.has-note:before {
+  .c40 .highlight.pink.focus.first.has-note:after {
     display: none;
   }
 }

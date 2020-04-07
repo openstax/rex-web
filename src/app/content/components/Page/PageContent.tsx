@@ -95,7 +95,7 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note:before {
+      &.first.text.has-note:after {
         position: absolute;
         top: 0;
         left: 0;
@@ -120,7 +120,7 @@ export default styled(MainContent)`
             background-color: ${style.focused};
           }
 
-          &.first.has-note:before {
+          &.first.has-note:after {
             display: none;
           }
         }
