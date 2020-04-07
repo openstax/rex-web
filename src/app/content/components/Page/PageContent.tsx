@@ -83,15 +83,14 @@ export default styled(MainContent)`
 
         &.first.has-note:before {
           position: absolute;
-          bottom: -${highlightBlockPadding}rem;
-          right: -${highlightBlockPadding}rem;
+          top: -${highlightBlockPadding}rem;
+          left: -${highlightBlockPadding}rem;
           content: "";
           width: 0;
           height: 0;
           opacity: 0.8;
           border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
-          border-top: ${highlightIndicatorSizeForBlock}em solid transparent;
-          transform: rotate(-90deg);
+          border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
         }
       }
 
@@ -120,7 +119,7 @@ export default styled(MainContent)`
             background-color: ${style.focused};
           }
 
-          &.first.has-note:after {
+          &.first.text.has-note:after {
             display: none;
           }
         }
