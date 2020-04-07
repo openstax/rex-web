@@ -1,5 +1,6 @@
+import makeArchiveSection from '../../../test/mocks/archiveSection';
+import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { Book, Page } from '../types';
-import { makeArchiveSection, makeArchiveTree } from './archiveTreeUtils.spec';
 import { createTitle } from './seoUtils';
 
 describe('createTitle', () => {

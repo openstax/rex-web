@@ -1,6 +1,8 @@
 import { book } from '../../../test/mocks/archiveLoader';
+import makeArchiveSection from '../../../test/mocks/archiveSection';
+import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
-import { ArchiveTree, ArchiveTreeSection } from '../types';
+import { ArchiveTree } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -11,20 +13,6 @@ import {
   nodeHasId,
   splitTitleParts,
 } from './archiveTreeUtils';
-
-export const makeArchiveSection = (title: string): ArchiveTreeSection => ({
-  id: `${title}-id`,
-  shortId: `${title}-shortid`,
-  slug: `${title}-slug`,
-  title,
-});
-export const makeArchiveTree = (
-  title: string,
-  contents: ArchiveTree['contents']
-): ArchiveTree => ({
-  ...makeArchiveSection(title),
-  contents,
-});
 
 describe('findDefaultBookPage', () => {
   it('returns first page if there are no chapters', () => {
