@@ -203,6 +203,7 @@ describe('locationChange', () => {
       version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
+      amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
       cnx_id: 'newbookid',
       cover_color: 'blue',
