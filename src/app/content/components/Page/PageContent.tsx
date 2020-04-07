@@ -4,7 +4,7 @@ import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
-import { highlightIndicatorSize, highlightStyles } from '../../highlights/constants';
+import { highlightStyles } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
@@ -47,10 +47,6 @@ export default styled(MainContent)`
     }
   }
 
-  .highlight {
-    position: relative;
-  }
-
   .MathJax_Display .highlight,
   .MathJax_Preview + .highlight {
     display: inline-block;
@@ -60,17 +56,8 @@ export default styled(MainContent)`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
-      &.first.text.has-note:before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 0;
-        height: 0;
-        opacity: 0.8;
-        border-left: ${highlightIndicatorSize}em solid ${style.focused};
-        border-top: ${highlightIndicatorSize}em solid transparent;
-        transform: rotate(90deg);
+      &.has-note {
+        border-bottom: 1px solid ${style.focused};
       }
 
       @media screen {
@@ -80,10 +67,6 @@ export default styled(MainContent)`
           ${Color(style.focused).isDark() && css`
             color: ${theme.color.text.white};
           `}
-
-          &.first.text.has-note:before {
-            display: none;
-          }
         }
       }
     }
