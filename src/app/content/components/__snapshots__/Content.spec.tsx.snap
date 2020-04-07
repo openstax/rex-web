@@ -651,8 +651,8 @@ Array [
   color: #0064A0;
 }
 
-.c64 .MathJax_Display .highlight,
-.c64 .MathJax_Preview + .highlight {
+.c63 .MathJax_Display .highlight,
+.c63 .MathJax_Preview + .highlight {
   display: inline-block;
 }
 
@@ -660,8 +660,7 @@ Array [
   background-color: #ffff8a;
 }
 
-
-.c64 .highlight.yellow.has-note {
+.c63 .highlight.yellow.has-note {
   border-bottom: 1px solid #fed200;
 }
 
@@ -669,7 +668,7 @@ Array [
   background-color: #def99f;
 }
 
-.c64 .highlight.green.has-note {
+.c63 .highlight.green.has-note {
   border-bottom: 1px solid #92d101;
 }
 
@@ -677,7 +676,7 @@ Array [
   background-color: #c8f5ff;
 }
 
-.c64 .highlight.blue.has-note {
+.c63 .highlight.blue.has-note {
   border-bottom: 1px solid #00c3ed;
 }
 
@@ -685,7 +684,7 @@ Array [
   background-color: #cbcfff;
 }
 
-.c64 .highlight.purple.has-note {
+.c63 .highlight.purple.has-note {
   border-bottom: 1px solid #545ec8;
 }
 
@@ -693,7 +692,7 @@ Array [
   background-color: #ffc5e1;
 }
 
-.c64 .highlight.pink.has-note {
+.c63 .highlight.pink.has-note {
   border-bottom: 1px solid #de017e;
 }
 
