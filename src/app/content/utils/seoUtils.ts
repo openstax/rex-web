@@ -7,13 +7,12 @@ export const createTitle = (page: Page, book: Book): string => {
   const domNode = new DOMParser().parseFromString(node.title, 'text/html');
   const osText = domNode.querySelector('.os-text');
   const nodeTitle = osText ? osText.textContent : page.title;
-  let title = `${nodeTitle} - ${book.title} | OpenStax`;
+  const title = `${nodeTitle} - ${book.title} | OpenStax`;
   while (node && node.parent) {
     node = node.parent;
     if (archiveTreeSectionIsChapter(node)) {
       const number = getArchiveTreeSectionNumber(node);
-      title = `Ch. ${number} ` + title;
-      break;
+      return `Ch. ${number} ` + title;
     }
   }
   return title;
