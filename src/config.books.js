@@ -16,6 +16,7 @@ const books = {
   /* College Algebra */ '9b08c294-057f-4201-9f48-5d6ad992740d': {defaultVersion: '19.32'},
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': {defaultVersion: '18.3'},
   /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': {defaultVersion: '29.3'},
+  /* College Success */ 'e8668a14-9a7d-4d74-b58c-3681f8351224': {defaultVersion: '7.7'},
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '16.4'},
   /* Entrepreneurship */ 'd380510e-6145-4625-b19a-4fa68204b6b1': {defaultVersion: '10.6'},
   /* Introduction to Business */ '4e09771f-a8aa-40ce-9063-aa58cc24e77f': {defaultVersion: '9.3'},
