@@ -19,7 +19,13 @@ import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
-import { clearFocusedHighlight, createHighlight, deleteHighlight, updateHighlight } from '../actions';
+import {
+  clearFocusedHighlight,
+  createHighlight,
+  deleteHighlight,
+  setAnnotationChangesPending,
+  updateHighlight
+} from '../actions';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -47,6 +53,7 @@ interface Props {
   save: typeof updateHighlight;
   remove: typeof deleteHighlight;
   blur: typeof clearFocusedHighlight;
+  setAnnotationChangesPending: typeof setAnnotationChangesPending;
   data?: HighlightData;
   className: string;
 }
@@ -57,6 +64,7 @@ const Card = (props: Props) => {
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
+  const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
 
   React.useEffect(() => {
     if (element.current && props.isFocused) {
@@ -127,8 +135,10 @@ const Card = (props: Props) => {
     loginLink={props.loginLink}
     highlight={props.highlight}
     locationFilterId={locationFilterId}
+    hasUnsavedHighlight={hasUnsavedHighlight}
     pageId={page.id}
     onCreate={onCreate}
+    setAnnotationChangesPending={props.setAnnotationChangesPending}
     onCancel={() => setEditing(false)}
     onSave={props.save}
     data={props.data}
@@ -309,5 +319,6 @@ export default connect(
     create: flow(createHighlight, dispatch),
     remove: flow(deleteHighlight, dispatch),
     save: flow(updateHighlight, dispatch),
+    setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
 )(StyledCard);

@@ -21,3 +21,6 @@ export const isHtmlElement = (thing: any): thing is dom.HTMLElement =>
 
 export const isPlainObject = (thing: any): thing is {} =>
   thing instanceof Object && thing.__proto__.constructor === Object;
+
+export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
+  isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');
