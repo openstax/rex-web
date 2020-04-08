@@ -20,6 +20,7 @@ import { findHighlight } from './utils/reducerUtils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
+  hasUnsavedHighlight: false,
   highlights: null,
   myHighlightsOpen: false,
   summary: {
@@ -58,6 +59,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       return {
         ...state,
+        hasUnsavedHighlight: false,
         highlights: [...state.highlights || [], highlight],
         summary: {
           ...state.summary,
@@ -76,6 +78,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       if (!state.highlights || !oldHighlight) {
         return state;
       }
+
+      const hasUnsavedHighlight =
+        oldHighlight.annotation === action.payload.highlight.annotation
+        && state.hasUnsavedHighlight;
 
       const newHighlight = {
         ...oldHighlight,
@@ -102,6 +108,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       return {
         ...state,
+        hasUnsavedHighlight: Boolean(hasUnsavedHighlight),
         highlights: newHighlights,
         summary: {
           ...state.summary,
@@ -133,6 +140,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         focused: state.focused === action.payload ? undefined : state.focused,
+        hasUnsavedHighlight: false,
         highlights: state.highlights.filter(({id}) => id !== action.payload),
         summary: {
           ...state.summary,
@@ -147,10 +155,19 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.focusHighlight): {
-      return {...state, focused: action.payload};
+      return {...state, focused: action.payload, hasUnsavedHighlight: false };
     }
     case getType(actions.clearFocusedHighlight): {
-      return omit('focused', state);
+      return {
+        ...omit('focused', state),
+        hasUnsavedHighlight: false,
+      };
+    }
+    case getType(actions.setAnnotationChangesPending): {
+      return {
+        ...state,
+        hasUnsavedHighlight: action.payload,
+      };
     }
     case getType(actions.printSummaryHighlights): {
       return {
