@@ -164,46 +164,117 @@ class Highlight:
 class Library(object):
 
     books = {
-        "anatomy-and-physiology": {"default_page": "1-introduction"},
-        "astronomy": {"default_page": "1-introduction"},
-        "biology-2e": {"default_page": "1-introduction"},
-        "biology-ap-courses": {"default_page": "1-introduction"},
-        "chemistry-2e": {"default_page": "1-introduction"},
-        "chemistry-atoms-first-2e": {"default_page": "1-introduction"},
+        "anatomy-and-physiology": {"default_page": "1-introduction", "search_term": "heart"},
+        "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
+        "biology-2e": {"default_page": "1-introduction", "search_term": "bacteria"},
+        "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
+        "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
+        "chemistry-atoms-first-2e": {
+            "default_page": "1-introduction",
+            "search_term": "Thermal Equilibrium",
+        },
         "college-physics": {
             "default_page": "1-introduction-to-science-and-the-realm-of-"
-            "physics-physical-quantities-and-units"
+            "physics-physical-quantities-and-units",
+            "search_term": "Newton's first law",
         },
-        "college-physics-ap-courses": {"default_page": "1-connection-for-ap-r-courses"},
-        "concepts-biology": {"default_page": "1-introduction"},
-        "microbiology": {"default_page": "1-introduction"},
-        "calculus-volume-1": {"default_page": "1-introduction"},
-        "calculus-volume-2": {"default_page": "1-introduction"},
-        "calculus-volume-3": {"default_page": "1-introduction"},
-        "university-physics-volume-1": {"default_page": "1-introduction"},
-        "university-physics-volume-2": {"default_page": "1-introduction"},
-        "university-physics-volume-3": {"default_page": "1-introduction"},
-        "american-government-2e": {"default_page": "1-introduction"},
-        "principles-economics-2e": {"default_page": "1-introduction"},
-        "principles-macroeconomics-2e": {"default_page": "1-introduction"},
-        "principles-microeconomics-2e": {"default_page": "1-introduction"},
-        "introduction-sociology-2e": {"default_page": "1-introduction-to-sociology"},
-        "us-history": {"default_page": "1-introduction"},
-        "principles-financial-accounting": {"default_page": "1-why-it-matters"},
-        "principles-managerial-accounting": {"default_page": "1-why-it-matters"},
-        "introduction-business": {"default_page": "1-introduction"},
-        "business-ethics": {"default_page": "1-introduction"},
-        "introductory-business-statistics": {"default_page": "1-introduction"},
-        "principles-management": {"default_page": "1-introduction"},
-        "entrepreneurship": {"default_page": "1-introduction"},
-        "organizational-behavior": {"default_page": "1-introduction"},
-        "introductory-statistics": {"default_page": "1-introduction"},
-        "precalculus": {"default_page": "1-introduction-to-functions"},
-        "college-algebra": {"default_page": "1-introduction-to-prerequisites"},
-        "algebra-and-trigonometry": {"default_page": "1-introduction-to-prerequisites"},
-        "business-law-i-essentials": {"default_page": "1-introduction"},
-        "principles-macroeconomics-ap-courses-2e": {"default_page": "1-introduction"},
-        "principles-microeconomics-ap-courses-2e": {"default_page": "1-introduction"},
+        "college-physics-ap-courses": {
+            "default_page": "1-connection-for-ap-r-courses",
+            "search_term": "kinetic energy",
+        },
+        "concepts-biology": {"default_page": "1-introduction", "search_term": "Cell"},
+        "microbiology": {"default_page": "1-introduction", "search_term": "fungus"},
+        "calculus-volume-1": {
+            "default_page": "1-introduction",
+            "search_term": "summation notation",
+        },
+        "calculus-volume-2": {
+            "default_page": "1-introduction",
+            "search_term": "summation notation",
+        },
+        "calculus-volume-3": {"default_page": "1-introduction", "search_term": "zero vector"},
+        "university-physics-volume-1": {
+            "default_page": "1-introduction",
+            "search_term": "interference",
+        },
+        "university-physics-volume-2": {
+            "default_page": "1-introduction",
+            "search_term": "interference fringes",
+        },
+        "university-physics-volume-3": {
+            "default_page": "1-introduction",
+            "search_term": "interference fringes",
+        },
+        "american-government-2e": {"default_page": "1-introduction", "search_term": "mass media"},
+        "principles-economics-2e": {"default_page": "1-introduction", "search_term": "Elasticity"},
+        "principles-macroeconomics-2e": {
+            "default_page": "1-introduction",
+            "search_term": "modern economic growth",
+        },
+        "principles-microeconomics-2e": {
+            "default_page": "1-introduction",
+            "search_term": "Explicit costs",
+        },
+        "introduction-sociology-2e": {
+            "default_page": "1-introduction-to-sociology",
+            "search_term": "certificates or degrees",
+        },
+        "us-history": {"default_page": "1-introduction", "search_term": "PATRIOTS"},
+        "principles-financial-accounting": {
+            "default_page": "1-why-it-matters",
+            "search_term": "Explain the Pricing of Long-Term Liabilities",
+        },
+        "principles-managerial-accounting": {
+            "default_page": "1-why-it-matters",
+            "search_term": "relevant range",
+        },
+        "introduction-business": {
+            "default_page": "1-introduction",
+            "search_term": "Buyer behavior",
+        },
+        "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
+        "introductory-business-statistics": {
+            "default_page": "1-introduction",
+            "search_term": "chi-square distribution",
+        },
+        "principles-management": {
+            "default_page": "1-introduction",
+            "search_term": "plan is a decision to carry out a particular action",
+        },
+        "entrepreneurship": {"default_page": "1-introduction", "search_term": "Business Model"},
+        "organizational-behavior": {
+            "default_page": "1-introduction",
+            "search_term": "organizational development",
+        },
+        "introductory-statistics": {
+            "default_page": "1-introduction",
+            "search_term": "randomly selected student",
+        },
+        "precalculus": {
+            "default_page": "1-introduction-to-functions",
+            "search_term": "Pythagorean Identities",
+        },
+        "college-algebra": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "hyperbola",
+        },
+        "algebra-and-trigonometry": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "Graphs of Parabolas",
+        },
+        "business-law-i-essentials": {
+            "default_page": "1-introduction",
+            "search_term": "industrialization",
+        },
+        "principles-macroeconomics-ap-courses-2e": {
+            "default_page": "1-introduction",
+            "search_term": "adjustable-rate mortgage",
+        },
+        "principles-microeconomics-ap-courses-2e": {
+            "default_page": "1-introduction",
+            "search_term": "positive externality",
+        },
+        "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
     }
 
     def random_book_slug(self):
@@ -215,6 +286,12 @@ def get_default_page(element):
     book_list = Library.books
     default_page = book_list[element]["default_page"]
     return default_page
+
+
+def get_search_term(element):
+    book_list = Library.books
+    search_term = book_list[element]["search_term"]
+    return search_term
 
 
 class Utilities(object):
