@@ -7,10 +7,10 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { push } from '../../navigation/actions';
 import { Store } from '../../types';
 import { receiveBook } from '../actions';
+import { setAnnotationChangesPending } from '../highlights/actions';
 import { content } from '../routes';
 import { requestSearch } from '../search/actions';
 import { formatBookData } from '../utils';
-import ConnectedContentLink from './ContentLink';
 
 const BOOK_SLUG = 'book-slug-1';
 const PAGE_SLUG = 'test-page-1';
@@ -32,102 +32,156 @@ describe('ContentLink', () => {
     consoleError.mockRestore();
   });
 
-  const click = (component: renderer.ReactTestRenderer) => {
+  const click = async(component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
     };
 
-    component.root.findByType('a').props.onClick(event);
+    await component.root.findByType('a').props.onClick(event);
 
     return event;
   };
 
-  it('dispatches navigation action on click', () => {
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book} page={page} />
-    </Provider>);
+  describe('without unsaved changes', () => {
+    // tslint:disable-next-line:variable-name
+    let ConnectedContentLink: React.ElementType;
 
-    const event = click(component);
+    beforeEach(() => {
+      ConnectedContentLink = require('./ContentLink').default;
+    });
 
-    expect(dispatch).toHaveBeenCalledWith(push({
-      params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
-      route: content,
-      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
-    }));
-    expect(event.preventDefault).toHaveBeenCalled();
+    it('dispatches navigation action on click', async() => {
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} />
+      </Provider>);
+
+      const event = await click(component);
+
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
+      }));
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('dispatches navigation action with search if there is a search', async() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveBook(book));
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} />
+      </Provider>);
+
+      const event = await click(component);
+
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: {
+          bookUid: 'testbook1-uuid',
+          bookVersion: '1.0',
+          pageUid: 'testbook1-testpage1-uuid',
+          search: expect.objectContaining({query: 'asdf'}),
+        },
+      }));
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('dispatches navigation action without search when linking to a different book', async() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveBook({...book, id: 'differentid'}));
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} />
+      </Provider>);
+
+      const event = await click(component);
+
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
+      }));
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('calls onClick when passed', async() => {
+      const clickSpy = jest.fn();
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+      </Provider>);
+
+      const event = await click(component);
+
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
+      }));
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(clickSpy).toHaveBeenCalled();
+    });
+
+    it('does not call onClick or dispatch the event when the meta key is pressed', async() => {
+      const clickSpy = jest.fn();
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+      </Provider>);
+
+      const event = {
+        metaKey: true,
+        preventDefault: jest.fn(),
+      };
+
+      await component.root.findByType('a').props.onClick(event);
+
+      expect(dispatch).not.toHaveBeenCalled();
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
   });
 
-  it('dispatches navigation action with search if there is a search', () => {
-    store.dispatch(requestSearch('asdf'));
-    store.dispatch(receiveBook(book));
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book} page={page} />
-    </Provider>);
+  describe('with unsaved changes' , () => {
+    // tslint:disable-next-line:variable-name
+    let ConnectedContentLink: React.ElementType;
+    const mockConfirmation = jest.fn()
+      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)))
+      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(true), 300)));
 
-    const event = click(component);
+    jest.mock(
+      '../highlights/components/utils/showConfirmation',
+      () => mockConfirmation
+    );
 
-    expect(dispatch).toHaveBeenCalledWith(push({
-      params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
-      route: content,
-      state: {
-        bookUid: 'testbook1-uuid',
-        bookVersion: '1.0',
-        pageUid: 'testbook1-testpage1-uuid',
-        search: expect.objectContaining({query: 'asdf'}),
-      },
-    }));
-    expect(event.preventDefault).toHaveBeenCalled();
-  });
+    beforeEach(() => {
+      ConnectedContentLink = require('./ContentLink').default;
+    });
 
-  it('dispatches navigation action without search when linking to a different book', () => {
-    store.dispatch(requestSearch('asdf'));
-    store.dispatch(receiveBook({...book, id: 'differentid'}));
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book} page={page} />
-    </Provider>);
+    it('does not call onClick or dispatch if user decides not to discard changes' , async() => {
+      const clickSpy = jest.fn();
+      store.dispatch(setAnnotationChangesPending(true));
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+      </Provider>);
 
-    const event = click(component);
+      const event = await click(component);
 
-    expect(dispatch).toHaveBeenCalledWith(push({
-      params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
-      route: content,
-      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
-    }));
-    expect(event.preventDefault).toHaveBeenCalled();
-  });
+      expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
 
-  it('calls onClick when passed', () => {
-    const clickSpy = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
-    </Provider>);
+    it('calls onClick and dispatch if user decides to discard changes' , async() => {
+      const clickSpy = jest.fn();
+      store.dispatch(setAnnotationChangesPending(true));
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+      </Provider>);
 
-    const event = click(component);
+      const event = await click(component);
 
-    expect(dispatch).toHaveBeenCalledWith(push({
-      params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
-      route: content,
-      state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
-    }));
-    expect(event.preventDefault).toHaveBeenCalled();
-    expect(clickSpy).toHaveBeenCalled();
-  });
-
-  it('does not call onClick or dispatch the event when the meta key is pressed', () => {
-    const clickSpy = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
-    </Provider>);
-
-    const event = {
-      metaKey: true,
-      preventDefault: jest.fn(),
-    };
-
-    component.root.findByType('a').props.onClick(event);
-
-    expect(dispatch).not.toHaveBeenCalled();
-    expect(event.preventDefault).not.toHaveBeenCalled();
-    expect(clickSpy).not.toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalled();
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(clickSpy).toHaveBeenCalled();
+    });
   });
 });
