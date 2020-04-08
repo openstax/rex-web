@@ -19,10 +19,10 @@ const onClickOutside = (element: React.RefObject<HTMLElement>, isFocused: boolea
   };
 
   if (isFocused) {
-    document.addEventListener('mousedown', ifOutside);
+    document.addEventListener('click', ifOutside);
   }
 
-  return () => assertDocument().removeEventListener('mousedown', ifOutside);
+  return () => assertDocument().removeEventListener('click', ifOutside);
 };
 
 export const useOnClickOutside = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
