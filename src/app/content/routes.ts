@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
+import { REACT_APP_ARCHIVE_URL } from '../../config';
 import { Route } from '../navigation/types';
 import { getUrlRegexParams } from '../navigation/utils';
 import { SelectedResult } from './search/types';
@@ -24,6 +25,10 @@ export const content: Route<Params, State> = {
     loading: () => null,
     modules: ['Content'],
   }),
+  getSearch: (_params: Params): string => REACT_APP_ARCHIVE_URL
+    ? `archive=${REACT_APP_ARCHIVE_URL}`
+    : ''
+  ,
   getUrl: (params: Params): string => {
     const {book} = params;
     if ('uuid' in book) {
@@ -32,6 +37,7 @@ export const content: Route<Params, State> = {
     if ('version' in book) {
       return pathToRegexp.compile(VERSIONED_CONTENT_PATH)(getUrlRegexParams(params));
     }
+
     return pathToRegexp.compile(CONTENT_PATH)(getUrlRegexParams(params));
   },
   name: 'Content',

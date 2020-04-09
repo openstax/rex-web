@@ -28,7 +28,10 @@ export const getBookPageUrlAndParams = (
     return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
   }
 
-  return {params, state, url: contentRoute.getUrl(params)};
+  const search = contentRoute.getSearch && contentRoute.getSearch(params);
+  const query = search ? `?${search}` : '';
+
+  return {params, state, url: contentRoute.getUrl(params) + query};
 };
 
 export const getUrlParamsForBook = (
