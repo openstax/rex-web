@@ -203,7 +203,8 @@ describe('injectParamsToBaseUrl', () => {
     const injected = injectParamsToBaseUrl('/:book/:page', {book: ['book_asf']});
     expect(injected.length).toBe(1);
     expect(injected[0]).toBe('/:book_asf/:page');
-})
+  });
+});
 
 describe('matchSearch', () => {
 
