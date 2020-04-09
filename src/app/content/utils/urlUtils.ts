@@ -22,7 +22,10 @@ export const getBookPageUrlAndParams = (
     pageUid: stripIdVersion(page.id),
   };
 
-  return {params, state, url: contentRoute.getUrl(params)};
+  const search = contentRoute.getSearch && contentRoute.getSearch(params);
+  const query = search ? `?${search}` : '';
+
+  return {params, state, url: contentRoute.getUrl(params) + query};
 };
 
 export const getUrlParamsForBook = (

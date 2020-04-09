@@ -115,4 +115,20 @@ describe('content route', () => {
       expect(tree).toMatchSnapshot();
     });
   });
+
+  describe('route content', () => {
+    const mockConfig = {BOOKS: {
+      [book.id]: {defaultVersion: book.version},
+    } as {[key: string]: {defaultVersion: string}}};
+
+    beforeEach(() => {
+      jest.doMock('../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL: 'some-content'}));
+      resetModules();
+    });
+
+    it('sets archive url on getSearch', () => {
+      expect(require('./routes').content.getSearch()).toEqual('archive=some-content');
+    });
+
+  });
 });

@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
+import { REACT_APP_ARCHIVE_URL } from '../../config';
 import { Route } from '../navigation/types';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
@@ -27,6 +28,10 @@ export const content: Route<Params, State> = {
     loading: () => null,
     modules: ['Content'],
   }),
+  getSearch: (_params: Params): string => REACT_APP_ARCHIVE_URL
+    ? `archive=${REACT_APP_ARCHIVE_URL}`
+    : ''
+  ,
   getUrl: (params: Params): string => {
     const parsedParams = getUrlRegexParams(params);
     const path = assertDefined(findPathForParams(parsedParams, contentPaths), 'Ivalid parameters for content path');
