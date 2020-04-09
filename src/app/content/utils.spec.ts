@@ -230,7 +230,7 @@ describe('cleanArchiveResponse', () => {
       },
     }) as Book;
 
-    bookWithNoTree = cloneDeep({}) as unknown  as Book;
+    bookWithNoTree = cloneDeep({tree: undefined}) as unknown as Book;
   });
 
   it('cleans up `chapter` and `appendix` from slugs and titles', () => {
@@ -241,5 +241,8 @@ describe('cleanArchiveResponse', () => {
     expect(cleanContent.tree.contents[1].title).toMatch(
       '<span class="os-number"> 1</span><span class="os-text">Appendix example</span>'
     );
+
+    const noTree = cleanArchiveResponse(bookWithNoTree);
+    expect(noTree).toEqual({ tree: undefined });
   });
 });
