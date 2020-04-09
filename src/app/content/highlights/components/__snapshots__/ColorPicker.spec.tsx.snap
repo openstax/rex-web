@@ -1,197 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorPicker matches snapshot no selection 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c4 {
-  display: none;
-}
-
-.c2 {
-  background-color: #ffff8a;
-  border: 1px solid #fed200;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c2 .c3 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c2 input:checked + .c3 {
-  color: #fed200;
-  display: block;
-}
-
-.c6 {
-  background-color: #def99f;
-  border: 1px solid #92d101;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c6 .c3 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c6 input:checked + .c3 {
-  color: #92d101;
-  display: block;
-}
-
-.c7 {
-  background-color: #c8f5ff;
-  border: 1px solid #00c3ed;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c7 .c3 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c7 input:checked + .c3 {
-  color: #00c3ed;
-  display: block;
-}
-
-.c8 {
-  background-color: #cbcfff;
-  border: 1px solid #545ec8;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c8 .c3 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c8 input:checked + .c3 {
-  color: #545ec8;
-  display: block;
-}
-
-.c9 {
-  background-color: #ffc5e1;
-  border: 1px solid #de017e;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c9 .c3 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c9 input:checked + .c3 {
-  color: #de017e;
-  display: block;
-}
-
-.c1 {
-  cursor: pointer;
-  margin: 0 0.8rem 0.8rem 0;
-}
-
-.c1 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c0 {
-  outline: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
 <div
-  className="c0"
+  className="ColorPicker-an3xh1-1 goRNKZ"
   tabIndex={-1}
 >
   <label
     aria-label="Apply yellow highlight"
-    className="c1 c2"
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 ZUCrP"
     title="yellow"
   >
     <input
@@ -202,7 +18,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     />
     <svg
       aria-hidden="true"
-      className="c3 c4 c5"
+      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -215,7 +31,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     aria-label="Apply green highlight"
-    className="c1 c6"
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 gkudMq"
     title="green"
   >
     <input
@@ -226,7 +42,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     />
     <svg
       aria-hidden="true"
-      className="c3 c4 c5"
+      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -239,7 +55,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     aria-label="Apply blue highlight"
-    className="c1 c7"
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 gtQiTg"
     title="blue"
   >
     <input
@@ -250,7 +66,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     />
     <svg
       aria-hidden="true"
-      className="c3 c4 c5"
+      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -263,7 +79,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     aria-label="Apply purple highlight"
-    className="c1 c8"
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 eahxrs"
     title="purple"
   >
     <input
@@ -274,7 +90,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     />
     <svg
       aria-hidden="true"
-      className="c3 c4 c5"
+      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -287,7 +103,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </label>
   <label
     aria-label="Apply pink highlight"
-    className="c1 c9"
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 eRBXMJ"
     title="pink"
   >
     <input
@@ -298,7 +114,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     />
     <svg
       aria-hidden="true"
-      className="c3 c4 c5"
+      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
