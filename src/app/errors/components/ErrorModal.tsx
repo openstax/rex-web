@@ -52,7 +52,7 @@ const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
             data-testid='clear-error'
             onClick={clearError}
             variant='primary'
-            > {msg}
+            >{msg}
           </Button>}
         </FormattedMessage>
       </Footer>
