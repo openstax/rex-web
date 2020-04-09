@@ -1,109 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu match snapshot when closed 1`] = `
-.c11 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c8 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c10 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #e5e5e5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c10:hover {
-  color: #818181;
-}
-
-.c7 {
-  border: none;
-  display: block;
-}
-
-.c7 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c5 {
-  cursor: pointer;
-}
-
-.c3 > *:not(.c4) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c0 .c1 {
-  position: absolute;
-  width: 150px;
-  top: 1.2rem;
-  right: 0;
-}
-
-.c0 .c1 .focus-within .c9 {
-  color: #818181;
-}
-
-.c0 .c1:focus-within .c9 {
-  color: #818181;
-}
-
-.c0 .c12 {
-  margin: 0.6rem 0 0 0.6rem;
-}
-
-.c0 .c6 {
-  float: right;
-  margin-right: 0.2rem;
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="ContextMenu__StyledContextMenu-a36hp5-0 juAWPn"
 >
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Edit this highlight"
-      className="c4 c5 c6 c7 c8"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -111,7 +17,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -128,363 +34,15 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
-.c11 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c18 {
-  display: none;
-}
-
-.c16 {
-  background-color: #ffff8a;
-  border: 1px solid #fed200;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c16 .c17 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c16 input:checked + .c17 {
-  color: #fed200;
-  display: block;
-}
-
-.c19 {
-  background-color: #def99f;
-  border: 1px solid #92d101;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c19 .c17 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c19 input:checked + .c17 {
-  color: #92d101;
-  display: block;
-}
-
-.c20 {
-  background-color: #c8f5ff;
-  border: 1px solid #00c3ed;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c20 .c17 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c20 input:checked + .c17 {
-  color: #00c3ed;
-  display: block;
-}
-
-.c21 {
-  background-color: #cbcfff;
-  border: 1px solid #545ec8;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c21 .c17 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c21 input:checked + .c17 {
-  color: #545ec8;
-  display: block;
-}
-
-.c22 {
-  background-color: #ffc5e1;
-  border: 1px solid #de017e;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c22 .c17 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c22 input:checked + .c17 {
-  color: #de017e;
-  display: block;
-}
-
-.c15 {
-  cursor: pointer;
-  margin: 0 0.8rem 0.8rem 0;
-}
-
-.c15 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c14 {
-  outline: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.c8 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c10 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #e5e5e5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c10:hover {
-  color: #818181;
-}
-
-.c7 {
-  border: none;
-  display: block;
-}
-
-.c7 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c5 {
-  cursor: pointer;
-}
-
-.c3 > *:not(.c4) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c0 .c1 {
-  position: absolute;
-  width: 150px;
-  top: 1.2rem;
-  right: 0;
-}
-
-.c0 .c1 .focus-within .c9 {
-  color: #818181;
-}
-
-.c0 .c1:focus-within .c9 {
-  color: #818181;
-}
-
-.c0 .c13 {
-  margin: 0.6rem 0 0 0.6rem;
-}
-
-.c0 .c6 {
-  float: right;
-  margin-right: 0.2rem;
-}
-
-.c23 {
-  margin: 0;
-  padding: 0.6rem 0;
-  background: #f5f5f5;
-  padding: 0;
-}
-
-.c23 li {
-  display: inline-block;
-}
-
-.c23 li button,
-.c23 li a {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  padding: 0 0.8rem;
-  margin: 0;
-  height: 3.2rem;
-  background: none;
-  min-width: 7.2rem;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 2rem;
-}
-
-.c23 li button:hover,
-.c23 li a:hover,
-.c23 li button:focus,
-.c23 li a:focus {
-  background: #d5d5d5;
-}
-
-.c23 li {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c23 li a {
-  width: 100%;
-}
-
-.c24 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c25 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c12 {
-  z-index: 2;
-  border: 1px solid #d5d5d5;
-  background-color: #f5f5f5;
-  margin-bottom: 1rem;
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="ContextMenu__StyledContextMenu-a36hp5-0 juAWPn"
 >
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Edit this highlight"
-      className="c4 c5 c6 c7 c8"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -492,7 +50,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -505,15 +63,15 @@ exports[`ContextMenu match snapshot when open 1`] = `
       </div>
     </button>
     <div
-      className="c12"
+      className="ContextMenu__HighlightToggleEditContent-a36hp5-4 AJtcm"
     >
       <div
-        className="c13 c14"
+        className="ColorPicker-an3xh1-1 goRNKZ"
         tabIndex={-1}
       >
         <label
           aria-label="Apply yellow highlight"
-          className="c15 c16"
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 kBHzhz"
           title="yellow"
         >
           <input
@@ -524,7 +82,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           />
           <svg
             aria-hidden="true"
-            className="c17 c18 c11"
+            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -537,7 +95,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
         <label
           aria-label="Apply green highlight"
-          className="c15 c19"
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 dSRHOr"
           title="green"
         >
           <input
@@ -548,7 +106,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           />
           <svg
             aria-hidden="true"
-            className="c17 c18 c11"
+            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -561,7 +119,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
         <label
           aria-label="Apply blue highlight"
-          className="c15 c20"
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 eibKCM"
           title="blue"
         >
           <input
@@ -572,7 +130,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           />
           <svg
             aria-hidden="true"
-            className="c17 c18 c11"
+            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -585,7 +143,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
         <label
           aria-label="Apply purple highlight"
-          className="c15 c21"
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
           title="purple"
         >
           <input
@@ -596,7 +154,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           />
           <svg
             aria-hidden="true"
-            className="c17 c18 c11"
+            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -609,7 +167,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
         <label
           aria-label="Apply pink highlight"
-          className="c15 c22"
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 hFYYXx"
           title="pink"
         >
           <input
@@ -620,7 +178,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           />
           <svg
             aria-hidden="true"
-            className="c17 c18 c11"
+            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -633,7 +191,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
       </div>
       <ol
-        className="c23"
+        className="Dropdown__DropdownList-rmc6yw-4 ContextMenu__StyledDropdownList-a36hp5-1 ziTIl"
       >
         <li
           aria-label="Add note"
@@ -645,7 +203,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c24 c11"
+              className="ContextMenu__StyledEditIcon-a36hp5-2 ioizoP StyledIconBase-sc-bdy9j4 cCvWXa"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"
@@ -668,7 +226,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c25 c11"
+              className="ContextMenu__StyledTrashAltIcon-a36hp5-3 dvaTJY StyledIconBase-sc-bdy9j4 cCvWXa"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 448 512"
