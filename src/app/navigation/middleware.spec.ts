@@ -62,7 +62,9 @@ describe('navigation middleware', () => {
     }));
 
     expect(pushSpy).toHaveBeenCalledWith({
+      hash: undefined,
       pathname: 'url',
+      search: '',
       state,
     });
   });
