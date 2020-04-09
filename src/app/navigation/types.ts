@@ -50,6 +50,7 @@ export interface Route<P, S = undefined> {
   paths: string[];
   // https://github.com/Microsoft/TypeScript/issues/29368#issuecomment-453529532
   getUrl: (...args: [P] extends [undefined] ? []: [P]) => string;
+  getSearch?: (...args: [P] extends [undefined] ? []: [P]) => string;
   component: ComponentType;
 }
 
