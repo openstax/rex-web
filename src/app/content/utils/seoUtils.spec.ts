@@ -27,4 +27,18 @@ describe('createTitle', () => {
     const title = createTitle(page as any as Page, book as any as Book);
     expect(title).toEqual('Ch. 1 page1 - book | OpenStax');
   });
+
+  it('creates title for a page which has a number and is inside a chapter', () => {
+    const page = makeArchiveSection('<span class="os-number">3</span><span class="os-text">page1</span>');
+    const chapter = makeArchiveTree(
+      '<span class="os-number">1</span><span class="os-text">Chapter</span>',
+      [makeArchiveTree('some nested chapter', [page])]
+    );
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [chapter]),
+    };
+    const title = createTitle(page as any as Page, book as any as Book);
+    expect(title).toEqual('page1 - book | OpenStax');
+  });
 });
