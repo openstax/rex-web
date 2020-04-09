@@ -15,20 +15,18 @@ export const cleanArchiveResponse = (archiveContent: any) => {
   const chapterTitle = 'Chapter';
   const appendixTitle = 'Appendix';
 
-  if (archiveContent.tree) {
-    archiveContent.tree.contents.map((item: any) => {
-      item.slug = item.slug.replace(chapterSlug, '').replace(appendixSlug, '');
+  archiveContent.tree.contents.map((item: any) => {
+    item.slug = item.slug.replace(chapterSlug, '').replace(appendixSlug, '');
 
-      const domNode = new DOMParser().parseFromString(item.title, 'text/html');
-      const numNode = domNode.querySelector('.os-number');
+    const domNode = new DOMParser().parseFromString(item.title, 'text/html');
+    const numNode = domNode.querySelector('.os-number');
 
-      if (numNode) {
-        const cleanNumNode = numNode.textContent.replace(chapterTitle, '').replace(appendixTitle, '');
-        item.title = item.title.replace(numNode.textContent, cleanNumNode);
-      }
+    if (numNode) {
+      const cleanNumNode = numNode.textContent.replace(chapterTitle, '').replace(appendixTitle, '');
+      item.title = item.title.replace(numNode.textContent, cleanNumNode);
+    }
 
-    });
-  }
+  });
 
   return archiveContent;
 };

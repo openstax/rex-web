@@ -2,6 +2,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { resetModules } from '../../test/utils';
 import { Book } from './types';
 import {
+  cleanArchiveResponse,
   getContentPageReferences,
   getPageIdFromUrlParam,
   stripIdVersion,
@@ -192,5 +193,53 @@ describe('toRelativeUrl', () => {
   it('when not in a book and not at the root', () => {
     const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
+  });
+});
+
+describe('cleanArchiveResponse', () => {
+  let book: Book;
+  let bookWithNoTree: Book;
+
+  beforeEach(() => {
+    book = cloneDeep({
+      tree: {
+        contents: [
+          {
+            id: 'pagelongid@1',
+            shortId: 'page@1',
+            slug: 'chapter-1',
+            title: '<span class="os-number">Chapter 1</span><span class="os-text">Chapter example</span>',
+          },
+          {
+            id: 'pagelongid@2',
+            shortId: 'page@2',
+            slug: 'appendix-1',
+            title: '<span class="os-number">Appendix 1</span><span class="os-text">Appendix example</span>',
+          },
+          {
+            id: 'pagelongid@3',
+            shortId: 'page@3',
+            slug: 'chapter-2',
+            title: '<span class="os-text">Chapter 2 example</span>',
+          },
+        ],
+        id: 'booklongid@1',
+        shortId: 'book@1',
+        slug: 'book-slug',
+        title: 'book',
+      },
+    }) as Book;
+
+    bookWithNoTree = cloneDeep({}) as unknown  as Book;
+  });
+
+  it('cleans up `chapter` and `appendix` from slugs and titles', () => {
+    const cleanContent = cleanArchiveResponse(book);
+    expect(cleanContent.tree.contents[0].title).toMatch(
+      '<span class="os-number"> 1</span><span class="os-text">Chapter example</span>'
+    );
+    expect(cleanContent.tree.contents[1].title).toMatch(
+      '<span class="os-number"> 1</span><span class="os-text">Appendix example</span>'
+    );
   });
 });
