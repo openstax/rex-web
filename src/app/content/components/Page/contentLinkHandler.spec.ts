@@ -140,6 +140,57 @@ describe('contentLinkHandler', () => {
       }, expect.anything());
     });
 
+    it('intercepts clicking content links with book and page uuid', async() => {
+      const pageId = book.id;
+      const link = `/books/${book.id}@${book.version}/pages/${pageId}`;
+      anchor.setAttribute('href', link);
+      prop.references = [{
+        match: link,
+        params: {
+          book: {
+            uuid: book.id,
+            version: book.version,
+          },
+          page: {
+            uuid: pageId,
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
+
+      const event = {
+        preventDefault: jest.fn(),
+      };
+
+      await handler(event as any);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).toHaveBeenCalledWith({
+        params: {
+          book: {
+            uuid: book.id,
+            version: book.version,
+          },
+          page: {
+            uuid: pageId,
+          },
+        },
+        route: contentRoute,
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }, expect.anything());
+    });
+
     it('requires two clicks for links with highlights', async() => {
       const testHighlightID = 'randomid';
 
@@ -271,56 +322,5 @@ describe('contentLinkHandler', () => {
 
       expect(prop.navigate).toHaveBeenCalled();
     });
-  });
-
-  it('intercepts clicking content links with book and page uuid', async() => {
-    const pageId = book.id;
-    const link = `/books/${book.id}@${book.version}/pages/${pageId}`;
-    anchor.setAttribute('href', link);
-    prop.references = [{
-      match: link,
-      params: {
-        book: {
-          uuid: book.id,
-          version: book.version,
-        },
-        page: {
-          uuid: pageId,
-        },
-      },
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
-    }];
-
-    const event = {
-      preventDefault: jest.fn(),
-    };
-
-    handler(event as any);
-
-    expect(event.preventDefault).toHaveBeenCalled();
-
-    await new Promise((resolve) => defer(resolve));
-
-    expect(prop.navigate).toHaveBeenCalledWith({
-      params: {
-        book: {
-          uuid: book.id,
-          version: book.version,
-        },
-        page: {
-          uuid: pageId,
-        },
-      },
-      route: routes.content,
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
-    }, expect.anything());
   });
 });
