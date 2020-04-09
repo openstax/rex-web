@@ -17,6 +17,12 @@ const BodyErrorText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+const ErrorList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+
+// tslint:disable-next-line:variable-name
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 interface PropTypes {
@@ -26,7 +32,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorModal = ({ error, clearError }: PropTypes) => {
+const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
   if (!error) { return null; }
 
   return (
@@ -36,6 +42,9 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
           {(msg) => <BodyHeading>{msg}</BodyHeading>}
         </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
+        {stack.length ? <ErrorList>
+          {stack.map((sentryErrorId) => <li key={sentryErrorId}>{sentryErrorId}</li>)}
+        </ErrorList> : null}
       </Body>
       <Footer>
         <FormattedMessage id='i18n:error:boundary:action-btn-text'>
