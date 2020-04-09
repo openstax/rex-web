@@ -11,7 +11,7 @@ export const createTitle = (page: Page, book: Book): string => {
   let node = assertDefined(findArchiveTreeNode(book.tree, page.id), `couldn't find node for a page id: ${page.id}`);
   const [nodeNumber, nodeTitle] = splitTitleParts(node.title);
   const title = `${nodeTitle} - ${book.title} | OpenStax`;
-  if (nodeNumber) { return title; }
+  if (nodeNumber) { return `${nodeNumber} ${title}`; }
   while (node && node.parent) {
     node = node.parent;
     if (archiveTreeSectionIsChapter(node)) {

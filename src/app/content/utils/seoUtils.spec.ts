@@ -39,6 +39,6 @@ describe('createTitle', () => {
       tree: makeArchiveTree('book', [chapter]),
     };
     const title = createTitle(page as any as Page, book as any as Book);
-    expect(title).toEqual('page1 - book | OpenStax');
+    expect(title).toEqual('3 page1 - book | OpenStax');
   });
 });
