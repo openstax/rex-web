@@ -74,7 +74,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       navigate({
         params,
         route: content,
-        state : {
+        state: {
           bookUid,
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),

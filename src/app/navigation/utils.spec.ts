@@ -1,8 +1,9 @@
 import { Location } from 'history';
+import { Params } from '../content/types';
 import { AppServices, AppState, MiddlewareAPI } from '../types';
 import { locationChange } from './actions';
-import { AnyMatch } from './types';
-import { findRouteMatch, matchUrl, routeHook } from './utils';
+import { AnyMatch, AnyRoute } from './types';
+import { findRouteMatch, matchSearch, matchUrl, routeHook } from './utils';
 
 const routes = [
   {
@@ -17,7 +18,18 @@ const routes = [
     name: 'with params',
     paths: ['/with/:param?'],
   },
-];
+  {
+    component: () => null,
+    getSearch: () => 'url3?archive=https://archive-content03.cnx.org',
+    name: 'with search',
+    paths: ['/with/:search?'],
+  },
+  {
+    component: () => null,
+    name: 'with no search',
+    paths: ['/with/:nosearch?'],
+  },
+] as AnyRoute[];
 
 describe('findRouteMatch', () => {
   it('returns undefined for no matching route', () => {
@@ -107,5 +119,41 @@ describe('matchUrl', () => {
 
     expect(matchUrl({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
     expect(spy).toHaveBeenCalledWith(params);
+  });
+});
+
+describe('matchSearch', () => {
+
+  it('renders no url with no params or search', () => {
+    expect(matchSearch( {route: routes[0]} as AnyMatch, undefined)).toEqual('');
+  });
+
+  it('renders a url with search', () => {
+    const spy = jest.spyOn(routes[2], 'getSearch');
+    const params = { foo: 'bar' } as unknown as Params;
+
+    expect(
+      matchSearch(
+        {route: routes[2], params} as AnyMatch,
+        ''
+      )
+    ).toEqual('url3%3Farchive=https%3A%2F%2Farchive-content03.cnx.org');
+    expect(spy).toHaveBeenCalledWith(params);
+  });
+
+  it('renders no match with params and no search', () => {
+    const params = {foo: 'bar'} as unknown as Params;
+
+    expect(matchSearch({route: routes[3], params} as AnyMatch, undefined))
+    .toEqual('');
+  });
+
+  it('renders match with no params and search', () => {
+    expect(
+      matchSearch(
+        {route: routes[2]} as AnyMatch,
+        ''
+      )
+    ).toEqual('url3%3Farchive=https%3A%2F%2Farchive-content03.cnx.org');
   });
 });
