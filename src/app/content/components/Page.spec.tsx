@@ -32,6 +32,7 @@ import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
+jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
@@ -536,6 +537,47 @@ describe('Page', () => {
       hash: '#hash',
       search: '',
     }));
+  });
+
+  it('passes search when clicking archive links', async() => {
+    routes.content.getSearch = jest.fn().mockReturnValue('archive=some-content');
+
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const archiveLink = root.querySelector('#main-content a[href=""]');
+
+    if (!archiveLink || !document) {
+      expect(document).toBeTruthy();
+      return expect(archiveLink).toBeTruthy();
+    }
+
+    const evt1 = makeEvent(document);
+
+    archiveLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
+
+    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references: [
+      {
+        match: '/content/link',
+        params: {
+          book: {
+            slug: 'book-slug-1',
+          } ,
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      },
+    ]})));
   });
 
   it('does not intercept clicking content links when meta key is pressed', () => {

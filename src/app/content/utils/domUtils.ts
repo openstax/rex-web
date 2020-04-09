@@ -1,4 +1,4 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Node.children" */ 'mdn-polyfills/Node.prototype.children');
@@ -92,3 +92,6 @@ export const fixSafariScrolling = (event: any) => {
   event.target.style.overflowY = 'hidden';
   setTimeout(() => { event.target.style.overflowY = 'auto'; });
 };
+
+export const isClickWithModifierKeys = (e: React.MouseEvent | MouseEvent) =>
+  e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
