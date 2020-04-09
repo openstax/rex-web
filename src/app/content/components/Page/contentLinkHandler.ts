@@ -55,6 +55,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       navigate,
       book,
       page,
+      currentPath,
       locationState,
       focusedHighlight,
       hasUnsavedHighlight,
@@ -73,6 +74,10 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     const reference = references.find(isPathRefernceForBook(pathname, book));
 
     const searchString = search.substring(1);
+
+    if (!reference && !(pathname === currentPath && hash)) {
+      return;
+    }
 
     e.preventDefault();
 
