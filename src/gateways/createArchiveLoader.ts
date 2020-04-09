@@ -1,5 +1,7 @@
+import { isNullOrUndefined } from 'util';
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
+import { splitTitleParts } from '../app/content/utils/archiveTreeUtils';
 import { getIdVersion } from '../app/content/utils/idUtils';
 import { acceptStatus } from '../helpers/fetch';
 
@@ -8,6 +10,30 @@ interface Extras {
     ident_hash: string
   }>;
 }
+
+const cleanArchiveResponse = (archiveContent: any) => {
+  const chapterSlug = 'chapter-';
+  const chapterTitle = 'Chapter';
+  const appendixSlug = 'appendix-';
+  const appendixTitle = 'Appendix ';
+
+  if (archiveContent.tree) {
+    archiveContent.tree.contents.map((item: any) => {
+      if (item.slug.includes(chapterSlug) || item.slug.includes(appendixSlug)) {
+        item.slug = item.slug.replace(chapterSlug, '').replace(appendixSlug, '');
+      }
+
+      const splitTitle = splitTitleParts(item.title);
+
+      if (!isNullOrUndefined(splitTitle[0]) && (splitTitle[0].includes(chapterTitle) ||
+          splitTitle[0].includes(appendixTitle))) {
+        item.title = item.title.replace(chapterTitle, '').replace(appendixTitle, '');
+      }
+    });
+  }
+
+  return archiveContent;
+};
 
 export default (url: string) => {
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
@@ -23,7 +49,7 @@ export default (url: string) => {
     return archiveFetch<ArchiveContent>(`${url}/contents/${id}`)
       .then((response) => {
         cache.set(id, response);
-        return response;
+        return cleanArchiveResponse(response);
       });
   };
 
