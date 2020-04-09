@@ -140,6 +140,12 @@ describe('Attribution', () => {
 
       store = createTestStore(newState);
 
+      // We are testing if assertNotNull function is throwing error
+      // and when it does then react makes a console.error with additional info.
+      const spyConsoleError = jest.spyOn(console, 'error')
+        .mockImplementationOnce(jest.fn)
+      ;
+
       let message: string | undefined;
 
       try {
@@ -148,6 +154,7 @@ describe('Attribution', () => {
         message = e.message;
       }
 
+      expect(spyConsoleError).toHaveBeenCalledTimes(1);
       expect(message).toEqual('BUG: Could not find publication date');
     });
 
