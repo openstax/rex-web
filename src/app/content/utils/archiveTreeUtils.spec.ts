@@ -10,6 +10,8 @@ import {
   archiveTreeSectionIsUnit,
   findArchiveTreeNode,
   findDefaultBookPage,
+  getArchiveTreeSectionNumber,
+  getArchiveTreeSectionTitle,
   nodeHasId,
   splitTitleParts,
 } from './archiveTreeUtils';
@@ -58,6 +60,32 @@ describe('findDefaultBookPage', () => {
 describe('splitTitleParts', () => {
   it('returns null when book is not baked', () => {
     expect(splitTitleParts('unbaked-title')).toEqual([null, 'unbaked-title']);
+  });
+});
+
+describe('getArchiveTreeSectionNumber', () => {
+  it('returns number', () => {
+    expect(
+      getArchiveTreeSectionNumber(makeArchiveSection(
+        '<span class="os-number">4</span><span class="os-text">foobar</span>'
+      ))
+    ).toEqual('4');
+  });
+  it('returns null when book is not baked', () => {
+    expect(getArchiveTreeSectionNumber(makeArchiveSection('unbaked-title'))).toEqual(null);
+  });
+});
+
+describe('getArchiveTreeSectionTitle', () => {
+  it('returns title', () => {
+    expect(
+      getArchiveTreeSectionTitle(makeArchiveSection(
+        '<span class="os-number">4</span><span class="os-text">foobar</span>'
+      ))
+    ).toEqual('foobar');
+  });
+  it('returns title when book is not baked', () => {
+    expect(getArchiveTreeSectionTitle(makeArchiveSection('unbaked-title'))).toEqual('unbaked-title');
   });
 });
 
