@@ -243,8 +243,5 @@ describe('cleanArchiveResponse', () => {
     expect(cleanContent.tree.contents[1].title).toMatch(
       '<span class="os-number">1</span><span class="os-divider"> | </span><span class="os-text">Appendix example</span>'
     );
-
-    const noTree = cleanArchiveResponse(bookWithNoTree);
-    expect(noTree).toEqual({ tree: undefined });
   });
 });
