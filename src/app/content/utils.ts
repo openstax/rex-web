@@ -1,7 +1,7 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData } from './guards';
-import { ArchiveBook, ArchiveContent, ArchiveTree, BookWithOSWebData } from './types';
+import { ArchiveBook, ArchiveTree, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
@@ -36,9 +36,9 @@ const cleanArchiveTree = (node: ArchiveTree['contents'][0]) => {
   }
 };
 
-export const cleanArchiveResponse = (archiveContent: ArchiveContent) => {
+export const cleanArchiveResponse = <T extends {tree?: ArchiveTree}>(archiveContent: T) => {
 
-  if ('tree' in archiveContent) {
+  if ('tree' in archiveContent && archiveContent.tree) {
     cleanArchiveTree(archiveContent.tree);
   }
 

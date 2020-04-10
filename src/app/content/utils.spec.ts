@@ -208,13 +208,15 @@ describe('cleanArchiveResponse', () => {
             id: 'pagelongid@1',
             shortId: 'page@1',
             slug: 'chapter-1',
-            title: '<span class="os-number">Chapter 1</span><span class="os-text">Chapter example</span>',
+            // tslint:disable-next-line:max-line-length
+            title: '<span class="os-number">Chapter 1</span><span class="os-divider"> </span><span class="os-text">Chapter example</span>',
           },
           {
             id: 'pagelongid@2',
             shortId: 'page@2',
             slug: 'appendix-1',
-            title: '<span class="os-number">Appendix 1</span><span class="os-text">Appendix example</span>',
+            // tslint:disable-next-line:max-line-length
+            title: '<span class="os-number">Appendix 1</span><span class="os-divider"> </span><span class="os-text">Appendix example</span>',
           },
           {
             id: 'pagelongid@3',
@@ -236,10 +238,10 @@ describe('cleanArchiveResponse', () => {
   it('cleans up `chapter` and `appendix` from slugs and titles', () => {
     const cleanContent = cleanArchiveResponse(book);
     expect(cleanContent.tree.contents[0].title).toMatch(
-      '<span class="os-number"> 1</span><span class="os-text">Chapter example</span>'
+      '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">Chapter example</span>'
     );
     expect(cleanContent.tree.contents[1].title).toMatch(
-      '<span class="os-number"> 1</span><span class="os-text">Appendix example</span>'
+      '<span class="os-number">1</span><span class="os-divider"> | </span><span class="os-text">Appendix example</span>'
     );
 
     const noTree = cleanArchiveResponse(bookWithNoTree);
