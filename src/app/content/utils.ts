@@ -1,33 +1,45 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData } from './guards';
-import { ArchiveBook, BookWithOSWebData } from './types';
+import { ArchiveBook, ArchiveContent, ArchiveTree, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
-
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
-export const cleanArchiveResponse = (archiveContent: any) => {
+const cleanArchiveTree = (node: ArchiveTree['contents'][0]) => {
   const chapterSlug = /^chapter-/;
   const appendixSlug = /^appendix-/;
-  const chapterTitle = 'Chapter';
-  const appendixTitle = 'Appendix';
+  const chapterTitle = 'Chapter ';
+  const appendixTitle = 'Appendix ';
 
-  if (archiveContent.tree) {
-    archiveContent.tree.contents.map((item: any) => {
+  if ('contents' in node) {
+    node.contents.forEach((item) => {
       item.slug = item.slug.replace(chapterSlug, '').replace(appendixSlug, '');
 
       const domNode = new DOMParser().parseFromString(item.title, 'text/html');
       const numNode = domNode.querySelector('.os-number');
+      const dividerNode = domNode.querySelector('.os-divider');
 
+      if (numNode && dividerNode && numNode.textContent.match(appendixTitle)) {
+        dividerNode.textContent = ' | ';
+      }
       if (numNode) {
-        const cleanNumNode = numNode.textContent.replace(chapterTitle, '').replace(appendixTitle, '');
-        item.title = item.title.replace(numNode.textContent, cleanNumNode);
+        numNode.textContent = numNode.textContent.replace(chapterTitle, '').replace(appendixTitle, '');
       }
 
+      item.title = domNode.body.innerHTML;
+
+      cleanArchiveTree(item);
     });
+  }
+};
+
+export const cleanArchiveResponse = (archiveContent: ArchiveContent) => {
+
+  if ('tree' in archiveContent) {
+    cleanArchiveTree(archiveContent.tree);
   }
 
   return archiveContent;
