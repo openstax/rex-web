@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorModal matches snapshot 1`] = `
+exports[`ConfirmationModal matches snapshot 1`] = `
 <div
-  className="error-modal styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
+  className="styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
 >
   <div
     className="styles__CardWrapper-sc-1gxqzoa-7 llgsuk"
@@ -16,7 +16,7 @@ exports[`ErrorModal matches snapshot 1`] = `
         <h1
           className="styles__Heading-sc-1gxqzoa-2 eqDSaw"
         >
-          Error
+          Discard unsaved changes?
         </h1>
         <svg
           aria-hidden="true"
@@ -55,30 +55,27 @@ exports[`ErrorModal matches snapshot 1`] = `
         <h3
           className="styles__BodyHeading-sc-1gxqzoa-3 krnhWx"
         >
-          Uh-oh, there's been a glitch
+          You have an unsaved note on this page.
         </h3>
-        <div
-          className="ErrorModal__BodyErrorText-sc-1q7eiy-0 glzJJQ"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "
-  We're not quite sure what went wrong. Refresh the page. If this doesn't solve
-  the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
-",
-            }
-          }
-        />
       </div>
       <div
-        className="styles__Footer-sc-1gxqzoa-9 eKsEVO"
+        className="styles__Footer-sc-1gxqzoa-9 sc-bdVaJa gURIHf"
       >
         <button
           className="Button-ayg7nk-0 gkTzYh"
-          data-testid="clear-error"
+          data-testid="discard-changes"
           onClick={[Function]}
         >
            
-          OK
+          Discard changes
+        </button>
+        <button
+          className="Button-ayg7nk-0 ipHgKg"
+          data-testid="cancel-discard"
+          onClick={[Function]}
+        >
+           
+          Cancel
         </button>
       </div>
     </div>
