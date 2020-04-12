@@ -1,5 +1,5 @@
 """The My Highlights and Notes modal."""
-
+# fmt: off
 from __future__ import annotations
 
 from time import sleep
@@ -552,10 +552,12 @@ class MyHighlights(Region):
     class Highlights(Region):
         """The modal body containing the filtered list of highlights."""
 
-        _chapter_locator = (
-            By.XPATH, "./div[span]")
-        _section_locator = (
-            By.XPATH, "./div[div]")
+        # _chapter_locator = (
+        #     By.XPATH, "./div[span]")
+        # _section_locator = (
+        #     By.XPATH, "./div[div]")
+        _chapter_locator = (By.CSS_SELECTOR, "[data-testid='mh-chapter-title']")
+        _section_locator = (By.CSS_SELECTOR, "[data-testid='mh-section-title']")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -613,3 +615,4 @@ class MyHighlights(Region):
                 return [Highlight(self, highlight)
                         for highlight
                         in self.find_elements(*self._highlight_locator)]
+# fmt: on
