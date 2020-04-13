@@ -198,7 +198,6 @@ describe('toRelativeUrl', () => {
 
 describe('cleanArchiveResponse', () => {
   let book: Book;
-  let bookWithNoTree: Book;
 
   beforeEach(() => {
     book = cloneDeep({
@@ -231,8 +230,6 @@ describe('cleanArchiveResponse', () => {
         title: 'book',
       },
     }) as Book;
-
-    bookWithNoTree = cloneDeep({tree: undefined}) as unknown as Book;
   });
 
   it('cleans up `chapter` and `appendix` from slugs and titles', () => {
