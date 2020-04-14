@@ -1,5 +1,5 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
-import { cleanArchiveResponse, stripIdVersion } from '../app/content/utils';
+import { stripIdVersion } from '../app/content/utils';
 import { getIdVersion } from '../app/content/utils/idUtils';
 import { acceptStatus } from '../helpers/fetch';
 
@@ -22,9 +22,8 @@ export default (url: string) => {
 
     return archiveFetch<ArchiveContent>(`${url}/contents/${id}`)
       .then((response) => {
-        const cleanResponse = cleanArchiveResponse(response);
-        cache.set(id, cleanResponse);
-        return cleanResponse;
+        cache.set(id, response);
+        return response;
       });
   };
 
