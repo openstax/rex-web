@@ -2,11 +2,13 @@ import { flatten, unflatten } from 'flat';
 import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import pathToRegexp, { Key } from 'path-to-regexp';
+import querystring from 'querystring';
 import { Dispatch } from 'redux';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
-import { AnyMatch, AnyRoute, GenericMatch, LocationChange, Match, RouteHookBody, RouteState } from './types';
+import { AnyMatch, AnyRoute, GenericMatch,
+  LocationChange, Match, RouteHookBody, RouteState } from './types';
 
 const delimiter = '_';
 
@@ -46,6 +48,20 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
       }
     }
   }
+};
+
+export const matchSearch = (action: AnyMatch, search: string | undefined) => {
+  const previous = querystring.parse(search || '');
+
+  const route = querystring.parse(hasParams(action)
+    ? action.route.getSearch ? action.route.getSearch(action.params) : ''
+    : action.route.getSearch ? action.route.getSearch() : ''
+  );
+
+  return querystring.stringify({
+    ...previous,
+    ...route,
+  });
 };
 
 export const matchUrl = (action: AnyMatch) => hasParams(action)

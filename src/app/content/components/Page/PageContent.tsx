@@ -4,7 +4,12 @@ import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
-import { highlightIndicatorSize, highlightStyles } from '../../highlights/constants';
+import {
+  highlightBlockPadding,
+  highlightIndicatorSize,
+  highlightIndicatorSizeForBlock,
+  highlightStyles,
+} from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
@@ -49,6 +54,7 @@ export default styled(MainContent)`
 
   .highlight {
     position: relative;
+    z-index: 1;
   }
 
   .MathJax_Display .highlight,
@@ -60,7 +66,35 @@ export default styled(MainContent)`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
-      &.first.text.has-note:before {
+      &.block {
+        display: block;
+
+        &:after {
+          position: absolute;
+          z-index: -1;
+          content: "";
+          display: block;
+          top: -1rem;
+          bottom: -1rem;
+          left: -1rem;
+          right: -1rem;
+          background-color: ${style.passive};
+        }
+
+        &.first.has-note:before {
+          position: absolute;
+          top: -${highlightBlockPadding}rem;
+          left: -${highlightBlockPadding}rem;
+          content: "";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
+          border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
+        }
+      }
+
+      &.first.text.has-note:after {
         position: absolute;
         top: 0;
         left: 0;
@@ -81,7 +115,11 @@ export default styled(MainContent)`
             color: ${theme.color.text.white};
           `}
 
-          &.first.text.has-note:before {
+          &.block:after {
+            background-color: ${style.focused};
+          }
+
+          &.first.text.has-note:after {
             display: none;
           }
         }

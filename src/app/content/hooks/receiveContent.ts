@@ -10,6 +10,7 @@ import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import getCleanContent from '../utils/getCleanContent';
+import { createTitle } from '../utils/seoUtils';
 
 const stripHtmlAndTrim = (str: string) => str
   .replace(/<[^>]*>/g, ' ')
@@ -41,7 +42,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
     return;
   }
 
-  const title = `${page.title} - ${book.title} - OpenStax`;
+  const title = createTitle(page, book);
 
   // the abstract could be '<div/>'.
   const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
