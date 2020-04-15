@@ -18,7 +18,7 @@ head -n 35 "$worker".bak > "$worker"
 
 cat >> "$worker" <<- EOM
 workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/index.html"), {
-  blacklist: [/^\/accounts/,/^\/_/,/\/[^/]+\.[^/]+$/],
+  whitelist: [/^\/books\/.*?\/pages\//],
 });
 
 workbox.routing.registerRoute(
