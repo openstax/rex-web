@@ -12,5 +12,29 @@ function abs_path {
 
 worker=$(abs_path "${BASH_SOURCE%/*}/../build")/service-worker.js
 
-sed -i.bak 's/\/^/\/^\\\/accounts\/,\/^/' "$worker"
-rm "$worker.bak"
+# remove default registerNavigationRoute
+cp "$worker" "$worker".bak
+head -n 35 "$worker".bak > "$worker"
+
+cat >> "$worker" <<- EOM
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/index.html"), {
+  blacklist: [/^\/accounts/,/^\/_/,/\/[^/]+\.[^/]+$/],
+});
+
+workbox.routing.registerRoute(
+  /https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/mathjax\//,
+  new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+  /\/cms\/assets\//,
+  new workbox.strategies.StaleWhileRevalidate()
+);
+workbox.routing.registerRoute(
+  /\/contents\//,
+  new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+  /\/apps\/cms\/api\//,
+  new workbox.strategies.StaleWhileRevalidate()
+);
+EOM
