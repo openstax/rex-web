@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import path from 'path';
 import { basename } from 'path';
@@ -12,6 +13,8 @@ import { assertDefined } from '../src/app/utils';
 import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
+
+(global as any).DOMParser = new JSDOM().window.DOMParser;
 
 const {
   rootUrl,
@@ -54,14 +57,20 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
   });
 
   for (const pageUrl of bookPages) {
-    await page.goto(`${rootUrl}${pageUrl}${queryString ? `?${queryString}` : ''}`);
-    await page.waitForSelector('body[data-rex-loaded="true"]');
-    await calmHooks(page);
+    try {
+      await page.goto(`${rootUrl}${pageUrl}${queryString ? `?${queryString}` : ''}`);
+      await page.waitForSelector('body[data-rex-loaded="true"]');
+      await calmHooks(page);
 
-    const matches = await page.evaluate(audit);
-    if (matches.length > 0) {
-      bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
+      const matches = await page.evaluate(audit);
+
+      if (matches.length > 0) {
+        bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
+      }
+    } catch (e) {
+      bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
     }
+
     bar.tick();
   }
 }

@@ -12,7 +12,7 @@ const UNLIMITED_CONTENT_QUERY = typeof(window) === 'undefined'
 
 const UNLIMITED_CONTENT_ENV = process.env.REACT_APP_UNLIMITED_CONTENT === undefined
   ? undefined
-  : process.env.REACT_APP_UNLIMITED_CONTENT !== false
+  : process.env.REACT_APP_UNLIMITED_CONTENT !== 'false'
 ;
 
 const UNLIMITED_CONTENT = UNLIMITED_CONTENT_QUERY === undefined
