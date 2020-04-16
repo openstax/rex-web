@@ -75,12 +75,38 @@ describe('getUrlParamForPageId', () => {
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({slug: 'preface'});
   });
 
+  it('returns uuid param if tree is missing a slug', () => {
+    delete book.tree.contents[0].slug;
+
+    expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({uuid: 'pagelongid'});
+  });
+
   it('throws on invalid id', () => {
     expect(() =>
       getUrlParamForPageId(book, 'wokowokowko')
     ).toThrowErrorMatchingInlineSnapshot(
       `"BUG: could not find page \\"wokowokowko\\" in undefined"`
     );
+  });
+
+  describe('in production', () => {
+    beforeEach(() => {
+      resetModules();
+      jest.doMock('../../../config', () => ({
+        APP_ENV: 'production',
+      }));
+
+      getUrlParamForPageId = require('./urlUtils').getUrlParamForPageId;
+    });
+
+    it('throws if tree is missing a slug and env is production', () => {
+      delete book.tree.contents[0].slug;
+      expect(() =>
+        getUrlParamForPageId(book, 'pagelongid@1')
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"could not find page slug for \\"pagelongid@1\\" in undefined"`
+      );
+    });
   });
 });
 
@@ -112,6 +138,11 @@ describe('getPageIdFromUrlParam', () => {
 
   it('ignores captialization', () => {
     expect(getPageIdFromUrlParam(book, {slug: 'preface'})).toEqual('pagelongid');
+  });
+
+  it('doesn\'t search if page param is an uuid param', () => {
+    book.tree.contents[0].id = 'doesntmatter';
+    expect(getPageIdFromUrlParam(book, {uuid: 'pagelongid'})).toEqual('pagelongid');
   });
 
   it('returns undefined for unknown route', () => {
