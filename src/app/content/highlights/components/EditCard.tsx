@@ -11,7 +11,11 @@ import Button, { ButtonGroup } from '../../../components/Button';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
-import { clearFocusedHighlight, updateHighlight } from '../actions';
+import {
+  clearFocusedHighlight,
+  setAnnotationChangesPending as setAnnotationChangesPendingAction,
+  updateHighlight,
+} from '../actions';
 import { cardPadding, highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
@@ -21,11 +25,13 @@ import onClickOutside from './utils/onClickOutside';
 
 interface Props {
   isFocused: boolean;
+  hasUnsavedHighlight: boolean;
   highlight: Highlight;
   locationFilterId: string;
   pageId: string;
   onCreate: () => void;
   onBlur: typeof clearFocusedHighlight;
+  setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
   onRemove: () => void;
   onCancel: () => void;
   onFocus: () => void;
@@ -58,7 +64,21 @@ const EditCard = React.forwardRef<HTMLElement, Props>((props: Props, ref) => {
     }
   };
 
-  useOnEsc(element, props.isFocused, props.onCancel);
+  const cancelEditing = () => {
+    setPendingAnnotation(defaultAnnotation());
+    props.setAnnotationChangesPending(false);
+    setEditing(false);
+    props.onCancel();
+  };
+
+  React.useEffect(() => {
+    if (!props.isFocused) {
+      cancelEditing();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isFocused]);
+
+  useOnEsc(element, props.isFocused, cancelEditing);
 
   React.useEffect(() => {
     if (props.data) { return; }
@@ -120,10 +140,16 @@ const EditCard = React.forwardRef<HTMLElement, Props>((props: Props, ref) => {
     props.onCancel();
   };
 
-  const cancelEditing = () => {
-    setPendingAnnotation(defaultAnnotation());
-    setEditing(false);
-    props.onCancel();
+  const updateUnsavedHighlightStatus = (newValue: string) => {
+    const currentValue = props.data && props.data.annotation ? props.data.annotation : '';
+
+    if (currentValue !== newValue && !props.hasUnsavedHighlight) {
+      props.setAnnotationChangesPending(true);
+    }
+
+    if (currentValue === newValue && props.hasUnsavedHighlight) {
+      props.setAnnotationChangesPending(false);
+    }
   };
 
   return <form
@@ -146,6 +172,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((props: Props, ref) => {
       }}
       onChange={(newValue) => {
         setPendingAnnotation(newValue);
+        updateUnsavedHighlightStatus(newValue);
         setEditing(true);
       }}
     />

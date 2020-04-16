@@ -68,6 +68,7 @@ export const splitTitleParts = (str: string) => {
 };
 
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
+export const getArchiveTreeSectionTitle = (section: ArchiveTreeSection) => splitTitleParts(section.title)[1];
 
 export const findArchiveTreeNode = (
   tree: ArchiveTree,
