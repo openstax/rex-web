@@ -1,6 +1,6 @@
 {
   "short_name": "OpenStax",
-  "name": "OpenStax Reading Experience",
+  "name": "OpenStax",
   "icons": [
     {
       "src": "favicon.ico",
@@ -53,7 +53,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./books/college-physics/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+  "start_url": "./books/college-physics/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units/.",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
