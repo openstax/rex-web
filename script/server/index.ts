@@ -32,7 +32,7 @@ const makeFallback = (serve: Handler, fallback404: boolean) => {
 
 const makeServe = (baseDir: string) => {
   const setHeaders = (res: http.ServerResponse, file: string) => {
-    if (file.match(`^${baseDir}/(books|errors)`)) {
+    if (file.match(`^${baseDir}/books/.*?/pages/`)) {
       res.setHeader('Content-Type', 'text/html');
     }
   };

@@ -10,16 +10,14 @@ function abs_path {
   (cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$PWD" "${1##*/}")
 }
 
-worker=$(abs_path "${BASH_SOURCE%/*}/../build")/service-worker.js
+build=$(abs_path "${BASH_SOURCE%/*}/../build")
+worker="$build"/service-worker.js
 
 # remove default registerNavigationRoute
 cp "$worker" "$worker".bak
-head -n 35 "$worker".bak > "$worker"
+head -n 39 "$worker".bak > "$worker"
 
 cat >> "$worker" <<- EOM
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/index.html"), {
-  whitelist: [/^\/books\/.*?\/pages\//],
-});
 
 workbox.routing.registerRoute(
   /https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/mathjax\//,
@@ -38,3 +36,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate()
 );
 EOM
+
+mkdir "$build"/books
+
+mv "$worker" "$build"/books/
