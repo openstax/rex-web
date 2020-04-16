@@ -60,8 +60,9 @@ exports[`Filters matches snapshot 1`] = `
   </div>
   <button
     aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 HighlightsPrintButton__StyledHighlightsPrintButton-sc-1ovkv74-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 kQpukq styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 fgPdfO HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
+    disabled={false}
     onClick={[Function]}
   >
     <svg
@@ -357,8 +358,9 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   </div>
   <button
     aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 HighlightsPrintButton__StyledHighlightsPrintButton-sc-1ovkv74-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 kQpukq styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 fgPdfO HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
+    disabled={false}
     onClick={[Function]}
   >
     <svg
