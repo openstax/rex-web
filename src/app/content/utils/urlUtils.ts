@@ -1,5 +1,4 @@
-import { BOOKS } from '../../../config';
-import { assertDefined } from '../../utils';
+import { APP_ENV, BOOKS } from '../../../config';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNode, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -23,11 +22,6 @@ export const getBookPageUrlAndParams = (
     pageUid: stripIdVersion(page.id),
   };
 
-  if (!('version' in params.book) && (!BOOKS[book.id] || book.version !== BOOKS[book.id].defaultVersion)) {
-    const paramsWithVersion = { ...params, book: {...params.book, version: book.version}};
-    return { params: paramsWithVersion, state, url: contentRoute.getUrl(paramsWithVersion) };
-  }
-
   const search = contentRoute.getSearch && contentRoute.getSearch(params);
   const query = search ? `?${search}` : '';
 
@@ -38,7 +32,9 @@ export const getUrlParamsForBook = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
 ): Params['book'] => {
   if ('slug' in book && book.slug && BOOKS[book.id]) {
-    return {slug: book.slug};
+    return book.version === BOOKS[book.id].defaultVersion
+      ? {slug: book.slug}
+      : {slug: book.slug, version: book.version};
   } else {
     return {uuid: book.id, version: book.version};
   }
@@ -50,20 +46,31 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
   const cacheKey = `${book.id}:${pageId}`;
 
   if (getUrlParamForPageIdCache.has(cacheKey)) {
-    return {slug: getUrlParamForPageIdCache.get(cacheKey)};
+    return getUrlParamForPageIdCache.get(cacheKey);
   }
 
   const treeSection = findArchiveTreeNode(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
-  const result = assertDefined(treeSection.slug, `could not find page slug for "${pageId}" in ${book.title}`);
-  getUrlParamForPageIdCache.set(cacheKey, result);
 
-  return {slug: result};
+  if (APP_ENV === 'production' && !treeSection.slug) {
+    throw new Error(`could not find page slug for "${pageId}" in ${book.title}`);
+  }
+
+  const param = treeSection.slug
+    ? {slug: treeSection.slug}
+    : {uuid: treeSection.id};
+
+  getUrlParamForPageIdCache.set(cacheKey, param);
+  return param;
 };
 
 export const getPageIdFromUrlParam = (book: Book, pageParam: Params['page']): string | undefined => {
+  if ('uuid' in pageParam) {
+    return pageParam.uuid;
+  }
+
   const pageNode = findArchiveTreeNodeByPageParam(book.tree, pageParam);
   if (!pageNode) { return; }
 
