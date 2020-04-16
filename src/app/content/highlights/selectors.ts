@@ -52,6 +52,11 @@ export const focused = createSelector(
   (state) => state.currentPage.focused
 );
 
+export const hasUnsavedHighlight = createSelector(
+  localState,
+  (state) => state.currentPage.hasUnsavedHighlight
+);
+
 export const myHighlightsOpen = createSelector(
   localState,
   (state) => state.summary.open

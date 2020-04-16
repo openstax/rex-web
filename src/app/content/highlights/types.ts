@@ -32,6 +32,7 @@ export interface State {
   currentPage: {
     pageId: string | null,
     highlights: null | HighlightData[];
+    hasUnsavedHighlight: boolean;
     focused?: string;
   };
   summary: {

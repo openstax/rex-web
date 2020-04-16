@@ -217,7 +217,7 @@ describe('Show my highlights', () => {
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{} as HighlightData],
+        'testbook1-testpage1-uuid': [{ id: 'asd' } as HighlightData],
       },
     }, {pagination: null}));
 

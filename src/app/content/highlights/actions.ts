@@ -26,6 +26,9 @@ export const updateHighlight = createStandardAction('Content/Highlights/update')
 export const receiveHighlights = createStandardAction(
   'Content/Highlights/receive'
 )<{highlights: HighlightData[], pageId: string}>();
+export const setAnnotationChangesPending = createStandardAction('Content/Highlights/setAnnotationChangesPending')<
+  boolean
+>();
 
 export const openMyHighlights = createStandardAction('Content/Highlights/Summary/open')<void>();
 export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();

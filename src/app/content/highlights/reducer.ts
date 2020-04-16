@@ -21,6 +21,7 @@ import { findHighlight } from './utils/reducerUtils';
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
   currentPage: {
+    hasUnsavedHighlight: false,
     highlights: null,
     pageId: null,
   },
@@ -71,6 +72,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         currentPage: {
           ...state.currentPage,
+          hasUnsavedHighlight: false,
           highlights: [...state.currentPage.highlights || [], highlight],
         },
         summary: {
@@ -90,6 +92,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       if (!state.currentPage.highlights || !oldHighlight) {
         return state;
       }
+
+      const hasUnsavedHighlight =
+        oldHighlight.annotation === action.payload.highlight.annotation
+        && state.currentPage.hasUnsavedHighlight;
 
       const newHighlight = {
         ...oldHighlight,
@@ -117,6 +123,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         currentPage: {
           ...state.currentPage,
+          hasUnsavedHighlight,
           highlights: newHighlights,
         },
         summary: {
@@ -150,6 +157,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         currentPage: {
           ...state.currentPage,
           focused: state.currentPage.focused === action.payload ? undefined : state.currentPage.focused,
+          hasUnsavedHighlight: false,
           highlights: state.currentPage.highlights.filter(({id}) => id !== action.payload),
         },
         summary: {
@@ -173,7 +181,16 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, currentPage: { ...state.currentPage, focused: action.payload }};
     }
     case getType(actions.clearFocusedHighlight): {
-      return {...state, currentPage: omit('focused', state.currentPage)};
+      return {...state, currentPage: omit('focused', {...state.currentPage, hasUnsavedHighlight: false})};
+    }
+    case getType(actions.setAnnotationChangesPending): {
+      return {
+        ...state,
+        currentPage: {
+          ...state.currentPage,
+          hasUnsavedHighlight: action.payload,
+        },
+      };
     }
     case getType(actions.printSummaryHighlights): {
       return {
