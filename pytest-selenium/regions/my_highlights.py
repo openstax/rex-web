@@ -223,6 +223,8 @@ class MyHighlights(Region):
         highlights = []
         for section in self.highlights.sections:
             highlights = highlights + section.highlights
+            print(section)
+            print(highlights)
         return highlights
 
     @property
@@ -556,8 +558,10 @@ class MyHighlights(Region):
         #     By.XPATH, "./div[span]")
         # _section_locator = (
         #     By.XPATH, "./div[div]")
-        _chapter_locator = (By.CSS_SELECTOR, "[data-testid='mh-chapter-title']")
-        _section_locator = (By.CSS_SELECTOR, "[data-testid='mh-section-title']")
+        # _chapter_locator = (By.CSS_SELECTOR, "[data-testid='mh-chapter-title'][span]")
+        # _section_locator = (By.CSS_SELECTOR, "[data-testid='mh-section-title'][span]")
+        _chapter_locator = (By.XPATH, "//div[@data-testid='mh-chapter-title']")
+        _section_locator = (By.XPATH, "//div[@data-testid='mh-section-title']")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -599,8 +603,13 @@ class MyHighlights(Region):
 
             _number_locator = (
                 By.CSS_SELECTOR, "div:first-child .os-number")
+            # _highlight_locator = (
+            #     By.CSS_SELECTOR, ":scope > :not(:first-child)")
+            # _highlight_locator = (
+            #     By.CSS_SELECTOR, "[class~='summary-highlight']")
             _highlight_locator = (
-                By.CSS_SELECTOR, ":scope > :not(:first-child)")
+                By.XPATH, "./following-sibling::div//div[contains(@class,'summary-highlight-content')]")
+
             _title_locator = (
                 By.CSS_SELECTOR, "div:first-child .os-text")
 
@@ -615,4 +624,5 @@ class MyHighlights(Region):
                 return [Highlight(self, highlight)
                         for highlight
                         in self.find_elements(*self._highlight_locator)]
+
 # fmt: on
