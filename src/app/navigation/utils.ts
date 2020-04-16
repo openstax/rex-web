@@ -1,9 +1,11 @@
 import { flatten, unflatten } from 'flat';
 import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
-import pathToRegexp, { Key } from 'path-to-regexp';
+import omit from 'lodash/fp/omit';
+import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
+import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
@@ -21,7 +23,7 @@ export const locationChangeForRoute = <R extends AnyRoute>(
 ): locationChange is Required<LocationChange<Match<R>>> =>
   !!locationChange.match && locationChange.match.route.name === route.name;
 
-export const getUrlRegexParams = <T extends {}>(obj: T): T => flatten(obj, {delimiter});
+export const getUrlRegexParams = (obj: object): object => flatten(obj, {delimiter});
 
 const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   const [, ...values] = match;
@@ -83,3 +85,27 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
       }
     };
   });
+
+/*
+ * Recursively creates combinations of supplied replacements
+ * for the base parameter in an url
+ */
+
+export const injectParamsToBaseUrl = (baseUrl: string, params: {[key: string]: string[]}): string[] => {
+  const keyToInject = Object.keys(params)[0];
+  if (!keyToInject) { return [baseUrl]; }
+
+  return params[keyToInject].reduce((output, value) => {
+    const injected = baseUrl.replace(`:${keyToInject}`, `:${value}`);
+    return [...output, ...injectParamsToBaseUrl(injected, omit([keyToInject], params))];
+  }, [] as string[]);
+};
+
+export const findPathForParams = (params: object, paths: string[]) => {
+  const paramKeys = Object.keys(params);
+  return paths.find((path) => {
+    const paramsInPath = parse(path).filter((param) => pathTokenIsKey(param)) as Key[];
+    return paramsInPath.length === paramKeys.length &&
+      paramsInPath.every(({name}) => paramKeys.includes(name.toString()));
+  });
+};

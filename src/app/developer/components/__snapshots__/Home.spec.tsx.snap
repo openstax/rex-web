@@ -132,6 +132,7 @@ Array [
             </h3>
             path: 
             /
+            <br />
           </div>
           <div>
             <h3
@@ -140,9 +141,18 @@ Array [
               Content
             </h3>
             path: 
+            /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+            <br />
             /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
+            <br />
+            /books/:book_slug@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+            <br />
             /books/:book_slug@:book_version/pages/:page_slug
+            <br />
+            /books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+            <br />
             /books/:book_slug/pages/:page_slug
+            <br />
           </div>
           <div>
             <h3
@@ -152,6 +162,7 @@ Array [
             </h3>
             path: 
             /(.*)
+            <br />
           </div>
         </div>
       </div>

@@ -9,14 +9,17 @@ export interface SlugParams {
 interface VersionedSlugParams extends SlugParams {
   version: string;
 }
-interface VersionedUuidParams {
+
+interface UuidParams {
   uuid: string;
+}
+interface VersionedUuidParams extends UuidParams {
   version: string;
 }
 
 export interface Params {
   book: SlugParams | VersionedSlugParams | VersionedUuidParams;
-  page: SlugParams;
+  page: SlugParams | UuidParams;
 }
 
 export interface State {
