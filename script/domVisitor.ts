@@ -1,20 +1,37 @@
 import fs from 'fs';
+import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import path from 'path';
 import { basename } from 'path';
 import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
+import { argv } from 'yargs';
 import { Book } from '../src/app/content/types';
-import { flattenArchiveTree, getBookPageUrlAndParams, makeUnifiedBookLoader } from '../src/app/content/utils';
+import { getBookPageUrlAndParams, makeUnifiedBookLoader } from '../src/app/content/utils';
+import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
+import { assertDefined } from '../src/app/utils';
 import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
-const port = process.env.PORT || '8000';
-const rootUrl = `http://localhost:${port}`;
+(global as any).DOMParser = new JSDOM().window.DOMParser;
+
+const {
+  rootUrl,
+  bookId,
+  bookVersion,
+  queryString,
+} = argv as {
+  rootUrl?: string;
+  bookId?: string;
+  bookVersion?: string;
+  queryString?: string;
+};
+
+assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
+
 const devTools = false;
-const auditName = process.argv[3]; // because it's being called via entry.js
-const onlyOneBook = process.argv[4];
+const auditName = argv._[1];
 const auditPath = `./audits/${auditName}`;
 
 if (!auditName) {
@@ -26,6 +43,12 @@ if (!fs.existsSync(path.resolve(__dirname, `${auditPath}.ts`))) {
 
 export type Audit = () => string[];
 
+const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
+  if (window && window.__APP_ASYNC_HOOKS) {
+    return window.__APP_ASYNC_HOOKS.calm();
+  }
+});
+
 async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audit) {
   const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
@@ -34,14 +57,20 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
   });
 
   for (const pageUrl of bookPages) {
+    try {
+      await page.goto(`${rootUrl}${pageUrl}${queryString ? `?${queryString}` : ''}`);
+      await page.waitForSelector('body[data-rex-loaded="true"]');
+      await calmHooks(page);
 
-    await page.goto(`${rootUrl}${pageUrl}`);
-    await page.waitForSelector('body[data-rex-loaded="true"]');
+      const matches = await page.evaluate(audit);
 
-    const matches = await page.evaluate(audit);
-    if (matches.length > 0) {
-      bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
+      if (matches.length > 0) {
+        bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
+      }
+    } catch (e) {
+      bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
     }
+
     bar.tick();
   }
 }
@@ -61,12 +90,6 @@ async function run() {
   }
 
   await browser.close();
-
-  if (books.length === 0) {
-    // tslint:disable-next-line:no-console
-    console.error(`Could not find a matching book. ${onlyOneBook ? 'Check that the slug name is correct' : ''}`);
-    process.exit(1);
-  }
 }
 
 run().then(null, (err) => {
@@ -76,26 +99,26 @@ run().then(null, (err) => {
 
 async function findBooks() {
   // Get the book config whether the server is prerendered or dev mode
-  const resp = await fetch(`${rootUrl}/rex/release.json`);
-  let bookConfig: typeof config.BOOKS;
-  // dev server also returns a 200 but says 'not found'
-  try {
-    bookConfig = (await resp.json()).books;
-  } catch {
-    bookConfig = config.BOOKS;
-  }
+  const bookConfig: typeof config.BOOKS = await fetch(`${rootUrl}/rex/release.json`)
+    .then((response) => response.json())
+    .then((json) => json.books)
+    .catch(() => config.BOOKS)
+  ;
+
   (global as any).fetch = fetch;
   const archiveLoader = createArchiveLoader(`${rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
-
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-  const books = await Promise.all(Object.entries(bookConfig).map(([bookId, {defaultVersion}]) =>
-    bookLoader(bookId, defaultVersion)
-  ));
-  return books.filter((book) => onlyOneBook ? book.slug === onlyOneBook : true);
+
+  const bookInfo = bookId
+    ? [{id: bookId, version: bookVersion || assertDefined(bookConfig[bookId], '').defaultVersion}]
+    : Object.entries(bookConfig).map(([id, {defaultVersion}]) => ({id, version: defaultVersion}))
+  ;
+
+  return await Promise.all(bookInfo.map(({id, version}) => bookLoader(id, version)));
 }
 
 function findBookPages(book: Book) {
-  const pages = flattenArchiveTree(book.tree);
+  const pages = findTreePages(book.tree);
   return pages.map((treeSection) => getBookPageUrlAndParams(book, treeSection).url);
 }

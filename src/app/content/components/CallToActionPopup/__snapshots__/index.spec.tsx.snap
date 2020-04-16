@@ -3,229 +3,38 @@
 exports[`CallToActionPopup matches snapshot when close 1`] = `null`;
 
 exports[`CallToActionPopup matches snapshot when open 1`] = `
-.c15 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c10 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.2rem;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 1.6rem;
-  height: 5rem;
-  padding: 0 3rem;
-  color: #fff;
-  background-color: #f36b32;
-  font-weight: bold;
-  border: none;
-}
-
-.c10:hover {
-  background-color: #e96128;
-}
-
-.c10:active {
-  background-color: #df571e;
-}
-
-.c0 {
-  height: 34.8rem;
-  position: fixed;
-  pointer-events: none;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  -webkit-animation: 800ms bNiYjl ease-out;
-  animation: 800ms bNiYjl ease-out;
-}
-
-.c4 {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.c5 {
-  pointer-events: auto;
-}
-
-.c6 {
-  color: #424242;
-  font-size: 3.6rem;
-  line-height: 4rem;
-  -webkit-letter-spacing: -0.14rem;
-  -moz-letter-spacing: -0.14rem;
-  -ms-letter-spacing: -0.14rem;
-  letter-spacing: -0.14rem;
-  color: #fff;
-  margin: 0;
-  max-width: 50rem;
-  overflow: hidden;
-}
-
-.c7 {
-  color: #424242;
-  font-size: 1.8rem;
-  line-height: 3rem;
-  margin: 1rem 0;
-  color: #fff;
-  max-width: 57rem;
-}
-
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c8 .c9 {
-  width: 17rem;
-}
-
-.c11 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #fff;
-  margin-left: 1.5rem;
-}
-
-.c11 a {
-  color: #fff;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  margin-left: 0.5rem;
-}
-
-.c13 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  pointer-events: auto;
-  position: absolute;
-  top: 11rem;
-  right: 1rem;
-  min-width: auto;
-  padding: 2rem;
-  z-index: 1;
-}
-
-.c14 {
-  width: 1.8rem;
-  color: #fff;
-}
-
-.c12 {
-  pointer-events: auto;
-  margin-left: 3rem;
-}
-
-.c3 {
-  position: absolute;
-  height: 7.7rem;
-  width: 48.3rem;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  position: absolute;
-  height: 32.8rem;
-  width: 100%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.c1 {
-  position: absolute;
-  height: 32.8rem;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    display: none;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="styles__CTAWrapper-sc-12c8d6q-0 EFifJ"
   data-analytics-region="signup CTA"
 >
   <img
     alt=""
-    className="c1"
+    className="styles__CTABottomLayer-sc-12c8d6q-12 illLJk"
     src="bottom-layer.svg"
   />
   <img
     alt=""
-    className="c2"
+    className="styles__CTAMiddleLayer-sc-12c8d6q-11 dDAdIe"
     src="middle-layer.svg"
   />
   <img
     alt=""
-    className="c3"
+    className="styles__CTATopLayer-sc-12c8d6q-10 jPtexR"
     src="top-layer.svg"
   />
   <div
-    className="c4"
+    className="styles__CTAContent-sc-12c8d6q-1 dYIMiX"
   >
     <div
-      className="c5"
+      className="styles__CTAText-sc-12c8d6q-2 gpOXsw"
     >
       <h2
-        className="c6"
+        className="styles__CTAHeading-sc-12c8d6q-3 dzuVXL"
       >
         Sign up and continue reading. It's 100% free.
       </h2>
       <p
-        className="c7"
+        className="styles__CTAParagraph-sc-12c8d6q-4 fJgAPH"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Read, search, highlight, add notes, build study guides -- all for <strong>free</strong>.",
@@ -233,10 +42,10 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
         }
       />
       <div
-        className="c8"
+        className="styles__CTAButtons-sc-12c8d6q-5 gREUBh"
       >
         <a
-          className="c9 c10"
+          className="Button-ayg7nk-0 fkEBMe"
           data-analytics-label="sign-up"
           data-testid="sign-up"
           href="/accounts/signup?r=/"
@@ -244,7 +53,7 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
           Sign up
         </a>
         <span
-          className="c11"
+          className="styles__CTATextLink-sc-12c8d6q-6 fJWVrs"
         >
           or
           <a
@@ -259,19 +68,19 @@ exports[`CallToActionPopup matches snapshot when open 1`] = `
     </div>
     <img
       alt=""
-      className="c12"
+      className="styles__CTAGraphic-sc-12c8d6q-9 gIcdtL"
       src="desktop-mobile-graphic.svg"
     />
   </div>
   <button
-    className="c13"
+    className="Button__PlainButton-ayg7nk-2 styles__CTACloseButton-sc-12c8d6q-7 dmOnQp"
     data-analytics-label="close"
     data-testid="closeCTA"
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="c14 c15"
+      className="styles__CTACloseIcon-sc-12c8d6q-8 lcOjTG StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 352 512"

@@ -122,9 +122,12 @@ describe('ContextMenu', () => {
   });
 
   it('create valid link to the highlight', () => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receiveBook(formatBookData({
+      ...book,
+      id: 'uuid1234-1111-1111-1111-121212121212',
+    }, mockCmsBook)));
 
-    const expectedLink = `/books/book-slug-1/pages/test-page-1?highlight=${highlight.id}`;
+    const expectedLink = `/books/uuid1234-1111-1111-1111-121212121212@1.0/pages/test-page-1?highlight=${highlight.id}`;
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
