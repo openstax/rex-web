@@ -1,5 +1,6 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
@@ -92,6 +93,13 @@ const HighlightToggleEditContent = styled.div`
   margin-bottom: 1rem; /* for last context menu to show with more space */
 `;
 
+// tslint:disable-next-line:variable-name
+const HighlightDropdownMenu = React.forwardRef((props, ref) => {
+  return <FormattedMessage id='i18n:highlighting:dropdown:edit:aria-label'>
+    {(msg: string) => <MenuToggle aria-label={msg} ref={ref} {...props} />}
+  </FormattedMessage>;
+});
+
 interface ContextMenuProps {
   highlight: Highlight;
   onDelete: () => void;
@@ -122,9 +130,12 @@ const ContextMenu = ({
     return `${page && book ? getBookPageUrlAndParams(book, page).url : ''}?highlight=${id}`;
   }, [id, page, book]);
 
+  const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
+  const deleteMessage = 'i18n:highlighting:dropdown:delete';
+
   return <StyledContextMenu>
     <Dropdown
-      toggle={<MenuToggle/>}
+      toggle={<HighlightDropdownMenu/>}
       transparentTab={false}
     >
       <HighlightToggleEditContent>
@@ -136,13 +147,15 @@ const ContextMenu = ({
         <StyledDropdownList>
           <DropdownItem
             data-testid='edit'
-            message={hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note'}
+            ariaMessage={editMessage}
+            message={editMessage}
             prefix={<StyledEditIcon/>}
             onClick={() => onEdit()}
           />
           <DropdownItem
             data-testid='delete'
-            message='i18n:highlighting:dropdown:delete'
+            ariaMessage={deleteMessage}
+            message={deleteMessage}
             prefix={<StyledTrashAltIcon/>}
             onClick={() => onDelete()}
           />

@@ -5,11 +5,13 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
+import { assertWindow } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
+import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
@@ -25,6 +27,7 @@ interface Services {
 
 export const mapStateToHighlightProp = (state: AppState) => ({
   focused: selectHighlights.focused(state),
+  hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
 });
@@ -36,8 +39,11 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
-const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(() => {
-  if (!highlight || services.getProp().focused) {
+const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(async() => {
+  if (!highlight || services.getProp().focused === highlight.id) {
+    return;
+  }
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
     return;
   }
 
@@ -49,8 +55,13 @@ const onSelectHighlight = (
   services: Services,
   highlights: Highlight[],
   highlight: Highlight | undefined
-) => defer(() => {
-  if (highlights.length > 0 || !highlight || services.getProp().focused) {
+) => defer(async() => {
+  if (highlights.length > 0 || !highlight) {
+    return;
+  }
+
+  if (services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+    assertWindow().getSelection().removeAllRanges();
     return;
   }
 
@@ -61,7 +72,7 @@ const onSelectHighlight = (
 const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
-    onClick: (...args) => onClickHighlight({ ...services, highlighter }, ...args),
+    onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,

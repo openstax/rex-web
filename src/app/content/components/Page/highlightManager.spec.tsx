@@ -17,6 +17,7 @@ import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
+jest.mock('../../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 jest.mock('../../highlights/components/Card', () => (props: any) => <div mock-card {...props} />);
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();
@@ -46,6 +47,7 @@ describe('highlightManager', () => {
       clearFocus: jest.fn(),
       focus: jest.fn(),
       focused: undefined,
+      hasUnsavedHighlight: false,
       highlights: [],
       page,
     };
@@ -206,109 +208,136 @@ describe('highlightManager', () => {
       manager.unmount();
     });
 
-    it('noops when there are highlights in the selection', () => {
-      const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
+    describe('without unsaved changes', () => {
+      it('noops when there are highlights in the selection', () => {
+        const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
 
-      Highlighter.mock.calls[0][1].onSelect([{}], {});
-      expect(highlight).not.toBeCalled();
-    });
-
-    it('shows create card when there aren\'t any highlights in selection', async() => {
-      const mockHighlight = createMockHighlight();
-      manager.update();
-      const component = renderer.create(React.createElement(manager.CardList));
-
-      expect(component.root.findAllByType(Card).length).toEqual(0);
-
-      await renderer.act(() => {
-        Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-        return new Promise((resolve) => defer(resolve));
+        Highlighter.mock.calls[0][1].onSelect([{}], {});
+        expect(highlight).not.toBeCalled();
       });
 
-      expect(component.root.findAllByType(Card).length).toEqual(1);
+      it('shows create card when there aren\'t any highlights in selection', async() => {
+        const mockHighlight = createMockHighlight();
+        manager.update();
+        const component = renderer.create(React.createElement(manager.CardList));
+
+        expect(component.root.findAllByType(Card).length).toEqual(0);
+
+        await renderer.act(() => {
+          Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
+          return new Promise((resolve) => defer(resolve));
+        });
+
+        expect(component.root.findAllByType(Card).length).toEqual(1);
+      });
+
+      it('clears pending highlight when it is removed from state', async() => {
+        const mockHighlight = createMockHighlight();
+        const existingHighlight = {
+          ...createMockHighlight(),
+          isAttached: () => true,
+        };
+        prop.highlights = [{id: existingHighlight.id} as HighlightData];
+
+        const component = renderer.create(React.createElement(manager.CardList));
+
+        Highlighter.mock.instances[0].getHighlight
+          .mockReturnValueOnce(existingHighlight)
+          .mockReturnValueOnce()
+          .mockReturnValueOnce(existingHighlight)
+        ;
+
+        Highlighter.mock.instances[0].getOrderedHighlights
+          .mockReturnValueOnce([existingHighlight]);
+
+        fromApiResponse.mockReturnValue(existingHighlight);
+
+        renderer.act(() => {
+          manager.update();
+        });
+
+        expect(component.root.findAllByType(Card).length).toEqual(1);
+
+        await renderer.act(() => {
+          Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
+          return new Promise((resolve) => defer(resolve));
+        });
+        prop.focused = mockHighlight.id;
+
+        expect(component.root.findAllByType(Card).length).toEqual(2);
+
+        Highlighter.mock.instances[0].getHighlight
+          .mockReturnValueOnce(existingHighlight)
+          .mockReturnValueOnce(mockHighlight)
+          .mockReturnValueOnce(mockHighlight);
+
+        Highlighter.mock.instances[0].getHighlights.mockReturnValue([existingHighlight, mockHighlight]);
+
+        Highlighter.mock.instances[0].getOrderedHighlights
+          .mockReturnValueOnce([existingHighlight]);
+
+        renderer.act(() => {
+          manager.update();
+        });
+
+        expect(component.root.findAllByType(Card).length).toEqual(1);
+      });
+
+      it('clears pending highlight when it is removed from state before element is mounted', async() => {
+        const mockHighlight = createMockHighlight();
+        manager.update();
+
+        await renderer.act(() => {
+          Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
+          return new Promise((resolve) => defer(resolve));
+        });
+
+        Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight]);
+        renderer.act(() => {
+          manager.update();
+        });
+
+        const component = renderer.create(React.createElement(manager.CardList));
+        expect(component.root.findAllByType(Card).length).toEqual(0);
+      });
+
+      it('loads pending highlight when selected before component mount', async() => {
+        const mockHighlight = createMockHighlight();
+        manager.update();
+
+        Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
+
+        await new Promise((resolve) => defer(resolve));
+
+        const component = renderer.create(React.createElement(manager.CardList));
+
+        expect(component.root.findAllByType(Card).length).toEqual(1);
+      });
     });
 
-    it('clears pending highlight when it is removed from state', async() => {
-      const mockHighlight = createMockHighlight();
-      const existingHighlight = {
-        ...createMockHighlight(),
-        isAttached: () => true,
-      };
-      prop.highlights = [{id: existingHighlight.id} as HighlightData];
+    describe('with unsaved changes', () => {
+      const removeAllRanges = jest.fn();
+      beforeEach(() => {
+        window.getSelection = jest.fn(() => ({
+          removeAllRanges,
+        })) as any;
 
-      const component = renderer.create(React.createElement(manager.CardList));
-
-      Highlighter.mock.instances[0].getHighlight
-        .mockReturnValueOnce(existingHighlight)
-        .mockReturnValueOnce()
-        .mockReturnValueOnce(existingHighlight)
-      ;
-
-      Highlighter.mock.instances[0].getOrderedHighlights
-        .mockReturnValueOnce([existingHighlight]);
-
-      fromApiResponse.mockReturnValue(existingHighlight);
-
-      renderer.act(() => {
+        prop.focused = 'random id';
+        prop.hasUnsavedHighlight = true;
         manager.update();
       });
 
-      expect(component.root.findAllByType(Card).length).toEqual(1);
+      it('noops if user decides not to discard changes', async() => {
+        const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
 
-      await renderer.act(() => {
-        Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-        return new Promise((resolve) => defer(resolve));
+        await renderer.act(() => {
+          Highlighter.mock.calls[0][1].onSelect([], {});
+          return new Promise((resolve) => defer(resolve));
+        });
+
+        expect(highlight).not.toHaveBeenCalled();
+        expect(removeAllRanges).toHaveBeenCalled();
       });
-      prop.focused = mockHighlight.id;
-
-      expect(component.root.findAllByType(Card).length).toEqual(2);
-
-      Highlighter.mock.instances[0].getHighlight
-        .mockReturnValueOnce(existingHighlight)
-        .mockReturnValueOnce(mockHighlight)
-        .mockReturnValueOnce(mockHighlight);
-
-      Highlighter.mock.instances[0].getHighlights.mockReturnValue([existingHighlight, mockHighlight]);
-
-      Highlighter.mock.instances[0].getOrderedHighlights
-        .mockReturnValueOnce([existingHighlight]);
-
-      renderer.act(() => {
-        manager.update();
-      });
-
-      expect(component.root.findAllByType(Card).length).toEqual(1);
-    });
-
-    it('clears pending highlight when it is removed from state before element is mounted', async() => {
-      const mockHighlight = createMockHighlight();
-      manager.update();
-
-      await renderer.act(() => {
-        Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-        return new Promise((resolve) => defer(resolve));
-      });
-
-      Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight]);
-      renderer.act(() => {
-        manager.update();
-      });
-
-      const component = renderer.create(React.createElement(manager.CardList));
-      expect(component.root.findAllByType(Card).length).toEqual(0);
-    });
-
-    it('loads pending highlight when selected before component mount', async() => {
-      const mockHighlight = createMockHighlight();
-      manager.update();
-
-      Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-
-      await new Promise((resolve) => defer(resolve));
-
-      const component = renderer.create(React.createElement(manager.CardList));
-
-      expect(component.root.findAllByType(Card).length).toEqual(1);
     });
   });
 
@@ -325,6 +354,17 @@ describe('highlightManager', () => {
 
     it('noops without highlight', async() => {
       Highlighter.mock.calls[0][1].onClick();
+      await new Promise((resolve) => defer(resolve));
+      expect(prop.focus).not.toHaveBeenCalled();
+    });
+
+    it('noops if user decides not to discard changes', async() => {
+      prop.focused = 'random id';
+      prop.hasUnsavedHighlight = true;
+
+      manager.update();
+
+      Highlighter.mock.calls[0][1].onClick({});
       await new Promise((resolve) => defer(resolve));
       expect(prop.focus).not.toHaveBeenCalled();
     });

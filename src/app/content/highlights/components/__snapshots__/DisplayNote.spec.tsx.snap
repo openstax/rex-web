@@ -1,257 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayNote matches snapshot 1`] = `
-.c9 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-}
-
-.c7 {
-  cursor: pointer;
-}
-
-.c5 {
-  overflow: visible;
-}
-
-.c3 .c4 + .c6 {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4.focus-within + .c6 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4:focus-within + .c6 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4 > .c6 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4.focus-within > .c6 {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4:focus-within > .c6 {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4 > *:not(.c6) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c3 .c4 > *:not(.c6) {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4.focus-within > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4:focus-within > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c14 {
-  margin: 0;
-  padding: 0.6rem 0;
-  background: #f5f5f5;
-}
-
-.c14 li {
-  display: inline-block;
-}
-
-.c14 li button,
-.c14 li a {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  padding: 0 0.8rem;
-  margin: 0;
-  height: 3.2rem;
-  background: none;
-  min-width: 7.2rem;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 2rem;
-}
-
-.c14 li button:hover,
-.c14 li a:hover,
-.c14 li button:focus,
-.c14 li a:focus {
-  background: #d5d5d5;
-}
-
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c12 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c11 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #e5e5e5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c11:hover {
-  color: #818181;
-}
-
-.c8 {
-  border: none;
-  display: block;
-}
-
-.c8 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c15 {
-  color: #818181;
-  height: 4.2rem;
-  width: 4.2rem;
-  padding: 1.6rem;
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.c0 {
-  width: 20rem;
-  overflow: visible;
-  background: #f5f5f5;
-}
-
-.c0 > label {
-  display: none;
-  color: #424242;
-  color: #fed200;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin: 1.2000000000000002rem 0 0 1.6rem;
-}
-
-.c0 .c13.c13 {
-  left: -4rem;
-}
-
-.c0 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c0 .c1 .focus-within .c10 {
-  color: #5e6062;
-}
-
-.c0 .c1:focus-within .c10 {
-  color: #5e6062;
-}
-
-@media screen and (max-width:75em) {
-  .c15 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    width: unset;
-  }
-
-  .c0 > label {
-    display: block;
-  }
-
-  .c0 .c1 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="DisplayNote-wzwggt-1 dFRQcQ"
 >
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
   >
     <div
-      className="c4 c5"
+      className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
     >
       <button
-        className="c6 c7 c8 c9"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
         tabIndex={0}
       >
         <div
@@ -259,7 +19,7 @@ exports[`DisplayNote matches snapshot 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 192 512"
@@ -272,7 +32,7 @@ exports[`DisplayNote matches snapshot 1`] = `
         </div>
       </button>
       <ol
-        className="c13 c14"
+        className="Dropdown__DropdownList-rmc6yw-4 evYLnV"
       >
         <li>
           <a
@@ -295,7 +55,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       </ol>
     </div>
     <button
-      className="c6 c7 c8 c9"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
       tabIndex={0}
     >
       <div
@@ -303,7 +63,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c10 c11 c12"
+          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -318,7 +78,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="c15"
+    className="DisplayNote__CloseIcon-wzwggt-0 gzAfVJ"
     focusable="false"
     height="15px"
     version="1.1"
@@ -356,282 +116,17 @@ exports[`DisplayNote matches snapshot 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
-.c9 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-}
-
-.c7 {
-  cursor: pointer;
-}
-
-.c5 {
-  overflow: visible;
-}
-
-.c3 .c4 + .c6 {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4.focus-within + .c6 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4:focus-within + .c6 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4 > .c6 {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4.focus-within > .c6 {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4:focus-within > .c6 {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4 > *:not(.c6) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c3 .c4 > *:not(.c6) {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-}
-
-.c3 .c4.focus-within > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c3 .c4:focus-within > *:not(.c6) {
-  height: unset;
-  width: unset;
-  -webkit-clip: unset;
-  clip: unset;
-  overflow: visible;
-}
-
-.c14 {
-  margin: 0;
-  padding: 0.6rem 0;
-  background: #f5f5f5;
-}
-
-.c14 li {
-  display: inline-block;
-}
-
-.c14 li button,
-.c14 li a {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  padding: 0 0.8rem;
-  margin: 0;
-  height: 3.2rem;
-  background: none;
-  min-width: 7.2rem;
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 2rem;
-}
-
-.c14 li button:hover,
-.c14 li a:hover,
-.c14 li button:focus,
-.c14 li a:focus {
-  background: #d5d5d5;
-}
-
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c12 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c11 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #e5e5e5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c11:hover {
-  color: #818181;
-}
-
-.c8 {
-  border: none;
-  display: block;
-}
-
-.c8 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c15 {
-  color: #818181;
-  height: 4.2rem;
-  width: 4.2rem;
-  padding: 1.6rem;
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.c16 .c13.c13 {
-  left: -4rem;
-}
-
-.c16 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c16 .c1 .focus-within .c10 {
-  color: #5e6062;
-}
-
-.c16 .c1:focus-within .c10 {
-  color: #5e6062;
-}
-
-.c0 {
-  width: 20rem;
-  overflow: visible;
-  background: #f5f5f5;
-  background: #fff;
-}
-
-.c0 > label {
-  display: none;
-  color: #424242;
-  color: #fed200;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin: 1.2000000000000002rem 0 0 1.6rem;
-}
-
-.c0 .c13.c13 {
-  left: -4rem;
-}
-
-.c0 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c0 .c1 .focus-within .c10 {
-  color: #5e6062;
-}
-
-.c0 .c1:focus-within .c10 {
-  color: #5e6062;
-}
-
-@media screen and (max-width:75em) {
-  .c15 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c16 .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    width: unset;
-  }
-
-  .c0 > label {
-    display: block;
-  }
-
-  .c0 .c1 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="DisplayNote-wzwggt-1 gTbZgN"
 >
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
   >
     <div
-      className="c4 c5"
+      className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
     >
       <button
-        className="c6 c7 c8 c9"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
         tabIndex={0}
       >
         <div
@@ -639,7 +134,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="c10 c11 c12"
+            className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 192 512"
@@ -652,7 +147,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         </div>
       </button>
       <ol
-        className="c13 c14"
+        className="Dropdown__DropdownList-rmc6yw-4 evYLnV"
       >
         <li>
           <a
@@ -675,7 +170,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       </ol>
     </div>
     <button
-      className="c6 c7 c8 c9"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
       tabIndex={0}
     >
       <div
@@ -683,7 +178,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c10 c11 c12"
+          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -698,7 +193,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="c15"
+    className="DisplayNote__CloseIcon-wzwggt-0 gzAfVJ"
     focusable="false"
     height="15px"
     version="1.1"

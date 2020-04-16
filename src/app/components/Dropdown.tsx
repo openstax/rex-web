@@ -69,7 +69,12 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
   });
 
   return <div className={className} ref={container}>
-    <DropdownToggle ref={toggleElement} component={toggle} onClick={() => setOpen(!open)} />
+    <DropdownToggle
+      ref={toggleElement}
+      component={toggle}
+      onClick={() => setOpen(!open)}
+      isOpen={open}
+    />
     {open && children}
   </div>;
 })`
@@ -179,15 +184,16 @@ export const DropdownList = styled.ol`
 
 interface DropdownItemProps {
   message: string;
+  ariaMessage?: string;
   href?: string;
   target?: string;
   prefix?: ReactNode;
   onClick?: () => void;
 }
 
-// tslint:disable-next-line:variable-name
-export const DropdownItem = ({message, href, target, prefix, onClick}: DropdownItemProps) => <li>
-  <FormattedMessage id={message}>
+// tslint:disable-next-line: variable-name
+const DropdownItemContent = ({message, href, target, prefix, onClick}: Omit<DropdownItemProps, 'ariaMessage'>) => {
+  return <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} onClick={onClick} target={target}>{prefix}{msg}</a>
       /*
@@ -199,8 +205,17 @@ export const DropdownItem = ({message, href, target, prefix, onClick}: DropdownI
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
     }
-  </FormattedMessage>
-</li>;
+  </FormattedMessage>;
+};
+
+// tslint:disable-next-line:variable-name
+export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
+  return ariaMessage
+    ? <FormattedMessage id={ariaMessage}>
+      {(msg: string) => <li aria-label={msg}><DropdownItemContent {...contentProps}/></li>}
+    </FormattedMessage>
+    : <li><DropdownItemContent {...contentProps} /></li>;
+};
 
 // tslint:disable-next-line:variable-name
 const Dropdown = ({transparentTab, ...props}: {transparentTab?: boolean} & Props) => transparentTab !== false

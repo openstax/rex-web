@@ -17,7 +17,7 @@ export const popupBodyPadding = 2.4;
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
 export const headerHeight = 7.2;
-const topBottomMargin = headerHeight + popupBodyPadding;
+export const topBottomMargin = headerHeight + popupBodyPadding;
 
 export const stickyNoteMeasures = {
   blue: 'rgb(13, 192, 220)',

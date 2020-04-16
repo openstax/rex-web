@@ -1,64 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorIndicator matches snapshot (checked) 1`] = `
-.c3 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c2 {
-  display: none;
-}
-
-.c4 .c1 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c4 input:checked + .c1 {
-  color: #fed200;
-  display: block;
-}
-
-.c0 {
-  background-color: #ffff8a;
-  border: 1px solid #fed200;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c0 .c1 {
-  height: 1.6rem;
-  width: 1.6rem;
-  color: #fed200;
-  display: block;
-}
-
-.c0 input:checked + .c1 {
-  color: #fed200;
-  display: block;
-}
-
 <div
-  className="c0"
+  className="ColorIndicator-sc-1w5zl7g-1 gkiZbS"
 >
   <svg
     aria-hidden="true"
-    className="c1 c2 c3"
+    className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"
@@ -72,52 +20,12 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 `;
 
 exports[`ColorIndicator matches snapshot 1`] = `
-.c3 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c2 {
-  display: none;
-}
-
-.c0 {
-  background-color: #ffff8a;
-  border: 1px solid #fed200;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-}
-
-.c0 .c1 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c0 input:checked + .c1 {
-  color: #fed200;
-  display: block;
-}
-
 <div
-  className="c0"
+  className="ColorIndicator-sc-1w5zl7g-1 ZUCrP"
 >
   <svg
     aria-hidden="true"
-    className="c1 c2 c3"
+    className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"

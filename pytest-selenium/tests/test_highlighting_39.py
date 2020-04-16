@@ -1,5 +1,5 @@
 """Reading Experience highlighting."""
-
+# fmt: off
 import random
 
 import pytest
@@ -78,7 +78,6 @@ def test_keyboard_navigation_for_my_highlights_button_on_content_page(
     assert(book.my_highlights.root.is_displayed()), \
         "My Highlights modal not displayed"
 
-    ''' *** Accessibility feature for a later date ***
     # WHEN: they hit the escape key
     (ActionChains(selenium)
         .send_keys(Keys.ESCAPE)
@@ -86,7 +85,7 @@ def test_keyboard_navigation_for_my_highlights_button_on_content_page(
 
     # THEN: the My Highlights and Notes modal is closed
     assert(not book.my_highlights_open), \
-        "My Highlights modal is still open"'''
+        "My Highlights modal is still open"
 
 
 @markers.test_case("C592629")
@@ -353,3 +352,4 @@ def test_note_indicator_added_when_highlight_without_a_note_has_a_note_added(
     # THEN: the note indicator is present on the highlight
     assert(selenium.execute_script(HAS_INDICATOR, highlight)), \
         "indicator not found after adding a note"
+# fmt: on

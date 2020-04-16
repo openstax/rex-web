@@ -6,6 +6,7 @@ import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook, pageInChapter } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
+import { DropdownToggle } from '../../../../components/Dropdown';
 import MessageProvider from '../../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { assertDefined } from '../../../../utils';
@@ -57,6 +58,22 @@ describe('Filters', () => {
         <Filters />
       </MessageProvider>
     </Provider>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot when open color filters', () => {
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Filters />
+      </MessageProvider>
+    </Provider>);
+
+    renderer.act(() => {
+      const [, colorFiltersToggle] = component.root.findAllByType(DropdownToggle);
+      colorFiltersToggle.props.onClick();
+    });
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
