@@ -8,6 +8,7 @@ import htmlMessage from '../../components/htmlMessage';
 import Modal from '../../components/Modal';
 import { Body, BodyHeading, Footer, modalPadding } from '../../components/Modal/styles';
 import { labelStyle } from '../../components/Typography';
+import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { clearCurrentError } from '../actions';
 import { currentError, getMessageIdStack } from '../selectors';
@@ -18,14 +19,11 @@ const BodyErrorText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const ErrorList = styled.ul`
-  margin: 0;
-  padding: 0;
-`;
-
-// tslint:disable-next-line:variable-name
-const ErrorId = styled.li`
+const ErrorList = styled.div`
   ${labelStyle}
+  font-size: 0.90rem;
+  color: ${theme.color.primary.gray.darker};
+  opacity: 0.6;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -49,7 +47,7 @@ const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
         </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
         {stack.length ? <ErrorList>
-          {stack.map((sentryErrorId) => <ErrorId key={sentryErrorId}>{sentryErrorId}</ErrorId>)}
+          {stack.slice(0, 4).join(', ')}
         </ErrorList> : null}
       </Body>
       <Footer>

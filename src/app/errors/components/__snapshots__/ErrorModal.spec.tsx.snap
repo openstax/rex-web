@@ -156,15 +156,11 @@ exports[`ErrorModal matches snapshots with recorder error ids 1`] = `
             }
           }
         />
-        <ul
-          className="ErrorModal__ErrorList-sc-1q7eiy-1 fRiLCY"
+        <div
+          className="ErrorModal__ErrorList-sc-1q7eiy-1 iXpXlG"
         >
-          <li
-            className="ErrorModal__ErrorId-sc-1q7eiy-2 eDpTrE"
-          >
-            some-error-id
-          </li>
-        </ul>
+          some-error-id
+        </div>
       </div>
       <div
         className="styles__Footer-sc-1gxqzoa-9 eKsEVO"
