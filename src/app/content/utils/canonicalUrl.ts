@@ -24,10 +24,10 @@ export async function getCanonicalUrlParams(
 
   for (const id of canonicals) {
     const version = BOOKS[id].defaultVersion;
-    const canonicalBook = book.id === id ? book : await getBook(id, version);
+    const canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
     const treeSection = findArchiveTreeNode(canonicalBook.tree, pageShortId);
 
-    if (treeSection && hasOSWebData(canonicalBook)) {
+    if (treeSection) {
       const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
       return {book: {slug: canonicalBook.slug}, page: {slug: pageInBook}};
     }
