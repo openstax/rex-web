@@ -211,14 +211,17 @@ describe('highlight reducer', () => {
 
       const state = reducer({
         ...initialState,
-        hasUnsavedHighlight: true,
-        highlights: [mock1, mock3],
+        currentPage: {
+          ...initialState.currentPage,
+          hasUnsavedHighlight: true,
+          highlights: [mock1, mock3],
+        },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
-      expect(state.hasUnsavedHighlight).toBe(true);
+      expect(state.currentPage.hasUnsavedHighlight).toBe(true);
     });
 
     it('does not modify summary highlights if they haven\'t been loaded', () => {
