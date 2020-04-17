@@ -4,15 +4,13 @@ import { HighlightProp } from '../../../content/components/Page/searchHighlightM
 import { useOnDOMEvent, useTimeout } from '../../../reactUtils';
 import { assertWindow } from '../../../utils';
 import { Header } from '../Card';
+import { clearErrorAfter, shouldAutoDismissAfter } from './constants';
 import {
   BannerBody,
   BannerBodyWrapper,
-  clearErrorAfter,
   CloseButton,
   CloseIcon,
 } from './styles';
-
-export const shouldAutoDismissAfter = 3000;
 
 interface Props {
   dismiss: () => void;
@@ -28,6 +26,12 @@ const initialState = {
 export const syncState = (prevState: typeof initialState) => {
   return prevState.shouldAutoDismiss ? {...prevState, isFadingOut: true} : prevState;
 };
+
+// Appears when search searchHighlightManager in PageComponent.tsx fails to handle
+// selecting a search result. It's meant to not be dismissable before shouldAutoDismissAfter elapses
+// then be dismissed after clearErrorAfter elapses or there is any interaction coming from the user
+// If the interaction (selecting a search result) would actually cause searchHighlightManager to
+// fail again, it will refresh the error instead
 
 // tslint:disable-next-line:variable-name
 const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props) => {

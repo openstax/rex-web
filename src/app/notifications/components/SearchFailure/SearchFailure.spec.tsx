@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import SearchFailure, { shouldAutoDismissAfter, syncState } from '.';
+import SearchFailure, { syncState } from '.';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument, assertWindow } from '../../../utils';
-import { clearErrorAfter } from './styles';
+import { clearErrorAfter, shouldAutoDismissAfter } from './constants';
 
 jest.mock('react', () => {
   const react = (jest as any).requireActual('react');

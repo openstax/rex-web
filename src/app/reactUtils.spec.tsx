@@ -94,7 +94,7 @@ describe('useTimeout', () => {
 
     Component = () => {
       const [delay, setDelay] = React.useState(1000);
-      utils.useTimeout(delay, callback, []);
+      utils.useTimeout(delay, callback);
 
       return <button onClick={() => setDelay(2000)}></button>;
     };

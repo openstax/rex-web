@@ -1,5 +1,5 @@
 import { FocusEvent, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@openstax/types/lib.dom';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { addSafeEventListener, elementDescendantOf } from './domUtils';
 import { isElement, isWindow } from './guards';
 import { assertDefined } from './utils';
@@ -64,7 +64,7 @@ export const useOnDOMEvent = (
   React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, event, cb, ...deps]);
 };
 
-export const useTimeout = (delay: number, callback: () => void, deps: React.DependencyList = []) => {
+export const useTimeout = (delay: number, callback: () => void) => {
   const savedCallback = React.useRef<typeof callback>();
   const timeout = React.useRef<number>();
 
@@ -77,12 +77,12 @@ export const useTimeout = (delay: number, callback: () => void, deps: React.Depe
     timeout.current = setTimeout(timeoutHandler, delay);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     savedCallback.current = callback;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...deps, callback]);
+  }, [callback]);
 
-  useEffect(() => {
+  React.useEffect(() => {
       reset();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delay]);

@@ -621,13 +621,9 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     await Promise.resolve();
-    await Promise.resolve();
 
     // click again for selectedSearchResult to update
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
-
-    await Promise.resolve();
-    await Promise.resolve();
 
     expect(scrollTo).not.toHaveBeenCalled();
 

@@ -2,26 +2,16 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
-import {
-  bookBannerDesktopMiniHeight,
-  bookBannerMobileMiniHeight,
-  toolbarDesktopHeight,
-  toolbarMobileHeight,
-  toolbarMobileSearchWrapperHeight
-} from '../../../content/components/constants';
 import { disablePrint } from '../../../content/components/utils/disablePrint';
 import theme from '../../../theme';
 import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
-
-export const clearErrorAfter = 5000;
-export const fadeOutDuration = 1000;
+import { desktopSearchFailureTop, fadeOutDuration, getMobileSearchFailureTop } from './constants';
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
 const closeIconColor = '#EDBFC5';
 const errorTextColor = '#C23834';
-
 const hoveredCloseIconColor = errorBorderColor;
 
 const fadeOut = keyframes`
@@ -42,13 +32,10 @@ export const BannerBodyWrapper = styled.div`
   z-index: ${theme.zIndex.contentNotifications - 1};
   overflow: visible;
   position: sticky;
-  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+  top: ${desktopSearchFailureTop}rem;
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
-    top: ${({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
-        ? bookBannerMobileMiniHeight + toolbarDesktopHeight + toolbarMobileSearchWrapperHeight - 1
-        : bookBannerMobileMiniHeight + toolbarMobileHeight
-    }rem;
+    top: ${getMobileSearchFailureTop}rem;
   `)}
 
   ${(props) => props.isFadingOut && css`
