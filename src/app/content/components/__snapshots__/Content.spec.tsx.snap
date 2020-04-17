@@ -77,7 +77,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 fRzrrt"
+          className="BookBanner__BookTitle-sc-1avy0c0-2 kplCmc"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -862,7 +862,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gXEqJK"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 kDdFgj"
+                      className="PageContent-ny9bj0-0 iapMdy"
                       tabIndex={0}
                     >
                       <div
@@ -1560,7 +1560,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gXEqJK"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 kDdFgj"
+                      className="PageContent-ny9bj0-0 iapMdy"
                       tabIndex={0}
                     >
                       <div
