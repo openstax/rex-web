@@ -77,7 +77,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 fRzrrt"
+          className="BookBanner__BookTitle-sc-1avy0c0-2 kplCmc"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
