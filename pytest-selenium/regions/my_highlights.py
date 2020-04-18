@@ -124,10 +124,7 @@ class FilterToggle(Region):
 class Highlight(Region):
     """An individual highlight with or without a note."""
 
-    _highlight_color_locator = (
-        By.CSS_SELECTOR, "div[color]")
-    _highlight_content_locator = (
-        By.CSS_SELECTOR, ".summary-highlight-content")
+    _highlight_color_locator = (By.XPATH, "./../..//div[@color]")
     _highlight_note_content_locator = (
         By.CSS_SELECTOR, ".summary-highlight-content ~ div")
 
@@ -150,8 +147,7 @@ class Highlight(Region):
         :rtype: str
 
         """
-        return (self.find_element(*self._highlight_content_locator)
-                .get_attribute("textContent"))
+        return self.root.get_attribute("textContent")
 
     @property
     def has_note(self) -> bool:
@@ -223,8 +219,6 @@ class MyHighlights(Region):
         highlights = []
         for section in self.highlights.sections:
             highlights = highlights + section.highlights
-            print(section)
-            print(highlights)
         return highlights
 
     @property
@@ -554,12 +548,6 @@ class MyHighlights(Region):
     class Highlights(Region):
         """The modal body containing the filtered list of highlights."""
 
-        # _chapter_locator = (
-        #     By.XPATH, "./div[span]")
-        # _section_locator = (
-        #     By.XPATH, "./div[div]")
-        # _chapter_locator = (By.CSS_SELECTOR, "[data-testid='mh-chapter-title'][span]")
-        # _section_locator = (By.CSS_SELECTOR, "[data-testid='mh-section-title'][span]")
         _chapter_locator = (By.XPATH, "//div[@data-testid='mh-chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='mh-section-title']")
 
@@ -603,13 +591,8 @@ class MyHighlights(Region):
 
             _number_locator = (
                 By.CSS_SELECTOR, "div:first-child .os-number")
-            # _highlight_locator = (
-            #     By.CSS_SELECTOR, ":scope > :not(:first-child)")
-            # _highlight_locator = (
-            #     By.CSS_SELECTOR, "[class~='summary-highlight']")
             _highlight_locator = (
-                By.XPATH, "./following-sibling::div//div[contains(@class,'summary-highlight-content')]")
-
+                By.XPATH, "./following-sibling::div//div[@data-highlight-id]")
             _title_locator = (
                 By.CSS_SELECTOR, "div:first-child .os-text")
 
