@@ -16,6 +16,9 @@ from utils.utility import Color, Highlight, Utilities
 HAS_INDICATOR = (
     "return window.getComputedStyle(arguments[0]).borderBottomWidth != '0px';")
 
+# HAS_INDICATOR = (
+#     "return window.getComputedStyle(arguments[0]).Pseudo-Element !== 'undefined';")
+
 
 @markers.test_case("C592627")
 @markers.parametrize(
