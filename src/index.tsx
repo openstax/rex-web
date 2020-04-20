@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
+import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
@@ -16,6 +17,7 @@ import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
+import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -86,10 +88,21 @@ window.onfocus = onPageFocusChange(true, app);
 registerGlobalAnalytics(window, app.store);
 
 // start long running processes
-pollUpdates(app.store);
 startMathJax();
+pollUpdates(app.store);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.register();
+serviceWorker.register()
+  .then((registration) => {
+    app.services.serviceWorker = registration;
+
+    console.log(
+      registration, registration.waiting, registration.waiting && registration.waiting.state === 'installed'
+    );
+    if (registration && registration.waiting && registration.waiting.state === 'installed') {
+      app.store.dispatch(updateAvailable());
+    }
+  })
+  .catch((e) => {
+    Sentry.captureException(e);
+  });
