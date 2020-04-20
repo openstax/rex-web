@@ -1,296 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot 1`] = `
-.c9 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  cursor: pointer;
-}
-
-.c3 > *:not(.c4) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c7 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c17 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-  height: 1.7rem;
-  margin-right: 0.4rem;
-}
-
-.c17 svg {
-  height: 0.8rem;
-  width: 0.8rem;
-  color: #5e6062;
-}
-
-.c18 {
-  color: #424242;
-  font-weight: 300;
-  color: #5e6062;
-  max-width: 8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-}
-
-.c16 {
-  margin-right: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  height: 4rem;
-}
-
-.c15 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
-.c11 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: auto;
-}
-
-.c11:hover,
-.c11:focus {
-  color: #424242;
-}
-
-.c13 {
-  font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0 0 0 0.5rem;
-}
-
-.c12 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c8 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-.c10 {
-  min-width: auto;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-left: auto;
-  cursor: pointer;
-  min-width: auto;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-left: auto;
-  padding-right: 2.4rem;
-}
-
-.c6 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c6 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c0 {
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #fff;
-  border-bottom: 0.1rem solid #d5d5d5;
-}
-
-.c0 .c4 {
-  font-weight: bold;
-}
-
-.c0 .c1 > *:not(.c4) {
-  top: calc(100% - 0.1rem);
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  max-height: calc(100vh - 26rem);
-}
-
-@media print {
-  .c17 {
-    display: none;
-  }
-}
-
-@media print {
-  .c18 {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c15 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c15 {
-    margin: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c13 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    padding-right: 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 > div {
-    padding: 1.6rem 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c1 > *:not(.c4) {
-    max-height: calc(100vh - 19.6rem);
-  }
-}
-
-@media print {
-  .c0 {
-    padding-left: 0;
-  }
-}
-
-@media print {
-  .c0 > *:not(.c14) {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="Filters-sc-1gekcv9-3 gRoSpC"
 >
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Chapter"
-      className="c4 c5 c6 c7"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 cvrdll Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -299,7 +18,7 @@ exports[`Filters matches snapshot 1`] = `
         Chapter
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -313,11 +32,11 @@ exports[`Filters matches snapshot 1`] = `
     </button>
   </div>
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Color"
-      className="c4 c5 c6 c7"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 cvrdll Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -326,7 +45,7 @@ exports[`Filters matches snapshot 1`] = `
         Color
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -341,13 +60,14 @@ exports[`Filters matches snapshot 1`] = `
   </div>
   <button
     aria-label="print"
-    className="c10 c11"
+    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 fgPdfO HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
+    disabled={false}
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="c12 c9"
+      className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -358,20 +78,20 @@ exports[`Filters matches snapshot 1`] = `
       />
     </svg>
     <span
-      className="c13"
+      className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
     >
       Print
     </span>
   </button>
   <ul
-    className="c14 c15"
+    className="FiltersList-sc-1b5le0z-3 ctqvPA"
   >
     <li
-      className="c16"
+      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
     >
       <button
         aria-label="Remove breadcrumb for color blue"
-        className="c17"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
         onClick={[Function]}
       >
         <svg
@@ -402,17 +122,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c18"
+        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
       >
         blue
       </span>
     </li>
     <li
-      className="c16"
+      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
     >
       <button
         aria-label="Remove breadcrumb for color green"
-        className="c17"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
         onClick={[Function]}
       >
         <svg
@@ -443,17 +163,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c18"
+        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
       >
         green
       </span>
     </li>
     <li
-      className="c16"
+      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
     >
       <button
         aria-label="Remove breadcrumb for color pink"
-        className="c17"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
         onClick={[Function]}
       >
         <svg
@@ -484,17 +204,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c18"
+        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
       >
         pink
       </span>
     </li>
     <li
-      className="c16"
+      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
     >
       <button
         aria-label="Remove breadcrumb for color purple"
-        className="c17"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
         onClick={[Function]}
       >
         <svg
@@ -525,17 +245,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c18"
+        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
       >
         purple
       </span>
     </li>
     <li
-      className="c16"
+      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
     >
       <button
         aria-label="Remove breadcrumb for color yellow"
-        className="c17"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
         onClick={[Function]}
       >
         <svg
@@ -566,7 +286,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c18"
+        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
       >
         yellow
       </span>
@@ -576,290 +296,15 @@ exports[`Filters matches snapshot 1`] = `
 `;
 
 exports[`Filters matches snapshot when open color filters 1`] = `
-.c10 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  cursor: pointer;
-}
-
-.c3 > *:not(.c4) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c2 {
-  overflow: visible;
-  position: relative;
-}
-
-.c7 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c17 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
-.c13 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: auto;
-}
-
-.c13:hover,
-.c13:focus {
-  color: #424242;
-}
-
-.c15 {
-  font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0 0 0 0.5rem;
-}
-
-.c14 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c9 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-.c12 {
-  min-width: auto;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-left: auto;
-  cursor: pointer;
-  min-width: auto;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-left: auto;
-  padding-right: 2.4rem;
-}
-
-.c6 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c6 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c11 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-  z-index: 2;
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
-  clip-path: inset(0 -0.6rem 0px -0.6rem);
-  background-color: #fff;
-  border-left: 0.1rem solid #d5d5d5;
-  border-right: 0.1rem solid #d5d5d5;
-}
-
-.c11 .c8 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-  padding-top: 0;
-  padding-bottom: 0.2rem;
-}
-
-.c11 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c0 {
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #fff;
-  border-bottom: 0.1rem solid #d5d5d5;
-}
-
-.c0 .c4 {
-  font-weight: bold;
-}
-
-.c0 .c1 > *:not(.c4) {
-  top: calc(100% - 0.1rem);
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  max-height: calc(100vh - 26rem);
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c17 {
-    margin: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c15 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c12 {
-    padding-right: 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 > div {
-    padding: 1.6rem 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c11 > div {
-    padding: 1.6rem 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c1 > *:not(.c4) {
-    max-height: calc(100vh - 19.6rem);
-  }
-}
-
-@media print {
-  .c0 {
-    padding-left: 0;
-  }
-}
-
-@media print {
-  .c0 > *:not(.c16) {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="Filters-sc-1gekcv9-3 gRoSpC"
 >
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Chapter"
-      className="c4 c5 c6 c7"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 cvrdll Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -868,7 +313,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         Chapter
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
+          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -882,11 +327,11 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </button>
   </div>
   <div
-    className="c1 c2 c3"
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Color"
-      className="c4 c5 c11 c7"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 hfnRSU Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -895,7 +340,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         Color
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
+          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -913,13 +358,14 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   </div>
   <button
     aria-label="print"
-    className="c12 c13"
+    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 fgPdfO HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
+    disabled={false}
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="c14 c10"
+      className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -930,13 +376,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       />
     </svg>
     <span
-      className="c15"
+      className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
     >
       Print
     </span>
   </button>
   <ul
-    className="c16 c17"
+    className="FiltersList-sc-1b5le0z-3 ctqvPA"
   />
 </div>
 `;

@@ -10,6 +10,7 @@ import { MiddlewareAPI, Store } from '../../types';
 import * as actions from '../actions';
 import { receiveBook, receivePage } from '../actions';
 import * as routes from '../routes';
+import { SlugParams } from '../types';
 import { formatBookData } from '../utils';
 
 const mockConfig = {BOOKS: {
@@ -118,7 +119,7 @@ describe('locationChange', () => {
       version: '0',
     }, 'qwerqewrqwer');
 
-    payload.match.params.page.slug = 'qwerqewrqwer';
+    (payload.match.params.page as SlugParams).slug = 'qwerqewrqwer';
 
     payload.match.state = {
       bookUid: 'testbook1-uuid',
@@ -147,7 +148,7 @@ describe('locationChange', () => {
   });
 
   it('throws on unknown id', async() => {
-    payload.match.params.page.slug = 'garbage';
+    (payload.match.params.page as SlugParams).slug = 'garbage';
     let message: string | undefined;
 
     try {
@@ -228,7 +229,7 @@ describe('locationChange', () => {
         version: '0',
       }, 'page-referencing-different-book');
 
-      payload.match.params.page.slug = 'page referencing different book';
+      (payload.match.params.page as SlugParams).slug = 'page referencing different book';
 
       payload.match.state = {
         bookUid: 'testbook1-uuid',

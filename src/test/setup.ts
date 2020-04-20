@@ -14,7 +14,7 @@ expect.extend({
   toMatchImageSnapshot,
 });
 
-const ignoreConsoleMessages = [
+const ignoreConsoleErrorMessages = [
   /*
    * jsdom chokes on cnx-recipes styles and produces large nasty
    * error messages. the styles are valid, jsdom's css parser
@@ -29,13 +29,33 @@ const ignoreConsoleMessages = [
 
 const originalConsoleError = console.error;  // tslint:disable-line:no-console
 console.error = (msg: string) => {  // tslint:disable-line:no-console
-  const shouldIgnore = !!ignoreConsoleMessages.find((ignore) => msg.indexOf(ignore) === 0);
+  const shouldIgnore = !!ignoreConsoleErrorMessages.find((ignore) => msg.indexOf(ignore) === 0);
 
   if (shouldIgnore) {
     return;
   }
 
   originalConsoleError(msg);
+};
+
+const ignoreConsoleWarnMessages = [
+  // react-loadable still didn't rename unsafe methods
+  // We should wait for one of those prs:
+  // https://github.com/jamiebuilds/react-loadable/pull/227
+  // https://github.com/jamiebuilds/react-loadable/pull/220
+  // to get merged and then we can update this module and remove this from an array.
+  /Please update the following components: LoadableComponent\s*$/,
+];
+
+const originalConsoleWarn = console.warn;  // tslint:disable-line:no-console
+console.warn = (msg: string) => {  // tslint:disable-line:no-console
+  const shouldIgnore = !!ignoreConsoleWarnMessages.find((ignore) => msg.match(ignore));
+
+  if (shouldIgnore) {
+    return;
+  }
+
+  originalConsoleWarn(msg);
 };
 
 if (process.env.CI) {
