@@ -197,5 +197,5 @@ class Page(pypom.Page):
     def open_new_tab(self):
         """"Open new browser tab."""
 
-        self.driver.execute_script("""window.open("","_blank");""")
+        self.driver.execute_script('window.open("","_blank");')
         self.wait.until(lambda b: len(b.window_handles) != 1)
