@@ -265,6 +265,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
         <BookTitle
           data-testid='details-link-collapsed'
           href={bookUrl}
+          variant='mini'
           colorSchema={book.theme}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
