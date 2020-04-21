@@ -88,8 +88,8 @@ window.onfocus = onPageFocusChange(true, app);
 registerGlobalAnalytics(window, app.store);
 
 // start long running processes
-startMathJax();
 pollUpdates(app.store);
+startMathJax();
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
