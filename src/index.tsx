@@ -96,9 +96,6 @@ serviceWorker.register()
   .then((registration) => {
     app.services.serviceWorker = registration;
 
-    console.log(
-      registration, registration.waiting, registration.waiting && registration.waiting.state === 'installed'
-    );
     if (registration && registration.waiting && registration.waiting.state === 'installed') {
       app.store.dispatch(updateAvailable());
     }
