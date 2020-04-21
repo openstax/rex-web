@@ -25,3 +25,6 @@ export const isPlainObject = (thing: any): thing is {} =>
 
 export const isWindow = (thing: any): thing is Window =>
   assertWindow() === thing;
+
+export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
+  isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');

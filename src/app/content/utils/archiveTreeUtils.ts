@@ -68,6 +68,7 @@ export const splitTitleParts = (str: string) => {
 };
 
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
+export const getArchiveTreeSectionTitle = (section: ArchiveTreeSection) => splitTitleParts(section.title)[1];
 
 export const findArchiveTreeNode = (
   tree: ArchiveTree,
@@ -78,8 +79,13 @@ export const findArchiveTreeNode = (
 export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
   pageParam: Params['page']
-): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find((node) => node.slug.toLowerCase() === pageParam.slug.toLowerCase());
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => {
+  return flattenArchiveTree(tree).find((node) =>
+    'uuid' in pageParam
+      ? node.id === pageParam.uuid
+      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()
+  );
+};
 
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,

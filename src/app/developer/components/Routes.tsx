@@ -7,7 +7,7 @@ import Panel from './Panel';
 const Routes: React.SFC = () => <Panel title='Routes'>
   {routes.map((route) => <div key={route.name}>
     <H3>{route.name}</H3>
-    path: {route.paths}
+    path: {route.paths.map((path) => <React.Fragment key={path}>{path}<br /></React.Fragment>)}
   </div>)}
 </Panel>;
 

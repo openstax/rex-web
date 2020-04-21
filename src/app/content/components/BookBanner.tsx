@@ -1,4 +1,4 @@
-import { HTMLDivElement } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
@@ -9,10 +9,13 @@ import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../
 import { notFound } from '../../errors/routes';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertDefined } from '../../utils';
+import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
+import showConfirmation from '../highlights/components/utils/showConfirmation';
+import { hasUnsavedHighlight } from '../highlights/selectors';
 import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
+import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import { defaultTheme } from './constants';
 import {
@@ -48,9 +51,10 @@ const LeftArrow = styled(ChevronLeft)`
   ${applyBookTextColor}
 `;
 
-interface PropTypes {
+export interface PropTypes {
   pageNode?: ArchiveTreeSection;
   book?: Book;
+  hasUnsavedHighlight?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -191,6 +195,18 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
     }
   };
 
+  public handleLinkClick = async(e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    if (isClickWithModifierKeys(e) || !this.props.hasUnsavedHighlight) {
+      return;
+    }
+    e.preventDefault();
+
+    if (!await showConfirmation()) {
+      return;
+    }
+    assertWindow().location.assign(link);
+  };
+
   public componentDidMount() {
     if (typeof document === 'undefined') {
       return;
@@ -225,7 +241,14 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       data-analytics-region='book-banner-expanded'
     >
       <TopBar>
-        <BookTitle href={bookUrl} colorSchema={book.theme}>
+        <BookTitle
+          data-testid='details-link-expanded'
+          href={bookUrl}
+          colorSchema={book.theme}
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+            this.handleLinkClick(e, bookUrl);
+          }}
+        >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
         <BookChapter colorSchema={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
@@ -239,7 +262,15 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
-        <BookTitle href={bookUrl} variant='mini' colorSchema={book.theme}>
+        <BookTitle
+          data-testid='details-link-collapsed'
+          href={bookUrl}
+          variant='mini'
+          colorSchema={book.theme}
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+            this.handleLinkClick(e, bookUrl);
+          }}
+        >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
         <BookChapter colorSchema={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
@@ -251,6 +282,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    hasUnsavedHighlight: hasUnsavedHighlight(state),
     pageNode: select.pageNode(state),
   })
 )(BookBanner);
