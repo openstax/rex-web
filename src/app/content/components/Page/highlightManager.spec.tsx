@@ -142,7 +142,7 @@ describe('highlightManager', () => {
     expect(highlight.mock.calls[0][0]).toBe(mockHighlight);
   });
 
-  it.only('erases highlights', () => {
+  it('erases highlights', () => {
     const mockHighlight1 = createMockHighlight();
     const mockHighlight2 = createMockHighlight();
     const {update} = highlightManager(element, () => prop);
