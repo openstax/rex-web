@@ -26,7 +26,7 @@ describe('ErrorModal', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshots with recorder error ids', () => {
+  it('matches snapshots with recorded error ids', () => {
     store.dispatch(recordSentryMessage('some-error-id'));
     const tree = renderer
       .create(<MessageProvider><Provider store={store}><ErrorModal /></Provider></MessageProvider>)
