@@ -18,22 +18,51 @@ cp "$worker" "$worker".bak
 head -n 39 "$worker".bak > "$worker"
 
 cat >> "$worker" <<- EOM
-
 workbox.routing.registerRoute(
   /https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/mathjax\//,
-  new workbox.strategies.CacheFirst()
+  new workbox.strategies.StaleWhileRevalidate({ // can't use cachefirst because responses are opaque
+    cacheName: 'cdn-assets',
+    plugins: [
+      new expiration.Plugin({
+        maxEntries: 100, // mathjax loads a lot of files
+      }),
+    ],
+  })
 );
 workbox.routing.registerRoute(
   /\/cms\/assets\//,
-  new workbox.strategies.StaleWhileRevalidate()
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'cms-assets',
+    plugins: [
+      new expiration.Plugin({
+        maxEntries: 20,
+      }),
+    ],
+  })
 );
+
 workbox.routing.registerRoute(
-  /\/contents\//,
-  new workbox.strategies.CacheFirst()
+  /\/contents|resources|extras\//,
+  new workbox.strategies.CacheFirst({
+    cacheName: 'book-content',
+    plugins: [
+      new expiration.Plugin({
+        maxEntries: 300,
+      }),
+    ],
+  })
 );
+
 workbox.routing.registerRoute(
   /\/apps\/cms\/api\//,
-  new workbox.strategies.StaleWhileRevalidate()
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'cms-api',
+    plugins: [
+      new expiration.Plugin({
+        maxEntries: 20,
+      }),
+    ],
+  })
 );
 EOM
 
