@@ -21,7 +21,7 @@ const BodyErrorText = styled.div`
 // tslint:disable-next-line:variable-name
 const ErrorList = styled.div`
   ${labelStyle}
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   color: ${theme.color.primary.gray.darker};
   opacity: 0.6;
 `;
