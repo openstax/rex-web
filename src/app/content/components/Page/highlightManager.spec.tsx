@@ -142,7 +142,7 @@ describe('highlightManager', () => {
     expect(highlight.mock.calls[0][0]).toBe(mockHighlight);
   });
 
-  it('erases highlights', () => {
+  it.only('erases highlights', () => {
     const mockHighlight1 = createMockHighlight();
     const mockHighlight2 = createMockHighlight();
     const {update} = highlightManager(element, () => prop);
@@ -153,6 +153,9 @@ describe('highlightManager', () => {
 
     const erase = Highlighter.mock.instances[0].erase;
 
+    Highlighter.mock.instances[0].getHighlight.mockImplementation(
+      (id: string) => keyBy('id', [mockHighlight1, mockHighlight2])[id]
+    );
     Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight1, mockHighlight2]);
 
     fromApiResponse

@@ -57,7 +57,6 @@ describe('Sentry error logging', () => {
     config.SENTRY_ENABLED = false;
     Sentry.initializeWithMiddleware();
     expect(Sentry.isEnabled).toBe(false);
-    expect(() => Sentry.captureException(new Error('this is bad'))).toThrow();
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
     config.SENTRY_ENABLED = true;

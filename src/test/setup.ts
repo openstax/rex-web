@@ -29,7 +29,7 @@ const ignoreConsoleErrorMessages = [
 
 const originalConsoleError = console.error;  // tslint:disable-line:no-console
 console.error = (msg: string) => {  // tslint:disable-line:no-console
-  const shouldIgnore = !!ignoreConsoleErrorMessages.find((ignore) => msg.indexOf(ignore) === 0);
+  const shouldIgnore = !!ignoreConsoleErrorMessages.find((ignore) => msg.indexOf && msg.indexOf(ignore) === 0);
 
   if (shouldIgnore) {
     return;
