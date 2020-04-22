@@ -4,16 +4,28 @@ import { makeFindByTestId } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
 import { highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
-import DisplayNote from './DisplayNote';
+import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./TruncatedText', () => (props: any) => <div mock-truncated-text {...props} />);
 
 describe('DisplayNote', () => {
+  let displayNoteProps: Partial<DisplayNoteProps>;
+
+  beforeEach(() => {
+    displayNoteProps = {
+      onBlur: () => null,
+      onEdit: () => null,
+      onFocus: jest.fn(),
+      onHeightChange: () => null,
+      onRemove: jest.fn(),
+      style: highlightStyles[0],
+    };
+  });
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={false} />
+      <DisplayNote {...displayNoteProps} isFocused={false} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -22,7 +34,7 @@ describe('DisplayNote', () => {
 
   it('matches snapshot when focused', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} />
+      <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -30,9 +42,8 @@ describe('DisplayNote', () => {
   });
 
   it('shows delete confirmation', () => {
-    const onRemove = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
+      <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -42,13 +53,12 @@ describe('DisplayNote', () => {
     });
 
     expect(() => component.root.findByType(Confirmation)).not.toThrow();
-    expect(onRemove).not.toHaveBeenCalled();
+    expect(displayNoteProps.onRemove).not.toHaveBeenCalled();
   });
 
   it('confirmation deletes', () => {
-    const onRemove = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
+      <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -62,13 +72,12 @@ describe('DisplayNote', () => {
       confirmation.props.onConfirm();
     });
 
-    expect(onRemove).toHaveBeenCalled();
+    expect(displayNoteProps.onRemove).toHaveBeenCalled();
   });
 
   it('confirmation cancels', () => {
-    const onRemove = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={true} onRemove={onRemove} />
+      <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
@@ -83,14 +92,14 @@ describe('DisplayNote', () => {
     });
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
-    expect(onRemove).not.toHaveBeenCalled();
+    expect(displayNoteProps.onRemove).not.toHaveBeenCalled();
   });
 
   it('closes confirmation after changing focus and reopen', () => {
     let isFocused = true;
 
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <DisplayNote style={highlightStyles[0]} isFocused={isFocused} onRemove={jest.fn()} />
+      <DisplayNote {...displayNoteProps} isFocused={isFocused} />
     </MessageProvider>);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
@@ -106,11 +115,7 @@ describe('DisplayNote', () => {
     isFocused = false;
 
     component.update(<MessageProvider onError={() => null}>
-      <DisplayNote
-        style={highlightStyles[0]}
-        isFocused={isFocused}
-        onRemove={jest.fn()}
-      />
+      <DisplayNote {...displayNoteProps} isFocused={isFocused} />
     </MessageProvider>);
 
     // tslint:disable-next-line: no-empty
@@ -121,16 +126,13 @@ describe('DisplayNote', () => {
     isFocused = true;
 
     component.update(<MessageProvider onError={() => null}>
-      <DisplayNote
-        style={highlightStyles[0]}
-        isFocused={isFocused}
-        onRemove={jest.fn()}
-      />
+      <DisplayNote {...displayNoteProps} isFocused={isFocused} />
     </MessageProvider>);
 
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(displayNoteProps.onFocus).toHaveBeenCalledTimes(2);
   });
 });
