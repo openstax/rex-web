@@ -1,4 +1,4 @@
-import { Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Element, EventListener, EventTarget, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import * as dom from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { receivePageFocus } from './actions';
@@ -154,4 +154,28 @@ export const addSafeEventListener = <S extends keyof EventTypeMap>(
 
   element.addEventListener(eventString, safeHandler);
   return () => element.removeEventListener(eventString, safeHandler);
+};
+
+/*
+ * deregisters the listener before the handler is called
+ *
+ * this should really forward the event around, but as i write this
+ * i don't have a use case for that.
+ */
+export const handleEventOnce = (
+  target: EventTarget,
+  event: string,
+  handler: () => void,
+  predicate: (() => boolean) = (() => true)
+) => {
+  const deregister = () => target.removeEventListener(event, deregisteringHandler);
+  const deregisteringHandler = () => {
+    if (predicate()) {
+      deregister();
+      handler();
+    }
+  };
+  target.addEventListener(event, deregisteringHandler);
+
+  return deregister;
 };

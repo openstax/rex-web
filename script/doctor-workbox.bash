@@ -13,7 +13,7 @@ function abs_path {
 build=$(abs_path "${BASH_SOURCE%/*}/../build")
 worker="$build"/service-worker.js
 
-# remove default registerNavigationRoute
+# add cache behaviors for 100% offline load 
 cp "$worker" "$worker".bak
 head -n 39 "$worker".bak > "$worker"
 
@@ -29,6 +29,7 @@ workbox.routing.registerRoute(
     ],
   })
 );
+
 workbox.routing.registerRoute(
   /\/cms\/assets\//,
   new workbox.strategies.StaleWhileRevalidate({
