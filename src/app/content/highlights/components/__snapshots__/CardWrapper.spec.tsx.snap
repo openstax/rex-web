@@ -6,6 +6,24 @@ exports[`CardWrapper matches snapshot 1`] = `
 >
   <span
     data-mock-card={true}
+    highlight={
+      Object {
+        "elements": Array [],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "id1",
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction],
+        },
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+      }
+    }
+    onFocus={[Function]}
+    onHeightChange={[Function]}
+    resetTopOffset={[Function]}
+    zIndex={1}
   />
 </div>
 `;
