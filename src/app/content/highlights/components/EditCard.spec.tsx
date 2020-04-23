@@ -5,7 +5,10 @@ import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import * as selectAuth from '../../../auth/selectors';
+import { formatUser } from '../../../auth/utils';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
@@ -623,5 +626,69 @@ describe('EditCard', () => {
     expect(onClickOutside.mock.calls.length).toBe(2);
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(editCardProps.onCancel).not.toHaveBeenCalled();
+  });
+
+  it('trackShowCreate for authenticated user', () => {
+    // TODO: Why this test is failing?
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+
+    const spyAnalytics = jest.spyOn(services.analytics.showCreate, 'track');
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              {...editCardProps}
+              isFocused={true}
+              setAnnotationChangesPending={setAnnotationChangesPending}
+              data={undefined}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+
+    expect(spyAnalytics).not.toHaveBeenCalled();
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+    expect(() => component.root.findByProps({
+      'data-analytics-region': 'highlighting-login',
+    })).not.toThrow();
+    expect(spyAnalytics).toHaveBeenCalled();
+    mockSpyUser.mockClear();
+  });
+
+  it('call onHeightChange when element mounts', () => {
+    // TODO: Why this test is failing?
+    const onHeightChange = jest.fn();
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              {...editCardProps}
+              isFocused={true}
+              setAnnotationChangesPending={setAnnotationChangesPending}
+              onHeightChange={onHeightChange}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+
+    expect(onHeightChange).not.toHaveBeenCalled();
+
+    // Wait for mount
+    renderer.act(() => undefined);
+
+    expect(() => component.root.findByProps({
+      'data-analytics-region': 'edit-note',
+    })).not.toThrow();
+    expect(onHeightChange).toHaveBeenCalled();
   });
 });
