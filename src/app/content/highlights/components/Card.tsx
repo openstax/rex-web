@@ -74,7 +74,7 @@ const Card = (props: CardProps) => {
 
   React.useEffect(() => {
     if (!annotation && !props.isFocused) {
-      props.onHeightChange({ current: null } as React.RefObject<HTMLElement>);
+      props.onHeightChange({ current: null });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [annotation, props.isFocused]);
