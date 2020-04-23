@@ -72,8 +72,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   React.useEffect(() => {
     const newPositions: Map<string, number> = new Map();
 
-    let lastVisibleCardPosition: number = 0;
-    let lastVisibleCardHeight: number = 0;
+    let lastVisibleCardPosition = 0;
+    let lastVisibleCardHeight = 0;
 
     for (const [index, highlight] of highlights.entries()) {
       const topOffset = getTopOffsetForHighlight(highlight);

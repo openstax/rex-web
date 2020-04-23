@@ -186,11 +186,11 @@ const EditCard = React.forwardRef<HTMLElement, Props>((props: Props, ref) => {
           onClick={(e: React.FormEvent) => {
             e.preventDefault();
             setEditing(false);
-
-            if (pendingAnnotation === '' && assertDefined(props.data, 'props.data should be defined').annotation) {
+            const data = assertDefined(props.data, 'props.data should be defined');
+            if (pendingAnnotation === '' && data.annotation) {
               setConfirmingDelete(true);
             } else {
-              saveAnnotation(assertDefined(props.data, 'props.data should be defined'));
+              saveAnnotation(data);
             }
           }}
         >{msg}</Button>}
