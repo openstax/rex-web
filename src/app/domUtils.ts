@@ -1,4 +1,4 @@
-import { Element, EventListener, EventTarget, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import * as dom from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { receivePageFocus } from './actions';
