@@ -8,23 +8,24 @@ import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./TruncatedText', () => (props: any) => <div mock-truncated-text {...props} />);
+const doNothing = () => null;
 
 describe('DisplayNote', () => {
   let displayNoteProps: Partial<DisplayNoteProps>;
 
   beforeEach(() => {
     displayNoteProps = {
-      onBlur: () => null,
-      onEdit: () => null,
+      onBlur: doNothing,
+      onEdit: doNothing,
       onFocus: jest.fn(),
-      onHeightChange: () => null,
+      onHeightChange: doNothing,
       onRemove: jest.fn(),
       style: highlightStyles[0],
     };
   });
 
   it('matches snapshot', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
+    const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={false} />
     </MessageProvider>);
 
@@ -33,7 +34,7 @@ describe('DisplayNote', () => {
   });
 
   it('matches snapshot when focused', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
+    const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
 
@@ -42,7 +43,7 @@ describe('DisplayNote', () => {
   });
 
   it('shows delete confirmation', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
+    const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
@@ -57,7 +58,7 @@ describe('DisplayNote', () => {
   });
 
   it('confirmation deletes', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
+    const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
@@ -76,7 +77,7 @@ describe('DisplayNote', () => {
   });
 
   it('confirmation cancels', () => {
-    const component = renderer.create(<MessageProvider onError={() => null}>
+    const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
@@ -98,7 +99,7 @@ describe('DisplayNote', () => {
   it('closes confirmation after changing focus and reopen', () => {
     let isFocused = true;
 
-    const component = renderer.create(<MessageProvider onError={() => null}>
+    const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={isFocused} />
     </MessageProvider>);
 
@@ -114,7 +115,7 @@ describe('DisplayNote', () => {
 
     isFocused = false;
 
-    component.update(<MessageProvider onError={() => null}>
+    component.update(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={isFocused} />
     </MessageProvider>);
 
@@ -125,7 +126,7 @@ describe('DisplayNote', () => {
 
     isFocused = true;
 
-    component.update(<MessageProvider onError={() => null}>
+    component.update(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={isFocused} />
     </MessageProvider>);
 

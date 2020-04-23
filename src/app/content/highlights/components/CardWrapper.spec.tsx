@@ -16,7 +16,7 @@ jest.mock('./cardUtils', () => ({
 describe('CardWrapper', () => {
   const store = createTestStore();
 
-  it('matches snapshot', async() => {
+  it('matches snapshot', () => {
     const component = renderer.create(<CardWrapper
       highlights={[createMockHighlight('id1')]}
       store={store}
@@ -26,7 +26,7 @@ describe('CardWrapper', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders cards', async() => {
+  it('renders cards', () => {
     const component = renderer.create(<CardWrapper
       highlights={[createMockHighlight(), createMockHighlight()]}
       store={store}
@@ -52,10 +52,8 @@ describe('CardWrapper', () => {
     // Wait for React.useEffect
     renderer.act(() => undefined);
 
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      card.props.onFocus();
-    });
+    const card = component.root.findByType(Card);
+    card.props.onFocus();
 
     expect(scrollIntoView).toHaveBeenCalled();
   });
