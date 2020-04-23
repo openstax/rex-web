@@ -17,7 +17,7 @@ const mockHighlight = {
 
 describe('highlight reducer', () => {
 
-  it('locationChange - keeps recentlyLoadedFor and highlights if called with current pageUid', () => {
+  it('locationChange - keeps pageId and highlights if called with current pageUid', () => {
     const state = reducer(
       {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
       locationChange({location: {state: {pageUid: '123'}}} as any));
@@ -25,12 +25,19 @@ describe('highlight reducer', () => {
     expect(state.currentPage.highlights).toEqual([mockHighlight]);
   });
 
-  it('locationChange - keeps recentlyLoadedFor and reset highlights if called with different pageUid', () => {
+  it('locationChange - reset pageId and highlights if called with different pageUid', () => {
     const state = reducer(
       {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
       locationChange({location: {state: {pageUid: 'asdf'}}} as any));
-    expect(state.currentPage.pageId).toEqual('123');
+    expect(state.currentPage.pageId).toEqual(null);
     expect(state.currentPage.highlights).toEqual(initialState.currentPage.highlights);
+  });
+
+  it('locationChange - reset hasUnsavedHighlight', () => {
+    const state = reducer(
+      {...initialState, currentPage: {...initialState.currentPage, hasUnsavedHighlight: true}},
+      locationChange({location: {state: {pageUid: 'asdf'}}} as any));
+    expect(state.currentPage.hasUnsavedHighlight).toEqual(false);
   });
 
   it('focuses highlight', () => {

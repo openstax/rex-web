@@ -38,12 +38,17 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
+      const currentPageId = state.currentPage.pageId;
+      const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
         currentPage: {
-          ...state.currentPage,
-          highlights: state.currentPage.pageId && action.payload.location.state.pageUid === state.currentPage.pageId
+          ...initialState.currentPage,
+          highlights: currentPageId && actionPageId === currentPageId
             ? state.currentPage.highlights
             : initialState.currentPage.highlights,
+          pageId: currentPageId && actionPageId === currentPageId
+            ? state.currentPage.pageId
+            : initialState.currentPage.pageId,
         },
         summary: {
           ...state.summary,
