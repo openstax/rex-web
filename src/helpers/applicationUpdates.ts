@@ -1,5 +1,4 @@
 import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
-import { handleEventOnce } from '../app/domUtils';
 import Sentry from './Sentry';
 
 export const serviceWorkerNeedsUpdate = (
@@ -23,10 +22,18 @@ export const findAndInstallServiceWorkerUpdate = (sw: ServiceWorkerRegistration 
     callback();
     return;
   }
-  handleEventOnce(sw, 'updatefound', () => {
+
+  sw.addEventListener('updatefound', function updateHandler() {
+    sw.removeEventListener('updatefound', updateHandler);
+
     const {installing} = sw;
     if (installing) {
-      handleEventOnce(installing, 'statechange', callback, () => installing.state === 'installed');
+      installing.addEventListener('statechange', function installedHandler() {
+        if (installing.state === 'installed') {
+          installing.removeEventListener('statechange', installedHandler);
+          callback();
+        }
+      });
     } else {
       callback();
     }
@@ -53,7 +60,12 @@ export const activateSwAndReload = (sw: ServiceWorkerRegistration | undefined) =
   const {waiting} = sw || {waiting:  undefined};
 
   if (waiting) {
-    handleEventOnce(waiting, 'statechange', forceReload, () => waiting.state === 'activating');
+    waiting.addEventListener('statechange', function activatingHandler() {
+      if (waiting.state === 'activating') {
+        waiting.removeEventListener('statechange', activatingHandler);
+        forceReload();
+      }
+    });
     waiting.postMessage({type:  'SKIP_WAITING'});
   } else {
     forceReload();

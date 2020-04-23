@@ -23,7 +23,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate({ // can't use cachefirst because responses are opaque
     cacheName: 'cdn-assets',
     plugins: [
-      new expiration.Plugin({
+      new workbox.expiration.Plugin({
         maxEntries: 100, // mathjax loads a lot of files
       }),
     ],
@@ -35,7 +35,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'cms-assets',
     plugins: [
-      new expiration.Plugin({
+      new workbox.expiration.Plugin({
         maxEntries: 20,
       }),
     ],
@@ -47,7 +47,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst({
     cacheName: 'book-content',
     plugins: [
-      new expiration.Plugin({
+      new workbox.expiration.Plugin({
         maxEntries: 300,
       }),
     ],
@@ -59,7 +59,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'cms-api',
     plugins: [
-      new expiration.Plugin({
+      new workbox.expiration.Plugin({
         maxEntries: 20,
       }),
     ],

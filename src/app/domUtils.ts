@@ -134,6 +134,11 @@ type EventTypeMap = typeof eventTypeMap;
 // change the names we can use the interface direcly here.
 type EventTypeFromMap<S extends keyof EventTypeMap> = (typeof dom)[EventTypeMap[S]]['prototype'];
 
+/*
+ * typescript actually does this by default, the actual problem
+ * is that our lib.dom.d.ts file is out of date and doesn't have
+ * focusout in it
+ */
 export const addSafeEventListener = <S extends keyof EventTypeMap>(
   element: HTMLElement,
   eventString: S,
@@ -154,28 +159,4 @@ export const addSafeEventListener = <S extends keyof EventTypeMap>(
 
   element.addEventListener(eventString, safeHandler);
   return () => element.removeEventListener(eventString, safeHandler);
-};
-
-/*
- * deregisters the listener before the handler is called
- *
- * this should really forward the event around, but as i write this
- * i don't have a use case for that.
- */
-export const handleEventOnce = (
-  target: EventTarget,
-  event: string,
-  handler: () => void,
-  predicate: (() => boolean) = (() => true)
-) => {
-  const deregister = () => target.removeEventListener(event, deregisteringHandler);
-  const deregisteringHandler = () => {
-    if (predicate()) {
-      deregister();
-      handler();
-    }
-  };
-  target.addEventListener(event, deregisteringHandler);
-
-  return deregister;
 };
