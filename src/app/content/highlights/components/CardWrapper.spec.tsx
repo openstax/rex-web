@@ -26,6 +26,16 @@ describe('CardWrapper', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('matchnes snapshot when there is no highlights', () => {
+    const component = renderer.create(<CardWrapper
+      highlights={[]}
+      store={store}
+    />);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   it('renders cards', () => {
     const component = renderer.create(<CardWrapper
       highlights={[createMockHighlight(), createMockHighlight()]}
@@ -56,5 +66,115 @@ describe('CardWrapper', () => {
     card.props.onFocus();
 
     expect(scrollIntoView).toHaveBeenCalled();
+    scrollIntoView.mockClear();
+  });
+
+  it('do not scroll to card when focused if it does not have elements', () => {
+    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    scrollIntoView.mockImplementation(() => null);
+
+    const highlight = {
+      ...createMockHighlight(),
+      elements: [],
+    };
+
+    const component = renderer.create(<CardWrapper
+      highlights={[highlight]}
+      store={store}
+    />);
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+    const card = component.root.findByType(Card);
+    card.props.onFocus();
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it('updates top offset for main wrapper if it is required', () => {
+    const createNodeMock = () => ({
+      style: { top: 0 },
+    });
+
+    const highlight = {
+      ...createMockHighlight(),
+      range: {
+        getBoundingClientRect: () => ({ top: 100 }),
+      },
+    };
+
+    const component = renderer.create(<CardWrapper
+      highlights={[highlight, highlight, highlight]}
+      store={store}
+    />, {createNodeMock});
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+    // Update positions - currently all cards are in the same position
+    // after onHeightChange their positions will be recalculated
+    renderer.act(() => {
+      component.root.findAllByType(Card)
+        .forEach((card) => card.props.onHeightChange({ current: { offsetHeight: 100 }}));
+    });
+
+    // Position of last card is now 340px - all highlights are positioned 100px from the top
+    // Which mean that position of first card is at 100px offsetTop. Since all cards have 100px height
+    // and there is 20px margin between cards, we end up we having 340px offsetTop for third card.
+    renderer.act(() => {
+      const [, , card] = component.root.findAllByType(Card);
+      expect(card.props.topOffset).toEqual(340);
+      card.props.onFocus();
+    });
+
+    // When we focus third card then main wrapper should move to the top for 340px - 100px
+    // which is equal to third card position - topOffset for this highlight.
+
+    // TODO: How to check if style.top for CardWrapper was updated?
+    // Porbably we have to use dom renderer
+  });
+
+  it('coverage for onHeightChange', () => {
+    const component = renderer.create(<CardWrapper
+      highlights={[createMockHighlight()]}
+      store={store}
+    />);
+
+    const card = component.root.findByType(Card);
+    // Update state with a height
+    renderer.act(() => {
+      card.props.onHeightChange({ current: { offsetHeight: 100 }});
+    });
+
+    // Noops with height is the same
+    renderer.act(() => {
+      card.props.onHeightChange({ current: { offsetHeight: 100 }});
+    });
+
+    // Handle null value
+    renderer.act(() => {
+      card.props.onHeightChange({ current: { offsetHeight: null }});
+    });
+
+    expect(() => component.root.findAllByType(Card)).not.toThrow();
+  });
+
+  it('coverage for resetTopOffset', () => {
+    const createNodeMock = () => ({
+      style: { top: 0 },
+    });
+
+    const component = renderer.create(<CardWrapper
+      highlights={[createMockHighlight()]}
+      store={store}
+    />, {createNodeMock});
+
+    const card = component.root.findByType(Card);
+    renderer.act(() => {
+      card.props.resetTopOffset();
+    });
+
+    expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 });

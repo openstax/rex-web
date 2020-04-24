@@ -27,3 +27,5 @@ exports[`CardWrapper matches snapshot 1`] = `
   />
 </div>
 `;
+
+exports[`CardWrapper matchnes snapshot when there is no highlights 1`] = `null`;

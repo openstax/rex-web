@@ -37,8 +37,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   };
 
   const onFocus = (highlight: Highlight) => {
-    const position = cardsPositions.get(highlight.id);
-    if (typeof position !== 'number') { return; }
+    const position = assertDefined(
+      cardsPositions.get(highlight.id),
+      'position has to be defined before focusing a card');
 
     const topOffset = getTopOffsetForHighlight(highlight);
 
