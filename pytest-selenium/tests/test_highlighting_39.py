@@ -13,11 +13,9 @@ from tests import markers
 from tests.conftest import DESKTOP
 from utils.utility import Color, Highlight, Utilities
 
-HAS_INDICATOR = (
-    "return window.getComputedStyle(arguments[0]).borderBottomWidth != '0px';")
 
-# HAS_INDICATOR = (
-#     "return window.getComputedStyle(arguments[0]).Pseudo-Element !== 'undefined';")
+HAS_INDICATOR = (
+    "return window.getComputedStyle(arguments[0], ':after').getPropertyValue('opacity') == '0.8';")
 
 
 @markers.test_case("C592627")
