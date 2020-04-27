@@ -124,7 +124,7 @@ exports[`Card matches snapshot without data 1`] = `
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa idIIkO"
+    className="sc-bdVaJa fyCpWx"
     hasUnsavedHighlight={false}
     highlight={
       Object {

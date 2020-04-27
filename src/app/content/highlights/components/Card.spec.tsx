@@ -12,6 +12,8 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
+import { openToc } from '../../actions';
+import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
 import { highlightStyles } from '../constants';
@@ -107,6 +109,8 @@ describe('Card', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(focusHighlight(highlight.id));
+    store.dispatch(openToc()); // added for css coverage
+    store.dispatch(requestSearch('asd')); // added for css coverage
     const container = assertDocument().createElement('div');
     highlight.range.getBoundingClientRect.mockReturnValue({
       bottom: 200,
@@ -307,7 +311,7 @@ describe('Card', () => {
     expect(() => component.root.findByType(EditCard)).toThrow();
   });
 
-  it('focuses on click if it is not already focused', () => {
+  it('focuses on click only if it is not already focused', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
@@ -318,11 +322,23 @@ describe('Card', () => {
       <Card {...cardProps} />
     </Provider>);
 
-    expect(store.dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
-    card.props.onClick();
+    renderer.act(() => {
+      card.props.onClick();
+    });
 
-    expect(store.dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
+    expect(dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
+
+    dispatch.mockClear();
+
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+
+    renderer.act(() => {
+      card.props.onClick();
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
   });
 });
