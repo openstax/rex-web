@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import * as domUtils from '../../../domUtils';
+import { assertDocument } from '../../../utils';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
 
@@ -93,24 +94,25 @@ describe('CardWrapper', () => {
   });
 
   it('updates top offset for main wrapper if it is required', () => {
-    const createNodeMock = () => ({
-      style: { top: 0 },
-    });
+    const div = assertDocument().createElement('div');
+    const createNodeMock = () => div;
 
-    const highlight = {
+    const highlight = () => ({
       ...createMockHighlight(),
       range: {
         getBoundingClientRect: () => ({ top: 100 }),
       },
-    };
+    });
 
     const component = renderer.create(<CardWrapper
-      highlights={[highlight, highlight, highlight]}
+      highlights={[highlight(), highlight(), highlight()]}
       store={store}
     />, {createNodeMock});
 
     // Wait for React.useEffect
     renderer.act(() => undefined);
+
+    expect(div.style.top).toEqual('');
 
     // Update positions - currently all cards are in the same position
     // after onHeightChange their positions will be recalculated
@@ -131,8 +133,7 @@ describe('CardWrapper', () => {
     // When we focus third card then main wrapper should move to the top for 340px - 100px
     // which is equal to third card position - topOffset for this highlight.
 
-    // TODO: How to check if style.top for CardWrapper was updated?
-    // Porbably we have to use dom renderer
+    expect(div.style.top).toEqual('-240px');
   });
 
   it('coverage for onHeightChange', () => {

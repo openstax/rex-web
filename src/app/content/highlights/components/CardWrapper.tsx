@@ -96,7 +96,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   }, [highlights, cardsHeights]);
 
   return highlights.length
-    ? <div className={className} ref={element} data-testid='card-wrapper'>
+    ? <div className={className} ref={element}>
       {highlights.map((highlight, index) => <Card
         highlighter={highlighter}
         highlight={highlight}
