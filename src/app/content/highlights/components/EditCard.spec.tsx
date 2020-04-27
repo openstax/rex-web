@@ -29,7 +29,6 @@ describe('EditCard', () => {
   const services = createTestServices();
   const store = createTestStore();
   const dispatch = jest.spyOn(store, 'dispatch');
-  const setAnnotationChangesPending = jest.fn();
   let editCardProps: Partial<EditCardProps>;
 
   beforeEach(() => {
@@ -42,6 +41,7 @@ describe('EditCard', () => {
       onCreate: jest.fn(),
       onFocus: () => null,
       onRemove: jest.fn(),
+      setAnnotationChangesPending: jest.fn(),
     };
   });
 
@@ -87,7 +87,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
               isFocused={true}
             />
@@ -182,7 +181,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               isFocused={true}
             />
@@ -216,7 +214,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               isFocused={true}
             />
@@ -254,7 +251,6 @@ describe('EditCard', () => {
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              setAnnotationChangesPending={setAnnotationChangesPending}
               isFocused={true}
               onCreate={jest.fn()}
             />
@@ -297,7 +293,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               isFocused={true}
             />
@@ -334,7 +329,6 @@ describe('EditCard', () => {
               locationFilterId='locationId'
               pageId='pageId'
               isFocused={true}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
             />
           </MessageProvider>
@@ -383,7 +377,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               isFocused={true}
             />
@@ -426,7 +419,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               isFocused={true}
               hasUnsavedHighlight={false}
@@ -440,7 +432,7 @@ describe('EditCard', () => {
     renderer.act(() => {
       note.props.onChange('');
     });
-    expect(setAnnotationChangesPending).toHaveBeenCalledWith(true);
+    expect(editCardProps.setAnnotationChangesPending).toHaveBeenCalledWith(true);
   });
 
   it('dispatches if changes are reverted', () => {
@@ -455,7 +447,6 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
               isFocused={true}
               hasUnsavedHighlight={true}
@@ -469,7 +460,7 @@ describe('EditCard', () => {
     renderer.act(() => {
       note.props.onChange('qwer');
     });
-    expect(setAnnotationChangesPending).toHaveBeenCalledWith(false);
+    expect(editCardProps.setAnnotationChangesPending).toHaveBeenCalledWith(false);
   });
 
   it('handles color change when there is data', () => {
@@ -529,11 +520,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              {...editCardProps}
-              authenticated={true}
-              setAnnotationChangesPending={() => null}
-            />
+            <EditCard {...editCardProps} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -554,12 +541,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              {...editCardProps}
-              data={highlightData}
-              authenticated={true}
-              setAnnotationChangesPending={() => null}
-            />
+            <EditCard {...editCardProps} data={highlightData} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -608,13 +590,14 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               isFocused={true}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
             />
           </MessageProvider>
         </Services.Provider>
       </Provider>
     );
+
+    renderer.act(() => undefined);
 
     const note = component.root.findByType(Note);
     renderer.act(() => {
@@ -629,7 +612,9 @@ describe('EditCard', () => {
   });
 
   it('trackShowCreate for authenticated user', () => {
-    // TODO: Why this test is failing?
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
     const mockSpyUser = jest.spyOn(selectAuth, 'user')
       .mockReturnValue(formatUser(testAccountsUser));
 
@@ -642,7 +627,6 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               isFocused={true}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={undefined}
             />
           </MessageProvider>
@@ -657,14 +641,17 @@ describe('EditCard', () => {
 
     expect(() => component.root.findByProps({
       'data-analytics-region': 'highlighting-login',
-    })).not.toThrow();
+    })).toThrow();
     expect(spyAnalytics).toHaveBeenCalled();
     mockSpyUser.mockClear();
   });
 
   it('call onHeightChange when element mounts', () => {
-    // TODO: Why this test is failing?
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
     const onHeightChange = jest.fn();
+    const createNodeMock = () => assertDocument().createElement('div');
 
     const component = renderer.create(
       <Provider store={store}>
@@ -673,12 +660,12 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               isFocused={true}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               onHeightChange={onHeightChange}
             />
           </MessageProvider>
         </Services.Provider>
-      </Provider>
+      </Provider>,
+      {createNodeMock}
     );
 
     expect(onHeightChange).not.toHaveBeenCalled();
