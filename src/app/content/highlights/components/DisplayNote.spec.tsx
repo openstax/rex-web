@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import MessageProvider from '../../../MessageProvider';
+import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
@@ -60,7 +61,7 @@ describe('DisplayNote', () => {
   it('confirmation deletes', () => {
     const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
-    </MessageProvider>);
+    </MessageProvider>, { createNodeMock: () => assertDocument().createElement('div')});
     const findByTestId = makeFindByTestId(component.root);
 
     const deleteButton = findByTestId('delete');
