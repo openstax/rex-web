@@ -1,30 +1,21 @@
 import { book } from '../../../test/mocks/archiveLoader';
+import makeArchiveSection from '../../../test/mocks/archiveSection';
+import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
-import { ArchiveTree, ArchiveTreeSection } from '../types';
+import { ArchiveTree } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
   findArchiveTreeNode,
+  findArchiveTreeNodeByPageParam,
   findDefaultBookPage,
+  getArchiveTreeSectionNumber,
+  getArchiveTreeSectionTitle,
   nodeHasId,
   splitTitleParts,
 } from './archiveTreeUtils';
-
-const makeArchiveSection = (title: string): ArchiveTreeSection => ({
-  id: `${title}-id`,
-  shortId: `${title}-shortid`,
-  slug: `${title}-slug`,
-  title,
-});
-const makeArchiveTree = (
-  title: string,
-  contents: ArchiveTree['contents']
-): ArchiveTree => ({
-  ...makeArchiveSection(title),
-  contents,
-});
 
 describe('findDefaultBookPage', () => {
   it('returns first page if there are no chapters', () => {
@@ -70,6 +61,38 @@ describe('findDefaultBookPage', () => {
 describe('splitTitleParts', () => {
   it('returns null when book is not baked', () => {
     expect(splitTitleParts('unbaked-title')).toEqual([null, 'unbaked-title']);
+  });
+});
+
+describe('findArchiveTreeNodeByPageParam', () => {
+  it('finds node by id', () => {
+    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'preface' })).toBeDefined();
+  });
+});
+
+describe('getArchiveTreeSectionNumber', () => {
+  it('returns number', () => {
+    expect(
+      getArchiveTreeSectionNumber(makeArchiveSection(
+        '<span class="os-number">4</span><span class="os-text">foobar</span>'
+      ))
+    ).toEqual('4');
+  });
+  it('returns null when book is not baked', () => {
+    expect(getArchiveTreeSectionNumber(makeArchiveSection('unbaked-title'))).toEqual(null);
+  });
+});
+
+describe('getArchiveTreeSectionTitle', () => {
+  it('returns title', () => {
+    expect(
+      getArchiveTreeSectionTitle(makeArchiveSection(
+        '<span class="os-number">4</span><span class="os-text">foobar</span>'
+      ))
+    ).toEqual('foobar');
+  });
+  it('returns title when book is not baked', () => {
+    expect(getArchiveTreeSectionTitle(makeArchiveSection('unbaked-title'))).toEqual('unbaked-title');
   });
 });
 
