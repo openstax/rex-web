@@ -308,13 +308,10 @@ describe('Card', () => {
   });
 
   it('focuses on click if it is not already focused', () => {
-    // TODO: Why this test is failing?
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
-      {
-        id: highlightData.id,
-      },
+      { id: highlightData.id, annotation: 'asd' },
     ] as HighlightData[]));
 
     const component = renderer.create(<Provider store={store}>
@@ -323,7 +320,7 @@ describe('Card', () => {
 
     expect(store.dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
-    const card = component.root.findByType(Card);
+    const card = component.root.findByProps({ 'data-testid': 'card' });
     card.props.onClick();
 
     expect(store.dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
