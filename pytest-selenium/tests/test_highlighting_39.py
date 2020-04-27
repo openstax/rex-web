@@ -315,10 +315,6 @@ def test_note_indicator_added_when_highlight_without_a_note_has_a_note_added(
         selenium, base_url, book_slug, page_slug):
     """Adding a note to a highlight also adds the indicator to the highlight.
 
-    .. note::
-       The note indicator has been temporarily been replaced by off-color
-       underlining (bottom border).
-
     """
     # GIVEN: a book page is displayed
     # AND:   a user is logged in
