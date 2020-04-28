@@ -136,9 +136,8 @@ describe('setHead hook', () => {
   describe('getCanonicalURL', () => {
 
     it('returns the current book when the book does not have a canonical book entry', async() => {
-      const bookId = book.id;
       const pageShortId = page.shortId;
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageShortId);
       expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'test-page-1'}});
     });
 
@@ -146,7 +145,7 @@ describe('setHead hook', () => {
       const bookId = book.id;
       const pageShortId = page.shortId;
       CANONICAL_MAP[bookId] = [ bookId ];
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, bookId, pageShortId);
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageShortId);
       expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'test-page-1'}});
     });
 
@@ -160,7 +159,7 @@ describe('setHead hook', () => {
       await expect(getCanonicalUrlParams(
         helpers.archiveLoader,
         helpers.osWebLoader,
-        bookId,
+        book,
         pageShortId
       )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
     });
