@@ -41,15 +41,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
-        currentPage: {
-          ...initialState.currentPage,
-          highlights: currentPageId && actionPageId === currentPageId
-            ? state.currentPage.highlights
-            : initialState.currentPage.highlights,
-          pageId: currentPageId && actionPageId === currentPageId
-            ? state.currentPage.pageId
-            : initialState.currentPage.pageId,
-        },
+        currentPage: currentPageId && actionPageId === currentPageId
+          ? {...state.currentPage, hasUnsavedHighlight: false}
+          : initialState.currentPage,
         summary: {
           ...state.summary,
           open: false,
