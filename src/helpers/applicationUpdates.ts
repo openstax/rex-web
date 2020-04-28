@@ -1,4 +1,4 @@
-import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import Sentry from './Sentry';
 
 export const serviceWorkerNeedsUpdate = (
@@ -17,31 +17,29 @@ export const serviceWorkerNeedsUpdate = (
   return true;
 };
 
+export const whenState = (sw: ServiceWorker, state: string, callback: () => void) => {
+  sw.addEventListener('statechange', function handler() {
+    if (sw.state === state) {
+      sw.removeEventListener('statechange', handler);
+      callback();
+    }
+  });
+};
+
 export const findAndInstallServiceWorkerUpdate = (sw: ServiceWorkerRegistration | undefined, callback: () => void) => {
   if (!serviceWorkerNeedsUpdate(sw)) {
     callback();
     return;
   }
 
-  sw.addEventListener('updatefound', function updateHandler() {
-    sw.removeEventListener('updatefound', updateHandler);
-
-    const {installing} = sw;
-    if (installing) {
-      installing.addEventListener('statechange', function installedHandler() {
-        if (installing.state === 'installed') {
-          installing.removeEventListener('statechange', installedHandler);
-          callback();
-        }
-      });
-    } else {
-      callback();
-    }
-  });
-
   sw.update()
     .then(() => {
-      console.log('does this work?', sw.installing);
+      const {installing} = sw;
+      if (installing) {
+        whenState(installing, 'installed', callback);
+      } else {
+        callback();
+      }
     })
     .catch((e) => {
       Sentry.captureException(e);
@@ -60,12 +58,7 @@ export const activateSwAndReload = (sw: ServiceWorkerRegistration | undefined) =
   const {waiting} = sw || {waiting:  undefined};
 
   if (waiting) {
-    waiting.addEventListener('statechange', function activatingHandler() {
-      if (waiting.state === 'activating') {
-        waiting.removeEventListener('statechange', activatingHandler);
-        forceReload();
-      }
-    });
+    whenState(waiting, 'activating', forceReload);
     waiting.postMessage({type:  'SKIP_WAITING'});
   } else {
     forceReload();
