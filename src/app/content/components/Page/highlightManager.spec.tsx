@@ -336,6 +336,8 @@ describe('highlightManager', () => {
           <manager.CardList/>
         </Provider>);
 
+        await new Promise((resolve) => defer(resolve));
+
         expect(component.root.findAllByType(Card).length).toEqual(1);
       });
     });
