@@ -67,6 +67,21 @@ describe('Sentry error logging', () => {
     expect(SentryLibrary.captureMessage).toHaveBeenCalledTimes(3);
   });
 
+  it('logs to console when not enabled', () => {
+    config.SENTRY_ENABLED = false;
+    Sentry.initializeWithMiddleware();
+
+    const spyConsoleError = jest.spyOn(console, 'error')
+      .mockImplementationOnce(jest.fn)
+    ;
+
+    expect(spyConsoleError).not.toHaveBeenCalled();
+
+    Sentry.captureException(new Error('asdf'));
+
+    expect(spyConsoleError).toHaveBeenCalled();
+  });
+
   it('uses isEnabled in capture message', () => {
     const mock = jest.spyOn(Sentry, 'isEnabled', 'get');
     mock.mockImplementation(() => false);
