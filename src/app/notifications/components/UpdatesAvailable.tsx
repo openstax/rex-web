@@ -15,7 +15,7 @@ import { Body, Group, Header, P } from './Card';
  */
 
 // tslint:disable-next-line:variable-name
-const UpdatesAvailable = ({className}: {className ?: string}) => {
+const UpdatesAvailable = ({className}: {className?: string}) => {
   const sw = useServices().serviceWorker;
   const [readyToReload, setReadyToReload] = useState<boolean>(!serviceWorkerNeedsUpdate(sw));
 
