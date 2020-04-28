@@ -5,7 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertDefined, assertWindow } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -128,7 +128,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
   };
 
   const insertPendingCardInOrder = (highlights: Highlight[], pending: Highlight) => {
-    if (!highlighter) { return highlights; }
+    console.log('elo, highlights', highlights)
+    console.log('pending.id', pending.id)
+    assertDefined(highlighter, 'highlighter has to be defined at this stage');
 
     const ordered = highlights.filter((highlight) => !pending || highlight.id !== pending.id);
     const prevHighlight = highlighter.getHighlightBefore(pending);
@@ -172,12 +174,15 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
 
+      console.log('pendingHighlight', pendingHighlight ? pendingHighlight.id : pendingHighlight)
+
       if (
         pendingHighlight
         && !highlighter.getHighlight(pendingHighlight.id)
         && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
       ) {
         addedOrRemoved = true;
+        console.log('attachHighlight')
         attachHighlight(pendingHighlight, highlighter);
       }
 
@@ -185,12 +190,16 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         .map(updateStyle(highlighter))
       ;
 
+      console.log('getProp().highlights', getProp().highlights)
+
+
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))
         .map(highlightData({ ...services, highlighter }))
         .filter(isDefined)
         ;
 
+        console.log('newHighlights', newHighlights)
       const removedHighlights = highlighter.getHighlights()
         .filter((highlight) => !getProp().highlights.find(matchHighlightId(highlight.id)))
         .map(erase(highlighter))
