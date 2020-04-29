@@ -106,6 +106,25 @@ const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
   return highlight;
 };
 
+const insertPendingCardInOrder = (highlighter: Highlighter, highlights: Highlight[], pending: Highlight) => {
+  if (!highlighter) { return highlights; }
+
+  const prevHighlight = highlighter.getHighlightBefore(pending);
+  if (!prevHighlight) {
+    return [pending, ...highlights.filter((highlight) => highlight.id !== pending.id)];
+  }
+
+  const ordered: Highlight[] = [];
+  for (const highlight of highlights) {
+    if (highlight.id === pending.id) { continue; }
+    ordered.push(highlight);
+    if (prevHighlight.id === highlight.id) {
+      ordered.push(pending);
+    }
+  }
+  return ordered;
+};
+
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
@@ -125,19 +144,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     if (setListPendingHighlight) {
       setListPendingHighlight(highlight);
     }
-  };
-
-  const insertPendingCardInOrder = (highlights: Highlight[], pending: Highlight) => {
-    console.log('elo, highlights', highlights)
-    console.log('pending.id', pending.id)
-    assertDefined(highlighter, 'highlighter has to be defined at this stage');
-
-    const ordered = highlights.filter((highlight) => !pending || highlight.id !== pending.id);
-    const prevHighlight = highlighter.getHighlightBefore(pending);
-
-    const indexToInsert = prevHighlight && ordered.findIndex((highlight) => highlight.id === prevHighlight.id);
-    ordered.splice((typeof indexToInsert === 'undefined' ? -1 : indexToInsert) + 1, 0, pending);
-    return ordered;
   };
 
   const services = {
@@ -164,7 +170,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         container,
         highlighter: listHighlighter,
         highlights: listPendingHighlight
-          ? insertPendingCardInOrder(listHighlights, listPendingHighlight)
+          ? insertPendingCardInOrder(highlighter, listHighlights, listPendingHighlight)
           : listHighlights,
       });
     },

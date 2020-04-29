@@ -90,8 +90,9 @@ const Card = (props: CardProps) => {
     return null;
   }
 
-  const handleClickOnCard = () => {
+  const handleClickOnCard = (e: React.MouseEvent) => {
     if (!props.isFocused) {
+      e.preventDefault();
       props.focus(props.highlight.id);
     }
   };

@@ -48,7 +48,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const element = React.useRef<HTMLElement>(null);
   const confirmationRef = React.useRef<HTMLElement>(null);
 
-  useOnClickOutside(element, isFocused, onBlur);
+  useOnClickOutside(element, isFocused, onBlur, { capture: true });
 
   React.useEffect(() => {
     if (!isFocused) {
