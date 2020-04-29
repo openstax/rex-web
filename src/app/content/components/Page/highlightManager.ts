@@ -107,8 +107,6 @@ const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
 };
 
 const insertPendingCardInOrder = (highlighter: Highlighter, highlights: Highlight[], pending: Highlight) => {
-  if (!highlighter) { return highlights; }
-
   const prevHighlight = highlighter.getHighlightBefore(pending);
   if (!prevHighlight) {
     return [pending, ...highlights.filter((highlight) => highlight.id !== pending.id)];
