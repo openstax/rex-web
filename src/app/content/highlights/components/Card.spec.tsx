@@ -312,6 +312,7 @@ describe('Card', () => {
   });
 
   it('focuses on click only if it is not already focused', () => {
+    const preventDefault = jest.fn();
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
@@ -326,8 +327,10 @@ describe('Card', () => {
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
     renderer.act(() => {
-      card.props.onClick();
+      card.props.onClick({preventDefault});
     });
+
+    expect(preventDefault).toHaveBeenCalled();
 
     expect(dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
@@ -340,5 +343,6 @@ describe('Card', () => {
     });
 
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+    expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 });

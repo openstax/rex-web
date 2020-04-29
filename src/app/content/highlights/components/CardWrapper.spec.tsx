@@ -112,7 +112,7 @@ describe('CardWrapper', () => {
     // Wait for React.useEffect
     renderer.act(() => undefined);
 
-    expect(div.style.top).toEqual('');
+    expect(div.style.transform).toEqual('');
 
     // Update positions - currently all cards are in the same position
     // after onHeightChange their positions will be recalculated
@@ -133,7 +133,7 @@ describe('CardWrapper', () => {
     // When we focus third card then main wrapper should move to the top for 340px - 100px
     // which is equal to third card position - topOffset for this highlight.
 
-    expect(div.style.top).toEqual('-240px');
+    expect(div.style.transform).toEqual('translateY(-240px)');
   });
 
   it('coverage for onHeightChange', () => {
