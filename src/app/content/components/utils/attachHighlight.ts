@@ -8,7 +8,7 @@ const attachHighlight = (
   highlighter.highlight(highlight);
   const result = highlighter.getHighlight(highlight.id);
   if (!result || !result.isAttached()) {
-    Sentry.error(`Highlight with id: ${highlight.id} has not been attached.`);
+    Sentry.captureException(new Error(`Highlight with id: ${highlight.id} has not been attached.`));
   }
   return result;
 };
