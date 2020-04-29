@@ -1,4 +1,4 @@
-import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
@@ -18,8 +18,9 @@ import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
 import attachHighlight from '../utils/attachHighlight';
+import { erase, highlightData, isUnknownHighlightData, updateStyle } from './highlightUtils';
 
-interface Services {
+export interface HighlightManagerServices {
   getProp: () => HighlightProp;
   setPendingHighlight: (highlight: Highlight) => void;
   clearPendingHighlight: () => void;
@@ -42,7 +43,7 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
-const onClickHighlight = (services: Services, highlight: Highlight | undefined) => defer(async() => {
+const onClickHighlight = (services: HighlightManagerServices, highlight: Highlight | undefined) => defer(async() => {
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
@@ -55,7 +56,7 @@ const onClickHighlight = (services: Services, highlight: Highlight | undefined) 
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
 const onSelectHighlight = (
-  services: Services,
+  services: HighlightManagerServices,
   highlights: Highlight[],
   highlight: Highlight | undefined
 ) => defer(async() => {
@@ -72,7 +73,7 @@ const onSelectHighlight = (
   services.setPendingHighlight(highlight);
 });
 
-const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
+const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
     onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
@@ -83,30 +84,6 @@ const createHighlighter = (services: Omit<Services, 'highlighter'>) => {
     snapWords: true,
   });
   return highlighter;
-};
-
-const isUnknownHighlightData = (highlighter: Highlighter) => (data: HighlightData) =>
-  !highlighter.getHighlight(data.id);
-
-const updateStyle = (highlighter: Highlighter) => (data: HighlightData) => {
-  const highlight = highlighter.getHighlight(data.id);
-
-  if (highlight) {
-    highlight.setStyle(data.color);
-  }
-};
-
-const highlightData = (services: Services) => (data: HighlightData) => {
-  const { highlighter } = services;
-
-  const serialized = SerializedHighlight.fromApiResponse(data);
-
-  return attachHighlight(serialized, highlighter);
-};
-
-const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
-  highlighter.erase(highlight);
-  return highlight;
 };
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
