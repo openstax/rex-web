@@ -43,7 +43,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     const topOffset = getTopOffsetForHighlight(highlight);
 
     if (position > topOffset) {
-      assertNotNull(element.current, 'element.current can\'t be null').style.top = `-${position - topOffset}px`;
+      assertNotNull(element.current, 'element.current can\'t be null')
+        .style.transform = `translateY(-${position - topOffset}px)`;
     }
 
     // This will be undefined for pendingHighlight
@@ -53,7 +54,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   };
 
   const resetTopOffset = () => {
-    assertNotNull(element.current, 'element.current can\'t be null').style.top = '0';
+    assertNotNull(element.current, 'element.current can\'t be null').style.transform = '';
   };
 
   const getTopOffsetForHighlight = (highlight: Highlight) => {
