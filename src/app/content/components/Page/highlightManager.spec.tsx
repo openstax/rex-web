@@ -1,5 +1,5 @@
 import UntypedHighlighter, {
-  SerializedHighlight as UntypedSerializedHighlight
+  Highlight, SerializedHighlight as UntypedSerializedHighlight
 } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
@@ -15,7 +15,7 @@ import { assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData } from '../../highlights/types';
-import highlightManager from './highlightManager';
+import highlightManager, { insertPendingCardInOrder } from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
@@ -124,56 +124,27 @@ describe('highlightManager', () => {
     expect(component.root.findAllByType(Card).length).toEqual(1);
   });
 
-  it.only('insert pending highlight in correct order', async() => {
-    console.log('start')
-    const mockHighlight1 = {
-      ...createMockHighlight('id1'),
-      isAttached: () => true,
-    };
-    const pendingHighlight = {
-      ...createMockHighlight('pending'),
-      isAttached: () => true,
-    };
-    const mockHighlight2 = {
-      ...createMockHighlight('id2'),
-      isAttached: () => true,
-    };
-    const mockHighlight1Data = {id: mockHighlight1.id} as HighlightData;
-    const pendingHighlightData = {id: pendingHighlight.id} as HighlightData;
-    const mockHighlight2Data = {id: mockHighlight2.id} as HighlightData;
-    prop.highlights = [mockHighlight1Data, mockHighlight2Data];
-    const {CardList, update} = highlightManager(element, () => prop);
-    Highlighter.mock.instances[0].getHighlight
-      .mockReturnValueOnce(undefined)
-      .mockReturnValueOnce(undefined)
-    ;
-    fromApiResponse
-      .mockReturnValueOnce(mockHighlight1)
-      .mockReturnValueOnce(mockHighlight2)
-    ;
-    const component = renderer.create(<Provider store={store}>
-      <CardList/>
-    </Provider>);
+  it('insert pending highlight in correct order', async() => {
+    const mockHighlight1 = createMockHighlight('id1') as any as Highlight;
+    const pendingHighlight = createMockHighlight('pending') as any as Highlight;
+    const mockHighlight2 = createMockHighlight('id2') as any as Highlight;
 
-    Highlighter.mock.instances[0].getHighlight
-      .mockReturnValueOnce(mockHighlight1)
-      .mockReturnValueOnce(mockHighlight2)
-    ;
+    const highlighter = { getHighlightBefore: jest.fn(() => mockHighlight1) } as any;
+    const highlights = [mockHighlight1, mockHighlight2];
 
-    await renderer.act(() => {
-      Highlighter.mock.calls[0][1].onSelect([], pendingHighlight);
-      return new Promise((resolve) => defer(resolve));
-    });
+    expect(insertPendingCardInOrder(highlighter, highlights, pendingHighlight))
+      .toEqual([mockHighlight1, pendingHighlight, mockHighlight2]);
 
-    renderer.act(() => {
-      update();
-    });
+    expect(insertPendingCardInOrder(highlighter, [...highlights, pendingHighlight], pendingHighlight))
+      .toEqual([mockHighlight1, pendingHighlight, mockHighlight2]);
 
-    expect(component.root.findAllByType(Card).length).toEqual(2);
+    highlighter.getHighlightBefore = jest.fn(() => undefined);
+
+    expect(insertPendingCardInOrder(highlighter, highlights, pendingHighlight))
+      .toEqual([pendingHighlight, mockHighlight1, mockHighlight2]);
   });
 
   it('creates highlighter', () => {
-    console.log('next')
     highlightManager(element, () => prop);
     expect(Highlighter).toHaveBeenCalled();
   });
