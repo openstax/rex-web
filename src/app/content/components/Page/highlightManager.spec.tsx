@@ -153,6 +153,9 @@ describe('highlightManager', () => {
 
     const erase = Highlighter.mock.instances[0].erase;
 
+    Highlighter.mock.instances[0].getHighlight.mockImplementation(
+      (id: string) => keyBy('id', [mockHighlight1, mockHighlight2])[id]
+    );
     Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight1, mockHighlight2]);
 
     fromApiResponse
