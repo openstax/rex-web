@@ -13,8 +13,9 @@ from tests import markers
 from tests.conftest import DESKTOP
 from utils.utility import Color, Highlight, Utilities
 
+
 HAS_INDICATOR = (
-    "return window.getComputedStyle(arguments[0]).borderBottomWidth != '0px';")
+    "return window.getComputedStyle(arguments[0], ':after').getPropertyValue('opacity') == '0.8';")
 
 
 @markers.test_case("C592627")
@@ -313,10 +314,6 @@ def test_note_indicator_not_present_for_highlights_without_notes(
 def test_note_indicator_added_when_highlight_without_a_note_has_a_note_added(
         selenium, base_url, book_slug, page_slug):
     """Adding a note to a highlight also adds the indicator to the highlight.
-
-    .. note::
-       The note indicator has been temporarily been replaced by off-color
-       underlining (bottom border).
 
     """
     # GIVEN: a book page is displayed
