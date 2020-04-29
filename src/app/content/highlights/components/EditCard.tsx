@@ -71,13 +71,6 @@ const EditCard = React.forwardRef<HTMLElement, Props>((props: Props, ref) => {
     props.onCancel();
   };
 
-  React.useEffect(() => {
-    if (!props.isFocused) {
-      cancelEditing();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isFocused]);
-
   useOnEsc(element, props.isFocused, cancelEditing);
 
   React.useEffect(() => {
