@@ -1,3 +1,3 @@
-* @openstax/rex
-
 pytest-selenium/* @openstax/unified-integration-testing
+
+* @openstax/rex
