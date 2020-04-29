@@ -68,7 +68,6 @@ describe('Sentry error logging', () => {
     config.SENTRY_ENABLED = false;
     Sentry.initializeWithMiddleware()(store);
     expect(Sentry.isEnabled).toBe(false);
-    expect(() => Sentry.captureException(new Error('this is bad'))).toThrow();
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
     config.SENTRY_ENABLED = true;
@@ -77,6 +76,21 @@ describe('Sentry error logging', () => {
     Sentry.warn('test warn');
     Sentry.error('test error');
     expect(SentryLibrary.captureMessage).toHaveBeenCalledTimes(3);
+  });
+
+  it('logs to console when not enabled', () => {
+    config.SENTRY_ENABLED = false;
+    Sentry.initializeWithMiddleware();
+
+    const spyConsoleError = jest.spyOn(console, 'error')
+      .mockImplementationOnce(jest.fn)
+    ;
+
+    expect(spyConsoleError).not.toHaveBeenCalled();
+
+    Sentry.captureException(new Error('asdf'));
+
+    expect(spyConsoleError).toHaveBeenCalled();
   });
 
   it('uses isEnabled in capture message', () => {
