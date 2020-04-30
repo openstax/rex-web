@@ -37,9 +37,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   };
 
   const onFocus = (highlight: Highlight) => {
-    const position = assertDefined(
-      cardsPositions.get(highlight.id),
-      'position has to be defined before focusing a card');
+    const positions = getCardsPositions();
+    const position = positions.get(highlight.id);
+    if (typeof position === 'undefined') { return; }
 
     const topOffset = getTopOffsetForHighlight(highlight);
 
@@ -71,7 +71,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   };
 
-  React.useEffect(() => {
+  const getCardsPositions = React.useCallback(() => {
     const newPositions: Map<string, number> = new Map();
 
     let lastVisibleCardPosition = 0;
@@ -93,8 +93,13 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
 
     setCardsPositions(newPositions);
+    return newPositions;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlights, cardsHeights]);
+
+  React.useEffect(() => {
+    getCardsPositions();
+  }, [getCardsPositions]);
 
   return highlights.length
     ? <div className={className} ref={element}>
