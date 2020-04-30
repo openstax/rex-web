@@ -7,6 +7,7 @@ export default (id: string = Math.random().toString(36).substring(7)) => {
     focus: jest.fn(),
     getStyle: jest.fn(),
     id,
+    isAttached: jest.fn(() => true),
     range: {
       commonAncestorContainer: null as null | HTMLElement,
       getBoundingClientRect: jest.fn(() => ({ top: 0, bottom: 0 })),

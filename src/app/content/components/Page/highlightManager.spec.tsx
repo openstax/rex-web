@@ -1,5 +1,5 @@
 import UntypedHighlighter, {
-  Highlight, SerializedHighlight as UntypedSerializedHighlight
+  SerializedHighlight as UntypedSerializedHighlight
 } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
@@ -15,7 +15,7 @@ import { assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData } from '../../highlights/types';
-import highlightManager, { insertPendingCardInOrder } from './highlightManager';
+import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
@@ -124,26 +124,6 @@ describe('highlightManager', () => {
     expect(component.root.findAllByType(Card).length).toEqual(1);
   });
 
-  it('insert pending highlight in correct order', async() => {
-    const mockHighlight1 = createMockHighlight('id1') as any as Highlight;
-    const pendingHighlight = createMockHighlight('pending') as any as Highlight;
-    const mockHighlight2 = createMockHighlight('id2') as any as Highlight;
-
-    const highlighter = { getHighlightBefore: jest.fn(() => mockHighlight1) } as any;
-    const highlights = [mockHighlight1, mockHighlight2];
-
-    expect(insertPendingCardInOrder(highlighter, highlights, pendingHighlight))
-      .toEqual([mockHighlight1, pendingHighlight, mockHighlight2]);
-
-    expect(insertPendingCardInOrder(highlighter, [...highlights, pendingHighlight], pendingHighlight))
-      .toEqual([mockHighlight1, pendingHighlight, mockHighlight2]);
-
-    highlighter.getHighlightBefore = jest.fn(() => undefined);
-
-    expect(insertPendingCardInOrder(highlighter, highlights, pendingHighlight))
-      .toEqual([pendingHighlight, mockHighlight1, mockHighlight2]);
-  });
-
   it('creates highlighter', () => {
     highlightManager(element, () => prop);
     expect(Highlighter).toHaveBeenCalled();
@@ -190,6 +170,9 @@ describe('highlightManager', () => {
 
     const erase = Highlighter.mock.instances[0].erase;
 
+    Highlighter.mock.instances[0].getHighlight.mockImplementation(
+      (id: string) => keyBy('id', [mockHighlight1, mockHighlight2])[id]
+    );
     Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight1, mockHighlight2]);
 
     fromApiResponse

@@ -12,6 +12,7 @@ exports[`CardWrapper matches snapshot 1`] = `
         "focus": [MockFunction],
         "getStyle": [MockFunction],
         "id": "id1",
+        "isAttached": [MockFunction],
         "range": Object {
           "commonAncestorContainer": null,
           "getBoundingClientRect": [MockFunction],
