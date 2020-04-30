@@ -9,7 +9,7 @@ export default (id: string = Math.random().toString(36).substring(7)) => {
     id,
     range: {
       commonAncestorContainer: null as null | HTMLElement,
-      getBoundingClientRect: jest.fn(),
+      getBoundingClientRect: jest.fn(() => ({ top: 0, bottom: 0 })),
     },
     serialize: () => ({
       data: {id} as SerializedHighlight['data'],

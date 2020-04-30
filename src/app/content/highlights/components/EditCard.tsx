@@ -23,7 +23,7 @@ import Confirmation from './Confirmation';
 import Note from './Note';
 import onClickOutside from './utils/onClickOutside';
 
-interface Props {
+export interface EditCardProps {
   isFocused: boolean;
   hasUnsavedHighlight: boolean;
   highlight: Highlight;
@@ -41,7 +41,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const EditCard = React.forwardRef<HTMLElement, Props>((props: Props, ref) => {
+const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const authenticated = !!useSelector(selectAuth.user);
   const loginLink = useSelector(selectAuth.loginLink);
   const dispatch = useDispatch();

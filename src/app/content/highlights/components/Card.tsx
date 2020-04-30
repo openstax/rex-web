@@ -129,7 +129,7 @@ const Card = (props: CardProps) => {
     ref: element,
   };
 
-  return <div onClick={handleClickOnCard}>
+  return <div onClick={handleClickOnCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
