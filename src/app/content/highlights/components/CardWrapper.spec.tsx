@@ -60,11 +60,10 @@ describe('CardWrapper', () => {
       store={store}
     />);
 
-    // Wait for React.useEffect
-    renderer.act(() => undefined);
-
-    const card = component.root.findByType(Card);
-    card.props.onFocus();
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      card.props.onFocus();
+    });
 
     expect(scrollIntoView).toHaveBeenCalled();
     scrollIntoView.mockClear();
@@ -84,11 +83,10 @@ describe('CardWrapper', () => {
       store={store}
     />);
 
-    // Wait for React.useEffect
-    renderer.act(() => undefined);
-
-    const card = component.root.findByType(Card);
-    card.props.onFocus();
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      card.props.onFocus();
+    });
 
     expect(scrollIntoView).not.toHaveBeenCalled();
   });

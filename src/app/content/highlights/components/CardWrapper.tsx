@@ -28,27 +28,12 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
   const [topOffsets, setTopOffsets] = React.useState<Map<string, number>>(new Map());
+  const [focusedHighlight, setFocusedHighlight] = React.useState<Highlight | null>(null);
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
       setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
-    }
-  };
-
-  const onFocus = (highlight: Highlight) => {
-    const positions = getCardsPositions();
-    const position = assertDefined(positions.get(highlight.id), `position has to be defined at this step`);
-    const topOffset = getTopOffsetForHighlight(highlight);
-
-    if (position > topOffset) {
-      assertNotNull(element.current, 'element.current can\'t be null')
-        .style.transform = `translateY(-${position - topOffset}px)`;
-    }
-
-    // This will be undefined for pendingHighlight
-    if (highlight.elements[0]) {
-      scrollIntoView(highlight.elements[0] as HTMLElement);
     }
   };
 
@@ -99,6 +84,24 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     getCardsPositions();
   }, [getCardsPositions]);
 
+  React.useEffect(() => {
+    if (!focusedHighlight) { return; }
+
+    const position = assertDefined(cardsPositions.get(focusedHighlight.id), `position has to be defined at this step`);
+    const topOffset = getTopOffsetForHighlight(focusedHighlight);
+
+    if (position > topOffset) {
+      assertNotNull(element.current, 'element.current can\'t be null')
+        .style.transform = `translateY(-${position - topOffset}px)`;
+    }
+
+    // This will be undefined for pendingHighlight
+    if (focusedHighlight.elements[0]) {
+      scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedHighlight, cardsPositions]);
+
   return highlights.length
     ? <div className={className} ref={element}>
       {highlights.map((highlight, index) => <Card
@@ -109,7 +112,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         topOffset={cardsPositions.get(highlight.id)}
         resetTopOffset={resetTopOffset}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
-        onFocus={() => onFocus(highlight)}
+        onFocus={() => setFocusedHighlight(highlight)}
         zIndex={highlights.length - index}
       />)}
     </div>
