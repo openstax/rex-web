@@ -55,10 +55,13 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
+  const hasFocusedHighlight = useSelector(selectHighlights.focused);
 
   React.useEffect(() => {
     if (!props.isFocused) {
       setEditing(false);
+    }
+    if (!props.isFocused && !hasFocusedHighlight) {
       props.resetTopOffset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
