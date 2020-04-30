@@ -34,6 +34,9 @@ export function register(): Promise<ServiceWorkerRegistration> {
   if (process.env.NODE_ENV !== 'production') {
     return Promise.reject(new Error('Service worker disabled outside production'));
   }
+  if (process.env.REACT_APP_ENV === 'test') {
+    return Promise.reject(new Error('service worker disabled in testing'));
+  }
 
   // The URL constructor is available in all browsers that support SW.
   const publicUrl = new URL(
