@@ -8,7 +8,7 @@ chardet==3.0.4
 chromedriver-binary==83.0.4103.14.0
 cryptography==2.9.2
 Faker==4.0.3
-identify==1.4.13
+identify==1.4.15
 idna==2.9
 importlib-metadata==1.6.0
 more-itertools==8.2.0
