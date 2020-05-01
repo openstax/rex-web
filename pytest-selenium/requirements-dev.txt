@@ -19,7 +19,7 @@ pre-commit==2.3.0
 py==1.8.1
 pyAesCrypt==0.4.3
 pycparser==2.20
-pyparsing==2.4.6
+pyparsing==2.4.7
 PyPOM==2.2.0
 pytest==5.4.1
 pytest-base-url==1.4.1
