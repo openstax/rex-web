@@ -3,10 +3,12 @@
 from math import isclose
 from random import choice
 from string import digits, ascii_letters
+from pytest import approx
 
 from pages.content import Content
 from tests import markers
 from utils import utility
+from utils.utility import Utilities
 
 # fmt: off
 @markers.test_case("C543235")
@@ -127,3 +129,114 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
 
     # AND: Search sidebar is displayed
     assert search_sidebar.is_displayed
+
+
+@markers.test_case("C543239")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_slug):
+    # GIVEN: Book page is loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # Skip any notification/nudge popups
+    while content.notification_present:
+        content.notification.got_it()
+
+    while content.highlighting_CTA_present:
+        content.highlighting_CTA.got_it()
+
+    toolbar = content.toolbar
+    mobile = content.mobile_search_toolbar
+    toc_sidebar = content.sidebar
+    search_sidebar = content.search_sidebar
+    search_term = utility.get_search_term(book_slug)
+
+    if content.is_desktop:
+        # WHEN: Search sidebar is displayed with search results
+        toolbar.search_for(search_term)
+        content.page_loaded_with_search_highlights()
+        from time import sleep
+
+        sleep(5)
+        assert search_sidebar.search_results_present
+
+        initial_scroll_position = content.scroll_position
+        print(initial_scroll_position)
+
+        # AND: TOC is opened
+        toolbar.click_toc_toggle_button()
+
+        # THEN: Search sidebar disappears
+        assert search_sidebar.search_results_not_displayed
+
+        # AND: TOC is displayed
+        assert toc_sidebar.is_displayed
+
+        # AND search string stays in the search box
+        assert toolbar.search_term_displayed_in_search_textbox == search_term
+
+        # AND Content page stays in the same location
+        scroll_position_after_opening_TOC = content.scroll_position
+        print(scroll_position_after_opening_TOC)
+
+        assert scroll_position_after_opening_TOC == initial_scroll_position
+
+        # WHEN TOC is closed
+        toc_sidebar.header.click_toc_toggle_button()
+
+        # THEN search sidebar does not re-appear
+        assert search_sidebar.search_results_not_displayed
+
+        # AND Content page still stays in the same location
+        assert content.scroll_position == initial_scroll_position
+
+        # AND search string still stays in the search box
+        assert toolbar.search_term_displayed_in_search_textbox == search_term
+
+    if content.is_mobile:
+        # WHEN: Search sidebar is displayed with search results
+        mobile.search_for(search_term)
+        from time import sleep
+
+        sleep(5)
+        assert search_sidebar.search_results_present
+
+        # For mobile, content is not visible when search results are displayed.
+        # So click on first search result to store the content scroll position.
+        search_results = content.search_sidebar.search_results(search_term)
+        Utilities.click_option(selenium, element=search_results[0])
+        content.page_loaded_with_search_highlights()
+        from time import sleep
+
+        sleep(5)
+        initial_scroll_position = content.scroll_position
+        print(initial_scroll_position)
+
+        mobile.click_back_to_search_results_button()
+
+        # AND: TOC is opened
+        toolbar.click_toc_toggle_button()
+
+        # THEN: Search sidebar disappears
+        assert search_sidebar.search_results_not_displayed
+
+        # AND: TOC is displayed
+        assert toc_sidebar.is_displayed
+
+        #  WHEN: TOC is closed
+        toc_sidebar.header.click_toc_toggle_button()
+
+        # THEN search sidebar does not re-appear
+        from time import sleep
+
+        sleep(5)
+        assert search_sidebar.search_results_not_displayed
+        print(content.scroll_position)
+
+        # AND Content page still stays in the same location
+        # Perform approximate assert to accomodate the inconsistent content offset in Chrome.
+        assert content.scroll_position == approx(initial_scroll_position, abs=55)
+
+        # AND: search string still stays in the search box
+        toolbar.click_search_icon()
+        assert toolbar.search_term_displayed_in_search_textbox == search_term

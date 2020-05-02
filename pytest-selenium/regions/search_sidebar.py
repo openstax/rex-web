@@ -1,5 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as expected
 
 from regions.base import Region
 from utils.utility import Utilities
@@ -14,6 +15,10 @@ class SearchSidebar(Region):
     _close_sidebar_locator = (By.CSS_SELECTOR, "[class*=CloseIconButton]")
     _no_results_locator = (By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
     _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
+    _search_results_sidebar_locator = (
+        By.XPATH,
+        "//div[@data-testid = 'search-results-sidebar']/ol",
+    )
 
     # fmt: off
     @property
@@ -43,7 +48,6 @@ class SearchSidebar(Region):
                 for result
                 in self.find_elements(*self._search_result_locator)
                 if term in result.get_attribute("textContent")]
-
     # fmt: on
 
     @property
@@ -52,3 +56,17 @@ class SearchSidebar(Region):
             return self.root.is_displayed()
         except NoSuchElementException:
             return False
+
+    @property
+    def search_results_sidebar(self):
+        return self.find_element(*self._search_results_sidebar_locator)
+
+    @property
+    def search_results_present(self):
+        return self.search_results_sidebar.is_displayed
+
+    @property
+    def search_results_not_displayed(self):
+        return self.wait.until(
+            expected.invisibility_of_element_located(self.search_results_sidebar)
+        )

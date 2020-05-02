@@ -166,7 +166,7 @@ class Library(object):
     books = {
         "anatomy-and-physiology": {"default_page": "1-introduction", "search_term": "heart"},
         "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
-        "biology-2e": {"default_page": "1-introduction", "search_term": "bacteria"},
+        "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
         "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
         "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
         "chemistry-atoms-first-2e": {
@@ -235,7 +235,7 @@ class Library(object):
         "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
         "introductory-business-statistics": {
             "default_page": "1-introduction",
-            "search_term": "chi-square distribution",
+            "search_term": "chi-square probabilities",
         },
         "principles-management": {
             "default_page": "1-introduction",

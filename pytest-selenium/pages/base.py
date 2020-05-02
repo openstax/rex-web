@@ -25,6 +25,7 @@ class Page(pypom.Page):
 
     _math_equation_locator = (By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
+    _search_result_locator = (By.CSS_SELECTOR, "[class='search-highlight first text last focus']")
 
     @property
     def loaded(self) -> bool:
@@ -194,3 +195,11 @@ class Page(pypom.Page):
 
         except WebDriverException:
             self.driver.switch_to_window(self.driver.window_handles[n])
+
+    @property
+    def search_result(self):
+        return self.find_element(*self._search_result_locator)
+
+    def page_loaded_with_search_highlights(self):
+        # WebDriverWait(self.driver, 5).until(expected.visibility_of(self.search_result))
+        self.wait.until(expected.visibility_of_element_located(self._search_result_locator))

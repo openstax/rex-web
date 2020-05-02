@@ -47,6 +47,7 @@ class Content(Page):
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
     _buy_book_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
+    _highlight_CTA_locator = (By.CSS_SELECTOR, "[class*=CTAWrapper]")
 
     @property
     def loaded(self) -> bool:
@@ -147,6 +148,26 @@ class Content(Page):
         """
         sleep(0.25)
         return bool(self.find_elements(*self._notification_pop_up_locator))
+
+    @property
+    def highlighting_CTA(self) -> Content.Highlighting_CTA:
+        """Access the highlighting CTA."""
+        if not self.error_shown():
+            box_root = self.find_element(*self._highlight_CTA_locator)
+            return self.Notification(self, box_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}")
+
+    @property
+    def highlighting_CTA_present(self) -> bool:
+        """Return True if highlighting CTA is found.
+
+        :return: ``True`` when a highlighting CTA nudge is present
+        :rtype: bool
+
+        """
+        # Add 5 second delay to sync with the timing when CTA appears
+        self.driver.implicitly_wait(5)
+        return bool(self.find_elements(*self._highlight_CTA_locator))
 
     @property
     def previous_link(self) -> WebElement:
@@ -1406,8 +1427,8 @@ class Content(Page):
             return self.page
 
     class MobileSearchToolbar(Region):
-
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+        _back_to_results_locator = (By.CSS_SELECTOR, "[data-testid='back-to-search-results']")
 
         @property
         def search_textbox(self) -> WebElement:
@@ -1431,6 +1452,13 @@ class Content(Page):
             self.page.search_sidebar.wait_for_region_to_display()
             sleep(0.25)
             return self.page.search_sidebar
+
+        @property
+        def back_to_results(self):
+            return self.find_element(*self._back_to_results_locator)
+
+        def click_back_to_search_results_button(self):
+            Utilities.click_option(self.driver, element=self.back_to_results)
 
     class NavBar(Region):
 
@@ -1608,6 +1636,10 @@ class Content(Page):
         @property
         def search_textbox(self) -> WebElement:
             return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def search_term_displayed_in_search_textbox(self):
+            return self.search_textbox.get_attribute("value")
 
         @property
         def toc_toggle_button(self) -> WebElement:
