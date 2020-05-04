@@ -143,7 +143,7 @@ describe('Dropdown', () => {
       <Dropdown toggle={<button>show more</button>}>
         <DropdownList>
           <DropdownItem message='i18n:highlighting:dropdown:delete' />
-          <DropdownItem onClick={jest.fn} message='i18n:highlighting:dropdown:delete' />
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
         </DropdownList>
       </Dropdown>
     </MessageProvider>);

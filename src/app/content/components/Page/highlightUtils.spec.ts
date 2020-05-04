@@ -38,7 +38,7 @@ describe('updateStyle', () => {
     expect(setStyle).not.toHaveBeenCalled();
   });
 
-  it('insert pending highlight in correct order', async() => {
+  it('inserts pending highlight in correct order', async() => {
     const mockHighlight1 = createMockHighlight('id1') as any as Highlight;
     const pendingHighlight = createMockHighlight('pending') as any as Highlight;
     const mockHighlight2 = createMockHighlight('id2') as any as Highlight;

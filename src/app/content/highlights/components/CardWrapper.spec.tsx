@@ -3,7 +3,8 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import * as domUtils from '../../../domUtils';
-import { assertDocument } from '../../../utils';
+import { assertDocument, remsToPx } from '../../../utils';
+import { cardMarginBottom } from '../constants';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
 
@@ -27,7 +28,7 @@ describe('CardWrapper', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matchnes snapshot when there is no highlights', () => {
+  it('matches snapshot when there is no highlights', () => {
     const component = renderer.create(<CardWrapper
       highlights={[]}
       store={store}
@@ -121,7 +122,7 @@ describe('CardWrapper', () => {
 
     // Position of last card is now 340px - all highlights are positioned 100px from the top
     // Which mean that position of first card is at 100px offsetTop. Since all cards have 100px height
-    // and there is 20px margin between cards, we end up we having 340px offsetTop for third card.
+    // and there is 20px margin between cards, we end up having 340px offsetTop for third card.
     renderer.act(() => {
       const [, , card] = component.root.findAllByType(Card);
       expect(card.props.topOffset).toEqual(340);
@@ -134,35 +135,47 @@ describe('CardWrapper', () => {
     expect(div.style.transform).toEqual('translateY(-240px)');
   });
 
-  it('coverage for onHeightChange', () => {
+  it(`handles card's height changes`, () => {
     const component = renderer.create(<CardWrapper
-      highlights={[createMockHighlight()]}
+      highlights={[createMockHighlight(), createMockHighlight()]}
       store={store}
     />);
 
-    const card = component.root.findByType(Card);
+    const [card1, card2] = component.root.findAllByType(Card);
+    expect(card1.props.topOffset).toEqual(undefined);
+    expect(card2.props.topOffset).toEqual(undefined);
+
     // Update state with a height
     renderer.act(() => {
-      card.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card2.props.onHeightChange({ current: { offsetHeight: 100 }});
     });
+    // We are starting at 100 because of getHighlightTopOffset mock
+    expect(card1.props.topOffset).toEqual(100);
+    expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
 
-    // Noops with height is the same
+    // Noops when height is the same
     renderer.act(() => {
-      card.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
     });
+    expect(card1.props.topOffset).toEqual(100);
+    expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
 
     // Handle null value
     renderer.act(() => {
-      card.props.onHeightChange({ current: { offsetHeight: null }});
+      card1.props.onHeightChange({ current: { offsetHeight: null }});
     });
+    // First card have null height so secondcard starts at the highlight top offset
+    expect(card1.props.topOffset).toEqual(100);
+    expect(card2.props.topOffset).toEqual(100);
 
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 
-  it('coverage for resetTopOffset', () => {
-    const createNodeMock = () => ({
-      style: { top: 0 },
-    });
+  it('correctly resets top offset', () => {
+    const div = assertDocument().createElement('div');
+    div.style.transform = 'translateY(50px)';
+    const createNodeMock = () => div;
 
     const component = renderer.create(<CardWrapper
       highlights={[createMockHighlight()]}
@@ -174,6 +187,6 @@ describe('CardWrapper', () => {
       card.props.resetTopOffset();
     });
 
-    expect(() => component.root.findAllByType(Card)).not.toThrow();
+    expect(div.style.transform).toEqual('');
   });
 });

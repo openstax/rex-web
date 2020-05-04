@@ -67,21 +67,19 @@ describe('highlightManager', () => {
     const component = renderer.create(<Provider store={store}>
       <CardList/>
     </Provider>);
+    // findByType method does not work with memo components (ex. styled components)
+    // https://github.com/facebook/react/issues/17301
     expect(() => component.root.findByType(CardWrapper.type)).not.toThrow();
   });
 
   it('CardList is rendered after update', () => {
     const {CardList, update} = highlightManager(element, () => prop);
-    const mockHighlight = { id: '123', setStyle: jest.fn() } as unknown as HighlightData;
-    prop.highlights = [mockHighlight];
-    Highlighter.mock.instances[0].getHighlight
-      .mockReturnValueOnce(mockHighlight)
-      .mockReturnValueOnce(mockHighlight)
-    ;
     update();
     const component = renderer.create(<Provider store={store}>
       <CardList/>
     </Provider>);
+    // findByType method does not work with memo components (ex. styled components)
+    // https://github.com/facebook/react/issues/17301
     expect(() => component.root.findByType(CardWrapper.type)).not.toThrow();
   });
 

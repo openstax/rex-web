@@ -336,8 +336,6 @@ describe('Card', () => {
 
     dispatch.mockClear();
 
-    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
-
     renderer.act(() => {
       card.props.onClick();
     });
