@@ -7,10 +7,11 @@ import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import Modal from '../../components/Modal';
 import { Body, BodyHeading, Footer, modalPadding } from '../../components/Modal/styles';
-import { Dispatch } from '../../types';
-import { AppState } from '../../types';
+import { labelStyle } from '../../components/Typography';
+import theme from '../../theme';
+import { AppState, Dispatch } from '../../types';
 import { clearCurrentError } from '../actions';
-import { currentError } from '../selectors';
+import { currentError, getMessageIdStack } from '../selectors';
 
 // tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
@@ -18,15 +19,24 @@ const BodyErrorText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+const ErrorList = styled.div`
+  ${labelStyle}
+  font-size: 0.9rem;
+  color: ${theme.color.primary.gray.darker};
+  opacity: 0.6;
+`;
+
+// tslint:disable-next-line:variable-name
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 interface PropTypes {
   error?: Error;
+  stack: string[];
   clearError: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorModal = ({ error, clearError }: PropTypes) => {
+const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
   if (!error) { return null; }
 
   return (
@@ -36,6 +46,9 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
           {(msg) => <BodyHeading>{msg}</BodyHeading>}
         </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
+        {stack.length ? <ErrorList>
+          {stack.slice(0, 4).join(', ')}
+        </ErrorList> : null}
       </Body>
       <Footer>
         <FormattedMessage id='i18n:error:boundary:action-btn-text'>
@@ -43,7 +56,7 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
             data-testid='clear-error'
             onClick={clearError}
             variant='primary'
-            > {msg}
+            >{msg}
           </Button>}
         </FormattedMessage>
       </Footer>
@@ -52,7 +65,10 @@ const ErrorModal = ({ error, clearError }: PropTypes) => {
 };
 
 export default connect(
-  (state: AppState) => ({ error: currentError(state) }),
+  (state: AppState) => ({
+    error: currentError(state),
+    stack: getMessageIdStack(state),
+  }),
   (dispatch: Dispatch) => ({
     clearError: () => dispatch(clearCurrentError()),
   })
