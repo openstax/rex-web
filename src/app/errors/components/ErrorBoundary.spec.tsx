@@ -20,6 +20,7 @@ describe('ErrorBoundary', () => {
       .spyOn(console, 'error')
       .mockImplementation((msg) => msg);
   });
+
   afterEach(() => {
     consoleError.mockRestore();
   });
