@@ -81,7 +81,7 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
-    setAnnotationChangesPending(false);
+    if (hasUnsavedHighlight) { setAnnotationChangesPending(false); }
     setEditing(false);
     onCancel();
   };

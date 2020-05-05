@@ -1,8 +1,10 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
+import debounce from 'lodash/debounce';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
+import { memoize } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
@@ -13,7 +15,7 @@ interface Services {
   searchResultMap: ReturnType<typeof highlightResults>;
 }
 
-export const mapStateToSearchHighlightProp = (state: AppState) => {
+export const mapStateToSearchHighlightProp = memoize((state: AppState) => {
   const searchResults = selectSearch.currentPageResults(state);
   const selectedResult = selectSearch.selectedResult(state);
 
@@ -23,7 +25,7 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
       ? selectedResult
       : null,
   };
-};
+});
 export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 export type OptionsCallback = ({
   current,
@@ -40,13 +42,17 @@ interface Options {
   onSelect: OptionsCallback;
 }
 
+const refreshHighlights = debounce((services: Services, current: HighlightProp) => {
+  services.highlighter.eraseAll();
+  services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
+}, 200);
+
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
   if (!options.forceRedraw && previous.searchResults === current.searchResults) {
     return;
   }
 
-  services.highlighter.eraseAll();
-  services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
+  refreshHighlights(services, current);
 };
 
 const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
