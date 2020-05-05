@@ -12,7 +12,7 @@ import * as contentSelect from '../../selectors';
 import { cardMarginBottom } from '../constants';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { getHighlightTopOffset } from './cardUtils';
+import { getHighlightTopOffset, useDebouncedWindowSize } from './cardUtils';
 import { useOnClickOutside } from './utils/onClickOutside';
 
 export interface WrapperProps {
@@ -31,6 +31,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
   const [topOffsets, setTopOffsets] = React.useState<Map<string, number>>(new Map());
   const [focusedHighlight, setFocusedHighlight] = React.useState<Highlight | null>(null);
+  const [width] = useDebouncedWindowSize();
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -116,7 +117,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
       {highlights.map((highlight, index) => <Card
         highlighter={highlighter}
         highlight={highlight}
-        key={highlight.id}
+        // Rerender cards on window resize to trigger their height calculations.
+        // It's better to do it here than using hooks like useDebouncedWindowSize for each Card.
+        key={highlight.id + width}
         container={container}
         topOffset={cardsPositions.get(highlight.id)}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
