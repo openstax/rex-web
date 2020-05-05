@@ -112,6 +112,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   <div
     isFocused={false}
     mock-truncated-text={true}
+    onChange={[Function]}
   />
 </div>
 `;
@@ -228,6 +229,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   <div
     isFocused={true}
     mock-truncated-text={true}
+    onChange={[Function]}
   />
 </div>
 `;

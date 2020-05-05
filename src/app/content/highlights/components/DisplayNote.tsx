@@ -47,6 +47,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
   const confirmationRef = React.useRef<HTMLElement>(null);
+  const [textToggle, setTextToggle] = React.useState(false);
 
   useOnClickOutside(element, isFocused, onBlur, { capture: true });
 
@@ -63,7 +64,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     const refElement = confirmationRef.current ? confirmationRef : element;
     onHeightChange(refElement);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, confirmationRef, confirmingDelete]);
+  }, [element, confirmationRef, confirmingDelete, textToggle]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuToggle />}>
@@ -78,7 +79,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
-    <TruncatedText text={note} isFocused={isFocused} />
+    <TruncatedText text={note} isFocused={isFocused} onChange={() => setTextToggle(!textToggle)} />
     {confirmingDelete && <Confirmation
       ref={confirmationRef}
       data-analytics-label='delete'
