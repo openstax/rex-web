@@ -49,7 +49,6 @@ describe('Card', () => {
       highlight: highlight as unknown as Highlight,
       onFocus: () => null,
       onHeightChange: () => null,
-      resetTopOffset: () => null,
     };
   });
 

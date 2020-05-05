@@ -6,7 +6,7 @@ import { assertDocument, assertWindow } from '../../../../utils';
 const onClickOutside = (
   element: React.RefObject<HTMLElement>,
   isFocused: boolean,
-  cb: () => void,
+  cb: (ev: MouseEvent) => void,
   eventOptions?: EventListenerOptions
 ) => () => {
   if (typeof document === 'undefined') {
@@ -20,7 +20,7 @@ const onClickOutside = (
     if (!element.current || elementDescendantOf(e.target, element.current)) {
       return;
     }
-    cb();
+    cb(e);
   };
 
   if (isFocused) {
@@ -33,7 +33,7 @@ const onClickOutside = (
 export const useOnClickOutside = (
   element: React.RefObject<HTMLElement>,
   isEnabled: boolean,
-  cb: () => void,
+  cb: (e: MouseEvent) => void,
   eventOptions?: EventListenerOptions
 ) => {
   React.useEffect(onClickOutside(element, isEnabled, cb, eventOptions), [isEnabled]);

@@ -23,7 +23,6 @@ exports[`CardWrapper matches snapshot 1`] = `
     }
     onFocus={[Function]}
     onHeightChange={[Function]}
-    resetTopOffset={[Function]}
     zIndex={1}
   />
 </div>

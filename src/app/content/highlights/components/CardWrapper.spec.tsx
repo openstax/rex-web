@@ -172,21 +172,64 @@ describe('CardWrapper', () => {
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 
-  it('correctly resets top offset', () => {
-    const div = assertDocument().createElement('div');
+  it('resets top offset when clicked outside of CardWrapper', () => {
+    const document = assertDocument();
+    const div = document.createElement('div');
     div.style.transform = 'translateY(50px)';
+    const sibling = document.createElement('div');
     const createNodeMock = () => div;
+    const addEventListener: jest.SpyInstance = jest.spyOn(document, 'addEventListener');
 
-    const component = renderer.create(<CardWrapper
+    renderer.create(<CardWrapper
       highlights={[createMockHighlight()]}
       store={store}
     />, {createNodeMock});
 
-    const card = component.root.findByType(Card);
-    renderer.act(() => {
-      card.props.resetTopOffset();
+    // Wait for useOnClickOutside
+    renderer.act(() => undefined);
+
+    addEventListener.mock.calls[0][1]({
+      target: sibling,
     });
 
     expect(div.style.transform).toEqual('');
+  });
+
+  it('does not reset topOffset when clicked inside of CardWrapper or on a highlight', () => {
+    const document = assertDocument();
+    const div = document.createElement('div');
+    div.style.transform = 'translateY(50px)';
+    const child = document.createElement('div');
+    div.append(child);
+    const highlight = document.createElement('span');
+    highlight.className = 'highlight';
+    const createNodeMock = () => div;
+    const addEventListener: jest.SpyInstance = jest.spyOn(document, 'addEventListener');
+
+    renderer.create(<CardWrapper
+      highlights={[createMockHighlight()]}
+      store={store}
+    />, {createNodeMock});
+
+    // Wait for useOnClickOutside
+    renderer.act(() => undefined);
+
+    addEventListener.mock.calls[0][1]({
+      target: child,
+    });
+
+    // Make sure that component's state is updated
+    renderer.act(() => undefined);
+
+    expect(div.style.transform).toEqual('translateY(50px)');
+
+    addEventListener.mock.calls[0][1]({
+      target: highlight,
+    });
+
+    // Make sure that component's state is updated
+    renderer.act(() => undefined);
+
+    expect(div.style.transform).toEqual('translateY(50px)');
   });
 });

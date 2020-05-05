@@ -1,9 +1,10 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
+import { isHtmlElement } from '../../../guards';
 import { AppState } from '../../../types';
 import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
@@ -12,6 +13,7 @@ import { cardMarginBottom } from '../constants';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
 import { getHighlightTopOffset } from './cardUtils';
+import { useOnClickOutside } from './utils/onClickOutside';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -35,10 +37,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     if (cardsHeights.get(id) !== height) {
       setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
     }
-  };
-
-  const resetTopOffset = () => {
-    assertNotNull(element.current, 'element.current can\'t be null').style.transform = '';
   };
 
   const getTopOffsetForHighlight = (highlight: Highlight) => {
@@ -80,6 +78,14 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlights, cardsHeights]);
 
+  useOnClickOutside(element, true, (ev: MouseEvent) => {
+    // Clicking on a highlight will dispatch focus and topOffset for the CardWrapper
+    // will be updated smoothly. If user clicks somewhere eles we want to reset topOffset.
+    if (!isHtmlElement(ev.target) || !ev.target.classList.contains('highlight')) {
+      assertNotNull(element.current, 'element.current can\'t be null').style.transform = '';
+    }
+  });
+
   React.useEffect(() => {
     getCardsPositions();
   }, [getCardsPositions]);
@@ -113,7 +119,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         key={highlight.id}
         container={container}
         topOffset={cardsPositions.get(highlight.id)}
-        resetTopOffset={resetTopOffset}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
         onFocus={() => setFocusedHighlight(highlight)}
         zIndex={highlights.length - index}
