@@ -184,30 +184,30 @@ export const mainWrapperStyles = css`
   position: relative;
   overflow: visible;
   z-index: ${theme.zIndex.highlightInlineCard};
-  top: 0;
+  transform: auto;
   transition: all 0.3s;
 
   ${(props: WrapperProps) => (props.isTocOpen === null || props.isTocOpen) && css`
     @media ${minimalWidthForCardsWithToc} {
       /* override js inline styles for display of all cards while using overlap display */
-      top: 0 !important;
+      transform: auto !important;
     }
   `}
 
   ${(props: WrapperProps) => props.hasQuery && css`
     @media (max-width: ${minimalWidthForCardsWithSearchResults}em) {
       /* override js inline styles for display of all cards while using overlap display */
-      top: 0 !important;
+      transform: auto !important;
     }
   `}
 
   @media ${minimalWidthForCards} {
     /* override js inline styles for display of all cards while using overlap display */
-    top: 0 !important;
+    transform: auto !important;
   }
 
   ${theme.breakpoints.mobile(css`
     /* override js inline styles for display of all cards while using overlap display */
-    top: 0 !important;
+    transform: auto !important;
   `)}
 `;
