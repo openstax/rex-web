@@ -86,8 +86,11 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   React.useEffect(() => {
     if (!focusedHighlight) { return; }
-
-    const position = assertDefined(cardsPositions.get(focusedHighlight.id), `position has to be defined at this step`);
+    const position = cardsPositions.get(focusedHighlight.id);
+    // This may be undefined in case of changing a page when highlight is focused
+    // because highlights will be already cleared and this function will try to run
+    // before page changes.
+    if (!position) { return; }
     const topOffset = getTopOffsetForHighlight(focusedHighlight);
 
     if (position > topOffset) {
