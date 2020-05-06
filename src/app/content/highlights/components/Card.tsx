@@ -24,6 +24,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import showConfirmation from './utils/showConfirmation';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -88,8 +89,8 @@ const Card = (props: CardProps) => {
     return null;
   }
 
-  const handleClickOnCard = (e: React.MouseEvent) => {
-    if (!props.isFocused) {
+  const handleClickOnCard = async(e: React.MouseEvent) => {
+    if (!props.isFocused && (!hasUnsavedHighlight || await showConfirmation())) {
       e.preventDefault();
       props.focus(props.highlight.id);
     }
