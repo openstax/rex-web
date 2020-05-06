@@ -1,6 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import debounce from 'lodash/debounce';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
@@ -42,17 +41,13 @@ interface Options {
   onSelect: OptionsCallback;
 }
 
-const refreshHighlights = debounce((services: Services, current: HighlightProp) => {
-  services.highlighter.eraseAll();
-  services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
-}, 200);
-
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
   if (!options.forceRedraw && previous.searchResults === current.searchResults) {
     return;
   }
 
-  refreshHighlights(services, current);
+  services.highlighter.eraseAll();
+  services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
 const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {

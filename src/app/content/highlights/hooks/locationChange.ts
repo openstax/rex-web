@@ -39,10 +39,6 @@ const loadAllHighlights = async(args: LoadAllHighlightsArgs): Promise<HighlightD
   }
 };
 
-// const didntChangeLocation = () => {
-  
-// }
-
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
   const {dispatch, getState, highlightClient} = services;
   const state = getState();
