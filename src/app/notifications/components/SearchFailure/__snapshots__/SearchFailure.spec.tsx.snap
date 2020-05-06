@@ -2,25 +2,25 @@
 
 exports[`SearchFailure matches snapshot 1`] = `
 <div
-  className="jkHHkz"
+  className="styles__BannerBodyWrapper-sc-1vrc3f8-0 jkHHkz"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
   <div
-    className="ddygX"
+    className="styles__BannerBody-sc-1vrc3f8-1 ddygX"
   >
     <div
-      className="jGwlNH"
+      className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
       We're unable to find that search result. Please try another.
     </div>
     <button
-      className="licVaD"
+      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-sc-1vrc3f8-3 licVaD"
       onClick={[MockFunction]}
     >
       <svg
         aria-hidden="true"
-        className="kOCAmR"
+        className="styles__CloseIcon-sc-1vrc3f8-2 kOCAmR"
         focusable="false"
         height="15px"
         version="1.1"
@@ -54,25 +54,25 @@ exports[`SearchFailure matches snapshot 1`] = `
 
 exports[`SearchFailure matches snapshot when mobile toolbar is open 1`] = `
 <div
-  className="gnvDRu"
+  className="styles__BannerBodyWrapper-sc-1vrc3f8-0 gnvDRu"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
   <div
-    className="ddygX"
+    className="styles__BannerBody-sc-1vrc3f8-1 ddygX"
   >
     <div
-      className="jGwlNH"
+      className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
       We're unable to find that search result. Please try another.
     </div>
     <button
-      className="licVaD"
+      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-sc-1vrc3f8-3 licVaD"
       onClick={[MockFunction]}
     >
       <svg
         aria-hidden="true"
-        className="kOCAmR"
+        className="styles__CloseIcon-sc-1vrc3f8-2 kOCAmR"
         focusable="false"
         height="15px"
         version="1.1"
