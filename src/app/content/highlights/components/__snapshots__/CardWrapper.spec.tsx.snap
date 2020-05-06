@@ -21,7 +21,6 @@ exports[`CardWrapper matches snapshot 1`] = `
         "setStyle": [MockFunction],
       }
     }
-    onFocus={[Function]}
     onHeightChange={[Function]}
     zIndex={1}
   />

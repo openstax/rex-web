@@ -6,6 +6,7 @@ import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
+import TruncatedText from './TruncatedText';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./TruncatedText', () => (props: any) => <div mock-truncated-text {...props} />);
@@ -18,8 +19,7 @@ describe('DisplayNote', () => {
     displayNoteProps = {
       onBlur: doNothing,
       onEdit: doNothing,
-      onFocus: jest.fn(),
-      onHeightChange: doNothing,
+      onHeightChange: jest.fn(),
       onRemove: jest.fn(),
       style: highlightStyles[0],
     };
@@ -135,6 +135,19 @@ describe('DisplayNote', () => {
     renderer.act(() => {});
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
-    expect(displayNoteProps.onFocus).toHaveBeenCalledTimes(2);
+  });
+
+  it('calls onHeightChange when textToggle state changes', () => {
+    const component = renderer.create(<MessageProvider onError={doNothing}>
+      <DisplayNote {...displayNoteProps} isFocused={false} />
+    </MessageProvider>);
+
+    const trucatedText = component.root.findByType(TruncatedText);
+
+    renderer.act(() => {
+      trucatedText.props.onChange();
+    });
+
+    expect(displayNoteProps.onHeightChange).toHaveBeenCalled();
   });
 });

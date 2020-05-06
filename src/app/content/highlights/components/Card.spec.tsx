@@ -15,7 +15,13 @@ import { receiveBook, receivePage } from '../../actions';
 import { openToc } from '../../actions';
 import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
-import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
+import {
+  createHighlight,
+  deleteHighlight,
+  focusHighlight,
+  receiveHighlights,
+  setAnnotationChangesPending,
+} from '../actions';
 import { highlightStyles } from '../constants';
 import { highlightLocationFilters } from '../selectors';
 import { HighlightData } from '../types';
@@ -23,6 +29,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import Card, { CardProps } from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import showConfirmation from './utils/showConfirmation';
 
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
@@ -30,6 +37,7 @@ jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef
 jest.mock('./EditCard', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-edit {...props} />
 ));
+jest.mock('./utils/showConfirmation', () => jest.fn(() => new Promise((res) => res(true))));
 
 describe('Card', () => {
   let store: Store;
@@ -47,7 +55,6 @@ describe('Card', () => {
     cardProps = {
       blur: jest.fn(),
       highlight: highlight as unknown as Highlight,
-      onFocus: () => null,
       onHeightChange: () => null,
     };
   });
@@ -341,5 +348,26 @@ describe('Card', () => {
 
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
     expect(preventDefault).toHaveBeenCalledTimes(1);
+  });
+
+  it('displays confirm dialog when there are unsaved changes and user clicks on another card', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights([
+      { id: highlightData.id, annotation: 'asd' },
+    ] as HighlightData[]));
+
+    store.dispatch(setAnnotationChangesPending(true));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card {...cardProps} isFocused={false} />
+    </Provider>);
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    await renderer.act(async() => {
+      card.props.onClick({preventDefault: () => null});
+    });
+
+    expect(showConfirmation).toHaveBeenCalled();
   });
 });
