@@ -39,7 +39,6 @@ describe('EditCard', () => {
       onBlur: jest.fn(),
       onCancel: jest.fn(),
       onCreate: jest.fn(),
-      onFocus: () => null,
       onRemove: jest.fn(),
       setAnnotationChangesPending: jest.fn(),
     };
@@ -570,7 +569,7 @@ describe('EditCard', () => {
       </Provider>
     );
 
-    onClickOutside.mock.calls[0][2]();
+    onClickOutside.mock.calls[0][2]({} as any);
 
     expect(component).toBeTruthy();
     expect(onClickOutside.mock.calls.length).toBe(1);
@@ -604,7 +603,7 @@ describe('EditCard', () => {
       note.props.onChange('asdf');
     });
 
-    onClickOutside.mock.calls[1][2]();
+    onClickOutside.mock.calls[1][2]({} as any);
 
     expect(onClickOutside.mock.calls.length).toBe(2);
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
