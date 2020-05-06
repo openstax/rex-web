@@ -109,11 +109,21 @@ def book_slug():
 
 @pytest.fixture
 def email(store):
+    """ Random user email fetched from secure store
+
+    :param store: secure store decrypt file
+    :return: user email -> str
+    """
     user_info = random.choice((store.get("_user_info")))
     return user_info["email"]
 
 
 @pytest.fixture
 def password(store):
+    """ Random user password fetched from secure store
+
+    :param store: secure store decrypt file
+    :return: user password -> str
+    """
     user_info = random.choice((store.get("_user_info")))
     return user_info["password"]
