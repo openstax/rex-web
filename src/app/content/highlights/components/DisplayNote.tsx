@@ -34,14 +34,13 @@ export interface DisplayNoteProps {
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
-  onFocus: () => void;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isFocused, onBlur, onEdit, onRemove, onFocus, onHeightChange, className},
+  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, className},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -54,8 +53,6 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   React.useEffect(() => {
     if (!isFocused) {
       setConfirmingDelete(false);
-    } else {
-      onFocus();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);

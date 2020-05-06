@@ -1,19 +1,18 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
-import { isHtmlElement } from '../../../guards';
 import { AppState } from '../../../types';
 import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { cardMarginBottom } from '../constants';
+import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
 import { getHighlightTopOffset, useDebouncedWindowSize } from './cardUtils';
-import { useOnClickOutside } from './utils/onClickOutside';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -30,8 +29,11 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
   const [topOffsets, setTopOffsets] = React.useState<Map<string, number>>(new Map());
-  const [focusedHighlight, setFocusedHighlight] = React.useState<Highlight | null>(null);
   const [width] = useDebouncedWindowSize();
+  const focusedId = useSelector(focused);
+  const focusedHighlight = React.useMemo(
+    () => highlights.find((highlight) => highlight.id === focusedId),
+    [focusedId, highlights]);
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -79,13 +81,11 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlights, cardsHeights]);
 
-  useOnClickOutside(element, true, (ev: MouseEvent) => {
-    // Clicking on a highlight will dispatch focus and topOffset for the CardWrapper
-    // will be updated smoothly. If user clicks somewhere eles we want to reset topOffset.
-    if (!isHtmlElement(ev.target) || !ev.target.classList.contains('highlight')) {
-      assertNotNull(element.current, 'element.current can\'t be null').style.transform = '';
+  React.useEffect(() => {
+    if (!focusedHighlight && element.current) {
+      element.current.style.transform = '';
     }
-  });
+  }, [focusedHighlight]);
 
   React.useEffect(() => {
     getCardsPositions();
@@ -123,7 +123,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         container={container}
         topOffset={cardsPositions.get(highlight.id)}
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
-        onFocus={() => setFocusedHighlight(highlight)}
         zIndex={highlights.length - index}
       />)}
     </div>

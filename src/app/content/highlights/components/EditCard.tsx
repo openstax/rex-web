@@ -34,7 +34,6 @@ export interface EditCardProps {
   setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
   onRemove: () => void;
   onCancel: () => void;
-  onFocus: () => void;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
@@ -88,9 +87,6 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   React.useEffect(() => {
     if (element.current) {
       props.onHeightChange(element);
-    }
-    if (props.isFocused) {
-      props.onFocus();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, editingAnnotation, props.isFocused]);
