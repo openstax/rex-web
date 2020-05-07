@@ -18,6 +18,7 @@ import { CloseSidebarControl, ToCButtonText } from '../../SidebarControl';
 import { toolbarIconStyles } from '../../Toolbar/iconStyles';
 import { disablePrint } from '../../utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../utils/sidebar';
+import { keyFrameExampleOne } from './keyframeExamples';
 
 const sidebarPadding = 1.8;
 
@@ -42,10 +43,20 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
-  transition:
+  /*transition:
     transform ${sidebarTransitionTime}ms ease-in-out,
     box-shadow ${sidebarTransitionTime}ms ease-in-out,
-    background-color ${sidebarTransitionTime}ms ease-in-out;
+    background-color ${sidebarTransitionTime}ms ease-in-out;*/
+
+  animation-name: ${keyFrameExampleOne};
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+
   background-color: ${theme.color.neutral.darker};
   z-index: ${theme.zIndex.sidebar};
   margin-left: -50vw;
