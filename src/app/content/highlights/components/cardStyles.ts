@@ -105,7 +105,7 @@ export const mainCardStyles = css`
   ${disablePrint}
 
   z-index: ${(props: CardProps) => props.zIndex};
-  transition: all 0.3s;
+  transition: opacity 0.3s, top 0.3s, left 0.3s;
 
   ${DropdownList} {
     z-index: 1;
@@ -185,7 +185,7 @@ export const mainWrapperStyles = css`
   overflow: visible;
   z-index: ${theme.zIndex.highlightInlineCard};
   transform: auto;
-  transition: all 0.3s;
+  transition: transform 0.3s;
 
   ${(props: WrapperProps) => (props.isTocOpen === null || props.isTocOpen) && css`
     @media ${minimalWidthForCardsWithToc} {

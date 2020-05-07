@@ -569,7 +569,7 @@ describe('EditCard', () => {
       </Provider>
     );
 
-    onClickOutside.mock.calls[0][2]({} as any);
+    onClickOutside.mock.calls[0][2]();
 
     expect(component).toBeTruthy();
     expect(onClickOutside.mock.calls.length).toBe(1);
@@ -603,7 +603,7 @@ describe('EditCard', () => {
       note.props.onChange('asdf');
     });
 
-    onClickOutside.mock.calls[1][2]({} as any);
+    onClickOutside.mock.calls[1][2]();
 
     expect(onClickOutside.mock.calls.length).toBe(2);
     expect(editCardProps.onBlur).not.toHaveBeenCalled();

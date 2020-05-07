@@ -55,7 +55,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   };
 
-  const getCardsPositions = React.useCallback(() => {
+  const updateCardsPositions = React.useCallback(() => {
     const newPositions: Map<string, number> = new Map();
 
     let lastVisibleCardPosition = 0;
@@ -77,7 +77,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
 
     setCardsPositions(newPositions);
-    return newPositions;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlights, cardsHeights]);
 
@@ -87,9 +86,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   }, [focusedHighlight]);
 
-  React.useEffect(() => {
-    getCardsPositions();
-  }, [getCardsPositions]);
+  React.useEffect(updateCardsPositions, [updateCardsPositions]);
 
   React.useEffect(() => {
     if (!focusedHighlight) { return; }

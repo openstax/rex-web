@@ -48,6 +48,8 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const confirmationRef = React.useRef<HTMLElement>(null);
   const [textToggle, setTextToggle] = React.useState(false);
 
+  // Change Event phase so when clicking on another Card,
+  // onBlur is called before this Card calls focus.
   useOnClickOutside(element, isFocused, onBlur, { capture: true });
 
   React.useEffect(() => {
@@ -76,7 +78,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
-    <TruncatedText text={note} isFocused={isFocused} onChange={() => setTextToggle(!textToggle)} />
+    <TruncatedText text={note} isFocused={isFocused} onChange={() => setTextToggle((state) => !state)} />
     {confirmingDelete && <Confirmation
       ref={confirmationRef}
       data-analytics-label='delete'

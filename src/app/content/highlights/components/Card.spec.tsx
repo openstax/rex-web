@@ -318,7 +318,6 @@ describe('Card', () => {
   });
 
   it('focuses on click only if it is not already focused', () => {
-    const preventDefault = jest.fn();
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights([
@@ -333,10 +332,8 @@ describe('Card', () => {
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
     renderer.act(() => {
-      card.props.onClick({preventDefault});
+      card.props.onClick();
     });
-
-    expect(preventDefault).toHaveBeenCalled();
 
     expect(dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
@@ -347,7 +344,6 @@ describe('Card', () => {
     });
 
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
-    expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 
   it('displays confirm dialog when there are unsaved changes and user clicks on another card', async() => {
@@ -365,7 +361,7 @@ describe('Card', () => {
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
     await renderer.act(async() => {
-      card.props.onClick({preventDefault: () => null});
+      card.props.onClick();
     });
 
     expect(showConfirmation).toHaveBeenCalled();

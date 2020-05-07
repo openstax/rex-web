@@ -4,15 +4,15 @@ import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { assertWindow } from '../../../utils';
 
-let timeout = 0;
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();
+  const timeout = React.useRef(0);
   const [size, setSize] = React.useState([0, 0]);
 
   React.useLayoutEffect(() => {
     const updateSize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
+      clearTimeout(timeout.current);
+      timeout.current = setTimeout(() => {
         setSize([window.innerWidth, window.innerHeight]);
       }, 50);
     };

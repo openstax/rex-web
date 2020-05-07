@@ -88,9 +88,8 @@ const Card = (props: CardProps) => {
     return null;
   }
 
-  const handleClickOnCard = async(e: React.MouseEvent) => {
+  const handleClickOnCard = async() => {
     if (!props.isFocused && (!hasUnsavedHighlight || await showConfirmation())) {
-      e.preventDefault();
       props.focus(props.highlight.id);
     }
   };
