@@ -6,6 +6,8 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
+import { openToc } from '../../actions';
+import { requestSearch } from '../../search/actions';
 import { clearFocusedHighlight, focusHighlight } from '../actions';
 import { cardMarginBottom } from '../constants';
 import Card from './Card';
@@ -49,6 +51,32 @@ describe('CardWrapper', () => {
     </Provider>);
 
     expect(component.root.findAllByType(Card).length).toBe(2);
+  });
+
+  it('rerenders cards when specific props changes', () => {
+    const highlight = createMockHighlight();
+    const mockWindowWidth = 0;
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>);
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      const key = highlight.id + mockWindowWidth + 'false' + 'null';
+      expect((card as any)._fiber.key).toEqual(key);
+    });
+
+    renderer.act(() => {
+      store.dispatch(openToc());
+      store.dispatch(requestSearch('asdf'));
+    });
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      const key = highlight.id + mockWindowWidth + 'true' + 'false';
+      expect((card as any)._fiber.key).toEqual(key);
+    });
   });
 
   it('scrolls to card when focused', () => {
