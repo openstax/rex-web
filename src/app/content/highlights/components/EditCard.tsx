@@ -57,11 +57,12 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const trackShowLogin = useAnalyticsEvent('showLogin');
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
-  const blurIfNotEditing = () => {
-    if (!editingAnnotation) {
+  const blurIfNotEditing = React.useCallback(() => {
+    if (!props.hasUnsavedHighlight) {
       props.onBlur();
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.hasUnsavedHighlight]);
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
@@ -82,7 +83,10 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  React.useEffect(onClickOutside(element, props.isFocused, blurIfNotEditing), [props.isFocused, editingAnnotation]);
+  React.useEffect(
+    onClickOutside(element, props.isFocused, blurIfNotEditing, { capture: true }),
+    [props.isFocused, blurIfNotEditing]
+  );
 
   React.useEffect(() => {
     if (element.current) {
@@ -131,7 +135,6 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
 
   const updateUnsavedHighlightStatus = (newValue: string) => {
     const currentValue = props.data && props.data.annotation ? props.data.annotation : '';
-
     if (currentValue !== newValue && !props.hasUnsavedHighlight) {
       props.setAnnotationChangesPending(true);
     }
