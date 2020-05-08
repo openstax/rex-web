@@ -16,7 +16,7 @@ jest.mock('../selectors', () => ({
 
 describe('focused', () => {
   it('gets focused highlight id', () => {
-    expect(select.focused({focused: 'asdf'} as any)).toEqual('asdf');
+    expect(select.focused({currentPage: {focused: 'asdf'}} as any)).toEqual('asdf');
   });
 });
 
