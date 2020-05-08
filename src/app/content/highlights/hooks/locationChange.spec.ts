@@ -71,7 +71,7 @@ describe('locationChange', () => {
 
     const mock = mockHighlight();
     const highlights = [{id: mock.id} as HighlightData];
-    store.dispatch(receiveHighlights(highlights));
+    store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
     hook(locationChange({} as any));
 
@@ -86,11 +86,25 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    store.dispatch(receiveHighlights(highlights));
+    store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
     const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     hook(receivePageFocus(false));
+
+    expect(getHighlights).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops when highlights for specific page are already loading', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+    store.dispatch(receiveHighlights({highlights: [], pageId: page.id}));
+
+    const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
+
+    await hook();
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -109,7 +123,7 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlights({highlights, pageId: page.id}));
   });
 
   it('receives multiple pages of highlights', async() => {
@@ -129,6 +143,6 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlights({highlights, pageId: page.id}));
   });
 });
