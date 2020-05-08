@@ -5,13 +5,15 @@ import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
-import { assertDocument, remsToPx } from '../../../utils';
+import { assertDocument, assertWindow, remsToPx } from '../../../utils';
 import { openToc } from '../../actions';
 import { requestSearch } from '../../search/actions';
 import { clearFocusedHighlight, focusHighlight } from '../actions';
 import { cardMarginBottom } from '../constants';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
+
+jest.useFakeTimers();
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 
@@ -55,7 +57,8 @@ describe('CardWrapper', () => {
 
   it('rerenders cards when specific props changes', () => {
     const highlight = createMockHighlight();
-    const mockWindowWidth = 0;
+    const mockWindowWidth = 1024;
+    const addEventListener: jest.SpyInstance = jest.spyOn(assertWindow(), 'addEventListener');
 
     const component = renderer.create(<Provider store={store}>
       <CardWrapper highlights={[highlight]} />
@@ -66,6 +69,10 @@ describe('CardWrapper', () => {
       const key = highlight.id + mockWindowWidth + 'false' + 'null';
       expect((card as any)._fiber.key).toEqual(key);
     });
+
+    // Call updateSize() for `resize` event listener in useDebouncedWindowSize
+    addEventListener.mock.calls[7][1]();
+    jest.runAllTimers();
 
     renderer.act(() => {
       store.dispatch(openToc());
