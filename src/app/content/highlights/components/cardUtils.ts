@@ -17,7 +17,10 @@ export const useDebouncedWindowSize = () => {
       }, 50);
     };
     window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    return () => {
+      clearTimeout(timeout.current);
+      window.removeEventListener('resize', updateSize);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
