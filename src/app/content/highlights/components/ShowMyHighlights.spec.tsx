@@ -54,16 +54,19 @@ describe('Show my highlights', () => {
   it('renders through pop up with user Highlights', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -89,7 +92,7 @@ describe('Show my highlights', () => {
   it('does not render show my highlights without highlights', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([]));
+      store.dispatch(receiveHighlights({highlights: [], pageId: '123'}));
     });
 
     const render = () => {
@@ -257,16 +260,19 @@ describe('Show my highlights', () => {
 
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const {root} = renderToDom(<Provider store={store}>
@@ -314,16 +320,19 @@ describe('Show my highlights', () => {
 
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const {root} = renderToDom(<Provider store={store}>
@@ -370,16 +379,19 @@ describe('Show my highlights', () => {
   it('unmounts without refs', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const component = renderer.create(<Provider store={store}>
