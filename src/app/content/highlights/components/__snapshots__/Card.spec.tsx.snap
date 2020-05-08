@@ -80,7 +80,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa JWozj"
+    className="sc-bdVaJa fszlXc"
     data={
       Object {
         "id": "asdf",
