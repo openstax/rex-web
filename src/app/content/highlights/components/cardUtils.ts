@@ -7,7 +7,7 @@ import { assertWindow } from '../../../utils';
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();
   const timeout = React.useRef(0);
-  const [size, setSize] = React.useState([0, 0]);
+  const [size, setSize] = React.useState([window.innerWidth, window.innerHeight]);
 
   React.useLayoutEffect(() => {
     const updateSize = () => {
@@ -17,7 +17,6 @@ export const useDebouncedWindowSize = () => {
       }, 50);
     };
     window.addEventListener('resize', updateSize);
-    updateSize();
     return () => window.removeEventListener('resize', updateSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
