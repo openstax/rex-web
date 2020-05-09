@@ -107,7 +107,7 @@ function archiveProxy(app) {
   archivePaths.forEach(path => app.use(proxy(path, {
     target: `${ARCHIVE_URL}${path}`,
     prependPath: false,
-    changeOrigin: true,
+    changeOrigin: false,
   })));
 }
 
