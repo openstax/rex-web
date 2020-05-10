@@ -216,7 +216,6 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         # Loop through the words in search term and assert if atleast one of them is highlighted in the book
         focussed_search_term = re.findall(r"\w+", search_term)
         for x in focussed_search_term:
-            print(x)
             try:
                 assert book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
 
