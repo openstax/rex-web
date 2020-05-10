@@ -168,7 +168,7 @@ class Content(Page):
         :rtype: bool
 
         """
-        self.driver.implicitly_wait(5)
+        sleep(5)
         return bool(self.find_elements(*self._highlight_CTA_locator))
 
     @property
