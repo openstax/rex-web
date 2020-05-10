@@ -161,11 +161,13 @@ class Content(Page):
     def highlighting_CTA_present(self) -> bool:
         """Return True if highlighting CTA is found.
 
+        Add 5 second delay to sync with the timing when CTA appears
+        and then check if the CTA appears.
+
         :return: ``True`` when a highlighting CTA nudge is present
         :rtype: bool
 
         """
-        # Add 5 second delay to sync with the timing when CTA appears
         self.driver.implicitly_wait(5)
         return bool(self.find_elements(*self._highlight_CTA_locator))
 
@@ -1450,7 +1452,7 @@ class Content(Page):
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_textbox)
             self.page.search_sidebar.wait_for_region_to_display()
-            sleep(0.25)
+            sleep(0.5)
             return self.page.search_sidebar
 
         @property

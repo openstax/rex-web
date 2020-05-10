@@ -164,7 +164,10 @@ class Highlight:
 class Library(object):
 
     books = {
-        "anatomy-and-physiology": {"default_page": "1-introduction", "search_term": "heart"},
+        "anatomy-and-physiology": {
+            "default_page": "1-introduction",
+            "search_term": "20 percent oxygen",
+        },
         "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
         "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
         "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
