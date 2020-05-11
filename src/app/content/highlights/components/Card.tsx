@@ -118,6 +118,7 @@ const Card = (props: CardProps) => {
 
   const commonProps = {
     className: props.className,
+    highlight: props.highlight,
     isFocused: props.isFocused,
     onBlur: props.blur,
     onHeightChange: props.onHeightChange,
@@ -131,10 +132,10 @@ const Card = (props: CardProps) => {
         {...commonProps}
         style={style}
         note={annotation}
+        focus={props.focus}
         onEdit={() => setEditing(true)}
       /> : <EditCard
         {...commonProps}
-        highlight={props.highlight}
         locationFilterId={locationFilterId}
         hasUnsavedHighlight={hasUnsavedHighlight}
         pageId={page.id}

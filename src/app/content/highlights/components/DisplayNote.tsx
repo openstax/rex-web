@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
@@ -6,6 +7,7 @@ import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
+import { focusHighlight } from '../actions';
 import { cardPadding, cardWidth, highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
@@ -28,9 +30,11 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
 `;
 
 export interface DisplayNoteProps {
+  highlight: Highlight;
   note: string;
   style: typeof highlightStyles[number];
   isFocused: boolean;
+  focus: typeof focusHighlight;
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
@@ -40,13 +44,19 @@ export interface DisplayNoteProps {
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isFocused, onBlur, onEdit, onRemove, onHeightChange, className},
+  {note, isFocused, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
   const confirmationRef = React.useRef<HTMLElement>(null);
   const [textToggle, setTextToggle] = React.useState(false);
+
+  const onToggle = () => {
+    if (!isFocused) {
+      focus(highlight.id);
+    }
+  };
 
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
@@ -66,7 +76,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   }, [element, confirmationRef, confirmingDelete, textToggle]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
-    <Dropdown toggle={<MenuToggle />}>
+    <Dropdown toggle={<MenuToggle onClick={onToggle} />} transparentTab={false}>
       <DropdownList>
         <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
         <DropdownItem
