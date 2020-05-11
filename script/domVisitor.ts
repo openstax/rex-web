@@ -21,11 +21,13 @@ const {
   bookId,
   bookVersion,
   queryString,
+  archiveUrl,
 } = argv as {
   rootUrl?: string;
   bookId?: string;
   bookVersion?: string;
   queryString?: string;
+  archiveUrl?: string;
 };
 
 assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
@@ -58,7 +60,12 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
 
   for (const pageUrl of bookPages) {
     try {
-      await page.goto(`${rootUrl}${pageUrl}${queryString ? `?${queryString}` : ''}`);
+      const appendQueryString =
+        queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`) : '';
+
+      console.log(appendQueryString);
+
+      await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 
@@ -106,8 +113,9 @@ async function findBooks() {
   ;
 
   (global as any).fetch = fetch;
-  const archiveLoader = createArchiveLoader(`${rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
-  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
+  const defaultUrl = archiveUrl ? archiveUrl : rootUrl;
+  const archiveLoader = createArchiveLoader(`${defaultUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${defaultUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
   const bookInfo = bookId
