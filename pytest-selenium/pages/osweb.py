@@ -10,9 +10,18 @@ class WebBase(Page):
     URL_TEMPLATE = "/details/books/{book_slug}"
     _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
+    _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
     _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[aria-expanded="true"]')
+    _view_online_desktop_locator = (
+        By.XPATH,
+        "//div[@class='bigger-view']//span[text()='View online']/..",
+    )
+    _view_online_mobile_locator = (
+        By.XPATH,
+        "//div[@class='phone-view']//span[text()='View online']/..",
+    )
 
     @property
     def loaded(self):
@@ -31,6 +40,10 @@ class WebBase(Page):
 
     def wait_for_load(self):
         return self.wait.until(lambda _: self.loaded)
+
+    @property
+    def login(self):
+        return self.find_element(*self._login_locator)
 
     @property
     def user_nav(self):
@@ -62,6 +75,13 @@ class WebBase(Page):
                 )
                 return True
 
+    @property
+    def view_online(self):
+        if self.is_desktop:
+            return self.find_element(*self._view_online_desktop_locator)
+        elif self.is_mobile:
+            return self.find_element(*self._view_online_mobile_locator)
+
     def open_toggle(self):
         """Click the toggle to open the menu."""
         toggle = self.find_element(*self._user_nav_locator)
@@ -72,6 +92,13 @@ class WebBase(Page):
         target = self.find_element(*locator)
         Utilities.click_option(self.driver, element=target)
 
+    def click_login(self):
+        if self.is_desktop:
+            self.login.click()
+        elif self.is_mobile:
+            self.click_mobile_user_nav()
+            self.login.click()
+
     def click_logout(self):
         if self.is_desktop:
             self.open_toggle()
@@ -81,3 +108,14 @@ class WebBase(Page):
             Utilities.click_option(self.driver, element=self.user_nav)
             Utilities.click_option(self.driver, element=self.logout)
         self.wait_for_load()
+
+    def click_view_online(self):
+        self.offscreen_click(self.view_online)
+
+    def click_mobile_user_nav(self):
+        self.offscreen_click(self.mobile_user_nav)
+
+    def osweb_username(self, element):
+        """Get the username of the logged in user."""
+        element1 = self.username(element)
+        return " ".join(element1.split()[:2])
