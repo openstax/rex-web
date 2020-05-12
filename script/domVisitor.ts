@@ -111,9 +111,8 @@ async function findBooks() {
   ;
 
   (global as any).fetch = fetch;
-  const defaultUrl = archiveUrl ? archiveUrl : rootUrl;
-  const archiveLoader = createArchiveLoader(`${defaultUrl}${config.REACT_APP_ARCHIVE_URL}`);
-  const osWebLoader = createOSWebLoader(`${defaultUrl}${config.REACT_APP_OS_WEB_API_URL}`);
+  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
   const bookInfo = bookId
