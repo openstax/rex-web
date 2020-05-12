@@ -5,9 +5,9 @@ set -ex
 cd rex-web-pull-request
 
 pr_sha=$(git rev-parse head)
-heroku_url=$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].payload.web_url|rtrimstr("/")')
+pr_deployment_id=$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
 
-if [ -z "$heroku_url" ]; then
+if [ -z "$pr_deployment_id" ]; then
   echo "No deployment exists for this pr.";
   exit 1;
 fi;
@@ -34,15 +34,17 @@ if [ -z "$book_ids" ]; then
 fi;
 
 NEXT_WAIT_TIME=0
-until [ $NEXT_WAIT_TIME -eq 5 ] || [ "$(curl -s -o /dev/null -w "%{http_code}" "$heroku_url")" == "200" ]; do
+until [ $NEXT_WAIT_TIME -eq 40 ] || [ "$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
   echo "sleeping $NEXT_WAIT_TIME"
   sleep $(( NEXT_WAIT_TIME++ ))
 done
 
-if [ $NEXT_WAIT_TIME -gt 4 ]; then
+if [ $NEXT_WAIT_TIME -gt 39 ]; then
   echo "timed out"
   exit 1
 fi;
+
+heroku_url=$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments/$pr_deployment_id" | jq -r '.payload.web_url|rtrimstr("/")')
 
 for book_id in $book_ids; do
 
