@@ -9,6 +9,9 @@ image_resource:
 inputs:
 - name: rex-web-pull-request
 
+params:
+  GITHUB_ACCESS_TOKEN: ((github-access-token))
+
 run:
   path: /bin/sh
   args:

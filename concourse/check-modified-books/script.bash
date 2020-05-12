@@ -4,15 +4,20 @@ set -ex
 
 cd rex-web-pull-request
 
+function github {
+  curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1"
+}
+
+
 pr_sha=$(git rev-parse head)
 
 NEXT_WAIT_TIME=0
-until [ $NEXT_WAIT_TIME -eq 10 ] || [ "$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
+until [ $NEXT_WAIT_TIME -eq 10 ] || [ "$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
   echo "sleeping $NEXT_WAIT_TIME"
   sleep $(( NEXT_WAIT_TIME++ ))
 done
 
-pr_deployment_id=$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
+pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
 
 if [ -z "$pr_deployment_id" ]; then
   echo "No deployment exists for this pr.";
@@ -41,7 +46,7 @@ if [ -z "$book_ids" ]; then
 fi;
 
 NEXT_WAIT_TIME=0
-until [ $NEXT_WAIT_TIME -eq 40 ] || [ "$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
+until [ $NEXT_WAIT_TIME -eq 40 ] || [ "$(github "repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
   echo "sleeping $NEXT_WAIT_TIME"
   sleep $(( NEXT_WAIT_TIME++ ))
 done
@@ -51,7 +56,7 @@ if [ $NEXT_WAIT_TIME -gt 39 ]; then
   exit 1
 fi;
 
-heroku_url=$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments/$pr_deployment_id" | jq -r '.payload.web_url|rtrimstr("/")')
+heroku_url=$(github "repos/openstax/rex-web/deployments/$pr_deployment_id" | jq -r '.payload.web_url|rtrimstr("/")')
 
 for book_id in $book_ids; do
 
