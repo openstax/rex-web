@@ -5,6 +5,13 @@ set -ex
 cd rex-web-pull-request
 
 pr_sha=$(git rev-parse head)
+
+NEXT_WAIT_TIME=0
+until [ $NEXT_WAIT_TIME -eq 10 ] || [ "$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
+  echo "sleeping $NEXT_WAIT_TIME"
+  sleep $(( NEXT_WAIT_TIME++ ))
+done
+
 pr_deployment_id=$(curl -s "https://api.github.com/repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
 
 if [ -z "$pr_deployment_id" ]; then
