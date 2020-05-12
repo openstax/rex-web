@@ -61,10 +61,8 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
   for (const pageUrl of bookPages) {
     try {
       const appendQueryString =
-        queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`) : '';
-
-      console.log(appendQueryString);
-
+        queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
+                    : archiveUrl ? `?archive=${archiveUrl}` : '';
       await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
