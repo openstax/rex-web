@@ -79,8 +79,7 @@ class WebBase(Page):
     def view_online(self):
         if self.is_desktop:
             return self.find_element(*self._view_online_desktop_locator)
-        elif self.is_mobile:
-            return self.find_element(*self._view_online_mobile_locator)
+        return self.find_element(*self._view_online_mobile_locator)
 
     def open_toggle(self):
         """Click the toggle to open the menu."""
