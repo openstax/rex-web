@@ -22,7 +22,7 @@ describe('Content', () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         // chrome does weird when changing the hash manually on the current page
-        await navigate(page, 'chrome://bookmarks/');
+        await page.goto('chrome://bookmarks/');
         await new Promise((resolve) => setTimeout(resolve, 1000));
       });
 
