@@ -93,11 +93,9 @@ class WebBase(Page):
         Utilities.click_option(self.driver, element=target)
 
     def click_login(self):
-        if self.is_desktop:
-            self.login.click()
-        elif self.is_mobile:
+        if self.is_mobile:
             self.click_mobile_user_nav()
-            self.login.click()
+        self.login.click()
 
     def click_logout(self):
         if self.is_desktop:
