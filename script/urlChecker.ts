@@ -47,7 +47,7 @@ async function checkPages(bookSlug: string, pages: string[]) {
 
 }
 
-async function checkUrl() {
+async function checkUrls() {
   const books = await findBooks({
     archiveUrl,
     bookId,
@@ -60,7 +60,7 @@ async function checkUrl() {
   }
 }
 
-checkUrl().catch((err) => {
+checkUrls().catch((err) => {
   console.error(err); // tslint:disable-line:no-console
   process.exit(1);
 });
