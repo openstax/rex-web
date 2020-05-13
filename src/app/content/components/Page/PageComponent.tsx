@@ -121,7 +121,6 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   }
 
   public render() {
-
     return <MinPageHeight>
       <this.highlightManager.CardList />
       {this.state.hasSearchError

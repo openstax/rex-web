@@ -5,7 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow, memoize } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -26,13 +26,12 @@ export interface HighlightManagerServices {
   container: HTMLElement;
 }
 
-export const mapStateToHighlightProp = memoize((state: AppState) => ({
+export const mapStateToHighlightProp = (state: AppState) => ({
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
-}));
-
+});
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
   focus: flow(focusHighlight, dispatch),
