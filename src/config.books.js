@@ -7,7 +7,7 @@ const books = {
   /* Biology for AP Courses */ '6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2': {defaultVersion: '23.3'},
   /* Business Ethics */ '914ac66e-e1ec-486d-8a9c-97b0f7a99774': {defaultVersion: '5.1'},
   /* Business statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': {defaultVersion: '36.3'},
-  /* Business in Law I */ '464a3fba-68c1-426a-99f9-597e739dc911': {defaultVersion: '6.5'},
+  /* Business in Law I */ '464a3fba-68c1-426a-99f9-597e739dc911': {defaultVersion: '8.1'},
   /* Calculus vol 1 */ '8b89d172-2927-466f-8661-01abc7ccdba4': {defaultVersion: '12.1' },
   /* Calculus vol 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': {defaultVersion: '11.1'},
   /* Calculus vol 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': {defaultVersion: '11.1' },
