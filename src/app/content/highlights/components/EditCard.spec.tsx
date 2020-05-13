@@ -590,6 +590,7 @@ describe('EditCard', () => {
               {...editCardProps}
               isFocused={true}
               data={highlightData}
+              hasUnsavedHighlight={true}
             />
           </MessageProvider>
         </Services.Provider>

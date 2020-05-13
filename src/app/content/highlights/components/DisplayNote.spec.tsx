@@ -1,11 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import { DropdownToggle } from '../../../components/Dropdown';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../constants';
+import { HighlightData } from '../types';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
+import MenuToggle from './MenuToggle';
 import TruncatedText from './TruncatedText';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
@@ -17,6 +20,7 @@ describe('DisplayNote', () => {
 
   beforeEach(() => {
     displayNoteProps = {
+      focus: jest.fn(),
       onBlur: doNothing,
       onEdit: doNothing,
       onHeightChange: jest.fn(),
@@ -43,10 +47,30 @@ describe('DisplayNote', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('matches snapshot when focused with opened dropdown', () => {
+    const component = renderer.create(<MessageProvider onError={doNothing}>
+      <DisplayNote {...displayNoteProps} isFocused={true} />
+    </MessageProvider>);
+
+    renderer.act(() => {
+      const dropdownToggle = component.root.findByType(DropdownToggle);
+      dropdownToggle.props.onClick();
+    });
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   it('shows delete confirmation', () => {
     const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
+
+    renderer.act(() => {
+      const dropdownToggle = component.root.findByType(DropdownToggle);
+      dropdownToggle.props.onClick();
+    });
+
     const findByTestId = makeFindByTestId(component.root);
 
     const deleteButton = findByTestId('delete');
@@ -62,6 +86,12 @@ describe('DisplayNote', () => {
     const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>, { createNodeMock: () => assertDocument().createElement('div')});
+
+    renderer.act(() => {
+      const dropdownToggle = component.root.findByType(DropdownToggle);
+      dropdownToggle.props.onClick();
+    });
+
     const findByTestId = makeFindByTestId(component.root);
 
     const deleteButton = findByTestId('delete');
@@ -81,6 +111,12 @@ describe('DisplayNote', () => {
     const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
+
+    renderer.act(() => {
+      const dropdownToggle = component.root.findByType(DropdownToggle);
+      dropdownToggle.props.onClick();
+    });
+
     const findByTestId = makeFindByTestId(component.root);
 
     const deleteButton = findByTestId('delete');
@@ -105,6 +141,11 @@ describe('DisplayNote', () => {
     </MessageProvider>);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
+
+    renderer.act(() => {
+      const dropdownToggle = component.root.findByType(DropdownToggle);
+      dropdownToggle.props.onClick();
+    });
 
     const findByTestId = makeFindByTestId(component.root);
     const deleteButton = findByTestId('delete');
@@ -149,5 +190,23 @@ describe('DisplayNote', () => {
     });
 
     expect(displayNoteProps.onHeightChange).toHaveBeenCalled();
+  });
+
+  it('focuses after click on DropdownToggle', () => {
+    // TODO: Why this test is failing?
+    const highlight = {
+      id: 'asdf',
+    } as HighlightData;
+
+    const component = renderer.create(<MessageProvider onError={doNothing}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
+    </MessageProvider>);
+
+    renderer.act(() => {
+      const menuToggle = component.root.findByType(MenuToggle);
+      menuToggle.props.onClick();
+    });
+
+    expect(displayNoteProps.focus).toHaveBeenCalledWith(highlight.id);
   });
 });
