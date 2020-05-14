@@ -155,7 +155,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         .filter(isUnknownHighlightData(highlighter))
         .map(highlightData({ ...services, highlighter }))
         .filter(isDefined)
-        .filter((highlight) => highlight.isAttached())
         ;
 
       const removedHighlights = highlighter.getHighlights()
