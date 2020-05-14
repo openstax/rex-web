@@ -55,8 +55,6 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
-    console.log('prevProps', prevProps)
-    console.log('this.props', this.props)
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
