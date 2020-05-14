@@ -199,3 +199,8 @@ class Page(pypom.Page):
 
         self.driver.execute_script('window.open("","_blank");')
         self.wait.until(lambda b: len(b.window_handles) != 1)
+
+    def username(self, element):
+        """Get the username of a logged in user."""
+
+        return element.get_attribute("textContent")
