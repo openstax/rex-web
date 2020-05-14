@@ -46,10 +46,12 @@ const Wrapper = ({highlights, className, container, highlighter, hasQuery, isToc
     if (topOffsets.has(highlight.id)) {
       return assertDefined(topOffsets.get(highlight.id), 'this has to be defined');
     } else {
-      const offset = assertDefined(
-        getHighlightTopOffset(container, highlight),
-        `Couldn't get top offset for highlight with an id: ${highlight.id}`
-      );
+      const offset = highlight.isAttached()
+        ? assertDefined(
+            getHighlightTopOffset(container, highlight),
+            `Couldn't get top offset for highlight with an id: ${highlight.id}`
+          )
+        : 0;
       setTopOffsets((state) => new Map(state).set(highlight.id, offset));
       return offset;
     }
@@ -62,6 +64,7 @@ const Wrapper = ({highlights, className, container, highlighter, hasQuery, isToc
     let lastVisibleCardHeight = 0;
 
     for (const [index, highlight] of highlights.entries()) {
+      if (!highlight.isAttached()) { continue; }
       const topOffset = getTopOffsetForHighlight(highlight);
 
       const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
