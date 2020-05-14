@@ -87,3 +87,39 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
     # THEN: REX tab goes to logged-out state immediately
     rex.switch_to_window(0)
     assert rex_nav.user_is_not_logged_in
+
+
+@markers.test_case("C477328")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_rex_login_state_when_redirected_from_osweb(
+    selenium, base_url, book_slug, page_slug, email, password
+):
+    # GIVEN: Open osweb book details page
+    osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
+    osweb.wait_for_load()
+    osweb.click_login()
+
+    # AND: Login as existing user
+    accounts = Login(selenium)
+    accounts.login(email, password)
+    osweb.wait_for_load()
+
+    # verify user is logged in and get the username
+    assert osweb.user_is_logged_in
+    osweb_username = osweb.osweb_username(osweb.user_nav)
+
+    # WHEN: Click the view online link in osweb book detail page
+    osweb.click_view_online()
+
+    # THEN: The book page is opened in REX with the same user as openstax.org
+    rex = Content(selenium)
+    rex_nav = rex.navbar
+    assert rex_nav.user_is_logged_in
+    rex_username = rex.username(rex_nav.user_nav_toggle)
+
+    assert rex_username == osweb_username
+
+    # AND: The user stays logged-in while navigating to other pages in REX
+    rex.click_next_link()
+    assert rex_nav.user_is_logged_in
