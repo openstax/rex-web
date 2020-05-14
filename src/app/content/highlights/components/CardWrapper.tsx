@@ -112,6 +112,7 @@ const Wrapper = ({highlights, className, container, highlighter, hasQuery, isToc
   return highlights.length
     ? <div className={className} ref={element}>
       {highlights.map((highlight, index) => {
+        if (!highlight.isAttached()) { return null; }
         // Rerender cards on window resize to trigger their height calculations.
         // It's better to do it here than using hooks like useDebouncedWindowSize for each Card.
         const key = generateHighlightKey(highlight, width, hasQuery, isTocOpen);
