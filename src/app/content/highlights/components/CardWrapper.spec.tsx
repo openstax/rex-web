@@ -55,10 +55,9 @@ describe('CardWrapper', () => {
     expect(component.root.findAllByType(Card).length).toBe(2);
   });
 
-  it('rerenders cards when specific props changes', () => {
+  it('rerenders cards on open toc or search sidebar', () => {
     const highlight = createMockHighlight();
     const mockWindowWidth = 1024;
-    const addEventListener: jest.SpyInstance = jest.spyOn(assertWindow(), 'addEventListener');
 
     const component = renderer.create(<Provider store={store}>
       <CardWrapper highlights={[highlight]} />
@@ -70,10 +69,6 @@ describe('CardWrapper', () => {
       expect((card as any)._fiber.key).toEqual(key);
     });
 
-    // Call updateSize() for `resize` event listener in useDebouncedWindowSize
-    addEventListener.mock.calls[7][1]();
-    jest.runAllTimers();
-
     renderer.act(() => {
       store.dispatch(openToc());
       store.dispatch(requestSearch('asdf'));
@@ -82,6 +77,36 @@ describe('CardWrapper', () => {
     renderer.act(() => {
       const card = component.root.findByType(Card);
       const key = highlight.id + mockWindowWidth + 'true' + 'false';
+      expect((card as any)._fiber.key).toEqual(key);
+    });
+  });
+
+  it('rerenders cards on window resize', () => {
+    const highlight = createMockHighlight();
+    const mockWindowWidth = 1024;
+    const mockWindowWidthAfterResize = 999;
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>);
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      const key = highlight.id + mockWindowWidth + 'false' + 'null';
+      expect((card as any)._fiber.key).toEqual(key);
+    });
+
+    const event =  assertDocument().createEvent('UIEvent');
+    event.initEvent('resize');
+    renderer.act(() => {
+      Object.defineProperty(assertWindow(), 'innerWidth', {value: mockWindowWidthAfterResize});
+      assertWindow().dispatchEvent(event);
+      jest.runAllTimers();
+    });
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      const key = highlight.id + mockWindowWidthAfterResize + 'false' + 'null';
       expect((card as any)._fiber.key).toEqual(key);
     });
   });

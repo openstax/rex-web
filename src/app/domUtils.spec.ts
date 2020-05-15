@@ -15,11 +15,18 @@ beforeEach(() => {
 });
 
 describe('scrollIntoView', () => {
+  let element: HTMLElement;
+
+  beforeEach(() => {
+    element = assertDocument().createElement('div');
+    assertDocument().body.appendChild(element);
+  });
+
+  afterEach(() => {
+    element.remove();
+  });
+
   it('scrolls up', () => {
-    const window = assertWindow();
-    jest.spyOn(window.document.body, 'contains')
-      .mockReturnValue(true);
-    const element = assertDocument().createElement('div');
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: -40,
       top: -50,
@@ -31,10 +38,6 @@ describe('scrollIntoView', () => {
   });
 
   it('scrolls down', () => {
-    const window = assertWindow();
-    jest.spyOn(window.document.body, 'contains')
-      .mockReturnValue(true);
-    const element = assertDocument().createElement('div');
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: assertWindow().innerHeight + 60,
       top: assertWindow().innerHeight + 50,
@@ -46,10 +49,6 @@ describe('scrollIntoView', () => {
   });
 
   it('noops', () => {
-    const window = assertWindow();
-    jest.spyOn(window.document.body, 'contains')
-      .mockReturnValue(true);
-    const element = assertDocument().createElement('div');
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: 0,
       top: 0,
@@ -61,10 +60,7 @@ describe('scrollIntoView', () => {
   });
 
   it('noops if element was not found in the body', () => {
-    const window = assertWindow();
-    jest.spyOn(window.document.body, 'contains')
-      .mockReturnValue(false);
-    const element = assertDocument().createElement('div');
+    element.remove();
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: assertWindow().innerHeight + 60,
       top: assertWindow().innerHeight + 50,

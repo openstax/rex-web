@@ -11,8 +11,7 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { receiveBook, receivePage } from '../../actions';
-import { openToc } from '../../actions';
+import { openToc, receiveBook, receivePage } from '../../actions';
 import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import {
