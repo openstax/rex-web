@@ -42,7 +42,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
-  animation: 2s ease 0s 1;
+  animation: ${sidebarTransitionTime}ms ease 0s 1;
   animation-direction: normal;
   animation-fill-mode: forwards;
   animation-play-state: running;
