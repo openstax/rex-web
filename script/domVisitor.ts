@@ -5,8 +5,11 @@ import { basename } from 'path';
 import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
+import { Book } from '../src/app/content/types';
+import { getBookPageUrlAndParams } from '../src/app/content/utils';
+import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
-import { findBookPages, findBooks } from './utils/bookUtils';
+import { findBooks } from './utils/bookUtils';
 
 (global as any).DOMParser = new JSDOM().window.DOMParser;
 
@@ -98,3 +101,8 @@ run().then(null, (err) => {
   console.error(err); // tslint:disable-line:no-console
   process.exit(1);
 });
+
+export function findBookPages(book: Book) {
+  const pages = findTreePages(book.tree);
+  return pages.map((treeSection) => getBookPageUrlAndParams(book, treeSection).url);
+}

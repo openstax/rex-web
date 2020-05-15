@@ -1,7 +1,5 @@
 import fetch from 'node-fetch';
-import { Book } from '../../src/app/content/types';
-import { getBookPageUrlAndParams, makeUnifiedBookLoader } from '../../src/app/content/utils';
-import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
+import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { assertDefined } from '../../src/app/utils';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
@@ -36,9 +34,4 @@ export async function findBooks({
   ;
 
   return await Promise.all(bookInfo.map(({id, version}) => bookLoader(id, version)));
-}
-
-export function findBookPages(book: Book) {
-  const pages = findTreePages(book.tree);
-  return pages.map((treeSection) => getBookPageUrlAndParams(book, treeSection).url);
 }
