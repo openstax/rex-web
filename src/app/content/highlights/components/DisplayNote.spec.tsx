@@ -8,7 +8,6 @@ import { highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
-import MenuToggle from './MenuToggle';
 import TruncatedText from './TruncatedText';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
@@ -193,7 +192,6 @@ describe('DisplayNote', () => {
   });
 
   it('focuses after click on DropdownToggle', () => {
-    // TODO: Why this test is failing?
     const highlight = {
       id: 'asdf',
     } as HighlightData;
@@ -203,8 +201,8 @@ describe('DisplayNote', () => {
     </MessageProvider>);
 
     renderer.act(() => {
-      const menuToggle = component.root.findByType(MenuToggle);
-      menuToggle.props.onClick();
+      const dropdownToggle = component.root.findByType(DropdownToggle);
+      dropdownToggle.props.onClick();
     });
 
     expect(displayNoteProps.focus).toHaveBeenCalledWith(highlight.id);

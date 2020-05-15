@@ -76,7 +76,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   }, [element, confirmationRef, confirmingDelete, textToggle]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
-    <Dropdown toggle={<MenuToggle onClick={onToggle} />} transparentTab={false}>
+    <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
       <DropdownList>
         <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
         <DropdownItem
