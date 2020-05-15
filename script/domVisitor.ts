@@ -102,7 +102,7 @@ run().then(null, (err) => {
   process.exit(1);
 });
 
-export function findBookPages(book: Book) {
+function findBookPages(book: Book) {
   const pages = findTreePages(book.tree);
   return pages.map((treeSection) => getBookPageUrlAndParams(book, treeSection).url);
 }
