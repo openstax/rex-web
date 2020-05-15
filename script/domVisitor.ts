@@ -52,6 +52,7 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
 });
 
 async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audit) {
+  let anyFailures = false;
   const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
@@ -70,14 +71,18 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
       const matches = await page.evaluate(audit);
 
       if (matches.length > 0) {
+        anyFailures = true;
         bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
       }
     } catch (e) {
+      anyFailures = true;
       bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
     }
 
     bar.tick();
   }
+
+  return anyFailures;
 }
 
 async function run() {
@@ -86,15 +91,20 @@ async function run() {
     devtools: devTools,
   });
   const books = await findBooks();
+  let anyFailures = false;
 
   const page = await browser.newPage();
   page.setDefaultNavigationTimeout(60 * 1000);
 
   for (const book of books) {
-    await visitPages(page, findBookPages(book), audit);
+    anyFailures = await visitPages(page, findBookPages(book), audit) || anyFailures;
   }
 
   await browser.close();
+
+  if (anyFailures) {
+    process.exit(1);
+  }
 }
 
 run().then(null, (err) => {
