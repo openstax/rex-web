@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as expected
 from time import sleep
 
@@ -129,11 +130,12 @@ class WebBase(Page):
         :return: ``True`` if the dialog box is displayed
         :rtype: bool
         """
-        return self.driver.execute_script(
-            "return arguments[0].hidden == false;", self.notification_dialog
-        )
+        try:
+            return bool(self.find_element(*self._dialog_locator))
+        except NoSuchElementException:
+            return False
 
-    def got_it(self):
+    def click_notification_got_it(self):
         """Click the 'Got it!' button.
         :return: the home page
         :rtype: :py:class:`~pages.web.home.WebHome`
@@ -141,7 +143,6 @@ class WebBase(Page):
         button = self.find_element(*self._got_it_button_locator)
         Utilities.click_option(self.driver, element=button)
         self.wait.until(lambda _: not self.notification_dialog_displayed())
-        return self.page
 
     @property
     def title(self) -> str:
