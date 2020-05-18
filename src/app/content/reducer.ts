@@ -5,22 +5,26 @@ import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { receiveFeatureFlags } from '../actions';
 import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
+import { studyGuidsFeatureFlag } from './constants';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
 import { State } from './types';
 
 export const initialState = {
+  enableStudyGuides: false,
   highlights: initialHighlightState,
   loading: {},
   params: null,
   references: [],
   search: initialSearchState,
   showCallToActionPopup: null,
+  studyGuides: null,
   tocOpen: null,
 };
 
@@ -91,6 +95,9 @@ function reduceContent(state: State, action: AnyAction) {
     }
     case getType(actions.closeCallToActionPopup): {
       return {...state, showCallToActionPopup: false };
+    }
+    case getType(receiveFeatureFlags): {
+      return {...state, enableStudyGuides: action.payload.includes(studyGuidsFeatureFlag)};
     }
     default:
       return state;

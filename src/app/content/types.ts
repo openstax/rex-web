@@ -23,11 +23,13 @@ export interface Params {
 }
 
 export interface State {
+  enableStudyGuides: boolean;
   tocOpen: boolean | null;
   params: Params | null;
   loading: Partial<Params>;
   search: SearchState;
   showCallToActionPopup: boolean | null;
+  studyGuides: {} | null;
   highlights: HighlightState;
   book?: Book;
   page?: Page;

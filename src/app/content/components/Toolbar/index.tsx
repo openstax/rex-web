@@ -16,6 +16,7 @@ import * as selectSearch from '../../search/selectors';
 import BuyBook from './BuyBook';
 import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
+import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 interface Props {
@@ -116,6 +117,7 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
+        <StudyGuidesButton />
         <HighlightButton/>
         <PrintButton />
         <BuyBook />
