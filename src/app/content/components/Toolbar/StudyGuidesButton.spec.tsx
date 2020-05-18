@@ -8,6 +8,7 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { studyGuidsFeatureFlag } from '../../constants';
+import { receiveStudyGuides } from '../../studyGuides/actions';
 import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
 describe('study guides button', () => {
@@ -33,8 +34,23 @@ describe('study guides button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('render if feature flag is enabled', () => {
+  it('does not render if feature flag is enabled but books does not have study guides', () => {
     store.dispatch(receiveFeatureFlags([studyGuidsFeatureFlag]));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <StudyGuidesButton />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('render if feature flag is enabled and books has study guides', () => {
+    store.dispatch(receiveFeatureFlags([studyGuidsFeatureFlag]));
+    store.dispatch(receiveStudyGuides({ asd: 'asdf' } as any));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -51,6 +67,7 @@ describe('study guides button', () => {
   // like analytics tracking
   it('do nothing after click', () => {
     store.dispatch(receiveFeatureFlags([studyGuidsFeatureFlag]));
+    store.dispatch(receiveStudyGuides({ asd: 'asdf' } as any));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

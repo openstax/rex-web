@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import theme from '../../../theme';
 import { enableStudyGuides } from '../../selectors';
+import { studyGuides } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
@@ -34,7 +35,9 @@ const StudyGuidesText = styled.span`
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
   const isEnabled = useSelector(enableStudyGuides);
-  if (!isEnabled) { return null; }
+  const hasStudyGuides = useSelector(studyGuides);
+
+  if (!isEnabled || !hasStudyGuides) { return null; }
 
   const openStudyGuidesSummary = () => null;
 
