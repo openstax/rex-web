@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
 import { enableStudyGuides } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';
@@ -32,10 +33,14 @@ const StudyGuidesText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
+  const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
+
   const isEnabled = useSelector(enableStudyGuides);
   if (!isEnabled) { return null; }
 
-  const openStudyGuidesSummary = () => null;
+  const openStudyGuidesSummary = () => {
+    trackOpenClose();
+  };
 
   return <FormattedMessage id='i18n:toolbar:study-guides:text'>
     {(msg: Element | string) =>
