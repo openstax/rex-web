@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import BuyBookIcon from '../../../../assets/buy-book-icon.svg';
-import { buyBookLink } from '../../selectors';
-import * as Styled from './styled';
+import { buyBookLink } from '../selectors';
+import * as Styled from './Toolbar/styled';
 
 // tslint:disable-next-line: variable-name
 const BuyBook = () => {
@@ -11,16 +10,17 @@ const BuyBook = () => {
 
   if (!link) { return null; }
 
-  return <FormattedMessage id='i18n:toolbar:buy-book:text'>
-    {(msg) => <Styled.BuyBookWrapper
-        aria-label={msg}
+  return <FormattedMessage id='i18n:toolbar:buy-book:aria-label:text'>
+    {(ariaLabel) => <Styled.BuyBookWrapper
+        aria-label={ariaLabel}
         target='_blank'
         rel='noopener'
         href={link}
         data-analytics-label='buy-book'
       >
-        <Styled.BuyBookIcon aria-hidden src={BuyBookIcon}></Styled.BuyBookIcon>
-        <Styled.PrintOptions>{msg}</Styled.PrintOptions>
+        <FormattedMessage id='i18n:toolbar:buy-book:text'>
+          {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}
+        </FormattedMessage>
     </Styled.BuyBookWrapper>}
   </FormattedMessage>;
 };

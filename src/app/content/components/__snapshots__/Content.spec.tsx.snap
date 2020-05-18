@@ -195,7 +195,7 @@ Array [
         </div>
         <button
           aria-label="My highlights"
-          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 gcvHTS"
+          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
           onClick={[Function]}
         >
           <img
@@ -1431,7 +1431,7 @@ Array [
         </div>
         <button
           aria-label="My highlights"
-          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 gcvHTS"
+          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
           onClick={[Function]}
         >
           <img

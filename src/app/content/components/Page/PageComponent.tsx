@@ -6,6 +6,7 @@ import Loader from '../../../components/Loader';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
+import BuyBook from '../BuyBook';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
@@ -92,6 +93,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
         <PrevNextBar />
+        <BuyBook />
       </RedoPadding>
     </MinPageHeight>;
   }
