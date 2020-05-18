@@ -9,7 +9,7 @@ import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
 // tslint:disable-next-line:variable-name
-const StudyGuidesWrapper = styled(PlainButton)`
+export const StudyGuidesWrapper = styled(PlainButton)`
   display: flex;
   align-items: center;
   justify-content: center;
