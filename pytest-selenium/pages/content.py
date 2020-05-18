@@ -149,10 +149,6 @@ class Content(Page):
         return bool(self.find_elements(*self._notification_pop_up_locator))
 
     @property
-    def notification_list(self):
-        return [(self.find_elements(*self._notification_pop_up_locator))]
-
-    @property
     def previous_link(self) -> WebElement:
         return self.find_element(*self._previous_locator)
 
