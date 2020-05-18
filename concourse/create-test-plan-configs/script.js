@@ -39,7 +39,7 @@ const processPlan = plan => {
       fs.mkdirSync(dest);
 
       console.log(`writing ${run.id} to ${runIdFile}`);
-      fs.writeFileSync(runIdFile, run.id);
+      fs.writeFileSync(runIdFile, String(run.id));
       console.log(`writing ${baseUrl} to ${baseUrlFile}`);
       fs.writeFileSync(baseUrlFile, baseUrl);
       console.log(`writing ${run.config} to ${browserFile}`);
