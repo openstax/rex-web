@@ -10,7 +10,7 @@ exports[`study guides button render if feature flag is enabled 1`] = `
 >
   <img
     aria-hidden="true"
-    className="StudyGuidesButton__StudyGuidesIcon-sc-1gy68g-1 iLjZfY"
+    className="StudyGuidesButton__StudyGuidesIcon-sc-1gy68g-1 dSnxKt"
     src="studyGuidesIcon.svg"
   />
   <span

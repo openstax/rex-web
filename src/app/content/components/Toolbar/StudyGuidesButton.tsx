@@ -23,6 +23,7 @@ export const StudyGuidesWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 const StudyGuidesIcon = styled.img`
   ${toolbarIconStyles}
+  padding: 0.2rem;
 `;
 
 // tslint:disable-next-line:variable-name
