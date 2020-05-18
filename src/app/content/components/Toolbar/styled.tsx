@@ -342,6 +342,7 @@ export const BuyBookWrapper = styled.a`
 
   ${PrintOptions} {
     margin: 0;
+    display: flex;
   }
 
   ${theme.breakpoints.mobile(css`
