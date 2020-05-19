@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
-import { enableStudyGuides } from '../../selectors';
+import { studyGuidesEnabled } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
@@ -36,7 +36,7 @@ const StudyGuidesText = styled.span`
 const StudyGuidesButton = () => {
   const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
 
-  const isEnabled = useSelector(enableStudyGuides);
+  const isEnabled = useSelector(studyGuidesEnabled);
   if (!isEnabled) { return null; }
 
   const openStudyGuidesSummary = () => {
@@ -45,7 +45,7 @@ const StudyGuidesButton = () => {
 
   return <FormattedMessage id='i18n:toolbar:study-guides:text'>
     {(msg: Element | string) =>
-      <StudyGuidesWrapper onClick={() => openStudyGuidesSummary()} aria-label={msg}>
+      <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={msg}>
         <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
         <StudyGuidesText>{msg}</StudyGuidesText>
       </StudyGuidesWrapper>

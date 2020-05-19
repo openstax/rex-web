@@ -83,7 +83,7 @@ export const prevNextPage = createSelector(
     : null
 );
 
-export const enableStudyGuides = createSelector(
+export const studyGuidesEnabled = createSelector(
   localState,
-  (state) => state.enableStudyGuides
+  (state) => state.studyGuidesEnabled
 );
