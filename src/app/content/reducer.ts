@@ -10,7 +10,7 @@ import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import { studyGuidsFeatureFlag } from './constants';
+import { studyGuidesFeatureFlag } from './constants';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
@@ -18,7 +18,6 @@ import studyGuidesReducer, {initialState as initialStudyGuidesState } from './st
 import { State } from './types';
 
 export const initialState = {
-  enableStudyGuides: false,
   highlights: initialHighlightState,
   loading: {},
   params: null,
@@ -26,6 +25,7 @@ export const initialState = {
   search: initialSearchState,
   showCallToActionPopup: null,
   studyGuides: initialStudyGuidesState,
+  studyGuidesEnabled: false,
   tocOpen: null,
 };
 
@@ -105,7 +105,7 @@ function reduceContent(state: State, action: AnyAction) {
       return {...state, showCallToActionPopup: false };
     }
     case getType(receiveFeatureFlags): {
-      return {...state, enableStudyGuides: action.payload.includes(studyGuidsFeatureFlag)};
+      return {...state, studyGuidesEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     }
     default:
       return state;

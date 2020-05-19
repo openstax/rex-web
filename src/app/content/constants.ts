@@ -1,1 +1,1 @@
-export const studyGuidsFeatureFlag = 'enableStudyGuides';
+export const studyGuidesFeatureFlag = 'studyGuidesEnabled';
