@@ -115,7 +115,7 @@ Array [
       >
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-18 goLnIL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
           onClick={[Function]}
         >
           <svg
@@ -856,7 +856,7 @@ Array [
                 className="Content__MainContentWrapper-sc-1f451g1-4 hGEkST"
               >
                 <div
-                  className="MinPageHeight-sc-1i28xs0-0 hlmbEu"
+                  className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
                 >
                   <div
                     className="RedoPadding-sc-1rj2rww-0 gXEqJK"
@@ -877,7 +877,7 @@ Array [
                       />
                     </div>
                     <div
-                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 fiSglB"
+                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
                       data-analytics-region="prev-next"
                     >
                       <a
@@ -924,7 +924,7 @@ Array [
                   </div>
                 </div>
                 <details
-                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 iABWOM"
+                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
                   data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
@@ -1351,7 +1351,7 @@ Array [
       >
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-18 goLnIL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
           onClick={[Function]}
         >
           <svg
@@ -1554,7 +1554,7 @@ Array [
                 className="Content__MainContentWrapper-sc-1f451g1-4 hGEkST"
               >
                 <div
-                  className="MinPageHeight-sc-1i28xs0-0 hlmbEu"
+                  className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
                 >
                   <div
                     className="RedoPadding-sc-1rj2rww-0 gXEqJK"

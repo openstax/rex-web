@@ -1,8 +1,31 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
+import { textRegularSize } from '../../components/Typography';
+import theme from '../../theme';
 import { buyBookLink } from '../selectors';
-import * as Styled from './Toolbar/styled';
+
+// tslint:disable-next-line:variable-name
+const BuyBookWrapper = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  height: 5rem;
+  width: 17.9rem;
+  color: ${theme.color.primary.orange.base};
+  border: solid 0.1rem;
+  text-align: center;
+`;
+
+// tslint:disable-next-line:variable-name
+const BuyBookText = styled.span`
+  ${textRegularSize};
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.9rem;
+`;
 
 // tslint:disable-next-line: variable-name
 const BuyBook = () => {
@@ -11,7 +34,7 @@ const BuyBook = () => {
   if (!link) { return null; }
 
   return <FormattedMessage id='i18n:toolbar:buy-book:aria-label:text'>
-    {(ariaLabel) => <Styled.BuyBookWrapper
+    {(ariaLabel) => <BuyBookWrapper
         aria-label={ariaLabel}
         target='_blank'
         rel='noopener'
@@ -19,9 +42,9 @@ const BuyBook = () => {
         data-analytics-label='buy-book'
       >
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
-          {(msg) => <Styled.PrintOptions>{msg}</Styled.PrintOptions>}
+          {(msg) => <BuyBookText>{msg}</BuyBookText>}
         </FormattedMessage>
-    </Styled.BuyBookWrapper>}
+    </BuyBookWrapper>}
   </FormattedMessage>;
 };
 

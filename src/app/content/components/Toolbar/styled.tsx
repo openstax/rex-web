@@ -316,36 +316,9 @@ export const InnerText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BuyBookIcon = styled.img`
-  ${toolbarIconStyles}
-`;
-
-// tslint:disable-next-line:variable-name
 export const SidebarControl = styled(OpenSidebarControl)`
   margin-right: auto;
   ${theme.breakpoints.mobile(css`
     margin-right: unset;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const BuyBookWrapper = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  height: 5rem;
-  width: 17.9rem;
-  color: ${theme.color.primary.orange.base};
-  border: solid 0.1rem;
-  text-align: center;
-
-  ${PrintOptions} {
-    margin: 0;
-    display: flex;
-  }
-
-  ${theme.breakpoints.mobile(css`
-    margin: 0;
   `)}
 `;
