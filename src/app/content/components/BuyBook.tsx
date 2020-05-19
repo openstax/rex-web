@@ -5,6 +5,14 @@ import styled from 'styled-components/macro';
 import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { buyBookLink } from '../selectors';
+import { contentTextWidth } from './constants';
+
+// tslint:disable-next-line:variable-name
+const BuyBookAlignment = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  max-width: ${contentTextWidth}rem;
+`;
 
 // tslint:disable-next-line:variable-name
 const BuyBookWrapper = styled.a`
@@ -34,7 +42,8 @@ const BuyBook = () => {
   if (!link) { return null; }
 
   return <FormattedMessage id='i18n:toolbar:buy-book:aria-label:text'>
-    {(ariaLabel) => <BuyBookWrapper
+    {(ariaLabel) => <BuyBookAlignment >
+      <BuyBookWrapper
         aria-label={ariaLabel}
         target='_blank'
         rel='noopener'
@@ -44,7 +53,8 @@ const BuyBook = () => {
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
           {(msg) => <BuyBookText>{msg}</BuyBookText>}
         </FormattedMessage>
-    </BuyBookWrapper>}
+      </BuyBookWrapper>
+    </BuyBookAlignment>}
   </FormattedMessage>;
 };
 
