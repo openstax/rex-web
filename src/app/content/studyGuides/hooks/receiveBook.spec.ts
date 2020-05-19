@@ -9,12 +9,6 @@ import { receiveBook } from '../../actions';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuides } from '../actions';
 
-const mockConfig = {BOOKS: {
- [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
-
-jest.doMock('../../../../config', () => mockConfig);
-
 describe('locationChange', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;

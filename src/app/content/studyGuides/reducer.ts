@@ -5,14 +5,14 @@ import * as actions from './actions';
 import { State } from './types';
 
 export const initialState: State = {
-  studyGuides: null,
+  summary: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.receiveStudyGuides): {
       return {
-        studyGuides: action.payload,
+        summary: action.payload,
       };
     }
     default:

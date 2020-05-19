@@ -6,7 +6,7 @@ export const localState = createSelector(
   (parentState) => parentState.studyGuides
 );
 
-export const studyGuides = createSelector(
+export const studyGuidesSummary = createSelector(
   localState,
-  (state) => state.studyGuides
+  (state) => state.summary
 );

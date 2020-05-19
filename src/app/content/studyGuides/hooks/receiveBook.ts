@@ -7,14 +7,14 @@ import { receiveStudyGuides } from '../actions';
 export const hookBody: ActionHookBody<typeof receiveBook> = (
   services: MiddlewareAPI & AppServices
 ) => async(action) => {
-  const studyGuides = await services.highlightClient.getHighlightsSummary({
+  const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
     scopeId: action.payload.id,
     sets: ['curated:openstax'],
     sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
   } as any);
   // TODO: Remove this as any and update highlightClient to the newer version
 
-  services.dispatch(receiveStudyGuides(studyGuides));
+  services.dispatch(receiveStudyGuides(studyGuidesSummary));
 };
 
 export default actionHook(receiveBook, hookBody);

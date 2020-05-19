@@ -34,7 +34,7 @@ describe('study guides button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('does not render if feature flag is enabled but books does not have study guides', () => {
+  it('does not render if feature flag is enabled but book does not have study guide', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     const component = renderer.create(<Provider store={store}>
@@ -48,7 +48,7 @@ describe('study guides button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('render if feature flag is enabled and books has study guides', () => {
+  it('render if feature flag is enabled and book has study guide', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveStudyGuides({ asd: 'asdf' } as any));
 
