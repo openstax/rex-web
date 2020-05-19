@@ -33,11 +33,12 @@ describe('highlight reducer', () => {
     expect(state.currentPage.highlights).toEqual(initialState.currentPage.highlights);
   });
 
-  it('locationChange - reset hasUnsavedHighlight', () => {
+  it('locationChange - reset hasUnsavedHighlight and focused', () => {
     const state = reducer(
-      {...initialState, currentPage: {...initialState.currentPage, hasUnsavedHighlight: true}},
+      {...initialState, currentPage: {...initialState.currentPage, hasUnsavedHighlight: true, focused: 'asd'}},
       locationChange({location: {state: {pageUid: 'asdf'}}} as any));
     expect(state.currentPage.hasUnsavedHighlight).toEqual(false);
+    expect(state.currentPage.focused).toBeUndefined();
   });
 
   it('focuses highlight', () => {
