@@ -7,7 +7,7 @@ import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
-import { studyGuidsFeatureFlag } from '../../constants';
+import { studyGuidesFeatureFlag } from '../../constants';
 import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
 describe('study guides button', () => {
@@ -34,7 +34,7 @@ describe('study guides button', () => {
   });
 
   it('render if feature flag is enabled', () => {
-    store.dispatch(receiveFeatureFlags([studyGuidsFeatureFlag]));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -50,7 +50,7 @@ describe('study guides button', () => {
   // Temporary test which should be updated after we add some onClick actions
   // like analytics tracking
   it('do nothing after click', () => {
-    store.dispatch(receiveFeatureFlags([studyGuidsFeatureFlag]));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

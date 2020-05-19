@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import theme from '../../../theme';
-import { enableStudyGuides } from '../../selectors';
+import { studyGuidesEnabled } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
@@ -33,14 +33,14 @@ const StudyGuidesText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
-  const isEnabled = useSelector(enableStudyGuides);
+  const isEnabled = useSelector(studyGuidesEnabled);
   if (!isEnabled) { return null; }
 
   const openStudyGuidesSummary = () => null;
 
   return <FormattedMessage id='i18n:toolbar:study-guides:text'>
     {(msg: Element | string) =>
-      <StudyGuidesWrapper onClick={() => openStudyGuidesSummary()} aria-label={msg}>
+      <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={msg}>
         <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
         <StudyGuidesText>{msg}</StudyGuidesText>
       </StudyGuidesWrapper>
