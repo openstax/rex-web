@@ -13,14 +13,17 @@ const {
   bookId,
   bookVersion,
   archiveUrl,
+  useUnversionedUrls,
 } = argv as {
   rootUrl?: string;
   bookId?: string;
   bookVersion?: string;
   archiveUrl?: string;
+  useUnversionedUrls?: boolean;
 };
 
 async function checkPages(bookSlug: string, pages: string[]) {
+  let anyFailures = false;
   const bar = new ProgressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
     complete: '=',
     incomplete: ' ',
@@ -37,6 +40,7 @@ async function checkPages(bookSlug: string, pages: string[]) {
         notFound.push(pageUrl);
       }
     } catch (e) {
+      anyFailures = true;
       bar.interrupt(`- (error loading) ${pageUrl}`);
     }
 
@@ -48,9 +52,11 @@ async function checkPages(bookSlug: string, pages: string[]) {
       ? 'all'
       : `\n${notFound.join('\n')}\n`}`);
   }
+
+  return anyFailures;
 }
 
-const getUrl = (book: Book, isProduction: boolean) => isProduction
+const getUrl = (book: Book) => useUnversionedUrls
   ? (treeSection: LinkedArchiveTreeSection) =>
       contentRoute.getUrl({
         book: {
@@ -68,11 +74,16 @@ async function checkUrls() {
     bookVersion,
     rootUrl: url,
   });
-  const isProduction = !/release-\d+/g.test(url);
+
+  let anyFailures = false;
 
   for (const book of books) {
     const pages = findTreePages(book.tree);
-    await checkPages(book.slug, pages.map(getUrl(book, isProduction)));
+    anyFailures = await checkPages(book.slug, pages.map(getUrl(book)));
+  }
+
+  if (anyFailures) {
+    process.exit(1);
   }
 }
 
