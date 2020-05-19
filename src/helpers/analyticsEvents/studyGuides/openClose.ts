@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
-const open = 'REX Study guides (open MH popup)';
-const close = 'REX Study guides (close MH popup)';
+const open = 'REX Study guides (open SG popup)';
+const close = 'REX Study guides (close SG popup)';
 
 export const selector = createSelector(
   selectNavigation.pathname,
