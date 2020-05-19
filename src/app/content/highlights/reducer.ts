@@ -42,7 +42,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
         currentPage: currentPageId && actionPageId === currentPageId
-          ? {...state.currentPage, hasUnsavedHighlight: false}
+          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
           : initialState.currentPage,
         summary: {
           ...state.summary,
