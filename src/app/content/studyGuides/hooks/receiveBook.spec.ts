@@ -4,8 +4,10 @@ import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook } from '../../actions';
+import { studyGuidesFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuides } from '../actions';
 
@@ -31,6 +33,8 @@ describe('locationChange', () => {
   });
 
   it('fetch study guides on receiveBook', async() => {
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+
     const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
 
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
@@ -40,5 +44,17 @@ describe('locationChange', () => {
 
     expect(getHighlightsSummary).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
+  });
+
+  it('noops on receiveBook if feature flag is not present', async() => {
+    const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
+
+    const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockReturnValue(new Promise((res) => res(mockResponse)));
+
+    await hook(store.dispatch(receiveBook(formatBookData(book, mockCmsBook))));
+
+    expect(getHighlightsSummary).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
   });
 });

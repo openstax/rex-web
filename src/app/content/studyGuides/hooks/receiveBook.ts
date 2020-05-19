@@ -7,6 +7,8 @@ import { receiveStudyGuides } from '../actions';
 export const hookBody: ActionHookBody<typeof receiveBook> = (
   services: MiddlewareAPI & AppServices
 ) => async(action) => {
+  if (!services.getState().content.studyGuidesEnabled) { return; }
+
   const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
     scopeId: action.payload.id,
     sets: ['curated:openstax'],
