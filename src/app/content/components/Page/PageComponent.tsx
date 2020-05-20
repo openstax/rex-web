@@ -1,5 +1,4 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
-import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
@@ -75,7 +74,9 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
-    if (!isEqual(prevState, this.state)) { return; }
+    const shallowEquals = (key: keyof PageState) => prevState[key] === this.state[key];
+
+    if (!shallowEquals('hasSearchError') || !shallowEquals('selectedSearchResult')) { return; }
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
@@ -85,25 +86,26 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     });
   }
 
-  public onHighlightSelect: OptionsCallback = ({current, previous, selectedHighlight}) => {
-    if (selectedHighlight) { return; }
+  public onHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
+    if (selectedHighlight) {
+      this.setState({
+        hasSearchError: false,
+      });
 
-    if (this.state.hasSearchError && current !== previous) {
-      this.setState({
-        selectedSearchResult: current,
-      });
-    } else {
-      this.setState({
-        hasSearchError: true,
-        selectedSearchResult: current,
-      });
+      return;
     }
+
+    if (current === this.state.selectedSearchResult) { return; }
+
+    this.setState({
+      hasSearchError: true,
+      selectedSearchResult: current,
+    });
   };
 
   public dismissError = () => {
     this.setState({
       hasSearchError: false,
-      selectedSearchResult: null,
     });
   };
 

@@ -11,7 +11,8 @@ import {
   AnyActionCreator,
   AppServices,
   Dispatch,
-  Middleware
+  Middleware,
+  AppState
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
@@ -178,5 +179,39 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ),
   }), {}),
 });
+
+export const shallowEqual = <T extends object>(obj1: T, obj2: T) => {
+  if (!obj1 || !obj2) { return false; }
+
+  for (const key in obj1) {
+    if (obj1[key] !== obj2[key]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+// memoizes custom merging of reselect's selectors
+// only meant to use for functions like:
+//
+// const mapStateToProps = (state: AppState) => ({
+//   thing1: selectors.selectThing1(state),
+//   thing2: selectors.selectSomethingElse(state)
+//   ...
+// })
+
+export const memoize = <T extends object>(mappingFunction: (state: AppState) => T) => {
+  let prev: T;
+
+  return (state: AppState) => {
+    const current = mappingFunction(state);
+
+    if (shallowEqual(current, prev)) {
+      return prev;
+    }
+    prev = current;
+    return prev;
+  };
+};
 
 export class UnauthenticatedError extends Error {}
