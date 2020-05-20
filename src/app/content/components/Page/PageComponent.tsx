@@ -92,8 +92,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       <this.highlightManager.CardList />
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
-        <PrevNextBar />
-        <BuyBook />
       </RedoPadding>
     </MinPageHeight>;
   }
@@ -101,11 +99,15 @@ export default class PageComponent extends Component<PagePropTypes> {
   private renderContent = () => {
     const html = this.getTransformedContent() || this.getPrerenderedContent();
 
-    return <PageContent
-      key='main-content'
-      ref={this.container}
-      dangerouslySetInnerHTML={{ __html: html}}
-    />;
+    return <React.Fragment>
+      <PageContent
+        key='main-content'
+        ref={this.container}
+        dangerouslySetInnerHTML={{ __html: html}}
+      />
+      <PrevNextBar />
+      <BuyBook />
+    </React.Fragment>;
   };
 
   private renderLoading = () => <PageContent
