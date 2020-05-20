@@ -47,9 +47,9 @@ describe('study guides button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  // Temporary test which should be updated after we add some onClick actions
-  // like analytics tracking
-  it('do nothing after click', () => {
+  it('clicking button triggers analytics event', () => {
+    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     const component = renderer.create(<Provider store={store}>
@@ -64,5 +64,17 @@ describe('study guides button', () => {
       const button = component.root.findByType(StudyGuidesWrapper);
       button.props.onClick();
     });
+
+    expect(spyTrack).toHaveBeenCalled();
+  });
+
+  // Temporary test for a coverage until we add component wich handles that
+  it('trigger analytics close event', () => {
+    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+
+    const trackOpenClose = services.analytics.openCloseStudyGuides.bind(store.getState());
+    trackOpenClose('esc');
+
+    expect(spyTrack).toHaveBeenCalled();
   });
 });
