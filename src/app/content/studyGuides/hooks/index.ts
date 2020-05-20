@@ -1,5 +1,3 @@
-import loadStudyGuides from './receiveBook';
+import loadStudyGuides from './locationChange';
 
-export default [
-  loadStudyGuides,
-];
+export { loadStudyGuides };
