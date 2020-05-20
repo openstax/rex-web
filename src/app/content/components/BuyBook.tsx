@@ -13,6 +13,7 @@ const BuyBookAlignment = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: ${contentTextWidth}rem;
+  overflow: visible;
 
   ${disablePrint}
 `;
@@ -36,6 +37,7 @@ const BuyBookText = styled.span`
   margin: 0;
   font-weight: 600;
   line-height: 1.9rem;
+  overflow: hidden;
 `;
 
 // tslint:disable-next-line: variable-name
