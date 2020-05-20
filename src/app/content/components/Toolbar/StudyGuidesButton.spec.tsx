@@ -67,4 +67,14 @@ describe('study guides button', () => {
 
     expect(spyTrack).toHaveBeenCalled();
   });
+
+  // Temporary test for a coverage until we add component wich handles that
+  it('trigger analytics close event', () => {
+    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+
+    const trackOpenClose = services.analytics.openCloseStudyGuides.bind(store.getState());
+    trackOpenClose('esc');
+
+    expect(spyTrack).toHaveBeenCalled();
+  });
 });
