@@ -50,7 +50,7 @@ describe('study guides button', () => {
 
   it('render if feature flag is enabled and book has study guide', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuides({ asd: 'asdf' } as any));
+    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -67,7 +67,7 @@ describe('study guides button', () => {
   // like analytics tracking
   it('do nothing after click', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuides({ asd: 'asdf' } as any));
+    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

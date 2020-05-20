@@ -5,5 +5,6 @@ import { HighlightsSummary } from '@openstax/highlighter/dist/api';
 export interface StudyGuides extends HighlightsSummary {}
 
 export interface State {
+  isEnabled: boolean;
   summary: StudyGuides | null;
 }

@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import theme from '../../../theme';
-import { studyGuidesEnabled } from '../../selectors';
-import { studyGuidesSummary } from '../../studyGuides/selectors';
+import { studyGuidesEnabled, studyGuidesSummaryIsNotEmpty } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
@@ -35,7 +34,7 @@ const StudyGuidesText = styled.span`
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
   const isEnabled = useSelector(studyGuidesEnabled);
-  const hasStudyGuides = useSelector(studyGuidesSummary);
+  const hasStudyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
 
   if (!isEnabled || !hasStudyGuides) { return null; }
 

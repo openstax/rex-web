@@ -6,7 +6,19 @@ export const localState = createSelector(
   (parentState) => parentState.studyGuides
 );
 
+export const studyGuidesEnabled = createSelector(
+  localState,
+  (state) => state.isEnabled
+);
+
 export const studyGuidesSummary = createSelector(
   localState,
   (state) => state.summary
+);
+
+export const studyGuidesSummaryIsNotEmpty = createSelector(
+  studyGuidesSummary,
+  (summary) => summary !== null
+    && summary.countsPerSource
+    && Object.keys(summary.countsPerSource).length > 0
 );

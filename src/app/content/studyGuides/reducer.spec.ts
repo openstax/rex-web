@@ -1,5 +1,7 @@
+import { receiveFeatureFlags } from '../../actions';
+import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
-import reducer from './reducer';
+import reducer, { initialState } from './reducer';
 import { StudyGuides } from './types';
 
 describe('study guides reducer', () => {
@@ -8,5 +10,10 @@ describe('study guides reducer', () => {
     const state = reducer(undefined, actions.receiveStudyGuides(summary));
 
     expect(state.summary).toBe(summary);
+  });
+
+  it('enables study guides on receiveFeatureFlags', () => {
+    const state = reducer(initialState, receiveFeatureFlags([studyGuidesFeatureFlag]));
+    expect(state.isEnabled).toEqual(true);
   });
 });

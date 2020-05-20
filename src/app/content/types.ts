@@ -30,7 +30,6 @@ export interface State {
   search: SearchState;
   showCallToActionPopup: boolean | null;
   studyGuides: StudyGuidesState;
-  studyGuidesEnabled: boolean;
   highlights: HighlightState;
   book?: Book;
   page?: Page;
