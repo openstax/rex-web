@@ -1,12 +1,12 @@
+import { HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { receiveFeatureFlags } from '../../actions';
 import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
-import { StudyGuides } from './types';
 
 describe('study guides reducer', () => {
   it('receive study guides', () => {
-    const summary = { asd: 'asd' } as any as StudyGuides;
+    const summary = { asd: 'asd' } as any as HighlightsSummary;
     const state = reducer(undefined, actions.receiveStudyGuides(summary));
 
     expect(state.summary).toBe(summary);
