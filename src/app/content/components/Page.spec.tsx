@@ -392,30 +392,40 @@ describe('Page', () => {
 
     it('moves footnotes from the content to the bottom of page', async() => {
       const input = await htmlHelper('<div id="content">' +
-        '<p>Some text</p>' +
+        '<p>Some text <a href="#1" role="doc-noteref">1</a></p>' +
         '<aside id="1" role="doc-footnote">' +
-          '<p>Footnote text</p>' +
+          '<p><span class="footnote-number">1</span>Footnote text</p>' +
         '</aside>' +
-        '<p>Another text</p>' +
+        '<p>Another text <a href="#2" role="doc-noteref">2</a></p>' +
         '<aside id="2" role="doc-footnote">' +
           '<p>Another <strong>footnote</strong> text</p>' +
         '</aside>' +
       '</div>');
       const expectedOutput = '<div id="content">' +
-        '<p>Some text</p>' +
-        '<p>Another text</p>' +
+        '<p>' +
+          'Some text ' +
+          '<sup id="footnote-ref1" data-type="footnote-number">' +
+            '<a href="#1" role="doc-noteref" data-type="footnote-link">1</a>' +
+          '</sup>' +
+        '</p>' +
+        '<p>' +
+          'Another text ' +
+          '<sup id="footnote-ref2" data-type="footnote-number">' +
+            '<a href="#2" role="doc-noteref" data-type="footnote-link">2</a>' +
+          '</sup>' +
+        '</p>' +
       '</div>' +
       '<div data-type="footnote-refs">' +
         '<h3 data-type="footnote-refs-title">Footnotes</h3>' +
         '<ul data-list-type="bulleted" data-bullet-style="none">' +
-          '<li id="footnote1" data-type="footnote-ref">' +
-            '<a data-type="footnote-ref-link" href="#1">1</a>' +
+          '<li id="1" data-type="footnote-ref">' +
+            '<a data-type="footnote-ref-link" href="#footnote-ref1">1</a>' +
             '<span data-type="footnote-ref-content">' +
               '<p>Footnote text</p>' +
             '</span>' +
           '</li>' +
-          '<li id="footnote2" data-type="footnote-ref">' +
-            '<a data-type="footnote-ref-link" href="#2">2</a>' +
+          '<li id="2" data-type="footnote-ref">' +
+            '<a data-type="footnote-ref-link" href="#footnote-ref2">2</a>' +
             '<span data-type="footnote-ref-content">' +
             '<p>Another <strong>footnote</strong> text</p>' +
             '</span>' +

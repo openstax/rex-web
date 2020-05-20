@@ -1,7 +1,7 @@
 import { Document, HTMLButtonElement, HTMLElement, HTMLImageElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { REACT_APP_ARCHIVE_URL } from '../../../../config';
-import { assertDefined, assertNotNull } from '../../../utils';
+import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
@@ -148,17 +148,20 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     const counter = index + 1;
 
     const item = document.createElement('li');
-    item.setAttribute('id', `footnote${counter}`);
+    item.setAttribute('id', assertNotNull(footnote.getAttribute('id'), 'id of footnote was not found'));
     item.setAttribute('data-type', 'footnote-ref');
 
     const anchor = document.createElement('a');
     anchor.setAttribute('data-type', 'footnote-ref-link');
-    anchor.setAttribute('href', `#${assertDefined(footnote.getAttribute('id'), 'id of footnote was not provided')}`);
+    anchor.setAttribute('href', `#footnote-ref${counter}`);
     anchor.innerHTML = counter.toString();
 
     const content = document.createElement('span');
     content.setAttribute('data-type', 'footnote-ref-content');
     content.innerHTML = footnote.innerHTML;
+
+    const number = content.querySelector('.footnote-number');
+    if (number) { number.remove(); }
 
     item.appendChild(anchor);
     item.appendChild(content);
@@ -169,4 +172,19 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
 
   container.appendChild(list);
   rootEl.appendChild(container);
+
+  const footnoteLinks = document.querySelectorAll('[role="doc-noteref"]');
+
+  for (const [index, link] of Array.from(footnoteLinks).entries()) {
+    const counter = index + 1;
+
+    const sup = document.createElement('sup');
+    sup.setAttribute('id', `footnote-ref${counter}`);
+    sup.setAttribute('data-type', 'footnote-number');
+
+    link.setAttribute('data-type', 'footnote-link');
+
+    link.replaceWith(sup);
+    sup.appendChild(link);
+  }
 }
