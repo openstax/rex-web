@@ -1,4 +1,4 @@
-import { GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { GetHighlightsSummarySetsEnum, GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuides } from '../actions';
@@ -15,10 +15,9 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
     scopeId: book.id,
-    sets: ['curated:openstax'],
+    sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
     sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-  } as any);
-  // TODO: Remove this as any and update highlightClient to the newer version
+  });
 
   services.dispatch(receiveStudyGuides(studyGuidesSummary));
 };
