@@ -6,12 +6,15 @@ import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { buyBookLink } from '../selectors';
 import { contentTextWidth } from './constants';
+import { disablePrint } from './utils/disablePrint';
 
 // tslint:disable-next-line:variable-name
 const BuyBookAlignment = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: ${contentTextWidth}rem;
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
