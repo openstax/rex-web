@@ -853,7 +853,7 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    jest.spyOn(highlightUtils, 'highlightData').mockReturnValue(() => ({} as any));
+    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => undefined);
 
     // normally, search result selection handler would noop if the
     // search result is the same. This makes it think that a new highlight was
@@ -870,6 +870,8 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+    highlightData.mockRestore();
+    highlightResults.mockRestore();
   });
 
   it('mounts, updates, and unmounts without a dom', () => {
