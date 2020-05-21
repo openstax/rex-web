@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import SearchFailure from '../../../notifications/components/SearchFailure';
-import { assertWindow } from '../../../utils';
+import { assertWindow, shallowEqual } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import PrevNextBar from '../PrevNextBar';
@@ -74,9 +74,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
-    const shallowEquals = (key: keyof PageState) => prevState[key] === this.state[key];
-
-    if (!shallowEquals('hasSearchError') || !shallowEquals('selectedSearchResult')) { return; }
+    if (!shallowEqual(prevState, this.state)) { return; }
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
