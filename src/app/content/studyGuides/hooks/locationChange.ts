@@ -4,6 +4,7 @@ import { bookAndPage } from '../../selectors';
 import { receiveStudyGuides } from '../actions';
 import { studyGuidesEnabled, studyGuidesSummaryIsNotEmpty } from '../selectors';
 
+// composed in /content/locationChange hook because it needs to happen after book load
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
 
