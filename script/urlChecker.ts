@@ -1,3 +1,4 @@
+import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
 import ProgressBar from 'progress';
 import { argv } from 'yargs';
@@ -22,9 +23,6 @@ const {
   useUnversionedUrls?: boolean;
 };
 
-const chunkArray = <T>(array: T[], max: number) =>
-  Array.from({length: Math.ceil(array.length / max)}, (_, i) => array.slice(i * max, (i + 1) * max));
-
 async function checkPages(bookSlug: string, pages: string[]) {
   let anyFailures = false;
   const bar = new ProgressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
@@ -35,8 +33,6 @@ async function checkPages(bookSlug: string, pages: string[]) {
   });
 
   const notFound: string[] = [];
-
-  const pageChunks = chunkArray(pages, 50);
 
   const visitPage = async(page: string) => {
     try {
@@ -51,8 +47,8 @@ async function checkPages(bookSlug: string, pages: string[]) {
     bar.tick();
   };
 
-  for (const chunk of pageChunks) {
-    await Promise.all(chunk.map(visitPage));
+  for (const pageChunk of chunk(pages, 50)) {
+    await Promise.all(pageChunk.map(visitPage));
   }
 
   if (notFound.length) {
