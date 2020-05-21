@@ -10,9 +10,9 @@ import {
   AnyAction,
   AnyActionCreator,
   AppServices,
+  AppState,
   Dispatch,
-  Middleware,
-  AppState
+  Middleware
 } from './types';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
