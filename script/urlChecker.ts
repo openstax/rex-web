@@ -22,6 +22,9 @@ const {
   useUnversionedUrls?: boolean;
 };
 
+const chunkArray = <T>(array: T[], max: number) =>
+  Array.from({length: Math.ceil(array.length / max)}, (_, i) => array.slice(i * max, (i + 1) * max));
+
 async function checkPages(bookSlug: string, pages: string[]) {
   let anyFailures = false;
   const bar = new ProgressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
@@ -33,18 +36,23 @@ async function checkPages(bookSlug: string, pages: string[]) {
 
   const notFound: string[] = [];
 
-  for (const pageUrl of pages) {
-    try {
-      const response = await fetch(`${rootUrl}${pageUrl}`);
-      if (response.status === 404) {
-        notFound.push(pageUrl);
-      }
-    } catch (e) {
-      anyFailures = true;
-      bar.interrupt(`- (error loading) ${pageUrl}`);
-    }
+  const pageChunks = chunkArray(pages, 50);
 
+  const visitPage = async(page: string) => {
+    try {
+      const response = await fetch(`${rootUrl}${page}`);
+      if (response.status === 404) {
+        notFound.push(page);
+      }
+    } catch {
+      anyFailures = true;
+      bar.interrupt(`- (error loading) ${page}`);
+    }
     bar.tick();
+  };
+
+  for (const chunk of pageChunks) {
+    await Promise.all(chunk.map(visitPage));
   }
 
   if (notFound.length) {
