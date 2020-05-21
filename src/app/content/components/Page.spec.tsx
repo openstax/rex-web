@@ -847,14 +847,22 @@ describe('Page', () => {
       return expect(errorModalCloseButton).toBeTruthy();
     }
 
-    ReactTestUtils.Simulate.click(errorModalCloseButton);
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
     jest.spyOn(highlightUtils, 'highlightData').mockReturnValue(() => ({} as any));
 
-    store.dispatch(createHighlight({} as any, {} as any));
-    store.dispatch(selectSearchResult(searchResultToSelect));
+    // normally, search result selection handler would noop if the
+    // search result is the same. This makes it think that a new highlight was
+    // added and will force reselection
+
+    renderer.act(() => {
+      store.dispatch(createHighlight({} as any, {} as any));
+      store.dispatch(selectSearchResult(searchResultToSelect));
+    });
 
     // page lifecycle hooks
     await Promise.resolve();
