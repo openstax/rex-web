@@ -16,14 +16,19 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
 };
 
 const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
+  const section = assertNotNull(solution.querySelector('section'), 'Expected solution to contain a <section>');
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
     solution.removeAttribute('aria-expanded');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
+    section.style.height = '0px';
+    section.style.overflow = 'hidden';
   } else {
     solution.className += ' ui-solution-visible';
     solution.setAttribute('aria-expanded', '');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
+    section.style.height = 'auto';
+    section.style.height = 'visible';
   }
 };
 
@@ -115,7 +120,7 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
       <div class="ui-toggle-wrapper">
         <button class="btn-link ui-toggle" title="${title}"></button>
       </div>
-      <section class="ui-body" role="alert">${contents}</section>
+      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">${contents}</section>
     `;
   });
 }
