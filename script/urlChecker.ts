@@ -57,7 +57,7 @@ async function checkPages(bookSlug: string, pages: string[]) {
       : `\n${notFound.join('\n')}\n`}`);
   }
 
-  return anyFailures;
+  return anyFailures || notFound.length > 0;
 }
 
 const getUrl = (book: Book) => useUnversionedUrls
@@ -83,7 +83,7 @@ async function checkUrls() {
 
   for (const book of books) {
     const pages = findTreePages(book.tree);
-    anyFailures = await checkPages(book.slug, pages.map(getUrl(book)));
+    anyFailures = await checkPages(book.slug, pages.map(getUrl(book))) || anyFailures;
   }
 
   if (anyFailures) {
