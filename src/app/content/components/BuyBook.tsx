@@ -20,6 +20,7 @@ const BuyBookAlignment = styled.div`
 
 // tslint:disable-next-line:variable-name
 const BuyBookWrapper = styled.a`
+  ${textRegularSize};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,16 +29,8 @@ const BuyBookWrapper = styled.a`
   width: 17.9rem;
   color: ${theme.color.primary.orange.base};
   border: solid 0.1rem;
-  text-align: center;
-`;
-
-// tslint:disable-next-line:variable-name
-const BuyBookText = styled.span`
-  ${textRegularSize};
-  margin: 0;
   font-weight: 600;
   line-height: 1.9rem;
-  overflow: hidden;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -56,7 +49,7 @@ const BuyBook = () => {
         data-analytics-label='buy-book'
       >
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
-          {(msg) => <BuyBookText>{msg}</BuyBookText>}
+          {(msg) => msg}
         </FormattedMessage>
       </BuyBookWrapper>
     </BuyBookAlignment>}
