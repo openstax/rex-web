@@ -14,7 +14,6 @@ const BuyBookAlignment = styled.div`
   margin: 0 auto;
   max-width: ${contentTextWidth}rem;
   overflow: visible;
-
   ${disablePrint}
 `;
 
