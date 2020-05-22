@@ -8,6 +8,7 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
+import { receiveStudyGuides } from '../../studyGuides/actions';
 import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
 describe('study guides button', () => {
@@ -33,8 +34,23 @@ describe('study guides button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('render if feature flag is enabled', () => {
+  it('does not render if feature flag is enabled but book does not have study guide', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <StudyGuidesButton />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('render if feature flag is enabled and book has study guide', () => {
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -51,6 +67,7 @@ describe('study guides button', () => {
     const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
 
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

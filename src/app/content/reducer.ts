@@ -5,15 +5,14 @@ import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../actions';
 import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import { studyGuidesFeatureFlag } from './constants';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
+import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
 export const initialState = {
@@ -23,8 +22,7 @@ export const initialState = {
   references: [],
   search: initialSearchState,
   showCallToActionPopup: null,
-  studyGuides: null,
-  studyGuidesEnabled: false,
+  studyGuides: initialStudyGuidesState,
   tocOpen: null,
 };
 
@@ -41,6 +39,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const highlights = highlightReducer(contentState.highlights, action);
       if (contentState.highlights !== highlights) {
         return {...contentState, highlights};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const studyGuides = studyGuidesReducer(contentState.studyGuides, action);
+      if (contentState.studyGuides !== studyGuides) {
+        return {...contentState, studyGuides};
       }
       return contentState;
     }
@@ -95,9 +100,6 @@ function reduceContent(state: State, action: AnyAction) {
     }
     case getType(actions.closeCallToActionPopup): {
       return {...state, showCallToActionPopup: false };
-    }
-    case getType(receiveFeatureFlags): {
-      return {...state, studyGuidesEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     }
     default:
       return state;

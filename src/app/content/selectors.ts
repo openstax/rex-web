@@ -82,8 +82,3 @@ export const prevNextPage = createSelector(
     ? prevNextBookPage(selectedBook, selectedPage.id)
     : null
 );
-
-export const studyGuidesEnabled = createSelector(
-  localState,
-  (state) => state.studyGuidesEnabled
-);

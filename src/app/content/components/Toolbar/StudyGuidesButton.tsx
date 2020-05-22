@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
-import { studyGuidesEnabled } from '../../selectors';
+import { studyGuidesEnabled, studyGuidesSummaryIsNotEmpty } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
@@ -37,7 +37,9 @@ const StudyGuidesButton = () => {
   const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
-  if (!isEnabled) { return null; }
+  const hasStudyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
+
+  if (!isEnabled || !hasStudyGuides) { return null; }
 
   const openStudyGuidesSummary = () => {
     trackOpenClose();
