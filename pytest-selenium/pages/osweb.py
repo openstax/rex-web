@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as expected
 from time import sleep
 
@@ -22,6 +23,9 @@ class WebBase(Page):
         By.XPATH,
         "//div[@class='phone-view']//span[text()='View online']/..",
     )
+    _print_copy_locator = (By.CSS_SELECTOR, ".show-print-submenu")
+    _order_on_amazon_locator = (By.CSS_SELECTOR, '[class="btn primary"]')
+    _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
 
     @property
     def loaded(self):
@@ -116,3 +120,20 @@ class WebBase(Page):
         """Get the username of the logged in user."""
         element1 = self.username(element)
         return " ".join(element1.split()[:2])
+
+    def book_status_on_amazon(self):
+        """Open the Book Order modal."""
+        try:
+            Utilities.click_option(self.driver, locator=self._print_copy_locator)
+            if self.find_element(*self._order_on_amazon_locator):
+                amazon_link = self.find_element(*self._order_on_amazon_locator).get_attribute(
+                    "href"
+                )
+                return amazon_link
+            else:
+                return None
+        except NoSuchElementException:
+            return None
+
+    def close_print_options_modal(self):
+        Utilities.click_option(self.driver, locator=self._close_locator)
