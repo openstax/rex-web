@@ -17,9 +17,9 @@ import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import BuyBook from './BuyBook';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
-import BuyBook from './Toolbar/BuyBook';
 
 jest.mock('../../../config', () => {
   const mockBook = (jest as any).requireActual(
