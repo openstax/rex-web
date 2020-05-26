@@ -2,7 +2,7 @@
 
 exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book tree 1`] = `
 <div
-  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fiSglB"
+  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
   data-analytics-region="prev-next"
 >
   <span
@@ -35,7 +35,7 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `null`;
 
 exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 <div
-  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fiSglB"
+  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
   data-analytics-region="prev-next"
 >
   <a
@@ -83,7 +83,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 
 exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 <div
-  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fiSglB"
+  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
   data-analytics-region="prev-next"
 >
   <span
@@ -114,7 +114,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 
 exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 <div
-  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fiSglB"
+  className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
   data-analytics-region="prev-next"
 >
   <a
