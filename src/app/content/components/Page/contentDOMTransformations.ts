@@ -15,20 +15,28 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   prefixResources(rootEl);
 };
 
+const toggleSolutionSectionStyles = (section: HTMLElement, shouldBeVisible: boolean) => {
+  if (shouldBeVisible) {
+    section.style.height = 'auto';
+    section.style.overflow = 'visible';
+  } else {
+    section.style.height = '0px';
+    section.style.overflow = 'hidden';
+  }
+};
+
 const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
   const section = assertNotNull(solution.querySelector('section'), 'Expected solution to contain a <section>');
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
     solution.removeAttribute('aria-expanded');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-    section.style.height = '0px';
-    section.style.overflow = 'hidden';
+    toggleSolutionSectionStyles(section, false);
   } else {
     solution.className += ' ui-solution-visible';
     solution.setAttribute('aria-expanded', '');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
-    section.style.height = 'auto';
-    section.style.height = 'visible';
+    toggleSolutionSectionStyles(section, true);
   }
 };
 
