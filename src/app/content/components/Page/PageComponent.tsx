@@ -6,6 +6,7 @@ import Loader from '../../../components/Loader';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
+import BuyBook from '../BuyBook';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
@@ -91,7 +92,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       <this.highlightManager.CardList />
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
-        <PrevNextBar />
       </RedoPadding>
     </MinPageHeight>;
   }
@@ -99,11 +99,15 @@ export default class PageComponent extends Component<PagePropTypes> {
   private renderContent = () => {
     const html = this.getTransformedContent() || this.getPrerenderedContent();
 
-    return <PageContent
-      key='main-content'
-      ref={this.container}
-      dangerouslySetInnerHTML={{ __html: html}}
-    />;
+    return <React.Fragment>
+      <PageContent
+        key='main-content'
+        ref={this.container}
+        dangerouslySetInnerHTML={{ __html: html}}
+      />
+      <PrevNextBar />
+      <BuyBook />
+    </React.Fragment>;
   };
 
   private renderLoading = () => <PageContent
