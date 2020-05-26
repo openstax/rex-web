@@ -18,7 +18,7 @@ import { contentTextStyle } from './Page/PageContent';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 
-const detailsMarginTop = 2;
+const detailsMarginTop = 3;
 const desktopSpacing = 1.8;
 const mobileSpacing = 0.8;
 export const desktopAttributionHeight = detailsMarginTop + textRegularLineHeight + desktopSpacing * 2;
