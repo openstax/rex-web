@@ -68,6 +68,17 @@ const barPadding = css`
   `)}
 `;
 
+export const toolbarDefaultButton = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+  height: auto;
+  ${theme.breakpoints.mobile(css`
+    margin-right: 0;
+  `)}
+`;
+
 // tslint:disable-next-line:variable-name
 export const PlainButton = styled.button`
   cursor: pointer;
@@ -305,28 +316,9 @@ export const InnerText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BuyBookIcon = styled.img`
-  ${toolbarIconStyles}
-`;
-
-// tslint:disable-next-line:variable-name
 export const SidebarControl = styled(OpenSidebarControl)`
   margin-right: auto;
   ${theme.breakpoints.mobile(css`
     margin-right: unset;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const BuyBookWrapper = styled.a`
-  min-width: ${buttonMinWidth};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${toolbarIconColor.base};
-  margin-left: 2rem;
-  text-decoration: none;
-  ${theme.breakpoints.mobile(css`
-    margin: 0;
   `)}
 `;
