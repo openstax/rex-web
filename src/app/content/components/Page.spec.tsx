@@ -319,7 +319,7 @@ describe('Page', () => {
       <div class="ui-toggle-wrapper">
         <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
       </div>
-      <section class="ui-body" role="alert">
+      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
@@ -358,6 +358,37 @@ describe('Page', () => {
         expect(solution.matches('.ui-solution-visible')).toBe(true);
         button.dispatchEvent(makeEvent(pageElement.ownerDocument!));
         expect(solution.matches('.ui-solution-visible')).toBe(false);
+      });
+
+      it('doesn\'t use display none to hide solutions', async() => {
+        if (!window) {
+          return expect(window).toBeTruthy();
+        }
+
+        await htmlHelper(`
+          <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
+            <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
+            <div data-type="problem" id="problem1"><div class="os-problem-container">
+              <p id="paragraph1">blah blah blah</p>
+            </div></div>
+            <div data-type="solution" id="fs-id2913818" data-print-placement="here">
+              <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
+              <div class="os-solution-container">
+                <p id="paragraph2">answer answer answer.</p>
+              </div>
+            </div>
+          </div>
+        `);
+
+        const solutionSection = pageElement.querySelector('#exercise1 .ui-body');
+
+        if (!solutionSection) {
+          return expect(solutionSection).toBeTruthy();
+        }
+
+        // one of the checks that rangy does when skipping text
+        // https://github.com/timdown/rangy/wiki/Text-Range-Module#visible-text
+        expect(window.getComputedStyle(solutionSection).display).toBe('block');
       });
 
       it('doesn\'t throw when badly formatted', async() => {
