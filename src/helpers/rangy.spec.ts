@@ -82,4 +82,17 @@ describe('findTextInRange', () => {
     expect(result.length).toBe(1);
     expect(searchRange.findText).toHaveBeenCalledTimes(1);
   });
+
+  it('handles whitespace after block elements', () => {
+    const searchRange = mockRange();
+    rangy.createRange.mockReturnValue(searchRange);
+
+    const withinRange = mockRange();
+    withinRange.cloneRange.mockReturnValue(withinRange);
+
+    findTextInRange(withinRange as unknown as RangyRange, ' some text');
+    expect(searchRange.findText).toHaveBeenCalledWith('some text', expect.objectContaining({
+      withinRange,
+    }));
+  });
 });
