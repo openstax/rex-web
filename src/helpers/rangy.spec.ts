@@ -82,15 +82,23 @@ describe('findTextInRange', () => {
     expect(result.length).toBe(1);
     expect(searchRange.findText).toHaveBeenCalledTimes(1);
   });
+});
 
-  it('handles whitespace after block elements', () => {
+describe('findText', () => {
+  let findTextInRange: typeof import ('./rangy').findTextInRange;
+
+  beforeEach(() => {
+    findTextInRange = require('./rangy').findTextInRange;
+  });
+
+  it('removes leading and following whitespace on searched text', () => {
     const searchRange = mockRange();
     rangy.createRange.mockReturnValue(searchRange);
 
     const withinRange = mockRange();
     withinRange.cloneRange.mockReturnValue(withinRange);
 
-    findTextInRange(withinRange as unknown as RangyRange, ' some text');
+    findTextInRange(withinRange as unknown as RangyRange, ' some text ');
     expect(searchRange.findText).toHaveBeenCalledWith('some text', expect.objectContaining({
       withinRange,
     }));
