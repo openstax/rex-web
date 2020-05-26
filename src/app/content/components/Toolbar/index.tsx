@@ -13,7 +13,6 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
-import BuyBook from './BuyBook';
 import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
 import * as Styled from './styled';
@@ -118,7 +117,6 @@ class Toolbar extends React.Component<Props, State> {
         </Styled.SearchPrintWrapper>
         <HighlightButton/>
         <PrintButton />
-        <BuyBook />
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />
