@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { HighlightProp } from '../../../content/components/Page/searchHighlightManager';
 import { useOnDOMEvent, useTimeout } from '../../../reactUtils';
 import { assertWindow } from '../../../utils';
 import { Header } from '../Card';
@@ -15,7 +14,7 @@ import {
 interface Props {
   dismiss: () => void;
   mobileToolbarOpen: boolean;
-  selectedHighlight: null | HighlightProp;
+  selectedHighlight: null | string;
 }
 
 const initialState = {

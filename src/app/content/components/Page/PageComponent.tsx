@@ -17,7 +17,7 @@ import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
-import searchHighlightManager, { HighlightProp, OptionsCallback, stubManager } from './searchHighlightManager';
+import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -27,12 +27,12 @@ const parser = new DOMParser();
 
 interface PageState {
   hasSearchError: boolean;
-  selectedSearchResult: null | HighlightProp;
+  selectedSearchResultId: null | string;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false, selectedSearchResult: null };
+  public state = { hasSearchError: false, selectedSearchResultId: null };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -77,7 +77,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
     const shouldUpdateHighlights = prevProps !== this.props ||
       (prevState.hasSearchError === this.state.hasSearchError &&
-        prevState.selectedSearchResult === this.state.selectedSearchResult);
+        prevState.selectedSearchResultId === this.state.selectedSearchResultId);
 
     if (!shouldUpdateHighlights) { return; }
 
@@ -97,12 +97,16 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
       return;
     }
+    const { selectedResult } = current;
+    const currentResultId = selectedResult
+      ? `${selectedResult.highlight}-${selectedResult.result.index}`
+      : null;
 
-    if (current === this.state.selectedSearchResult) { return; }
+    if (currentResultId === this.state.selectedSearchResultId) { return; }
 
     this.setState({
       hasSearchError: true,
-      selectedSearchResult: current,
+      selectedSearchResultId: currentResultId,
     });
   };
 
@@ -131,7 +135,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       {this.state.hasSearchError
         ? <SearchFailure
             dismiss={this.dismissError}
-            selectedHighlight={this.state.selectedSearchResult}
+            selectedHighlight={this.state.selectedSearchResultId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />
         : null}
