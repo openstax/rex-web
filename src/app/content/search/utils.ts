@@ -151,7 +151,8 @@ export const highlightResults = (
       const highlights = getHighlightRanges(element, highlightText)
         .map((range) => {
           const highlight = new Highlight(range.nativeRange, {content: range.toString()});
-          return attachHighlight(highlight, highlighter) || highlight;
+          attachHighlight(highlight, highlighter);
+          return highlight;
         })
         .filter((highlight) => highlight.elements && highlight.elements.length > 0)
       ;
