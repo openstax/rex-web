@@ -99,7 +99,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     }
     const { selectedResult } = current;
     const currentResultId = selectedResult
-      ? `${selectedResult.highlight}-${selectedResult.result.index}`
+      ? `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`
       : null;
 
     if (currentResultId === this.state.selectedSearchResultId) { return; }
