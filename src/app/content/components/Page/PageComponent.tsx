@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import SearchFailure from '../../../notifications/components/SearchFailure';
-import { assertWindow } from '../../../utils';
+import { assertNotNull, assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -97,10 +97,8 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
       return;
     }
-    const { selectedResult } = current;
-    const currentResultId = selectedResult
-      ? `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`
-      : null;
+    const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
+    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
 
     if (currentResultId === this.state.selectedSearchResultId) { return; }
 
