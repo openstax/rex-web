@@ -115,6 +115,10 @@ body {
       font: inherit;
       margin: 0;
   }
+  [data-type="footnote-ref-content"]:before {
+    /* In previous version there was a whitespace in the content */
+    content: " ";
+  }
 }
 
 .summary-highlight-content {
