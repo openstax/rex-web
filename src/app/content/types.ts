@@ -2,6 +2,7 @@ import { RouteParams, RouteState } from '../navigation/types';
 import { State as HighlightState } from './highlights/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
+import { State as StudyGuidesState } from './studyGuides/types';
 
 export interface SlugParams {
   slug: string;
@@ -28,6 +29,7 @@ export interface State {
   loading: Partial<Params>;
   search: SearchState;
   showCallToActionPopup: boolean | null;
+  studyGuides: StudyGuidesState;
   highlights: HighlightState;
   book?: Book;
   page?: Page;
