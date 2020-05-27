@@ -212,7 +212,8 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
         >{msg}</Button>}
       </FormattedMessage>
     </ButtonGroup>}
-    {confirmingDelete && data && <Confirmation
+    {data && <Confirmation
+      isOpen={confirmingDelete}
       data-testid='confirm-delete'
       data-analytics-region='highlighting-delete-note'
       message='i18n:highlighting:confirmation:delete-note'
@@ -224,14 +225,15 @@ const EditCard = React.forwardRef<HTMLElement, Props>((
       }}
       always={() => setConfirmingDelete(false)}
     />}
-    {!authenticated && <Confirmation
+    <Confirmation
+      isOpen={!authenticated}
       data-analytics-label='login'
       data-analytics-region='highlighting-login'
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
       confirmLink={loginLink}
       onCancel={onBlur}
-    />}
+    />
   </form>;
 });
 

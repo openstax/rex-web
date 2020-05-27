@@ -11,6 +11,7 @@ import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../constants';
 import ColorPicker from './ColorPicker';
+import Confirmation from './Confirmation';
 import EditCard from './EditCard';
 import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
@@ -380,7 +381,7 @@ describe('EditCard', () => {
       confirmation.props.always();
     });
 
-    expect(() => findByTestId('confirm-delete')).toThrow();
+    expect(component.root.findAllByType(Confirmation)[0].props.isOpen).toEqual(false);
     expect(save).toHaveBeenCalledWith({
       highlight: {color: highlightData.style, annotation: ''},
       id: highlightData.id,
@@ -432,7 +433,7 @@ describe('EditCard', () => {
       confirmation.props.always();
     });
 
-    expect(() => findByTestId('confirm-delete')).toThrow();
+    expect(component.root.findAllByType(Confirmation)[0].props.isOpen).toEqual(false);
     expect(save).not.toHaveBeenCalled();
     expect(note.props.note).toBe('qwer');
   });

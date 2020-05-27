@@ -72,17 +72,20 @@ describe('DisplayNote', () => {
     </MessageProvider>);
     const findByTestId = makeFindByTestId(component.root);
 
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(false);
+
     const deleteButton = findByTestId('delete');
     renderer.act(() => {
       deleteButton.props.onClick();
     });
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(true);
 
     const confirmation = component.root.findByType(Confirmation);
     renderer.act(() => {
       confirmation.props.onCancel();
     });
 
-    expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(false);
     expect(onRemove).not.toHaveBeenCalled();
   });
 
@@ -93,7 +96,7 @@ describe('DisplayNote', () => {
       <DisplayNote style={highlightStyles[0]} isFocused={isFocused} onRemove={jest.fn()} />
     </MessageProvider>);
 
-    expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(false);
 
     const findByTestId = makeFindByTestId(component.root);
     const deleteButton = findByTestId('delete');
@@ -101,7 +104,7 @@ describe('DisplayNote', () => {
       deleteButton.props.onClick();
     });
 
-    expect(component.root.findByType(Confirmation)).toBeDefined();
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(true);
 
     isFocused = false;
 
@@ -116,7 +119,7 @@ describe('DisplayNote', () => {
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
-    expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(false);
 
     isFocused = true;
 
@@ -131,6 +134,6 @@ describe('DisplayNote', () => {
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
-    expect(() => component.root.findByType(Confirmation)).toThrow();
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(false);
   });
 });

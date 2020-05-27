@@ -112,6 +112,35 @@ exports[`DisplayNote matches snapshot 1`] = `
     isFocused={false}
     mock-truncated-text={true}
   />
+  <div
+    className="Confirmation__Overlay-stssi9-0 ggeuQE"
+    data-analytics-region="confirm-delete-inline-highlight"
+    tabIndex={-1}
+  >
+    <label>
+      Are you sure you want to delete this note and highlight?
+    </label>
+    <div
+      className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+    >
+      <button
+        className="Button-ayg7nk-0 bNgBJd"
+        data-analytics-label="delete"
+        data-testid="confirm"
+        onClick={[Function]}
+      >
+        Delete
+      </button>
+      <button
+        className="Button-ayg7nk-0 hGjqhZ"
+        data-analytics-label="cancel"
+        data-testid="cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
 </div>
 `;
 
@@ -227,5 +256,34 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     isFocused={true}
     mock-truncated-text={true}
   />
+  <div
+    className="Confirmation__Overlay-stssi9-0 ggeuQE"
+    data-analytics-region="confirm-delete-inline-highlight"
+    tabIndex={-1}
+  >
+    <label>
+      Are you sure you want to delete this note and highlight?
+    </label>
+    <div
+      className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+    >
+      <button
+        className="Button-ayg7nk-0 bNgBJd"
+        data-analytics-label="delete"
+        data-testid="confirm"
+        onClick={[Function]}
+      >
+        Delete
+      </button>
+      <button
+        className="Button-ayg7nk-0 hGjqhZ"
+        data-analytics-label="cancel"
+        data-testid="cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
 </div>
 `;

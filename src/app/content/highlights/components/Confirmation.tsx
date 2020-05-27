@@ -1,7 +1,7 @@
 import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
 import theme from '../../../theme';
@@ -15,7 +15,7 @@ export const Overlay = styled.div`
   ${cardBorder}
   transition: background 200ms;
   position: absolute;
-  display: flex;
+  ${({ isOpen }: { isOpen: boolean}) => css`${isOpen ? 'display: flex;' : 'display: none;'}`}
   flex-direction: column;
   padding: 1.6rem;
   top: 0;
@@ -34,6 +34,7 @@ export const Overlay = styled.div`
 `;
 
 interface Props {
+  isOpen: boolean;
   message: string;
   'data-analytics-region'?: string;
   'data-analytics-label'?: string;
@@ -53,6 +54,7 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       ? {'data-analytics-region': props['data-analytics-region']}
       : {}
     }
+    isOpen={props.isOpen}
   >
     <FormattedMessage id={message}>
       {(msg: Element | string) => <label>{msg}</label>}
