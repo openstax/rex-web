@@ -44,6 +44,17 @@ describe('highlight reducer', () => {
     expect(state.currentPage.focused).toBeUndefined();
   });
 
+  it('locationChange - noops for REPLACE action', () => {
+    const mockState = {
+      ...initialState,
+      currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'},
+    };
+    const state = reducer(
+      mockState,
+      locationChange({action: 'REPLACE', location: {state: {pageUid: 'asdf'}}} as any));
+    expect(state).toEqual(mockState);
+  });
+
   it('focuses highlight', () => {
     const state = reducer(undefined, actions.focusHighlight('asdf'));
     expect(state.currentPage.focused).toEqual('asdf');
