@@ -91,9 +91,13 @@ export const getSearchFromLocation = (location: Location): RouteState<typeof con
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
-const getHighlightRanges = (element: HTMLElement, highlight: string): RangyRange[] => {
+const getHighlightRanges = (element: HTMLElement, highlight: string, previousEndOffset?: number): RangyRange[] => {
   const elementRange = rangy.createRange();
   elementRange.selectNodeContents(element);
+
+  if (previousEndOffset) {
+    elementRange.setStart(element, previousEndOffset);
+  }
 
   // search replaces non-text inline elements with `…`, which breaks the text matchin in the element,
   // luckily you can't actually search for non-text elements, so they won't be in a matches
@@ -146,10 +150,12 @@ export const highlightResults = (
       return {result: hit, highlights: {}};
     }
 
+    let previousEndOffset = 0;
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
-      const highlights = getHighlightRanges(element, highlightText).map((range) => {
+      const highlights = getHighlightRanges(element, highlightText, previousEndOffset).map((range) => {
         const highlight = new Highlight(range.nativeRange, {content: range.toString()});
         highlighter.highlight(highlight);
+        previousEndOffset = range.nativeRange.endOffset;
         return highlight;
       });
 
