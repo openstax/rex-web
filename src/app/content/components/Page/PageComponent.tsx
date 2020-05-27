@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import SearchFailure from '../../../notifications/components/SearchFailure';
-import { assertWindow, shallowEqual } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -75,7 +75,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
-    if (!shallowEqual(prevState, this.state)) { return; }
+    const shouldUpdateHighlights = prevProps !== this.props ||
+      (prevState.hasSearchError === this.state.hasSearchError &&
+        prevState.selectedSearchResult === this.state.selectedSearchResult);
+
+    if (!shouldUpdateHighlights) { return; }
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
