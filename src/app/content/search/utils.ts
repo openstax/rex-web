@@ -4,9 +4,9 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
-import Sentry from '../../../helpers/Sentry';
 import { RouteState } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
+import attachHighlight from '../components/utils/attachHighlight';
 import { content } from '../routes';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
@@ -151,14 +151,7 @@ export const highlightResults = (
       const highlights = getHighlightRanges(element, highlightText)
         .map((range) => {
           const highlight = new Highlight(range.nativeRange, {content: range.toString()});
-
-          try {
-            highlighter.highlight(highlight);
-          } catch (e) {
-            Sentry.captureException(e);
-          }
-
-          return highlight;
+          return attachHighlight(highlight, highlighter) || highlight;
         })
         .filter((highlight) => highlight.elements && highlight.elements.length > 0)
       ;
