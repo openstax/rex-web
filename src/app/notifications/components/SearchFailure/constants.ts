@@ -12,5 +12,5 @@ export const fadeOutDuration = 1000;
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + toolbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
-  ? bookBannerMobileMiniHeight + toolbarDesktopHeight + toolbarMobileSearchWrapperHeight - 1
+  ? bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight
   : bookBannerMobileMiniHeight + toolbarMobileHeight;
