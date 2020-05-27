@@ -162,7 +162,7 @@ def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
     osweb = WebBase(selenium)
     osweb.wait_for_page_to_load()
 
-    assert not osweb.notification_dialog_displayed()
+    assert not osweb.notification_dialog_displayed
 
 
 @markers.test_case("C546509")
@@ -196,7 +196,7 @@ def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
     osweb = WebBase(selenium)
     osweb.wait_for_page_to_load()
 
-    assert osweb.notification_dialog_displayed()
+    assert osweb.notification_dialog_displayed
 
 
 @markers.test_case("C546506")
@@ -253,7 +253,7 @@ def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
     osweb.wait_for_load()
 
     # AND: Accept the cookie notice
-    assert osweb.notification_dialog_displayed()
+    assert osweb.notification_dialog_displayed
     osweb.click_notification_got_it()
 
     # WHEN: Click the view online link in osweb book detail page

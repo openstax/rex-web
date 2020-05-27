@@ -125,6 +125,7 @@ class WebBase(Page):
         element1 = self.username(element)
         return " ".join(element1.split()[:2])
 
+    @property
     def notification_dialog_displayed(self) -> bool:
         """Return True if the dialog box is displayed.
         :return: ``True`` if the dialog box is displayed
@@ -142,7 +143,7 @@ class WebBase(Page):
         """
         button = self.find_element(*self._got_it_button_locator)
         Utilities.click_option(self.driver, element=button)
-        self.wait.until(lambda _: not self.notification_dialog_displayed())
+        self.wait.until(lambda _: not self.notification_dialog_displayed)
 
     @property
     def title(self) -> str:
