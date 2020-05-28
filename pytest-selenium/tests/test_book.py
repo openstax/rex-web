@@ -79,7 +79,10 @@ def test_buy_book_link(selenium, base_url, book_slug, page_slug):
         exception_raised = exc_info.type
         assert "NoSuchElementException" in str(
             exception_raised
-        ), "amzon print option present in rex"
+        ), "amzon print option present in rex but not present in osweb"
+
+    # AND: Order print copy is present in all pages
+    rex.click_next_link()
 
     # elif osweb_book_availability_in_amazon == "no amazon link":
     #     with pytest.raises(Exception) as exc_info:
