@@ -31,20 +31,6 @@ export const imageStyles = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const PopupWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-
-  @media print {
-    display: block;
-
-    & ~ div {
-      display: none;
-    }
-  }
-`;
-
-// tslint:disable-next-line:variable-name
 export const FirstImage = styled.img`
   ${imageStyles}
 `;

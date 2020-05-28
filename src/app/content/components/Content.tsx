@@ -10,6 +10,7 @@ import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
+import StudyguidesPopUp from '../studyGuides/components/StudyguidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
@@ -180,6 +181,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
     <BookBanner />
     <ErrorBoundary>
       <HighlightsPopUp />
+      <StudyguidesPopUp />
       <Toolbar />
       <CallToActionPopup />
       <OuterWrapper>

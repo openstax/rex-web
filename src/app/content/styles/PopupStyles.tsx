@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Times } from 'styled-icons/fa-solid/Times/Times';
+import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
 import { H3 } from '../../components/Typography/headings';
 import theme from '../../theme';
@@ -17,6 +17,20 @@ export const popupPadding = 3.2;
 export const popupBodyPadding = 2.4;
 export const headerHeight = 7.2;
 export const topBottomMargin = headerHeight + popupBodyPadding;
+
+// tslint:disable-next-line:variable-name
+export const PopupWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  @media print {
+    display: block;
+
+    & ~ div {
+      display: none;
+    }
+  }
+`;
 
 // tslint:disable-next-line:variable-name
 export const Header = styled(H3)`

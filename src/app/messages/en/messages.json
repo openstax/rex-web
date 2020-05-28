@@ -116,5 +116,7 @@
   "i18n:cta:text": "Read, search, highlight, add notes, build study guides -- all for <strong>free</strong>.",
   "i18n:cta:button:signup": "Sign up",
   "i18n:cta:button:separator": "or",
-  "i18n:cta:button:login": "Log in"
+  "i18n:cta:button:login": "Log in",
+  "i18n:toolbar:studyguides:popup:close-button:aria-label": "Close Study Guides",
+  "i18n:toolbar:studyguides:popup:heading": "Study Guide"
 }

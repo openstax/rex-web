@@ -11,7 +11,7 @@ import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody } from '../../styles/PopupStyles';
+import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
@@ -112,7 +112,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
   }, [props.myHighlightsOpen]);
 
   return props.myHighlightsOpen ? (
-    <Styled.PopupWrapper>
+    <PopupWrapper>
       <ScrollLock
         overlay={true}
         mobileOnly={false}
@@ -146,7 +146,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
         {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       </Modal>
       <HighlightsHelpInfo />
-    </Styled.PopupWrapper>
+    </PopupWrapper>
   ) : null;
 };
 
