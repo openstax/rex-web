@@ -5,9 +5,12 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestStore from '../../../../test/createTestStore';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
@@ -39,6 +42,7 @@ describe('highlightManager', () => {
   let window: Window;
   let element: HTMLElement;
   let prop: HighlightProp;
+  let store: Store;
 
   beforeEach(() => {
     window = assertWindow();
@@ -51,6 +55,7 @@ describe('highlightManager', () => {
       highlights: [],
       page,
     };
+    store = createTestStore();
   });
 
   afterEach(() => {
@@ -59,15 +64,23 @@ describe('highlightManager', () => {
 
   it('CardList is rendered initially', () => {
     const {CardList} = highlightManager(element, () => prop);
-    const component = renderer.create(React.createElement(CardList));
-    expect(() => component.root.findByType(CardWrapper)).not.toThrow();
+    const component = renderer.create(<Provider store={store}>
+      <CardList/>
+    </Provider>);
+    // findByType method does not work with memo components (ex. styled components)
+    // https://github.com/facebook/react/issues/17301
+    expect(() => component.root.findByType(CardWrapper.type)).not.toThrow();
   });
 
   it('CardList is rendered after update', () => {
     const {CardList, update} = highlightManager(element, () => prop);
     update();
-    const component = renderer.create(React.createElement(CardList));
-    expect(() => component.root.findByType(CardWrapper)).not.toThrow();
+    const component = renderer.create(<Provider store={store}>
+      <CardList/>
+    </Provider>);
+    // findByType method does not work with memo components (ex. styled components)
+    // https://github.com/facebook/react/issues/17301
+    expect(() => component.root.findByType(CardWrapper.type)).not.toThrow();
   });
 
   it('CardList doesn\'t double render the pending highlight', async() => {
@@ -77,7 +90,9 @@ describe('highlightManager', () => {
     };
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
     const {CardList, update} = highlightManager(element, () => prop);
-    const component = renderer.create(React.createElement(CardList));
+    const component = renderer.create(<Provider store={store}>
+      <CardList/>
+    </Provider>);
 
     renderer.act(() => {
       update();
@@ -222,7 +237,9 @@ describe('highlightManager', () => {
       it('shows create card when there aren\'t any highlights in selection', async() => {
         const mockHighlight = createMockHighlight();
         manager.update();
-        const component = renderer.create(React.createElement(manager.CardList));
+        const component = renderer.create(<Provider store={store}>
+          <manager.CardList/>
+        </Provider>);
 
         expect(component.root.findAllByType(Card).length).toEqual(0);
 
@@ -242,7 +259,9 @@ describe('highlightManager', () => {
         };
         prop.highlights = [{id: existingHighlight.id} as HighlightData];
 
-        const component = renderer.create(React.createElement(manager.CardList));
+        const component = renderer.create(<Provider store={store}>
+          <manager.CardList/>
+        </Provider>);
 
         Highlighter.mock.instances[0].getHighlight
           .mockReturnValueOnce(existingHighlight)
@@ -300,7 +319,9 @@ describe('highlightManager', () => {
           manager.update();
         });
 
-        const component = renderer.create(React.createElement(manager.CardList));
+        const component = renderer.create(<Provider store={store}>
+          <manager.CardList/>
+        </Provider>);
         expect(component.root.findAllByType(Card).length).toEqual(0);
       });
 
@@ -312,7 +333,11 @@ describe('highlightManager', () => {
 
         await new Promise((resolve) => defer(resolve));
 
-        const component = renderer.create(React.createElement(manager.CardList));
+        const component = renderer.create(<Provider store={store}>
+          <manager.CardList/>
+        </Provider>);
+
+        await new Promise((resolve) => defer(resolve));
 
         expect(component.root.findAllByType(Card).length).toEqual(1);
       });
