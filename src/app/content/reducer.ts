@@ -12,6 +12,7 @@ import * as actions from './actions';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
+import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
 export const initialState = {
@@ -21,6 +22,7 @@ export const initialState = {
   references: [],
   search: initialSearchState,
   showCallToActionPopup: null,
+  studyGuides: initialStudyGuidesState,
   tocOpen: null,
 };
 
@@ -37,6 +39,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const highlights = highlightReducer(contentState.highlights, action);
       if (contentState.highlights !== highlights) {
         return {...contentState, highlights};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const studyGuides = studyGuidesReducer(contentState.studyGuides, action);
+      if (contentState.studyGuides !== studyGuides) {
+        return {...contentState, studyGuides};
       }
       return contentState;
     }

@@ -18,7 +18,7 @@ import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 import * as signupCTA from './analyticsEvents/signupCTA';
-import * as openCloseSG from './analyticsEvents/studyguides/popup/openClose';
+import * as openCloseStudyGuides from './analyticsEvents/studyguides/openClose';
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
@@ -56,7 +56,7 @@ const analytics = {
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
   openCloseMH: mapEventType(openCloseMH),
-  openCloseSG: mapEventType(openCloseSG),
+  openCloseStudyGuides: mapEventType(openCloseStudyGuides),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
