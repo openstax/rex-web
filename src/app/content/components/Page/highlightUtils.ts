@@ -26,3 +26,20 @@ export const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
   highlighter.erase(highlight);
   return highlight;
 };
+
+export const insertPendingCardInOrder = (highlighter: Highlighter, highlights: Highlight[], pending: Highlight) => {
+  const prevHighlight = highlighter.getHighlightBefore(pending);
+  if (!prevHighlight) {
+    return [pending, ...highlights.filter((highlight) => highlight.id !== pending.id)];
+  }
+
+  const ordered: Highlight[] = [];
+  for (const highlight of highlights) {
+    if (highlight.id === pending.id) { continue; }
+    ordered.push(highlight);
+    if (prevHighlight.id === highlight.id) {
+      ordered.push(pending);
+    }
+  }
+  return ordered;
+};
