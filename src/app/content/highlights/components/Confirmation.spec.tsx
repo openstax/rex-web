@@ -17,6 +17,7 @@ describe('Confirmation', () => {
   it('matches snapshot no selection', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         message='message'
         data-analytics-region='region'
         confirmMessage='confirm'
@@ -31,6 +32,7 @@ describe('Confirmation', () => {
   it('prevents default when clicking confirm button', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         message='message'
         confirmMessage='confirm'
         onCancel={() => null}
@@ -49,6 +51,7 @@ describe('Confirmation', () => {
   it('prevents default when clicking cancel button', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         message='message'
         confirmMessage='confirm'
         onCancel={() => null}
@@ -67,6 +70,7 @@ describe('Confirmation', () => {
   it('doesn\'t prevent default when clicking confirm link', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         confirmLink='/asdf'
         message='message'
         confirmMessage='confirm'
@@ -87,6 +91,7 @@ describe('Confirmation', () => {
     const onConfirm = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         message='message'
         confirmMessage='confirm'
         onConfirm={onConfirm}
@@ -105,6 +110,7 @@ describe('Confirmation', () => {
     const onCancel = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         message='message'
         confirmMessage='confirm'
         onConfirm={() => null}
@@ -123,6 +129,7 @@ describe('Confirmation', () => {
     const always = jest.fn();
     const component = renderer.create(<MessageProvider onError={() => null}>
       <Confirmation
+        isOpen={true}
         message='message'
         confirmMessage='confirm'
         onCancel={() => null}
