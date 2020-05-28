@@ -16,7 +16,7 @@ import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
 import attachHighlight from '../utils/attachHighlight';
-import { erase, highlightData, isUnknownHighlightData, updateStyle } from './highlightUtils';
+import { erase, highlightData, insertPendingCardInOrder, isUnknownHighlightData, updateStyle } from './highlightUtils';
 
 export interface HighlightManagerServices {
   getProp: () => HighlightProp;
@@ -128,12 +128,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         container,
         highlighter: listHighlighter,
         highlights: listPendingHighlight
-          ? [
-            ...listHighlights.filter(
-              (highlight) => !listPendingHighlight || highlight.id !== listPendingHighlight.id
-            ),
-            listPendingHighlight,
-          ]
+          ? insertPendingCardInOrder(highlighter, listHighlights, listPendingHighlight)
           : listHighlights,
       });
     },
