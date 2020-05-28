@@ -35,7 +35,7 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
     return;
   }
 
-  services.highlighter.eraseAll();
+  // services.highlighter.eraseAll();
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
