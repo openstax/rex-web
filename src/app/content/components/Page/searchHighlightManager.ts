@@ -3,7 +3,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
-import { assertWindow } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
@@ -80,7 +79,6 @@ const searchHighlightManager = (container: HTMLElement) => {
     }),
     searchResultMap: [],
   };
-  (assertWindow() as any).__SEARCH_HIGHLIGHTER = services.highlighter;
 
   return {
     unmount: () => services.highlighter.unmount(),

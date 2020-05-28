@@ -80,7 +80,6 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     snapTableRows: true,
     snapWords: true,
   });
-  (assertWindow() as any).__HIGHLIGHTER = highlighter;
   return highlighter;
 };
 
