@@ -99,6 +99,8 @@ export const scrollTo = (elem: HTMLElement | Element | string) => {
 
 export const scrollIntoView = (elem: HTMLElement) => {
   const window = assertWindow();
+  if (!window.document.body.contains(elem)) { return; }
+
   const {top, bottom} = elem.getBoundingClientRect();
   const below = bottom > window.innerHeight;
   const above = top < Math.abs(getScrollPadding());
