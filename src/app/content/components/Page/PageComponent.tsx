@@ -93,6 +93,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     if (selectedHighlight) {
       this.setState({
         hasSearchError: false,
+        selectedSearchResultId: null,
       });
 
       return;
