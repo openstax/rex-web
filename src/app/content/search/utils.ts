@@ -151,7 +151,11 @@ export const highlightResults = (
       const highlights = getHighlightRanges(element, highlightText)
         .map((range) => {
           const highlight = new Highlight(range.nativeRange, {content: range.toString()});
-          attachHighlight(highlight, highlighter);
+
+          attachHighlight(highlight, highlighter, (failedHighlight) => {
+            throw new Error(`Search result highlight with id: ${failedHighlight.id} has not been attached`);
+          });
+
           return highlight;
         })
         .filter((highlight) => highlight.elements && highlight.elements.length > 0)
