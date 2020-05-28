@@ -9,20 +9,26 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { receiveBook, receivePage } from '../../actions';
+import { openToc, receiveBook, receivePage } from '../../actions';
 import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
-import { createHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../actions';
+import {
+  createHighlight,
+  deleteHighlight,
+  focusHighlight,
+  receiveHighlights,
+  setAnnotationChangesPending,
+} from '../actions';
 import { highlightStyles } from '../constants';
 import { highlightLocationFilters } from '../selectors';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import Card from './Card';
+import Card, { CardProps } from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import showConfirmation from './utils/showConfirmation';
 
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
@@ -30,12 +36,14 @@ jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef
 jest.mock('./EditCard', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-edit {...props} />
 ));
+jest.mock('./utils/showConfirmation', () => jest.fn(() => new Promise((res) => res(true))));
 
 describe('Card', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let highlight: ReturnType<typeof createMockHighlight>;
   let highlightData: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
+  let cardProps: Partial<CardProps> & { highlight: Highlight };
 
   beforeEach(() => {
     store = createTestStore();
@@ -43,6 +51,11 @@ describe('Card', () => {
     highlightData = highlight.serialize().data;
     dispatch = jest.spyOn(store, 'dispatch');
     highlight.elements = [assertDocument().createElement('span')];
+    cardProps = {
+      blur: jest.fn(),
+      highlight: highlight as unknown as Highlight,
+      onHeightChange: () => null,
+    };
   });
 
   it('matches snapshot when focused without note', () => {
@@ -76,7 +89,7 @@ describe('Card', () => {
     }));
     store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} container={container} />
+      <Card {...cardProps} container={container} />
     </Provider>);
 
     const tree = component.toJSON();
@@ -94,9 +107,10 @@ describe('Card', () => {
       ] as HighlightData[],
       pageId: '123',
     }));
+    store.dispatch(focusHighlight(highlight.id));
     store.dispatch(requestSearch('asdf'));
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     const tree = component.toJSON();
@@ -106,44 +120,20 @@ describe('Card', () => {
   it('matches snapshot without data', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(focusHighlight(highlight.id));
+    store.dispatch(openToc()); // added for css coverage
+    store.dispatch(requestSearch('asd')); // added for css coverage
     const container = assertDocument().createElement('div');
     highlight.range.getBoundingClientRect.mockReturnValue({
       bottom: 200,
       top: 100,
     });
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} container={container} />
+      <Card {...cardProps} container={container} />
     </Provider>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
-  });
-
-  it('scrolls to card when focused', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-    const createNodeMock = () => ({});
-
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights({
-      highlights: [
-        {
-          id: highlightData.id,
-        },
-      ] as HighlightData[],
-      pageId: '123',
-    }));
-
-    renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
-    </Provider>, {createNodeMock});
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).toHaveBeenCalled();
   });
 
   it('unknown style doesn\'t throw', () => {
@@ -157,7 +147,7 @@ describe('Card', () => {
       pageId: '123',
     }));
     expect(() => renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>)).not.toThrow();
   });
 
@@ -176,7 +166,7 @@ describe('Card', () => {
     }));
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     const picker = component.root.findByType(DisplayNote);
@@ -199,7 +189,7 @@ describe('Card', () => {
     store.dispatch(receivePage({...page, references: []}));
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     const picker = component.root.findByType(DisplayNote);
@@ -234,7 +224,7 @@ describe('Card', () => {
     expect(location).toBeDefined();
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     const picker = component.root.findByType(DisplayNote);
@@ -251,13 +241,14 @@ describe('Card', () => {
   it('noops when remove is called but there isn\'t anything to remove', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     dispatch.mockClear();
 
-    const picker = component.root.findByType(EditCard);
+    const picker = component.root.findByProps({ 'mock-edit': true });
     picker.props.onRemove();
 
     expect(dispatch).not.toHaveBeenCalled();
@@ -276,6 +267,7 @@ describe('Card', () => {
       ] as HighlightData[],
       pageId: '123',
     }));
+    store.dispatch(focusHighlight(highlight.id));
 
     dispatch.mockClear();
 
@@ -284,7 +276,7 @@ describe('Card', () => {
     expect(location).toBeDefined();
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     const editcard = component.root.findByType(EditCard);
@@ -307,7 +299,7 @@ describe('Card', () => {
     (highlight as any).range = undefined;
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     expect(() => component.root.findByType(EditCard)).toThrow();
@@ -327,7 +319,7 @@ describe('Card', () => {
     store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     expect(() => component.root.findByType(EditCard)).toThrow();
@@ -338,9 +330,65 @@ describe('Card', () => {
     store.dispatch(receivePage({...page, id: 'not-in-book', references: []}));
 
     const component = renderer.create(<Provider store={store}>
-      <Card highlight={highlight as unknown as Highlight} />
+      <Card {...cardProps} />
     </Provider>);
 
     expect(() => component.root.findByType(EditCard)).toThrow();
+  });
+
+  it('focuses on click only if it is not already focused', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlightData.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card {...cardProps} />
+    </Provider>);
+
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    renderer.act(() => {
+      card.props.onClick();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
+
+    dispatch.mockClear();
+
+    renderer.act(() => {
+      card.props.onClick();
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+  });
+
+  it('displays confirm dialog when there are unsaved changes and user clicks on another card', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlightData.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+
+    store.dispatch(setAnnotationChangesPending(true));
+
+    const component = renderer.create(<Provider store={store}>
+      <Card {...cardProps} isFocused={false} />
+    </Provider>);
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    await renderer.act(async() => {
+      card.props.onClick();
+    });
+
+    expect(showConfirmation).toHaveBeenCalled();
   });
 });
