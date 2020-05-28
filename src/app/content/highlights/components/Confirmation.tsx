@@ -15,7 +15,9 @@ export const Overlay = styled.div`
   ${cardBorder}
   transition: background 200ms;
   position: absolute;
-  ${({ isOpen }: { isOpen: boolean}) => css`${isOpen ? 'display: flex;' : 'display: none;'}`}
+  ${({ isOpen }: { isOpen: boolean}) => {
+    return isOpen ? 'display: flex;' : 'display: none;';
+  }}
   flex-direction: column;
   padding: 1.6rem;
   top: 0;
