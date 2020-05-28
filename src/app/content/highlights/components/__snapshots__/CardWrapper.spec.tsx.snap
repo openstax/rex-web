@@ -2,6 +2,29 @@
 
 exports[`CardWrapper matches snapshot 1`] = `
 <div
-  className="CardWrapper-sc-1e3kyz9-0 dvuQFF"
-/>
+  className="sc-bdVaJa flQgKX"
+>
+  <span
+    data-mock-card={true}
+    highlight={
+      Object {
+        "elements": Array [],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "id1",
+        "isAttached": [MockFunction],
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction],
+        },
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+      }
+    }
+    onHeightChange={[Function]}
+    zIndex={1}
+  />
+</div>
 `;
+
+exports[`CardWrapper matches snapshot when there is no highlights 1`] = `null`;
