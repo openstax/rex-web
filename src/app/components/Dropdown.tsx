@@ -54,10 +54,11 @@ const visuallyHidden = css`
 type Props = React.PropsWithChildren<{
   toggle: React.ReactNode;
   className?: string;
+  onToggle?: () => void;
 }>;
 
 // tslint:disable-next-line:variable-name
-const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
+const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
@@ -72,7 +73,10 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
-      onClick={() => setOpen(!open)}
+      onClick={() => {
+        setOpen((state) => !state);
+        if (onToggle) { onToggle(); }
+      }}
       isOpen={open}
     />
     {open && children}
