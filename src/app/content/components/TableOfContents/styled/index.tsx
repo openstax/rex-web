@@ -37,10 +37,6 @@ export const SummaryTitle = styled.span`
   ${labelStyle}
   display: flex;
   flex: 1;
-
-  .os-part-text {
-    display: none;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
