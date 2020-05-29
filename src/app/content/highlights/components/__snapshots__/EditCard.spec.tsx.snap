@@ -48,12 +48,14 @@ exports[`EditCard matches snapshot when editing 1`] = `
     onConfirm={[Function]}
   />
   <div
+    confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
     data-analytics-label="login"
     data-analytics-region="highlighting-login"
     isOpen={true}
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
+    onCancel={[MockFunction]}
   />
 </form>
 `;
@@ -87,12 +89,14 @@ exports[`EditCard matches snapshot when focused 1`] = `
     onConfirm={[Function]}
   />
   <div
+    confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
     data-analytics-label="login"
     data-analytics-region="highlighting-login"
     isOpen={true}
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
+    onCancel={[MockFunction]}
   />
 </form>
 `;
@@ -114,12 +118,14 @@ exports[`EditCard matches snapshot with data 1`] = `
     onFocus={[Function]}
   />
   <div
+    confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
     data-analytics-label="login"
     data-analytics-region="highlighting-login"
     isOpen={true}
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
+    onCancel={[MockFunction]}
   />
 </form>
 `;
@@ -141,12 +147,14 @@ exports[`EditCard matches snapshot without data 1`] = `
     onFocus={[Function]}
   />
   <div
+    confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
     data-analytics-label="login"
     data-analytics-region="highlighting-login"
     isOpen={true}
     message="i18n:highlighting:login:prompt"
     mock-confirmation={true}
+    onCancel={[MockFunction]}
   />
 </form>
 `;

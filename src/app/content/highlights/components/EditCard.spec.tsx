@@ -5,14 +5,18 @@ import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import * as selectAuth from '../../../auth/selectors';
+import { formatUser } from '../../../auth/utils';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
+import { updateHighlight } from '../actions';
 import { highlightStyles } from '../constants';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
-import EditCard from './EditCard';
+import EditCard, { EditCardProps } from './EditCard';
 import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
 
@@ -25,10 +29,20 @@ describe('EditCard', () => {
   const highlightData = highlight.serialize().data;
   const services = createTestServices();
   const store = createTestStore();
-  const setAnnotationChangesPending = jest.fn();
+  const dispatch = jest.spyOn(store, 'dispatch');
+  let editCardProps: Partial<EditCardProps>;
+
   beforeEach(() => {
     jest.resetAllMocks();
     highlight.elements = [assertDocument().createElement('span')];
+    editCardProps = {
+      highlight: highlight as unknown as Highlight,
+      onBlur: jest.fn(),
+      onCancel: jest.fn(),
+      onCreate: jest.fn(),
+      onRemove: jest.fn(),
+      setAnnotationChangesPending: jest.fn(),
+    };
   });
 
   it('matches snapshot when focused', () => {
@@ -40,11 +54,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              data={data}
-              isFocused={true}
-            />
+            <EditCard {...editCardProps} data={data} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -59,10 +69,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              isFocused={true}
-            />
+            <EditCard {...editCardProps} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -79,8 +86,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={highlightData}
               isFocused={true}
             />
@@ -103,7 +109,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard highlight={highlight as unknown as Highlight} isFocused={true} />
+            <EditCard {...editCardProps} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -114,7 +120,6 @@ describe('EditCard', () => {
   });
 
   it('chains ColorPicker onRemove', () => {
-    const onRemove = jest.fn();
     const data = {
       ...highlightData,
       annotation: '',
@@ -124,8 +129,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onRemove={onRemove}
+              {...editCardProps}
               isFocused={true}
               data={data}
             />
@@ -139,11 +143,10 @@ describe('EditCard', () => {
       picker.props.onRemove();
     });
 
-    expect(onRemove).toHaveBeenCalled();
+    expect(editCardProps.onRemove).toHaveBeenCalled();
   });
 
   it('doesn\'t chain ColorPicker onRemove if there is a note', () => {
-    const onRemove = jest.fn();
     const data = {
       ...highlightData,
       annotation: 'asdf',
@@ -152,12 +155,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              onRemove={onRemove}
-              data={data}
-              isFocused={true}
-            />
+            <EditCard {...editCardProps} data={data} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -168,11 +166,10 @@ describe('EditCard', () => {
       picker.props.onRemove();
     });
 
-    expect(onRemove).not.toHaveBeenCalled();
+    expect(editCardProps.onRemove).not.toHaveBeenCalled();
   });
 
   it('doesn\'t chain ColorPicker onRemove if there is a pending note', () => {
-    const onRemove = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
@@ -183,9 +180,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onRemove={onRemove}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={data}
               isFocused={true}
             />
@@ -204,12 +199,10 @@ describe('EditCard', () => {
       picker.props.onRemove();
     });
 
-    expect(onRemove).not.toHaveBeenCalled();
+    expect(editCardProps.onRemove).not.toHaveBeenCalled();
   });
 
   it('cancelling resets the form state', () => {
-    const blur = jest.fn();
-    const onRemove = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
@@ -220,11 +213,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onRemove={onRemove}
-              onCancel={() => null}
-              onBlur={blur}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={data}
               isFocused={true}
             />
@@ -248,27 +237,20 @@ describe('EditCard', () => {
     });
 
     expect(note.props.note).toBe('qwer');
-    expect(blur).not.toHaveBeenCalled();
+    expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
   });
 
   it('save saves', () => {
-    const blur = jest.fn();
-    const save = jest.fn();
-    const cancel = jest.fn();
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
+              {...editCardProps}
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              onCancel={cancel}
-              onSave={save}
-              setAnnotationChangesPending={setAnnotationChangesPending}
-              onBlur={blur}
               isFocused={true}
               onCreate={jest.fn()}
             />
@@ -288,20 +270,19 @@ describe('EditCard', () => {
       saveButton.props.onClick({preventDefault: jest.fn()});
     });
 
-    expect(save).toHaveBeenCalledWith({
-      highlight: {color: highlightData.style, annotation: 'asdf'},
+    expect(dispatch).toHaveBeenCalledWith(updateHighlight({
+      highlight: {color: highlightData.style as any, annotation: 'asdf'},
       id: highlightData.id,
     }, {
       locationFilterId: 'locationId',
       pageId: 'pageId',
-    });
-    expect(blur).not.toHaveBeenCalled();
+    }));
+    expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
-    expect(cancel).toHaveBeenCalled();
+    expect(editCardProps.onCancel).toHaveBeenCalled();
   });
 
   it('removing note shows confirmation', () => {
-    const save = jest.fn();
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -311,9 +292,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onSave={save}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={data}
               isFocused={true}
             />
@@ -337,9 +316,6 @@ describe('EditCard', () => {
   });
 
   it('confirmation can save', () => {
-    const save = jest.fn();
-    const cancel = jest.fn();
-    const blur = jest.fn();
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -349,15 +325,11 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
+              {...editCardProps}
               locationFilterId='locationId'
               pageId='pageId'
-              onSave={save}
-              onCancel={cancel}
               isFocused={true}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={data}
-              onBlur={blur}
             />
           </MessageProvider>
         </Services.Provider>
@@ -382,19 +354,18 @@ describe('EditCard', () => {
     });
 
     expect(component.root.findAllByType(Confirmation)[0].props.isOpen).toEqual(false);
-    expect(save).toHaveBeenCalledWith({
-      highlight: {color: highlightData.style, annotation: ''},
+    expect(dispatch).toHaveBeenCalledWith(updateHighlight({
+      highlight: {color: highlightData.style as any, annotation: ''},
       id: highlightData.id,
     }, {
       locationFilterId: 'locationId',
       pageId: 'pageId',
-    });
-    expect(blur).not.toHaveBeenCalled();
-    expect(cancel).toHaveBeenCalled();
+    }));
+    expect(editCardProps.onBlur).not.toHaveBeenCalled();
+    expect(editCardProps.onCancel).toHaveBeenCalled();
   });
 
   it('confirmation can cancel', () => {
-    const save = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
@@ -405,9 +376,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onSave={save}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={data}
               isFocused={true}
             />
@@ -434,12 +403,11 @@ describe('EditCard', () => {
     });
 
     expect(component.root.findAllByType(Confirmation)[0].props.isOpen).toEqual(false);
-    expect(save).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
     expect(note.props.note).toBe('qwer');
   });
 
   it('responds to changes', () => {
-    const save = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
@@ -450,9 +418,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onSave={save}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={data}
               isFocused={true}
               hasUnsavedHighlight={false}
@@ -466,11 +432,10 @@ describe('EditCard', () => {
     renderer.act(() => {
       note.props.onChange('');
     });
-    expect(setAnnotationChangesPending).toHaveBeenCalledWith(true);
+    expect(editCardProps.setAnnotationChangesPending).toHaveBeenCalledWith(true);
   });
 
   it('dispatches if changes are reverted', () => {
-    const save = jest.fn();
     highlight.getStyle.mockReturnValue('red');
     const data = {
       ...highlightData,
@@ -481,9 +446,7 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onSave={save}
-              setAnnotationChangesPending={setAnnotationChangesPending}
+              {...editCardProps}
               data={data}
               isFocused={true}
               hasUnsavedHighlight={true}
@@ -497,21 +460,19 @@ describe('EditCard', () => {
     renderer.act(() => {
       note.props.onChange('qwer');
     });
-    expect(setAnnotationChangesPending).toHaveBeenCalledWith(false);
+    expect(editCardProps.setAnnotationChangesPending).toHaveBeenCalledWith(false);
   });
 
   it('handles color change when there is data', () => {
-    const save = jest.fn();
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
+              {...editCardProps}
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              onSave={save}
               isFocused={true}
             />
           </MessageProvider>
@@ -525,26 +486,21 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(save).toHaveBeenCalledWith({
-      highlight: {annotation: highlightData.annotation, color: 'blue'},
+    expect(store.dispatch).toHaveBeenCalledWith(updateHighlight({
+      highlight: {annotation: highlightData.annotation, color: 'blue' as any},
       id: highlightData.id,
     }, {
       locationFilterId: 'locationId',
       pageId: 'pageId',
-    });
+    }));
   });
 
   it('creates when changing color on a new highlight', () => {
-    const create = jest.fn();
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              onCreate={create}
-              isFocused={true}
-            />
+            <EditCard {...editCardProps} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -556,22 +512,15 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-    expect(create).toHaveBeenCalled();
+    expect(editCardProps.onCreate).toHaveBeenCalled();
   });
 
   it('sets color and creates when you focus', () => {
-    const create = jest.fn();
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              onCreate={create}
-              authenticated={true}
-              setAnnotationChangesPending={() => null}
-              onCancel={() => null}
-            />
+            <EditCard {...editCardProps} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -583,23 +532,16 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
-    expect(create).toHaveBeenCalled();
+    expect(editCardProps.onCreate).toHaveBeenCalled();
   });
 
   it('focusing an existing note does nothing', () => {
     highlight.getStyle.mockReturnValue('red');
-    const create = jest.fn();
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              data={highlightData}
-              authenticated={true}
-              setAnnotationChangesPending={() => null}
-              onCancel={() => null}
-            />
+            <EditCard {...editCardProps} data={highlightData} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -611,12 +553,10 @@ describe('EditCard', () => {
     });
 
     expect(highlight.setStyle).not.toHaveBeenCalled();
-    expect(create).not.toHaveBeenCalled();
+    expect(editCardProps.onCreate).not.toHaveBeenCalled();
   });
 
   it('blurs when clicking outside', () => {
-    const onBlur = jest.fn();
-
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);
 
@@ -624,26 +564,20 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard
-              highlight={highlight as unknown as Highlight}
-              onBlur={onBlur}
-              isFocused={true}
-            />
+            <EditCard {...editCardProps} isFocused={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
     );
 
-    onClickOutside.mock.calls[0][2]();
+    onClickOutside.mock.calls[0][2]({} as any);
 
     expect(component).toBeTruthy();
     expect(onClickOutside.mock.calls.length).toBe(1);
-    expect(onBlur).toHaveBeenCalled();
+    expect(editCardProps.onBlur).toHaveBeenCalled();
   });
 
   it('doesn\'t blur when clicking outside and editing', () => {
-    const onBlur = jest.fn();
-    const onCancel = jest.fn();
     highlight.getStyle.mockReturnValue('red');
 
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
@@ -654,26 +588,93 @@ describe('EditCard', () => {
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
             <EditCard
-              highlight={highlight as unknown as Highlight}
-              onBlur={onBlur}
+              {...editCardProps}
               isFocused={true}
-              setAnnotationChangesPending={setAnnotationChangesPending}
               data={highlightData}
+              hasUnsavedHighlight={true}
             />
           </MessageProvider>
         </Services.Provider>
       </Provider>
     );
 
+    renderer.act(() => undefined);
+
     const note = component.root.findByType(Note);
     renderer.act(() => {
       note.props.onChange('asdf');
     });
 
-    onClickOutside.mock.calls[1][2]();
+    onClickOutside.mock.calls[1][2]({} as any);
 
     expect(onClickOutside.mock.calls.length).toBe(2);
-    expect(onBlur).not.toHaveBeenCalled();
-    expect(onCancel).not.toHaveBeenCalled();
+    expect(editCardProps.onBlur).not.toHaveBeenCalled();
+    expect(editCardProps.onCancel).not.toHaveBeenCalled();
+  });
+
+  it('trackShowCreate for authenticated user', () => {
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+
+    const spyAnalytics = jest.spyOn(services.analytics.showCreate, 'track');
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              {...editCardProps}
+              isFocused={true}
+              data={undefined}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+
+    expect(spyAnalytics).not.toHaveBeenCalled();
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+    expect(component.root.findByType(Confirmation).props.isOpen).toEqual(false);
+    expect(spyAnalytics).toHaveBeenCalled();
+    mockSpyUser.mockClear();
+  });
+
+  it('call onHeightChange when element mounts', () => {
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const onHeightChange = jest.fn();
+    const createNodeMock = () => assertDocument().createElement('div');
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard
+              {...editCardProps}
+              isFocused={true}
+              onHeightChange={onHeightChange}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>,
+      {createNodeMock}
+    );
+
+    expect(onHeightChange).not.toHaveBeenCalled();
+
+    // Wait for mount
+    renderer.act(() => undefined);
+
+    expect(() => component.root.findByProps({
+      'data-analytics-region': 'edit-note',
+    })).not.toThrow();
+    expect(onHeightChange).toHaveBeenCalled();
   });
 });
