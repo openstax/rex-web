@@ -18,7 +18,7 @@ import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 import * as signupCTA from './analyticsEvents/signupCTA';
-import * as openCloseStudyGuides from './analyticsEvents/studyguides/openClose';
+import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClose';
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
