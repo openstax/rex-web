@@ -13,7 +13,7 @@ import { Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { closeStudyGuides, openStudyGuides } from '../actions';
-import StudyguidesPopUp from './StudyguidesPopUp';
+import StudyguidesPopUp from './StudyGuidesPopUp';
 
 // this is a hack because useEffect is currently not called
 // when using jsdom? https://github.com/facebook/react/issues/14050

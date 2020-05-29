@@ -10,7 +10,7 @@ import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
-import StudyguidesPopUp from '../studyGuides/components/StudyguidesPopUp';
+import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
