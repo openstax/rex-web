@@ -32,7 +32,7 @@ const StudyguidesPopUp = () => {
   React.useEffect(() => {
     const popUp = popUpRef.current;
 
-    if (popUp && studyGuidesOpen) {
+    if (popUp && isStudyGuidesOpen) {
       popUp.focus();
     }
   }, [isStudyGuidesOpen]);
