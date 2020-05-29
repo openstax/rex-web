@@ -4,6 +4,6 @@ export interface State {
   isEnabled: boolean;
   summary: {
     open: boolean,
-    studyguides: HighlightsSummary | null,
+    studyGuides: HighlightsSummary | null,
   };
 }

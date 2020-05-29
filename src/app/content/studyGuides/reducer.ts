@@ -10,14 +10,14 @@ export const initialState: State = {
   isEnabled: false,
   summary: {
     open: false,
-    studyguides: null,
+    studyGuides: null,
   },
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.receiveStudyGuides): {
-      return {...state, summary: { ...state.summary, studyguides: action.payload } };
+      return {...state, summary: { ...state.summary, studyGuides: action.payload } };
     }
     case getType(receiveFeatureFlags): {
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};

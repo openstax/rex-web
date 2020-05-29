@@ -1,19 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
-import { Dispatch } from '../../../types';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
 import { studyGuidesEnabled, studyGuidesSummaryIsNotEmpty } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
-
-interface Props {
-  openStudyGuides: () => void;
-}
 
 // tslint:disable-next-line:variable-name
 export const StudyGuidesWrapper = styled(PlainButton)`
@@ -39,7 +34,8 @@ const StudyGuidesText = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const StudyGuidesButton = ({ openStudyGuides }: Props) => {
+const StudyGuidesButton = () => {
+  const dispatch = useDispatch();
   const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
@@ -48,11 +44,11 @@ const StudyGuidesButton = ({ openStudyGuides }: Props) => {
   if (!isEnabled || !hasStudyGuides) { return null; }
 
   const openStudyGuidesSummary = () => {
-    openStudyGuides();
+    dispatch(openStudyGuidesAction());
     trackOpenClose();
   };
 
-  return <FormattedMessage id='i18n:toolbar:study-guides:text'>
+  return <FormattedMessage id='i18n:toolbar:studyguides:button:text'>
     {(msg: Element | string) =>
       <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={msg}>
         <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
@@ -62,9 +58,4 @@ const StudyGuidesButton = ({ openStudyGuides }: Props) => {
   </FormattedMessage>;
 };
 
-export default connect(
-  () => ({}),
-  (dispatch: Dispatch) => ({
-    openStudyGuides: () => dispatch(openStudyGuidesAction()),
-  })
-)(StudyGuidesButton);
+export default StudyGuidesButton;
