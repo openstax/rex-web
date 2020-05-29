@@ -3,6 +3,7 @@ import { AppServices } from '../types';
 import { hasOSWebData } from './guards';
 import { ArchiveBook, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
+import { assertNotNull } from '../utils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
@@ -20,17 +21,33 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
+const parseBookTree = (archiveBook: ArchiveBook) => {
+  archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
+    const domNode = new DOMParser().parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
+    const container = domNode.getElementById('container');
+    const extra = container.querySelector('.os-part-text');
+
+    if (extra) {
+      assertNotNull(extra.parentElement, '.os-part-text must have a parent').removeChild(extra);
+    }
+
+    subtree.title = container.innerHTML;
+    return subtree;
+  });
+  return archiveBook;
+};
+
 export const formatBookData = <O extends OSWebBook | undefined>(
   archiveBook: ArchiveBook,
   osWebBook: O
 ): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return archiveBook as ArchiveBook as any;
+    return parseBookTree(archiveBook) as ArchiveBook as any;
   }
 
   return {
-      ...archiveBook,
+      ...parseBookTree(archiveBook),
       amazon_link: osWebBook.amazon_link,
       authors: osWebBook.authors,
       publish_date: osWebBook.publish_date,
