@@ -18,9 +18,8 @@ export const Overlay = styled.div`
   ${cardBorder}
   transition: background 200ms;
   position: absolute;
-  ${({ isOpen }: { isOpen: boolean}) => {
-    return isOpen ? 'display: flex;' : 'display: none;';
-  }}
+  z-index: 1;
+  display: ${(props: Props) => props.isOpen ? 'flex' : 'none'};
   flex-direction: column;
   padding: 1.6rem;
   top: 0;

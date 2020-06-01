@@ -70,7 +70,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   }, [isFocused]);
 
   React.useEffect(() => {
-    const refElement = confirmationRef.current ? confirmationRef : element;
+    const refElement = confirmationRef.current && confirmingDelete ? confirmationRef : element;
     onHeightChange(refElement);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, confirmationRef, confirmingDelete, textToggle]);
