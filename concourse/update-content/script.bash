@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
 set -ex
 
-#cd rex-web
+cd rex-web
 
 export ARCHIVE_URL="https://archive.cnx.org"
 
