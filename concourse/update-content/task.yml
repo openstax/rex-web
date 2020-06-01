@@ -7,7 +7,7 @@ image_resource:
     repository: alpine
 
 inputs:
-- name: rex-web-pull-request
+- name: rex-web
 
 params:
   GITHUB_ACCESS_TOKEN: ((github-access-token))
@@ -18,4 +18,4 @@ run:
     - -xce
     - |
       apk add bash git nodejs curl
-      ./rex-web-pull-request/concourse/update-content/script.bash
+      ./rex-web/concourse/update-content/script.bash
