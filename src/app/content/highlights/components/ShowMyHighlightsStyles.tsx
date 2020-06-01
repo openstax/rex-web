@@ -8,7 +8,7 @@ import {
   desktopVerticalMargin,
   mobileMarginSides,
   mobilePaddingSides
-} from '../../styles/constants';
+} from '../../styles/PopupConstants';
 import { PopupBody, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
 
 // tslint:disable-next-line: variable-name

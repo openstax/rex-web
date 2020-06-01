@@ -9,7 +9,7 @@ describe('study guides reducer', () => {
     const summary = { asd: 'asd' } as any as HighlightsSummary;
     const state = reducer(undefined, actions.receiveStudyGuides(summary));
 
-    expect(state.summary.studyGuides).toBe(summary);
+    expect(state.summary).toBe(summary);
   });
 
   it('enables study guides on receiveFeatureFlags', () => {

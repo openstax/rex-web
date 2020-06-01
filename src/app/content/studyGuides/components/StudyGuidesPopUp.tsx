@@ -43,7 +43,10 @@ const StudyguidesPopUp = () => {
         overlay={true}
         mobileOnly={false}
         zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={() => { closeStudyGuidesPopUp(); trackOpenCloseSG('overlay'); }}
+        onClick={() => {
+          closeStudyGuidesPopUp();
+          trackOpenCloseSG('overlay');
+        }}
       />
       <Modal
         ref={popUpRef}

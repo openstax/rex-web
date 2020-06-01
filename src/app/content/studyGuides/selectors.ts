@@ -13,7 +13,7 @@ export const studyGuidesEnabled = createSelector(
 
 export const studyGuidesSummary = createSelector(
   localState,
-  (state) => state.summary.studyGuides
+  (state) => state.summary
 );
 
 export const studyGuidesSummaryIsNotEmpty = createSelector(
@@ -25,5 +25,5 @@ export const studyGuidesSummaryIsNotEmpty = createSelector(
 
 export const studyGuidesOpen = createSelector(
   localState,
-  (state) => state.summary.open
+  (state) => state.open
 );

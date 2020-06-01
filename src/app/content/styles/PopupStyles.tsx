@@ -10,7 +10,7 @@ import {
   mobileMarginSides,
   mobileMarginTopBottom,
   mobilePaddingSides
-} from './constants';
+} from './PopupConstants';
 
 export const desktopPopupWidth = 74.4;
 export const popupPadding = 3.2;

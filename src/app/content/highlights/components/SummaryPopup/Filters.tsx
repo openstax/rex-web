@@ -7,7 +7,7 @@ import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
 import { textStyle } from '../../../../components/Typography/base';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
-import { filters } from '../../../styles/constants';
+import { filters } from '../../../styles/PopupConstants';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import FiltersList from './FiltersList';
