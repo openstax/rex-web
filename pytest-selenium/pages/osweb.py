@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as expected
 from time import sleep
 
@@ -22,6 +23,9 @@ class WebBase(Page):
         By.XPATH,
         "//div[@class='phone-view']//span[text()='View online']/..",
     )
+    _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
+    _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
+    _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
 
     @property
     def loaded(self):
@@ -60,6 +64,10 @@ class WebBase(Page):
     @property
     def logout(self):
         return self.find_element(*self._logout_locator)
+
+    @property
+    def notification_dialog(self):
+        return self.find_element(*self._dialog_locator)
 
     @property
     def user_is_logged_in(self):
@@ -116,3 +124,31 @@ class WebBase(Page):
         """Get the username of the logged in user."""
         element1 = self.username(element)
         return " ".join(element1.split()[:2])
+
+    @property
+    def notification_dialog_displayed(self) -> bool:
+        """Return True if the dialog box is displayed.
+        :return: ``True`` if the dialog box is displayed
+        :rtype: bool
+        """
+        try:
+            return bool(self.find_element(*self._dialog_locator))
+        except NoSuchElementException:
+            return False
+
+    def click_notification_got_it(self):
+        """Click the 'Got it!' button.
+        :return: the home page
+        :rtype: :py:class:`~pages.web.home.WebHome`
+        """
+        button = self.find_element(*self._got_it_button_locator)
+        Utilities.click_option(self.driver, element=button)
+        self.wait.until(lambda _: not self.notification_dialog_displayed)
+
+    @property
+    def title(self) -> str:
+        """Return the dialog box title.
+        :return: the Privacy and Cookies dialog box title
+        :rtype: str
+        """
+        return self.find_element(*self._dialog_title_locator).text
