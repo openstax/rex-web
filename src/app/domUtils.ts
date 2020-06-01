@@ -113,14 +113,7 @@ export const scrollIntoView = (elem: HTMLElement) => {
 };
 
 export const elementDescendantOf = (element: Element, ancestor: Element): boolean => {
-  if (element === ancestor) {
-    return true;
-  }
-  if (!element.parentNode || !(element.parentNode instanceof assertWindow().Element)) {
-    return false;
-  }
-
-  return elementDescendantOf(element.parentNode, ancestor);
+  return ancestor.contains(element);
 };
 
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
