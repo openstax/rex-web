@@ -25,6 +25,8 @@ script
 
 rm src/config.books.new.js
 
+git fetch
+
 for book_id in $book_ids; do
   branch="update-content-$book_id"
   git checkout master
