@@ -135,18 +135,6 @@ export const CloseIconWrapper = styled(PlainButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
-  color: ${theme.color.neutral.base};
-  cursor: pointer;
-
-  :hover {
-    color: ${toolbarIconColor.base};
-  }
-
-  ${disablePrint}
-`;
-
-// tslint:disable-next-line:variable-name
 export const GridWrapper = styled.div`
   margin: 3.6rem auto 0;
   overflow: visible;
