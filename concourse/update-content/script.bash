@@ -47,7 +47,7 @@ for book_id in $book_ids; do
 
   git add src/config.books.js
   git commit -m "update content" || true
-  git push origin
+  git push --set-upstream origin "$branch"
 
   book_title=$(node script/entry.js book-info "$book_id" --field title)
 
