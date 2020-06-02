@@ -41,14 +41,13 @@ for book_id in $book_ids; do
   git fetch
   git checkout master
   git checkout src/config.books.js
-  (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || \
-    (git checkout -b "$branch" && git branch --set-upstream-to="origin/$branch")
+  (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
 
   node script/entry update-content-versions --only "$book_id"
 
   git add src/config.books.js
   git commit -m "update content" || true
-  git push
+  git push origin
 
   book_title=$(node script/entry.js book-info "$book_id" --field title)
 
