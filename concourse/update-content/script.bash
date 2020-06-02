@@ -43,7 +43,7 @@ for book_id in $book_ids; do
   git checkout master
   git checkout src/config.books.js
   git checkout "$branch" || git checkout -b "$branch"
-  git pull || true
+  git pull || git branch --set-upstream-to="origin/$branch"
 
   node script/entry update-content-versions --only "$book_id"
 
