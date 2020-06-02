@@ -26,14 +26,14 @@ const parseTitleNode = (titleNode: HTMLElement) => {
   const divider = titleNode.querySelector<HTMLSpanElement>('.os-divider');
   if (!divider || !extra) { return; }
 
-  if (/appendix/i.test(extra.innerText)) {
-    divider.innerText = ' | ';
+  if (/appendix/i.test(extra.innerHTML)) {
+    divider.innerHTML = ' | ';
   }
 
   extra.remove();
 };
 
-const parseBookTree = (archiveBook: ArchiveBook) => {
+export const parseBookTree = (archiveBook: ArchiveBook) => {
   archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
     const domNode = new DOMParser().parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
     const container = domNode.getElementById('container');
