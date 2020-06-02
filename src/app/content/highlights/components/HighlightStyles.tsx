@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components/macro';
-import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
@@ -125,13 +124,6 @@ export const StickyNoteLi = styled.li`
     content: "\\2022";
     padding-right: 0.5rem;
   }
-`;
-
-// tslint:disable-next-line:variable-name
-export const CloseIconWrapper = styled(PlainButton)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 // tslint:disable-next-line:variable-name
