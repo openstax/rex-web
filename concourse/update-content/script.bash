@@ -25,7 +25,8 @@ script
 
 rm src/config.books.new.js
 
-git fetch
+# only necessary while testing on different branch
+git remote set-branches origin --add master && git fetch
 
 for book_id in $book_ids; do
   branch="update-content-$book_id"
