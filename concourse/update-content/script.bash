@@ -3,6 +3,8 @@
 cd rex-web
 
 if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
+  git config --global user.email "$GITHUB_USERNAME"
+  git config --global user.name "$GITHUB_USERNAME"
   echo "default login $GITHUB_USERNAME password $GITHUB_PASSWORD" >> "${HOME}/.netrc"
 fi
 
