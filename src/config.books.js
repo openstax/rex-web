@@ -19,7 +19,7 @@ const books = {
   /* College Success */ 'e8668a14-9a7d-4d74-b58c-3681f8351224': {defaultVersion: '7.7'},
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '16.4'},
   /* Elementary Algebra 2e */ '55931856-c627-418b-a56f-1dd0007683a8': {defaultVersion: '4.5'},
-  /* Entrepreneurship */ 'd380510e-6145-4625-b19a-4fa68204b6b1': {defaultVersion: '10.6'},
+  /* Entrepreneurship */ 'd380510e-6145-4625-b19a-4fa68204b6b1': {defaultVersion: '10.10'},
   /* Intermediate Algebra 2e */ '4664c267-cd62-4a99-8b28-1cb9b3aee347': {defaultVersion: '3.5'},
   /* Introduction to Business */ '4e09771f-a8aa-40ce-9063-aa58cc24e77f': {defaultVersion: '9.3'},
   /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': {defaultVersion: '14.1'},
