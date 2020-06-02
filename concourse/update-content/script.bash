@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-set -ex
 
 cd rex-web
 
 if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
   echo "default login $GITHUB_USERNAME password $GITHUB_PASSWORD" >> "${HOME}/.netrc"
 fi
+
+# this is here so the creds don't get pasted to the output
+set -ex
 
 yarn
 
