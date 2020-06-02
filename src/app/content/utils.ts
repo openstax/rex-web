@@ -1,9 +1,9 @@
+import { HTMLElement, HTMLSpanElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData } from './guards';
 import { ArchiveBook, BookWithOSWebData } from './types';
 import { stripIdVersion } from './utils/idUtils';
-import { assertNotNull } from '../utils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
@@ -21,16 +21,23 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
+const parseTitleNode = (titleNode: HTMLElement) => {
+  const extra = titleNode.querySelector<HTMLSpanElement>('.os-part-text');
+  const divider = titleNode.querySelector<HTMLSpanElement>('.os-divider');
+  if (!divider || !extra) { return; }
+
+  if (/appendix/i.test(extra.innerText)) {
+    divider.innerText = ' | ';
+  }
+
+  extra.remove();
+};
+
 const parseBookTree = (archiveBook: ArchiveBook) => {
   archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
     const domNode = new DOMParser().parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
     const container = domNode.getElementById('container');
-    const extra = container.querySelector('.os-part-text');
-
-    if (extra) {
-      assertNotNull(extra.parentElement, '.os-part-text must have a parent').removeChild(extra);
-    }
-
+    parseTitleNode(container);
     subtree.title = container.innerHTML;
     return subtree;
   });
