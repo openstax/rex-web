@@ -34,7 +34,6 @@ script
 rm src/config.books.new.js
 
 git remote set-branches origin 'update-content-*'
-# only necessary while testing on different branch
 git remote set-branches origin --add master
 
 for book_id in $book_ids; do
