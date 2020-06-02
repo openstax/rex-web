@@ -119,6 +119,11 @@ function fixLists(rootEl: HTMLElement) {
   });
 }
 
+// hide text visually, but make rangy still search through it
+// when highlighting a search result
+// https://github.com/timdown/rangy/wiki/Text-Range-Module#visible-text
+const initialSolutionStyles = 'display: block; overflow: hidden; height: 0px';
+
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
@@ -130,7 +135,7 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
       <div class="ui-toggle-wrapper">
         <button class="btn-link ui-toggle" title="${title}"></button>
       </div>
-      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">${contents}</section>
+      <section class="ui-body" role="alert" style="${initialSolutionStyles}">${contents}</section>
     `;
   });
 }
