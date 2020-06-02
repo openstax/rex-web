@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
@@ -6,6 +7,7 @@ import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
+import { focusHighlight } from '../actions';
 import { cardPadding, cardWidth, highlightStyles } from '../constants';
 import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
@@ -27,34 +29,54 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
  `)}
 `;
 
-interface Props {
+export interface DisplayNoteProps {
+  highlight: Highlight;
   note: string;
   style: typeof highlightStyles[number];
   isFocused: boolean;
+  focus: typeof focusHighlight;
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
+  onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
 }
 
 // tslint:disable-next-line:variable-name
-const DisplayNote = React.forwardRef<HTMLElement, Props>((
-  {note, isFocused, onBlur, onEdit, onRemove, className}: Props,
+const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
+  {note, isFocused, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
+  const confirmationRef = React.useRef<HTMLElement>(null);
+  const [textToggle, setTextToggle] = React.useState(false);
 
-  useOnClickOutside(element, isFocused, onBlur);
+  const onToggle = () => {
+    if (!isFocused) {
+      focus(highlight.id);
+    }
+  };
+
+  // Change Event phase so when clicking on another Card,
+  // onBlur is called before this Card calls focus.
+  useOnClickOutside(element, isFocused, onBlur, { capture: true });
 
   React.useEffect(() => {
     if (!isFocused) {
       setConfirmingDelete(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
+  React.useEffect(() => {
+    const refElement = confirmationRef.current ? confirmationRef : element;
+    onHeightChange(refElement);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [element, confirmationRef, confirmingDelete, textToggle]);
+
   return <div className={className} ref={mergeRefs(ref, element)}>
-    <Dropdown toggle={<MenuToggle />}>
+    <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
       <DropdownList>
         <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
         <DropdownItem
@@ -66,8 +88,9 @@ const DisplayNote = React.forwardRef<HTMLElement, Props>((
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
-    <TruncatedText text={note} isFocused={isFocused} />
+    <TruncatedText text={note} isFocused={isFocused} onChange={() => setTextToggle((state) => !state)} />
     {confirmingDelete && <Confirmation
+      ref={confirmationRef}
       data-analytics-label='delete'
       data-analytics-region='confirm-delete-inline-highlight'
       message='i18n:highlighting:confirmation:delete-both'
@@ -82,14 +105,14 @@ export default styled(DisplayNote)`
   width: ${cardWidth}rem;
   overflow: visible;
   background: ${theme.color.neutral.formBackground};
-  ${(props: Props) => props.isFocused && css`
+  ${(props: DisplayNoteProps) => props.isFocused && css`
     background: ${theme.color.white};
   `}
 
   > label {
     display: none;
     ${textStyle}
-    color: ${(props: Props) => props.style.focused};
+    color: ${(props: DisplayNoteProps) => props.style.focused};
     font-size: 1.4rem;
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;

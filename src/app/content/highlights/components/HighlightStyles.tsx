@@ -1,23 +1,12 @@
-import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
-import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
-import Times from '../../../components/Times';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
-import { contentWrapperMaxWidth, toolbarIconColor } from '../../components/constants';
-import { disablePrint } from '../../components/utils/disablePrint';
-import { mobileMarginSides, mobileMarginTopBottom, mobilePaddingSides } from './SummaryPopup/constants';
+import { desktopPopupWidth, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
 
-export const desktopPopupWidth = 74.4;
-export const popupPadding = 3.2;
-export const popupBodyPadding = 2.4;
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
-export const headerHeight = 7.2;
-export const topBottomMargin = headerHeight + popupBodyPadding;
 
 export const stickyNoteMeasures = {
   blue: 'rgb(13, 192, 220)',
@@ -27,10 +16,6 @@ export const stickyNoteMeasures = {
   height: 8,
   left: 32.8,
   opacity: '0.85',
-  tooltip: {
-    height: 8.8,
-    width: 18,
-  },
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
@@ -38,79 +23,6 @@ export const imageStyles = css`
   height: 25.6rem;
   width: 36rem;
   box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 20);
-`;
-
-// tslint:disable-next-line:variable-name
-export const PopupWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-
-  @media print {
-    display: block;
-
-    & ~ div {
-      display: none;
-    }
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const Modal = styled.div`
-  top: 0;
-  z-index: ${theme.zIndex.highlightSummaryPopup};
-  position: fixed;
-  background: ${theme.color.neutral.base};
-  border-radius: 0.5rem;
-  height: calc(100% - ${topBottomMargin}rem);
-  outline: none;
-  overflow: hidden;
-  margin: ${headerHeight}rem auto ${popupBodyPadding}rem;
-  max-width: ${contentWrapperMaxWidth}rem;
-  width: calc(100% - ${popupBodyPadding}rem * 2);
-  ${theme.breakpoints.mobile(css`
-    margin: 2rem 0;
-    width: calc(100% - ${mobileMarginSides * 2}rem);
-    height: calc(100% - ${mobileMarginTopBottom * 2}rem);
-  `)}
-
-  @media print {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const Header = styled(H3)`
-  ${disablePrint}
-  background: #002569;
-  color: ${theme.color.neutral.base};
-  padding: ${popupPadding}rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: ${headerHeight}rem;
-  overflow: hidden;
-  ${theme.breakpoints.mobile(css`
-    padding: ${mobilePaddingSides}rem;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const PopupBody = styled.div`
-  -webkit-overflow-scrolling: touch;
-  height: calc(100% - ${headerHeight}rem);
-  background: ${theme.color.neutral.base};
-  ${theme.breakpoints.mobile(css`
-    text-align: center;
-    padding: 8rem 3.2rem;
-  `)}
-
-  @media print {
-    height: max-content;
-    overflow: auto;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -150,7 +62,6 @@ export const StickyNoteBullet = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const StickyNote = styled.div`
-  height: ${stickyNoteMeasures.height}rem;
   width: ${stickyNoteMeasures.width}rem;
   position: absolute;
   padding: ${stickyNoteMeasures.bulletSize}rem ${popupBodyPadding}rem;
@@ -206,86 +117,13 @@ export const StickyNoteLi = styled.li`
   ${h4Style}
   overflow: visible;
   padding: 0;
+  display: flex;
   color: ${theme.color.neutral.base};
 
   ::before {
     content: "\\2022";
     padding-right: 0.5rem;
   }
-`;
-
-// tslint:disable-next-line:variable-name
-export const InfoIcon = styled(InfoCircle)`
-  height: 1rem;
-  width: 1rem;
-  margin: 0 0.5rem;
-  vertical-align: baseline;
-`;
-
-// tslint:disable-next-line:variable-name
-export const Tooltip = styled.div`
-  position: absolute;
-  z-index: 2;
-  width: ${stickyNoteMeasures.tooltip.width}rem;
-  min-height: ${stickyNoteMeasures.tooltip.height}rem;
-  background: ${theme.color.neutral.base};
-  border: solid 0.1rem ${theme.color.neutral.formBorder};
-  top: calc(50% + ${stickyNoteMeasures.bulletSize}rem);
-  left: calc(-${stickyNoteMeasures.tooltip.width / 2}rem + 50%);
-  overflow: visible;
-  color: ${theme.color.text.label};
-  font-size: 1.4rem;
-  line-height: 2rem;
-  font-weight: 200;
-  padding: 1rem;
-  visibility: hidden;
-  box-shadow: 0 0.4rem 1rem 0 rgba(0, 0, 0, 20);
-  border-radius: 0.3rem;
-  margin-bottom: 3rem;
-
-  ::before {
-    content: " ";
-    position: absolute;
-    left: 50%;
-    margin-left: -${stickyNoteMeasures.bulletSize / 4}rem;
-    width: ${stickyNoteMeasures.bulletSize / 2}rem;
-    height: ${stickyNoteMeasures.bulletSize / 2}rem;
-    transform: rotate(45deg);
-    top: -${(stickyNoteMeasures.bulletSize / 4) + 0.1}rem;
-    background: ${theme.color.neutral.base};
-    border-top: solid 0.1rem ${theme.color.neutral.formBorder};
-    border-left: solid 0.1rem ${theme.color.neutral.formBorder};
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const InfoIconWrapper = styled.span`
-  position: relative;
-  overflow: visible;
-  cursor: pointer;
-
-  &:hover ${Tooltip} {
-    visibility: visible;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-export const CloseIconWrapper = styled(PlainButton)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-// tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
-  color: ${theme.color.neutral.base};
-  cursor: pointer;
-
-  :hover {
-    color: ${toolbarIconColor.base};
-  }
-
-  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
