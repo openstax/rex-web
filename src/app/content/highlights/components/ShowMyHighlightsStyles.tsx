@@ -3,13 +3,13 @@ import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { labelStyle } from '../../../components/Typography';
 import { h4Style } from '../../../components/Typography/headings';
 import theme from '../../../theme';
-import { PopupBody, popupBodyPadding, popupPadding } from './HighlightStyles';
 import {
   desktopHorizontalMargin,
   desktopVerticalMargin,
   mobileMarginSides,
   mobilePaddingSides
-} from './SummaryPopup/constants';
+} from '../../styles/PopupConstants';
+import { PopupBody, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
 
 // tslint:disable-next-line: variable-name
 export const Highlights = styled.div`

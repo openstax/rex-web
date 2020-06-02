@@ -1,4 +1,4 @@
-import { headerHeight, topBottomMargin } from '../HighlightStyles';
+import { headerHeight, topBottomMargin } from './PopupStyles';
 
 export const desktopVerticalMargin = 1.6;
 export const desktopHorizontalMargin = 3.2;
