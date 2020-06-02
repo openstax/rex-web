@@ -12,6 +12,9 @@ inputs:
 params:
   GITHUB_ACCESS_TOKEN: ((github-access-token))
 
+caches:
+- path: rex-web/node_modules
+
 run:
   path: /bin/sh
   args:
