@@ -53,10 +53,9 @@ describe('onClickOutside', () => {
     const cb = jest.fn();
     const container = documentBack.createElement('div');
     const child = documentBack.createElement('div');
-    const elementDescendantOf = jest.spyOn(domUtils, 'elementDescendantOf');
+    container.appendChild(child);
 
     (ref as any).current = container;
-    elementDescendantOf.mockReturnValue(true);
 
     onClickOutside(ref, true, cb)();
 
@@ -70,16 +69,14 @@ describe('onClickOutside', () => {
   it('invoking event with target that is not child of container calls callback', () => {
     const cb = jest.fn();
     const container = documentBack.createElement('div');
-    const child = documentBack.createElement('div');
-    const elementDescendantOf = jest.spyOn(domUtils, 'elementDescendantOf');
+    const notChild = documentBack.createElement('div');
 
     (ref as any).current = container;
-    elementDescendantOf.mockReturnValue(false);
 
     onClickOutside(ref, true, cb)();
 
     addEventListener.mock.calls[0][1]({
-      target: child,
+      target: notChild,
     });
 
     expect(cb).toHaveBeenCalled();

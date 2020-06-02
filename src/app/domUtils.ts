@@ -112,10 +112,6 @@ export const scrollIntoView = (elem: HTMLElement) => {
   }
 };
 
-export const elementDescendantOf = (element: Element, ancestor: Element): boolean => {
-  return ancestor.contains(element);
-};
-
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
   app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
   app.store.dispatch(receivePageFocus(focus));
