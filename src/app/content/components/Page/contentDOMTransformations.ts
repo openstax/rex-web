@@ -31,12 +31,12 @@ const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
 
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
-    solution.removeAttribute('aria-expanded');
+    solution.setAttribute('aria-expanded', 'false');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
     toggleSolutionSectionStyles(section, false);
   } else {
     solution.className += ' ui-solution-visible';
-    solution.setAttribute('aria-expanded', '');
+    solution.setAttribute('aria-expanded', 'true');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
     toggleSolutionSectionStyles(section, true);
   }
@@ -130,6 +130,7 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   // Wrap solutions in a div so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
     el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
+    el.setAttribute('aria-expanded', 'false');
     const contents = el.innerHTML;
     el.innerHTML = `
       <div class="ui-toggle-wrapper">
