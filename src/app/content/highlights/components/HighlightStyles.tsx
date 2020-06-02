@@ -141,7 +141,9 @@ export const StickyNoteBullet = styled.div`
     position: absolute;
     width: ${stickyNoteMeasures.bulletSize}rem;
     height: ${stickyNoteMeasures.bulletSize}rem;
-    top: 50%;
+    transform: rotate(45deg);
+    top: ${stickyNoteMeasures.bulletSize / 2}rem;
+    left: ${stickyNoteMeasures.bulletSize / 2}rem;
     box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
   }
 `;
