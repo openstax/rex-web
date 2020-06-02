@@ -3,6 +3,10 @@ set -ex
 
 cd rex-web
 
+if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
+  echo "default login $GITHUB_USERNAME password $GITHUB_PASSWORD" >> "${HOME}/.netrc"
+fi
+
 yarn
 
 export ARCHIVE_URL="https://archive.cnx.org"

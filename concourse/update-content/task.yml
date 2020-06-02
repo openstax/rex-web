@@ -11,6 +11,8 @@ inputs:
 
 params:
   GITHUB_ACCESS_TOKEN: ((github-access-token))
+  GITHUB_USERNAME: ((github-username))
+  GITHUB_PASSWORD: ((github-password))
 
 caches:
 - path: rex-web/node_modules
