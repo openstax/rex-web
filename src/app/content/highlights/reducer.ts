@@ -38,11 +38,13 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
+      // Noops for locationChange dispatched when search query changes
+      if (action.payload.action === 'REPLACE') { return state; }
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
         currentPage: currentPageId && actionPageId === currentPageId
-          ? {...state.currentPage, hasUnsavedHighlight: false}
+          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
           : initialState.currentPage,
         summary: {
           ...state.summary,
