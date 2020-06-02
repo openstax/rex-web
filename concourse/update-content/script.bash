@@ -46,7 +46,7 @@ for book_id in $book_ids; do
   node script/entry update-content-versions --only "$book_id"
 
   git add src/config.books.js
-  git commit -c commit.gpgsign=false -m "update content" || true
+  git commit -m "update content" || true
   git push
 
   book_title=$(node script/entry.js book-info "$book_id" --field title)
