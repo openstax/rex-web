@@ -38,17 +38,9 @@ const BlueNote = () => <Styled.BlueStickyNote>
 const GreenNote = () => <Styled.GreenStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
-      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:study-guide'>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:review'>
         {(msg: Element | string) => msg}
       </FormattedMessage>
-      <Styled.InfoIconWrapper>
-        <Styled.InfoIcon />
-        <Styled.Tooltip>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:tooltip:review'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-        </Styled.Tooltip>
-      </Styled.InfoIconWrapper>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
