@@ -34,8 +34,9 @@ const parseTitleNode = (titleNode: HTMLElement) => {
 };
 
 export const parseBookTree = (archiveBook: ArchiveBook) => {
+  const domParser = new DOMParser();
   archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
-    const domNode = new DOMParser().parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
+    const domNode = domParser.parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
     const container = domNode.getElementById('container');
     parseTitleNode(container);
     subtree.title = container.innerHTML;
