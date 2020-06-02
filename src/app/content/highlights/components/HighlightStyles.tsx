@@ -141,16 +141,13 @@ export const StickyNoteBullet = styled.div`
     position: absolute;
     width: ${stickyNoteMeasures.bulletSize}rem;
     height: ${stickyNoteMeasures.bulletSize}rem;
-    transform: rotate(45deg);
-    top: ${stickyNoteMeasures.bulletSize / 2}rem;
-    left: ${stickyNoteMeasures.bulletSize / 2}rem;
+    top: 50%;
     box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
   }
 `;
 
 // tslint:disable-next-line:variable-name
 export const StickyNote = styled.div`
-  height: ${stickyNoteMeasures.height}rem;
   width: ${stickyNoteMeasures.width}rem;
   position: absolute;
   padding: ${stickyNoteMeasures.bulletSize}rem ${popupBodyPadding}rem;
@@ -206,6 +203,7 @@ export const StickyNoteLi = styled.li`
   ${h4Style}
   overflow: visible;
   padding: 0;
+  display: flex;
   color: ${theme.color.neutral.base};
 
   ::before {
