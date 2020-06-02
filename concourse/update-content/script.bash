@@ -3,6 +3,8 @@ set -ex
 
 cd rex-web
 
+yarn
+
 export ARCHIVE_URL="https://archive.cnx.org"
 
 node script/entry update-content-versions

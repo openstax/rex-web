@@ -18,4 +18,5 @@ run:
     - -xce
     - |
       apk add bash git nodejs curl
+      npm install -g yarn
       ./rex-web/concourse/update-content/script.bash

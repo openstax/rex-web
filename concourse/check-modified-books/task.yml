@@ -18,4 +18,5 @@ run:
     - -xce
     - |
       apk add bash git nodejs curl jq
+      npm install -g yarn
       ./rex-web-pull-request/concourse/check-modified-books/script.bash
