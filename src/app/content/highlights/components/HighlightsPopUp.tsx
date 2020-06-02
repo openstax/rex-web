@@ -11,6 +11,7 @@ import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
@@ -53,7 +54,7 @@ const GreenNote = () => <Styled.GreenStickyNote>
 const LoginForHighlights = () => {
   const loginLink = useSelector(authSelect.loginLink);
 
-  return <Styled.PopupBody>
+  return <PopupBody>
     <Styled.LoginText values={{ loginLink }} />
     <Styled.GridWrapper>
       <Styled.GeneralText>
@@ -72,7 +73,7 @@ const LoginForHighlights = () => {
         </Styled.ImageWrapper>
       </Styled.ImagesGrid>
     </Styled.GridWrapper>
-  </Styled.PopupBody>;
+  </PopupBody>;
 };
 
 interface Props {
@@ -103,25 +104,25 @@ const HighlightsPopUp = ({ ...props }: Props) => {
   }, [props.myHighlightsOpen]);
 
   return props.myHighlightsOpen ? (
-    <Styled.PopupWrapper>
+    <PopupWrapper>
       <ScrollLock
         overlay={true}
         mobileOnly={false}
         zIndex={theme.zIndex.highlightSummaryPopup}
         onClick={() => { props.closeMyHighlights(); trackOpenCloseMH('overlay'); }}
       />
-      <Styled.Modal
+      <Modal
         ref={popUpRef}
         tabIndex='-1'
         data-testid='highlights-popup-wrapper'
       >
-        <Styled.Header>
+        <Header>
           <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
           <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
             {(msg: string) => (
-              <Styled.CloseIconWrapper
+              <CloseIconWrapper
                data-testid='close-highlights-popup'
                aria-label={msg}
                onClick={() => {
@@ -129,15 +130,15 @@ const HighlightsPopUp = ({ ...props }: Props) => {
                  trackOpenCloseMH('button');
                }}
               >
-                <Styled.CloseIcon />
-              </Styled.CloseIconWrapper>
+                <CloseIcon />
+              </CloseIconWrapper>
             )}
           </FormattedMessage>
-        </Styled.Header>
+        </Header>
         {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
-      </Styled.Modal>
+      </Modal>
       <HighlightsHelpInfo />
-    </Styled.PopupWrapper>
+    </PopupWrapper>
   ) : null;
 };
 
