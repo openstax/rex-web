@@ -27,7 +27,7 @@ const books = {
   /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '8.6'},
   /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': {defaultVersion: '7.2'},
   /* Psychology 2e */ '06aba565-9432-40f6-97ee-b8a361f118a8': {defaultVersion: '4.1'},
-  /* Prealgebra 2e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': {defaultVersion: '6.2'},
+  /* Prealgebra 2e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': {defaultVersion: '6.3'},
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c': {defaultVersion: '13.30'},
   /* Principles of Accounting Vol 1 */ '9ab4ba6d-1e48-486d-a2de-38ae1617ca84': {defaultVersion: '5.2'},
   /* Principles of Accounting Vol 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '15.1'},
