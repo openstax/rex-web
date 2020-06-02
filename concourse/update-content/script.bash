@@ -36,14 +36,14 @@ rm src/config.books.new.js
 git remote set-branches origin 'update-content-*'
 # only necessary while testing on different branch
 git remote set-branches origin --add master
-git fetch
 
 for book_id in $book_ids; do
   branch="update-content-$book_id"
+  git fetch
   git checkout master
   git checkout src/config.books.js
-  git checkout "$branch" || git checkout -b "$branch"
-  git pull || git branch --set-upstream-to="origin/$branch"
+  (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || \
+    (git checkout -b "$branch" && git branch --set-upstream-to="origin/$branch")
 
   node script/entry update-content-versions --only "$book_id"
 
