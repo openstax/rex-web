@@ -315,7 +315,13 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div data-type="solution" id="fs-id2913818" data-print-placement="here" aria-label="show solution">
+            <div `
+              + `data-type="solution" `
+              + `id="fs-id2913818" `
+              + `data-print-placement="here" `
+              + `aria-label="show solution" `
+              + `aria-expanded="false"`
+            + `>
       <div class="ui-toggle-wrapper">
         <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
       </div>
