@@ -8,6 +8,7 @@ import { State } from './types';
 
 export const initialState: State = {
   isEnabled: false,
+  open: false,
   summary: null,
 };
 
@@ -19,6 +20,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(receiveFeatureFlags): {
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     }
+    case getType(actions.openStudyGuides):
+      return {...state, open: true };
+    case getType(actions.closeStudyGuides):
+      return {...state, open: false };
     default:
       return state;
   }

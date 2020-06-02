@@ -1,4 +1,7 @@
-import { GetHighlightsSummarySetsEnum, GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
+import {
+  GetHighlightsSummarySetsEnum,
+  GetHighlightsSummarySourceTypeEnum
+} from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuides } from '../actions';

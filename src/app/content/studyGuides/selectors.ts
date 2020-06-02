@@ -22,3 +22,8 @@ export const studyGuidesSummaryIsNotEmpty = createSelector(
     && summary.countsPerSource
     && Object.keys(summary.countsPerSource).length > 0
 );
+
+export const studyGuidesOpen = createSelector(
+  localState,
+  (state) => state.open
+);
