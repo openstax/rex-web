@@ -48,9 +48,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
   const description = abstract || stripHtmlAndTrim(getCleanContent(book, page, archiveLoader));
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
-  console.log('canonical', canonical)
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
-  console.log('canonicalUrl', canonicalUrl)
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
   dispatch(setHead({
     links: canonicalUrl ? [
