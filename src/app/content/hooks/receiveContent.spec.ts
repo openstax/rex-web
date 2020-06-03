@@ -7,6 +7,7 @@ import { setHead } from '../../head/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
 import { formatBookData } from '../utils';
+import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
 const mockConfig = {BOOKS: {
@@ -148,6 +149,22 @@ describe('setHead hook', () => {
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
       const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
       expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'test-page-1'}});
+    });
+
+    it('finds a canonical book and canonical page', async() => {
+      const bookId = book.id;
+      const pageId = page.id;
+      CANONICAL_MAP[bookId] = [ [bookId, { [pageId]: 'new-id' }] ];
+
+      const node = archiveUtils.findArchiveTreeNode(book.tree, pageId);
+      node!.slug = 'new-id';
+      const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNode')
+        .mockReturnValueOnce(node);
+
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+      expect(spy).toHaveBeenCalledWith(book.tree, 'new-id');
+      expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'new-id'}});
     });
 
     it('throws if canonical book is missing cms data', async() => {
