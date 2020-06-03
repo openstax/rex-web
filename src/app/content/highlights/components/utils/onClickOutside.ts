@@ -1,6 +1,5 @@
 import { EventListenerOptions, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import { elementDescendantOf } from '../../../../domUtils';
 import { assertDocument, assertWindow } from '../../../../utils';
 
 const onClickOutside = (
@@ -17,7 +16,7 @@ const onClickOutside = (
     if (!(e.target instanceof assertWindow().Element)) {
       return;
     }
-    if (!element.current || elementDescendantOf(e.target, element.current)) {
+    if (!element.current || element.current.contains(e.target)) {
       return;
     }
     cb(e);
