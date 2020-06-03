@@ -1,4 +1,5 @@
 import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import { assertWindow } from '../app/utils';
 import * as helpers from './applicationUpdates';
 import Sentry from './Sentry';
 
@@ -112,5 +113,52 @@ describe('findAndInstallServiceWorkerUpdate', () => {
 
     expect(cb).toHaveBeenCalled();
     expect(removeEventListener).toHaveBeenCalledWith('statechange', stateChangeHandler);
+  });
+});
+
+describe('activateSwAndReload', () => {
+  let reload: jest.SpyInstance;
+
+  beforeEach(() => {
+    reload = jest.spyOn(assertWindow().location, 'reload').mockImplementation(() => null);
+  });
+
+  afterEach(() => {
+    reload.mockClear();
+  });
+
+  it('if there is no waiting sw just reload', () => {
+    helpers.activateSwAndReload(undefined)();
+    expect(reload).toHaveBeenCalled();
+  });
+
+  it('posts SKIP_WAITING and waits for activation before reloading', () => {
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const postMessage = jest.fn();
+    const serviceWorker = {
+      addEventListener: addEventListener as ServiceWorker['addEventListener'],
+      postMessage: postMessage as ServiceWorker['postMessage'],
+      removeEventListener: removeEventListener as ServiceWorker['removeEventListener'],
+      state: 'waiting',
+    };
+    const sw = {
+      waiting: serviceWorker,
+    };
+
+    let stateChangeHandler: () => void = () => null;
+    addEventListener.mockImplementation((_event, handler) => stateChangeHandler = handler);
+
+    helpers.activateSwAndReload(sw as ServiceWorkerRegistration)();
+
+    expect(postMessage).toHaveBeenCalledWith({type: 'SKIP_WAITING'});
+
+    stateChangeHandler();
+    expect(reload).not.toHaveBeenCalled();
+
+    serviceWorker.state = 'activating';
+    stateChangeHandler();
+
+    expect(reload).toHaveBeenCalled();
   });
 });
