@@ -1,4 +1,4 @@
-import Highlighter from '@openstax/highlighter';
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
@@ -24,10 +24,20 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
       : null,
   };
 };
-type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
+export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
+export type OptionsCallback = ({
+  current,
+  previous,
+  selectedHighlight,
+}: {
+  current: HighlightProp,
+  previous: HighlightProp,
+  selectedHighlight?: Highlight
+}) => void;
 
 interface Options {
   forceRedraw: boolean;
+  onSelect: OptionsCallback;
 }
 
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
@@ -64,6 +74,12 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
       () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
   }
+
+  options.onSelect({
+    current,
+    previous,
+    selectedHighlight: firstSelectedHighlight,
+  });
 };
 
 const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
