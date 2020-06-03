@@ -1,9 +1,10 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { resetModules } from '../../test/utils';
-import { Book } from './types';
+import { ArchiveBook, ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
   getPageIdFromUrlParam,
+  parseBookTree,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
@@ -192,5 +193,48 @@ describe('toRelativeUrl', () => {
   it('when not in a book and not at the root', () => {
     const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
+  });
+});
+
+describe('parseBookTree', () => {
+  const html = '<span class="os-number">' +
+    '<span class="os-part-text">Appendix </span>' +
+    'D' +
+  '</span>' +
+  '<span class="os-divider"> </span>' +
+  '<span data-type="" itemprop="" class="os-text">Book title</span>';
+
+  let book: ArchiveBook;
+
+  beforeEach(() => {
+    book = {
+      tree: {
+        contents: [{title: html}],
+      },
+    } as ArchiveBook;
+  });
+
+  it('removes .os-part-text', () => {
+    expect(parseBookTree(book).tree.contents).toMatchObject([{
+      title: '<span class="os-number">' +
+        'D' +
+      '</span>' +
+      '<span class="os-divider"> | </span>' +
+      '<span data-type="" itemprop="" class="os-text">Book title</span>',
+    }]);
+  });
+
+  it('doesn\'t add divider if it\'s not an appendix', () => {
+    book.tree.contents = book.tree.contents.map(({title}) => ({
+      title: title.replace(/appendix/i, 'something else'),
+    })) as ArchiveTree['contents'];
+
+    expect(parseBookTree(book).tree.contents).toMatchObject([{
+      title: '<span class="os-number">' +
+        'D' +
+      '</span>' +
+      '<span class="os-divider"> </span>' +
+      '<span data-type="" itemprop="" class="os-text">Book title</span>',
+    }]);
   });
 });
