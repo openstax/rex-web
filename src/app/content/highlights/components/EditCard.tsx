@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,12 +57,15 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const trackShowLogin = useAnalyticsEvent('showLogin');
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
-  const blurIfNotEditing = React.useCallback(() => {
-    if (!props.hasUnsavedHighlight) {
+  const blurIfNotEditing = React.useCallback((e: MouseEvent) => {
+    if (editingAnnotation) {
+      e.preventDefault();
+    }
+    if (!props.hasUnsavedHighlight && !editingAnnotation) {
       props.onBlur();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.hasUnsavedHighlight]);
+  }, [props.hasUnsavedHighlight, editingAnnotation]);
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
