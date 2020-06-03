@@ -331,7 +331,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           className="ChapterFilter__ChapterTitle-y07pfa-2 dkcYDE"
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
+              "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
             }
           }
         />
@@ -365,7 +365,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           className="ChapterFilter__ChapterTitle-y07pfa-2 dkcYDE"
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
+              "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
             }
           }
         />
