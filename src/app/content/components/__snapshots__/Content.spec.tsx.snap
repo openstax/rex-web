@@ -809,7 +809,7 @@ Array [
                   className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
+                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
                     }
                   }
                   href="a-atomic-masses"
@@ -823,7 +823,7 @@ Array [
                   className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
+                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
                     }
                   }
                   href="d-glossary-of-key-symbols-and-notation"
