@@ -20,7 +20,7 @@ describe('DisplayNote', () => {
   beforeEach(() => {
     displayNoteProps = {
       focus: jest.fn(),
-      onBlur: doNothing,
+      onBlur: jest.fn(),
       onEdit: doNothing,
       onHeightChange: jest.fn(),
       onRemove: jest.fn(),
@@ -106,7 +106,7 @@ describe('DisplayNote', () => {
     expect(displayNoteProps.onRemove).toHaveBeenCalled();
   });
 
-  it('confirmation cancels', () => {
+  it('confirmation cancels and does not call props.onBlur', () => {
     const component = renderer.create(<MessageProvider onError={doNothing}>
       <DisplayNote {...displayNoteProps} isFocused={true} />
     </MessageProvider>);
@@ -130,6 +130,7 @@ describe('DisplayNote', () => {
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
     expect(displayNoteProps.onRemove).not.toHaveBeenCalled();
+    expect(displayNoteProps.onBlur).not.toHaveBeenCalled();
   });
 
   it('closes confirmation after changing focus and reopen', () => {
