@@ -1,6 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import * as domUtils from '../../../../domUtils';
 import { assertDocument } from '../../../../utils';
 import onClickOutside from './onClickOutside';
 
