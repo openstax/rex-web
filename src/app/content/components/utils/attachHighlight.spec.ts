@@ -55,18 +55,33 @@ describe('attachHighlight', () => {
     expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 
-  it('call Sentry if highlight was not attached', () => {
-    const mockHighlight = {
-      ...createMockHighlight(),
-      isAttached: () => false,
-    } as unknown as Highlight;
+  describe('errors', () => {
+    let mockHighlight: Highlight;
 
-    HighlighterMock.getHighlight = () => mockHighlight;
+    beforeEach(() => {
+      mockHighlight = {
+        ...createMockHighlight(),
+        isAttached: () => false,
+      } as unknown as Highlight;
 
-    attachHighlight(mockHighlight, HighlighterMock);
+      HighlighterMock.getHighlight = () => mockHighlight;
+    });
 
-    expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockHighlight);
-    expect(Sentry.captureException)
-      .toHaveBeenCalledWith(new Error(`Highlight with id: ${mockHighlight.id} has not been attached.`));
+    it('call Sentry if highlight was not attached', () => {
+      attachHighlight(mockHighlight, HighlighterMock);
+
+      expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockHighlight);
+      expect(Sentry.captureException)
+        .toHaveBeenCalledWith(new Error(`Highlight with id: ${mockHighlight.id} has not been attached.`));
+    });
+
+    it('accepts custom error messages', () => {
+      attachHighlight(mockHighlight, HighlighterMock, (failedHighlight) =>
+        `${failedHighlight.id} doesn't matter`
+      );
+
+      expect(Sentry.captureException)
+        .toHaveBeenCalledWith(new Error(`${mockHighlight.id} doesn't matter`));
+    });
   });
 });
