@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import { assertWindow } from '../../../utils';
+import SearchFailure from '../../../notifications/components/SearchFailure';
+import { assertNotNull, assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -16,7 +17,7 @@ import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
-import searchHighlightManager, { stubManager } from './searchHighlightManager';
+import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -24,8 +25,14 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-export default class PageComponent extends Component<PagePropTypes> {
+interface PageState {
+  hasSearchError: boolean;
+  selectedSearchResultId: null | string;
+}
+
+export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
+  public state = { hasSearchError: false, selectedSearchResultId: null };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -55,7 +62,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.scrollTargetManager = scrollTargetManager(this.container.current);
   }
 
-  public async componentDidUpdate(prevProps: PagePropTypes) {
+  public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -68,11 +75,45 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
+    const shouldUpdateHighlights = prevProps !== this.props ||
+      (prevState.hasSearchError === this.state.hasSearchError &&
+        prevState.selectedSearchResultId === this.state.selectedSearchResultId);
+
+    if (!shouldUpdateHighlights) { return; }
+
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
+
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       forceRedraw: highlgihtsAddedOrRemoved,
+      onSelect: this.onHighlightSelect,
     });
   }
+
+  public onHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
+    if (selectedHighlight) {
+      this.setState({
+        hasSearchError: false,
+        selectedSearchResultId: null,
+      });
+
+      return;
+    }
+    const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
+    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
+
+    if (currentResultId === this.state.selectedSearchResultId) { return; }
+
+    this.setState({
+      hasSearchError: true,
+      selectedSearchResultId: currentResultId,
+    });
+  };
+
+  public dismissError = () => {
+    this.setState({
+      hasSearchError: false,
+    });
+  };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
     if (prevProps.page !== this.props.page) {
@@ -90,6 +131,13 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
+      {this.state.hasSearchError
+        ? <SearchFailure
+            dismiss={this.dismissError}
+            selectedHighlight={this.state.selectedSearchResultId}
+            mobileToolbarOpen={this.props.mobileToolbarOpen}
+          />
+        : null}
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
       </RedoPadding>
