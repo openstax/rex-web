@@ -21,7 +21,7 @@ export const CANONICAL_MAP: ObjectLiteral<Array<[string, { [key: string]: string
       'f899805c-f3a3-4c8b-913b-8b4408f3054e': '7b83ef15-2214-44fe-85cb-912ed21c75bc',
       /* 1.2 History of Psychology to the same module in 2e */
       '940601bd-564c-444d-9952-9d44f82cf324': '73a4e3b4-c883-4dad-a47f-86ac0d3bfb8b',
-      /* 1.3 Contemporary Psychology*/
+      /* 1.3 Contemporary Psychology to the same module in 2e */
       'b441f14d-1a24-4127-b289-2db6ea1ec9da': 'b1926b98-3b49-4b56-ad00-73da7844bca3',
       /* 1.4 Careers in Psychology to the same module in 2e */
       '88b91a3d-2d45-45d7-af61-43a77f31b1f4': '13752615-28a0-42dd-953a-a1608c5e8026',
