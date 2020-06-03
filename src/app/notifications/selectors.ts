@@ -23,7 +23,7 @@ const messagePriority = [
 export const notificationForDisplay = createSelector(
   notifications,
   pathname,
-  (messages, url): AnyNotification | undefined =>  messages
+  (messages, url): AnyNotification | undefined => messages
     .filter((message) => {
       if (isAppMessage(message) && message.payload.url_regex) {
         return url.match(message.payload.url_regex);
