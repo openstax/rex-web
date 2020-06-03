@@ -1,3 +1,4 @@
+import { HTMLElement, HTMLSpanElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData } from './guards';
@@ -20,17 +21,41 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
+const parseTitleNode = (titleNode: HTMLElement) => {
+  const extra = titleNode.querySelector<HTMLSpanElement>('.os-part-text');
+  const divider = titleNode.querySelector<HTMLSpanElement>('.os-divider');
+  if (!divider || !extra) { return; }
+
+  if (/appendix/i.test(extra.innerHTML)) {
+    divider.innerHTML = ' | ';
+  }
+
+  extra.remove();
+};
+
+export const parseBookTree = (archiveBook: ArchiveBook) => {
+  const domParser = new DOMParser();
+  archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
+    const domNode = domParser.parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
+    const container = domNode.getElementById('container');
+    parseTitleNode(container);
+    subtree.title = container.innerHTML;
+    return subtree;
+  });
+  return archiveBook;
+};
+
 export const formatBookData = <O extends OSWebBook | undefined>(
   archiveBook: ArchiveBook,
   osWebBook: O
 ): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return archiveBook as ArchiveBook as any;
+    return parseBookTree(archiveBook) as ArchiveBook as any;
   }
 
   return {
-      ...archiveBook,
+      ...parseBookTree(archiveBook),
       amazon_link: osWebBook.amazon_link,
       authors: osWebBook.authors,
       publish_date: osWebBook.publish_date,
