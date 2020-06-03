@@ -5,7 +5,7 @@ import { AnyAction } from '../types';
 import * as actions from './actions';
 import { AnyNotification, Message, State } from './types';
 
-export const initialState = [];
+export const initialState: State = [];
 
 export const appMessageType =  'Notification/appMessage' as 'Notification/appMessage';
 
