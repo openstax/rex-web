@@ -1,4 +1,5 @@
 import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import { assertWindow } from '../app/utils';
 import Sentry from './Sentry';
 
 export const serviceWorkerNeedsUpdate = (
@@ -49,9 +50,7 @@ export const findAndInstallServiceWorkerUpdate = (sw: ServiceWorkerRegistration 
 };
 
 export const forceReload = () => {
-  if (typeof(window) !== 'undefined') {
-    window.location.reload(true);
-  }
+  assertWindow().location.reload(true);
 };
 
 export const activateSwAndReload = (sw: ServiceWorkerRegistration | undefined) => () => {
