@@ -72,32 +72,6 @@ describe('scrollIntoView', () => {
   });
 });
 
-describe('elementDescendantOf', () => {
-  const document = assertDocument();
-
-  it('finds ancestor', () => {
-    const child = document.createElement('div');
-    const parent = document.createElement('div');
-
-    parent.appendChild(child);
-
-    expect(domUtils.elementDescendantOf(child, parent)).toBe(true);
-  });
-
-  it('defaults to false if it can\'t find the ancestor', () => {
-    const child = document.createElement('div');
-    const parent = document.createElement('div');
-
-    expect(domUtils.elementDescendantOf(child, parent)).toBe(false);
-  });
-
-  it('defaults to true if the child is the ancestor', () => {
-    const child = document.createElement('div');
-
-    expect(domUtils.elementDescendantOf(child, child)).toBe(true);
-  });
-});
-
 describe('findFirstAncestorOrSelfOfType', () => {
   const document = assertDocument();
   const window = assertWindow();
