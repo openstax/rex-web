@@ -129,13 +129,13 @@
         "shortId": "testpage9-shortid@1.0",
         "id": "testbook1-testpage9-uuid@1.0",
         "slug": "a-atomic-masses",
-        "title": "<span class=\"os-number\">A</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Atomic Masses</span></a>"
+        "title": "<span class=\"os-number\">A</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Atomic Masses</span>"
       },
       {
         "shortId": "testpage10-shortid@1.0",
         "id": "testbook1-testpage10-uuid@1.0",
         "slug": "d-glossary-of-key-symbols-and-notation",
-        "title": "<span class=\"os-number\">D</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Glossary of Key Symbols and Notation</span></a>"
+        "title": "<span class=\"os-number\">D</span><span class=\"os-divider\"> | </span><span class=\"os-text\">Glossary of Key Symbols and Notation</span>"
       },
       {
         "shortId": "testpage12-shortid@1.0",
