@@ -1,4 +1,5 @@
 import * as dom from '@openstax/types/lib.dom';
+import { assertWindow } from './utils';
 
 export const isDefined = <X>(x: X): x is Exclude<X, undefined> => x !== undefined;
 
@@ -21,6 +22,9 @@ export const isHtmlElement = (thing: any): thing is dom.HTMLElement =>
 
 export const isPlainObject = (thing: any): thing is {} =>
   thing instanceof Object && thing.__proto__.constructor === Object;
+
+export const isWindow = (thing: any): thing is Window =>
+  assertWindow() === thing;
 
 export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
   isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');
