@@ -1,6 +1,6 @@
 import { FocusEvent, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import { addSafeEventListener, elementDescendantOf } from './domUtils';
+import { addSafeEventListener } from './domUtils';
 import { isElement, isWindow } from './guards';
 import { assertDefined } from './utils';
 
@@ -23,7 +23,7 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
   const handler = (event: FocusEvent) => {
     const relatedTarget = event.relatedTarget;
 
-    if (!isElement(relatedTarget) || !elementDescendantOf(relatedTarget, ref.current!)) {
+    if (!isElement(relatedTarget) || !ref.current!.contains(relatedTarget)) {
       cb();
     }
   };
