@@ -1591,7 +1591,7 @@ class Content(Page):
         _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
-        _my_highlights_selector = "[class*=HighlightStyles__PopupWrapper]"
+        _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
 
         @property
         def my_highlights_button(self) -> WebElement:
