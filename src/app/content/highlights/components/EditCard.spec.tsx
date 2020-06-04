@@ -604,10 +604,8 @@ describe('EditCard', () => {
       note.props.onChange('asdf');
     });
 
-    const spyPreventDefault = jest.fn();
-    onClickOutside.mock.calls[1][2]({ preventDefault: spyPreventDefault } as any);
+    onClickOutside.mock.calls[1][2]({} as any);
 
-    expect(spyPreventDefault).toHaveBeenCalled();
     expect(onClickOutside.mock.calls.length).toBe(2);
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(editCardProps.onCancel).not.toHaveBeenCalled();

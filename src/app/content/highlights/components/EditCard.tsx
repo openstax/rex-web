@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,10 +57,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const trackShowLogin = useAnalyticsEvent('showLogin');
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
-  const blurIfNotEditing = React.useCallback((e: MouseEvent) => {
-    if (editingAnnotation) {
-      e.preventDefault();
-    }
+  const blurIfNotEditing = React.useCallback(() => {
     if (!props.hasUnsavedHighlight && !editingAnnotation) {
       props.onBlur();
     }
