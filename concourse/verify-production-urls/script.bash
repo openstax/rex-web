@@ -1,3 +1,4 @@
+#!/bin/bash
 set -ex
 
 bucket=sandbox-unified-web-primary
