@@ -54,7 +54,5 @@
     }
   ],
   "start_url": "/books/list",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "display": "standalone"
 }
