@@ -17,5 +17,5 @@ run:
   args:
     - -xce
     - |
-      apk add bash git nodejs curl jq
+      apk add bash git nodejs yarn curl jq
       ./rex-web-pull-request/concourse/check-modified-books/script.bash
