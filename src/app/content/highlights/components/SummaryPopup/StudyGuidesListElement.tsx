@@ -16,7 +16,6 @@ const HighlightOuterWrapper = styled.div`
   }
 
   background: ${theme.color.neutral.base};
-
   ${theme.breakpoints.mobile`
     padding: 0 0 1rem 0;
   `}
@@ -28,7 +27,6 @@ const HighlightAnnotation = styled.div`
   display: flex;
   padding: 1.2rem 0;
   color: ${theme.color.text.black};
-
   ${theme.breakpoints.mobile`
     padding: 1rem;
   `}

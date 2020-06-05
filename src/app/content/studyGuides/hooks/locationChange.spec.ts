@@ -1,4 +1,4 @@
-import { HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
@@ -8,8 +8,14 @@ import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
+import * as highlightsUtils from '../../highlights/hooks/utils';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuides } from '../actions';
+import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
+
+jest.mock('../../highlights/hooks/utils', () => ({
+  ...jest.requireActual('../../highlights/hooks/utils'),
+  formatReceivedHighlights: () => ['mocked'],
+}));
 
 describe('locationChange', () => {
   let store: Store;
@@ -40,11 +46,15 @@ describe('locationChange', () => {
 
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
       .mockReturnValue(new Promise((res) => res(mockResponse)));
+    const getStudyGuidesHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(new Promise((res) => res({ data: [{ id: 'asd', sourceId: 'asd' }] as any as Highlight[] })));
 
     await hook();
 
     expect(getHighlightsSummary).toHaveBeenCalled();
+    expect(getStudyGuidesHighlights).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
+    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuidesHighlights(['mocked'] as any));
   });
 
   it('noops on locationChange if feature flag is not present', async() => {

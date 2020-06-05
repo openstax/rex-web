@@ -25,6 +25,7 @@ const StyledSectionHighlights = styled(SectionHighlights)`
       text-overflow: ellipsis;
     `}
   }
+
   ${HighlightSection} {
     ${theme.breakpoints.mobile`
     padding-left: 2rem;
