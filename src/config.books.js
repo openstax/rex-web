@@ -25,7 +25,7 @@ const books = {
   /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': {defaultVersion: '14.1'},
   /* Introductory Statistics */ '30189442-6998-4686-ac05-ed152b91b9de': {defaultVersion: '24.1'},
   /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '8.6'},
-  /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': {defaultVersion: '7.2'},
+  /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': {defaultVersion: '7.5'},
   /* Physics (High School) */ 'cce64fde-f448-43b8-ae88-27705cceb0da': {defaultVersion: '13.1'},
   /* Psychology 2e */ '06aba565-9432-40f6-97ee-b8a361f118a8': {defaultVersion: '4.1'},
   /* Prealgebra 2e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': {defaultVersion: '6.2'},
