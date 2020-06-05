@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
-set -ex
 
 cd rex-web
+
+if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
+  git config --global user.email "$GITHUB_USERNAME"
+  git config --global user.name "$GITHUB_USERNAME"
+  echo "default login $GITHUB_USERNAME password $GITHUB_PASSWORD" >> "${HOME}/.netrc"
+fi
+
+# this is here so the creds don't get pasted to the output
+set -ex
+
+yarn
 
 export ARCHIVE_URL="https://archive.cnx.org"
 
@@ -23,18 +33,21 @@ script
 
 rm src/config.books.new.js
 
+git remote set-branches origin 'update-content-*'
+git remote set-branches origin --add master
+
 for book_id in $book_ids; do
   branch="update-content-$book_id"
+  git fetch
   git checkout master
   git checkout src/config.books.js
-  git checkout "$branch" || git checkout -b "$branch"
-  git pull || true
+  (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
 
   node script/entry update-content-versions --only "$book_id"
 
   git add src/config.books.js
-  git commit -c commit.gpgsign=false -m "update content" || true
-  git push
+  git commit -m "update content" || true
+  git push --set-upstream origin "$branch"
 
   book_title=$(node script/entry.js book-info "$book_id" --field title)
 
