@@ -10,9 +10,9 @@ files=$(aws s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/
 
 missing_files=""
 
-while IFS= read -r full_path; do
+for full_path in $files; do
   book_path="/release/$(grep -oP 'books.*' <<< "$full_path")"
-  [ ! -f "$work_dir$book_path" ] && missing_files="$missing_files'\n'$book_path"
-done <<< "$files"
+  [ ! -f "$work_dir$book_path" ] && missing_files="$missing_files$book_path'\n'"
+done
 
 printf "$missing_files"
