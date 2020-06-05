@@ -4,6 +4,8 @@ set -ex
 
 cd rex-web-pull-request
 
+yarn
+
 git show master:src/config.books.js > src/config.books.old.js
 
 book_ids=$(node -e "$(cat <<script
