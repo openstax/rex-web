@@ -1,20 +1,39 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
-import { assertDefined, assertWindow } from '../../../utils';
+import theme from '../../../theme';
+import { assertWindow } from '../../../utils';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
 import * as Styled from '../../highlights/components/ShowMyHighlightsStyles';
-import HighlightListElement from '../../highlights/components/SummaryPopup/HighlightListElement';
-import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
-import { stripIdVersion } from '../../utils/idUtils';
+import { SectionHighlights } from '../../highlights/components/SummaryPopup/SectionHighlights';
+import { HighlightsChapterWrapper, HighlightSection } from '../../highlights/components/SummaryPopup/styles';
 import * as selectors from '../selectors';
-import { OrderedSummaryHighlights } from '../types';
+
+// Why these styles are not applied?
+// tslint:disable-next-line: variable-name
+const StyledSectionHighlights = styled(SectionHighlights)`
+  ${HighlightsChapterWrapper} {
+    ${theme.breakpoints.mobile`
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `}
+  }
+  ${HighlightSection} {
+    ${theme.breakpoints.mobile`
+    padding-left: 2rem;
+  `}
+  }
+`;
 
 // tslint:disable-next-line: variable-name
-const Highlights = () => {
+const StudyGuides = () => {
   const orderedHighlights = useSelector(selectors.orderedStudyGuidesHighlights);
   const isLoading = useSelector(selectors.studyGuidesIsLoading);
   const container = React.useRef<HTMLElement>(null);
@@ -32,49 +51,14 @@ const Highlights = () => {
     {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
     {orderedHighlights && <Styled.Highlights ref={container}>
       {orderedHighlights.map((highlightData) => {
-        return <SectionHighlights
+        return <StyledSectionHighlights
           key={highlightData.location.id}
           highlightDataInSection={highlightData}
+          forStudyGuides={true}
         />;
       })}
     </Styled.Highlights>}
   </React.Fragment>;
 };
 
-export default Highlights;
-
-interface SectionHighlightsProps {
-  highlightDataInSection: OrderedSummaryHighlights[0];
-}
-
-// tslint:disable-next-line: variable-name
-export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: SectionHighlightsProps) => {
-  const pageIdIsSameAsSectionId = pages.every((highlights) => highlights.pageId === location.id);
-
-  return (
-    <React.Fragment>
-      <Styled.HighlightsChapterWrapper>
-        <Styled.HighlightsChapter data-testid='sg-chapter-title' dangerouslySetInnerHTML={{ __html: location.title }} />
-      </Styled.HighlightsChapterWrapper>
-      {pages.map(({pageId, highlights}) => {
-        const page = assertDefined(
-          archiveTreeSectionIsChapter(location)
-            ? findArchiveTreeNode(location, stripIdVersion(pageId))
-            : location,
-          `Page is undefined in SectionHighlights`
-        );
-        return <Styled.HighlightWrapper key={pageId}>
-          {!pageIdIsSameAsSectionId && <Styled.HighlightSection data-testid='sg-section-title'
-            dangerouslySetInnerHTML={{ __html: page.title }}
-          />}
-          {highlights.map((item) => <HighlightListElement
-            key={item.id}
-            highlight={item}
-            locationFilterId={location.id}
-            pageId={pageId}
-          />)}
-        </Styled.HighlightWrapper>;
-      })}
-    </React.Fragment>
-  );
-};
+export default StudyGuides;

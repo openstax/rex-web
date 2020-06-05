@@ -3,22 +3,26 @@ import { assertDefined } from '../../../../utils';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { OrderedSummaryHighlights } from '../../types';
-import * as Styled from '../ShowMyHighlightsStyles';
 import HighlightListElement from './HighlightListElement';
+import StudyGuidesListElement from './StudyGuidesListElement';
+import { HighlightsChapter, HighlightsChapterWrapper, HighlightSection, HighlightWrapper } from './styles';
 
 interface SectionHighlightsProps {
   highlightDataInSection: OrderedSummaryHighlights[0];
+  forStudyGuides?: boolean;
 }
 
 // tslint:disable-next-line: variable-name
-export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: SectionHighlightsProps) => {
+export const SectionHighlights = (
+  { highlightDataInSection: {pages, location}, forStudyGuides = false }: SectionHighlightsProps
+) => {
   const pageIdIsSameAsSectionId = pages.every((highlights) => highlights.pageId === location.id);
 
   return (
     <React.Fragment>
-      <Styled.HighlightsChapterWrapper>
-        <Styled.HighlightsChapter data-testid='chapter-title' dangerouslySetInnerHTML={{ __html: location.title }} />
-      </Styled.HighlightsChapterWrapper>
+      <HighlightsChapterWrapper>
+        <HighlightsChapter data-testid='chapter-title' dangerouslySetInnerHTML={{ __html: location.title }} />
+      </HighlightsChapterWrapper>
       {pages.map(({pageId, highlights}) => {
         const page = assertDefined(
           archiveTreeSectionIsChapter(location)
@@ -26,17 +30,26 @@ export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: 
             : location,
           `Page is undefined in SectionHighlights`
         );
-        return <Styled.HighlightWrapper key={pageId}>
-          {!pageIdIsSameAsSectionId && <Styled.HighlightSection data-testid='section-title'
+        return <HighlightWrapper key={pageId}>
+          {!pageIdIsSameAsSectionId && <HighlightSection data-testid='section-title'
             dangerouslySetInnerHTML={{ __html: page.title }}
           />}
-          {highlights.map((item) => <HighlightListElement
-            key={item.id}
-            highlight={item}
-            locationFilterId={location.id}
-            pageId={pageId}
-          />)}
-        </Styled.HighlightWrapper>;
+          {highlights.map((item) => {
+            if (forStudyGuides) {
+              return <StudyGuidesListElement
+                key={item.id}
+                highlight={item}
+              />;
+            } else {
+              return <HighlightListElement
+                key={item.id}
+                highlight={item}
+                locationFilterId={location.id}
+                pageId={pageId}
+              />;
+            }
+          })}
+        </HighlightWrapper>;
       })}
     </React.Fragment>
   );

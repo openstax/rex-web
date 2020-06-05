@@ -32,6 +32,11 @@ const ShowStudyGuides = () => {
   const isLoading = useSelector(select.studyGuidesIsLoading);
   const hasMoreResults = useSelector(select.hasMoreResults);
 
+  const goToTop = () => {
+    assertNotNull(ref.current, 'Expected ref to be not null').scrollTop = 0;
+    setShowGoToTop(false);
+  };
+
   const fetchMoreHighlights = React.useCallback(() => {
     if (isLoading || !ref.current) { return; }
     const scrollBottom = ref.current.scrollHeight - ref.current.offsetHeight - ref.current.scrollTop;
@@ -41,11 +46,12 @@ const ShowStudyGuides = () => {
   }, [ref, dispatch, isLoading, hasMoreResults]);
 
   React.useEffect(() => {
-    if (ref.current) {
-      setShowGoToTop(ref.current.scrollTop > 0);
-      ref.current.addEventListener('scroll', fetchMoreHighlights);
+    const refElement = ref.current;
+    if (refElement) {
+      setShowGoToTop(refElement.scrollTop > 0);
+      refElement.addEventListener('scroll', fetchMoreHighlights);
     }
-    return () => ref.current ? ref.current.removeEventListener('scroll', fetchMoreHighlights) : undefined;
+    return () => refElement ? refElement.removeEventListener('scroll', fetchMoreHighlights) : undefined;
   }, [fetchMoreHighlights]);
 
   return (
@@ -57,7 +63,7 @@ const ShowStudyGuides = () => {
       <StudyGuides />
       {showGoToTop && <GoToTopButton
         i18nAriaLabel='i18n:toolbar:studyguides:popup:button:back-to-top'
-        onClick={() => { assertNotNull(ref.current, 'Expected ref to be not null').scrollTop = 0; }}
+        onClick={goToTop}
         data-testid='back-to-top-studyguides'
       />}
     </StudyGuidesBody>

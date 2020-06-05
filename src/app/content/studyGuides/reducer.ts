@@ -1,3 +1,4 @@
+import merge from 'lodash/fp/merge';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
@@ -11,7 +12,6 @@ export const initialState: State = {
   isEnabled: false,
   loading: false,
   open: false,
-  pagination: null,
   summary: null,
   totalCountsPerPage: null,
 };
@@ -28,6 +28,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, open: false };
     case getType(actions.loadMoreStudyGuides):
       return {...state, loading: true};
+    case getType(actions.receiveStudyGuidesHighlights): {
+      return {
+        ...state,
+        highlights: merge(state.highlights || {}, action.payload),
+        loading: false,
+      };
+    }
     default:
       return state;
   }
