@@ -155,7 +155,7 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     content.setAttribute('data-type', 'footnote-ref-content');
     content.innerHTML = footnote.innerHTML;
 
-    const number = assertNotNull(content.querySelector('.footnote-number'), 'footnote number was not found');
+    const number = assertNotNull(content.querySelector('[data-type="footnote-number"]'), 'footnote number was not found');
     const anchor = document.createElement('a');
     anchor.setAttribute('role', 'doc-backlink');
     anchor.setAttribute('href', `#footnote-ref${counter}`);
