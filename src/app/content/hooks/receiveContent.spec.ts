@@ -161,10 +161,10 @@ describe('setHead hook', () => {
       const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNode')
         .mockReturnValueOnce(node);
 
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+      const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
 
       expect(spy).toHaveBeenCalledWith(book.tree, 'new-id');
-      expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'new-id'}});
+      expect(res).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'new-id'}});
     });
 
     it('throws if canonical book is missing cms data', async() => {
