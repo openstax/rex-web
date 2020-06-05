@@ -7,15 +7,12 @@ import { typesetMath } from '../../../../helpers/mathjax';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
-import { assertDefined, assertWindow } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
-import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
-import { stripIdVersion } from '../../utils/idUtils';
 import * as selectors from '../selectors';
-import { OrderedSummaryHighlights } from '../types';
 import * as HStyled from './HighlightStyles';
 import * as Styled from './ShowMyHighlightsStyles';
-import HighlightListElement from './SummaryPopup/HighlightListElement';
+import { SectionHighlights } from './SummaryPopup/SectionHighlights';
 
 // tslint:disable-next-line: variable-name
 const NoHighlightsTip = htmlMessage(
@@ -90,39 +87,3 @@ const Highlights = () => {
 };
 
 export default Highlights;
-
-interface SectionHighlightsProps {
-  highlightDataInSection: OrderedSummaryHighlights[0];
-}
-
-// tslint:disable-next-line: variable-name
-export const SectionHighlights = ({ highlightDataInSection: {pages, location}}: SectionHighlightsProps) => {
-  const pageIdIsSameAsSectionId = pages.every((highlights) => highlights.pageId === location.id);
-
-  return (
-    <React.Fragment>
-      <Styled.HighlightsChapterWrapper>
-        <Styled.HighlightsChapter data-testid='mh-chapter-title' dangerouslySetInnerHTML={{ __html: location.title }} />
-      </Styled.HighlightsChapterWrapper>
-      {pages.map(({pageId, highlights}) => {
-        const page = assertDefined(
-          archiveTreeSectionIsChapter(location)
-            ? findArchiveTreeNode(location, stripIdVersion(pageId))
-            : location,
-          `Page is undefined in SectionHighlights`
-        );
-        return <Styled.HighlightWrapper key={pageId}>
-          {!pageIdIsSameAsSectionId && <Styled.HighlightSection data-testid='mh-section-title'
-            dangerouslySetInnerHTML={{ __html: page.title }}
-          />}
-          {highlights.map((item) => <HighlightListElement
-            key={item.id}
-            highlight={item}
-            locationFilterId={location.id}
-            pageId={pageId}
-          />)}
-        </Styled.HighlightWrapper>;
-      })}
-    </React.Fragment>
-  );
-};
