@@ -1,15 +1,18 @@
 #!/bin/bash
 set -ex
 
-bucket=sandbox-unified-web-primary
 production_url=https://openstax.org
 
 work_dir=$(pwd)
 
-release_id=$(curl "${production_url}/rex/release.json" | jq .id -r)
-files=$(aws s3api list-objects --bucket "$bucket" --prefix "rex/releases/$release_id/books/" | jq -r '.Contents[] | .Key')
+release_id=$(curl "${production_url}/rex/environment.json" | jq .release_id -r)
+files=$(aws s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$release_id/books/" | jq -r '.Contents[] | .Key')
+
+missing_files=""
 
 while IFS= read -r full_path; do
-  book_path=$(grep -oP '/books.*' <<< "$full_path")
-  [ ! -f "$work_dir$book_path" ] && exit 1
+  book_path="/release/$(grep -oP 'books.*' <<< "$full_path")"
+  [ ! -f "$work_dir$book_path" ] && missing_files="$missing_files'\n'$book_path"
 done <<< "$files"
+
+printf "$missing_files"
