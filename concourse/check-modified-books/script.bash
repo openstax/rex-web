@@ -6,26 +6,6 @@ cd rex-web-pull-request
 
 yarn
 
-function github {
-  curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1"
-}
-
-
-pr_sha=$(git rev-parse head)
-
-NEXT_WAIT_TIME=0
-until [ $NEXT_WAIT_TIME -eq 10 ] || [ "$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
-  echo "sleeping $NEXT_WAIT_TIME"
-  sleep $(( NEXT_WAIT_TIME++ ))
-done
-
-pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
-
-if [ -z "$pr_deployment_id" ]; then
-  echo "No deployment exists for this pr.";
-  exit 1;
-fi;
-
 git show master:src/config.books.js > src/config.books.old.js
 
 book_ids=$(node -e "$(cat <<script
@@ -45,6 +25,25 @@ rm src/config.books.old.js
 if [ -z "$book_ids" ]; then
   echo "No modified books found.";
   exit 0;
+fi;
+
+function github {
+  curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1"
+}
+
+pr_sha=$(git rev-parse HEAD)
+
+NEXT_WAIT_TIME=0
+until [ $NEXT_WAIT_TIME -eq 10 ] || [ "$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
+  echo "sleeping $NEXT_WAIT_TIME"
+  sleep $(( NEXT_WAIT_TIME++ ))
+done
+
+pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
+
+if [ -z "$pr_deployment_id" ]; then
+  echo "No deployment exists for this pr.";
+  exit 1;
 fi;
 
 NEXT_WAIT_TIME=0
