@@ -398,10 +398,6 @@ describe('Page', () => {
         '<aside id="1" role="doc-footnote">' +
           '<p><span data-type="footnote-number">1</span>Footnote text</p>' +
         '</aside>' +
-        // '<p>Another text <a href="#2" role="doc-noteref">2</a></p>' +
-        // '<aside id="2" role="doc-footnote">' +
-        //   '<p>Another <strong>footnote</strong> text</p>' +
-        // '</aside>' +
       '</div>');
       const expectedOutput = '<div id="content">' +
         '<p>' +
