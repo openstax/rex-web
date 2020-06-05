@@ -4,6 +4,8 @@ set -ex
 
 cd rex-web-pull-request
 
+yarn
+
 function github {
   curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1"
 }
