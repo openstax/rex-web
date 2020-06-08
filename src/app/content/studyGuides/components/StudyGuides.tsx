@@ -14,25 +14,6 @@ import { SectionHighlights } from '../../highlights/components/SummaryPopup/Sect
 import { HighlightsChapterWrapper, HighlightSection } from '../../highlights/components/SummaryPopup/styles';
 import * as selectors from '../selectors';
 
-// Why these styles are not applied?
-// tslint:disable-next-line: variable-name
-const StyledSectionHighlights = styled(SectionHighlights)`
-  ${HighlightsChapterWrapper} {
-    ${theme.breakpoints.mobile`
-      max-width: 90%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    `}
-  }
-
-  ${HighlightSection} {
-    ${theme.breakpoints.mobile`
-    padding-left: 2rem;
-  `}
-  }
-`;
-
 // tslint:disable-next-line: variable-name
 const StudyGuides = () => {
   const orderedHighlights = useSelector(selectors.orderedStudyGuidesHighlights);
@@ -52,7 +33,7 @@ const StudyGuides = () => {
     {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
     {orderedHighlights && <Styled.Highlights ref={container}>
       {orderedHighlights.map((highlightData) => {
-        return <StyledSectionHighlights
+        return <SectionHighlights
           key={highlightData.location.id}
           highlightDataInSection={highlightData}
           forStudyGuides={true}
@@ -62,4 +43,20 @@ const StudyGuides = () => {
   </React.Fragment>;
 };
 
-export default StudyGuides;
+// Why these styles are not applied?
+export default styled(StudyGuides)`
+  ${HighlightsChapterWrapper} {
+    ${theme.breakpoints.mobile`
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `}
+  }
+
+  ${HighlightSection} {
+    ${theme.breakpoints.mobile`
+    padding-left: 2rem;
+  `}
+  }
+`;

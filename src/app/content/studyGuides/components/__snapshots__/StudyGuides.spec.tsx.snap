@@ -119,8 +119,8 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightAnnotation-znhmjn-1 cEpfVc"
       />
       <div
-        className="StudyGuidesListElement__HighlightContentWrapper-znhmjn-3 gjNPey"
-        color="yellow"
+        className="StudyGuidesListElement__HighlightContentWrapper-znhmjn-3 gUYTor"
+        color={null}
       >
         <div
           className="summary-highlight-content StudyGuidesListElement__HighlightContent-znhmjn-2 jqbHrH"

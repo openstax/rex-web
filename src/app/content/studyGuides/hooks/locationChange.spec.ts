@@ -8,7 +8,6 @@ import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
-import * as highlightsUtils from '../../highlights/hooks/utils';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
 

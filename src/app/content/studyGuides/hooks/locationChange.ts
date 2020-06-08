@@ -6,6 +6,7 @@ import {
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
+import { assertDefined } from '../../../utils';
 // Temporary import from /highlights directory until we make all this logic reusable and move it to content/
 import { formatReceivedHighlights } from '../../highlights/hooks/utils';
 import { highlightLocationFilters } from '../../highlights/selectors';
@@ -61,7 +62,9 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
-  const formattedHighlights = formatReceivedHighlights(highlightsResponse.data || [], locationFilters);
+  const formattedHighlights = formatReceivedHighlights(
+    assertDefined(highlightsResponse.data, 'expected api data response to be defined'),
+    locationFilters);
 
   services.dispatch(receiveStudyGuidesHighlights(formattedHighlights));
 

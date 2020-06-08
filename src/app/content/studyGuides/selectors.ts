@@ -36,11 +36,6 @@ export const studyGuidesIsLoading = createSelector(
   (state) => state.loading
 );
 
-export const totalCountsPerPage = createSelector(
-  localState,
-  (state) => state.totalCountsPerPage
-);
-
 // Temporary to make hasMoreResults works
 export const studyGuidesPagination = createSelector(
   localState,
