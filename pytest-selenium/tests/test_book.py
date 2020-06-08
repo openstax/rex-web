@@ -1,5 +1,6 @@
 # flake8: noqa
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from tests import markers
 from pages.content import Content
@@ -60,10 +61,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
 
     # AND: Order print copy option should not be present in Rex if osweb has no amazon link
     else:
-        with pytest.raises(Exception) as exc_info:
-            assert not rex.order_print_copy
-
-        exception_raised = exc_info.type
-        assert "NoSuchElementException" in str(
-            exception_raised
-        ), "amazon print option present in rex but not present in osweb"
+        with pytest.raises(NoSuchElementException):
+            assert (
+                not rex.order_print_copy
+            ), "amazon print option present in rex but not present in osweb"
