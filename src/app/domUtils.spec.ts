@@ -15,8 +15,18 @@ beforeEach(() => {
 });
 
 describe('scrollIntoView', () => {
+  let element: HTMLElement;
+
+  beforeEach(() => {
+    element = assertDocument().createElement('div');
+    assertDocument().body.appendChild(element);
+  });
+
+  afterEach(() => {
+    element.remove();
+  });
+
   it('scrolls up', () => {
-    const element = assertDocument().createElement('div');
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: -40,
       top: -50,
@@ -28,7 +38,6 @@ describe('scrollIntoView', () => {
   });
 
   it('scrolls down', () => {
-    const element = assertDocument().createElement('div');
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: assertWindow().innerHeight + 60,
       top: assertWindow().innerHeight + 50,
@@ -40,7 +49,6 @@ describe('scrollIntoView', () => {
   });
 
   it('noops', () => {
-    const element = assertDocument().createElement('div');
     jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
       bottom: 0,
       top: 0,
@@ -50,31 +58,17 @@ describe('scrollIntoView', () => {
 
     expect(scrollTo).not.toHaveBeenCalledWith(element, expect.anything());
   });
-});
 
-describe('elementDescendantOf', () => {
-  const document = assertDocument();
+  it('noops if element was not found in the body', () => {
+    element.remove();
+    jest.spyOn(element, 'getBoundingClientRect').mockReturnValue({
+      bottom: assertWindow().innerHeight + 60,
+      top: assertWindow().innerHeight + 50,
+    } as any);
 
-  it('finds ancestor', () => {
-    const child = document.createElement('div');
-    const parent = document.createElement('div');
+    domUtils.scrollIntoView(element);
 
-    parent.appendChild(child);
-
-    expect(domUtils.elementDescendantOf(child, parent)).toBe(true);
-  });
-
-  it('defaults to false if it can\'t find the ancestor', () => {
-    const child = document.createElement('div');
-    const parent = document.createElement('div');
-
-    expect(domUtils.elementDescendantOf(child, parent)).toBe(false);
-  });
-
-  it('defaults to true if the child is the ancestor', () => {
-    const child = document.createElement('div');
-
-    expect(domUtils.elementDescendantOf(child, child)).toBe(true);
+    expect(scrollTo).not.toHaveBeenCalledWith(element, expect.anything());
   });
 });
 

@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine
+
+inputs:
+- name: rex-web
+
+params:
+  GITHUB_ACCESS_TOKEN: ((github-access-token))
+  GITHUB_USERNAME: ((github-username))
+  GITHUB_PASSWORD: ((github-password))
+
+caches:
+- path: rex-web/node_modules
+
+run:
+  path: /bin/sh
+  args:
+    - -xce
+    - |
+      apk add bash git nodejs yarn curl
+      ./rex-web/concourse/update-content/script.bash

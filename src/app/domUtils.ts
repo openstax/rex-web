@@ -99,6 +99,8 @@ export const scrollTo = (elem: HTMLElement | Element | string) => {
 
 export const scrollIntoView = (elem: HTMLElement) => {
   const window = assertWindow();
+  if (!window.document.body.contains(elem)) { return; }
+
   const {top, bottom} = elem.getBoundingClientRect();
   const below = bottom > window.innerHeight;
   const above = top < Math.abs(getScrollPadding());
@@ -108,17 +110,6 @@ export const scrollIntoView = (elem: HTMLElement) => {
   } else if (above) {
     scrollTo(elem);
   }
-};
-
-export const elementDescendantOf = (element: Element, ancestor: Element): boolean => {
-  if (element === ancestor) {
-    return true;
-  }
-  if (!element.parentNode || !(element.parentNode instanceof assertWindow().Element)) {
-    return false;
-  }
-
-  return elementDescendantOf(element.parentNode, ancestor);
 };
 
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {

@@ -23,12 +23,14 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { createHighlight } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
+import * as highlightUtils from './Page/highlightUtils';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
@@ -389,6 +391,51 @@ describe('Page', () => {
         expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
       });
     });
+
+    it('moves footnotes from the content to the bottom of page', async() => {
+      const input = await htmlHelper('<div id="content">' +
+        '<p>Some text <a href="#1" role="doc-noteref">1</a></p>' +
+        '<aside id="1" role="doc-footnote">' +
+          '<p><span class="footnote-number">1</span>Footnote text</p>' +
+        '</aside>' +
+        '<p>Another text <a href="#2" role="doc-noteref">2</a></p>' +
+        '<aside id="2" role="doc-footnote">' +
+          '<p>Another <strong>footnote</strong> text</p>' +
+        '</aside>' +
+      '</div>');
+      const expectedOutput = '<div id="content">' +
+        '<p>' +
+          'Some text ' +
+          '<sup id="footnote-ref1" data-type="footnote-number">' +
+            '<a href="#1" role="doc-noteref" data-type="footnote-link">1</a>' +
+          '</sup>' +
+        '</p>' +
+        '<p>' +
+          'Another text ' +
+          '<sup id="footnote-ref2" data-type="footnote-number">' +
+            '<a href="#2" role="doc-noteref" data-type="footnote-link">2</a>' +
+          '</sup>' +
+        '</p>' +
+      '</div>' +
+      '<div data-type="footnote-refs">' +
+        '<h3 data-type="footnote-refs-title">Footnotes</h3>' +
+        '<ul data-list-type="bulleted" data-bullet-style="none">' +
+          '<li id="1" data-type="footnote-ref">' +
+            '<a data-type="footnote-ref-link" href="#footnote-ref1">1</a>' +
+            '<span data-type="footnote-ref-content">' +
+              '<p>Footnote text</p>' +
+            '</span>' +
+          '</li>' +
+          '<li id="2" data-type="footnote-ref">' +
+            '<a data-type="footnote-ref-link" href="#footnote-ref2">2</a>' +
+            '<span data-type="footnote-ref-content">' +
+            '<p>Another <strong>footnote</strong> text</p>' +
+            '</span>' +
+          '</li>' +
+        '</ul>' +
+      '</div>';
+      expect(input).toEqual(expectedOutput);
+    });
   });
 
   it('updates content link with new hrefs', async() => {
@@ -653,7 +700,7 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
-    renderDomWithReferences();
+    const {root} = renderDomWithReferences();
 
     const hit = makeSearchResultHit({book, page});
 
@@ -665,7 +712,22 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    // click again for selectedSearchResult to update
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
     expect(scrollTo).not.toHaveBeenCalled();
+
+    const button = root.querySelector('[data-testid=banner-body] button');
+
+    if (!button) {
+      return expect(button).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(button);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body] button')).toBeFalsy();
   });
 
   it('scrolls to search result when selected', async() => {
@@ -802,6 +864,60 @@ describe('Page', () => {
 
     expect(mockHighlight.focus).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('doesn\'t render error modal for the same result twice', async() => {
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page});
+    const searchResultToSelect = {result: hit, highlight: 0};
+
+    highlightResults.mockReturnValue([]);
+
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult(searchResultToSelect));
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+
+    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => undefined);
+
+    // normally, search result selection handler would noop if the
+    // search result is the same. This makes it think that a new highlight was
+    // added and will force reselection
+
+    renderer.act(() => {
+      store.dispatch(createHighlight({} as any, {} as any));
+      store.dispatch(selectSearchResult(searchResultToSelect));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+    highlightData.mockRestore();
+    highlightResults.mockRestore();
   });
 
   it('mounts, updates, and unmounts without a dom', () => {
