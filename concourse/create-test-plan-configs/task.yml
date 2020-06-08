@@ -12,6 +12,9 @@ inputs:
 outputs:
 - name: test-plans
 
+caches:
+- path: node_modules
+
 params:
   TR_PROJECT_ID: ((testrail-project-id))
   TR_INSTANCE: ((testrail-instance))
