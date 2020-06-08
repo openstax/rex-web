@@ -9,6 +9,9 @@ image_resource:
 inputs:
 - name: rex-web-pull-request
 
+caches:
+- path: rex-web-pull-request/node_modules
+
 params:
   GITHUB_ACCESS_TOKEN: ((github-access-token))
 
