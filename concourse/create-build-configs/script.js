@@ -32,6 +32,6 @@ fs.readFile(versionFile, 'utf8', function(err, commit) {
   console.log(`Generating release id file with: ${releaseId}`);
   fs.writeFile(releaseFile, releaseId, handleErr);
 
-  console.log(`Generating tag file with: ${tag}`);
-  fs.writeFile(tagFile, tag, handleErr);
+  console.log(`Generating tag file with: ${releaseId}`);
+  fs.writeFile(tagFile, releaseId, handleErr);
 });
