@@ -59,11 +59,11 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
   const blurIfNotEditing = React.useCallback(() => {
-    if (!props.hasUnsavedHighlight) {
+    if (!props.hasUnsavedHighlight && !editingAnnotation) {
       props.onBlur();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.hasUnsavedHighlight]);
+  }, [props.hasUnsavedHighlight, editingAnnotation]);
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
