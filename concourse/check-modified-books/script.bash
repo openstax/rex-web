@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
+cd rex-web-pull-request
 git remote add origin "https://${GITHUB_ACCESS_TOKEN}@github.com/openstax/rex-web.git"
 
 set -ex
-
-cd rex-web-pull-request
 
 PATH="$PATH:$(pwd)/concourse/common"
 
