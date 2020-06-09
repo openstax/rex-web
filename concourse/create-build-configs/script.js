@@ -14,8 +14,9 @@ const handleErr = err => {
 };
 
 fs.readFile(versionFile, 'utf8', function(err, commit) {
-  const tag = 'master';
-  const releaseId = `master/${commit}`;
+  const date = new Date().toISOString().split('T')[0];
+  const releaseId = `${date}/${commit}`;
+  const tag = releaseId.replace('/', '-');
   const args = {
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_CODE_VERSION: commit,
