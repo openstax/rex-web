@@ -1,5 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { highlightStyles } from '../constants';
+import { highlightStyles } from '../../constants';
 import { CountsPerSource } from '../types';
 
 export default (locationsWithContent: CountsPerSource) => {

@@ -9,6 +9,7 @@ import theme from '../../../theme';
 import { CloseIcon, CloseIconWrapper, Header, Modal, PopupWrapper } from '../../styles/PopupStyles';
 import { closeStudyGuides } from '../actions';
 import { studyGuidesOpen } from '../selectors';
+import ShowStudyGuides from './ShowStudyGuides';
 
 // tslint:disable-next-line: variable-name
 const StudyguidesPopUp = () => {
@@ -72,6 +73,7 @@ const StudyguidesPopUp = () => {
             )}
           </FormattedMessage>
         </Header>
+        <ShowStudyGuides />
       </Modal>
     </PopupWrapper>
   ) : null;

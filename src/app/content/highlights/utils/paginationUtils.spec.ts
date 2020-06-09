@@ -44,7 +44,7 @@ describe('getNextPageSources', () => {
 
   describe('over resource limit', () => {
     it('respects resource limit', () => {
-      jest.mock('../constants', () => ({maxResourcesPerFetch: 1}));
+      jest.mock('../../constants', () => ({maxResourcesPerFetch: 1}));
       const {getNextPageSources} = require('./paginationUtils');
 
       expect(getNextPageSources({
