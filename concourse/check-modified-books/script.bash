@@ -10,7 +10,15 @@ yarn
 
 git remote add origin "https://${GITHUB_ACCESS_TOKEN}@github.com/openstax/rex-web.git"
 git fetch origin master
+
+git rev-parse origin/master
+git rev-parse master
+git rev-parse head
+
 git show origin/master:src/config.books.js > src/config.books.old.js
+
+grep College < src/config.books.old.js
+grep College < src/config.books.old.js
 
 book_ids=$(node -e "$(cat <<script
   const oldBooks = require('./src/config.books.old.js');
