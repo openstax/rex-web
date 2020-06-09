@@ -13,7 +13,7 @@ git fetch origin master
 
 git rev-parse origin/master
 git rev-parse master
-git rev-parse head
+git rev-parse HEAD
 
 git show origin/master:src/config.books.js > src/config.books.old.js
 
