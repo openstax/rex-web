@@ -1,10 +1,10 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { bodyCopyRegularStyle, textRegularStyle } from '../../../../components/Typography';
-import theme from '../../../../theme';
-import { popupPadding } from '../../../styles/PopupStyles';
+import { bodyCopyRegularStyle, textRegularStyle } from '../../../components/Typography';
+import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
+import { popupPadding } from '../../styles/PopupStyles';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`

@@ -12,8 +12,8 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
 import { highlightLocationFilters } from '../../highlights/selectors';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import { formatBookData } from '../../utils';

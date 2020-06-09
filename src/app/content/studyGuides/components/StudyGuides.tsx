@@ -7,12 +7,12 @@ import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
+import SectionHighlights, { HighlightsChapterWrapper, HighlightSection } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
-import * as Styled from '../../highlights/components/ShowMyHighlightsStyles';
-import { SectionHighlights } from '../../highlights/components/SummaryPopup/SectionHighlights';
-import { HighlightsChapterWrapper, HighlightSection } from '../../highlights/components/SummaryPopup/styles';
+import HighlightsWrapper from '../../styles/HighlightsWrapper';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
+import StudyGuidesListElement from './StudyGuidesListElement';
 
 // tslint:disable-next-line: variable-name
 const StudyGuides = ({ className }: { className: string }) => {
@@ -30,23 +30,26 @@ const StudyGuides = ({ className }: { className: string }) => {
   }, [orderedHighlights]);
 
   return <div className={className}>
-    {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
-    {orderedHighlights && <Styled.Highlights ref={container}>
+    {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
+    {orderedHighlights && <HighlightsWrapper ref={container}>
       {orderedHighlights.map((highlightData) => {
         return <SectionHighlights
           key={highlightData.location.id}
           highlightDataInSection={highlightData}
-          forStudyGuides={true}
+          highlightRenderer={(highlight) => (
+            <StudyGuidesListElement
+              key={highlight.id}
+              highlight={highlight}
+            />
+          )}
         />;
       })}
-    </Styled.Highlights>}
+    </HighlightsWrapper>}
   </div>;
 };
 
 export default styled(StudyGuides)`
-  display: contents;
-
-  ${HighlightsChapterWrapper} .os-text {
+  ${HighlightsChapterWrapper} {
     ${theme.breakpoints.mobile`
       max-width: 90%;
       white-space: nowrap;
@@ -60,4 +63,6 @@ export default styled(StudyGuides)`
     padding-left: 2rem;
   `}
   }
+
+  display: contents;
 `;

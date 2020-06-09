@@ -10,6 +10,8 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
+import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
@@ -23,13 +25,10 @@ import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
-import { LoaderWrapper } from './ShowMyHighlightsStyles';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
-import { SectionHighlights } from './SummaryPopup/SectionHighlights';
-import { HighlightSection } from './SummaryPopup/styles';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };

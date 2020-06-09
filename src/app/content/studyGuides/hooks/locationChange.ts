@@ -39,6 +39,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   ];
 
   const locationFilters = highlightLocationFilters(state);
+  // page ids from Anatomy and Physiology for which study guides endpoint is returning something
   const tempSourcesIds = [
     '00a2d5b6-9b1d-49ab-a40d-fcd30ceef643',
     '2c60e072-7665-49b9-a2c9-2736b72b533c',

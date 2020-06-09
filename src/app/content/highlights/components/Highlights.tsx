@@ -8,11 +8,13 @@ import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import { assertWindow } from '../../../utils';
+import SectionHighlights from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import HighlightsWrapper from '../../styles/HighlightsWrapper';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
 import * as HStyled from './HighlightStyles';
-import * as Styled from './ShowMyHighlightsStyles';
-import { SectionHighlights } from './SummaryPopup/SectionHighlights';
+import HighlightListElement from './SummaryPopup/HighlightListElement';
 
 // tslint:disable-next-line: variable-name
 const NoHighlightsTip = htmlMessage(
@@ -40,7 +42,7 @@ const Highlights = () => {
     !isLoading
     && (!totalCountsPerPage || Object.keys(totalCountsPerPage).length === 0)
   ) {
-    return <Styled.Highlights ref={container}>
+    return <HighlightsWrapper ref={container}>
       <HStyled.GeneralLeftText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book'>
           {(msg: Element | string) => msg}
@@ -59,30 +61,38 @@ const Highlights = () => {
         </HStyled.GeneralTextWrapper>
         <HStyled.MyHighlightsImage src={myHighlightsEmptyImage} />
       </HStyled.MyHighlightsWrapper>
-    </Styled.Highlights>;
+    </HighlightsWrapper>;
   }
 
   if (!isLoading && orderedHighlights && orderedHighlights.length === 0) {
-    return <Styled.Highlights ref={container}>
+    return <HighlightsWrapper ref={container}>
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
           {(msg: Element | string) => msg}
         </FormattedMessage>
         <NoHighlightsTip />
       </HStyled.GeneralCenterText>
-    </Styled.Highlights>;
+    </HighlightsWrapper>;
   }
 
   return <React.Fragment>
-    {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
-    {orderedHighlights && <Styled.Highlights ref={container}>
+    {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
+    {orderedHighlights && <HighlightsWrapper ref={container}>
       {orderedHighlights.map((highlightData) => {
         return <SectionHighlights
           key={highlightData.location.id}
           highlightDataInSection={highlightData}
+          highlightRenderer={(highlight, pageId) => (
+            <HighlightListElement
+              key={highlight.id}
+              highlight={highlight}
+              locationFilterId={highlightData.location.id}
+              pageId={pageId}
+            />
+          )}
         />;
       })}
-    </Styled.Highlights>}
+    </HighlightsWrapper>}
   </React.Fragment>;
 };
 

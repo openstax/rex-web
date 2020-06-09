@@ -17,6 +17,7 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined, assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
+import { highlightStyles } from '../../constants';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import {
@@ -26,7 +27,6 @@ import {
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
 } from '../actions';
-import { highlightStyles } from '../constants';
 import { hasMoreResults } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';

@@ -8,6 +8,7 @@ import pickBy from 'lodash/fp/pickBy';
 import reduce from 'lodash/fp/reduce';
 import values from 'lodash/fp/values';
 import { not, reduceUntil } from '../../../fpUtils';
+import { maxResourcesPerFetch } from '../../constants';
 import { isArchiveTree } from '../../guards';
 import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
 import {
@@ -15,7 +16,6 @@ import {
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { maxResourcesPerFetch } from '../constants';
 import { CountsPerSource, HighlightLocationFilters, SummaryFilters } from '../types';
 
 const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
