@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 
 // tslint:disable-next-line:variable-name

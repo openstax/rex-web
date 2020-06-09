@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
@@ -15,7 +15,7 @@ import { HighlightsChapterWrapper, HighlightSection } from '../../highlights/com
 import * as selectors from '../selectors';
 
 // tslint:disable-next-line: variable-name
-const StudyGuides = () => {
+const StudyGuides = ({ className }: { className: string }) => {
   const orderedHighlights = useSelector(selectors.orderedStudyGuidesHighlights);
   const isLoading = useSelector(selectors.studyGuidesIsLoading);
   const container = React.useRef<HTMLElement>(null);
@@ -29,7 +29,7 @@ const StudyGuides = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
   }, [orderedHighlights]);
 
-  return <React.Fragment>
+  return <div className={className}>
     {isLoading ? <Styled.LoaderWrapper><Loader large /></Styled.LoaderWrapper> : null}
     {orderedHighlights && <Styled.Highlights ref={container}>
       {orderedHighlights.map((highlightData) => {
@@ -40,12 +40,13 @@ const StudyGuides = () => {
         />;
       })}
     </Styled.Highlights>}
-  </React.Fragment>;
+  </div>;
 };
 
-// Why these styles are not applied?
 export default styled(StudyGuides)`
-  ${HighlightsChapterWrapper} {
+  display: contents;
+
+  ${HighlightsChapterWrapper} .os-text {
     ${theme.breakpoints.mobile`
       max-width: 90%;
       white-space: nowrap;
