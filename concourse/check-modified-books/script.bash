@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
-set -ex
-
 cd rex-web-pull-request
+git remote add origin "https://${GITHUB_ACCESS_TOKEN}@github.com/openstax/rex-web.git"
+
+set -ex
 
 PATH="$PATH:$(pwd)/concourse/common"
 
 yarn
 
-git show master:src/config.books.js > src/config.books.old.js
+git fetch origin master
+git show origin/master:src/config.books.js > src/config.books.old.js
 
 book_ids=$(node -e "$(cat <<script
   const oldBooks = require('./src/config.books.old.js');
