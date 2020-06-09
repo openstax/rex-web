@@ -15,4 +15,4 @@ for full_path in $files; do
   [ ! -f "$work_dir$book_path" ] && missing_files="$missing_files$book_path'\n'"
 done
 
-printf "$missing_files"
+echo "$missing_files"
