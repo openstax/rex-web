@@ -151,17 +151,18 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     item.setAttribute('id', assertNotNull(footnote.getAttribute('id'), 'id of footnote was not found'));
     item.setAttribute('data-type', 'footnote-ref');
 
-    const anchor = document.createElement('a');
-    anchor.setAttribute('data-type', 'footnote-ref-link');
-    anchor.setAttribute('href', `#footnote-ref${counter}`);
-    anchor.innerHTML = counter.toString();
-
     const content = document.createElement('span');
     content.setAttribute('data-type', 'footnote-ref-content');
     content.innerHTML = footnote.innerHTML;
 
-    const number = content.querySelector('.footnote-number');
-    if (number) { number.remove(); }
+    const footnoteNumber = content.querySelector('[data-type="footnote-number"]');
+    const number = assertNotNull(footnoteNumber, 'footnote number was not found');
+    const anchor = document.createElement('a');
+    anchor.setAttribute('role', 'doc-backlink');
+    anchor.setAttribute('href', `#footnote-ref${counter}`);
+    anchor.innerHTML = number.innerHTML;
+
+    number.remove();
 
     item.appendChild(anchor);
     item.appendChild(content);
