@@ -18,7 +18,7 @@ git rev-parse HEAD
 git show origin/master:src/config.books.js > src/config.books.old.js
 
 grep College < src/config.books.old.js
-grep College < src/config.books.old.js
+grep College < src/config.books.js
 
 book_ids=$(node -e "$(cat <<script
   const oldBooks = require('./src/config.books.old.js');
