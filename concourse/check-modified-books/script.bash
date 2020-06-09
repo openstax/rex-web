@@ -8,7 +8,7 @@ PATH="$PATH:$(pwd)/concourse/common"
 
 yarn
 
-git show master:src/config.books.js > src/config.books.old.js
+git show origin/master:src/config.books.js > src/config.books.old.js
 
 book_ids=$(node -e "$(cat <<script
   const oldBooks = require('./src/config.books.old.js');
