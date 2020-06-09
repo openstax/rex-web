@@ -8,6 +8,7 @@ PATH="$PATH:$(pwd)/concourse/common"
 
 yarn
 
+git fetch origin master
 git show origin/master:src/config.books.js > src/config.books.old.js
 
 book_ids=$(node -e "$(cat <<script
