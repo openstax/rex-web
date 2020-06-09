@@ -8,7 +8,7 @@ PATH="$PATH:$(pwd)/concourse/common"
 
 yarn
 
-git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@${GITHUB_PROJECT}.git"
+git remote add origin "https://${GITHUB_ACCESS_TOKEN}@github.com/openstax/rex-web.git"
 git fetch origin master
 git show origin/master:src/config.books.js > src/config.books.old.js
 
