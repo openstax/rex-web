@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MessageProvider from '../../../MessageProvider';
-import { highlightStyles } from '../constants';
+import { highlightStyles } from '../../constants';
 import ColorPicker from './ColorPicker';
 
 describe('ColorPicker', () => {
