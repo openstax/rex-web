@@ -3,6 +3,7 @@ import { assertWindow } from '../app/utils';
 
 interface PageView {
   hitType: 'pageview';
+  dimension3: string;
   page: string;
 }
 
@@ -66,6 +67,7 @@ class GoogleAnalyticsClient {
 
   public trackPageView(path: string) {
     this.gaProxy({name: 'send', payload: {
+      dimension3: this.referringHostName(),
       hitType: 'pageview',
       page: path,
     }});
@@ -108,6 +110,19 @@ class GoogleAnalyticsClient {
     }
 
     this.flushPendingCommands();
+  }
+
+  private referringHostName() {
+    const window = assertWindow();
+    let hostName = 'unknown';
+
+    if (window.location === window.parent.location) {
+      hostName = 'not embedded';
+    } else if (window.document.referrer) {
+      const {host} = new URL(window.document.referrer);
+      hostName = host;
+    }
+    return hostName;
   }
 
   private saveCommandForLater(command: Command) {
