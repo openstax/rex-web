@@ -7,7 +7,7 @@ destination=$(pwd)/release
 # shellcheck disable=SC1091
 source build-configs/config.env
 
-cd /rex-web
+cd rex-web
 
 yarn install
 yarn build:clean
