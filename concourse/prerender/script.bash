@@ -1,9 +1,16 @@
 #!/bin/bash
 
+set -ex
+
 destination=$(pwd)/release
 
-cd /code || exit 111
+# shellcheck disable=SC1091
+source build-configs/config.env
 
-yarn prerender || exit
+cd /code
+
+yarn install
+yarn build:clean
+yarn prerender
 
 cp -r build/* "$destination"
