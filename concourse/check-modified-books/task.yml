@@ -10,4 +10,5 @@ caches:
 params:
   GITHUB_ACCESS_TOKEN: ((github-token))
 
-path: rex-web-pull-request/concourse/check-modified-books/script.bash
+run:
+  path: rex-web-pull-request/concourse/check-modified-books/script.bash
