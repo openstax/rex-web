@@ -8,13 +8,13 @@ import {
   sidebarDesktopWidth,
 } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
+import { highlightStyles } from '../../constants';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
   cardMinWindowMargin,
   cardPadding,
   cardWidth,
-  highlightStyles,
 } from '../constants';
 import { HighlightData } from '../types';
 import { CardProps } from './Card';
