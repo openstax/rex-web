@@ -16,7 +16,7 @@ import {
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { CountsPerSource, HighlightLocationFilters, SummaryFilters } from '../types';
+import { CountsPerSource, HighlightLocationFilters, SummaryFilters, SummaryHighlightsPagination } from '../types';
 
 const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
   values,
@@ -98,3 +98,6 @@ export const filterCountsPerSourceByColorFilter = (
   mapValues(pick(colorFilters)),
   pickBy(not(isEmpty))
 )(counts) as CountsPerSource;
+
+export const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
+  ({...pagination, page: pagination.page + 1});

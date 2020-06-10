@@ -12,7 +12,7 @@ import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
-import getHighlightLocationFilterForPage from '../../utils/sharedHighlightsUtils/getHighlightLocationFilterForPage';
+import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import {
   clearFocusedHighlight,
   createHighlight,
