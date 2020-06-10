@@ -14,6 +14,7 @@ import SectionHighlights, { HighlightSection } from '../../components/SectionHig
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
+import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import {
   deleteHighlight,
   receiveHighlightsTotalCounts,
@@ -23,7 +24,6 @@ import {
 } from '../actions';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
-import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';

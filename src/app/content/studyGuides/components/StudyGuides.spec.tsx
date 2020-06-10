@@ -15,9 +15,9 @@ import { receiveBook, receivePage } from '../../actions';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 // Temporary import from /highlights directory until we make all this logic reusable and move it to content/
 import { highlightLocationFilters } from '../../highlights/selectors';
-import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
+import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import { receiveStudyGuidesHighlights } from '../actions';
 import { StudyGuidesHighlights } from '../types';
 import StudyGuides from './StudyGuides';
@@ -63,7 +63,7 @@ describe('StudyGuides', () => {
       },
     } as StudyGuidesHighlights;
 
-    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights));
+    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -98,7 +98,7 @@ describe('StudyGuides', () => {
       },
     } as StudyGuidesHighlights;
 
-    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights));
+    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights, null));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services} >

@@ -53,7 +53,7 @@ describe('locationChange', () => {
     expect(getHighlightsSummary).toHaveBeenCalled();
     expect(getStudyGuidesHighlights).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
-    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuidesHighlights(['mocked'] as any));
+    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuidesHighlights(['mocked'] as any, null));
   });
 
   it('noops on locationChange if feature flag is not present', async() => {
