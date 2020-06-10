@@ -22,35 +22,3 @@ RUN apk add \
   git \
   jq \
   wget
-
-FROM puppeteer as slim
-
-WORKDIR /code
-
-COPY package.json yarn.lock ./
-COPY ./script ./script
-COPY ./src/config*js ./src/
-
-RUN yarn install
-
-COPY . .
-
-EXPOSE 8000
-
-CMD ["yarn", "run", "server"]
-
-FROM slim as built
-
-ARG PUBLIC_URL
-ARG REACT_APP_CODE_VERSION
-ARG REACT_APP_RELEASE_ID
-ARG REACT_APP_BOOKS
-
-ENV PUBLIC_URL=$PUBLIC_URL
-ENV REACT_APP_CODE_VERSION=$REACT_APP_CODE_VERSION
-ENV REACT_APP_RELEASE_ID=$REACT_APP_RELEASE_ID
-ENV REACT_APP_BOOKS=$REACT_APP_BOOKS
-
-ENV REACT_APP_ENV=production
-
-RUN yarn run build
