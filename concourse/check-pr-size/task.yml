@@ -4,7 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: alpine
+    repository: openstax/rex-web
+    tag: CI
 
 inputs:
 - name: rex-web-pull-request
