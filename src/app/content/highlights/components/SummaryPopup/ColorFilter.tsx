@@ -8,9 +8,9 @@ import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
+import { highlightStyles } from '../../../constants';
 import { filters } from '../../../styles/PopupConstants';
 import { setSummaryFilters } from '../../actions';
-import { highlightStyles } from '../../constants';
 import { highlightColorFiltersWithContent, summaryColorFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 
