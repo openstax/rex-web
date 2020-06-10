@@ -138,6 +138,15 @@ const createSummaryHighlightsLoader = ({
   query: SummaryHighlightsQuery,
   countsPerSource: CountsPerSource
 }) => async({getState, highlightClient}: MiddlewareAPI & AppServices, pageSize?: number) => {
+  console.log({
+    countsPerSource,
+    getState,
+    highlightClient,
+    pageSize,
+    previousPagination,
+    query,
+    sourcesFetched,
+   })
   const {pagination, highlights} = await loadUntilPageSize({
     countsPerSource,
     getState,

@@ -22,7 +22,7 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.receiveStudyGuides):
-      return {...state, summary: {...state.summary, highlights: action.payload} };
+      return {...state, summary: {...state.summary, highlights: action.payload, pagination: action.meta}};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
