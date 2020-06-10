@@ -12,6 +12,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openToc, receiveBook, receivePage } from '../../actions';
+import { highlightStyles } from '../../constants';
 import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import {
@@ -21,7 +22,6 @@ import {
   receiveHighlights,
   setAnnotationChangesPending,
 } from '../actions';
-import { highlightStyles } from '../constants';
 import { highlightLocationFilters } from '../selectors';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
