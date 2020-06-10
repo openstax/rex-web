@@ -6,6 +6,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AppState, Dispatch } from '../../../types';
+import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
@@ -18,7 +19,6 @@ import {
   focusHighlight,
   setAnnotationChangesPending,
 } from '../actions';
-import { highlightStyles } from '../constants';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
