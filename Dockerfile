@@ -45,6 +45,13 @@ RUN apt-get update && apt-get install -y \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
 
+FROM puppeteer as CI
+
+RUN apt-get update && apt-get install -y \
+  git \
+  jq \
+  && rm -rf /var/lib/apt/lists/*
+
 FROM puppeteer as slim
 
 WORKDIR /code

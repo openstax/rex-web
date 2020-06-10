@@ -1,11 +1,6 @@
 ---
 platform: linux
 
-image_resource:
-  type: docker-image
-  source:
-    repository: alpine
-
 inputs:
 - name: rex-web-pull-request
 
@@ -15,10 +10,4 @@ caches:
 params:
   GITHUB_ACCESS_TOKEN: ((github-token))
 
-run:
-  path: /bin/sh
-  args:
-    - -xce
-    - |
-      apk add bash git nodejs yarn curl jq
-      ./rex-web-pull-request/concourse/check-modified-books/script.bash
+path: rex-web-pull-request/concourse/check-modified-books/script.bash
