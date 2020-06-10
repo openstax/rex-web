@@ -11,9 +11,4 @@ inputs:
 - name: rex-web-pull-request
 
 run:
-  path: /bin/sh
-  args:
-    - -xce
-    - |
-      apk add bash git
-      ./rex-web-pull-request/concourse/check-pr-size/script.bash
+  path: rex-web-pull-request/concourse/check-pr-size/script.bash
