@@ -10,6 +10,8 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
+import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
@@ -22,8 +24,7 @@ import {
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import Highlights, { SectionHighlights } from './Highlights';
-import { HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
+import Highlights from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';

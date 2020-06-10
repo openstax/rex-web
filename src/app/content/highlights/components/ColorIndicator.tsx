@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
-import { highlightStyles } from '../constants';
+import { highlightStyles } from '../../constants';
 
 interface Props<T extends React.ComponentType | undefined = React.ComponentType> {
   size?: 'small';
