@@ -1,18 +1,14 @@
 import {
   GetHighlightsColorsEnum,
-  GetHighlightsSetsEnum,
-  GetHighlightsSourceTypeEnum,
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { assertDefined } from '../../../utils';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
-import { formatReceivedHighlights } from '../../highlights/hooks/utils';
 import { highlightLocationFilters } from '../../highlights/selectors';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
 import { studyGuidesEnabled, hasStudyGuides } from '../selectors';
+import { loadMoreStudyGuidesHighlights } from '../../highlights/hooks/loadMore'
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
@@ -52,22 +48,10 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     'e4e45509-bfc0-4aee-b73e-17b7582bf7e1',
     'f10ff9a5-0428-4700-8676-96ad36c4ac64',
   ];
-
-  const highlightsResponse = await services.highlightClient.getHighlights({
-    colors: tempAllColors,
-    page: 1,
-    perPage: 10,
-    scopeId: book.id,
-    sets: [GetHighlightsSetsEnum.Curatedopenstax],
-    sourceIds: tempSourcesIds,
-    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
-  });
-  
-  const formattedHighlights = formatReceivedHighlights(
-    assertDefined(highlightsResponse.data, 'expected api data response to be defined'),
-    locationFilters);
-
-  services.dispatch(receiveStudyGuidesHighlights(formattedHighlights, null));
+  console.log(tempAllColors, locationFilters, tempSourcesIds)
+  const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services);
+  console.log(formattedHighlights, pagination)
+  services.dispatch(receiveStudyGuidesHighlights(formattedHighlights, pagination));
 
   services.dispatch(receiveStudyGuides(studyGuidesSummary));
 };

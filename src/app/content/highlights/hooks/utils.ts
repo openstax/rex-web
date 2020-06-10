@@ -1,5 +1,5 @@
 import {
-  GetHighlightsColorsEnum,
+  GetHighlightsRequest,
   GetHighlightsSourceTypeEnum,
   Highlight,
   Highlights
@@ -14,6 +14,11 @@ import * as select from '../selectors';
 import { HighlightLocationFilters, SummaryHighlightsPagination, } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
 import { getNextPageSources } from '../utils/paginationUtils';
+
+export interface SummaryHighlightsQuery {
+  colors: Exclude<GetHighlightsRequest['colors'], undefined>;
+  sets: GetHighlightsRequest['sets'];
+}
 
 export const formatReceivedHighlights = (
   highlights: Highlight[],
@@ -61,22 +66,28 @@ export const extractDataFromHighlightClientResponse = (highlightsResponse: Highl
 
 export const fetchHighlightsForSource = async({
   highlightClient,
-  colors,
   prevHighlights,
   book,
+  query,
   pagination,
 }: {
   highlightClient: AppServices['highlightClient'],
-  colors: GetHighlightsColorsEnum[],
   prevHighlights?: Highlight[],
   book: Book,
-  pagination: NonNullable<SummaryHighlightsPagination>
+  pagination: NonNullable<SummaryHighlightsPagination>,
+  query: SummaryHighlightsQuery
 }) => {
-  const highlightsResponse = await highlightClient.getHighlights({
-    colors,
+  console.log({
     scopeId: book.id,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     ...pagination,
+    ...query,
+  })
+  const highlightsResponse = await highlightClient.getHighlights({
+    scopeId: book.id,
+    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+    ...pagination,
+    ...query,
   });
 
   const {data, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse);
