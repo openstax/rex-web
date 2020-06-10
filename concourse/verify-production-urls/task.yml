@@ -2,6 +2,7 @@
 platform: linux
 
 inputs:
+- name: rex-web
 - name: release
 
 params:
