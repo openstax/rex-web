@@ -4,11 +4,11 @@ import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
+import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
   highlightIndicatorSize,
   highlightIndicatorSizeForBlock,
-  highlightStyles,
 } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 

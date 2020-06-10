@@ -4,7 +4,7 @@ import { makeFindByTestId } from '../../../../test/reactutils';
 import { DropdownToggle } from '../../../components/Dropdown';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument } from '../../../utils';
-import { highlightStyles } from '../constants';
+import { highlightStyles } from '../../constants';
 import { HighlightData } from '../types';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';

@@ -13,7 +13,7 @@ caches:
 - path: rex-web-pull-request/node_modules
 
 params:
-  GITHUB_ACCESS_TOKEN: ((github-access-token))
+  GITHUB_ACCESS_TOKEN: ((github-token))
 
 run:
   path: /bin/sh
