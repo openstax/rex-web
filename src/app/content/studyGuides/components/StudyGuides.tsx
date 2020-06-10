@@ -1,0 +1,68 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
+import { typesetMath } from '../../../../helpers/mathjax';
+import Loader from '../../../components/Loader';
+import { useServices } from '../../../context/Services';
+import theme from '../../../theme';
+import { assertWindow } from '../../../utils';
+import SectionHighlights, { HighlightsChapterWrapper, HighlightSection } from '../../components/SectionHighlights';
+import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import HighlightsWrapper from '../../styles/HighlightsWrapper';
+import LoaderWrapper from '../../styles/LoaderWrapper';
+import * as selectors from '../selectors';
+import StudyGuidesListElement from './StudyGuidesListElement';
+
+// tslint:disable-next-line: variable-name
+const StudyGuides = ({ className }: { className: string }) => {
+  const orderedHighlights = useSelector(selectors.orderedStudyGuidesHighlights);
+  const isLoading = useSelector(selectors.studyGuidesIsLoading);
+  const container = React.useRef<HTMLElement>(null);
+  const services = useServices();
+
+  React.useLayoutEffect(() => {
+    if (container.current) {
+      services.promiseCollector.add(allImagesLoaded(container.current));
+      services.promiseCollector.add(typesetMath(container.current, assertWindow()));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  }, [orderedHighlights]);
+
+  return <div className={className}>
+    {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
+    {orderedHighlights && <HighlightsWrapper ref={container}>
+      {orderedHighlights.map((highlightData) => {
+        return <SectionHighlights
+          key={highlightData.location.id}
+          highlightDataInSection={highlightData}
+          highlightRenderer={(highlight) => (
+            <StudyGuidesListElement
+              key={highlight.id}
+              highlight={highlight}
+            />
+          )}
+        />;
+      })}
+    </HighlightsWrapper>}
+  </div>;
+};
+
+export default styled(StudyGuides)`
+  ${HighlightsChapterWrapper} {
+    ${theme.breakpoints.mobile`
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `}
+  }
+
+  ${HighlightSection} {
+    ${theme.breakpoints.mobile`
+    padding-left: 2rem;
+  `}
+  }
+
+  display: contents;
+`;
