@@ -1,9 +1,9 @@
+import { HighlightLocationFilters } from '../../highlights/types';
 import { LinkedArchiveTreeNode, Page } from '../../types';
 import {
   archiveTreeSectionIsChapter,
   findArchiveTreeNode,
 } from '../../utils/archiveTreeUtils';
-import { HighlightLocationFilters } from '../types';
 
 const getHighlightLocationFilterForPage = (
   locationFilters: HighlightLocationFilters, page: Page | LinkedArchiveTreeNode | string

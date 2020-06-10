@@ -6,7 +6,7 @@ import {
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { bookAndPage } from '../../selectors';
-import { createSummaryHighlightsLoader } from '../../utils/sharedSummaryHighlightsUtils';
+import { createSummaryHighlightsLoader } from '../../utils/sharedHighlightsUtils';
 import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
 import * as select from '../selectors';
 

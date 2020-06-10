@@ -5,20 +5,67 @@ import {
   Highlights
 } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
-import { AppServices, AppState } from '../../../types';
+import { AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { maxHighlightsApiPageSize } from '../../constants';
+import { HighlightData, SummaryHighlights } from '../../highlights/types';
+import { HighlightLocationFilters, SummaryHighlightsPagination, } from '../../highlights/types';
+import { getNextPageSources } from '../../highlights/utils/paginationUtils';
 import { book as bookSelector } from '../../selectors';
 import { Book } from '../../types';
 import { stripIdVersion } from '../../utils';
-import * as select from '../selectors';
-import { HighlightLocationFilters, SummaryHighlightsPagination, } from '../types';
-import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../utils';
-import { getNextPageSources } from '../utils/paginationUtils';
+import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
 export interface SummaryHighlightsQuery {
   colors: Exclude<GetHighlightsRequest['colors'], undefined>;
   sets: GetHighlightsRequest['sets'];
 }
+
+const insertHighlightAtIndex = (
+  highlights: HighlightData[],
+  highlight: HighlightData,
+  index: number
+) => {
+  return [
+    ...highlights.slice(0, index),
+    highlight,
+    ...highlights.slice(index),
+  ];
+};
+
+export const insertHighlightInOrder = (prevHighlights: HighlightData[] , newHighlight: HighlightData) => {
+  if (!prevHighlights.length) {
+    return [newHighlight];
+  }
+  const { prevHighlightId, nextHighlightId } = newHighlight;
+
+  for (const [index, highlight] of prevHighlights.entries()) {
+    if (highlight.id === prevHighlightId) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, index + 1);
+    }
+    if (highlight.id === nextHighlightId) {
+      return insertHighlightAtIndex(prevHighlights, newHighlight, index);
+    }
+  }
+
+  return [...prevHighlights, newHighlight];
+};
+
+// TODO: ORGANIZE SHARED TYPES
+export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: any ) => {
+  const { locationFilterId, pageId, highlight } = data;
+  const newHighlights: SummaryHighlights = {
+    ...summaryHighlights,
+    [locationFilterId]: {
+      ...summaryHighlights[locationFilterId],
+      [pageId]: [...(summaryHighlights[locationFilterId] || {})[pageId] || []],
+    },
+  };
+
+  newHighlights[locationFilterId][pageId] = insertHighlightInOrder(newHighlights[locationFilterId][pageId], highlight);
+
+  return newHighlights;
+};
 
 export const formatReceivedHighlights = (
   highlights: Highlight[],
@@ -43,7 +90,8 @@ export const incrementPage = (pagination: NonNullable<SummaryHighlightsPaginatio
 
 export const getNewSources = (state: AppState, omitSources: string[], pageSize?: number) => {
   const book = bookSelector(state);
-  const remainingCounts = omit(omitSources, select.filteredCountsPerPage(state));
+  if (Math.random() < 1) { return []; }
+  const remainingCounts = omit(omitSources, /*select.filteredCountsPerPage(state)*/ {});
   return book ? getNextPageSources(remainingCounts, book.tree, pageSize) : [];
 };
 
@@ -77,12 +125,6 @@ export const fetchHighlightsForSource = async({
   pagination: NonNullable<SummaryHighlightsPagination>,
   query: SummaryHighlightsQuery
 }) => {
-  console.log({
-    scopeId: book.id,
-    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
-    ...pagination,
-    ...query,
-  })
   const highlightsResponse = await highlightClient.getHighlights({
     scopeId: book.id,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,

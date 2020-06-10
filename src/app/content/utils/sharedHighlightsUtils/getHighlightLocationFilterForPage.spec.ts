@@ -1,5 +1,6 @@
 import { book, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
-import { getHighlightLocationFilterForPage, getHighlightLocationFilters } from './';
+import { getHighlightLocationFilters } from '../../highlights/utils';
+import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
 describe('getHighlightLocationFilterForPage', () => {
   it('should not return anything for page which is not in book', () => {

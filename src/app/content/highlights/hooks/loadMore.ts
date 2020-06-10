@@ -2,7 +2,7 @@ import { GetHighlightsColorsEnum, GetHighlightsSetsEnum } from '@openstax/highli
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
-import { createSummaryHighlightsLoader } from '../../utils/sharedSummaryHighlightsUtils';
+import { createSummaryHighlightsLoader } from '../../utils/sharedHighlightsUtils';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
 
