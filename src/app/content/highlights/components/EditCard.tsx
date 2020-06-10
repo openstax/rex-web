@@ -11,12 +11,13 @@ import Button, { ButtonGroup } from '../../../components/Button';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
+import { highlightStyles } from '../../constants';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
   updateHighlight,
 } from '../actions';
-import { cardPadding, highlightStyles } from '../constants';
+import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
@@ -58,11 +59,11 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
   const blurIfNotEditing = React.useCallback(() => {
-    if (!props.hasUnsavedHighlight) {
+    if (!props.hasUnsavedHighlight && !editingAnnotation) {
       props.onBlur();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.hasUnsavedHighlight]);
+  }, [props.hasUnsavedHighlight, editingAnnotation]);
 
   const cancelEditing = () => {
     setPendingAnnotation(defaultAnnotation());
