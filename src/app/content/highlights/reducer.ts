@@ -6,8 +6,8 @@ import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
+import { highlightStyles } from '../constants';
 import * as actions from './actions';
-import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
