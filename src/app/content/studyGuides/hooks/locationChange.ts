@@ -24,7 +24,7 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
 
   const previousPagination = /*studyGuidesSelect.studyGuidesPagination(state);*/ {
     page: 0, // because page gets incremented if pagination is passed
-    perPage: 100,
+    perPage: 20,
     sourceIds: [
       '00a2d5b6-9b1d-49ab-a40d-fcd30ceef643',
       '2c60e072-7665-49b9-a2c9-2736b72b533c',
@@ -45,6 +45,7 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
   };
 
   const loadMore = createSummaryHighlightsLoader({
+    countsPerSource: {},
     locationFilters,
     previousPagination,
     query,

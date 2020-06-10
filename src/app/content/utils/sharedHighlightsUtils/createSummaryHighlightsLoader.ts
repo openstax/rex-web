@@ -3,11 +3,11 @@ import {
   GetHighlightsSourceTypeEnum,
   Highlight,
 } from '@openstax/highlighter/dist/api';
-import omit from 'lodash/omit';
+import omit from 'lodash/fp/omit';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { maxHighlightsApiPageSize } from '../../constants';
-import { HighlightLocationFilters, SummaryHighlightsPagination } from '../../highlights/types';
+import { CountsPerSource, HighlightLocationFilters, SummaryHighlightsPagination } from '../../highlights/types';
 import { addSummaryHighlight } from '../../highlights/utils';
 import { getNextPageSources, incrementPage } from '../../highlights/utils/paginationUtils';
 import { book as bookSelector } from '../../selectors';
@@ -17,14 +17,13 @@ import extractDataFromHighlightClientResponse from './extractDataFromHighlightCl
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
 interface SummaryHighlightsQuery {
-  colors: Exclude<GetHighlightsRequest['colors'], undefined>;
-  sets: GetHighlightsRequest['sets'];
+  colors: NonNullable<GetHighlightsRequest['colors']>;
+  sets?: GetHighlightsRequest['sets'];
 }
 
-const getNewSources = (state: AppState, omitSources: string[], pageSize?: number) => {
+const getNewSources = (state: AppState, omitSources: string[], countsPerSource: CountsPerSource, pageSize?: number) => {
   const book = bookSelector(state);
-  if (Math.random() < 1) { return []; }
-  const remainingCounts = omit(omitSources, /*select.filteredCountsPerPage(state)*/);
+  const remainingCounts = omit(omitSources, countsPerSource);
   return book ? getNextPageSources(remainingCounts, book.tree, pageSize) : [];
 };
 
@@ -90,6 +89,7 @@ const loadUntilPageSize = async({
   sourcesFetched: string[],
   pageSize?: number,
   query: SummaryHighlightsQuery
+  countsPerSource: CountsPerSource
 }): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
   const state = args.getState();
   const book = bookSelector(state);
@@ -99,7 +99,7 @@ const loadUntilPageSize = async({
     : {
       page: 1,
       perPage: args.pageSize || maxHighlightsApiPageSize,
-      sourceIds: getNewSources(state, args.sourcesFetched, args.pageSize),
+      sourceIds: getNewSources(state, args.sourcesFetched, args.countsPerSource, args.pageSize),
     };
 
   if (!book || sourceIds.length === 0) {
@@ -130,13 +130,16 @@ const createSummaryHighlightsLoader = ({
   previousPagination,
   sourcesFetched,
   query,
+  countsPerSource,
 }: {
   locationFilters: HighlightLocationFilters,
   previousPagination: SummaryHighlightsPagination,
   sourcesFetched: string[],
   query: SummaryHighlightsQuery,
+  countsPerSource: CountsPerSource
 }) => async({getState, highlightClient}: MiddlewareAPI & AppServices, pageSize?: number) => {
   const {pagination, highlights} = await loadUntilPageSize({
+    countsPerSource,
     getState,
     highlightClient,
     pageSize,

@@ -1,4 +1,4 @@
-import { GetHighlightsColorsEnum, GetHighlightsSetsEnum } from '@openstax/highlighter/dist/api';
+import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -13,13 +13,14 @@ export const loadMoreMyHighlights = (services: MiddlewareAPI & AppServices, page
   const previousPagination = select.summaryPagination(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
   const colors = select.summaryColorFilters(state);
+  const filteredCounts = select.filteredCountsPerPage(state);
 
   const query = {
-    colors: [...colors] as unknown as GetHighlightsColorsEnum[] ,
-    sets: [GetHighlightsSetsEnum.Curatedopenstax],
+    colors: [...colors] as unknown as GetHighlightsColorsEnum[],
   };
 
   const loadMore = createSummaryHighlightsLoader({
+    countsPerSource: filteredCounts,
     locationFilters,
     previousPagination,
     query,
