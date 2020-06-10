@@ -12,14 +12,17 @@ export const initialState: State = {
   isEnabled: false,
   loading: false,
   open: false,
-  summary: null,
+  summary: {
+    highlights: null,
+    pagination: null,
+  },
   totalCountsPerPage: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.receiveStudyGuides):
-      return {...state, summary: action.payload };
+      return {...state, summary: {...state.summary, highlights: action.payload} };
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):

@@ -2,10 +2,10 @@ import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
 import { myHighlightsOpen } from '../selectors';
-import { loadMore } from './loadMore';
+import { loadMoreMyHighlights } from './loadMore';
 
 export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
-  const {formattedHighlights} = await loadMore(services);
+  const {formattedHighlights} = await loadMoreMyHighlights(services);
   services.dispatch(receiveSummaryHighlights(formattedHighlights, {
     isStillLoading: true,
     pagination: null,

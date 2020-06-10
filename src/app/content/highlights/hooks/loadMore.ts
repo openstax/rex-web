@@ -5,7 +5,7 @@ import { maxHighlightsApiPageSize, summaryPageSize } from '../../constants';
 import { book as bookSelector } from '../../selectors';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
-import { SummaryHighlightsPagination } from '../types';
+import { HighlightLocationFilters, SummaryHighlightsPagination} from '../types';
 import {
   fetchHighlightsForSource,
   formatReceivedHighlights,
@@ -59,12 +59,15 @@ const loadUntilPageSize = async({
   return {pagination, highlights};
 };
 
-export const loadMore = async({getState, highlightClient}: MiddlewareAPI & AppServices, pageSize?: number) => {
-  const state = getState();
-  const locationFilters = select.highlightLocationFilters(state);
-  const previousPagination = select.summaryPagination(state);
-  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
-
+export const createHighlightsLoader = ({
+  locationFilters,
+  previousPagination,
+  sourcesFetched,
+}: {
+  locationFilters: HighlightLocationFilters,
+  previousPagination: SummaryHighlightsPagination,
+  sourcesFetched: string[]
+}) => async({getState, highlightClient}: MiddlewareAPI & AppServices, pageSize?: number) => {
   const {pagination, highlights} = await loadUntilPageSize({
     getState,
     highlightClient,
@@ -78,9 +81,21 @@ export const loadMore = async({getState, highlightClient}: MiddlewareAPI & AppSe
   return {formattedHighlights, pagination};
 };
 
+export const loadMoreMyHighlights = (services: MiddlewareAPI & AppServices, pageSize?: number) => {
+  const state = services.getState();
+
+  const locationFilters = select.highlightLocationFilters(state);
+  const previousPagination = select.summaryPagination(state);
+  const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
+
+  const loadMore =  createHighlightsLoader({locationFilters, previousPagination, sourcesFetched});
+
+  return loadMore(services, pageSize);
+};
+
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
   (services) => async() => {
-    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+    const {formattedHighlights, pagination} = await loadMoreMyHighlights(services, summaryPageSize);
     services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
   };
 

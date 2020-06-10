@@ -12,7 +12,7 @@ import { formatReceivedHighlights } from '../../highlights/hooks/utils';
 import { highlightLocationFilters } from '../../highlights/selectors';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
-import { studyGuidesEnabled, studyGuidesSummaryIsNotEmpty } from '../selectors';
+import { studyGuidesEnabled, hasStudyGuides } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
@@ -20,7 +20,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   const {book} = bookAndPage(state);
   const isEnabled = studyGuidesEnabled(state);
-  const hasCurrentSummary = studyGuidesSummaryIsNotEmpty(state);
+  const hasCurrentSummary = hasStudyGuides(state);
 
   if (!isEnabled || !book || hasCurrentSummary) { return; }
 
@@ -56,18 +56,18 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const highlightsResponse = await services.highlightClient.getHighlights({
     colors: tempAllColors,
     page: 1,
-    perPage: 200,
+    perPage: 10,
     scopeId: book.id,
     sets: [GetHighlightsSetsEnum.Curatedopenstax],
     sourceIds: tempSourcesIds,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
-
+  
   const formattedHighlights = formatReceivedHighlights(
     assertDefined(highlightsResponse.data, 'expected api data response to be defined'),
     locationFilters);
 
-  services.dispatch(receiveStudyGuidesHighlights(formattedHighlights));
+  services.dispatch(receiveStudyGuidesHighlights(formattedHighlights, null));
 
   services.dispatch(receiveStudyGuides(studyGuidesSummary));
 };

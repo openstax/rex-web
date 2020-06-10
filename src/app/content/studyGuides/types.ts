@@ -4,6 +4,12 @@ import { LinkedArchiveTreeNode } from '../types';
 
 export type CountsPerSource = NonNullable<HighlightsSummary['countsPerSource']>;
 
+export type SummaryHighlightsPagination = null | {
+  sourceIds: string[];
+  page: number;
+  perPage: number;
+};
+
 export type OrderedSummaryHighlights = Array<{
   location: LinkedArchiveTreeNode,
   pages: Array<{
@@ -21,6 +27,9 @@ export interface State {
   isEnabled: boolean;
   loading: boolean;
   open: boolean;
-  summary: HighlightsSummary | null;
+  summary: {
+    pagination: SummaryHighlightsPagination,
+    highlights: HighlightsSummary | null
+  };
   totalCountsPerPage: CountsPerSource | null;
 }

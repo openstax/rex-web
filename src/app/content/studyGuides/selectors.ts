@@ -19,11 +19,11 @@ export const studyGuidesSummary = createSelector(
   (state) => state.summary
 );
 
-export const studyGuidesSummaryIsNotEmpty = createSelector(
+export const hasStudyGuides = createSelector(
   studyGuidesSummary,
-  (summary) => summary !== null
-    && summary.countsPerSource
-    && Object.keys(summary.countsPerSource).length > 0
+  (summary) => summary.highlights !== null
+    && summary.highlights.countsPerSource
+    && Object.keys(summary.highlights.countsPerSource).length > 0
 );
 
 export const studyGuidesOpen = createSelector(
@@ -38,8 +38,8 @@ export const studyGuidesIsLoading = createSelector(
 
 // Temporary to make hasMoreResults works
 export const studyGuidesPagination = createSelector(
-  localState,
-  (_state) => false
+  studyGuidesSummary,
+  (summary) => summary.pagination
 );
 
 export const hasMoreResults = createSelector(
