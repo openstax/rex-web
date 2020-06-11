@@ -38,6 +38,60 @@ describe('GoogleAnalyticsClient', () => {
 
   });
 
+  describe('setCustomDimensionForSession', () => {
+    describe('called before tracking IDs set', () => {
+      it('doesnt call Ga', async() => {
+        client.setCustomDimensionForSession();
+        expect(mockGa).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('called after tracking ID set', () => {
+      const { location, parent, document } = window;
+
+      beforeEach(() => {
+        client.setTrackingIds(['foo']);
+      });
+
+      afterEach(() => {
+        window.location = location;
+        window.document = document;
+        window.parent = parent;
+      });
+
+      describe('when rex is not embedded in an iframe', () => {
+        beforeEach(() => {
+          delete window.location;
+          delete window.parent;
+          window.location = { href: 'foo'};
+          window.parent = { location: {href: 'foo'} };
+        });
+
+        it('sends the custom dimension to ga', async() => {
+          client.setCustomDimensionForSession();
+          expect(mockGa).toHaveBeenCalledWith('tfoo.set', {dimension3: 'not embedded'});
+        });
+      });
+
+      describe('when rex is embedded in an iframe', () => {
+        beforeEach(() => {
+          delete window.location;
+          delete window.parent;
+          delete window.document;
+          window.document = { referrer: 'http://foo.com'};
+          window.location = { href: 'foo'};
+          window.parent = { location: {href: 'foox'} };
+        });
+
+        it('sends the custom dimension to ga', async() => {
+          client.setCustomDimensionForSession();
+          expect(mockGa).toHaveBeenCalledWith('tfoo.set', {dimension3: 'foo.com'});
+        });
+      });
+    });
+  });
+
+
   describe('unsetUserId', () => {
 
     it('unsets it', async() => {
@@ -76,7 +130,6 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
       });
     });
-
   });
 
   describe('setTrackingIds', () => {

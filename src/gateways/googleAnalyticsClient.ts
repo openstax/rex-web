@@ -3,7 +3,6 @@ import { assertWindow } from '../app/utils';
 
 interface PageView {
   hitType: 'pageview';
-  dimension3: string;
   page: string;
 }
 
@@ -29,7 +28,14 @@ interface SetCommand {
   };
 }
 
-type Command = SetCommand | SendCommand;
+interface SetCommandCustomDimension {
+  name: 'set';
+  payload: {
+    dimension3: string | undefined;
+  };
+}
+
+type Command = SetCommand | SendCommand | SetCommandCustomDimension;
 
 class PendingCommand {
   public command: Command;
@@ -61,13 +67,16 @@ class GoogleAnalyticsClient {
     this.gaProxy({name: 'set', payload: {userId: id}});
   }
 
+  public setCustomDimensionForSession() {
+    this.gaProxy({name: 'set', payload: {dimension3: this.referringHostName()}});
+  }
+
   public unsetUserId() {
     this.gaProxy({name: 'set', payload: {userId: undefined}});
   }
 
   public trackPageView(path: string) {
     this.gaProxy({name: 'send', payload: {
-      dimension3: this.referringHostName(),
       hitType: 'pageview',
       page: path,
     }});
