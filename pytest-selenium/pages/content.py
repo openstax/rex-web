@@ -349,12 +349,9 @@ class Content(Page):
         _figure_container_locator = (By.CSS_SELECTOR, ".os-figure")
         _figure_locator = (By.CSS_SELECTOR, "figure")
         _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
-        _highlight_box_locator = (
-            By.CSS_SELECTOR,
-            "form[class*=StyledCard], div[class*=StyledCard]",
-        )
+        _highlight_box_locator = (By.CSS_SELECTOR, "form[class*=EditCard], div[class*=DisplayNote]")
         _highlighted_element_locator = (By.CSS_SELECTOR, ".highlight")
-        _highlight_note_locator = (By.CSS_SELECTOR, "div[class*=StyledCard]")
+        _highlight_note_locator = (By.CSS_SELECTOR, "div[class*=DisplayNote]")
         _image_locator = (By.CSS_SELECTOR, "img")
         _link_locator = (
             By.CSS_SELECTOR,
@@ -918,7 +915,7 @@ class Content(Page):
         class HighlightBox(Region):
             """The highlight color and annotation box."""
 
-            _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=Focus] [class*=MenuToggle]")
+            _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=MenuToggle]")
             _annotation_textbox_locator = (By.CSS_SELECTOR, "textarea")
             _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
             _close_x_button_locator = (By.CSS_SELECTOR, "[class*=CloseIcon]")
@@ -1594,7 +1591,7 @@ class Content(Page):
         _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
-        _my_highlights_selector = "[class*=HighlightStyles__PopupWrapper]"
+        _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
 
         @property
         def my_highlights_button(self) -> WebElement:
