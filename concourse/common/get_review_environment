@@ -1,5 +1,11 @@
 set -e
 
+if [ -z "$GITHUB_ACCESS_TOKEN" ]
+then
+  >&2 echo "\$GITHUB_ACCESS_TOKEN must be set"
+  exit 1
+fi
+
 function github {
   curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1"
 }
