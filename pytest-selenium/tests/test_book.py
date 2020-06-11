@@ -1,3 +1,7 @@
+# flake8: noqa
+import pytest
+from selenium.common.exceptions import NoSuchElementException
+
 from tests import markers
 from pages.content import Content
 from pages.osweb import WebBase
@@ -28,19 +32,36 @@ def test_book_title_links_to_books_detail_page(selenium, base_url, book_slug, pa
 @markers.test_case("C583482")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_buy_book_link(selenium, base_url, book_slug, page_slug):
+def test_order_print_copy(selenium, base_url, book_slug, page_slug):
 
-    # GIVEN: A page is loaded
-    browser = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    rex_url = browser.current_url
+    # GIVEN: Open osweb book details page
+    osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
+    osweb.wait_for_load()
 
-    # WHEN: Click on 'Buy Book' link in toolbar
-    Utilities.click_option(selenium, element=browser.buy_book)
+    # AND: verify if 'order on amazon' option is present in the osweb print options modal
+    book_availability_in_amazon = osweb.book_status_on_amazon()
 
-    # THEN: The Amazon link should be opened in a new tab
-    browser.switch_to_window(1)
-    assert browser.current_url == "https://www.amazon.com/s?me=A1540JPBBI3F06&qid=1517336719"
+    # WHEN: Click the view online link in osweb book detail page
+    osweb.click_view_online()
 
-    # AND: The first tab has rex page open
-    browser.switch_to_window(0)
-    assert browser.current_url == rex_url
+    # THEN: Order print copy option is present in rex page
+    rex = Content(selenium)
+    if book_availability_in_amazon is not None:
+        Utilities.click_option(selenium, element=rex.order_print_copy)
+        # AND: The Amazon link should be opened in a new tab
+        rex.switch_to_window(1)
+        assert (
+            rex.current_url == book_availability_in_amazon
+        ), "rex book has different amazon link than osweb"
+
+        # AND: Order print copy button is present in all pages
+        rex.switch_to_window(0)
+        rex.click_next_link()
+        assert rex.order_print_copy.is_displayed()
+
+    # AND: Order print copy option should not be present in Rex if osweb has no amazon link
+    else:
+        with pytest.raises(NoSuchElementException):
+            assert (
+                not rex.order_print_copy
+            ), "amazon print option present in rex but not present in osweb"
