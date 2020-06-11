@@ -1,5 +1,5 @@
 """A Reading Experience book content page."""
-
+# flake8: noqa
 from __future__ import annotations
 
 from math import ceil as round_up
@@ -46,7 +46,7 @@ class Content(Page):
     _notification_pop_up_locator = (By.CSS_SELECTOR, "[class*=ContentNotifications]")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
-    _buy_book_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
+    _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
 
     @property
     def loaded(self) -> bool:
@@ -164,8 +164,8 @@ class Content(Page):
         return self.find_element(*self._print_locator)
 
     @property
-    def buy_book(self) -> WebElement:
-        return self.find_element(*self._buy_book_locator)
+    def order_print_copy(self) -> WebElement:
+        return self.find_element(*self._order_print_copy_locator)
 
     @property
     def search_sidebar(self) -> SearchSidebar:
