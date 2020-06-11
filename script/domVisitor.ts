@@ -83,6 +83,8 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
 async function run() {
   const audit = (await import(auditPath)).default;
   const browser = await puppeteer.launch({
+    // from https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
     devtools: devTools,
   });
   const books = await findBooks({
