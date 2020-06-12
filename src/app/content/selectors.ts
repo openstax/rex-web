@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { hasOSWebData } from './guards';
-import { HighlightLocationFilters } from './highlights/types';
 import { getHighlightLocationFilters } from './highlights/utils';
+import { HighlightLocationFilters } from './types';
 import {
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,

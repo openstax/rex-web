@@ -1,15 +1,8 @@
 import { GetHighlightsColorsEnum, HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { flow } from 'lodash';
 import { createSelector } from 'reselect';
-import { assertDefined } from '../../utils';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
-import { HighlightLocationFilters } from '../highlights/types';
 import { getSortedSummaryHighlights } from '../highlights/utils';
-import {
-  filterCountsPerSourceByColorFilter,
-  filterCountsPerSourceByLocationFilter
-} from '../highlights/utils/paginationUtils';
 import * as parentSelectors from '../selectors';
+import { filterCounts, getSelectedHighlightsLocationFilters } from '../utils/sharedHighlightsUtils/selectorsUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -53,7 +46,7 @@ export const hasMoreResults = createSelector(
   (pagination) => Boolean(pagination)
 );
 
-export const studyGuidesHighlights = createSelector(
+export const studyGuidesSummaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
 );
@@ -86,38 +79,29 @@ const rawSummaryColorFilters = createSelector(
 
 export const summaryLocationFilters = createSelector(
   rawSummaryLocationFilters,
-  (selectedLocations) =>
-    new Set(selectedLocations)
+  (selectedLocations) => new Set(selectedLocations)
 );
 
 export const summaryColorFilters = createSelector(
   rawSummaryColorFilters,
-  (selectedColors) =>
-    new Set(selectedColors)
+  (selectedColors) => new Set(selectedColors)
 );
 
 const selectedHighlightLocationFilters = createSelector(
   parentSelectors.highlightLocationFilters,
   summaryLocationFilters,
-  (locationFilters, selectedIds) => [...selectedIds].reduce((result, selectedId) =>
-    result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
-  , new Map() as HighlightLocationFilters)
-  );
+  getSelectedHighlightsLocationFilters
+);
 
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPage,
   selectedHighlightLocationFilters,
   summaryColorFilters,
-  (totalCounts, locationFilters, colorFilters) => {
-    return flow(
-      (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
-      (counts) => filterCountsPerSourceByColorFilter([...colorFilters], counts)
-    )(totalCounts);
-  }
+  filterCounts
 );
 
 export const orderedStudyGuidesHighlights = createSelector(
-  studyGuidesHighlights,
+  studyGuidesSummaryHighlights,
   parentSelectors.highlightLocationFilters,
   getSortedSummaryHighlights
 );

@@ -6,8 +6,9 @@ import {
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { summaryPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { highlightLocationFilters } from '../../selectors'
+import { highlightLocationFilters } from '../../selectors';
 import { createSummaryHighlightsLoader, extractTotalCounts } from '../../utils/sharedHighlightsUtils';
 import { receiveHighlightsTotalCounts, receiveStudyGuidesSummaryHighlights } from '../actions';
 import * as select from '../selectors';
@@ -18,7 +19,6 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
   const locationFilters = highlightLocationFilters(state);
   const colors = select.summaryColorFilters(state);
   const filteredCounts = select.filteredCountsPerPage(state);
-
   const previousPagination = select.studyGuidesPagination(state);
 
   const query = {
@@ -56,7 +56,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
   services.dispatch(receiveHighlightsTotalCounts(extractTotalCounts(countsPerSource)));
 
-  const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services, 10);
+  const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services, summaryPageSize);
   services.dispatch(receiveStudyGuidesSummaryHighlights(formattedHighlights, pagination));
   // services.dispatch(receiveStudyGuides(studyGuidesSummary, pagination));
 };

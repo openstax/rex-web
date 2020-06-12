@@ -1,26 +1,8 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
-import { HighlightsSummary } from '@openstax/highlighter/dist/api';
-import { LinkedArchiveTreeNode } from '../types';
-
-export type CountsPerSource = NonNullable<HighlightsSummary['countsPerSource']>;
-
-export type SummaryHighlightsPagination = null | {
-  sourceIds: string[];
-  page: number;
-  perPage: number;
-};
-
-export type OrderedSummaryHighlights = Array<{
-  location: LinkedArchiveTreeNode,
-  pages: Array<{
-    pageId: string;
-    highlights: Highlight[];
-  }>
-}>;
-
-export interface StudyGuidesSummaryHighlights {
-  [locationId: string]: {[pageId: string]: Highlight[]};
-}
+import {
+  CountsPerSource,
+  SummaryHighlights,
+  SummaryHighlightsPagination,
+} from '../types';
 
 export interface State {
   highlights: null;
@@ -29,7 +11,7 @@ export interface State {
   open: boolean;
   summary: {
     pagination: SummaryHighlightsPagination,
-    highlights: StudyGuidesSummaryHighlights | null
-    totalCountsPerPage: CountsPerSource | null;
+    highlights: SummaryHighlights | null
+    totalCountsPerPage: CountsPerSource;
   };
 }
