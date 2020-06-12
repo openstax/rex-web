@@ -17,7 +17,7 @@ const loadAllHighlights = async({
   pagination: NonNullable<SummaryHighlightsPagination>;
   query?: Pick<SummaryHighlightsQuery, 'sets'>
 }): Promise<HighlightData[]> => {
-  const apiCallQuery = query || {}
+  const apiCallQuery = query || {};
 
   const highlightsResponse = await highlightClient.getHighlights({
     perPage: maxHighlightsApiPageSize,

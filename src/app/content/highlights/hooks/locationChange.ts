@@ -4,7 +4,7 @@ import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import loadAllHighlights from '../../utils/sharedHighlightsUtils/loadAllHighlights';
+import { loadAllHighlights } from '../../utils/sharedHighlightsUtils';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
 
