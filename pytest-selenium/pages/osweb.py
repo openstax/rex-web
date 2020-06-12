@@ -1,6 +1,9 @@
+# flake8: noqa
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as expected
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from time import sleep
 
 from pages.base import Page
@@ -26,6 +29,9 @@ class WebBase(Page):
     _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
     _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
     _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
+    _print_copy_locator = (By.CSS_SELECTOR, ".show-print-submenu")
+    _order_on_amazon_locator = (By.CSS_SELECTOR, '[class="btn primary"]')
+    _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
 
     @property
     def loaded(self):
@@ -152,3 +158,19 @@ class WebBase(Page):
         :rtype: str
         """
         return self.find_element(*self._dialog_title_locator).text
+
+    def book_status_on_amazon(self):
+        """Open the Book Order modal."""
+        try:
+            Utilities.click_option(self.driver, locator=self._print_copy_locator)
+            if self.find_element(*self._order_on_amazon_locator):
+                amazon_link = self.find_element(*self._order_on_amazon_locator).get_attribute(
+                    "href"
+                )
+                self.close_modal()
+                return amazon_link
+        except NoSuchElementException:
+            return None
+
+    def close_modal(self):
+        (ActionChains(self.driver).send_keys(Keys.ESCAPE).perform())
