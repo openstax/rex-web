@@ -11,12 +11,13 @@ import Button, { ButtonGroup } from '../../../components/Button';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
+import { highlightStyles } from '../../constants';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
   updateHighlight,
 } from '../actions';
-import { cardPadding, highlightStyles } from '../constants';
+import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
