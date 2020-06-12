@@ -1,5 +1,4 @@
-import { HighlightLocationFilters } from '../../highlights/types';
-import { LinkedArchiveTreeNode, Page } from '../../types';
+import { HighlightLocationFilters, LinkedArchiveTreeNode, Page } from '../../types';
 import {
   archiveTreeSectionIsChapter,
   findArchiveTreeNode,

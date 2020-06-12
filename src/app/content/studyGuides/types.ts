@@ -12,6 +12,6 @@ export interface State {
   summary: {
     pagination: SummaryHighlightsPagination,
     highlights: SummaryHighlights | null
-    totalCountsPerPage: CountsPerSource;
+    totalCountsPerPage: CountsPerSource | null;
   };
 }

@@ -8,7 +8,7 @@ import values from 'lodash/fp/values';
 import { createSelector } from 'reselect';
 import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
-import { HighlightLocationFilters } from './types';
+import { HighlightLocationFilters } from '../types';
 import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFiltersWithContent,

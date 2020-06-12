@@ -7,7 +7,7 @@ import {
   SummaryFilters,
   SummaryHighlights,
   SummaryHighlightsPagination,
-} from './types';
+} from '../types';
 
 export const focusHighlight = createStandardAction('Content/Highlights/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlights/clear')();

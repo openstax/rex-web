@@ -3,7 +3,7 @@ import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
-import { highlightLocationFilters } from '../../selectors'
+import { highlightLocationFilters } from '../../selectors';
 import { extractTotalCounts } from '../../utils/sharedHighlightsUtils';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
 import { loadMoreMyHighlights } from './loadMore';

@@ -14,12 +14,12 @@ import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 // Temporary import from /highlights directory until we make all this logic reusable and move it to content/
-import { highlightLocationFilters } from '../../highlights/selectors';
+import { highlightLocationFilters } from '../../selectors';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import { receiveStudyGuidesHighlights } from '../actions';
-import { StudyGuidesHighlights } from '../types';
+import { StudyGuidesHighlights } from '../../../types';
 import StudyGuides from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };

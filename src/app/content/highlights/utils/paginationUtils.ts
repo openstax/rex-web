@@ -10,13 +10,18 @@ import values from 'lodash/fp/values';
 import { not, reduceUntil } from '../../../fpUtils';
 import { maxResourcesPerFetch } from '../../constants';
 import { isArchiveTree } from '../../guards';
-import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
+import {
+  ArchiveTree,
+  CountsPerSource,
+  HighlightLocationFilters,
+  LinkedArchiveTreeSection,
+  SummaryFilters, SummaryHighlightsPagination
+} from '../../types';
 import {
   archiveTreeContainsNode,
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { CountsPerSource, HighlightLocationFilters, SummaryFilters, SummaryHighlightsPagination } from '../types';
 
 const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
   values,

@@ -1,5 +1,5 @@
 import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
-import { HighlightData } from '../../highlights/types';
+import { HighlightData } from '../../types';
 import attachHighlight from '../utils/attachHighlight';
 import { HighlightManagerServices } from './highlightManager';
 

@@ -8,8 +8,9 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
-import { receiveStudyGuides } from '../../studyGuides/actions';
+import { receiveHighlightsTotalCounts } from '../../studyGuides/actions';
 import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
+import { ColorCount } from '@openstax/highlighter/dist/api';
 
 describe('study guides button', () => {
   let store: Store;
@@ -50,7 +51,7 @@ describe('study guides button', () => {
 
   it('render if feature flag is enabled and book has study guide', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
+    store.dispatch(receiveHighlightsTotalCounts({ countsPerSource: { asd: { green: 1 } } }));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -67,7 +68,7 @@ describe('study guides button', () => {
     const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
 
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
+    store.dispatch(receiveHighlightsTotalCounts({ countsPerSource: { asd: { green: 1 } } }));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

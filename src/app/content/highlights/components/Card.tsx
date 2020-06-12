@@ -11,6 +11,7 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
+import { HighlightData } from '../../types';
 import { stripIdVersion } from '../../utils/idUtils';
 import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import {
@@ -20,7 +21,6 @@ import {
   focusHighlight,
   setAnnotationChangesPending,
 } from '../actions';
-import { HighlightData } from '../types';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';

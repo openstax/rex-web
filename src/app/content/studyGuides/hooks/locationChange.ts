@@ -7,8 +7,7 @@ import {
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
-import { bookAndPage } from '../../selectors';
-import { highlightLocationFilters } from '../../selectors';
+import { bookAndPage, highlightLocationFilters } from '../../selectors';
 import { createSummaryHighlightsLoader, extractTotalCounts } from '../../utils/sharedHighlightsUtils';
 import { receiveHighlightsTotalCounts, receiveStudyGuidesSummaryHighlights } from '../actions';
 import * as select from '../selectors';
