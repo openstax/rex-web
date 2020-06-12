@@ -26,8 +26,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     extractTotalCounts(countsPerSource),
     locationFilters
   ));
-
   const {formattedHighlights, pagination} = await loadMoreMyHighlights(services, summaryPageSize);
+
   dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };
 

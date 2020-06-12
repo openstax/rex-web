@@ -5,11 +5,10 @@ import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { Book } from '../../types';
+import { Book, HighlightData, SummaryHighlightsPagination } from '../../types';
 import { extractDataFromHighlightClientResponse } from '../../utils/sharedHighlightsUtils';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
-import { HighlightData, SummaryHighlightsPagination } from '../types';
 import { incrementPage } from '../utils/paginationUtils';
 
 // TODO - some of this logic could be integrated into src/app/content/highlights/hooks/utils.ts
@@ -66,7 +65,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     highlightClient,
     pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
   });
-
   dispatch(receiveHighlights({highlights, pageId: page.id}));
 };
 

@@ -1,15 +1,16 @@
 import {
   CountsPerSource,
+  HighlightData,
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from '../types';
 
 export interface State {
-  highlights: null;
+  highlights: null | HighlightData[];
   isEnabled: boolean;
-  loading: boolean;
-  open: boolean;
   summary: {
+    loading: boolean,
+    open: boolean,
     pagination: SummaryHighlightsPagination,
     highlights: SummaryHighlights | null
     totalCountsPerPage: CountsPerSource | null;

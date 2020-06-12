@@ -28,12 +28,12 @@ export const hasStudyGuides = createSelector(
 
 export const studyGuidesOpen = createSelector(
   localState,
-  (state) => state.open
+  (state) => state.summary.open
 );
 
 export const studyGuidesIsLoading = createSelector(
   localState,
-  (state) => state.loading
+  (state) => state.summary.loading
 );
 
 export const studyGuidesPagination = createSelector(

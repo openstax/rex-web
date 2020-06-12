@@ -10,10 +10,10 @@ import { State } from './types';
 export const initialState: State = {
   highlights: null,
   isEnabled: false,
-  loading: false,
-  open: false,
   summary: {
     highlights: null,
+    loading: false,
+    open: false,
     pagination: null,
     totalCountsPerPage: null,
   },
@@ -21,17 +21,17 @@ export const initialState: State = {
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
-    // case getType(actions.receiveStudyGuides):
-    //   return {...state, summary: {...state.summary, highlights: action.payload, pagination: action.meta}};
+    case getType(actions.receiveStudyGuides):
+      return {...state, highlights: action.payload};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
-      return {...state, open: true };
+      return {...state, summary: {...state.summary, open: true}};
     case getType(actions.closeStudyGuides):
-      return {...state, open: false };
+      return {...state, summary: {...state.summary, open: false}};
     case getType(actions.loadMoreStudyGuides):
-      return {...state, loading: true};
-    case getType(actions.receiveHighlightsTotalCounts):
+      return {...state, summary: {...state.summary, loading: true}};
+    case getType(actions.receiveStudyGuidesTotalCounts):
       return {
         ...state,
         summary: {
@@ -39,13 +39,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           totalCountsPerPage: action.payload,
         },
       };
-    case getType(actions.receiveStudyGuidesSummaryHighlights): {
+    case getType(actions.receiveStudyGuidesSummary): {
       return {
         ...state,
-        loading: false,
         summary: {
           ...state.summary,
           highlights: merge(state.summary.highlights || {}, action.payload),
+          loading: false,
           pagination: action.meta,
         },
       };

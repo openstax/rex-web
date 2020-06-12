@@ -9,7 +9,7 @@ import { assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { bookAndPage, highlightLocationFilters } from '../../selectors';
 import { createSummaryHighlightsLoader, extractTotalCounts } from '../../utils/sharedHighlightsUtils';
-import { receiveHighlightsTotalCounts, receiveStudyGuidesSummaryHighlights } from '../actions';
+import { receiveStudyGuidesSummary, receiveStudyGuidesTotalCounts } from '../actions';
 import * as select from '../selectors';
 
 export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServices, pageSize?: number) => {
@@ -53,10 +53,10 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   });
 
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
-  services.dispatch(receiveHighlightsTotalCounts(extractTotalCounts(countsPerSource)));
+  services.dispatch(receiveStudyGuidesTotalCounts(extractTotalCounts(countsPerSource)));
 
   const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services, summaryPageSize);
-  services.dispatch(receiveStudyGuidesSummaryHighlights(formattedHighlights, pagination));
+  services.dispatch(receiveStudyGuidesSummary(formattedHighlights, pagination));
   // services.dispatch(receiveStudyGuides(studyGuidesSummary, pagination));
 };
 
