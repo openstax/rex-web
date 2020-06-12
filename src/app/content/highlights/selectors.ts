@@ -5,7 +5,7 @@ import {
   filterCounts,
   getLoadedCountsPerSource,
   getSelectedHighlightsLocationFilters
-} from '../utils/sharedHighlightsUtils/selectorsUtils';
+} from '../utils/selectorsUtils';
 import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFiltersWithContent,
@@ -135,7 +135,7 @@ export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
   summaryColorFilters,
-  filterCounts,
+  filterCounts
 );
 
 export const hasMoreResults = createSelector(

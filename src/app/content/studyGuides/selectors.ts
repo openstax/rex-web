@@ -6,7 +6,7 @@ import {
   filterCounts,
   getLoadedCountsPerSource,
   getSelectedHighlightsLocationFilters
-} from '../utils/sharedHighlightsUtils/selectorsUtils';
+} from '../utils/selectorsUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
