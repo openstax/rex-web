@@ -1,11 +1,16 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
+import mapValues from 'lodash/fp/mapValues';
+import merge from 'lodash/fp/merge';
+import reduce from 'lodash/fp/reduce';
+import size from 'lodash/fp/size';
+import values from 'lodash/fp/values';
 import { assertDefined } from '../../../utils';
 import {
   filterCountsPerSourceByColorFilter,
   filterCountsPerSourceByLocationFilter
 } from '../../highlights/utils/paginationUtils';
-import { CountsPerSource, HighlightLocationFilters } from '../../types';
+import { CountsPerSource, HighlightLocationFilters, SummaryHighlights } from '../../types';
 
 export const filterCounts = (
   totalCounts: CountsPerSource,
@@ -25,3 +30,8 @@ export const getSelectedHighlightsLocationFilters = (
   result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
 , new Map() as HighlightLocationFilters);
 
+export const getLoadedCountsPerSource = (sources: SummaryHighlights | null) => flow(
+  values,
+  reduce(merge, {}),
+  mapValues(size)
+)(sources);

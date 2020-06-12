@@ -2,7 +2,11 @@ import { GetHighlightsColorsEnum, HighlightColorEnum } from '@openstax/highlight
 import { createSelector } from 'reselect';
 import { getSortedSummaryHighlights } from '../highlights/utils';
 import * as parentSelectors from '../selectors';
-import { filterCounts, getSelectedHighlightsLocationFilters } from '../utils/sharedHighlightsUtils/selectorsUtils';
+import {
+  filterCounts,
+  getLoadedCountsPerSource,
+  getSelectedHighlightsLocationFilters
+} from '../utils/sharedHighlightsUtils/selectorsUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -20,10 +24,8 @@ export const studyGuidesSummary = createSelector(
 );
 
 export const hasStudyGuides = createSelector(
-  studyGuidesSummary,
-  (summary) => summary.highlights !== null
-    && summary.totalCountsPerPage
-    && Object.keys(summary.totalCountsPerPage).length > 0
+  localState,
+  (state) => state.highlights !== null && state.highlights.length > 0
 );
 
 export const studyGuidesOpen = createSelector(
@@ -49,6 +51,11 @@ export const hasMoreResults = createSelector(
 export const studyGuidesSummaryHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
+);
+
+export const loadedCountsPerSource = createSelector(
+  studyGuidesSummaryHighlights,
+  getLoadedCountsPerSource
 );
 
 const summaryFilters = createSelector(

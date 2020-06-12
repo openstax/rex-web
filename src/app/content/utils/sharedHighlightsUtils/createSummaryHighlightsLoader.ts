@@ -16,7 +16,7 @@ import { stripIdVersion } from '../idUtils';
 import extractDataFromHighlightClientResponse from './extractDataFromHighlightClientResponse';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
-interface SummaryHighlightsQuery {
+export interface SummaryHighlightsQuery {
   colors: NonNullable<GetHighlightsRequest['colors']>;
   sets?: GetHighlightsRequest['sets'];
 }

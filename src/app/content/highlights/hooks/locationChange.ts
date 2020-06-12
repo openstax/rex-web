@@ -1,43 +1,12 @@
-import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { Book, HighlightData, SummaryHighlightsPagination } from '../../types';
-import { extractDataFromHighlightClientResponse } from '../../utils/sharedHighlightsUtils';
+import loadAllHighlights from '../../utils/sharedHighlightsUtils/loadAllHighlights';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
-import { incrementPage } from '../utils/paginationUtils';
-
-// TODO - some of this logic could be integrated into src/app/content/highlights/hooks/utils.ts
-// once openstax/rex-web#489 is merged
-
-interface LoadAllHighlightsArgs {
-  highlightClient: AppServices['highlightClient'];
-  book: Book;
-  pagination: NonNullable<SummaryHighlightsPagination>;
-}
-const loadAllHighlights = async(args: LoadAllHighlightsArgs): Promise<HighlightData[]> => {
-  const {highlightClient, book, pagination} = args;
-  const highlightsResponse = await highlightClient.getHighlights({
-    perPage: maxHighlightsApiPageSize,
-    scopeId: book.id,
-    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
-    ...pagination,
-  });
-
-  const {data, page, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse);
-  const loadedResults = (page - 1) * perPage + data.length;
-
-  if (loadedResults < totalCount) {
-    const moreResults = await loadAllHighlights({...args, pagination: incrementPage(pagination)});
-    return [...data, ...moreResults];
-  } else {
-    return data;
-  }
-};
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
   const {dispatch, getState, highlightClient} = services;
