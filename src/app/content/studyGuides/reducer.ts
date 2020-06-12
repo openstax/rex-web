@@ -15,14 +15,14 @@ export const initialState: State = {
   summary: {
     highlights: null,
     pagination: null,
+    totalCountsPerPage: null,
   },
-  totalCountsPerPage: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
-    case getType(actions.receiveStudyGuides):
-      return {...state, summary: {...state.summary, highlights: action.payload, pagination: action.meta}};
+    // case getType(actions.receiveStudyGuides):
+    //   return {...state, summary: {...state.summary, highlights: action.payload, pagination: action.meta}};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
@@ -31,11 +31,23 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, open: false };
     case getType(actions.loadMoreStudyGuides):
       return {...state, loading: true};
-    case getType(actions.receiveStudyGuidesHighlights): {
+    case getType(actions.receiveHighlightsTotalCounts):
       return {
         ...state,
-        highlights: merge(state.highlights || {}, action.payload),
+        summary: {
+          ...state.summary,
+          totalCountsPerPage: action.payload,
+        },
+      };
+    case getType(actions.receiveStudyGuidesSummaryHighlights): {
+      return {
+        ...state,
         loading: false,
+        summary: {
+          ...state.summary,
+          highlights: merge(state.summary.highlights || {}, action.payload),
+          pagination: action.meta,
+        },
       };
     }
     default:

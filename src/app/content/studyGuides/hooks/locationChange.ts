@@ -5,9 +5,10 @@ import {
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
+import { assertDefined } from '../../../utils';
 import { bookAndPage } from '../../selectors';
-import { createSummaryHighlightsLoader } from '../../utils/sharedHighlightsUtils';
-import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
+import { createSummaryHighlightsLoader, extractTotalCounts } from '../../utils/sharedHighlightsUtils';
+import { receiveHighlightsTotalCounts, receiveStudyGuidesSummaryHighlights } from '../actions';
 import * as select from '../selectors';
 
 export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServices, pageSize?: number) => {
@@ -15,12 +16,12 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
 
   const locationFilters = select.highlightLocationFilters(state);
   const colors = select.summaryColorFilters(state);
-  const filteredCounts = select.filteredCountsPerPage(state)
+  const filteredCounts = select.filteredCountsPerPage(state);
 
   const previousPagination = select.studyGuidesPagination(state);
 
   const query = {
-    colors: colors as unknown as GetHighlightsColorsEnum[],
+    colors: [...colors] as unknown as GetHighlightsColorsEnum[],
     sets: [GetHighlightsSetsEnum.Curatedopenstax],
   };
 
@@ -51,10 +52,12 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
   });
 
-  const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services, 20);
+  const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
+  services.dispatch(receiveHighlightsTotalCounts(extractTotalCounts(countsPerSource)));
 
-  services.dispatch(receiveStudyGuidesHighlights(formattedHighlights));
-  services.dispatch(receiveStudyGuides(studyGuidesSummary, pagination));
+  const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services, 10);
+  services.dispatch(receiveStudyGuidesSummaryHighlights(formattedHighlights, pagination));
+  // services.dispatch(receiveStudyGuides(studyGuidesSummary, pagination));
 };
 
 export default hookBody;

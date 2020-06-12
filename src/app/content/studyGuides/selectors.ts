@@ -6,6 +6,9 @@ import { HighlightLocationFilters } from '../highlights/types';
 import { getHighlightLocationFilters, getSortedSummaryHighlights } from '../highlights/utils';
 import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from '../highlights/utils/paginationUtils';
 import * as parentSelectors from '../selectors';
+import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import { assertDefined } from '../../utils';
+import { stripIdVersion } from '../utils/idUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -25,8 +28,8 @@ export const studyGuidesSummary = createSelector(
 export const hasStudyGuides = createSelector(
   studyGuidesSummary,
   (summary) => summary.highlights !== null
-    && summary.highlights.countsPerSource
-    && Object.keys(summary.highlights.countsPerSource).length > 0
+    && summary.totalCountsPerPage
+    && Object.keys(summary.totalCountsPerPage).length > 0
 );
 
 export const studyGuidesOpen = createSelector(
@@ -51,7 +54,7 @@ export const hasMoreResults = createSelector(
 
 export const studyGuidesHighlights = createSelector(
   localState,
-  (state) => state.highlights
+  (state) => state.summary.highlights
 );
 
 const summaryFilters = createSelector(
@@ -61,7 +64,7 @@ const summaryFilters = createSelector(
 
 export const totalCountsPerPage = createSelector(
   localState,
-  (state) => state.totalCountsPerPage || {}
+  (state) => state.summary.totalCountsPerPage || {}
 );
 
 // Temporary until we make all this related logic reusable and move it to content/selectors.ts
@@ -73,8 +76,9 @@ export const highlightLocationFilters = createSelector(
 );
 
 const rawSummaryLocationFilters = createSelector(
+  parentSelectors.book,
   summaryFilters,
-  (_sfilters) => [
+  (book, _filters) => [
     '00a2d5b6-9b1d-49ab-a40d-fcd30ceef643',
     '2c60e072-7665-49b9-a2c9-2736b72b533c',
     '5e1ff6e7-0980-4ae0-bc8a-4b591a7c1760',
@@ -85,7 +89,9 @@ const rawSummaryLocationFilters = createSelector(
     'cdf9ebbd-b0fe-4fce-94b4-512f2a574f18',
     'e4e45509-bfc0-4aee-b73e-17b7582bf7e1',
     'f10ff9a5-0428-4700-8676-96ad36c4ac64',
-  ]
+  ].map((e) => book
+    ? stripIdVersion(assertDefined(assertDefined(findArchiveTreeNode(book.tree, e), '').parent, '').id)
+    : e)
 );
 
 const rawSummaryColorFilters = createSelector(
@@ -114,23 +120,26 @@ export const summaryColorFilters = createSelector(
 const selectedHighlightLocationFilters = createSelector(
   highlightLocationFilters,
   summaryLocationFilters,
- (_locationFilters, selectedIds) => new Map(...selectedIds as any) as HighlightLocationFilters
-);
+  (locationFilters, selectedIds) => [...selectedIds].reduce((result, selectedId) =>
+    result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
+  , new Map() as HighlightLocationFilters)
+  );
 
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPage,
   selectedHighlightLocationFilters,
   summaryColorFilters,
-  (totalCounts, locationFilters, colorFilters) => flow(
-    (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
-    (counts) => filterCountsPerSourceByColorFilter([...colorFilters], counts)
-  )(totalCounts)
+  (totalCounts, locationFilters, colorFilters) => {
+    console.log(totalCounts, locationFilters, colorFilters, '--------')
+    return flow(
+      (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
+      (counts) => filterCountsPerSourceByColorFilter([...colorFilters], counts)
+    )(totalCounts)
+  }
 );
 
 export const orderedStudyGuidesHighlights = createSelector(
   studyGuidesHighlights,
   highlightLocationFilters,
-  (highlightsToSort, locationFilters) => {
-    return getSortedSummaryHighlights(highlightsToSort, locationFilters);
-  }
+  getSortedSummaryHighlights
 );

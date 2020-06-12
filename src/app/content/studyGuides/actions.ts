@@ -1,13 +1,15 @@
-import { HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
-import { StudyGuidesHighlights, SummaryHighlightsPagination } from './types';
+import { CountsPerSource, StudyGuidesSummaryHighlights, SummaryHighlightsPagination } from './types';
 
-export const receiveStudyGuides = createStandardAction(
-  'Content/StudyGuides/receive'
-)<HighlightsSummary, SummaryHighlightsPagination>();
+export const receiveStudyGuidesSummaryHighlights = createStandardAction(
+  'Content/StudyGuides/Summary/receive'
+)<StudyGuidesSummaryHighlights, SummaryHighlightsPagination>();
 export const openStudyGuides = createStandardAction('Content/StudyGuides/Summary/open')<void>();
 export const closeStudyGuides = createStandardAction('Content/StudyGuides/Summary/close')<void>();
 export const loadMoreStudyGuides = createStandardAction('Content/StudyGuides/loadMore')();
 export const receiveStudyGuidesHighlights = createStandardAction(
   'Content/StudyGuides/receiveHighlights'
-)<StudyGuidesHighlights>();
+)<StudyGuidesSummaryHighlights, SummaryHighlightsPagination>();
+export const receiveHighlightsTotalCounts = createStandardAction(
+  'Content/StudyGuides/receiveHighlightsTotalCounts'
+)<CountsPerSource>();

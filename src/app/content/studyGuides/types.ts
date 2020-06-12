@@ -18,18 +18,18 @@ export type OrderedSummaryHighlights = Array<{
   }>
 }>;
 
-export interface StudyGuidesHighlights {
+export interface StudyGuidesSummaryHighlights {
   [locationId: string]: {[pageId: string]: Highlight[]};
 }
 
 export interface State {
-  highlights: StudyGuidesHighlights | null;
+  highlights: null;
   isEnabled: boolean;
   loading: boolean;
   open: boolean;
   summary: {
     pagination: SummaryHighlightsPagination,
-    highlights: HighlightsSummary | null
+    highlights: StudyGuidesSummaryHighlights | null
+    totalCountsPerPage: CountsPerSource | null;
   };
-  totalCountsPerPage: CountsPerSource | null;
 }
