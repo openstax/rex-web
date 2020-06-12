@@ -2,7 +2,7 @@ import { GetHighlightsSetsEnum } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import {  maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import loadAll from '../../utils/sharedHighlightsUtils/loadAllHighlights';
+import { loadAllHighlights } from '../../utils/sharedHighlightsUtils';
 import { receiveStudyGuides } from '../actions';
 import * as select from '../selectors';
 
@@ -16,7 +16,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!isEnabled || !book || !page || hasCurrentSummary) { return; }
 
-  const highlights = await loadAll({
+  const highlights = await loadAllHighlights({
     book,
     highlightClient: services.highlightClient,
     pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
