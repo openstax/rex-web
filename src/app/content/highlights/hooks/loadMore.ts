@@ -2,6 +2,7 @@ import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
+import { highlightLocationFilters } from '../../selectors';
 import { createSummaryHighlightsLoader } from '../../utils/sharedHighlightsUtils';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
@@ -9,7 +10,7 @@ import * as select from '../selectors';
 export const loadMoreMyHighlights = (services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
 
-  const locationFilters = select.highlightLocationFilters(state);
+  const locationFilters = highlightLocationFilters(state);
   const previousPagination = select.summaryPagination(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
   const colors = select.summaryColorFilters(state);

@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { hasOSWebData } from './guards';
+import { HighlightLocationFilters } from './highlights/types';
+import { getHighlightLocationFilters } from './highlights/utils';
 import {
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,
@@ -81,4 +83,11 @@ export const prevNextPage = createSelector(
   (selectedBook, selectedPage) => selectedBook && selectedPage
     ? prevNextBookPage(selectedBook, selectedPage.id)
     : null
+);
+
+export const highlightLocationFilters = createSelector(
+  book,
+  (selectedBook) => selectedBook
+    ? getHighlightLocationFilters(selectedBook)
+    : new Map() as HighlightLocationFilters
 );

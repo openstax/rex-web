@@ -7,6 +7,7 @@ import {
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { bookAndPage } from '../../selectors';
+import { highlightLocationFilters } from '../../selectors'
 import { createSummaryHighlightsLoader, extractTotalCounts } from '../../utils/sharedHighlightsUtils';
 import { receiveHighlightsTotalCounts, receiveStudyGuidesSummaryHighlights } from '../actions';
 import * as select from '../selectors';
@@ -14,7 +15,7 @@ import * as select from '../selectors';
 export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
 
-  const locationFilters = select.highlightLocationFilters(state);
+  const locationFilters = highlightLocationFilters(state);
   const colors = select.summaryColorFilters(state);
   const filteredCounts = select.filteredCountsPerPage(state);
 

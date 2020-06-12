@@ -11,7 +11,6 @@ import * as parentSelectors from '../selectors';
 import { HighlightLocationFilters } from './types';
 import {
   getHighlightColorFiltersWithContent,
-  getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
   getSortedSummaryHighlights
 } from './utils';
@@ -77,23 +76,16 @@ export const summaryPagination = createSelector(
   (state) => state.summary.pagination
 );
 
-export const highlightLocationFilters = createSelector(
-  parentSelectors.book,
-  (book) => book
-    ? getHighlightLocationFilters(book)
-    : new Map() as HighlightLocationFilters
-);
-
 export const orderedSummaryHighlights = createSelector(
   summaryHighlights,
-  highlightLocationFilters,
+  parentSelectors.highlightLocationFilters,
   (highlightsToSort, locationFilters) => {
     return getSortedSummaryHighlights(highlightsToSort, locationFilters);
   }
 );
 
 export const highlightLocationFiltersWithContent = createSelector(
-  highlightLocationFilters,
+  parentSelectors.highlightLocationFilters,
   totalCountsPerPageOrEmpty,
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
@@ -142,7 +134,7 @@ export const summaryColorFilters = createSelector(
 );
 
 const selectedHighlightLocationFilters = createSelector(
-  highlightLocationFilters,
+  parentSelectors.highlightLocationFilters,
   summaryLocationFilters,
  (locationFilters, selectedIds) => [...selectedIds].reduce((result, selectedId) =>
    result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
