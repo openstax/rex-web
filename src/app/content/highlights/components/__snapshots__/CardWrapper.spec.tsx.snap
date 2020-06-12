@@ -2,7 +2,7 @@
 
 exports[`CardWrapper matches snapshot 1`] = `
 <div
-  className="sc-bdVaJa flQgKX"
+  className="sc-bdVaJa jZCMyL"
 >
   <span
     data-mock-card={true}

@@ -27,15 +27,6 @@ export const useDebouncedWindowSize = () => {
   return size;
 };
 
-export const generateHighlightKey = (
-  highlight: Highlight, width: number, isSearchSidebarOpen: boolean, isTocOpen: boolean | null
-): string => {
-  return highlight.id
-    + width
-    + isSearchSidebarOpen.toString()
-    + (isTocOpen === null ? 'null' : isTocOpen.toString());
-};
-
 export const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
   if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
