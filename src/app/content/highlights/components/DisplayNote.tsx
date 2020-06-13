@@ -1,6 +1,7 @@
 import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
@@ -8,8 +9,11 @@ import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
+import { query } from '../../search/selectors';
+import { tocOpen } from '../../selectors';
 import { focusHighlight } from '../actions';
 import { cardPadding, cardWidth } from '../constants';
+import { useDebouncedWindowSize } from './cardUtils';
 import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
@@ -52,6 +56,9 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const element = React.useRef<HTMLElement>(null);
   const confirmationRef = React.useRef<HTMLElement>(null);
   const [textToggle, setTextToggle] = React.useState(false);
+  const [width] = useDebouncedWindowSize();
+  const searchQuery = useSelector(query);
+  const isTocOpen = useSelector(tocOpen);
 
   const onToggle = () => {
     if (!isFocused) {
@@ -74,7 +81,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     const refElement = confirmationRef.current ? confirmationRef : element;
     onHeightChange(refElement);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, confirmationRef, confirmingDelete, textToggle]);
+  }, [element, confirmationRef, confirmingDelete, textToggle, width, isTocOpen, searchQuery]);
 
   return <div className={className} ref={mergeRefs(ref, element)}>
     <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
