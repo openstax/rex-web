@@ -6,6 +6,7 @@ import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
 import { assertNotNull } from '../../../utils';
 import { loadMoreDistanceFromBottom } from '../../constants';
+import Filters from '../../popUpElements/Filters';
 import { PopupBody } from '../../styles/PopupStyles';
 import { loadMoreStudyGuides } from '../actions';
 import * as select from '../selectors';
@@ -60,6 +61,7 @@ const ShowStudyGuides = () => {
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
+      <Filters />
       <StudyGuides />
       {showGoToTop && <GoToTopButton
         i18nAriaLabel='i18n:toolbar:studyguides:popup:button:back-to-top'

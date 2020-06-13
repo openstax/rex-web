@@ -7,11 +7,11 @@ import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
 import { loadMoreDistanceFromBottom } from '../../constants';
+import Filters from '../../popUpElements/Filters';
 import { loadMoreSummaryHighlights } from '../actions';
 import * as select from '../selectors';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
-import Filters from './SummaryPopup/Filters';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;

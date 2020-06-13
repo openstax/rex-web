@@ -3,15 +3,15 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { PlainButton } from '../../../../components/Button';
-import Times from '../../../../components/Times';
-import { textStyle } from '../../../../components/Typography';
-import { match, not } from '../../../../fpUtils';
-import theme from '../../../../theme';
-import { disablePrint } from '../../../components/utils/disablePrint';
-import { splitTitleParts } from '../../../utils/archiveTreeUtils';
-import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../../selectors';
+import { PlainButton } from '../../components/Button';
+import Times from '../../components/Times';
+import { textStyle } from '../../components/Typography';
+import { match, not } from '../../fpUtils';
+import theme from '../../theme';
+import { disablePrint } from '../components/utils/disablePrint';
+import { setSummaryFilters } from '../highlights/actions';
+import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../highlights/selectors';
+import { splitTitleParts } from '../utils/archiveTreeUtils';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`

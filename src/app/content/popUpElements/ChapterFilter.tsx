@@ -1,15 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import AllOrNone from '../../../../components/AllOrNone';
-import Checkbox from '../../../../components/Checkbox';
-import { textStyle } from '../../../../components/Typography/base';
-import { match, not } from '../../../../fpUtils';
-import theme from '../../../../theme';
-import { filters } from '../../../styles/PopupConstants';
-import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
-import ColorIndicator from '../ColorIndicator';
+import AllOrNone from '../../components/AllOrNone';
+import Checkbox from '../../components/Checkbox';
+import { textStyle } from '../../components/Typography/base';
+import { match, not } from '../../fpUtils';
+import theme from '../../theme';
+import { setSummaryFilters } from '../highlights/actions';
+import ColorIndicator from '../highlights/components/ColorIndicator';
+import {
+  highlightLocationFilters,
+  highlightLocationFiltersWithContent,
+  summaryLocationFilters
+} from '../highlights/selectors';
+import { filters } from '../styles/PopupConstants';
 
 interface Props {
   className?: string;

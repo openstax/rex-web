@@ -2,16 +2,16 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
-import { PlainButton } from '../../../../components/Button';
-import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
-import { textStyle } from '../../../../components/Typography/base';
-import theme from '../../../../theme';
-import { disablePrint } from '../../../components/utils/disablePrint';
-import { filters } from '../../../styles/PopupConstants';
+import { PlainButton } from '../../components/Button';
+import Dropdown, { DropdownToggle } from '../../components/Dropdown';
+import { textStyle } from '../../components/Typography/base';
+import theme from '../../theme';
+import { disablePrint } from '../components/utils/disablePrint';
+import HighlightsPrintButton from '../highlights/components/SummaryPopup/HighlightsPrintButton';
+import { filters } from '../styles/PopupConstants';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
 import FiltersList from './FiltersList';
-import HighlightsPrintButton from './HighlightsPrintButton';
 
 // tslint:disable-next-line:variable-name
 const DownIcon = styled(AngleDown)`
