@@ -12,7 +12,7 @@ import { cardMarginBottom } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { generateHighlightKey, getHighlightTopOffset, useDebouncedWindowSize } from './cardUtils';
+import { getHighlightTopOffset } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -24,12 +24,11 @@ export interface WrapperProps {
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter, hasQuery, isTocOpen}: WrapperProps) => {
+const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
   const [topOffsets, setTopOffsets] = React.useState<Map<string, number>>(new Map());
-  const [width] = useDebouncedWindowSize();
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
@@ -111,27 +110,24 @@ const Wrapper = ({highlights, className, container, highlighter, hasQuery, isToc
 
   return highlights.length
     ? <div className={className} ref={element}>
-      {highlights.map((highlight, index) => {
-        // Rerender cards on window resize to trigger their height calculations.
-        // It's better to do it here than using hooks like useDebouncedWindowSize for each Card.
-        const key = generateHighlightKey(highlight, width, hasQuery, isTocOpen);
-        return <Card
+      {highlights.map((highlight, index) => (
+        <Card
           highlighter={highlighter}
           highlight={highlight}
-          key={key}
+          key={highlight.id}
           container={container}
           topOffset={cardsPositions.get(highlight.id)}
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
-        />;
-      })}
+        />
+      ))}
     </div>
     : null;
 };
 
 export default connect(
   (state: AppState) => ({
-    // These are also used in the cardStyles.ts
+    // These are used in the cardStyles.ts
     hasQuery: !!selectSearch.query(state),
     isTocOpen: contentSelect.tocOpen(state),
   })
