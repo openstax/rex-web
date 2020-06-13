@@ -5,15 +5,11 @@ import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
-import { assertDocument, assertWindow, remsToPx } from '../../../utils';
-import { openToc } from '../../actions';
-import { requestSearch } from '../../search/actions';
+import { assertDocument, remsToPx } from '../../../utils';
 import { clearFocusedHighlight, focusHighlight } from '../actions';
 import { cardMarginBottom } from '../constants';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
-
-jest.useFakeTimers();
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 
@@ -53,62 +49,6 @@ describe('CardWrapper', () => {
     </Provider>);
 
     expect(component.root.findAllByType(Card).length).toBe(2);
-  });
-
-  it('rerenders cards on open toc or search sidebar', () => {
-    const highlight = createMockHighlight();
-    const mockWindowWidth = 1024;
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
-    </Provider>);
-
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      const key = highlight.id + mockWindowWidth + 'false' + 'null';
-      expect((card as any)._fiber.key).toEqual(key);
-    });
-
-    renderer.act(() => {
-      store.dispatch(openToc());
-      store.dispatch(requestSearch('asdf'));
-    });
-
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      const key = highlight.id + mockWindowWidth + 'true' + 'false';
-      expect((card as any)._fiber.key).toEqual(key);
-    });
-  });
-
-  it('rerenders cards on window resize', () => {
-    const highlight = createMockHighlight();
-    const mockWindowWidth = 1024;
-    const mockWindowWidthAfterResize = 999;
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
-    </Provider>);
-
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      const key = highlight.id + mockWindowWidth + 'false' + 'null';
-      expect((card as any)._fiber.key).toEqual(key);
-    });
-
-    const event =  assertDocument().createEvent('UIEvent');
-    event.initEvent('resize');
-    renderer.act(() => {
-      Object.defineProperty(assertWindow(), 'innerWidth', {value: mockWindowWidthAfterResize});
-      assertWindow().dispatchEvent(event);
-      jest.runAllTimers();
-    });
-
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      const key = highlight.id + mockWindowWidthAfterResize + 'false' + 'null';
-      expect((card as any)._fiber.key).toEqual(key);
-    });
   });
 
   it('scrolls to card when focused', () => {
