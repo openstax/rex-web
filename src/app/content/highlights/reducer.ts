@@ -6,8 +6,8 @@ import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
+import { highlightStyles } from '../constants';
 import * as actions from './actions';
-import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
@@ -179,7 +179,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.focusHighlight): {
-      return {...state, currentPage: { ...state.currentPage, focused: action.payload }};
+      return {...state, currentPage: { ...state.currentPage, hasUnsavedHighlight: false, focused: action.payload }};
     }
     case getType(actions.clearFocusedHighlight): {
       return {...state, currentPage: omit('focused', {...state.currentPage, hasUnsavedHighlight: false})};
