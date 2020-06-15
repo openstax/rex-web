@@ -5,7 +5,10 @@ import {
   UpdateHighlightRequest,
 } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
+import mapValues from 'lodash/fp/mapValues';
 import partition from 'lodash/fp/partition';
+import pickBy from 'lodash/fp/pickBy';
+import { isDefined } from '../../../guards';
 import {
   CountsPerSource,
   HighlightData,
@@ -235,6 +238,9 @@ export const updateSummaryHighlightsDependOnFilters = (
     pageId,
   });
 };
+
+export const extractTotalCounts = (countsPerSource: CountsPerSource) =>
+  mapValues(pickBy<CountsPerSource>(isDefined), countsPerSource);
 
 export const removeFromTotalCounts = (
   totalCounts: CountsPerSource,

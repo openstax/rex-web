@@ -2,10 +2,10 @@ import { GetHighlightsSummarySetsEnum, GetHighlightsSummarySourceTypeEnum } from
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
+import { extractTotalCounts } from '../../highlights/utils/summaryHighlightsUtils';
 import { bookAndPage } from '../../selectors';
-import { extractTotalCounts } from '../../utils/sharedHighlightsUtils';
 import { openStudyGuides, receiveStudyGuidesSummary, receiveStudyGuidesTotalCounts } from '../actions';
-import * as select from '../selectors'
+import * as select from '../selectors';
 import { loadMoreStudyGuidesHighlights } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => async() => {

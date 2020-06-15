@@ -4,12 +4,12 @@ import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { loadAllHighlights } from '../../utils/sharedHighlightsUtils';
+import createLoader from '../../utils/highlightLoadingUtils';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
-  const {dispatch, getState, highlightClient} = services;
+  const {dispatch, getState } = services;
   const state = getState();
   const {book, page} = bookAndPage(state);
   const authenticated = user(state);
@@ -29,9 +29,9 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     return;
   }
 
-  const highlights = await loadAllHighlights({
-    book,
-    highlightClient,
+  const myHighlightsLoader = createLoader(services, {});
+
+  const highlights = await myHighlightsLoader.loadAll({
     pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
   });
   dispatch(receiveHighlights({highlights, pageId: page.id}));

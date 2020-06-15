@@ -13,7 +13,6 @@ import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
 import { HighlightData } from '../../types';
 import { stripIdVersion } from '../../utils/idUtils';
-import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import {
   clearFocusedHighlight,
   createHighlight,
@@ -21,6 +20,7 @@ import {
   focusHighlight,
   setAnnotationChangesPending,
 } from '../actions';
+import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';

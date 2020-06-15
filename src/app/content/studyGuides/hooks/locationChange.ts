@@ -2,7 +2,7 @@ import { GetHighlightsSetsEnum } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import {  maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { loadAllHighlights } from '../../utils/sharedHighlightsUtils';
+import createLoader from '../../utils/highlightLoadingUtils';
 import { receiveStudyGuides } from '../actions';
 import * as select from '../selectors';
 
@@ -16,13 +16,10 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!isEnabled || !book || !page || hasCurrentSummary) { return; }
 
-  const highlights = await loadAllHighlights({
-    book,
-    highlightClient: services.highlightClient,
+  const studyGuidesLoader = createLoader(services, {sets: [GetHighlightsSetsEnum.Curatedopenstax]})
+
+  const highlights = await studyGuidesLoader.loadAll({
     pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
-    query: {
-      sets: [GetHighlightsSetsEnum.Curatedopenstax],
-    },
   });
 
   services.dispatch(receiveStudyGuides(highlights));

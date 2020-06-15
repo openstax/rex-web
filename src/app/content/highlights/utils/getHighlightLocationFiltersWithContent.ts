@@ -1,5 +1,5 @@
 import { CountsPerSource, HighlightLocationFilters } from '../../types';
-import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
+import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
 export default (locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource) => {
 

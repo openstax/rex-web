@@ -3,7 +3,7 @@ import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { highlightLocationFilters } from '../../selectors';
-import { createSummaryHighlightsLoader } from '../../utils/sharedHighlightsUtils';
+import createLoader from '../../utils/highlightLoadingUtils';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
 
@@ -16,19 +16,19 @@ export const loadMoreMyHighlights = (services: MiddlewareAPI & AppServices, page
   const colors = select.summaryColorFilters(state);
   const filteredCounts = select.filteredCountsPerPage(state);
 
-  const query = {
+  const params = {
     colors: [...colors] as unknown as GetHighlightsColorsEnum[],
   };
 
-  const loadMore = createSummaryHighlightsLoader({
+  const myHighlightsLoader = createLoader(services, params);
+
+  return myHighlightsLoader.loadSummary({
     countsPerSource: filteredCounts,
     locationFilters,
+    pageSize,
     previousPagination,
-    query,
     sourcesFetched,
   });
-
-  return loadMore(services, pageSize);
 };
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =

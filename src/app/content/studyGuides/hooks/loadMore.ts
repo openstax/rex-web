@@ -6,7 +6,7 @@ import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { highlightLocationFilters } from '../../selectors';
-import { createSummaryHighlightsLoader } from '../../utils/sharedHighlightsUtils';
+import createLoader from '../../utils/highlightLoadingUtils';
 import { loadMoreStudyGuides, receiveStudyGuidesSummary } from '../actions';
 import * as select from '../selectors';
 
@@ -19,20 +19,20 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
   const filteredCounts = select.filteredCountsPerPage(state);
   const previousPagination = select.studyGuidesPagination(state);
 
-  const query = {
+  const params = {
     colors: [...colors] as unknown as GetHighlightsColorsEnum[],
     sets: [GetHighlightsSetsEnum.Curatedopenstax],
   };
 
-  const loadMore = createSummaryHighlightsLoader({
+  const studyGuidesLoader = createLoader(services, params);
+
+  return studyGuidesLoader.loadSummary({
     countsPerSource: filteredCounts,
     locationFilters,
+    pageSize,
     previousPagination,
-    query,
     sourcesFetched,
   });
-
-  return loadMore(services, pageSize);
 };
 
 const hookBody: ActionHookBody<typeof loadMoreStudyGuides> = (services) => async() => {
