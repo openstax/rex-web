@@ -32,6 +32,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
+  highlightsLoaded: selectHighlights.highlightsLoaded(state),
   page: select.page(state),
   scrollTargetHighlightId: selectNavigation.highlightId(state),
 });
@@ -139,15 +140,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       const targetId = services.getProp().scrollTargetHighlightId;
       if (!targetId) { return null; }
 
-      if (!services.getProp().highlights.find((search) => search.id === targetId)) {
-        // TODO: Display some error dialog.
-        // Probably when https://github.com/openstax/rex-web/pull/465 is merged
-        return null;
-      }
-
       return {
         id: targetId,
-        scrollToFunction: () => services.getProp().focus(targetId),
+        scrollToFunction: () => {
+          if (!services.getProp().highlights.find((search) => search.id === targetId)) {
+            throw new Error(`Couldn't find highlight with id: ${targetId}.`);
+          }
+          services.getProp().focus(targetId);
+        },
         type: 'highlight',
       };
     },

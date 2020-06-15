@@ -1,26 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchFailure matches snapshot 1`] = `
+exports[`SearchOrHighlightFailure matches snapshot 1`] = `
 <div
-  className="styles__BannerBodyWrapper-sc-1vrc3f8-0 jkHHkz"
+  className="styles__BannerBodyWrapper-zjpgtm-0 bNTyPs"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
   <div
-    className="styles__BannerBody-sc-1vrc3f8-1 ddygX"
+    className="styles__BannerBody-zjpgtm-1 fWWGHT"
   >
     <div
       className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
-      We're unable to find that search result. Please try another.
+      We're unable to find that highlight. Please try another.
     </div>
     <button
-      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-sc-1vrc3f8-3 licVaD"
+      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zjpgtm-3 cNbWQy"
       onClick={[MockFunction]}
     >
       <svg
         aria-hidden="true"
-        className="styles__CloseIcon-sc-1vrc3f8-2 kOCAmR"
+        className="styles__CloseIcon-zjpgtm-2 eZQBdz"
         focusable="false"
         height="15px"
         version="1.1"
@@ -52,27 +52,27 @@ exports[`SearchFailure matches snapshot 1`] = `
 </div>
 `;
 
-exports[`SearchFailure matches snapshot when mobile toolbar is open 1`] = `
+exports[`SearchOrHighlightFailure matches snapshot when mobile toolbar is open 1`] = `
 <div
-  className="styles__BannerBodyWrapper-sc-1vrc3f8-0 gnvDRu"
+  className="styles__BannerBodyWrapper-zjpgtm-0 epGuwJ"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
   <div
-    className="styles__BannerBody-sc-1vrc3f8-1 ddygX"
+    className="styles__BannerBody-zjpgtm-1 fWWGHT"
   >
     <div
       className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
-      We're unable to find that search result. Please try another.
+      We're unable to find that highlight. Please try another.
     </div>
     <button
-      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-sc-1vrc3f8-3 licVaD"
+      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zjpgtm-3 cNbWQy"
       onClick={[MockFunction]}
     >
       <svg
         aria-hidden="true"
-        className="styles__CloseIcon-sc-1vrc3f8-2 kOCAmR"
+        className="styles__CloseIcon-zjpgtm-2 eZQBdz"
         focusable="false"
         height="15px"
         version="1.1"

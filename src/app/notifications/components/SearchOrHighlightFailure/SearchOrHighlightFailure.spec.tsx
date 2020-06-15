@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import SearchFailure, { syncState } from '.';
+import SearchOrHighlightFailure, { syncState } from '.';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
@@ -15,7 +15,7 @@ jest.mock('react', () => {
 
 const selectedHighlight = {} as any;
 
-describe('SearchFailure', () => {
+describe('SearchOrHighlightFailure', () => {
   let window: Window;
   let addEventListener: jest.SpyInstance;
   let removeEventListener: jest.SpyInstance;
@@ -35,7 +35,12 @@ describe('SearchFailure', () => {
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight} />
+      <SearchOrHighlightFailure
+        messageKey='i18n:notification:scroll-to-highlight-failure'
+        dismiss={dismiss}
+        mobileToolbarOpen={false}
+        selectedHighlight={selectedHighlight}
+      />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -49,7 +54,12 @@ describe('SearchFailure', () => {
 
   it('matches snapshot when mobile toolbar is open', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true} selectedHighlight={selectedHighlight}  />
+      <SearchOrHighlightFailure
+        messageKey='i18n:notification:scroll-to-highlight-failure'
+        dismiss={dismiss}
+        mobileToolbarOpen={true}
+        selectedHighlight={selectedHighlight}
+       />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -63,7 +73,12 @@ describe('SearchFailure', () => {
 
   it('manages timeouts', async() => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchOrHighlightFailure
+        messageKey='i18n:notification:scroll-to-highlight-failure'
+        dismiss={dismiss}
+        mobileToolbarOpen={false}
+        selectedHighlight={selectedHighlight}
+       />
     </MessageProvider>);
 
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), clearErrorAfter);
@@ -92,7 +107,12 @@ describe('SearchFailure', () => {
 
   it('dismisses on animation end', () => {
     const {root} = renderToDom(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchOrHighlightFailure
+        messageKey='i18n:notification:scroll-to-highlight-failure'
+        dismiss={dismiss}
+        mobileToolbarOpen={false}
+        selectedHighlight={selectedHighlight}
+       />
     </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -107,7 +127,12 @@ describe('SearchFailure', () => {
 
   it('dismisses notification on click', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchOrHighlightFailure
+        messageKey='i18n:notification:scroll-to-highlight-failure'
+        dismiss={dismiss}
+        mobileToolbarOpen={false}
+        selectedHighlight={selectedHighlight}
+       />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -129,7 +154,12 @@ describe('SearchFailure', () => {
 
   it('resets when selected highlight changes', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchOrHighlightFailure
+        messageKey='i18n:notification:scroll-to-highlight-failure'
+        dismiss={dismiss}
+        mobileToolbarOpen={false}
+        selectedHighlight={selectedHighlight}
+       />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -148,7 +178,12 @@ describe('SearchFailure', () => {
 
     renderer.act(() => {
       component.update(<MessageProvider>
-        <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={{} as any}  />
+        <SearchOrHighlightFailure
+          messageKey='i18n:notification:scroll-to-highlight-failure'
+          dismiss={dismiss}
+          mobileToolbarOpen={false}
+          selectedHighlight={{} as any}
+        />
       </MessageProvider>);
     });
 

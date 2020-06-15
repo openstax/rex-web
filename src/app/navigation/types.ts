@@ -80,3 +80,8 @@ export interface ScrollTargetHighlight {
 }
 
 export type ScrollTarget = ScrollTargetHash | ScrollTargetHighlight;
+
+export interface ScrollTargetError {
+  errorType: 'highlight' | 'search-highlight' | 'hash';
+  id: string;
+}

@@ -12,6 +12,7 @@ import {
 } from './styles';
 
 interface Props {
+  messageKey: string;
   dismiss: () => void;
   mobileToolbarOpen: boolean;
   selectedHighlight: null | string;
@@ -27,13 +28,14 @@ export const syncState = (prevState: typeof initialState) => {
 };
 
 // Appears when search searchHighlightManager in PageComponent.tsx fails to handle
-// selecting a search result. It's meant to not be dismissable before shouldAutoDismissAfter elapses
+// selecting a search result or when highlightManager fails to find highlight to scroll to.
+// It's meant to not be dismissable before shouldAutoDismissAfter elapses
 // then be dismissed after clearErrorAfter elapses or there is any interaction coming from the user
 // If the interaction (selecting a search result) would actually cause searchHighlightManager to
 // fail again, it will refresh the error instead
 
 // tslint:disable-next-line:variable-name
-const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props) => {
+const SearchOrHighlightFailure = ({ messageKey, dismiss, mobileToolbarOpen, selectedHighlight }: Props) => {
   const window = assertWindow();
   const [fadeOutState, setFadeOutState] = React.useState(initialState);
 
@@ -67,7 +69,7 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
       isFadingOut={fadeOutState.isFadingOut}
     >
       <BannerBody>
-        <FormattedMessage id='i18n:notification:search-failure'>
+        <FormattedMessage id={messageKey}>
           {(txt) =>  <Header>{txt}</Header>}
         </FormattedMessage>
         <CloseButton onClick={dismiss}>
@@ -78,4 +80,4 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
   );
 };
 
-export default SearchFailure;
+export default SearchOrHighlightFailure;

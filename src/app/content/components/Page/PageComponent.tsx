@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import { ScrollTarget } from '../../../navigation/types';
-import SearchFailure from '../../../notifications/components/SearchFailure';
+import SearchOrHighlightFailure from '../../../notifications/components/SearchOrHighlightFailure';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -27,13 +27,20 @@ if (typeof(document) !== 'undefined') {
 const parser = new DOMParser();
 
 interface PageState {
+  hasHighlightError: boolean;
   hasSearchError: boolean;
+  selectedHighlightId: null | string;
   selectedSearchResultId: null | string;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false, selectedSearchResultId: null };
+  public state = {
+    hasHighlightError: false,
+    hasSearchError: false,
+    selectedHighlightId: null,
+    selectedSearchResultId: null,
+  };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -86,9 +93,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       });
     }
 
-    const highlightScrollTarget = this.highlightManager.getScrollTarget();
-    if (highlightScrollTarget) {
-      scrollTargets.push(highlightScrollTarget);
+    if (this.props.highlights.highlightsLoaded) {
+      const highlightScrollTarget = this.highlightManager.getScrollTarget();
+      if (highlightScrollTarget) {
+        scrollTargets.push(highlightScrollTarget);
+      }
     }
 
     const highlightsAddedOrRemoved = this.highlightManager.update();
@@ -101,7 +110,13 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       scrollTargets.push(searchHighlightScrollTarget);
     }
 
-    this.scrollTargetManager(this.prevScrollTargets, scrollTargets, prevProps.page, this.props.page);
+    const error = await this.scrollTargetManager(
+      this.prevScrollTargets, scrollTargets, prevProps.page, this.props.page);
+    if (error && error.errorType === 'highlight') {
+      this.setState({ hasHighlightError: true, selectedHighlightId: this.props.highlights.scrollTargetHighlightId });
+    } else if (error && error.errorType === 'search-highlight') {
+      this.setState({ hasSearchError: true, selectedSearchResultId: error.id });
+    }
 
     this.prevScrollTargets = scrollTargets;
 
@@ -143,6 +158,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
   public dismissError = () => {
     this.setState({
+      hasHighlightError: false,
       hasSearchError: false,
     });
   };
@@ -163,13 +179,16 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {this.state.hasSearchError
-        ? <SearchFailure
-            dismiss={this.dismissError}
-            selectedHighlight={this.state.selectedSearchResultId}
-            mobileToolbarOpen={this.props.mobileToolbarOpen}
-          />
-        : null}
+      {(this.state.hasHighlightError || this.state.hasSearchError) && <SearchOrHighlightFailure
+        messageKey={
+          this.state.hasSearchError
+            ? 'i18n:notification:search-failure'
+            : 'i18n:notification:scroll-to-highlight-failure'
+        }
+        dismiss={this.dismissError}
+        selectedHighlight={this.state.selectedSearchResultId || this.state.selectedHighlightId}
+        mobileToolbarOpen={this.props.mobileToolbarOpen}
+      />}
       <RedoPadding>
         {this.props.page ? this.renderContent() : this.renderLoading()}
       </RedoPadding>
