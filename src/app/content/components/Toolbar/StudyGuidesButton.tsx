@@ -39,9 +39,9 @@ const StudyGuidesButton = () => {
   const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
-  const summaryHighlightsNotEmpty = useSelector(hasStudyGuides);
+  const studyGuidesSummaryNotEmpty = useSelector(hasStudyGuides);
 
-  if (!isEnabled || !summaryHighlightsNotEmpty) { return null; }
+  if (!isEnabled || !studyGuidesSummaryNotEmpty) { return null; }
 
   const openStudyGuidesSummary = () => {
     dispatch(openStudyGuidesAction());
