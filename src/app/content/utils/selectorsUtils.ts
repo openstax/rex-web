@@ -5,12 +5,12 @@ import merge from 'lodash/fp/merge';
 import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
-import { assertDefined } from '../../../utils';
+import { assertDefined } from '../../utils';
 import {
   filterCountsPerSourceByColorFilter,
   filterCountsPerSourceByLocationFilter
-} from '../../highlights/utils/paginationUtils';
-import { CountsPerSource, HighlightLocationFilters, SummaryHighlights } from '../../types';
+} from '../highlights/utils/paginationUtils';
+import { CountsPerSource, HighlightLocationFilters, SummaryHighlights } from '../types';
 
 export const filterCounts = (
   totalCounts: CountsPerSource,
