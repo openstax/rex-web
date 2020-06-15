@@ -35,7 +35,7 @@ export type OptionsCallback = ({
   selectedHighlight?: Highlight
 }) => void;
 
-interface Options {
+export interface Options {
   forceRedraw: boolean;
   onSelect: OptionsCallback;
 }

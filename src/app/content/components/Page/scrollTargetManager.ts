@@ -8,6 +8,8 @@ import { assertWindow, resetTabIndex } from '../../../utils';
 import { query } from '../../search/selectors';
 import { Page } from '../../types';
 import allImagesLoaded from '../utils/allImagesLoaded';
+import { stubHighlightManager } from './highlightManager';
+import { HighlightProp as SearchHighlightProp, Options, stubManager } from './searchHighlightManager';
 
 export const mapStateToScrollTargetHashProp = (state: AppState): ScrollTargetHash | null => {
   const search = query(state);
@@ -52,21 +54,78 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
     : null;
 };
 
-const scrollTargetManager = (container: HTMLElement) => async(
+const getScrollTargets = (
+  searchHighlightManager: typeof stubManager,
+  highlightManager: typeof stubHighlightManager,
+  scrollTargetHash: ScrollTargetHash | null,
+  previousSearchHighlights: SearchHighlightProp,
+  currentSearchHighlights: SearchHighlightProp,
+  searchHighlightManagerOptions: Options
+): { scrollTargets: ScrollTarget[], error?: ScrollTargetError} => {
+  const scrollTargets: ScrollTarget[] = [];
+
+  if (scrollTargetHash) {
+    scrollTargets.push(scrollTargetHash);
+  }
+
+  const searchHighlightScrollTarget = searchHighlightManager.getScrollTarget(
+    previousSearchHighlights,
+    currentSearchHighlights,
+    searchHighlightManagerOptions
+  );
+  if (searchHighlightScrollTarget) {
+    scrollTargets.push(searchHighlightScrollTarget);
+  }
+
+  try {
+    const highlightScrollTarget = highlightManager.getScrollTarget();
+    if (highlightScrollTarget) {
+      scrollTargets.push(highlightScrollTarget);
+    }
+  } catch (error) {
+    if (error instanceof ScrollTargetError) {
+      return {scrollTargets, error};
+    }
+  }
+
+  return {scrollTargets};
+};
+
+const scrollTargetManager = (
+  container: HTMLElement,
+  searchHighlightManager: typeof stubManager,
+  highlightManager: typeof stubHighlightManager
+) => async(
   prevScrollTargets: ScrollTarget[],
-  scrollTargets: ScrollTarget[],
+  scrollTargetHash: ScrollTargetHash | null,
+  previousSearchHighlights: SearchHighlightProp,
+  currentSearchHighlights: SearchHighlightProp,
+  searchHighlightManagerOptions: Options,
   previousePage: Page | undefined,
   currentPage: Page | undefined
-): Promise<ScrollTargetError | null> => {
+): Promise<{ scrollTargets: ScrollTarget[], error?: ScrollTargetError}> => {
+
+  const {scrollTargets, error} = getScrollTargets(
+    searchHighlightManager,
+    highlightManager,
+    scrollTargetHash,
+    previousSearchHighlights,
+    currentSearchHighlights,
+    searchHighlightManagerOptions);
+
+  if (error) {
+    return {scrollTargets, error};
+  }
+
   const newScrollTargets = differenceWith(scrollTargets, prevScrollTargets, compareScrollTargets);
 
   if (newScrollTargets.length === 0 && previousePage !== currentPage) {
     scrollToTop();
-    return null;
+    return {scrollTargets};
   }
 
   const scrollTarget = newScrollTargets.sort(sortByPriority)[0];
-  if (!scrollTarget) { return null; }
+  if (!scrollTarget) { return {scrollTargets}; }
 
   try {
     if (scrollTarget.type === 'hash') {
@@ -76,10 +135,12 @@ const scrollTargetManager = (container: HTMLElement) => async(
       scrollTarget.scrollToFunction();
     }
   } catch (e) {
-    return { errorType: scrollTarget.type, id: scrollTarget.id };
+    if (e instanceof ScrollTargetError) {
+      return {scrollTargets, error: e};
+    }
   }
 
-  return null;
+  return {scrollTargets};
 };
 
 export default scrollTargetManager;

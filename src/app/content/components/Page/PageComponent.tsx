@@ -68,7 +68,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
-    this.scrollTargetManager = scrollTargetManager(this.container.current);
+    this.scrollTargetManager = scrollTargetManager(
+      this.container.current,
+      this.searchHighlightManager,
+      this.highlightManager);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
@@ -78,35 +81,23 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    const scrollTargets: ScrollTarget[] = [];
-
-    if (this.props.scrollTargetHash) {
-      scrollTargets.push(this.props.scrollTargetHash);
-    }
-
-    if (this.props.highlights.highlightsLoaded) {
-      const highlightScrollTarget = this.highlightManager.getScrollTarget();
-      if (highlightScrollTarget) {
-        scrollTargets.push(highlightScrollTarget);
-      }
-    }
-
     const highlightsAddedOrRemoved = this.highlightManager.update();
-    const searchHighlightScrollTarget = this.searchHighlightManager.getScrollTarget(
+
+    const {scrollTargets, error} = await this.scrollTargetManager(
+      this.prevScrollTargets,
+      this.props.scrollTargetHash,
       prevProps.searchHighlights,
       this.props.searchHighlights,
-      { forceRedraw: highlightsAddedOrRemoved, onSelect: this.onHighlightSelect }
-    );
-    if (searchHighlightScrollTarget) {
-      scrollTargets.push(searchHighlightScrollTarget);
-    }
+      { forceRedraw: highlightsAddedOrRemoved, onSelect: this.onHighlightSelect },
+      prevProps.page,
+      this.props.page);
 
-    const error = await this.scrollTargetManager(
-      this.prevScrollTargets, scrollTargets, prevProps.page, this.props.page);
-    if (error && error.errorType === 'highlight') {
+    if (
+      error
+      && error.errorType === 'highlight'
+      && (!this.state.hasHighlightError || this.state.selectedHighlightId !== error.id)
+    ) {
       this.setState({ hasHighlightError: true, selectedHighlightId: this.props.highlights.scrollTargetHighlightId });
-    } else if (error && error.errorType === 'search-highlight') {
-      this.setState({ hasSearchError: true, selectedSearchResultId: error.id });
     }
 
     this.prevScrollTargets = scrollTargets;

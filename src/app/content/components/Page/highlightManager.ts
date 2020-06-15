@@ -3,9 +3,10 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import { established, user } from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
-import { ScrollTargetHighlight } from '../../../navigation/types';
+import { ScrollTargetError, ScrollTargetHighlight } from '../../../navigation/types';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
 import {
@@ -29,12 +30,14 @@ export interface HighlightManagerServices {
 }
 
 export const mapStateToHighlightProp = (state: AppState) => ({
+  established: established(state),
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
   highlightsLoaded: selectHighlights.highlightsLoaded(state),
   page: select.page(state),
   scrollTargetHighlightId: selectNavigation.highlightId(state),
+  user: user(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
@@ -140,11 +143,19 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       const targetId = services.getProp().scrollTargetHighlightId;
       if (!targetId) { return null; }
 
+      if (services.getProp().established && !services.getProp().user) {
+        throw new ScrollTargetError(
+          'highlight', targetId, `User have to be logged in in order to getScrollTarget for a highlight.`);
+      }
+
+      const highlightsLoaded = services.getProp().highlightsLoaded;
+      if (!highlightsLoaded) { return null; }
+
       return {
         id: targetId,
         scrollToFunction: () => {
           if (!services.getProp().highlights.find((search) => search.id === targetId)) {
-            throw new Error(`Couldn't find highlight with id: ${targetId}.`);
+            throw new ScrollTargetError('highlight', targetId, `Couldn't find highlight with id: ${targetId}.`);
           }
           services.getProp().focus(targetId);
         },

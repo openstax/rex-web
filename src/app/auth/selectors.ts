@@ -12,6 +12,11 @@ export const user = createSelector(
   (state) => state.user
 );
 
+export const established = createSelector(
+  localState,
+  (state) => state.established
+);
+
 export const loggedOut = createSelector(
   localState,
   user,
