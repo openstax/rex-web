@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { differenceWith } from 'lodash';
 import { scrollTo } from '../../../domUtils';
-import { hash } from '../../../navigation/selectors';
+import { hash as hashSelector } from '../../../navigation/selectors';
 import { ScrollTarget, ScrollTargetError, ScrollTargetHash } from '../../../navigation/types';
 import { AppState } from '../../../types';
 import { assertWindow, resetTabIndex } from '../../../utils';
@@ -11,7 +11,7 @@ import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollTargetHashProp = (state: AppState): ScrollTargetHash | null => {
   const search = query(state);
-  const hashTarget = hash(state);
+  const hashTarget = hashSelector(state);
 
   if (search || !hashTarget) { return null; }
 
@@ -24,9 +24,8 @@ export const mapStateToScrollTargetHashProp = (state: AppState): ScrollTargetHas
 
 const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
-  if (!target) { throw new Error(`Couldn't find target with id: ${hash}`); }
 
-  if (container) {
+  if (target && container) {
     allImagesLoaded(container).then(
       () => scrollTo(target)
     );
