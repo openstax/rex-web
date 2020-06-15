@@ -6,6 +6,7 @@ import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
 import { RouteState } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
+import attachHighlight from '../components/utils/attachHighlight';
 import { content } from '../routes';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
@@ -147,11 +148,17 @@ export const highlightResults = (
     }
 
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
-      const highlights = getHighlightRanges(element, highlightText).map((range) => {
-        const highlight = new Highlight(range.nativeRange, {content: range.toString()});
-        highlighter.highlight(highlight);
-        return highlight;
-      });
+      const highlights = getHighlightRanges(element, highlightText)
+        .map((range) => {
+          const highlight = new Highlight(range.nativeRange, {content: range.toString()});
+          attachHighlight(highlight, highlighter, () =>
+            `Search result failed to highlight on page ${hit.source.pageId}`
+          );
+
+          return highlight;
+        })
+        .filter((highlight) => highlight.elements && highlight.elements.length > 0)
+      ;
 
       return {index, highlights};
     })

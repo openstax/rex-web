@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppServices, AppState } from '../../../types';
 import { merge } from '../../../utils';
+import { mobileToolbarOpen, query } from '../../search/selectors';
 import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
@@ -15,9 +16,11 @@ export interface PagePropTypes {
   book: State['book'];
   currentPath: string;
   className?: string;
+  mobileToolbarOpen: boolean;
   contentLinks: ContentLinkProp;
   locationState: ReturnType<typeof selectNavigation.locationState>;
   hash: string;
+  query: string | null;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
@@ -30,7 +33,9 @@ export default connect(
     currentPath: selectNavigation.pathname(state),
     hash: selectNavigation.hash(state),
     highlights: mapStateToHighlightProp(state),
+    mobileToolbarOpen: mobileToolbarOpen(state),
     page: select.page(state),
+    query: query(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch) => ({
