@@ -36,7 +36,7 @@ describe('SearchOrHighlightFailure', () => {
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
       <SearchOrHighlightFailure
-        messageKey='i18n:notification:scroll-to-highlight-failure'
+        messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
         selectedHighlight={selectedHighlight}
@@ -55,7 +55,7 @@ describe('SearchOrHighlightFailure', () => {
   it('matches snapshot when mobile toolbar is open', () => {
     const component = renderer.create(<MessageProvider>
       <SearchOrHighlightFailure
-        messageKey='i18n:notification:scroll-to-highlight-failure'
+        messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={true}
         selectedHighlight={selectedHighlight}
@@ -74,7 +74,7 @@ describe('SearchOrHighlightFailure', () => {
   it('manages timeouts', async() => {
     const component = renderer.create(<MessageProvider>
       <SearchOrHighlightFailure
-        messageKey='i18n:notification:scroll-to-highlight-failure'
+        messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
         selectedHighlight={selectedHighlight}
@@ -108,7 +108,7 @@ describe('SearchOrHighlightFailure', () => {
   it('dismisses on animation end', () => {
     const {root} = renderToDom(<MessageProvider>
       <SearchOrHighlightFailure
-        messageKey='i18n:notification:scroll-to-highlight-failure'
+        messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
         selectedHighlight={selectedHighlight}
@@ -128,7 +128,7 @@ describe('SearchOrHighlightFailure', () => {
   it('dismisses notification on click', () => {
     const component = renderer.create(<MessageProvider>
       <SearchOrHighlightFailure
-        messageKey='i18n:notification:scroll-to-highlight-failure'
+        messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
         selectedHighlight={selectedHighlight}
@@ -155,7 +155,7 @@ describe('SearchOrHighlightFailure', () => {
   it('resets when selected highlight changes', () => {
     const component = renderer.create(<MessageProvider>
       <SearchOrHighlightFailure
-        messageKey='i18n:notification:scroll-to-highlight-failure'
+        messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
         selectedHighlight={selectedHighlight}
@@ -179,7 +179,7 @@ describe('SearchOrHighlightFailure', () => {
     renderer.act(() => {
       component.update(<MessageProvider>
         <SearchOrHighlightFailure
-          messageKey='i18n:notification:scroll-to-highlight-failure'
+          messageKey='i18n:notification:search-failure'
           dismiss={dismiss}
           mobileToolbarOpen={false}
           selectedHighlight={{} as any}

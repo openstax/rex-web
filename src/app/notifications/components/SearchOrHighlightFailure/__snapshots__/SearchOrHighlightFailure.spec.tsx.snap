@@ -12,7 +12,7 @@ exports[`SearchOrHighlightFailure matches snapshot 1`] = `
     <div
       className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
-      We're unable to find that highlight. Please try another.
+      We're unable to find that search result. Please try another.
     </div>
     <button
       className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zjpgtm-3 cNbWQy"
@@ -64,7 +64,7 @@ exports[`SearchOrHighlightFailure matches snapshot when mobile toolbar is open 1
     <div
       className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
-      We're unable to find that highlight. Please try another.
+      We're unable to find that search result. Please try another.
     </div>
     <button
       className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zjpgtm-3 cNbWQy"
