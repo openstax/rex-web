@@ -1,10 +1,26 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { differenceWith } from 'lodash';
 import { scrollTo } from '../../../domUtils';
-import { ScrollTarget, ScrollTargetError } from '../../../navigation/types';
+import { hash } from '../../../navigation/selectors';
+import { ScrollTarget, ScrollTargetError, ScrollTargetHash } from '../../../navigation/types';
+import { AppState } from '../../../types';
 import { assertWindow, resetTabIndex } from '../../../utils';
+import { query } from '../../search/selectors';
 import { Page } from '../../types';
 import allImagesLoaded from '../utils/allImagesLoaded';
+
+export const mapStateToScrollTargetHashProp = (state: AppState): ScrollTargetHash | null => {
+  const search = query(state);
+  const hashTarget = hash(state);
+
+  if (search || !hashTarget) { return null; }
+
+  return {
+    id: hashTarget,
+    type: 'hash',
+    value: hashTarget,
+  };
+};
 
 const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);

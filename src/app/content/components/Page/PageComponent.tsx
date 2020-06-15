@@ -80,17 +80,8 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
     const scrollTargets: ScrollTarget[] = [];
 
-    if (
-      this.props.hash
-      && !assertWindow().location.search
-      && this.container.current
-      && this.container.current.querySelector(this.props.hash)
-    ) {
-      scrollTargets.push({
-        id: this.props.hash,
-        type: 'hash',
-        value: this.props.hash,
-      });
+    if (this.props.scrollTargetHash) {
+      scrollTargets.push(this.props.scrollTargetHash);
     }
 
     if (this.props.highlights.highlightsLoaded) {
