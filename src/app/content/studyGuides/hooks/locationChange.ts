@@ -1,15 +1,17 @@
 import {
-  GetHighlightsSetsEnum,
+  GetHighlightsColorsEnum,
   GetHighlightsSummarySetsEnum,
-  GetHighlightsSummarySourceTypeEnum
+  GetHighlightsSummarySourceTypeEnum,
+  GetHighlightsSetsEnum
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { bookAndPage, highlightLocationFilters } from '../../selectors';
-import createLoader from '../../utils/highlightLoadingUtils';
+import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlightLoadingUtils';
 import { extractTotalCounts } from '../../utils/highlightSharedUtils';
 import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
+import { allColors } from '../constants';
 import * as select from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
@@ -23,8 +25,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
 
-  const studyGuidesLoader = createLoader(services, {sets: [GetHighlightsSetsEnum.Curatedopenstax]});
-
   const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
     scopeId: book.id,
     sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
@@ -35,15 +35,18 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   services.dispatch(receiveStudyGuidesTotalCounts(totalCounts));
 
-  const {formattedHighlights, pagination} = await studyGuidesLoader.loadSummaryHighlights({
+  const {highlights, pagination} = await loadUntilPageSize({
+    book,
+    colors: allColors as unknown as GetHighlightsColorsEnum[],
     countsPerSource: totalCounts,
-    locationFilters,
+    highlightClient: services.highlightClient,
     pageSize: summaryPageSize,
     previousPagination: null,
+    sets: [GetHighlightsSetsEnum.Curatedopenstax],
     sourcesFetched: [],
   });
 
-  services.dispatch(receiveSummaryStudyGuides(formattedHighlights, pagination));
+  services.dispatch(receiveSummaryStudyGuides(formatReceivedHighlights(highlights, locationFilters), pagination));
 };
 
 export default hookBody;
