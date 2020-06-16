@@ -18,7 +18,7 @@ import { highlightLocationFilters } from '../../selectors';
 import { SummaryHighlights } from '../../types';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveStudyGuidesSummary } from '../actions';
+import { receiveSummaryStudyGuides } from '../actions';
 import StudyGuides from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
@@ -62,7 +62,7 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveStudyGuidesSummary(summaryHighlights, null));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -97,7 +97,7 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveStudyGuidesSummary(summaryHighlights, null));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
