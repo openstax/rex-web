@@ -1,11 +1,14 @@
 import { treeWithoutUnits } from '../../../test/trees';
-import { book } from '../selectors';
+import { book, highlightLocationFilters } from '../selectors';
 import * as select from './selectors';
+import { getHighlightLocationFilters } from './utils';
 
 const mockBook = book as any as jest.SpyInstance;
+const mockFilters = highlightLocationFilters as any as jest.SpyInstance;
 
 jest.mock('../selectors', () => ({
   book: jest.fn(),
+  highlightLocationFilters: jest.fn(),
   localState: (state: any) => ({highlights: state}),
 }));
 
@@ -17,7 +20,10 @@ describe('focused', () => {
 
 describe('highlightLocationFiltersWithContent', () => {
   it('filters', () => {
-    mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    const testBook = {id: 'enabledbook', tree: treeWithoutUnits};
+
+    mockBook.mockReturnValue(testBook);
+    mockFilters.mockReturnValue(getHighlightLocationFilters(testBook as any));
     expect(select.highlightLocationFiltersWithContent({
       summary: {
         totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
