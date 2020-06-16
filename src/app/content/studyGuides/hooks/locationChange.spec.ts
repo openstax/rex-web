@@ -1,18 +1,20 @@
 import { Highlight, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { book } from '../../../../test/mocks/archiveLoader';
+import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
-import { receiveBook } from '../../actions';
-import { studyGuidesFeatureFlag } from '../../constants';
+import { receiveBook, receivePage } from '../../actions';
+import { studyGuidesFeatureFlag, maxHighlightsApiPageSize } from '../../constants';
+import { CountsPerSource } from '../../types';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
+import { extractTotalCounts } from '../../utils/highlightSharedUtils';
+import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
 
-jest.mock('../../highlights/hooks/utils', () => ({
-  ...jest.requireActual('../../highlights/hooks/utils'),
+jest.mock('../../utils', () => ({
+  ...jest.requireActual('../../utils'),
   formatReceivedHighlights: () => ['mocked'],
 }));
 
@@ -37,23 +39,41 @@ describe('locationChange', () => {
     hook = (require('./locationChange').default)(helpers);
   });
 
-  it('fetch study guides on locationChange', async() => {
+  it.only('fetch study guides on locationChange', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
-    const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
+    const mockSummaryResponse = {
+      countsPerSource: {
+        source: {
+          green: 1,
+        },
+      } as CountsPerSource,
+    };
+
+    const mockHighlightsResponse = {
+      data: [{ id: 'asd', sourceId: 'asd' }] as unknown as Highlight[],
+      meta: {
+        page: 1,
+        perPage: maxHighlightsApiPageSize,
+        totalCount: 1,
+      },
+    };
 
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(new Promise((res) => res(mockResponse)));
+      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
     const getStudyGuidesHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(new Promise((res) => res({ data: [{ id: 'asd', sourceId: 'asd' }] as any as Highlight[] })));
+      .mockReturnValue(new Promise((res) => res(mockHighlightsResponse)));
 
     await hook();
 
     expect(getHighlightsSummary).toHaveBeenCalled();
     expect(getStudyGuidesHighlights).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(['mocked'] as any, null));
+    expect(dispatch).toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(extractTotalCounts(mockSummaryResponse.countsPerSource))
+    );
+    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockHighlightsResponse.data));
   });
 
   it('noops on locationChange if feature flag is not present', async() => {
