@@ -7,10 +7,9 @@ import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { studyGuidesFeatureFlag, maxHighlightsApiPageSize } from '../../constants';
+import { maxHighlightsApiPageSize, studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../types';
 import { formatBookData } from '../../utils';
-import { extractTotalCounts } from '../../utils/highlightSharedUtils';
 import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
 
 jest.mock('../../utils', () => ({
@@ -23,6 +22,7 @@ describe('locationChange', () => {
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./locationChange').default>;
+  let mockSummaryResponse: { countsPerSource: CountsPerSource };
 
   beforeEach(() => {
     resetModules();
@@ -34,23 +34,23 @@ describe('locationChange', () => {
       getState: store.getState,
     };
 
+    mockSummaryResponse = {
+      countsPerSource: {
+        source: {
+          green: 1,
+        },
+      },
+    };
+
     dispatch = jest.spyOn(helpers, 'dispatch');
 
     hook = (require('./locationChange').default)(helpers);
   });
 
-  it.only('fetch study guides on locationChange', async() => {
+  it('fetch study guides on locationChange', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-
-    const mockSummaryResponse = {
-      countsPerSource: {
-        source: {
-          green: 1,
-        },
-      } as CountsPerSource,
-    };
 
     const mockHighlightsResponse = {
       data: [{ id: 'asd', sourceId: 'asd' }] as unknown as Highlight[],
@@ -71,7 +71,7 @@ describe('locationChange', () => {
     expect(getHighlightsSummary).toHaveBeenCalled();
     expect(getStudyGuidesHighlights).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
-      receiveStudyGuidesTotalCounts(extractTotalCounts(mockSummaryResponse.countsPerSource))
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
     );
     expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockHighlightsResponse.data));
   });
@@ -79,29 +79,26 @@ describe('locationChange', () => {
   it('noops on locationChange if feature flag is not present', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
 
-    const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
-
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(new Promise((res) => res(mockResponse)));
+      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
 
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
+    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
   });
 
   it('noops on locationChange if book is not loaded', async() => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
-    const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
 
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(new Promise((res) => res(mockResponse)));
+      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
 
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
+    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
   });
 
   it('noops on locationChange if summary is already loaded', async() => {
@@ -109,14 +106,12 @@ describe('locationChange', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveStudyGuidesTotalCounts({ asd: { green: 1 }}));
 
-    const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
-
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-      .mockReturnValue(new Promise((res) => res(mockResponse)));
+      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
 
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
+    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuides(mockSummaryResponse.countsPerSource));
   });
 });
