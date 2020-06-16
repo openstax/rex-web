@@ -2,13 +2,13 @@ import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highligh
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { assertNotNull } from '../../utils';
-import * as actions from './actions';
-import reducer, { initialState } from './reducer';
 import {
   CountsPerSource,
   HighlightData,
   SummaryHighlights,
-} from './types';
+} from '../types';
+import * as actions from './actions';
+import reducer, { initialState } from './reducer';
 
 const mockHighlight = {
   color: HighlightColorEnum.Blue,
