@@ -9,7 +9,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuidesTotalCounts, receiveStudyGuidesSummary } from '../actions';
+import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
 
 jest.mock('../../highlights/hooks/utils', () => ({
   ...jest.requireActual('../../highlights/hooks/utils'),
@@ -53,7 +53,7 @@ describe('locationChange', () => {
     expect(getHighlightsSummary).toHaveBeenCalled();
     expect(getStudyGuidesHighlights).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockResponse));
-    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuidesHighlights(['mocked'] as any, null));
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(['mocked'] as any, null));
   });
 
   it('noops on locationChange if feature flag is not present', async() => {
@@ -87,7 +87,7 @@ describe('locationChange', () => {
   it('noops on locationChange if summary is already loaded', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuides({ countsPerSource: { asd: { green: 1 } } }));
+    store.dispatch(receiveStudyGuidesTotalCounts({ asd: { green: 1 }}));
 
     const mockResponse = { asd: 'asd' } as any as HighlightsSummary;
 

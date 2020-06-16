@@ -5,36 +5,13 @@ import {
   Highlights,
 } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
-import pick from 'lodash/fp/pick';
-import { AppServices, MiddlewareAPI } from '../../types';
+import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { maxHighlightsApiPageSize } from '../constants';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../highlights/utils';
 import { getNextPageSources, incrementPage } from '../highlights/utils/paginationUtils';
-import { book as bookSelector } from '../selectors';
 import { Book, CountsPerSource, HighlightData, HighlightLocationFilters, SummaryHighlightsPagination } from '../types';
 import { stripIdVersion } from './idUtils';
-
-interface SummaryQueryParams {
-  colors: NonNullable<GetHighlightsRequest['colors']>;
-  sets?: GetHighlightsRequest['sets'];
-}
-
-type ContentQueryParams = Pick<SummaryQueryParams, 'sets'>;
-
-type QueryParams = ContentQueryParams | SummaryQueryParams;
-
-interface PopupSummaryContentQuery {
-  previousPagination: SummaryHighlightsPagination;
-  sourcesFetched: string[];
-  countsPerSource: CountsPerSource;
-  locationFilters: HighlightLocationFilters;
-  pageSize?: number;
-}
-
-interface ContentQuery {
-  pagination: NonNullable<SummaryHighlightsPagination>;
-}
 
 const extractDataFromHighlightClientResponse = (highlightsResponse: Highlights) => {
   // TODO - change swagger so none of this is nullable
@@ -63,7 +40,7 @@ const getNewSources = (
   return book ? getNextPageSources(remainingCounts, book.tree, pageSize) : [];
 };
 
-const formatReceivedHighlights = (
+export const formatReceivedHighlights = (
   highlights: Highlight[],
   locationFilters: HighlightLocationFilters
 ) => highlights.reduce((result, highlight) => {
@@ -85,20 +62,23 @@ const fetchHighlightsForSource = async({
   highlightClient,
   prevHighlights,
   book,
-  params,
+  colors,
+  sets,
   pagination,
 }: {
   highlightClient: AppServices['highlightClient'],
   prevHighlights?: Highlight[],
   book: Book,
   pagination: NonNullable<SummaryHighlightsPagination>,
-  params: QueryParams
+  colors: NonNullable<GetHighlightsRequest['colors']>;
+  sets?: GetHighlightsRequest['sets'];
 }) => {
   const highlightsResponse = await highlightClient.getHighlights({
+    colors,
     scopeId: book.id,
+    sets,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     ...pagination,
-    ...params,
   });
 
   const {data, perPage, totalCount} = extractDataFromHighlightClientResponse(highlightsResponse);
@@ -114,16 +94,17 @@ const fetchHighlightsForSource = async({
   };
 };
 
-const loadUntilPageSize = async({
+export const loadUntilPageSize = async({
   previousPagination,
   ...args
 }: {
   previousPagination: SummaryHighlightsPagination,
   book: Book | undefined,
   highlightClient: AppServices['highlightClient'],
-  params: QueryParams
+  colors: NonNullable<GetHighlightsRequest['colors']>;
+  sets?: GetHighlightsRequest['sets'];
   sourcesFetched: string[],
-  countsPerSource: CountsPerSource
+  countsPerSource: CountsPerSource,
   highlights?: Highlight[]
   pageSize?: number,
 }): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
@@ -141,10 +122,11 @@ const loadUntilPageSize = async({
 
   const {highlights, pagination} = await fetchHighlightsForSource({
     book: args.book,
+    colors: args.colors,
     highlightClient: args.highlightClient,
     pagination: {page, sourceIds, perPage},
-    params: args.params,
     prevHighlights: args.highlights,
+    sets: args.sets,
   });
 
   if (highlights.length < perPage || !args.pageSize) {
@@ -158,25 +140,23 @@ const loadUntilPageSize = async({
   return {pagination, highlights};
 };
 
-const loadAllHighlights = async({
+export const loadAllHighlights = async({
   highlightClient,
   book,
   pagination,
-  params,
+  sets,
 }: {
   highlightClient: AppServices['highlightClient'];
   book: Book;
   pagination: NonNullable<SummaryHighlightsPagination>;
-  params?: ContentQueryParams
+  sets?: GetHighlightsRequest['sets']
 }): Promise<HighlightData[]> => {
-  const apiCallParams = params || {};
-
   const highlightsResponse = await highlightClient.getHighlights({
-    scopeId: book.id,
-    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     ...pagination,
     perPage: maxHighlightsApiPageSize,
-    ...apiCallParams,
+    scopeId: book.id,
+    sets,
+    sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
   });
 
   const {data, page, perPage, totalCount} = extractDataFromHighlightClientResponse(
@@ -188,47 +168,10 @@ const loadAllHighlights = async({
       book,
       highlightClient,
       pagination: incrementPage(pagination),
-      params: apiCallParams,
+      sets,
     });
     return [...data, ...moreResults];
   } else {
     return data;
   }
 };
-
-const createLoader = (services: MiddlewareAPI & AppServices, params: QueryParams) => {
-  const { highlightClient } = services;
-  const state = services.getState();
-  const book = bookSelector(state);
-
-  const loadSummaryHighlights = async(query: PopupSummaryContentQuery) => {
-    const {pagination, highlights} = await loadUntilPageSize({
-      ...query,
-      book,
-      highlightClient,
-      params,
-    });
-
-    const formattedHighlights = formatReceivedHighlights(highlights, query.locationFilters);
-
-    return {formattedHighlights, pagination};
-  };
-
-  const loadHighlights = async(query: ContentQuery) => {
-    if (!book) { return []; }
-
-    return loadAllHighlights({
-      book,
-      highlightClient,
-      pagination: query.pagination,
-      params: pick('sets', params),
-    });
-  };
-
-  return {
-    loadHighlights,
-    loadSummaryHighlights,
-  };
-};
-
-export default createLoader;
