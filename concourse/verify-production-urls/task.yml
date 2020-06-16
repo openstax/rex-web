@@ -1,0 +1,12 @@
+---
+platform: linux
+
+inputs:
+- name: rex-web
+- name: release
+
+params:
+  PROD_UNIFIED_S3_BUCKET: ((prod-unified-s3-bucket))
+
+run:
+  path: rex-web/concourse/verify-production-urls/script.bash
