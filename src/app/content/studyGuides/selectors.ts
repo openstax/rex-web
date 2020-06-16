@@ -19,34 +19,40 @@ export const studyGuidesEnabled = createSelector(
   (state) => state.isEnabled
 );
 
-export const hasStudyGuides = createSelector(
+export const studyGuidesSummary = createSelector(
   localState,
-  (state) => state.highlights !== null && state.highlights.length > 0
+  (state) => state.summary
+);
+
+export const hasStudyGuides = createSelector(
+  studyGuidesSummary,
+  (state) => state.totalCountsPerPage
+    && Object.keys(state.totalCountsPerPage).length > 0
 );
 
 export const totalCountsPerPageOrEmpty = createSelector(
-  localState,
-  (state) => state.summary.totalCountsPerPage || {}
+  studyGuidesSummary,
+  (summary) => summary.totalCountsPerPage || {}
 );
 
 export const studyGuidesOpen = createSelector(
-  localState,
-  (state) => state.summary.open
+  studyGuidesSummary,
+  (summary) => summary.open
 );
 
 export const summaryIsLoading = createSelector(
-  localState,
-  (state) => state.summary.loading
+  studyGuidesSummary,
+  (summary) => summary.loading
 );
 
 export const summaryStudyGuidesPagination = createSelector(
-  localState,
-  (state) => state.summary.pagination
+  studyGuidesSummary,
+  (summary) => summary.pagination
 );
 
 export const summaryStudyGuidesHighlights = createSelector(
-  localState,
-  (state) => state.summary.highlights
+  studyGuidesSummary,
+  (summary) => summary.highlights
 );
 
 export const orderedSummaryStudyGuidesHighlights = createSelector(

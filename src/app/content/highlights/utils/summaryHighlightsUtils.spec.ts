@@ -5,7 +5,7 @@ import {
   HighlightUpdateColorEnum,
 } from '@openstax/highlighter/dist/api';
 import { treeWithoutUnits } from '../../../../test/trees';
-import { CountsPerSource, HighlightData } from '../types';
+import { CountsPerSource, HighlightData } from '../../types';
 import {
   addSummaryHighlight,
   addToTotalCounts,

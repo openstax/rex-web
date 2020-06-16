@@ -18,6 +18,7 @@ import { Store } from '../../../types';
 import { assertDefined, assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import { highlightStyles } from '../../constants';
+import { HighlightData } from '../../types';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import {
@@ -28,7 +29,6 @@ import {
   receiveSummaryHighlights,
 } from '../actions';
 import { hasMoreResults } from '../selectors';
-import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
 import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';

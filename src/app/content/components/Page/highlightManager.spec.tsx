@@ -14,7 +14,7 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
-import { HighlightData } from '../../highlights/types';
+import { HighlightData } from '../../types';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 

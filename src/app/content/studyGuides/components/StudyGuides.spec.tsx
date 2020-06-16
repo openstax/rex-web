@@ -13,13 +13,12 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
+import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import { highlightLocationFilters } from '../../selectors';
+import { SummaryHighlights } from '../../types';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
-import { receiveStudyGuidesHighlights } from '../actions';
-import { StudyGuidesHighlights } from '../../../types';
+import { receiveStudyGuidesSummary } from '../actions';
 import StudyGuides from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
@@ -61,9 +60,9 @@ describe('StudyGuides', () => {
       [location!.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
-    } as StudyGuidesHighlights;
+    } as SummaryHighlights;
 
-    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights, null));
+    store.dispatch(receiveStudyGuidesSummary(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -96,9 +95,9 @@ describe('StudyGuides', () => {
       [location!.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
-    } as StudyGuidesHighlights;
+    } as SummaryHighlights;
 
-    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights, null));
+    store.dispatch(receiveStudyGuidesSummary(summaryHighlights, null));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services} >

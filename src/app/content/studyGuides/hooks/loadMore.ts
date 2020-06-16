@@ -6,7 +6,7 @@ import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { highlightLocationFilters } from '../../selectors';
 import createLoader from '../../utils/highlightLoadingUtils';
-import { loadMoreStudyGuides, receiveStudyGuidesSummary } from '../actions';
+import { loadMoreStudyGuides, receiveSummaryStudyGuides } from '../actions';
 import { allColors } from '../constants';
 import * as select from '../selectors';
 
@@ -25,7 +25,7 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
 
   const studyGuidesLoader = createLoader(services, params);
 
-  return studyGuidesLoader.loadSummary({
+  return studyGuidesLoader.loadSummaryHighlights({
     countsPerSource: filteredCounts,
     locationFilters,
     pageSize,
@@ -36,7 +36,7 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
 
 const hookBody: ActionHookBody<typeof loadMoreStudyGuides> = (services) => async() => {
   const {formattedHighlights, pagination} = await loadMoreStudyGuidesHighlights(services, summaryPageSize);
-  services.dispatch(receiveStudyGuidesSummary(formattedHighlights, pagination));
+  services.dispatch(receiveSummaryStudyGuides(formattedHighlights, pagination));
 };
 
 export const loadMoreHook = actionHook(loadMoreStudyGuides, hookBody);

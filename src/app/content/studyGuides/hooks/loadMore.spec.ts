@@ -9,7 +9,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuides, receiveStudyGuidesHighlights } from '../actions';
+import { receiveStudyGuides, receiveStudyGuidesSummary } from '../actions';
 
 jest.mock('../../highlights/hooks/utils', () => ({
   ...jest.requireActual('../../highlights/hooks/utils'),

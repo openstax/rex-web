@@ -11,10 +11,11 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
+import { highlightLocationFilters } from '../../selectors';
 import LoaderWrapper from '../../styles/LoaderWrapper';
+import { SummaryHighlights } from '../../types';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { getHighlightLocationFilterForPage } from '../../utils/sharedHighlightsUtils';
 import {
   deleteHighlight,
   receiveHighlightsTotalCounts,
@@ -22,8 +23,7 @@ import {
   setSummaryFilters,
   updateHighlight,
 } from '../actions';
-import { highlightLocationFilters } from '../selectors';
-import { SummaryHighlights } from '../types';
+import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';

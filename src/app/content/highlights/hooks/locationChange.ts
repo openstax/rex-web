@@ -31,7 +31,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
 
   const myHighlightsLoader = createLoader(services, {});
 
-  const highlights = await myHighlightsLoader.loadAll({
+  const highlights = await myHighlightsLoader.loadHighlights({
     pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
   });
   dispatch(receiveHighlights({highlights, pageId: page.id}));

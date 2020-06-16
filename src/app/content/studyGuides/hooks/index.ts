@@ -1,4 +1,3 @@
-import { initializeMyHighlightsSummaryHook } from './initializeStudyGuides';
 import { loadMoreHook } from './loadMore';
 import loadStudyGuides from './locationChange';
 
@@ -7,6 +6,5 @@ export {
 };
 
 export default [
-  initializeMyHighlightsSummaryHook,
   loadMoreHook,
 ]

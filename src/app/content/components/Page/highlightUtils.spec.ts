@@ -2,7 +2,7 @@ import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
-import { HighlightData } from '../../highlights/types';
+import { HighlightData } from '../../types';
 import * as utils from './highlightUtils';
 
 describe('updateStyle', () => {

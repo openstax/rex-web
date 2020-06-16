@@ -22,7 +22,7 @@ export const loadMoreMyHighlights = (services: MiddlewareAPI & AppServices, page
 
   const myHighlightsLoader = createLoader(services, params);
 
-  return myHighlightsLoader.loadSummary({
+  return myHighlightsLoader.loadSummaryHighlights({
     countsPerSource: filteredCounts,
     locationFilters,
     pageSize,

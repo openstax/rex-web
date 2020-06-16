@@ -172,10 +172,10 @@ const loadAllHighlights = async({
   const apiCallParams = params || {};
 
   const highlightsResponse = await highlightClient.getHighlights({
-    perPage: maxHighlightsApiPageSize,
     scopeId: book.id,
     sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
     ...pagination,
+    perPage: maxHighlightsApiPageSize,
     ...apiCallParams,
   });
 
@@ -201,7 +201,7 @@ const createLoader = (services: MiddlewareAPI & AppServices, params: QueryParams
   const state = services.getState();
   const book = bookSelector(state);
 
-  const loadSummary = async(query: PopupSummaryContentQuery) => {
+  const loadSummaryHighlights = async(query: PopupSummaryContentQuery) => {
     const {pagination, highlights} = await loadUntilPageSize({
       ...query,
       book,
@@ -214,7 +214,7 @@ const createLoader = (services: MiddlewareAPI & AppServices, params: QueryParams
     return {formattedHighlights, pagination};
   };
 
-  const loadAll = async(query: ContentQuery) => {
+  const loadHighlights = async(query: ContentQuery) => {
     if (!book) { return []; }
 
     return loadAllHighlights({
@@ -226,8 +226,8 @@ const createLoader = (services: MiddlewareAPI & AppServices, params: QueryParams
   };
 
   return {
-    loadAll,
-    loadSummary,
+    loadHighlights,
+    loadSummaryHighlights,
   };
 };
 

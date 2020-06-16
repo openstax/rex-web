@@ -6,6 +6,7 @@ import { AnyAction } from '../../types';
 import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
 import { State } from './types';
+import { locationChange } from '../../navigation/actions';
 
 export const initialState: State = {
   highlights: null,
@@ -21,6 +22,8 @@ export const initialState: State = {
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
+    case getType(locationChange):
+      return {...state, summary: {...state.summary, open: false}};
     case getType(actions.receiveStudyGuides):
       return {...state, highlights: action.payload};
     case getType(receiveFeatureFlags):
@@ -39,7 +42,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           totalCountsPerPage: action.payload,
         },
       };
-    case getType(actions.receiveStudyGuidesSummary): {
+    case getType(actions.receiveSummaryStudyGuides): {
       return {
         ...state,
         summary: {

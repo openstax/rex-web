@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { book } from '../../../../test/mocks/archiveLoader';
-import { CountsPerSource } from '../types';
+import { CountsPerSource } from '../../types';
 import { getHighlightLocationFilters, getHighlightLocationFiltersWithContent } from '../utils';
 
 describe('getHighlightLocationFiltersWithContent', () => {
