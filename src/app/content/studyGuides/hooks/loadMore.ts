@@ -16,7 +16,7 @@ export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServi
   const locationFilters = highlightLocationFilters(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
   const filteredCounts = select.filteredCountsPerPage(state);
-  const previousPagination = select.studyGuidesPagination(state);
+  const previousPagination = select.summaryStudyGuidesPagination(state);
 
   const params = {
     colors: allColors,

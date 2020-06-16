@@ -39,14 +39,9 @@ export const summaryIsLoading = createSelector(
   (state) => state.summary.loading
 );
 
-export const studyGuidesSummary = createSelector(
+export const summaryStudyGuidesPagination = createSelector(
   localState,
-  (state) => state.summary
-);
-
-export const studyGuidesPagination = createSelector(
-  studyGuidesSummary,
-  (summary) => summary.pagination
+  (state) => state.summary.pagination
 );
 
 export const summaryStudyGuidesHighlights = createSelector(
@@ -75,7 +70,7 @@ export const summaryLocationFilters = createSelector(
   (selectedLocations) => new Set(selectedLocations)
 );
 
-const selectedHighlightLocationFilters = createSelector(
+const selectedStudyGuidesLocationFilters = createSelector(
   parentSelectors.highlightLocationFilters,
   summaryLocationFilters,
   getSelectedHighlightsLocationFilters
@@ -83,13 +78,13 @@ const selectedHighlightLocationFilters = createSelector(
 
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
-  selectedHighlightLocationFilters,
+  selectedStudyGuidesLocationFilters,
   (counts, locationFilers) => filterCounts(counts, locationFilers, new Set(allColors))
 );
 
 export const hasMoreResults = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
-  studyGuidesPagination,
+  summaryStudyGuidesPagination,
   checkIfHasMoreResults
 );
