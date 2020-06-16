@@ -1,5 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { assertWindow } from '../app/utils';
+import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
   hitType: 'pageview';
@@ -24,18 +24,12 @@ interface SendCommand {
 interface SetCommand {
   name: 'set';
   payload: {
-    userId: string | undefined;
+    userId?: string | undefined;
+    dimension3?: string | undefined;
   };
 }
 
-interface SetCommandCustomDimension {
-  name: 'set';
-  payload: {
-    dimension3: string | undefined;
-  };
-}
-
-type Command = SetCommand | SendCommand | SetCommandCustomDimension;
+type Command = SetCommand | SendCommand;
 
 class PendingCommand {
   public command: Command;
@@ -68,7 +62,9 @@ class GoogleAnalyticsClient {
   }
 
   public setCustomDimensionForSession() {
-    this.gaProxy({name: 'set', payload: {dimension3: this.referringHostName()}});
+    this.gaProxy({name: 'set', payload: {
+      dimension3: referringHostName(assertWindow())},
+    });
   }
 
   public unsetUserId() {
@@ -119,19 +115,6 @@ class GoogleAnalyticsClient {
     }
 
     this.flushPendingCommands();
-  }
-
-  private referringHostName() {
-    const window = assertWindow();
-    let hostName = 'unknown';
-
-    if (window.location === window.parent.location) {
-      hostName = 'not embedded';
-    } else if (window.document.referrer) {
-      const {host} = new URL(window.document.referrer);
-      hostName = host;
-    }
-    return hostName;
   }
 
   private saveCommandForLater(command: Command) {

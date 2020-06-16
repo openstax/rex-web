@@ -1,3 +1,4 @@
+import * as Utils from '../app/utils';
 import { GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
@@ -46,51 +47,15 @@ describe('GoogleAnalyticsClient', () => {
       });
     });
 
-    describe('called after tracking ID set', () => {
-      const { location, parent, document } = window;
-
-      beforeEach(() => {
-        client.setTrackingIds(['foo']);
-      });
-
-      afterEach(() => {
-        window.location = location;
-        window.document = document;
-        window.parent = parent;
-      });
-
-      describe('when rex is not embedded in an iframe', () => {
-        beforeEach(() => {
-          delete window.location;
-          delete window.parent;
-          window.location = { href: 'foo'};
-          window.parent = { location: {href: 'foo'} };
-        });
-
-        it('sends the custom dimension to ga', async() => {
-          client.setCustomDimensionForSession();
-          expect(mockGa).toHaveBeenCalledWith('tfoo.set', {dimension3: 'not embedded'});
-        });
-      });
-
-      describe('when rex is embedded in an iframe', () => {
-        beforeEach(() => {
-          delete window.location;
-          delete window.parent;
-          delete window.document;
-          window.document = { referrer: 'http://foo.com'};
-          window.location = { href: 'foo'};
-          window.parent = { location: {href: 'foox'} };
-        });
-
-        it('sends the custom dimension to ga', async() => {
-          client.setCustomDimensionForSession();
-          expect(mockGa).toHaveBeenCalledWith('tfoo.set', {dimension3: 'foo.com'});
-        });
+    describe('calls utility function to get host name', () => {
+      it('sends the custom dimension to ga', async() => {
+        const testHostName = jest.spyOn(Utils,
+          'referringHostName').mockReturnValueOnce('foobar');
+        client.setCustomDimensionForSession();
+        expect(testHostName).toBeCalledTimes(1);
       });
     });
   });
-
 
   describe('unsetUserId', () => {
 
