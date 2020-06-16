@@ -1,12 +1,13 @@
-import { GetHighlightsColorsEnum, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { createSelector } from 'reselect';
 import { getSortedSummaryHighlights } from '../highlights/utils';
 import * as parentSelectors from '../selectors';
 import {
+  checkIfHasMoreResults,
   filterCounts,
   getLoadedCountsPerSource,
-  getSelectedHighlightsLocationFilters
+  getSelectedHighlightsLocationFilters,
 } from '../utils/selectorsUtils';
+import { allColors } from './constants';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -18,14 +19,14 @@ export const studyGuidesEnabled = createSelector(
   (state) => state.isEnabled
 );
 
-export const studyGuidesSummary = createSelector(
-  localState,
-  (state) => state.summary
-);
-
 export const hasStudyGuides = createSelector(
   localState,
   (state) => state.highlights !== null && state.highlights.length > 0
+);
+
+export const totalCountsPerPageOrEmpty = createSelector(
+  localState,
+  (state) => state.summary.totalCountsPerPage || {}
 );
 
 export const studyGuidesOpen = createSelector(
@@ -33,9 +34,14 @@ export const studyGuidesOpen = createSelector(
   (state) => state.summary.open
 );
 
-export const studyGuidesIsLoading = createSelector(
+export const summaryIsLoading = createSelector(
   localState,
   (state) => state.summary.loading
+);
+
+export const studyGuidesSummary = createSelector(
+  localState,
+  (state) => state.summary
 );
 
 export const studyGuidesPagination = createSelector(
@@ -43,29 +49,20 @@ export const studyGuidesPagination = createSelector(
   (summary) => summary.pagination
 );
 
-export const hasMoreResults = createSelector(
-  studyGuidesPagination,
-  (pagination) => Boolean(pagination)
-);
-
-export const studyGuidesSummaryHighlights = createSelector(
+export const summaryStudyGuidesHighlights = createSelector(
   localState,
   (state) => state.summary.highlights
 );
 
+export const orderedSummaryStudyGuidesHighlights = createSelector(
+  summaryStudyGuidesHighlights,
+  parentSelectors.highlightLocationFilters,
+  getSortedSummaryHighlights
+);
+
 export const loadedCountsPerSource = createSelector(
-  studyGuidesSummaryHighlights,
+  summaryStudyGuidesHighlights,
   getLoadedCountsPerSource
-);
-
-const summaryFilters = createSelector(
-  localState,
-  (_state) => null
-);
-
-export const totalCountsPerPage = createSelector(
-  localState,
-  (state) => state.summary.totalCountsPerPage || {}
 );
 
 const rawSummaryLocationFilters = createSelector(
@@ -73,25 +70,9 @@ const rawSummaryLocationFilters = createSelector(
   (locationFilters) =>  Array.from(locationFilters.keys())
 );
 
-const rawSummaryColorFilters = createSelector(
-  summaryFilters,
-  (_filters) => [
-    GetHighlightsColorsEnum.Blue,
-    GetHighlightsColorsEnum.Green,
-    GetHighlightsColorsEnum.Pink,
-    GetHighlightsColorsEnum.Purple,
-    GetHighlightsColorsEnum.Yellow,
-  ] as unknown as HighlightColorEnum[]
-);
-
 export const summaryLocationFilters = createSelector(
   rawSummaryLocationFilters,
   (selectedLocations) => new Set(selectedLocations)
-);
-
-export const summaryColorFilters = createSelector(
-  rawSummaryColorFilters,
-  (selectedColors) => new Set(selectedColors)
 );
 
 const selectedHighlightLocationFilters = createSelector(
@@ -101,14 +82,14 @@ const selectedHighlightLocationFilters = createSelector(
 );
 
 export const filteredCountsPerPage = createSelector(
-  totalCountsPerPage,
+  totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
-  summaryColorFilters,
-  filterCounts
+  (counts, locationFilers) => filterCounts(counts, locationFilers, new Set(allColors))
 );
 
-export const orderedStudyGuidesHighlights = createSelector(
-  studyGuidesSummaryHighlights,
-  parentSelectors.highlightLocationFilters,
-  getSortedSummaryHighlights
+export const hasMoreResults = createSelector(
+  loadedCountsPerSource,
+  filteredCountsPerPage,
+  studyGuidesPagination,
+  checkIfHasMoreResults
 );

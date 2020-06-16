@@ -1,5 +1,4 @@
 import {
-  GetHighlightsColorsEnum,
   GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
@@ -8,19 +7,19 @@ import { summaryPageSize } from '../../constants';
 import { highlightLocationFilters } from '../../selectors';
 import createLoader from '../../utils/highlightLoadingUtils';
 import { loadMoreStudyGuides, receiveStudyGuidesSummary } from '../actions';
+import { allColors } from '../constants';
 import * as select from '../selectors';
 
 export const loadMoreStudyGuidesHighlights = (services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
 
   const locationFilters = highlightLocationFilters(state);
-  const colors = select.summaryColorFilters(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
   const filteredCounts = select.filteredCountsPerPage(state);
   const previousPagination = select.studyGuidesPagination(state);
 
   const params = {
-    colors: [...colors] as unknown as GetHighlightsColorsEnum[],
+    colors: allColors,
     sets: [GetHighlightsSetsEnum.Curatedopenstax],
   };
 

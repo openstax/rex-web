@@ -1,7 +1,7 @@
-import omit from 'lodash/fp/omit';
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import {
+  checkIfHasMoreResults,
   filterCounts,
   getLoadedCountsPerSource,
   getSelectedHighlightsLocationFilters
@@ -142,7 +142,5 @@ export const hasMoreResults = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
   summaryPagination,
-  (loaded, filteredCounts, pagination) => {
-    return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
-  }
+  checkIfHasMoreResults
 );

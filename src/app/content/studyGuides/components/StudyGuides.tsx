@@ -16,8 +16,8 @@ import StudyGuidesListElement from './StudyGuidesListElement';
 
 // tslint:disable-next-line: variable-name
 const StudyGuides = ({ className }: { className: string }) => {
-  const orderedHighlights = useSelector(selectors.orderedStudyGuidesHighlights);
-  const isLoading = useSelector(selectors.studyGuidesIsLoading);
+  const orderedHighlights = useSelector(selectors.orderedSummaryStudyGuidesHighlights);
+  const isLoading = useSelector(selectors.summaryIsLoading);
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
 

@@ -13,8 +13,8 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
 
   const {book} = bookAndPage(state);
   const needsInitialization = () => select.studyGuidesEnabled(state)
-    && select.studyGuidesSummaryHighlights(state) === null
-    && select.studyGuidesIsLoading(state) === false;
+    && select.summaryStudyGuidesHighlights(state) === null
+    && select.summaryIsLoading(state) === false;
 
   if (!book || !needsInitialization()) { return; }
 
