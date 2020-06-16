@@ -1,29 +1,26 @@
 import {
-  GetHighlightsColorsEnum,
+  GetHighlightsSetsEnum,
   GetHighlightsSummarySetsEnum,
-  GetHighlightsSummarySourceTypeEnum,
-  GetHighlightsSetsEnum
+  GetHighlightsSummarySourceTypeEnum
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
-import { summaryPageSize } from '../../constants';
-import { bookAndPage, highlightLocationFilters } from '../../selectors';
-import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlightLoadingUtils';
+import { maxHighlightsApiPageSize } from '../../constants';
+import { bookAndPage } from '../../selectors';
+import { loadAllHighlights } from '../../utils/highlightLoadingUtils';
 import { extractTotalCounts } from '../../utils/highlightSharedUtils';
-import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
-import { allColors } from '../constants';
+import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
 import * as select from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
 
-  const {book} = bookAndPage(state);
+  const {book, page} = bookAndPage(state);
   const isEnabled = select.studyGuidesEnabled(state);
   const hasCurrentStudyGuides = select.hasStudyGuides(state);
-  const locationFilters = highlightLocationFilters(state);
 
-  if (!isEnabled || !book  || hasCurrentStudyGuides) { return; }
+  if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
 
   const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
     scopeId: book.id,
@@ -35,18 +32,14 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   services.dispatch(receiveStudyGuidesTotalCounts(totalCounts));
 
-  const {highlights, pagination} = await loadUntilPageSize({
+  const highlights = await loadAllHighlights({
     book,
-    colors: allColors as unknown as GetHighlightsColorsEnum[],
-    countsPerSource: totalCounts,
     highlightClient: services.highlightClient,
-    pageSize: summaryPageSize,
-    previousPagination: null,
+    pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     sets: [GetHighlightsSetsEnum.Curatedopenstax],
-    sourcesFetched: [],
   });
 
-  services.dispatch(receiveSummaryStudyGuides(formatReceivedHighlights(highlights, locationFilters), pagination));
+  services.dispatch(receiveStudyGuides(highlights));
 };
 
 export default hookBody;
