@@ -55,6 +55,7 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
 };
 
 const getScrollTargets = (
+  container: HTMLElement,
   searchHighlightManager: typeof stubManager,
   highlightManager: typeof stubHighlightManager,
   scrollTargetHash: ScrollTargetHash | null,
@@ -64,7 +65,7 @@ const getScrollTargets = (
 ): { scrollTargets: ScrollTarget[], error?: ScrollTargetError} => {
   const scrollTargets: ScrollTarget[] = [];
 
-  if (scrollTargetHash) {
+  if (scrollTargetHash && container && container.querySelector(scrollTargetHash.value)) {
     scrollTargets.push(scrollTargetHash);
   }
 
@@ -106,6 +107,7 @@ const scrollTargetManager = (
 ): Promise<{ scrollTargets: ScrollTarget[], error?: ScrollTargetError}> => {
 
   const {scrollTargets, error} = getScrollTargets(
+    container,
     searchHighlightManager,
     highlightManager,
     scrollTargetHash,
