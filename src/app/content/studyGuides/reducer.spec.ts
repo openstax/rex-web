@@ -13,7 +13,7 @@ describe('study guides reducer', () => {
     } as SummaryHighlights;
     const state = reducer(undefined, actions.receiveSummaryStudyGuides(summary, null));
 
-    expect(state.summary.highlights).toEqual(summary);
+    expect(state.summary.studyGuides).toEqual(summary);
   });
 
   it('enables study guides on receiveFeatureFlags', () => {

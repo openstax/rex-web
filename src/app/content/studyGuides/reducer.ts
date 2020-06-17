@@ -9,13 +9,13 @@ import * as actions from './actions';
 import { State } from './types';
 
 export const initialState: State = {
-  highlights: null,
   isEnabled: false,
+  studyGuides: null,
   summary: {
-    highlights: null,
     loading: false,
     open: false,
     pagination: null,
+    studyGuides: null,
     totalCountsPerPage: null,
   },
 };
@@ -25,7 +25,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(locationChange):
       return {...state, summary: {...state.summary, open: false}};
     case getType(actions.receiveStudyGuides):
-      return {...state, highlights: action.payload};
+      return {...state, studyGuides: action.payload};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
@@ -47,9 +47,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         summary: {
           ...state.summary,
-          highlights: merge(state.summary.highlights || {}, action.payload),
           loading: false,
           pagination: action.meta,
+          studyGuides: merge(state.summary.studyGuides || {}, action.payload),
         },
       };
     }

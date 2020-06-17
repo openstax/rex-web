@@ -16,7 +16,7 @@ import StudyGuidesListElement from './StudyGuidesListElement';
 
 // tslint:disable-next-line: variable-name
 const StudyGuides = ({ className }: { className: string }) => {
-  const orderedHighlights = useSelector(selectors.orderedSummaryStudyGuidesHighlights);
+  const orderedStudyGuides = useSelector(selectors.orderedSummaryStudyGuides);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
@@ -27,12 +27,12 @@ const StudyGuides = ({ className }: { className: string }) => {
       services.promiseCollector.add(typesetMath(container.current, assertWindow()));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
-  }, [orderedHighlights]);
+  }, [orderedStudyGuides]);
 
   return <div className={className}>
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-    {orderedHighlights && <HighlightsWrapper ref={container}>
-      {orderedHighlights.map((highlightData) => {
+    {orderedStudyGuides && <HighlightsWrapper ref={container}>
+      {orderedStudyGuides.map((highlightData) => {
         return <SectionHighlights
           key={highlightData.location.id}
           highlightDataInSection={highlightData}

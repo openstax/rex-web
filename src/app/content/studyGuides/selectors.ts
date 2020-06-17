@@ -50,19 +50,19 @@ export const summaryStudyGuidesPagination = createSelector(
   (summary) => summary.pagination
 );
 
-export const summaryStudyGuidesHighlights = createSelector(
+export const summaryStudyGuides = createSelector(
   studyGuidesSummary,
-  (summary) => summary.highlights
+  (summary) => summary.studyGuides
 );
 
-export const orderedSummaryStudyGuidesHighlights = createSelector(
-  summaryStudyGuidesHighlights,
+export const orderedSummaryStudyGuides = createSelector(
+  summaryStudyGuides,
   parentSelectors.highlightLocationFilters,
   getSortedSummaryHighlights
 );
 
 export const loadedCountsPerSource = createSelector(
-  summaryStudyGuidesHighlights,
+  summaryStudyGuides,
   getLoadedCountsPerSource
 );
 

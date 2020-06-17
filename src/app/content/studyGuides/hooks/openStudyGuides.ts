@@ -18,7 +18,7 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = ({
   const totalCounts = select.totalCountsPerPageOrEmpty(state);
   const locationFilters = highlightLocationFilters(state);
 
-  const summaryNeedsInitialization = () => select.summaryStudyGuidesHighlights(state) === null
+  const summaryNeedsInitialization = () => select.summaryStudyGuides(state) === null
     && select.summaryIsLoading(state) === false;
 
   if (summaryNeedsInitialization()) {
