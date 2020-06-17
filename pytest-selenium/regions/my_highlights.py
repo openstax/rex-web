@@ -548,8 +548,8 @@ class MyHighlights(Region):
     class Highlights(Region):
         """The modal body containing the filtered list of highlights."""
 
-        _chapter_locator = (By.XPATH, "//div[@data-testid='mh-chapter-title']")
-        _section_locator = (By.XPATH, "//div[@data-testid='mh-section-title']")
+        _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
+        _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
