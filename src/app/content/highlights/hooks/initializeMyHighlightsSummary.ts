@@ -22,12 +22,13 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   });
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
+
   dispatch(receiveHighlightsTotalCounts(
     extractTotalCounts(countsPerSource),
     locationFilters
   ));
-  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
 
+  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
   dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };
 
