@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
@@ -7,10 +6,10 @@ import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { maxHighlightsApiPageSize, studyGuidesFeatureFlag } from '../../constants';
+import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
+import { receiveStudyGuidesTotalCounts } from '../actions';
 
 jest.mock('../../utils', () => ({
   ...jest.requireActual('../../utils'),
@@ -52,28 +51,17 @@ describe('locationChange', () => {
     store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
-    const mockHighlightsResponse = {
-      data: [{ id: 'asd', sourceId: 'asd' }] as unknown as Highlight[],
-      meta: {
-        page: 1,
-        perPage: maxHighlightsApiPageSize,
-        totalCount: 1,
-      },
-    };
-
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
       .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
-    const getStudyGuidesHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockReturnValue(new Promise((res) => res(mockHighlightsResponse)));
+    const getStudyGuidesHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     await hook();
 
     expect(getHighlightsSummary).toHaveBeenCalled();
-    expect(getStudyGuidesHighlights).toHaveBeenCalled();
+    expect(getStudyGuidesHighlights).not.toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
     );
-    expect(dispatch).toHaveBeenCalledWith(receiveStudyGuides(mockHighlightsResponse.data));
   });
 
   it('noops on locationChange if feature flag is not present', async() => {

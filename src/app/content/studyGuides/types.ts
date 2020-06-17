@@ -1,12 +1,10 @@
 import {
   CountsPerSource,
-  HighlightData,
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from '../highlights/types';
 
 export interface State {
-  studyGuides: null | HighlightData[];
   isEnabled: boolean;
   summary: {
     loading: boolean,

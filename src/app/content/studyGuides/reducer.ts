@@ -10,7 +10,6 @@ import { State } from './types';
 
 export const initialState: State = {
   isEnabled: false,
-  studyGuides: null,
   summary: {
     loading: false,
     open: false,
@@ -24,8 +23,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange):
       return {...state, summary: {...state.summary, open: false}};
-    case getType(actions.receiveStudyGuides):
-      return {...state, studyGuides: action.payload};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
