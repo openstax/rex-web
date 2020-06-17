@@ -6,7 +6,7 @@ import * as selectContent from '../../selectors';
 import { highlightLocationFilters } from '../../selectors';
 import { extractTotalCounts } from '../../utils/highlightSharedUtils';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
-import { loadMoreMyHighlights } from './loadMore';
+import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {
   const { dispatch, getState, highlightClient } = services;
@@ -26,7 +26,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     extractTotalCounts(countsPerSource),
     locationFilters
   ));
-  const {formattedHighlights, pagination} = await loadMoreMyHighlights(services, summaryPageSize);
+  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
 
   dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };

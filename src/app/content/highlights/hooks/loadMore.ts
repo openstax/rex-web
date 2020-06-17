@@ -11,7 +11,7 @@ import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlig
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
 
-export const loadMoreMyHighlights = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
+export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
 
   const locationFilters = highlightLocationFilters(state);
@@ -39,7 +39,7 @@ export const loadMoreMyHighlights = async(services: MiddlewareAPI & AppServices,
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
   (services) => async() => {
-    const {formattedHighlights, pagination} = await loadMoreMyHighlights(services, summaryPageSize);
+    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
     services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
   };
 
