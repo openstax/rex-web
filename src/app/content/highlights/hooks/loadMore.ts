@@ -2,9 +2,7 @@ import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
-import {
-  book as bookSelector,
-} from '../../selectors';
+import { book as bookSelector } from '../../selectors';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';

@@ -11,8 +11,7 @@ import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
 import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters } from '../../selectors';
-import { summaryColorFilters, summaryLocationFilters } from '../../selectors';
+import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../../selectors';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
