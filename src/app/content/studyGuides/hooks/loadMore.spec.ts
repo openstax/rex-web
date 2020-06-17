@@ -1,4 +1,4 @@
-import { HighlightColorEnum, GetHighlightsSetsEnum } from '@openstax/highlighter/dist/api';
+import { GetHighlightsSetsEnum, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
@@ -6,7 +6,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { HighlightData, SummaryHighlights } from '../../types';
+import { HighlightData, SummaryHighlights } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
@@ -49,7 +49,7 @@ describe('loadMore', () => {
     };
 
     dispatch = jest.spyOn(helpers, 'dispatch');
-    loadingSpy = jest.spyOn(require('../../utils/highlightLoadingUtils'), 'loadUntilPageSize');
+    loadingSpy = jest.spyOn(require('../../highlights/utils/highlightLoadingUtils'), 'loadUntilPageSize');
     hook = (require('./loadMore').hookBody)(helpers);
   });
 

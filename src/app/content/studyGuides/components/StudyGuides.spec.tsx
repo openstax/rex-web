@@ -13,12 +13,12 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import { SummaryHighlights } from '../../highlights/types';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
-import { highlightLocationFilters } from '../../selectors';
-import { SummaryHighlights } from '../../types';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveSummaryStudyGuides } from '../actions';
+import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
@@ -44,7 +44,7 @@ describe('StudyGuides', () => {
   it('properly display summary highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const locationFilters = highlightLocationFilters(state);
+    const locationFilters = studyGuidesLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
 
     const summaryHighlights = {
@@ -80,7 +80,7 @@ describe('StudyGuides', () => {
     const spyPromiseCollectorAdd = jest.spyOn(services.promiseCollector, 'add');
 
     const pageId = stripIdVersion(page.id);
-    const locationFilters = highlightLocationFilters(store.getState());
+    const locationFilters = studyGuidesLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     const summaryHighlights = {
       [pageId]: {

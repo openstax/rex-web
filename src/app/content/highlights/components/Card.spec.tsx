@@ -14,8 +14,6 @@ import { assertDocument } from '../../../utils';
 import { openToc, receiveBook, receivePage } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { requestSearch } from '../../search/actions';
-import { highlightLocationFilters } from '../../selectors';
-import { HighlightData } from '../../types';
 import { formatBookData } from '../../utils';
 import {
   createHighlight,
@@ -24,6 +22,8 @@ import {
   receiveHighlights,
   setAnnotationChangesPending,
 } from '../actions';
+import { highlightLocationFilters } from '../selectors';
+import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Card, { CardProps } from './Card';
 import DisplayNote from './DisplayNote';

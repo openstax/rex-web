@@ -8,10 +8,15 @@ import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
 import { assertDefined } from '../../utils';
 import {
+  CountsPerSource,
+  HighlightLocationFilters,
+  SummaryHighlights,
+  SummaryHighlightsPagination
+} from '../highlights/types';
+import {
   filterCountsPerSourceByColorFilter,
   filterCountsPerSourceByLocationFilter
 } from '../highlights/utils/paginationUtils';
-import { CountsPerSource, HighlightLocationFilters, SummaryHighlights, SummaryHighlightsPagination } from '../types';
 
 export const filterCounts = (
   totalCounts: CountsPerSource,

@@ -6,9 +6,9 @@ import {
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { maxHighlightsApiPageSize } from '../../constants';
+import { loadAllHighlights } from '../../highlights/utils/highlightLoadingUtils';
+import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
 import { bookAndPage } from '../../selectors';
-import { loadAllHighlights } from '../../utils/highlightLoadingUtils';
-import { extractTotalCounts } from '../../utils/highlightSharedUtils';
 import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
 import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 

@@ -6,11 +6,11 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import * as contentSelectors from '../../selectors';
-import { HighlightData } from '../../types';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
 import * as selectors from '../selectors';
+import { HighlightData } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -45,12 +45,12 @@ describe('initializeMyHighlightsSummaryHook', () => {
     }];
 
     jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
-    jest.spyOn(contentSelectors, 'highlightLocationFilters').mockReturnValue(new Map([[
-      'testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
-    ]]));
     jest.spyOn(selectors, 'summaryHighlights').mockReturnValue(null);
     jest.spyOn(selectors, 'summaryIsLoading').mockReturnValue(false);
     jest.spyOn(selectors, 'filteredCountsPerPage').mockReturnValue(totalCountsPerPage);
+    jest.spyOn(selectors, 'highlightLocationFilters').mockReturnValue(new Map([[
+      'testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+    ]]));
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
       .mockReturnValue(Promise.resolve({ countsPerSource: totalCountsPerPage }));

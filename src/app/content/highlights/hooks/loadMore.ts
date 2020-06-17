@@ -4,16 +4,15 @@ import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import {
   book as bookSelector,
-  highlightLocationFilters
 } from '../../selectors';
-import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlightLoadingUtils';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';
+import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
 
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
 
-  const locationFilters = highlightLocationFilters(state);
+  const locationFilters = select.highlightLocationFilters(state);
   const book = bookSelector(state);
   const previousPagination = select.summaryPagination(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));

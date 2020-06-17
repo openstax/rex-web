@@ -1,6 +1,6 @@
 import { receiveFeatureFlags } from '../../actions';
 import { studyGuidesFeatureFlag } from '../constants';
-import { SummaryHighlights } from '../types';
+import { SummaryHighlights } from '../highlights/types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
 

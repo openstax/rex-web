@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components/macro';
 import { h4Style, labelStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertDefined } from '../../utils';
+import { OrderedSummaryHighlights } from '../highlights/types';
 import {
   desktopHorizontalMargin,
   desktopVerticalMargin,
@@ -11,7 +12,6 @@ import {
   mobilePaddingSides,
 } from '../styles/PopupConstants';
 import { popupBodyPadding, popupPadding } from '../styles/PopupStyles';
-import { OrderedSummaryHighlights } from '../types';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 

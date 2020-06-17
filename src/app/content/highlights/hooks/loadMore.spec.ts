@@ -7,7 +7,6 @@ import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
-import { HighlightData, SummaryHighlights } from '../../types';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -18,6 +17,7 @@ import {
   setSummaryFilters
 } from '../actions';
 import { summaryColorFilters, summaryLocationFilters } from '../selectors';
+import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};

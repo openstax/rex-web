@@ -6,10 +6,9 @@ import Checkbox from '../../../../components/Checkbox';
 import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
-import { highlightLocationFilters } from '../../../selectors';
 import { filters } from '../../../styles/PopupConstants';
 import { setSummaryFilters } from '../../actions';
-import { highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
+import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
 import ColorIndicator from '../ColorIndicator';
 
 interface Props {

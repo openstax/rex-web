@@ -4,9 +4,9 @@ import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { loadAllHighlights } from '../../utils/highlightLoadingUtils';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
+import { loadAllHighlights } from '../utils/highlightLoadingUtils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
   const {dispatch, getState, highlightClient} = services;

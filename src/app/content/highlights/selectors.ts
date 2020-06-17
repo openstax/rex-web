@@ -8,6 +8,7 @@ import {
 } from '../utils/selectorsUtils';
 import {
   getHighlightColorFiltersWithContent,
+  getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
   getSortedSummaryHighlights
 } from './utils';
@@ -72,16 +73,21 @@ export const summaryPagination = createSelector(
   (state) => state.summary.pagination
 );
 
+export const highlightLocationFilters = createSelector(
+  parentSelectors.book,
+  getHighlightLocationFilters
+);
+
 export const orderedSummaryHighlights = createSelector(
   summaryHighlights,
-  parentSelectors.highlightLocationFilters,
+  highlightLocationFilters,
   (highlightsToSort, locationFilters) => {
     return getSortedSummaryHighlights(highlightsToSort, locationFilters);
   }
 );
 
 export const highlightLocationFiltersWithContent = createSelector(
-  parentSelectors.highlightLocationFilters,
+  highlightLocationFilters,
   totalCountsPerPageOrEmpty,
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
@@ -126,7 +132,7 @@ export const summaryColorFilters = createSelector(
 );
 
 const selectedHighlightLocationFilters = createSelector(
-  parentSelectors.highlightLocationFilters,
+  highlightLocationFilters,
   summaryLocationFilters,
   getSelectedHighlightsLocationFilters
 );

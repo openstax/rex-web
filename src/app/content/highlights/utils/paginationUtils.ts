@@ -8,20 +8,23 @@ import pickBy from 'lodash/fp/pickBy';
 import reduce from 'lodash/fp/reduce';
 import values from 'lodash/fp/values';
 import { not, reduceUntil } from '../../../fpUtils';
+import { isDefined } from '../../../guards';
 import { maxResourcesPerFetch } from '../../constants';
 import { isArchiveTree } from '../../guards';
-import {
-  ArchiveTree,
-  CountsPerSource,
-  HighlightLocationFilters,
-  LinkedArchiveTreeSection,
-  SummaryFilters, SummaryHighlightsPagination
-} from '../../types';
+import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
 import {
   archiveTreeContainsNode,
   findTreePages
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
+import {
+  CountsPerSource,
+  HighlightLocationFilters,
+  SummaryFilters, SummaryHighlightsPagination
+} from '../types';
+
+export const extractTotalCounts = (countsPerSource: CountsPerSource) =>
+  mapValues(pickBy<CountsPerSource>(isDefined), countsPerSource);
 
 const totalOfCountsForSource: (counts: CountsPerSource[string]) => number = flow(
   values,

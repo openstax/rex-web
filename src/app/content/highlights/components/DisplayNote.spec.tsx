@@ -10,7 +10,7 @@ import { assertDocument, assertWindow } from '../../../utils';
 import { openToc } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { requestSearch } from '../../search/actions';
-import { HighlightData } from '../../types';
+import { HighlightData } from '../types';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 import TruncatedText from './TruncatedText';

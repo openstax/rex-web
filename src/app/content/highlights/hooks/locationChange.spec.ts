@@ -11,9 +11,9 @@ import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { HighlightData } from '../../types';
 import { formatBookData } from '../../utils';
 import { receiveHighlights } from '../actions';
+import { HighlightData } from '../types';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},

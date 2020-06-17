@@ -4,8 +4,8 @@ import {
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
-import { book as bookSelector, highlightLocationFilters } from '../../selectors';
-import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlightLoadingUtils';
+import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
+import { book as bookSelector } from '../../selectors';
 import { loadMoreStudyGuides, receiveSummaryStudyGuides } from '../actions';
 import { allColors } from '../constants';
 import * as select from '../selectors';
@@ -13,7 +13,7 @@ import * as select from '../selectors';
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
 
-  const locationFilters = highlightLocationFilters(state);
+  const locationFilters = select.studyGuidesLocationFilters(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
   const filteredCounts = select.filteredCountsPerPage(state);
   const previousPagination = select.summaryStudyGuidesPagination(state);

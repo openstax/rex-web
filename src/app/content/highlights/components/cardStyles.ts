@@ -9,7 +9,6 @@ import {
 } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
 import { highlightStyles } from '../../constants';
-import { HighlightData } from '../../types';
 import {
   cardContentMargin,
   cardFocusedContentMargin,
@@ -17,6 +16,7 @@ import {
   cardPadding,
   cardWidth,
 } from '../constants';
+import { HighlightData } from '../types';
 import { CardProps } from './Card';
 import { getHighlightBottomOffset } from './cardUtils';
 import { WrapperProps } from './CardWrapper';

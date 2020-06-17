@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getSortedSummaryHighlights } from '../highlights/utils';
+import { getHighlightLocationFilters, getSortedSummaryHighlights } from '../highlights/utils';
 import * as parentSelectors from '../selectors';
 import {
   checkIfHasMoreResults,
@@ -50,6 +50,11 @@ export const summaryStudyGuidesPagination = createSelector(
   (summary) => summary.pagination
 );
 
+export const studyGuidesLocationFilters = createSelector(
+  parentSelectors.book,
+  getHighlightLocationFilters
+);
+
 export const summaryStudyGuides = createSelector(
   studyGuidesSummary,
   (summary) => summary.studyGuides
@@ -57,7 +62,7 @@ export const summaryStudyGuides = createSelector(
 
 export const orderedSummaryStudyGuides = createSelector(
   summaryStudyGuides,
-  parentSelectors.highlightLocationFilters,
+  studyGuidesLocationFilters,
   getSortedSummaryHighlights
 );
 
@@ -67,7 +72,7 @@ export const loadedCountsPerSource = createSelector(
 );
 
 const rawSummaryLocationFilters = createSelector(
-  parentSelectors.highlightLocationFilters,
+  studyGuidesLocationFilters,
   (locationFilters) =>  Array.from(locationFilters.keys())
 );
 
@@ -77,7 +82,7 @@ export const summaryLocationFilters = createSelector(
 );
 
 const selectedStudyGuidesLocationFilters = createSelector(
-  parentSelectors.highlightLocationFilters,
+  studyGuidesLocationFilters,
   summaryLocationFilters,
   getSelectedHighlightsLocationFilters
 );

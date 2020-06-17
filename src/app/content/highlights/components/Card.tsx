@@ -11,7 +11,6 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
-import { HighlightData } from '../../types';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   clearFocusedHighlight,
@@ -20,6 +19,7 @@ import {
   focusHighlight,
   setAnnotationChangesPending,
 } from '../actions';
+import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
@@ -52,7 +52,7 @@ const Card = (props: CardProps) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
-  const locationFilters = useSelector(contentSelect.highlightLocationFilters);
+  const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
 
   React.useEffect(() => {

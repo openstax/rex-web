@@ -5,13 +5,14 @@ import {
   Highlights,
 } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
-import { AppServices } from '../../types';
-import { assertDefined } from '../../utils';
-import { maxHighlightsApiPageSize } from '../constants';
-import { addSummaryHighlight, getHighlightLocationFilterForPage } from '../highlights/utils';
-import { getNextPageSources, incrementPage } from '../highlights/utils/paginationUtils';
-import { Book, CountsPerSource, HighlightData, HighlightLocationFilters, SummaryHighlightsPagination } from '../types';
-import { stripIdVersion } from './idUtils';
+import { AppServices } from '../../../types';
+import { assertDefined } from '../../../utils';
+import { maxHighlightsApiPageSize } from '../../constants';
+import { Book } from '../../types';
+import { stripIdVersion } from '../../utils/idUtils';
+import { CountsPerSource, HighlightData, HighlightLocationFilters, SummaryHighlightsPagination } from '../types';
+import { addSummaryHighlight, getHighlightLocationFilterForPage } from './';
+import { getNextPageSources, incrementPage } from './paginationUtils';
 
 const extractDataFromHighlightClientResponse = (highlightsResponse: Highlights) => {
   // TODO - change swagger so none of this is nullable

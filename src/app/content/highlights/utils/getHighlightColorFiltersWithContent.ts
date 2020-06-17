@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { highlightStyles } from '../../constants';
-import { CountsPerSource } from '../../types';
+import { CountsPerSource } from '../types';
 
 export default (locationsWithContent: CountsPerSource) => {
   const colorFiltersWithContent: Set<HighlightColorEnum> = new Set();

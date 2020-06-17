@@ -9,7 +9,6 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { maxHighlightsApiPageSize } from '../../constants';
-import { HighlightData, SummaryHighlights } from '../../types';
 import { formatBookData } from '../../utils';
 import {
   closeMyHighlights,
@@ -20,6 +19,7 @@ import {
   setSummaryFilters,
   toggleSummaryHighlightsLoading,
 } from '../actions';
+import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};

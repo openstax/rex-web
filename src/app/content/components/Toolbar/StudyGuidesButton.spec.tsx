@@ -8,8 +8,8 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
+import { CountsPerSource } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
-import { CountsPerSource } from '../../types';
 import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
 describe('study guides button', () => {

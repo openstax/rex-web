@@ -6,6 +6,7 @@ import {
 } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import partition from 'lodash/fp/partition';
+import { archiveTreeSectionIsChapter, findTreePages } from '../../utils/archiveTreeUtils';
 import {
   CountsPerSource,
   HighlightData,
@@ -13,8 +14,7 @@ import {
   OrderedSummaryHighlights,
   SummaryFilters,
   SummaryHighlights,
-} from '../../types';
-import { archiveTreeSectionIsChapter, findTreePages } from '../../utils/archiveTreeUtils';
+} from '../types';
 
 interface BaseData {
   locationFilterId: string;

@@ -8,7 +8,7 @@ import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { maxHighlightsApiPageSize, studyGuidesFeatureFlag } from '../../constants';
-import { CountsPerSource } from '../../types';
+import { CountsPerSource } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
 

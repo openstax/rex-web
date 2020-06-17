@@ -3,9 +3,9 @@ import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
-import { highlightLocationFilters } from '../../selectors';
-import { extractTotalCounts } from '../../utils/highlightSharedUtils';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
+import { highlightLocationFilters } from '../selectors';
+import { extractTotalCounts } from '../utils/paginationUtils';
 import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {

@@ -13,8 +13,8 @@ import {
 import CardWrapper from '../../highlights/components/CardWrapper';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import * as selectHighlights from '../../highlights/selectors';
+import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
-import { HighlightData } from '../../types';
 import attachHighlight from '../utils/attachHighlight';
 import { erase, highlightData, insertPendingCardInOrder, isUnknownHighlightData, updateStyle } from './highlightUtils';
 

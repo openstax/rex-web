@@ -3,7 +3,7 @@ import {
   HighlightData,
   SummaryHighlights,
   SummaryHighlightsPagination,
-} from '../types';
+} from '../highlights/types';
 
 export interface State {
   studyGuides: null | HighlightData[];
