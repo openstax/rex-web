@@ -761,7 +761,7 @@ class Content(Page):
             # Scroll the page to bring the element into view then shift due to
             # the top bars
             self.driver.execute_script("arguments[0].scrollIntoView();", target)
-            self.driver.execute_script("window.scrollBy(0, -130);")
+            self.driver.execute_script("window.scrollBy(0, -150);")
 
             # Compute the start and end offsets for the mouse movement
             start, end = self._compute_offsets(target, offset)
