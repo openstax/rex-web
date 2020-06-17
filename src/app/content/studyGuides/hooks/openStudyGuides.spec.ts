@@ -2,9 +2,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
-import { loadMore } from './loadMore';
-import { openStudyGuides, loadMoreStudyGuides } from '../actions';
-import services from '../../../../test/createTestServices';
+import { loadMoreStudyGuides, openStudyGuides } from '../actions';
 
 jest.mock('./loadMore', () => ({
   loadMore: jest.fn(),

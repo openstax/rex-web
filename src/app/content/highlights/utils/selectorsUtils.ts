@@ -6,17 +6,17 @@ import omit from 'lodash/fp/omit';
 import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
-import { assertDefined } from '../../utils';
+import { assertDefined } from '../../../utils';
 import {
   CountsPerSource,
   HighlightLocationFilters,
   SummaryHighlights,
   SummaryHighlightsPagination
-} from '../highlights/types';
+} from '../types';
 import {
   filterCountsPerSourceByColorFilter,
   filterCountsPerSourceByLocationFilter
-} from '../highlights/utils/paginationUtils';
+} from './paginationUtils';
 
 export const filterCounts = (
   totalCounts: CountsPerSource,
