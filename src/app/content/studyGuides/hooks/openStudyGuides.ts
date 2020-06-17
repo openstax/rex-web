@@ -1,8 +1,7 @@
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import { openStudyGuides, receiveSummaryStudyGuides } from '../actions';
+import { loadMoreStudyGuides, openStudyGuides } from '../actions';
 import * as select from '../selectors';
-import { loadMore } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => async() => {
   const state = services.getState();
@@ -10,9 +9,7 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const studyGuidesAreLoading = select.summaryIsLoading(state);
 
   if (studyGuides === null && studyGuidesAreLoading === false) {
-    const {formattedHighlights, pagination} = await loadMore(services);
-
-    services.dispatch(receiveSummaryStudyGuides(formattedHighlights, pagination));
+    services.dispatch(loadMoreStudyGuides());
   }
 };
 
