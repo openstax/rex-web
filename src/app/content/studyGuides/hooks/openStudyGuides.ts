@@ -2,7 +2,7 @@ import { GetHighlightsColorsEnum, GetHighlightsSetsEnum } from '@openstax/highli
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
-import { book as bookSelector, highlightLocationFilters} from '../../selectors';
+import { book as bookSelector, highlightLocationFilters } from '../../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlightLoadingUtils';
 import { openStudyGuides, receiveSummaryStudyGuides } from '../actions';
 import { allColors } from '../constants';

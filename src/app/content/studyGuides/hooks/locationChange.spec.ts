@@ -1,4 +1,4 @@
-import { Highlight, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { Highlight } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
@@ -91,7 +91,6 @@ describe('locationChange', () => {
   it('noops on locationChange if book is not loaded', async() => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
-
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
       .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
 
@@ -112,6 +111,6 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuides(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
   });
 });

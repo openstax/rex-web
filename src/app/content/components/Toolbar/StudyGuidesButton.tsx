@@ -6,7 +6,7 @@ import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
-import { studyGuidesEnabled, hasStudyGuides } from '../../studyGuides/selectors';
+import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
