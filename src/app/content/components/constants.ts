@@ -21,10 +21,11 @@ export const toolbarSearchInputHeight = 3.2;
 export const toolbarSearchInputMobileHeight = 3.2;
 export const toolbarSearchInputMobileWidth = 18.5;
 export const toolbarToggleSearchBarTextMobileWidth = 11.2;
-export const toolbalHrHeight = 0.1;
+export const toolbarButtonMargin = 2;
+export const toolbarHrHeight = 0.1;
 export const toolbarMobileSearchWrapperHeight = toolbarSearchInputMobileHeight
   + (mobileSearchContainerMargin * 2)
-  + toolbalHrHeight;
+  + toolbarHrHeight;
 
 export const toolbarDesktopHeight = 5;
 export const toolbarMobileHeight = 4;

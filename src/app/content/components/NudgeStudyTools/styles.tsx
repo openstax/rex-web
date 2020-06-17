@@ -1,0 +1,112 @@
+import React from 'react';
+import styled from 'styled-components/macro';
+import { Times } from 'styled-icons/fa-solid/Times/Times';
+import { PlainButton } from '../../../components/Button';
+import htmlMessage from '../../../components/htmlMessage';
+import theme from '../../../theme';
+import arrowDesktop from './assets/arrowDesktop.svg';
+import arrowMobile from './assets/arrowMobile.svg';
+
+// tslint:disable-next-line: variable-name
+export const NudgeContentWrapper = styled.div`
+  position: absolute;
+  z-index: ${theme.zIndex.nudgeOverlay + 1};
+  ${(props: { top: number }) => `
+    top: ${props.top}px;
+    right: 10%;
+  `}
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeContent = styled.div`
+  position: relative;
+`;
+
+// tslint:disable-next-line: variable-name
+const NudgeHeadingStyles = styled.h2`
+  font-size: 3.6rem;
+  line-height: 1.1;
+  letter-spacing: -1.4px;
+  margin: 0 0 1.7rem 0;
+  color: ${theme.color.text.white};
+  overflow: hidden;
+
+  strong {
+    color: ${theme.color.primary.yellow.base};
+    font-weight: 600;
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeHeading = htmlMessage('i18n:nudge:study-tools:heading', NudgeHeadingStyles);
+
+// tslint:disable-next-line: variable-name
+const NudgeTextStyles = styled.div`
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: ${theme.color.text.white};
+  max-width: 690px;
+  overflow: hidden;
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeText = htmlMessage('i18n:nudge:study-tools:text', NudgeTextStyles);
+
+// tslint:disable-next-line: variable-name
+export const NudgeArrow = styled(({ isMobile }: { isMobile: boolean }) => {
+  return <img src={isMobile ? arrowMobile : arrowDesktop} alt='' />;
+})`
+  display: block;
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeCloseIcon = styled(Times)`
+  width: 1.1rem;
+  color: ${theme.color.text.white};
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeCloseButton = styled(PlainButton)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4rem;
+  height: 4rem;
+  padding: 1rem;
+  border-radius: 50%;
+  border: 1px solid ${theme.color.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeBackground = styled.div`
+  position: absolute;
+  z-index: ${theme.zIndex.nudgeOverlay};
+  inset: 0px;
+  opacity: 0.9;
+  background-color: ${theme.color.black};
+  mix-blend-mode: hard-light;
+`;
+
+interface NudgeSpotlightProps {
+  top: number;
+  left: number;
+  height: number;
+  width: number;
+}
+
+// tslint:disable-next-line: variable-name
+export const NudgeSpotlight = styled.div`
+  position: absolute;
+  background-color: gray;
+  ${(props: NudgeSpotlightProps) => `
+    top: ${props.top}px;
+    left: ${props.left}px;
+    width: ${props.width}px;
+    height: ${props.height}px;
+  `}
+`;

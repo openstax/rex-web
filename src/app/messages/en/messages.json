@@ -10,6 +10,8 @@
   "i18n:cta:button:signup": "Sign up",
   "i18n:cta:heading": "Sign up and continue reading. It's 100% free.",
   "i18n:cta:text": "Read, search, highlight, add notes, build study guides -- all for <strong>free</strong>.",
+  "i18n:nudge:study-tools:heading": "The study tools you need. <strong>100% FREE!</strong>",
+  "i18n:nudge:study-tools:text": "Boost your studies with expert-created study guides and highlighting. <strong>It's all free.</strong>",
   "i18n:discard:body": "You have an unsaved note on this page.",
   "i18n:discard:button:cancel": "Cancel",
   "i18n:discard:button:discard": "Discard changes",
