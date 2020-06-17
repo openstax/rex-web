@@ -190,24 +190,24 @@ export const mainWrapperStyles = css`
   ${(props: WrapperProps) => (props.isTocOpen === null || props.isTocOpen) && css`
     @media ${minimalWidthForCardsWithToc} {
       /* override js inline styles for display of all cards while using overlap display */
-      transform: auto !important;
+      transform: none !important;
     }
   `}
 
   ${(props: WrapperProps) => props.hasQuery && css`
     @media (max-width: ${minimalWidthForCardsWithSearchResults}em) {
       /* override js inline styles for display of all cards while using overlap display */
-      transform: auto !important;
+      transform: none !important;
     }
   `}
 
   @media ${minimalWidthForCards} {
     /* override js inline styles for display of all cards while using overlap display */
-    transform: auto !important;
+    transform: none !important;
   }
 
   ${theme.breakpoints.mobile(css`
     /* override js inline styles for display of all cards while using overlap display */
-    transform: auto !important;
+    transform: none !important;
   `)}
 `;
