@@ -6,4 +6,4 @@ export const allColors = [
   GetHighlightsColorsEnum.Pink,
   GetHighlightsColorsEnum.Purple,
   GetHighlightsColorsEnum.Yellow,
-] as unknown as HighlightColorEnum[]
+] as unknown as HighlightColorEnum[];

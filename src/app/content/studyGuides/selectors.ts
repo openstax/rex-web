@@ -26,8 +26,8 @@ export const studyGuidesSummary = createSelector(
 
 export const hasStudyGuides = createSelector(
   studyGuidesSummary,
-  (state) => state.totalCountsPerPage
-    && Object.keys(state.totalCountsPerPage).length > 0
+  (summary) => summary.totalCountsPerPage
+    && Object.keys(summary.totalCountsPerPage).length > 0
 );
 
 export const totalCountsPerPageOrEmpty = createSelector(

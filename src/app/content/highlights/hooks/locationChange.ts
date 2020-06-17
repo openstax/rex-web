@@ -34,6 +34,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     highlightClient,
     pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
   });
+
   dispatch(receiveHighlights({highlights, pageId: page.id}));
 };
 

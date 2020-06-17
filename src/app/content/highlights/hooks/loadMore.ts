@@ -6,7 +6,6 @@ import {
   book as bookSelector,
   highlightLocationFilters
 } from '../../selectors';
-import {  } from '../../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../utils/highlightLoadingUtils';
 import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
 import * as select from '../selectors';

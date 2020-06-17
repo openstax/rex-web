@@ -1,7 +1,7 @@
 import {
   GetHighlightsSetsEnum,
   GetHighlightsSummarySetsEnum,
-  GetHighlightsSummarySourceTypeEnum
+  GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
@@ -10,15 +10,15 @@ import { bookAndPage } from '../../selectors';
 import { loadAllHighlights } from '../../utils/highlightLoadingUtils';
 import { extractTotalCounts } from '../../utils/highlightSharedUtils';
 import { receiveStudyGuides, receiveStudyGuidesTotalCounts } from '../actions';
-import * as select from '../selectors';
+import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
 
   const {book, page} = bookAndPage(state);
-  const isEnabled = select.studyGuidesEnabled(state);
-  const hasCurrentStudyGuides = select.hasStudyGuides(state);
+  const isEnabled = studyGuidesEnabled(state);
+  const hasCurrentStudyGuides = hasStudyGuides(state);
 
   if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
 

@@ -1,5 +1,5 @@
 import { book, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
-import { getHighlightLocationFilters } from '../../highlights/utils';
+import { getHighlightLocationFilters } from './';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
 describe('getHighlightLocationFilterForPage', () => {
