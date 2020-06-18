@@ -1,10 +1,4 @@
 import { createSelector } from 'reselect';
-import {
-  checkIfHasMoreResults,
-  filterCounts,
-  getLoadedCountsPerSource,
-  getSelectedHighlightsLocationFilters
-} from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
 import {
   getHighlightColorFiltersWithContent,
@@ -12,6 +6,12 @@ import {
   getHighlightLocationFiltersWithContent,
   getSortedSummaryHighlights
 } from './utils';
+import {
+  checkIfHasMoreResults,
+  filterCounts,
+  getLoadedCountsPerSource,
+  getSelectedHighlightsLocationFilters
+} from './utils/selectorsUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
