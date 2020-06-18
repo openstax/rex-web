@@ -1,0 +1,14 @@
+---
+platform: linux
+
+inputs:
+- name: rex-web
+- name: release
+
+params:
+  PROD_UNIFIED_S3_BUCKET: ((prod-unified-s3-bucket))
+  AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
+  AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
+
+run:
+  path: rex-web/concourse/verify-production-urls/script.bash
