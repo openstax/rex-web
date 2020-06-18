@@ -20,7 +20,8 @@ import { stripIdVersion } from '../../utils/idUtils';
 import {
   CountsPerSource,
   HighlightLocationFilters,
-  SummaryFilters, SummaryHighlightsPagination
+  SummaryFilters,
+  SummaryHighlightsPagination
 } from '../types';
 
 export const extractTotalCounts = (countsPerSource: CountsPerSource) =>
