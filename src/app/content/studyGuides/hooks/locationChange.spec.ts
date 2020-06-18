@@ -11,11 +11,6 @@ import { CountsPerSource } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuidesTotalCounts } from '../actions';
 
-jest.mock('../../utils', () => ({
-  ...jest.requireActual('../../utils'),
-  formatReceivedHighlights: () => ['mocked'],
-}));
-
 describe('locationChange', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
