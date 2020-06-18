@@ -127,6 +127,18 @@ export const remsToPx = (rems: number) => {
   return rems * bodyFontSize;
 };
 
+export const referringHostName = (window: Window) => {
+  let hostName = 'unknown';
+
+  if (window.location === window.parent.location) {
+    hostName = 'not embedded';
+  } else if (window.document.referrer) {
+    const {host} = new URL(window.document.referrer);
+    hostName = host;
+  }
+  return hostName;
+};
+
 export const getAllRegexMatches = (regex: RegExp) => {
   if (!regex.global) {
     throw new Error('getAllRegexMatches must be used with the global flag');
