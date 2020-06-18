@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument, assertNotNull } from '../../../utils';
+import { closeNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
 import arrowDesktop from './assets/arrowDesktop.svg';
 import arrowMobile from './assets/arrowMobile.svg';
@@ -27,13 +28,18 @@ const NudgeStudyTools = () => {
   const show = useSelector(showNudgeStudyTools);
   const target = useGetStudyToolsTarget();
   const positions = usePositions(target, isMobile);
+  const dispatch = useDispatch();
+
+  const close = () => {
+    dispatch(closeNudgeStudyTools());
+  };
 
   React.useEffect(() => {
-    if (show) {
+    if (show && positions) {
       body.style.overflow = 'hidden';
     }
-    return () => { body.style.overflow = 'visible'; };
-  }, [body, show]);
+    return () => { body.style.overflow = null; };
+  }, [body, show, positions]);
 
   if (!show || !target || !positions) { return null; }
 
@@ -47,6 +53,7 @@ const NudgeStudyTools = () => {
     <NudgeCloseButton
       top={positions.closeButtonTopOffset}
       left={positions.closeButtonLeft}
+      onClick={close}
     >
       <NudgeCloseIcon />
     </NudgeCloseButton>

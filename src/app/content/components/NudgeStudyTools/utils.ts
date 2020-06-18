@@ -8,11 +8,11 @@ import { toolbarButtonMargin } from '../constants';
 import {
   arrowDesktopHeight,
   arrowLeftMargin,
+  arrowMobileHeight,
   arrowTopMargin,
   closeButtonDistanceFromContent,
   contentMarginTop,
   spotlightPadding,
-  arrowMobileHeight,
 } from './constants';
 
 interface Positions {
