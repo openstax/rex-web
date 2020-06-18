@@ -38,9 +38,7 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
           {(msg) => <BodyHeading>{msg}</BodyHeading>}
         </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
-        {stack.length ? <ErrorIdList>
-          {stack.slice(0, 4).join(', ')}
-        </ErrorIdList> : null}
+        <ErrorIdList ids={stack} />
       </Body>
       <Footer>
         <FormattedMessage id='i18n:error:boundary:action-btn-text'>

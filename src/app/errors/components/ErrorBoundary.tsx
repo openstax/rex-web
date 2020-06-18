@@ -66,9 +66,7 @@ class ErrorBoundary extends React.Component<Props, State> {
             </FormattedMessage>
           </HeadingWrapper>
           <BodyWithLink values={{supportCenterLink}}/>
-          {this.props.stack.length ? <ErrorIdList>
-            {this.props.stack.slice(0, 4).join(', ')}
-          </ErrorIdList> : null}
+          <ErrorIdList ids={this.props.stack} />
         </ErrorWrapper>
         <Footer />
       </React.Fragment>;
