@@ -236,6 +236,48 @@ describe('remsToPx', () => {
   });
 });
 
+describe('referringHostName', () => {
+  const window = Object.create(null);
+
+  describe('when rex is not embedded in an iframe', () => {
+    beforeEach(() => {
+      window.location = { href: 'foo'};
+      window.parent = { location: window.location };
+    });
+
+    it('it returns the host name of not embedded', async() => {
+      const hostName = utils.referringHostName(window);
+      expect(hostName).toBe('not embedded');
+    });
+  });
+
+  describe('when embedded you get the host name', () => {
+    beforeEach(() => {
+      window.document = { referrer: 'http://somewhereelse.com'};
+      window.location = { href: 'foo'};
+      window.parent = { location: {href: 'foox'} };
+    });
+
+    it('returns the correct hostname', async() => {
+      const hostName = utils.referringHostName(window);
+      expect(hostName).toBe('somewhereelse.com');
+    });
+  });
+
+  describe('when host is unknown', () => {
+    beforeEach(() => {
+      window.document = { referrer: undefined };
+      window.location = { href: 'foo'};
+      window.parent = { location: {href: 'foox'} };
+    });
+
+    it('returns unknown', async() => {
+      const hostName = utils.referringHostName(window);
+      expect(hostName).toBe('unknown');
+    });
+  });
+});
+
 describe('getAllRegexMatches', () => {
   it('works with no matches', () => {
     const matcher = utils.getAllRegexMatches(/asdf/g);
