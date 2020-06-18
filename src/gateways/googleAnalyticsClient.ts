@@ -1,5 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { assertWindow } from '../app/utils';
+import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
   hitType: 'pageview';
@@ -24,7 +24,8 @@ interface SendCommand {
 interface SetCommand {
   name: 'set';
   payload: {
-    userId: string | undefined;
+    userId?: string | undefined;
+    dimension3?: string | undefined;
   };
 }
 
@@ -58,6 +59,12 @@ class GoogleAnalyticsClient {
 
   public setUserId(id: string) {
     this.gaProxy({name: 'set', payload: {userId: id}});
+  }
+
+  public setCustomDimensionForSession() {
+    this.gaProxy({name: 'set', payload: {
+      dimension3: referringHostName(assertWindow())},
+    });
   }
 
   public unsetUserId() {
