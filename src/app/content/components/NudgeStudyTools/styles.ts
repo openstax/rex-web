@@ -1,20 +1,25 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times/Times';
 import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import theme from '../../../theme';
-import arrowDesktop from './assets/arrowDesktop.svg';
-import arrowMobile from './assets/arrowMobile.svg';
+import { remsToPx } from '../../../utils';
+import { arrowDesktopHeight, arrowMobileHeight, closeButtonMobileMargin } from './constants';
 
 // tslint:disable-next-line: variable-name
 export const NudgeContentWrapper = styled.div`
   position: absolute;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
-  ${(props: { top: number }) => `
+  ${(props: { top: number, right: number }) => `
     top: ${props.top}px;
-    right: 10%;
+    right: ${props.right}px;
   `}
+  ${theme.breakpoints.mobile(css`
+    right: auto;
+    width: 100%;
+    text-align: center;
+    padding: 0 2rem;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -35,6 +40,10 @@ const NudgeHeadingStyles = styled.h2`
     color: ${theme.color.primary.yellow.base};
     font-weight: 600;
   }
+
+  ${theme.breakpoints.mobile(css`
+    font-size: 2.4rem;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -49,16 +58,30 @@ const NudgeTextStyles = styled.div`
   color: ${theme.color.text.white};
   max-width: 690px;
   overflow: hidden;
+  ${theme.breakpoints.mobile(css`
+    max-width: 100%;
+    font-size: 1.6rem;
+    line-height: 1.4;
+    padding: 0 2rem;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
 export const NudgeText = htmlMessage('i18n:nudge:study-tools:text', NudgeTextStyles);
 
 // tslint:disable-next-line: variable-name
-export const NudgeArrow = styled(({ isMobile }: { isMobile: boolean }) => {
-  return <img src={isMobile ? arrowMobile : arrowDesktop} alt='' />;
-})`
+export const NudgeArrow = styled.img`
+  position: absolute;
+  z-index: ${theme.zIndex.nudgeOverlay + 1};
   display: block;
+  height: ${arrowDesktopHeight}rem;
+  ${(props: { top: number, left: number }) => `
+    top: ${props.top}px;
+    left: ${props.left}px;
+  `}
+  ${theme.breakpoints.mobile(css`
+    height: ${arrowMobileHeight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -70,8 +93,11 @@ export const NudgeCloseIcon = styled(Times)`
 // tslint:disable-next-line: variable-name
 export const NudgeCloseButton = styled(PlainButton)`
   position: absolute;
-  top: 0;
-  right: 0;
+  z-index: ${theme.zIndex.nudgeOverlay + 1};
+  ${(props: { top: number, left: number }) => `
+    top: ${props.top}px;
+    left: ${props.left}px;
+  `}
   width: 4rem;
   height: 4rem;
   padding: 1rem;
@@ -80,6 +106,12 @@ export const NudgeCloseButton = styled(PlainButton)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${theme.breakpoints.mobile(css`
+    left: auto;
+    top: ${remsToPx(closeButtonMobileMargin)}px;
+    right: ${remsToPx(closeButtonMobileMargin)}px;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name

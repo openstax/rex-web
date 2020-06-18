@@ -22,3 +22,6 @@ export const receivePage = createStandardAction('Content/receivePage')<
 
 export const closeCallToActionPopup = createStandardAction('Content/closeCallToActionPopup')();
 export const openCallToActionPopup = createStandardAction('Content/openCallToActionPopup')();
+
+export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
+export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();

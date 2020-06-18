@@ -29,6 +29,7 @@ export interface State {
   loading: Partial<Params>;
   search: SearchState;
   showCallToActionPopup: boolean | null;
+  showNudgeStudyTools: boolean | null;
   studyGuides: StudyGuidesState;
   highlights: HighlightState;
   book?: Book;

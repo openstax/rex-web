@@ -31,6 +31,11 @@ export const showCTAPopup = createSelector(
   (state) => state.showCallToActionPopup
 );
 
+export const showNudgeStudyTools = createSelector(
+  localState,
+  (state) => state.showNudgeStudyTools
+);
+
 export const contentReferences = createSelector(
   localState,
   (state) => state.references

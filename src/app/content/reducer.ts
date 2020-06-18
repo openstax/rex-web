@@ -22,6 +22,7 @@ export const initialState = {
   references: [],
   search: initialSearchState,
   showCallToActionPopup: null,
+  showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
   tocOpen: null,
 };
@@ -100,6 +101,12 @@ function reduceContent(state: State, action: AnyAction) {
     }
     case getType(actions.closeCallToActionPopup): {
       return {...state, showCallToActionPopup: false };
+    }
+    case getType(actions.openNudgeStudyTools): {
+      return {...state, showNudgeStudyTools: true };
+    }
+    case getType(actions.closeNudgeStudyTools): {
+      return {...state, showNudgeStudyTools: false };
     }
     default:
       return state;
