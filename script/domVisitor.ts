@@ -72,6 +72,9 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
     } catch (e) {
       anyFailures = true;
       bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
+      if (e.message) {
+        bar.interrupt(e.message);
+      }
     }
 
     bar.tick();

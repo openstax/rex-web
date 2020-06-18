@@ -20,3 +20,8 @@ export const code = createSelector(
   localState,
   (state) => state.code
 );
+
+export const showErrorDialog = createSelector(
+  localState,
+  (state) => state.showDialog
+);
