@@ -2,7 +2,8 @@ import { FocusEvent, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@op
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isWindow } from './guards';
-import { assertDefined } from './utils';
+import theme from './theme';
+import { assertDefined, assertWindow } from './utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -129,4 +130,39 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
+};
+
+export const useDebouncedMatchMobileQuery = () => {
+  const window = assertWindow();
+  const [width] = useDebouncedWindowSize();
+  const [isMobile, setIsMobile] = React.useState(window.matchMedia(theme.breakpoints.mobileQuery).matches);
+
+  React.useEffect(() => {
+    setIsMobile(window.matchMedia(theme.breakpoints.mobileQuery).matches);
+  }, [window, width]);
+
+  return isMobile;
+};
+
+export const useDebouncedWindowSize = () => {
+  const window = assertWindow();
+  const timeout = React.useRef(0);
+  const [size, setSize] = React.useState([window.innerWidth, window.innerHeight]);
+
+  React.useLayoutEffect(() => {
+    const updateSize = () => {
+      clearTimeout(timeout.current);
+      timeout.current = setTimeout(() => {
+        setSize([window.innerWidth, window.innerHeight]);
+      }, 50);
+    };
+    window.addEventListener('resize', updateSize);
+    return () => {
+      clearTimeout(timeout.current);
+      window.removeEventListener('resize', updateSize);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return size;
 };
