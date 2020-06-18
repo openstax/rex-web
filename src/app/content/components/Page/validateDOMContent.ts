@@ -5,6 +5,13 @@ export const validateDOMContent = (_document: Document, rootEl: HTMLElement) => 
 };
 
 const validateLinks = (rootEl: HTMLElement) => {
+
+  /*
+   * all links in the content should be relative links to other pages
+   * or fully qualified links to other things like videos or reading
+   * on other sites.
+   */
+
   const urls = Array.from(rootEl.querySelectorAll('a[href^="/"]'))
     .map((element) => element.getAttribute('href'));
 
