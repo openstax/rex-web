@@ -29,7 +29,7 @@ const ShowStudyGuides = () => {
   const ref = React.useRef<HTMLElement>(null);
   const [showGoToTop, setShowGoToTop] = React.useState(false);
   const dispatch = useDispatch();
-  const isLoading = useSelector(select.studyGuidesIsLoading);
+  const isLoading = useSelector(select.summaryIsLoading);
   const hasMoreResults = useSelector(select.hasMoreResults);
 
   const goToTop = () => {
