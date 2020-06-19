@@ -1,6 +1,8 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument, assertNotNull } from '../../../utils';
@@ -25,6 +27,7 @@ import {
   NudgeHeading,
   NudgeSpotlight,
   NudgeText,
+  NudgeWrapper,
 } from './styles';
 import { useGetStudyToolsTarget, usePositions } from './utils';
 
@@ -37,6 +40,7 @@ const NudgeStudyTools = () => {
   const target = useGetStudyToolsTarget();
   const positions = usePositions(target, isMobile);
   const hasStudyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
+  const wrapperRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -59,10 +63,6 @@ const NudgeStudyTools = () => {
     }
   }, [show, hasStudyGuides, dispatch]);
 
-  const close = () => {
-    dispatch(closeNudgeStudyTools());
-  };
-
   React.useEffect(() => {
     if (show && positions) {
       body.style.overflow = 'hidden';
@@ -70,40 +70,52 @@ const NudgeStudyTools = () => {
     return () => { body.style.overflow = null; };
   }, [body, show, positions]);
 
+  React.useEffect(() => {
+    if (show && positions && wrapperRef.current) {
+      wrapperRef.current.focus();
+    }
+  }, [show, positions, wrapperRef]);
+
   if (!show || !target || !positions) { return null; }
 
-  return ReactDOM.createPortal(<React.Fragment>
-    <NudgeArrow
-      src={isMobile ? arrowMobile : arrowDesktop}
-      alt=''
-      top={positions.arrowTopOffset}
-      left={positions.arrowLeft}
-    />
-    <NudgeCloseButton
-      top={positions.closeButtonTopOffset}
-      left={positions.closeButtonLeft}
-      onClick={close}
-    >
-      <NudgeCloseIcon />
-    </NudgeCloseButton>
-    <NudgeContentWrapper
-      top={positions.contentWrapperTopOffset}
-      right={positions.contentWrapperRight}
-    >
-      <NudgeContent>
-        <NudgeHeading />
-        <NudgeText />
-      </NudgeContent>
-    </NudgeContentWrapper>
-    <NudgeBackground>
-      <NudgeSpotlight
-        top={positions.spotlightTopOffset}
-        left={positions.spotlightLeftOffset}
-        height={positions.spotlightHeight}
-        width={positions.spotlightWidth}
+  const close = () => {
+    dispatch(closeNudgeStudyTools());
+  };
+
+  return ReactDOM.createPortal(<FormattedMessage id='i18n:nudge:study-tools:aria-label'>
+    {(msg: string) => <NudgeWrapper ref={wrapperRef} tabIndex='-1' aria-label={msg}>>
+      <NudgeArrow
+        src={isMobile ? arrowMobile : arrowDesktop}
+        alt=''
+        top={positions.arrowTopOffset}
+        left={positions.arrowLeft}
       />
-    </NudgeBackground>
-  </React.Fragment>,
+      <NudgeCloseButton
+        top={positions.closeButtonTopOffset}
+        left={positions.closeButtonLeft}
+        onClick={close}
+      >
+        <NudgeCloseIcon />
+      </NudgeCloseButton>
+      <NudgeContentWrapper
+        top={positions.contentWrapperTopOffset}
+        right={positions.contentWrapperRight}
+      >
+        <NudgeContent>
+          <NudgeHeading />
+          <NudgeText />
+        </NudgeContent>
+      </NudgeContentWrapper>
+      <NudgeBackground>
+        <NudgeSpotlight
+          top={positions.spotlightTopOffset}
+          left={positions.spotlightLeftOffset}
+          height={positions.spotlightHeight}
+          width={positions.spotlightWidth}
+        />
+      </NudgeBackground>
+    </NudgeWrapper>}
+  </FormattedMessage>,
   body
   );
 };

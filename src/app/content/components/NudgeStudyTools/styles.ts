@@ -7,6 +7,11 @@ import { remsToPx } from '../../../utils';
 import { arrowDesktopHeight, arrowMobileHeight, closeButtonMobileMargin } from './constants';
 
 // tslint:disable-next-line: variable-name
+export const NudgeWrapper = styled.div`
+  display: contents;
+`;
+
+// tslint:disable-next-line: variable-name
 export const NudgeContentWrapper = styled.div`
   position: absolute;
   z-index: ${theme.zIndex.nudgeOverlay + 1};

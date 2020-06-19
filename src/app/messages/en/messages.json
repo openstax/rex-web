@@ -12,6 +12,7 @@
   "i18n:cta:text": "Read, search, highlight, add notes, build study guides -- all for <strong>free</strong>.",
   "i18n:nudge:study-tools:heading": "The study tools you need. <strong>100% FREE!</strong>",
   "i18n:nudge:study-tools:text": "Boost your studies with expert-created study guides and highlighting. <strong>It's all free.</strong>",
+  "i18n:nudge:study-tools:aria-label": "Image points to the Study Guides and My Highlights buttons in the toolbar. The study tools you need. 100% free. Boost your studies with expert-created study guides and highlighting. To close image, navigate to or click the x button.",
   "i18n:discard:body": "You have an unsaved note on this page.",
   "i18n:discard:button:cancel": "Cancel",
   "i18n:discard:button:discard": "Discard changes",
