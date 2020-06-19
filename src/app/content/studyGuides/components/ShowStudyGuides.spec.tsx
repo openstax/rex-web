@@ -120,7 +120,7 @@ describe('ShowStudyGuides', () => {
   });
 
   it('do not requests more highlights when already loading', () => {
-    jest.spyOn(selectors, 'studyGuidesIsLoading')
+    jest.spyOn(selectors, 'summaryIsLoading')
       .mockReturnValue(true);
 
     jest.spyOn(selectors, 'hasMoreResults')
