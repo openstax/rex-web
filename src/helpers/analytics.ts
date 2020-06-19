@@ -19,6 +19,7 @@ import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 import * as signupCTA from './analyticsEvents/signupCTA';
 import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClose';
+import * as printStudyGuides from './analyticsEvents/studyGuides/printStudyGuides'
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
@@ -59,6 +60,7 @@ const analytics = {
   openCloseStudyGuides: mapEventType(openCloseStudyGuides),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
+  printStudyGuides: mapEventType(printStudyGuides),
   search: mapEventType(search),
   showCreate: mapEventType(showCreate),
   showHelpInfo: mapEventType(showHelpInfo),
