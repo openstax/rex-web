@@ -13,13 +13,12 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
-import { highlightLocationFilters } from '../../highlights/selectors';
+import { SummaryHighlights } from '../../highlights/types';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveStudyGuidesHighlights } from '../actions';
-import { StudyGuidesHighlights } from '../types';
+import { receiveSummaryStudyGuides } from '../actions';
+import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
@@ -45,7 +44,7 @@ describe('StudyGuides', () => {
   it('properly display summary highlights', () => {
     const state = store.getState();
     const pageId = stripIdVersion(page.id);
-    const locationFilters = highlightLocationFilters(state);
+    const locationFilters = studyGuidesLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
 
     const summaryHighlights = {
@@ -61,9 +60,9 @@ describe('StudyGuides', () => {
       [location!.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
-    } as StudyGuidesHighlights;
+    } as SummaryHighlights;
 
-    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -81,7 +80,7 @@ describe('StudyGuides', () => {
     const spyPromiseCollectorAdd = jest.spyOn(services.promiseCollector, 'add');
 
     const pageId = stripIdVersion(page.id);
-    const locationFilters = highlightLocationFilters(store.getState());
+    const locationFilters = studyGuidesLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     const summaryHighlights = {
       [pageId]: {
@@ -96,9 +95,9 @@ describe('StudyGuides', () => {
       [location!.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
-    } as StudyGuidesHighlights;
+    } as SummaryHighlights;
 
-    store.dispatch(receiveStudyGuidesHighlights(summaryHighlights));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services} >

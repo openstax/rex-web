@@ -1,3 +1,4 @@
+import * as Utils from '../app/utils';
 import { GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
@@ -38,6 +39,24 @@ describe('GoogleAnalyticsClient', () => {
 
   });
 
+  describe('setCustomDimensionForSession', () => {
+    describe('called before tracking IDs set', () => {
+      it('doesnt call Ga', async() => {
+        client.setCustomDimensionForSession();
+        expect(mockGa).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('calls utility function to get host name', () => {
+      it('sends the custom dimension to ga', async() => {
+        const testHostName = jest.spyOn(Utils,
+          'referringHostName').mockReturnValueOnce('foobar');
+        client.setCustomDimensionForSession();
+        expect(testHostName).toBeCalledTimes(1);
+      });
+    });
+  });
+
   describe('unsetUserId', () => {
 
     it('unsets it', async() => {
@@ -76,7 +95,6 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
       });
     });
-
   });
 
   describe('setTrackingIds', () => {
