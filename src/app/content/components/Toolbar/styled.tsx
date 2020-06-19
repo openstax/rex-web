@@ -102,6 +102,8 @@ export const PrintOptWrapper = styled(PlainButton)`
   justify-content: center;
   align-items: center;
   height: auto;
+  ${disablePrint};
+  cursor: ${({isLoading}) => isLoading ? 'wait' : 'pointer'};
 `;
 
 // tslint:disable-next-line:variable-name

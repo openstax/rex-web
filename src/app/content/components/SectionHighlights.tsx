@@ -55,7 +55,6 @@ const HighlightWrapper = styled.div`
 
   @media print {
     border-width: 0;
-    margin: 0;
   }
 `;
 

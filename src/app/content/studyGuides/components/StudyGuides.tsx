@@ -13,6 +13,7 @@ import HighlightsWrapper from '../../styles/HighlightsWrapper';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
 import StudyGuidesListElement from './StudyGuidesListElement';
+import StudyGuidesPrintButton from './StudyGuidesPrintButton';
 
 // tslint:disable-next-line: variable-name
 const StudyGuides = ({ className }: { className: string }) => {
@@ -30,6 +31,7 @@ const StudyGuides = ({ className }: { className: string }) => {
   }, [orderedStudyGuides]);
 
   return <div className={className}>
+    <StudyGuidesPrintButton />
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
     {orderedStudyGuides && <HighlightsWrapper ref={container}>
       {orderedStudyGuides.map((highlightData) => {

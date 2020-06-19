@@ -15,16 +15,8 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const StyledPrintButton = styled(PrintButton)`
-  min-width: auto;
-  height: max-content;
-  margin-left: auto;
-  cursor: ${({isLoading}) => isLoading ? 'wait' : 'pointer'};
-`;
-
-// tslint:disable-next-line:variable-name
 const HighlightsPrintButton = ({className, isLoading, loadHighlightsAndPrint, shouldFetchMore}: Props) => {
-  return <StyledPrintButton
+  return <PrintButton
     className={className}
     isLoading={isLoading}
     onClick={() =>  shouldFetchMore ? loadHighlightsAndPrint() : assertWindow().print()}
@@ -34,7 +26,7 @@ const HighlightsPrintButton = ({className, isLoading, loadHighlightsAndPrint, sh
 };
 
 // tslint:disable-next-line:variable-name
-export default connect(
+const ConnectedPrintButton = connect(
   (state: AppState) => ({
     isLoading: summaryIsLoading(state),
     shouldFetchMore: hasMoreResults(state),
@@ -43,3 +35,10 @@ export default connect(
     loadHighlightsAndPrint: () => dispatch(printSummaryHighlights()),
   })
 )(HighlightsPrintButton);
+
+// tslint:disable-next-line:variable-name
+export default styled(ConnectedPrintButton)`
+  min-width: auto;
+  height: max-content;
+  margin-left: auto;
+`;

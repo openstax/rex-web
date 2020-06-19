@@ -15,6 +15,12 @@ const HighlightOuterWrapper = styled.div`
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
 
+  @media print {
+    :not(:last-child) {
+      border-color: white;
+    }
+  }
+
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile`
     padding: 0 0 1rem 0;
