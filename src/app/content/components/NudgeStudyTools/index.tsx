@@ -9,7 +9,7 @@ import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument, assertNotNull } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
-import { studyGuidesSummaryIsNotEmpty } from '../../studyGuides/selectors';
+import { hasStudyGuides as hasStudyGuidesSelector } from '../../studyGuides/selectors';
 import arrowDesktop from './assets/arrowDesktop.svg';
 import arrowMobile from './assets/arrowMobile.svg';
 import {
@@ -40,7 +40,7 @@ const NudgeStudyTools = () => {
   const show = useSelector(showNudgeStudyTools);
   const target = useGetStudyToolsTarget();
   const positions = usePositions(target, isMobile);
-  const hasStudyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
+  const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const wrapperRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedWindowSize } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
-import { studyGuidesSummaryIsNotEmpty } from '../../studyGuides/selectors';
+import { hasStudyGuides } from '../../studyGuides/selectors';
 import { toolbarButtonMargin } from '../constants';
 import {
   arrowDesktopHeight,
@@ -71,7 +71,7 @@ export const usePositions = (target: HTMLElement | null, isMobile: boolean) => {
 export const useGetStudyToolsTarget = () => {
   const document = assertDocument();
   const [target, setTarget] = React.useState<HTMLElement | null>(null);
-  const studyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
+  const studyGuides = useSelector(hasStudyGuides);
 
   React.useEffect(() => {
     if (studyGuides) {
