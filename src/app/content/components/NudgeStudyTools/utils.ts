@@ -12,6 +12,7 @@ import {
   arrowTopMargin,
   closeButtonDistanceFromContent,
   contentMarginTop,
+  nudgeStudyToolsTargetId,
   spotlightPadding,
 } from './constants';
 
@@ -28,9 +29,10 @@ interface Positions {
   spotlightWidth: number;
 }
 
-export const usePositions = (target: HTMLElement | null, isMobile: boolean) => {
+export const usePositions = (isMobile: boolean) => {
   const [windowWidth] = useDebouncedWindowSize();
   const [positions, setPositions] = React.useState<Positions | null>(null);
+  const target = useGetStudyToolsTarget();
 
   React.useEffect(() => {
     if (target) {
@@ -68,14 +70,14 @@ export const usePositions = (target: HTMLElement | null, isMobile: boolean) => {
   return positions;
 };
 
-export const useGetStudyToolsTarget = () => {
+const useGetStudyToolsTarget = () => {
   const document = assertDocument();
   const [target, setTarget] = React.useState<HTMLElement | null>(null);
   const studyGuides = useSelector(hasStudyGuides);
 
   React.useEffect(() => {
     if (studyGuides) {
-      setTarget(document.querySelector('#nudge-study-tools') as HTMLElement | null);
+      setTarget(document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null);
     }
     return () => setTarget(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps

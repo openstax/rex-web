@@ -30,7 +30,7 @@ import {
   NudgeText,
   NudgeWrapper,
 } from './styles';
-import { useGetStudyToolsTarget, usePositions } from './utils';
+import { usePositions } from './utils';
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
@@ -38,8 +38,7 @@ const NudgeStudyTools = () => {
   const body = assertNotNull(document.querySelector('body'), 'body element is not defined');
   const isMobile = useDebouncedMatchMobileQuery();
   const show = useSelector(showNudgeStudyTools);
-  const target = useGetStudyToolsTarget();
-  const positions = usePositions(target, isMobile);
+  const positions = usePositions(isMobile);
   const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const wrapperRef = React.useRef<HTMLElement>(null);
@@ -78,7 +77,7 @@ const NudgeStudyTools = () => {
     }
   }, [show, positions, wrapperRef]);
 
-  if (!show || !target || !positions) { return null; }
+  if (!show || !positions) { return null; }
 
   const close = () => {
     dispatch(closeNudgeStudyTools());

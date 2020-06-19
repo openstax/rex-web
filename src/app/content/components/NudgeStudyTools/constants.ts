@@ -16,3 +16,4 @@ export const cookieNudgeStudyGuidesCounter = 'nudge_study_guides_counter';
 // 4 weeks: 4 * 7 days * 24 hours * 60 minutes * 60 seconds * 1000 ms
 export const timeIntervalBetweenShowingNudgeInMs = 4 * 7 * 24 * 60 * 60 * 1000;
 export const nudgeStudyToolsShowLimit = 3;
+export const nudgeStudyToolsTargetId = 'nudge-study-tools';
