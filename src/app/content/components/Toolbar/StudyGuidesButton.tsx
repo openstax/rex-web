@@ -6,7 +6,7 @@ import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
-import { studyGuidesEnabled, studyGuidesSummaryIsNotEmpty } from '../../studyGuides/selectors';
+import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
 
@@ -39,9 +39,9 @@ const StudyGuidesButton = () => {
   const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
-  const hasStudyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
+  const studyGuidesSummaryNotEmpty = useSelector(hasStudyGuides);
 
-  if (!isEnabled || !hasStudyGuides) { return null; }
+  if (!isEnabled || !studyGuidesSummaryNotEmpty) { return null; }
 
   const openStudyGuidesSummary = () => {
     dispatch(openStudyGuidesAction());
