@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument, assertNotNull } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
@@ -40,6 +41,7 @@ const NudgeStudyTools = () => {
   const target = useGetStudyToolsTarget();
   const positions = usePositions(target, isMobile);
   const hasStudyGuides = useSelector(studyGuidesSummaryIsNotEmpty);
+  const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const wrapperRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();
 
@@ -57,11 +59,11 @@ const NudgeStudyTools = () => {
       ) {
         Cookies.set(cookieNudgeStudyGuidesCounter, (counter + 1).toString());
         Cookies.set(cookieNudgeStudyGuidesDate, now.toString());
-        // TODO: Track opens
+        trackOpen();
         dispatch(openNudgeStudyTools());
       }
     }
-  }, [show, hasStudyGuides, dispatch]);
+  }, [show, hasStudyGuides, trackOpen, dispatch]);
 
   React.useEffect(() => {
     if (show && positions) {
@@ -83,7 +85,12 @@ const NudgeStudyTools = () => {
   };
 
   return ReactDOM.createPortal(<FormattedMessage id='i18n:nudge:study-tools:aria-label'>
-    {(msg: string) => <NudgeWrapper ref={wrapperRef} tabIndex='-1' aria-label={msg}>>
+    {(msg: string) => <NudgeWrapper
+      ref={wrapperRef}
+      tabIndex='-1'
+      aria-label={msg}
+      data-analytics-region='Nudge Study Tools'
+    >
       <NudgeArrow
         src={isMobile ? arrowMobile : arrowDesktop}
         alt=''
@@ -94,6 +101,7 @@ const NudgeStudyTools = () => {
         top={positions.closeButtonTopOffset}
         left={positions.closeButtonLeft}
         onClick={close}
+        data-analytics-label='close'
       >
         <NudgeCloseIcon />
       </NudgeCloseButton>
