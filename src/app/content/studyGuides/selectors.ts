@@ -1,8 +1,13 @@
 import { createSelector } from 'reselect';
-// Temporary import from /highlights directory until we make all this logic reusable and move it to content/
-import { HighlightLocationFilters } from '../highlights/types';
 import { getHighlightLocationFilters, getSortedSummaryHighlights } from '../highlights/utils';
+import {
+  checkIfHasMoreResults,
+  filterCounts,
+  getLoadedCountsPerSource,
+  getSelectedHighlightsLocationFilters,
+} from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
+import { allColors } from './constants';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -19,51 +24,78 @@ export const studyGuidesSummary = createSelector(
   (state) => state.summary
 );
 
-export const studyGuidesSummaryIsNotEmpty = createSelector(
+export const hasStudyGuides = createSelector(
   studyGuidesSummary,
-  (summary) => summary !== null
-    && summary.countsPerSource
-    && Object.keys(summary.countsPerSource).length > 0
+  (summary) => summary.totalCountsPerPage
+    && Object.keys(summary.totalCountsPerPage).length > 0
+);
+
+export const totalCountsPerPageOrEmpty = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.totalCountsPerPage || {}
 );
 
 export const studyGuidesOpen = createSelector(
-  localState,
-  (state) => state.open
+  studyGuidesSummary,
+  (summary) => summary.open
 );
 
-export const studyGuidesIsLoading = createSelector(
-  localState,
-  (state) => state.loading
+export const summaryIsLoading = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.loading
 );
 
-// Temporary to make hasMoreResults works
-export const studyGuidesPagination = createSelector(
-  localState,
-  (_state) => false
+export const summaryStudyGuidesPagination = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.pagination
+);
+
+export const studyGuidesLocationFilters = createSelector(
+  parentSelectors.book,
+  getHighlightLocationFilters
+);
+
+export const summaryStudyGuides = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.studyGuides
+);
+
+export const orderedSummaryStudyGuides = createSelector(
+  summaryStudyGuides,
+  studyGuidesLocationFilters,
+  getSortedSummaryHighlights
+);
+
+export const loadedCountsPerSource = createSelector(
+  summaryStudyGuides,
+  getLoadedCountsPerSource
+);
+
+const rawSummaryLocationFilters = createSelector(
+  studyGuidesLocationFilters,
+  (locationFilters) =>  Array.from(locationFilters.keys())
+);
+
+export const summaryLocationFilters = createSelector(
+  rawSummaryLocationFilters,
+  (selectedLocations) => new Set(selectedLocations)
+);
+
+const selectedStudyGuidesLocationFilters = createSelector(
+  studyGuidesLocationFilters,
+  summaryLocationFilters,
+  getSelectedHighlightsLocationFilters
+);
+
+export const filteredCountsPerPage = createSelector(
+  totalCountsPerPageOrEmpty,
+  selectedStudyGuidesLocationFilters,
+  (counts, locationFilers) => filterCounts(counts, locationFilers, new Set(allColors))
 );
 
 export const hasMoreResults = createSelector(
-  studyGuidesPagination,
-  (pagination) => Boolean(pagination)
-);
-
-export const studyGuidesHighlights = createSelector(
-  localState,
-  (state) => state.highlights
-);
-
-// Temporary until we make all this related logic reusable and move it to content/selectors.ts
-export const highlightLocationFilters = createSelector(
-  parentSelectors.book,
-  (book) => book
-    ? getHighlightLocationFilters(book)
-    : new Map() as HighlightLocationFilters
-);
-
-export const orderedStudyGuidesHighlights = createSelector(
-  studyGuidesHighlights,
-  highlightLocationFilters,
-  (highlightsToSort, locationFilters) => {
-    return getSortedSummaryHighlights(highlightsToSort, locationFilters);
-  }
+  loadedCountsPerSource,
+  filteredCountsPerPage,
+  summaryStudyGuidesPagination,
+  checkIfHasMoreResults
 );

@@ -95,6 +95,8 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
       analytics.print.track(analytics.print.selector(store.getState()));
     }
   });
+
+  googleAnalyticsClient.setCustomDimensionForSession();
 };
 
 export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T) => {
