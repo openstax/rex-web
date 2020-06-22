@@ -78,10 +78,11 @@ export const usePositions = (isMobile: boolean) => {
   return positions;
 };
 
-const useGetStudyToolsTarget = () => {
+export const useGetStudyToolsTarget = () => {
   const document = assertDocument();
-  const [target, setTarget] = React.useState<HTMLElement | null>(null);
   const studyGuides = useSelector(hasStudyGuides);
+  const [target, setTarget] = React.useState<HTMLElement | null>(
+    studyGuides ? document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null : null);
 
   React.useEffect(() => {
     if (studyGuides) {
