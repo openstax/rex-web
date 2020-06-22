@@ -1,31 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../components/AllOrNone';
 import Checkbox from '../../components/Checkbox';
 import { textStyle } from '../../components/Typography/base';
 import { match, not } from '../../fpUtils';
 import theme from '../../theme';
-import { setSummaryFilters as setSummaryFiltersHL } from '../highlights/actions';
 import ColorIndicator from '../highlights/components/ColorIndicator';
-import {
-  highlightLocationFilters,
-  highlightLocationFiltersWithContent,
-  myHighlightsOpen,
-  summaryLocationFilters as summaryLocationFiltersHL
-} from '../highlights/selectors';
-import { setSummaryFilters as setSummaryFiltersSG } from '../studyGuides/actions';
-import {
-  studyGuidesLocationFilters,
-  studyGuidesLocationFiltersWithContent,
-  studyGuidesOpen,
-  summaryLocationFilters as summaryLocationFiltersSG
-} from '../studyGuides/selectors';
+import { HighlightLocationFilters, SummaryFilters } from '../highlights/types';
 import { filters } from '../styles/PopupConstants';
-
-interface Props {
-  className?: string;
-}
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -69,53 +51,45 @@ const chunk = <T extends any>(sections: T[]) => {
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
+interface Props {
+  className?: string;
+  locationFilters: HighlightLocationFilters;
+  locationFiltersWithContent: Set<string>;
+  selectedLocationFilters: Set<string>;
+  setFilters: (filters: Partial<SummaryFilters>) => void;
+}
+
 // tslint:disable-next-line:variable-name
-const ChapterFilter = ({className}: Props) => {
-
-  const isMyHighlightsOpen = useSelector(myHighlightsOpen) || false;
-  const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
-
-  const selectorsForHL = {
-    locationFilters: useSelector(highlightLocationFilters),
-    locationFiltersWithContent: useSelector(highlightLocationFiltersWithContent),
-    selectedLocationFilters: useSelector(summaryLocationFiltersHL),
-  };
-
-  const selectorsForSG = {
-    locationFilters: useSelector(studyGuidesLocationFilters),
-    locationFiltersWithContent: useSelector(studyGuidesLocationFiltersWithContent),
-    selectedLocationFilters: useSelector(summaryLocationFiltersSG),
-  };
-
-  const currentSelectors = (isMyHighlightsOpen && !isStudyGuidesOpen) ? selectorsForHL : selectorsForSG;
-  const currentSetSummaryFilters = (isMyHighlightsOpen && !isStudyGuidesOpen) ?
-                                    setSummaryFiltersHL : setSummaryFiltersSG;
-
-  const dispatch = useDispatch();
-
+const ChapterFilter = ({
+  className,
+  locationFilters,
+  locationFiltersWithContent,
+  selectedLocationFilters,
+  setFilters,
+}: Props) => {
   const setSelectedChapters = (ids: string[]) => {
-    dispatch(currentSetSummaryFilters({locationIds: ids}));
+    setFilters({locationIds: ids});
   };
 
   const handleChange = (id: string) => {
-    if (currentSelectors.selectedLocationFilters.has(id)) {
-      setSelectedChapters([...currentSelectors.selectedLocationFilters].filter(not(match(id))));
+    if (selectedLocationFilters.has(id)) {
+      setSelectedChapters([...selectedLocationFilters].filter(not(match(id))));
     } else {
-      setSelectedChapters([...currentSelectors.selectedLocationFilters, id]);
+      setSelectedChapters([...selectedLocationFilters, id]);
     }
   };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(Array.from(currentSelectors.locationFiltersWithContent))}
+      onAll={() => setSelectedChapters(Array.from(locationFiltersWithContent))}
     />
     <Row>
-      {chunk(Array.from(currentSelectors.locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
+      {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
-          checked={currentSelectors.selectedLocationFilters.has(location.id)}
-          disabled={!currentSelectors.locationFiltersWithContent.has(location.id)}
+          checked={selectedLocationFilters.has(location.id)}
+          disabled={!locationFiltersWithContent.has(location.id)}
           onChange={() => handleChange(location.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />

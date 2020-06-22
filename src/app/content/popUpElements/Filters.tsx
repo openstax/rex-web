@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../components/Button';
@@ -8,11 +7,7 @@ import Dropdown, { DropdownToggle } from '../../components/Dropdown';
 import { textStyle } from '../../components/Typography/base';
 import theme from '../../theme';
 import { disablePrint } from '../components/utils/disablePrint';
-import HighlightsPrintButton from '../highlights/components/SummaryPopup/HighlightsPrintButton';
-import { studyGuidesOpen } from '../studyGuides/selectors';
 import { filters } from '../styles/PopupConstants';
-import ChapterFilter from './ChapterFilter';
-import ColorFilter from './ColorFilter';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
@@ -24,22 +19,10 @@ const DownIcon = styled(AngleDown)`
   padding-top: 0.2rem;
 `;
 
-// tslint:disable-next-line:variable-name
-const StyledHighlightsPrintButton = styled(HighlightsPrintButton)`
-  min-width: auto;
-  height: max-content;
-  margin-left: auto;
-  padding-right: ${filters.dropdownToggle.sides.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    padding-right: ${filters.dropdownToggle.sides.mobile}rem;
-  `)}
-`;
-
 interface ToggleProps {
   label: string;
   isOpen: boolean;
 }
-
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   ({label, isOpen, ...props}, ref) => (
@@ -89,35 +72,25 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   }
 `;
 
+// tslint:disable-next-line:variable-name
+export const FilterDropdown = ({label, children}: React.PropsWithChildren<{label: string}>) =>
+    <FormattedMessage id={label}>
+      {(msg: Element | string) => <Dropdown
+        toggle={<Toggle label={msg} />}
+        transparentTab={false}
+      >
+        {children}
+      </Dropdown>}
+    </FormattedMessage>;
+
 interface Props {
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) => {
-  const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
-
+const Filters = ({className, children}: React.PropsWithChildren<Props>) => {
   return <div className={className}>
-    <FormattedMessage id='i18n:highlighting:filters:chapters'>
-      {(msg: Element | string) => <Dropdown
-        toggle={<Toggle label={msg} />}
-        transparentTab={false}
-      >
-        <ChapterFilter />
-      </Dropdown>}
-    </FormattedMessage>
-    {!isStudyGuidesOpen &&
-      <FormattedMessage id='i18n:highlighting:filters:colors'>
-        {(msg: Element | string) => <Dropdown
-          toggle={<Toggle label={msg} />}
-          transparentTab={false}
-        >
-          <ColorFilter />
-        </Dropdown>}
-      </FormattedMessage>
-    }
-    <StyledHighlightsPrintButton />
-    <FiltersList />
+    {children}
   </div>;
 };
 

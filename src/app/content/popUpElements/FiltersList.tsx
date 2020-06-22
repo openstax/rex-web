@@ -1,7 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../components/Button';
 import Times from '../../components/Times';
@@ -9,8 +8,7 @@ import { textStyle } from '../../components/Typography';
 import { match, not } from '../../fpUtils';
 import theme from '../../theme';
 import { disablePrint } from '../components/utils/disablePrint';
-import { setSummaryFilters } from '../highlights/actions';
-import { highlightLocationFilters, summaryColorFilters, summaryLocationFilters } from '../highlights/selectors';
+import { HighlightLocationFilters, SummaryFilters } from '../highlights/types';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
 
 // tslint:disable-next-line: variable-name
@@ -98,25 +96,31 @@ export const FiltersListChapter = (props: FiltersListChapterProps) => (
 
 interface FiltersListProps {
   className?: string;
+  locationFilters: HighlightLocationFilters;
+  selectedLocationFilters: Set<string>;
+  selectedColorFilters: Set<HighlightColorEnum>;
+  setFilters: (filters: Partial<SummaryFilters>) => void;
 }
 
 // tslint:disable-next-line: variable-name
-const FiltersList = ({className}: FiltersListProps) => {
-  const locationFilters = useSelector(highlightLocationFilters);
-  const selectedColorFilters = useSelector(summaryColorFilters);
-  const selectedLocationFilters = useSelector(summaryLocationFilters);
-  const dispatch = useDispatch();
+const FiltersList = ({
+  className,
+  locationFilters,
+  selectedColorFilters,
+  selectedLocationFilters,
+  setFilters,
+}: FiltersListProps) => {
 
   const onRemoveChapter = (locationId: string) => {
-    dispatch(setSummaryFilters({
+    setFilters({
       locationIds: [...selectedLocationFilters].filter(not(match(locationId))),
-    }));
+    });
   };
 
   const onRemoveColor = (color: HighlightColorEnum) => {
-    dispatch(setSummaryFilters({
+    setFilters({
       colors: [...selectedColorFilters].filter(not(match(color))),
-    }));
+    });
   };
 
   return <ul className={className}>

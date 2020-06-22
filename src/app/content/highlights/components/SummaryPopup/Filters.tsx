@@ -1,0 +1,54 @@
+import flow from 'lodash/fp/flow';
+import React from 'react';
+import { connect } from 'react-redux';
+import { AppState, Dispatch } from '../../../../types';
+import ChapterFilter from '../../../popUpElements/ChapterFilter';
+import Filters, { FilterDropdown } from '../../../popUpElements/Filters';
+import FiltersList from '../../../popUpElements/FiltersList';
+import PrintButton from '../../../popUpElements/PrintButton';
+import { printSummaryHighlights, setSummaryFilters } from '../../actions';
+import * as select from '../../selectors';
+import ColorFilter from './ColorFilter';
+
+// tslint:disable-next-line:variable-name
+const ConnectedChapterFilter = connect(
+  (state: AppState) => ({
+    locationFilters: select.highlightLocationFilters(state),
+    locationFiltersWithContent: select.highlightLocationFiltersWithContent(state),
+    selectedLocationFilters: select.summaryLocationFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setFilters: flow(setSummaryFilters, dispatch),
+  })
+)(ChapterFilter);
+
+// tslint:disable-next-line:variable-name
+const ConnectedFilterList = connect(
+  (state: AppState) => ({
+    locationFilters: select.highlightLocationFilters(state),
+    selectedColorFilters: select.summaryColorFilters(state),
+    selectedLocationFilters: select.summaryLocationFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setFilters: flow(setSummaryFilters, dispatch),
+  })
+)(FiltersList);
+
+// tslint:disable-next-line:variable-name
+const ConnectedPrintButton = connect(
+  (state: AppState) => ({
+    isLoading: select.summaryIsLoading(state),
+    shouldFetchMore: select.hasMoreResults(state),
+  }),
+  (dispatch: Dispatch) => ({
+    loadHighlightsAndPrint: flow(printSummaryHighlights, dispatch),
+  })
+)(PrintButton);
+
+export default () =>
+  <Filters>
+    <FilterDropdown label='i18n:highlighting:filters:chapters'><ConnectedChapterFilter /></FilterDropdown>
+    <FilterDropdown label='i18n:highlighting:filters:colors'><ColorFilter /></FilterDropdown>
+    <ConnectedPrintButton />
+    <ConnectedFilterList />
+  </Filters>;
