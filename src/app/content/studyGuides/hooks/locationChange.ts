@@ -7,7 +7,7 @@ import { assertDefined } from '../../../utils';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuidesTotalCounts } from '../actions';
-import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
+import { hasStudyGuides, studyGuidesEnabled, studyGuidesLocationFilters } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
@@ -26,8 +26,9 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   });
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
   const totalCounts = extractTotalCounts(countsPerSource);
+  const locationFilters = studyGuidesLocationFilters(state);
 
-  services.dispatch(receiveStudyGuidesTotalCounts(totalCounts));
+  services.dispatch(receiveStudyGuidesTotalCounts(totalCounts, locationFilters));
 };
 
 export default hookBody;

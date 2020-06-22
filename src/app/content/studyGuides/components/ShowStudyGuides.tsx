@@ -61,7 +61,7 @@ const ShowStudyGuides = () => {
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
-      <Filters />
+      <Filters hideColorFilter={true} />
       <StudyGuides />
       {showGoToTop && <GoToTopButton
         i18nAriaLabel='i18n:toolbar:studyguides:popup:button:back-to-top'

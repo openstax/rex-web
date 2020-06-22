@@ -1,5 +1,9 @@
 import { createSelector } from 'reselect';
-import { getHighlightLocationFilters, getSortedSummaryHighlights } from '../highlights/utils';
+import {
+  getHighlightLocationFilters,
+  getHighlightLocationFiltersWithContent,
+  getSortedSummaryHighlights
+} from '../highlights/utils';
 import {
   checkIfHasMoreResults,
   filterCounts,
@@ -63,7 +67,9 @@ export const summaryStudyGuides = createSelector(
 export const orderedSummaryStudyGuides = createSelector(
   summaryStudyGuides,
   studyGuidesLocationFilters,
-  getSortedSummaryHighlights
+  (highlightsToSort, locationFilters) => {
+    return getSortedSummaryHighlights(highlightsToSort, locationFilters);
+  }
 );
 
 export const loadedCountsPerSource = createSelector(
@@ -71,14 +77,27 @@ export const loadedCountsPerSource = createSelector(
   getLoadedCountsPerSource
 );
 
+const summaryFilters = createSelector(
+  localState,
+  (state) => state.summary.filters
+);
+
 const rawSummaryLocationFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.locationIds
+);
+
+export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
-  (locationFilters) =>  Array.from(locationFilters.keys())
+  totalCountsPerPageOrEmpty,
+  (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
 
 export const summaryLocationFilters = createSelector(
   rawSummaryLocationFilters,
-  (selectedLocations) => new Set(selectedLocations)
+  studyGuidesLocationFiltersWithContent,
+  (selectedLocations, withContent) =>
+    new Set(selectedLocations.filter((locationId) => withContent.has(locationId)))
 );
 
 const selectedStudyGuidesLocationFilters = createSelector(

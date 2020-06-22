@@ -6,7 +6,7 @@ import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
 import { book as bookSelector } from '../../selectors';
-import { loadMoreStudyGuides, receiveSummaryStudyGuides } from '../actions';
+import { loadMoreStudyGuides, receiveSummaryStudyGuides, setSummaryFilters } from '../actions';
 import { allColors } from '../constants';
 import * as select from '../selectors';
 
@@ -36,9 +36,11 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
   };
 };
 
-export const hookBody: ActionHookBody<typeof loadMoreStudyGuides> = (services) => async() => {
-  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-  services.dispatch(receiveSummaryStudyGuides(formattedHighlights, pagination));
-};
+export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreStudyGuides> =
+  (services) => async() => {
+    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+    services.dispatch(receiveSummaryStudyGuides(formattedHighlights, {pagination}));
+  };
 
 export const loadMoreHook = actionHook(loadMoreStudyGuides, hookBody);
+export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);

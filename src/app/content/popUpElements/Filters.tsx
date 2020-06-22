@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../components/Button';
@@ -8,6 +9,7 @@ import { textStyle } from '../../components/Typography/base';
 import theme from '../../theme';
 import { disablePrint } from '../components/utils/disablePrint';
 import HighlightsPrintButton from '../highlights/components/SummaryPopup/HighlightsPrintButton';
+import { studyGuidesOpen } from '../studyGuides/selectors';
 import { filters } from '../styles/PopupConstants';
 import ChapterFilter from './ChapterFilter';
 import ColorFilter from './ColorFilter';
@@ -92,26 +94,32 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) => <div className={className}>
-  <FormattedMessage id='i18n:highlighting:filters:chapters'>
-    {(msg: Element | string) => <Dropdown
-      toggle={<Toggle label={msg} />}
-      transparentTab={false}
-    >
-      <ChapterFilter />
-    </Dropdown>}
-  </FormattedMessage>
-  <FormattedMessage id='i18n:highlighting:filters:colors'>
-    {(msg: Element | string) => <Dropdown
-      toggle={<Toggle label={msg} />}
-      transparentTab={false}
-    >
-      <ColorFilter />
-    </Dropdown>}
-  </FormattedMessage>
-  <StyledHighlightsPrintButton />
-  <FiltersList />
-</div>;
+const Filters = ({className}: Props) => {
+  const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
+
+  return <div className={className}>
+    <FormattedMessage id='i18n:highlighting:filters:chapters'>
+      {(msg: Element | string) => <Dropdown
+        toggle={<Toggle label={msg} />}
+        transparentTab={false}
+      >
+        <ChapterFilter />
+      </Dropdown>}
+    </FormattedMessage>
+    {!isStudyGuidesOpen &&
+      <FormattedMessage id='i18n:highlighting:filters:colors'>
+        {(msg: Element | string) => <Dropdown
+          toggle={<Toggle label={msg} />}
+          transparentTab={false}
+        >
+          <ColorFilter />
+        </Dropdown>}
+      </FormattedMessage>
+    }
+    <StyledHighlightsPrintButton />
+    <FiltersList />
+  </div>;
+};
 
 export default styled(Filters)`
   position: relative;

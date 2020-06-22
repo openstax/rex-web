@@ -1,4 +1,4 @@
-import { loadMoreHook } from './loadMore';
+import { loadMoreHook, setSummaryFiltersHook } from './loadMore';
 import loadStudyGuides from './locationChange';
 import { openStudyGuidesHook } from './openStudyGuides';
 
@@ -9,4 +9,5 @@ export {
 export default [
   loadMoreHook,
   openStudyGuidesHook,
+  setSummaryFiltersHook,
 ];

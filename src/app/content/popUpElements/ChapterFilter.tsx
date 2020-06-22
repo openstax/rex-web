@@ -6,13 +6,21 @@ import Checkbox from '../../components/Checkbox';
 import { textStyle } from '../../components/Typography/base';
 import { match, not } from '../../fpUtils';
 import theme from '../../theme';
-import { setSummaryFilters } from '../highlights/actions';
+import { setSummaryFilters as setSummaryFiltersHL } from '../highlights/actions';
 import ColorIndicator from '../highlights/components/ColorIndicator';
 import {
   highlightLocationFilters,
   highlightLocationFiltersWithContent,
-  summaryLocationFilters
+  myHighlightsOpen,
+  summaryLocationFilters as summaryLocationFiltersHL
 } from '../highlights/selectors';
+import { setSummaryFilters as setSummaryFiltersSG } from '../studyGuides/actions';
+import {
+  studyGuidesLocationFilters,
+  studyGuidesLocationFiltersWithContent,
+  studyGuidesOpen,
+  summaryLocationFilters as summaryLocationFiltersSG
+} from '../studyGuides/selectors';
 import { filters } from '../styles/PopupConstants';
 
 interface Props {
@@ -63,34 +71,51 @@ const chunk = <T extends any>(sections: T[]) => {
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({className}: Props) => {
-  const locationFilters = useSelector(highlightLocationFilters);
-  const locationFiltersWithContent = useSelector(highlightLocationFiltersWithContent);
-  const selectedLocationFilters = useSelector(summaryLocationFilters);
+
+  const isMyHighlightsOpen = useSelector(myHighlightsOpen) || false;
+  const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
+
+  const selectorsForHL = {
+    locationFilters: useSelector(highlightLocationFilters),
+    locationFiltersWithContent: useSelector(highlightLocationFiltersWithContent),
+    selectedLocationFilters: useSelector(summaryLocationFiltersHL),
+  };
+
+  const selectorsForSG = {
+    locationFilters: useSelector(studyGuidesLocationFilters),
+    locationFiltersWithContent: useSelector(studyGuidesLocationFiltersWithContent),
+    selectedLocationFilters: useSelector(summaryLocationFiltersSG),
+  };
+
+  const currentSelectors = (isMyHighlightsOpen && !isStudyGuidesOpen) ? selectorsForHL : selectorsForSG;
+  const currentSetSummaryFilters = (isMyHighlightsOpen && !isStudyGuidesOpen) ?
+                                    setSummaryFiltersHL : setSummaryFiltersSG;
+
   const dispatch = useDispatch();
 
   const setSelectedChapters = (ids: string[]) => {
-    dispatch(setSummaryFilters({locationIds: ids}));
+    dispatch(currentSetSummaryFilters({locationIds: ids}));
   };
 
   const handleChange = (id: string) => {
-    if (selectedLocationFilters.has(id)) {
-      setSelectedChapters([...selectedLocationFilters].filter(not(match(id))));
+    if (currentSelectors.selectedLocationFilters.has(id)) {
+      setSelectedChapters([...currentSelectors.selectedLocationFilters].filter(not(match(id))));
     } else {
-      setSelectedChapters([...selectedLocationFilters, id]);
+      setSelectedChapters([...currentSelectors.selectedLocationFilters, id]);
     }
   };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
       onNone={() => setSelectedChapters([])}
-      onAll={() => setSelectedChapters(Array.from(locationFiltersWithContent))}
+      onAll={() => setSelectedChapters(Array.from(currentSelectors.locationFiltersWithContent))}
     />
     <Row>
-      {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
+      {chunk(Array.from(currentSelectors.locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
-          checked={selectedLocationFilters.has(location.id)}
-          disabled={!locationFiltersWithContent.has(location.id)}
+          checked={currentSelectors.selectedLocationFilters.has(location.id)}
+          disabled={!currentSelectors.locationFiltersWithContent.has(location.id)}
           onChange={() => handleChange(location.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />
