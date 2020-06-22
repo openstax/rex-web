@@ -10,10 +10,18 @@ export const contentMarginTop = 1;
 
 export const spotlightPadding = 1;
 
+// When nudge was shown
 export const cookieNudgeStudyGuidesDate = 'nudge_study_guides_date';
+// How many times nuge was shown
 export const cookieNudgeStudyGuidesCounter = 'nudge_study_guides_counter';
+// How many pages user has opened (opening the same page twice counts it as 2)
+export const cookieNudgeStudyGuidesPageCounter = 'nudge_study_guides_page_counter';
+// Show nudge only for users which opened at least 2 pages
+export const nudgeStudyToolsMinPageLimit = 2;
 
-// 4 weeks: 4 * 7 days * 24 hours * 60 minutes * 60 seconds * 1000 ms
+// Show nudge every 4 weeks: 4 * 7 days * 24 hours * 60 minutes * 60 seconds * 1000 ms
 export const timeIntervalBetweenShowingNudgeInMs = 4 * 7 * 24 * 60 * 60 * 1000;
+// Show nudge max 3 times
 export const nudgeStudyToolsShowLimit = 3;
+// Id of the element which should be highlighted
 export const nudgeStudyToolsTargetId = 'nudge-study-tools';

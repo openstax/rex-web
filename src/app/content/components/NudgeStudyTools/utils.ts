@@ -1,8 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import * as Cookies from 'js-cookie';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedWindowSize } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
+import { page as pageSelector } from '../../selectors';
 import { hasStudyGuides } from '../../studyGuides/selectors';
 import { toolbarButtonMargin } from '../constants';
 import {
@@ -12,8 +14,14 @@ import {
   arrowTopMargin,
   closeButtonDistanceFromContent,
   contentMarginTop,
+  cookieNudgeStudyGuidesCounter,
+  cookieNudgeStudyGuidesDate,
+  cookieNudgeStudyGuidesPageCounter,
+  nudgeStudyToolsMinPageLimit,
+  nudgeStudyToolsShowLimit,
   nudgeStudyToolsTargetId,
   spotlightPadding,
+  timeIntervalBetweenShowingNudgeInMs,
 } from './constants';
 
 interface Positions {
@@ -84,4 +92,56 @@ const useGetStudyToolsTarget = () => {
   }, [studyGuides]);
 
   return target;
+};
+
+export const getCounterCookie = () => {
+  return Number(Cookies.get(cookieNudgeStudyGuidesCounter) || 0);
+};
+
+export const getDateCookie = () => {
+  const lastShownDate = Cookies.get(cookieNudgeStudyGuidesDate);
+  return lastShownDate ? new Date(lastShownDate) : undefined;
+};
+
+export const passedTimeInterval = () => {
+  const now = new Date();
+  const lastShownDate = getDateCookie();
+  return !lastShownDate
+    ? true
+    : (now.getTime() - lastShownDate.getTime()) > timeIntervalBetweenShowingNudgeInMs
+  ;
+};
+
+export const getPageCounterCookie = () => {
+  return Number(Cookies.get(cookieNudgeStudyGuidesPageCounter) || 0);
+};
+
+export const incrementPageCounterCookie = () => {
+  const counter = getPageCounterCookie();
+  Cookies.set(cookieNudgeStudyGuidesPageCounter, (counter + 1).toString());
+};
+
+export const shouldDisplayNudgeStudyTools = (): boolean => {
+  const counter = getCounterCookie();
+  const numberOfPagesOpenedByUser = getPageCounterCookie();
+
+  return counter < nudgeStudyToolsShowLimit
+    && passedTimeInterval()
+    && (numberOfPagesOpenedByUser >= nudgeStudyToolsMinPageLimit);
+};
+
+export const setNudgeStudyToolsCookies = () => {
+  const now = new Date();
+  const counter = getCounterCookie();
+  Cookies.set(cookieNudgeStudyGuidesCounter, (counter + 1).toString());
+  Cookies.set(cookieNudgeStudyGuidesDate, now.toString());
+  Cookies.remove(cookieNudgeStudyGuidesPageCounter);
+};
+
+export const useIncrementPageCounter = () => {
+  const page = useSelector(pageSelector);
+  return React.useEffect(() => {
+    const counter = getPageCounterCookie();
+    if (page && counter <= nudgeStudyToolsMinPageLimit) { incrementPageCounterCookie(); }
+  }, [page]);
 };

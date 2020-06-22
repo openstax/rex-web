@@ -1,5 +1,4 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import * as Cookies from 'js-cookie';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
@@ -13,12 +12,6 @@ import { hasStudyGuides as hasStudyGuidesSelector } from '../../studyGuides/sele
 import arrowDesktop from './assets/arrowDesktop.svg';
 import arrowMobile from './assets/arrowMobile.svg';
 import {
-  cookieNudgeStudyGuidesCounter,
-  cookieNudgeStudyGuidesDate,
-  nudgeStudyToolsShowLimit,
-  timeIntervalBetweenShowingNudgeInMs,
-} from './constants';
-import {
   NudgeArrow,
   NudgeBackground,
   NudgeCloseButton,
@@ -30,7 +23,12 @@ import {
   NudgeText,
   NudgeWrapper,
 } from './styles';
-import { usePositions } from './utils';
+import {
+  setNudgeStudyToolsCookies,
+  shouldDisplayNudgeStudyTools,
+  useIncrementPageCounter,
+  usePositions,
+} from './utils';
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
@@ -44,23 +42,17 @@ const NudgeStudyTools = () => {
   const wrapperRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (show === null && hasStudyGuides) {
-      const counter = Number(Cookies.get(cookieNudgeStudyGuidesCounter) || 0);
-      const lastShownDate = Cookies.get(cookieNudgeStudyGuidesDate);
-      const now = new Date();
-      const passedAllowedInterval = Boolean(lastShownDate
-        && (now.getTime() - new Date(lastShownDate).getTime()) > timeIntervalBetweenShowingNudgeInMs);
+  useIncrementPageCounter();
 
-      if (
-        counter < nudgeStudyToolsShowLimit
-        && (!lastShownDate || passedAllowedInterval)
-      ) {
-        Cookies.set(cookieNudgeStudyGuidesCounter, (counter + 1).toString());
-        Cookies.set(cookieNudgeStudyGuidesDate, now.toString());
-        trackOpen();
-        dispatch(openNudgeStudyTools());
-      }
+  React.useEffect(() => {
+    if (
+      show === null
+      && hasStudyGuides
+      && shouldDisplayNudgeStudyTools()
+    ) {
+      setNudgeStudyToolsCookies();
+      trackOpen();
+      dispatch(openNudgeStudyTools());
     }
   }, [show, hasStudyGuides, trackOpen, dispatch]);
 
