@@ -239,4 +239,12 @@ describe('content reducer', () => {
     const stateAfterClose = reducer(initialState, actions.closeCallToActionPopup());
     expect(stateAfterClose.showCallToActionPopup).toEqual(false);
   });
+
+  it('opens and closes NudgeStudyTools', () => {
+    const stateAfterOpen = reducer(initialState, actions.openNudgeStudyTools());
+    expect(stateAfterOpen.showNudgeStudyTools).toEqual(true);
+
+    const stateAfterClose = reducer(initialState, actions.closeNudgeStudyTools());
+    expect(stateAfterClose.showNudgeStudyTools).toEqual(false);
+  });
 });
