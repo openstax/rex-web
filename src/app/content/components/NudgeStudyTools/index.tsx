@@ -1,4 +1,3 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
@@ -39,7 +38,6 @@ const NudgeStudyTools = () => {
   const positions = usePositions(isMobile);
   const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
-  const wrapperRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();
 
   useIncrementPageCounter();
@@ -63,12 +61,6 @@ const NudgeStudyTools = () => {
     return () => { body.style.overflow = null; };
   }, [body, show, positions]);
 
-  React.useEffect(() => {
-    if (show && positions && wrapperRef.current) {
-      wrapperRef.current.focus();
-    }
-  }, [show, positions, wrapperRef]);
-
   if (!show || !positions) { return null; }
 
   const close = () => {
@@ -77,8 +69,6 @@ const NudgeStudyTools = () => {
 
   return ReactDOM.createPortal(<FormattedMessage id='i18n:nudge:study-tools:aria-label'>
     {(msg: string) => <NudgeWrapper
-      ref={wrapperRef}
-      tabIndex='-1'
       aria-label={msg}
       data-analytics-region='Nudge Study Tools'
     >
