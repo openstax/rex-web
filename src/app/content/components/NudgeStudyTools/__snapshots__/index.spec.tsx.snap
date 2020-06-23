@@ -9,7 +9,6 @@ exports[`NudgeStudyTools renders only if open and if positions have been calcula
   aria-label="Image points to the Study Guides and My Highlights buttons in the toolbar. The study tools you need. 100% free. Boost your studies with expert-created study guides and highlighting. To close image, navigate to or click the x button."
   className="styles__NudgeWrapper-hrv0cf-0 fJZGzd"
   data-analytics-region="Nudge Study Tools"
-  tabIndex="-1"
 >
   <img
     alt=""
