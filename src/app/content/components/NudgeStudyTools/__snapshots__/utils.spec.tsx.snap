@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useGetStudyToolsTarget return null if there are no study guides 1`] = `null`;
+
+exports[`useGetStudyToolsTarget return target if has study guides 1`] = `"id: nudge-study-tools, [object HTMLDivElement]"`;
+
+exports[`usePositions return null if target was not found 1`] = `"null"`;
+
+exports[`usePositions returns different positions depends on isMobile and windowWidth 1`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":500,\\"closeButtonTopOffset\\":260,\\"contentWrapperRight\\":1590,\\"contentWrapperTopOffset\\":300,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":300}"`;
+
+exports[`usePositions returns different positions depends on isMobile and windowWidth 2`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":520,\\"closeButtonTopOffset\\":192,\\"contentWrapperRight\\":1590,\\"contentWrapperTopOffset\\":232,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":320}"`;
+
+exports[`usePositions returns different positions depends on isMobile and windowWidth 3`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":500,\\"closeButtonTopOffset\\":260,\\"contentWrapperRight\\":890,\\"contentWrapperTopOffset\\":300,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":300}"`;

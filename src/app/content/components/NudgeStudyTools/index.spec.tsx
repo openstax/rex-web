@@ -1,4 +1,3 @@
-import { Document } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -20,7 +19,6 @@ jest.mock('react-dom', () => ({
 }));
 
 describe('NudgeStudyTools', () => {
-  let document: Document;
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices;

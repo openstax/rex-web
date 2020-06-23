@@ -131,6 +131,7 @@ export const shouldDisplayNudgeStudyTools = (): boolean => {
     && (numberOfPagesOpenedByUser >= nudgeStudyToolsMinPageLimit);
 };
 
+// Set required cookies and reset opened page counter
 export const setNudgeStudyToolsCookies = () => {
   const now = new Date();
   const counter = getCounterCookie();
