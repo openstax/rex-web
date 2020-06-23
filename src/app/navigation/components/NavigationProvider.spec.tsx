@@ -5,7 +5,13 @@ import createTestStore from '../../../test/createTestStore';
 import { State } from '../types';
 import NavigationProvider from './NavigationProvider';
 
-const initialState = Object.assign(new URL('https://localhost'), {query: {}}) as State;
+const initialState: State = {
+  hash: '',
+  pathname: '/',
+  query: {},
+  search: '',
+  state: null,
+};
 
 const routes = [
   {
