@@ -62,21 +62,25 @@ export default styled(StudyGuides)`
       overflow: hidden;
       text-overflow: ellipsis;
     `}
+
+    @media print {
+      padding-left: 0;
+    }
+  }
+
+  ${HighlightWrapper} {
+    @media print {
+      margin-left: 0;
+    }
   }
 
   ${HighlightSection} {
     ${theme.breakpoints.mobile`
       padding-left: 2rem;
     `}
+
     @media print {
       background: ${theme.color.neutral.darkest}
-    }
-  }
-
-  ${HighlightWrapper} {
-    @media print {
-      margin-top: 0;
-      margin-bottom: 0;
     }
   }
 

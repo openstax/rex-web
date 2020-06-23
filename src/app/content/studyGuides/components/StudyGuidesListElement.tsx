@@ -67,6 +67,13 @@ export const HighlightContentWrapper = styled.div`
   ${theme.breakpoints.mobile`
     margin-left: 2rem;
   `}
+
+  @media print {
+    break-inside: avoid-page;
+    ${HighlightContent} {
+      background-color: white;
+    }
+  }
 `;
 
 interface HighlightListElementProps {
