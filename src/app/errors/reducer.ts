@@ -16,7 +16,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.showErrorDialog):
       return {...state, showDialog: true};
     case getType(actions.hideErrorDialog):
-    case getType(actions.clearCurrentError):
       return initialState;
     case getType(actions.recordError):
       return { ...state, error: action.payload, code: 500 };
