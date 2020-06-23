@@ -1,14 +1,11 @@
-import { Location } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
+import { State } from '../types';
 import NavigationProvider from './NavigationProvider';
 
-const initialState = {
-  ...new URL('https://localhost') as Location,
-  query: {},
-};
+const initialState = Object.assign(new URL('https://localhost'), {query: {}}) as State;
 
 const routes = [
   {
