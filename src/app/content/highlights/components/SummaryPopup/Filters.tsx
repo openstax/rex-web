@@ -47,8 +47,18 @@ const ConnectedPrintButton = connect(
 
 export default () =>
   <Filters>
-    <FilterDropdown label='i18n:highlighting:filters:chapters'><ConnectedChapterFilter /></FilterDropdown>
-    <FilterDropdown label='i18n:highlighting:filters:colors'><ColorFilter /></FilterDropdown>
+    <FilterDropdown
+      label='i18n:highlighting:filters:chapters'
+      ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+    >
+      <ConnectedChapterFilter />
+    </FilterDropdown>
+    <FilterDropdown
+      label='i18n:highlighting:filters:colors'
+      ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+    >
+      <ColorFilter />
+    </FilterDropdown>
     <ConnectedPrintButton />
     <ConnectedFilterList />
   </Filters>;

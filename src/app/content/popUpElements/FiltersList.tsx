@@ -98,7 +98,7 @@ interface FiltersListProps {
   className?: string;
   locationFilters: HighlightLocationFilters;
   selectedLocationFilters: Set<string>;
-  selectedColorFilters: Set<HighlightColorEnum>;
+  selectedColorFilters?: Set<HighlightColorEnum>;
   setFilters: (filters: Partial<SummaryFilters>) => void;
 }
 
@@ -119,7 +119,7 @@ const FiltersList = ({
 
   const onRemoveColor = (color: HighlightColorEnum) => {
     setFilters({
-      colors: [...selectedColorFilters].filter(not(match(color))),
+      colors: selectedColorFilters && [...selectedColorFilters].filter(not(match(color))),
     });
   };
 
@@ -131,7 +131,7 @@ const FiltersList = ({
       locationId={locationId}
       onRemove={() => onRemoveChapter(locationId)}
     />)}
-    {[...selectedColorFilters].sort().map((color) => <FiltersListColor
+    {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
       key={color}
       color={color}
       onRemove={() => onRemoveColor(color)}

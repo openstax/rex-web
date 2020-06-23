@@ -22,11 +22,12 @@ const DownIcon = styled(AngleDown)`
 interface ToggleProps {
   label: string;
   isOpen: boolean;
+  ariaLabelId: string;
 }
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({label, isOpen, ...props}, ref) => (
-    <FormattedMessage id='i18n:highlighting:filters:filter-by:aria-label' values={{filter: label}}>
+  ({label, isOpen, ariaLabelId, ...props}, ref) => (
+    <FormattedMessage id={ariaLabelId} values={{filter: label}}>
       {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
         <div tabIndex={-1}>
           {label}
@@ -73,10 +74,11 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
 `;
 
 // tslint:disable-next-line:variable-name
-export const FilterDropdown = ({label, children}: React.PropsWithChildren<{label: string}>) =>
+export const FilterDropdown = ({label, ariaLabelId, children}:
+  React.PropsWithChildren<{label: string, ariaLabelId: string}>) =>
     <FormattedMessage id={label}>
       {(msg: Element | string) => <Dropdown
-        toggle={<Toggle label={msg} />}
+        toggle={<Toggle label={msg} ariaLabelId={ariaLabelId} />}
         transparentTab={false}
       >
         {children}
