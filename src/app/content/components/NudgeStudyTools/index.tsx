@@ -63,10 +63,6 @@ const NudgeStudyTools = () => {
 
   if (!show || !positions) { return null; }
 
-  const close = () => {
-    dispatch(closeNudgeStudyTools());
-  };
-
   return ReactDOM.createPortal(<FormattedMessage id='i18n:nudge:study-tools:aria-label'>
     {(msg: string) => <NudgeWrapper
       aria-label={msg}
@@ -81,7 +77,7 @@ const NudgeStudyTools = () => {
       <NudgeCloseButton
         top={positions.closeButtonTopOffset}
         left={positions.closeButtonLeft}
-        onClick={close}
+        onClick={() => dispatch(closeNudgeStudyTools())}
         data-analytics-label='close'
       >
         <NudgeCloseIcon />
