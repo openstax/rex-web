@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
+import { disablePrint } from '../content/components/utils/disablePrint';
 
 // tslint:disable-next-line:variable-name
 export const GoToTopWrapper = styled.div`
@@ -15,6 +16,7 @@ export const GoToTopWrapper = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name

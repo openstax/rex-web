@@ -16,6 +16,7 @@ const HighlightOuterWrapper = styled.div`
   }
 
   @media print {
+    page-break-inside: avoid;
     :not(:last-child) {
       border-color: white;
     }
