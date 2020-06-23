@@ -7,7 +7,11 @@ import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
-import SectionHighlights, { HighlightsChapterWrapper, HighlightSection } from '../../components/SectionHighlights';
+import SectionHighlights, {
+  HighlightsChapterWrapper,
+  HighlightSection,
+  HighlightWrapper
+} from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import HighlightsWrapper from '../../styles/HighlightsWrapper';
 import LoaderWrapper from '../../styles/LoaderWrapper';
@@ -62,8 +66,18 @@ export default styled(StudyGuides)`
 
   ${HighlightSection} {
     ${theme.breakpoints.mobile`
-    padding-left: 2rem;
-  `}
+      padding-left: 2rem;
+    `}
+    @media print {
+      background: ${theme.color.neutral.darkest}
+    }
+  }
+
+  ${HighlightWrapper} {
+    @media print {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 
   display: contents;
