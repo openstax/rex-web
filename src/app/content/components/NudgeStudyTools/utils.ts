@@ -44,6 +44,12 @@ export const usePositions = (isMobile: boolean) => {
 
   React.useEffect(() => {
     if (target) {
+      // Make sure that we calculate positions with body overflow set to hidden
+      // because it causes scrollbar to hide which results with different positions.
+      const document = assertDocument();
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
       const { top, left, right, height, width } = target.getBoundingClientRect();
       const padding = remsToPx(spotlightPadding);
       const spotlightTopOffset = top - padding;
@@ -58,6 +64,10 @@ export const usePositions = (isMobile: boolean) => {
       const contentWrapperRight = windowWidth - right - padding;
       const closeButtonLeft = left + spotlightWidth;
       const closeButtonTopOffset = contentWrapperTopOffset - remsToPx(closeButtonDistanceFromContent);
+
+      // Resets to the value from before calculations. We want this style change to be handled
+      // directly in the component.
+      document.body.style.overflow = prevOverflow;
 
       setPositions({
         arrowLeft,
