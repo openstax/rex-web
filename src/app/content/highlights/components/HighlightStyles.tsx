@@ -13,7 +13,6 @@ export const stickyNoteMeasures = {
   bulletSize: 1.6,
   defaultOffset: 3.2,
   green: 'rgb(99, 165, 36)',
-  height: 8,
   left: 32.8,
   opacity: '0.85',
   width: 29.8, /* to allow text to fit in one line with tooltip */
@@ -44,8 +43,9 @@ export const ImageWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 export const StickyNoteBullet = styled.div`
   position: absolute;
-  width: ${stickyNoteMeasures.bulletSize * 2}rem;
-  height: ${stickyNoteMeasures.bulletSize}rem;
+  height: ${stickyNoteMeasures.bulletSize * 2}rem;
+  width: ${stickyNoteMeasures.bulletSize}rem;
+  top: 50%;
   overflow: hidden;
 
   ::after {
@@ -55,7 +55,6 @@ export const StickyNoteBullet = styled.div`
     height: ${stickyNoteMeasures.bulletSize}rem;
     transform: rotate(45deg);
     top: ${stickyNoteMeasures.bulletSize / 2}rem;
-    left: ${stickyNoteMeasures.bulletSize / 2}rem;
     box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 30);
   }
 `;
@@ -77,11 +76,12 @@ export const BlueStickyNote = styled(StickyNote)`
   left: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
 
   ${StickyNoteBullet} {
-    transform: rotate(-90deg);
-    top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
-    left: -${stickyNoteMeasures.bulletSize * 1.5}rem;
+    transform: translate(-100%, -50%);
+    left: 0%;
 
     ::after {
+      transform: rotate(45deg);
+      left: ${stickyNoteMeasures.bulletSize / 2}rem;
       background: ${stickyNoteMeasures.blue};
     }
   }
@@ -94,11 +94,12 @@ export const GreenStickyNote = styled(StickyNote)`
   right: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
 
   ${StickyNoteBullet} {
-    transform: rotate(90deg);
-    top: ${stickyNoteMeasures.height / 2 - stickyNoteMeasures.bulletSize / 2}rem;
-    right: -${stickyNoteMeasures.bulletSize * 1.5}rem;
+    transform: translate(100%, -50%);
+    right: 0%;
 
     ::after {
+      transform: rotate(-45deg);
+      right: ${stickyNoteMeasures.bulletSize / 2}rem;
       background: ${stickyNoteMeasures.green};
     }
   }
