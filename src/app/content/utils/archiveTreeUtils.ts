@@ -80,11 +80,15 @@ export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
   pageParam: Params['page']
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => {
-  return flattenArchiveTree(tree).filter(archiveTreeSectionIsPage).find((node) =>
-    'uuid' in pageParam
+  const matchPage = (node: LinkedArchiveTreeSection | LinkedArchiveTree) => {
+    if (!archiveTreeSectionIsPage(node)) { return; }
+
+    return 'uuid' in pageParam
       ? node.id === pageParam.uuid
-      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()
-  );
+      : node.slug.toLowerCase() === pageParam.slug.toLowerCase();
+  };
+
+  return flattenArchiveTree(tree).find(matchPage);
 };
 
 export const archiveTreeContainsNode = (
