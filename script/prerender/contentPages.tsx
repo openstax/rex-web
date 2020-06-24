@@ -12,7 +12,6 @@ import { content } from '../../src/app/content/routes';
 import { BookWithOSWebData } from '../../src/app/content/types';
 import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
-import { notFound } from '../../src/app/errors/routes';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
 import { Link, Meta } from '../../src/app/head/types';
@@ -144,10 +143,6 @@ export const prepareBooks = async(
 };
 
 export type Pages = Array<{code: number, page: AnyMatch}>;
-
-export const prepareErrorPages = (): Promise<Pages> => Promise.resolve([
-  {code: 404, page: {route: notFound}},
-]);
 
 export const prepareBookPages = (
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
