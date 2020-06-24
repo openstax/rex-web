@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
+import { hash, target } from '../../navigation/selectors';
 import * as parentSelectors from '../selectors';
-import { countTotalHighlights, getFormattedSearchResults, getSearchResultsForPage } from './utils';
+import { countTotalHighlights, getFormattedSearchResults,
+  getSearchResultsForPage, getSearchScrollTarget } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -52,4 +54,10 @@ export const currentPageResults = createSelector(
   getRawResults,
   parentSelectors.page,
   (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
+);
+
+export const scrollTarget = createSelector(
+  target,
+  hash,
+  (object, hashString) => getSearchScrollTarget(object || {}, hashString)
 );

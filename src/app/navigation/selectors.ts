@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { getTargetFromQuery } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -19,6 +20,11 @@ export const pathname = createSelector(
 export const hash = createSelector(
   localState,
   (state) => state.hash
+);
+
+export const target = createSelector(
+  localState,
+  (state) => getTargetFromQuery(state.query)
 );
 
 export const location = localState;

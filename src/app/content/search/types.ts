@@ -25,3 +25,9 @@ export type SearchResultChapter = ArchiveTree & {
 };
 
 export type SearchResultContainer = SearchResultPage | SearchResultChapter;
+
+export interface SearchScrollTarget {
+  type: 'search';
+  index: number;
+  elementId: string;
+}

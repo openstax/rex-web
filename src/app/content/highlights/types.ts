@@ -46,3 +46,9 @@ export interface State {
 }
 
 export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;
+
+export interface HighlightScrollTarget {
+  type: 'highlight';
+  id: string;
+  elementId: string;
+}

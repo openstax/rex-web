@@ -3,6 +3,7 @@ import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import omit from 'lodash/fp/omit';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
+import { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
 import { pathTokenIsKey } from '../navigation/guards';
@@ -108,4 +109,16 @@ export const findPathForParams = (params: object, paths: string[]) => {
     return paramsInPath.length === paramKeys.length &&
       paramsInPath.every(({name}) => paramKeys.includes(name.toString()));
   });
+};
+
+export const getTargetFromQuery = (query: OutputParams): {[key: string]: any} | null => {
+  if (!query.target || Array.isArray(query.target)) { return null; }
+  try {
+    const parsed = JSON.parse(decodeURIComponent(query.target));
+    if (parsed instanceof Object) { return parsed; }
+
+    return null;
+  } catch {
+    return null;
+  }
 };

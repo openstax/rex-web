@@ -1,10 +1,12 @@
 import { createSelector } from 'reselect';
+import { hash, target } from '../../navigation/selectors';
 import * as parentSelectors from '../selectors';
 import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
-  getSortedSummaryHighlights
+  getHighlightScrollTarget,
+  getSortedSummaryHighlights,
 } from './utils';
 import {
   checkIfHasMoreResults,
@@ -149,4 +151,10 @@ export const hasMoreResults = createSelector(
   filteredCountsPerPage,
   summaryPagination,
   checkIfHasMoreResults
+);
+
+export const scrollTarget = createSelector(
+  target,
+  hash,
+  (object, hashString) => getHighlightScrollTarget(object || {}, hashString)
 );
