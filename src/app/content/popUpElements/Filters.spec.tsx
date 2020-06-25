@@ -16,10 +16,12 @@ import { ArchiveTree } from '../types';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
-import Filters from './Filters';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
+import ColorFilter from '../highlights/components/SummaryPopup/ColorFilter';
+import Filters from '../highlights/components/SummaryPopup/Filters';
 
-jest.mock('./ColorFilter', () => (props: any) => <div mock-color-filter {...props} />);
+jest.mock('../highlights/components/SummaryPopup/ColorFilter',
+          () => (props: any) => <div mock-color-filter {...props} />);
 jest.mock('./ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
 
 describe('Filters', () => {
@@ -66,7 +68,7 @@ describe('Filters', () => {
   it('matches snapshot when open color filters', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <Filters />
+        <Filters/>
       </MessageProvider>
     </Provider>);
 

@@ -11,7 +11,7 @@ import * as select from '../../selectors';
 import ColorFilter from './ColorFilter';
 
 // tslint:disable-next-line:variable-name
-const ConnectedChapterFilter = connect(
+export const ConnectedChapterFilter = connect(
   (state: AppState) => ({
     locationFilters: select.highlightLocationFilters(state),
     locationFiltersWithContent: select.highlightLocationFiltersWithContent(state),
@@ -23,7 +23,7 @@ const ConnectedChapterFilter = connect(
 )(ChapterFilter);
 
 // tslint:disable-next-line:variable-name
-const ConnectedFilterList = connect(
+export const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: select.highlightLocationFilters(state),
     selectedColorFilters: select.summaryColorFilters(state),
@@ -35,7 +35,7 @@ const ConnectedFilterList = connect(
 )(FiltersList);
 
 // tslint:disable-next-line:variable-name
-const ConnectedPrintButton = connect(
+export const ConnectedPrintButton = connect(
   (state: AppState) => ({
     isLoading: select.summaryIsLoading(state),
     shouldFetchMore: select.hasMoreResults(state),

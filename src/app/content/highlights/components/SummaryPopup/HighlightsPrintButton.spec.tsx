@@ -8,7 +8,7 @@ import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import { assertWindow } from '../../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights } from '../../actions';
-import HighlightsPrintButton from './HighlightsPrintButton';
+import { ConnectedPrintButton } from './Filters';
 
 describe('HighlightsPrintButton', () => {
   let store: Store;
@@ -28,7 +28,7 @@ describe('HighlightsPrintButton', () => {
   it('matches snapshot', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPrintButton />
+        <ConnectedPrintButton />
       </MessageProvider>
     </Provider>);
 
@@ -41,7 +41,7 @@ describe('HighlightsPrintButton', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPrintButton />
+        <ConnectedPrintButton />
       </MessageProvider>
     </Provider>);
 
@@ -62,7 +62,7 @@ describe('HighlightsPrintButton', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPrintButton />
+        <ConnectedPrintButton />
       </MessageProvider>
     </Provider>);
 
@@ -79,7 +79,7 @@ describe('HighlightsPrintButton', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <HighlightsPrintButton />
+        <ConnectedPrintButton />
       </MessageProvider>
     </Provider>);
 

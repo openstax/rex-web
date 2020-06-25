@@ -35,7 +35,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.loadMoreStudyGuides):
       return {...state, summary: {...state.summary, loading: true}};
     case getType(actions.setSummaryFilters): {
-      return {
+      const aux = {
         ...state,
         summary: {
         ...state.summary,
@@ -48,6 +48,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           studyGuides: {},
         },
       };
+
+      console.log(aux);
+      return aux;
     }
     case getType(actions.receiveStudyGuidesTotalCounts):
       const locationIds = Array.from(action.meta.keys());

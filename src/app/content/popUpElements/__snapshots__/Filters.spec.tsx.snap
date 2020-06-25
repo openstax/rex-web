@@ -2,14 +2,14 @@
 
 exports[`Filters matches snapshot 1`] = `
 <div
-  className="Filters-sc-1jvnftx-3 donQDJ"
+  className="Filters-sc-1jvnftx-2 ekTGIG"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Chapter"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-2 iprHMj Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-1 cwfvdA Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -36,7 +36,7 @@ exports[`Filters matches snapshot 1`] = `
   >
     <button
       aria-label="Filter highlights by Color"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-2 iprHMj Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-1 cwfvdA Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -60,7 +60,7 @@ exports[`Filters matches snapshot 1`] = `
   </div>
   <button
     aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1jvnftx-1 inkvm HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+    className="styled__PlainButton-sc-1119auh-0 PrintButton-hhaxq1-0 kvVFeH HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
     disabled={false}
     onClick={[Function]}
@@ -297,14 +297,14 @@ exports[`Filters matches snapshot 1`] = `
 
 exports[`Filters matches snapshot when open color filters 1`] = `
 <div
-  className="Filters-sc-1jvnftx-3 donQDJ"
+  className="Filters-sc-1jvnftx-2 ekTGIG"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Chapter"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-2 iprHMj Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-1 cwfvdA Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -331,7 +331,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   >
     <button
       aria-label="Filter highlights by Color"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-2 bxSmvi Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1jvnftx-1 hGtzNq Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -358,7 +358,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   </div>
   <button
     aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1jvnftx-1 inkvm HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+    className="styled__PlainButton-sc-1119auh-0 PrintButton-hhaxq1-0 kvVFeH HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
     disabled={false}
     onClick={[Function]}

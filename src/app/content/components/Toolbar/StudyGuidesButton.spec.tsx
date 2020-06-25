@@ -8,7 +8,7 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
-import { CountsPerSource } from '../../highlights/types';
+import { CountsPerSource, HighlightLocationFilters } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
@@ -51,7 +51,12 @@ describe('study guides button', () => {
 
   it('render if feature flag is enabled and book has study guide', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuidesTotalCounts({ countsPerSource: { asd: { green: 1 } } } as CountsPerSource));
+    store.dispatch(
+      receiveStudyGuidesTotalCounts(
+        { countsPerSource: { asd: { green: 1 } } } as CountsPerSource,
+        new Map() as HighlightLocationFilters
+      )
+    );
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -68,7 +73,12 @@ describe('study guides button', () => {
     const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
 
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuidesTotalCounts({ countsPerSource: { asd: { green: 1 } } } as CountsPerSource));
+    store.dispatch(
+      receiveStudyGuidesTotalCounts(
+        { countsPerSource: { asd: { green: 1 } } } as CountsPerSource,
+        new Map() as HighlightLocationFilters
+      )
+    );
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

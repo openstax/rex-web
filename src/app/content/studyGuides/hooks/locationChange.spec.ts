@@ -10,6 +10,7 @@ import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuidesTotalCounts } from '../actions';
+import { StudyGuidesLocationFilters } from '../types';
 
 describe('locationChange', () => {
   let store: Store;
@@ -17,6 +18,8 @@ describe('locationChange', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./locationChange').default>;
   let mockSummaryResponse: { countsPerSource: CountsPerSource };
+
+  const locationIds = new Map() as StudyGuidesLocationFilters;
 
   beforeEach(() => {
     resetModules();
@@ -55,7 +58,7 @@ describe('locationChange', () => {
     expect(getHighlightsSummary).toHaveBeenCalled();
     expect(getStudyGuidesHighlights).not.toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
-      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource, locationIds)
     );
   });
 
@@ -68,7 +71,9 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource, locationIds)
+    );
   });
 
   it('noops on locationChange if book is not loaded', async() => {
@@ -80,13 +85,15 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource, locationIds)
+    );
   });
 
   it('noops on locationChange if summary is already loaded', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuidesTotalCounts({ asd: { green: 1 }}));
+    store.dispatch(receiveStudyGuidesTotalCounts({ asd: { green: 1 }}, locationIds));
 
     const getHighlightsSummary = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
       .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
@@ -94,6 +101,8 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource, locationIds)
+    );
   });
 });

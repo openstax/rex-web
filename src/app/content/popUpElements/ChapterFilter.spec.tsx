@@ -12,12 +12,14 @@ import { Store } from '../../types';
 import { assertDefined } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { receiveHighlightsTotalCounts } from '../highlights/actions';
+import { ConnectedChapterFilter } from '../highlights/components/SummaryPopup/Filters';
+import { HighlightLocationFilters } from '../highlights/types';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
-import ChapterFilter from './ChapterFilter';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
+  const locationIds = new Map() as HighlightLocationFilters;
   let store: Store;
 
   beforeEach(() => {
@@ -37,7 +39,7 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 
@@ -48,7 +50,7 @@ describe('ChapterFilter', () => {
   it('renders without a book', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 
@@ -74,7 +76,7 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 
@@ -98,7 +100,7 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 
@@ -130,7 +132,7 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 
@@ -153,11 +155,11 @@ describe('ChapterFilter', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    }, new Map()));
+    }, locationIds));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 
@@ -185,11 +187,11 @@ describe('ChapterFilter', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    }, new Map()));
+    }, locationIds));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ChapterFilter />
+        <ConnectedChapterFilter />
       </MessageProvider>
     </Provider>);
 

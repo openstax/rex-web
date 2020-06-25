@@ -6,7 +6,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { HighlightData, SummaryHighlights } from '../../highlights/types';
+import { HighlightData, SummaryHighlights, HighlightLocationFilters } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
@@ -37,6 +37,7 @@ describe('loadMore', () => {
   let dispatch: jest.SpyInstance;
   let loadingSpy: jest.SpyInstance;
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
+  const locationIds = new Map() as HighlightLocationFilters;
 
   beforeEach(() => {
     resetModules();
@@ -60,7 +61,7 @@ describe('loadMore', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 15},
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 15},
-    }));
+    }, locationIds));
 
     const page1 = createTestHighlights({
       amount: 15,
@@ -104,9 +105,11 @@ describe('loadMore', () => {
       page: 1,
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
-      page: 1,
-      perPage: 20,
-      sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+      pagination: {
+        page: 1,
+        perPage: 20,
+        sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+      },
     }));
 
     const page3 = createTestHighlights({
@@ -151,7 +154,7 @@ describe('loadMore', () => {
 
     expect(loadingSpy).toHaveBeenCalled();
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, null));
+    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null}));
   });
 
   it('calls loadUntilPageSize with correct parameters', async() => {
@@ -159,7 +162,7 @@ describe('loadMore', () => {
     store.dispatch(receivePage(page));
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 5},
-    }));
+    }, locationIds));
 
     const page1 = createTestHighlights({
       amount: 5,
@@ -191,6 +194,6 @@ describe('loadMore', () => {
       sets: [GetHighlightsSetsEnum.Curatedopenstax],
     }));
     expect(highlightClient).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, null));
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null}));
   });
 });
