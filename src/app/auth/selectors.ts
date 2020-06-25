@@ -27,8 +27,3 @@ export const loginLink = createSelector(
   selectNavigation.pathname,
   (currentPath) => '/accounts/login?r=' + currentPath
 );
-
-export const signupLink = createSelector(
-  selectNavigation.pathname,
-  (currentPath) => '/accounts/signup?r=' + currentPath
-);
