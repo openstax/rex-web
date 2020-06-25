@@ -116,6 +116,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         <a
           aria-hidden="true"
           href="/"
+          tabIndex={-1}
         >
           <img
             alt="OpenStax Logo"
