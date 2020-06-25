@@ -19,25 +19,24 @@ interface ServerConfig {
   baseDir: string;
 }
 
-const makeFallback = (serve: Handler, fallback404: boolean) => {
-  const handler = (url: string): express.Handler => (req, res, next) => {
-    req.url = url;
-    serve(req, res, next);
-  };
+const makeFallback = (serve: Handler, fallback404: boolean): express.Handler => (req, res, next) => {
+  req.url = '/index.html';
 
-  return fallback404
-    ? handler('/')
-    : handler('/errors/404');
+  if (!fallback404) {
+    res.status(404);
+  }
+
+  serve(req, res, next);
 };
 
 const makeServe = (baseDir: string) => {
   const setHeaders = (res: http.ServerResponse, file: string) => {
-    if (file.match(`^${baseDir}/(books|errors)`)) {
+    if (file.match(`^${baseDir}/books/.*?/pages`)) {
       res.setHeader('Content-Type', 'text/html');
     }
   };
 
-  return serveStatic(baseDir, {setHeaders});
+  return serveStatic(baseDir, {setHeaders, redirect: false});
 };
 
 const makeOptions = (options: Options): ServerConfig => ({
