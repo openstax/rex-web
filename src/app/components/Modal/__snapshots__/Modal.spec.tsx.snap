@@ -2,7 +2,7 @@
 
 exports[`Modal matches snapshot 1`] = `
 <div
-  className="styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
+  className="styles__ModalWrapper-sc-1gxqzoa-6 buhelx"
 >
   <div
     className="styles__CardWrapper-sc-1gxqzoa-7 llgsuk"
@@ -59,7 +59,7 @@ exports[`Modal matches snapshot 1`] = `
 
 exports[`Modal matches snapshot with children 1`] = `
 <div
-  className="styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
+  className="styles__ModalWrapper-sc-1gxqzoa-6 buhelx"
 >
   <div
     className="styles__CardWrapper-sc-1gxqzoa-7 llgsuk"
