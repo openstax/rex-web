@@ -16,7 +16,7 @@ exports[`Notifications matches snapshot 1`] = `
       <p
         className="Card__P-sc-1o7sacr-1 bKishz"
       >
-        This page needs to be reloaded.
+        Click below to use the most recent version of this software.
       </p>
     </div>
     <div
@@ -26,7 +26,7 @@ exports[`Notifications matches snapshot 1`] = `
         className="Button-ayg7nk-0 gkTzYh"
         onClick={[Function]}
       >
-        Reload
+        Update
       </button>
     </div>
   </div>
