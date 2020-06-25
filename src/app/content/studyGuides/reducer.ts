@@ -6,14 +6,12 @@ import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
-import { highlightStyles } from './constants';
 import { State } from './types';
 
-const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
   isEnabled: false,
   summary: {
-    filters: {colors: defaultColors, locationIds: []},
+    filters: {locationIds: [], default: true},
     loading: false,
     open: false,
     pagination: null,
@@ -34,34 +32,35 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, summary: {...state.summary, open: false}};
     case getType(actions.loadMoreStudyGuides):
       return {...state, summary: {...state.summary, loading: true}};
-    case getType(actions.setSummaryFilters): {
-      const aux = {
+    case getType(actions.setDefaultSummaryFilters): {
+      return {
         ...state,
         summary: {
-        ...state.summary,
-        filters: {
-          ...state.summary.filters,
-          ...action.payload,
-        },
+          ...state.summary,
+          filters: {...state.summary.filters, ...action.payload},
           loading: true,
           pagination: null,
           studyGuides: {},
         },
       };
-
-      console.log(aux);
-      return aux;
     }
-    case getType(actions.receiveStudyGuidesTotalCounts):
-      const locationIds = Array.from(action.meta.keys());
+    case getType(actions.setSummaryFilters): {
       return {
         ...state,
         summary: {
           ...state.summary,
-          filters: {
-            ...state.summary.filters,
-            locationIds,
-          },
+          filters: {...state.summary.filters, ...action.payload, default: false},
+          loading: true,
+          pagination: null,
+          studyGuides: {},
+        },
+      };
+    }
+    case getType(actions.receiveStudyGuidesTotalCounts):
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
           totalCountsPerPage: action.payload,
         },
       };

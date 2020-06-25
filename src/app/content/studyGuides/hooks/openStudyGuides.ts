@@ -1,25 +1,23 @@
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import { getHighlightLocationFilterForPage } from '../../highlights/utils';
-import { loadMoreStudyGuides, openStudyGuides, setSummaryFilters } from '../actions';
+import { loadMoreStudyGuides, openStudyGuides, setDefaultSummaryFilters } from '../actions';
 import * as select from '../selectors';
 
 export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => async() => {
   const state = services.getState();
-  const page = state.content.page;
-  const filters = select.studyGuidesLocationFilters(state);
-  const location = page && getHighlightLocationFilterForPage(filters, page);
+  const filtersHaveBeenSet = select.filtersHaveBeenSet(state);
+  const currentFilters = select.summaryLocationFilters(state);
+  const defaultFilter = select.defaultLocationFilter(state);
 
-  if (location) {
-    console.log(location);
-    services.dispatch(setSummaryFilters({locationIds: [location.id]}));
-  }
+  if (!filtersHaveBeenSet && defaultFilter && !currentFilters.has(defaultFilter.id)) {
+    services.dispatch(setDefaultSummaryFilters({locationIds: [defaultFilter.id]}));
+  } else {
+    const studyGuides = select.summaryStudyGuides(state);
+    const studyGuidesAreLoading = select.summaryIsLoading(state);
 
-  const studyGuides = select.summaryStudyGuides(state);
-  const studyGuidesAreLoading = select.summaryIsLoading(state);
-
-  if (studyGuides === null && studyGuidesAreLoading === false) {
-    services.dispatch(loadMoreStudyGuides());
+    if (studyGuides === null && studyGuidesAreLoading === false) {
+      services.dispatch(loadMoreStudyGuides());
+    }
   }
 };
 

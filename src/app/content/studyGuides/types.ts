@@ -1,6 +1,5 @@
 import {
   CountsPerSource,
-  SummaryFilters,
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from '../highlights/types';
@@ -9,7 +8,10 @@ import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 export interface State {
   isEnabled: boolean;
   summary: {
-    filters: SummaryFilters,
+    filters: {
+      locationIds: string[];
+      default: boolean;
+    },
     loading: boolean,
     open: boolean,
     pagination: SummaryHighlightsPagination,

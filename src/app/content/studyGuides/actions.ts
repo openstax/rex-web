@@ -5,7 +5,6 @@ import {
   SummaryHighlights,
   SummaryHighlightsPagination
 } from '../highlights/types';
-import { StudyGuidesLocationFilters } from './types';
 
 export const receiveSummaryStudyGuides = createStandardAction(
   'Content/StudyGuides/Summary/receive'
@@ -20,9 +19,12 @@ SummaryHighlights,
 export const openStudyGuides = createStandardAction('Content/StudyGuides/Summary/open')<void>();
 export const closeStudyGuides = createStandardAction('Content/StudyGuides/Summary/close')<void>();
 export const loadMoreStudyGuides = createStandardAction('Content/StudyGuides/loadMore')();
+export const setDefaultSummaryFilters = createStandardAction('Content/StudyGuides/Summary/setDefaultFilters')<
+  Partial<SummaryFilters>
+>();
 export const setSummaryFilters = createStandardAction('Content/StudyGuides/Summary/setFilters')<
   Partial<SummaryFilters>
 >();
 export const receiveStudyGuidesTotalCounts = createStandardAction(
   'Content/StudyGuides/receiveTotalCounts'
-)<CountsPerSource, StudyGuidesLocationFilters>();
+)<CountsPerSource>();
