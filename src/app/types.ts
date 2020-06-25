@@ -1,3 +1,4 @@
+import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import { History } from 'history';
 import {
   Dispatch as ReduxDispatch,
@@ -32,6 +33,7 @@ export interface AppState {
 }
 
 export interface AppServices {
+  serviceWorker?: ServiceWorkerRegistration;
   analytics: typeof analytics;
   highlightClient: ReturnType<typeof createHighlightClient>;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
