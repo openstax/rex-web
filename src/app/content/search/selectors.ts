@@ -29,6 +29,11 @@ export const selectedResult = createSelector(
   (state) => state.selectedResult
 );
 
+export const hits = createSelector(
+  localState,
+  (state) => state.results ? state.results.hits.hits : null
+);
+
 export const totalHits = createSelector(
   localState,
   (state) => !!state.results ? countTotalHighlights(state.results.hits.hits) : null

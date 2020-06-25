@@ -182,3 +182,10 @@ export const getSearchScrollTarget = (object: {[key: string]: any}, hash: string
   }
   return null;
 };
+
+export const findSearchResultHit = (results: SearchResultHit[], target: SearchScrollTarget): SearchResultHit | null => {
+  for (const result of results) {
+    if (result.source.elementId === target.elementId) { return result; }
+  }
+  return null;
+};

@@ -1,4 +1,6 @@
 import flow from 'lodash/fp/flow';
+import omit from 'lodash/fp/omit';
+import queryString from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
@@ -7,12 +9,14 @@ import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { RouteState } from '../../navigation/types';
 import { AppState, Dispatch } from '../../types';
+import { assertWindow } from '../../utils';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
+import { SearchScrollTarget } from '../search/types';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
@@ -31,6 +35,7 @@ interface Props {
   currentPath: string;
   hasUnsavedHighlight: boolean;
   search: RouteState<typeof content>['search'];
+  searchScrollTarget?: SearchScrollTarget;
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
@@ -43,6 +48,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     currentBook,
     currentPath,
     search,
+    searchScrollTarget,
     navigate,
     onClick,
     children,
@@ -71,6 +77,15 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       if (onClick) {
         onClick();
       }
+
+      const searchParams = queryString.parse(assertWindow().location.search);
+      if (searchScrollTarget) {
+        searchParams.target = JSON.stringify(omit('elementId', searchScrollTarget));
+      }
+      const options = searchScrollTarget
+        ? { hash: searchScrollTarget.elementId, search: queryString.stringify(searchParams) }
+        : undefined;
+
       navigate({
         params,
         route: content,
@@ -83,7 +98,8 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
             : {}
           ),
         },
-      });
+      },
+      options);
     }}
     href={relativeUrl}
     {...anchorProps}
@@ -98,7 +114,6 @@ export const ConnectedContentLink = connect(
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       query: selectSearch.query(state),
-      selectedResult: selectSearch.selectedResult(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
   }),
