@@ -20,6 +20,7 @@ import HighlightsHelpInfo from './SummaryPopup/HighlightsHelpInfo';
 
 // tslint:disable-next-line: variable-name
 const BlueNote = () => <Styled.BlueStickyNote>
+  <Styled.StickyNoteBullet />
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
@@ -36,6 +37,7 @@ const BlueNote = () => <Styled.BlueStickyNote>
 
 // tslint:disable-next-line: variable-name
 const GreenNote = () => <Styled.GreenStickyNote>
+  <Styled.StickyNoteBullet />
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:review'>
