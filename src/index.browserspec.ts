@@ -1,6 +1,9 @@
 /** @jest-environment puppeteer */
 import { checkLighthouse, navigate } from './test/browserutils';
 
+const TEST_PAGE_NAME = '2-test-page-3';
+const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
+
 describe('Browser sanity tests', () => {
 
   let consoleMessages: Array<{type: 'debug' | 'error' | 'info' | 'log' | 'warning', message: string}> = [];
@@ -52,8 +55,8 @@ describe('Browser sanity tests', () => {
     })) as string | null;
     expect(heading).toBe('page not found');
   });
+});
 
-  it('a11y lighthouse check', async() => {
-    await checkLighthouse(browser, '/errors/404');
-  });
+it('a11y lighthouse check', async() => {
+  await checkLighthouse(browser, TEST_PAGE_URL);
 });
