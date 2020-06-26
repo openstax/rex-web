@@ -111,7 +111,6 @@ export default {
     'navbar',
     'highlightSummaryPopup',
     'highlightsHelpInfoMobile',
-    'ctaPopup',
     'errorPopup',
     'focusedHiddenLink',
   ].reduce((result, key, index) => {
