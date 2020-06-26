@@ -14,7 +14,6 @@ import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
-import CallToActionPopup from './CallToActionPopup';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -183,7 +182,6 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <HighlightsPopUp />
       <StudyguidesPopUp />
       <Toolbar />
-      <CallToActionPopup />
       <OuterWrapper>
         <SearchResultsSidebar/>
         <Wrapper>
