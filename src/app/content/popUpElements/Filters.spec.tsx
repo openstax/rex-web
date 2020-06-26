@@ -12,13 +12,12 @@ import { MiddlewareAPI, Store } from '../../types';
 import { assertDefined } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { receiveHighlightsTotalCounts, setSummaryFilters } from '../highlights/actions';
+import Filters from '../highlights/components/SummaryPopup/Filters';
 import { ArchiveTree } from '../types';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
-import ColorFilter from '../highlights/components/SummaryPopup/ColorFilter';
-import Filters from '../highlights/components/SummaryPopup/Filters';
 
 jest.mock('../highlights/components/SummaryPopup/ColorFilter',
           () => (props: any) => <div mock-color-filter {...props} />);

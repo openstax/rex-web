@@ -5,7 +5,6 @@ import {
   SummaryHighlights,
   SummaryHighlightsPagination
 } from '../highlights/types';
-import { StudyGuidesLocationFilters } from './types';
 
 export const receiveSummaryStudyGuides = createStandardAction(
   'Content/StudyGuides/Summary/receive'
@@ -25,4 +24,4 @@ export const setSummaryFilters = createStandardAction('Content/StudyGuides/Summa
 >();
 export const receiveStudyGuidesTotalCounts = createStandardAction(
   'Content/StudyGuides/receiveTotalCounts'
-)<CountsPerSource, StudyGuidesLocationFilters>();
+)<CountsPerSource>();

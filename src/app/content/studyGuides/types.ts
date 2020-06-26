@@ -4,7 +4,6 @@ import {
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from '../highlights/types';
-import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export interface State {
   isEnabled: boolean;
@@ -17,5 +16,3 @@ export interface State {
     totalCountsPerPage: CountsPerSource | null;
   };
 }
-
-export type StudyGuidesLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;

@@ -11,7 +11,6 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const location = page && getHighlightLocationFilterForPage(filters, page);
 
   if (location) {
-    console.log(location);
     services.dispatch(setSummaryFilters({locationIds: [location.id]}));
   }
 
