@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
@@ -93,11 +94,22 @@ export const studyGuidesLocationFiltersWithContent = createSelector(
   (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
 );
 
+export const filtersHaveBeenSet = createSelector(
+  summaryFilters,
+  (filters) => filters.default === false
+);
+
+export const defaultLocationFilter = createSelector(
+  studyGuidesLocationFilters,
+  parentSelectors.page,
+  (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
+);
+
 export const summaryLocationFilters = createSelector(
   rawSummaryLocationFilters,
-  studyGuidesLocationFiltersWithContent,
-  (selectedLocations, withContent) =>
-    new Set(selectedLocations.filter((locationId) => withContent.has(locationId)))
+  (selectedLocations) => selectedLocations
+    ? new Set(selectedLocations)
+    : new Set<string>()
 );
 
 const selectedStudyGuidesLocationFilters = createSelector(
