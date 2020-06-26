@@ -2,12 +2,12 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
-import { PlainButton } from '../../components/Button';
-import Dropdown, { DropdownToggle } from '../../components/Dropdown';
-import { textStyle } from '../../components/Typography/base';
-import theme from '../../theme';
-import { disablePrint } from '../components/utils/disablePrint';
-import { filters } from '../styles/PopupConstants';
+import { PlainButton } from '../../../components/Button';
+import Dropdown, { DropdownToggle } from '../../../components/Dropdown';
+import { textStyle } from '../../../components/Typography/base';
+import theme from '../../../theme';
+import { disablePrint } from '../../components/utils/disablePrint';
+import { filters } from '../../styles/PopupConstants';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name

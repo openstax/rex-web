@@ -1,13 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import AllOrNone from '../../components/AllOrNone';
-import Checkbox from '../../components/Checkbox';
-import { textStyle } from '../../components/Typography/base';
-import { match, not } from '../../fpUtils';
-import theme from '../../theme';
-import ColorIndicator from '../highlights/components/ColorIndicator';
-import { HighlightLocationFilters, SummaryFilters } from '../highlights/types';
-import { filters } from '../styles/PopupConstants';
+import AllOrNone from '../../../components/AllOrNone';
+import Checkbox from '../../../components/Checkbox';
+import { textStyle } from '../../../components/Typography/base';
+import { match, not } from '../../../fpUtils';
+import theme from '../../../theme';
+import ColorIndicator from '../../highlights/components/ColorIndicator';
+import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types';
+import { filters } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`

@@ -2,14 +2,14 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import { PlainButton } from '../../components/Button';
-import Times from '../../components/Times';
-import { textStyle } from '../../components/Typography';
-import { match, not } from '../../fpUtils';
-import theme from '../../theme';
-import { disablePrint } from '../components/utils/disablePrint';
-import { HighlightLocationFilters, SummaryFilters } from '../highlights/types';
-import { splitTitleParts } from '../utils/archiveTreeUtils';
+import { PlainButton } from '../../../components/Button';
+import Times from '../../../components/Times';
+import { textStyle } from '../../../components/Typography';
+import { match, not } from '../../../fpUtils';
+import theme from '../../../theme';
+import { disablePrint } from '../../components/utils/disablePrint';
+import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types';
+import { splitTitleParts } from '../../utils/archiveTreeUtils';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`

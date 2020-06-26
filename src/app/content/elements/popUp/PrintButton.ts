@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/macro';
-import theme from '../../theme';
-import HighlightsPrintButton from '../highlights/components/SummaryPopup/HighlightsPrintButton';
-import { filters } from '../styles/PopupConstants';
+import theme from '../../../theme';
+import { filters } from '../../styles/PopupConstants';
+import HighlightsPrintButton from '../HighlightsPrintButton';
 
 // tslint:disable-next-line:variable-name
 export default styled(HighlightsPrintButton)`

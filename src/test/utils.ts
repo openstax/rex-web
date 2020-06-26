@@ -13,10 +13,10 @@ export const resetModules = () => {
 export const reactAndFriends = () => {
   return {
     MessageProvider: require('../app/MessageProvider').default,
-    Provider: require('react-redux').Provider,
-    React: require('react'),
+    Provider: require('../app/content/elements/popUp/node_modules/react-redux').Provider,
+    React: require('../app/content/elements/popUp/node_modules/react'),
     ReactDOM: require('react-dom') as typeof import ('react-dom'),
     renderToDom: require('./reactutils').renderToDom,
-    renderer: require('react-test-renderer'),
+    renderer: require('../app/content/elements/popUp/node_modules/react-test-renderer'),
   };
 };

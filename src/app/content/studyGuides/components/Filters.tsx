@@ -2,9 +2,9 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
-import ChapterFilter from '../../popUpElements/ChapterFilter';
-import Filters, { FilterDropdown } from '../../popUpElements/Filters';
-import FiltersList from '../../popUpElements/FiltersList';
+import ChapterFilter from '../../elements/popUp/ChapterFilter';
+import Filters, { FilterDropdown } from '../../elements/popUp/Filters';
+import FiltersList from '../../elements/popUp/FiltersList';
 import { setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
 
