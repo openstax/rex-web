@@ -12,6 +12,7 @@ import {
   loadMoreStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
+  setDefaultSummaryFilters,
 } from '../actions';
 import { allColors } from '../constants';
 
@@ -61,6 +62,10 @@ describe('loadMore', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 15},
     }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: [
+      'testbook1-testpage1-uuid',
+      'testbook1-testchapter1-uuid',
+    ]}));
 
     const page1 = createTestHighlights({
       amount: 15,
@@ -162,6 +167,7 @@ describe('loadMore', () => {
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 5},
     }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testpage1-uuid']}));
 
     const page1 = createTestHighlights({
       amount: 5,
