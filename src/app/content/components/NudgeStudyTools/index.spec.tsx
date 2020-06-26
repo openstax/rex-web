@@ -13,7 +13,8 @@ import * as contentSelect from '../../selectors';
 import * as studyGuidesSelect from '../../studyGuides/selectors';
 import NudgeStudyTools from './';
 import arrowMobile from './assets/arrowMobile.svg';
-import { NudgeArrow, NudgeCloseButton } from './styles';
+import { NudgeArrow, NudgeBackground, NudgeCloseButton,
+  NudgeContentWrapper, NudgeSpotlight, NudgeWrapper } from './styles';
 import * as utils from './utils';
 
 jest.mock('react-dom', () => ({
@@ -27,8 +28,6 @@ describe('NudgeStudyTools', () => {
   let services: AppServices;
 
   beforeEach(() => {
-    document = assertDocument();
-
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
     services = createTestServices();
@@ -42,7 +41,7 @@ describe('NudgeStudyTools', () => {
     const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
     const spyTrack = jest.spyOn(services.analytics.openNudgeStudyTools, 'track');
 
-    const component = renderer.create(<Provider store={store}>
+    renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
           <NudgeStudyTools/>
@@ -51,7 +50,8 @@ describe('NudgeStudyTools', () => {
     </Provider>);
 
     // Call useEffect hooks
-    component.update(() => null);
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
 
     expect(spySetCookies).toHaveBeenCalled();
     expect(spyTrack).toHaveBeenCalled();
@@ -67,7 +67,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(() => component.root.findByType(NudgeWrapper)).toThrow();
   });
 
   it('does not render if open but without positions', () => {
@@ -82,10 +82,10 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(() => component.root.findByType(NudgeWrapper)).toThrow();
   });
 
-  it('renders only if open and if positions have been calculated', async() => {
+  it('renders only if open and if positions have been calculated', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
 
@@ -111,10 +111,14 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(() => component.root.findByType(NudgeArrow)).not.toThrow();
+    expect(() => component.root.findByType(NudgeCloseButton)).not.toThrow();
+    expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
+    expect(() => component.root.findByType(NudgeBackground)).not.toThrow();
+    expect(() => component.root.findByType(NudgeSpotlight)).not.toThrow();
   });
 
-  it('dispatches action on clicking close button and tests if body has overflow style set to hidden', async() => {
+  it('dispatches action on clicking close button and tests if body has overflow style set to hidden', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
 

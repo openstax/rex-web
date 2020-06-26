@@ -122,6 +122,8 @@ export const NudgeCloseButton = styled(PlainButton)`
 // tslint:disable-next-line: variable-name
 export const NudgeBackground = styled.div`
   position: absolute;
+  width: 100%;
+  height: 100%;
   z-index: ${theme.zIndex.nudgeOverlay};
   inset: 0px;
   opacity: 0.9;

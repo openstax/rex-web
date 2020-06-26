@@ -14,9 +14,7 @@ import {
   arrowTopMargin,
   closeButtonDistanceFromContent,
   contentMarginTop,
-  cookieNudgeStudyGuidesCounter,
-  cookieNudgeStudyGuidesDate,
-  cookieNudgeStudyGuidesPageCounter,
+  cookieNudge,
   nudgeStudyToolsMinPageLimit,
   nudgeStudyToolsShowLimit,
   nudgeStudyToolsTargetId,
@@ -106,30 +104,29 @@ export const useGetStudyToolsTarget = () => {
 };
 
 export const getCounterCookie = () => {
-  return Number(Cookies.get(cookieNudgeStudyGuidesCounter) || 0);
+  return Number(Cookies.get(cookieNudge.counter) || 0);
 };
 
 export const getDateCookie = () => {
-  const lastShownDate = Cookies.get(cookieNudgeStudyGuidesDate);
+  const lastShownDate = Cookies.get(cookieNudge.date);
   return lastShownDate ? new Date(lastShownDate) : undefined;
 };
 
 export const passedTimeInterval = () => {
-  const now = new Date();
   const lastShownDate = getDateCookie();
   return !lastShownDate
     ? true
-    : (now.getTime() - lastShownDate.getTime()) > timeIntervalBetweenShowingNudgeInMs
+    : (Date.now() - lastShownDate.getTime()) > timeIntervalBetweenShowingNudgeInMs
   ;
 };
 
 export const getPageCounterCookie = () => {
-  return Number(Cookies.get(cookieNudgeStudyGuidesPageCounter) || 0);
+  return Number(Cookies.get(cookieNudge.pageCounter) || 0);
 };
 
 export const incrementPageCounterCookie = () => {
   const counter = getPageCounterCookie();
-  Cookies.set(cookieNudgeStudyGuidesPageCounter, (counter + 1).toString());
+  Cookies.set(cookieNudge.pageCounter, (counter + 1).toString());
 };
 
 export const shouldDisplayNudgeStudyTools = (): boolean => {
@@ -145,9 +142,9 @@ export const shouldDisplayNudgeStudyTools = (): boolean => {
 export const setNudgeStudyToolsCookies = () => {
   const now = new Date();
   const counter = getCounterCookie();
-  Cookies.set(cookieNudgeStudyGuidesCounter, (counter + 1).toString());
-  Cookies.set(cookieNudgeStudyGuidesDate, now.toString());
-  Cookies.remove(cookieNudgeStudyGuidesPageCounter);
+  Cookies.set(cookieNudge.counter, (counter + 1).toString());
+  Cookies.set(cookieNudge.date, now.toString());
+  Cookies.remove(cookieNudge.pageCounter);
 };
 
 export const useIncrementPageCounter = () => {

@@ -10,12 +10,15 @@ export const contentMarginTop = 1;
 
 export const spotlightPadding = 1;
 
-// When nudge was shown
-export const cookieNudgeStudyGuidesDate = 'nudge_study_guides_date';
-// How many times nuge was shown
-export const cookieNudgeStudyGuidesCounter = 'nudge_study_guides_counter';
-// How many pages user has opened (opening the same page twice counts it as 2)
-export const cookieNudgeStudyGuidesPageCounter = 'nudge_study_guides_page_counter';
+export const cookieNudge = {
+  // How many times nuge was shown
+  counter: 'nudge_study_guides_counter',
+  // When nudge was shown
+  date: 'nudge_study_guides_date',
+  // How many pages user has opened (opening the same page twice counts it as 2)
+  pageCounter: 'nudge_study_guides_page_counter',
+};
+
 // Show nudge only for users which opened at least 2 pages
 export const nudgeStudyToolsMinPageLimit = 2;
 

@@ -31,8 +31,7 @@ import {
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
-  const document = assertDocument();
-  const body = assertNotNull(document.querySelector('body'), 'body element is not defined');
+  const body = React.useRef(assertNotNull(assertDocument().querySelector('body'), 'body element is not defined'));
   const isMobile = useDebouncedMatchMobileQuery();
   const show = useSelector(showNudgeStudyTools);
   const positions = usePositions(isMobile);
@@ -56,9 +55,9 @@ const NudgeStudyTools = () => {
 
   React.useEffect(() => {
     if (show && positions) {
-      body.style.overflow = 'hidden';
+      body.current.style.overflow = 'hidden';
     }
-    return () => { body.style.overflow = null; };
+    return () => { body.current.style.overflow = null; };
   }, [body, show, positions]);
 
   if (!show || !positions) { return null; }
@@ -101,7 +100,7 @@ const NudgeStudyTools = () => {
       </NudgeBackground>
     </NudgeWrapper>}
   </FormattedMessage>,
-  body
+  body.current
   );
 };
 
