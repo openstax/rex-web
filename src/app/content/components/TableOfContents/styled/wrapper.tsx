@@ -42,7 +42,6 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
-  transition-delay: 10ms;
   transition:
     transform ${sidebarTransitionTime}ms ease-in-out,
     box-shadow ${sidebarTransitionTime}ms ease-in-out,
