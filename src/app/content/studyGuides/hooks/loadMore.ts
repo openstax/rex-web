@@ -38,7 +38,7 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 
 export const hookBody: ActionHookBody<typeof loadMoreStudyGuides> = (services) => async() => {
   const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-  services.dispatch(receiveSummaryStudyGuides(formattedHighlights, pagination));
+  services.dispatch(receiveSummaryStudyGuides(formattedHighlights, {pagination}));
 };
 
 export const loadMoreHook = actionHook(loadMoreStudyGuides, hookBody);

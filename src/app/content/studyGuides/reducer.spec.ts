@@ -11,7 +11,7 @@ describe('study guides reducer', () => {
         page: [],
       },
     } as SummaryHighlights;
-    const state = reducer(undefined, actions.receiveSummaryStudyGuides(summary, null));
+    const state = reducer(undefined, actions.receiveSummaryStudyGuides(summary, {pagination: null}));
 
     expect(state.summary.studyGuides).toEqual(summary);
   });

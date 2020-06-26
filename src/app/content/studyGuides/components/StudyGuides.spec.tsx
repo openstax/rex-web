@@ -62,7 +62,7 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -97,7 +97,7 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
