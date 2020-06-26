@@ -57,6 +57,8 @@ const NudgeStudyTools = () => {
     if (show && positions) {
       body.current.style.overflow = 'hidden';
     }
+    // body.current will not change because it is not pointing to a react component
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => { body.current.style.overflow = null; };
   }, [body, show, positions]);
 
