@@ -75,13 +75,14 @@ describe('usePositions', () => {
   let store: Store;
   // tslint:disable-next-line: variable-name
   let Component: (props: { isMobile: boolean }) => JSX.Element;
+  const mockRect = { top: 100, left: 200, right: 300, height: 40, width: 300, bottom: 200 };
 
   beforeEach(() => {
     const document = assertDocument();
     target = document.createElement('div');
     target.setAttribute('id', constants.nudgeStudyToolsTargetId);
     jest.spyOn(target, 'getBoundingClientRect')
-      .mockReturnValue({ top: 100, left: 200, right: 300, height: 40, width: 300, bottom: 200 });
+      .mockReturnValue(mockRect);
     document.body.appendChild(target);
 
     store = createTestStore();
@@ -107,22 +108,20 @@ describe('usePositions', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('returns different positions depends on isMobile and windowWidth', () => {
+  it('return positions and updates body overflow to previous value after finishing calculations', () => {
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
-      .mockReturnValue(true);
+    .mockReturnValue(true);
 
     jest.spyOn(reactUtils, 'useDebouncedWindowSize')
-      .mockReturnValueOnce([1900])
-      .mockReturnValueOnce([1900])
-      .mockReturnValueOnce([1900])
-      .mockReturnValueOnce([1900])
-      .mockReturnValue([1200]);
-
-    // Call component.update multiple times to make sure that nested hooks are called
+      .mockReturnValue([1900]);
 
     const component = renderer.create(<Provider store={store}>
       <Component isMobile={false} />
     </Provider>);
+
+    renderer.act(() => {
+      assertDocument().body.style.overflow = 'scroll';
+    });
 
     component.update(<Provider store={store}>
       <Component isMobile={false} />
@@ -130,21 +129,61 @@ describe('usePositions', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
 
-    renderer.act(() => {
-      component.update(<Provider store={store}>
-        <Component isMobile={true} />
-      </Provider>);
-    });
-
-    expect(component.toJSON()).toMatchSnapshot();
+    // Coverage for useEffect return function
+    component.unmount();
 
     renderer.act(() => {
-      component.update(<Provider store={store}>
-        <Component isMobile={false} />
-      </Provider>);
+      assertDocument().body.style.overflow = 'scroll';
+    });
+  });
+
+  it('returns different positions depends on isMobile and windowWidth', () => {
+    // Default values
+    expect(utils.getPositions(target, false, 1900)).toEqual({
+      arrowLeft: 200,
+      arrowTopOffset: 160,
+      closeButtonLeft: 500,
+      closeButtonTopOffset: 260,
+      contentWrapperRight: 1590,
+      contentWrapperTopOffset: 300,
+      spotlightHeight: 60,
+      spotlightLeftOffset: 190,
+      spotlightTopOffset: 90,
+      spotlightWidth: 300,
     });
 
-    expect(component.toJSON()).toMatchSnapshot();
+    // Change of windowWidth affects only contentWrapperRight
+    expect(utils.getPositions(target, false, 1200)).toEqual({
+      arrowLeft: 200,
+      arrowTopOffset: 160,
+      closeButtonLeft: 500,
+      closeButtonTopOffset: 260,
+      // this is less by 700px (1900 - 1200 = 700)
+      contentWrapperRight: 890,
+      contentWrapperTopOffset: 300,
+      spotlightHeight: 60,
+      spotlightLeftOffset: 190,
+      spotlightTopOffset: 90,
+      spotlightWidth: 300,
+    });
+
+    // Values when isMobile prop is passed (since we are not changing windowWidth only some of the values will change)
+    expect(utils.getPositions(target, true, 1900)).toEqual({
+      arrowLeft: 200,
+      arrowTopOffset: 160,
+      // Close button adjusted to the spotlight width
+      closeButtonLeft: 520,
+      // Close button adjusted to contentWrapperTopOffset
+      closeButtonTopOffset: 192,
+      contentWrapperRight: 1590,
+      // In mobile arrow is smaller so content is closer to the top
+      contentWrapperTopOffset: 232,
+      spotlightHeight: 60,
+      spotlightLeftOffset: 190,
+      spotlightTopOffset: 90,
+      // In mobile we are not extracting toolbarButtonMargin from the spotlight width so it is wider
+      spotlightWidth: 320,
+    });
   });
 });
 

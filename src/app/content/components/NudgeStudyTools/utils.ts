@@ -35,6 +35,36 @@ interface Positions {
   spotlightWidth: number;
 }
 
+export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth: number): Positions => {
+  const { top, left, right, height, width } = target.getBoundingClientRect();
+  const padding = remsToPx(spotlightPadding);
+  const spotlightTopOffset = top - padding;
+  const spotlightLeftOffset = left - padding;
+  const spotlightHeight = height + (padding * 2);
+  const spotlightWidth = width + (padding * 2) - (isMobile ? 0 : remsToPx(toolbarButtonMargin));
+  const arrowTopOffset = spotlightTopOffset + spotlightHeight + remsToPx(arrowTopMargin);
+  const arrowLeft = spotlightLeftOffset + remsToPx(arrowLeftMargin);
+  const contentWrapperTopOffset = arrowTopOffset
+    + remsToPx(isMobile ? arrowMobileHeight : arrowDesktopHeight)
+    + remsToPx(contentMarginTop);
+  const contentWrapperRight = windowWidth - right - padding;
+  const closeButtonLeft = left + spotlightWidth;
+  const closeButtonTopOffset = contentWrapperTopOffset - remsToPx(closeButtonDistanceFromContent);
+
+  return {
+    arrowLeft,
+    arrowTopOffset,
+    closeButtonLeft,
+    closeButtonTopOffset,
+    contentWrapperRight,
+    contentWrapperTopOffset,
+    spotlightHeight,
+    spotlightLeftOffset,
+    spotlightTopOffset,
+    spotlightWidth,
+  };
+};
+
 export const usePositions = (isMobile: boolean) => {
   const [windowWidth] = useDebouncedWindowSize();
   const [positions, setPositions] = React.useState<Positions | null>(null);
@@ -48,37 +78,11 @@ export const usePositions = (isMobile: boolean) => {
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
 
-      const { top, left, right, height, width } = target.getBoundingClientRect();
-      const padding = remsToPx(spotlightPadding);
-      const spotlightTopOffset = top - padding;
-      const spotlightLeftOffset = left - padding;
-      const spotlightHeight = height + (padding * 2);
-      const spotlightWidth = width + (padding * 2) - (isMobile ? 0 : remsToPx(toolbarButtonMargin));
-      const arrowTopOffset = spotlightTopOffset + spotlightHeight + remsToPx(arrowTopMargin);
-      const arrowLeft = spotlightLeftOffset + remsToPx(arrowLeftMargin);
-      const contentWrapperTopOffset = arrowTopOffset
-        + remsToPx(isMobile ? arrowMobileHeight : arrowDesktopHeight)
-        + remsToPx(contentMarginTop);
-      const contentWrapperRight = windowWidth - right - padding;
-      const closeButtonLeft = left + spotlightWidth;
-      const closeButtonTopOffset = contentWrapperTopOffset - remsToPx(closeButtonDistanceFromContent);
+      setPositions(getPositions(target, isMobile, windowWidth));
 
       // Resets to the value from before calculations. We want this style change to be handled
       // directly in the component.
       document.body.style.overflow = prevOverflow;
-
-      setPositions({
-        arrowLeft,
-        arrowTopOffset,
-        closeButtonLeft,
-        closeButtonTopOffset,
-        contentWrapperRight,
-        contentWrapperTopOffset,
-        spotlightHeight,
-        spotlightLeftOffset,
-        spotlightTopOffset,
-        spotlightWidth,
-      });
     }
     return () => setPositions(null);
   }, [target, windowWidth, isMobile]);

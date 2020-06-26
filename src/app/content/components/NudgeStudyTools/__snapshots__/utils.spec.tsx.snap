@@ -6,8 +6,4 @@ exports[`useGetStudyToolsTarget return target if has study guides 1`] = `"id: nu
 
 exports[`usePositions return null if target was not found 1`] = `"null"`;
 
-exports[`usePositions returns different positions depends on isMobile and windowWidth 1`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":500,\\"closeButtonTopOffset\\":260,\\"contentWrapperRight\\":1590,\\"contentWrapperTopOffset\\":300,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":300}"`;
-
-exports[`usePositions returns different positions depends on isMobile and windowWidth 2`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":520,\\"closeButtonTopOffset\\":192,\\"contentWrapperRight\\":1590,\\"contentWrapperTopOffset\\":232,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":320}"`;
-
-exports[`usePositions returns different positions depends on isMobile and windowWidth 3`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":500,\\"closeButtonTopOffset\\":260,\\"contentWrapperRight\\":890,\\"contentWrapperTopOffset\\":300,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":300}"`;
+exports[`usePositions return positions and updates body overflow to previous value after finishing calculations 1`] = `"{\\"arrowLeft\\":200,\\"arrowTopOffset\\":160,\\"closeButtonLeft\\":500,\\"closeButtonTopOffset\\":260,\\"contentWrapperRight\\":1590,\\"contentWrapperTopOffset\\":300,\\"spotlightHeight\\":60,\\"spotlightLeftOffset\\":190,\\"spotlightTopOffset\\":90,\\"spotlightWidth\\":300}"`;
