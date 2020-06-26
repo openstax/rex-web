@@ -12,11 +12,11 @@ exports[`NudgeStudyTools renders only if open and if positions have been calcula
 >
   <img
     alt=""
-    className="styles__NudgeArrow-hrv0cf-5 dAnHcf"
+    className="styles__NudgeArrow-hrv0cf-5 knXEEa"
     src="arrowDesktop.svg"
   />
   <button
-    className="Button__PlainButton-ayg7nk-2 styles__NudgeCloseButton-hrv0cf-7 kRuXQn"
+    className="Button__PlainButton-ayg7nk-2 styles__NudgeCloseButton-hrv0cf-7 bzyBWR"
     data-analytics-label="close"
     onClick={[Function]}
   >
@@ -34,7 +34,7 @@ exports[`NudgeStudyTools renders only if open and if positions have been calcula
     </svg>
   </button>
   <div
-    className="styles__NudgeContentWrapper-hrv0cf-1 dAyyBL"
+    className="styles__NudgeContentWrapper-hrv0cf-1 cUBnTl"
   >
     <div
       className="styles__NudgeContent-hrv0cf-2 jYfSzb"
@@ -58,7 +58,7 @@ exports[`NudgeStudyTools renders only if open and if positions have been calcula
     </div>
   </div>
   <div
-    className="styles__NudgeBackground-hrv0cf-8 grqcfE"
+    className="styles__NudgeBackground-hrv0cf-8 fWjhBA"
   >
     <div
       className="styles__NudgeSpotlight-hrv0cf-9 bOQXlU"

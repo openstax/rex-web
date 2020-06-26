@@ -3,7 +3,7 @@
 exports[`content matches snapshot 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 hLrFue"
+    className="HiddenLink-wwwegq-0 kZsmVR"
     href="#main-content"
     onClick={[Function]}
   >
@@ -1314,7 +1314,7 @@ Array [
 exports[`content renders empty state 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 hLrFue"
+    className="HiddenLink-wwwegq-0 kZsmVR"
     href="#main-content"
     onClick={[Function]}
   >

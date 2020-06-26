@@ -18,7 +18,6 @@ import * as openNudgeStudyTools from './analyticsEvents/openNudgeStudyTools';
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
-import * as signupCTA from './analyticsEvents/signupCTA';
 import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClose';
 import * as unload from './analyticsEvents/unload';
 
@@ -65,7 +64,6 @@ const analytics = {
   showCreate: mapEventType(showCreate),
   showHelpInfo: mapEventType(showHelpInfo),
   showLogin: mapEventType(showLogin),
-  signupCTA: mapEventType(signupCTA),
   unload: mapEventType(unload),
 };
 
