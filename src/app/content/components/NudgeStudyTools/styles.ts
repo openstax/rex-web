@@ -13,7 +13,7 @@ export const NudgeWrapper = styled.div`
 
 // tslint:disable-next-line: variable-name
 export const NudgeContentWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
   ${(props: { top: number, right: number }) => `
     top: ${props.top}px;
@@ -76,7 +76,7 @@ export const NudgeText = htmlMessage('i18n:nudge:study-tools:text', NudgeTextSty
 
 // tslint:disable-next-line: variable-name
 export const NudgeArrow = styled.img`
-  position: absolute;
+  position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
   display: block;
   height: ${arrowDesktopHeight}rem;
@@ -97,7 +97,7 @@ export const NudgeCloseIcon = styled(Times)`
 
 // tslint:disable-next-line: variable-name
 export const NudgeCloseButton = styled(PlainButton)`
-  position: absolute;
+  position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
   ${(props: { top: number, left: number }) => `
     top: ${props.top}px;
@@ -121,7 +121,7 @@ export const NudgeCloseButton = styled(PlainButton)`
 
 // tslint:disable-next-line: variable-name
 export const NudgeBackground = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: ${theme.zIndex.nudgeOverlay};
@@ -140,7 +140,7 @@ interface NudgeSpotlightProps {
 
 // tslint:disable-next-line: variable-name
 export const NudgeSpotlight = styled.div`
-  position: absolute;
+  position: fixed;
   background-color: gray;
   ${(props: NudgeSpotlightProps) => `
     top: ${props.top}px;
