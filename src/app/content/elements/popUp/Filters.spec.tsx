@@ -19,7 +19,7 @@ import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
-jest.mock('../highlights/components/SummaryPopup/ColorFilter',
+jest.mock('../../highlights/components/SummaryPopup/ColorFilter',
           () => (props: any) => <div mock-color-filter {...props} />);
 jest.mock('./ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
 

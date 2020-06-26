@@ -2,7 +2,7 @@
 
 exports[`ChapterFilter matches snapshot 1`] = `
 <div
-  className="ChapterFilter-sc-18accvv-3 kTxsGk"
+  className="ChapterFilter-sc-1krtg8z-3 eQkuiQ"
   tabIndex={-1}
 >
   <div
@@ -25,10 +25,10 @@ exports[`ChapterFilter matches snapshot 1`] = `
     </button>
   </div>
   <div
-    className="ChapterFilter__Row-sc-18accvv-0 fjstaQ"
+    className="ChapterFilter__Row-sc-1krtg8z-0 hCSuuP"
   >
     <div
-      className="ChapterFilter__Column-sc-18accvv-1 kodGGv"
+      className="ChapterFilter__Column-sc-1krtg8z-1 eyhpHS"
     >
       <label
         className="Checkbox-f0dje9-2 ksczzL"
@@ -56,7 +56,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -90,7 +90,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -124,7 +124,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -158,7 +158,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -192,7 +192,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -226,7 +226,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -260,7 +260,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -294,7 +294,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -328,7 +328,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -362,7 +362,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -396,7 +396,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-sc-18accvv-2 kUYWex"
+          className="ChapterFilter__ChapterTitle-sc-1krtg8z-2 cfPLiE"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",

@@ -40,27 +40,29 @@ const StudyGuides = ({ className }: { className: string }) => {
 
   return <div className={className}>
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-    <HighlightsWrapper ref={container}>
-      {(!isLoading && orderedStudyGuides && orderedStudyGuides.length === 0) ?
+    {(!isLoading && orderedStudyGuides && orderedStudyGuides.length === 0) ?
+      <HighlightsWrapper ref={container}>
         <GeneralCenterText>
           <FormattedMessage id='i18n:studyguides:popup:no-highlights'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
           <NoStudyGuidesTip />
         </GeneralCenterText>
-      : orderedStudyGuides && orderedStudyGuides.map((highlightData) => {
-        return <SectionHighlights
-          key={highlightData.location.id}
-          highlightDataInSection={highlightData}
-          highlightRenderer={(highlight) => (
-            <StudyGuidesListElement
-              key={highlight.id}
-              highlight={highlight}
-            />
-          )}
-        />;
-      })}
-    </HighlightsWrapper>
+      </HighlightsWrapper>
+    : orderedStudyGuides && <HighlightsWrapper ref={container}>
+        {orderedStudyGuides.map((highlightData) => {
+          return <SectionHighlights
+            key={highlightData.location.id}
+            highlightDataInSection={highlightData}
+            highlightRenderer={(highlight) => (
+              <StudyGuidesListElement
+                key={highlight.id}
+                highlight={highlight}
+              />
+            )}
+          />;
+        })}
+      </HighlightsWrapper>}
   </div>;
 };
 
