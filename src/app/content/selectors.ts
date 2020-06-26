@@ -26,11 +26,6 @@ export const buyBookLink = createSelector(
   (data) => hasOSWebData(data) ? data.amazon_link : ''
 );
 
-export const showCTAPopup = createSelector(
-  localState,
-  (state) => state.showCallToActionPopup
-);
-
 export const contentReferences = createSelector(
   localState,
   (state) => state.references

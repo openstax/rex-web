@@ -7,14 +7,11 @@ import searchHooks from '../search/hooks';
 import studyGuidesHooks from '../studyGuides/hooks';
 import locationChangeBody from './locationChange';
 import receiveContentBody from './receiveContent';
-import { closeCTAPopupHook, showCTAPopupHook } from './signupCTAHooks';
 
 export default [
   ...searchHooks,
   ...highlightHooks,
   ...studyGuidesHooks,
-  closeCTAPopupHook,
-  showCTAPopupHook,
   routeHook(routes.content, locationChangeBody),
   actionHook(actions.receivePage, receiveContentBody),
 ];
