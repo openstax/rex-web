@@ -212,3 +212,26 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   </div>
 </div>
 `;
+
+exports[`StudyGuides shows "no results" state 1`] = `
+<div
+  className="StudyGuides-sc-1d60zwp-0 bjZYwS"
+>
+  <div
+    className="HighlightsWrapper-vefi0f-0 kuspas"
+  >
+    <div
+      className="HighlightStyles__GeneralTextWrapper-ciqz65-12 HighlightStyles__GeneralCenterText-ciqz65-15 gXVAdJ"
+    >
+      No results.
+      <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Try selecting a different <strong>chapter filter</strong> to see different results.",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

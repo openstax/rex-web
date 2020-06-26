@@ -20,4 +20,23 @@ describe('study guides reducer', () => {
     const state = reducer(initialState, receiveFeatureFlags([studyGuidesFeatureFlag]));
     expect(state.isEnabled).toEqual(true);
   });
+
+  it('sets summary filters', () => {
+    const state = reducer({
+      ...initialState,
+      summary: {
+        ...initialState.summary,
+        filters: {
+          default: false,
+          locationIds: [],
+        },
+      },
+    }, actions.setSummaryFilters({
+      locationIds: ['id'],
+    }));
+
+    expect(state.summary.filters.locationIds[0]).toEqual('id');
+    expect(state.summary.filters.locationIds.length).toEqual(1);
+    expect(state.summary.loading).toEqual(true);
+  });
 });

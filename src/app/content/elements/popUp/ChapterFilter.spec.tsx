@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
+import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
@@ -13,8 +13,12 @@ import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { receiveHighlightsTotalCounts } from '../../highlights/actions';
 import { ConnectedChapterFilter } from '../../highlights/components/SummaryPopup/Filters';
-import { HighlightLocationFilters } from '../../highlights/types';
-import { formatBookData } from '../../utils';
+import { HighlightLocationFilters, SummaryHighlights } from '../../highlights/types';
+import { getHighlightLocationFilterForPage } from '../../highlights/utils';
+import { receiveSummaryStudyGuides, setSummaryFilters } from '../../studyGuides/actions';
+import Filters from '../../studyGuides/components/Filters';
+import { studyGuidesLocationFilters } from '../../studyGuides/selectors';
+import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 
 describe('ChapterFilter', () => {
@@ -28,7 +32,7 @@ describe('ChapterFilter', () => {
     store.dispatch(receivePage({...page, references: []}));
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot - highlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
@@ -40,6 +44,36 @@ describe('ChapterFilter', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ConnectedChapterFilter />
+      </MessageProvider>
+    </Provider>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot - study guides', () => {
+    const pageId = stripIdVersion(page.id);
+
+    const h1B = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
+    const h1G = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl2' };
+    const h1P = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl3' };
+
+    store.dispatch(setSummaryFilters({locationIds: ['123bkh', pageId]}));
+    store.dispatch(receiveSummaryStudyGuides({
+        [pageId]: {
+          [pageId]: [
+            h1B,
+            h1G,
+            h1P,
+          ],
+        },
+        ['123bkh']: {
+          [pageInChapter.id]: [h1B, h1G],
+        },
+      } as unknown as SummaryHighlights, {pagination: null}));
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Filters />
       </MessageProvider>
     </Provider>);
 
