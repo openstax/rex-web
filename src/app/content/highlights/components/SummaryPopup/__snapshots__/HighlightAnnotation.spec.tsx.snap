@@ -24,7 +24,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   <textarea
     aria-label="Enter note's text"
     autoFocus={true}
-    className="HighlightAnnotation__Textarea-ppiq8t-2 kaRaAT"
+    className="HighlightAnnotation__Textarea-ppiq8t-2 kebluY"
     onChange={[Function]}
     placeholder="Add a note..."
     value="Some annotation"
