@@ -2,7 +2,7 @@
 
 exports[`Note matches snapshot 1`] = `
 <textarea
-  className="Note__TextArea-sc-1lk7g7-0 gPZklF"
+  className="Note__TextArea-sc-1lk7g7-0 cGHqLD"
   maxLength={1000}
   onChange={[Function]}
   onFocus={[Function]}
