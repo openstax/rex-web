@@ -130,7 +130,7 @@ const ContextMenu = ({
   , [book, sourceId]);
 
   const linkToHighlight = React.useMemo(() => {
-    const searchTarget = `{"type":"highlight", "id":${id}}`;
+    const searchTarget = `{"type":"highlight", "id":"${id}"}`;
     return `${page && book ? getBookPageUrlAndParams(book, page).url : ''}?target=${searchTarget}#${anchor}`;
   }, [id, page, book, anchor]);
 
