@@ -160,4 +160,42 @@ describe('NudgeStudyTools', () => {
 
     expect(dispatch).toHaveBeenCalledWith(closeNudgeStudyTools());
   });
+
+  it('sets focus to the content wrapper div', () => {
+    jest.spyOn(contentSelect, 'showNudgeStudyTools')
+      .mockReturnValue(true);
+
+    jest.spyOn(utils, 'usePositions')
+      .mockReturnValue({
+        arrowLeft: 1200,
+        arrowTopOffset: 245,
+        closeButtonLeft: 1500,
+        closeButtonTopOffset: 345,
+        contentWrapperRight: -486,
+        contentWrapperTopOffset: 385,
+        spotlightHeight: 45,
+        spotlightLeftOffset: 1190,
+        spotlightTopOffset: 190,
+        spotlightWidth: 300,
+      });
+
+    const spyFocusWrapper = jest.fn();
+    const createNodeMock = () => ({
+      focus: spyFocusWrapper,
+    });
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>, { createNodeMock });
+
+    // Call useEffect's
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(spyFocusWrapper).toHaveBeenCalledTimes(1);
+  });
 });

@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
@@ -31,6 +32,7 @@ import {
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
+  const wrapperRef = React.useRef<HTMLElement>(null);
   const body = React.useRef(assertNotNull(assertDocument().querySelector('body'), 'body element is not defined'));
   const isMobile = useDebouncedMatchMobileQuery();
   const show = useSelector(showNudgeStudyTools);
@@ -62,13 +64,16 @@ const NudgeStudyTools = () => {
     return () => { body.current.style.overflow = null; };
   }, [body, show, positions]);
 
+  React.useEffect(() => {
+    if (show && positions && wrapperRef.current) {
+     wrapperRef.current!.focus();
+    }
+  }, [wrapperRef, show, positions]);
+
   if (!show || !positions) { return null; }
 
-  return ReactDOM.createPortal(<FormattedMessage id='i18n:nudge:study-tools:aria-label'>
-    {(msg: string) => <NudgeWrapper
-      aria-label={msg}
-      data-analytics-region='Nudge Study Tools'
-    >
+  return ReactDOM.createPortal(
+    <NudgeWrapper data-analytics-region='Nudge Study Tools'>
       <NudgeArrow
         src={isMobile ? arrowMobile : arrowDesktop}
         alt=''
@@ -76,6 +81,7 @@ const NudgeStudyTools = () => {
         left={positions.arrowLeft}
       />
       <NudgeCloseButton
+        tabIndex={2}
         top={positions.closeButtonTopOffset}
         left={positions.closeButtonLeft}
         onClick={() => dispatch(closeNudgeStudyTools())}
@@ -83,15 +89,20 @@ const NudgeStudyTools = () => {
       >
         <NudgeCloseIcon />
       </NudgeCloseButton>
-      <NudgeContentWrapper
-        top={positions.contentWrapperTopOffset}
-        right={positions.contentWrapperRight}
-      >
-        <NudgeContent>
-          <NudgeHeading />
-          <NudgeText />
-        </NudgeContent>
-      </NudgeContentWrapper>
+      <FormattedMessage id='i18n:nudge:study-tools:aria-label'>
+        {(msg: string) => <NudgeContentWrapper
+          ref={wrapperRef}
+          tabIndex={1}
+          aria-label={msg}
+          top={positions.contentWrapperTopOffset}
+          right={positions.contentWrapperRight}
+        >
+          <NudgeContent>
+            <NudgeHeading />
+            <NudgeText />
+          </NudgeContent>
+        </NudgeContentWrapper>}
+      </FormattedMessage>
       <NudgeBackground>
         <NudgeSpotlight
           top={positions.spotlightTopOffset}
@@ -100,9 +111,8 @@ const NudgeStudyTools = () => {
           width={positions.spotlightWidth}
         />
       </NudgeBackground>
-    </NudgeWrapper>}
-  </FormattedMessage>,
-  body.current
+    </NudgeWrapper>,
+    body.current
   );
 };
 
