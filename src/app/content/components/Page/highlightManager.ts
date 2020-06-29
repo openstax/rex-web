@@ -1,5 +1,6 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
+import { History } from 'history';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
@@ -24,6 +25,7 @@ export interface HighlightManagerServices {
   clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
+  history: History;
 }
 
 export const mapStateToHighlightProp = (state: AppState) => ({
@@ -31,6 +33,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
   page: select.page(state),
+  scrollTarget: selectHighlights.scrollTarget(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
@@ -49,6 +52,7 @@ const onClickHighlight = (services: HighlightManagerServices, highlight: Highlig
   }
 
   services.getProp().focus(highlight.id);
+  services.history.replace({hash: '', search: ''});
 });
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
@@ -83,7 +87,7 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
   return highlighter;
 };
 
-export default (container: HTMLElement, getProp: () => HighlightProp) => {
+export default (container: HTMLElement, getProp: () => HighlightProp, history: History) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
@@ -108,6 +112,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     clearPendingHighlight,
     container,
     getProp,
+    history,
     setPendingHighlight,
   };
 
@@ -163,10 +168,12 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         ;
 
       highlighter.clearFocus();
-      const focusedId = getProp().focused;
+      const { scrollTarget, focused: focusedId } = getProp();
       const focused = focusedId && highlighter.getHighlight(focusedId);
-      if (focused) {
-        focused.focus();
+      const scrollTargetHighlight = scrollTarget && highlighter.getHighlight(scrollTarget.id);
+      const toFocus = scrollTargetHighlight || focused;
+      if (toFocus) {
+        toFocus.focus();
       }
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
