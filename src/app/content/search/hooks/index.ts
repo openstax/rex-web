@@ -4,7 +4,7 @@ import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
-import { actionHook, assertDefined, assertWindow } from '../../../utils';
+import { actionHook, assertDefined } from '../../../utils';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
@@ -31,7 +31,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     searchStrategy: 's1',
   });
 
-  const params = queryString.parse(assertWindow().location.search);
+  const params = queryString.parse(services.history.location.search);
   params.query = payload;
   services.history.replace({
     search: queryString.stringify(params),
@@ -95,8 +95,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
 
   const options = {
-    hash: assertWindow().location.hash,
-    search: assertWindow().location.search.replace(/\?/, ''),
+    hash: services.history.location.hash,
+    search: services.history.location.search.replace(/\?/, ''),
   };
 
   services.dispatch(action(navigation, options));
