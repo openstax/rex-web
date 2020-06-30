@@ -2,6 +2,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
+import { assertWindow } from '../../../../utils';
 import ChapterFilter from '../../../elements/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../../elements/popUp/Filters';
 import FiltersList from '../../../elements/popUp/FiltersList';
@@ -37,12 +38,20 @@ export const ConnectedFilterList = connect(
 // tslint:disable-next-line:variable-name
 export const ConnectedPrintButton = connect(
   (state: AppState) => ({
-    isLoading: select.summaryIsLoading(state),
+    disabled: select.summaryIsLoading(state),
+    loading: select.summaryIsLoading(state),
     shouldFetchMore: select.hasMoreResults(state),
   }),
   (dispatch: Dispatch) => ({
     loadHighlightsAndPrint: flow(printSummaryHighlights, dispatch),
-  })
+  }),
+  (stateProps, dispatchProps) => {
+    const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {...stateProps, ...dispatchProps};
+    return {
+      ...props,
+      onClick: () =>  shouldFetchMore ? loadHighlightsAndPrint() : assertWindow().print(),
+    };
+  }
 )(PrintButton);
 
 export default () =>
@@ -59,6 +68,6 @@ export default () =>
     >
       <ColorFilter />
     </FilterDropdown>
-    <ConnectedPrintButton />
+    <ConnectedPrintButton data-testid='sg-print-button'/>
     <ConnectedFilterList />
   </Filters>;
