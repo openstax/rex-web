@@ -91,7 +91,7 @@ const rawSummaryLocationFilters = createSelector(
 export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
   totalCountsPerPageOrEmpty,
-  (locationFilters, totalCounts) => getHighlightLocationFiltersWithContent(locationFilters, totalCounts)
+  getHighlightLocationFiltersWithContent
 );
 
 export const filtersHaveBeenSet = createSelector(
