@@ -247,7 +247,6 @@ def test_highlight_stays_on_navigation(
 
 
 @markers.test_case("C591514")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -315,7 +314,6 @@ def test_search_term_colored_within_a_highlight(
 
 
 @markers.test_case("C591515")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -1277,7 +1275,6 @@ def test_open_note_card_after_searching_for_term_in_highlight(
 
 
 @markers.test_case("C591702")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
