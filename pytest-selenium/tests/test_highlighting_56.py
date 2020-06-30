@@ -154,7 +154,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
     assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
 
 
-@markers.test_case("C602211")
+@markers.test_case("C606115")
 @markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "1-introduction")])
 def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
@@ -229,7 +229,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
     assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
 
 
-@markers.test_case("C602211")
+@markers.test_case("C606116")
 @markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "1-introduction")])
 def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
