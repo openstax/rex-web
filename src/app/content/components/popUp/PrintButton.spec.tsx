@@ -2,13 +2,13 @@ import noop from 'lodash/fp/noop';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../test/createTestStore';
-import { resetModules } from '../../../test/utils';
-import MessageProvider from '../../MessageProvider';
-import { Store } from '../../types';
-import { assertWindow } from '../../utils';
-import { printSummaryHighlights, receiveSummaryHighlights } from '../highlights/actions';
-import { ConnectedPrintButton } from '../highlights/components/SummaryPopup/Filters';
+import createTestStore from '../../../../test/createTestStore';
+import { resetModules } from '../../../../test/utils';
+import MessageProvider from '../../../MessageProvider';
+import { Store } from '../../../types';
+import { assertWindow } from '../../../utils';
+import { printSummaryHighlights, receiveSummaryHighlights } from '../../highlights/actions';
+import { ConnectedPrintButton } from '../../highlights/components/SummaryPopup/Filters';
 
 describe('HighlightsPrintButton', () => {
   let store: Store;
