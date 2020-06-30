@@ -6,8 +6,8 @@ import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
-import { disablePrint } from '../../components/utils/disablePrint';
 import { filters } from '../../styles/PopupConstants';
+import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
