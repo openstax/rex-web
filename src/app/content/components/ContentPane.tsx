@@ -19,7 +19,7 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
     flex: 1;
     width: 100%;
     overflow: visible;
-    transition: margin-left ${sidebarTransitionTime}ms -30ms;
+    transition: margin-left ${sidebarTransitionTime}ms;
     ${styleWhenSidebarClosed(css`
       margin-left: -${sidebarDesktopWidth}rem;
     `)}
