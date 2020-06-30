@@ -52,7 +52,9 @@ const onClickHighlight = (services: HighlightManagerServices, highlight: Highlig
   }
 
   services.getProp().focus(highlight.id);
-  services.history.replace({hash: '', search: ''});
+  if (services.getProp().scrollTarget) {
+    services.history.replace({hash: '', search: ''});
+  }
 });
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
