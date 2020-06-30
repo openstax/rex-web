@@ -68,9 +68,7 @@ export const summaryStudyGuides = createSelector(
 export const orderedSummaryStudyGuides = createSelector(
   summaryStudyGuides,
   studyGuidesLocationFilters,
-  (highlightsToSort, locationFilters) => {
-    return getSortedSummaryHighlights(highlightsToSort, locationFilters);
-  }
+  getSortedSummaryHighlights
 );
 
 export const loadedCountsPerSource = createSelector(
