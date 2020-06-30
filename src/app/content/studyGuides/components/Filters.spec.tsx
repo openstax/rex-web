@@ -6,12 +6,12 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { DropdownToggle } from '../../../components/Dropdown';
 import MessageProvider from '../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../types';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { receiveStudyGuidesTotalCounts } from '../actions';
 import Filters from './Filters';
-import { DropdownToggle } from '../../../components/Dropdown';
 
 jest.mock('../../elements/popUp/ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
 
