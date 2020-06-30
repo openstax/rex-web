@@ -29,6 +29,7 @@ const HighlightNoteAnnotation = styled.div`
 // tslint:disable-next-line:variable-name
 const Textarea = styled.textarea`
   ${textRegularStyle}
+  font-family: inherit;
   flex: 1;
   letter-spacing: 0;
   line-height: 20px;
