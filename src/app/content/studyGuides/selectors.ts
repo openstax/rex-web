@@ -1,5 +1,10 @@
 import { createSelector } from 'reselect';
-import { getHighlightLocationFilters, getSortedSummaryHighlights } from '../highlights/utils';
+import { getHighlightLocationFilterForPage } from '../highlights/utils';
+import {
+  getHighlightLocationFilters,
+  getHighlightLocationFiltersWithContent,
+  getSortedSummaryHighlights
+} from '../highlights/utils';
 import {
   checkIfHasMoreResults,
   filterCounts,
@@ -71,9 +76,31 @@ export const loadedCountsPerSource = createSelector(
   getLoadedCountsPerSource
 );
 
+const summaryFilters = createSelector(
+  localState,
+  (state) => state.summary.filters
+);
+
 const rawSummaryLocationFilters = createSelector(
+  summaryFilters,
+  (filters) => filters.locationIds
+);
+
+export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
-  (locationFilters) =>  Array.from(locationFilters.keys())
+  totalCountsPerPageOrEmpty,
+  getHighlightLocationFiltersWithContent
+);
+
+export const filtersHaveBeenSet = createSelector(
+  summaryFilters,
+  (filters) => filters.default === false
+);
+
+export const defaultLocationFilter = createSelector(
+  studyGuidesLocationFilters,
+  parentSelectors.page,
+  (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
 );
 
 export const summaryLocationFilters = createSelector(

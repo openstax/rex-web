@@ -12,6 +12,7 @@ import {
   loadMoreStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
+  setDefaultSummaryFilters,
 } from '../actions';
 import { allColors } from '../constants';
 
@@ -61,6 +62,10 @@ describe('loadMore', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 15},
     }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: [
+      'testbook1-testpage1-uuid',
+      'testbook1-testchapter1-uuid',
+    ]}));
 
     const page1 = createTestHighlights({
       amount: 15,
@@ -104,9 +109,11 @@ describe('loadMore', () => {
       page: 1,
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
-      page: 1,
-      perPage: 20,
-      sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+      pagination: {
+        page: 1,
+        perPage: 20,
+        sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+      },
     }));
 
     const page3 = createTestHighlights({
@@ -151,7 +158,7 @@ describe('loadMore', () => {
 
     expect(loadingSpy).toHaveBeenCalled();
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, null));
+    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null}));
   });
 
   it('calls loadUntilPageSize with correct parameters', async() => {
@@ -160,6 +167,7 @@ describe('loadMore', () => {
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 5},
     }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testpage1-uuid']}));
 
     const page1 = createTestHighlights({
       amount: 5,
@@ -191,6 +199,6 @@ describe('loadMore', () => {
       sets: [GetHighlightsSetsEnum.Curatedopenstax],
     }));
     expect(highlightClient).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, null));
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null}));
   });
 });
