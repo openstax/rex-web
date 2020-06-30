@@ -37,12 +37,25 @@ export const ConnectedFilterList = connect(
 // tslint:disable-next-line:variable-name
 export const ConnectedPrintButton = connect(
   (state: AppState) => ({
-    isLoading: select.summaryIsLoading(state),
+    disabled: select.summaryIsLoading(state),
+    loading: select.summaryIsLoading(state),
     shouldFetchMore: select.hasMoreResults(state),
   }),
   (dispatch: Dispatch) => ({
     loadHighlightsAndPrint: flow(printSummaryHighlights, dispatch),
-  })
+  }),
+  (stateProps, dispatchProps, ownProps) => {
+    const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {
+      ...stateProps,
+      ...dispatchProps,
+      ...ownProps,
+    };
+
+    return shouldFetchMore
+      ? {...props, onClick: loadHighlightsAndPrint}
+      : props
+    ;
+  }
 )(PrintButton);
 
 export default () =>

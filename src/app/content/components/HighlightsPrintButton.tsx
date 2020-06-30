@@ -24,7 +24,7 @@ export default ({className, isLoading, loadHighlightsAndPrint, shouldFetchMore}:
   return <StyledPrintButton
     className={className}
     isLoading={isLoading}
-    onClick={() =>  shouldFetchMore ? loadHighlightsAndPrint() : assertWindow().print()}
+    onClick={() => shouldFetchMore ? loadHighlightsAndPrint() : assertWindow().print()}
     data-testid='hl-print-button'
     disabled={isLoading}
   />;
