@@ -176,6 +176,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
       const toFocus = scrollTargetHighlight || focused;
       if (toFocus) {
         toFocus.focus();
+        if (toFocus.id !== focusedId) {
+          getProp().focus(toFocus.id);
+        }
       }
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
