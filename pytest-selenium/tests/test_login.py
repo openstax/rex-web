@@ -8,6 +8,7 @@ from tests import markers
 
 
 @markers.test_case("C477326", "C477327")
+@markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, password):
