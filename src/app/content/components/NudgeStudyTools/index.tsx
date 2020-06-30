@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
-import { assertNotNull } from '../../../utils';
+import { assertDocument, assertNotNull } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
 import { hasStudyGuides as hasStudyGuidesSelector } from '../../studyGuides/selectors';
@@ -33,11 +33,7 @@ import {
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
   const wrapperRef = React.useRef<HTMLElement>(null);
-  const body = React.useRef(
-    typeof document === 'undefined'
-      ? null
-      : assertNotNull(document.querySelector('body'), 'body element is not defined')
-  );
+  const body = React.useRef(assertNotNull(assertDocument().querySelector('body'), 'body element is not defined'));
   const isMobile = useDebouncedMatchMobileQuery();
   const show = useSelector(showNudgeStudyTools);
   const positions = usePositions(isMobile);
@@ -60,13 +56,12 @@ const NudgeStudyTools = () => {
   }, [show, hasStudyGuides, trackOpen, dispatch]);
 
   React.useEffect(() => {
-    if (body.current && show && positions) {
+    if (show && positions) {
       body.current.style.overflow = 'hidden';
     }
     // body.current will not change because it is not pointing to a react component
-    // and it can be null only when prerendering
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => { if (body.current) { body.current.style.overflow = null; } };
+    return () => { body.current.style.overflow = null; };
   }, [body, show, positions]);
 
   React.useEffect(() => {
@@ -75,7 +70,7 @@ const NudgeStudyTools = () => {
     }
   }, [wrapperRef, show, positions]);
 
-  if (!body.current || !show || !positions) { return null; }
+  if (!show || !positions) { return null; }
 
   return ReactDOM.createPortal(
     <NudgeWrapper data-analytics-region='Nudge Study Tools'>
