@@ -107,9 +107,7 @@ export const defaultLocationFilter = createSelector(
 
 export const summaryLocationFilters = createSelector(
   rawSummaryLocationFilters,
-  (selectedLocations) => selectedLocations
-    ? new Set(selectedLocations)
-    : new Set<string>()
+  (selectedLocations) => new Set(selectedLocations)
 );
 
 const selectedStudyGuidesLocationFilters = createSelector(

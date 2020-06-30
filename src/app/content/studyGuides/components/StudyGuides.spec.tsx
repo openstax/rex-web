@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { typesetMath } from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
@@ -20,8 +20,8 @@ import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFilters } from '../actions';
-import { studyGuidesLocationFilters, summaryIsLoading } from '../selectors';
-import StudyGuides from './StudyGuides';
+import { studyGuidesLocationFilters } from '../selectors';
+import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -118,7 +118,10 @@ describe('StudyGuides', () => {
     const pageId = stripIdVersion(page.id);
     const locationFilters = studyGuidesLocationFilters(state);
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
-    expect(location).toBeDefined();
+
+    if (!location) {
+      return expect(location).toBeDefined();
+   }
 
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 5},
@@ -129,13 +132,13 @@ describe('StudyGuides', () => {
       [pageId]: {
         [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
       },
-      [location!.id]: {
+      [location.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
     } as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+      store.dispatch(setSummaryFilters({locationIds: [location.id, pageId]}));
       store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
     });
 
@@ -153,7 +156,7 @@ describe('StudyGuides', () => {
     expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+      store.dispatch(setSummaryFilters({locationIds: [location.id, pageId]}));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
@@ -172,6 +175,6 @@ describe('StudyGuides', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(component.root.findByProps(NoStudyGuidesTip)).toBeDefined();
   });
 });

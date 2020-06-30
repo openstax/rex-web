@@ -18,7 +18,7 @@ import * as selectors from '../selectors';
 import StudyGuidesListElement from './StudyGuidesListElement';
 
 // tslint:disable-next-line: variable-name
-const NoStudyGuidesTip = htmlMessage(
+export const NoStudyGuidesTip = htmlMessage(
   'i18n:studyguides:popup:no-highlights-tip',
   (props) => <span {...props} />
 );

@@ -2,14 +2,14 @@
 
 exports[`Filters matches snapshot 1`] = `
 <div
-  className="Filters-is2n5j-2 jMFEGC"
+  className="Filters-sc-1fn81fx-2 cJUIZf"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter study guides by Chapter"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-is2n5j-1 goLiWD Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -18,7 +18,7 @@ exports[`Filters matches snapshot 1`] = `
         Chapter
         <svg
           aria-hidden="true"
-          className="Filters__DownIcon-is2n5j-0 dnVcQc StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -39,7 +39,7 @@ exports[`Filters matches snapshot 1`] = `
     />
   </div>
   <ul
-    className="FiltersList-zj3yzu-3 fsIjVN"
+    className="FiltersList-sc-1sdnk9e-3 fQoHdD"
   />
 </div>
 `;

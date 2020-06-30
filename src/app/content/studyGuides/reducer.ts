@@ -1,9 +1,9 @@
-import merge from 'lodash/fp/merge';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
+import { merge } from '../../utils';
 import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
 import { State } from './types';

@@ -9,10 +9,10 @@ import { textStyle } from '../../../../components/Typography/base';
 import { match, not } from '../../../../fpUtils';
 import theme from '../../../../theme';
 import { highlightStyles } from '../../../constants';
-import { setSummaryFilters } from '../../../highlights/actions';
-import ColorIndicator from '../../../highlights/components/ColorIndicator';
-import { highlightColorFiltersWithContent, summaryColorFilters } from '../../../highlights/selectors';
 import { filters } from '../../../styles/PopupConstants';
+import { setSummaryFilters } from '../../actions';
+import { highlightColorFiltersWithContent, summaryColorFilters } from '../../selectors';
+import ColorIndicator from '../ColorIndicator';
 
 interface Props {
   className?: string;

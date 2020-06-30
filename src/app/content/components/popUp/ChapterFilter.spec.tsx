@@ -28,7 +28,7 @@ describe('ChapterFilter', () => {
     store.dispatch(receivePage({...page, references: []}));
   });
 
-  it('matches snapshot - highlights', () => {
+  it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},

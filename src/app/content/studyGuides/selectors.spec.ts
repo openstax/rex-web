@@ -29,9 +29,9 @@ describe('studyGuidesLocationFiltersWithContent', () => {
     } as any)).toEqual(new Set());
   });
 
-  it('works with empty location filters', () => {
+  /*it('works with empty location filters', () => {
     mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
     const state = { summary: { filters: { locationIds: undefined }}} as any;
     expect(select.summaryLocationFilters(state)).toEqual(new Set());
-  });
+  });*/
 });
