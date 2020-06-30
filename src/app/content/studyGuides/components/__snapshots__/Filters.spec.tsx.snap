@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters matches snapshot 1`] = `
+<div
+  className="Filters-sc-1fn81fx-2 cJUIZf"
+>
+  <div
+    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+  >
+    <button
+      aria-label="Filter study guides by Chapter"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
+      onClick={[Function]}
+    >
+      <div
+        tabIndex={-1}
+      >
+        Chapter
+        <svg
+          aria-hidden="true"
+          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 320 512"
+        >
+          <path
+            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </button>
+    <div
+      locationFilters={Map {}}
+      locationFiltersWithContent={Set {}}
+      mock-chapter-filter={true}
+      selectedLocationFilters={Set {}}
+      setFilters={[Function]}
+    />
+  </div>
+  <ul
+    className="FiltersList-sc-1sdnk9e-3 fQoHdD"
+  />
+</div>
+`;
