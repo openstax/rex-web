@@ -246,7 +246,7 @@ Array [
         >
           <div
             aria-label="Table of Contents"
-            className="wrapper__SidebarBody-sc-1nl0jy-0 frdegP"
+            className="wrapper__SidebarBody-sc-1nl0jy-0 iIDtnA"
             data-analytics-region="toc"
             data-testid="toc"
           >
@@ -1482,7 +1482,7 @@ Array [
         >
           <div
             aria-label="Table of Contents"
-            className="wrapper__SidebarBody-sc-1nl0jy-0 frdegP"
+            className="wrapper__SidebarBody-sc-1nl0jy-0 iIDtnA"
             data-analytics-region="toc"
             data-testid="toc"
           >
