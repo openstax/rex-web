@@ -1,10 +1,12 @@
+import { Highlight } from '@openstax/highlighter';
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchFailure from '../../../notifications/components/SearchFailure';
+import SearchOrHighlightFailure from '../../../notifications/components/SearchOrHighlightFailure';
 import { assertNotNull, assertWindow } from '../../../utils';
+import { HighlightScrollTarget } from '../../highlights/types';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -26,13 +28,20 @@ if (typeof(document) !== 'undefined') {
 const parser = new DOMParser();
 
 interface PageState {
+  hasHighlightError: boolean;
   hasSearchError: boolean;
+  selectedHighlightId: null | string;
   selectedSearchResultId: null | string;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false, selectedSearchResultId: null };
+  public state = {
+    hasHighlightError: false,
+    hasSearchError: false,
+    selectedHighlightId: null,
+    selectedSearchResultId: null,
+  };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -84,15 +93,34 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
     if (!shouldUpdateHighlights) { return; }
 
-    const highlgihtsAddedOrRemoved = this.highlightManager.update();
+    const highlgihtsAddedOrRemoved = this.highlightManager.update({ onSelect: this.onHighlightSelect });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       forceRedraw: highlgihtsAddedOrRemoved,
-      onSelect: this.onHighlightSelect,
+      onSelect: this.onSearchHighlightSelect,
     });
   }
 
-  public onHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
+  public onHighlightSelect = (scrollTarget: HighlightScrollTarget | null, highlight: Highlight | null) => {
+    if (highlight && highlight.id !== this.state.selectedHighlightId) {
+      this.setState({
+        hasHighlightError: false,
+        selectedHighlightId: highlight.id,
+      });
+      return;
+    }
+
+    if (scrollTarget && scrollTarget.id === this.state.selectedHighlightId) { return; }
+
+    if (scrollTarget && !highlight) {
+      this.setState({
+        hasHighlightError: true,
+        selectedHighlightId: scrollTarget.id,
+      });
+    }
+  };
+
+  public onSearchHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
     if (selectedHighlight) {
       this.setState({
         hasSearchError: false,
@@ -114,6 +142,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
   public dismissError = () => {
     this.setState({
+      hasHighlightError: false,
       hasSearchError: false,
     });
   };
@@ -134,10 +163,15 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {this.state.hasSearchError
-        ? <SearchFailure
+      {this.state.hasSearchError || this.state.hasHighlightError
+        ? <SearchOrHighlightFailure
             dismiss={this.dismissError}
-            selectedHighlight={this.state.selectedSearchResultId}
+            messageKey={
+              this.state.hasSearchError
+                ? 'i18n:notification:search-failure'
+                : 'i18n:notification:scroll-to-highlight-failure'
+            }
+            selectedHighlight={this.state.selectedSearchResultId || this.state.selectedHighlightId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />
         : null}
