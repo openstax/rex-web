@@ -47,7 +47,7 @@ describe('HighlightsPrintButton', () => {
 
     storeDispatch.mockClear();
 
-    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
+    const renderedPrintButton = component.root.findByProps({'data-testid': 'print'});
 
     renderer.act(() => {
       renderedPrintButton.props.onClick();
@@ -85,7 +85,7 @@ describe('HighlightsPrintButton', () => {
 
     storeDispatch.mockClear();
 
-    const renderedPrintButton = component.root.findByProps({'data-testid': 'hl-print-button'});
+    const renderedPrintButton = component.root.findByProps({'data-testid': 'print'});
 
     renderer.act(() => {
       renderedPrintButton.props.onClick();
