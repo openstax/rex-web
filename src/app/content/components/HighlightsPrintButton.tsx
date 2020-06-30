@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { assertWindow } from '../../utils';
-import PrintButton from '../components/Toolbar/PrintButton';
 import { printSummaryHighlights } from '../highlights/actions';
+import PrintButton from './Toolbar/PrintButton';
 
 interface Props {
   className?: string;
