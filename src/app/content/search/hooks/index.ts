@@ -34,6 +34,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
   const params = queryString.parse(services.history.location.search);
   params.query = payload;
   services.history.replace({
+    hash: services.history.location.hash,
     search: queryString.stringify(params),
   });
 
