@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
+import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
@@ -13,12 +13,9 @@ import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { receiveHighlightsTotalCounts } from '../../highlights/actions';
 import { ConnectedChapterFilter } from '../../highlights/components/SummaryPopup/Filters';
-import { HighlightLocationFilters, SummaryHighlights } from '../../highlights/types';
-import { receiveSummaryStudyGuides, setSummaryFilters, receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
-import Filters from '../../studyGuides/components/Filters';
-import { formatBookData, stripIdVersion } from '../../utils';
+import { HighlightLocationFilters } from '../../highlights/types';
+import { formatBookData } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
-import { FilterDropdown } from './Filters';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
