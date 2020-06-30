@@ -65,11 +65,21 @@ describe('content route', () => {
   });
 
   describe('route renders', () => {
+    const windowBackup = window;
+    const documentBackup = document;
+
     beforeEach(() => {
+      delete (global as any).window;
+      delete (global as any).document;
       resetModules();
       ({React, renderer} = reactAndFriends());
       content = require('./routes').content;
       createApp = require('../index').default;
+    });
+
+    afterEach(() => {
+      (global as any).window = windowBackup;
+      (global as any).document = documentBackup;
     });
 
     it('renders a component', () => {
