@@ -4,7 +4,7 @@ import { printStudyGuides, receiveSummaryStudyGuides, toggleStudyGuidesSummaryLo
 import { studyGuidesOpen } from '../selectors';
 import { loadMore } from './loadMore';
 
-export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
+export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
   const {formattedHighlights} = await loadMore(services);
   services.dispatch(receiveSummaryStudyGuides(formattedHighlights, {
     isStillLoading: true,
