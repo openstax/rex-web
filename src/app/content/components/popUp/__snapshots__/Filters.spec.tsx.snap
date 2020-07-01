@@ -2,14 +2,14 @@
 
 exports[`Filters matches snapshot 1`] = `
 <div
-  className="Filters-sc-1gekcv9-3 gRoSpC"
+  className="Filters-sc-1fn81fx-2 cJUIZf"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Chapter"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 cvrdll Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 iVriBh Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -18,7 +18,7 @@ exports[`Filters matches snapshot 1`] = `
         Chapter
         <svg
           aria-hidden="true"
-          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -36,7 +36,7 @@ exports[`Filters matches snapshot 1`] = `
   >
     <button
       aria-label="Filter highlights by Color"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 cvrdll Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 iVriBh Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -45,7 +45,7 @@ exports[`Filters matches snapshot 1`] = `
         Color
         <svg
           aria-hidden="true"
-          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -60,7 +60,7 @@ exports[`Filters matches snapshot 1`] = `
   </div>
   <button
     aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 fgPdfO HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+    className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jBnoSm styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
     disabled={false}
     onClick={[Function]}
@@ -84,14 +84,14 @@ exports[`Filters matches snapshot 1`] = `
     </span>
   </button>
   <ul
-    className="FiltersList-sc-1b5le0z-3 ctqvPA"
+    className="FiltersList-sc-1sdnk9e-3 fQoHdD"
   >
     <li
-      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
+      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
     >
       <button
         aria-label="Remove breadcrumb for color blue"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         onClick={[Function]}
       >
         <svg
@@ -122,17 +122,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
+        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
       >
         blue
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
+      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
     >
       <button
         aria-label="Remove breadcrumb for color green"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         onClick={[Function]}
       >
         <svg
@@ -163,17 +163,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
+        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
       >
         green
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
+      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
     >
       <button
         aria-label="Remove breadcrumb for color pink"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         onClick={[Function]}
       >
         <svg
@@ -204,17 +204,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
+        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
       >
         pink
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
+      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
     >
       <button
         aria-label="Remove breadcrumb for color purple"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         onClick={[Function]}
       >
         <svg
@@ -245,17 +245,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
+        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
       >
         purple
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1b5le0z-2 cHYYrb"
+      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
     >
       <button
         aria-label="Remove breadcrumb for color yellow"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1b5le0z-0 ioVVRX"
+        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         onClick={[Function]}
       >
         <svg
@@ -286,7 +286,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1b5le0z-1 cEOWOI"
+        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
       >
         yellow
       </span>
@@ -297,14 +297,14 @@ exports[`Filters matches snapshot 1`] = `
 
 exports[`Filters matches snapshot when open color filters 1`] = `
 <div
-  className="Filters-sc-1gekcv9-3 gRoSpC"
+  className="Filters-sc-1fn81fx-2 cJUIZf"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Filter highlights by Chapter"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 cvrdll Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 iVriBh Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -313,7 +313,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         Chapter
         <svg
           aria-hidden="true"
-          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -331,7 +331,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   >
     <button
       aria-label="Filter highlights by Color"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1gekcv9-2 hfnRSU Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -340,7 +340,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         Color
         <svg
           aria-hidden="true"
-          className="Filters__DownIcon-sc-1gekcv9-0 jpXHKX StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 320 512"
@@ -358,7 +358,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   </div>
   <button
     aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 Filters__StyledHighlightsPrintButton-sc-1gekcv9-1 fgPdfO HighlightsPrintButton__StyledPrintButton-sc-1ovkv74-0 hLKxsP styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+    className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jBnoSm styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
     data-testid="print"
     disabled={false}
     onClick={[Function]}
@@ -382,7 +382,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </span>
   </button>
   <ul
-    className="FiltersList-sc-1b5le0z-3 ctqvPA"
+    className="FiltersList-sc-1sdnk9e-3 fQoHdD"
   />
 </div>
 `;
