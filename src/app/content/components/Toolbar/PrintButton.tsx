@@ -14,7 +14,6 @@ interface Props {
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
-  isLoading?: boolean;
 }
 
 class PrintButton extends Component<Props> {
@@ -29,7 +28,6 @@ class PrintButton extends Component<Props> {
                 aria-label={label}
                 data-testid='print'
                 className={this.props.className}
-                isLoading={this.props.isLoading}
                 disabled={this.props.disabled}
               >
                 <Styled.PrintIcon />
