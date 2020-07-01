@@ -16,7 +16,7 @@ nodeenv==1.4.0
 packaging==20.4
 pluggy==0.13.1
 pre-commit==2.5.1
-py==1.8.1
+py==1.9.0
 pyAesCrypt==0.4.3
 pycparser==2.20
 pyparsing==2.4.7
