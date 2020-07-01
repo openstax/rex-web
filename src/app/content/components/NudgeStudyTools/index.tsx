@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
-import { assertDocument, assertNotNull } from '../../../utils';
+import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
 import { hasStudyGuides as hasStudyGuidesSelector } from '../../studyGuides/selectors';
@@ -32,8 +32,8 @@ import {
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
+  const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
-  const body = React.useRef(assertNotNull(assertDocument().querySelector('body'), 'body element is not defined'));
   const isMobile = useDebouncedMatchMobileQuery();
   const show = useSelector(showNudgeStudyTools);
   const positions = usePositions(isMobile);
@@ -57,16 +57,17 @@ const NudgeStudyTools = () => {
 
   React.useEffect(() => {
     if (show && positions) {
-      body.current.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
     }
-    // body.current will not change because it is not pointing to a react component
+    return () => { document.body.style.overflow = null; };
+    // document will not change
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => { body.current.style.overflow = null; };
-  }, [body, show, positions]);
+  }, [show, positions]);
 
   React.useEffect(() => {
-    if (show && positions && wrapperRef.current) {
-     wrapperRef.current!.focus();
+    const element = wrapperRef.current;
+    if (show && positions && element) {
+     element.focus();
     }
   }, [wrapperRef, show, positions]);
 
@@ -112,7 +113,7 @@ const NudgeStudyTools = () => {
         />
       </NudgeBackground>
     </NudgeWrapper>,
-    body.current
+    document.body
   );
 };
 

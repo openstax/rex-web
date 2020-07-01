@@ -1,4 +1,4 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { ClientRect, HTMLElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -13,75 +13,20 @@ import * as studyGuidesSelect from '../../studyGuides/selectors';
 import * as constants from './constants';
 import * as utils from './utils';
 
-describe('useGetStudyToolsTarget', () => {
-  let target: HTMLElement;
-  let store: Store;
-  // tslint:disable-next-line: variable-name
-  let Component: () => JSX.Element;
-
-  beforeEach(() => {
-    const document = assertDocument();
-    target = document.createElement('div');
-    target.setAttribute('id', constants.nudgeStudyToolsTargetId);
-    jest.spyOn(target, 'getBoundingClientRect')
-      .mockReturnValue({ top: 100, left: 200, right: 300, height: 40, width: 300, bottom: 200 });
-    document.body.appendChild(target);
-
-    store = createTestStore();
-    Component = () => {
-      const targetElement = utils.useGetStudyToolsTarget();
-      return <React.Fragment>
-        {
-          targetElement
-          ? `id: ${targetElement.getAttribute('id')}, ${targetElement.toString()}`
-          : null
-        }
-      </React.Fragment>;
-    };
-  });
-
-  afterEach(() => {
-    target.remove();
-  });
-
-  it('return target if has study guides', () => {
-    jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
-      .mockReturnValue(true);
-
-    const component = renderer.create(<Provider store={store}>
-      <Component />
-    </Provider>);
-
-    expect(component.toJSON()).toMatchSnapshot();
-  });
-
-  it('return null if there are no study guides', () => {
-    jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
-      .mockReturnValue(false);
-
-    const component = renderer.create(<Provider store={store}>
-      <Component />
-    </Provider>);
-
-    expect(component.toJSON()).toMatchSnapshot();
-
-    // Coverage for useEffect return function
-    component.unmount();
-  });
-});
-
 describe('usePositions', () => {
   let target: HTMLElement;
   let store: Store;
   // tslint:disable-next-line: variable-name
   let Component: (props: { isMobile: boolean }) => JSX.Element;
-  const mockRect = { top: 100, left: 200, right: 300, height: 40, width: 300, bottom: 200 };
+  const mockRect = { bottom: 228, height: 25, left: 951, right: 1233, top: 203, width: 282 } as any as ClientRect;
 
   beforeEach(() => {
     const document = assertDocument();
     target = document.createElement('div');
     target.setAttribute('id', constants.nudgeStudyToolsTargetId);
-    jest.spyOn(target, 'getBoundingClientRect')
+    const child = document.createElement('div');
+    target.append(child);
+    jest.spyOn(child, 'getBoundingClientRect')
       .mockReturnValue(mockRect);
     document.body.appendChild(target);
 
@@ -110,7 +55,10 @@ describe('usePositions', () => {
 
   it('return positions and updates body overflow to previous value after finishing calculations', () => {
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
-    .mockReturnValue(true);
+      .mockReturnValue(true);
+
+    jest.spyOn(studyGuidesSelect, 'studyGuidesEnabled')
+      .mockReturnValue(true);
 
     jest.spyOn(reactUtils, 'useDebouncedWindowSize')
       .mockReturnValue([1900]);
@@ -140,49 +88,47 @@ describe('usePositions', () => {
   it('returns different positions depends on isMobile and windowWidth', () => {
     // Default values
     expect(utils.getPositions(target, false, 1900)).toEqual({
-      arrowLeft: 200,
-      arrowTopOffset: 160,
-      closeButtonLeft: 500,
-      closeButtonTopOffset: 260,
-      contentWrapperRight: 1590,
-      contentWrapperTopOffset: 300,
-      spotlightHeight: 60,
-      spotlightLeftOffset: 190,
-      spotlightTopOffset: 90,
-      spotlightWidth: 300,
+      arrowLeft: 951,
+      arrowTopOffset: 248,
+      closeButtonLeft: 1253,
+      closeButtonTopOffset: 348,
+      contentWrapperRight: 657,
+      contentWrapperTopOffset: 388,
+      spotlightHeight: 45,
+      spotlightLeftOffset: 941,
+      spotlightTopOffset: 193,
+      spotlightWidth: 302,
     });
 
     // Change of windowWidth affects only contentWrapperRight
     expect(utils.getPositions(target, false, 1200)).toEqual({
-      arrowLeft: 200,
-      arrowTopOffset: 160,
-      closeButtonLeft: 500,
-      closeButtonTopOffset: 260,
+      arrowLeft: 951,
+      arrowTopOffset: 248,
+      closeButtonLeft: 1253,
+      closeButtonTopOffset: 348,
       // this is less by 700px (1900 - 1200 = 700)
-      contentWrapperRight: 890,
-      contentWrapperTopOffset: 300,
-      spotlightHeight: 60,
-      spotlightLeftOffset: 190,
-      spotlightTopOffset: 90,
-      spotlightWidth: 300,
+      contentWrapperRight: -43,
+      contentWrapperTopOffset: 388,
+      spotlightHeight: 45,
+      spotlightLeftOffset: 941,
+      spotlightTopOffset: 193,
+      spotlightWidth: 302,
     });
 
     // Values when isMobile prop is passed (since we are not changing windowWidth only some of the values will change)
     expect(utils.getPositions(target, true, 1900)).toEqual({
-      arrowLeft: 200,
-      arrowTopOffset: 160,
-      // Close button adjusted to the spotlight width
-      closeButtonLeft: 520,
+      arrowLeft: 951,
+      arrowTopOffset: 248,
+      closeButtonLeft: 1253,
       // Close button adjusted to contentWrapperTopOffset
-      closeButtonTopOffset: 192,
-      contentWrapperRight: 1590,
+      closeButtonTopOffset: 280,
+      contentWrapperRight: 657,
       // In mobile arrow is smaller so content is closer to the top
-      contentWrapperTopOffset: 232,
-      spotlightHeight: 60,
-      spotlightLeftOffset: 190,
-      spotlightTopOffset: 90,
-      // In mobile we are not extracting toolbarButtonMargin from the spotlight width so it is wider
-      spotlightWidth: 320,
+      contentWrapperTopOffset: 320,
+      spotlightHeight: 45,
+      spotlightLeftOffset: 941,
+      spotlightTopOffset: 193,
+      spotlightWidth: 302,
     });
   });
 });

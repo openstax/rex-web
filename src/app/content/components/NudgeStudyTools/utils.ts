@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDebouncedWindowSize } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
 import { page as pageSelector } from '../../selectors';
-import { hasStudyGuides } from '../../studyGuides/selectors';
-import { toolbarButtonMargin } from '../constants';
+import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
 import {
   arrowDesktopHeight,
   arrowLeftMargin,
@@ -36,12 +35,12 @@ interface Positions {
 }
 
 export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth: number): Positions => {
-  const { top, left, right, height, width } = target.getBoundingClientRect();
+  const { top, left, right, height, width } = getBoundingRectOfNudgeTarget(target);
   const padding = remsToPx(spotlightPadding);
   const spotlightTopOffset = top - padding;
   const spotlightLeftOffset = left - padding;
   const spotlightHeight = height + (padding * 2);
-  const spotlightWidth = width + (padding * 2) - (isMobile ? 0 : remsToPx(toolbarButtonMargin));
+  const spotlightWidth = width + (padding * 2);
   const arrowTopOffset = spotlightTopOffset + spotlightHeight + remsToPx(arrowTopMargin);
   const arrowLeft = spotlightLeftOffset + remsToPx(arrowLeftMargin);
   const contentWrapperTopOffset = arrowTopOffset
@@ -65,19 +64,45 @@ export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth
   };
 };
 
+// Target may have display set to `contents` so we are calculatings rect for children of passed target.
+const getBoundingRectOfNudgeTarget = (target: HTMLElement) => {
+  // Starting values depends on if we checks for Math.max or Math.min
+  let top = 9999;
+  let bottom = 0;
+  let left = 9999;
+  let right = 0;
+
+  for (const child of Array.from(target.children)) {
+    const rect = child.getBoundingClientRect();
+    top = Math.min(top, rect.top);
+    bottom = Math.max(bottom, rect.bottom);
+    left = Math.min(left, rect.left);
+    right = Math.max(right, rect.right);
+  }
+
+  return {
+    height: bottom - top,
+    left,
+    right,
+    top,
+    width: right - left,
+  };
+};
+
 export const usePositions = (isMobile: boolean) => {
   const [windowWidth] = useDebouncedWindowSize();
   const [positions, setPositions] = React.useState<Positions | null>(null);
-  const target = useGetStudyToolsTarget();
+  const studyGuides = useSelector(hasStudyGuides);
+  const isEnabled = useSelector(studyGuidesEnabled);
 
   React.useEffect(() => {
-    if (target) {
+    const document = assertDocument();
+    const target = document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null;
+    if (isEnabled && target) {
       // Make sure that we calculate positions with body overflow set to hidden
       // because it causes scrollbar to hide which results with different positions.
-      const document = assertDocument();
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-
       setPositions(getPositions(target, isMobile, windowWidth));
 
       // Resets to the value from before calculations. We want this style change to be handled
@@ -85,26 +110,9 @@ export const usePositions = (isMobile: boolean) => {
       document.body.style.overflow = prevOverflow;
     }
     return () => setPositions(null);
-  }, [target, windowWidth, isMobile]);
+  }, [studyGuides, isEnabled, windowWidth, isMobile]);
 
   return positions;
-};
-
-export const useGetStudyToolsTarget = () => {
-  const document = assertDocument();
-  const studyGuides = useSelector(hasStudyGuides);
-  const [target, setTarget] = React.useState<HTMLElement | null>(
-    studyGuides ? document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null : null);
-
-  React.useEffect(() => {
-    if (studyGuides) {
-      setTarget(document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null);
-    }
-    return () => setTarget(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studyGuides]);
-
-  return target;
 };
 
 export const getCounterCookie = () => {
