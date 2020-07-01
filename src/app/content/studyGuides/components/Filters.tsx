@@ -3,13 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
+import { assertWindow } from '../../../utils';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
-import { assertWindow } from '../../../utils';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
