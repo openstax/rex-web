@@ -1,19 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import AllOrNone from '../../../../components/AllOrNone';
-import Checkbox from '../../../../components/Checkbox';
-import { textStyle } from '../../../../components/Typography/base';
-import { match, not } from '../../../../fpUtils';
-import theme from '../../../../theme';
-import { filters } from '../../../styles/PopupConstants';
-import { setSummaryFilters } from '../../actions';
-import { highlightLocationFilters, highlightLocationFiltersWithContent, summaryLocationFilters } from '../../selectors';
-import ColorIndicator from '../ColorIndicator';
-
-interface Props {
-  className?: string;
-}
+import AllOrNone from '../../../components/AllOrNone';
+import Checkbox from '../../../components/Checkbox';
+import { textStyle } from '../../../components/Typography/base';
+import { match, not } from '../../../fpUtils';
+import theme from '../../../theme';
+import ColorIndicator from '../../highlights/components/ColorIndicator';
+import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types';
+import { filters } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -57,15 +51,24 @@ const chunk = <T extends any>(sections: T[]) => {
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
-// tslint:disable-next-line:variable-name
-const ChapterFilter = ({className}: Props) => {
-  const locationFilters = useSelector(highlightLocationFilters);
-  const locationFiltersWithContent = useSelector(highlightLocationFiltersWithContent);
-  const selectedLocationFilters = useSelector(summaryLocationFilters);
-  const dispatch = useDispatch();
+interface Props {
+  className?: string;
+  locationFilters: HighlightLocationFilters;
+  locationFiltersWithContent: Set<string>;
+  selectedLocationFilters: Set<string>;
+  setFilters: (filters: Partial<SummaryFilters>) => void;
+}
 
+// tslint:disable-next-line:variable-name
+const ChapterFilter = ({
+  className,
+  locationFilters,
+  locationFiltersWithContent,
+  selectedLocationFilters,
+  setFilters,
+}: Props) => {
   const setSelectedChapters = (ids: string[]) => {
-    dispatch(setSummaryFilters({locationIds: ids}));
+    setFilters({locationIds: ids});
   };
 
   const handleChange = (id: string) => {
