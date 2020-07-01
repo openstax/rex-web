@@ -1,8 +1,12 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
-import { loadMoreStudyGuides, openStudyGuides } from '../actions';
+import { receiveBook, receivePage } from '../../actions';
+import { formatBookData } from '../../utils';
+import { loadMoreStudyGuides, openStudyGuides, setDefaultSummaryFilters } from '../actions';
 
 jest.mock('./loadMore', () => ({
   loadMore: jest.fn(),
@@ -13,6 +17,7 @@ describe('openStudyGuides', () => {
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./openStudyGuides').hookBody>;
+  const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
     resetModules();
@@ -33,9 +38,20 @@ describe('openStudyGuides', () => {
     await hook(openStudyGuides());
     expect(dispatch).toHaveBeenCalledWith(loadMoreStudyGuides());
   });
+
   it('noops if study guides are being/were initialized', async() => {
     store.dispatch(loadMoreStudyGuides());
     await hook(openStudyGuides());
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('sets current chapter filter', async() => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+
+    await hook(openStudyGuides());
+    expect(dispatch).toHaveBeenCalledWith(
+      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter3-uuid']})
+    );
   });
 });
