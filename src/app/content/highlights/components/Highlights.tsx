@@ -2,13 +2,14 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import { typesetMath } from '../../../../helpers/mathjax';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import { assertWindow } from '../../../utils';
-import SectionHighlights from '../../components/SectionHighlights';
+import SectionHighlights, { HighlightWrapper } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import HighlightsWrapper from '../../styles/HighlightsWrapper';
 import LoaderWrapper from '../../styles/LoaderWrapper';
@@ -23,7 +24,7 @@ const NoHighlightsTip = htmlMessage(
 );
 
 // tslint:disable-next-line: variable-name
-const Highlights = () => {
+const Highlights = ({ className }: { className: string }) => {
   const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
@@ -77,7 +78,7 @@ const Highlights = () => {
 
   return <React.Fragment>
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-    {orderedHighlights && <HighlightsWrapper ref={container}>
+    {orderedHighlights && <HighlightsWrapper ref={container} className={className}>
       {orderedHighlights.map((highlightData) => {
         return <SectionHighlights
           key={highlightData.location.id}
@@ -96,4 +97,10 @@ const Highlights = () => {
   </React.Fragment>;
 };
 
-export default Highlights;
+export default styled(Highlights)`
+  @media print {
+    ${HighlightWrapper} {
+      margin: 0;
+    }
+  }
+`;
