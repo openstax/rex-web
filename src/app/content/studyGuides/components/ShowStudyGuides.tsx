@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
 import { assertNotNull } from '../../../utils';
+import FiltersList from '../../components/popUp/FiltersList';
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { PopupBody } from '../../styles/PopupStyles';
 import { loadMoreStudyGuides } from '../actions';
@@ -22,6 +23,10 @@ export const StudyGuidesBody = styled(PopupBody)`
 
   @media print {
     background: white;
+
+    ${FiltersList} {
+      padding-left: 0;
+    }
   }
 `;
 

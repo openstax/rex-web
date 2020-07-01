@@ -78,24 +78,28 @@ export default styled(StudyGuides)`
       overflow: hidden;
       text-overflow: ellipsis;
     `}
-
-    @media print {
-      padding-left: 0;
-    }
-  }
-
-  ${HighlightWrapper} {
-    @media print {
-      margin-left: 0;
-    }
   }
 
   ${HighlightSection} {
     ${theme.breakpoints.mobile`
       padding-left: 2rem;
     `}
+  }
 
-    @media print {
+  @media print {
+    ${HighlightsChapterWrapper} {
+      padding-left: 0;
+    }
+
+    ${HighlightsChapterWrapper} + ${HighlightWrapper} {
+      margin-top: 0;
+    }
+
+    ${HighlightWrapper} {
+      margin-left: 0;
+    }
+
+    ${HighlightSection} {
       background: ${theme.color.neutral.darkest}
     }
   }

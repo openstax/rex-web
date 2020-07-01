@@ -154,7 +154,5 @@ export default styled(FiltersList)`
     padding: 0 2.4rem 0.4rem 2.4rem;
   `)}
 
-  @media print {
-    margin: 0;
-  }
+
 `;
