@@ -2,24 +2,25 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../../test/createTestServices';
-import createTestStore from '../../../../../test/createTestStore';
-import { book as archiveBook, pageInChapter } from '../../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
-import { DropdownToggle } from '../../../../components/Dropdown';
-import MessageProvider from '../../../../MessageProvider';
-import { MiddlewareAPI, Store } from '../../../../types';
-import { assertDefined } from '../../../../utils';
-import { receiveBook, receivePage } from '../../../actions';
-import { ArchiveTree } from '../../../types';
-import { formatBookData } from '../../../utils';
-import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
-import { stripIdVersion } from '../../../utils/idUtils';
-import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../actions';
-import Filters from './Filters';
+import createTestServices from '../../../../test/createTestServices';
+import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook, pageInChapter } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { DropdownToggle } from '../../../components/Dropdown';
+import MessageProvider from '../../../MessageProvider';
+import { MiddlewareAPI, Store } from '../../../types';
+import { assertDefined } from '../../../utils';
+import { receiveBook, receivePage } from '../../actions';
+import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../highlights/actions';
+import Filters from '../../highlights/components/SummaryPopup/Filters';
+import { ArchiveTree } from '../../types';
+import { formatBookData } from '../../utils';
+import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { stripIdVersion } from '../../utils/idUtils';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
-jest.mock('./ColorFilter', () => (props: any) => <div mock-color-filter {...props} />);
+jest.mock('../../highlights/components/SummaryPopup/ColorFilter',
+          () => (props: any) => <div mock-color-filter {...props} />);
 jest.mock('./ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
 
 describe('Filters', () => {
@@ -66,7 +67,7 @@ describe('Filters', () => {
   it('matches snapshot when open color filters', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <Filters />
+        <Filters/>
       </MessageProvider>
     </Provider>);
 
