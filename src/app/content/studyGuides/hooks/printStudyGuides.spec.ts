@@ -2,8 +2,8 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
 import { MiddlewareAPI, Store } from '../../../types';
-import { printStudyGuides, receiveSummaryStudyGuides, closeStudyGuides } from '../actions';
 import { assertWindow } from '../../../utils';
+import { closeStudyGuides, printStudyGuides, receiveSummaryStudyGuides } from '../actions';
 import { initialState } from '../reducer';
 
 describe('printStudyGuides', () => {
