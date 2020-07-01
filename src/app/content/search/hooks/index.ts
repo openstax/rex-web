@@ -86,6 +86,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     params: getBookPageUrlAndParams(book, targetPage).params,
     route: content,
     state : {
+      // TODO: Check which of these are still required
       bookUid: book.id,
       bookVersion: book.version,
       pageUid: stripIdVersion(targetPage.id),

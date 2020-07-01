@@ -1,4 +1,5 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import queryString from 'query-string';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -130,8 +131,8 @@ const ContextMenu = ({
   , [book, sourceId]);
 
   const linkToHighlight = React.useMemo(() => {
-    const searchTarget = `{"type":"highlight", "id":"${id}"}`;
-    return `${page && book ? getBookPageUrlAndParams(book, page).url : ''}?target=${searchTarget}#${anchor}`;
+    const search = queryString.stringify({ target: JSON.stringify({ id, type: 'highlight' }) });
+    return `${page && book ? getBookPageUrlAndParams(book, page).url : ''}?${search}#${anchor}`;
   }, [id, page, book, anchor]);
 
   return <StyledContextMenu>
