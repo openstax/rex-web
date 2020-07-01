@@ -22,7 +22,6 @@ import {
   getStats,
   prepareBookPages,
   prepareBooks,
-  prepareErrorPages,
   renderPages
 } from './contentPages';
 import { writeAssetFile } from './fileUtils';
@@ -48,8 +47,6 @@ async function render() {
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient, highlightClient};
-
-  await renderPages(renderHelpers, await prepareErrorPages());
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
   for (const {loader, book} of books) {

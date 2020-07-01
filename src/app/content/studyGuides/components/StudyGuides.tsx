@@ -1,8 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
+import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import theme from '../../../theme';
@@ -13,11 +15,18 @@ import SectionHighlights, {
   HighlightWrapper
 } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import { GeneralCenterText } from '../../highlights/components/HighlightStyles';
 import HighlightsWrapper from '../../styles/HighlightsWrapper';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
 import StudyGuidesListElement from './StudyGuidesListElement';
 import StudyGuidesPrintButton from './StudyGuidesPrintButton';
+
+// tslint:disable-next-line: variable-name
+export const NoStudyGuidesTip = htmlMessage(
+  'i18n:studyguides:popup:no-highlights-tip',
+  (props) => <span {...props} />
+);
 
 // tslint:disable-next-line: variable-name
 const StudyGuides = ({ className }: { className: string }) => {
@@ -37,20 +46,29 @@ const StudyGuides = ({ className }: { className: string }) => {
   return <div className={className}>
     <StudyGuidesPrintButton />
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-    {orderedStudyGuides && <HighlightsWrapper ref={container}>
-      {orderedStudyGuides.map((highlightData) => {
-        return <SectionHighlights
-          key={highlightData.location.id}
-          highlightDataInSection={highlightData}
-          highlightRenderer={(highlight) => (
-            <StudyGuidesListElement
-              key={highlight.id}
-              highlight={highlight}
-            />
-          )}
-        />;
-      })}
-    </HighlightsWrapper>}
+    {(!isLoading && orderedStudyGuides && orderedStudyGuides.length === 0) ?
+      <HighlightsWrapper ref={container}>
+        <GeneralCenterText>
+          <FormattedMessage id='i18n:studyguides:popup:no-highlights'>
+            {(msg: Element | string) => msg}
+          </FormattedMessage>
+          <NoStudyGuidesTip />
+        </GeneralCenterText>
+      </HighlightsWrapper>
+    : orderedStudyGuides && <HighlightsWrapper ref={container}>
+        {orderedStudyGuides.map((highlightData) => {
+          return <SectionHighlights
+            key={highlightData.location.id}
+            highlightDataInSection={highlightData}
+            highlightRenderer={(highlight) => (
+              <StudyGuidesListElement
+                key={highlight.id}
+                highlight={highlight}
+              />
+            )}
+          />;
+        })}
+      </HighlightsWrapper>}
   </div>;
 };
 
