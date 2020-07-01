@@ -12,14 +12,16 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
+import SectionHighlights from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { SummaryHighlights } from '../../highlights/types';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { receiveSummaryStudyGuides } from '../actions';
+import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFilters } from '../actions';
 import { studyGuidesLocationFilters } from '../selectors';
-import StudyGuides from './StudyGuides';
+import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -62,7 +64,7 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -97,7 +99,7 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, null));
+    store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -109,5 +111,70 @@ describe('StudyGuides', () => {
 
     expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(allImagesLoaded(container));
     expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(typesetMath(container, assertWindow()));
+  });
+
+  it('show loading state on filters change', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const locationFilters = studyGuidesLocationFilters(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+
+    if (!location) {
+      return expect(location).toBeDefined();
+   }
+
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 5},
+      [location!.id]: {[HighlightColorEnum.Green]: 2},
+    }));
+
+    const summaryHighlights = {
+      [pageId]: {
+        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
+      },
+      [location.id]: {
+        [pageInChapter.id]: [hlBlue, hlGreen],
+      },
+    } as SummaryHighlights;
+
+    renderer.act(() => {
+      store.dispatch(setSummaryFilters({locationIds: [location.id, pageId]}));
+      store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
+    });
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <StudyGuides/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const sections = component.root.findAllByType(SectionHighlights);
+    expect(sections.length).toEqual(2);
+
+    expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
+
+    renderer.act(() => {
+      store.dispatch(setSummaryFilters({locationIds: [location.id, pageId]}));
+    });
+
+    const isLoading = component.root.findByType(LoaderWrapper);
+    expect(isLoading).toBeDefined();
+  });
+
+  it('shows "no results" state', () => {
+    const summaryStudyGuides = {} as SummaryHighlights;
+    store.dispatch(receiveSummaryStudyGuides(summaryStudyGuides, {pagination: null}));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <StudyGuides />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(component.root.findByProps(NoStudyGuidesTip)).toBeDefined();
   });
 });
