@@ -91,8 +91,10 @@ export default styled(StudyGuides)`
       padding-left: 0;
     }
 
-    ${HighlightsChapterWrapper} + ${HighlightWrapper} {
-      margin-top: 0;
+    ${HighlightsChapterWrapper} {
+      & + ${HighlightWrapper} {
+        margin-top: 0;
+      }
     }
 
     ${HighlightWrapper} {
@@ -100,7 +102,7 @@ export default styled(StudyGuides)`
     }
 
     ${HighlightSection} {
-      background: ${theme.color.neutral.darkest}
+      background: ${theme.color.neutral.darkest};
     }
   }
 

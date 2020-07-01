@@ -17,6 +17,7 @@ const HighlightOuterWrapper = styled.div`
 
   @media print {
     page-break-inside: avoid;
+
     :not(:last-child) {
       border-color: white;
     }
@@ -71,6 +72,7 @@ export const HighlightContentWrapper = styled.div`
 
   @media print {
     break-inside: avoid-page;
+
     ${HighlightContent} {
       background-color: white;
     }
