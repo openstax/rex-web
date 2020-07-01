@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
@@ -8,6 +9,7 @@ import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
+import { assertWindow } from '../../../utils';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -42,28 +44,38 @@ const ConnectedPrintButton = connect(
   (dispatch: Dispatch) => ({
     loadHighlightsAndPrint: flow(printStudyGuides, dispatch),
   }),
-  (stateProps, dispatchProps, ownProps) => {
+  (stateProps, dispatchProps, ownProps: {onClick: () => void}) => {
     const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {
       ...stateProps,
       ...dispatchProps,
       ...ownProps,
     };
 
-    return shouldFetchMore
-      ? {...props, onClick: loadHighlightsAndPrint}
-      : props
-    ;
+    const onClick = () => {
+      ownProps.onClick();
+
+      if (shouldFetchMore) {
+        loadHighlightsAndPrint();
+      } else {
+        assertWindow().print();
+      }
+    };
+
+    return {...props, onClick};
   }
 )(PrintButton);
 
-export default () =>
-  <Filters>
+export default () => {
+  const trackPrint = useAnalyticsEvent('printStudyGuides');
+
+  return <Filters>
     <FilterDropdown
       label='i18n:highlighting:filters:chapters'
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
       <ConnectedChapterFilter />
     </FilterDropdown>
-    <ConnectedPrintButton />
+    <ConnectedPrintButton onClick={trackPrint}/>
     <ConnectedFilterList />
   </Filters>;
+};
