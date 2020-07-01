@@ -6,7 +6,7 @@ import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
 import { book as bookSelector } from '../../selectors';
-import { loadMoreStudyGuides, receiveSummaryStudyGuides } from '../actions';
+import * as actions from '../actions';
 import { allColors } from '../constants';
 import * as select from '../selectors';
 
@@ -36,9 +36,16 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
   };
 };
 
-export const hookBody: ActionHookBody<typeof loadMoreStudyGuides> = (services) => async() => {
-  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-  services.dispatch(receiveSummaryStudyGuides(formattedHighlights, pagination));
-};
+export const hookBody: ActionHookBody<
+  typeof actions.setDefaultSummaryFilters |
+  typeof actions.setSummaryFilters |
+  typeof actions.loadMoreStudyGuides
+> =
+  (services) => async() => {
+    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination}));
+  };
 
-export const loadMoreHook = actionHook(loadMoreStudyGuides, hookBody);
+export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
+export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);
+export const setDefaultSummaryFiltersHook = actionHook(actions.setDefaultSummaryFilters, hookBody);
