@@ -85,7 +85,8 @@ export const HighlightSection = styled.div`
   }
 
   @media print {
-    page-break-after: avoid;
+    break-after: avoid;
+    break-inside: avoid;
     background: white;
   }
 `;
