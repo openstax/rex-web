@@ -68,7 +68,9 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
+    );
   });
 
   it('noops on locationChange if book is not loaded', async() => {
@@ -80,7 +82,9 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
+    );
   });
 
   it('noops on locationChange if summary is already loaded', async() => {
@@ -94,6 +98,8 @@ describe('locationChange', () => {
     await hook();
 
     expect(getHighlightsSummary).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
+    );
   });
 });
