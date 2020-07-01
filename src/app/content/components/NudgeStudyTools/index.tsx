@@ -117,4 +117,10 @@ const NudgeStudyTools = () => {
   );
 };
 
-export default NudgeStudyTools;
+// tslint:disable-next-line: variable-name
+const NoopForPrerendering = () => {
+  if (typeof document === 'undefined' || typeof window === 'undefined') { return null; }
+  return <NudgeStudyTools />;
+};
+
+export default NoopForPrerendering;
