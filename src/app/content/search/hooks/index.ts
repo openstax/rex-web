@@ -95,13 +95,13 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   };
 
   const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
+  const search = queryString.stringify({
+    query,
+    target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+  });
+  const hash = selectedResult.result.source.elementId;
 
-  const options = {
-    hash: services.history.location.hash,
-    search: services.history.location.search.replace(/\?/, ''),
-  };
-
-  services.dispatch(action(navigation, options));
+  services.dispatch(action(navigation, { hash, search }));
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
