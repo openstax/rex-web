@@ -7,6 +7,10 @@ import {
 export interface State {
   isEnabled: boolean;
   summary: {
+    filters: {
+      locationIds: string[];
+      default: boolean;
+    },
     loading: boolean,
     open: boolean,
     pagination: SummaryHighlightsPagination,

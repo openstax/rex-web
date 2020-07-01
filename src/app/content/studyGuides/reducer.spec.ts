@@ -11,7 +11,7 @@ describe('study guides reducer', () => {
         page: [],
       },
     } as SummaryHighlights;
-    const state = reducer(undefined, actions.receiveSummaryStudyGuides(summary, null));
+    const state = reducer(undefined, actions.receiveSummaryStudyGuides(summary, {pagination: null}));
 
     expect(state.summary.studyGuides).toEqual(summary);
   });
@@ -19,5 +19,24 @@ describe('study guides reducer', () => {
   it('enables study guides on receiveFeatureFlags', () => {
     const state = reducer(initialState, receiveFeatureFlags([studyGuidesFeatureFlag]));
     expect(state.isEnabled).toEqual(true);
+  });
+
+  it('sets summary filters', () => {
+    const state = reducer({
+      ...initialState,
+      summary: {
+        ...initialState.summary,
+        filters: {
+          default: false,
+          locationIds: [],
+        },
+      },
+    }, actions.setSummaryFilters({
+      locationIds: ['id'],
+    }));
+
+    expect(state.summary.filters.locationIds[0]).toEqual('id');
+    expect(state.summary.filters.locationIds.length).toEqual(1);
+    expect(state.summary.loading).toEqual(true);
   });
 });

@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 const LoaderWrapper = styled.div`
   position: absolute;
   width: 100%;
-  height: inherit;
+  height: 100%;
   z-index: 1;
   background-color: rgba(241, 241, 241, 0.8);
 
