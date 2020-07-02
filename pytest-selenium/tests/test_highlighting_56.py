@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 from pages.accounts import Signup
 from tests import markers
+from pages.osweb import WebBase
 from pages.content import Content
 from utils.utility import Highlight, Utilities
 
@@ -301,4 +302,140 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
 
     # THEN: The unsaved note in the initial page is not saved
     highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
+
+
+@markers.test_case("C602213")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("microbiology", "1-introduction")])
+def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
+    selenium, base_url, book_slug, page_slug
+):
+    """Discard modal appears when unsaved notes are present & book title is clicked."""
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    book_banner = book.bookbanner
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight a paragraph, add a note & do not save
+    paragraphs = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, close_box=False)
+    note = Utilities.random_string()
+    book.content.highlight_box.note = note
+    highlight_id = book.content.highlight_ids[0]
+
+    # WHEN: Click on book title
+    book_banner.book_title.click()
+
+    # THEN: Discard modal is displayed
+    assert book.discard_changes_modal_displayed
+    assert book.discard_modal.content == "You have an unsaved note on this page."
+    assert book.discard_modal.title == "Discard unsaved changes?"
+
+    # WHEN: Click Cancel on the modal
+    book.discard_modal.click_cancel_changes()
+
+    # THEN: The modal is closed and the unsaved note is retained on the page
+    assert book.content.highlight_box.is_open, "Highlight box not open"
+    assert book.content.highlight_box.is_edit_box
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_box.note == note
+
+    # WHEN: Click on book title again
+    book_banner.book_title.click()
+
+    # AND: click Discard changes in the modal
+    book.discard_modal.click_discard_changes()
+
+    # THEN: The page navigates to osweb book details page
+    osweb = WebBase(selenium)
+    osweb.wait_for_page_to_load()
+    expected_page_url = base_url + "/details/books/" + book_slug
+    assert expected_page_url == osweb.current_url
+
+    # WHEN: Click the view online link in osweb book detail page
+    osweb.click_view_online()
+
+    # THEN: The unsaved note in the initial page is not saved
+    highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
+
+    # AND: No highlight box is open in the page
+    with pytest.raises(NoSuchElementException) as e:
+        book.content.highlight_box
+    assert "No open highlight boxes found" in str(e.value), "highlight box is open in the page"
+
+
+@markers.test_case("C602209")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
+def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
+    selenium, base_url, book_slug, page_slug
+):
+    """Discard modal appears when unsaved notes are present & selecting new text."""
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN: Highlight a paragraph, add a note & do not save
+    paragraph = random.sample(book.content.paragraphs, 2)
+    book.content.highlight(target=paragraph[0], offset=Highlight.ENTIRE, close_box=False)
+    note = Utilities.random_string()
+    book.content.highlight_box.note = note
+    id_1 = book.content.highlight_ids[0]
+
+    # AND: Select some text in the page
+    book.content.select(target=paragraph[1], offset=Highlight.ENTIRE)
+
+    # THEN: Discard modal is displayed
+    assert book.discard_changes_modal_displayed
+    assert book.discard_modal.content == "You have an unsaved note on this page."
+    assert book.discard_modal.title == "Discard unsaved changes?"
+
+    # WHEN: Click Cancel
+    book.discard_modal.click_cancel_changes()
+
+    # THEN: The modal is closed and the unsaved note is retained in the page
+    assert book.content.highlight_box.is_open, "Highlight box not open"
+    assert book.content.highlight_box.is_edit_box
+    highlight = book.content.get_highlight(by_id=id_1)[0]
+    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_box.note == note
+
+    # WHEN: Select some text in the page again
+    book.content.select(target=paragraph[1], offset=Highlight.ENTIRE)
+
+    # AND: Click Discard changes in the modal
+    book.discard_modal.click_discard_changes()
+
+    # THEN: The new text is selected
+    selected_text = selenium.execute_script("return window.getSelection().toString()")
+    assert selected_text == paragraph[1].get_attribute("textContent")
+
+    # AND: The highlight box is opened for the selected text
+    assert book.content.highlight_box.is_open, "Highlight box not open"
+    assert book.content.highlight_box.note == ""
+
+    # AND: The selected text is not a saved highlight
+    assert len(book.content.highlight_ids) == 1, "the selected text is already a saved highlight"
+
+    # AND: Unsaved note of the first highlight is abandoned
+    highlight = book.content.get_highlight(by_id=id_1)[0]
     assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
