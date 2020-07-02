@@ -1,10 +1,13 @@
 /** @jest-environment puppeteer */
+import equals from 'lodash/fp/equals';
 import pretty from 'pretty';
 import { finishRender, navigate } from '../../test/browserutils';
 
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
-const TEST_PAGE_WITH_LINKS_NAME = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
-const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
+const TEST_PAGE_WITH_LINKS_NAME =
+  '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
+const TEST_PAGE_WITH_LINKS =
+  '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
 
 describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
@@ -19,15 +22,14 @@ describe('content', () => {
       }
 
       // these elements are intended to be changed on page load
-      [
-        '[data-testid="user-nav"]',
-        '[data-testid="nav-login"]',
-      ].forEach((selector) => {
-        const element = root.querySelector(selector);
-        if (element) {
-          element.remove();
+      ['[data-testid="user-nav"]', '[data-testid="nav-login"]'].forEach(
+        (selector) => {
+          const element = root.querySelector(selector);
+          if (element) {
+            element.remove();
+          }
         }
-      });
+      );
 
       // these attributes are intended to be changed on page load
       [
@@ -35,9 +37,9 @@ describe('content', () => {
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
       ].forEach(([selector, attribute]) => {
-        root.querySelectorAll(selector).forEach((element) =>
-          element.removeAttribute(attribute)
-        );
+        root
+          .querySelectorAll(selector)
+          .forEach((element) => element.removeAttribute(attribute));
       });
 
       // react-dom and react-dom/server handle empty value attributes
@@ -60,7 +62,7 @@ describe('content', () => {
 
     const secondHTML = await page.evaluate(getHtml);
 
-    expect(typeof(firstHTML)).toEqual('string');
+    expect(typeof firstHTML).toEqual('string');
     expect(pretty(secondHTML)).toEqual(pretty(firstHTML));
   });
 
@@ -70,13 +72,99 @@ describe('content', () => {
 
     const links: string[] = await page.evaluate(() =>
       document
-        ? Array.from(document.querySelectorAll('#main-content a'))
-          .map((element) => element.getAttribute('href'))
+        ? Array.from(document.querySelectorAll('#main-content a')).map(
+            (element) => element.getAttribute('href')
+          )
         : []
     );
 
-    expect(links).toEqual([
-      'test-page-1',
-    ]);
+    expect(links).toEqual(['test-page-1']);
+  });
+
+  it('triggers google analytics pageview initially', async() => {
+    await page.setJavaScriptEnabled(true);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
+
+    const pendingEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    expect(pendingEvents).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "command": Object {
+            "name": "send",
+            "payload": Object {
+              "hitType": "pageview",
+              "page": "/books/book-slug-1/pages/2-test-page-3",
+            },
+          },
+          "savedAt": Object {},
+        },
+        Object {
+          "command": Object {
+            "name": "set",
+            "payload": Object {
+              "dimension3": "not embedded",
+            },
+          },
+          "savedAt": Object {},
+        },
+        Object {
+          "command": Object {
+            "name": "set",
+            "payload": Object {},
+          },
+          "savedAt": Object {},
+        },
+      ]
+    `);
+  });
+
+  it('triggers google analytics pageview after navigating again', async() => {
+    await page.setJavaScriptEnabled(true);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
+
+    const initialEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    await page.click('a[data-analytics-label="next"]');
+
+    const pendingEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    const newEvents = pendingEvents.filter(
+      (event: any) => !initialEvents.find(equals(event))
+    );
+
+    expect(newEvents).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "command": Object {
+                  "name": "send",
+                  "payload": Object {
+                    "eventAction": "next",
+                    "eventCategory": "REX Link (prev-next)",
+                    "eventLabel": "/books/book-slug-1/pages/2-test-page-3",
+                    "hitType": "event",
+                    "transport": "beacon",
+                  },
+                },
+                "savedAt": Object {},
+              },
+              Object {
+                "command": Object {
+                  "name": "send",
+                  "payload": Object {
+                    "hitType": "pageview",
+                    "page": "/books/book-slug-1/pages/3-test-page-4",
+                  },
+                },
+                "savedAt": Object {},
+              },
+            ]
+        `);
   });
 });
