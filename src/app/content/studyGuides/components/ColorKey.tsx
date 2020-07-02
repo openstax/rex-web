@@ -1,4 +1,3 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -9,9 +8,9 @@ import { textRegularStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { toolbarIconStyles } from '../../components/Toolbar/iconStyles';
 import { toolbarDefaultText } from '../../components/Toolbar/styled';
-import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { mobilePaddingSides } from '../../styles/PopupConstants';
+import { highlightStyles } from '../constants';
 
 const noteConstants = {
   noteHeight: 16.8,
@@ -115,22 +114,23 @@ const ColorKey = () => {
         <ColorKeyIcon src={colorKeyIcon}/>
         <ColorKeyText>{msg}</ColorKeyText>
         {open && <ColorKeyDescription>
-          {highlightStyles.filter((style) => style.label !== HighlightColorEnum.Pink)
-            .map((color, index) =>
-              <KeyTermWrapper key={index}>
-                <ColorIndicator
+          {highlightStyles.map((color, index) =>
+            <KeyTermWrapper key={index}>
+              <FormattedMessage id='i18n:studyguides:popup:color-key:terms:aria-label' values={{color: color.label}}>
+                {(arialabel: string) => <ColorIndicator
                   shape='circle'
                   style={color}
                   size='small'
-                  aria-label={color.label + ' key term'}
+                  aria-label={arialabel}
                   component={<label />}
-                />
-                <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
-                  {(key: string) => <KeyTermText>{key}</KeyTermText>}
-                </FormattedMessage>
-              </KeyTermWrapper>
-            )
-          }
+                />}
+              </FormattedMessage>
+              <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
+                {(key: string) => <KeyTermText>{key}</KeyTermText>}
+              </FormattedMessage>
+            </KeyTermWrapper>
+          )
+        }
         </ColorKeyDescription>}
       </ColorKeyButtonWrapper>
     }
