@@ -22,14 +22,15 @@ describe('content', () => {
       }
 
       // these elements are intended to be changed on page load
-      ['[data-testid="user-nav"]', '[data-testid="nav-login"]'].forEach(
-        (selector) => {
-          const element = root.querySelector(selector);
-          if (element) {
-            element.remove();
-          }
+      [
+        '[data-testid="user-nav"]',
+        '[data-testid="nav-login"]',
+      ].forEach((selector) => {
+        const element = root.querySelector(selector);
+        if (element) {
+          element.remove();
         }
-      );
+      });
 
       // these attributes are intended to be changed on page load
       [
@@ -37,9 +38,9 @@ describe('content', () => {
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
       ].forEach(([selector, attribute]) => {
-        root
-          .querySelectorAll(selector)
-          .forEach((element) => element.removeAttribute(attribute));
+        root.querySelectorAll(selector).forEach((element) =>
+          element.removeAttribute(attribute)
+        );
       });
 
       // react-dom and react-dom/server handle empty value attributes
@@ -62,7 +63,7 @@ describe('content', () => {
 
     const secondHTML = await page.evaluate(getHtml);
 
-    expect(typeof firstHTML).toEqual('string');
+    expect(typeof(firstHTML)).toEqual('string');
     expect(pretty(secondHTML)).toEqual(pretty(firstHTML));
   });
 
