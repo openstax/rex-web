@@ -4,10 +4,8 @@ import pretty from 'pretty';
 import { finishRender, navigate } from '../../test/browserutils';
 
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
-const TEST_PAGE_WITH_LINKS_NAME =
-  '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
-const TEST_PAGE_WITH_LINKS =
-  '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
+const TEST_PAGE_WITH_LINKS_NAME = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
+const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
 
 describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
@@ -73,13 +71,14 @@ describe('content', () => {
 
     const links: string[] = await page.evaluate(() =>
       document
-        ? Array.from(document.querySelectorAll('#main-content a')).map(
-            (element) => element.getAttribute('href')
-          )
+        ? Array.from(document.querySelectorAll('#main-content a'))
+          .map((element) => element.getAttribute('href'))
         : []
     );
 
-    expect(links).toEqual(['test-page-1']);
+    expect(links).toEqual([
+      'test-page-1',
+    ]);
   });
 
   it('triggers google analytics pageview initially', async() => {
