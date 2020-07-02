@@ -809,6 +809,35 @@ class Content(Page):
                 # Click outside of the box and highlight to close the box
                 self.close_edit_note_box()
 
+        def select(
+            self, target: WebElement, offset: Union[Highlight.Offset, str] = Highlight.RANDOM
+        ):
+            """Select a page element.
+
+            .. note::
+               ActionChain's move by offset does not work as expected in Safari
+
+            :param target: the specific element to select
+            :param offset: (optional) what or how much of the element to
+                highlight; may be an X/Y offset, a randomized quantity, or the
+                entire element
+                default: randomized
+            :type target: WebElement
+            :type offset: tuple(int, int), int
+            :return: None
+
+            """
+            # Scroll the page to bring the element into view then shift due to
+            # the top bars
+            self.driver.execute_script("arguments[0].scrollIntoView();", target)
+            self.driver.execute_script("window.scrollBy(0, -150);")
+
+            # Compute the start and end offsets for the mouse movement
+            start, end = self._compute_offsets(target, offset)
+
+            # Select the element
+            self._select_section(target, start, end)
+
         def show_solutions(self):
             """Open each closed solution then return to the top of the page."""
             for toggle in self.solution_toggles:
@@ -933,6 +962,29 @@ class Content(Page):
             except NoSuchElementException:
                 sleep(0.1)
                 (actions.move_to_element_with_offset(target, *retag).click().perform())
+
+        def _select_section(
+            self, target: WebElement, start: Highlight.Offset, stop: Highlight.Offset
+        ):
+            """Select an element using the mouse.
+
+            :param target: the book content parent element to select
+            :param start: the beginning of the click and drag (top left)
+            :param stop: the end of the click and drag (bottom right)
+            :type target: WebElement
+            :type start: tuple(int, int)
+            :type stop: tuple(int, int)
+            :return: None
+
+            """
+            actions = ActionChains(self.driver)
+            (
+                actions.move_to_element_with_offset(target, *start)
+                .click_and_hold()
+                .move_by_offset(*stop)
+                .release()
+                .perform()
+            )
 
         class HighlightBox(Region):
             """The highlight color and annotation box."""
