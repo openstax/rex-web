@@ -24,7 +24,7 @@ describe('Study Guides button and PopUp', () => {
   });
 
   it('shows color key and tracks open close to GA', async() => {
-    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+    const spyTrack = jest.spyOn(services.analytics.openCloseColorKey, 'track');
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

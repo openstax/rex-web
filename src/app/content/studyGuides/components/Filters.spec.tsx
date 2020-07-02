@@ -2,10 +2,12 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { DropdownToggle } from '../../../components/Dropdown';
+import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { formatBookData, stripIdVersion } from '../../utils';
@@ -16,9 +18,11 @@ jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div moc
 
 describe('Filters', () => {
   let store: Store;
+  let services: ReturnType<typeof createTestServices>;
   const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
+    services = createTestServices();
     store = createTestStore();
   });
 
@@ -35,9 +39,11 @@ describe('Filters', () => {
     }));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Filters />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     renderer.act(() => {

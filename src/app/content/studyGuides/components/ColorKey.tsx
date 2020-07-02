@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import colorKeyIcon from '../../../../assets/colorKeyIcon.png';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { PlainButton } from '../../../components/Button';
@@ -11,10 +11,11 @@ import { toolbarIconStyles } from '../../components/Toolbar/iconStyles';
 import { toolbarDefaultText } from '../../components/Toolbar/styled';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
+import { mobilePaddingSides } from '../../styles/PopupConstants';
 
 const noteConstants = {
   noteHeight: 16.8,
-  noteWidth: 35.3,
+  noteWidth: 36,
 };
 
 // tslint:disable-next-line:variable-name
@@ -42,9 +43,13 @@ const ColorKeyDescription = styled.div`
     background: ${theme.color.white};
     border-top: 0.1rem solid ${theme.color.neutral.formBorder};
     border-left: 0.1rem solid ${theme.color.neutral.formBorder};
+
+    ${theme.breakpoints.mobile(css`
+      right: 2rem;
+    `)}
   }
 
-  height: ${noteConstants.noteHeight}rem;
+  min-height: ${noteConstants.noteHeight}rem;
   width: ${noteConstants.noteWidth}rem;
   box-sizing: border-box;
   border: 0.1rem solid ${theme.color.neutral.formBorder};
@@ -54,7 +59,12 @@ const ColorKeyDescription = styled.div`
   right: 5rem;
   background: ${theme.color.white};
   overflow: visible;
-  padding: 1.5rem 1.65rem
+  padding: 1.5rem 1.65rem;
+
+  ${theme.breakpoints.mobile(css`
+    width: calc(100vw - ${mobilePaddingSides * 2}rem);
+    right: ${mobilePaddingSides / 2}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -81,21 +91,22 @@ const KeyTermText = styled.span`
 const KeyTermWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-  margin-bottom: 0.2rem;
+  padding: 0.5rem 0;
 
   ${ColorIndicator} {
     margin-top: 0.5rem;
+    width: 1.8rem;
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const ColorKey = () => {
   const [open, setOpen] = React.useState<boolean>(false);
-  const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
+  const trackOpenClose = useAnalyticsEvent('openCloseColorKey');
 
   const toggleColorKey = () => {
     setOpen((state) => !state);
-    open ? trackOpenClose('button', true) : trackOpenClose(undefined, true);
+    trackOpenClose(open);
   };
 
   return <FormattedMessage id='i18n:studyguides:popup:color-key'>
@@ -115,9 +126,7 @@ const ColorKey = () => {
                   component={<label />}
                 />
                 <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
-                  {(key: string) =>
-                    <KeyTermText>{key}</KeyTermText>
-                  }
+                  {(key: string) => <KeyTermText>{key}</KeyTermText>}
                 </FormattedMessage>
               </KeyTermWrapper>
             )

@@ -17,7 +17,8 @@ import * as openCloseMH from './analyticsEvents/highlighting/summaryPopup/openCl
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
-import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClose';
+import * as openCloseColorKey from './analyticsEvents/studyGuides/openCloseColorKey';
+import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
@@ -54,6 +55,7 @@ const analytics = {
   deleteHighlight: mapEventType(deleteHighlight),
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
+  openCloseColorKey: mapEventType(openCloseColorKey),
   openCloseMH: mapEventType(openCloseMH),
   openCloseStudyGuides: mapEventType(openCloseStudyGuides),
   pageFocus: mapEventType(pageFocus),

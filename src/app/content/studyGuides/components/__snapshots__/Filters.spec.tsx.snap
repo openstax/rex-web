@@ -38,6 +38,21 @@ exports[`Filters matches snapshot 1`] = `
       setFilters={[Function]}
     />
   </div>
+  <button
+    aria-label="Color key"
+    className="Button__PlainButton-ayg7nk-2 ColorKey__ColorKeyButtonWrapper-afl82f-0 vHZHs"
+    onClick={[Function]}
+  >
+    <img
+      className="ColorKey__ColorKeyIcon-afl82f-2 kbHiQJ"
+      src="colorKeyIcon.png"
+    />
+    <span
+      className="ColorKey__ColorKeyText-afl82f-3 xtfbY"
+    >
+      Color key
+    </span>
+  </button>
   <ul
     className="FiltersList-sc-1sdnk9e-3 fQoHdD"
   />

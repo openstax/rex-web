@@ -7,6 +7,7 @@ import Filters, { FilterDropdown } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import { setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
+import ColorKey from './ColorKey';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -39,5 +40,6 @@ export default () =>
     >
       <ConnectedChapterFilter />
     </FilterDropdown>
+    <ColorKey />
     <ConnectedFilterList />
   </Filters>;
