@@ -125,6 +125,11 @@ type EventTypeMap = typeof eventTypeMap;
 // change the names we can use the interface direcly here.
 type EventTypeFromMap<S extends keyof EventTypeMap> = (typeof dom)[EventTypeMap[S]]['prototype'];
 
+/*
+ * typescript actually does this by default, the actual problem
+ * is that our lib.dom.d.ts file is out of date and doesn't have
+ * focusout in it
+ */
 export const addSafeEventListener = <S extends keyof EventTypeMap>(
   element: HTMLElement,
   eventString: S,

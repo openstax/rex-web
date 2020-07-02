@@ -9,6 +9,7 @@ import { loadMoreDistanceFromBottom } from '../../constants';
 import { PopupBody } from '../../styles/PopupStyles';
 import { loadMoreStudyGuides } from '../actions';
 import * as select from '../selectors';
+import Filters from './Filters';
 import StudyGuides from './StudyGuides';
 
 // tslint:disable-next-line:variable-name
@@ -29,7 +30,7 @@ const ShowStudyGuides = () => {
   const ref = React.useRef<HTMLElement>(null);
   const [showGoToTop, setShowGoToTop] = React.useState(false);
   const dispatch = useDispatch();
-  const isLoading = useSelector(select.studyGuidesIsLoading);
+  const isLoading = useSelector(select.summaryIsLoading);
   const hasMoreResults = useSelector(select.hasMoreResults);
 
   const goToTop = () => {
@@ -60,6 +61,7 @@ const ShowStudyGuides = () => {
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
+      <Filters />
       <StudyGuides />
       {showGoToTop && <GoToTopButton
         i18nAriaLabel='i18n:toolbar:studyguides:popup:button:back-to-top'

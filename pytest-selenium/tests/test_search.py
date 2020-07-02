@@ -8,6 +8,7 @@ from pages.content import Content
 from tests import markers
 from utils import utility
 
+
 # fmt: off
 @markers.test_case("C543235")
 @markers.parametrize("page_slug", ["preface"])
@@ -103,6 +104,7 @@ def test_scroll_position_when_search_yields_no_results(
 
 
 @markers.test_case("C543231")
+@markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug, page_slug):
