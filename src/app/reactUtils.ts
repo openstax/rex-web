@@ -1,9 +1,10 @@
-import { FocusEvent, HTMLElement, HTMLElementEventMap, KeyboardEvent } from '@openstax/types/lib.dom';
+import { FocusEvent, HTMLElement, HTMLElementEventMap,
+  KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isWindow } from './guards';
 import theme from './theme';
-import { assertDefined, assertWindow } from './utils';
+import { assertDefined, assertDocument, assertWindow } from './utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -132,14 +133,22 @@ export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boole
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
 };
 
-export const useDebouncedMatchMobileQuery = () => {
-  const window = assertWindow();
-  const [width] = useDebouncedWindowSize();
-  const [isMobile, setIsMobile] = React.useState(window.matchMedia(theme.breakpoints.mobileQuery).matches);
+export const useMatchMobileQuery = () => {
+  const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileQuery);
+  const [isMobile, setIsMobile] = React.useState(matchMedia.matches);
+
+  const listener = React.useCallback((e: EventListener) => {
+    if ((e as MediaQueryListEvent).matches) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, []);
 
   React.useEffect(() => {
-    setIsMobile(window.matchMedia(theme.breakpoints.mobileQuery).matches);
-  }, [window, width]);
+    matchMedia.addListener(listener);
+    return () => { matchMedia.removeListener(listener); };
+  }, [listener, matchMedia]);
 
   return isMobile;
 };
@@ -165,4 +174,20 @@ export const useDebouncedWindowSize = () => {
   }, []);
 
   return size;
+};
+
+export const useOnScrollTopOffset = () => {
+  const document = assertDocument();
+  const [topOffset, setTopOffset] = React.useState(0);
+
+  const listener = React.useCallback(() => {
+    setTopOffset(document.scrollingElement ? document.scrollingElement.scrollTop : 0);
+  }, [document]);
+
+  React.useEffect(() => {
+    document.addEventListener('scroll', listener);
+    return () => { document.removeEventListener('scroll', listener); };
+  }, [document, listener]);
+
+  return topOffset;
 };

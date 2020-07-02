@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { useDebouncedMatchMobileQuery } from '../../../reactUtils';
+import { useMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
@@ -34,7 +34,7 @@ import {
 const NudgeStudyTools = () => {
   const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
-  const isMobile = useDebouncedMatchMobileQuery();
+  const isMobile = useMatchMobileQuery();
   const show = useSelector(showNudgeStudyTools);
   const positions = usePositions(isMobile);
   const hasStudyGuides = useSelector(hasStudyGuidesSelector);

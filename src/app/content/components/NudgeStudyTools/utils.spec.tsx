@@ -225,23 +225,21 @@ describe('cookies helpers', () => {
       <Component />
     </Provider>);
 
+    expect(utils.getPageCounterCookie()).toEqual(0);
     renderer.act(() => {
-      expect(utils.getPageCounterCookie()).toEqual(0);
       store.dispatch(receivePage({...shortPage, references: []}));
     });
 
+    expect(utils.getPageCounterCookie()).toEqual(1);
     renderer.act(() => {
-      expect(utils.getPageCounterCookie()).toEqual(1);
       store.dispatch(receivePage({...shortPage, references: []}));
     });
 
+    expect(utils.getPageCounterCookie()).toEqual(2);
     renderer.act(() => {
-      expect(utils.getPageCounterCookie()).toEqual(2);
       store.dispatch(receivePage({...shortPage, references: []}));
     });
 
-    renderer.act(() => {
-      expect(utils.getPageCounterCookie()).toEqual(3);
-    });
+    expect(utils.getPageCounterCookie()).toEqual(3);
   });
 });

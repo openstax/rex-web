@@ -122,7 +122,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
 
-    jest.spyOn(reactUtils, 'useDebouncedMatchMobileQuery')
+    jest.spyOn(reactUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
 
     jest.spyOn(utils, 'usePositions')

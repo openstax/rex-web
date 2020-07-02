@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useDebouncedWindowSize } from '../../../reactUtils';
+import { useDebouncedWindowSize, useOnScrollTopOffset } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
 import { page as pageSelector } from '../../selectors';
 import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
@@ -91,6 +91,7 @@ const getBoundingRectOfNudgeTarget = (target: HTMLElement) => {
 
 export const usePositions = (isMobile: boolean) => {
   const [windowWidth] = useDebouncedWindowSize();
+  const scrollTopOffset = useOnScrollTopOffset();
   const [positions, setPositions] = React.useState<Positions | null>(null);
   const studyGuides = useSelector(hasStudyGuides);
   const isEnabled = useSelector(studyGuidesEnabled);
@@ -110,7 +111,7 @@ export const usePositions = (isMobile: boolean) => {
       document.body.style.overflow = prevOverflow;
     }
     return () => setPositions(null);
-  }, [studyGuides, isEnabled, windowWidth, isMobile]);
+  }, [scrollTopOffset, studyGuides, isEnabled, windowWidth, isMobile]);
 
   return positions;
 };

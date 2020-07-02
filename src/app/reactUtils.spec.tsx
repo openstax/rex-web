@@ -1,4 +1,4 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, MediaQueryList } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { resetModules } from '../test/utils';
@@ -248,5 +248,157 @@ describe('onEscHandler', () => {
     ref.current!.dispatchEvent(keyboardEvent);
 
     expect(cb).not.toHaveBeenCalled();
+  });
+});
+
+describe('useMatchMobileQuery', () => {
+  // tslint:disable-next-line: variable-name
+  let Component: () => JSX.Element;
+
+  beforeEach(() => {
+    Component = () => {
+      const matchMobileQuery = utils.useMatchMobileQuery();
+      return <React.Fragment>
+        {matchMobileQuery ? <div data-test-id='mobile-resolution' /> : <div data-test-id='desktop-resolution' />}
+      </React.Fragment>;
+    };
+  });
+
+  it('adds and removes listeners', () => {
+    const mock = {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    } as any as MediaQueryList;
+
+    jest.spyOn(assertWindow(), 'matchMedia')
+      .mockImplementation(() => mock);
+
+    const component = renderer.create(<Component/>);
+
+    // Call hook
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(mock.addListener).toHaveBeenCalled();
+
+    component.unmount();
+
+    expect(mock.removeListener).toHaveBeenCalled();
+  });
+
+  it('updates on listener calls', () => {
+    const mock = {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    } as any as MediaQueryList;
+
+    jest.spyOn(assertWindow(), 'matchMedia')
+      .mockImplementation(() => mock);
+
+    const component = renderer.create(<Component/>);
+
+    // Call hook
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    renderer.act(() => {
+      (mock.addListener as any as jest.SpyInstance).mock.calls[0][0]({ matches: true });
+    });
+
+    expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).not.toThrow();
+    expect(() => component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).toThrow();
+
+    renderer.act(() => {
+      (mock.addListener as any as jest.SpyInstance).mock.calls[0][0]({ matches: false });
+    });
+
+    expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).toThrow();
+    expect(() => component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).not.toThrow();
+  });
+});
+
+describe('useOnScrollTopOffset', () => {
+  // tslint:disable-next-line: variable-name
+  let Component: () => JSX.Element;
+
+  beforeEach(() => {
+    Component = () => {
+      const scrollTopOffset = utils.useOnScrollTopOffset();
+
+      if (scrollTopOffset > 100) {
+        return <div data-test-id='more-than-100' />;
+      }
+
+      return <div data-test-id='less-than-100' />;
+    };
+  });
+
+  it('adds and removes listeners', () => {
+    const spyAddListener = jest.spyOn(assertDocument(), 'addEventListener');
+    const spyRemoveListener = jest.spyOn(assertDocument(), 'removeEventListener');
+
+    const component = renderer.create(<Component/>);
+
+    // Call hook
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(spyAddListener).toHaveBeenCalled();
+
+    component.unmount();
+
+    expect(spyRemoveListener).toHaveBeenCalled();
+
+    spyAddListener.mockClear();
+    spyRemoveListener.mockClear();
+  });
+
+  it('updates on listener calls', () => {
+    const document = assertDocument();
+    const spyAddListener = jest.spyOn(document, 'addEventListener');
+
+    const component = renderer.create(<Component/>);
+
+    // Call hook
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    Object.defineProperty(document, 'scrollingElement', {
+      value: null,
+      writable: true,
+    });
+
+    renderer.act(() => {
+      (spyAddListener as any as jest.SpyInstance).mock.calls[0][1]();
+    });
+
+    expect(() => component.root.findByProps({ 'data-test-id': 'more-than-100' })).toThrow();
+    expect(() => component.root.findByProps({ 'data-test-id': 'less-than-100' })).not.toThrow();
+
+    Object.defineProperty(document, 'scrollingElement', {
+      value: { scrollTop: 101 },
+      writable: true,
+    });
+
+    renderer.act(() => {
+      (spyAddListener as any as jest.SpyInstance).mock.calls[0][1]();
+    });
+
+    expect(() => component.root.findByProps({ 'data-test-id': 'more-than-100' })).not.toThrow();
+    expect(() => component.root.findByProps({ 'data-test-id': 'less-than-100' })).toThrow();
+
+    Object.defineProperty(document, 'scrollingElement', {
+      value: { scrollTop: 99 },
+      writable: true,
+    });
+
+    renderer.act(() => {
+      (spyAddListener as any as jest.SpyInstance).mock.calls[0][1]();
+    });
+
+    expect(() => component.root.findByProps({ 'data-test-id': 'more-than-100' })).toThrow();
+    expect(() => component.root.findByProps({ 'data-test-id': 'less-than-100' })).not.toThrow();
+
+    spyAddListener.mockClear();
   });
 });

@@ -15,6 +15,7 @@ export const NudgeWrapper = styled.div`
 export const NudgeContentWrapper = styled.div`
   position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
+  outline: none;
   ${(props: { top: number, right: number }) => `
     top: ${props.top}px;
     right: ${props.right}px;
