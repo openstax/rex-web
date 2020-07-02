@@ -80,7 +80,7 @@ export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
   pageParam: Params['page']
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => {
-  return flattenArchiveTree(tree).find((node) =>
+  return findTreePages(tree).find((node) =>
     'uuid' in pageParam
       ? node.id === pageParam.uuid
       : node.slug.toLowerCase() === pageParam.slug.toLowerCase()
