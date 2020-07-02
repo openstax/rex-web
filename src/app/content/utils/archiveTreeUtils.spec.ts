@@ -68,6 +68,26 @@ describe('findArchiveTreeNodeByPageParam', () => {
   it('finds node by id', () => {
     expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'preface' })).toBeDefined();
   });
+  it('matches only page nodes', () => {
+    const unit = treeWithUnits.contents[0];
+    const chapter = unit.contents[1];
+    const pageToFind = findArchiveTreeNode(treeWithUnits, 'page1');
+
+    if (!pageToFind) {
+      return expect(pageToFind).toBeTruthy();
+    }
+
+    unit.slug = pageToFind.slug;
+    chapter.slug = pageToFind.slug;
+
+    const foundNode = findArchiveTreeNodeByPageParam(treeWithUnits, {slug: pageToFind.slug});
+
+    if (!foundNode) {
+      return expect(foundNode).toBeTruthy();
+    }
+
+    expect(foundNode.id).toEqual(pageToFind.id);
+  });
 });
 
 describe('getArchiveTreeSectionNumber', () => {
