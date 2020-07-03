@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
-  getHighlightLocationFilters,
+  getFilteredHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
   getSortedSummaryHighlights
 } from '../highlights/utils';
@@ -13,6 +13,7 @@ import {
 } from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
 import { allColors } from './constants';
+import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -57,7 +58,7 @@ export const summaryStudyGuidesPagination = createSelector(
 
 export const studyGuidesLocationFilters = createSelector(
   parentSelectors.book,
-  getHighlightLocationFilters
+  getFilteredHighlightLocationFilters(archiveTreeSectionIsChapter)
 );
 
 export const summaryStudyGuides = createSelector(

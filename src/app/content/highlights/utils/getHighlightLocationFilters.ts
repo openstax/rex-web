@@ -1,4 +1,5 @@
-import { ArchiveBook, Book } from '../../types';
+import flow from 'lodash/fp/flow';
+import { ArchiveBook, Book, LinkedArchiveTree, LinkedArchiveTreeSection } from '../../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -8,16 +9,27 @@ import {
 } from '../../utils/archiveTreeUtils';
 import { HighlightLocationFilters } from '../types';
 
-const getHighlightLocationFilters = (book: Book | ArchiveBook | undefined) => {
-  return !book
-    ? new Map() as HighlightLocationFilters
-    : new Map(
-      flattenArchiveTree(book.tree)
-        .filter((section) =>
-          (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
-          || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section)))
-        .map((section) => [section.id, section])
-    );
-};
+type LocationFilterSection = LinkedArchiveTree | LinkedArchiveTreeSection;
 
-export default getHighlightLocationFilters;
+const sectionIsLocationFilter = (section: LocationFilterSection) =>
+  (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
+    || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
+
+const getLocationFilterSectionsForBook = (book: Book | ArchiveBook | undefined) => book
+  ? flattenArchiveTree(book.tree)
+      .filter(sectionIsLocationFilter)
+  : [];
+
+const sectionsToLocationFilters = (sections: LocationFilterSection[]): HighlightLocationFilters =>
+  new Map(sections.map((section) => [section.id, section]));
+
+export const getHighlightLocationFilters = flow(
+  getLocationFilterSectionsForBook,
+  sectionsToLocationFilters
+);
+
+export const getFilteredHighlightLocationFilters = (filterBy: (section: LocationFilterSection) => boolean) => flow(
+  getLocationFilterSectionsForBook,
+  (sections) => sections.filter(filterBy),
+  sectionsToLocationFilters
+);
