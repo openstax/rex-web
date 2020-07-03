@@ -4,6 +4,7 @@ import { History } from 'history';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import * as selectAuth from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
@@ -33,6 +34,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
   highlightsLoaded: selectHighlights.highlightsLoaded(state),
+  loggedOut: selectAuth.loggedOut(state),
   page: select.page(state),
   scrollTarget: selectHighlights.scrollTarget(state),
 });
@@ -175,7 +177,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
         ;
 
       highlighter.clearFocus();
-      const { scrollTarget, focus, focused: focusedId, highlightsLoaded } = getProp();
+      const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = getProp();
       const focused = focusedId && highlighter.getHighlight(focusedId);
       const scrollTargetHighlight = scrollTarget && highlighter.getHighlight(scrollTarget.id);
       const toFocus = scrollTargetHighlight || focused;
@@ -185,7 +187,10 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
           focus(toFocus.id);
         }
       }
-      if (options && highlightsLoaded) {
+      if (
+        options
+        && (highlightsLoaded || (loggedOut && page))
+      ) {
         options.onSelect(scrollTarget, toFocus || null);
       }
 
