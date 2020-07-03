@@ -89,9 +89,7 @@ export default styled(StudyGuides)`
   @media print {
     ${HighlightsChapterWrapper} {
       padding-left: 0;
-    }
 
-    ${HighlightsChapterWrapper} {
       & + ${HighlightWrapper} {
         margin-top: 0;
       }
