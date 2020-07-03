@@ -1,4 +1,4 @@
-import { HighlightScrollTarget } from '../types';
+import { HighlightScrollTargetParams } from '../types';
 
 export { default as getHighlightLocationFilterForPage } from './getHighlightLocationFilterForPage';
 export { default as getHighlightLocationFilters } from './getHighlightLocationFilters';
@@ -17,13 +17,8 @@ export {
   getSortedSummaryHighlights
 } from './summaryHighlightsUtils';
 
-export const getHighlightScrollTarget = (object: {[key: string]: any}, hash: string): HighlightScrollTarget | null => {
-  if (hash && object.type === 'highlight' && typeof object.id === 'string') {
-    return {
-      elementId: hash.replace('#', ''),
-      id: object.id,
-      type: 'highlight',
-    };
-  }
-  return null;
+export const hasHighlightScrollTargetParams = (
+  object: { [key: string]: unknown }
+): object is HighlightScrollTargetParams => {
+  return object.type === 'highlight' && typeof object.id === 'string';
 };

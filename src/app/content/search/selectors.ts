@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
-import { hash, target } from '../../navigation/selectors';
+import { hash, scrollTargetParams } from '../../navigation/selectors';
+import { getScrollTarget } from '../../navigation/utils';
 import * as parentSelectors from '../selectors';
 import { countTotalHighlights, getFormattedSearchResults,
-  getSearchResultsForPage, getSearchScrollTarget } from './utils';
+  getSearchResultsForPage, hasSearchScrollTargetParams } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -35,8 +36,8 @@ export const hits = createSelector(
 );
 
 export const totalHits = createSelector(
-  localState,
-  (state) => !!state.results ? countTotalHighlights(state.results.hits.hits) : null
+  hits,
+  (hitsOrNull) => hitsOrNull ? countTotalHighlights(hitsOrNull) : null
 );
 
 export const getRawResults = createSelector(
@@ -62,7 +63,7 @@ export const currentPageResults = createSelector(
 );
 
 export const scrollTarget = createSelector(
-  target,
+  scrollTargetParams,
   hash,
-  (object, hashString) => getSearchScrollTarget(object || {}, hashString)
+  (params, hashString) => params && hasSearchScrollTargetParams(params) ? getScrollTarget(params, hashString) : null
 );

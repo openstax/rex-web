@@ -6,6 +6,10 @@ import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
+import { HighlightScrollTarget, HighlightScrollTargetParams } from '../content/highlights/types';
+import { hasHighlightScrollTargetParams } from '../content/highlights/utils';
+import { SearchScrollTarget, SearchScrollTargetParams } from '../content/search/types';
+import { hasSearchScrollTargetParams } from '../content/search/utils';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
@@ -111,14 +115,32 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-export const getTargetFromQuery = (query: OutputParams): {[key: string]: any} | null => {
+export const getScrollTargetFromQuery = (
+  query: OutputParams
+): HighlightScrollTargetParams | SearchScrollTargetParams | null => {
   if (!query.target || Array.isArray(query.target)) { return null; }
   try {
     const parsed = JSON.parse(decodeURIComponent(query.target));
-    if (parsed instanceof Object) { return parsed; }
+    if (
+      parsed instanceof Object
+      && (hasSearchScrollTargetParams(parsed) || hasHighlightScrollTargetParams(parsed))
+    ) { return parsed; }
 
     return null;
   } catch {
     return null;
   }
 };
+
+export function getScrollTarget(params: HighlightScrollTargetParams, hash: string): HighlightScrollTarget | null;
+export function getScrollTarget(params: SearchScrollTargetParams, hash: string): SearchScrollTarget | null;
+export function getScrollTarget(
+  params: HighlightScrollTargetParams | SearchScrollTargetParams,
+  hash: string
+): HighlightScrollTarget | SearchScrollTarget | null {
+  if (!hash) { return null; }
+  return {
+    ...params,
+    elementId: hash.replace('#', ''),
+  };
+}

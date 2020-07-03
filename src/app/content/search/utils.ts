@@ -12,7 +12,8 @@ import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types'
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
-import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
+import { SearchResultContainer, SearchResultPage, SearchScrollTarget,
+  SearchScrollTargetParams, SelectedResult } from './types';
 
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
@@ -172,20 +173,15 @@ export const highlightResults = (
   })
   ;
 
-export const getSearchScrollTarget = (object: {[key: string]: any}, hash: string): SearchScrollTarget | null => {
-  if (hash && object.type === 'search' && typeof object.index === 'number') {
-    return {
-      elementId: hash.replace('#', ''),
-      index: object.index,
-      type: 'search',
-    };
-  }
-  return null;
+export const hasSearchScrollTargetParams = (
+  object: { [key: string]: unknown }
+): object is SearchScrollTargetParams => {
+  return object.type === 'search' && typeof object.index === 'number';
 };
 
-export const findSearchResultHit = (results: SearchResultHit[], target: SearchScrollTarget): SearchResultHit | null => {
-  for (const result of results) {
-    if (result.source.elementId === target.elementId) { return result; }
-  }
-  return null;
+export const findSearchResultHit = (
+  results: SearchResultHit[],
+  target: SearchScrollTarget
+): SearchResultHit | undefined => {
+  return results.find((result) => result.source.elementId === target.elementId);
 };

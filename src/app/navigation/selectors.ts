@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getTargetFromQuery } from './utils';
+import { getScrollTargetFromQuery } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -22,9 +22,9 @@ export const hash = createSelector(
   (state) => state.hash
 );
 
-export const target = createSelector(
+export const scrollTargetParams = createSelector(
   localState,
-  (state) => getTargetFromQuery(state.query)
+  (state) => getScrollTargetFromQuery(state.query)
 );
 
 export const location = localState;

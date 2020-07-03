@@ -1,12 +1,13 @@
 import { createSelector } from 'reselect';
-import { hash, target } from '../../navigation/selectors';
+import { hash, scrollTargetParams } from '../../navigation/selectors';
+import { getScrollTarget } from '../../navigation/utils';
 import * as parentSelectors from '../selectors';
 import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
-  getHighlightScrollTarget,
   getSortedSummaryHighlights,
+  hasHighlightScrollTargetParams,
 } from './utils';
 import {
   checkIfHasMoreResults,
@@ -154,7 +155,7 @@ export const hasMoreResults = createSelector(
 );
 
 export const scrollTarget = createSelector(
-  target,
+  scrollTargetParams,
   hash,
-  (object, hashString) => getHighlightScrollTarget(object || {}, hashString)
+  (params, hashString) => params && hasHighlightScrollTargetParams(params) ? getScrollTarget(params, hashString) : null
 );

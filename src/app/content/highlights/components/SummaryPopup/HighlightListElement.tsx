@@ -11,6 +11,7 @@ import { deleteHighlight, updateHighlight } from '../../actions';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
+import { useCreateHighlightLink } from './utils';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -81,6 +82,7 @@ interface HighlightListElementProps {
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const linkToHighlight = useCreateHighlightLink(highlight);
   const dispatch = useDispatch();
 
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
@@ -125,6 +127,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   return <HighlightOuterWrapper>
     {!isEditing && <ContextMenu
       highlight={highlight}
+      linkToHighlight={linkToHighlight}
       onDelete={() => setIsDeleting(true)}
       onEdit={() => setIsEditing(true)}
       onColorChange={updateColor}

@@ -1,8 +1,6 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import queryString from 'query-string';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { ExternalLinkAlt as LinkIcon } from 'styled-icons/fa-solid/ExternalLinkAlt';
@@ -10,9 +8,6 @@ import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
-import { book as bookSelector } from '../../../selectors';
-import { findArchiveTreeNode } from '../../../utils/archiveTreeUtils';
-import { getBookPageUrlAndParams } from '../../../utils/urlUtils';
 import ColorPicker from '../ColorPicker';
 import MenuToggle, { MenuIcon } from '../MenuToggle';
 
@@ -103,6 +98,7 @@ const HighlightDropdownMenu = React.forwardRef((props, ref) => {
 
 interface ContextMenuProps {
   highlight: Highlight;
+  linkToHighlight: string;
   onDelete: () => void;
   onEdit: () => void;
   onColorChange: (color: HighlightColorEnum) => void;
@@ -111,29 +107,16 @@ interface ContextMenuProps {
 // tslint:disable-next-line:variable-name
 const ContextMenu = ({
   highlight: {
-    id,
     color,
     annotation: hasAnnotation,
-    sourceId,
-    anchor,
   },
+  linkToHighlight,
   onColorChange,
   onEdit,
   onDelete,
 }: ContextMenuProps) => {
   const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
   const deleteMessage = 'i18n:highlighting:dropdown:delete';
-  const book = useSelector(bookSelector);
-
-  const page = React.useMemo(() => book
-    ? findArchiveTreeNode(book.tree, sourceId)
-    : null
-  , [book, sourceId]);
-
-  const linkToHighlight = React.useMemo(() => {
-    const search = queryString.stringify({ target: JSON.stringify({ id, type: 'highlight' }) });
-    return `${page && book ? getBookPageUrlAndParams(book, page).url : ''}?${search}#${anchor}`;
-  }, [id, page, book, anchor]);
 
   return <StyledContextMenu>
     <Dropdown
@@ -162,8 +145,8 @@ const ContextMenu = ({
             onClick={() => onDelete()}
           />
           <DropdownItem
-            data-testid='goto-highlight'
-            message='i18n:highlighting:dropdown:goto-highlight'
+            data-testid='go-to-highlight'
+            message='i18n:highlighting:dropdown:go-to-highlight'
             prefix={<StyledLinkIcon/>}
             href={linkToHighlight}
             target='_blank'
