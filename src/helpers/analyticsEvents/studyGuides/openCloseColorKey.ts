@@ -17,7 +17,7 @@ export const track = (
   return {
     getGoogleAnalyticsPayload: () => ({
       eventAction: 'button',
-      eventCategory: open ? closeText : openText, // async call
+      eventCategory: open ? openText : closeText,
       eventLabel: pathname,
     }),
   };

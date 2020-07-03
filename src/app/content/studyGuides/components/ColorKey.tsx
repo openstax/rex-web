@@ -9,7 +9,7 @@ import theme from '../../../theme';
 import { toolbarIconStyles } from '../../components/Toolbar/iconStyles';
 import { toolbarDefaultText } from '../../components/Toolbar/styled';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
-import { mobilePaddingSides } from '../../styles/PopupConstants';
+import { desktopHorizontalMargin, mobilePaddingSides } from '../../styles/PopupConstants';
 import { highlightStyles } from '../constants';
 
 const noteConstants = {
@@ -23,7 +23,6 @@ export const ColorKeyButtonWrapper = styled(PlainButton)`
   align-items: center;
   justify-content: center;
   margin-left: auto;
-  padding-right: 2.4rem;
   position: relative;
   overflow: visible;
 `;
@@ -44,7 +43,10 @@ const ColorKeyDescription = styled.div`
     border-left: 0.1rem solid ${theme.color.neutral.formBorder};
 
     ${theme.breakpoints.mobile(css`
-      right: 2rem;
+      right: 1.3rem;
+      width: 1rem;
+      height: 1rem;
+      top: -0.6rem;
     `)}
   }
 
@@ -55,14 +57,15 @@ const ColorKeyDescription = styled.div`
   box-shadow: 0 0.4rem 0.6rem 0 rgba(0,0,0,0.2);
   position: absolute;
   top: 4rem;
-  right: 5rem;
+  right: 2.5rem;
   background: ${theme.color.white};
   overflow: visible;
   padding: 1.5rem 1.65rem;
 
   ${theme.breakpoints.mobile(css`
     width: calc(100vw - ${mobilePaddingSides * 2}rem);
-    right: ${mobilePaddingSides / 2}rem;
+    right: -${mobilePaddingSides / 2}rem;
+    top: 3.5rem;
   `)}
 `;
 
@@ -99,42 +102,60 @@ const KeyTermWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
+const ColorKeyWrapper = styled.div`
+  outline: none;
+  margin-left: auto;
+  margin-right: ${desktopHorizontalMargin}rem;
+  position: relative;
+  overflow: visible;
+
+  ${theme.breakpoints.mobile(css`
+    margin-right: ${mobilePaddingSides}rem;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
 const ColorKey = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const trackOpenClose = useAnalyticsEvent('openCloseColorKey');
 
   const toggleColorKey = () => {
     setOpen((state) => !state);
-    trackOpenClose(open);
   };
 
-  return <FormattedMessage id='i18n:studyguides:popup:color-key'>
-    {(msg: Element | string) =>
-      <ColorKeyButtonWrapper onClick={toggleColorKey} aria-label={msg}>
-        <ColorKeyIcon src={colorKeyIcon}/>
-        <ColorKeyText>{msg}</ColorKeyText>
-        {open && <ColorKeyDescription>
-          {highlightStyles.map((color, index) =>
-            <KeyTermWrapper key={index}>
-              <FormattedMessage id='i18n:studyguides:popup:color-key:terms:aria-label' values={{color: color.label}}>
-                {(arialabel: string) => <ColorIndicator
-                  shape='circle'
-                  style={color}
-                  size='small'
-                  aria-label={arialabel}
-                  component={<label />}
-                />}
-              </FormattedMessage>
-              <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
-                {(key: string) => <KeyTermText>{key}</KeyTermText>}
-              </FormattedMessage>
-            </KeyTermWrapper>
-          )
-        }
-        </ColorKeyDescription>}
-      </ColorKeyButtonWrapper>
-    }
-  </FormattedMessage>;
+  React.useEffect(() => {
+    trackOpenClose(open);
+  }, [open, trackOpenClose]);
+
+  return <ColorKeyWrapper>
+    <FormattedMessage id='i18n:studyguides:popup:color-key'>
+      {(msg: Element | string) =>
+        <ColorKeyButtonWrapper onClick={toggleColorKey} aria-label={msg}>
+          <ColorKeyIcon src={colorKeyIcon}/>
+          <ColorKeyText>{msg}</ColorKeyText>
+        </ColorKeyButtonWrapper>
+      }
+    </FormattedMessage>
+      {open && <ColorKeyDescription>
+        {highlightStyles.map((color, index) =>
+          <KeyTermWrapper key={index}>
+            <FormattedMessage id='i18n:studyguides:popup:color-key:terms:aria-label' values={{color: color.label}}>
+              {(arialabel: string) => <ColorIndicator
+                shape='circle'
+                style={color}
+                size='small'
+                aria-label={arialabel}
+                component={<label />}
+              />}
+            </FormattedMessage>
+            <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
+              {(key: string) => <KeyTermText>{key}</KeyTermText>}
+            </FormattedMessage>
+          </KeyTermWrapper>
+        )
+      }
+      </ColorKeyDescription>}
+  </ColorKeyWrapper>;
 };
 
 export default ColorKey;
