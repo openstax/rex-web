@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer';
 import { typesetMath } from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
+import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -115,30 +115,30 @@ describe('StudyGuides', () => {
 
   it('show loading state on filters change', () => {
     const state = store.getState();
-    const pageId = stripIdVersion(page.id);
     const locationFilters = studyGuidesLocationFilters(state);
-    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
 
-    if (!location) {
-      return expect(location).toBeDefined();
+    if (!firstLocation || !secondLocation) {
+      return expect([firstLocation, secondLocation]).not.toContain(undefined);
    }
 
     store.dispatch(receiveStudyGuidesTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [firstLocation.id]: {[HighlightColorEnum.Green]: 5},
+      [secondLocation.id]: {[HighlightColorEnum.Green]: 2},
     }));
 
     const summaryHighlights = {
-      [pageId]: {
-        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
+      [firstLocation.id]: {
+        [pageInOtherChapter.id]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
       },
-      [location.id]: {
+      [secondLocation.id]: {
         [pageInChapter.id]: [hlBlue, hlGreen],
       },
     } as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [location.id, pageId]}));
+      store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
       store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
     });
 
@@ -156,7 +156,7 @@ describe('StudyGuides', () => {
     expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [location.id, pageId]}));
+      store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
