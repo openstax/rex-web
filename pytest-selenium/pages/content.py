@@ -377,7 +377,9 @@ class Content(Page):
         _image_locator = (By.CSS_SELECTOR, "img")
         _link_locator = (
             By.CSS_SELECTOR,
-            ":not([class*=PrevNextBar])" ":not(sup):not([id*=footnote]) > a",
+            ":not([class*=PrevNextBar])"
+            ":not([class*=BuyBook])"
+            ":not(sup):not([id*=footnote]) > a",
         )
         _list_locator = (
             By.CSS_SELECTOR,
