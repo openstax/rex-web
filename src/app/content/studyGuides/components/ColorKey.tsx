@@ -41,7 +41,6 @@ const ColorKeyDescription = styled.div`
     background: ${theme.color.white};
     border-top: 0.1rem solid ${theme.color.neutral.formBorder};
     border-left: 0.1rem solid ${theme.color.neutral.formBorder};
-
     ${theme.breakpoints.mobile(css`
       right: 1.3rem;
       width: 1rem;
@@ -54,14 +53,13 @@ const ColorKeyDescription = styled.div`
   width: ${noteConstants.noteWidth}rem;
   box-sizing: border-box;
   border: 0.1rem solid ${theme.color.neutral.formBorder};
-  box-shadow: 0 0.4rem 0.6rem 0 rgba(0,0,0,0.2);
+  box-shadow: 0 0.4rem 0.6rem 0 rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 4rem;
   right: 2.5rem;
   background: ${theme.color.white};
   overflow: visible;
   padding: 1.5rem 1.65rem;
-
   ${theme.breakpoints.mobile(css`
     width: calc(100vw - ${mobilePaddingSides * 2}rem);
     right: -${mobilePaddingSides / 2}rem;
@@ -108,7 +106,6 @@ const ColorKeyWrapper = styled.div`
   margin-right: ${desktopHorizontalMargin}rem;
   position: relative;
   overflow: visible;
-
   ${theme.breakpoints.mobile(css`
     margin-right: ${mobilePaddingSides}rem;
   `)}
