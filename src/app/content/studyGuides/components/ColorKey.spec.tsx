@@ -47,19 +47,19 @@ describe('Study Guides button and PopUp', () => {
     </Provider>);
 
     /*open and close color key*/
-
-    // Wait for React.useEffect
-    renderer.act(() => undefined);
-
     const button = component.root.findByType(ColorKeyButtonWrapper);
     renderer.act(() => {
       button.props.onClick();
-      expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, false);
+      expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, true);
+    });
+
+    await renderer.act(async() => {
+      spyTrack.mockClear();
+      button.props.onClick();
     });
 
     renderer.act(() => {
-      button.props.onClick();
-      expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, true);
+      expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, false);
     });
 
   });

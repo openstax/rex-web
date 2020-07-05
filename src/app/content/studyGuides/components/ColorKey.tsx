@@ -120,12 +120,12 @@ const ColorKey = () => {
   const trackOpenClose = useAnalyticsEvent('openCloseColorKey');
 
   const toggleColorKey = () => {
-    setOpen((state) => !state);
+    setOpen((state) => {
+      const newVal = !state;
+      trackOpenClose(newVal);
+      return newVal;
+    });
   };
-
-  React.useEffect(() => {
-    trackOpenClose(open);
-  }, [open, trackOpenClose]);
 
   return <ColorKeyWrapper>
     <FormattedMessage id='i18n:studyguides:popup:color-key'>
