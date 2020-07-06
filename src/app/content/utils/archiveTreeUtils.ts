@@ -123,3 +123,18 @@ export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): sec
   && !archiveTreeSectionIsBook(section)
   && getArchiveTreeSectionNumber(section) !== null
 ;
+
+/**
+ * If @param idA is before @param idB then return -1
+ * If @param idB is before @param idA then return 1
+ * In any other case return 0
+ */
+export const comparePositionsOfNodes = (tree: LinkedArchiveTree, idA: string, idB: string) => {
+  if (idA === idB) { return 0; }
+  const flatTree = flattenArchiveTree(tree);
+  for (const node of flatTree) {
+    if (node.id === idA) { return -1; }
+    if (node.id === idB) { return 1; }
+  }
+  return 0;
+};

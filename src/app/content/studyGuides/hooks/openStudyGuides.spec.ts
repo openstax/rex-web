@@ -3,10 +3,12 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { loadMoreStudyGuides, openStudyGuides, setDefaultSummaryFilters } from '../actions';
+import { loadMoreStudyGuides, openStudyGuides, receiveStudyGuidesTotalCounts,
+  setDefaultSummaryFilters } from '../actions';
 
 jest.mock('./loadMore', () => ({
   loadMore: jest.fn(),
@@ -45,13 +47,33 @@ describe('openStudyGuides', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  it('sets current chapter filter', async() => {
+  it('sets current chapter filter to the current page when user is logged in', async() => {
+    store.dispatch(receiveUser({} as any));
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     await hook(openStudyGuides());
     expect(dispatch).toHaveBeenCalledWith(
       setDefaultSummaryFilters({locationIds: ['testbook1-testchapter3-uuid']})
+    );
+  });
+
+  it('sets current chapter filter to the first page when user is not logged in', async() => {
+    store.dispatch(receiveLoggedOut());
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      // page from the second chapter
+      'testbook1-testpage3-uuid': { blue: 1, },
+      // page from first chapter
+      // tslint:disable-next-line: object-literal-sort-keys
+      'testbook1-testchapter10': { blue: 1, },
+    }));
+
+    await hook(openStudyGuides());
+    // It should take first location filter according to the book order
+    expect(dispatch).toHaveBeenCalledWith(
+      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter10']})
     );
   });
 });

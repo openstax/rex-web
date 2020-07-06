@@ -89,6 +89,7 @@ const rawSummaryLocationFilters = createSelector(
 export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
   totalCountsPerPageOrEmpty,
+  parentSelectors.book,
   getHighlightLocationFiltersWithContent
 );
 
