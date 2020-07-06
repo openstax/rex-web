@@ -8,6 +8,7 @@ import {
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
+  comparePositionsOfNodes,
   findArchiveTreeNode,
   findArchiveTreeNodeByPageParam,
   findDefaultBookPage,
@@ -172,5 +173,27 @@ describe('nodeHasId', () => {
 
   it('return false if node does not have id', () => {
     expect(nodeHasId('some-id', node)).toEqual(false);
+  });
+});
+
+describe('comparePositionsOfNodes', () => {
+  it('return 0 for same ids', () => {
+    expect(comparePositionsOfNodes(book.tree, '1', '1')).toEqual(0);
+  });
+
+  it('return 0 for ids that does not belongs to this book', () => {
+    expect(comparePositionsOfNodes(book.tree, '1', '2')).toEqual(0);
+  });
+
+  it('return -1 if first id is before second id', () => {
+    const pageFromTheFirstChapter = 'testbook1-testpage2-uuid';
+    const pageFromTheSecondChapter = 'testbook1-testpage3-uuid';
+    expect(comparePositionsOfNodes(book.tree, pageFromTheFirstChapter, pageFromTheSecondChapter)).toEqual(-1);
+  });
+
+  it('return 1 if first id is after second id', () => {
+    const pageFromTheFirstChapter = 'testbook1-testpage2-uuid';
+    const pageFromTheSecondChapter = 'testbook1-testpage3-uuid';
+    expect(comparePositionsOfNodes(book.tree, pageFromTheSecondChapter, pageFromTheFirstChapter)).toEqual(1);
   });
 });
