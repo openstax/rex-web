@@ -29,8 +29,6 @@ const StudyGuidesCTA = () => {
       <Styled.StudyGuidesCTAButtons>
         <FormattedMessage id='i18n:studyguides:cta:button'>
           {(msg: Element | string) => <Styled.StudyGuidesCTAButton
-            data-testid='sign-up'
-            data-analytics-label='sign-up'
             // eslint-disable-next-line
             component={<a href={signupLink}/>}
           >{msg}</Styled.StudyGuidesCTAButton>}
@@ -42,7 +40,6 @@ const StudyGuidesCTA = () => {
         </Styled.StudyGuidesCTASeparator>
         <FormattedMessage id='i18n:studyguides:cta:login'>
           {(msg: Element | string) => <Styled.StudyGuidesCTALink
-            data-analytics-label='login'
             href={loginLink}
           >{msg}</Styled.StudyGuidesCTALink>}
         </FormattedMessage>
