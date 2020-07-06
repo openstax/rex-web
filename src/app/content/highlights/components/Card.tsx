@@ -6,6 +6,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
+import { scrollTarget } from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -171,7 +172,7 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
-    scrollTarget: selectHighlights.scrollTarget(state),
+    scrollTarget: scrollTarget(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),

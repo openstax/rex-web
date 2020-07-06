@@ -6,6 +6,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import * as selectAuth from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
+import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow } from '../../../utils';
 import {
@@ -36,7 +37,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   highlightsLoaded: selectHighlights.highlightsLoaded(state),
   loggedOut: selectAuth.loggedOut(state),
   page: select.page(state),
-  scrollTarget: selectHighlights.scrollTarget(state),
+  scrollTarget: selectNavigation.scrollTarget(state),
 });
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
@@ -178,8 +179,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
 
       highlighter.clearFocus();
       const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = getProp();
+      const highlightScrollTarget = scrollTarget && scrollTarget.type === 'highlight' ? scrollTarget : null;
       const focused = focusedId && highlighter.getHighlight(focusedId);
-      const scrollTargetHighlight = scrollTarget && highlighter.getHighlight(scrollTarget.id);
+      const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
       const toFocus = scrollTargetHighlight || focused;
       if (toFocus) {
         toFocus.focus();
@@ -191,7 +193,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
         options
         && (highlightsLoaded || (loggedOut && page))
       ) {
-        options.onSelect(scrollTarget, toFocus || null);
+        options.onSelect(highlightScrollTarget, toFocus || null);
       }
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {

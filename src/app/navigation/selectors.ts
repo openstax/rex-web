@@ -22,9 +22,10 @@ export const hash = createSelector(
   (state) => state.hash
 );
 
-export const scrollTargetParams = createSelector(
+export const scrollTarget = createSelector(
   localState,
-  (state) => getScrollTargetFromQuery(state.query)
+  hash,
+  (state, hashString) => getScrollTargetFromQuery(state.query, hashString)
 );
 
 export const location = localState;
