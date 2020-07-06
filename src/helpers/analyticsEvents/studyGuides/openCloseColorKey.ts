@@ -2,8 +2,7 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
-const openText = 'REX Study guides (open color key)';
-const closeText = 'REX Study guides (close color key)';
+const category = 'REX Study guides (color key)';
 
 export const selector = createSelector(
   selectNavigation.pathname,
@@ -16,8 +15,8 @@ export const track = (
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
-      eventAction: 'button',
-      eventCategory: open ? openText : closeText,
+      eventAction: open ? 'open' : 'close',
+      eventCategory: category,
       eventLabel: pathname,
     }),
   };

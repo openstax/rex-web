@@ -133,25 +133,24 @@ const ColorKey = () => {
         </ColorKeyButtonWrapper>
       }
     </FormattedMessage>
-      {open && <ColorKeyDescription>
-        {highlightStyles.map((color, index) =>
-          <KeyTermWrapper key={index}>
-            <FormattedMessage id='i18n:studyguides:popup:color-key:terms:aria-label' values={{color: color.label}}>
-              {(arialabel: string) => <ColorIndicator
-                shape='circle'
-                style={color}
-                size='small'
-                aria-label={arialabel}
-                component={<label />}
-              />}
-            </FormattedMessage>
-            <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
-              {(key: string) => <KeyTermText>{key}</KeyTermText>}
-            </FormattedMessage>
-          </KeyTermWrapper>
-        )
-      }
-      </ColorKeyDescription>}
+    {open && <ColorKeyDescription>
+      {highlightStyles.map((color, index) =>
+        <KeyTermWrapper key={index}>
+          <FormattedMessage id='i18n:studyguides:popup:color-key:terms:aria-label' values={{color: color.label}}>
+            {(arialabel: string) => <ColorIndicator
+              shape='circle'
+              style={color}
+              size='small'
+              aria-label={arialabel}
+              component={<label />}
+            />}
+          </FormattedMessage>
+          <FormattedMessage id={'i18n:studyguides:popup:color-key:terms:' + color.label}>
+            {(key: string) => <KeyTermText>{key}</KeyTermText>}
+          </FormattedMessage>
+        </KeyTermWrapper>
+      )}
+    </ColorKeyDescription>}
   </ColorKeyWrapper>;
 };
 
