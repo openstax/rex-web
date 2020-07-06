@@ -14,7 +14,7 @@ import { highlightStyles } from '../constants';
 
 const noteConstants = {
   noteHeight: 16.8,
-  noteWidth: 36,
+  noteWidth: 37,
 };
 
 // tslint:disable-next-line:variable-name
