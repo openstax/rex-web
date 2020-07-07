@@ -7,6 +7,8 @@ import {
   signupLink as signupLinkSelector,
 } from '../../../../auth/selectors';
 import htmlMessage from '../../../../components/htmlMessage';
+import arrowDesktop from './assets/arrow-desktop.svg';
+import arrowMobile from './assets/arrow-mobile.svg';
 import * as Styled from './styles';
 
 // tslint:disable-next-line:variable-name
@@ -33,21 +35,25 @@ const StudyGuidesCTA = () => {
             component={<a href={signupLink}/>}
           >{msg}</Styled.StudyGuidesCTAButton>}
         </FormattedMessage>
-        <Styled.StudyGuidesCTASeparator>
-          <FormattedMessage id='i18n:studyguides:cta:separator'>
-            {(msg: Element | string) => msg}
+        <Styled.StudyGuidesCTAButtonsSecondary>
+          <Styled.StudyGuidesCTASeparator>
+            <FormattedMessage id='i18n:studyguides:cta:separator'>
+              {(msg: Element | string) => msg}
+            </FormattedMessage>
+          </Styled.StudyGuidesCTASeparator>
+          <FormattedMessage id='i18n:studyguides:cta:login'>
+            {(msg: Element | string) => <Styled.StudyGuidesCTALink
+              href={loginLink}
+            >{msg}</Styled.StudyGuidesCTALink>}
           </FormattedMessage>
-        </Styled.StudyGuidesCTASeparator>
-        <FormattedMessage id='i18n:studyguides:cta:login'>
-          {(msg: Element | string) => <Styled.StudyGuidesCTALink
-            href={loginLink}
-          >{msg}</Styled.StudyGuidesCTALink>}
-        </FormattedMessage>
+        </Styled.StudyGuidesCTAButtonsSecondary>
       </Styled.StudyGuidesCTAButtons>
     </Styled.StudyGuidesCTAContent>
-    <Styled.StudyGuidesCTAArrow>
+    <Styled.StudyGuidesCTAInfoWrapper>
       <StudyGuidesCTAInfo />
-    </Styled.StudyGuidesCTAArrow>
+      <Styled.StudyGuidesCTAArrowDesktop src={arrowDesktop} alt='' />
+      <Styled.StudyGuidesCTAArrowMobile src={arrowMobile} alt='' />
+    </Styled.StudyGuidesCTAInfoWrapper>
   </Styled.StudyGuidesCTAWrapper>;
 };
 

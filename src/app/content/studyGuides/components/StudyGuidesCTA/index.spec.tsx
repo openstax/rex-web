@@ -43,7 +43,9 @@ describe('StudyGuidesCTA', () => {
     expect(() => component.root.findByType(Styled.StudyGuidesCTAButton)).not.toThrow();
     expect(() => component.root.findByType(Styled.StudyGuidesCTASeparator)).not.toThrow();
     expect(() => component.root.findByType(Styled.StudyGuidesCTALink)).not.toThrow();
-    expect(() => component.root.findByType(Styled.StudyGuidesCTAArrow)).not.toThrow();
+    expect(() => component.root.findByType(Styled.StudyGuidesCTAInfoWrapper)).not.toThrow();
     expect(() => component.root.findByType(Styled.StudyGuidesCTAInfo)).not.toThrow();
+    expect(() => component.root.findByType(Styled.StudyGuidesCTAArrowDesktop)).not.toThrow();
+    expect(() => component.root.findByType(Styled.StudyGuidesCTAArrowMobile)).not.toThrow();
   });
 });
