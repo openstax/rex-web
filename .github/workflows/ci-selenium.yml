@@ -8,15 +8,15 @@ jobs:
     container: openstax/rex-web:CI
     steps:
     - uses: actions/checkout@v2
-    - name: find deployment 
+    - name: find deployment
       run: |
         . concourse/common/get_review_environment
         review_url=$(get_review_environment)
         echo "::set-env name=BASE_URL::$review_url"
     - name: selenium
       env:
-        BROWSER: 'Chrome' 
-        MARKER: 'smoke_test' 
+        BROWSER: 'Chrome'
+        MARKER: 'smoke_test'
         SAUCELABS_USERNAME: ${{ secrets.saucelabs_username }}
         SAUCELABS_API_KEY: ${{ secrets.saucelabs_api_key }}
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
