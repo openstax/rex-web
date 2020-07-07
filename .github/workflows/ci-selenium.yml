@@ -9,6 +9,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: find deployment
+      env:
+        GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         . concourse/common/get_review_environment
         review_url=$(get_review_environment)
@@ -17,7 +19,6 @@ jobs:
       env:
         BROWSER: 'Chrome'
         MARKER: 'smoke_test'
-        GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SAUCELABS_USERNAME: ${{ secrets.saucelabs_username }}
         SAUCELABS_API_KEY: ${{ secrets.saucelabs_api_key }}
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
