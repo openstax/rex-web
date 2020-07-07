@@ -78,10 +78,14 @@ describe('GoogleAnalyticsClient', () => {
         const sleepMs: number = 5;
         await sleep(sleepMs);
 
+        expect(client.getPendingCommands().length).toBe(1);
+
         client.setTrackingIds(['foo']);
         expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
         expect(mockGa.mock.calls[1][2]).toBeGreaterThanOrEqual(sleepMs);
         expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
+
+        expect(client.getPendingCommands().length).toBe(0);
       });
     });
 
