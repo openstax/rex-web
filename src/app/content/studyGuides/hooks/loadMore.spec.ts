@@ -175,13 +175,13 @@ describe('loadMore', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(receiveStudyGuidesTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 5},
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testpage1-uuid']}));
+    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
 
     const page1 = createTestHighlights({
       amount: 5,
-      sourceId: 'testbook1-testpage1-uuid',
+      sourceId: 'testbook1-testpage2-uuid',
     });
 
     const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
@@ -196,8 +196,8 @@ describe('loadMore', () => {
     ;
 
     const response: SummaryHighlights = {
-      'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': page1,
+      'testbook1-testchapter1-uuid': {
+        'testbook1-testpage2-uuid': page1,
       },
     };
 

@@ -18,7 +18,6 @@ import { SummaryHighlights } from '../../highlights/types';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
-import { stripIdVersion } from '../../utils/idUtils';
 import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFilters } from '../actions';
 import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
@@ -45,13 +44,18 @@ describe('StudyGuides', () => {
 
   it('properly display summary highlights', () => {
     const state = store.getState();
-    const pageId = stripIdVersion(page.id);
+
     const locationFilters = studyGuidesLocationFilters(state);
-    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
+
+    if (!firstLocation || !secondLocation) {
+      return expect([firstLocation, secondLocation]).not.toContain(undefined);
+    }
 
     const summaryHighlights = {
-      [pageId]: {
-        [pageId]: [
+      [firstLocation.id]: {
+        [pageInChapter.id]: [
           hlBlue,
           hlGreen,
           hlPink,
@@ -59,8 +63,8 @@ describe('StudyGuides', () => {
           {...hlYellow, color: null} /* for coverage for css when color was not found */,
         ],
       },
-      [location!.id]: {
-        [pageInChapter.id]: [hlBlue, hlGreen],
+      [secondLocation.id]: {
+        [pageInOtherChapter.id]: [hlBlue, hlGreen],
       },
     } as SummaryHighlights;
 
@@ -81,12 +85,17 @@ describe('StudyGuides', () => {
     const container = assertWindow().document.createElement('div');
     const spyPromiseCollectorAdd = jest.spyOn(services.promiseCollector, 'add');
 
-    const pageId = stripIdVersion(page.id);
     const locationFilters = studyGuidesLocationFilters(store.getState());
-    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
+
+    if (!firstLocation || !secondLocation) {
+      return expect([firstLocation, secondLocation]).not.toContain(undefined);
+    }
+
     const summaryHighlights = {
-      [pageId]: {
-        [pageId]: [
+      [firstLocation.id]: {
+        [pageInChapter.id]: [
           hlBlue,
           hlGreen,
           hlPink,
@@ -94,8 +103,8 @@ describe('StudyGuides', () => {
           {...hlYellow, color: null} /* for coverage for css when color was not found */,
         ],
       },
-      [location!.id]: {
-        [pageInChapter.id]: [hlBlue, hlGreen],
+      [secondLocation.id]: {
+        [pageInOtherChapter.id]: [hlBlue, hlGreen],
       },
     } as SummaryHighlights;
 
@@ -121,7 +130,7 @@ describe('StudyGuides', () => {
 
     if (!firstLocation || !secondLocation) {
       return expect([firstLocation, secondLocation]).not.toContain(undefined);
-   }
+    }
 
     store.dispatch(receiveStudyGuidesTotalCounts({
       [firstLocation.id]: {[HighlightColorEnum.Green]: 5},
